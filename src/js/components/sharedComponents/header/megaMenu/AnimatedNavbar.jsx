@@ -17,7 +17,6 @@ import {
 import Navbar from "./Navbar";
 import NavbarItem from './NavbarItem';
 import ItemContent from './ItemContent';
-import FadeContents from "./FadeContents";
 
 const navbarConfig = [
     {
@@ -179,13 +178,11 @@ const AnimatedNavbar = React.memo(() => {
                                     <div className="dropdown-background">
                                         <Flipped inverseFlipId="dropdown" scale>
                                             <div>
-                                                <FadeContents
-                                                    direction={direction}>
-                                                    <ItemContent
-                                                        navbarConfig={currentSections}
-                                                        menuIndex={index}
-                                                        closeDropdown={onMouseLeave} />
-                                                </FadeContents>
+                                                <ItemContent
+                                                    direction={direction}
+                                                    navbarConfig={navbarConfig}
+                                                    menuIndex={index}
+                                                    closeDropdown={onMouseLeave} />
                                             </div>
                                         </Flipped>
                                     </div>
