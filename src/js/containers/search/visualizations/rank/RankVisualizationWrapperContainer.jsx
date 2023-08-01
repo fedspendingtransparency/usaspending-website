@@ -172,6 +172,13 @@ export class RankVisualizationWrapperContainer extends React.Component {
         // Create Search Operation
         const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request
+        if (this.props.subaward && operation.dateType) {
+            delete operation.dateType;
+        }
+
         const searchParams = operation.toParams();
 
         // generate the API parameters
