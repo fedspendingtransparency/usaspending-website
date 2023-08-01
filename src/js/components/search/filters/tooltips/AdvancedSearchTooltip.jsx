@@ -55,10 +55,9 @@ export const NewAwardsTooltip = () => (
             </p>
             <p>
                 If not selected, search results in the Table tab will display prime awards
-                whose <strong>base transaction action date</strong> and <strong>latest
-                transaction action date
-                </strong> (the date of the latest transaction of a
-                prime award) overlap in any way with the selected time period. For example,
+                whose <strong>base transaction action date</strong> and{' '}
+                <strong>latest transaction action date</strong> (the date of the latest transaction
+                of a prime award) overlap in any way with the selected time period. For example,
                 for the selected time period of Mar. 1-31, 2022, you would see results in
                 the Table tab for an award with a <strong>base transaction action date</strong> of
                 Jan. 1, 2022 and a <strong>latest transaction action date</strong> of
