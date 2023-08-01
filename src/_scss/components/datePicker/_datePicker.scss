@@ -5,7 +5,7 @@
     @include align-items(flex-start);
     @include justify-content(flex-start);
 
-    @media(min-width: 1336px) {
+    @media(min-width: 1356px) {
         @include flex-direction(row);
     }
 }
@@ -20,11 +20,11 @@
             margin-right: 0;
         }
     }
-    @media(min-width: $medium-screen) and (max-width: 1335px) {
+    @media(min-width: $medium-screen) and (max-width: 1355px) {
         width: 100%;
     }
 
-    @media(min-width: 1336px) {
+    @media(min-width: 1355px) {
         margin-right: rem(5);
     }
     .generate-datepicker {
