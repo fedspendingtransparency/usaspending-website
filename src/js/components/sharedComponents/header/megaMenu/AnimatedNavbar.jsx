@@ -128,16 +128,10 @@ const AnimatedNavbar = React.memo(() => {
         );
     };
 
-    let currentSections;
-
     const currentIndex = activeIndices[activeIndices.length - 1];
     const prevIndex =
         activeIndices.length > 1 &&
         activeIndices[activeIndices.length - 2];
-
-    if (typeof currentIndex === "number") {
-        currentSections = navbarConfig[currentIndex];
-    }
 
     setTimeout(() => {
         if (typeof prevIndex === "number") {
@@ -147,7 +141,8 @@ const AnimatedNavbar = React.memo(() => {
                         return;
                     }
                     setDirection("left");
-                } else {
+                }
+                else {
                     if (direction === "right") {
                         return;
                     }
