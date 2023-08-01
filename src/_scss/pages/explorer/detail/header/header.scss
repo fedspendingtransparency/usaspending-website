@@ -5,7 +5,7 @@
     @include align-items(flex-start);
     position: relative;
 
-    .detail-header__labels {
+    .detail-_labels {
         @include flex(1 1 auto);
         // this is a truly horrific hack to make the h2 title text wrap on IE 11 in smaller screens
         // this works because flex grow will cause the content to push this flexbox's width out
@@ -78,19 +78,42 @@
 
 
         .detail-header__icon {
-          padding: 0 0 0 rem(5);
-          cursor: default;
-          margin: 0;
-          background-color: transparent;
-
-
-             svg {
-                 width: rem(10);
-                 height: rem(10);
-                 fill: $color-base;
-             }
-         }
+            display: inline-block;
+            padding: 0 0 0 rem(5);
+            cursor: default;
+            margin: 0;
+            background-color: transparent;
+            align-self: flex-end;
     }
+    .award-section-tt {
+        display: inline-flex;
+    }
+    svg {
+        width: rem(10);
+        height: rem(16);
+        color: $color-base;
+    }
+    .tooltip-spacer {
+        transform: translate(-8px, 2px);
+        text-transform: none;
+        .tooltip__content{
+            left: rem(16);
+        }
+        @media (min-width: $medium-screen) {
+            transform: translate(-8px, 4px);
+            .tooltip__content{
+            left: rem(16);
+        }
+        }
+        @media (max-width: $tablet-screen + 1) {
+            transform: translate(7px, 35px);
+        }
+        @media only screen and (max-width: 878px) and (min-width: 768px){
+            transform: translate(-308px, -18px);
+        }
+        
+    }
+}
 
     .right-side {
         @include flex(0 1 auto);
