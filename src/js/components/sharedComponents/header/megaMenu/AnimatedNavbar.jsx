@@ -147,7 +147,7 @@ const AnimatedNavbar = React.memo(() => {
                 }
             }
         }
-    }, 10);
+    }, 5);
 
     return (
         <Flipper flipKey={currentIndex}>
@@ -174,6 +174,7 @@ const AnimatedNavbar = React.memo(() => {
                                                     direction={direction}
                                                     navbarConfig={navbarConfig}
                                                     menuIndex={index}
+                                                    prevIndex={prevIndex}
                                                     closeDropdown={onMouseLeave} />
                                             </div>
                                         </Flipped>

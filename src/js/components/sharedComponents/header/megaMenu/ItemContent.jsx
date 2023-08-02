@@ -11,6 +11,7 @@ import FadeContents from "./FadeContents";
 const ItemContent = React.memo(({
     navbarConfig,
     menuIndex,
+    prevIndex,
     closeDropdown,
     direction
 }) => {
@@ -47,12 +48,12 @@ const ItemContent = React.memo(({
             // eslint-disable-next-line consistent-return
             return (
                 <FadeContents hide={menuIndex !== i} direction={direction}>
+                    {/* the contents of the dropdown should be hidden if the content doesn't match to the prev or current menu item */}
                     <div
-                        style={!direction && menuIndex !== i ? { display: "none" } : {}}
+                        style={prevIndex !== i && menuIndex !== i ? { display: "none" } : {}}
                         className="dropdown-section__wrapper"
                         key={uniqueId()}>
-                        <div
-                            className={menuIndex === 1 ? "dropdown-section__top-columns undo__bottom-padding" : "dropdown-section__top-columns"}>
+                        <div className={menuIndex === 1 ? "dropdown-section__top-columns undo__bottom-padding" : "dropdown-section__top-columns"}>
                             <div
                                 key={uniqueId()}
                                 className="dropdown-section first-dropdown-section"
