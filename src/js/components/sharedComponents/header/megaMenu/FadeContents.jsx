@@ -22,7 +22,7 @@ const getPosition = (animatingOut) => {
     return "relative";
 };
 
-const fadeContainer = (duration, animatingOut, direction) => {
+const fadeContainer = (animatingOut, direction) => {
     if (!direction) {
         return {
             animationDuration: '225ms',
@@ -47,32 +47,29 @@ const fadeContainer = (duration, animatingOut, direction) => {
     };
 };
 
-
 const propTypes = {
-    duration: PropTypes.number,
-    direction: PropTypes.oneOf(["right", "left"]),
-    animatingOut: PropTypes.bool,
+    direction: PropTypes.string,
+    onLoad: PropTypes.bool,
     children: PropTypes.node,
     innerRefFn: PropTypes.func
 };
 
-const FadeContents = (props) => {
+const FadeContents = React.memo((props) => {
     const {
         children,
-        duration,
-        animatingOut,
-        direction
+        direction,
+        hide
     } = props;
 
     return (
         <div
-            style={fadeContainer(duration, animatingOut, direction)}
+            style={fadeContainer(hide, direction)}
             // prevent screen readers from reading out hidden content
-            aria-hidden={animatingOut}>
+            aria-hidden={hide}>
             {children}
         </div>
     );
-};
+});
 
 FadeContents.propTypes = propTypes;
 export default FadeContents;
