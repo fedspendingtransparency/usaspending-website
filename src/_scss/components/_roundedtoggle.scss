@@ -17,13 +17,13 @@
     height: 20px;
     bottom: 0;
   }
-  
+
   .rounded-toggle__switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   .rounded-toggle__slider {
     position: absolute;
     cursor: pointer;
@@ -35,7 +35,7 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   .rounded-toggle__slider:before {
     position: absolute;
     content: "";
@@ -46,26 +46,26 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   input:checked + .rounded-toggle__slider {
     background-color: $color-primary !important;
   }
-  
+
   input:focus + .rounded-toggle__slider {
-    box-shadow: 0 0 2px $color-primary !important;
+    box-shadow: 0 0 4px $color-primary !important;
   }
-  
+
   input:checked + .rounded-toggle__slider:before {
     -webkit-transform: translateX(22px);
     -ms-transform: translateX(22px);
     transform: translateX(22px);
     border: 1px solid $color-gray !important;
   }
-  
+
   .rounded-toggle__slider.rounded-toggle__round {
     border-radius: 34px;
   }
-  
+
   .rounded-toggle__slider.rounded-toggle__round:before {
     border-radius: 50%;
   }
