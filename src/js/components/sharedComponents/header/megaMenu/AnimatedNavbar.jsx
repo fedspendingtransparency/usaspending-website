@@ -54,14 +54,14 @@ const navbarConfig = [
 const AnimatedNavbar = React.memo(() => {
     const [activeIndices, setActiveIndices] = useState([]);
     const [animatingOut, setAnimatingOut] = useState(false);
-    const [direction, setDirection] = useState(null);
 
     let animatingOutTimeout = null;
+    let direction;
 
     const resetDropdownState = (i) => {
         setActiveIndices(typeof i === "number" ? [i] : []);
         setAnimatingOut(false);
-        setDirection(null);
+        direction = null;
 
         animatingOutTimeout = null;
     };
@@ -118,7 +118,7 @@ const AnimatedNavbar = React.memo(() => {
     };
     const onMouseLeave = () => {
         setAnimatingOut(true);
-        setDirection(null);
+        direction = null;
 
         animatingOutTimeout = setTimeout(
             resetDropdownState(), 300
@@ -130,25 +130,24 @@ const AnimatedNavbar = React.memo(() => {
         activeIndices.length > 1 &&
         activeIndices[activeIndices.length - 2];
 
-    setTimeout(() => {
-        if (typeof prevIndex === "number") {
-            if (currentIndex && prevIndex) {
-                if (currentIndex <= prevIndex) {
-                    if (direction === "left") {
-                        return;
-                    }
-                    setDirection("left");
+    if (typeof prevIndex === "number") {
+        if (currentIndex && prevIndex) {
+            if (currentIndex <= prevIndex) {
+                if (direction === "left") {
+                    return;
                 }
-                else {
-                    if (direction === "right") {
-                        return;
-                    }
-                    setDirection("right");
+                direction = "left";
+            }
+            else {
+                if (direction === "right") {
+                    return;
                 }
+                direction = "right";
             }
         }
-    }, 5);
+    }
 
+    // eslint-disable-next-line consistent-return
     return (
         <Flipper flipKey={currentIndex}>
             <Navbar onMouseLeave={onMouseLeave}>
