@@ -264,6 +264,11 @@
             "code": "0653",
             "district": "53",
             "name": "CA-53"
+        },
+        {
+            "code": "0690",
+            "district": "90",
+            "name": "CA-90"
         }
     ]
 }

@@ -21,13 +21,13 @@ export default class SubawardToggle extends React.Component {
     }
     toggledSwitch() {
         const newValue = !this.props.subaward;
+        this.props.setSearchViewSubaward(newValue);
         if (newValue) {
             Analytics.event({
                 category: 'Advanced Search - Search Fields',
                 action: 'Subawards Search'
             });
         }
-        this.props.setSearchViewSubaward(newValue);
     }
 
     render() {

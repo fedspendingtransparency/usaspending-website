@@ -23,6 +23,7 @@ import SetAsideFilterGroup from './SetAsideFilterGroup';
 import ExtentCompetedFilterGroup from './ExtentCompetedFilterGroup';
 import ProgramSourceFilterGroup from './ProgramSourceFilterGroup';
 import DefCodesFilterGroup from "./DefCodesFilterGroup";
+import NewAwardsOnlyFilterGroup from "./NewAwardsOnlyFilterGroup";
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -39,6 +40,8 @@ export const topFilterGroupGenerator = (config = {
             return <TimePeriodFYFilterGroup key={groupKey} {...config} />;
         case 'timePeriodDR':
             return <TimePeriodDRFilterGroup key={groupKey} {...config} />;
+        case 'newAwardsOnly':
+            return <NewAwardsOnlyFilterGroup key={groupKey} {...config} />;
         case 'awardType':
             return <AwardTypeFilterGroup key={groupKey} {...config} />;
         case 'selectedLocations':

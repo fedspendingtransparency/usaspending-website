@@ -39,6 +39,11 @@
             "code": "5508",
             "district": "08",
             "name": "WI-08"
+        },
+        {
+            "code": "5590",
+            "district": "90",
+            "name": "WI-90"
         }
     ]
 }

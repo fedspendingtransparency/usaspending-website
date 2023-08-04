@@ -132,7 +132,7 @@ export const agenciesTableColumns = {
         {
             title: 'missing_tas_accounts_count',
             displayName: 'Number of TASs Missing from Account Balance Data',
-            icon: <Tooltip title="Number of TASs Missing from Account Balance Data" />,
+            icon: <Tooltip title="Number of TASs Missing from Account Balance Data" position="left" />,
             right: true
         },
         {
