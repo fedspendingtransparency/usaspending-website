@@ -384,6 +384,7 @@
     to {
       transform: translateX(-20px);
       opacity: 0;
+      display: none;
     }
   }
 
@@ -396,6 +397,7 @@
     to {
       transform: translateX(20px);
       opacity: 0;
+      display: none;
     }
   }
 
