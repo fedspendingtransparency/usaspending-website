@@ -169,11 +169,7 @@ class SearchAwardsOperation {
 
         // Add dateType to timePeriod object
         if (this.dateType) {
-            filters[rootKeys.timePeriod].push(
-                {
-                    [timePeriodKeys.dateType]: 'new_awards_only'
-                }
-            );
+            filters[rootKeys.timePeriod][0][timePeriodKeys.dateType] = 'new_awards_only';
         }
 
         // Add award types
