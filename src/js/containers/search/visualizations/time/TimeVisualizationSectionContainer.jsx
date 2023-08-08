@@ -100,6 +100,13 @@ export class TimeVisualizationSectionContainer extends React.Component {
     fetchAwards(auditTrail = null) {
         const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request
+        if (this.props.subaward && operation.dateType) {
+            delete operation.dateType;
+        }
+
         const searchParams = operation.toParams();
 
         // Generate the API parameters

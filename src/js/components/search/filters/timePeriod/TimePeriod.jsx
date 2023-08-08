@@ -5,12 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import { TooltipWrapper } from 'data-transparency-ui';
 import moment from 'moment';
 import { Set } from 'immutable';
 import { isEqual } from 'lodash';
-
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
@@ -30,9 +30,12 @@ const propTypes = {
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
+    updateNewAwardsOnly: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    subaward: PropTypes.bool,
+    newAwardsOnlySelected: PropTypes.bool
 };
 
 export default class TimePeriod extends React.Component {
@@ -48,7 +51,9 @@ export default class TimePeriod extends React.Component {
             isActive: false,
             selectedFY: new Set(),
             allFY: false,
-            clearHint: false
+            clearHint: false,
+            newAwardFilterActive: false,
+            newAwardFilterActiveFromFYOrDateRange: false
         };
 
         // bind functions
@@ -60,13 +65,15 @@ export default class TimePeriod extends React.Component {
         this.validateDates = this.validateDates.bind(this);
         this.removeDateRange = this.removeDateRange.bind(this);
         this.clearHint = this.clearHint.bind(this);
+        this.setNewAwardFilterActive = this.setNewAwardFilterActive.bind(this);
+        this.newAwardsClick = this.newAwardsClick.bind(this);
     }
 
     componentDidMount() {
         this.prepopulateDatePickers();
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (!isEqual(prevProps, this.props)) {
             this.synchronizeDatePickers(this.props);
         }
@@ -77,6 +84,41 @@ export default class TimePeriod extends React.Component {
             if (this.hint) {
                 this.hint.showHint();
             }
+        }
+        this.determineNewAwardFilterState(prevProps, prevState);
+        if (this.props.subaward && prevProps.subaward !== this.props.subaward) {
+            this.setNewAwardFilterActive(false);
+        }
+        else if (!this.props.subaward && prevProps.subaward !== this.props.subaward) {
+            // only set to true if new awards only had been set to true before
+            this.setNewAwardFilterActive(this.state.newAwardFilterActiveFromFYOrDateRange);
+        }
+    }
+
+    setNewAwardFilterActive(bool) {
+        this.setState({
+            newAwardFilterActive: bool
+        });
+    }
+
+    setNewAwardFilterActiveFromFYOrDateRange(bool) {
+        this.setState({
+            newAwardFilterActiveFromFYOrDateRange: bool
+        });
+    }
+
+    determineNewAwardFilterState(prevProps, prevState) {
+        if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
+            this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
+            this.setNewAwardFilterActiveFromFYOrDateRange(!!this.props.filterTimePeriodFY.size);
+        }
+        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+            this.setNewAwardFilterActive(true);
+            this.setNewAwardFilterActiveFromFYOrDateRange(true);
+        }
+        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
+            this.setNewAwardFilterActive(false);
+            this.setNewAwardFilterActiveFromFYOrDateRange(false);
         }
     }
 
@@ -254,6 +296,13 @@ export default class TimePeriod extends React.Component {
         });
     }
 
+    newAwardsClick(e) {
+        this.props.updateNewAwardsOnly(e.target.checked);
+        if (this.hint) {
+            this.hint.showHint();
+        }
+    }
+
     render() {
         let errorDetails = null;
         let showFilter = null;
@@ -296,6 +345,28 @@ export default class TimePeriod extends React.Component {
             activeClassDR = 'hidden';
         }
 
+        const newAwardsFilter = (
+            <div className={`new-awards-wrapper ${activeClassDR}`}>
+                <label
+                    htmlFor="new-awards-checkbox">
+                    <input
+                        type="checkbox"
+                        className={`new-awards-checkbox ${this.state.newAwardFilterActive ? '' : 'not-active'}`}
+                        id="new-awards-checkbox"
+                        value="new-awards-checkbox"
+                        disabled={!this.state.newAwardFilterActive}
+                        checked={this.props.newAwardsOnlySelected}
+                        onChange={this.newAwardsClick} />
+                    <span className={`new-awards-label ${this.state.newAwardFilterActive ? '' : 'not-active'}`}>
+                    Show New Awards Only
+                    </span>
+                </label>
+                <TooltipWrapper
+                    icon="info"
+                    tooltipComponent={<NewAwardsTooltip />} />
+            </div>
+        );
+
         return (
             <div className="tab-filter-wrap">
                 <div className="filter-item-wrap">
@@ -331,6 +402,7 @@ export default class TimePeriod extends React.Component {
                     </ul>
                     { showFilter }
                     { errorDetails }
+                    { newAwardsFilter }
                     {!this.state.clearHint &&
                     <SubmitHint
                         ref={(component) => {

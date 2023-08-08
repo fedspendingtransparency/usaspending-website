@@ -54,6 +54,7 @@ export const initialState = {
     timePeriodFY: Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
+    newAwardsOnly: false,
     selectedLocations: OrderedMap(),
     locationDomesticForeign: 'all',
     selectedFundingAgencies: OrderedMap(),
@@ -78,7 +79,7 @@ export const initialState = {
 
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
-    // Free Text Search
+        // Free Text Search
         case 'UPDATE_TEXT_SEARCH': {
             return Object.assign({}, state, {
                 keyword: KeywordFilterFunctions.updateTextSearchInput(
@@ -94,6 +95,13 @@ const searchFiltersReducer = (state = initialState, action) => {
                 timePeriodStart: action.start,
                 timePeriodEnd: action.end,
                 timePeriodFY: new Set(action.fy)
+            });
+        }
+
+        // New Awards Only Filter
+        case 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY': {
+            return Object.assign({}, state, {
+                newAwardsOnly: action.filterValue
             });
         }
 

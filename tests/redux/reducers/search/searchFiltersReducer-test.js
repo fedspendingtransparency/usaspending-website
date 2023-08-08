@@ -127,6 +127,25 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY', () => {
+        it('should set the newAwardsOnly value to the provided action data', () => {
+            const action = {
+                type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY',
+                filterValue: true
+            };
+
+            const expected = {
+                newAwardsOnly: true
+            };
+
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            Object.keys(expected).forEach((key) => {
+                expect(updatedState[key]).toEqual(expected[key]);
+            });
+        });
+    });
+
     describe('UPDATE_SELECTED_LOCATIONS', () => {
         const action = {
             type: 'UPDATE_SELECTED_LOCATIONS',

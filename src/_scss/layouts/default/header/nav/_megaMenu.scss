@@ -330,10 +330,6 @@
     background-color: $color-white;
   }
 
-  .fade-container {
-    animation-duration: 300ms;
-  }
-
   .dropdown-section__bottom-portion .dropdown-section__section-list {
     li:hover {
       background: unset !important;
@@ -388,6 +384,8 @@
     to {
       transform: translateX(-20px);
       opacity: 0;
+      display: none;
+      visibility: hidden;
     }
   }
 
@@ -400,6 +398,8 @@
     to {
       transform: translateX(20px);
       opacity: 0;
+      display: none;
+      visibility: hidden;
     }
   }
 

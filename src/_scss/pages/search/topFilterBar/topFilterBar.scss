@@ -53,6 +53,25 @@
             display: block;
             padding-right: rem(10);
             padding-bottom: rem(10);
+
+            // all this is to ensure that the New Awards Only chip is grouped with the other Time Period chips
+            .filter-group-container {
+                margin-left: rem(15);
+            }
+            .filter-group-container:first-child {
+                margin-left: 0;
+            }
+            &.newAwardsOnlyPresent {
+                .filter-group-container:nth-child(2) {
+                    margin-left: 0;
+                }
+            }
+            // New Awards Only chip has to disappear if subawards is also selected
+            &.subAward.newAwardsOnlyPresent {
+                .filter-group-container:nth-child(2) {
+                    display: none;
+                }
+            }
         }
 
         @import "./_group";

@@ -21,6 +21,11 @@ export const updateTimePeriod = (state) => ({
     end: state.endDate
 });
 
+export const updateNewAwardsOnly = (state) => ({
+    type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY',
+    filterValue: state
+});
+
 export const updateGenericFilter = (state) => ({
     type: 'UPDATE_SEARCH_FILTER_GENERIC',
     filterType: state.type,

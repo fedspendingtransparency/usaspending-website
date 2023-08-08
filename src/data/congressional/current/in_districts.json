@@ -44,6 +44,11 @@
       "district": "09",
       "code": "1809",
       "name": "IN-09"
+    },
+    {
+      "district": "90",
+      "code": "1890",
+      "name": "IN-90"
     }
   ]
 }

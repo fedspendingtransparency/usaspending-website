@@ -6,7 +6,6 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 // Mapping of section identifier to tooltip content JSX
 export const transactionHistoryInfoGeneric = (
     <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Transaction History</div>
         <div className="tooltip__text">
             <p>
                The Transaction History tab displays modification records
@@ -1354,6 +1353,23 @@ export const CondensedCDTooltip = ({ title }) => (
             </p>
         </div>
     </div>
+);
+
+export const ExplorerInfoToolTip = (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
+                Data Source
+        </div>
+        <div className="tooltip__text">
+            <p>
+                The sum of line 2190 across all remaining accounts in the
+                <em> GTAS SF 133 Report on Budget Execution and Budgetary Resources </em>
+                for this period, after excluding loan financing accounts. Loan program
+                accounts <u>are</u> included.
+            </p>
+        </div>
+    </div>
+
 );
 
 CondensedCDTooltip.propTypes = {

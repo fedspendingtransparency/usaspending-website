@@ -39,6 +39,11 @@
             "code": "2408",
             "district": "08",
             "name": "MD-08"
+        },
+        {
+            "code": "2490",
+            "district": "90",
+            "name": "MD-90"
         }
     ]
 }

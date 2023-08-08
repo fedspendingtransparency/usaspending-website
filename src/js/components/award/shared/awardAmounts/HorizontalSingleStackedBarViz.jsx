@@ -10,15 +10,15 @@ import { scaleLinear } from 'd3-scale';
 import { throttle } from 'lodash';
 
 const BarVizData = PropTypes.shape({
-    rawValue: PropTypes.number.isRequired,
-    value: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    rawValue: PropTypes.number,
+    value: PropTypes.string,
+    text: PropTypes.string,
     color: PropTypes.string,
     improper: PropTypes.object,
     isImproper: PropTypes.bool,
     labelSortOrder: PropTypes.number,
     labelPosition: PropTypes.string,
-    denominatorValue: PropTypes.number,
+    denominatorValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     barWidthOverrides: PropTypes.shape({
         rawValue: PropTypes.number,
         denominatorValue: PropTypes.number

@@ -197,6 +197,12 @@ export class ResultsTableContainer extends React.Component {
 
         const searchParams = new SearchAwardsOperation();
         searchParams.fromState(this.props.filters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request; also has to be done for the main request, in performSearch
+        if (this.props.subaward && searchParams.dateType) {
+            delete searchParams.dateType;
+        }
+
         this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
             subawards: this.props.subaward,
@@ -256,6 +262,13 @@ export class ResultsTableContainer extends React.Component {
     updateFilters() {
         const newSearch = new SearchAwardsOperation();
         newSearch.fromState(this.props.filters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request; also has to be done for the tabCounts request
+        if (this.props.subaward && newSearch.dateType) {
+            delete newSearch.dateType;
+        }
+
         this.setState({
             searchParams: newSearch,
             page: 1
@@ -291,7 +304,7 @@ export class ResultsTableContainer extends React.Component {
                 this.state.searchParams.awardType);
             if (!intersectingTypes || intersectingTypes.length === 0) {
                 // the filtered types and the table type do not align
-                // in this case, send an array of non-existant types because the endpoint requires
+                // in this case, send an array of non-existent types because the endpoint requires
                 // an award type parameter
                 intersectingTypes = ['no intersection'];
             }
@@ -525,6 +538,7 @@ export default connect(
         subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(
+        // access multiple redux actions
         Object.assign(
             {},
             searchActions,

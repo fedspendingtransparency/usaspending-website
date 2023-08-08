@@ -106,13 +106,6 @@ const Footer = ({
                                         Mission
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link
-                                        to="/about?section=careers"
-                                        onClick={clickedFooterLink.bind(null, '/about')}>
-                                        Careers
-                                    </Link>
-                                </li>
                             </ul>
                         </div>
                         <div className="footer-link-section">

@@ -69,6 +69,11 @@
       "district": "14",
       "code": "1314",
       "name": "GA-14"
+    },
+    {
+      "district": "90",
+      "code": "1390",
+      "name": "GA-90"
     }
   ]
 }

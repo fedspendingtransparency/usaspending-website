@@ -21,6 +21,8 @@ class SearchAwardsOperation {
         this.timePeriodFY = [];
         this.timePeriodRange = [];
 
+        this.dateType = '';
+
         this.awardType = [];
 
         this.awardingAgencies = [];
@@ -61,6 +63,8 @@ class SearchAwardsOperation {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
+
+        this.dateType = state.newAwardsOnly;
 
         this.awardType = state.awardType.toArray();
 
@@ -161,6 +165,15 @@ class SearchAwardsOperation {
                 [timePeriodKeys.startDate]: FiscalYearHelper.convertFYToDateRange(initialYear)[0],
                 [timePeriodKeys.endDate]: FiscalYearHelper.convertFYToDateRange(currentYear)[1]
             }];
+        }
+
+        // Add dateType to timePeriod object
+        if (this.dateType) {
+            filters[rootKeys.timePeriod].push(
+                {
+                    [timePeriodKeys.dateType]: 'new_awards_only'
+                }
+            );
         }
 
         // Add award types
