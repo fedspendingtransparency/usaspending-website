@@ -24,8 +24,8 @@
   },
   "author": "",
   "engines": {
-    "node": ">=16.14.2",
-    "npm": ">=8.5.0"
+    "node": ">=18.17.0",
+    "npm": ">=9.8.1"
   },
   "license": "SEE LICENSE IN LICENSE.MD",
   "devDependencies": {
@@ -146,7 +146,7 @@
     "yaml": "2.2.2",
     "semver": "7.5.3",
     "optionator": "0.9.3",
-    "word-wrap": "npm:@aashutoshrathi/word-wrap@1.2.6"
+    "word-wrap": "1.2.6"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
