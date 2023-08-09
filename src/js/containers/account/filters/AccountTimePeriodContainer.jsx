@@ -95,6 +95,7 @@ export class AccountTimePeriodContainer extends React.Component {
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
                 changeTab={this.changeTab}
+                federalAccountPage
                 disableDateRange />
         );
     }
