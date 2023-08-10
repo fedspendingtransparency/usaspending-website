@@ -26,7 +26,7 @@ const InfoBanner = (props) => {
     };
 
     useEffect(() => {
-        if (Cookies.get(globalInfoBanner) !== 'hide') {
+        if (Cookies.get(globalInfoBanner) !== 'hide' || props.notDismissable) {
             setCloseBanner(false);
         }
     }, []);
@@ -55,7 +55,7 @@ const InfoBanner = (props) => {
                         aria-label="Dismiss message"
                         onKeyUp={(e) => ((e.key === 'Enter') ? bannerClosed : '')}
                         onClick={bannerClosed}>
-                        <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
+                        {!props.notDismissable && <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />}
                     </button>
                 </>
             </div>
