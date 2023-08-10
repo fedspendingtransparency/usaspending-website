@@ -56,7 +56,7 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfRecipients, setNumberOfRecipients] = useState(null);
-    const [inFlightList, removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
+    const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
     const { allAwardTypeTotals, defcParams } = useSelector((state) => state.covid19);
 
     useEffect(() => {
