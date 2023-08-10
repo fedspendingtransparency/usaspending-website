@@ -35,7 +35,8 @@ const propTypes = {
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
     subaward: PropTypes.bool,
-    newAwardsOnlySelected: PropTypes.bool
+    newAwardsOnlySelected: PropTypes.bool,
+    federalAccountPage: PropTypes.bool
 };
 
 export default class TimePeriod extends React.Component {
@@ -402,7 +403,7 @@ export default class TimePeriod extends React.Component {
                     </ul>
                     { showFilter }
                     { errorDetails }
-                    { newAwardsFilter }
+                    { !this.props.federalAccountPage && newAwardsFilter }
                     {!this.state.clearHint &&
                     <SubmitHint
                         ref={(component) => {
