@@ -2,6 +2,11 @@ language: node_js
 dist: focal
 node_js:
   - 18
+global:
+  - CI_NODE_TOTAL=2
+jobs:
+  - CI_NODE_INDEX=0
+  - CI_NODE_INDEX=1
 # Need a C++ compiler
 addons:
 cache:
