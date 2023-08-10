@@ -56,7 +56,7 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
     const [awardObligations, setAwardObligations] = useState(null);
     const [numberOfAwards, setNumberOfAwards] = useState(null);
     const [numberOfRecipients, setNumberOfRecipients] = useState(null);
-    const [inFlightList, , removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
+    const [inFlightList, removeFromInFlight, resetInFlight] = useInFlightList(initialInFlightState);
     const { allAwardTypeTotals, defcParams } = useSelector((state) => state.covid19);
 
     useEffect(() => {
@@ -113,16 +113,21 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
         }
         else if (inFlightList) {
             inFlightList.forEach((inFlight) => {
+                console.debug(inFlight);
                 if (inFlight === 'awardObligations' && awardObligations !== null) {
+                    console.debug('1');
                     removeFromInFlight('awardObligations');
                 }
                 else if (inFlight === 'awardOutlays' && awardOutlays !== null) {
+                    console.debug('2');
                     removeFromInFlight('awardOutlays');
                 }
                 else if (inFlight === 'numberOfAwards' && numberOfAwards !== null) {
+                    console.debug('3');
                     removeFromInFlight('numberOfAwards');
                 }
                 else if (inFlight === 'numberOfRecipients' && numberOfRecipients !== null) {
+                    console.debug('4');
                     removeFromInFlight('numberOfRecipients');
                 }
             });
