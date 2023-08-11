@@ -85,8 +85,11 @@ const aboutSections = [
 
 const InPageNav = () => {
     const [windowWidth, setWindowWidth] = useState(0);
+    const [hiddenElements, setHiddenElements] = useState([]);
+
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
+    const tempHiddenElements = [];
 
     const checkOverflow = (el) => {
         const isOverflowing = el.clientWidth < el.scrollWidth
@@ -102,15 +105,16 @@ const InPageNav = () => {
     };
 
     const isHidden = (el) => {
-        console.log(el);
         let hidden = false;
         const box = el.getBoundingClientRect();
-        const documentWidth = document.documentElement.offsetWidth;
-        console.log(el.offsetParent === null);
-
+        const documentWidth = navBar.current.clientWidth;
         // replace the document width with the width of the in page nav container element
         if (box.left < 0 || box.right > documentWidth) {
-            console.log("hidden element", el);
+            tempHiddenElements.push({
+                element: el,
+                name: el.firstChild.innerHTML,
+                offset: box.left
+            });
             hidden = true;
         }
         // return (el.offsetParent === null);
@@ -118,7 +122,10 @@ const InPageNav = () => {
     };
 
     const scrollLeft = () => {
-        navBar.current.scrollLeft = "200";
+        console.log(hiddenElements);
+        if (hiddenElements?.length > 0) {
+            navBar.current.scrollLeft = hiddenElements[0].offset - 100;
+        }
     };
 
     const scrollRight = () => {
@@ -137,17 +144,22 @@ const InPageNav = () => {
                 navBar.current.childNodes[0].childNodes.forEach((el) => {
                     isHidden(el);
                 });
+
+                setHiddenElements(tempHiddenElements);
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
             }
         }, 50);
+
+        handleResize();
+
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
 
     return (
         <>
-            <div><span onClick={scrollLeft}>left</span> | <span onClick={scrollRight}>right</span></div>
+            <div><span onClick={() => scrollLeft()}>left</span> | <span onClick={() => scrollRight()}>right</span></div>
             <nav className="in-page-nav-wrapper" ref={navBar}>
                 <ul>
                     {aboutSections.map((section) => (<li className="in-page-nav__element"><a href="">{section.label}</a> | </li>))}
