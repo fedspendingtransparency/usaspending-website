@@ -45,14 +45,6 @@ export default class Header extends React.Component {
                     className="site-header__wrapper"
                     aria-label="Site header">
                     <InfoBanner
-                        icon={<FontAwesomeIcon style={{ width: "20", height: "20" }} size="lg" icon="exclamation-triangle" color="#fdb81e" />}
-                        borderTopColor="#fdb81e"
-                        backgroundColor="#fff1d2"
-                        notDismissable
-                        title={<>Experiencing Issues with Downloads?</>}
-                        content={<>We are working to get our Advanced Search and Custom Award Data downloads running properly as soon as possible. Thank you for your patience!</>} />
-
-                    <InfoBanner
                         icon={<FontAwesomeIcon style={{ width: "20", height: "20" }} size="lg" icon="info-circle" color="#97d4ea" />}
                         borderTopColor="#97d4ea"
                         borderBottomColor="#c3ebfa"
