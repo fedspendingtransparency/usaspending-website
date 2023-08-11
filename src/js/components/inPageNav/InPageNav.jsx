@@ -98,15 +98,15 @@ const InPageNav = () => {
     /* check if the left chevron should show */
     const isScrolledLeft = () => {
         // how far to scroll left
-        // first hidden element should scroll to 
+        // first hidden element should scroll to
     };
 
-    function isHidden(el) {
+    const isHidden = (el) => {
         console.log(el);
         let hidden = false;
         const box = el.getBoundingClientRect();
         const documentWidth = document.documentElement.offsetWidth;
-        console.log(el.offsetParent === null)
+        console.log(el.offsetParent === null);
 
         // replace the document width with the width of the in page nav container element
         if (box.left < 0 || box.right > documentWidth) {
@@ -115,7 +115,15 @@ const InPageNav = () => {
         }
         // return (el.offsetParent === null);
         return hidden;
-    }
+    };
+
+    const scrollLeft = () => {
+        navBar.current.scrollLeft = "200";
+    };
+
+    const scrollRight = () => {
+        navBar.current.scrollLeft = "0";
+    };
 
     /* check which elements are visible and which ones are not */
 
@@ -138,11 +146,14 @@ const InPageNav = () => {
     }, [windowWidth]);
 
     return (
-        <nav className="in-page-nav-wrapper" ref={navBar}>
-            <ul>
-                {aboutSections.map((section) => (<li className="in-page-nav__element"><a href="">{section.label}</a> | </li>))}
-            </ul>
-        </nav>
+        <>
+            <div><span onClick={scrollLeft}>left</span> | <span onClick={scrollRight}>right</span></div>
+            <nav className="in-page-nav-wrapper" ref={navBar}>
+                <ul>
+                    {aboutSections.map((section) => (<li className="in-page-nav__element"><a href="">{section.label}</a> | </li>))}
+                </ul>
+            </nav>
+        </>
     );
 };
 
