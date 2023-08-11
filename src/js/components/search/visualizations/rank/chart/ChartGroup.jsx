@@ -47,7 +47,15 @@ export default class ChartGroup extends React.Component {
         if (this.props.linkID !== '' && this.props.linkID !== 'agency_v2/') {
             linkClass = ' group-label-link';
         }
-        let title = null;
+        let title = (
+            <text
+                className={`group-label ${linkClass}`}
+                ref={(text) => {
+                    this.svgText = text;
+                }}>
+                {label}
+            </text>
+        );
         if (this.props.linkID !== '' && this.props.linkID !== 'agency_v2/') {
             title = (
                 <a className="group-label__anchor" target="_blank" rel="noopener noreferrer" href={`${this.props.urlRoot}${this.props.linkID}`} >
@@ -79,7 +87,7 @@ export default class ChartGroup extends React.Component {
     truncateText() {
     // determine if the text needs to be truncated
     // get the current label width
-        const fullWidth = this.svgText.getBBox().width;
+        const fullWidth = this.svgText?.getBBox().width;
 
         // there's a 12px margin on both sides of the label space
         const maxWidth = this.props.labelWidth - 24;
