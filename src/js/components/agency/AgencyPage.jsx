@@ -119,10 +119,7 @@ export const AgencyProfileV2 = ({
     };
 
     const backgroundColor = {
-        backgroundColor: "#1a4480",
-        ' @media(max-width: $medium-screen)': {
-            backgroundColor: "#f1f1f1"
-        }
+        backgroundColor: "#1a4480"
     };
     return (
         <PageWrapper
