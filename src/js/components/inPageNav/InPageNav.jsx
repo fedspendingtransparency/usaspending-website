@@ -56,6 +56,30 @@ const aboutSections = [
     {
         section: 'contact2',
         label: 'Contact2'
+    },
+    {
+        section: 'mission3',
+        label: 'Mission3'
+    },
+    {
+        section: 'background3',
+        label: 'Background3'
+    },
+    {
+        section: 'development3',
+        label: 'Development and Releases3'
+    },
+    {
+        section: 'licensing3',
+        label: 'Licensing3'
+    },
+    {
+        section: 'more-info3',
+        label: 'More Information3'
+    },
+    {
+        section: 'contact3',
+        label: 'Contact3'
     }
 ];
 
@@ -73,11 +97,24 @@ const InPageNav = () => {
 
     /* check if the left chevron should show */
     const isScrolledLeft = () => {
-
+        // how far to scroll left
+        // first hidden element should scroll to 
     };
 
     function isHidden(el) {
-        return (el.offsetParent === null);
+        console.log(el);
+        let hidden = false;
+        const box = el.getBoundingClientRect();
+        const documentWidth = document.documentElement.offsetWidth;
+        console.log(el.offsetParent === null)
+
+        // replace the document width with the width of the in page nav container element
+        if (box.left < 0 || box.right > documentWidth) {
+            console.log("hidden element", el);
+            hidden = true;
+        }
+        // return (el.offsetParent === null);
+        return hidden;
     }
 
     /* check which elements are visible and which ones are not */
@@ -87,8 +124,11 @@ const InPageNav = () => {
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 /* check if ref is in overflow*/
-                console.log(checkOverflow(navBar.current));
-                console.log(navBar.current.)
+                // console.log(checkOverflow(navBar.current));
+                // console.log(navBar.current.childNodes[0].childNodes);
+                navBar.current.childNodes[0].childNodes.forEach((el) => {
+                    isHidden(el);
+                });
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
             }
@@ -100,7 +140,7 @@ const InPageNav = () => {
     return (
         <nav className="in-page-nav-wrapper" ref={navBar}>
             <ul>
-                {aboutSections.map((section) => (<li><a href="">{section.label}</a> | </li>))}
+                {aboutSections.map((section) => (<li className="in-page-nav__element"><a href="">{section.label}</a> | </li>))}
             </ul>
         </nav>
     );
