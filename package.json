@@ -145,8 +145,7 @@
     "sequelize": "6.29.0",
     "yaml": "2.2.2",
     "semver": "7.5.3",
-    "optionator": "0.9.3",
-    "word-wrap": "npm:@aashutoshrathi/word-wrap@1.2.6"
+    "optionator": "0.9.3"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
