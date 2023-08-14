@@ -95,7 +95,7 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
                 .then((res) => {
                     setNumberOfRecipients(res.data.count);
                 }).catch((e) => {
-                    throw new Error(e);
+                    console.error(e);
                 });
         }
     }, [activeFilter, Object.keys(allAwardTypeTotals).length, defcParams]);
