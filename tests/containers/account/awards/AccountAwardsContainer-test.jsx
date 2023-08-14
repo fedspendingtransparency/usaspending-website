@@ -3,15 +3,15 @@
  * Created by Kevin Li 4/14/17
  */
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
-import { OrderedSet } from 'immutable';
+// import { OrderedSet } from 'immutable';
 
-import { AccountAwardsContainer } from 'containers/account/awards/AccountAwardsContainer';
+// import { AccountAwardsContainer } from 'containers/account/awards/AccountAwardsContainer';
 
 import { mockReduxAccount } from '../mockAccount';
 import { defaultFilters } from '../defaultFilters';
-import { mockCount } from './mockResponses';
+// import { mockCount } from './mockResponses';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/search/table/ResultsTableSection', () =>

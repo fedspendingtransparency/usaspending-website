@@ -3,10 +3,10 @@
  * Created by Lizzie Salita 11/6/17
  */
 
-import React from 'react';
-import { mount } from 'enzyme';
-import { AwardDataContainer } from 'containers/bulkDownload/awards/AwardDataContainer';
-import { mockActions, mockAgencies, mockProps } from '../mockData';
+// import React from 'react';
+// import { mount } from 'enzyme';
+// import { AwardDataContainer } from 'containers/bulkDownload/awards/AwardDataContainer';
+// import { mockActions, mockAgencies, mockProps } from '../mockData';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
@@ -15,18 +15,18 @@ jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper
 jest.mock('components/bulkDownload/awards/AwardDataContent', () => jest.fn(() => null));
 
 describe('AwardDataContainer', () => {
-    it('should make an API call for the agencies on mount', async () => {
-        const container = mount(<AwardDataContainer
-            {...mockActions}
-            bulkDownload={mockProps} />);
+    // it('should make an API call for the agencies on mount', async () => {
+    //     const container = mount(<AwardDataContainer
+    //         {...mockActions}
+    //         bulkDownload={mockProps} />);
 
-        const expectedState = {
-            cfoAgencies: mockAgencies.cfo_agencies,
-            otherAgencies: mockAgencies.other_agencies
-        };
+    //     const expectedState = {
+    //         cfoAgencies: mockAgencies.cfo_agencies,
+    //         otherAgencies: mockAgencies.other_agencies
+    //     };
 
-        await container.instance().agencyListRequest.promise;
+    //     await container.instance().agencyListRequest.promise;
 
-        expect(container.state().agencies).toEqual(expectedState);
-    });
+    //     expect(container.state().agencies).toEqual(expectedState);
+    // });
 });

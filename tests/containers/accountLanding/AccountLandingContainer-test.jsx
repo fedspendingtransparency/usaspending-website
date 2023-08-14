@@ -3,13 +3,13 @@
  * Created by Lizzie Salita 2/7/18
  */
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
 
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import { AccountLandingContainer } from 'containers/accountLanding/AccountLandingContainer';
+// import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+// import { AccountLandingContainer } from 'containers/accountLanding/AccountLandingContainer';
 
-import { mockData, mockParsed } from './mockFederalAccounts';
+// import { mockData, mockParsed } from './mockFederalAccounts';
 
 jest.mock('helpers/accountLandingHelper', () => require('./accountLandingHelper'));
 jest.mock('react-redux', () => ({
@@ -21,9 +21,9 @@ jest.mock('react-redux', () => ({
 jest.mock('components/accountLanding/AccountLandingContent', () =>
     jest.fn(() => null));
 
-const latestPeriod = {
-    year: 2020
-};
+// const latestPeriod = {
+//     year: 2020
+// };
 
 describe('AccountLandingContainer', () => {
     // it('should make an API request on mount', async () => {

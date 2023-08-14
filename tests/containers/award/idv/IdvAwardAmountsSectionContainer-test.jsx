@@ -3,15 +3,15 @@
  * Created by David Trinh 2/14/2019
  * */
 
-import React from 'react';
+// import React from 'react';
 // import { shallow } from 'enzyme';
 
-import { IdvAmountsContainer } from 'containers/award/idv/IdvAwardAmountsSectionContainer';
-import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
+// import { IdvAmountsContainer } from 'containers/award/idv/IdvAwardAmountsSectionContainer';
+// import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 import CoreAward from 'models/v2/award/CoreAward';
 
-import { mockRedux, mockActions } from '../mockAward';
-import { mockAwardAmounts } from '../../../models/award/mockAwardApi';
+import { mockRedux } from '../mockAward';
+// import { mockAwardAmounts } from '../../../models/award/mockAwardApi';
 
 jest.mock('helpers/idvHelper', () => require('../awardHelper'));
 
@@ -28,7 +28,6 @@ describe('IdvAwardAmountsSectionContainer', () => {
         //     const container = shallow(<IdvAmountsContainer
         //         {...mockActions}
         //         {...mockRedux} />);
-    
         //     const parseChildAwardAmounts = jest.fn();
         //     container.instance().parseChildAwardAmounts = parseChildAwardAmounts;
         //     await container.instance().componentDidMount();

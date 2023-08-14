@@ -3,13 +3,13 @@
  * Created by Lizzie Salita 2/21/19
  **/
 
-import React from 'react';
+// import React from 'react';
 // import { shallow } from 'enzyme';
 
-import { ReferencedAwardsContainer } from 'containers/award/idv/ReferencedAwardsContainer';
-import BaseReferencedAwardResult from 'models/v2/award/BaseReferencedAwardResult';
-import { mockRedux } from '../mockAward';
-import { mockReferencedAwards } from '../../../models/award/mockAwardApi';
+// import { ReferencedAwardsContainer } from 'containers/award/idv/ReferencedAwardsContainer';
+// import BaseReferencedAwardResult from 'models/v2/award/BaseReferencedAwardResult';
+// import { mockRedux } from '../mockAward';
+// import { mockReferencedAwards } from '../../../models/award/mockAwardApi';
 
 jest.mock('helpers/idvHelper', () => require('./mockIdvHelper'));
 

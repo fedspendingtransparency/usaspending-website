@@ -1,18 +1,18 @@
-import React from 'react';
+// import React from 'react';
 // import { shallow } from 'enzyme';
 
-import { AwardHistory } from '../../../../src/js/containers/award/shared/AwardHistorySectionContainer';
+// import { AwardHistory } from '../../../../src/js/containers/award/shared/AwardHistorySectionContainer';
 
 jest.mock('helpers/awardHistoryHelper', () => require('./mockAwardHistoryHelper'));
 
-const mockedSetActiveTab = jest.fn();
+// const mockedSetActiveTab = jest.fn();
 
-const defaultProps = {
-    overview: { generatedId: '123', category: 'idv' },
-    awardId: '123',
-    setActiveTab: mockedSetActiveTab,
-    activeTab: 'transactions'
-};
+// const defaultProps = {
+//     overview: { generatedId: '123', category: 'idv' },
+//     awardId: '123',
+//     setActiveTab: mockedSetActiveTab,
+//     activeTab: 'transactions'
+// };
 
 describe('AwardHistorySectionContainer', () => {
     describe('componentDidMount', () => {

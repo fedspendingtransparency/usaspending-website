@@ -3,18 +3,18 @@
  * Created by Lizzie Salita 7/18/17
  */
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
+// import sinon from 'sinon';
 
-import { AgencyLandingContainer } from
-    'containers/agencyLanding/AgencyLandingContainer';
+// import { AgencyLandingContainer } from
+//     'containers/agencyLanding/AgencyLandingContainer';
 import AgencyLandingContent from
     'components/agencyLanding/AgencyLandingContent';
 
 
 import { mockComponent, unmockComponent } from '../../testResources/mockComponent';
-import { mockData, mockPopulated, mockAgenciesOrder } from './mockToptierAgencies';
+// import { mockData, mockPopulated, mockAgenciesOrder } from './mockToptierAgencies';
 
 jest.mock('helpers/agencyLandingHelper', () => require('./agencyLandingHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -23,9 +23,9 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 // const setupMount = (props) => mount(<AgencyLandingContainer {...props} />);
 
 // spy on specific functions inside the component
-const fetchAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'fetchAgencies');
-const parseAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'parseAgencies');
-const performSearchSpy = sinon.spy(AgencyLandingContainer.prototype, 'performSearch');
+// const fetchAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'fetchAgencies');
+// const parseAgenciesSpy = sinon.spy(AgencyLandingContainer.prototype, 'parseAgencies');
+// const performSearchSpy = sinon.spy(AgencyLandingContainer.prototype, 'performSearch');
 
 describe('AgencyLandingContainer', () => {
     beforeAll(() => {

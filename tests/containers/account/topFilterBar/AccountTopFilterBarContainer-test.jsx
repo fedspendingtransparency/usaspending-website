@@ -3,17 +3,17 @@
  * Created by Kevin Li 3/27/17
  */
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
-import { Set, OrderedSet } from 'immutable';
-import sinon from 'sinon';
+// import { Set, OrderedSet } from 'immutable';
+// import sinon from 'sinon';
 
-import { AccountTopFilterBarContainer } from
-    'containers/account/topFilterBar/AccountTopFilterBarContainer';
+// import { AccountTopFilterBarContainer } from
+//     'containers/account/topFilterBar/AccountTopFilterBarContainer';
 
-import { defaultFilters } from '../defaultFilters';
+// import { defaultFilters } from '../defaultFilters';
 
-const prepareFiltersSpy = sinon.spy(AccountTopFilterBarContainer.prototype, 'prepareFilters');
+// const prepareFiltersSpy = sinon.spy(AccountTopFilterBarContainer.prototype, 'prepareFilters');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/account/topFilterBar/LegacyTopFilterBar', () =>

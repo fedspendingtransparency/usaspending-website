@@ -3,27 +3,27 @@
  * Created by Jonathan Hill 6/26/2019
 * */
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
-import { fetchIdvActivity } from 'helpers/idvHelper';
-import { IdvActivityContainer } from 'containers/award/idv/IdvActivityContainer';
-import BaseIdvActivityBar from 'models/v2/award/BaseIdvActivityBar';
-import { mockRedux, mockActions } from '../mockAward';
-import { mockIdvActivity } from '../../../models/award/mockAwardApi';
+// import { fetchIdvActivity } from 'helpers/idvHelper';
+// import { IdvActivityContainer } from 'containers/award/idv/IdvActivityContainer';
+// import BaseIdvActivityBar from 'models/v2/award/BaseIdvActivityBar';
+// import { mockRedux, mockActions } from '../mockAward';
+// import { mockIdvActivity } from '../../../models/award/mockAwardApi';
 
 jest.mock('helpers/idvHelper', () => require('../awardHelper'));
 jest.mock('helpers/idvHelper', () => ({ fetchIdvActivity: jest.fn() }));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/award/idv/amounts/AggregatedAwardAmountsSection.jsx', () => jest.fn(() => null));
-const mockProps = {
-    ...mockActions,
-    ...mockRedux,
-    defCodes: ['L', 'M', 'N', 'O', 'P', 'R']
-};
+// const mockProps = {
+//     ...mockActions,
+//     ...mockRedux,
+//     defCodes: ['L', 'M', 'N', 'O', 'P', 'R']
+// };
 
 describe('IdvActivityContainer', () => {
-    const loadAwards = jest.fn();
+    // const loadAwards = jest.fn();
     // const parseAwards = jest.fn();
     // it('should make an API call for the awards on mount', async () => {
     //     const container = mount(<IdvActivityContainer {...mockProps} />);

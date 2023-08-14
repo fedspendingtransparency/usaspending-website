@@ -3,27 +3,27 @@
  * Created by Kevin Li 3/27/17
  */
 
-import React from 'react';
-//import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
+// import React from 'react';
+// import { mount, shallow } from 'enzyme';
+// import sinon from 'sinon';
 
-import { AccountContainer } from 'containers/account/AccountContainer';
-import FederalAccount from 'models/v1/account/FederalAccount';
+// import { AccountContainer } from 'containers/account/AccountContainer';
+// import FederalAccount from 'models/v1/account/FederalAccount';
 
-import { mockAccount, mockReduxAccount, mockSnapshot } from './mockAccount';
+// import { mockAccount, mockReduxAccount, mockSnapshot } from './mockAccount';
 
 jest.mock('apis/account', () => require('./accountHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
-const loadAccountSpy = sinon.spy(AccountContainer.prototype, 'loadData');
-const loadFiscalYearSnapshotSpy = sinon.spy(AccountContainer.prototype, 'loadFiscalYearSnapshot');
+// const loadAccountSpy = sinon.spy(AccountContainer.prototype, 'loadData');
+// const loadFiscalYearSnapshotSpy = sinon.spy(AccountContainer.prototype, 'loadFiscalYearSnapshot');
 
-const parameters = {
-    params: {
-        accountNumber: '123-4567'
-    }
-};
+// const parameters = {
+//     params: {
+//         accountNumber: '123-4567'
+//     }
+// };
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/account/Account', () =>

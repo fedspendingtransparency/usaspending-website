@@ -3,51 +3,51 @@
  * Created by Kevin Li 3/27/17
  */
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
+// import sinon from 'sinon';
 
 
-import { AccountRankVisualizationContainer } from
-    'containers/account/visualizations/AccountRankVisualizationContainer';
+// import { AccountRankVisualizationContainer } from
+//     'containers/account/visualizations/AccountRankVisualizationContainer';
 
-import * as AccountHelper from 'apis/account';
-import { mockCategories, mockReduxAccount } from '../mockAccount';
-import { defaultFilters } from '../defaultFilters';
+// import * as AccountHelper from 'apis/account';
+// import { mockCategories, mockReduxAccount } from '../mockAccount';
+// import { defaultFilters } from '../defaultFilters';
 
-const fetchDataSpy = sinon.spy(AccountRankVisualizationContainer.prototype, 'fetchData');
+// const fetchDataSpy = sinon.spy(AccountRankVisualizationContainer.prototype, 'fetchData');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/account/visualizations/rank/AccountRankVisualizationSection', () =>
     jest.fn(() => null));
 
-const mockAccountHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    AccountHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    // eslint-disable-next-line prefer-promise-reject-errors
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
+// const mockAccountHelper = (functionName, event, expectedResponse) => {
+//     jest.useFakeTimers();
+//     // override the specified function
+//     AccountHelper[functionName] = jest.fn(() => {
+//         // Axios normally returns a promise, replicate this, but return the expected result
+//         const networkCall = new Promise((resolve, reject) => {
+//             process.nextTick(() => {
+//                 if (event === 'resolve') {
+//                     resolve({
+//                         data: expectedResponse
+//                     });
+//                 }
+//                 else {
+//                     // eslint-disable-next-line prefer-promise-reject-errors
+//                     reject({
+//                         data: expectedResponse
+//                     });
+//                 }
+//             });
+//         });
 
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
+//         return {
+//             promise: networkCall,
+//             cancel: jest.fn()
+//         };
+//     });
+// };
 
 describe('AccountRankVisualizationContainer', () => {
     // it('should load data on mount', () => {

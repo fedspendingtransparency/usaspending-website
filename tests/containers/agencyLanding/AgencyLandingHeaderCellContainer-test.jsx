@@ -3,13 +3,13 @@
  * Created by Emily Gullo 09/22/2017
  */
 
-import React from 'react';
+// import React from 'react';
 // import { shallow } from 'enzyme';
 
-import { AgencyLandingHeaderCellContainer } from
-    'containers/agencyLanding/table/AgencyLandingHeaderCellContainer';
+// import { AgencyLandingHeaderCellContainer } from
+//     'containers/agencyLanding/table/AgencyLandingHeaderCellContainer';
 
-import { mockAgenciesOrder } from './agencyLandingHelper';
+// import { mockAgenciesOrder } from './agencyLandingHelper';
 
 // const setupShallow = (props) => shallow(<AgencyLandingHeaderCellContainer {...props} />);
 

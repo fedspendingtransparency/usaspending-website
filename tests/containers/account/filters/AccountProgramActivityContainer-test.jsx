@@ -3,25 +3,25 @@
  * Created by michaelbray on 4/19/17.
  */
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
+// import sinon from 'sinon';
 import { OrderedSet } from 'immutable';
 
-import { AccountProgramActivityContainer } from
-    'containers/account/filters/AccountProgramActivityContainer';
+// import { AccountProgramActivityContainer } from
+//     'containers/account/filters/AccountProgramActivityContainer';
 
-const initialFilters = {
-    selectedProgramActivities: new OrderedSet(),
-    availableProgramActivities: [],
-    account: {
-        id: 2525
-    }
-};
+// const initialFilters = {
+//     selectedProgramActivities: new OrderedSet(),
+//     availableProgramActivities: [],
+//     account: {
+//         id: 2525
+//     }
+// };
 
-const account = {
-    id: 2525
-};
+// const account = {
+//     id: 2525
+// };
 
 jest.mock('apis/account', () => require('../accountHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;

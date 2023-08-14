@@ -4,14 +4,14 @@
  */
 
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
 import { OrderedSet } from 'immutable';
 
-import { AccountObjectClassContainer } from
-    'containers/account/filters/AccountObjectClassContainer';
+// import { AccountObjectClassContainer } from
+//     'containers/account/filters/AccountObjectClassContainer';
 
-import { mockAvailableOC, mockReduxActions } from './mockObjectClass';
+// import { mockAvailableOC, mockReduxActions } from './mockObjectClass';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/account/filters/objectClass/ObjectClassFilter', () =>
@@ -19,9 +19,9 @@ jest.mock('components/account/filters/objectClass/ObjectClassFilter', () =>
 
 jest.mock('apis/account', () => require('../accountHelper'));
 
-const defaultFilters = {
-    accountId: 12
-};
+// const defaultFilters = {
+//     accountId: 12
+// };
 
 describe('AccountObjectClassContainer', () => {
     describe('loadAvailableOCs', () => {

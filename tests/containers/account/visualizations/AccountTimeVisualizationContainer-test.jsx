@@ -3,22 +3,22 @@
  * Created by Kevin Li 3/27/17
  */
 
-import React from 'react';
+// import React from 'react';
 // import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
+// import sinon from 'sinon';
 
-import { AccountTimeVisualizationSectionContainer } from
-    'containers/account/visualizations/AccountTimeVisualizationContainer';
+// import { AccountTimeVisualizationSectionContainer } from
+//     'containers/account/visualizations/AccountTimeVisualizationContainer';
 
-import {
-    mockBalances, mockReduxAccount, mockQuarters, mockFilteredObligated, mockFilteredObligatedQuarters,
-    parsedYearYSeries, parsedQuarterYSeries, parsedYearYSeriesFiltered, parsedQuarterYSeriesFiltered,
-    mockIncomplete
-}
-    from '../mockAccount';
-import { defaultFilters } from '../defaultFilters';
+// import {
+//     mockBalances, mockReduxAccount, mockQuarters, mockFilteredObligated, mockFilteredObligatedQuarters,
+//     parsedYearYSeries, parsedQuarterYSeries, parsedYearYSeriesFiltered, parsedQuarterYSeriesFiltered,
+//     mockIncomplete
+// }
+//     from '../mockAccount';
+// import { defaultFilters } from '../defaultFilters';
 
-const fetchDataSpy = sinon.spy(AccountTimeVisualizationSectionContainer.prototype, 'fetchData');
+// const fetchDataSpy = sinon.spy(AccountTimeVisualizationSectionContainer.prototype, 'fetchData');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/account/visualizations/time/AccountTimeVisualizationSection', () =>
