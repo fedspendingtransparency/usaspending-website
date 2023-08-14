@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { isCancel } from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTotals } from 'redux/actions/covid19/covid19Actions';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
@@ -109,7 +110,13 @@ const SummaryInsightsContainer = ({
                         dispatch(setTotals('RECIPIENT', totals));
                     }
                 }).catch((e) => {
-                    console.error(e);
+                    if (isCancel(e)) {
+                        // Got cancelled
+                    }
+                    else {
+                        // Request failed
+                        console.log(e);
+                    }
                 });
         }
     }, [defcParams, activeTab, allAwardTypeTotals, assistanceOnly, prevTab, spendingByAgencyOnly, recipientOnly, dispatch]);
