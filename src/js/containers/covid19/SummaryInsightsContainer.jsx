@@ -108,12 +108,14 @@ const SummaryInsightsContainer = ({
                     else if (recipientOnly) {
                         dispatch(setTotals('RECIPIENT', totals));
                     }
+                }).catch((e) => {
+                    throw new Error(e);
                 });
         }
     }, [defcParams, activeTab, allAwardTypeTotals, assistanceOnly, prevTab, spendingByAgencyOnly, recipientOnly, dispatch]);
 
     useEffect(() => {
-        if (awardOutlays === null && awardObligations === null && numberOfAwards === null) {
+        if (awardOutlays === null && awardObligations === null && numberOfAwards === null && resultsCount === null) {
             if (!isEqual(inFlightList, initialInFlightState)) {
                 resetInFlight();
             }
@@ -129,6 +131,9 @@ const SummaryInsightsContainer = ({
                 else if (inFlight === 'numberOfAwards' && numberOfAwards !== null) {
                     removeFromInFlight('numberOfAwards');
                 }
+                else if (inFlight === 'resultsCount' && resultsCount !== null) {
+                    removeFromInFlight('resultsCount');
+                }
             });
         }
     }, [
@@ -136,6 +141,7 @@ const SummaryInsightsContainer = ({
         awardOutlays,
         awardObligations,
         numberOfAwards,
+        resultsCount,
         inFlightList,
         removeFromInFlight,
         resetInFlight

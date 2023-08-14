@@ -94,6 +94,8 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
             recipientCountRequest.current.promise
                 .then((res) => {
                     setNumberOfRecipients(res.data.count);
+                }).catch((e) => {
+                    throw new Error(e);
                 });
         }
     }, [activeFilter, Object.keys(allAwardTypeTotals).length, defcParams]);
@@ -106,28 +108,23 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
     };
 
     useEffect(() => {
-        if (awardOutlays === null && awardObligations === null && numberOfAwards === null) {
+        if (awardOutlays === null && awardObligations === null && numberOfAwards === null && numberOfRecipients === null) {
             if (!isEqual(inFlightList, initialInFlightState)) {
                 resetInFlight();
             }
         }
         else if (inFlightList) {
             inFlightList.forEach((inFlight) => {
-                console.debug(inFlight);
                 if (inFlight === 'awardObligations' && awardObligations !== null) {
-                    console.debug('1');
                     removeFromInFlight('awardObligations');
                 }
                 else if (inFlight === 'awardOutlays' && awardOutlays !== null) {
-                    console.debug('2');
                     removeFromInFlight('awardOutlays');
                 }
                 else if (inFlight === 'numberOfAwards' && numberOfAwards !== null) {
-                    console.debug('3');
                     removeFromInFlight('numberOfAwards');
                 }
                 else if (inFlight === 'numberOfRecipients' && numberOfRecipients !== null) {
-                    console.debug('4');
                     removeFromInFlight('numberOfRecipients');
                 }
             });
