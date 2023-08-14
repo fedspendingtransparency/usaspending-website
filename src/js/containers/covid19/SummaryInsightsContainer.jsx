@@ -109,7 +109,7 @@ const SummaryInsightsContainer = ({
                         dispatch(setTotals('RECIPIENT', totals));
                     }
                 }).catch((e) => {
-                    throw new Error(e);
+                    console.error(e);
                 });
         }
     }, [defcParams, activeTab, allAwardTypeTotals, assistanceOnly, prevTab, spendingByAgencyOnly, recipientOnly, dispatch]);
