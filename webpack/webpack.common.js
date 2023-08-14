@@ -95,7 +95,7 @@ module.exports = {
             template: path.resolve(__dirname, "../src/index.ejs"),
             chunksSortMode: "none",
             templateParameters: {
-                GA_TRACKING_ID: process.env.GA_TRACKING_ID || '1234',
+                GA_TRACKING_ID: process.env.GA_TRACKING_ID || '',
                 USE_GTM: (
                     process.env.ENV === 'qat' ||
                     process.env.ENV === 'sandbox'
