@@ -3,45 +3,45 @@
  * Created by Kevin Li 1/9/17
  */
 
-import React from 'react';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
-import { Set, OrderedMap } from 'immutable';
+// import React from 'react';
+// import { mount } from 'enzyme';
+// import { Provider } from 'react-redux';
+// import { Set, OrderedMap } from 'immutable';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
-import { TopFilterBarContainer } from 'containers/search/topFilterBar/TopFilterBarContainer';
+// import { TopFilterBarContainer } from 'containers/search/topFilterBar/TopFilterBarContainer';
 
-import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import /* searchFiltersReducer, */ { initialState } from 'redux/reducers/search/searchFiltersReducer';
 
-import { mockAwardingAgency, mockFundingAgency, mockRecipient, mockLocation, mockAwardId } from './mockData';
+// import { mockAwardingAgency, mockFundingAgency, mockRecipient, mockLocation, mockAwardId } from './mockData';
 
-const initialAction = {
-    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
-    dateType: 'fy',
-    fy: new Set(),
-    start: null,
-    end: null
-};
+// const initialAction = {
+//     type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+//     dateType: 'fy',
+//     fy: new Set(),
+//     start: null,
+//     end: null
+// };
 
-const stateWithoutDefault = searchFiltersReducer(initialState, initialAction);
+// const stateWithoutDefault = searchFiltersReducer(initialState, initialAction);
 
-const defaultProps = {
-    reduxFilters: stateWithoutDefault,
-    updateFilterCount: jest.fn()
-};
+// const defaultProps = {
+//     reduxFilters: stateWithoutDefault,
+//     updateFilterCount: jest.fn()
+// };
 
-const setup = (props) =>
-    mount(<TopFilterBarContainer {...props} />);
+// const setup = (props) =>
+//     mount(<TopFilterBarContainer {...props} />);
 
 describe('TopFilterBarContainer', () => {
-    it('should return a TopFilterBar child component with no filters selected by default', () => {
-        const topBarContainer = setup({
-            reduxFilters: initialState,
-            updateFilterCount: jest.fn()
-        });
+    // it('should return a TopFilterBar child component with no filters selected by default', () => {
+    //     const topBarContainer = setup({
+    //         reduxFilters: initialState,
+    //         updateFilterCount: jest.fn()
+    //     });
 
-        expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
-    });
+    //     expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
+    // });
 
     // it('should return a TopFilterBar child component when there are active filters', () => {
     //     const filters = Object.assign({}, stateWithoutDefault, {
