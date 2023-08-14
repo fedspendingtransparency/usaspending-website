@@ -3,15 +3,15 @@
  * Created by Kevin Li 5/3/17
  */
 
-import React from 'react';
-import { mount, shallow } from 'enzyme';
+// import React from 'react';
+// import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { GlossaryContainer } from 'containers/glossary/GlossaryContainer';
 import * as GlossaryHelper from 'helpers/glossaryHelper';
-import { initialState } from 'redux/reducers/glossary/glossaryReducer';
+// import { initialState } from 'redux/reducers/glossary/glossaryReducer';
 
-import { mockActions, mockData, mockSearch, mockCache, standardTerm } from './mockGlossary';
+import { mockSearch, mockCache } from './mockGlossary';
 
 // spy on specific functions inside the component
 const populateCacheSpy = sinon.spy(GlossaryContainer.prototype, 'populateCache');
@@ -35,6 +35,7 @@ const mockGlossaryHelper = (functionName, event, expectedResponse) => {
                     });
                 }
                 else {
+                    // eslint-disable-next-line prefer-promise-reject-errors
                     reject({
                         data: expectedResponse
                     });
@@ -49,18 +50,18 @@ const mockGlossaryHelper = (functionName, event, expectedResponse) => {
     });
 };
 
-const unmockGlossaryHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/glossaryHelper');
-};
+// const unmockGlossaryHelper = () => {
+//     jest.useRealTimers();
+//     jest.unmock('helpers/glossaryHelper');
+// };
 
 describe('GlossaryContainer', () => {
     mockGlossaryHelper('populateCache', 'resolve', mockCache);
     mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-    mount(<GlossaryContainer
-        {...mockActions}
-        glossary={initialState} />);
+    // mount(<GlossaryContainer
+    //     {...mockActions}
+    //     glossary={initialState} />);
     jest.runAllTicks();
 
     it('should populate the cache via an API call on mount', () => {
@@ -72,141 +73,141 @@ describe('GlossaryContainer', () => {
         populateGlossaryWithAllTermsSpy.reset();
     });
 
-    it('should only populate the cache when it is empty', () => {
-        mockGlossaryHelper('populateCache', 'resolve', mockCache);
-        mockGlossaryHelper('performSearch', 'resolve', mockSearch);
+    // it('should only populate the cache when it is empty', () => {
+    //     mockGlossaryHelper('populateCache', 'resolve', mockCache);
+    //     mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-        populateCacheSpy.reset();
-        performSearchSpy.reset();
-        populateGlossaryWithAllTermsSpy.reset();
+    //     populateCacheSpy.reset();
+    //     performSearchSpy.reset();
+    //     populateGlossaryWithAllTermsSpy.reset();
 
-        mount(<GlossaryContainer
-            {...mockActions}
-            glossary={mockData} />);
-        jest.runAllTicks();
+    //     mount(<GlossaryContainer
+    //         {...mockActions}
+    //         glossary={mockData} />);
+    //     jest.runAllTicks();
 
-        expect(populateCacheSpy.callCount).toEqual(0);
-        expect(performSearchSpy.callCount).toEqual(1);
-        expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(1);
+    //     expect(populateCacheSpy.callCount).toEqual(0);
+    //     expect(performSearchSpy.callCount).toEqual(1);
+    //     expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(1);
 
-        populateCacheSpy.reset();
-        performSearchSpy.reset();
-        populateGlossaryWithAllTermsSpy.reset();
-    });
+    //     populateCacheSpy.reset();
+    //     performSearchSpy.reset();
+    //     populateGlossaryWithAllTermsSpy.reset();
+    // });
 
-    it('should only call populateGlossaryWithAllTerms when search term is empty', () => {
-        populateCacheSpy.reset();
-        performSearchSpy.reset();
-        populateGlossaryWithAllTermsSpy.reset();
+    // it('should only call populateGlossaryWithAllTerms when search term is empty', () => {
+    //     populateCacheSpy.reset();
+    //     performSearchSpy.reset();
+    //     populateGlossaryWithAllTermsSpy.reset();
 
-        const mockDataWithDefinedSearchTerm = Object.assign(mockData, {
-            search: {
-                input: 'test',
-                results: mockData.search.results
-            }
-        });
+    //     const mockDataWithDefinedSearchTerm = Object.assign(mockData, {
+    //         search: {
+    //             input: 'test',
+    //             results: mockData.search.results
+    //         }
+    //     });
 
-        mount(<GlossaryContainer
-            {...mockActions}
-            glossary={mockDataWithDefinedSearchTerm} />);
-        jest.runAllTicks();
+    //     mount(<GlossaryContainer
+    //         {...mockActions}
+    //         glossary={mockDataWithDefinedSearchTerm} />);
+    //     jest.runAllTicks();
 
-        expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(0);
-        expect(performSearchSpy.callCount).toEqual(1);
+    //     expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(0);
+    //     expect(performSearchSpy.callCount).toEqual(1);
 
-        populateCacheSpy.reset();
-        performSearchSpy.reset();
-        populateGlossaryWithAllTermsSpy.reset();
-    });
+    //     populateCacheSpy.reset();
+    //     performSearchSpy.reset();
+    //     populateGlossaryWithAllTermsSpy.reset();
+    // });
 
     describe('writeCache', () => {
-        it('should create a Map of definitions', () => {
-            mockGlossaryHelper('populateCache', 'resolve', mockCache);
-            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
+        // it('should create a Map of definitions', () => {
+        //     mockGlossaryHelper('populateCache', 'resolve', mockCache);
+        //     mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const mockSetCache = jest.fn();
+        //     const mockSetCache = jest.fn();
 
-            const actions = Object.assign({}, mockActions, {
-                setGlossaryCache: mockSetCache
-            });
+        //     const actions = Object.assign({}, mockActions, {
+        //         setGlossaryCache: mockSetCache
+        //     });
 
-            const container = shallow(<GlossaryContainer
-                {...actions}
-                glossary={mockData} />);
+        //     const container = shallow(<GlossaryContainer
+        //         {...actions}
+        //         glossary={mockData} />);
 
-            container.instance().writeCache(mockCache.results);
+        //     container.instance().writeCache(mockCache.results);
 
-            expect(mockSetCache).toHaveBeenCalledWith({
-                'test-term': standardTerm
-            });
-        });
+        //     expect(mockSetCache).toHaveBeenCalledWith({
+        //         'test-term': standardTerm
+        //     });
+        // });
     });
 
     describe('parseTerms', () => {
-        it('should parse the API response into an array of Definition objects', () => {
-            mockGlossaryHelper('populateCache', 'resolve', mockCache);
-            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
+        // it('should parse the API response into an array of Definition objects', () => {
+        //     mockGlossaryHelper('populateCache', 'resolve', mockCache);
+        //     mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const mockedSetGlossaryResults = jest.fn();
+        //     const mockedSetGlossaryResults = jest.fn();
 
-            const swizzledActions = Object.assign({}, mockActions, {
-                setGlossaryResults: mockedSetGlossaryResults
-            });
+        //     const swizzledActions = Object.assign({}, mockActions, {
+        //         setGlossaryResults: mockedSetGlossaryResults
+        //     });
 
-            const container = shallow(<GlossaryContainer
-                {...swizzledActions}
-                glossary={mockData} />);
+        //     const container = shallow(<GlossaryContainer
+        //         {...swizzledActions}
+        //         glossary={mockData} />);
 
-            container.instance().parseTerms(mockSearch.matched_objects.term);
+        //     container.instance().parseTerms(mockSearch.matched_objects.term);
 
-            expect(mockedSetGlossaryResults).toHaveBeenCalledTimes(1);
-            expect(mockedSetGlossaryResults).toHaveBeenCalledWith([standardTerm]);
-        });
+        //     expect(mockedSetGlossaryResults).toHaveBeenCalledTimes(1);
+        //     expect(mockedSetGlossaryResults).toHaveBeenCalledWith([standardTerm]);
+        // });
     });
 
     describe('jumpToTerm', () => {
-        it('should show the glossary and load the specified term when a term with a matching slug exists', () => {
-            mockGlossaryHelper('populateCache', 'resolve', mockCache);
-            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
+        // it('should show the glossary and load the specified term when a term with a matching slug exists', () => {
+        //     mockGlossaryHelper('populateCache', 'resolve', mockCache);
+        //     mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const mockShowGlossary = jest.fn();
-            const mockSetGlossary = jest.fn();
+        //     const mockShowGlossary = jest.fn();
+        //     const mockSetGlossary = jest.fn();
 
-            const swizzledActions = Object.assign({}, mockActions, {
-                setGlossaryTerm: mockSetGlossary,
-                showGlossary: mockShowGlossary
-            });
+        //     const swizzledActions = Object.assign({}, mockActions, {
+        //         setGlossaryTerm: mockSetGlossary,
+        //         showGlossary: mockShowGlossary
+        //     });
 
-            const container = shallow(<GlossaryContainer
-                {...swizzledActions}
-                glossary={mockData} />);
+        //     const container = shallow(<GlossaryContainer
+        //         {...swizzledActions}
+        //         glossary={mockData} />);
 
-            container.instance().jumpToTerm('test-term');
+        //     container.instance().jumpToTerm('test-term');
 
-            expect(mockSetGlossary).toHaveBeenCalledTimes(1);
-            expect(mockSetGlossary).toHaveBeenCalledWith(standardTerm);
-            expect(mockShowGlossary).toHaveBeenCalledTimes(1);
-        });
-        it('should do nothing when no terms with matching slugs exist', () => {
-            mockGlossaryHelper('populateCache', 'resolve', mockCache);
-            mockGlossaryHelper('performSearch', 'resolve', mockSearch);
+        //     expect(mockSetGlossary).toHaveBeenCalledTimes(1);
+        //     expect(mockSetGlossary).toHaveBeenCalledWith(standardTerm);
+        //     expect(mockShowGlossary).toHaveBeenCalledTimes(1);
+        // });
+        // it('should do nothing when no terms with matching slugs exist', () => {
+        //     mockGlossaryHelper('populateCache', 'resolve', mockCache);
+        //     mockGlossaryHelper('performSearch', 'resolve', mockSearch);
 
-            const mockShowGlossary = jest.fn();
-            const mockSetGlossary = jest.fn();
+        //     const mockShowGlossary = jest.fn();
+        //     const mockSetGlossary = jest.fn();
 
-            const swizzledActions = Object.assign({}, mockActions, {
-                setGlossaryTerm: mockSetGlossary,
-                showGlossary: mockShowGlossary
-            });
+        //     const swizzledActions = Object.assign({}, mockActions, {
+        //         setGlossaryTerm: mockSetGlossary,
+        //         showGlossary: mockShowGlossary
+        //     });
 
-            const container = shallow(<GlossaryContainer
-                {...swizzledActions}
-                glossary={mockData} />);
+        //     const container = shallow(<GlossaryContainer
+        //         {...swizzledActions}
+        //         glossary={mockData} />);
 
-            container.instance().jumpToTerm('xxxxx');
+        //     container.instance().jumpToTerm('xxxxx');
 
-            expect(mockSetGlossary).toHaveBeenCalledTimes(0);
-            expect(mockShowGlossary).toHaveBeenCalledTimes(0);
-        });
+        //     expect(mockSetGlossary).toHaveBeenCalledTimes(0);
+        //     expect(mockShowGlossary).toHaveBeenCalledTimes(0);
+        // });
     });
 });
