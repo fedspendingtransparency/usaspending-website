@@ -137,7 +137,7 @@ const StatusOfFundsChart = ({
         if (isLargeScreen) {
             if (!toggle) {
                 if (isMediumScreen) {
-                    return chartHeight + 200;
+                    return chartHeight + 140;
                 }
                 return chartHeight + 575;
             }
@@ -145,6 +145,7 @@ const StatusOfFundsChart = ({
         }
         return chartHeight;
     };
+    console.log("isMediumScreen", isMediumScreen);
     const chartHeightViewBox = () => {
         if (window.innerWidth >= 992 && window.innerWidth < 1200 && toggle) {
             return viewHeight * 1.5;
