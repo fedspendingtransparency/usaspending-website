@@ -17,7 +17,7 @@ install:
 script:
   - npm run dev
   - npm run travis
-  - npm run lhci:test
+  - npm run lhci:audit
 after_success:
   - npm install -g codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/lcov.info
