@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 08/09/2023
  **/
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef, useCallback} from 'react';
 import { throttle } from "lodash";
 import { tabletScreen, mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
@@ -85,11 +85,13 @@ const aboutSections = [
 
 const InPageNav = () => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [hiddenElements, setHiddenElements] = useState([]);
+    const [elements, setElements] = useState([]);
+    const [navStartIndex, setNavStartIndex] = useState(0);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
-    const tempHiddenElements = [];
+    let tempElements = [];
+
 
     const checkOverflow = (el) => {
         const isOverflowing = el.clientWidth < el.scrollWidth
@@ -99,37 +101,65 @@ const InPageNav = () => {
     };
 
     /* check if the left chevron should show */
-    const isScrolledLeft = () => {
-        // how far to scroll left
-        // first hidden element should scroll to
-    };
+    // const isScrolledLeft = () => {
+    //     // how far to scroll left
+    //     // first hidden element should scroll to
+    //     // find the first hidden element and get the offset for the next element
+    //     const index = elements.findIndex((x) => x.hidden);
+    //     return index > 0 ? index - 1 : null;
+    // };
 
-    const isHidden = (el) => {
-        let hidden = false;
+    const isHidden = useCallback((el) => {
         const box = el.getBoundingClientRect();
         const documentWidth = navBar.current.clientWidth;
+        const hidden = box.left < 0 || box.right > documentWidth;
         // replace the document width with the width of the in page nav container element
-        if (box.left < 0 || box.right > documentWidth) {
-            tempHiddenElements.push({
-                element: el,
-                name: el.firstChild.innerHTML,
-                offset: box.left
-            });
-            hidden = true;
-        }
-        // return (el.offsetParent === null);
+        tempElements.push({
+            element: el,
+            name: el.firstChild.innerHTML,
+            offset: box.left,
+            hidden: box.left < 0 || box.right > documentWidth
+        });
         return hidden;
+    });
+
+    const getPageMargins = () => {
+        const el1 = document.querySelector("#main-content");
+        const el2 = document.querySelector(".about-padded-content");
+        const padding = parseInt(window.getComputedStyle(el1, null)?.marginLeft, 10) + parseInt(window.getComputedStyle(el2, null)?.paddingLeft, 10);
+        return padding;
     };
 
     const scrollLeft = () => {
-        console.log(hiddenElements);
-        if (hiddenElements?.length > 0) {
-            navBar.current.scrollLeft = hiddenElements[0].offset - 100;
+        // find the first hidden element and get the offset for the next element
+        navBar.current.childNodes[0].childNodes.forEach((el) => {
+            isHidden(el);
+        });
+
+        setElements(tempElements);
+        console.log(navStartIndex)
+        const index = tempElements.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
+        const padding = getPageMargins();
+        console.log(tempElements[index - 1]);
+        console.log(tempElements);
+        if (index > 0) {
+            setNavStartIndex(index);
+            navBar.current.scrollLeft += tempElements[index - 1].offset - padding;
         }
+
+        tempElements = [];
     };
 
     const scrollRight = () => {
         navBar.current.scrollLeft = "0";
+    };
+
+    const getElementList = () => {
+        navBar.current.childNodes[0].childNodes.forEach((el) => {
+            isHidden(el);
+        });
+
+        setElements(tempElements);
     };
 
     /* check which elements are visible and which ones are not */
@@ -138,14 +168,7 @@ const InPageNav = () => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
-                /* check if ref is in overflow*/
-                // console.log(checkOverflow(navBar.current));
-                // console.log(navBar.current.childNodes[0].childNodes);
-                navBar.current.childNodes[0].childNodes.forEach((el) => {
-                    isHidden(el);
-                });
-
-                setHiddenElements(tempHiddenElements);
+                // getElementList();
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
             }
@@ -155,10 +178,11 @@ const InPageNav = () => {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    }, [isHidden, tempElements, windowWidth]);
 
     return (
         <>
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
             <div><span onClick={() => scrollLeft()}>left</span> | <span onClick={() => scrollRight()}>right</span></div>
             <nav className="in-page-nav-wrapper" ref={navBar}>
                 <ul>

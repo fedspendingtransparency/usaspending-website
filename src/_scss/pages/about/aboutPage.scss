@@ -28,6 +28,10 @@
         height: 56px;
         white-space: nowrap;
 
+        ul {
+            padding: 0;
+        }
+
         li {
             display: inline;
             a {
