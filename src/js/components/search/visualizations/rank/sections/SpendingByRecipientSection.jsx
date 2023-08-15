@@ -90,14 +90,6 @@ export default class SpendingByRecipientSection extends React.Component {
                             </ReadMore>
                         }
                     </div>
-                    <div className="visualization-scope">
-
-                        <RankVisualizationScopeButton
-                            value="recipient"
-                            label="Recipient"
-                            active={this.props.scope === 'recipient'}
-                            changeScope={this.props.changeScope} />
-                    </div>
                 </div>
             </RankVisualizationSection>
         );
