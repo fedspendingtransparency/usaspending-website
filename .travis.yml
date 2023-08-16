@@ -1,16 +1,9 @@
 language: node_js
+dist: focal
 node_js:
-  - "16.14.2"
+  - 18
 # Need a C++ compiler
 addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
-  chrome: stable
-env:
-  - CXX=g++-4.8
 cache:
   directories:
     - node_modules
@@ -18,9 +11,9 @@ before_install:
   - npm install -g @lhci/cli@0.9.x
   - npm install -g webpack@5.67.0
   - npm install -g webpack-cli@4.10.0
-  - npm install -g npm@8.5.1
+  - npm install -g npm@9.8.1
 install:
-  - npm ci --legacy-peer-deps
+  - npm install --legacy-peer-deps --timeout=90000
 script:
   - npm run dev
   - npm run travis
