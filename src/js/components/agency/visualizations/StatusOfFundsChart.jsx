@@ -56,14 +56,14 @@ const StatusOfFundsChart = ({
         const browser = window.navigator.userAgent;
         if (browser.includes('Chrome')) {
             setMouseValue({
-                x: e.clientX - document.getElementById('sof_chart').getBoundingClientRect().left,
-                y: (e.clientY - document.getElementById('sof_chart').getBoundingClientRect().top) + 5
+                x: e.clientX - document.getElementById('sof_chart')?.getBoundingClientRect().left,
+                y: (e.clientY - document.getElementById('sof_chart')?.getBoundingClientRect().top) + 5
             });
         }
         else if (browser.includes('Firefox') || browser.includes('Safari')) {
             setMouseValue({
-                x: e.clientX - document.getElementById('sof_chart').getBoundingClientRect().left,
-                y: e.clientY - document.getElementById('sof_chart').getBoundingClientRect().top
+                x: e.clientX - document.getElementById('sof_chart')?.getBoundingClientRect().left,
+                y: e.clientY - document.getElementById('sof_chart')?.getBoundingClientRect().top
             });
         }
         else {
@@ -80,10 +80,10 @@ const StatusOfFundsChart = ({
     }, [setMouseData]);
 
     useEffect(() => {
-        setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
+        setTextScale(viewWidth / chartRef.current?.getBoundingClientRect().width);
 
         const handleResize = throttle(() => {
-            setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
+            setTextScale(viewWidth / chartRef.current?.getBoundingClientRect().width);
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
@@ -100,7 +100,7 @@ const StatusOfFundsChart = ({
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
     function wrapText(text) {
         text.each(function w() {
-            const textWidth = chartRef.current.getBoundingClientRect().width * 0.3;
+            const textWidth = chartRef.current?.getBoundingClientRect().width * 0.3;
             const textNode = d3.select(this);
             const words = textNode.text().split(/\s+/).reverse();
             let word;
@@ -137,7 +137,7 @@ const StatusOfFundsChart = ({
         if (isLargeScreen) {
             if (!toggle) {
                 if (isMediumScreen) {
-                    return chartHeight + 200;
+                    return chartHeight + 140;
                 }
                 return chartHeight + 575;
             }
