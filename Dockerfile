@@ -1,4 +1,4 @@
-FROM node:16.14.2
+FROM node:18.17.0
 
 # Default environment variables
 ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
@@ -22,10 +22,9 @@ WORKDIR /node-workspace
 #FE Devs building docker locally may require you to uncomment the next two lines
 # RUN npm config set https-proxy "http://p1proxy.frb.org:8080/"
 # RUN npm config set proxy "http://p1proxy.frb.org:8080/"
-
-RUN npm install --verbose -g npm@8.5.0
-RUN npm install --verbose -g webpack@5.67.0
-RUN npm install -g webpack-cli@4.10.0
+RUN npm install -g npm@9.8.1
+RUN npm install -g webpack@5.88.2
+RUN npm install -g webpack-cli@5.1.4
 RUN npm ci --legacy-peer-deps
 
 # Now copy the remaining source files
