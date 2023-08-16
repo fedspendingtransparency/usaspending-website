@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 08/09/2023
  **/
 
-import React, {useEffect, useState, useRef, useCallback} from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { throttle } from "lodash";
 import { tabletScreen, mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
@@ -93,10 +93,13 @@ const InPageNav = () => {
     let tempElements = [];
 
 
-    const checkOverflow = (el) => {
-        const isOverflowing = el.clientWidth < el.scrollWidth
-            || el.clientHeight < el.scrollHeight;
-
+    const isOverflow = () => {
+        let isOverflowing = false;
+        if (navBar?.current) {
+            const el = navBar.current;
+            isOverflowing = el.clientWidth < el.scrollWidth
+                || el.clientHeight < el.scrollHeight;
+        }
         return isOverflowing;
     };
 
@@ -130,18 +133,19 @@ const InPageNav = () => {
         return padding;
     };
 
-    const scrollLeft = () => {
+    const reset = () => {
+        navBar.current.scrollLeft = "0";
+    };
+
+    const scrollRight = () => {
         // find the first hidden element and get the offset for the next element
         navBar.current.childNodes[0].childNodes.forEach((el) => {
             isHidden(el);
         });
 
         setElements(tempElements);
-        console.log(navStartIndex)
         const index = tempElements.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
         const padding = getPageMargins();
-        console.log(tempElements[index - 1]);
-        console.log(tempElements);
         if (index > 0) {
             setNavStartIndex(index);
             navBar.current.scrollLeft += tempElements[index - 1].offset - padding;
@@ -150,8 +154,23 @@ const InPageNav = () => {
         tempElements = [];
     };
 
-    const scrollRight = () => {
-        navBar.current.scrollLeft = "0";
+    const scrollLeft = () => {
+        // find the first hidden element and get the offset for the next element
+        navBar.current.childNodes[0].childNodes.forEach((el) => {
+            isHidden(el);
+        });
+
+        setElements(tempElements);
+        const padding = getPageMargins();
+
+        if (navStartIndex > 0) {
+            navBar.current.scrollLeft -= navBar.current.clientWidth - padding;
+        }
+        else {
+            navBar.current.scrollLeft = "0";
+        }
+
+        tempElements = [];
     };
 
     const getElementList = () => {
@@ -183,7 +202,7 @@ const InPageNav = () => {
     return (
         <>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <div><span onClick={() => scrollLeft()}>left</span> | <span onClick={() => scrollRight()}>right</span></div>
+            {isOverflow() && <div><span onClick={() => scrollLeft()}>left</span> | <span onClick={() => scrollRight()}>right</span> | | <span onClick={() => reset()}>reset</span></div>}
             <nav className="in-page-nav-wrapper" ref={navBar}>
                 <ul>
                     {aboutSections.map((section) => (<li className="in-page-nav__element"><a href="">{section.label}</a> | </li>))}
