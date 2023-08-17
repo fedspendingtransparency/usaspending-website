@@ -78,7 +78,7 @@ const AmountsVisualization = ({
 
     useEffect(() => {
         document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
-        return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
+        return () => document.getElementById('amounts-viz_id')?.removeEventListener('mousemove', setMouseData);
     }, []);
 
     const tooltipData = () => ({

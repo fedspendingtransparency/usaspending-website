@@ -126,6 +126,7 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
 
     useEffect(() => {
         setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tabCounts]);
 
     return (
@@ -143,7 +144,7 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
                 <p>
                     Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending. <span className="glossary-term">Assistance Listings</span>&nbsp;<GlossaryLink term="assistance-listings-cfda-program" /> are programs like
                     <a
-                        href="https://beta.sam.gov/fal/ccb612a4c4bb4ba98dbd427638a63029/view?keywords=snap&sort=-relevance&index=cfda&is_active=true&page=1"
+                        href="https://sam.gov/fal/ccb612a4c4bb4ba98dbd427638a63029/view?keywords=snap&sort=-relevance&index=cfda&is_active=true&page=1"
                         onClick={handleClick}>
                         &nbsp;Supplemental Nutrition Assistance Program (SNAP)&nbsp;
                     </a>
