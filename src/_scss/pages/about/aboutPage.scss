@@ -27,6 +27,11 @@
         overflow: hidden;
         height: 56px;
         white-space: nowrap;
+        scrollbar-width: none;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
 
         ul {
             padding: 0;
