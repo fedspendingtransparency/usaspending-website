@@ -57,7 +57,7 @@ const AboutContent = () => {
             return;
         }
         const sectionDom = document.querySelector(`#about-${section}`);
-        history.replace(`/about#about-${section}`);
+        history.replace(`/about?section=${section}`);
         if (!sectionDom) return;
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
@@ -73,7 +73,7 @@ const AboutContent = () => {
             if (urlSection) {
                 jumpToSection(urlSection);
                 // remove the query param from the url after scrolling to the given section
-                history.replace(`/about`);
+                // history.replace(`/about`);
             }
         }
         return () => {
