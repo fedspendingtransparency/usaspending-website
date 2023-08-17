@@ -11,8 +11,7 @@ module.exports = {
             additive: true,
             isSinglePageApplication: true,
             url: [ // the urls to run lighthouse against
-                'http://localhost/',
-                'http://localhost/disaster/covid-19'
+                'http://localhost/'
             ],
             settings: {
                 preset: "desktop"

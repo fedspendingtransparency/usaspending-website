@@ -1,4 +1,5 @@
-const axios = require('axios');
+import axios from 'axios';
+
 const pages = require('../../scripts/sitemaps/pages');
 
 describe('Array used for building sitemaps', () => {

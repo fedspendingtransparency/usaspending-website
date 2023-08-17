@@ -5,10 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-
-import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
 import RankVisualizationSection from './RankVisualizationSection';
 import GlossaryLink from '../../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../../sharedComponents/ReadMore';
@@ -90,22 +87,6 @@ export default class SpendingByRecipientSection extends React.Component {
                                 </>
                             </ReadMore>
                         }
-                    </div>
-                    <div className="visualization-scope">
-                        <div className="coming-soon">
-                            <RankVisualizationScopeButton
-                                value="recipient_parent_duns"
-                                label="Parent Recipient"
-                                active={this.props.scope === 'recipient_parent_duns'}
-                                changeScope={this.props.changeScope}
-                                disabled />
-                            <ComingSoonLabel />
-                        </div>
-                        <RankVisualizationScopeButton
-                            value="recipient"
-                            label="Recipient"
-                            active={this.props.scope === 'recipient'}
-                            changeScope={this.props.changeScope} />
                     </div>
                 </div>
             </RankVisualizationSection>
