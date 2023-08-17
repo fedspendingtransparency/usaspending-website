@@ -21,27 +21,27 @@ const GlossaryListener = ({
     const { pathname, search } = useLocation();
     const queryParams = useQueryParams();
 
-    useEffect(() => {
-    // The #fscommand=fstest is used to access the Foresee survey admin panel
-        if (!location.hash || location.hash.indexOf('#fscommand=fstest') > -1) {
-            return;
-        }
-
-        const urlWithNoHash = location.hash.split("#").length > 1
-            ? location.hash.split("#")[1]
-            : '';
-        history.replace(urlWithNoHash);
-    }, [location, history]);
+    // useEffect(() => {
+    // // The #fscommand=fstest is used to access the Foresee survey admin panel
+    //     if (!location.hash || location.hash.indexOf('#fscommand=fstest') > -1) {
+    //         return;
+    //     }
+    //
+    //     const urlWithNoHash = location.hash.split("#").length > 1
+    //         ? location.hash.split("#")[1]
+    //         : '';
+    //     history.replace(urlWithNoHash);
+    // }, [location, history]);
 
     useEffect(() => {
         if (search.includes('glossary')) {
             const { glossary: term } = queryParams;
             showGlossary();
             setTermFromUrl(term);
-            history.replace({
-                pathname,
-                search: getQueryParamString(omit(queryParams, ['glossary']))
-            });
+            // history.replace({
+            //     pathname,
+            //     search: getQueryParamString(omit(queryParams, ['glossary']))
+            // });
             setLastOpenedSlideout('glossary');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

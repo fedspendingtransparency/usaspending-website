@@ -57,6 +57,7 @@ const AboutContent = () => {
             return;
         }
         const sectionDom = document.querySelector(`#about-${section}`);
+        history.replace(`/about#about-${section}`);
         if (!sectionDom) return;
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
