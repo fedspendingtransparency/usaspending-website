@@ -183,6 +183,17 @@ const InPageNav = () => {
 
     /* check which elements are visible and which ones are not */
 
+    const onKeyPress = (e, direction) => {
+        if (e.key === "Enter") {
+            if (direction === "left") {
+                scrollLeft();
+            }
+
+            if (direction === "right") {
+                scrollRight();
+            }
+        }
+    };
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
@@ -201,11 +212,31 @@ const InPageNav = () => {
 
     return (
         <>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            {isOverflow() && <div><span onClick={() => scrollLeft()}>left</span> | <span onClick={() => scrollRight()}>right</span> | | <span onClick={() => reset()}>reset</span></div>}
+            {isOverflow() && <div>
+                <span
+                    tabIndex={isMobile ? 0 : ""}
+                    role="button"
+                    onKeyDown={(e) => onKeyPress(e, "left")}
+                    onClick={() => scrollLeft()}>left
+                </span> |
+                <span
+                    tabIndex={isMobile ? 0 : ""}
+                    role="button"
+                    onKeyDown={(e) => onKeyPress(e, "right")}
+                    onClick={() => scrollRight()}>right
+                </span> |
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <span onClick={() => reset()}>reset</span>
+            </div>}
             <nav className="in-page-nav-wrapper" ref={navBar}>
                 <ul>
-                    {aboutSections.map((section) => (<li className="in-page-nav__element"><a href="">{section.label}</a> | </li>))}
+                    {aboutSections.map((section) => (<li className="in-page-nav__element">
+                        <a
+                            onKeyDown={(e) => onKeyPress(e, "left")}
+                            onClick={() => scrollLeft()}>{section.label}
+                        </a>
+                        |
+                    </li>))}
                 </ul>
             </nav>
         </>
