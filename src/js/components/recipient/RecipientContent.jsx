@@ -3,9 +3,11 @@
  * Created by Lizzie Salita 8/23/17
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
+import { find, throttle } from 'lodash';
+import { useHistory } from "react-router-dom";
+import { useQueryParams } from 'helpers/queryParams';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -42,11 +44,14 @@ const RecipientContent = ({
     showChildRecipientModal,
     showAlternateNamesRecipientModal
 }) => {
-    const [activeSection, setActiveSection] = useState('overview');
+    const history = useHistory();
+    const query = useQueryParams();
+
+    const [activeSection, setActiveSection] = useState(query.section || 'overview');
 
     const jumpToSection = (section = '') => {
-    // we've been provided a section to jump to
-    // check if it's a valid section
+        // we've been provided a section to jump to
+        // check if it's a valid section
         const matchedSection = find(recipientSections, {
             section
         });
@@ -56,16 +61,36 @@ const RecipientContent = ({
             return;
         }
 
-        // update the state
+        // find the section in dom
         const sectionDom = document.querySelector(`#recipient-${section}`);
         if (!sectionDom) {
             return;
         }
 
+        // add section to url
+        history.replace(`${history.location.pathname}?section=${section}`);
+
+        // update the state
+        setActiveSection(section);
+
+        // add offsets
         const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
         scrollToY(sectionTop, 700);
-        setActiveSection(section);
     };
+
+    useEffect(throttle(() => {
+        // prevents a console error about react unmounted component leak
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                jumpToSection(urlSection);
+            }
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, 100), [history, query.section]);
 
     return (
         <div className="recipient-content-wrapper">
