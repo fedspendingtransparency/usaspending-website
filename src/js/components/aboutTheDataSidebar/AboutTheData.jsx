@@ -7,6 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
 import { isEqual } from "lodash";
@@ -27,6 +28,8 @@ const propTypes = {
 };
 
 const AboutTheData = (props) => {
+    const { pathname } = useLocation();
+    const history = useHistory();
     const [height, setHeight] = useState(0);
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
@@ -148,9 +151,13 @@ const AboutTheData = (props) => {
         setHeight(sidebarHeight);
     };
     const closeAboutTheData = useCallback(() => {
-        // close the glossary when the escape key is pressed for accessibility and general
+        // close the atd drawer when the escape key is pressed for accessibility and general
         props.hideAboutTheData();
-
+        clearDrilldown();
+        history.replace({
+            pathname,
+            search: ''
+        });
         // move focus back to the main content
         const mainContent = document.getElementById('main-focus');
         if (mainContent) {

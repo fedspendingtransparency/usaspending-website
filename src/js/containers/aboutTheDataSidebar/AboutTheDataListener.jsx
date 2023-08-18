@@ -7,10 +7,9 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { omit } from 'lodash';
 
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { useQueryParams } from 'helpers/queryParams';
 
 const AboutTheDataListener = ({
     history,
@@ -21,7 +20,7 @@ const AboutTheDataListener = ({
     setAboutTheDataTermFromUrl,
     Child
 }) => {
-    const { pathname, search } = useLocation();
+    const { search } = useLocation();
     const queryParams = useQueryParams();
 
     // this is not currently being used to open the atd slideout;
@@ -35,10 +34,6 @@ const AboutTheDataListener = ({
             const { "about-the-data": term } = queryParams;
             showAboutTheData();
             setAboutTheDataTermFromUrl(term);
-            history.replace({
-                pathname,
-                search: getQueryParamString(omit(queryParams, ['about-the-data']))
-            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl]);
