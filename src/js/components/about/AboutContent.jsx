@@ -53,19 +53,31 @@ const AboutContent = () => {
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
-        if (!find(aboutSections, { section })) { // not a known page section
+        // we've been provided a section to jump to
+        // check if it's a valid section
+        if (!find(aboutSections, { section })) {
             return;
         }
+
+        // find the section in dom
         const sectionDom = document.querySelector(`#about-${section}`);
-        history.replace(`/about?section=${section}`);
         if (!sectionDom) return;
+
+        // add section to url
+        history.replace(`/about?section=${section}`);
+
+        // update the state
+        setActiveSection(section);
+
+        // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
         scrollToY(sectionTop + 15, 700);
-        setActiveSection(section);
     };
 
     useEffect(throttle(() => {
+        // this allows the page to jump to a section on page load, when
+        // using a link to open the page
         // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
