@@ -77,20 +77,6 @@ const Covid19Page = ({ loading }) => {
         handleShareOptionClick(name, slug, getEmailSocialShareData);
     };
 
-    const handlePublicLawFilterClick = (law) => {
-        if (law === 'dsm') {
-            history.push({
-                pathname: `${window.location.pathname}/data-sources`
-            });
-        }
-        else {
-            history.push({
-                pathname: window.location.pathname,
-                search: `publicLaw=${law}`
-            });
-        }
-    };
-
     return (
         <PageWrapper
             pageName="COVID-19 Spending"
@@ -98,7 +84,6 @@ const Covid19Page = ({ loading }) => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
-                GlobalConstants.ARP_RELEASED ? <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} /> : <></>,
                 <ShareIcon
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare} />,
