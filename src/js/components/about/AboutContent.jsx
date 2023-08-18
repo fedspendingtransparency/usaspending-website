@@ -76,6 +76,8 @@ const AboutContent = () => {
     };
 
     useEffect(throttle(() => {
+        // this allows the page to jump to a section on page load, when
+        // using a link to open the page
         // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
