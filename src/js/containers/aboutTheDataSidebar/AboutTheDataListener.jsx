@@ -24,20 +24,8 @@ const AboutTheDataListener = ({
     const { pathname, search } = useLocation();
     const queryParams = useQueryParams();
 
-    // useEffect(() => {
-    //     // The #fscommand=fstest is used to access the Foresee survey admin panel
-    //     if (!location.hash || location.hash.indexOf('#fscommand=fstest') > -1) {
-    //         return;
-    //     }
-    //
-    //     const urlWithNoHash = location.hash.split("#").length > 1
-    //         ? location.hash.split("#")[1]
-    //         : '';
-    //     history.replace(urlWithNoHash);
-    // }, [location, history]);
-
     // this is not currently being used to open the atd slideout;
-    // for now it being opened from special functions in DropdownItem,
+    // for now it is being opened from special functions in DropdownItem,
     // MobileDropdownItem, and HomepageResources;
     // We aren't using this listener for ATD because it was causing
     // the page to reload when opening the slideout;
