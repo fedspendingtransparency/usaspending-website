@@ -42,12 +42,17 @@ const propTypes = {
 const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
     const history = useHistory();
-    const [activeSection, setActiveSection] = useState('overview');
+    const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
     const handleJumpToSection = (section) => {
         jumpToSection(section);
+
+        // add section to url
+        history.replace(`${history.location.pathname}?section=${section}`);
+
+        // update the state
         setActiveSection(section);
         Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
     };
@@ -61,6 +66,7 @@ const Covid19Page = ({ loading }) => {
                 search: newParams
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, isRecipientMapLoaded, query]);
 
     const handleExternalLinkClick = (url) => {
