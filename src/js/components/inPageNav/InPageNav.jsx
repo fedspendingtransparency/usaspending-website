@@ -7,83 +7,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { throttle } from "lodash";
 import { tabletScreen, mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
-
-const aboutSections = [
-    {
-        section: 'mission',
-        label: 'Mission'
-    },
-    {
-        section: 'background',
-        label: 'Background'
-    },
-    {
-        section: 'development',
-        label: 'Development and Releases'
-    },
-    {
-        section: 'licensing',
-        label: 'Licensing'
-    },
-    {
-        section: 'more-info',
-        label: 'More Information'
-    },
-    {
-        section: 'contact',
-        label: 'Contact'
-    },
-    {
-        section: 'mission2',
-        label: 'Mission2'
-    },
-    {
-        section: 'background2',
-        label: 'Background2'
-    },
-    {
-        section: 'development2',
-        label: 'Development and Releases2'
-    },
-    {
-        section: 'licensing2',
-        label: 'Licensing2'
-    },
-    {
-        section: 'more-info2',
-        label: 'More Information2'
-    },
-    {
-        section: 'contact2',
-        label: 'Contact2'
-    },
-    {
-        section: 'mission3',
-        label: 'Mission3'
-    },
-    {
-        section: 'background3',
-        label: 'Background3'
-    },
-    {
-        section: 'development3',
-        label: 'Development and Releases3'
-    },
-    {
-        section: 'licensing3',
-        label: 'Licensing3'
-    },
-    {
-        section: 'more-info3',
-        label: 'More Information3'
-    },
-    {
-        section: 'contact3',
-        label: 'Contact3'
-    }
-];
-
-const InPageNav = () => {
+const InPageNav = ({sections}) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [elements, setElements] = useState([]);
     const [navStartIndex, setNavStartIndex] = useState(0);
@@ -163,12 +87,18 @@ const InPageNav = () => {
         setElements(tempElements);
         const padding = getPageMargins();
 
-        if (navStartIndex > 0) {
-            navBar.current.scrollLeft -= navBar.current.clientWidth - padding;
+        const index = tempElements.findIndex((x) => -x.offset + padding < navBar.current.clientWidth);
+
+        setNavStartIndex(index);
+
+        if (index > 0) {
+            navBar.current.scrollLeft += tempElements[index + 1].offset;
         }
         else {
             navBar.current.scrollLeft = "0";
         }
+
+        console.log(navBar.current.scrollLeft);
 
         tempElements = [];
     };
@@ -230,7 +160,7 @@ const InPageNav = () => {
             </div>}
             <nav className="in-page-nav-wrapper" ref={navBar}>
                 <ul>
-                    {aboutSections.map((section) => (<li className="in-page-nav__element">
+                    {sections.map((section) => (<li className="in-page-nav__element">
                         <a
                             onKeyDown={(e) => onKeyPress(e, "left")}
                             onClick={() => scrollLeft()}>{section.label}
