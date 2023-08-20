@@ -31,9 +31,7 @@ const PageWrapper = ({
             stickyBreakPoint={getStickyBreakPointForSidebar()}
             overLine={overLine}
             toolBar={toolBarComponents} />}
-        {React.cloneElement(children, {
-            className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
-        })}
+        <div className={`usda-page__container${children?.props?.className ? ` ${children?.props?.className}` : ''}`}>{children}</div>
         <Footer pageName={pageName} filters={filters} />
     </div>
 );

@@ -20,82 +20,6 @@ import Development from '../Development';
 import Licensing from '../Licensing';
 import InPageNav from "../../inPageNav/InPageNav";
 
-const aboutSections = [
-    {
-        section: 'mission',
-        label: 'Mission'
-    },
-    {
-        section: 'background',
-        label: 'Background'
-    },
-    {
-        section: 'development',
-        label: 'Development and Releases'
-    },
-    {
-        section: 'licensing',
-        label: 'Licensing'
-    },
-    {
-        section: 'more-info',
-        label: 'More Information'
-    },
-    {
-        section: 'contact',
-        label: 'Contact'
-    },
-    {
-        section: 'mission2',
-        label: 'Mission2'
-    },
-    {
-        section: 'background2',
-        label: 'Background2'
-    },
-    {
-        section: 'development2',
-        label: 'Development and Releases2'
-    },
-    {
-        section: 'licensing2',
-        label: 'Licensing2'
-    },
-    {
-        section: 'more-info2',
-        label: 'More Information2'
-    },
-    {
-        section: 'contact2',
-        label: 'Contact2'
-    },
-    {
-        section: 'mission3',
-        label: 'Mission3'
-    },
-    {
-        section: 'background3',
-        label: 'Background3'
-    },
-    {
-        section: 'development3',
-        label: 'Development and Releases3'
-    },
-    {
-        section: 'licensing3',
-        label: 'Licensing3'
-    },
-    {
-        section: 'more-info3',
-        label: 'More Information3'
-    },
-    {
-        section: 'contact3',
-        label: 'Contact3'
-    }
-];
-
-
 const AboutContent = () => {
     const history = useHistory();
     const query = useQueryParams();
@@ -103,9 +27,9 @@ const AboutContent = () => {
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
-        if (!find(aboutSections, { section })) { // not a known page section
-            return;
-        }
+        // if (!find(sections, { section })) { // not a known page section
+        //     return;
+        // }
         const sectionDom = document.querySelector(`#about-${section}`);
         if (!sectionDom) return;
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
@@ -134,7 +58,6 @@ const AboutContent = () => {
         <div className="about-content-wrapper">
             <div className="about-content">
                 <div className="about-padded-content">
-                    <InPageNav sections={aboutSections} />
                     <Mission />
                     <Background />
                     <Development />

@@ -7,7 +7,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { throttle } from "lodash";
 import { tabletScreen, mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
-const InPageNav = ({sections}) => {
+const InPageNav = ({ sections }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [elements, setElements] = useState([]);
     const [navStartIndex, setNavStartIndex] = useState(0);
@@ -142,33 +142,34 @@ const InPageNav = ({sections}) => {
 
     return (
         <>
-            {isOverflow() && <div>
-                <span
+            <nav className="in-page-nav-wrapper" ref={navBar} style={{ display: "flex", flexDirection: "row" }}>
+                <div
+                    style={{ marginTop: "16px" }}
                     tabIndex={isMobile ? 0 : ""}
                     role="button"
                     onKeyDown={(e) => onKeyPress(e, "left")}
                     onClick={() => scrollLeft()}>left
-                </span> |
-                <span
+                </div>
+                <ul style={{ margin: "16px 32px", width: "90%", overflow: "hidden" }}>
+                    {sections.map((section) => (<li className="in-page-nav__element">
+                        <a
+                            role="button"
+                            tabIndex="0"
+                            onKeyDown={(e) => onKeyPress(e, "left")}
+                            onClick={() => scrollLeft()}>{section.label}
+                        </a>&nbsp;&nbsp;&nbsp;
+                    </li>))}
+                </ul>
+                <div
+                    style={{ marginTop: "16px" }}
                     tabIndex={isMobile ? 0 : ""}
                     role="button"
                     onKeyDown={(e) => onKeyPress(e, "right")}
                     onClick={() => scrollRight()}>right
-                </span> |
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <span onClick={() => reset()}>reset</span>
-            </div>}
-            <nav className="in-page-nav-wrapper" ref={navBar}>
-                <ul>
-                    {sections.map((section) => (<li className="in-page-nav__element">
-                        <a
-                            onKeyDown={(e) => onKeyPress(e, "left")}
-                            onClick={() => scrollLeft()}>{section.label}
-                        </a>
-                        |
-                    </li>))}
-                </ul>
+                </div>
             </nav>
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+            <div onClick={() => reset()}>Reset</div>
         </>
     );
 };
