@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { snakeCase } from 'lodash';
+import { snakeCase, kebabCase } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
@@ -48,7 +48,7 @@ const Covid19Page = ({ loading }) => {
         jumpToSection(section);
 
         // add section to url
-        history.replace(`${history.location.pathname}?section=${section}`);
+        history.replace(`${history.location.pathname}?section=${kebabCase(section)}`);
 
         // update the state
         setActiveSection(section);
