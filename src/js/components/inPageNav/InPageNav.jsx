@@ -7,7 +7,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { throttle } from "lodash";
 import { tabletScreen, mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
-const InPageNav = ({ sections }) => {
+const InPageNav = ({ sections, jumpToSection }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [elements, setElements] = useState([]);
     const [navStartIndex, setNavStartIndex] = useState(0);
@@ -15,7 +15,6 @@ const InPageNav = ({ sections }) => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
-    const tempElements = [];
 
 
     const checkIsOverflow = useCallback(() => {
@@ -37,76 +36,66 @@ const InPageNav = ({ sections }) => {
         setIsOverflow(isOverflowing);
     });
 
-    /* check if the left chevron should show */
-    // const isScrolledLeft = () => {
-    //     // how far to scroll left
-    //     // first hidden element should scroll to
-    //     // find the first hidden element and get the offset for the next element
-    //     const index = elements.findIndex((x) => x.hidden);
-    //     return index > 0 ? index - 1 : null;
-    // };
-
-    const isHidden = useCallback((el) => {
-        const box = el.getBoundingClientRect();
-        const documentWidth = navBar.current.clientWidth;
-        const hidden = box.left < 0 || box.right > documentWidth;
-        // replace the document width with the width of the in page nav container element
-        tempElements.push({
-            element: el,
-            name: el.firstChild.innerHTML,
-            offset: box.left,
-            hidden: box.left < 0 || box.right > documentWidth
-        });
-        return hidden;
-    });
 
     const reset = () => {
-        navBar.current.querySelector("ul").scrollLeft = "0";
+        navBar.current.querySelector("ul").scrollTo({ left: "0", behavior: 'smooth' });
     };
 
-    const scrollRight = () => {
-        // find the first hidden element and get the offset for the next element
-        navBar.current.querySelector("ul").childNodes.forEach((el) => {
-            isHidden(el);
+    const updateHiddenStatus = () => {
+        const list = [...elements];
+        navBar.current.querySelector("ul").childNodes.forEach((el, index) => {
+            const box = el.getBoundingClientRect();
+            const documentWidth = navBar.current.clientWidth;
+            list[index].hidden = box.left < 0 || box.right > documentWidth;
         });
 
-        setElements(tempElements);
-        const index = tempElements.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
-
-        if (index > 0) {
-            setNavStartIndex(index);
-            navBar.current.querySelector("ul").scrollLeft += tempElements[index - 1].offset;
-        }
+        return list;
     };
-
     const scrollLeft = () => {
-        // find the first hidden element and get the offset for the next element
-        navBar.current.querySelector("ul").childNodes.forEach((el) => {
-            isHidden(el);
-        });
-
-        setElements(tempElements);
-
-        const index = tempElements.findIndex((x) => -x.offset < navBar.current.clientWidth);
+        const tempList = updateHiddenStatus();
+        const index = tempList.findIndex((x) => x.offset < navBar.current.querySelector("ul").scrollLeft - navBar.current.clientWidth);
+        setElements(tempList);
 
         setNavStartIndex(index);
 
         if (index > 0) {
-            navBar.current.querySelector("ul").scrollLeft += tempElements[index + 1].offset;
+            navBar.current.querySelector("ul").scrollTo({ left: tempList[index + 1].offset, behavior: 'smooth' });
         }
         else {
-            navBar.current.querySelector("ul").scrollLeft = "0";
+            reset();
         }
 
         console.log(navBar.current.querySelector("ul").scrollLeft);
     };
 
+    const scrollRight = () => {
+        const tempList = updateHiddenStatus();
+        const index = tempList.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
+        setElements(tempList);
+
+        if (index > 0) {
+            setNavStartIndex(index);
+            // navBar.current.querySelector("ul").scrollLeft += tempElements[index - 1].offset;
+            navBar.current.querySelector("ul").scrollTo({ left: navBar.current.querySelector("ul").scrollLeft + tempList[index - 1].offset, behavior: 'smooth' });
+        }
+    };
+
     const getElementList = () => {
+        const els = [];
+
         navBar.current.querySelector("ul").childNodes.forEach((el) => {
-            isHidden(el);
+            const box = el.getBoundingClientRect();
+            const documentWidth = navBar.current.clientWidth;
+            // replace the document width with the width of the in page nav container element
+            els.push({
+                element: el,
+                name: el.firstChild.innerHTML,
+                offset: box.left,
+                hidden: box.left < 0 || box.right > documentWidth
+            });
         });
 
-        setElements(tempElements);
+        setElements(els);
     };
 
     /* check which elements are visible and which ones are not */
@@ -163,8 +152,8 @@ const InPageNav = ({ sections }) => {
                             <a
                                 role="button"
                                 tabIndex="0"
-                                onKeyDown={(e) => onKeyPress(e, "left")}
-                                onClick={() => scrollLeft()}>{section.label}
+                                onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
+                                onClick={() => jumpToSection(section.section)}>{section.label}
                             </a>&nbsp;&nbsp;&nbsp;
                         </li>))}
                 </ul>
