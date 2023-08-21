@@ -5,8 +5,6 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { handleShareOptionClick } from 'helpers/socialShare';
-import { useLocation, useHistory } from 'react-router-dom';
-
 import { ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
