@@ -106,7 +106,6 @@ export default class GlossaryDefinition extends React.Component {
         const slug = `?glossary=${this.props.glossary.term.toJS().slug}`;
         const url = `https://www.usaspending.gov/${slug}`;
         const options = socialShareOptions.map((option) => {
-            console.debug(option);
             if (option.name === 'copy') {
                 return {
                     ...option,
