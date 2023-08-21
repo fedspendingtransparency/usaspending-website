@@ -5,6 +5,8 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { handleShareOptionClick } from 'helpers/socialShare';
+import { useLocation, useHistory } from 'react-router-dom';
+
 import { ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +22,15 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
-    const value = `${window.location.href}?about-the-data=`;
+    const stripUrl = () => {
+        if (window.location.href.includes("?about-the-data=")) {
+            const ind = window.location.href.indexOf("?about-the-data=");
+            return `${window.location.href.substring(0, ind)}?about-the-data=`;
+        }
+        return `${window.location.href}?about-the-data=`;
+    };
+    const value = stripUrl();
+
     const onShareClick = (optionName) => {
         const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
         const emailArgs = {
