@@ -3,7 +3,7 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from "lodash";
 import {

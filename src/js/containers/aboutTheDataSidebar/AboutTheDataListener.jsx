@@ -28,7 +28,8 @@ const AboutTheDataListener = ({
     // MobileDropdownItem, and HomepageResources;
     // We aren't using this listener for ATD because it was causing
     // the page to reload when opening the slideout;
-    // todo - figure out why this listener is causing a page reload when the GlossaryListener does not
+    // todo - figure out why this listener is causing a page reload when the
+    //  GlossaryListener does not - ticket 9452
     useEffect(() => {
         if (search.includes('about-the-data')) {
             const { "about-the-data": term } = queryParams;
