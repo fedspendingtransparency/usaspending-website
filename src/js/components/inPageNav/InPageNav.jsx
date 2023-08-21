@@ -11,21 +11,31 @@ const InPageNav = ({ sections }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [elements, setElements] = useState([]);
     const [navStartIndex, setNavStartIndex] = useState(0);
+    const [isOverflow, setIsOverflow] = useState(false);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
-    let tempElements = [];
+    const tempElements = [];
 
 
-    const isOverflow = () => {
+    const checkIsOverflow = useCallback(() => {
         let isOverflowing = false;
-        if (navBar?.current) {
-            const el = navBar.current;
-            isOverflowing = el.clientWidth < el.scrollWidth
-                || el.clientHeight < el.scrollHeight;
+        if (navBar?.current?.querySelector("ul")) {
+            const el = navBar?.current?.querySelector("ul");
+            if (el.clientWidth < el.scrollWidth
+                || el.clientHeight < el.scrollHeight) {
+                if (!elements) {
+                    isOverflowing = true;
+                }
+
+                if (elements && elements[elements?.length - 1]?.hidden) {
+                    isOverflowing = true;
+                }
+            }
         }
-        return isOverflowing;
-    };
+
+        setIsOverflow(isOverflowing);
+    });
 
     /* check if the left chevron should show */
     // const isScrolledLeft = () => {
@@ -67,8 +77,6 @@ const InPageNav = ({ sections }) => {
             setNavStartIndex(index);
             navBar.current.querySelector("ul").scrollLeft += tempElements[index - 1].offset;
         }
-
-        tempElements = [];
     };
 
     const scrollLeft = () => {
@@ -91,8 +99,6 @@ const InPageNav = ({ sections }) => {
         }
 
         console.log(navBar.current.querySelector("ul").scrollLeft);
-
-        tempElements = [];
     };
 
     const getElementList = () => {
@@ -116,6 +122,11 @@ const InPageNav = ({ sections }) => {
             }
         }
     };
+
+    useEffect(() => {
+        checkIsOverflow();
+    }, [checkIsOverflow, elements]);
+
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
@@ -123,6 +134,8 @@ const InPageNav = ({ sections }) => {
                 // getElementList();
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
+                getElementList();
+                checkIsOverflow();
             }
         }, 50);
 
@@ -130,35 +143,41 @@ const InPageNav = ({ sections }) => {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [isHidden, tempElements, windowWidth]);
+    }, [checkIsOverflow, getElementList, windowWidth]);
 
     return (
         <>
             <nav className="in-page-nav-wrapper" ref={navBar} style={{ display: "flex", flexDirection: "row" }}>
-                {navBar.current.querySelector("ul").scrollLeft > 0 && <div
-                    style={{ marginTop: "16px" }}
-                    tabIndex={isMobile ? 0 : ""}
-                    role="button"
-                    onKeyDown={(e) => onKeyPress(e, "left")}
-                    onClick={() => scrollLeft()}>left
-                </div>}
+                {navBar?.current?.querySelector("ul")?.scrollLeft > 0 &&
+                    <div
+                        style={{ marginTop: "16px" }}
+                        tabIndex={isMobile ? 0 : ""}
+                        role="button"
+                        onKeyDown={(e) => onKeyPress(e, "left")}
+                        onClick={() => scrollLeft()}>left
+                    </div>}
+
                 <ul style={{ margin: "16px 32px", width: "90%", overflow: "hidden" }}>
-                    {sections.map((section) => (<li className="in-page-nav__element">
-                        <a
-                            role="button"
-                            tabIndex="0"
-                            onKeyDown={(e) => onKeyPress(e, "left")}
-                            onClick={() => scrollLeft()}>{section.label}
-                        </a>&nbsp;&nbsp;&nbsp;
-                    </li>))}
+                    {sections.map((section) => (
+                        <li className="in-page-nav__element">
+                            <a
+                                role="button"
+                                tabIndex="0"
+                                onKeyDown={(e) => onKeyPress(e, "left")}
+                                onClick={() => scrollLeft()}>{section.label}
+                            </a>&nbsp;&nbsp;&nbsp;
+                        </li>))}
                 </ul>
-                <div
-                    style={{ marginTop: "16px" }}
-                    tabIndex={isMobile ? 0 : ""}
-                    role="button"
-                    onKeyDown={(e) => onKeyPress(e, "right")}
-                    onClick={() => scrollRight()}>right
-                </div>
+
+                {isOverflow &&
+                    <div
+                        style={{ marginTop: "16px" }}
+                        tabIndex={isMobile ? 0 : ""}
+                        role="button"
+                        onKeyDown={(e) => onKeyPress(e, "right")}
+                        onClick={() => scrollRight()}>right
+                    </div>
+                }
             </nav>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
             <div onClick={() => reset()}>Reset</div>
