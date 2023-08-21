@@ -3,7 +3,7 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from "lodash";
 import {
@@ -93,7 +93,7 @@ export const AgencyProfileV2 = ({
             component: <StatusOfFunds fy={selectedFy} />
         },
         {
-            name: 'sub-agency',
+            name: 'award-spending',
             display: 'Award Spending',
             icon: 'hand-holding-usd',
             dataThroughDate: awardSpendingDataThroughDate,
@@ -120,7 +120,6 @@ export const AgencyProfileV2 = ({
         history.replace(`${history.location.pathname}?section=${section}`);
 
         // update the state
-        // setActiveSection(matchedSection.name);
         setActiveSection(section);
 
         // add offsets
