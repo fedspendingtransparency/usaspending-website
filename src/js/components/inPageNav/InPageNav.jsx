@@ -50,29 +50,22 @@ const InPageNav = ({ sections }) => {
         return hidden;
     });
 
-    const getPageMargins = () => {
-        const el1 = document.querySelector("#main-content");
-        const el2 = document.querySelector(".about-padded-content");
-        const padding = parseInt(window.getComputedStyle(el1, null)?.marginLeft, 10) + parseInt(window.getComputedStyle(el2, null)?.paddingLeft, 10);
-        return padding;
-    };
-
     const reset = () => {
-        navBar.current.scrollLeft = "0";
+        navBar.current.querySelector("ul").scrollLeft = "0";
     };
 
     const scrollRight = () => {
         // find the first hidden element and get the offset for the next element
-        navBar.current.childNodes[0].childNodes.forEach((el) => {
+        navBar.current.querySelector("ul").childNodes.forEach((el) => {
             isHidden(el);
         });
 
         setElements(tempElements);
         const index = tempElements.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
-        const padding = getPageMargins();
+
         if (index > 0) {
             setNavStartIndex(index);
-            navBar.current.scrollLeft += tempElements[index - 1].offset - padding;
+            navBar.current.querySelector("ul").scrollLeft += tempElements[index - 1].offset;
         }
 
         tempElements = [];
@@ -80,31 +73,30 @@ const InPageNav = ({ sections }) => {
 
     const scrollLeft = () => {
         // find the first hidden element and get the offset for the next element
-        navBar.current.childNodes[0].childNodes.forEach((el) => {
+        navBar.current.querySelector("ul").childNodes.forEach((el) => {
             isHidden(el);
         });
 
         setElements(tempElements);
-        const padding = getPageMargins();
 
-        const index = tempElements.findIndex((x) => -x.offset + padding < navBar.current.clientWidth);
+        const index = tempElements.findIndex((x) => -x.offset < navBar.current.clientWidth);
 
         setNavStartIndex(index);
 
         if (index > 0) {
-            navBar.current.scrollLeft += tempElements[index + 1].offset;
+            navBar.current.querySelector("ul").scrollLeft += tempElements[index + 1].offset;
         }
         else {
-            navBar.current.scrollLeft = "0";
+            navBar.current.querySelector("ul").scrollLeft = "0";
         }
 
-        console.log(navBar.current.scrollLeft);
+        console.log(navBar.current.querySelector("ul").scrollLeft);
 
         tempElements = [];
     };
 
     const getElementList = () => {
-        navBar.current.childNodes[0].childNodes.forEach((el) => {
+        navBar.current.querySelector("ul").childNodes.forEach((el) => {
             isHidden(el);
         });
 
@@ -143,13 +135,13 @@ const InPageNav = ({ sections }) => {
     return (
         <>
             <nav className="in-page-nav-wrapper" ref={navBar} style={{ display: "flex", flexDirection: "row" }}>
-                <div
+                {navBar.current.querySelector("ul").scrollLeft > 0 && <div
                     style={{ marginTop: "16px" }}
                     tabIndex={isMobile ? 0 : ""}
                     role="button"
                     onKeyDown={(e) => onKeyPress(e, "left")}
                     onClick={() => scrollLeft()}>left
-                </div>
+                </div>}
                 <ul style={{ margin: "16px 32px", width: "90%", overflow: "hidden" }}>
                     {sections.map((section) => (<li className="in-page-nav__element">
                         <a
