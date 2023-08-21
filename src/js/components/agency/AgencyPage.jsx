@@ -93,7 +93,7 @@ export const AgencyProfileV2 = ({
             component: <StatusOfFunds fy={selectedFy} />
         },
         {
-            name: 'sub-agency',
+            name: 'award-spending',
             display: 'Award Spending',
             icon: 'hand-holding-usd',
             dataThroughDate: awardSpendingDataThroughDate,
@@ -120,7 +120,6 @@ export const AgencyProfileV2 = ({
         history.replace(`${history.location.pathname}?section=${section}`);
 
         // update the state
-        // setActiveSection(matchedSection.name);
         setActiveSection(section);
 
         // add offsets
