@@ -41,10 +41,10 @@ const Covid19Container = () => {
         if (!publicLaw ||
             !(publicLaw === 'all' || (publicLaw in defcByPublicLaw)) ||
             (publicLaw === 'american-rescue-plan' && !GlobalConstants.ARP_RELEASED)) {
-            history.replace({
-                pathname: '',
-                search: '?publicLaw=all'
-            });
+            // history.replace({
+            //     pathname: '',
+            //     search: '?publicLaw=all'
+            // });
         }
         else if (!areDefCodesLoading) {
             // set DEFC params based on the currently selected public law
@@ -59,6 +59,13 @@ const Covid19Container = () => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [publicLaw, areDefCodesLoading]);
+
+    useEffect(() => {
+        if (!areDefCodesLoading) {
+            // use all Covid 19 DEFC
+            dispatch(setDefcParams(defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)));
+        }
+    }, [areDefCodesLoading, defCodes, dispatch]);
 
     useEffect(() => {
         dispatch(resetOverview());

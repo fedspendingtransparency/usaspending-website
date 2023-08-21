@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { omit, snakeCase } from 'lodash';
+import { snakeCase } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
@@ -23,15 +23,13 @@ import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
 import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
-import { getQueryParamString, useQueryParams } from 'helpers/queryParams';
+import { useQueryParams } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
 import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
-import GlobalConstants from 'GlobalConstants';
-import PublicLawPicker from './PublicLawPicker';
 
 require('pages/covid19/index.scss');
 
@@ -60,14 +58,9 @@ const Covid19Page = ({ loading }) => {
     useEffect(() => {
         if (isRecipientMapLoaded && query.section) {
             handleJumpToSection(query.section);
-            const newParams = getQueryParamString(omit(query, ['section']));
-            history.replace({
-                pathname: window.location.pathname,
-                search: newParams
-            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [history, isRecipientMapLoaded, query]);
+    }, [isRecipientMapLoaded, query.section]);
 
     const handleExternalLinkClick = (url) => {
         dispatch(showModal(url));
