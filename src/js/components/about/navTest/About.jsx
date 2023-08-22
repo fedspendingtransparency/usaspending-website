@@ -13,9 +13,9 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import { useQueryParams } from 'helpers/queryParams';
 import { find, throttle } from "lodash";
 import { useHistory } from "react-router-dom";
+import PageFeatureFlag from "components/sharedComponents/PageFeatureFlag";
 
 import AboutContent from './AboutContent';
-import InPageNav from "../../inPageNav/InPageNav";
 
 require('pages/about/aboutPage.scss');
 
@@ -97,7 +97,7 @@ const aboutSections = [
 
 const About = () => {
     const query = useQueryParams();
-    const [activeSection, setActiveSection] = useState(query.section || 'mission');
+    // const [activeSection, setActiveSection] = useState(query.section || 'mission');
     const history = useHistory();
 
     const jumpToSection = (section = '') => {
@@ -109,7 +109,7 @@ const About = () => {
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
         scrollToY(sectionTop + 15, 700);
-        setActiveSection(section);
+        // setActiveSection(section);
     };
 
 
@@ -130,16 +130,19 @@ const About = () => {
     }, 100), [history, query.section]);
 
     return (
-        <PageWrapper
-            pageName="About"
-            classNames="usa-da-about-page"
-            metaTagProps={aboutPageMetaTags}
-            title="About">
-            <InPageNav sections={aboutSections} jumpToSection={jumpToSection} />
-            <main id="main-content" className="main-content">
-                <AboutContent />
-            </main>
-        </PageWrapper>
+        <PageFeatureFlag>
+            <PageWrapper
+                pageName="About"
+                classNames="usa-da-about-page"
+                metaTagProps={aboutPageMetaTags}
+                title="About"
+                sections={aboutSections}
+                jumpToSection={jumpToSection}>
+                <main id="main-content" className="main-content">
+                    <AboutContent />
+                </main>
+            </PageWrapper>
+        </PageFeatureFlag>
     );
 };
 
