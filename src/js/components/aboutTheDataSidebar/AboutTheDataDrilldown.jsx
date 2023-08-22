@@ -20,33 +20,18 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
-    const discernGlossary = () => {
-        if (window.location.href.includes('glossary=')) {
-            return true;
-        }
-        return false;
-    };
-
-    const discernATD = () => {
-        if (window.location.href.includes('about-the-data=')) {
-            return true;
-        }
-        return false;
-    };
-
-    const addParams = () => {
-        if (discernATD() || discernGlossary() || window.location.href.includes('?')) {
-            return '&';
-        }
-        return '?';
-    };
     // figure out if there is a param
     const stripUrl = () => {
-        if (discernATD()) {
-            const ind = window.location.href.indexOf("about-the-data=");
-            return `${window.location.href.substring(0, ind - 1)}${addParams()}about-the-data=`;
+        const url = new URL(window.location.href);
+        if (url.search !== '') {
+            const test1 = window.location.href.includes("about-the-data=");
+            const test2 = window.location.href.includes("glossary=");
+            const test3 = window.location.href.includes("?");
+            if (test1 || test2 || test3) {
+                return `${window.location.href}&about-the-data=`;
+            }
         }
-        return `${window.location.href}${addParams()}about-the-data=`;
+        return `${window.location.href}?about-the-data=`;
     };
     const value = stripUrl();
 
