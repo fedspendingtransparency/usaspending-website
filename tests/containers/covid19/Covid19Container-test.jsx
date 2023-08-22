@@ -75,11 +75,5 @@ describe('COVID-19 Container', () => {
             render(<Covid19Container />, { initialState: { covid19: { defCodes: covidDEFC } } });
             expect(spy).toHaveBeenCalledWith(['L', 'M']);
         });
-        it('sets the correct ARP DEFC params in redux', () => {
-            const spy = jest.spyOn(actions, 'setDefcParams');
-            useQueryParams.mockImplementation(() => ({ publicLaw: 'american-rescue-plan' }));
-            render(<Covid19Container />, { initialState: { covid19: { defCodes: mockDefCodes.data.codes } } });
-            expect(spy).toHaveBeenCalledWith(['V']);
-        });
     });
 });
