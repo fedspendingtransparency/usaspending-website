@@ -7,18 +7,18 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import { useQueryParams } from 'helpers/queryParams';
 
 const AboutTheDataListener = ({
     history,
-    aboutTheDataSidebar,
     match,
     location,
     showAboutTheData,
     setAboutTheDataTermFromUrl,
-    Child
+    Child,
+    setLastOpenedSlideout
 }) => {
     const { search } = useLocation();
     const queryParams = useQueryParams();
@@ -35,9 +35,10 @@ const AboutTheDataListener = ({
             const { "about-the-data": term } = queryParams;
             showAboutTheData();
             setAboutTheDataTermFromUrl(term);
+            setLastOpenedSlideout('atd');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl]);
+    }, [history.location.search]);
     return <Child {...{ history, match, location }} />;
 };
 
@@ -45,10 +46,10 @@ AboutTheDataListener.propTypes = {
     history: PropTypes.object,
     match: PropTypes.object,
     location: PropTypes.object,
-    aboutTheDataSidebar: PropTypes.object,
     showAboutTheData: PropTypes.func,
     setAboutTheDataTermFromUrl: PropTypes.func,
-    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
+    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node]),
+    setLastOpenedSlideout: PropTypes.func
 };
 
 const AboutTheDataListenerContainer = connect(
@@ -57,7 +58,8 @@ const AboutTheDataListenerContainer = connect(
     }),
     (dispatch) => ({
         showAboutTheData: () => dispatch(aboutTheDataActions.showAboutTheData()),
-        setAboutTheDataTermFromUrl: (term) => dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(term))
+        setAboutTheDataTermFromUrl: (term) => dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(term)),
+        setLastOpenedSlideout: (lastOpened) => dispatch(slideoutActions.setLastOpenedSlideout(lastOpened))
     })
 )(AboutTheDataListener);
 
