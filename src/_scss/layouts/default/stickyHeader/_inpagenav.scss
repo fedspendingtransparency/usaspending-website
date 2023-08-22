@@ -1,0 +1,48 @@
+.in-page-nav__wrapper {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 56px;
+  white-space: nowrap;
+
+  @media (max-width: $medium-screen) {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+  }
+
+  .in-page-nav__paginator {
+    margin-top: 16px;
+    cursor: pointer;
+  }
+
+  ul {
+    padding: 0;
+    scroll-behavior: smooth;
+    margin: 16px 32px;
+    width: 90%;
+    overflow: hidden;
+  }
+
+  li {
+    display: inline;
+    a {
+      margin: 2px;
+    }
+  }
+}
+
+.in-page-nav__wrapper::-webkit-scrollbar {
+  width: 0px;
+  height: 0;
+  background: transparent; /* Chrome/Safari/Webkit */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+  display: none;
+}

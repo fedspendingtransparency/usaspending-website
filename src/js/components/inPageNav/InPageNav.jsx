@@ -23,20 +23,22 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const padding = 32;
 
     const checkIsOverflow = () => {
-        let isOverflowing = false;
+        setTimeout(() => {
+            let isOverflowing = false;
 
-        if (ulElement) {
-            if (ulElement.clientWidth < ulElement.scrollWidth
-                || ulElement.clientHeight < ulElement.scrollHeight) {
-                isOverflowing = true;
+            if (ulElement) {
+                if (ulElement.clientWidth < ulElement.scrollWidth
+                    || ulElement.clientHeight < ulElement.scrollHeight) {
+                    isOverflowing = true;
+                }
+
+                if (ulElement.scrollLeft + padding >= ulElement.scrollWidth - ulElement.clientWidth) {
+                    isOverflowing = false;
+                }
+
+                setIsOverflow(isOverflowing);
             }
-
-            if (ulElement.scrollLeft + padding >= ulElement.scrollWidth - ulElement.clientWidth) {
-                isOverflowing = false;
-            }
-
-            setIsOverflow(isOverflowing);
-        }
+        }, 100);
     };
 
     const reset = () => {
@@ -63,13 +65,14 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     const scrollLeft = () => {
         const tempList = updateHiddenStatus();
-        // eslint-disable-next-line no-mixed-operators
-        const index = tempList.findIndex((x) => x.originalLeftOffset > ulElement.scrollLeft - ulElement.clientWidth + (padding * 2));
+        const scrollLeftThreshold = ulElement.scrollLeft - ulElement.clientWidth;
+        const lftRtMargins = padding * 2;
+        const index = tempList.findIndex((x) => x.originalLeftOffset > scrollLeftThreshold + lftRtMargins);
         setElementData(tempList);
 
         if (index > 0) {
             setNavStartIndex(index + 1);
-            ulElement.scrollTo({ left: tempList[index + 1].originalLeftOffset - padding, behavior: 'smooth' });
+            ulElement.scrollTo({ left: tempList[index + 1].originalLeftOffset - padding, behavior: 'smooth' }, checkIsOverflow());
             setIsScrollableLeft(true);
             checkIsOverflow();
         }
@@ -152,10 +155,10 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     return (
         <>
-            <nav className="in-page-nav-wrapper" ref={navBar} style={{ display: "flex", flexDirection: "row" }}>
+            <nav className="in-page-nav__wrapper" ref={navBar}>
                 {isScrollableLeft &&
                     <div
-                        style={{ marginTop: "16px" }}
+                        className="in-page-nav__paginator"
                         tabIndex={isMobile ? 0 : ""}
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "left")}
@@ -163,7 +166,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
                         <FontAwesomeIcon icon="chevron-left" alt="Back" />
                     </div>}
 
-                <ul style={{ margin: "16px 32px", width: "90%", overflow: "hidden" }}>
+                <ul>
                     {sections.map((section) => (
                         <li className="in-page-nav__element" key={`in-page-nav-li-${section.label}`}>
                             <a
@@ -178,7 +181,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
                 {isOverflow &&
                     <div
-                        style={{ marginTop: "16px" }}
+                        className="in-page-nav__paginator"
                         tabIndex={isMobile ? 0 : ""}
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "right")}
@@ -188,7 +191,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 }
             </nav>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <div onClick={() => reset()}>Reset (remove when development is completed)</div>
+            <div style={{ marginLeft: "32px" }} onClick={() => reset()}>Reset (for development purposes)</div>
         </>
     );
 };

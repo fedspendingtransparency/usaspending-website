@@ -140,6 +140,7 @@ const About = () => {
                 sections={aboutSections}
                 jumpToSection={jumpToSection}>
                 <main id="main-content" className="main-content">
+                    <p>Test Page - For lower environments only</p>
                     <AboutContent />
                 </main>
             </PageWrapper>
