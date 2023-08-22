@@ -75,7 +75,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
         if (index > 0) {
             console.log("scroll left index", index);
-            setNavStartIndex(index);
+            setNavStartIndex(index + 1);
             ulElement.scrollTo({ left: tempList[index + 1].offset - padding, behavior: 'smooth' });
             setIsScrollableLeft(true);
         }
@@ -87,15 +87,17 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const scrollRight = () => {
         const tempList = updateHiddenStatus();
         console.log("starting index", navStartIndex);
-        const index = tempList.slice(navStartIndex + 1).findIndex((x) => x.hidden) + navStartIndex;
+        const index = tempList.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
         setElementData(tempList);
 
-        if (index > 0) {
+        if (index - 1 > 0) {
             console.log("scroll right index", index);
-            setNavStartIndex(index);
+            setNavStartIndex(index - 1);
             ulElement.scrollTo({ left: tempList[index - 1].offset - padding, behavior: 'smooth' });
             setIsScrollableLeft(true);
             checkIsOverflow();
+        } else {
+            reset();
         }
     };
 

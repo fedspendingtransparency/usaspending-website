@@ -3,7 +3,7 @@
  * Created by Mike Bray 11/20/2017
  **/
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
@@ -11,7 +11,7 @@ import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { useQueryParams } from 'helpers/queryParams';
-import { throttle } from "lodash";
+import { find, throttle } from "lodash";
 import { useHistory } from "react-router-dom";
 
 import AboutContent from './AboutContent';
@@ -22,75 +22,75 @@ require('pages/about/aboutPage.scss');
 const aboutSections = [
     {
         section: 'mission',
-        label: 'Mission'
+        label: 'Mission1'
     },
     {
         section: 'background',
-        label: 'Background'
-    },
-    {
-        section: 'development',
-        label: 'Development and Releases'
-    },
-    {
-        section: 'licensing',
-        label: 'Licensing'
-    },
-    {
-        section: 'more-info',
-        label: 'More Information'
-    },
-    {
-        section: 'contact',
-        label: 'Contact'
-    },
-    {
-        section: 'mission2',
-        label: 'Mission2'
-    },
-    {
-        section: 'background2',
         label: 'Background2'
     },
     {
-        section: 'development2',
-        label: 'Development and Releases2'
-    },
-    {
-        section: 'licensing2',
-        label: 'Licensing2'
-    },
-    {
-        section: 'more-info2',
-        label: 'More Information2'
-    },
-    {
-        section: 'contact2',
-        label: 'Contact2'
-    },
-    {
-        section: 'mission3',
-        label: 'Mission3'
-    },
-    {
-        section: 'background3',
-        label: 'Background3'
-    },
-    {
-        section: 'development3',
+        section: 'development',
         label: 'Development and Releases3'
     },
     {
-        section: 'licensing3',
-        label: 'Licensing3'
+        section: 'licensing',
+        label: 'Licensing4'
     },
     {
-        section: 'more-info3',
-        label: 'More Information3'
+        section: 'more-info',
+        label: 'More Information5'
     },
     {
-        section: 'contact3',
-        label: 'Contact3'
+        section: 'contact',
+        label: 'Contact6'
+    },
+    {
+        section: 'mission',
+        label: 'Mission7'
+    },
+    {
+        section: 'background',
+        label: 'Background8'
+    },
+    {
+        section: 'development',
+        label: 'Development and Releases9'
+    },
+    {
+        section: 'licensing',
+        label: 'Licensing10'
+    },
+    {
+        section: 'more-info',
+        label: 'More Information11'
+    },
+    {
+        section: 'contact',
+        label: 'Contact12'
+    },
+    {
+        section: 'mission',
+        label: 'Mission13'
+    },
+    {
+        section: 'background',
+        label: 'Background14'
+    },
+    {
+        section: 'development',
+        label: 'Development and Releases15'
+    },
+    {
+        section: 'licensing',
+        label: 'Licensing16'
+    },
+    {
+        section: 'more-info',
+        label: 'More Information17'
+    },
+    {
+        section: 'contact',
+        label: 'Contact18'
     }
 ];
 
@@ -101,9 +101,9 @@ const About = () => {
     const history = useHistory();
 
     const jumpToSection = (section = '') => {
-        // if (!find(sections, { section })) { // not a known page section
-        //     return;
-        // }
+        if (!find(aboutSections, { section })) { // not a known page section
+            return;
+        }
         const sectionDom = document.querySelector(`#about-${section}`);
         if (!sectionDom) return;
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
