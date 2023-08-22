@@ -29,6 +29,7 @@ const AboutTheDataLink = ({ slug, children }) => {
     };
     return (
         <Link
+            to=""
             className="usda-atd-link"
             aria-label="Open the About the Data"
             onClick={(e) => openAboutTheDataSidebar(e)}>

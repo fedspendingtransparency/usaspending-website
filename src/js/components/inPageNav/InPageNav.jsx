@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 08/09/2023
  **/
 
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { throttle } from "lodash";
 import { tabletScreen, mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,65 +19,59 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
 
+    // make this dynamic once the styling is added for the feature
     const padding = 32;
 
-    const checkIsOverflow = useCallback(() => {
+    const checkIsOverflow = () => {
         let isOverflowing = false;
 
         if (ulElement) {
-            console.log(ulElement.scrollLeft);
-            console.log(ulElement.scrollWidth);
-            console.log(ulElement.clientWidth);
-            console.log(elementData);
-            if (ulElement.scrollLeft >= ulElement.scrollWidth - ulElement.clientWidth) {
-                isOverflowing = false;
-            }
-
-            if (elementData && !elementData[elementData?.length - 1]?.hidden) {
-                isOverflowing = false;
-            }
-
             if (ulElement.clientWidth < ulElement.scrollWidth
                 || ulElement.clientHeight < ulElement.scrollHeight) {
                 isOverflowing = true;
             }
 
-            console.log(isOverflowing);
+            if (ulElement.scrollLeft + padding >= ulElement.scrollWidth - ulElement.clientWidth) {
+                isOverflowing = false;
+            }
+
             setIsOverflow(isOverflowing);
         }
-    });
+    };
 
-
-    const reset = useCallback(() => {
+    const reset = () => {
         if (ulElement) {
             ulElement.scrollTo({ left: "0", behavior: 'smooth' });
-            setIsScrollableLeft(false);
+            ulElement.scrollLeft = "0";
             checkIsOverflow();
+            setIsScrollableLeft(false);
         }
-    });
+    };
 
+    /* Check which elements are visible vs hidden */
     const updateHiddenStatus = () => {
         const tempList = [...elementData];
         ulElement.childNodes.forEach((el, index) => {
             const box = el.getBoundingClientRect();
             const documentWidth = ulElement.clientWidth;
             tempList[index].hidden = box.left < 0 || box.right > documentWidth;
+            tempList[index].leftOffset = box.left;
+            tempList[index].rightOffset = box.right;
         });
-
         return tempList;
     };
 
     const scrollLeft = () => {
         const tempList = updateHiddenStatus();
         // eslint-disable-next-line no-mixed-operators
-        const index = tempList.findIndex((x) => x.offset > ulElement.scrollLeft - ulElement.clientWidth + (padding * 2));
+        const index = tempList.findIndex((x) => x.originalLeftOffset > ulElement.scrollLeft - ulElement.clientWidth + (padding * 2));
         setElementData(tempList);
 
         if (index > 0) {
-            console.log("scroll left index", index);
             setNavStartIndex(index + 1);
-            ulElement.scrollTo({ left: tempList[index + 1].offset - padding, behavior: 'smooth' });
+            ulElement.scrollTo({ left: tempList[index + 1].originalLeftOffset - padding, behavior: 'smooth' });
             setIsScrollableLeft(true);
+            checkIsOverflow();
         }
         else {
             reset();
@@ -86,17 +80,16 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     const scrollRight = () => {
         const tempList = updateHiddenStatus();
-        console.log("starting index", navStartIndex);
         const index = tempList.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
         setElementData(tempList);
 
         if (index - 1 > 0) {
-            console.log("scroll right index", index);
             setNavStartIndex(index - 1);
-            ulElement.scrollTo({ left: tempList[index - 1].offset - padding, behavior: 'smooth' });
+            ulElement.scrollTo({ left: tempList[index - 1].originalLeftOffset - padding, behavior: 'smooth' });
             setIsScrollableLeft(true);
             checkIsOverflow();
-        } else {
+        }
+        else {
             reset();
         }
     };
@@ -110,15 +103,15 @@ const InPageNav = ({ sections, jumpToSection }) => {
             els.push({
                 element: el,
                 name: el.firstChild.innerHTML,
-                offset: box.left,
-                hidden: box.left < 0 || box.right > documentWidth
+                originalLeftOffset: box.left,
+                hidden: box.left < 0 || box.right > documentWidth,
+                leftOffset: box.left,
+                rightOffset: box.right
             });
         });
 
         setElementData(els);
     };
-
-    /* check which elements are visible and which ones are not */
 
     const onKeyPress = (e, direction) => {
         if (e.key === "Enter") {
@@ -154,6 +147,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ulElement]);
 
     return (
@@ -171,10 +165,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
                 <ul style={{ margin: "16px 32px", width: "90%", overflow: "hidden" }}>
                     {sections.map((section) => (
-                        <li className="in-page-nav__element">
+                        <li className="in-page-nav__element" key={`in-page-nav-li-${section.label}`}>
                             <a
                                 role="button"
                                 tabIndex="0"
+                                key={`in-page-nav-link-${section.label}`}
                                 onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
                                 onClick={() => jumpToSection(section.section)}>{section.label}
                             </a>&nbsp;&nbsp;&nbsp;
@@ -193,7 +188,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 }
             </nav>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <div onClick={() => reset()}>Reset</div>
+            <div onClick={() => reset()}>Reset (remove when development is completed)</div>
         </>
     );
 };

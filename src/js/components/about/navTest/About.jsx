@@ -1,9 +1,9 @@
 /**
- * About.jsx
- * Created by Mike Bray 11/20/2017
+ * navTest/About.jsx
+ * Created by Andrea Blackwell 8/22/2023
  **/
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
@@ -22,7 +22,7 @@ require('pages/about/aboutPage.scss');
 const aboutSections = [
     {
         section: 'mission',
-        label: 'Mission1'
+        label: 'Start: Mission1'
     },
     {
         section: 'background',
@@ -90,13 +90,14 @@ const aboutSections = [
     },
     {
         section: 'contact',
-        label: 'Contact18'
+        label: 'End: Contact18'
     }
 ];
 
 
 const About = () => {
     const query = useQueryParams();
+    // commented out while in page nav feature is in development
     // const [activeSection, setActiveSection] = useState(query.section || 'mission');
     const history = useHistory();
 

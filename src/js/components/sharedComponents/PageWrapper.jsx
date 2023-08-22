@@ -52,7 +52,7 @@ PageWrapper.propTypes = {
     ref: PropTypes.object,
     noHeader: PropTypes.bool,
     filters: PropTypes.object,
-    sections: PropTypes.object,
+    sections: PropTypes.array,
     jumpToSection: PropTypes.func
 };
 

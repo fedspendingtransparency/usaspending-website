@@ -1,6 +1,6 @@
 /**
- * AboutContent.jsx
- * Created by Mike Bray 11/20/2017
+ * navTest/AboutContent.jsx
+ * Created by Andrea Blackwell 8/22/2023
  **/
 
 import React from 'react';
@@ -11,21 +11,19 @@ import Contact from '../Contact';
 import Development from '../Development';
 import Licensing from '../Licensing';
 
-const AboutContent = () => {
-    return (
-        <div className="about-content-wrapper">
-            <div className="about-content">
-                <div className="about-padded-content">
-                    <Mission />
-                    <Background />
-                    <Development />
-                    <Licensing />
-                    <MoreInfo />
-                    <Contact />
-                </div>
+const AboutContent = () => (
+    <div className="about-content-wrapper">
+        <div className="about-content">
+            <div className="about-padded-content">
+                <Mission />
+                <Background />
+                <Development />
+                <Licensing />
+                <MoreInfo />
+                <Contact />
             </div>
         </div>
-    );
-};
+    </div>
+);
 
 export default AboutContent;
