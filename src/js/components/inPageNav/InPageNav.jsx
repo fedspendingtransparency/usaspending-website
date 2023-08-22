@@ -41,17 +41,19 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 isOverflowing = true;
             }
 
-            console.log(isOverflowing)
+            console.log(isOverflowing);
             setIsOverflow(isOverflowing);
         }
     });
 
 
-    const reset = () => {
-        ulElement.scrollTo({ left: "0", behavior: 'smooth' });
-        setIsScrollableLeft(false);
-        checkIsOverflow();
-    };
+    const reset = useCallback(() => {
+        if (ulElement) {
+            ulElement.scrollTo({ left: "0", behavior: 'smooth' });
+            setIsScrollableLeft(false);
+            checkIsOverflow();
+        }
+    });
 
     const updateHiddenStatus = () => {
         const tempList = [...elementData];
@@ -61,9 +63,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
             tempList[index].hidden = box.left < 0 || box.right > documentWidth;
         });
 
-        console.log(tempList)
         return tempList;
     };
+
     const scrollLeft = () => {
         const tempList = updateHiddenStatus();
         // eslint-disable-next-line no-mixed-operators
@@ -80,8 +82,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
         else {
             reset();
         }
-
-        console.log(ulElement.scrollLeft);
     };
 
     const scrollRight = () => {
@@ -97,7 +97,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
             setIsScrollableLeft(true);
             checkIsOverflow();
         }
-
     };
 
     const getElementList = () => {
@@ -131,28 +130,23 @@ const InPageNav = ({ sections, jumpToSection }) => {
         }
     };
 
+    const handleResize = throttle(() => {
+        const newWidth = window.innerWidth;
+        if (windowWidth !== newWidth) {
+            setWindowWidth(newWidth);
+            setIsMobile(newWidth < mediumScreen);
+            reset();
+        }
+    }, 50);
+
     useEffect(() => {
         setUlElement(navBar.current.querySelector("ul"));
     }, []);
 
     useEffect(() => {
-        if(ulElement) {
+        if (ulElement) {
             checkIsOverflow();
             getElementList();
-        }
-    }, [ulElement]);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-                reset();
-            }
-        }, 50);
-
-        if (ulElement) {
             handleResize();
         }
 
