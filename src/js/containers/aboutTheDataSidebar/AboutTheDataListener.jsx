@@ -32,6 +32,7 @@ const AboutTheDataListener = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history.location.search]);
+
     return <Child {...{ history, match, location }} />;
 };
 
