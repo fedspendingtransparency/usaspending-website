@@ -67,16 +67,14 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const scrollLeft = () => {
         const tempList = updateHiddenStatus();
         // eslint-disable-next-line no-mixed-operators
-        const index = tempList.findIndex((x) => x.offset > ulElement.scrollLeft - ulElement.clientWidth + padding * 2);
+        const index = tempList.findIndex((x) => x.offset > ulElement.scrollLeft - ulElement.clientWidth + (padding * 2));
         setElementData(tempList);
         setNavStartIndex(index);
 
         if (index > 0) {
-            console.log("offset", tempList[index].offset);
-            console.log("scrollLeft", ulElement.scrollLeft);
-            console.log("clientWidth", ulElement.clientWidth);
-
-            ulElement.scrollTo({ left: tempList[index + 1].offset, behavior: 'smooth' });
+            console.log("scroll left index", index);
+            setNavStartIndex(index);
+            ulElement.scrollTo({ left: tempList[index + 1].offset - padding, behavior: 'smooth' });
             setIsScrollableLeft(true);
         }
         else {
@@ -88,13 +86,14 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     const scrollRight = () => {
         const tempList = updateHiddenStatus();
-        const index = tempList.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
+        console.log("starting index", navStartIndex);
+        const index = tempList.slice(navStartIndex + 1).findIndex((x) => x.hidden) + navStartIndex;
         setElementData(tempList);
 
         if (index > 0) {
+            console.log("scroll right index", index);
             setNavStartIndex(index);
-            // navBar.current.querySelector("ul").scrollLeft += tempElements[index - 1].offset;
-            ulElement.scrollTo({ left: ulElement.scrollLeft + tempList[index - 1].offset, behavior: 'smooth' });
+            ulElement.scrollTo({ left: tempList[index - 1].offset - padding, behavior: 'smooth' });
             setIsScrollableLeft(true);
             checkIsOverflow();
         }
@@ -107,7 +106,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
         ulElement.childNodes.forEach((el) => {
             const box = el.getBoundingClientRect();
             const documentWidth = ulElement.clientWidth;
-            // replace the document width with the width of the in page nav container element
             els.push({
                 element: el,
                 name: el.firstChild.innerHTML,
@@ -150,7 +148,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
-                checkIsOverflow();
+                reset();
             }
         }, 50);
 
