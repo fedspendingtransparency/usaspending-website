@@ -28,6 +28,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
             console.log(ulElement.scrollLeft);
             console.log(ulElement.scrollWidth);
             console.log(ulElement.clientWidth);
+            console.log(elementData);
             if (ulElement.scrollLeft >= ulElement.scrollWidth - ulElement.clientWidth) {
                 isOverflowing = false;
             }
@@ -71,7 +72,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
         // eslint-disable-next-line no-mixed-operators
         const index = tempList.findIndex((x) => x.offset > ulElement.scrollLeft - ulElement.clientWidth + (padding * 2));
         setElementData(tempList);
-        setNavStartIndex(index);
 
         if (index > 0) {
             console.log("scroll left index", index);
