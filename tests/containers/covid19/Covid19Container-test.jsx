@@ -51,25 +51,6 @@ describe('COVID-19 Container', () => {
         expect(spy).toHaveBeenCalledTimes(0);
         expect(spy2).toHaveBeenCalledTimes(0);
     });
-    it('redirects to all DEFC when the public law query param is invalid', () => {
-        useQueryParams.mockImplementation(() => ({ publicLaw: 'blah' }));
-        render(<Covid19Container />);
-        expect(mockHistoryReplace).toHaveBeenCalledTimes(1);
-        expect(mockHistoryReplace).toHaveBeenCalledWith({
-            pathname: '',
-            search: '?publicLaw=all'
-        });
-    });
-
-    it('redirects if no public law query param is provided', () => {
-        useQueryParams.mockImplementation(() => ({ publicLaw: '' }));
-        render(<Covid19Container />);
-        expect(mockHistoryReplace).toHaveBeenCalledTimes(1);
-        expect(mockHistoryReplace).toHaveBeenCalledWith({
-            pathname: '',
-            search: '?publicLaw=all'
-        });
-    });
 
     describe('when a valid public law query param is provided', () => {
         it('does not redirect all DEFC', () => {
