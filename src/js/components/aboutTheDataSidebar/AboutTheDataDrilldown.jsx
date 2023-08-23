@@ -24,10 +24,8 @@ const AboutTheDataDrilldown = ({
     const stripUrl = () => {
         const url = new URL(window.location.href);
         if (url.search !== '') {
-            const test1 = window.location.href.includes("about-the-data=");
-            const test2 = window.location.href.includes("glossary=");
-            const test3 = window.location.href.includes("?");
-            if (test1 || test2 || test3) {
+            const test = window.location.href.includes("?");
+            if (test) {
                 return `${window.location.href}&about-the-data=`;
             }
         }
