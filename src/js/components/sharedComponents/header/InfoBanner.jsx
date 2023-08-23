@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes, {oneOfType} from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cookies from "js-cookie";
