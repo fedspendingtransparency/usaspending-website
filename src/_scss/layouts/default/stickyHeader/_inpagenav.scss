@@ -4,45 +4,54 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   height: 56px;
-  white-space: nowrap;
-
-  @media (max-width: $medium-screen) {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none;
-  }
 
   .in-page-nav__paginator {
+    display: block;
     margin-top: 16px;
     cursor: pointer;
+
+    @media (max-width: 991px) {
+      display: none;
+    }
   }
 
   ul {
     padding: 0;
     scroll-behavior: smooth;
     margin: 16px 32px;
-    width: 90%;
     overflow: hidden;
+    width: 90%;
+    white-space: nowrap;
+
+    @media (max-width: 991px) {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      scroll-snap-type: x mandatory;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none;
+    }
   }
 
   li {
     display: inline;
+    cursor: pointer;
     a {
       margin: 2px;
     }
   }
 }
 
-.in-page-nav__wrapper::-webkit-scrollbar {
-  width: 0px;
-  height: 0;
-  background: transparent; /* Chrome/Safari/Webkit */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
-  display: none;
+.in-page-nav__wrapper ul::-webkit-scrollbar {
+  @media (max-width: 991px) {
+    width: 0;
+    height: 0;
+    background: transparent; /* Chrome/Safari/Webkit */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    display: none;
+  }
 }
