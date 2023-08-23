@@ -73,7 +73,7 @@ const SearchResults = (props) => {
                     toggleMobileFilters={props.toggleMobileFilters} />
             </div>
             <div className="tablet-search__modal">
-                <Button
+                {!props.showMobileFilters && <Button
                     onClick={(e) => {
                         e.persist();
                         dispatch(showModal(window.location.href, 'filter'));
@@ -90,7 +90,7 @@ const SearchResults = (props) => {
                     buttonType="text"
                     backgroundColor="light"
                     imageAlignment="right"
-                    image={<FontAwesomeIcon icon="window-restore" />} />
+                    image={<FontAwesomeIcon icon="window-restore" />} />}
             </div>
             <div className="full-search-results-wrapper">
                 <TopFilterBarContainer {...props} />
