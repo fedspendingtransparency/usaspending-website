@@ -14,7 +14,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const [ulElement, setUlElement] = useState(null);
     const [navStartIndex, setNavStartIndex] = useState(0);
     const [isOverflow, setIsOverflow] = useState(false);
-    const [isScrollableLeft, setIsScrollableLeft] = useState(false);
+    const [scrollLeftPosition, setScrollLeftPosition] = useState([]);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
@@ -26,18 +26,16 @@ const InPageNav = ({ sections, jumpToSection }) => {
         setTimeout(() => {
             let isOverflowing = false;
 
-            if (ulElement) {
-                if (ulElement.clientWidth < ulElement.scrollWidth
-                    || ulElement.clientHeight < ulElement.scrollHeight) {
-                    isOverflowing = true;
-                }
-
-                if (ulElement.scrollLeft + padding >= ulElement.scrollWidth - ulElement.clientWidth) {
-                    isOverflowing = false;
-                }
-
-                setIsOverflow(isOverflowing);
+            if (ulElement.clientWidth < ulElement.scrollWidth
+                || ulElement.clientHeight < ulElement.scrollHeight) {
+                isOverflowing = true;
             }
+
+            if (scrollLeftPosition?.length > 0 && scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset >= ulElement.clientWidth) {
+                isOverflowing = false;
+            }
+
+            setIsOverflow(isOverflowing);
         }, 100);
     };
 
@@ -46,7 +44,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
             ulElement.scrollTo({ left: "0", behavior: 'smooth' });
             ulElement.scrollLeft = "0";
             checkIsOverflow();
-            setIsScrollableLeft(false);
+            setScrollLeftPosition([]);
         }
     };
 
@@ -65,15 +63,12 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     const scrollLeft = () => {
         const tempList = updateHiddenStatus();
-        const scrollLeftThreshold = ulElement.scrollLeft - ulElement.clientWidth;
-        const lftRtMargins = padding * 2;
-        const index = tempList.findIndex((x) => x.originalLeftOffset > scrollLeftThreshold + lftRtMargins);
         setElementData(tempList);
 
-        if (index > 0) {
-            setNavStartIndex(index + 1);
-            ulElement.scrollTo({ left: tempList[index + 1].originalLeftOffset - padding, behavior: 'smooth' }, checkIsOverflow());
-            setIsScrollableLeft(true);
+        if (scrollLeftPosition.length > 1) {
+            setNavStartIndex(scrollLeftPosition[scrollLeftPosition.length - 2].index);
+            ulElement.scrollTo({ left: scrollLeftPosition[scrollLeftPosition.length - 2].offset, behavior: 'smooth' });
+            scrollLeftPosition.pop();
             checkIsOverflow();
         }
         else {
@@ -88,8 +83,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
         if (index - 1 > 0) {
             setNavStartIndex(index - 1);
-            ulElement.scrollTo({ left: tempList[index - 1].originalLeftOffset - padding, behavior: 'smooth' });
-            setIsScrollableLeft(true);
+            const leftPosition = tempList[index - 1].originalLeftOffset - padding;
+            ulElement.scrollTo({ left: leftPosition, behavior: 'smooth' });
+            scrollLeftPosition.push({ offset: leftPosition, index });
             checkIsOverflow();
         }
         else {
@@ -156,7 +152,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
     return (
         <>
             <nav className="in-page-nav__wrapper" ref={navBar}>
-                {isScrollableLeft &&
+                {scrollLeftPosition?.length > 0 &&
                     <div
                         className="in-page-nav__paginator"
                         tabIndex={isMobile ? 0 : ""}
@@ -190,8 +186,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
                     </div>
                 }
             </nav>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <div style={{ marginLeft: "32px" }} onClick={() => reset()}>Reset (for development purposes)</div>
+            <div style={{ marginLeft: "32px" }} >
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <div onClick={() => reset()}>Reset (for development purposes)</div>
+                <div>[Debugging] UL Width: {ulElement?.clientWidth} ScrollLeft: {scrollLeftPosition?.length > 0 ? scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset : "0"} </div>
+            </div>
         </>
     );
 };
