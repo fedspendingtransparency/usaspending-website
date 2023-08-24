@@ -87,14 +87,16 @@ export const jumpToSection = (
     // no matching section
         return;
     }
+
+    // find the section in dom
     const selector = `#${idPrefix}-${snakeCase(section)}`;
-    // scroll to the correct section
     const sectionDom = document.querySelector(selector);
 
     if (!sectionDom) {
         return;
     }
 
+    // add offsets
     scrollToY(sectionDom.offsetTop - verticalOffset, 700);
 };
 

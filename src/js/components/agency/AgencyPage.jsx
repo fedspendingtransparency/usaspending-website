@@ -3,8 +3,9 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from "lodash";
 import {
     ComingSoon,
     ErrorMessage,
@@ -12,7 +13,8 @@ import {
     ShareIcon
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useQueryParams } from 'helpers/queryParams';
 
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
@@ -50,13 +52,30 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const [activeSection, setActiveSection] = useState('overview');
+    const history = useHistory();
+    const query = useQueryParams();
+
+    const { pathname, search } = useLocation();
+    const path = `${pathname.substring(1)}${search}`;
+
+    const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const { name } = useSelector((state) => state.agency.overview);
 
     const dataThroughDates = useSelector((state) => state.agency.dataThroughDates);
     const overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate;
     const statusDataThroughDate = dataThroughDates?.statusDataThroughDate;
     const awardSpendingDataThroughDate = dataThroughDates?.awardSpendingDataThroughDate;
+
+    const handleShare = (optionName) => {
+        handleShareOptionClick(optionName, path, {
+            subject: `USAspending.gov Agency Profile: ${name}`,
+            body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
+        });
+    };
+
+    const backgroundColor = {
+        backgroundColor: "#1a4480"
+    };
 
     const sections = [
         {
@@ -74,7 +93,7 @@ export const AgencyProfileV2 = ({
             component: <StatusOfFunds fy={selectedFy} />
         },
         {
-            name: 'sub-agency',
+            name: 'award-spending',
             display: 'Award Spending',
             icon: 'hand-holding-usd',
             dataThroughDate: awardSpendingDataThroughDate,
@@ -91,12 +110,19 @@ export const AgencyProfileV2 = ({
             return;
         }
 
-        // scroll to the correct section
+        // find the section in dom
         const sectionDom = document.querySelector(`#agency-v2-${matchedSection.name}`);
-
         if (!sectionDom) {
             return;
         }
+
+        // add section to url
+        history.replace(`${history.location.pathname}?section=${section}`);
+
+        // update the state
+        setActiveSection(section);
+
+        // add offsets
         if (activeSection === 'overview') {
             scrollToY(sectionDom.offsetTop - 150, 700);
         }
@@ -104,23 +130,24 @@ export const AgencyProfileV2 = ({
             // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
             scrollToY(sectionDom.offsetTop - 86, 700);
         }
-
-        setActiveSection(matchedSection.name);
     };
 
-    const { pathname, search } = useLocation();
-    const path = `${pathname.substring(1)}${search}`;
+    useEffect(throttle(() => {
+        // this allows the page to jump to a section on page load, when
+        // using a link to open the page
+        // prevents a console error about react unmounted component leak
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                jumpToSection(urlSection);
+            }
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, 100), [history, query.section]);
 
-    const handleShare = (optionName) => {
-        handleShareOptionClick(optionName, path, {
-            subject: `USAspending.gov Agency Profile: ${name}`,
-            body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
-        });
-    };
-
-    const backgroundColor = {
-        backgroundColor: "#1a4480"
-    };
     return (
         <PageWrapper
             pageName="Agency Profile"

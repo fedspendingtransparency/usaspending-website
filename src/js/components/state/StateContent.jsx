@@ -3,9 +3,11 @@
  * Created by Lizzie Salita 5/2/18
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
+import { find, throttle } from 'lodash';
+import { useQueryParams } from 'helpers/queryParams';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -38,10 +40,14 @@ const propTypes = {
 };
 
 const StateContent = ({ stateProfile }) => {
-    const [activeSection, setActiveSection] = useState('overview');
+    const history = useHistory();
+    const query = useQueryParams();
+
+    const [activeSection, setActiveSection] = useState(query.section || 'overview');
 
     const jumpToSection = (section = '') => {
-    // we've been provided a section to jump to
+        // we've been provided a section to jump to
+        // check if it's a valid section
         const matchedSection = find(stateSections, {
             section
         });
@@ -50,16 +56,39 @@ const StateContent = ({ stateProfile }) => {
         if (!matchedSection) {
             return;
         }
-        // scroll to the correct section
+
+        // find the section in dom
         const sectionDom = document.querySelector(`#state-${section}`);
         if (!sectionDom) {
             return;
         }
 
+        // add section to url
+        history.replace(`${history.location.pathname}?section=${section}`);
+
+        // update the state
+        setActiveSection(section);
+
+        // add offsets
         const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
         scrollToY(sectionTop, 700);
-        setActiveSection(section);
     };
+
+    useEffect(throttle(() => {
+        // this allows the page to jump to a section on page load, when
+        // using a link to open the page
+        // prevents a console error about react unmounted component leak
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                jumpToSection(urlSection);
+            }
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, 100), [history, query.section]);
 
     return (
         <div className="state-content-wrapper">
