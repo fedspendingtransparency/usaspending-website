@@ -36,7 +36,6 @@ export default class GlossaryDefinition extends React.Component {
         this.clickedTab = this.clickedTab.bind(this);
         this.clickedBack = this.clickedBack.bind(this);
         this.getCopyFn = this.getCopyFn.bind(this);
-        this.stripUrl = this.stripUrl.bind(this);
         this.showCopiedConfirmation = null;
     }
 
@@ -57,8 +56,8 @@ export default class GlossaryDefinition extends React.Component {
     }
 
     getCopyFn() {
-        const slug = `=${this.props.glossary.term.toJS().slug}`;
-        const value = this.stripUrl() + slug;
+        const slug = `?glossary=${this.props.glossary.term.toJS().slug}`;
+        const value = window.location.href + slug;
         if (window.navigator && window.navigator.clipboard && window.navigator.clipboard.writeText) {
             window.navigator.clipboard.writeText(value);
             this.setState({ showCopiedConfirmation: true });
@@ -66,14 +65,6 @@ export default class GlossaryDefinition extends React.Component {
                 this.setState({ showCopiedConfirmation: false });
             }, 1750);
         }
-    }
-
-    stripUrl() {
-        if (window.location.href.includes("?glossary")) {
-            const ind = window.location.href.indexOf("?glossary");
-            return `${window.location.href.substring(0, ind)}?glossary`;
-        }
-        return `${window.location.href}`;
     }
 
     checkDefinitions(props) {
