@@ -10,7 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
-import Button from './../../sharedComponents/buttons/Button';
+// import { Button } from "../../../../stories/Button";
+// import Button from './../../sharedComponents/buttons/Button';
 
 const HeroUpdate = () => {
     const [isPaused, setIsPaused] = useState(false);
@@ -66,20 +67,36 @@ const HeroUpdate = () => {
                     <div className="hero__center-content-wrapper">
                         <div className="hero__center-content">
                             <div className="hero__button-container">
-                                <Button
-                                    buttonSize="lg"
-                                    copy="Start Searching Awards"
-                                    buttonTitle="Start Searching Awards"
-                                    buttonType="primary"
-                                    backgroundColor="light"
-                                    onClick={handleSearch} />
-                                <Button
-                                    buttonSize="lg"
-                                    copy="Learn About USAspending.gov"
-                                    buttonTitle="Learn About USAspending.gov"
-                                    buttonType="secondary"
-                                    backgroundColor="light"
-                                    onClick={handleDataSources} />
+                                {/* <Button */}
+                                {/*     buttonSize="lg" */}
+                                {/*     copy="Start Searching Awards" */}
+                                {/*     buttonTitle="Start Searching Awards" */}
+                                {/*     buttonType="primary" */}
+                                {/*     backgroundColor="light" */}
+                                {/*     onClick={handleSearch} /> */}
+                                {/* <Button */}
+                                {/*     buttonSize="lg" */}
+                                {/*     copy="Learn About USAspending.gov" */}
+                                {/*     buttonTitle="Learn About USAspending.gov" */}
+                                {/*     buttonType="secondary" */}
+                                {/*     backgroundColor="light" */}
+                                {/*     onClick={handleDataSources} /> */}
+                                <button
+                                    type="button"
+                                    className="usa-button usa-button--accent-warm usa-tooltip"
+                                    data-position="top"
+                                    title="Top">
+                                    new button
+                                </button>
+                                {/* tooltip is not working */}
+                                <div
+                                    className="usa-tooltip"
+                                    tabIndex="0"
+                                    role="button"
+                                    data-position="left"
+                                    title="left tooltip">
+                                    <FontAwesomeIcon icon="info-circle" />
+                                </div>
                             </div>
                             <div className="hero__text-container">
                                 <p>

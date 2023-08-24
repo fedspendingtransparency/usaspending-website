@@ -1,3 +1,16 @@
+@use "uswds-core" as *;
+
+// this one is here bc it's needed for tooltip
+// but the tooltip isnt' working as expected
+@use "uswds-fonts";
+
+//@use "uswds-list";
+
+//@forward "usa-button";
+//@forward "usa-tooltip";
+//@forward "usa-summary-box";
+
+
 @-webkit-keyframes slideInUp {
     from {
       -webkit-transform: translate3d(0, 50%, 0);
@@ -176,7 +189,8 @@
                         line-height: 1.5;
                         letter-spacing: normal;
                         text-align: center;
-                        color: $color-base;
+                        //color: $color-base;
+                        color: color('red-50v');
                     }
                 }
 
