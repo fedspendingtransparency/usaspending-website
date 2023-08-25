@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cookies from "js-cookie";
@@ -8,9 +8,9 @@ const globalInfoBanner = 'usaspending_info-banner';
 
 const propTypes = {
     closeBanner: PropTypes.func,
-    title: PropTypes.string,
-    content: PropTypes.string,
-    icon: PropTypes.string
+    title: oneOfType([PropTypes.string, PropTypes.object]),
+    content: oneOfType([PropTypes.string, PropTypes.object]),
+    icon: oneOfType([PropTypes.string, PropTypes.object])
 };
 
 const InfoBanner = (props) => {

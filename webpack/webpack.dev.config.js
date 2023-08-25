@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const common = require('./webpack.common');
@@ -20,6 +20,9 @@ module.exports = merge(common, {
         historyApiFallback: true,
         static: {
             directory: path.resolve(__dirname, "public")
+        },
+        client: {
+            overlay: false
         }
     },
     module: {

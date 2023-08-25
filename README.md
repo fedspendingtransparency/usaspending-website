@@ -22,13 +22,13 @@ _Get the code and install the runtime and dependencies_
     $ git clone https://github.com/fedspendingtransparency/usaspending-website
     $ cd usaspending-website
     ```
-1. Download [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) and install **Node.js `16.14.2`**
+1. Download [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) and install **Node.js `18.17.0`**
     ```shell
-    $ nvm install 16.14.2
+    $ nvm install 18.17.0
     ```
-1. Set Node Package Manager (`npm`) CLI to version `8.5.0`.
+1. Set Node Package Manager (`npm`) CLI to version `9.8.1`.
     ```shell
-    $ npm i -g npm@8.5.0
+    $ npm i -g npm@9.8.1
     ```
 1. Perform an install to get an exact dependency tree:
     ```shell

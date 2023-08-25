@@ -86,6 +86,7 @@ const NavbarWrapper = () => {
                 <div className="site-navigation__mobile mobile-hamburger">
                     <div className="mobile-hamburger__wrapper">
                         <button
+                            aria-label="mobile hamburger menu"
                             className="mobile-hamburger__button"
                             onClick={toggleMobileNav}>
                             <FontAwesomeIcon className="mobile-hamburger__buns" icon={faBars} size="lg" />
