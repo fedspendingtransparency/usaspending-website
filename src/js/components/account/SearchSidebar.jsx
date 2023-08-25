@@ -17,8 +17,7 @@ const filters = {
     options: [
         { title: 'Time Period' },
         { title: 'Object Class' },
-        { title: 'Program Activity' },
-        { title: 'Treasury Account Symbol (TAS)' }
+        { title: 'Program Activity' }
     ],
     components: [
         AccountTimePeriodContainer,

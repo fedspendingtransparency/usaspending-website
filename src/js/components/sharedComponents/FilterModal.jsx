@@ -97,7 +97,7 @@ const FilterModal = (props) => {
                                 alt="" />
                         </div>
                         <div className="filter-modal__description">
-                        If the selected Recipient Type filters are “All Women Owned Business” and “All Veteran Owned Business”, the resulting awards are identified because their prime award summary is on a list of awards that are associated with each Recipient Type. Another filter that also identifies awards because of their inclusion in a list is the Disaster Emergency Fund Code (DEFC) filter.
+                        If the selected Recipient Type filters are “All Women Owned Business” and “All Veteran Owned Business”, the search results will contain all <span className="filter-modal__operator">prime</span> awards which include either the Women Owned Business or Veteran Owned Business recipient type. A single award may have many recipient types. The Disaster Emergency Fund Code (DEFC) filter also uses the INCLUDES or IN operators.
                         </div>
                     </div>
                 </div>

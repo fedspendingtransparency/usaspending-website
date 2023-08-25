@@ -4,13 +4,12 @@
  */
 
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import { useHistory, useParams, Redirect } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { isCancel } from "axios";
 import { useDispatch } from "react-redux";
 
 import { fetchAgencyOverview } from "apis/agency";
-import { useQueryParams, stripUrlParams } from "helpers/queryParams";
+import { useQueryParams } from "helpers/queryParams";
 import BaseAgencyOverview from "models/v2/agency/BaseAgencyOverview";
 import { setAgencyOverview, resetAgency } from "redux/actions/agency/agencyActions";
 
@@ -19,15 +18,6 @@ import AgencyPage from "components/agency/AgencyPage";
 import { useAgencySlugs } from "./WithAgencySlugs";
 
 export const AgencyProfileV2 = () => {
-    const history = useHistory();
-    if (window.location.search !== "") {
-        const checkQueryString = stripUrlParams(window.location.search, "fy");
-        if (checkQueryString !== window.location.search) {
-            history.replace({
-                search: checkQueryString
-            });
-        }
-    }
     const { agencySlug } = useParams();
     const [, , { year: latestFy }] = useLatestAccountData();
     const { fy: currentUrlFy } = useQueryParams(["fy"]);
@@ -70,7 +60,7 @@ export const AgencyProfileV2 = () => {
                     }
                 });
         }
-    }, [toptierCode, selectedFy]);
+    }, [toptierCode, selectedFy, dispatch]);
 
     useEffect(() => {
         if (!slugsLoading && !slugsError) {
@@ -78,20 +68,22 @@ export const AgencyProfileV2 = () => {
             const code = agencySlugs[agencySlug];
             if (code) {
                 setToptierCode(code);
-            } else {
+            }
+            else {
                 setRedirect(true);
             }
-        } else if (slugsError) {
+        }
+        else if (slugsError) {
             setError(true);
         }
-    }, [agencySlugs, slugsLoading, slugsError]);
+    }, [agencySlugs, slugsLoading, slugsError, agencySlug]);
 
     useEffect(
         () => () => {
             // cleanup
             dispatch(resetAgency());
         },
-        [agencySlug]
+        [agencySlug, dispatch]
     );
 
     if (redirect) {
@@ -107,10 +99,6 @@ export const AgencyProfileV2 = () => {
             isError={isError}
             errorMessage={errorMessage} />
     );
-};
-
-AgencyProfileV2.propTypes = {
-    history: PropTypes.object
 };
 
 export default AgencyProfileV2;

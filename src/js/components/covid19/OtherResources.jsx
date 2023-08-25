@@ -259,9 +259,9 @@ const OtherResources = ({
                                     Small Business Administration -
                                 </span>
                                 <a
-                                    href="https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources"
+                                    href="https://www.sba.gov/funding-programs/loans/covid-19-relief-options"
                                     onClick={handleClick}>
-                                    https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources&nbsp;
+                                    https://www.sba.gov/funding-programs/loans/covid-19-relief-options&nbsp;
                                     <span className="other-resources__link__icon">
                                         <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                     </span>

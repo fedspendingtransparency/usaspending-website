@@ -88,6 +88,8 @@ export class AccountTimePeriodContainer extends React.Component {
 
     render() {
         return (
+            // the federalAccountPage prop is used to hide the New Awards Only
+            // checkbox from the Federal Accounts page
             <TimePeriod
                 {...this.props}
                 latestFy={this.props.latestPeriod.year}
@@ -95,6 +97,7 @@ export class AccountTimePeriodContainer extends React.Component {
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
                 changeTab={this.changeTab}
+                federalAccountPage
                 disableDateRange />
         );
     }

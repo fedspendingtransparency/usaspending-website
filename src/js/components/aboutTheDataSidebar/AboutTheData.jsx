@@ -148,8 +148,9 @@ const AboutTheData = (props) => {
         setHeight(sidebarHeight);
     };
     const closeAboutTheData = useCallback(() => {
-        // close the glossary when the escape key is pressed for accessibility and general
+        // close the atd drawer when the escape key is pressed for accessibility and general
         props.hideAboutTheData();
+        clearDrilldown();
 
         // move focus back to the main content
         const mainContent = document.getElementById('main-focus');

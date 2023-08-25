@@ -58,7 +58,7 @@ export const profileOptions = [
         icon: 'money-check-alt'
     },
     {
-        label: 'State & Territories',
+        label: 'States & Territories',
         url: '/state',
         description: 'Award amounts to states & territories',
         enabled: true,

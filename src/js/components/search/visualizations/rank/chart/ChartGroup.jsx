@@ -56,15 +56,9 @@ export default class ChartGroup extends React.Component {
                 {label}
             </text>
         );
-
-        /* eslint-disable jsx-a11y/anchor-is-valid */
-        // the link is actually valid since the URL root will provide an absolute URL
-        /* with ticket 7829, agencies with no agency page will not have an
-        agencySlug but will still have the v2 agencyString in their linkId,
-        so we need to make sure that isn't the case before making the link*/
         if (this.props.linkID !== '' && this.props.linkID !== 'agency_v2/') {
             title = (
-                <a target="_blank" rel="noopener noreferrer" xlinkHref={`${this.props.urlRoot}${this.props.linkID}`} >
+                <a className="group-label__anchor" target="_blank" rel="noopener noreferrer" href={`${this.props.urlRoot}${this.props.linkID}`} >
                     <text
                         className={`group-label ${linkClass}`}
                         ref={(text) => {
@@ -75,8 +69,6 @@ export default class ChartGroup extends React.Component {
                 </a>
             );
         }
-        /* eslint-enable jsx-a11y/anchor-is-valid */
-
         return title;
     }
 
@@ -95,7 +87,7 @@ export default class ChartGroup extends React.Component {
     truncateText() {
     // determine if the text needs to be truncated
     // get the current label width
-        const fullWidth = this.svgText.getBBox().width;
+        const fullWidth = this.svgText?.getBBox().width;
 
         // there's a 12px margin on both sides of the label space
         const maxWidth = this.props.labelWidth - 24;

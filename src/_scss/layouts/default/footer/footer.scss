@@ -151,6 +151,11 @@
                     &:hover {
                         color: $gray-cool-5;
                     }
+                    @media(max-width:$tablet-screen) {
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                    }
                 }
             }
         }
