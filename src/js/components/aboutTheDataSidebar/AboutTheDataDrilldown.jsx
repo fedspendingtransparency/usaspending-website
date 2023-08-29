@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState, Suspense } from 'react';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { handleShareOptionClick } from 'helpers/socialShare';
 import { ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,13 +20,26 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
+    // figure out if there is a param
+    const stripUrl = () => {
+        const url = new URL(window.location.href);
+        if (url.search !== '') {
+            const test = window.location.href.includes("?");
+            if (test) {
+                return `${window.location.href}&about-the-data=`;
+            }
+        }
+        return `${window.location.href}?about-the-data=`;
+    };
+    const value = stripUrl();
+
     const onShareClick = (optionName) => {
         const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
         const emailArgs = {
             subject: encodeURIComponent(`${emailSubject}`),
-            body: `View this statement about the data on USAspending.gov: ${`${getBaseUrl('?about-the-data=')}${slug}`}`
+            body: `View this statement about the data on USAspending.gov: ${`${value}${slug}`}`
         };
-        const placeHolder = `${getBaseUrl('?about-the-data=')}${slug}`;
+        const placeHolder = `${value}${slug}`;
         handleShareOptionClick(optionName, placeHolder, emailArgs);
     };
 
@@ -51,7 +64,6 @@ const AboutTheDataDrilldown = ({
         }
     }, [slug]);
 
-
     return (<>
         <Suspense fallback={<LoadingWrapper isLoading />}>
             <div className="atd__back" role="button" onKeyUp={(e) => handleKeyUp(e)} tabIndex="0" onClick={() => clearDrilldown()}>
@@ -62,7 +74,7 @@ const AboutTheDataDrilldown = ({
             </div>
             <div className="atd__share__icon">
                 <ShareIcon
-                    url={`${getBaseUrl('?about-the-data=')}${slug}`}
+                    url={`${value}${slug}`}
                     onShareOptionClick={onShareClick}
                     onKeyUp={(e) => {
                         if (e.key === 'Enter') {

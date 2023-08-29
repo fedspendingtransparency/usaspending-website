@@ -5,9 +5,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { isCancel } from 'axios';
 import { useSelector } from 'react-redux';
 import { isEqual } from 'lodash';
-
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchAwardAmounts, fetchDisasterSpendingCount } from 'apis/disaster';
 import { useInFlightList } from 'helpers/covid19Helper';
@@ -94,6 +94,14 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
             recipientCountRequest.current.promise
                 .then((res) => {
                     setNumberOfRecipients(res.data.count);
+                }).catch((e) => {
+                    if (isCancel(e)) {
+                        // Got cancelled
+                    }
+                    else {
+                        // Request failed
+                        console.log(e);
+                    }
                 });
         }
     }, [activeFilter, Object.keys(allAwardTypeTotals).length, defcParams]);
@@ -106,7 +114,7 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
     };
 
     useEffect(() => {
-        if (awardOutlays === null && awardObligations === null && numberOfAwards === null) {
+        if (awardOutlays === null && awardObligations === null && numberOfAwards === null && numberOfRecipients === null) {
             if (!isEqual(inFlightList, initialInFlightState)) {
                 resetInFlight();
             }

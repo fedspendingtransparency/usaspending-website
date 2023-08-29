@@ -1,7 +1,9 @@
+import axios from 'axios';
+
 const pages = require('./pages');
 
 const fs = require('fs');
-const axios = require('axios');
+
 const path = require('path');
 const tunnel = require('tunnel');
 
@@ -176,7 +178,7 @@ const buildIndividualSitemaps = () => {
                 console.log("error", e);
                 throw e.message;
             })
-            , Promise.resolve('first'));
+        , Promise.resolve('first'));
 
     return asyncPages
         .then((resp) => {
