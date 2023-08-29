@@ -79,9 +79,12 @@ export const jumpToSection = (
     idPrefix = 'covid19',
     sections = componentByCovid19Section()
 ) => {
+    // need to search by snakeCase; had to use kebabCase for url
+    const snakeCaseSection = snakeCase(section);
+
     // we've been provided a section to jump to
     // check if it's a valid section
-    const matchedSection = Object.keys(sections).find((key) => key === section);
+    const matchedSection = Object.keys(sections).find((key) => key === snakeCaseSection);
 
     if (!matchedSection) {
     // no matching section
@@ -89,7 +92,7 @@ export const jumpToSection = (
     }
 
     // find the section in dom
-    const selector = `#${idPrefix}-${snakeCase(section)}`;
+    const selector = `#${idPrefix}-${snakeCaseSection}`;
     const sectionDom = document.querySelector(selector);
 
     if (!sectionDom) {
