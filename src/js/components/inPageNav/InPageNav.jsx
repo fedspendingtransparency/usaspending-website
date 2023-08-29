@@ -31,6 +31,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 isOverflowing = true;
             }
 
+            console.log("last element", scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset);
+            console.log("client width", ulElement.clientWidth)
+
             if (scrollLeftPosition?.length > 0 && scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset >= ulElement.clientWidth) {
                 isOverflowing = false;
             }
@@ -45,6 +48,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
             ulElement.scrollLeft = "0";
             checkIsOverflow();
             setScrollLeftPosition([]);
+            setNavStartIndex(0);
         }
     };
 
@@ -64,10 +68,14 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const scrollLeft = () => {
         const tempList = updateHiddenStatus();
         setElementData(tempList);
+        // check for last visible item
 
-        if (scrollLeftPosition.length > 1) {
-            setNavStartIndex(scrollLeftPosition[scrollLeftPosition.length - 2].index);
-            ulElement.scrollTo({ left: scrollLeftPosition[scrollLeftPosition.length - 2].offset, behavior: 'smooth' });
+        const lastVisibleIndex = tempList.findIndex((el) => el.leftOffset > 0);
+        const newLeftPosition = ulElement.scrollLeft - (ulElement.clientWidth + tempList[lastVisibleIndex].width);
+
+        if (lastVisibleIndex > 0) {
+            setNavStartIndex(lastVisibleIndex);
+            ulElement.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
             scrollLeftPosition.pop();
             checkIsOverflow();
         }
@@ -84,6 +92,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
         if (index - 1 > 0) {
             setNavStartIndex(index - 1);
             const leftPosition = tempList[index - 1].originalLeftOffset - padding;
+            console.log(ulElement.clientWidth)
+            console.log(leftPosition)
+            console.log(index)
             ulElement.scrollTo({ left: leftPosition, behavior: 'smooth' });
             scrollLeftPosition.push({ offset: leftPosition, index });
             checkIsOverflow();
@@ -105,7 +116,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 originalLeftOffset: box.left,
                 hidden: box.left < 0 || box.right > documentWidth,
                 leftOffset: box.left,
-                rightOffset: box.right
+                rightOffset: box.right,
+                width: box.width
+
             });
         });
 
