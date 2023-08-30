@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { omit, snakeCase } from 'lodash';
+import { snakeCase, kebabCase } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
@@ -23,15 +23,13 @@ import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { jumpToSection } from 'helpers/covid19Helper';
 import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
-import { getQueryParamString, useQueryParams } from 'helpers/queryParams';
+import { useQueryParams } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
 import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
-import GlobalConstants from 'GlobalConstants';
-import PublicLawPicker from './PublicLawPicker';
 
 require('pages/covid19/index.scss');
 
@@ -42,12 +40,17 @@ const propTypes = {
 const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
     const history = useHistory();
-    const [activeSection, setActiveSection] = useState('overview');
+    const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
     const handleJumpToSection = (section) => {
         jumpToSection(section);
+
+        // add section to url
+        history.replace(`${history.location.pathname}?section=${kebabCase(section)}`);
+
+        // update the state
         setActiveSection(section);
         Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
     };
@@ -55,13 +58,9 @@ const Covid19Page = ({ loading }) => {
     useEffect(() => {
         if (isRecipientMapLoaded && query.section) {
             handleJumpToSection(query.section);
-            const newParams = getQueryParamString(omit(query, ['section']));
-            history.replace({
-                pathname: window.location.pathname,
-                search: newParams
-            });
         }
-    }, [history, isRecipientMapLoaded, query]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isRecipientMapLoaded, query.section]);
 
     const handleExternalLinkClick = (url) => {
         dispatch(showModal(url));
@@ -71,20 +70,6 @@ const Covid19Page = ({ loading }) => {
         handleShareOptionClick(name, slug, getEmailSocialShareData);
     };
 
-    const handlePublicLawFilterClick = (law) => {
-        if (law === 'dsm') {
-            history.push({
-                pathname: `${window.location.pathname}/data-sources`
-            });
-        }
-        else {
-            history.push({
-                pathname: window.location.pathname,
-                search: `publicLaw=${law}`
-            });
-        }
-    };
-
     return (
         <PageWrapper
             pageName="COVID-19 Spending"
@@ -92,7 +77,6 @@ const Covid19Page = ({ loading }) => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
-                GlobalConstants.ARP_RELEASED ? <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} /> : <></>,
                 <ShareIcon
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare} />,

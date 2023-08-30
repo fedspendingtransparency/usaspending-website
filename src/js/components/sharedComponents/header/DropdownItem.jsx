@@ -109,6 +109,7 @@ const DropdownItem = ({
     if (appendToExistingUrl && label.includes("About the Data")) {
         link = (
             <Link
+                to=""
                 className={`nav-children__link ${className}`}
                 onClick={openATD}
                 {...newTabProps}>
