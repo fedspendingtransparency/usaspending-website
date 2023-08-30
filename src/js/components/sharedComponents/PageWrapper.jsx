@@ -10,6 +10,7 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
+import InPageNav from "../inPageNav/InPageNav";
 
 const PageWrapper = ({
     pageName,
@@ -21,19 +22,21 @@ const PageWrapper = ({
     title,
     overLine,
     toolBarComponents = [],
-    filters = {}
+    filters = {},
+    sections,
+    jumpToSection
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
         <Header />
-        {noHeader ? null : <PageHeader
+        {noHeader ? null : <><PageHeader
             title={title}
             stickyBreakPoint={getStickyBreakPointForSidebar()}
             overLine={overLine}
-            toolBar={toolBarComponents} />}
-        {React.cloneElement(children, {
-            className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
-        })}
+            toolBar={toolBarComponents} />
+        {sections && <InPageNav sections={sections} jumpToSection={jumpToSection} />}
+        </>}
+        <div className={`usda-page__container${children?.props?.className ? ` ${children?.props?.className}` : ''}`}>{children}</div>
         <Footer pageName={pageName} filters={filters} />
     </div>
 );
@@ -48,7 +51,9 @@ PageWrapper.propTypes = {
     children: PropTypes.element,
     ref: PropTypes.object,
     noHeader: PropTypes.bool,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    sections: PropTypes.array,
+    jumpToSection: PropTypes.func
 };
 
 export default PageWrapper;
