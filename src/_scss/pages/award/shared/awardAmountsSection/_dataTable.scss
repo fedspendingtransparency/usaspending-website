@@ -22,12 +22,12 @@
             text-indent: -1.5rem;
 
             @media (max-width: $tablet-screen) {
-                padding-bottom: 4px;
+                padding-bottom: $global-margin * .5;
                 flex-basis: 100%;
             }
         }
         .award-amounts__glossary-link {
-            margin-left: 8px;
+            margin-left: $global-margin;
         }
     }
 
