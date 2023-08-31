@@ -152,7 +152,7 @@ const AwardAmountsTable = ({
             }
         });
 
-        return include ? <GlossaryLink term={include.glossary} /> : include;
+        return include ? <GlossaryLink term={include.glossary} /> : null;
     };
 
     return (
@@ -165,7 +165,10 @@ const AwardAmountsTable = ({
                         <div key={uniqueId(title)} className="award-amounts__data-content">
                             <div className="remove-indent">
                                 <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
-                                {title} {includeGlossary(title)}
+                                {title}
+                                <span className="award-amounts__glossary-link">
+                                    {includeGlossary(title)}
+                                </span>
                             </div>
                             <span>{amountMapByCategoryTitle[title] === null ? "--" : amountMapByCategoryTitle[title]}</span>
                         </div>
