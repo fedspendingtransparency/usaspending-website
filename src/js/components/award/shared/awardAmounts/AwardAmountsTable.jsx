@@ -96,7 +96,12 @@ const AwardAmountsTable = ({
     const hideRow = (title) => {
         const defcByType = defcTypes.map((item) => item.codeType);
         const hasDefCode = defcByType?.indexOf(fileCType) > -1;
-        const allExclusions = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
+        const allExclusions = [
+            'Combined Outlayed Amounts',
+            'Combined Obligated Amounts',
+            'Outlayed Amount',
+            'Obligated Amount'
+        ];
 
         let hide = false;
 
@@ -126,6 +131,29 @@ const AwardAmountsTable = ({
         return hide;
     };
 
+    const includeGlossary = (title) => {
+        const allInclusions = [
+            {
+                title: 'Original Subsidy Cost',
+                glossary: 'loan-subsidy-cost'
+            },
+            {
+                title: 'Face Value of Direct Loan',
+                glossary: 'face-value-of-loan'
+            }
+        ];
+
+        let include = false;
+
+        allInclusions.forEach((item) => {
+            if (title === item.title) {
+                include = item;
+            }
+        });
+
+        return include;
+    };
+
     return (
         <div className={`award-amounts__data-wrapper ${awardAmountType}`} data-testid="award-amounts__data-wrapper">
             {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
@@ -136,7 +164,7 @@ const AwardAmountsTable = ({
                         <div key={uniqueId(title)} className="award-amounts__data-content">
                             <div className="remove-indent">
                                 <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
-                                {title}
+                                {title} {includeGlossary(title) && 'hellow'}
                             </div>
                             <span>{amountMapByCategoryTitle[title] === null ? "--" : amountMapByCategoryTitle[title]}</span>
                         </div>
