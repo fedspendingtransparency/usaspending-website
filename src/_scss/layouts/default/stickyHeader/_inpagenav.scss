@@ -23,6 +23,7 @@
     overflow: hidden;
     width: 90%;
     white-space: nowrap;
+    max-width: 1600px;
 
     @media (max-width: 991px) {
       display: block;
