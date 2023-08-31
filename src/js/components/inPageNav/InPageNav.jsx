@@ -15,93 +15,100 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const [navStartIndex, setNavStartIndex] = useState(0);
     const [isOverflow, setIsOverflow] = useState(false);
     const [scrollLeftPosition, setScrollLeftPosition] = useState([]);
+    const [padding, setPadding] = useState(32);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
 
     // make this dynamic once the styling is added for the feature
-    const padding = 32;
 
     const checkIsOverflow = () => {
+        console.log(elementData);
         setTimeout(() => {
             let isOverflowing = false;
 
-            if (ulElement.clientWidth < ulElement.scrollWidth
-                || ulElement.clientHeight < ulElement.scrollHeight) {
-                isOverflowing = true;
+            if (ulElement) {
+                if (ulElement.clientWidth < ulElement.scrollWidth
+                    || ulElement.clientHeight < ulElement.scrollHeight) {
+                    isOverflowing = true;
+                }
+
+                if (scrollLeftPosition?.length > 0 && scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset + (padding * 2) >= ulElement.clientWidth) {
+                    isOverflowing = false;
+                }
+
+                setIsOverflow(isOverflowing);
             }
-
-            console.log("last element", scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset);
-            console.log("client width", ulElement.clientWidth)
-
-            if (scrollLeftPosition?.length > 0 && scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset >= ulElement.clientWidth) {
-                isOverflowing = false;
-            }
-
-            setIsOverflow(isOverflowing);
         }, 100);
+    };
+
+
+    /* Check which elements are visible vs hidden */
+    // eslint-disable-next-line consistent-return
+    const updateHiddenStatus = () => {
+        const tempList = [...elementData];
+        console.log(scrollLeftPosition);
+        ulElement.childNodes.forEach((el, index) => {
+            const box = el.getBoundingClientRect();
+            const documentWidth = ulElement.clientWidth;
+            //this condition is not working
+            tempList[index].hidden = box.left < 0 || box.right > documentWidth;
+            tempList[index].leftOffset = box.left;
+            tempList[index].rightOffset = box.right;
+        });
+        console.log(tempList);
+        return tempList;
     };
 
     const reset = () => {
         if (ulElement) {
             ulElement.scrollTo({ left: "0", behavior: 'smooth' });
             ulElement.scrollLeft = "0";
-            checkIsOverflow();
+            setElementData(updateHiddenStatus());
             setScrollLeftPosition([]);
             setNavStartIndex(0);
         }
     };
 
-    /* Check which elements are visible vs hidden */
-    const updateHiddenStatus = () => {
-        const tempList = [...elementData];
-        ulElement.childNodes.forEach((el, index) => {
-            const box = el.getBoundingClientRect();
-            const documentWidth = ulElement.clientWidth;
-            tempList[index].hidden = box.left < 0 || box.right > documentWidth;
-            tempList[index].leftOffset = box.left;
-            tempList[index].rightOffset = box.right;
-        });
-        return tempList;
-    };
+    useEffect(() => {
+        checkIsOverflow();
+    }, [elementData]);
 
     const scrollLeft = () => {
-        const tempList = updateHiddenStatus();
-        setElementData(tempList);
         // check for last visible item
+        setTimeout(() => {
 
-        const lastVisibleIndex = tempList.findIndex((el) => el.leftOffset > 0);
-        const newLeftPosition = ulElement.scrollLeft - (ulElement.clientWidth + tempList[lastVisibleIndex].width);
+            const tempList = updateHiddenStatus();
+            const lastVisibleIndex = tempList.findIndex((el) => el.leftOffset > 0);
+            const newLeftPosition = ulElement.scrollLeft - (ulElement.clientWidth + tempList[lastVisibleIndex].width);
 
-        if (lastVisibleIndex > 0) {
-            setNavStartIndex(lastVisibleIndex);
-            ulElement.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
-            scrollLeftPosition.pop();
-            checkIsOverflow();
-        }
-        else {
-            reset();
-        }
+            if (lastVisibleIndex > 0) {
+                setNavStartIndex(lastVisibleIndex);
+                ulElement.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
+                scrollLeftPosition.pop();
+                setElementData(updateHiddenStatus());
+            } else {
+                reset();
+            }
+        }, 100);
     };
 
     const scrollRight = () => {
-        const tempList = updateHiddenStatus();
-        const index = tempList.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
-        setElementData(tempList);
+        setTimeout(() => {
 
-        if (index - 1 > 0) {
-            setNavStartIndex(index - 1);
-            const leftPosition = tempList[index - 1].originalLeftOffset - padding;
-            console.log(ulElement.clientWidth)
-            console.log(leftPosition)
-            console.log(index)
-            ulElement.scrollTo({ left: leftPosition, behavior: 'smooth' });
-            scrollLeftPosition.push({ offset: leftPosition, index });
-            checkIsOverflow();
-        }
-        else {
-            reset();
-        }
+            const tempList = updateHiddenStatus();
+            const index = tempList.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
+
+            if (index - 1 > 0) {
+                setNavStartIndex(index - 1);
+                const leftPosition = tempList[index - 1].originalLeftOffset - padding;
+                ulElement.scrollTo({left: leftPosition, behavior: 'smooth'});
+                scrollLeftPosition.push({offset: leftPosition, index});
+                setElementData(updateHiddenStatus());
+            } else {
+                reset();
+            }
+        }, 100);
     };
 
     const getElementList = () => {
@@ -141,26 +148,26 @@ const InPageNav = ({ sections, jumpToSection }) => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
+            setElementData(updateHiddenStatus());
             setIsMobile(newWidth < mediumScreen);
-            reset();
         }
     }, 50);
 
     useEffect(() => {
-        setUlElement(navBar.current.querySelector("ul"));
+        const el = navBar.current.querySelector("ul");
+        setUlElement(el);
+        setPadding(((window.innerWidth - el.clientWidth) + 20) / 2);
     }, []);
 
     useEffect(() => {
-        if (ulElement) {
-            checkIsOverflow();
+        if (ulElement && padding) {
             getElementList();
-            handleResize();
         }
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ulElement]);
+    }, [ulElement, padding]);
 
     return (
         <>
@@ -202,7 +209,12 @@ const InPageNav = ({ sections, jumpToSection }) => {
             <div style={{ marginLeft: "32px" }} >
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div onClick={() => reset()}>Reset (for development purposes)</div>
-                <div>[Debugging] UL Width: {ulElement?.clientWidth} ScrollLeft: {scrollLeftPosition?.length > 0 ? scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset : "0"} </div>
+                <div>[Debugging] UL Width: {ulElement?.clientWidth}
+                    <br />ScrollLeft (based on scrollLeftPosition object): {scrollLeftPosition?.length > 0 ? scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset : "0"}
+                    <br />ScrollLeft (based on scrollLeft): {ulElement?.scrollLeft}
+                    <br />Padding: {padding}
+                    <br />Hidden {elementData?.map((item, index) => `${index} ${item.hidden}-${item.rightOffset} ||`)}
+                </div>
             </div>
         </>
     );
