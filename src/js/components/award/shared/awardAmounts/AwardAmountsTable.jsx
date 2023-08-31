@@ -12,6 +12,7 @@ import {
 } from "dataMapping/award/awardAmountsSection";
 
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
+import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 
 const propTypes = {
     showFileC: PropTypes.bool,
@@ -143,7 +144,7 @@ const AwardAmountsTable = ({
             }
         ];
 
-        let include = false;
+        let include = null;
 
         allInclusions.forEach((item) => {
             if (title === item.title) {
@@ -151,7 +152,7 @@ const AwardAmountsTable = ({
             }
         });
 
-        return include;
+        return include ? <GlossaryLink term={include.glossary} /> : include;
     };
 
     return (
@@ -164,7 +165,7 @@ const AwardAmountsTable = ({
                         <div key={uniqueId(title)} className="award-amounts__data-content">
                             <div className="remove-indent">
                                 <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
-                                {title} {includeGlossary(title) && 'hellow'}
+                                {title} {includeGlossary(title)}
                             </div>
                             <span>{amountMapByCategoryTitle[title] === null ? "--" : amountMapByCategoryTitle[title]}</span>
                         </div>
