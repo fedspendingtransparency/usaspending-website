@@ -36,7 +36,9 @@ const PageWrapper = ({
             toolBar={toolBarComponents} />
         {sections && <InPageNav sections={sections} jumpToSection={jumpToSection} />}
         </>}
-        <div className={`usda-page__container${children?.props?.className ? ` ${children?.props?.className}` : ''}`}>{children}</div>
+        {React.cloneElement(children, {
+            className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
+        })}
         <Footer pageName={pageName} filters={filters} />
     </div>
 );
