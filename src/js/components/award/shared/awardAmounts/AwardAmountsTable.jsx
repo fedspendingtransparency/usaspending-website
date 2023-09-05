@@ -166,9 +166,7 @@ const AwardAmountsTable = ({
                             <div className="remove-indent">
                                 <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
                                 {title}
-                                <span className="award-amounts__glossary-link">
-                                    {includeGlossary(title)}
-                                </span>
+                                {includeGlossary(title)}
                             </div>
                             <span>{amountMapByCategoryTitle[title] === null ? "--" : amountMapByCategoryTitle[title]}</span>
                         </div>

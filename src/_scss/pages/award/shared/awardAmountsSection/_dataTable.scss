@@ -26,7 +26,8 @@
                 flex-basis: 100%;
             }
         }
-        .award-amounts__glossary-link {
+        @import 'components/glossaryLink';
+        .usda-glossary-link svg {
             margin-left: $global-margin;
         }
     }
