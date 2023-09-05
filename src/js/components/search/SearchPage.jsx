@@ -157,6 +157,8 @@ export default class SearchPage extends React.Component {
             fullSidebar = null;
         }
 
+        console.log('this.props.filters', JSON.stringify(this.props.filters));
+
         return (
             <PageWrapper
                 pageName="Advanced Search"
