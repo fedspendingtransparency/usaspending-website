@@ -22,8 +22,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     // make this dynamic once the styling is added for the feature
 
-    const checkIsOverflow = () => {
-        console.log(elementData);
+    const checkIsOverflow = (tempList) => {
         setTimeout(() => {
             let isOverflowing = false;
 
@@ -37,6 +36,10 @@ const InPageNav = ({ sections, jumpToSection }) => {
                     isOverflowing = false;
                 }
 
+                if (tempList && !tempList[tempList.length - 1].hidden) {
+                    isOverflowing = false;
+                }
+
                 setIsOverflow(isOverflowing);
             }
         }, 100);
@@ -46,38 +49,45 @@ const InPageNav = ({ sections, jumpToSection }) => {
     /* Check which elements are visible vs hidden */
     // eslint-disable-next-line consistent-return
     const updateHiddenStatus = () => {
-        const tempList = [...elementData];
-        console.log(scrollLeftPosition);
-        ulElement.childNodes.forEach((el, index) => {
-            const box = el.getBoundingClientRect();
-            const documentWidth = ulElement.clientWidth;
-            //this condition is not working
-            tempList[index].hidden = box.left < 0 || box.right > documentWidth;
-            tempList[index].leftOffset = box.left;
-            tempList[index].rightOffset = box.right;
-        });
-        console.log(tempList);
-        return tempList;
+        if (ulElement) {
+            const tempList = [...elementData];
+            console.log(scrollLeftPosition);
+            ulElement.childNodes.forEach((el, index) => {
+                const box = el.getBoundingClientRect();
+                const ulElementWidth = ulElement.clientWidth;
+                // this condition is not working
+                tempList[index].hidden = box.left < 0 || box.right > ulElementWidth;
+                tempList[index].leftOffset = box.left;
+                tempList[index].rightOffset = box.right;
+            });
+            checkIsOverflow(tempList);
+            return tempList;
+        }
     };
 
     const reset = () => {
         if (ulElement) {
             ulElement.scrollTo({ left: "0", behavior: 'smooth' });
-            ulElement.scrollLeft = "0";
-            setElementData(updateHiddenStatus());
             setScrollLeftPosition([]);
+            ulElement.childNodes.forEach((el, index) => {
+                const box = el.getBoundingClientRect();
+                const ulElementWidth = ulElement.clientWidth;
+                // this condition is not working
+                tempList[index].hidden = box.left < 0 || box.right > ulElementWidth;
+                tempList[index].leftOffset = box.left;
+                tempList[index].rightOffset = box.right;
+            });
             setNavStartIndex(0);
         }
     };
 
     useEffect(() => {
-        checkIsOverflow();
+        updateHiddenStatus();
     }, [elementData]);
 
     const scrollLeft = () => {
         // check for last visible item
         setTimeout(() => {
-
             const tempList = updateHiddenStatus();
             const lastVisibleIndex = tempList.findIndex((el) => el.leftOffset > 0);
             const newLeftPosition = ulElement.scrollLeft - (ulElement.clientWidth + tempList[lastVisibleIndex].width);
@@ -87,7 +97,8 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 ulElement.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
                 scrollLeftPosition.pop();
                 setElementData(updateHiddenStatus());
-            } else {
+            }
+            else {
                 reset();
             }
         }, 100);
@@ -95,17 +106,17 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     const scrollRight = () => {
         setTimeout(() => {
-
             const tempList = updateHiddenStatus();
             const index = tempList.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
 
             if (index - 1 > 0) {
                 setNavStartIndex(index - 1);
                 const leftPosition = tempList[index - 1].originalLeftOffset - padding;
-                ulElement.scrollTo({left: leftPosition, behavior: 'smooth'});
-                scrollLeftPosition.push({offset: leftPosition, index});
+                ulElement.scrollTo({ left: leftPosition, behavior: 'smooth' });
+                scrollLeftPosition.push({ offset: leftPosition, index });
                 setElementData(updateHiddenStatus());
-            } else {
+            }
+            else {
                 reset();
             }
         }, 100);
@@ -212,8 +223,8 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 <div>[Debugging] UL Width: {ulElement?.clientWidth}
                     <br />ScrollLeft (based on scrollLeftPosition object): {scrollLeftPosition?.length > 0 ? scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset : "0"}
                     <br />ScrollLeft (based on scrollLeft): {ulElement?.scrollLeft}
+                    <br />Left Most Element (based on scrollLeftPosition object): {elementData?.length > 0 ? elementData[0]?.leftOffset : "0"}
                     <br />Padding: {padding}
-                    <br />Hidden {elementData?.map((item, index) => `${index} ${item.hidden}-${item.rightOffset} ||`)}
                 </div>
             </div>
         </>
