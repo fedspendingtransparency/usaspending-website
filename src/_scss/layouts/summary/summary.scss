@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "../default/default";
 
 .main-content {
@@ -9,7 +10,7 @@
     border-top: 1px solid $color-gray-border;
     border-right: 1px solid $color-gray-border;
     border-bottom: 1px solid $color-gray-border;
-    margin: rem(35) $outer-gutter/2;
+    margin: rem(35) math.div($outer-gutter, 2);
     @include media($large-screen) {
         margin: rem(35) $outer-gutter;
     }
