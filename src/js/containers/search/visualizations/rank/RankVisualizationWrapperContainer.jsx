@@ -220,7 +220,6 @@ export class RankVisualizationWrapperContainer extends React.Component {
         const descriptions = [];
         const linkSeries = [];
 
-        console.log(data);
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             const result = Object.create(BaseSpendingByCategoryResult);
