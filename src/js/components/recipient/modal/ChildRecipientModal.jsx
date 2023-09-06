@@ -22,63 +22,62 @@ const propTypes = {
     childRecipients: PropTypes.array
 };
 
-export default class ChildRecipientModal extends React.Component {
-    render() {
-        let table = (<ChildRecipientModalTable
-            sortField={this.props.sortField}
-            hideModal={this.props.hideModal}
-            sortDirection={this.props.sortDirection}
-            updateSort={this.props.updateSort}
-            fy={this.props.recipient.fy}
-            total={this.props.recipient.overview._totalAmount}
-            childRecipients={this.props.childRecipients} />);
-        let message = null;
-        if (this.props.loading) {
-            message = "Loading...";
-            table = null;
-        }
-        else if (this.props.error) {
-            message = "There was an error loading the results.";
-            table = null;
-        }
-        else if (this.props.childRecipients.length === 0) {
-            message = "No results found.";
-            table = null;
-        }
-        const resultCount = this.props.childRecipients.length;
-        const resultPluralize = resultCount > 1 ? "results" : "result";
-        const resultCountDisplay = table ? `${resultCount} ${resultPluralize}` : null;
-        return (
-            <Modal
-                mounted={this.props.mounted}
-                onExit={this.props.hideModal}
-                titleText="Child Recipients"
-                dialogClass="recipients-modal"
-                verticallyCenter
-                escapeExits>
-                <div className="recipients-modal__wrapper">
-                    <div className="recipients-modal__header">
-                        <h1 className="recipients-modal__title">Child Recipients</h1>
-                        <button
-                            className="recipients-modal__close-button"
-                            onClick={this.props.hideModal}
-                            title="Close"
-                            aria-label="Close">
-                            <Close alt="Close modal" />
-                        </button>
-                    </div>
-                    <div className="recipients-modal__body">
-                        {resultCountDisplay}
-                        {table}
-                        {resultCountDisplay}
-                        <div className="recipients-modal__message">
-                            {message}
-                        </div>
+const ChildRecipientModal = (props) => {
+    let table = (<ChildRecipientModalTable
+        sortField={props.sortField}
+        hideModal={props.hideModal}
+        sortDirection={props.sortDirection}
+        updateSort={props.updateSort}
+        fy={props.recipient.fy}
+        total={props.recipient.overview._totalAmount}
+        childRecipients={props.childRecipients} />);
+    let message = null;
+    if (props.loading) {
+        message = "Loading...";
+        table = null;
+    }
+    else if (props.error) {
+        message = "There was an error loading the results.";
+        table = null;
+    }
+    else if (props.childRecipients.length === 0) {
+        message = "No results found.";
+        table = null;
+    }
+    const resultCount = props.childRecipients.length;
+    const resultPluralize = resultCount > 1 ? "results" : "result";
+    const resultCountDisplay = table ? `${resultCount} ${resultPluralize}` : null;
+    return (
+        <Modal
+            mounted={props.mounted}
+            onExit={props.hideModal}
+            titleText="Child Recipients"
+            dialogClass="recipients-modal"
+            verticallyCenter
+            escapeExits>
+            <div className="recipients-modal__wrapper">
+                <div className="recipients-modal__header">
+                    <h1 className="recipients-modal__title">Child Recipients</h1>
+                    <button
+                        className="recipients-modal__close-button"
+                        onClick={props.hideModal}
+                        title="Close"
+                        aria-label="Close">
+                        <Close alt="Close modal" />
+                    </button>
+                </div>
+                <div className="recipients-modal__body">
+                    {resultCountDisplay}
+                    {table}
+                    {resultCountDisplay}
+                    <div className="recipients-modal__message">
+                        {message}
                     </div>
                 </div>
-            </Modal>
-        );
-    }
-}
+            </div>
+        </Modal>
+    );
+};
 
 ChildRecipientModal.propTypes = propTypes;
+export default ChildRecipientModal;

@@ -20,6 +20,9 @@ module.exports = merge(common, {
         historyApiFallback: true,
         static: {
             directory: path.resolve(__dirname, "public")
+        },
+        client: {
+            overlay: false
         }
     },
     module: {
