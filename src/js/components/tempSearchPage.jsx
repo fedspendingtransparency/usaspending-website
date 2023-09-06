@@ -16,7 +16,7 @@ const tempSearchPage = () => (
             classNames="usa-da-search-page"
             title="Temp Search Page">
             <main id="main-content" className="main-content">
-                <Suspense fallback={<h2>LOADING...</h2>}>
+                <Suspense fallback={<TempLoadingComponent />}>
                     <TempComponent1 />
                 </Suspense>
                 <TempComponent2 />

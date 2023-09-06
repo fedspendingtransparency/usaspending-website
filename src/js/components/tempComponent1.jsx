@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import fetchData from './fetchData';
+
+const resource = fetchData();
 
 const TempComponent1 = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-        return () => clearTimeout(timer);
-    }, []);
+    const content = resource.read();
+    const term = content.results[0].term;
+    const definition = content.results[0].official;
 
-    return (!isLoading &&
+    return (
         <div style={{
             border: '2px solid red',
             height: '400px',
             margin: '40px 40px',
             textAlign: 'center',
             fontSize: '24px',
-            paddingTop: '180px'
+            paddingTop: '80px'
         }}>
-        COMPONENT 1, 2 SECOND TIMEOUT
+            COMPONENT 1
+            <div>
+                {term}
+                {definition}
+            </div>
         </div>
     );
 };
