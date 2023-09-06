@@ -19,8 +19,7 @@ const appDiv = document.getElementById("app");
 const root = createRoot(appDiv);
 
 const App = root.render(
-    <AppContainer />,
-    appDiv
+    <AppContainer />
 );
 
 export default hot(module)(App);
