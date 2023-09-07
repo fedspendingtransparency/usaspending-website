@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 08/09/2023
  **/
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { throttle } from "lodash";
 import { tabletScreen, mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,7 +21,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const navBar = useRef(null);
 
     // detect if the element is overflowing on the left or the right
-  const checkIsOverflowHidden = () => {
+    const checkIsOverflowHidden = () => {
         let left = false;
         let right = false;
         const ulEl = navBar.current.querySelector("ul");
@@ -29,12 +29,17 @@ const InPageNav = ({ sections, jumpToSection }) => {
         const firstElPosition = elArray[0].getBoundingClientRect();
         const lastElPosition = elArray[elArray.length - 1].getBoundingClientRect();
 
-        if (firstElPosition.left < 0) {
+        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0) {
             left = true;
         }
 
-        if (lastElPosition.right > ulEl.scrollWidth || lastElPosition.right > ulEl.clientWidth) {
+        if (lastElPosition.right > ulEl.scrollWidth) {
             right = true;
+        }
+
+        if (isMobile) {
+            left = false;
+            right = false;
         }
 
         setIsOverflowLeft(left);
@@ -110,7 +115,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
         }
     };
 
-    const getInitialElements = () => {
+    const getInitialElements = useCallback(() => {
         const tempElementData = [];
         const ulEl = navBar.current.querySelector("ul");
         ulEl.childNodes.forEach((el) => {
@@ -130,7 +135,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
         checkIsOverflowHidden();
         setUlElement(ulEl);
         setElementData(tempElementData);
-    };
+    });
 
     const onKeyPress = (e, direction) => {
         if (e.key === "Enter") {
@@ -149,14 +154,16 @@ const InPageNav = ({ sections, jumpToSection }) => {
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
             setIsMobile(newWidth < mediumScreen);
+            checkIsOverflowHidden();
+            getInitialElements();
         }
     }, 50);
 
     useEffect(() => {
         getInitialElements();
 
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        window.addEventListener('resize', () => handleResize());
+        return () => window.removeEventListener('resize', () => handleResize());
     }, []);
 
     return (
@@ -186,14 +193,15 @@ const InPageNav = ({ sections, jumpToSection }) => {
                         </li>))}
                 </ul>
 
-                {isOverflowRight && <div
-                    className="in-page-nav__paginator"
-                    tabIndex="0"
-                    role="button"
-                    onKeyDown={(e) => onKeyPress(e, "right")}
-                    onClick={() => scrollRight()}>
-                    <FontAwesomeIcon icon="chevron-right" alt="Forward" />
-                </div>}
+                {isOverflowRight &&
+                    <div
+                        className="in-page-nav__paginator"
+                        tabIndex="0"
+                        role="button"
+                        onKeyDown={(e) => onKeyPress(e, "right")}
+                        onClick={() => scrollRight()}>
+                        <FontAwesomeIcon icon="chevron-right" alt="Forward" />
+                    </div>}
             </nav>
             <div style={{ marginLeft: "32px" }} >
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
