@@ -18,9 +18,8 @@ const AnimatedAboutTheDataWrapper = (props) => (
         <TransitionGroup>
             {props?.aboutTheDataSidebar?.display && (
                 <CSSTransition
-                    className="atd-slide"
                     classNames="atd-slide"
-                    timeout={500}
+                    timeout={{ enter: 500, exit: 500 }}
                     exit>
                     <AboutTheData {...props} />
                 </CSSTransition>
