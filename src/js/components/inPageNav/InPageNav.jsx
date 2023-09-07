@@ -10,137 +10,126 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const InPageNav = ({ sections, jumpToSection }) => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [elementData, setElementData] = useState([]);
+    // const [elementData, setElementData] = useState([]);
     const [ulElement, setUlElement] = useState(null);
-    const [navStartIndex, setNavStartIndex] = useState(0);
-    const [isOverflow, setIsOverflow] = useState(false);
-    const [scrollLeftPosition, setScrollLeftPosition] = useState([]);
+    const [elementData, setElementData] = useState([]);
+    const [isOverflowLeft, setIsOverflowLeft] = useState(false);
+    const [isOverflowRight, setIsOverflowRight] = useState(false);
     const [padding, setPadding] = useState(32);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
 
-    // make this dynamic once the styling is added for the feature
+    // detect if the element is overflowing on the left or the right
+  const checkIsOverflowHidden = () => {
+        let left = false;
+        let right = false;
+        const ulEl = navBar.current.querySelector("ul");
+        const elArray = [...ulEl.childNodes];
+        const firstElPosition = elArray[0].getBoundingClientRect();
+        const lastElPosition = elArray[elArray.length - 1].getBoundingClientRect();
 
-    const checkIsOverflow = (tempList) => {
-        setTimeout(() => {
-            let isOverflowing = false;
-
-            if (ulElement) {
-                if (ulElement.clientWidth < ulElement.scrollWidth
-                    || ulElement.clientHeight < ulElement.scrollHeight) {
-                    isOverflowing = true;
-                }
-
-                if (scrollLeftPosition?.length > 0 && scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset + (padding * 2) >= ulElement.clientWidth) {
-                    isOverflowing = false;
-                }
-
-                if (tempList && !tempList[tempList.length - 1].hidden) {
-                    isOverflowing = false;
-                }
-
-                setIsOverflow(isOverflowing);
-            }
-        }, 100);
-    };
-
-
-    /* Check which elements are visible vs hidden */
-    // eslint-disable-next-line consistent-return
-    const updateHiddenStatus = () => {
-        if (ulElement) {
-            const tempList = [...elementData];
-            console.log(scrollLeftPosition);
-            ulElement.childNodes.forEach((el, index) => {
-                const box = el.getBoundingClientRect();
-                const ulElementWidth = ulElement.clientWidth;
-                // this condition is not working
-                tempList[index].hidden = box.left < 0 || box.right > ulElementWidth;
-                tempList[index].leftOffset = box.left;
-                tempList[index].rightOffset = box.right;
-            });
-            checkIsOverflow(tempList);
-            return tempList;
+        if (firstElPosition.left < 0) {
+            left = true;
         }
+
+        if (lastElPosition.right > ulEl.scrollWidth || lastElPosition.right > ulEl.clientWidth) {
+            right = true;
+        }
+
+        setIsOverflowLeft(left);
+        setIsOverflowRight(right);
     };
 
     const reset = () => {
-        if (ulElement) {
-            ulElement.scrollTo({ left: "0", behavior: 'smooth' });
-            setScrollLeftPosition([]);
-            ulElement.childNodes.forEach((el, index) => {
-                const box = el.getBoundingClientRect();
-                const ulElementWidth = ulElement.clientWidth;
-                // this condition is not working
-                tempList[index].hidden = box.left < 0 || box.right > ulElementWidth;
-                tempList[index].leftOffset = box.left;
-                tempList[index].rightOffset = box.right;
-            });
-            setNavStartIndex(0);
+        const ulEl = navBar.current.querySelector("ul");
+        ulEl.scrollTo({ left: "0", behavior: 'smooth' });
+    };
+
+    const scrollLeft = () => {
+        const ulEl = navBar.current.querySelector("ul");
+        const elArray = [...ulEl.childNodes];
+        const lastVisibleEl = {
+            name: "",
+            index: 0
+        };
+
+        // eslint-disable-next-line array-callback-return,consistent-return
+        elArray.find((el, i) => {
+            const box = el.getBoundingClientRect();
+            if (box.left > 0) {
+                lastVisibleEl.name = el.querySelector('a').innerHTML;
+                lastVisibleEl.index = i;
+                return i;
+            }
+        });
+
+        const lastVisibleIndex = lastVisibleEl.index;
+
+        // check for last visible item
+
+        if (lastVisibleIndex + 2 < elementData.length) {
+            const newLeftPosition = (ulEl.scrollLeft - ulEl.clientWidth) + elementData[lastVisibleIndex + 2].width;
+            ulEl.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
+            checkIsOverflowHidden();
+        }
+        else {
+            reset();
         }
     };
 
-    useEffect(() => {
-        updateHiddenStatus();
-    }, [elementData]);
-
-    const scrollLeft = () => {
-        // check for last visible item
-        setTimeout(() => {
-            const tempList = updateHiddenStatus();
-            const lastVisibleIndex = tempList.findIndex((el) => el.leftOffset > 0);
-            const newLeftPosition = ulElement.scrollLeft - (ulElement.clientWidth + tempList[lastVisibleIndex].width);
-
-            if (lastVisibleIndex > 0) {
-                setNavStartIndex(lastVisibleIndex);
-                ulElement.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
-                scrollLeftPosition.pop();
-                setElementData(updateHiddenStatus());
-            }
-            else {
-                reset();
-            }
-        }, 100);
-    };
-
     const scrollRight = () => {
-        setTimeout(() => {
-            const tempList = updateHiddenStatus();
-            const index = tempList.slice(navStartIndex).findIndex((x) => x.hidden) + navStartIndex;
+        const ulEl = navBar.current.querySelector("ul");
+        const elArray = [...ulEl.childNodes];
+        const firstRtHiddenEl = {
+            name: "",
+            index: 0
+        };
 
-            if (index - 1 > 0) {
-                setNavStartIndex(index - 1);
-                const leftPosition = tempList[index - 1].originalLeftOffset - padding;
-                ulElement.scrollTo({ left: leftPosition, behavior: 'smooth' });
-                scrollLeftPosition.push({ offset: leftPosition, index });
-                setElementData(updateHiddenStatus());
+        // eslint-disable-next-line array-callback-return,consistent-return
+        elArray.find((el, i) => {
+            const box = el.getBoundingClientRect();
+            const documentWidth = ulEl.clientWidth;
+            // Check if element is hidden
+            if (box.right > documentWidth && box.left > 0) {
+                firstRtHiddenEl.name = el.querySelector('a').innerHTML;
+                firstRtHiddenEl.index = i;
+                return i;
             }
-            else {
-                reset();
-            }
-        }, 100);
+        });
+
+        const index = firstRtHiddenEl.index;
+
+        if (index - 2 >= 0) {
+            const leftPosition = elementData[index - 2].originalLeftOffset + (padding / 2);
+            ulEl.scrollTo({ left: leftPosition, behavior: 'smooth' });
+            checkIsOverflowHidden();
+        }
+        else {
+            reset();
+        }
     };
 
-    const getElementList = () => {
-        const els = [];
-
-        ulElement.childNodes.forEach((el) => {
+    const getInitialElements = () => {
+        const tempElementData = [];
+        const ulEl = navBar.current.querySelector("ul");
+        ulEl.childNodes.forEach((el) => {
             const box = el.getBoundingClientRect();
-            const documentWidth = ulElement.clientWidth;
-            els.push({
-                element: el,
-                name: el.firstChild.innerHTML,
+            tempElementData.push({
+                name: el.innerHTML,
                 originalLeftOffset: box.left,
-                hidden: box.left < 0 || box.right > documentWidth,
-                leftOffset: box.left,
-                rightOffset: box.right,
+                // hidden: box.left < 0 || box.right > documentWidth,
+                // leftOffset: box.left,
+                // rightOffset: box.right,
                 width: box.width
 
             });
         });
 
-        setElementData(els);
+        setPadding(((window.innerWidth - ulEl.clientWidth) + 20) / 2);
+        checkIsOverflowHidden();
+        setUlElement(ulEl);
+        setElementData(tempElementData);
     };
 
     const onKeyPress = (e, direction) => {
@@ -159,39 +148,30 @@ const InPageNav = ({ sections, jumpToSection }) => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
-            setElementData(updateHiddenStatus());
             setIsMobile(newWidth < mediumScreen);
         }
     }, 50);
 
     useEffect(() => {
-        const el = navBar.current.querySelector("ul");
-        setUlElement(el);
-        setPadding(((window.innerWidth - el.clientWidth) + 20) / 2);
-    }, []);
-
-    useEffect(() => {
-        if (ulElement && padding) {
-            getElementList();
-        }
+        getInitialElements();
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ulElement, padding]);
+    }, []);
 
     return (
         <>
             <nav className="in-page-nav__wrapper" ref={navBar}>
-                {scrollLeftPosition?.length > 0 &&
+                {isOverflowLeft &&
                     <div
                         className="in-page-nav__paginator"
-                        tabIndex={isMobile ? 0 : ""}
+                        tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "left")}
                         onClick={() => scrollLeft()}>
                         <FontAwesomeIcon icon="chevron-left" alt="Back" />
-                    </div>}
+                    </div>
+                }
 
                 <ul>
                     {sections.map((section) => (
@@ -201,30 +181,30 @@ const InPageNav = ({ sections, jumpToSection }) => {
                                 tabIndex="0"
                                 key={`in-page-nav-link-${section.label}`}
                                 onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
-                                onClick={() => jumpToSection(section.section)}>{section.label}
+                                onClick={() => jumpToSection(section.label)}>{section.label}
                             </a>&nbsp;&nbsp;&nbsp;
                         </li>))}
                 </ul>
 
-                {isOverflow &&
-                    <div
-                        className="in-page-nav__paginator"
-                        tabIndex={isMobile ? 0 : ""}
-                        role="button"
-                        onKeyDown={(e) => onKeyPress(e, "right")}
-                        onClick={() => scrollRight()}>
-                        <FontAwesomeIcon icon="chevron-right" alt="Forward" />
-                    </div>
-                }
+                {isOverflowRight && <div
+                    className="in-page-nav__paginator"
+                    tabIndex="0"
+                    role="button"
+                    onKeyDown={(e) => onKeyPress(e, "right")}
+                    onClick={() => scrollRight()}>
+                    <FontAwesomeIcon icon="chevron-right" alt="Forward" />
+                </div>}
             </nav>
             <div style={{ marginLeft: "32px" }} >
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div onClick={() => reset()}>Reset (for development purposes)</div>
                 <div>[Debugging] UL Width: {ulElement?.clientWidth}
-                    <br />ScrollLeft (based on scrollLeftPosition object): {scrollLeftPosition?.length > 0 ? scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset : "0"}
+                    {/* <br />ScrollLeft (based on scrollLeftPosition object): {scrollLeftPosition?.length > 0 ? scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset : "0"}*/}
                     <br />ScrollLeft (based on scrollLeft): {ulElement?.scrollLeft}
-                    <br />Left Most Element (based on scrollLeftPosition object): {elementData?.length > 0 ? elementData[0]?.leftOffset : "0"}
+                    <br />Left Most Element (based on elementData object): {elementData?.length > 0 ? elementData[0]?.leftOffset : "0"}
+                    <br />Right Most Element - right side (based on elementData object): {elementData?.length > 0 ? elementData[elementData?.length - 1]?.rightOffset : "0"}
                     <br />Padding: {padding}
+                    <br />UIElement Scrollwidth: {ulElement?.scrollWidth}
                 </div>
             </div>
         </>
