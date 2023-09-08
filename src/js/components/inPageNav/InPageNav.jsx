@@ -16,24 +16,31 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const [isOverflowLeft, setIsOverflowLeft] = useState(false);
     const [isOverflowRight, setIsOverflowRight] = useState(false);
     const [padding, setPadding] = useState(32);
+    const [leftClickCnt, setLeftClickCnt] = useState(0);
+    const [rtClickCnt, setRtClickCnt] = useState(0);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const navBar = useRef(null);
+    const leftChevron = useRef(null);
+    const rightChevron = useRef(null);
 
     // detect if the element is overflowing on the left or the right
-    const checkIsOverflowHidden = () => {
+    const checkIsOverflowHidden = (leftClick, rightClick) => {
         let left = false;
         let right = false;
-        const ulEl = navBar.current.querySelector("ul");
-        const elArray = [...ulEl.childNodes];
-        const firstElPosition = elArray[0].getBoundingClientRect();
-        const lastElPosition = elArray[elArray.length - 1].getBoundingClientRect();
+        const ulEl = navBar?.current?.querySelector("ul");
+        const elArray = [...ulEl?.childNodes];
+        const firstElPosition = elArray[0]?.getBoundingClientRect();
+        const lastElPosition = elArray[elArray.length - 1]?.getBoundingClientRect();
 
-        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0) {
+        if (leftClick) setLeftClickCnt((prevState) => prevState + 1);
+        if (rightClick) setRtClickCnt((prevState) => prevState + 1);
+
+        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0 || rightClick > 0) {
             left = true;
         }
 
-        if (lastElPosition.right > ulEl.scrollWidth) {
+        if (lastElPosition.right > ulEl.scrollWidth || leftClick > 0) {
             right = true;
         }
 
@@ -42,11 +49,16 @@ const InPageNav = ({ sections, jumpToSection }) => {
             right = false;
         }
 
+        console.log(left)
+        console.log(right)
+
         setIsOverflowLeft(left);
         setIsOverflowRight(right);
     };
 
     const reset = () => {
+        setLeftClickCnt(0);
+        setRtClickCnt(0);
         const ulEl = navBar.current.querySelector("ul");
         ulEl.scrollTo({ left: "0", behavior: 'smooth' });
     };
@@ -62,7 +74,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
         // eslint-disable-next-line array-callback-return,consistent-return
         elArray.find((el, i) => {
             const box = el.getBoundingClientRect();
-            if (box.left > 0) {
+            if (box.left > 0 && box.right < ulEl.clientWidth) {
                 lastVisibleEl.name = el.querySelector('a').innerHTML;
                 lastVisibleEl.index = i;
                 return i;
@@ -70,13 +82,13 @@ const InPageNav = ({ sections, jumpToSection }) => {
         });
 
         const lastVisibleIndex = lastVisibleEl.index;
-
+        console.log(lastVisibleIndex)
         // check for last visible item
 
         if (lastVisibleIndex + 2 < elementData.length) {
-            const newLeftPosition = (ulEl.scrollLeft - ulEl.clientWidth) + elementData[lastVisibleIndex + 2].width;
+            const newLeftPosition = (ulEl.scrollLeft - ulEl.clientWidth) + 20 + elementData[lastVisibleIndex + 1].width + elementData[lastVisibleIndex + 2].width;
             ulEl.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
-            checkIsOverflowHidden();
+            checkIsOverflowHidden(1, 0);
         }
         else {
             reset();
@@ -108,12 +120,16 @@ const InPageNav = ({ sections, jumpToSection }) => {
         if (index - 2 >= 0) {
             const leftPosition = elementData[index - 2].originalLeftOffset + (padding / 2);
             ulEl.scrollTo({ left: leftPosition, behavior: 'smooth' });
-            checkIsOverflowHidden();
+            checkIsOverflowHidden(0, 1);
         }
         else {
             reset();
         }
     };
+
+    useEffect(() => {
+
+    },[]);
 
     const getInitialElements = useCallback(() => {
         const tempElementData = [];
@@ -123,9 +139,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
             tempElementData.push({
                 name: el.innerHTML,
                 originalLeftOffset: box.left,
-                // hidden: box.left < 0 || box.right > documentWidth,
-                // leftOffset: box.left,
-                // rightOffset: box.right,
                 width: box.width
 
             });
@@ -161,7 +174,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     useEffect(() => {
         getInitialElements();
-
         window.addEventListener('resize', () => handleResize());
         return () => window.removeEventListener('resize', () => handleResize());
     }, []);
@@ -171,11 +183,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
             <nav className="in-page-nav__wrapper" ref={navBar}>
                 {isOverflowLeft &&
                     <div
-                        className="in-page-nav__paginator"
+                        className="in-page-nav__paginator left"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "left")}
-                        onClick={() => scrollLeft()}>
+                        onClick={(e) => scrollLeft(e)}>
                         <FontAwesomeIcon icon="chevron-left" alt="Back" />
                     </div>
                 }
@@ -195,11 +207,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
                 {isOverflowRight &&
                     <div
-                        className="in-page-nav__paginator"
+                        className="in-page-nav__paginator right"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "right")}
-                        onClick={() => scrollRight()}>
+                        onClick={(e) => scrollRight(e)}>
                         <FontAwesomeIcon icon="chevron-right" alt="Forward" />
                     </div>}
             </nav>
