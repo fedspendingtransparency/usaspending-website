@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { omit } from 'lodash';
-
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
-import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { useQueryParams } from 'helpers/queryParams';
 
 const GlossaryListener = ({
     history,
@@ -17,7 +15,7 @@ const GlossaryListener = ({
     Child,
     setLastOpenedSlideout
 }) => {
-    const { pathname, search } = useLocation();
+    const { search } = useLocation();
     const queryParams = useQueryParams();
 
     useEffect(() => {
@@ -26,10 +24,6 @@ const GlossaryListener = ({
             showGlossary();
             setTermFromUrl(term);
             setLastOpenedSlideout('glossary');
-            history.replace({
-                pathname,
-                search: getQueryParamString(omit(queryParams, ['glossary']))
-            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history.location.search]);
