@@ -31,7 +31,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
             left = true;
         }
 
-        if (lastElPosition.right < ulEl.clientWidth || lastElPosition.right > ulEl.scrollWidth) {
+        if (lastElPosition.right > ulEl.clientWidth + padding || lastElPosition.right > ulEl.scrollWidth) {
             right = true;
         }
 
@@ -40,7 +40,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
     };
 
     const handleScroll = () => {
-        console.log("handle scroll", ulElement.scrollLeft, ulElement.scrollWidth, ulElement.clientWidth);
         checkIsOverflowHidden();
     };
 
@@ -132,6 +131,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
         setPadding(((window.innerWidth - ulEl.clientWidth) + 20) / 2);
         setUlElement(ulEl);
         setElementData(tempElementData);
+        checkIsOverflowHidden();
     });
 
     const onKeyPress = useCallback((e, direction) => {
