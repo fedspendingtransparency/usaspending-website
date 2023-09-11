@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const InPageNav = ({ sections, jumpToSection }) => {
     const [windowWidth, setWindowWidth] = useState(0);
-    // const [elementData, setElementData] = useState([]);
     const [ulElement, setUlElement] = useState(null);
     const [elementData, setElementData] = useState([]);
     const [isOverflowLeft, setIsOverflowLeft] = useState(false);
@@ -33,24 +32,26 @@ const InPageNav = ({ sections, jumpToSection }) => {
         const firstElPosition = elArray[0]?.getBoundingClientRect();
         const lastElPosition = elArray[elArray.length - 1]?.getBoundingClientRect();
 
-        if (leftClick) setLeftClickCnt((prevState) => prevState + 1);
-        if (rightClick) setRtClickCnt((prevState) => prevState + 1);
-
-        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0 || rightClick > 0) {
+        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0 || rtClickCnt + rightClick > 0) {
             left = true;
         }
 
-        if (lastElPosition.right > ulEl.scrollWidth || leftClick > 0) {
+        if (lastElPosition.right > ulEl.scrollWidth || leftClickCnt + leftClick > 0) {
             right = true;
         }
 
+        if (leftClick) setLeftClickCnt((prevState) => prevState + 1);
+        if (rightClick) setRtClickCnt((prevState) => prevState + 1);
+
         if (isMobile) {
+            console.log("is mobile");
             left = false;
             right = false;
+        } else {
+            console.log("is not mobile");
+            console.log(left);
+            console.log(right);
         }
-
-        console.log(left)
-        console.log(right)
 
         setIsOverflowLeft(left);
         setIsOverflowRight(right);
@@ -63,7 +64,10 @@ const InPageNav = ({ sections, jumpToSection }) => {
         ulEl.scrollTo({ left: "0", behavior: 'smooth' });
     };
 
-    const scrollLeft = () => {
+    const scrollLeft = useCallback((e) => {
+        e.stopPropagation();
+        console.log("scroll left");
+
         const ulEl = navBar.current.querySelector("ul");
         const elArray = [...ulEl.childNodes];
         const lastVisibleEl = {
@@ -82,7 +86,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
         });
 
         const lastVisibleIndex = lastVisibleEl.index;
-        console.log(lastVisibleIndex)
         // check for last visible item
 
         if (lastVisibleIndex + 2 < elementData.length) {
@@ -93,43 +96,49 @@ const InPageNav = ({ sections, jumpToSection }) => {
         else {
             reset();
         }
-    };
+    });
 
-    const scrollRight = () => {
-        const ulEl = navBar.current.querySelector("ul");
-        const elArray = [...ulEl.childNodes];
-        const firstRtHiddenEl = {
-            name: "",
-            index: 0
-        };
+    const scrollRight = useCallback((e) => {
+        e.stopPropagation();
 
-        // eslint-disable-next-line array-callback-return,consistent-return
-        elArray.find((el, i) => {
-            const box = el.getBoundingClientRect();
-            const documentWidth = ulEl.clientWidth;
-            // Check if element is hidden
-            if (box.right > documentWidth && box.left > 0) {
-                firstRtHiddenEl.name = el.querySelector('a').innerHTML;
-                firstRtHiddenEl.index = i;
-                return i;
+        console.log("scrollRight");
+        if (elementData) {
+            const ulEl = navBar.current.querySelector("ul");
+            const elArray = [...ulEl.childNodes];
+            const firstRtHiddenEl = {
+                name: "",
+                index: 0
+            };
+
+            // eslint-disable-next-line array-callback-return,consistent-return
+            elArray.find((el, i) => {
+                const box = el.getBoundingClientRect();
+                const documentWidth = ulEl.clientWidth;
+                // Check if element is hidden
+                if (box.right > documentWidth && box.left > 0) {
+                    firstRtHiddenEl.name = el.querySelector('a').innerHTML;
+                    firstRtHiddenEl.index = i;
+                    return i;
+                }
+            });
+
+            const index = firstRtHiddenEl.index;
+
+            // console.log(elementData);
+
+            if (index - 2 >= 0) {
+                const leftPosition = elementData[index - 2]?.originalLeftOffset + (padding / 2);
+                navBar.current.querySelector("ul").scrollLeft = leftPosition;
+                // ulEl.scrollTo({ left: leftPosition, behavior: 'smooth' });
+                checkIsOverflowHidden(0, 1);
+                console.log(leftPosition)
+                console.log(navBar.current.querySelector("ul").scrollLeft)
             }
-        });
-
-        const index = firstRtHiddenEl.index;
-
-        if (index - 2 >= 0) {
-            const leftPosition = elementData[index - 2].originalLeftOffset + (padding / 2);
-            ulEl.scrollTo({ left: leftPosition, behavior: 'smooth' });
-            checkIsOverflowHidden(0, 1);
+            else {
+                reset();
+            }
         }
-        else {
-            reset();
-        }
-    };
-
-    useEffect(() => {
-
-    },[]);
+    });
 
     const getInitialElements = useCallback(() => {
         const tempElementData = [];
@@ -162,13 +171,17 @@ const InPageNav = ({ sections, jumpToSection }) => {
         }
     };
 
+    useEffect(() => {
+        console.log(windowWidth)
+        setIsMobile(windowWidth < mediumScreen);
+        getInitialElements();
+    }, [windowWidth]);
+
     const handleResize = throttle(() => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
+            // console.log("handle resize is mobile", newWidth < windowWidth, windowWidth, newWidth);
             setWindowWidth(newWidth);
-            setIsMobile(newWidth < mediumScreen);
-            checkIsOverflowHidden();
-            getInitialElements();
         }
     }, 50);
 
@@ -178,16 +191,38 @@ const InPageNav = ({ sections, jumpToSection }) => {
         return () => window.removeEventListener('resize', () => handleResize());
     }, []);
 
+
+    useEffect(() => {
+        if (isOverflowLeft) {
+            leftChevron.current?.addEventListener("click", (e) => scrollLeft(e));
+            leftChevron.current?.addEventListener("keydown", (e) => onKeyPress(e, "left"));
+        }
+        return () => {
+            leftChevron.current?.removeEventListener("click", (e) => scrollLeft(e));
+            leftChevron.current?.removeEventListener("keydown", (e) => onKeyPress(e, "left"));
+        };
+    }, [isOverflowLeft]);
+
+    useEffect(() => {
+        if (isOverflowRight) {
+            rightChevron.current?.addEventListener("click", (e) => scrollRight(e));
+            rightChevron.current?.addEventListener("keydown", (e) => onKeyPress(e, "right"));
+        }
+        return () => {
+            rightChevron.current?.removeEventListener("click", (e) => scrollRight(e));
+            rightChevron.current?.removeEventListener("keydown", (e) => onKeyPress(e, "right"));
+        };
+    }, [isOverflowRight]);
+
     return (
         <>
             <nav className="in-page-nav__wrapper" ref={navBar}>
                 {isOverflowLeft &&
                     <div
-                        className="in-page-nav__paginator left"
+                        className="in-page-nav__paginator in-page-nav__paginator-left"
                         tabIndex="0"
                         role="button"
-                        onKeyDown={(e) => onKeyPress(e, "left")}
-                        onClick={(e) => scrollLeft(e)}>
+                        ref={leftChevron}>
                         <FontAwesomeIcon icon="chevron-left" alt="Back" />
                     </div>
                 }
@@ -207,11 +242,10 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
                 {isOverflowRight &&
                     <div
-                        className="in-page-nav__paginator right"
+                        className="in-page-nav__paginator in-page-nav__paginator-right"
                         tabIndex="0"
                         role="button"
-                        onKeyDown={(e) => onKeyPress(e, "right")}
-                        onClick={(e) => scrollRight(e)}>
+                        ref={rightChevron}>
                         <FontAwesomeIcon icon="chevron-right" alt="Forward" />
                     </div>}
             </nav>
