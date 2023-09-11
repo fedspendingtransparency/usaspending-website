@@ -64,7 +64,9 @@ const AboutContent = () => {
         if (!sectionDom) return;
 
         // add section to url
-        history.replace(`/about?section=${section}`);
+        if (!window.location.href.includes(`section=${section}`)) {
+            history.replace(`/about?section=${section}`);
+        }
 
         // update the state
         setActiveSection(section);
