@@ -15,16 +15,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const [isOverflowLeft, setIsOverflowLeft] = useState(false);
     const [isOverflowRight, setIsOverflowRight] = useState(false);
     const [padding, setPadding] = useState(32);
-    const [leftClickCnt, setLeftClickCnt] = useState(0);
-    const [rtClickCnt, setRtClickCnt] = useState(0);
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [isMobile, setIsMobile] = useState(0);
     const navBar = useRef(null);
-    const leftChevron = useRef(null);
-    const rightChevron = useRef(null);
 
     // detect if the element is overflowing on the left or the right
-    const checkIsOverflowHidden = (leftClick, rightClick) => {
+    const checkIsOverflowHidden = () => {
         let left = false;
         let right = false;
         const ulEl = navBar?.current?.querySelector("ul");
@@ -32,41 +27,30 @@ const InPageNav = ({ sections, jumpToSection }) => {
         const firstElPosition = elArray[0]?.getBoundingClientRect();
         const lastElPosition = elArray[elArray.length - 1]?.getBoundingClientRect();
 
-        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0 || rtClickCnt + rightClick > 0) {
+        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0) {
             left = true;
         }
 
-        if (lastElPosition.right > ulEl.scrollWidth || leftClickCnt + leftClick > 0) {
+        if (lastElPosition.right < ulEl.clientWidth || lastElPosition.right > ulEl.scrollWidth) {
             right = true;
-        }
-
-        if (leftClick) setLeftClickCnt((prevState) => prevState + 1);
-        if (rightClick) setRtClickCnt((prevState) => prevState + 1);
-
-        if (isMobile) {
-            console.log("is mobile");
-            left = false;
-            right = false;
-        } else {
-            console.log("is not mobile");
-            console.log(left);
-            console.log(right);
         }
 
         setIsOverflowLeft(left);
         setIsOverflowRight(right);
     };
 
+    const handleScroll = () => {
+        console.log("handle scroll", ulElement.scrollLeft, ulElement.scrollWidth, ulElement.clientWidth);
+        checkIsOverflowHidden();
+    };
+
     const reset = () => {
-        setLeftClickCnt(0);
-        setRtClickCnt(0);
         const ulEl = navBar.current.querySelector("ul");
         ulEl.scrollTo({ left: "0", behavior: 'smooth' });
     };
 
     const scrollLeft = useCallback((e) => {
         e.stopPropagation();
-        console.log("scroll left");
 
         const ulEl = navBar.current.querySelector("ul");
         const elArray = [...ulEl.childNodes];
@@ -91,7 +75,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
         if (lastVisibleIndex + 2 < elementData.length) {
             const newLeftPosition = (ulEl.scrollLeft - ulEl.clientWidth) + 20 + elementData[lastVisibleIndex + 1].width + elementData[lastVisibleIndex + 2].width;
             ulEl.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
-            checkIsOverflowHidden(1, 0);
         }
         else {
             reset();
@@ -101,7 +84,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const scrollRight = useCallback((e) => {
         e.stopPropagation();
 
-        console.log("scrollRight");
         if (elementData) {
             const ulEl = navBar.current.querySelector("ul");
             const elArray = [...ulEl.childNodes];
@@ -124,15 +106,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
             const index = firstRtHiddenEl.index;
 
-            // console.log(elementData);
-
             if (index - 2 >= 0) {
                 const leftPosition = elementData[index - 2]?.originalLeftOffset + (padding / 2);
-                navBar.current.querySelector("ul").scrollLeft = leftPosition;
-                // ulEl.scrollTo({ left: leftPosition, behavior: 'smooth' });
-                checkIsOverflowHidden(0, 1);
-                console.log(leftPosition)
-                console.log(navBar.current.querySelector("ul").scrollLeft)
+                ulEl.scrollTo({ left: leftPosition, behavior: 'smooth' });
             }
             else {
                 reset();
@@ -154,12 +130,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
         });
 
         setPadding(((window.innerWidth - ulEl.clientWidth) + 20) / 2);
-        checkIsOverflowHidden();
         setUlElement(ulEl);
         setElementData(tempElementData);
     });
 
-    const onKeyPress = (e, direction) => {
+    const onKeyPress = useCallback((e, direction) => {
         if (e.key === "Enter") {
             if (direction === "left") {
                 scrollLeft();
@@ -169,60 +144,72 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 scrollRight();
             }
         }
-    };
-
-    useEffect(() => {
-        console.log(windowWidth)
-        setIsMobile(windowWidth < mediumScreen);
-        getInitialElements();
-    }, [windowWidth]);
+    });
 
     const handleResize = throttle(() => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
-            // console.log("handle resize is mobile", newWidth < windowWidth, windowWidth, newWidth);
             setWindowWidth(newWidth);
         }
     }, 50);
 
     useEffect(() => {
-        getInitialElements();
+        handleResize();
         window.addEventListener('resize', () => handleResize());
         return () => window.removeEventListener('resize', () => handleResize());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        if (windowWidth) {
+            setIsMobile(windowWidth < mediumScreen);
+            getInitialElements();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [windowWidth]);
+
 
     useEffect(() => {
-        if (isOverflowLeft) {
-            leftChevron.current?.addEventListener("click", (e) => scrollLeft(e));
-            leftChevron.current?.addEventListener("keydown", (e) => onKeyPress(e, "left"));
-        }
-        return () => {
-            leftChevron.current?.removeEventListener("click", (e) => scrollLeft(e));
-            leftChevron.current?.removeEventListener("keydown", (e) => onKeyPress(e, "left"));
-        };
-    }, [isOverflowLeft]);
+        checkIsOverflowHidden();
+        ulElement?.addEventListener('scrollend', () => handleScroll());
+        return () => ulElement?.removeEventListener('scrollend', () => handleScroll());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ulElement]);
 
-    useEffect(() => {
-        if (isOverflowRight) {
-            rightChevron.current?.addEventListener("click", (e) => scrollRight(e));
-            rightChevron.current?.addEventListener("keydown", (e) => onKeyPress(e, "right"));
-        }
-        return () => {
-            rightChevron.current?.removeEventListener("click", (e) => scrollRight(e));
-            rightChevron.current?.removeEventListener("keydown", (e) => onKeyPress(e, "right"));
-        };
-    }, [isOverflowRight]);
+    // useEffect(() => {
+    //     if (isOverflowLeft) {
+    //         leftChevron.current?.addEventListener("click", (e) => scrollLeft(e));
+    //         leftChevron.current?.addEventListener("keydown", (e) => onKeyPress(e, "left"));
+    //     }
+    //     return () => {
+    //         leftChevron.current?.removeEventListener("click", (e) => scrollLeft(e));
+    //         leftChevron.current?.removeEventListener("keydown", (e) => onKeyPress(e, "left"));
+    //     };
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [isOverflowLeft]);
+    //
+    // useEffect(() => {
+    //     if (isOverflowRight) {
+    //         rightChevron.current?.addEventListener("click", (e) => scrollRight(e));
+    //         rightChevron.current?.addEventListener("keydown", (e) => onKeyPress(e, "right"));
+    //     }
+    //     return () => {
+    //         rightChevron.current?.removeEventListener("click", (e) => scrollRight(e));
+    //         rightChevron.current?.removeEventListener("keydown", (e) => onKeyPress(e, "right"));
+    //     };
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [isOverflowRight]);
 
     return (
         <>
             <nav className="in-page-nav__wrapper" ref={navBar}>
-                {isOverflowLeft &&
+                {isOverflowLeft && !isMobile &&
                     <div
                         className="in-page-nav__paginator in-page-nav__paginator-left"
                         tabIndex="0"
                         role="button"
-                        ref={leftChevron}>
+                        onKeyDown={(e) => onKeyPress(e, "left")}
+                        onClick={(e) => scrollLeft(e)}>
                         <FontAwesomeIcon icon="chevron-left" alt="Back" />
                     </div>
                 }
@@ -240,12 +227,13 @@ const InPageNav = ({ sections, jumpToSection }) => {
                         </li>))}
                 </ul>
 
-                {isOverflowRight &&
+                {isOverflowRight && !isMobile &&
                     <div
                         className="in-page-nav__paginator in-page-nav__paginator-right"
                         tabIndex="0"
                         role="button"
-                        ref={rightChevron}>
+                        onKeyDown={(e) => onKeyPress(e, "right")}
+                        onClick={(e) => scrollRight(e)}>
                         <FontAwesomeIcon icon="chevron-right" alt="Forward" />
                     </div>}
             </nav>
