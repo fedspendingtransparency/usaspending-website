@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { throttle } from "lodash";
-import { tabletScreen, mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const InPageNav = ({ sections, jumpToSection }) => {
@@ -96,14 +96,16 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 const box = el.getBoundingClientRect();
                 const documentWidth = ulEl.clientWidth;
                 // Check if element is hidden
-                if (box.right > documentWidth && box.left > 0) {
+                if (box.right > documentWidth && box.left > padding / 2) {
                     firstRtHiddenEl.name = el.querySelector('a').innerHTML;
                     firstRtHiddenEl.index = i;
                     return i;
                 }
             });
 
+
             const index = firstRtHiddenEl.index;
+            console.log(elementData[index]);
 
             if (index - 2 >= 0) {
                 const leftPosition = elementData[index - 2]?.originalLeftOffset + (padding / 2);
@@ -175,30 +177,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
         return () => ulElement?.removeEventListener('scrollend', () => handleScroll());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ulElement]);
-
-    // useEffect(() => {
-    //     if (isOverflowLeft) {
-    //         leftChevron.current?.addEventListener("click", (e) => scrollLeft(e));
-    //         leftChevron.current?.addEventListener("keydown", (e) => onKeyPress(e, "left"));
-    //     }
-    //     return () => {
-    //         leftChevron.current?.removeEventListener("click", (e) => scrollLeft(e));
-    //         leftChevron.current?.removeEventListener("keydown", (e) => onKeyPress(e, "left"));
-    //     };
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [isOverflowLeft]);
-    //
-    // useEffect(() => {
-    //     if (isOverflowRight) {
-    //         rightChevron.current?.addEventListener("click", (e) => scrollRight(e));
-    //         rightChevron.current?.addEventListener("keydown", (e) => onKeyPress(e, "right"));
-    //     }
-    //     return () => {
-    //         rightChevron.current?.removeEventListener("click", (e) => scrollRight(e));
-    //         rightChevron.current?.removeEventListener("keydown", (e) => onKeyPress(e, "right"));
-    //     };
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [isOverflowRight]);
 
     return (
         <>
