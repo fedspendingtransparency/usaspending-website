@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 8/22/2023
  **/
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
@@ -100,17 +100,30 @@ const About = () => {
     // commented out while in page nav feature is in development
     // const [activeSection, setActiveSection] = useState(query.section || 'mission');
     const history = useHistory();
+    const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
-        if (!find(aboutSections, { section })) { // not a known page section
-            return;
-        }
-        const sectionDom = document.querySelector(`#about-${section}`);
+        console.log(section);
+        // we've been provided a section to jump to
+        // check if it's a valid section
+        const sectionObj = find(aboutSections, ['label', section]);
+        if(!sectionObj) return;
+
+        // find the section in dom
+        const sectionDom = document.querySelector(`#about-${sectionObj.section}`);
+        console.log(sectionDom);
         if (!sectionDom) return;
+
+        // add section to url
+        history.replace(`/temp-nav?section=${sectionObj.section}`);
+
+        // update the state
+        setActiveSection(sectionObj.section);
+
+        // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
         scrollToY(sectionTop + 15, 700);
-        // setActiveSection(section);
     };
 
 
@@ -122,7 +135,7 @@ const About = () => {
             if (urlSection) {
                 jumpToSection(urlSection);
                 // remove the query param from the url after scrolling to the given section
-                history.replace(`/about`);
+                // history.replace(`/about`);
             }
         }
         return () => {
