@@ -138,11 +138,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const onKeyPress = useCallback((e, direction) => {
         if (e.key === "Enter") {
             if (direction === "left") {
-                scrollLeft();
+                scrollLeft(e);
             }
 
             if (direction === "right") {
-                scrollRight();
+                scrollRight(e);
             }
         }
     });
@@ -223,7 +223,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div onClick={() => reset()}>Reset (for development purposes)</div>
                 <div>[Debugging] UL Width: {ulElement?.clientWidth}
-                    {/* <br />ScrollLeft (based on scrollLeftPosition object): {scrollLeftPosition?.length > 0 ? scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset : "0"}*/}
                     <br />ScrollLeft (based on scrollLeft): {ulElement?.scrollLeft}
                     <br />Padding: {padding}
                     <br />UIElement Scrollwidth: {ulElement?.scrollWidth}
