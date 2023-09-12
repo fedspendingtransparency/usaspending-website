@@ -117,7 +117,9 @@ export const AgencyProfileV2 = ({
         }
 
         // add section to url
-        history.replace(`${history.location.pathname}?section=${section}`);
+        if (!window.location.href.includes(`section=${section}`)) {
+            history.replace(`${history.location.pathname}?section=${section}`);
+        }
 
         // update the state
         setActiveSection(section);
