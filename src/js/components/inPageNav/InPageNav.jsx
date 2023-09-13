@@ -39,7 +39,8 @@ const InPageNav = ({ sections, jumpToSection }) => {
         setIsOverflowRight(right);
     };
 
-    const handleScroll = () => {
+    const handleScroll = (e) => {
+        e.stopPropagation();
         checkIsOverflowHidden();
     };
 
@@ -70,7 +71,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
         const lastVisibleIndex = lastVisibleEl.index;
         // check for last visible item
-
         if (lastVisibleIndex + 2 < elementData.length) {
             const newLeftPosition = (ulEl.scrollLeft - ulEl.clientWidth) + 20 + elementData[lastVisibleIndex + 1].width + elementData[lastVisibleIndex + 2].width;
             ulEl.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
@@ -105,7 +105,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
 
             const index = firstRtHiddenEl.index;
-            console.log(elementData[index]);
 
             if (index - 2 >= 0) {
                 const leftPosition = elementData[index - 2]?.originalLeftOffset + (padding / 2);
@@ -139,11 +138,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
     const onKeyPress = useCallback((e, direction) => {
         if (e.key === "Enter") {
             if (direction === "left") {
-                scrollLeft();
+                scrollLeft(e);
             }
 
             if (direction === "right") {
-                scrollRight();
+                scrollRight(e);
             }
         }
     });
@@ -157,6 +156,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     useEffect(() => {
         handleResize();
+        getInitialElements();
         window.addEventListener('resize', () => handleResize());
         return () => window.removeEventListener('resize', () => handleResize());
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -165,7 +165,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
     useEffect(() => {
         if (windowWidth) {
             setIsMobile(windowWidth < mediumScreen);
-            getInitialElements();
+            if (navBar.current) {
+                const ulEl = navBar.current.querySelector("ul");
+                setPadding(((window.innerWidth - ulEl.clientWidth) + 20) / 2);
+            }
+            checkIsOverflowHidden();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
@@ -173,8 +177,8 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
     useEffect(() => {
         checkIsOverflowHidden();
-        ulElement?.addEventListener('scrollend', () => handleScroll());
-        return () => ulElement?.removeEventListener('scrollend', () => handleScroll());
+        ulElement?.addEventListener('scrollend', (e) => handleScroll(e));
+        return () => ulElement?.removeEventListener('scrollend', (e) => handleScroll(e));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ulElement]);
 
@@ -219,10 +223,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div onClick={() => reset()}>Reset (for development purposes)</div>
                 <div>[Debugging] UL Width: {ulElement?.clientWidth}
-                    {/* <br />ScrollLeft (based on scrollLeftPosition object): {scrollLeftPosition?.length > 0 ? scrollLeftPosition[scrollLeftPosition?.length - 1]?.offset : "0"}*/}
                     <br />ScrollLeft (based on scrollLeft): {ulElement?.scrollLeft}
-                    <br />Left Most Element (based on elementData object): {elementData?.length > 0 ? elementData[0]?.leftOffset : "0"}
-                    <br />Right Most Element - right side (based on elementData object): {elementData?.length > 0 ? elementData[elementData?.length - 1]?.rightOffset : "0"}
                     <br />Padding: {padding}
                     <br />UIElement Scrollwidth: {ulElement?.scrollWidth}
                 </div>
