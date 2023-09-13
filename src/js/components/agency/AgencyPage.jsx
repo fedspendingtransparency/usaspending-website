@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from "lodash";
 import {
     ComingSoon,
     ErrorMessage,
@@ -60,6 +59,7 @@ export const AgencyProfileV2 = ({
 
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const { name } = useSelector((state) => state.agency.overview);
+    const { isStatusOfFundsChartLoaded } = useSelector((state) => state.agency);
 
     const dataThroughDates = useSelector((state) => state.agency.dataThroughDates);
     const overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate;
@@ -134,21 +134,12 @@ export const AgencyProfileV2 = ({
         }
     };
 
-    useEffect(throttle(() => {
-        // this allows the page to jump to a section on page load, when
-        // using a link to open the page
-        // prevents a console error about react unmounted component leak
-        let isMounted = true;
-        if (isMounted) {
-            const urlSection = query.section;
-            if (urlSection) {
-                jumpToSection(urlSection);
-            }
+    useEffect(() => {
+        if (isStatusOfFundsChartLoaded && query.section) {
+            jumpToSection(query.section);
         }
-        return () => {
-            isMounted = false;
-        };
-    }, 100), [history, query.section]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query.section, isStatusOfFundsChartLoaded]);
 
     return (
         <PageWrapper
