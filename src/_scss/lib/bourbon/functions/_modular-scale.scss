@@ -1,3 +1,4 @@
+@use "sass:math";
 // Scaling Variables
 $golden:           1.618;
 $minor-second:     1.067;
@@ -27,7 +28,7 @@ $modular-scale-base: em($em-base) !default;
 
     // scale $v2 to just above $v1
     @while $v2 > $v1 {
-        $v2: ($v2 / $ratio); // will be off-by-1
+        $v2: math.div($v2, $ratio); // will be off-by-1
     }
     @while $v2 < $v1 {
         $v2: ($v2 * $ratio); // will fix off-by-1
@@ -51,15 +52,15 @@ $modular-scale-base: em($em-base) !default;
     @if $increment < 0 {
         // adjust $v2 to just below $v1
         @if $double-stranded {
-            $v2: ($v2 / $ratio);
+            $v2: math.div($v2, $ratio);
         }
 
         @for $i from $increment through -1 {
-            @if $double-stranded and ($v1 / $ratio) < $v2 {
+            @if $double-stranded and math.div($v1, $ratio) < $v2 {
                 $value: $v2;
-                $v2: ($v2 / $ratio);
+                $v2: math.div($v2, $ratio);
             } @else {
-                $v1: ($v1 / $ratio);
+                $v1: math.div($v1, $ratio);
                 $value: $v1;
             }
         }

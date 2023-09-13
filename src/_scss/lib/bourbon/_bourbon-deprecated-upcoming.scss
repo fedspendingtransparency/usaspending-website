@@ -1,5 +1,5 @@
 // The following features have been deprecated and will be removed in the next MAJOR version release
-
+@use "sass:math";
 @mixin inline-block {
     display: inline-block;
 
@@ -379,7 +379,7 @@
 @function flex-grid($columns, $container-columns: $fg-max-columns) {
     $width: $columns * $fg-column + ($columns - 1) * $fg-gutter;
     $container-width: $container-columns * $fg-column + ($container-columns - 1) * $fg-gutter;
-    @return percentage($width / $container-width);
+    @return percentage(math.div($width, $container-width));
 
     @warn "The flex-grid function is deprecated and will be removed in the next major version release";
 }
@@ -387,7 +387,7 @@
 // Flexible gutter
 @function flex-gutter($container-columns: $fg-max-columns, $gutter: $fg-gutter) {
     $container-width: $container-columns * $fg-column + ($container-columns - 1) * $fg-gutter;
-    @return percentage($gutter / $container-width);
+    @return percentage(math.div($gutter, $container-width));
 
     @warn "The flex-gutter function is deprecated and will be removed in the next major version release";
 }

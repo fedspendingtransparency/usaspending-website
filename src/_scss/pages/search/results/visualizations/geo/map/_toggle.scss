@@ -41,7 +41,7 @@
                 margin-left: 0;
             }
             .map-layer__cd-tooltip {
-                svg { 
+                svg {
                     margin-left: rem(5);
                     margin-right: rem(7.5);
                 }
@@ -98,16 +98,16 @@
 
                         .smart-bottom-right {
                             left: rem(235);
-                            
+
                         }
                     }
-                    @media ((min-width: $large-screen) and (max-width: $m-large-screen)) {
+                    @media ((min-width: $large-screen) and (max-width: $x-large-screen)) {
                         top: rem(40) !important;
                         left: rem(-20) !important;
 
                         .smart-bottom-right {
                             left: rem(235);
-                            
+
                         }
                     }
                 }
@@ -134,7 +134,7 @@
                     }
                 }
             }
-            
+
         }
     }
 }

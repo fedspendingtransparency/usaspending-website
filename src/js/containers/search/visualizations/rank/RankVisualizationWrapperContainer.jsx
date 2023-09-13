@@ -26,6 +26,7 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
+import withAgencySlugs from "../../../agency/WithAgencySlugs";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -35,7 +36,9 @@ const propTypes = {
     reduxFilters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    agencyIds: PropTypes.array,
+    error: PropTypes.bool
 };
 
 export class RankVisualizationWrapperContainer extends React.Component {
@@ -246,8 +249,13 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 linkSeries.push(recipientLink);
             }
 
-            if (this.state.scope === 'awarding_agency') {
+            if (this.state.scope === 'awarding_agency' && !this.props.subaward) {
                 const awardingLink = `agency/${result._agencySlug}`;
+                linkSeries.push(awardingLink);
+            } else if (this.state.scope === 'awarding_agency' && this.props.subaward) {
+                // this properly pulls in the slug from withAgencySlugs, as it is not provided though the API request for subawards
+                const agencyIdentifier = !this.props.error ? this.props.agencyIds[item.id] : '';
+                const awardingLink = `agency/${agencyIdentifier}`;
                 linkSeries.push(awardingLink);
             }
 
@@ -373,12 +381,13 @@ export class RankVisualizationWrapperContainer extends React.Component {
 }
 
 RankVisualizationWrapperContainer.propTypes = propTypes;
+const RankVisualizationWrapperContainerWithRouter = withRouter(withAgencySlugs(RankVisualizationWrapperContainer));
 
-export default withRouter(connect(
+export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
         subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
-)(RankVisualizationWrapperContainer));
+)(RankVisualizationWrapperContainerWithRouter);

@@ -17,38 +17,31 @@ const propTypes = {
     error: PropTypes.bool
 };
 
-export default class TopFive extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.validate = this.validate.bind(this);
-        this.deliverHTMLpayload = this.deliverHTMLpayload.bind(this);
-    }
-
-    validate() {
+const TopFive = (props) => {
+    function validate() {
         let message = null;
-        if (this.props.category === 'federal_account') {
+        if (props.category === 'federal_account') {
             message = (
                 <div className="category-table__message">
                     <span> Coming Soon </span>
                 </div>
             );
         }
-        else if (this.props.error) {
+        else if (props.error) {
             message = (
                 <div className="category-table__message">
                     <span> An error occurred while loading this table. </span>
                 </div>
             );
         }
-        else if (this.props.loading) {
+        else if (props.loading) {
             message = (
                 <div className="category-table__message">
                     <span> Loading... </span>
                 </div>
             );
         }
-        else if (this.props.results.length === 0) {
+        else if (props.results.length === 0) {
             message = (
                 <div className="category-table__message">
                     <span> No Data Available </span>
@@ -58,21 +51,21 @@ export default class TopFive extends React.Component {
         return message;
     }
 
-    deliverHTMLpayload() {
+    function deliverHTMLpayload() {
         let disclaimer;
-        if (this.props.category === 'country' || this.props.category === 'state_territory') {
+        if (props.category === 'country' || props.category === 'state_territory') {
             disclaimer = (
                 <span className="category-table__disclaimer"> <strong>Note: </strong> <em> This data is based on Primary Place of Performance.</em> </span>
             );
         }
-        const rows = this.props.results.map((result, index) => (
+        const rows = props.results.map((result, index) => (
             <TopFiveRow
                 key={index}
                 data={result}
-                category={this.props.category}
-                total={this.props.total} />
+                category={props.category}
+                total={props.total} />
         ));
-        const hideBody = this.props.loading || this.props.error ? `category-table__table-body_hide` : '';
+        const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';
 
         return (
             <div>
@@ -101,25 +94,24 @@ export default class TopFive extends React.Component {
             </div>);
     }
 
-    render() {
-        return (
-            <div className="category-table">
-                <div>
-                    <div className="category-table__title">
-                        <img
-                            className="category-table__title-icon"
-                            src={`img/state-categories/${this.props.category}.png`}
-                            aria-hidden="true"
-                            alt="" />
-                        <div className="category-table__title-name">
-                            {recipientCategoryTitles[this.props.category]}
-                        </div>
+    return (
+        <div className="category-table">
+            <div>
+                <div className="category-table__title">
+                    <img
+                        className="category-table__title-icon"
+                        src={`img/state-categories/${props.category}.png`}
+                        aria-hidden="true"
+                        alt="" />
+                    <div className="category-table__title-name">
+                        {recipientCategoryTitles[props.category]}
                     </div>
-                    {this.validate() ? <div className="category-message">{this.validate()}</div> : this.deliverHTMLpayload()}
                 </div>
+                {validate() ? <div className="category-message">{validate()}</div> : deliverHTMLpayload()}
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 TopFive.propTypes = propTypes;
+export default TopFive;

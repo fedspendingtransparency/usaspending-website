@@ -41,6 +41,7 @@ const BaseRecipientOverview = {
                 city: data.location.city_name,
                 county: data.location.county_name,
                 stateCode: data.location.state_code,
+                zip: data.location.zip,
                 zip5: data.location.zip5,
                 zip4: data.location.zip4,
                 foreignPostalCode: data.location.foreign_postal_code,

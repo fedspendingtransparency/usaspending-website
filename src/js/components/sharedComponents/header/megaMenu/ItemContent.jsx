@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { uniqueId } from 'lodash';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import FadeContents from "./FadeContents";
 
@@ -20,6 +21,12 @@ const ItemContent = React.memo(({
     const openATD = (e) => {
         dispatch(aboutTheDataActions.showAboutTheData());
         dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        e.preventDefault();
+    };
+
+    const openGlossary = (e) => {
+        dispatch(glossaryActions.showGlossary());
+        dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
         e.preventDefault();
     };
 
@@ -112,12 +119,22 @@ const ItemContent = React.memo(({
                                                     className={menuIndex > 1 ? 'list__extra-padding' : ''}>
                                                     <Link
                                                         className="dropdown--item__link"
-                                                        to={item.url !== "?about-the-data" ? item.url : ''}
+                                                        to={item.url === "?about-the-data" || item.url === "?glossary" ? '' : item.url}
                                                         onClick={(e) => {
-                                                            if (item.url === '?about-the-data') openATD(e);
+                                                            if (item.url === '?about-the-data') {
+                                                                openATD(e);
+                                                            }
+                                                            else if (item.url === '?glossary') {
+                                                                openGlossary(e);
+                                                            }
                                                         }}
                                                         onMouseUp={(e) => {
-                                                            if (item.url === '?about-the-data') openATD(e);
+                                                            if (item.url === '?about-the-data') {
+                                                                openATD(e);
+                                                            }
+                                                            else if (item.url === '?glossary') {
+                                                                openGlossary(e);
+                                                            }
                                                         }}>
                                                         {item.icon && item.icon !== '' && item.icon !== null ?
                                                             <FontAwesomeIcon

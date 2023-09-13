@@ -29,7 +29,8 @@ module.exports = {
         fallback: { querystring: require.resolve("querystring-es3") }
     },
     optimization: {
-        splitChunks: { chunks: 'all' }
+        splitChunks: { chunks: 'all' },
+        usedExports: true
     },
     module: {
         noParse: /(mapbox-gl)\.js$/,

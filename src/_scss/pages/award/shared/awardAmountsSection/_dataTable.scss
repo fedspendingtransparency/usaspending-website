@@ -22,9 +22,13 @@
             text-indent: -1.5rem;
 
             @media (max-width: $tablet-screen) {
-                padding-bottom: 4px;
+                padding-bottom: $global-margin * .5;
                 flex-basis: 100%;
             }
+        }
+        @import 'components/glossaryLink';
+        .usda-glossary-link svg {
+            margin-left: $global-margin;
         }
     }
 
