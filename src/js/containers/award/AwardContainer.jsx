@@ -3,12 +3,11 @@
   * Created by David Trinh 10/5/2018
   **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
-import { withRouter } from 'react-router-dom';
 import { flowRight } from 'lodash';
 
 import Award from 'components/award/Award';
@@ -34,6 +33,7 @@ import {
 import withDefCodes from 'containers/covid19/WithDefCodes';
 import { getAwardHistoryCounts } from "../../helpers/awardHistoryHelper";
 import Analytics from "../../helpers/analytics/Analytics";
+import { usePrevious } from "../../helpers/";
 
 require('pages/award/awardPage.scss');
 
@@ -54,64 +54,61 @@ const propTypes = {
     setDEFCodes: PropTypes.func
 };
 
-export class AwardContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const AwardContainer = (props) => {
+    let awardRequest = null;
+    let downloadRequest = null;
+    let countRequest = null;
+    const [noAward, setNoAward] = useState(false);
+    const [inFlight, setInFlight] = useState(true);
+    const [unlinked, setUnlinked] = useState(false);
+    const prevProps = usePrevious(props);
 
-        this.awardRequest = null;
-        this.downloadRequest = null;
-        this.countRequest = null;
+    const parseAward = (data) => {
+        countRequest = getAwardHistoryCounts("federal_account", data.id, data.category === 'idv');
+        countRequest.promise
+            .then((results) => {
+                const countDataBool = (results.data.federal_accounts === 0 || results.data.count === 0);
 
-        this.state = {
-            noAward: false,
-            inFlight: true,
-            unlinked: false
-        };
-        this.downloadData = this.downloadData.bind(this);
-        this.fetchAwardDownloadFile = this.fetchAwardDownloadFile.bind(this);
-    }
+                setUnlinked(countDataBool);
+            });
 
-    componentDidMount() {
-        this.getSelectedAward(this.props.match.params.awardId);
-    }
+        setNoAward(false);
 
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.awardId !== prevProps.match.params.awardId) {
-            this.getSelectedAward(this.props.match.params.awardId);
+        if (data.category === 'contract') {
+            const contract = Object.create(BaseContract);
+            contract.populate(data);
+            props.setAward(contract);
         }
-    }
-
-    componentWillUnmount() {
-        if (this.awardRequest) {
-            this.awardRequest.cancel();
+        else if (data.category === 'idv') {
+            const idv = Object.create(BaseIdv);
+            idv.populate(data);
+            props.setAward(idv);
         }
-        this.props.resetAward();
-    }
-
-    getSelectedAward(id) {
-        if (this.awardRequest) {
+        else {
+            const financialAssistance = Object.create(BaseFinancialAssistance);
+            financialAssistance.populate(data);
+            props.setAward(financialAssistance);
+        }
+    };
+    const getSelectedAward = (id) => {
+        if (awardRequest) {
             // A request is currently in-flight, cancel it
-            this.awardRequest.cancel();
+            awardRequest.cancel();
         }
 
-        this.setState({
-            inFlight: true
-        });
+        setInFlight(true);
 
-        this.awardRequest = SearchHelper.fetchAwardV2(id);
+        awardRequest = SearchHelper.fetchAwardV2(id);
 
-        this.awardRequest.promise
+        awardRequest.promise
             .then((results) => {
                 const awardData = results.data;
 
-                this.setState({
-                    inFlight: false
-                });
-
-                this.parseAward(awardData);
+                setInFlight(false);
+                parseAward(awardData);
 
                 // operation has resolved
-                this.awardRequest = null;
+                awardRequest = null;
             })
             .catch((error) => {
                 console.log(error);
@@ -120,55 +117,19 @@ export class AwardContainer extends React.Component {
                 }
                 else if (error.response) {
                     // Errored out but got response, toggle noAward flag
-                    this.awardRequest = null;
-                    this.setState({
-                        noAward: true,
-                        inFlight: false
-                    });
+                    awardRequest = null;
+                    setNoAward(true);
+                    setInFlight(false);
                 }
                 else {
                     // Request failed
-                    this.awardRequest = null;
+                    awardRequest = null;
                     console.log(error);
-                    this.setState({ inFlight: false });
+                    setInFlight(false);
                 }
             });
-    }
-
-    parseAward(data) {
-        this.countRequest = getAwardHistoryCounts("federal_account", data.id, data.category === 'idv');
-
-        this.countRequest.promise
-            .then((results) => {
-                const countDataBool = (results.data.federal_accounts === 0 || results.data.count === 0);
-
-                this.setState({
-                    unlinked: countDataBool
-                });
-            });
-
-        this.setState({
-            noAward: false
-        });
-
-        if (data.category === 'contract') {
-            const contract = Object.create(BaseContract);
-            contract.populate(data);
-            this.props.setAward(contract);
-        }
-        else if (data.category === 'idv') {
-            const idv = Object.create(BaseIdv);
-            idv.populate(data);
-            this.props.setAward(idv);
-        }
-        else {
-            const financialAssistance = Object.create(BaseFinancialAssistance);
-            financialAssistance.populate(data);
-            this.props.setAward(financialAssistance);
-        }
-    }
-
-    fetchAwardDownloadFile(awardCategory = this.props.award.category, awardId = this.props.match.params.awardId) {
+    };
+    const fetchAwardDownloadFile = (awardCategory = props.award.category, awardId = props.match.params.awardId) => {
         Analytics.event({
             category: 'Award Profile',
             action: 'Download Initiated',
@@ -183,48 +144,60 @@ export class AwardContainer extends React.Component {
         }
 
         return fetchAssistanceDownloadFile(awardId);
-    }
+    };
+    const downloadData = async (awardCategory = props.award.category, awardId = props.match.params.awardId) => {
+        // don't show a modal about the download
+        props.setDownloadCollapsed(true);
 
-    async downloadData(awardCategory = this.props.award.category, awardId = this.props.match.params.awardId) {
-    // don't show a modal about the download
-        this.props.setDownloadCollapsed(true);
-
-        if (this.downloadRequest) {
-            this.downloadRequest.cancel();
+        if (downloadRequest) {
+            downloadRequest.cancel();
         }
 
-        this.downloadRequest = this.fetchAwardDownloadFile(awardCategory, awardId);
+        downloadRequest = fetchAwardDownloadFile(awardCategory, awardId);
 
         try {
-            const { data } = await this.downloadRequest.promise;
-            this.props.setDownloadExpectedUrl(data.file_url);
-            this.props.setDownloadExpectedFile(data.file_name);
+            const { data } = await downloadRequest.promise;
+            props.setDownloadExpectedUrl(data.file_url);
+            props.setDownloadExpectedFile(data.file_name);
             // disable download button
-            this.props.setDownloadPending(true);
-            this.downloadRequest = null;
+            props.setDownloadPending(true);
+            downloadRequest = null;
         }
         catch (err) {
             console.log(err);
-            this.downloadRequest = null;
+            downloadRequest = null;
         }
-    }
+    };
+    useEffect(() => {
+        if (props.match.params.awardId !== prevProps?.match.params.awardId) {
+            getSelectedAward(props.match.params.awardId);
+        }
+    }, [props.match.params.awardId]);
 
-    render() {
-        return (
-            <Award
-                subAwardIdClicked={this.props.subAwardIdClicked}
-                isSubAwardIdClicked={this.props.isSubAwardIdClicked}
-                isDownloadPending={this.props.isDownloadPending}
-                downloadData={this.downloadData}
-                awardId={this.props.match.params.awardId}
-                award={this.props.award}
-                isLoading={this.state.inFlight}
-                noAward={this.state.noAward}
-                defCodes={this.props.defCodes}
-                unlinked={this.state.unlinked} />
-        );
-    }
-}
+    // eslint-disable-next-line arrow-body-style
+    useEffect(() => {
+        return () => {
+            if (awardRequest) {
+                awardRequest.cancel();
+            }
+            props.resetAward();
+        };
+    }, []);
+
+    return (
+        <Award
+            subAwardIdClicked={props.subAwardIdClicked}
+            isSubAwardIdClicked={props.isSubAwardIdClicked}
+            isDownloadPending={props.isDownloadPending}
+            downloadData={downloadData}
+            awardId={props.match.params.awardId}
+            award={props.award}
+            isLoading={inFlight}
+            noAward={noAward}
+            defCodes={props.defCodes}
+            unlinked={unlinked} />
+    );
+};
 
 AwardContainer.propTypes = propTypes;
 
@@ -247,6 +220,4 @@ export default flowRight(
             resetAward,
             setDEFCodes
         }, dispatch)
-    ),
-    withRouter
-)(AwardContainer);
+    ))(AwardContainer);
