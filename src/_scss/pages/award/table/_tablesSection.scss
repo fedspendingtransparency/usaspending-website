@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .tables-section {
     display: block;
     width: 100%;
@@ -60,7 +62,7 @@
         .table-type-toggle {
             @include display(flex);
             .tab-content span {
-                margin-right: $global-mrg / 3;
+                margin-right: math.div($global-mrg, 3);
             }
         }
     }

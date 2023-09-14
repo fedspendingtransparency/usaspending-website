@@ -1,3 +1,4 @@
+@use "sass:math";
 .usa-da-covid19-page {
   @import "all";
   @import "layouts/default/default";
@@ -85,7 +86,7 @@
             @include display(flex);
           }
           .body__header-icon {
-            margin-right: $global-mrg / 2;
+            margin-right: math.div($global-mrg, 2);
           }
           .body__header-text {
             font-size: 1.4rem;

@@ -115,6 +115,11 @@ export const setDataThroughDates = (dates) => ({
     dates
 });
 
+export const setIsSofChartLoaded = (bool) => ({
+    type: 'SET_IS_SOF_CHART_LOADED',
+    payload: bool
+});
+
 export const resetAgency = () => ({
     type: 'RESET_AGENCY'
 });

@@ -11,4 +11,4 @@ export const tabletScreen = 768;
 export const mediumScreen = 992;
 export const largeScreen = 1200;
 export const mLargeScreen = 1400;
-export const xlargeScreen = 1640;
+export const xLargeScreen = 1640;

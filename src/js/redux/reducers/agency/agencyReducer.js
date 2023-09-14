@@ -42,7 +42,8 @@ export const initialState = {
     currentLevelNameAndId: null,
     level4ApiResponse: null,
     agencySubcomponentsList,
-    awardSpendingDataThroughDate: null
+    awardSpendingDataThroughDate: null,
+    isStatusOfFundsChartLoaded: false
 };
 
 const agencyReducer = (state = initialState, action) => {
@@ -168,6 +169,9 @@ const agencyReducer = (state = initialState, action) => {
                     ...action.dates
                 }
             };
+        case 'SET_IS_SOF_CHART_LOADED': {
+            return Object.assign({}, state, { isStatusOfFundsChartLoaded: action.payload });
+        }
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);
         default:
