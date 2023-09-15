@@ -9,20 +9,22 @@ const TempComponent1 = () => {
     const definition = content.results[0].official;
 
     return (
-        <div style={{
-            border: '2px solid red',
-            height: '400px',
-            margin: '40px 40px',
-            textAlign: 'center',
-            fontSize: '24px',
-            paddingTop: '80px'
-        }}>
+        <section
+            id="temp-component-one"
+            style={{
+                border: '2px solid red',
+                height: '400px',
+                margin: '40px 40px',
+                textAlign: 'center',
+                fontSize: '24px',
+                paddingTop: '80px'
+            }}>
             COMPONENT 1
             <div>
                 {term}
                 {definition}
             </div>
-        </div>
+        </section>
     );
 };
 
