@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+@use "sass:math";
 /// Programatically determines whether a color is light or dark.
 ///
 /// @link http://robots.thoughtbot.com/closer-look-color-lightness
@@ -15,7 +15,7 @@
     $-local-red: red(rgba($hex-color, 1));
     $-local-green: green(rgba($hex-color, 1));
     $-local-blue: blue(rgba($hex-color, 1));
-    $-local-lightness: ($-local-red * 0.2126 + $-local-green * 0.7152 + $-local-blue * 0.0722) / 255;
+    $-local-lightness: math.div(($-local-red * 0.2126 + $-local-green * 0.7152 + $-local-blue * 0.0722), 255);
 
     @return $-local-lightness > 0.6;
 }

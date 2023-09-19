@@ -162,8 +162,6 @@ const InteractiveDataSourcesPage = () => {
                 // TODO: revisit settimeout
                 setTimeout(() => {
                     jumpToSection(urlSection);
-                    // remove the query param from the url after scrolling to the given section
-                    history.replace(`/data-sources`);
                 }, 1000);
             }
         }

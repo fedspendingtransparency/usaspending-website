@@ -1,9 +1,10 @@
 //SECTION WRAPPER THAT APPLIES THE CORRECT MARGINS TO FULL WIDTH SECTIONS
+@use "sass:math";
 @mixin fullSectionWrap($mrg-top, $mrg-bottom, $gutter: $outer-gutter) {
     margin-top: $mrg-top;
     margin-bottom: $mrg-bottom;
     @include outer-container(100%);
-    margin: $mrg-top $gutter/2 $mrg-bottom;
+    margin: $mrg-top math.div($gutter, 2) $mrg-bottom;
     @include media($large-screen) {
         margin: $mrg-top $gutter $mrg-bottom;
     }

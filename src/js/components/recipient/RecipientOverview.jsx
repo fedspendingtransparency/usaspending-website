@@ -90,6 +90,13 @@ const RecipientOverview = (props) => {
                 <div>{recipient.location.congressionalDistrict}</div>
             </td>
         );
+    } else if (recipient.location.streetAddress && recipient.location.regionalAddress) {
+        address = (
+            <td>
+                <div>{recipient.location.streetAddress}</div>
+                <div>{recipient.location.regionalAddress}</div>
+            </td>
+        );
     }
 
     // Format business types
