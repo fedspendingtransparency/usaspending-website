@@ -84,11 +84,12 @@ export const useAgencySlugs = () => {
 };
 
 const withAgencySlugs = (WrappedComponent) => (props) => {
-    const [agencySlugs, , , loading, error] = useAgencySlugs();
+    const [agencySlugs, , agencyIds, loading, error] = useAgencySlugs();
     return (
         <WrappedComponent
             {...props}
             agencySlugs={agencySlugs}
+            agencyIds={agencyIds}
             loading={loading}
             error={error} />
     );

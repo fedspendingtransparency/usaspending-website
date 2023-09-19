@@ -2,6 +2,7 @@
 // Helper function for linear/radial-gradient-parsers.
 // Source: http://sassmeister.com/gist/9647408
 //************************************************************************//
+@use "sass:math";
 @function _str-to-num($string) {
     // Matrices
     $strings: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9";
@@ -40,7 +41,7 @@
             @else {
                 // Move the decimal dot to the left
                 $divider: $divider * 10;
-                $number: $number / $divider;
+                $number: math.div($number, $divider);
             }
 
             $result: $result + $number;

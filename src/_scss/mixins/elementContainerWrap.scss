@@ -1,4 +1,6 @@
 //PAGE WRAPPER WITH WHITE BACKGROUND AND SLIGHT SHADOW USED TO WRAP THE CONTENT OF ENTIRE PAGES
+@use "sass:math";
+
 @mixin elementContainerWrap {
     @include outer-container(100%);
     background-color: $color-white;
@@ -7,7 +9,7 @@
     border-top: rem(1) solid $color-gray-border;
     box-shadow: $container-shadow;
     color: $color-base;
-    margin: rem(30) $outer-gutter/2 rem(60);
+    margin: rem(30) math.div($outer-gutter, 2) rem(60);
     padding: 0 rem(30) rem(15);
     @include media($large-screen) {
         margin: rem(30) $outer-gutter rem(60);

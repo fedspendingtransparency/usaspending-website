@@ -5,13 +5,21 @@
 
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setSelectedPrgActivityOrObjectClass, setCurrentLevelNameAndId, setLevel4ApiResponse } from "redux/actions/agency/agencyActions";
+import { setDataThroughDates,
+    setSelectedSubcomponent,
+    setSelectedFederalAccount,
+    setSelectedTas,
+    setSelectedPrgActivityOrObjectClass,
+    setCurrentLevelNameAndId,
+    setLevel4ApiResponse,
+    setIsSofChartLoaded }
+    from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
 import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
@@ -23,10 +31,11 @@ import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
 
 const propTypes = {
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    onChartLoaded: PropTypes.func.isRequired
 };
 
-const StatusOfFunds = ({ fy }) => {
+const StatusOfFunds = ({ fy, onChartLoaded }) => {
     const dispatch = useDispatch();
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -305,6 +314,13 @@ const StatusOfFunds = ({ fy }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fy, overview.toptierCode]);
 
+    useEffect(() => {
+        if (!loading && !error) {
+            onChartLoaded(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [error, loading]);
+
     const setDrilldownLevel = (selectedLevel, parentData, objectClassFlag) => {
         if (selectedLevel === 1) {
             fetchFederalAccounts(parentData);
@@ -444,4 +460,12 @@ const StatusOfFunds = ({ fy }) => {
 };
 
 StatusOfFunds.propTypes = propTypes;
-export default StatusOfFunds;
+
+export default connect(
+    (state) => ({
+        isChartLoaded: state.agency.isStatusOfFundsChartLoaded
+    }),
+    (dispatch) => ({
+        onChartLoaded: (bool) => dispatch(setIsSofChartLoaded(bool))
+    })
+)(StatusOfFunds);

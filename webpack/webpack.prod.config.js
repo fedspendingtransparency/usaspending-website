@@ -20,7 +20,7 @@ module.exports = merge(common, {
     optimization: {
         minimizer: [
             new TerserPlugin(),
-            new CssMinimizerPlugin(),
+            new CssMinimizerPlugin()
         ],
         runtimeChunk: "single",
         splitChunks: {
@@ -34,7 +34,8 @@ module.exports = merge(common, {
                     enforce: true
                 }
             }
-        }
+        },
+        usedExports: true
     },
     module: {
         rules: [

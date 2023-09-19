@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from 'mousetrap';
+import { withRouter } from "react-router-dom";
 
 import GlossaryHeader from './GlossaryHeader';
 import GlossarySearchResults from './search/GlossarySearchResults';
@@ -18,10 +19,11 @@ const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     hideGlossary: PropTypes.func,
-    zIndexClass: PropTypes.string
+    zIndexClass: PropTypes.string,
+    history: PropTypes.object
 };
 
-export default class Glossary extends React.Component {
+export class Glossary extends React.Component {
     constructor(props) {
         super(props);
 
@@ -58,10 +60,18 @@ export default class Glossary extends React.Component {
     }
 
     closeGlossary() {
-    // close the glossary when the escape key is pressed for accessibility and general
-    // non-annoyance
+        // close the glossary when the escape key is pressed for accessibility and general
+        // non-annoyance
+        // we are now also removing the glossary search param from the url when closing the
+        // glossary
+        // we will want to update this method when changing over to a functional component
         this.props.hideGlossary();
-
+        // remove search param from url
+        if (this.props.history.location.search.includes('glossary')) {
+            this.props.history.replace({
+                search: ''
+            });
+        }
         // move focus back to the main content
         const mainContent = document.getElementById('main-focus');
         if (mainContent) {
@@ -163,3 +173,4 @@ export default class Glossary extends React.Component {
 }
 
 Glossary.propTypes = propTypes;
+export default withRouter(Glossary);

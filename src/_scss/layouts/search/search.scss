@@ -1,10 +1,11 @@
+@use "sass:math";
 @import "../default/default";
 
 #main-content {
     @import "./header/header";
     .search-contents {
         @include outer-container(100%);
-        margin: 0 $outer-gutter/2;
+        margin: 0 math.div($outer-gutter, 2);
         @include media($large-screen) {
             margin: 0 $outer-gutter;
         }
