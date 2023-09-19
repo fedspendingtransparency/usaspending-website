@@ -9,10 +9,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { List } from 'immutable';
+import { withRouter } from 'react-router-dom';
+
 import Analytics from 'helpers/analytics/Analytics';
+
 import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
+
 import * as explorerActions from 'redux/actions/explorer/explorerActions';
 import * as ExplorerHelper from 'helpers/explorerHelper';
+
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 import withAgencySlugs from "containers/agency/WithAgencySlugs";
@@ -27,14 +32,13 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     resetExplorerTable: PropTypes.func,
+    history: PropTypes.object,
     agencySlugs: PropTypes.object,
     loading: PropTypes.bool,
     error: PropTypes.bool
 };
 
 const DetailContentContainer = (props) => {
-    let request = null;
-    const prevProps = usePrevious();
     const [data, setData] = useState(new List());
     const [lastUpdate, setLastUpdate] = useState('');
     const [filters, setFilters] = useState({});
@@ -42,9 +46,11 @@ const DetailContentContainer = (props) => {
     const [inFlight, setInFlight] = useState(true);
     const [isTruncated, setIsTruncated] = useState(false);
     const [transition, setTransition] = useState('');
+    const prevProps = usePrevious(props);
+    let request = null;
 
-    const parseRootData = () => {
-        const total = data.total;
+    const parseRootData = (dataInput) => {
+        const total = dataInput.total;
 
         // build the active screen root object
         const activeScreen = {
@@ -65,23 +71,28 @@ const DetailContentContainer = (props) => {
         ];
 
         props.overwriteExplorerTrail(trail);
+
         props.resetExplorerTable();
+
         if (transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
             // so the entry animation occurs with the new data
-            setTransition('start');
+            this.setState({
+                transition: 'start'
+            }, () => {
+                window.setTimeout(() => {
+                    props.setExplorerActive(activeScreen);
 
-            // save the data as an Immutable object for easy change comparison within
-            // the treemap
-            window.setTimeout(() => {
-                props.setExplorerActive(activeScreen);
-                setData(new List(data.results));
-                setLastUpdate(data.end_date);
-                setInFlight(false);
-                setIsTruncated(false);
-                setTransition('end');
-            }, 250);
+                    // save the data as an Immutable object for easy change comparison within
+                    // the treemap
+                    setData(new List(dataInput.results));
+                    setLastUpdate(dataInput.end_date);
+                    setInFlight(false);
+                    setIsTruncated(false);
+                    setTransition('end');
+                }, 250);
+            });
         }
         else {
             // there are no transition steps, so apply changes immediate
@@ -89,34 +100,35 @@ const DetailContentContainer = (props) => {
 
             // save the data as an Immutable object for easy change comparison within
             // the treemap
-            setData(new List(data.results));
-            setLastUpdate(data.end_date);
+            setData(new List(dataInput.results));
+            setLastUpdate(dataInput.end_date);
             setInFlight(false);
             setIsTruncated(false);
             setTransition('');
         }
     };
-    const parseData = (isRewind) => {
-        const total = data.total;
 
-        let temp = false;
-        let parsedResults = ExplorerHelper.truncateDataForTreemap(data.results);
+    const parseData = (dataInput, requestInput, isRewindInput) => {
+        const total = dataInput.total;
 
-        if (request.subdivision === 'award') {
+        let isTruncatedTemp = false;
+        let parsedResults = ExplorerHelper.truncateDataForTreemap(dataInput.results);
+
+        if (requestInput.subdivision === 'award') {
             // link to award page using new human readable id
             parsedResults = parsedResults.map((obj) => ({ ...obj, id: encodeURIComponent(obj.generated_unique_award_id) }));
         }
 
-        if (request.subdivision === 'award' || request.subdivision === 'recipient') {
-            temp = data.results.length > 500;
+        if (requestInput.subdivision === 'award' || requestInput.subdivision === 'recipient') {
+            isTruncatedTemp = dataInput.results.length > 500;
         }
 
-        if (temp) {
+        if (isTruncatedTemp) {
             parsedResults = ExplorerHelper.appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
                 .sort((a, b) => b.amount - a.amount);
         }
         // build the trail item of the last applied filter using the request object
-        const trailItem = Object.assign({}, request, {
+        const trailItem = Object.assign({}, requestInput, {
             total
         });
 
@@ -126,53 +138,57 @@ const DetailContentContainer = (props) => {
         // Also, if the data load was part of a rewind operation (going back up the path via
         // the sidebar), the sidebar is already rendered with the correct items, so don't add
         // anything
-        if (request.within !== props.explorer.active.within && !isRewind) {
+        if (requestInput.within !== props.explorer.active.within && !isRewindInput) {
             props.addExplorerTrail(trailItem);
         }
 
         // update the active screen within and subdivision values using the request object
         const activeScreen = {
             total,
-            within: request.within,
-            subdivision: request.subdivision,
-            accountNumber: request.accountNumber || ''
+            within: requestInput.within,
+            subdivision: requestInput.subdivision,
+            accountNumber: requestInput.accountNumber || ''
         };
 
         if (transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
             // so the entry animation occurs with the new data
-            setTransition('start');
-            window.setTimeout(() => {
-                props.setExplorerActive(activeScreen);
+            this.setState({
+                transition: 'start'
+            }, () => {
+                window.setTimeout(() => {
+                    props.setExplorerActive(activeScreen);
 
-                // save the data as an Immutable object for easy change comparison within
-                // the treemap
-                setIsTruncated(temp);
-                setData(new List(parsedResults));
-                setLastUpdate(data.end_date);
-                setInFlight(false);
-                setTransition('end');
-            }, 250);
+                    // save the data as an Immutable object for easy change comparison within
+                    // the treemap
+                    setIsTruncated(isTruncatedTemp);
+                    setData(new List(parsedResults));
+                    setLastUpdate(dataInput.end_date);
+                    setInFlight(false);
+                    setTransition('end');
+                }, 250);
+            });
         }
         else {
             // no animation required if there are 0 transition steps
             props.setExplorerActive(activeScreen);
 
             // save the data as an Immutable object for easy change comparison within the treemap
-            setIsTruncated(temp);
+            setIsTruncated(isTruncatedTemp);
             setData(new List(parsedResults));
-            setLastUpdate(data.end_date);
+            setLastUpdate(dataInput.end_date);
             setInFlight(false);
             setTransition('');
         }
 
         Analytics.event({
             category: 'Spending Explorer - Data Type',
-            action: request.subdivision
+            action: requestInput.subdivision
         });
     };
-    const loadData = (temp, isRoot = false, isRewind = false) => {
+
+    const loadData = (requestInput, isRootInput = false, isRewindInput = false) => {
         setInFlight(true);
 
         if (request) {
@@ -192,17 +208,17 @@ const DetailContentContainer = (props) => {
             delete requestFilters.period;
         }
         request = ExplorerHelper.fetchBreakdown({
-            type: request.subdivision,
+            type: requestInput.subdivision,
             filters: requestFilters
         });
 
         return request.promise
             .then((res) => {
-                if (isRoot) {
+                if (isRootInput) {
                     parseRootData(res.data);
                 }
                 else {
-                    parseData(res.data, temp, isRewind);
+                    parseData(res.data, requestInput, isRewindInput);
                 }
                 request = null;
             })
@@ -224,12 +240,16 @@ const DetailContentContainer = (props) => {
         };
 
         // make the request
-        request = {
+        const requestTemp = {
             within: 'root',
             subdivision: rootType
         };
-        setFilters(resetFilters);
-        loadData(request, true);
+
+        this.setState({
+            filters: resetFilters
+        }, () => {
+            loadData(requestTemp, true);
+        });
 
         // log the analytics event for a Spending Explorer starting point
         Analytics.event({
@@ -237,7 +257,23 @@ const DetailContentContainer = (props) => {
             action: rootType
         });
     };
-    const goDeeper = (id) => {
+
+    useEffect(() => {
+        if ((props.explorer.fy && (props.explorer.period || props.explorer.quarter)) ||
+            (prevProps?.explorer.root !== props.explorer.root ||
+                prevProps?.explorer.fy !== props.explorer.fy ||
+                prevProps?.explorer.quarter !== props.explorer.quarter ||
+                prevProps?.explorer.period !== props.explorer.period)) {
+            prepareRootRequest(
+                props.explorer.root,
+                props.explorer.fy,
+                props.explorer.quarter,
+                props.explorer.period
+            );
+        }
+    }, [props.explorer]);
+
+    const goDeeper = (idInput, dataInput) => {
         if (inFlight) {
             // API call is in progress, don't allow clicks
             return;
@@ -250,17 +286,17 @@ const DetailContentContainer = (props) => {
         if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
             // and open in new tab
-            window.open(`/award/${id}`, "_blank");
+            window.open(`/award/${idInput}`, "_blank");
 
             Analytics.event({
                 category: 'Spending Explorer - Exit',
-                action: `/award/${id}`
+                action: `/award/${idInput}`
             });
             return;
         }
 
         const newFilter = {
-            [filterBy]: id
+            [filterBy]: idInput
         };
 
         // generate a trail object representing the current filter that is being applied
@@ -299,28 +335,32 @@ const DetailContentContainer = (props) => {
         // for the next request, the current subdivision will be the "within" (data field that
         // the total amount represents)
         // the next item in the path will be the new subdivision unit
-        const temp = {
+        const requestTemp = {
             within: props.explorer.active.subdivision,
             subdivision: nextSubdivision,
-            title: data.name,
-            id: data.id,
-            accountNumber: data.account_number || '',
-            link: data.link
+            title: dataInput.name,
+            id: dataInput.id,
+            accountNumber: dataInput.account_number || '',
+            link: dataInput.link
         };
 
         props.resetExplorerTable();
 
-        setTransitionSteps(1);
-        setFilters(Object.assign({}, this.state.filters, newFilter));
-        loadData(temp, false);
+        this.setState({
+            transitionSteps: 1,
+            filters: Object.assign({}, filters, newFilter)
+        }, () => {
+            loadData(requestTemp, false);
+        });
 
         Analytics.event({
             category: 'Spending Explorer - Drilldown',
             action: filterBy,
-            label: `${data.name} - ${data.id}`
+            label: `${dataInput.name} - ${dataInput.id}`
         });
     };
-    const changeSubdivisionType = (type) => {
+
+    const changeSubdivisionType = (typeInput) => {
         // if we're skipping levels, then we are not adding filters, we're simply revisualizating
         // the data that is already filtered.
         // This means we don't need to modify the trail or the redux filter set.
@@ -329,30 +369,38 @@ const DetailContentContainer = (props) => {
         // the selected type. We'll pass this on as the request object to loadData.
         // loadData has internal logic that will just change the redux Active Screen and not add
         // anything to the sidebar trail
-        const temp = Object.assign({}, props.explorer.active.toJS(), {
-            subdivision: type
+        const requestTemp = Object.assign({}, props.explorer.active.toJS(), {
+            subdivision: typeInput
         });
 
         props.resetExplorerTable();
-        setTransitionSteps(0);
-        loadData(temp, false);
+
+        this.setState({
+            transitionSteps: 0
+        }, () => {
+            loadData(requestTemp, false);
+        });
     };
-    const rewindToFilter = (index) => {
+
+    const rewindToFilter = (input) => {
         const trail = props.explorer.trail.toJS();
         const oldFilters = filters;
         // don't do anything if this is the current filter (ie, the last one in the trail)
-        if (index === trail.length - 1) {
+        if (input === trail.length - 1) {
             return;
         }
 
         // determine how many steps we need to rewind
-        const steps = index - (trail.length - 1);
+        const steps = input - (trail.length - 1);
 
 
-        if (index === 0) {
+        if (input === 0) {
             // we are going all the way back to the start
-            setTransitionSteps(steps);
-            prepareRootRequest(props.explorer.root, props.explorer.fy, props.explorer.quarter, props.explorer.period);
+            this.setState({
+                transitionSteps: steps
+            }, () => {
+                prepareRootRequest(props.explorer.root, props.explorer.fy, props.explorer.quarter, props.explorer.period);
+            });
             return;
         }
 
@@ -365,7 +413,7 @@ const DetailContentContainer = (props) => {
         const newTrail = [];
         // iterate through the trail and include only those filters up to the point we are rewinding
         // to
-        for (let i = 0; i <= index; i++) {
+        for (let i = 0; i <= input; i++) {
             const filterType = trail[i].within;
             if (filterType !== 'root') {
                 // root filters are not real filters, so ignore them
@@ -378,20 +426,24 @@ const DetailContentContainer = (props) => {
         }
 
         // determine if we are jumping back to the root
-        const isRoot = index === 0;
+        const isRoot = input === 0;
 
         // the request object will essentially match the trail item from the selected index
-        const selectedTrailItem = trail[index];
+        const selectedTrailItem = trail[input];
 
         props.overwriteExplorerTrail(newTrail);
-
         props.resetExplorerTable();
-        setTransitionSteps(steps);
-        setFilters(newFilters);
-        loadData(selectedTrailItem, isRoot, true);
+
+        this.setState({
+            transitionSteps: steps,
+            filters: newFilters
+        }, () => {
+            loadData(selectedTrailItem, isRoot, true);
+        });
     };
-    const goToUnreported = (temp) => {
-        const dataArr = [temp];
+
+    const goToUnreported = (input) => {
+        const dataArr = [input];
 
         // generate a trail object representing the current filter that is being applied
         // the new "within" value is the old subdivision unit
@@ -403,16 +455,16 @@ const DetailContentContainer = (props) => {
 
         const trailDisplay = {
             within: props.explorer.active.subdivision,
-            title: temp.name,
+            title: input.name,
             subdivision: currentSubdivision
         };
 
         let total;
-        if (!temp.obligated_amount) {
-            total = temp.amount;
+        if (!input.obligated_amount) {
+            total = input.amount;
         }
         else {
-            total = temp.obligated_amount;
+            total = input.obligated_amount;
         }
 
         const trailItem = Object.assign({}, trailDisplay, {
@@ -426,38 +478,29 @@ const DetailContentContainer = (props) => {
             total
         };
 
+
         setTransitionSteps(1);
 
         // there is going to be a transition, so trigger the exit animation
         // then, 250ms later (after the exit animation completes), apply the props and state
         // so the entry animation occurs with the new data
-        setTransition('start');
-        window.setTimeout(() => {
-            props.setExplorerActive(activeScreen);
+        this.setState({
+            transition: 'start'
+        }, () => {
+            window.setTimeout(() => {
+                props.setExplorerActive(activeScreen);
 
-            // save the data as an Immutable object for easy change comparison within
-            // the treemap
-            setData(new List(dataArr));
-            setLastUpdate(lastUpdate);
-            inFlight(false);
-            setTransition('end');
-        }, 250);
+                // save the data as an Immutable object for easy change comparison within
+                // the treemap
+                setData(new List(dataArr));
+                setLastUpdate(lastUpdate);
+                setInFlight(false);
+                setTransition('end');
+            }, 250);
+        });
         props.resetExplorerTable();
     };
-    useEffect(() => {
-        if ((props.explorer.fy && (props.explorer.period || props.explorer.quarter)) ||
-            (prevProps?.explorer.root !== props.explorer.root ||
-                prevProps?.explorer.fy !== props.explorer.fy ||
-                prevProps?.explorer.quarter !== props.explorer.quarter ||
-                prevProps?.explorer.period !== props.explorer.period)) {
-            prepareRootRequest(
-                props.explorer.root,
-                props.explorer.fy,
-                props.explorer.quarter,
-                props.explorer.period
-            );
-        }
-    }, [props.explorer]);
+
     return (
         <div className="explorer-detail">
             <ExplorerSidebar
@@ -491,9 +534,9 @@ const DetailContentContainer = (props) => {
 };
 
 DetailContentContainer.propTypes = propTypes;
-const DetailContentContainerWithSlugs = withAgencySlugs(DetailContentContainer);
+const DetailContentContainerWithRouter = withRouter(withAgencySlugs(DetailContentContainer));
 
 export default connect(
     (state) => ({ explorer: state.explorer }),
     (dispatch) => bindActionCreators(explorerActions, dispatch)
-)(DetailContentContainerWithSlugs);
+)(DetailContentContainerWithRouter);
