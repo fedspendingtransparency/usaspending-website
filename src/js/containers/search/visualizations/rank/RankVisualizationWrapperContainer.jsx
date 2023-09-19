@@ -3,13 +3,13 @@
  * Created by michaelbray on 4/3/17.
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { withRouter } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import { usePrevious } from 'helpers';
 import { isEqual, max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
@@ -41,144 +41,107 @@ const propTypes = {
     error: PropTypes.bool
 };
 
-export class RankVisualizationWrapperContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const RankVisualizationWrapperContainer = (props) => {
+    const [spendingBy, setSpendingBy] = useState('awardingAgency');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [recipientError, setRecipientError] = useState(false);
+    const [labelSeries, setLabelSeries] = useState([]);
+    const [dataSeries, setDataSeries] = useState([]);
+    const [descriptions, setDescriptions] = useState([]);
+    const [linkSeries, setLinkSeries] = useState([]);
+    const [page, setPage] = useState(1);
+    const [scope, setScope] = useState('awarding_agency');
+    const [next, setNext] = useState('');
+    const [previous, setPrevious] = useState('');
+    const [hasNextPage, setHasNextPage] = useState(false);
+    const [hasPreviousPage, setHasPreviousPage] = useState(false);
+    const [showPicker, setShowPicker] = useState(false);
+    const prevProps = usePrevious(props);
+    const history = useHistory();
 
-        this.state = {
-            spendingBy: 'awardingAgency',
-            loading: true,
-            error: false,
-            labelSeries: [],
-            dataSeries: [],
-            descriptions: [],
-            linkSeries: [],
-            page: 1,
-            scope: 'awarding_agency',
-            next: '',
-            previous: '',
-            hasNextPage: false,
-            hasPreviousPage: false,
-            recipientError: false,
-            showPicker: false
+    const newSearch = () => {
+        setPage(1);
+        setHasNextPage(false);
+    };
 
-        };
+    const setPickerState = (value) => {
+        setShowPicker(value);
+    };
 
-        this.changeSpendingBy = this.changeSpendingBy.bind(this);
-        this.changeScope = this.changeScope.bind(this);
-        this.nextPage = this.nextPage.bind(this);
-        this.previousPage = this.previousPage.bind(this);
-        this.apiRequest = null;
-        this.togglePicker = this.togglePicker.bind(this);
-        this.setPickerState = this.setPickerState.bind(this);
-    }
+    const togglePicker = () => {
+        setShowPicker((prevState) => !prevState);
+    };
 
-    componentDidMount() {
-        this.newSearch();
-        this.parseRank();
-    }
+    const changeScope = (newScope) => {
+        setScope(newScope);
+        setPage(1);
+        setHasNextPage(false);
+        // this.setState({
+        //     scope,
+        //     page: 1,
+        //     hasNextPage: false
+        // }, () => {
+        //     this.fetchData();
+        // });
+    };
 
-    componentDidUpdate(prevProps, prevState) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
-            this.newSearch();
-        }
-        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
-            // subaward toggle changed, update the search object
-            this.newSearch();
-        }
-        else if (prevState.scope !== this.state.scope) {
-            // scope changed, perform a new search
-            this.newSearch();
-        }
-    }
-    setPickerState(value) {
-        this.setState({
-            showPicker: value
-        });
-    }
-    togglePicker() {
-        this.setState({
-            showPicker: !this.state.showPicker
-        });
-    }
-
-
-    parseRank() {
-        if (this.props.history) {
-            const params = this.props.history.location.search.split("&");
+    const parseRank = () => {
+        if (history) {
+            const params = history.location.search.split("&");
             params.shift();
             if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
                 if (params[1].substring(0, 9) === "rankType=") {
                     const rankVal = params[1].substring(9);
-                    this.changeSpendingBy("industryCode");
+                    changeSpendingBy("industryCode");
                     if (rankVal === "naics" || rankVal === "psc") {
-                        this.changeScope(rankVal);
+                        changeScope(rankVal);
                     }
                 }
             }
         }
-    }
-
-    changeScope(scope) {
-        this.setState({
-            scope,
-            page: 1,
-            hasNextPage: false
-        }, () => {
-            this.fetchData();
-        });
-    }
-
-    newSearch() {
-        this.setState({
-            page: 1,
-            hasNextPage: false
-        }, () => {
-            this.fetchData();
-        });
-    }
-
-    nextPage() {
-        if (this.state.hasNextPage) {
-            this.setState({
-                page: this.state.page + 1
-            }, () => {
-                this.fetchData();
-            });
+    };
+    const nextPage = () => {
+        if (hasNextPage) {
+            setPage((prevState) => prevState + 1);
+            // this.setState({
+            //     page: this.state.page + 1
+            // }, () => {
+            //     this.fetchData();
+            // });
         }
-    }
+    };
 
-    previousPage() {
-    // change the state by subtracting 2 (since the page number is already incremented)
-        const prevPage = max([1, this.state.page - 1]);
-        this.setState({
-            page: prevPage
-        }, () => {
-            this.fetchData();
-        });
-    }
+    const previousPage = () => {
+        // change the state by subtracting 2 (since the page number is already incremented)
+        const prevPage = max([1, page - 1]);
+        setPage(prevPage);
+        // this.setState({
+        //     page: prevPage
+        // }, () => {
+        //     this.fetchData();
+        // });
+    };
 
-    fetchData() {
-        this.props.setAppliedFilterCompletion(false);
-        this.setState({
-            loading: true,
-            error: false,
-            recipientError: false
-        });
+    const fetchData = () => {
+        props.setAppliedFilterCompletion(false);
+        setLoading(true);
+        setError(false);
+        setRecipientError(false);
 
-        if (this.apiRequest) {
-            this.apiRequest.cancel();
+        if (apiRequest) {
+            apiRequest.cancel();
         }
 
-        const auditTrail = `${categoryNames[this.state.spendingBy]} Rank Visualization`;
+        const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
 
         // Create Search Operation
         const operation = new SearchAwardsOperation();
-        operation.fromState(this.props.reduxFilters);
+        operation.fromState(props.reduxFilters);
 
         // if subawards is true, newAwardsOnly cannot be true, so we remove
         // dateType for this request
-        if (this.props.subaward && operation.dateType) {
+        if (props.subaward && operation.dateType) {
             delete operation.dateType;
         }
 
@@ -186,19 +149,19 @@ export class RankVisualizationWrapperContainer extends React.Component {
 
         // generate the API parameters
         const apiParams = {
-            category: this.state.scope,
+            category: scope,
             filters: searchParams,
             limit: 10,
-            page: this.state.page,
+            page,
             auditTrail,
-            subawards: this.props.subaward
+            subawards: props.subaward
         };
 
-        this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
-        this.apiRequest.promise
+        let apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
+        apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
-                this.apiRequest = null;
+                parseData(res.data);
+                apiRequest = null;
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -206,18 +169,16 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 }
 
                 const responseDetail = get(err, 'response.data.detail', '');
-                this.props.setAppliedFilterCompletion(true);
-                this.apiRequest = null;
+                props.setAppliedFilterCompletion(true);
+                apiRequest = null;
                 console.log(err);
-                this.setState({
-                    loading: false,
-                    error: true,
-                    recipientError: responseDetail === 'Current filters return too many unique items. Narrow filters to return results.'
-                });
+                setLoading(false);
+                setError(true);
+                setRecipientError(responseDetail === 'Current filters return too many unique items. Narrow filters to return results.');
             });
-    }
+    };
 
-    parseData(data) {
+    const parseData = (data) => {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
@@ -228,7 +189,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             const result = Object.create(BaseSpendingByCategoryResult);
             result.populate(item);
 
-            if (this.state.scope === 'awarding_agency' || this.state.scope === 'awarding_subagency') {
+            if (scope === 'awarding_agency' || scope === 'awarding_subagency') {
                 result.nameTemplate = (code, name) => {
                     if (code) {
                         return `${name} (${code})`;
@@ -237,24 +198,25 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 };
             }
 
-            if (this.state.scope === 'recipient') {
+            if (scope === 'recipient') {
                 result.nameTemplate = (code, name) => name;
             }
 
             labelSeries.push(result.name);
             dataSeries.push(result._amount);
 
-            if (this.state.scope === 'recipient' && !this.props.subaward) {
+            if (scope === 'recipient' && !props.subaward) {
                 const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
                 linkSeries.push(recipientLink);
             }
 
-            if (this.state.scope === 'awarding_agency' && !this.props.subaward) {
+            if (scope === 'awarding_agency' && !props.subaward) {
                 const awardingLink = `agency/${result._agencySlug}`;
                 linkSeries.push(awardingLink);
-            } else if (this.state.scope === 'awarding_agency' && this.props.subaward) {
+            }
+            else if (scope === 'awarding_agency' && props.subaward) {
                 // this properly pulls in the slug from withAgencySlugs, as it is not provided though the API request for subawards
-                const agencyIdentifier = !this.props.error ? this.props.agencyIds[item.id] : '';
+                const agencyIdentifier = !props.error ? props.agencyIds[item.id] : '';
                 const awardingLink = `agency/${agencyIdentifier}`;
                 linkSeries.push(awardingLink);
             }
@@ -275,113 +237,140 @@ export class RankVisualizationWrapperContainer extends React.Component {
             hasNextPage: data.page_metadata.hasNext,
             hasPreviousPage: data.page_metadata.hasPrevious
         }, () => {
-            this.props.setAppliedFilterCompletion(true);
+            props.setAppliedFilterCompletion(true);
         });
-    }
+    };
 
-    generateVisualization() {
-        switch (this.state.spendingBy) {
+    const generateVisualization = () => {
+        switch (spendingBy) {
             case 'awardingAgency':
                 return (
                     <SpendingByAgencySection
                         {...this.state}
-                        changeScope={this.changeScope}
-                        nextPage={this.nextPage}
-                        previousPage={this.previousPage}
-                        subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                        togglePicker={this.togglePicker}
-                        showPicker={this.state.showPicker} />
+                        changeScope={changeScope}
+                        nextPage={nextPage}
+                        previousPage={previousPage}
+                        subaward={props.subaward}
+                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                        togglePicker={togglePicker}
+                        showPicker={showPicker} />
                 );
             case 'recipient':
                 return (
                     <SpendingByRecipientSection
                         {...this.state}
-                        changeScope={this.changeScope}
-                        nextPage={this.nextPage}
-                        previousPage={this.previousPage}
-                        recipientError={this.state.recipientError}
-                        subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                        togglePicker={this.togglePicker} />
+                        changeScope={changeScope}
+                        nextPage={nextPage}
+                        previousPage={previousPage}
+                        recipientError={recipientError}
+                        subaward={props.subaward}
+                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                        togglePicker={togglePicker} />
                 );
             case 'cfda':
                 return (
                     <SpendingByCFDASection
                         {...this.state}
-                        changeScope={this.changeScope}
-                        nextPage={this.nextPage}
-                        previousPage={this.previousPage}
-                        subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                        togglePicker={this.togglePicker} />
+                        changeScope={changeScope}
+                        nextPage={nextPage}
+                        previousPage={previousPage}
+                        subaward={props.subaward}
+                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                        togglePicker={togglePicker} />
                 );
             case 'industryCode':
                 return (
                     <SpendingByIndustryCodeSection
                         {...this.state}
-                        changeScope={this.changeScope}
-                        nextPage={this.nextPage}
-                        previousPage={this.previousPage}
-                        industryCodeError={this.props.subaward}
-                        subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                        togglePicker={this.togglePicker} />
+                        changeScope={changeScope}
+                        nextPage={nextPage}
+                        previousPage={previousPage}
+                        industryCodeError={props.subaward}
+                        subaward={props.subaward}
+                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                        togglePicker={togglePicker} />
                 );
             default:
                 return (
                     <SpendingByAgencySection
                         {...this.state}
-                        changeScope={this.changeScope}
-                        nextPage={this.nextPage}
-                        previousPage={this.previousPage}
+                        changeScope={changeScope}
+                        nextPage={nextPage}
+                        previousPage={previousPage}
                         agencyType="awarding"
-                        subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                        togglePicker={this.togglePicker} />
+                        subaward={props.subaward}
+                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                        togglePicker={togglePicker} />
                 );
         }
-    }
+    };
 
-    changeSpendingBy(spendingBy) {
-        this.setState({
-            spendingBy,
-            scope: defaultScopes[spendingBy]
-        });
-    }
+    const changeSpendingBy = () => {
+        setSpendingBy(spendingBy);
+        setScope(defaultScopes[spendingBy]);
+    };
 
-    render() {
-        const visualization = this.generateVisualization();
-
-        const fieldTypes = [
-            'awardingAgency',
-            'recipient',
-            'cfda'
-        ];
-        if (!this.props.subaward) {
-            fieldTypes.push('industryCode');
+    useEffect(() => {
+        if (page === 1 && !hasNextPage) {
+            fetchData();
         }
+    }, [page, hasNextPage, scope, fetchData]);
 
-        return (
-            <div
-                className="results-visualization-rank-section"
-                id="results-section-rank">
-                <RankVisualizationTitle
-                    fieldTypes={fieldTypes}
-                    changeSpendingBy={this.changeSpendingBy}
-                    currentSpendingBy={this.state.spendingBy}
-                    subaward={this.props.subaward}
-                    showPicker={this.state.showPicker}
-                    togglePicker={this.togglePicker}
-                    setPickerState={this.setPickerState} />
-                { visualization }
-            </div>
-        );
+    useEffect(() => {
+        newSearch();
+        parseRank();
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
+
+    useEffect(() => {
+        if (!isEqual(prevProps.reduxFilters, props.reduxFilters) && !props.noApplied) {
+            newSearch();
+        }
+        else if (prevProps.subaward !== props.subaward && !props.noApplied) {
+            // subaward toggle changed, update the search object
+            newSearch();
+        }
+        else {
+            setScope((prevState) => {
+                if (prevState.scope !== scope) {
+                    // scope changed, perform a new search
+                    newSearch();
+                }
+            });
+        }
+    }, [props, prevProps, scope]);
+
+
+    const visualization = generateVisualization();
+
+    const fieldTypes = [
+        'awardingAgency',
+        'recipient',
+        'cfda'
+    ];
+    if (!props.subaward) {
+        fieldTypes.push('industryCode');
     }
-}
+
+    return (
+        <div
+            className="results-visualization-rank-section"
+            id="results-section-rank">
+            <RankVisualizationTitle
+                fieldTypes={fieldTypes}
+                changeSpendingBy={changeSpendingBy}
+                currentSpendingBy={spendingBy}
+                subaward={props.subaward}
+                showPicker={showPicker}
+                togglePicker={togglePicker}
+                setPickerState={setPickerState} />
+            { visualization }
+        </div>
+    );
+};
 
 RankVisualizationWrapperContainer.propTypes = propTypes;
-const RankVisualizationWrapperContainerWithRouter = withRouter(withAgencySlugs(RankVisualizationWrapperContainer));
+const RankVisualizationWrapperContainerWithSlugs = withAgencySlugs(RankVisualizationWrapperContainer);
 
 export default connect(
     (state) => ({
@@ -390,4 +379,4 @@ export default connect(
         subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
-)(RankVisualizationWrapperContainerWithRouter);
+)(RankVisualizationWrapperContainerWithSlugs);
