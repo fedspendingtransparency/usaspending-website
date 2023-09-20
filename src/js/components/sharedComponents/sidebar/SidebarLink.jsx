@@ -3,69 +3,55 @@
  * Created by Kevin Li 6/8/17
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const propTypes = {
     section: PropTypes.string,
     label: PropTypes.string,
     active: PropTypes.string,
     onClick: PropTypes.func,
-    location: PropTypes.object,
     overLine: PropTypes.string
 };
 
-export class SidebarLink extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            url: ''
-        };
-
-        this.clickedLink = this.clickedLink.bind(this);
-    }
-
-    componentDidMount() {
-        this.prepareLink();
-    }
-
-    prepareLink() {
+const SidebarLink = (props) => {
+    const [url, setUrl] = useState('');
+    const location = useLocation()
+    const prepareLink = () => {
     // the URL base should be the current route
-        const currentRoute = this.props.location.pathname;
+        const currentRoute = location.pathname;
         // append the section as a query param
-        const url = `${currentRoute}?section=${this.props.section}`;
+        const tempUrl = `${currentRoute}?section=${props.section}`;
+        setUrl(tempUrl);
+    };
 
-        this.setState({
-            url
-        });
-    }
+    useEffect(() => {
+        prepareLink();
+    }, [prepareLink]);
 
-    clickedLink(e) {
+    const clickedLink = (e) => {
         e.preventDefault();
-        this.props.onClick(this.props.section);
+        props.onClick(props.section);
+    };
+
+    let active = '';
+    if (props.active === props.section) {
+        active = 'active';
     }
 
-    render() {
-        let active = '';
-        if (this.props.active === this.props.section) {
-            active = 'active';
-        }
-
-        return (
-            <Link
-                className={`sidebar-link ${active}`}
-                to={this.state.url}
-                onClick={this.clickedLink}>
-                {this.props.overLine ? (
-                    <div className="sidebar-link__overline">{this.props.overLine}</div>
-                ) : ''}
-                {this.props.label}
-            </Link>
-        );
-    }
-}
+    return (
+        <Link
+            className={`sidebar-link ${active}`}
+            to={url}
+            onClick={(e) => clickedLink(e)}>
+            {props.overLine ? (
+                <div className="sidebar-link__overline">{props.overLine}</div>
+            ) : ''}
+            {props.label}
+        </Link>
+    );
+};
 
 SidebarLink.propTypes = propTypes;
-export default withRouter(SidebarLink);
+export default SidebarLink;
