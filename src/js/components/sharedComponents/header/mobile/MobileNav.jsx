@@ -34,7 +34,6 @@ const clickedHeaderLink = (route) => {
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
-    location: PropTypes.object,
     mobileNavInitialState: PropTypes.bool,
     setMobileNavInitialState: PropTypes.func
 };
