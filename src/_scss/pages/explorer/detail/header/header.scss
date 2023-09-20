@@ -5,7 +5,7 @@
     @include align-items(flex-start);
     position: relative;
 
-    .detail-_labels {
+    .detail-header__labels {
         @include flex(1 1 auto);
         // this is a truly horrific hack to make the h2 title text wrap on IE 11 in smaller screens
         // this works because flex grow will cause the content to push this flexbox's width out
@@ -111,7 +111,7 @@
         @media only screen and (max-width: 878px) and (min-width: 768px){
             transform: translate(-308px, -18px);
         }
-        
+
     }
 }
 
