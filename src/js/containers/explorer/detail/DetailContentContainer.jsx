@@ -48,6 +48,17 @@ const DetailContentContainer = (props) => {
     const [transition, setTransition] = useState('');
     const prevProps = usePrevious(props);
     let request = null;
+    const parseRootDataTimeout = useEffect((dataInput, activeScreen) => window.setTimeout(() => {
+        props.setExplorerActive(activeScreen);
+
+        // save the data as an Immutable object for easy change comparison within
+        // the treemap
+        setData(new List(dataInput.results));
+        setLastUpdate(dataInput.end_date);
+        setInFlight(false);
+        setIsTruncated(false);
+        setTransition('end');
+    }, 250), []);
     const parseRootData = (dataInput) => {
         const total = dataInput.total;
 
@@ -77,21 +88,8 @@ const DetailContentContainer = (props) => {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
             // so the entry animation occurs with the new data
-            this.setState({
-                transition: 'start'
-            }, () => {
-                window.setTimeout(() => {
-                    props.setExplorerActive(activeScreen);
-
-                    // save the data as an Immutable object for easy change comparison within
-                    // the treemap
-                    setData(new List(dataInput.results));
-                    setLastUpdate(dataInput.end_date);
-                    setInFlight(false);
-                    setIsTruncated(false);
-                    setTransition('end');
-                }, 250);
-            });
+            setTransition('start');
+            parseRootDataTimeout(activeScreen, dataInput);
         }
         else {
             // there are no transition steps, so apply changes immediate
@@ -106,7 +104,17 @@ const DetailContentContainer = (props) => {
             setTransition('');
         }
     };
+    const parseDataTimeout = useEffect((activeScreen, isTruncatedTemp, parsedResults, dataInput) => window.setTimeout(() => {
+        props.setExplorerActive(activeScreen);
 
+        // save the data as an Immutable object for easy change comparison within
+        // the treemap
+        setIsTruncated(isTruncatedTemp);
+        setData(new List(parsedResults));
+        setLastUpdate(dataInput.end_date);
+        setInFlight(false);
+        setTransition('end');
+    }, 250), []);
     const parseData = (dataInput, requestInput, isRewindInput) => {
         const total = dataInput.total;
 
@@ -153,21 +161,8 @@ const DetailContentContainer = (props) => {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
             // so the entry animation occurs with the new data
-            this.setState({
-                transition: 'start'
-            }, () => {
-                window.setTimeout(() => {
-                    props.setExplorerActive(activeScreen);
-
-                    // save the data as an Immutable object for easy change comparison within
-                    // the treemap
-                    setIsTruncated(isTruncatedTemp);
-                    setData(new List(parsedResults));
-                    setLastUpdate(dataInput.end_date);
-                    setInFlight(false);
-                    setTransition('end');
-                }, 250);
-            });
+            setTransition('start');
+            parseDataTimeout(activeScreen, isTruncatedTemp, parsedResults, dataInput);
         }
         else {
             // no animation required if there are 0 transition steps
@@ -228,6 +223,9 @@ const DetailContentContainer = (props) => {
                 }
             });
     };
+    const loadFilters = ((requestTemp, boolValue) => {
+        loadData(requestTemp, boolValue);
+    });
     const prepareRootRequest = (rootType, fy, quarter, period) => {
         // we need to make a root request
         // at the root level, ignore all filters except for the root
@@ -244,12 +242,9 @@ const DetailContentContainer = (props) => {
             subdivision: rootType
         };
 
-        this.setState({
-            filters: resetFilters
-        }, () => {
-            loadData(requestTemp, true);
-        });
-
+        setFilters(resetFilters);
+        const boolValue = true;
+        loadFilters(requestTemp, boolValue);
         // log the analytics event for a Spending Explorer starting point
         Analytics.event({
             category: 'Spending Explorer - Starting Point',
@@ -345,12 +340,10 @@ const DetailContentContainer = (props) => {
 
         props.resetExplorerTable();
 
-        this.setState({
-            transitionSteps: 1,
-            filters: Object.assign({}, filters, newFilter)
-        }, () => {
-            loadData(requestTemp, false);
-        });
+        setTransitionSteps(1);
+        setFilters(Object.assign({}, filters, newFilter));
+        const boolValue = false;
+        loadFilters(requestTemp, boolValue);
 
         Analytics.event({
             category: 'Spending Explorer - Drilldown',
@@ -374,11 +367,8 @@ const DetailContentContainer = (props) => {
 
         props.resetExplorerTable();
 
-        this.setState({
-            transitionSteps: 0
-        }, () => {
-            loadData(requestTemp, false);
-        });
+        setTransitionSteps(0);
+        loadData(requestTemp, false);
     };
 
     const rewindToFilter = (input) => {
@@ -395,11 +385,8 @@ const DetailContentContainer = (props) => {
 
         if (input === 0) {
             // we are going all the way back to the start
-            this.setState({
-                transitionSteps: steps
-            }, () => {
-                prepareRootRequest(props.explorer.root, props.explorer.fy, props.explorer.quarter, props.explorer.period);
-            });
+            setTransitionSteps(steps);
+            prepareRootRequest(props.explorer.root, props.explorer.fy, props.explorer.quarter, props.explorer.period);
             return;
         }
 
@@ -433,14 +420,20 @@ const DetailContentContainer = (props) => {
         props.overwriteExplorerTrail(newTrail);
         props.resetExplorerTable();
 
-        this.setState({
-            transitionSteps: steps,
-            filters: newFilters
-        }, () => {
-            loadData(selectedTrailItem, isRoot, true);
-        });
+        setTransitionSteps(steps);
+        setFilters(newFilters);
+        loadData(selectedTrailItem, isRoot, true);
     };
+    const goToUnreportedTimeout = useEffect((activeScreen, dataArr) => window.setTimeout(() => {
+        props.setExplorerActive(activeScreen);
 
+        // save the data as an Immutable object for easy change comparison within
+        // the treemap
+        setData(new List(dataArr));
+        setLastUpdate(lastUpdate);
+        setInFlight(false);
+        setTransition('end');
+    }, 250), []);
     const goToUnreported = (input) => {
         const dataArr = [input];
 
@@ -471,32 +464,18 @@ const DetailContentContainer = (props) => {
         });
 
         props.addExplorerTrail(trailItem);
-
         // update the active screen within and subdivision values using the request object
         const activeScreen = {
             total
         };
-
 
         setTransitionSteps(1);
 
         // there is going to be a transition, so trigger the exit animation
         // then, 250ms later (after the exit animation completes), apply the props and state
         // so the entry animation occurs with the new data
-        this.setState({
-            transition: 'start'
-        }, () => {
-            window.setTimeout(() => {
-                props.setExplorerActive(activeScreen);
-
-                // save the data as an Immutable object for easy change comparison within
-                // the treemap
-                setData(new List(dataArr));
-                setLastUpdate(lastUpdate);
-                setInFlight(false);
-                setTransition('end');
-            }, 250);
-        });
+        setTransition('start');
+        goToUnreportedTimeout(activeScreen, dataArr);
         props.resetExplorerTable();
     };
 

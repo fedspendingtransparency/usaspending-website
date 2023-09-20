@@ -184,17 +184,17 @@ export default class DetailContent extends React.Component {
 
             // ID is used to build links to profile pages in DetailHeader
             // Use the account number for federal accounts
-            let id = `${lastFilter.id}`;
-            if (lastFilter.within === 'federal_account') {
-                id = lastFilter.accountNumber;
+            let id = `${lastFilter?.id}`;
+            if (lastFilter?.within === 'federal_account') {
+                id = lastFilter?.accountNumber;
             }
 
             header = (<DetailHeader
                 activeSubdivision={this.props.active.subdivision}
                 isLoading={this.props.isLoading}
-                within={lastFilter.within}
-                title={lastFilter.title}
-                link={lastFilter.link}
+                within={lastFilter?.within}
+                title={lastFilter?.title}
+                link={lastFilter?.link}
                 id={id}
                 fy={this.props.fy}
                 lastUpdate={this.props.lastUpdate}
