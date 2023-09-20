@@ -31,7 +31,7 @@ const IdvActivity = (props) => {
     else if (props.error) {
         message = (<ResultsTableErrorMessage />);
     }
-    else if (!this.props.awards.length) {
+    else if (!props.awards.length) {
         message = (<NoResultsMessage />);
     }
     else {
