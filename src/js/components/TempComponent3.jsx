@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import fetchData from './fetchData';
 
 const resource = fetchData();
 
-const TempComponent3 = (inViewport) => {
-    const [content, setContent] = useState(null);
-    const [term, setTerm] = useState(null);
-    const [definition, setDefinition] = useState(null);
-
-    useEffect(() => {
-        if (inViewport) {
-            // content = resource.read();
-            setContent(resource.read());
-            // term = content.results[0].term;
-            setTerm(content?.results[0].term);
-            // definition = content.results[0].official;
-            setDefinition(content?.results[0].official);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inViewport]);
+const TempComponent3 = () => {
+    const content = resource.read();
+    const term = content.results[0].term;
+    const definition = content.results[0].official;
 
     return (
         <section

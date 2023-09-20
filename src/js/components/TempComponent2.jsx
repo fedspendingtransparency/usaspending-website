@@ -5,7 +5,7 @@ const TempComponent2 = () => (
         id="temp-component-two"
         style={{
             border: '2px solid green',
-            height: '200px',
+            height: '400px',
             margin: '40px 40px',
             textAlign: 'center',
             fontSize: '24px',
