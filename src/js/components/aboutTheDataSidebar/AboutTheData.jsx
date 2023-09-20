@@ -244,10 +244,10 @@ const AboutTheData = (props) => {
                             {drilldown ?
                                 <div className="atd__body">
                                     <AboutTheDataDrilldown
-                                        section={drilldownSection.heading}
-                                        name={drilldownSection.fields[drilldownItemId].name}
+                                        section={drilldownSection?.heading}
+                                        name={drilldownSection?.fields[drilldownItemId]?.name}
                                         clearDrilldown={clearDrilldown}
-                                        slug={drilldownSection.fields[drilldownItemId].slug} />
+                                        slug={drilldownSection?.fields[drilldownItemId]?.slug} />
                                 </div>
                                 :
                                 <>
