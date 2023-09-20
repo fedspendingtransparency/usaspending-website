@@ -48,7 +48,6 @@ const DetailContentContainer = (props) => {
     const [transition, setTransition] = useState('');
     const prevProps = usePrevious(props);
     let request = null;
-
     const parseRootData = (dataInput) => {
         const total = dataInput.total;
 
