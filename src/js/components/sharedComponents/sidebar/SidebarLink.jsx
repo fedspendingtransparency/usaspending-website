@@ -17,7 +17,7 @@ const propTypes = {
 
 const SidebarLink = (props) => {
     const [url, setUrl] = useState('');
-    const location = useLocation()
+    const location = useLocation();
     const prepareLink = () => {
     // the URL base should be the current route
         const currentRoute = location.pathname;
