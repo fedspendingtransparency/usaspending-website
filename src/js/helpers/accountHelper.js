@@ -4,7 +4,7 @@
  */
 
 const dayjs = require('dayjs');
-let utc = require('dayjs/plugin/utc');
+const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
 export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPeriods) => {
