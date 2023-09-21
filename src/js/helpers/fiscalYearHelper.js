@@ -77,7 +77,7 @@ export const convertQuarterToDate = (qtr, year) => {
 export const convertDateToQuarter = (date) => {
     // Returns the fiscal quarter that the date falls in
     let quarter = 0;
-    const month = dayjs.isdayjs(date)
+    const month = dayjs.isValid(date)
         ? date.month()
         : dayjs(date).month();
 

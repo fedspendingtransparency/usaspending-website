@@ -6,7 +6,7 @@
 const dayjs = require('dayjs');
 // eslint-disable-next-line import/prefer-default-export
 export const convertDatesToRange = (startDate, endDate) => {
-    if ((startDate && endDate) && (dayjs.isdayjs(startDate) && dayjs.isdayjs(endDate))) {
+    if ((startDate && endDate) && (dayjs.isValid(startDate) && dayjs.isValid(endDate))) {
         const duration = dayjs.duration(endDate.diff(startDate));
         const years = duration.years();
         const months = duration.months();
