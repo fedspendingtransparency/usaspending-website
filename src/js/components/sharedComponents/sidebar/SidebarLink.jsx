@@ -28,7 +28,8 @@ const SidebarLink = (props) => {
 
     useEffect(() => {
         prepareLink();
-    }, [prepareLink]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const clickedLink = (e) => {
         e.preventDefault();
