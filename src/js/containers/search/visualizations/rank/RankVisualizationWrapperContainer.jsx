@@ -46,20 +46,38 @@ const RankVisualizationWrapperContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [recipientError, setRecipientError] = useState(false);
-    // const [labelSeries, setLabelSeries] = useState([]);
-    // const [dataSeries, setDataSeries] = useState([]);
-    // const [descriptions, setDescriptions] = useState([]);
-    // const [linkSeries, setLinkSeries] = useState([]);
+    const [labelSeries, setLabelSeries] = useState([]);
+    const [dataSeries, setDataSeries] = useState([]);
+    const [descriptions, setDescriptions] = useState([]);
+    const [linkSeries, setLinkSeries] = useState([]);
     const [page, setPage] = useState(1);
     const [scope, setScope] = useState('awarding_agency');
-    // const [next, setNext] = useState('');
-    // const [previous, setPrevious] = useState('');
+    const [next, setNext] = useState('');
+    const [previous, setPrevious] = useState('');
     const [hasNextPage, setHasNextPage] = useState(false);
-    // const [hasPreviousPage, setHasPreviousPage] = useState(false);
+    const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [showPicker, setShowPicker] = useState(false);
     const prevProps = usePrevious(props);
     const history = useHistory();
     let apiRequest;
+
+    const childProps = {
+        spendingBy,
+        loading,
+        error,
+        labelSeries,
+        dataSeries,
+        descriptions,
+        linkSeries,
+        page,
+        scope,
+        next,
+        previous,
+        hasNextPage,
+        hasPreviousPage,
+        recipientError,
+        showPicker
+    };
 
     const newSearch = () => {
         setPage(1);
@@ -90,10 +108,6 @@ const RankVisualizationWrapperContainer = (props) => {
     const changeSpendingBy = (tempSpendingBy) => {
         setSpendingBy(tempSpendingBy);
         setScope(defaultScopes[tempSpendingBy]);
-        // this.setState({
-        //     spendingBy,
-        //     scope: defaultScopes[spendingBy]
-        // });
     };
 
     const parseRank = () => {
@@ -135,10 +149,10 @@ const RankVisualizationWrapperContainer = (props) => {
     };
 
     const parseData = (data) => {
-        const labelSeries = [];
-        const dataSeries = [];
-        const descriptions = [];
-        const linkSeries = [];
+        const tempLabelSeries = [];
+        const tempDataSeries = [];
+        const tempDescriptions = [];
+        const tempLinkSeries = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
@@ -158,34 +172,34 @@ const RankVisualizationWrapperContainer = (props) => {
                 result.nameTemplate = (code, name) => name;
             }
 
-            labelSeries.push(result.name);
-            dataSeries.push(result._amount);
+            tempLabelSeries.push(result.name);
+            tempDataSeries.push(result._amount);
 
             if (scope === 'recipient' && !props.subaward) {
                 const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
-                linkSeries.push(recipientLink);
+                tempLinkSeries.push(recipientLink);
             }
 
             if (scope === 'awarding_agency' && !props.subaward) {
                 const awardingLink = `agency/${result._agencySlug}`;
-                linkSeries.push(awardingLink);
+                tempLinkSeries.push(awardingLink);
             }
             else if (scope === 'awarding_agency' && props.subaward) {
                 // this properly pulls in the slug from withAgencySlugs, as it is not provided though the API request for subawards
                 const agencyIdentifier = !props.error ? props.agencyIds[item.id] : '';
                 const awardingLink = `agency/${agencyIdentifier}`;
-                linkSeries.push(awardingLink);
+                tempLinkSeries.push(awardingLink);
             }
 
             const description = `Spending by ${result.name}: ${result.amount}`;
-            descriptions.push(description);
+            tempDescriptions.push(description);
         });
 
         // set the state with the new values
-        setLabelSeries(labelSeries);
-        setDataSeries(dataSeries);
-        setDescriptions(descriptions);
-        setLinkSeries(linkSeries);
+        setLabelSeries(tempLabelSeries);
+        setDataSeries(tempDataSeries);
+        setDescriptions(tempDescriptions);
+        setLinkSeries(tempLinkSeries);
         setNext(data.page_metadata.next);
         setPrevious(data.page_metadata.previous);
         setHasNextPage(data.page_metadata.hasNext);
@@ -267,7 +281,7 @@ const RankVisualizationWrapperContainer = (props) => {
             case 'awardingAgency':
                 return (
                     <SpendingByAgencySection
-                        {...this.state}
+                        {...childProps}
                         changeScope={changeScope}
                         nextPage={nextPage}
                         previousPage={previousPage}
@@ -279,7 +293,7 @@ const RankVisualizationWrapperContainer = (props) => {
             case 'recipient':
                 return (
                     <SpendingByRecipientSection
-                        {...this.state}
+                        {...childProps}
                         changeScope={changeScope}
                         nextPage={nextPage}
                         previousPage={previousPage}
@@ -291,7 +305,7 @@ const RankVisualizationWrapperContainer = (props) => {
             case 'cfda':
                 return (
                     <SpendingByCFDASection
-                        {...this.state}
+                        {...childProps}
                         changeScope={changeScope}
                         nextPage={nextPage}
                         previousPage={previousPage}
@@ -302,7 +316,7 @@ const RankVisualizationWrapperContainer = (props) => {
             case 'industryCode':
                 return (
                     <SpendingByIndustryCodeSection
-                        {...this.state}
+                        {...childProps}
                         changeScope={changeScope}
                         nextPage={nextPage}
                         previousPage={previousPage}
@@ -314,7 +328,7 @@ const RankVisualizationWrapperContainer = (props) => {
             default:
                 return (
                     <SpendingByAgencySection
-                        {...this.state}
+                        {...childProps}
                         changeScope={changeScope}
                         nextPage={nextPage}
                         previousPage={previousPage}
@@ -327,10 +341,12 @@ const RankVisualizationWrapperContainer = (props) => {
     };
 
     useEffect(() => {
-        if (page === 1 && !hasNextPage) {
+        // fetch data when scope, page, or hasNextPage changes
+        if (page && !hasNextPage) {
             fetchData();
         }
-    }, [page, hasNextPage, scope, fetchData]);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [page, hasNextPage, scope]);
 
     useEffect(() => {
         newSearch();
