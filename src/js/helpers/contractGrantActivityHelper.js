@@ -5,6 +5,7 @@
 import { cloneDeep } from 'lodash';
 import { isAwardFinancialAssistance } from 'helpers/awardSummaryHelper';
 import { badPotentialEndDate } from '../../../tests/testResources/mockContractGrantActivityHelper';
+
 const dayjs = require('dayjs');
 
 export const filteredAndSortedLinesFirstToLast = (lines) => lines
