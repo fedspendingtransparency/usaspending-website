@@ -12,6 +12,7 @@ const TempComponent2 = () => (
             paddingTop: '80px'
         }}>
         COMPONENT 2
+        NO API CALL
     </section>
 );
 
