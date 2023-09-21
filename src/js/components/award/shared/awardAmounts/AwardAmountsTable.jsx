@@ -50,7 +50,6 @@ const AwardAmountsTable = ({
      * irrespective of whether the award exceedsPotential or exceedsCurrent
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
-
     const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardAmountType) => {
         switch (scenario) {
             case ('normal'):

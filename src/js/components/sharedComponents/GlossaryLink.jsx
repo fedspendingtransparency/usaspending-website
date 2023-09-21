@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/24/20
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,8 +16,12 @@ const propTypes = {
 };
 
 const GlossaryLink = ({ term, hidden }) => {
+    const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
-    const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, search);
+    useEffect(() => {
+        setUrlSearchParam(search.includes('glossary') ? '' : search);
+    }, [search]);
+    const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
     const stopBubble = (e) => {
         e.stopPropagation();
     };
