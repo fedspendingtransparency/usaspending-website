@@ -46,19 +46,20 @@ const RankVisualizationWrapperContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [recipientError, setRecipientError] = useState(false);
-    const [labelSeries, setLabelSeries] = useState([]);
-    const [dataSeries, setDataSeries] = useState([]);
-    const [descriptions, setDescriptions] = useState([]);
-    const [linkSeries, setLinkSeries] = useState([]);
+    // const [labelSeries, setLabelSeries] = useState([]);
+    // const [dataSeries, setDataSeries] = useState([]);
+    // const [descriptions, setDescriptions] = useState([]);
+    // const [linkSeries, setLinkSeries] = useState([]);
     const [page, setPage] = useState(1);
     const [scope, setScope] = useState('awarding_agency');
-    const [next, setNext] = useState('');
-    const [previous, setPrevious] = useState('');
+    // const [next, setNext] = useState('');
+    // const [previous, setPrevious] = useState('');
     const [hasNextPage, setHasNextPage] = useState(false);
-    const [hasPreviousPage, setHasPreviousPage] = useState(false);
+    // const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [showPicker, setShowPicker] = useState(false);
     const prevProps = usePrevious(props);
     const history = useHistory();
+    let apiRequest;
 
     const newSearch = () => {
         setPage(1);
@@ -86,6 +87,15 @@ const RankVisualizationWrapperContainer = (props) => {
         // });
     };
 
+    const changeSpendingBy = (tempSpendingBy) => {
+        setSpendingBy(tempSpendingBy);
+        setScope(defaultScopes[tempSpendingBy]);
+        // this.setState({
+        //     spendingBy,
+        //     scope: defaultScopes[spendingBy]
+        // });
+    };
+
     const parseRank = () => {
         if (history) {
             const params = history.location.search.split("&");
@@ -101,6 +111,7 @@ const RankVisualizationWrapperContainer = (props) => {
             }
         }
     };
+
     const nextPage = () => {
         if (hasNextPage) {
             setPage((prevState) => prevState + 1);
@@ -121,61 +132,6 @@ const RankVisualizationWrapperContainer = (props) => {
         // }, () => {
         //     this.fetchData();
         // });
-    };
-
-    const fetchData = () => {
-        props.setAppliedFilterCompletion(false);
-        setLoading(true);
-        setError(false);
-        setRecipientError(false);
-
-        if (apiRequest) {
-            apiRequest.cancel();
-        }
-
-        const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
-
-        // Create Search Operation
-        const operation = new SearchAwardsOperation();
-        operation.fromState(props.reduxFilters);
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove
-        // dateType for this request
-        if (props.subaward && operation.dateType) {
-            delete operation.dateType;
-        }
-
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            category: scope,
-            filters: searchParams,
-            limit: 10,
-            page,
-            auditTrail,
-            subawards: props.subaward
-        };
-
-        let apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
-        apiRequest.promise
-            .then((res) => {
-                parseData(res.data);
-                apiRequest = null;
-            })
-            .catch((err) => {
-                if (isCancel(err)) {
-                    return;
-                }
-
-                const responseDetail = get(err, 'response.data.detail', '');
-                props.setAppliedFilterCompletion(true);
-                apiRequest = null;
-                console.log(err);
-                setLoading(false);
-                setError(true);
-                setRecipientError(responseDetail === 'Current filters return too many unique items. Narrow filters to return results.');
-            });
     };
 
     const parseData = (data) => {
@@ -225,20 +181,85 @@ const RankVisualizationWrapperContainer = (props) => {
             descriptions.push(description);
         });
 
-        this.setState({
-            labelSeries,
-            dataSeries,
-            descriptions,
-            linkSeries,
-            loading: false,
-            error: false,
-            next: data.page_metadata.next,
-            previous: data.page_metadata.previous,
-            hasNextPage: data.page_metadata.hasNext,
-            hasPreviousPage: data.page_metadata.hasPrevious
-        }, () => {
-            props.setAppliedFilterCompletion(true);
-        });
+        // set the state with the new values
+        setLabelSeries(labelSeries);
+        setDataSeries(dataSeries);
+        setDescriptions(descriptions);
+        setLinkSeries(linkSeries);
+        setNext(data.page_metadata.next);
+        setPrevious(data.page_metadata.previous);
+        setHasNextPage(data.page_metadata.hasNext);
+        setHasPreviousPage(data.page_metadata.hasPrevious);
+
+
+        // this.setState({
+        //     labelSeries,
+        //     dataSeries,
+        //     descriptions,
+        //     linkSeries,
+        //     loading: false,
+        //     error: false,
+        //     next: data.page_metadata.next,
+        //     previous: data.page_metadata.previous,
+        //     hasNextPage: data.page_metadata.hasNext,
+        //     hasPreviousPage: data.page_metadata.hasPrevious
+        // }, () => {
+        //     props.setAppliedFilterCompletion(true);
+        // });
+    };
+    const fetchData = () => {
+        props.setAppliedFilterCompletion(false);
+        setLoading(true);
+        setError(false);
+        setRecipientError(false);
+
+        if (apiRequest) {
+            apiRequest.cancel();
+        }
+
+        const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
+
+        // Create Search Operation
+        const operation = new SearchAwardsOperation();
+        operation.fromState(props.reduxFilters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request
+        if (props.subaward && operation.dateType) {
+            delete operation.dateType;
+        }
+
+        const searchParams = operation.toParams();
+
+        // generate the API parameters
+        const apiParams = {
+            category: scope,
+            filters: searchParams,
+            limit: 10,
+            page,
+            auditTrail,
+            subawards: props.subaward
+        };
+
+        apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
+        apiRequest.promise
+            .then((res) => {
+                parseData(res.data);
+                apiRequest = null;
+            })
+            .catch((err) => {
+                if (isCancel(err)) {
+                    return;
+                }
+
+                const responseDetail = get(err, 'response.data.detail', '');
+                props.setAppliedFilterCompletion(true);
+                apiRequest = null;
+                console.log(err);
+                setLoading(false);
+                setError(true);
+                setRecipientError(responseDetail === 'Current filters return too many unique items. Narrow filters to return results.');
+            });
     };
 
     const generateVisualization = () => {
@@ -303,11 +324,6 @@ const RankVisualizationWrapperContainer = (props) => {
                         togglePicker={togglePicker} />
                 );
         }
-    };
-
-    const changeSpendingBy = () => {
-        setSpendingBy(spendingBy);
-        setScope(defaultScopes[spendingBy]);
     };
 
     useEffect(() => {
