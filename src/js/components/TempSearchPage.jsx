@@ -7,15 +7,17 @@ import TempComponent1 from "./TempComponent1";
 import TempComponent2 from "./TempComponent2";
 import TempComponent4 from "./TempComponent4";
 import TempLoadingComponent from "./TempLoadingComponent";
-// import TempComponent3 from "./TempComponent3";
+
 const TempComponent3 = lazy(() => import('./TempComponent3'));
 
 require("pages/search/searchPage.scss");
 
 const TempSearchPage = () => {
-    // const { ref, inView } = useInView({
-    //     threshold: 0.1
-    // });
+    const { ref, inView } = useInView({
+        threshold: 1,
+        triggerOnce: true
+    });
+
     // const containerRef = useRef(null);
     // const history = useHistory();
     // const [isVisible, setIsVisible] = useState(false);
@@ -40,9 +42,9 @@ const TempSearchPage = () => {
     //     }
     // ];
 
-    const options = {
-        threshold: 0.1
-    };
+    // const options = {
+    //     threshold: 0.1
+    // };
 
     // const callback = (entries) => {
     //     entries.forEach((entry) => {
@@ -86,18 +88,36 @@ const TempSearchPage = () => {
                 classNames="usa-da-search-page"
                 title="Temp Search Page">
                 <main id="main-content" className="main-content">
-                    {/* <Suspense fallback={<TempLoadingComponent />}> */}
-                    {/* <TempComponent1 /> */}
-                    {/* </Suspense> */}
-                    {/* <div>{isVisible ? "IN VIEWPORT" : "NOT IN VIEWPORT"}</div> */}
-                    <TempComponent2 />
-                    {/* <Suspense fallback={<TempLoadingComponent />}> */}
-                    {/* <div ref={ref}> */}
-                    {/*     {inView && <TempComponent3 />} */}
-                    {/* </div> */}
-                    {/* <TempComponent3 /> */}
-                    {/* </Suspense> */}
-                    <TempComponent4 />
+                    {/* <section> */}
+                    {/*     <Suspense fallback={<TempLoadingComponent />}> */}
+                    {/*         <TempComponent1 /> */}
+                    {/*         <div>{inView ? "IN VIEWPORT" : "NOT IN VIEWPORT"}</div> */}
+                    {/*         <TempComponent2 /> */}
+                    {/*         <div ref={ref}> */}
+                    {/*             {inView && <TempComponent3 />} */}
+                    {/*         </div> */}
+                    {/*         <TempComponent4 /> */}
+                    {/*     </Suspense> */}
+                    {/* </section> */}
+                    <section>
+                        <Suspense fallback={<TempLoadingComponent />}>
+                            <TempComponent1 />
+                        </Suspense>
+                    </section>
+                    <div>{inView ? "IN VIEWPORT" : "NOT IN VIEWPORT"}</div>
+                    <section>
+                        <TempComponent2 />
+                    </section>
+                    <section>
+                        <Suspense fallback={<TempLoadingComponent />}>
+                            <div ref={ref}>
+                                {inView && <TempComponent3 />}
+                            </div>
+                        </Suspense>
+                    </section>
+                    <section>
+                        <TempComponent4 />
+                    </section>
                 </main>
             </PageWrapper>
         </PageFeatureFlag>
