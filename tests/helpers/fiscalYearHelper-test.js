@@ -4,6 +4,7 @@
  */
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import MockDate from 'mockdate';
 
 const dayjs = require('dayjs');
 
@@ -19,50 +20,46 @@ describe('Fiscal Year helper functions', () => {
     describe('currentFiscalYear', () => {
         it('should use the current calendar year as the fiscal year for every month before October', () => {
             // override the dayjs's library's internal time to a known mocked date
-            const mockedDate = dayjs('2015-04-01', 'YYYY-MM-DD').toDate();
-            dayjs.now = () => (mockedDate);
+            MockDate.set('2015-04-01', 'YYYY-MM-DD');
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
             expect(currentFY).toEqual(2015);
 
             // reset dayjs's date to the current time
-            dayjs.now = () => (new Date());
+            MockDate.reset();
         });
 
         it('should use the current calendar year as the fiscal year on Sept 30', () => {
             // override the dayjs's library's internal time to a known mocked date
-            const mockedDate = dayjs('2015-09-30', 'YYYY-MM-DD').toDate();
-            dayjs.now = () => (mockedDate);
+            MockDate.set('2015-09-30', 'YYYY-MM-DD');
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
             expect(currentFY).toEqual(2015);
 
             // reset dayjs's date to the current time
-            dayjs.now = () => (new Date());
+            MockDate.reset();
         });
 
         it('should use the next calendar year as the fiscal year for months on or after October', () => {
             // override the dayjs's library's internal time to a known mocked date
-            const mockedDate = dayjs('2015-11-01', 'YYYY-MM-DD').toDate();
-            dayjs.now = () => (mockedDate);
+            MockDate.set('2015-11-01', 'YYYY-MM-DD');
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
             expect(currentFY).toEqual(2016);
 
             // reset dayjs's date to the current time
-            dayjs.now = () => (new Date());
+            MockDate.reset();
         });
 
         it('should use the next calendar year as the fiscal year on October 1', () => {
             // override the dayjs's library's internal time to a known mocked date
-            const mockedDate = dayjs('2015-10-01', 'YYYY-MM-DD').toDate();
-            dayjs.now = () => (mockedDate);
+            MockDate.set('2015-10-01', 'YYYY-MM-DD');
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
             expect(currentFY).toEqual(2016);
 
             // reset dayjs's date to the current time
-            dayjs.now = () => (new Date());
+            MockDate.reset();
         });
     });
 
@@ -105,14 +102,14 @@ describe('Fiscal Year helper functions', () => {
 
     describe('getTrailingTwelveMonths', () => {
         it('should return an array containing today as an end date and the year one year ago as the start date', () => {
-            const mockedDate = dayjs('2019-05-20', 'YYYY-MM-DD').toDate();
-            dayjs.now = () => (mockedDate);
+            MockDate.set('2019-05-20', 'YYYY-MM-DD');
             const expectedDates = ['2018-05-20', '2019-05-20'];
 
             expect(FiscalYearHelper.getTrailingTwelveMonths()).toEqual(expectedDates);
+            MockDate.reset();
         });
     });
-    
+
     describe('nearestQuarterDate', () => {
         describe('Fiscal Quarter 1 Oct-Dec', () => {
             it('10-14-2019 - should return this quarter start quarter date in millis', () => {

@@ -25,7 +25,11 @@ import {
 import PeriodComponent from './PeriodComponent';
 
 const dayjs = require('dayjs');
+var utc = require('dayjs/plugin/utc');
+var isSameOrBefore = require('dayjs/plugin/isSameOrBefore');
 
+dayjs.extend(isSameOrBefore);
+dayjs.extend(utc);
 const sortPeriods = ({ type: a }, { type: b }) => {
     if (!a || !b) return 0;
     if (a.includes('quarter-selected')) return -1;
