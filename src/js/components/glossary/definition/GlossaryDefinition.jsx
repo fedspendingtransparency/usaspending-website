@@ -58,7 +58,7 @@ export default class GlossaryDefinition extends React.Component {
     getCopyFn() {
         const separator = window.location.href.includes('?') ? '&' : '?';
         const slug = `${separator}glossary=${this.props.glossary.term.toJS().slug}`;
-        const value = window.location.href + slug;
+        const value = window.location.href.includes("glossary") ? window.location.href : window.location.href + slug;
         if (window.navigator && window.navigator.clipboard && window.navigator.clipboard.writeText) {
             window.navigator.clipboard.writeText(value);
             this.setState({ showCopiedConfirmation: true });
