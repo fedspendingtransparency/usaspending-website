@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { Picker, SearchBar } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import moment from "moment";
+
 import { List } from "immutable";
 
 import { allFiscalYears } from "helpers/fiscalYearHelper";
@@ -24,6 +24,7 @@ import {
 } from 'dataMapping/aboutTheData/timeFilters';
 import PeriodComponent from './PeriodComponent';
 
+const dayjs = require('dayjs')
 const sortPeriods = ({ type: a }, { type: b }) => {
     if (!a || !b) return 0;
     if (a.includes('quarter-selected')) return -1;
@@ -35,7 +36,7 @@ const sortPeriods = ({ type: a }, { type: b }) => {
 const parsePeriods = (year, periods) => {
     const allPeriodsAvailableInFy = periods
         .filter((p) => p.submission_fiscal_year === parseInt(year, 10))
-        .filter((p) => moment.utc(p.submission_reveal_date).isSameOrBefore(moment()));
+        .filter((p) => dayjs.utc(p.submission_reveal_date).isSameOrBefore(dayjs()));
     return periodsPerQuarter
         .reduce((acc, periodsInQuarter) => (
             acc.concat(
