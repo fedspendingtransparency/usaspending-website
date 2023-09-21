@@ -3,9 +3,10 @@
  * Created by Kevin Li 5/17/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { usePrevious } from "../../../helpers";
 
 const propTypes = {
     href: PropTypes.string,
@@ -13,70 +14,58 @@ const propTypes = {
     location: PropTypes.object
 };
 
-export class SmartLink extends React.Component {
-    constructor(props) {
-        super(props);
+const SmartLink = (props) => {
+    const [href, setHref] = useState('');
+    const [isLocal, setIsLocal] = useState(false);
+    const location = useLocation();
+    const prevProps = usePrevious(props);
 
-        this.state = {
-            href: '',
-            isLocal: false
-        };
-    }
-
-    componentDidMount() {
-        this.transformLink(this.props.href);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps !== this.props) {
-            this.transformLink(this.props.href);
-        }
-    }
-
-    transformLink(url) {
-        let href = url;
-        let isLocal = false;
+    const transformLink = (url) => {
+        let tempHref = url;
+        let tempIsLocal = false;
 
         // check if the link is a local glossary reference
         if (url.indexOf('?glossary=') > -1) {
             // it is a local glossary reference, get the current URL
-            const currentPath = this.props.location.pathname;
-            href = `${currentPath}${url}`;
-            isLocal = true;
+            const currentPath = location.pathname;
+            tempHref = `${currentPath}${url}`;
+            tempIsLocal = true;
         }
         else if (url.indexOf('/') === 0) {
             // link internal to the web site but not a glossary reference
             // don't open these in a new window, but keep the URL as provided
-            isLocal = true;
+            tempIsLocal = true;
         }
 
-        this.setState({
-            href,
-            isLocal
-        });
-    }
+        setHref(tempHref);
+        setIsLocal(tempIsLocal);
+    };
 
-    render() {
-        if (this.state.isLocal) {
-            return (
-                <Link
-                    to={this.state.href}>
-                    {this.props.children}
-                </Link>
-            );
+    useEffect(() => {
+        if (prevProps !== props) {
+            transformLink(props.href);
         }
+    });
 
-        // external links should open in a new window
+    if (isLocal) {
         return (
-            <a
-                href={this.state.href}
-                target="_blank"
-                rel="noopener noreferrer">
-                {this.props.children}
-            </a>
+            <Link
+                to={href}>
+                {props.children}
+            </Link>
         );
     }
-}
+
+    // external links should open in a new window
+    return (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer">
+            {props.children}
+        </a>
+    );
+};
 
 SmartLink.propTypes = propTypes;
-export default withRouter(SmartLink);
+export default SmartLink;
