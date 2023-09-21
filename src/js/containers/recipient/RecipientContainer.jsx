@@ -16,6 +16,7 @@ import * as RecipientHelper from 'helpers/recipientHelper';
 import { isFyValid } from 'helpers/fiscalYearHelper';
 
 import RecipientPage from 'components/recipient/RecipientPage';
+import { usePrevious } from "../../helpers";
 
 require('pages/recipient/recipientPage.scss');
 
@@ -30,6 +31,7 @@ const propTypes = {
 };
 
 const RecipientContainer = (props) => {
+    const prevProps = usePrevious(props);
     const history = useHistory();
     const [state, setState] = useState({
         loading: true,
@@ -51,8 +53,6 @@ const RecipientContainer = (props) => {
         }
 
         request = RecipientHelper.fetchRecipientOverview(id, year);
-
-        console.log(request);
 
         request.promise
             .then((res) => {
@@ -79,7 +79,6 @@ const RecipientContainer = (props) => {
         props.setRecipientFiscalYear(fy);
     };
 
-    // componentDidMount()
     useEffect(() => {
         const params = props.match.params;
         if (Object.keys(params).includes('fy')) {
@@ -100,7 +99,6 @@ const RecipientContainer = (props) => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
-    // componentWillUnmount()
     useEffect(() => {
         // Reset the FY
         props.setRecipientFiscalYear(defaultFy);
@@ -109,18 +107,19 @@ const RecipientContainer = (props) => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
-    // componentDidUpdate()
-    useEffect((prevProps) => {
-        if (props.match.params.recipientId !== prevProps.match.params.recipientId) {
-            // Reset the FY
-            props.setRecipientFiscalYear(props.match.params.fy);
-            loadRecipientOverview(props.match.params.recipientId, defaultFy);
-        }
-        if (prevProps.match.params.fy !== props.match.params.fy) {
-            props.setRecipientFiscalYear(props.match.params.fy);
-        }
-        if (props.recipient.fy !== prevProps.recipient.fy) {
-            loadRecipientOverview(props.match.params.recipientId, props.recipient.fy);
+    useEffect(() => {
+        if (prevProps) {
+            if (props.match.params.recipientId !== prevProps.match.params.recipientId) {
+                // Reset the FY
+                props.setRecipientFiscalYear(props.match.params.fy);
+                loadRecipientOverview(props.match.params.recipientId, defaultFy);
+            }
+            if (prevProps.match.params.fy !== props.match.params.fy) {
+                props.setRecipientFiscalYear(props.match.params.fy);
+            }
+            if (props.recipient.fy !== prevProps.recipient.fy) {
+                loadRecipientOverview(props.match.params.recipientId, props.recipient.fy);
+            }
         }
     });
 
