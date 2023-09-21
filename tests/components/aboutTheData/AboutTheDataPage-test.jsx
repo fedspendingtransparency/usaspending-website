@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from 'immutable';
-import moment from 'moment';
 import { render, screen, waitFor } from '@test-utils';
 
 import AboutTheDataPage from 'components/aboutTheData/AboutTheDataPage';
@@ -11,6 +10,8 @@ import * as queryParamHelpers from 'helpers/queryParams';
 import * as agencyReportingAPI from 'apis/agencyReporting';
 import { mockAPI } from '../../containers/aboutTheData/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
+
+const dayjs = require('dayjs');
 
 // latest fy of 2020; latest period is 12
 const q4Fy2020 = {
@@ -57,7 +58,7 @@ const defaultProps = {
 beforeEach(() => {
     jest.spyOn(URLSearchParams.prototype, 'toString').mockImplementation(() => 'str');
     jest.spyOn(helpers, "useLatestAccountData").mockReturnValue([
-        moment(),
+        dayjs(),
         mockPeriods,
         { year: 2020, period: 12 }
     ]);

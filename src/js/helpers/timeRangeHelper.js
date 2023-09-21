@@ -3,11 +3,11 @@
  * Created by Lizzie Salita 3/8/18
  */
 
-import moment from 'moment';
+const dayjs = require('dayjs');
 // eslint-disable-next-line import/prefer-default-export
 export const convertDatesToRange = (startDate, endDate) => {
-    if ((startDate && endDate) && (moment.isMoment(startDate) && moment.isMoment(endDate))) {
-        const duration = moment.duration(endDate.diff(startDate));
+    if ((startDate && endDate) && (dayjs.isdayjs(startDate) && dayjs.isdayjs(endDate))) {
+        const duration = dayjs.duration(endDate.diff(startDate));
         const years = duration.years();
         const months = duration.months();
         const days = duration.days();

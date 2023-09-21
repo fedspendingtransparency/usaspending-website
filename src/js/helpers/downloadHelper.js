@@ -2,10 +2,9 @@
  * downloadHelper.js
  * Created by Kevin Li 5/8/17
  */
-
-import moment from 'moment';
-
 import { apiRequest } from './apiRequest';
+
+const dayjs = require('dayjs');
 
 export const requestFullDownload = (params, type) => apiRequest({
     url: `v2/download/${type}/`,
@@ -59,7 +58,7 @@ export const fetchIdvDownloadFile = (awardId) => apiRequest({
 
 export const getLatestSubmissionPeriodInFy = (fy, availablePeriods) => availablePeriods
     .filter((period) => period.submission_fiscal_year === parseInt(fy, 10))
-    .filter((period) => moment(period.submission_reveal_date).isSameOrBefore(moment()))
+    .filter((period) => dayjs(period.submission_reveal_date).isSameOrBefore(dayjs()))
     .reduce((acc, latestPeriod) => {
         if (acc.period < latestPeriod.submission_fiscal_month) {
             return {

@@ -6,13 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import moment from 'moment';
 
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
 import { ExplorerInfoToolTip } from './../../../award/shared/InfoTooltipContent';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     isLoading: PropTypes.bool,
@@ -76,7 +77,7 @@ export default class RootHeader extends React.Component {
                         {this.props.isLoading ? '--' : formatTreemapValues(this.props.total)}
                     </div>
                     <div className="detail-header__update">
-                        Data as of {moment(this.props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
+                        Data as of {dayjs(this.props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
                     </div>
                 </div>
             </div>

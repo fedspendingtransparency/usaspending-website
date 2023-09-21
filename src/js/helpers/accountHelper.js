@@ -3,7 +3,7 @@
  * Created by Kevin Li 3/24/17
  */
 
-import moment from 'moment';
+const dayjs = require('dayjs');
 
 export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPeriods) => {
     if (!submissionPeriods.length) return null;
@@ -23,14 +23,14 @@ export const getLatestPeriod = (availablePeriods, fy = null) => {
                 return true;
             })
             .map((s) => ({
-                revealDate: moment.utc(s.submission_reveal_date),
-                asOfDate: moment.utc(s.period_end_date),
+                revealDate: dayjs.utc(s.submission_reveal_date),
+                asOfDate: dayjs.utc(s.period_end_date),
                 period: s.submission_fiscal_month,
                 year: s.submission_fiscal_year,
                 quarter: s.submission_fiscal_quarter
             }))
             .sort(({ revealDate: a }, { revealDate: b }) => b.valueOf() - a.valueOf())
-            .find(({ revealDate: s }) => moment(s).isSameOrBefore(moment()));
+            .find(({ revealDate: s }) => dayjs(s).isSameOrBefore(dayjs()));
     }
 
     return {
@@ -42,7 +42,7 @@ export const getLatestPeriod = (availablePeriods, fy = null) => {
     };
 };
 
-export const getLatestPeriodAsMoment = (availablePeriods) => {
+export const getLatestPeriodAsdayjs = (availablePeriods) => {
     if (availablePeriods.length) {
         return getLatestPeriod(availablePeriods).asOfDate;
     }

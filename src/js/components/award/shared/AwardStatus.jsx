@@ -3,10 +3,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { endsWith } from 'lodash';
-import moment from 'moment';
 
 import { convertDatesToRange } from 'helpers/timeRangeHelper';
 import { datesByDateType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     dates: PropTypes.object,
@@ -19,7 +20,7 @@ const AwardStatus = ({ dates, awardType }) => {
     const contract = isContract(awardType);
     const awardStatus = () => {
         if (badDates) return '';
-        const today = moment();
+        const today = dayjs();
         let end = endDate;
         if (contract) end = currentEndDate;
         // Adding one day due to the need for the end date to be inclusive and duration is exact
@@ -44,8 +45,8 @@ const AwardStatus = ({ dates, awardType }) => {
         // Since we add one day for inclusivity to the status we want the time reamaining to
         // show the same
         dateToCompare = dateToCompare.add(1, 'd');
-        const remainingTime = convertDatesToRange(moment(), dateToCompare);
-        if (!remainingTime || (moment().isBefore(startDate))) return null;
+        const remainingTime = convertDatesToRange(dayjs(), dateToCompare);
+        if (!remainingTime || (dayjs().isBefore(startDate))) return null;
         return `(${remainingTime} ${endsWith(remainingTime, 's') ? 'remain' : 'remains'})`;
     };
 
