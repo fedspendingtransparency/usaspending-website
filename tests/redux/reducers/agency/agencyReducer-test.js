@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * agencyReducer-test.js
  * Created by Lizzie Salita 5/26/20
  */

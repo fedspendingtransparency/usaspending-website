@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * CoreExecutiveDetails-test.js
  * Created by David Trinh 10/6/18
  */

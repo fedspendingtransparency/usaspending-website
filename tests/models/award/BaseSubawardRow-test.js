@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseSubawardRow-test.js
  * Created by Lizzie Salita 3/13/18
  */

@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseOverview-test.js
  * Created by Jonathan Hill 06/18/20
  */

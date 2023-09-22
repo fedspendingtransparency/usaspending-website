@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseDefCodes-test.js
  * Created by Jonathan Hill 06/19/20
  */

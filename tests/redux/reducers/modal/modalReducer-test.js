@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * redirectModalReducer-test.js
  * Created by Lizzie Salita 2/22/18
  */

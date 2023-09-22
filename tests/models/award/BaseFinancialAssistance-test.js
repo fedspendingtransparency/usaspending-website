@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseFinancialAssistance-test.js
  * Created by David Trinh 10/10/18
  */

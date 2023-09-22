@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseFederalAccount-test.js
  * Created by Jonathan Hill 4/29/19
  */

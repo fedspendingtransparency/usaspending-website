@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseStateCategoryResult-test.js
  * Created by Kevin Li 5/21/18
  */

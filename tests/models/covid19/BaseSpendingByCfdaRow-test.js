@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseSpendingByCfdaRow-test.js
  * Created by Lizzie Salita 6/24/20
  */

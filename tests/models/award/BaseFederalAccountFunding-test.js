@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseFederalAccountFunding-test.js
  * Created by Kwadwo 04/04/19
  */

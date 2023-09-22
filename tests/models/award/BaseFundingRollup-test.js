@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseFundingRollup-test.js
  * Created by Lizzie Salita 8/19/19
  */

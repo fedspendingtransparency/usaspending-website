@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseStateProfile-test.js
  * Created by Lizzie Salita 5/7/18
  */

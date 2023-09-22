@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseSpendingByRecipientRow-test.js
  * Created by Lizzie Salita 7/9/20
  */

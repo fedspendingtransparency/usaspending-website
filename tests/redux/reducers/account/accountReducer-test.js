@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * accountReducer-test.js
  * Created by Kevin Li 3/27/17
  */

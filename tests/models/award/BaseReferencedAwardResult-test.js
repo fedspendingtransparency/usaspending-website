@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BaseReferencedAwardResult-test.js
  * Created by Lizzie Salita 2/21/19
  */
