@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * CoreLocation-test.js
  * Created by Lizzie Salita 3/12/18
  */

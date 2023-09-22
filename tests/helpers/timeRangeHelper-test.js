@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * timeRangeHelper-test.js
  * Created by Lizzie Salita 3/19/18.
  */

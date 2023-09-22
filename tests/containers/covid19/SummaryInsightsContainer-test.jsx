@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * SummaryInsightsContainer-test.jsx
  * Created by Lizzie Salita 11/30/21
  */

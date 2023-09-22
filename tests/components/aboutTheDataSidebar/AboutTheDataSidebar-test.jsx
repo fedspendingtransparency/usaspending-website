@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * AboutTheDataSidebar-test.jsx
  * Created by Andrea Blackwell 12/14/2022
  */

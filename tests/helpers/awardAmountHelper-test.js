@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * awardAmountHelper-test.js
  * Created by michaelbray on 3/9/17.
  */

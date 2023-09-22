@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * BaseAwardRecipient-test.js
  * Created by David Trinh 10/10/18
  */

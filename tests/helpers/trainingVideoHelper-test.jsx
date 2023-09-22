@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * trainingVideoHelper-test.js
  * Created by Andrea Blackwell 01/04/2023
  */

@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * bulkDownloadHelper.js
  * Created by Max Kendall 03/30/2021
  */

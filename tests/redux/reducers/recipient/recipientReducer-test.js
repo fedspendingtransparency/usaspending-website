@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * recipientReducer-test.js
  * Created by Lizzie Salita 6/26/18
  */
