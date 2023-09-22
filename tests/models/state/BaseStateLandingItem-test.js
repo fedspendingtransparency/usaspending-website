@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * BaseStateLandingItem-test.js
  * Created by Kevin Li 5/23/18
  */

@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * aboutTheDataReducer-test.js
  * Created by Andrea Blackwell 12/14/2022
  */

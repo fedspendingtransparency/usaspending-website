@@ -1,5 +1,6 @@
 /**
  * @jest-environment jsdom
+ * 
  * CorePeriodOfPerformance-test.js
  * Created by David Trinh 10/6/18
  */
