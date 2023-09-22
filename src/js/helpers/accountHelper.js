@@ -5,7 +5,9 @@
 
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
+const isSameOrBefore = require('dayjs/plugin/isSameOrBefore');
 
+dayjs.extend(isSameOrBefore);
 dayjs.extend(utc);
 export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPeriods) => {
     if (!submissionPeriods.length) return null;

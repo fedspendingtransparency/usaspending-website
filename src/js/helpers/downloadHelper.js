@@ -5,7 +5,9 @@
 import { apiRequest } from './apiRequest';
 
 const dayjs = require('dayjs');
+const isSameOrBefore = require('dayjs/plugin/isSameOrBefore');
 
+dayjs.extend(isSameOrBefore);
 export const requestFullDownload = (params, type) => apiRequest({
     url: `v2/download/${type}/`,
     method: 'post',
