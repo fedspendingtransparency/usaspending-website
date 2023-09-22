@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * moneyFormatter-test.js
  * Created by Kevin Li 1/25/17
  */

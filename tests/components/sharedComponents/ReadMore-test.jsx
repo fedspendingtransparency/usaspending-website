@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * ReadMore-test.jsx
  * Created by Lizzie Salita 10/13/21
  */

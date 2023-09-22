@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * AnalystGuide-test.jsx
  * Created by Andrea Blackwell 03/30/22
  */

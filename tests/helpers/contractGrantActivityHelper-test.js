@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * Created by Jonathan Hill 03/26/20
  */
 

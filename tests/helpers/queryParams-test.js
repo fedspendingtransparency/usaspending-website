@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * queryParams-test.js
  * Created by Maxwell Kendall
 */

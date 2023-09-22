@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * mapHelper-test.js
  * Created by Lizzie Salita 12/30/20
  */

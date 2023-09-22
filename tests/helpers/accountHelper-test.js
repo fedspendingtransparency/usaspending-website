@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * accountHelper-test.js
  * Created by Max Kendall 10/23/2020
  */

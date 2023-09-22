@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * DrilldownSidebarLevel-test.jsx
  * Created by Lizzie Salita 11/23/21
  */

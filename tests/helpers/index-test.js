@@ -1,5 +1,6 @@
 
 /**
+ * @jest-environment jsdom
  * index-test.js
  * Created by Max Kendall 04/26/2021
 * */

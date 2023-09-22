@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * SearchContainer-test.jsx
  * Created by Kevin Li 6/2/17
  */

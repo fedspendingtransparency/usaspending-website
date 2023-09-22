@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * Covid19Container-test.jsx
  * Created by Lizzie Salita 4/27/21
  */

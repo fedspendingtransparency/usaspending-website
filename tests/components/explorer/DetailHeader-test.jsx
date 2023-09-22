@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * DetailHeader-test.js
  * Created by Andrea Blackwell 12/17/2021
  * */

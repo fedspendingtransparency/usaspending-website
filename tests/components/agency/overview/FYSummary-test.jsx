@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * FYSummary-test.jsx
  * Created by Max Kendall 4/14/21
  */

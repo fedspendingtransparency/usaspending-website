@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * BarChart-test.jsx
  * Created by Max Kendall 4/13/21
  */

@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * keyboardEventsHelper-test.js
  * Created by Lizzie Salita 6/27/19
  */

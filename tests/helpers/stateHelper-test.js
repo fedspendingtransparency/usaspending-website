@@ -1,4 +1,5 @@
 /*
+ * @jest-environment jsdom
  * stateHelper-test.js
  * Created by Max Kendall 02/05/2021
 */

@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * covid19Helper-test.js
  * Created by Jonathan Hill 07/14/20
  */

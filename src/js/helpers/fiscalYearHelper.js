@@ -22,7 +22,6 @@ export const currentFiscalYear = () => {
     // starting in October we are in the next fiscal year
         currentFY = dayjs().year() + 1;
     }
-
     return currentFY;
 };
 

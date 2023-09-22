@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * InfoTooltipContent-test.jsx
  * Created by Nick Torres 7/12/22
  */

@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * ObligationsByAwardTypeTooltip-test.jsx
  * Created by Lizzie Salita 7/22/21
  */

@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * AgencyOverview-test.jsx
  * Created by Lizzie Salita 3/26/21
  */

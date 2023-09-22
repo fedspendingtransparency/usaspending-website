@@ -1,4 +1,5 @@
 /**
+ * @jest-environment jsdom
  * PublicationOverviewRow-test.js
  * Created by Max Kendall 12/9/2020
  */
