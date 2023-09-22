@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import replaceString from 'helpers/replaceString';
 
 describe('replaceString', () => {

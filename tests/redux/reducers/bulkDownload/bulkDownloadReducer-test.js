@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import bulkDownloadReducer, { initialState } from 'redux/reducers/bulkDownload/bulkDownloadReducer';
 import { Set } from 'immutable';
 

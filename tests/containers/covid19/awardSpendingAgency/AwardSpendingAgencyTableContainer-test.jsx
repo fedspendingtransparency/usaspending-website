@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * AwardSpendingAgencyTableContainer-test.js
  * Created by Lizzie Salita 12/15/21
  * */

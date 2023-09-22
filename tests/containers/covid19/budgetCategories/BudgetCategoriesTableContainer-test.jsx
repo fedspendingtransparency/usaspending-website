@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BudgetCategoriesTableContainer-test.js
  * Created by Lizzie Salita 10/15/21
  * */

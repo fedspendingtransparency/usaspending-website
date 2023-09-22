@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * RecipientTableContainer-test.js
  * Created by Lizzie Salita 7/17/20
  * */
