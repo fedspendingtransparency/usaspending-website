@@ -4,13 +4,16 @@
  */
 
 const dayjs = require('dayjs');
+const duration = require('dayjs/plugin/duration');
+
+dayjs.extend(duration);
 // eslint-disable-next-line import/prefer-default-export
 export const convertDatesToRange = (startDate, endDate) => {
     if ((startDate && endDate) && (dayjs(startDate).isValid() && dayjs(endDate).isValid())) {
-        const duration = dayjs.duration(endDate.diff(startDate));
-        const years = duration.years();
-        const months = duration.months();
-        const days = duration.days();
+        const durationValue = dayjs.duration(endDate.diff(startDate));
+        const years = durationValue.years();
+        const months = durationValue.months();
+        const days = durationValue.days();
         let yearString = '';
         let monthString = '';
         let dayString = '';

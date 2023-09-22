@@ -44,7 +44,7 @@ export const getLatestPeriod = (availablePeriods, fy = null) => {
     };
 };
 
-export const getLatestPeriodAsdayjs = (availablePeriods) => {
+export const getLatestPeriodAsMoment = (availablePeriods) => {
     if (availablePeriods.length) {
         return getLatestPeriod(availablePeriods).asOfDate;
     }
