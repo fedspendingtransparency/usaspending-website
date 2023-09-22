@@ -44,7 +44,6 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn().mockReturnValue({ search: '' })
 }));
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 test('parseRemoteFilters should return null if the versions do not match', () => {
     const mockResponse = Object.assign({}, mockFilters, {

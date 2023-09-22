@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { render, waitFor, screen, fireEvent, act } from 'test-utils';
-import '@testing-library/jest-dom/extend-expect';
+import { expect } from '@jest/globals';
 import { Link } from 'react-router-dom';
 import RecipientTableContainer, { parseRows } from 'containers/covid19/recipient/RecipientTableContainer';
 import * as api from 'apis/disaster';

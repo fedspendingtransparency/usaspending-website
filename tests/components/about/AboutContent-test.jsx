@@ -8,7 +8,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import AboutContent from 'components/about/AboutContent';
-import '@testing-library/jest-dom/extend-expect';
+import { expect } from '@jest/globals';
 import { render, screen } from '@test-utils';
 
 describe('About Page content', () => {
