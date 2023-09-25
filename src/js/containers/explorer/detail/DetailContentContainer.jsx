@@ -20,7 +20,6 @@ import * as ExplorerHelper from 'helpers/explorerHelper';
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 import withAgencySlugs from "containers/agency/WithAgencySlugs";
-import { usePrevious } from "../../../helpers/";
 
 const propTypes = {
     explorer: PropTypes.object,
@@ -45,7 +44,6 @@ const DetailContentContainer = (props) => {
     const [inFlight, setInFlight] = useState(true);
     const [isTruncated, setIsTruncated] = useState(false);
     const [transition, setTransition] = useState('');
-    const prevProps = usePrevious(props);
     let request = null;
     const parseRootDataTimeout = useEffect((dataInput, activeScreen) => window.setTimeout(() => {
         props.setExplorerActive(activeScreen);
@@ -252,11 +250,7 @@ const DetailContentContainer = (props) => {
     };
 
     useEffect(() => {
-        if ((props.explorer.fy && (props.explorer.period || props.explorer.quarter)) ||
-            (prevProps?.explorer.root !== props.explorer.root ||
-                prevProps?.explorer.fy !== props.explorer.fy ||
-                prevProps?.explorer.quarter !== props.explorer.quarter ||
-                prevProps?.explorer.period !== props.explorer.period)) {
+        if (props.explorer.fy && (props.explorer.period || props.explorer.quarter)) {
             prepareRootRequest(
                 props.explorer.root,
                 props.explorer.fy,
