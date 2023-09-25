@@ -28,7 +28,7 @@ const AnimatedGlossaryWrapper = (props) => {
                 {props.glossary.display && (
                     <CSSTransition
                         classNames="glossary-slide"
-                        timeout={500}
+                        timeout={{ enter: 500, exit: 500 }}
                         exit>
                         <Glossary {...props} zIndexClass={zIndexClass} />
                     </CSSTransition>
