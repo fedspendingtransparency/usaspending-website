@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -78,66 +78,52 @@ export const subTypes = [
     }
 ];
 
-export class ResultsTableContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const ResultsTableContainer = (props) => {
+    let tabCountRequest = null;
+    let searchRequest = null;
+    const [searchParams, setSearchParams] = useState(new SearchAwardsOperation());
+    const [page, setPage] = useState(0);
+    const [lastPage, setLastPage] = useState(true);
+    const [counts, setCounts] = useState({});
+    const [tableType, setTableType] = useState('contracts');
+    const [columns, setColumns] = useState({});
+    const [sort, setSort] = useState({
+        field: 'Award Amount',
+        direction: 'desc'
+    });
+    const [inFlight, setInFlight] = useState(true);
+    const [error, setError] = useState(false);
+    const [results, setResults] = useState([]);
+    const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
 
-        this.state = {
-            searchParams: new SearchAwardsOperation(),
-            page: 0,
-            lastPage: true,
-            counts: {},
-            tableType: 'contracts',
-            columns: {},
-            sort: {
-                field: 'Award Amount',
-                direction: 'desc'
-            },
-            inFlight: true,
-            error: false,
-            results: [],
-            tableInstance: `${uniqueId()}` // this will stay constant during pagination but will change when the filters or table type changes
-        };
-
-        this.tabCountRequest = null;
-        this.searchRequest = null;
-
-        this.switchTab = this.switchTab.bind(this);
-        this.loadNextPage = this.loadNextPage.bind(this);
-        this.updateSort = this.updateSort.bind(this);
-    }
-
-    componentDidMount() {
-    // set some default columns to look at while the initial tab-picker API calls are in flight
-    // we can't hide the table entirely because the viewport is required to calculate the
-    // row rendering
-        this.loadColumns();
-        if (SearchHelper.isSearchHashReady(this.props.location)) {
+    useEffect(() => {
+        loadColumns();
+        if (SearchHelper.isSearchHashReady(props.location)) {
             this.pickDefaultTab();
         }
-    }
+    }, []);
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
+    useEffect(() => {
+        if (props.subaward && !props.noApplied) {
             // subaward toggle changed, update the search object
-            this.pickDefaultTab();
+            pickDefaultTab();
         }
-        else if (SearchHelper.isSearchHashReady(this.props.location) && this.props.location.search !== prevProps.location.search) {
+        else if (SearchHelper.isSearchHashReady(props.location) && props.location.search) {
             // hash is (a) defined and (b) new
-            this.pickDefaultTab();
+            pickDefaultTab();
         }
-    }
+    }, [props.subaward, props.noApplied, props.location]);
 
-    componentWillUnmount() {
-        if (this.searchRequest) {
-            this.searchRequest.cancel();
+    useEffect(() => () => {
+        if (searchRequest) {
+            searchRequest.cancel();
         }
-        if (this.tabCountRequest) {
-            this.tabCountRequest.cancel();
+        if (tabCountRequest) {
+            tabCountRequest.cancel();
         }
-    }
+    }, []);
 
-    loadColumns() {
+    const loadColumns = () => {
     // in the future, this will be an API call, but for now, read the local data file
     // load every possible table column up front, so we don't need to deal with this when
     // switching tabs
@@ -157,16 +143,11 @@ export class ResultsTableContainer extends React.Component {
         this.setState({
             columns
         });
-    }
+    };
 
-    createColumn(col) {
-    // create an object that integrates with the expected column data structure used by
-    // the table component
-    // const dataType = awardTableColumnTypes[title];
-    // let direction = 'asc';
-    // if (dataType === 'number' || dataType === 'currency') {
-    //     direction = 'desc';
-    // }
+    const createColumn = (col) => {
+        // create an object that integrates with the expected column data structure used by
+        // the table component
 
         // BODGE: Temporarily only allow descending columns
         const direction = 'desc';
@@ -180,15 +161,15 @@ export class ResultsTableContainer extends React.Component {
             background: col.background || '',
             defaultDirection: direction
         };
-    }
+    };
 
-    pickDefaultTab() {
+    const pickDefaultTab = () => {
     // get the award counts for the current filter set
-        if (this.tabCountRequest) {
-            this.tabCountRequest.cancel();
+        if (tabCountRequest) {
+            tabCountRequest.cancel();
         }
 
-        this.props.setAppliedFilterCompletion(false);
+        props.setAppliedFilterCompletion(false);
 
         this.setState({
             inFlight: true,
@@ -196,20 +177,20 @@ export class ResultsTableContainer extends React.Component {
         });
 
         const searchParams = new SearchAwardsOperation();
-        searchParams.fromState(this.props.filters);
+        searchParams.fromState(props.filters);
 
         // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request; also has to be done for the main request, in performSearch
-        if (this.props.subaward && searchParams.dateType) {
+        if (props.subaward && searchParams.dateType) {
             delete searchParams.dateType;
         }
 
-        this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
+        tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
-            subawards: this.props.subaward,
+            subawards: props.subaward,
             auditTrail: 'Award Table - Tab Counts'
         });
 
-        this.tabCountRequest.promise
+        tabCountRequest.promise
             .then((res) => {
                 this.parseTabCounts(res.data);
             })
@@ -219,19 +200,18 @@ export class ResultsTableContainer extends React.Component {
                         inFlight: false,
                         error: true
                     });
-                    this.props.setAppliedFilterCompletion(true);
-
+                    props.setAppliedFilterCompletion(true);
                     console.log(err);
                 }
             });
-    }
+    };
 
-    parseTabCounts(data) {
+    const parseTabCounts = (data) => {
         const awardCounts = data.results;
         let firstAvailable = '';
         let i = 0;
 
-        const availableTabs = this.props.subaward ? subTypes : tableTypes;
+        const availableTabs = props.subaward ? subTypes : tableTypes;
 
         // Set the first available award type to the first non-zero entry in the
         while (firstAvailable === '' && i < availableTabs.length) {
@@ -257,15 +237,15 @@ export class ResultsTableContainer extends React.Component {
             this.switchTab(firstAvailable);
             this.updateFilters();
         });
-    }
+    };
 
-    updateFilters() {
+    const updateFilters = () => {
         const newSearch = new SearchAwardsOperation();
-        newSearch.fromState(this.props.filters);
+        newSearch.fromState(props.filters);
 
         // if subawards is true, newAwardsOnly cannot be true, so we remove
         // dateType for this request; also has to be done for the tabCounts request
-        if (this.props.subaward && newSearch.dateType) {
+        if (props.subaward && newSearch.dateType) {
             delete newSearch.dateType;
         }
 
@@ -273,17 +253,17 @@ export class ResultsTableContainer extends React.Component {
             searchParams: newSearch,
             page: 1
         }, () => {
-            this.performSearch(true);
+            performSearch(true);
         });
-    }
+    };
 
-    performSearch(newSearch = false) {
-        if (this.searchRequest) {
+    const performSearch = (newSearch = false) => {
+        if (searchRequest) {
             // a request is currently in-flight, cancel it
-            this.searchRequest.cancel();
+            searchRequest.cancel();
         }
 
-        this.props.setAppliedFilterCompletion(false);
+        props.setAppliedFilterCompletion(false);
 
         const tableType = this.state.tableType;
 
@@ -294,7 +274,7 @@ export class ResultsTableContainer extends React.Component {
         // generate an array of award type codes representing the current table tab we're showing
         // and use a different mapping if we're showing a subaward table vs a prime award table
         const groupsFromTableType =
-            this.props.subaward ? subawardTypeGroups[tableType] : awardTypeGroups[tableType];
+            props.subaward ? subawardTypeGroups[tableType] : awardTypeGroups[tableType];
 
         if (this.state.searchParams.awardType.length === 0) {
             searchParams.awardType = groupsFromTableType;
@@ -360,12 +340,12 @@ export class ResultsTableContainer extends React.Component {
             limit: resultLimit,
             sort: searchOrder.field,
             order: sortDirection,
-            subawards: this.props.subaward
+            subawards: props.subaward
         };
 
         // Set the params needed for download API call
-        this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
-        return this.searchRequest.promise
+        searchRequest = SearchHelper.performSpendingByAwardSearch(params);
+        return searchRequest.promise
             .then((res) => {
                 const newState = {
                     inFlight: false
@@ -386,13 +366,13 @@ export class ResultsTableContainer extends React.Component {
                 }
 
                 // request is done
-                this.searchRequest = null;
+                searchRequest = null;
                 newState.page = res.data.page_metadata.page;
                 newState.lastPage = !res.data.page_metadata.hasNext;
 
                 this.setState(newState);
 
-                this.props.setAppliedFilterCompletion(true);
+                props.setAppliedFilterCompletion(true);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -400,14 +380,14 @@ export class ResultsTableContainer extends React.Component {
                         inFlight: false,
                         error: true
                     });
-                    this.props.setAppliedFilterCompletion(true);
+                    props.setAppliedFilterCompletion(true);
 
                     console.log(err);
                 }
             });
-    }
+    };
 
-    switchTab(tab) {
+    const switchTab = (tab) => {
         const newState = {
             tableType: tab
         };
@@ -432,15 +412,15 @@ export class ResultsTableContainer extends React.Component {
         }
 
         this.setState(newState, () => {
-            this.performSearch(true);
+            performSearch(true);
             Analytics.event({
                 category: 'Advanced Search - Table Tab',
                 action: tab
             });
         });
-    }
+    };
 
-    loadNextPage() {
+    const loadNextPage = () => {
     // check if request is already in-flight
         if (this.state.inFlight) {
             // in-flight, ignore this request
@@ -453,12 +433,12 @@ export class ResultsTableContainer extends React.Component {
             this.setState({
                 page: this.state.page + 1
             }, () => {
-                this.performSearch();
+                performSearch();
             });
         }
-    }
+    };
 
-    updateSort(field, direction) {
+    const updateSort = (field, direction) => {
         if (field === 'Action Date') {
             this.setState({
                 sort: {
@@ -479,54 +459,53 @@ export class ResultsTableContainer extends React.Component {
                 this.performSearch(true);
             });
         }
-    }
+    };
 
-    awardIdClick = (id) => {
+    const awardIdClick = (id) => {
         Analytics.event({
             category: 'Advanced Search - Spending by Prime Award',
             action: `Clicked ${id}`,
-            label: new URLSearchParams(this.props.location.search).get('hash')
+            label: new URLSearchParams(props.location.search).get('hash')
         });
     };
 
-    subAwardIdClick = (id) => {
+    const subAwardIdClick = (id) => {
         Analytics.event({
             category: 'Advanced Search - Link',
             action: 'Subaward ID Clicked',
             label: id
         });
-        this.props.subAwardIdClicked(true);
+        props.subAwardIdClicked(true);
     };
 
-    render() {
-        const tableType = this.state.tableType;
-        if (!this.state.columns[tableType]) {
-            return null;
-        }
-        const availableTypes = this.props.subaward ? subTypes : tableTypes;
-        const tabsWithCounts = availableTypes.map((type) => ({
-            ...type,
-            count: this.state.counts[type.internal],
-            disabled: this.state.inFlight || this.state.counts[type.internal] === 0
-        }));
-        return (
-            <ResultsTableSection
-                error={this.state.error}
-                inFlight={this.state.inFlight}
-                results={this.state.results}
-                columns={this.state.columns[tableType]}
-                sort={this.state.sort}
-                tableTypes={tabsWithCounts}
-                currentType={tableType}
-                tableInstance={this.state.tableInstance}
-                switchTab={this.switchTab}
-                updateSort={this.updateSort}
-                loadNextPage={this.loadNextPage}
-                subaward={this.props.subaward}
-                awardIdClick={this.awardIdClick}
-                subAwardIdClick={this.subAwardIdClick} />
-        );
+    const tableTypeTemp = tableType;
+    if (!columns[tableTypeTemp]) {
+        return null;
     }
+    const availableTypes = props.subaward ? subTypes : tableTypes;
+    const tabsWithCounts = availableTypes.map((type) => ({
+        ...type,
+        count: counts[type.internal],
+        disabled: inFlight || counts[type.internal] === 0
+    }));
+    return (
+        <ResultsTableSection
+            error={error}
+            inFlight={inFlight}
+            results={results}
+            columns={columns[tableTypeTemp]}
+            sort={sort}
+            tableTypes={tabsWithCounts}
+            currentType={tableTypeTemp}
+            tableInstance={tableInstance}
+            switchTab={switchTab}
+            updateSort={updateSort}
+            loadNextPage={loadNextPage}
+            subaward={props.subaward}
+            awardIdClick={awardIdClick}
+            subAwardIdClick={subAwardIdClick} />
+    );
+
 }
 
 ResultsTableContainer.propTypes = propTypes;
