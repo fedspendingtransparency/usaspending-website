@@ -16,7 +16,6 @@ import { awardDownloadOptions, accountDownloadOptions } from 'dataMapping/bulkDo
 import BulkDownloadPage from 'components/bulkDownload/BulkDownloadPage';
 
 import { logAwardDownload, logAccountDownload } from './helpers/downloadAnalytics';
-import { usePrevious } from "../../helpers/";
 
 require('pages/bulkDownload/bulkDownloadPage.scss');
 
@@ -32,7 +31,6 @@ const propTypes = {
 const BulkDownloadPageContainer = (props) => {
     let request = null;
     const history = useHistory();
-    const prevProps = usePrevious(props);
 
     const requestDownload = (params, type) => {
         if (request) {
@@ -218,9 +216,7 @@ const BulkDownloadPageContainer = (props) => {
     };
 
     useEffect(() => {
-        if (prevProps?.match.params.type !== props.match.params.type) {
-            validateDataType(props.match.params.type);
-        }
+        validateDataType(props.match.params.type);
     }, [props.match.params.type]);
 
     return (
