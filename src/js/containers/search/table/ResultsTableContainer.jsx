@@ -282,7 +282,6 @@ const ResultsTableContainer = (props) => {
 
         // check if the current sort field is available in the table type
         const availableFields = columns[tab]?.data;
-        console.debug("Available: ", availableFields, currentSortField);
         if (!{}.hasOwnProperty.call(availableFields, currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
             const field = defaultSort(tab);
@@ -371,7 +370,7 @@ const ResultsTableContainer = (props) => {
     };
     useEffect(() => {
         loadColumns();
-        if (SearchHelper.isSearchHashReady(props.location)) {
+        if (SearchHelper.isSearchHashReady(props?.location)) {
             pickDefaultTab();
         }
     }, [props.location]);
