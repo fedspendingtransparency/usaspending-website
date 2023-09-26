@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, NoResultsMessage } from 'data-transparency-ui';
 
 import { SpeechBubble, Glossary } from 'components/sharedComponents/icons/Icons';
 import AwardSection from '../AwardSection';
@@ -38,7 +38,7 @@ const AwardDescription = ({
         <AwardSection type="column" className="award-viz award-description">
             <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide={isTooltipWide} />
             <div className="award-description__content">
-                <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />
+                {description === "--" ? <NoResultsMessage /> : <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />}
                 {naics && psc && (
                     <FlexGridRow hasGutter className="award-description__naics-psc">
                         <FlexGridCol tablet={6} className="naics-psc__section">
@@ -52,7 +52,7 @@ const AwardDescription = ({
                                     </Link>
                                 </span>
                             </div>
-                            <LineTree type="naics" data={naics} />
+                            {Object.keys(naics).length === 0 ? <NoResultsMessage /> : <LineTree type="naics" data={naics} />}
                         </FlexGridCol>
                         <FlexGridCol tablet={6} className="naics-psc__section">
                             <div className="naics-psc__heading">
@@ -65,7 +65,8 @@ const AwardDescription = ({
                                     </Link>
                                 </span>
                             </div>
-                            <LineTree type="psc" data={psc} />
+                            {/* if psc is empty object, then dtui error, else linetree */}
+                            {Object.keys(psc).length === 0 ? <NoResultsMessage /> : <LineTree type="psc" data={psc} />}
                         </FlexGridCol>
                     </FlexGridRow>
                 )}
