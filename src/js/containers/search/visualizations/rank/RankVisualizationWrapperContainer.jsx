@@ -36,7 +36,7 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    agencyIds: PropTypes.array,
+    agencyIds: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.bool
 };
 
@@ -127,11 +127,6 @@ const RankVisualizationWrapperContainer = (props) => {
     const nextPage = () => {
         if (hasNextPage) {
             setPage((prevState) => prevState + 1);
-            // this.setState({
-            //     page: this.state.page + 1
-            // }, () => {
-            //     this.fetchData();
-            // });
         }
     };
 
@@ -340,11 +335,11 @@ const RankVisualizationWrapperContainer = (props) => {
 
     useEffect(() => {
         // fetch data when scope, page, or hasNextPage changes
-        if (page && !hasNextPage) {
+        if (page) {
             fetchData();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [page, hasNextPage, scope]);
+    }, [page, scope]);
 
     useEffect(() => {
         props.setAppliedFilterCompletion(true);
