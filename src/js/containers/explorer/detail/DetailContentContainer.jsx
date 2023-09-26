@@ -94,7 +94,7 @@ const DetailContentContainer = (props) => {
 
             // save the data as an Immutable object for easy change comparison within
             // the treemap
-            setData(new List(dataInput.results));
+            setData(new List(dataInput?.results));
             setLastUpdate(dataInput.end_date);
             setInFlight(false);
             setIsTruncated(false);
@@ -108,7 +108,7 @@ const DetailContentContainer = (props) => {
         // the treemap
         setIsTruncated(isTruncatedTemp);
         setData(new List(parsedResults));
-        setLastUpdate(dataInput.end_date);
+        setLastUpdate(dataInput?.end_date);
         setInFlight(false);
         setTransition('end');
     }, 250), []);
@@ -116,7 +116,7 @@ const DetailContentContainer = (props) => {
         const total = dataInput.total;
 
         let isTruncatedTemp = false;
-        let parsedResults = ExplorerHelper.truncateDataForTreemap(dataInput.results);
+        let parsedResults = ExplorerHelper.truncateDataForTreemap(dataInput?.results);
 
         if (requestInput.subdivision === 'award') {
             // link to award page using new human readable id
@@ -124,7 +124,7 @@ const DetailContentContainer = (props) => {
         }
 
         if (requestInput.subdivision === 'award' || requestInput.subdivision === 'recipient') {
-            isTruncatedTemp = dataInput.results.length > 500;
+            isTruncatedTemp = dataInput?.results.length > 500;
         }
 
         if (isTruncatedTemp) {
