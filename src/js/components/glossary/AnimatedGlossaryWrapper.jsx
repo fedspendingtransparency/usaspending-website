@@ -24,16 +24,18 @@ const AnimatedGlossaryWrapper = (props) => {
 
     return (
         <div className="usa-da-glossary-animations">
-            <TransitionGroup>
-                {props.glossary.display && (
-                    <CSSTransition
-                        classNames="glossary-slide"
-                        timeout={{ enter: 500, exit: 500 }}
-                        exit>
-                        <Glossary {...props} zIndexClass={zIndexClass} />
-                    </CSSTransition>
-                )}
-            </TransitionGroup>
+            <React.StrictMode>
+                <TransitionGroup>
+                    {props.glossary.display && (
+                        <CSSTransition
+                            classNames="glossary-slide"
+                            timeout={{ enter: 500, exit: 500 }}
+                            exit>
+                            <Glossary {...props} zIndexClass={zIndexClass} />
+                        </CSSTransition>
+                    )}
+                </TransitionGroup>
+            </React.StrictMode>
         </div>
     );
 };

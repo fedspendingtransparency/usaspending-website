@@ -15,16 +15,18 @@ const propTypes = {
 
 const AnimatedAboutTheDataWrapper = (props) => (
     <div className="usa-atd-animations">
-        <TransitionGroup>
-            {props?.aboutTheDataSidebar?.display && (
-                <CSSTransition
-                    classNames="atd-slide"
-                    timeout={{ enter: 500, exit: 500 }}
-                    exit>
-                    <AboutTheData {...props} />
-                </CSSTransition>
-            )}
-        </TransitionGroup>
+        <React.StrictMode>
+            <TransitionGroup>
+                {props?.aboutTheDataSidebar?.display && (
+                    <CSSTransition
+                        classNames="atd-slide"
+                        timeout={{ enter: 500, exit: 500 }}
+                        exit>
+                        <AboutTheData {...props} />
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
+        </React.StrictMode>
     </div>
 );
 
