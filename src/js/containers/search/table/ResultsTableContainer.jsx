@@ -66,7 +66,6 @@ export const tableTypes = [
         internal: 'other'
     }
 ];
-
 export const subTypes = [
     {
         label: 'Sub-Contracts',
@@ -96,167 +95,6 @@ const ResultsTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
 
-    useEffect(() => {
-        loadColumns();
-        if (SearchHelper.isSearchHashReady(props.location)) {
-            this.pickDefaultTab();
-        }
-    }, []);
-
-    useEffect(() => {
-        if (props.subaward && !props.noApplied) {
-            // subaward toggle changed, update the search object
-            pickDefaultTab();
-        }
-        else if (SearchHelper.isSearchHashReady(props.location) && props.location.search) {
-            // hash is (a) defined and (b) new
-            pickDefaultTab();
-        }
-    }, [props.subaward, props.noApplied, props.location]);
-
-    useEffect(() => () => {
-        if (searchRequest) {
-            searchRequest.cancel();
-        }
-        if (tabCountRequest) {
-            tabCountRequest.cancel();
-        }
-    }, []);
-
-    const loadColumns = () => {
-    // in the future, this will be an API call, but for now, read the local data file
-    // load every possible table column up front, so we don't need to deal with this when
-    // switching tabs
-        const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
-            const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
-            const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
-                [data.title]: this.createColumn(data)
-            }), {});
-
-            return Object.assign({}, cols, {
-                [type.internal]: {
-                    visibleOrder: visibleColumns,
-                    data: parsedColumns
-                }
-            });
-        }, {});
-        this.setState({
-            columns
-        });
-    };
-
-    const createColumn = (col) => {
-        // create an object that integrates with the expected column data structure used by
-        // the table component
-
-        // BODGE: Temporarily only allow descending columns
-        const direction = 'desc';
-        const width = col.customWidth || measureTableHeader(col.displayName || col.title);
-
-        return {
-            columnName: col.title,
-            displayName: col.displayName || col.title,
-            subtitle: col.subtitle || '',
-            width,
-            background: col.background || '',
-            defaultDirection: direction
-        };
-    };
-
-    const pickDefaultTab = () => {
-    // get the award counts for the current filter set
-        if (tabCountRequest) {
-            tabCountRequest.cancel();
-        }
-
-        props.setAppliedFilterCompletion(false);
-
-        this.setState({
-            inFlight: true,
-            error: false
-        });
-
-        const searchParams = new SearchAwardsOperation();
-        searchParams.fromState(props.filters);
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request; also has to be done for the main request, in performSearch
-        if (props.subaward && searchParams.dateType) {
-            delete searchParams.dateType;
-        }
-
-        tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
-            filters: searchParams.toParams(),
-            subawards: props.subaward,
-            auditTrail: 'Award Table - Tab Counts'
-        });
-
-        tabCountRequest.promise
-            .then((res) => {
-                this.parseTabCounts(res.data);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    this.setState({
-                        inFlight: false,
-                        error: true
-                    });
-                    props.setAppliedFilterCompletion(true);
-                    console.log(err);
-                }
-            });
-    };
-
-    const parseTabCounts = (data) => {
-        const awardCounts = data.results;
-        let firstAvailable = '';
-        let i = 0;
-
-        const availableTabs = props.subaward ? subTypes : tableTypes;
-
-        // Set the first available award type to the first non-zero entry in the
-        while (firstAvailable === '' && i < availableTabs.length) {
-            const tableType = availableTabs[i].internal;
-
-            if (awardCounts[tableType] > 0) {
-                firstAvailable = tableType;
-            }
-
-            i += 1;
-        }
-
-        // If none of the award types are populated, set the first available tab to be the
-        // first tab in the table
-        if (firstAvailable === '') {
-            firstAvailable = availableTabs[0].internal;
-        }
-
-        this.setState({
-            counts: awardCounts
-        }, () => {
-            // select the first available tab
-            this.switchTab(firstAvailable);
-            this.updateFilters();
-        });
-    };
-
-    const updateFilters = () => {
-        const newSearch = new SearchAwardsOperation();
-        newSearch.fromState(props.filters);
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove
-        // dateType for this request; also has to be done for the tabCounts request
-        if (props.subaward && newSearch.dateType) {
-            delete newSearch.dateType;
-        }
-
-        this.setState({
-            searchParams: newSearch,
-            page: 1
-        }, () => {
-            performSearch(true);
-        });
-    };
-
     const performSearch = (newSearch = false) => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
@@ -265,39 +103,37 @@ const ResultsTableContainer = (props) => {
 
         props.setAppliedFilterCompletion(false);
 
-        const tableType = this.state.tableType;
+        const tableTypeTemp = tableType;
 
         // Append the current tab's award types to the search params if the Award Type filter
         // isn't populated. If it is, perform a search on the intersection of the current tab's
         // award types and the Award Type filter's content
-        const searchParams = Object.assign(new SearchAwardsOperation(), this.state.searchParams);
+        const searchParamsTemp = Object.assign(new SearchAwardsOperation(), searchParams);
         // generate an array of award type codes representing the current table tab we're showing
         // and use a different mapping if we're showing a subaward table vs a prime award table
         const groupsFromTableType =
-            props.subaward ? subawardTypeGroups[tableType] : awardTypeGroups[tableType];
+            props.subaward ? subawardTypeGroups[tableTypeTemp] : awardTypeGroups[tableTypeTemp];
 
-        if (this.state.searchParams.awardType.length === 0) {
-            searchParams.awardType = groupsFromTableType;
+        if (searchParams.awardType.length === 0) {
+            searchParamsTemp.awardType = groupsFromTableType;
         }
         else {
             let intersectingTypes = intersection(groupsFromTableType,
-                this.state.searchParams.awardType);
+                searchParams.awardType);
             if (!intersectingTypes || intersectingTypes.length === 0) {
                 // the filtered types and the table type do not align
                 // in this case, send an array of non-existent types because the endpoint requires
                 // an award type parameter
                 intersectingTypes = ['no intersection'];
             }
-            searchParams.awardType = intersectingTypes;
+            searchParamsTemp.awardType = intersectingTypes;
         }
 
         // indicate the request is about to start
-        this.setState({
-            inFlight: true,
-            error: false
-        });
+        setInFlight(true);
+        setError(false);
 
-        let pageNumber = this.state.page;
+        let pageNumber = page;
         if (newSearch) {
             // a new search (vs just getting more pages of an existing search) requires resetting
             // the page number
@@ -308,7 +144,7 @@ const ResultsTableContainer = (props) => {
         const requestFields = [];
 
         // Request fields for visible columns only
-        const columnVisibility = this.state.columns[tableType].visibleOrder;
+        const columnVisibility = columns[tableTypeTemp].visibleOrder;
         columnVisibility.forEach((field) => {
             if (!requestFields.includes(field) && field !== "Action Date") {
                 // Prevent duplicates in the list of fields to request
@@ -327,18 +163,18 @@ const ResultsTableContainer = (props) => {
         requestFields.push('recipient_id', 'prime_award_recipient_id');
 
         // parse the redux search order into the API-consumable format
-        const searchOrder = this.state.sort;
-        let sortDirection = searchOrder.direction;
+        const searchOrder = sort;
+        let sortDirection = searchOrder?.direction;
         if (!sortDirection) {
             sortDirection = 'desc';
         }
 
         const params = {
-            filters: searchParams.toParams(),
+            filters: searchParamsTemp.toParams(),
             fields: requestFields,
             page: pageNumber,
             limit: resultLimit,
-            sort: searchOrder.field,
+            sort: searchOrder?.field,
             order: sortDirection,
             subawards: props.subaward
         };
@@ -362,7 +198,7 @@ const ResultsTableContainer = (props) => {
                     newState.results = parsedResults;
                 }
                 else {
-                    newState.results = this.state.results.concat(parsedResults);
+                    newState.results = results.concat(parsedResults);
                 }
 
                 // request is done
@@ -370,32 +206,84 @@ const ResultsTableContainer = (props) => {
                 newState.page = res.data.page_metadata.page;
                 newState.lastPage = !res.data.page_metadata.hasNext;
 
-                this.setState(newState);
+                setInFlight(newState.inFlight);
+                setTableInstance(newState.tableInstance);
+                setResults(newState.results);
+                setPage(newState.page);
+                setLastPage(newState.lastPage);
 
                 props.setAppliedFilterCompletion(true);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    this.setState({
-                        inFlight: false,
-                        error: true
-                    });
+                    setInFlight(false);
+                    setError(true);
                     props.setAppliedFilterCompletion(true);
-
                     console.log(err);
                 }
             });
     };
+    const createColumn = (col) => {
+        // create an object that integrates with the expected column data structure used by
+        // the table component
 
+        // BODGE: Temporarily only allow descending columns
+        const direction = 'desc';
+        const width = col.customWidth || measureTableHeader(col.displayName || col.title);
+
+        return {
+            columnName: col.title,
+            displayName: col.displayName || col.title,
+            subtitle: col.subtitle || '',
+            width,
+            background: col.background || '',
+            defaultDirection: direction
+        };
+    };
+    const loadColumns = () => {
+        // in the future, this will be an API call, but for now, read the local data file
+        // load every possible table column up front, so we don't need to deal with this when
+        // switching tabs
+        const columnsTemp = tableTypes.concat(subTypes).reduce((cols, type) => {
+            const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
+            const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
+                [data.title]: createColumn(data)
+            }), {});
+
+            return Object.assign({}, cols, {
+                [type.internal]: {
+                    visibleOrder: visibleColumns,
+                    data: parsedColumns
+                }
+            });
+        }, {});
+        setColumns(columnsTemp);
+    };
+
+    const updateFilters = () => {
+        const newSearch = new SearchAwardsOperation();
+        newSearch.fromState(props.filters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request; also has to be done for the tabCounts request
+        if (props.subaward && newSearch.dateType) {
+            delete newSearch.dateType;
+        }
+
+        setSearchParams(newSearch);
+        setPage(1);
+        performSearch(true);
+    };
     const switchTab = (tab) => {
         const newState = {
             tableType: tab
         };
 
-        const currentSortField = this.state.sort.field;
+        const currentSortField = sort?.field;
 
         // check if the current sort field is available in the table type
-        const availableFields = this.state.columns[tab].data;
+        const availableFields = columns[tab]?.data;
+        console.debug("Available: ", availableFields, currentSortField);
         if (!{}.hasOwnProperty.call(availableFields, currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
             const field = defaultSort(tab);
@@ -404,63 +292,138 @@ const ResultsTableContainer = (props) => {
             if (fieldType === 'number') {
                 direction = 'asc';
             }
-
             newState.sort = {
                 field,
                 direction
             };
         }
-
-        this.setState(newState, () => {
-            performSearch(true);
-            Analytics.event({
-                category: 'Advanced Search - Table Tab',
-                action: tab
-            });
+        setTableType(newState.tableType);
+        setSort(newState.sort);
+        performSearch(true);
+        Analytics.event({
+            category: 'Advanced Search - Table Tab',
+            action: tab
         });
     };
+    const parseTabCounts = (data) => {
+        const awardCounts = data.results;
+        let firstAvailable = '';
+        let i = 0;
 
+        const availableTabs = props.subaward ? subTypes : tableTypes;
+
+        // Set the first available award type to the first non-zero entry in the
+        while (firstAvailable === '' && i < availableTabs.length) {
+            const tableTypeTemp = availableTabs[i].internal;
+
+            if (awardCounts[tableTypeTemp] > 0) {
+                firstAvailable = tableTypeTemp;
+            }
+
+            i += 1;
+        }
+
+        // If none of the award types are populated, set the first available tab to be the
+        // first tab in the table
+        if (firstAvailable === '') {
+            firstAvailable = availableTabs[0].internal;
+        }
+        setCounts(awardCounts);
+        switchTab(firstAvailable);
+        updateFilters();
+    };
+    const pickDefaultTab = () => {
+        // get the award counts for the current filter set
+        if (tabCountRequest) {
+            tabCountRequest.cancel();
+        }
+
+        props.setAppliedFilterCompletion(false);
+
+        setInFlight(true);
+        setError(false);
+
+        const searchParamsTemp = new SearchAwardsOperation();
+        searchParamsTemp.fromState(props.filters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request; also has to be done for the main request, in performSearch
+        if (props.subaward && searchParamsTemp.dateType) {
+            delete searchParamsTemp.dateType;
+        }
+
+        tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
+            filters: searchParamsTemp.toParams(),
+            subawards: props.subaward,
+            auditTrail: 'Award Table - Tab Counts'
+        });
+
+        tabCountRequest.promise
+            .then((res) => {
+                parseTabCounts(res.data);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    setInFlight(false);
+                    setError(true);
+                    props.setAppliedFilterCompletion(true);
+                    console.log(err);
+                }
+            });
+    };
+    useEffect(() => {
+        loadColumns();
+        if (SearchHelper.isSearchHashReady(props.location)) {
+            pickDefaultTab();
+        }
+    }, [props.location]);
+    useEffect(() => {
+        if (props.subaward && !props.noApplied) {
+            // subaward toggle changed, update the search object
+            pickDefaultTab();
+        }
+        else if (SearchHelper.isSearchHashReady(props.location) && props.location.search) {
+            // hash is (a) defined and (b) new
+            pickDefaultTab();
+        }
+    }, [props.subaward, props.noApplied, props.location, pickDefaultTab]);
+    useEffect(() => () => {
+        if (searchRequest) {
+            searchRequest.cancel();
+        }
+        if (tabCountRequest) {
+            tabCountRequest.cancel();
+        }
+    }, [searchRequest, tabCountRequest]);
     const loadNextPage = () => {
     // check if request is already in-flight
-        if (this.state.inFlight) {
+        if (inFlight) {
             // in-flight, ignore this request
             return;
         }
 
         // check if more pages are available
-        if (!this.state.lastPage) {
+        if (!lastPage) {
             // more pages are available, load them
-            this.setState({
-                page: this.state.page + 1
-            }, () => {
-                performSearch();
-            });
+            setPage(page + 1);
+            performSearch();
         }
     };
-
     const updateSort = (field, direction) => {
         if (field === 'Action Date') {
-            this.setState({
-                sort: {
-                    field: 'Sub-Award Date',
-                    direction
-                }
-            }, () => {
-                this.performSearch(true);
+            setSort({
+                field: 'Sub-Award Date',
+                direction
             });
+            performSearch(true);
         }
         else {
-            this.setState({
-                sort: {
-                    field,
-                    direction
-                }
-            }, () => {
-                this.performSearch(true);
+            setSort({
+                field,
+                direction
             });
+            performSearch(true);
         }
     };
-
     const awardIdClick = (id) => {
         Analytics.event({
             category: 'Advanced Search - Spending by Prime Award',
@@ -468,7 +431,6 @@ const ResultsTableContainer = (props) => {
             label: new URLSearchParams(props.location.search).get('hash')
         });
     };
-
     const subAwardIdClick = (id) => {
         Analytics.event({
             category: 'Advanced Search - Link',
@@ -505,8 +467,7 @@ const ResultsTableContainer = (props) => {
             awardIdClick={awardIdClick}
             subAwardIdClick={subAwardIdClick} />
     );
-
-}
+};
 
 ResultsTableContainer.propTypes = propTypes;
 
