@@ -9,7 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, intersection } from 'lodash';
-import { withRouter } from 'react-router-dom';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
@@ -487,4 +486,4 @@ export default connect(
         ),
         dispatch
     )
-)(withRouter(ResultsTableContainer));
+)(ResultsTableContainer);
