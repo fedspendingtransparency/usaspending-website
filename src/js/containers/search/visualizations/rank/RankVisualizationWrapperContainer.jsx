@@ -9,8 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { useHistory } from "react-router-dom";
-import { usePrevious } from 'helpers';
-import { isEqual, max, get } from 'lodash';
+import { max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
@@ -57,7 +56,6 @@ const RankVisualizationWrapperContainer = (props) => {
     const [hasNextPage, setHasNextPage] = useState(false);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [showPicker, setShowPicker] = useState(false);
-    const prevProps = usePrevious(props);
     const history = useHistory();
     let apiRequest;
 
@@ -349,20 +347,20 @@ const RankVisualizationWrapperContainer = (props) => {
     }, [page, hasNextPage, scope]);
 
     useEffect(() => {
+        props.setAppliedFilterCompletion(true);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [labelSeries, dataSeries, descriptions, linkSeries, loading, error, next, previous, hasNextPage, hasPreviousPage]);
+
+    useEffect(() => {
         newSearch();
         parseRank();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
     useEffect(() => {
-        if (!isEqual(prevProps.reduxFilters, props.reduxFilters) && !props.noApplied) {
+        if (!props.noApplied) {
             newSearch();
-        }
-        else if (prevProps.subaward !== props.subaward && !props.noApplied) {
-            // subaward toggle changed, update the search object
-            newSearch();
-        }
-        else {
+        } else {
             setScope((prevState) => {
                 if (prevState.scope !== scope) {
                     // scope changed, perform a new search
@@ -370,7 +368,7 @@ const RankVisualizationWrapperContainer = (props) => {
                 }
             });
         }
-    }, [props, prevProps, scope]);
+    }, [props.reduxFilters, props.subaward, scope]);
 
 
     const visualization = generateVisualization();
