@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -36,7 +36,7 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    agencyIds: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.bool
 };
 
@@ -353,17 +353,17 @@ const RankVisualizationWrapperContainer = (props) => {
     }, []);
 
     useEffect(() => {
+        newSearch();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [scope]);
+
+    useEffect(() => {
         if (!props.noApplied) {
             newSearch();
-        } else {
-            setScope((prevState) => {
-                if (prevState.scope !== scope) {
-                    // scope changed, perform a new search
-                    newSearch();
-                }
-            });
         }
-    }, [props.reduxFilters, props.subaward, scope]);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    // }, [props.reduxFilters, props.subaward]);
+    }, [props]);
 
 
     const visualization = generateVisualization();
