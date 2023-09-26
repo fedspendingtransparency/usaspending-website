@@ -46,15 +46,17 @@ const DetailContentContainer = (props) => {
     const [transition, setTransition] = useState('');
     let request = null;
     const parseRootDataTimeout = useEffect((dataInput, activeScreen) => window.setTimeout(() => {
-        props.setExplorerActive(activeScreen);
+        if (transition === 'start') {
+            props.setExplorerActive(activeScreen);
 
-        // save the data as an Immutable object for easy change comparison within
-        // the treemap
-        setData(new List(dataInput.results));
-        setLastUpdate(dataInput.end_date);
-        setInFlight(false);
-        setIsTruncated(false);
-        setTransition('end');
+            // save the data as an Immutable object for easy change comparison within
+            // the treemap
+            setData(new List(dataInput.results));
+            setLastUpdate(dataInput.end_date);
+            setInFlight(false);
+            setIsTruncated(false);
+            setTransition('end');
+        }
     }, 250), []);
     const parseRootData = (dataInput) => {
         const total = dataInput.total;
@@ -102,16 +104,17 @@ const DetailContentContainer = (props) => {
         }
     };
     const parseDataTimeout = useEffect((activeScreen, isTruncatedTemp, parsedResults, dataInput) => window.setTimeout(() => {
-        console.debug("executing!");
-        props.setExplorerActive(activeScreen);
+        if (transition === 'start') {
+            props.setExplorerActive(activeScreen);
 
-        // save the data as an Immutable object for easy change comparison within
-        // the treemap
-        setIsTruncated(isTruncatedTemp);
-        setData(new List(parsedResults));
-        setLastUpdate(dataInput?.end_date);
-        setInFlight(false);
-        setTransition('end');
+            // save the data as an Immutable object for easy change comparison within
+            // the treemap
+            setIsTruncated(isTruncatedTemp);
+            setData(new List(parsedResults));
+            setLastUpdate(dataInput?.end_date);
+            setInFlight(false);
+            setTransition('end');
+        }
     }, 250), []);
     const parseData = (dataInput, requestInput, isRewindInput) => {
         const total = dataInput.total;
@@ -419,14 +422,16 @@ const DetailContentContainer = (props) => {
         loadData(selectedTrailItem, isRoot, true);
     };
     const goToUnreportedTimeout = useEffect((activeScreen, dataArr) => window.setTimeout(() => {
-        props.setExplorerActive(activeScreen);
+        if (transition === 'start') {
+            props.setExplorerActive(activeScreen);
 
-        // save the data as an Immutable object for easy change comparison within
-        // the treemap
-        setData(new List(dataArr));
-        setLastUpdate(lastUpdate);
-        setInFlight(false);
-        setTransition('end');
+            // save the data as an Immutable object for easy change comparison within
+            // the treemap
+            setData(new List(dataArr));
+            setLastUpdate(lastUpdate);
+            setInFlight(false);
+            setTransition('end');
+        }
     }, 250), []);
     const goToUnreported = (input) => {
         const dataArr = [input];
