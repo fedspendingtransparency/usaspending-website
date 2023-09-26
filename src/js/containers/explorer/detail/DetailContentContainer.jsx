@@ -102,6 +102,7 @@ const DetailContentContainer = (props) => {
         }
     };
     const parseDataTimeout = useEffect((activeScreen, isTruncatedTemp, parsedResults, dataInput) => window.setTimeout(() => {
+        console.debug("executing!");
         props.setExplorerActive(activeScreen);
 
         // save the data as an Immutable object for easy change comparison within
