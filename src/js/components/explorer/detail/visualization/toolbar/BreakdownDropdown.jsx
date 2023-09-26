@@ -3,15 +3,16 @@
  * Created by Kevin Li 8/17/17
  */
 
-import React from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import DropdownItem from './DropdownItem';
+import { usePrevious } from "../../../../../helpers/";
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -20,71 +21,37 @@ const propTypes = {
     root: PropTypes.string,
     changeSubdivisionType: PropTypes.func,
     changeView: PropTypes.func,
-    viewType: PropTypes.string,
-    history: PropTypes.object
+    viewType: PropTypes.string
 };
 
-export class BreakdownDropdown extends React.Component {
-    constructor(props) {
-        super(props);
+const BreakdownDropdown = (props) => {
+    const [expanded, setExpanded] = useState(false);
+    const [options, setOptions] = useState([]);
+    const [active, setActive] = useState(null);
+    const history = useHistory();
+    const prevProps = usePrevious(props);
 
-        this.state = {
-            expanded: false,
-            options: [],
-            active: null
-        };
+    const wrapperRef = useRef(null);
 
-        this.toggleMenu = this.toggleMenu.bind(this);
-        this.pickItem = this.pickItem.bind(this);
-        this.setWrapperRef = this.setWrapperRef.bind(this);
-        this.handleClickOutside = this.handleClickOutside.bind(this);
-    }
-
-    componentDidMount() {
-        this.prepareOptions(this.props);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.active !== this.props.active) {
-            this.prepareOptions(this.props);
+    const handleClickOutside = useCallback((event) => {
+        if (expanded && wrapperRef?.current && !wrapperRef?.current.contains(event.target)) {
+            setExpanded(false);
         }
-        else if (prevProps.root !== this.props.root) {
-            this.prepareOptions(this.props);
-        }
-        else if (prevProps.isRoot !== this.props.isRoot) {
-            this.prepareOptions(this.props);
-        }
-    }
+    });
 
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
-    }
-
-    setWrapperRef(node) {
-        this.wrapperRef = node;
-    }
-
-    handleClickOutside(event) {
-        if (this.state.expanded && this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.setState({
-                expanded: false
-            });
-        }
-    }
-
-    prepareOptions(props) {
-        let options = [];
-        let active = props.root;
+    const prepareOptions = () => {
+        let tempOptions = [];
+        let tempActive = props.root;
         if (props.isRoot) {
             // we're at the root level, so populate the full list
-            options = rootScopes;
+            tempOptions = rootScopes;
         }
         else {
             // we're not at the root, so we need to determine our current position in the tree using
             // the last filter that was applied
             const optionTree = dropdownScopes[props.root];
 
-            const lastTrailItem = this.props.trail[this.props.trail.length - 1];
+            const lastTrailItem = props.trail[props.trail.length - 1];
             const lastFilter = lastTrailItem.subdivision;
 
             const currentIndex = Math.min(optionTree.indexOf(lastFilter),
@@ -102,107 +69,123 @@ export class BreakdownDropdown extends React.Component {
 
             const remainingTree = optionTree.slice(currentIndex);
 
-            options = remainingTree;
+            tempOptions = remainingTree;
 
-            active = props.active.subdivision;
+            tempActive = props.active.subdivision;
         }
 
-        this.setState({
-            options,
-            active
-        });
-    }
+        setOptions(tempOptions);
+        setActive(tempActive);
+    };
 
-    toggleMenu() {
-        this.setState({
-            expanded: !this.state.expanded
-        }, () => {
-            if (this.state.expanded) {
-                document.addEventListener('mousedown', this.handleClickOutside);
-            }
-            else {
-                document.removeEventListener('mousedown', this.handleClickOutside);
-            }
-        });
-    }
 
-    pickItem(item) {
-        this.setState({
-            expanded: false
-        }, () => {
-            if (this.props.isRoot && item !== this.props.root) {
-                // TODO redirect to the correct root URL
-                this.props.history.push(`/explorer/${item}`);
-            }
-            else if (!this.props.isRoot) {
-                this.props.changeSubdivisionType(item);
-            }
-        });
-    }
+    useEffect(() => {
+        prepareOptions(props);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+        /* eslint-disable react-hooks/exhaustive-deps */
+    }, []);
 
-    render() {
-        let dropdown = null;
-        if (this.state.expanded) {
-            const items = this.state.options.map((option) => (
-                <DropdownItem
-                    key={option}
-                    value={option}
-                    pickItem={this.pickItem} />
-            ));
-            dropdown = (
-                <ul className="dropdown__menu">
-                    {items}
-                </ul>);
+    useEffect(() => {
+        if (prevProps?.active !== props.active) {
+            prepareOptions(props);
         }
-
-        let icon = null;
-        const IconType = icons[this.state.active];
-        if (IconType) {
-            icon = <IconType />;
+        else if (prevProps?.root !== props.root) {
+            prepareOptions(props);
         }
+        else if (prevProps?.isRoot !== props.isRoot) {
+            prepareOptions(props);
+        }
+        /* eslint-disable react-hooks/exhaustive-deps */
+    }, [props.active, props.root, props.isRoot, prevProps]);
 
-        return (
-            <div className="explorer-toolbar" ref={this.setWrapperRef}>
-                <div className="explorer-toolbar__breakdown">
-                    <div className="breakdown__label">
-                        See the breakdown by:
-                    </div>
-                    <div className="breakdown__dropdown">
-                        <button
-                            className="dropdown__selection"
-                            onClick={this.toggleMenu}>
-                            <div className="dropdown__icon">
-                                {icon}
-                            </div>
-                            <div className="dropdown__label">
-                                {sidebarTypes[this.state.active]}
-                            </div>
-                            <div className="dropdown__arrow">
-                                <FontAwesomeIcon icon="angle-down" />
-                            </div>
-                        </button>
+    useEffect(() => {
+        if (expanded) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+        else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        /* eslint-disable react-hooks/exhaustive-deps */
+    }, [expanded]);
 
-                        {dropdown}
-                    </div>
+    const toggleMenu = () => {
+        setExpanded((prevState) => !prevState);
+    };
+
+    const pickItem = (item) => {
+        setExpanded(false);
+        if (props.isRoot && item !== props.root) {
+            // TODO redirect to the correct root URL
+            history.push(`/explorer/${item}`);
+        }
+        else if (!props.isRoot) {
+            props.changeSubdivisionType(item);
+        }
+    };
+
+    let dropdown = null;
+    if (expanded) {
+        const items = options.map((option) => (
+            <DropdownItem
+                key={option}
+                value={option}
+                pickItem={pickItem} />
+        ));
+        dropdown = (
+            <ul className="dropdown__menu">
+                {items}
+            </ul>);
+    }
+
+    let icon = null;
+    const IconType = icons[active];
+    if (IconType) {
+        icon = <IconType />;
+    }
+
+    return (
+        <div className="explorer-toolbar" ref={wrapperRef}>
+            <div className="explorer-toolbar__breakdown">
+                <div className="breakdown__label">
+                    See the breakdown by:
                 </div>
-                <div className="view-buttons">
-                    <ViewTypeButton
-                        value="treemap"
-                        label="Treemap"
-                        icon="th-large"
-                        active={this.props.viewType === 'treemap'}
-                        changeView={this.props.changeView} />
-                    <ViewTypeButton
-                        value="table"
-                        label="Table"
-                        icon="table"
-                        active={this.props.viewType === 'table'}
-                        changeView={this.props.changeView} />
+                <div className="breakdown__dropdown">
+                    <button
+                        className="dropdown__selection"
+                        onClick={toggleMenu}>
+                        <div className="dropdown__icon">
+                            {icon}
+                        </div>
+                        <div className="dropdown__label">
+                            {sidebarTypes[active]}
+                        </div>
+                        <div className="dropdown__arrow">
+                            <FontAwesomeIcon icon="angle-down" />
+                        </div>
+                    </button>
+
+                    {dropdown}
                 </div>
             </div>
-        );
-    }
-}
+            <div className="view-buttons">
+                <ViewTypeButton
+                    value="treemap"
+                    label="Treemap"
+                    icon="th-large"
+                    active={props.viewType === 'treemap'}
+                    changeView={props.changeView} />
+                <ViewTypeButton
+                    value="table"
+                    label="Table"
+                    icon="table"
+                    active={props.viewType === 'table'}
+                    changeView={props.changeView} />
+            </div>
+        </div>
+    );
+};
 
 BreakdownDropdown.propTypes = propTypes;
-export default withRouter(BreakdownDropdown);
+export default BreakdownDropdown;

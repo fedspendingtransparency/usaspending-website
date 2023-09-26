@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
 import {
     spendingOptions,
@@ -34,7 +34,6 @@ const clickedHeaderLink = (route) => {
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
-    location: PropTypes.object,
     mobileNavInitialState: PropTypes.bool,
     setMobileNavInitialState: PropTypes.func
 };
@@ -74,10 +73,11 @@ const navbarConfig = [
 ];
 
 const MobileNav = (props) => {
-    const { location, mobileNavInitialState, setMobileNavInitialState } = props;
+    const { mobileNavInitialState, setMobileNavInitialState } = props;
     const [url, setUrl] = useState('');
     const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(null);
+    const location = useLocation();
 
     const openDetailedMobileNav = (index) => {
         setDetailMobileNavIsHidden(false);
@@ -188,4 +188,4 @@ const MobileNav = (props) => {
 };
 
 MobileNav.propTypes = propTypes;
-export default withRouter(MobileNav);
+export default MobileNav;
