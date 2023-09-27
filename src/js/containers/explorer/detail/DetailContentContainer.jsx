@@ -57,7 +57,7 @@ const DetailContentContainer = (props) => {
             setIsTruncated(false);
             setTransition('end');
         }
-    }, 250), []);
+    }, 250), [transition]);
     const parseRootData = (dataInput) => {
         const total = dataInput.total;
 
@@ -196,7 +196,6 @@ const DetailContentContainer = (props) => {
 
         // perform the API request
         const requestFilters = Object.assign({}, filters);
-        console.debug("REQUEST: ", requestFilters, filters);
         if (requestFilters.quarter == null) {
             delete requestFilters.quarter;
         }
@@ -244,7 +243,6 @@ const DetailContentContainer = (props) => {
             subdivision: rootType
         };
 
-        console.debug("reset filters: ", resetFilters);
         setFilters(resetFilters);
         const boolValue = true;
         loadFilters(requestTemp, boolValue);
