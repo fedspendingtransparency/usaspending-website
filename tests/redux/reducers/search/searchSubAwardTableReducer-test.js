@@ -1,4 +1,6 @@
-
+/**
+ * @jest-environment jsdom
+ */
 import searchFiltersReducer from 'redux/reducers/search/searchSubAwardTableReducer';
 
 

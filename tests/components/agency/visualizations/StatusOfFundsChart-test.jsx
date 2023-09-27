@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * StatusOfFundsChart-test.jsx
  * Created by Afna Saifudeen 11/23/21
  */

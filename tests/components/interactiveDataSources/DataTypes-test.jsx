@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render } from '@test-utils';
 import DataTypes from 'components/interactiveDataSources/scrollerSections/DataTypes';

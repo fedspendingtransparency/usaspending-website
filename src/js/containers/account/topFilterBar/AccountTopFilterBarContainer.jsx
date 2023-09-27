@@ -8,13 +8,14 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { orderBy } from 'lodash';
-import moment from 'moment';
 
 import LegacyTopFilterBar from 'components/account/topFilterBar/LegacyTopFilterBar';
 import { topFilterGroupGenerator } from
     'components/account/topFilterBar/filterGroups/AccountTopFilterGroupGenerator';
 
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -97,9 +98,9 @@ export class AccountTopFilterBarContainer extends React.Component {
                 filter.code = 'timePeriodDR';
                 filter.name = 'Time Period';
 
-                const startString = moment(props.startDate, 'YYYY-MM-DD')
+                const startString = dayjs(props.startDate, 'YYYY-MM-DD')
                     .format('MM/DD/YYYY');
-                const endString = moment(props.endDate, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                const endString = dayjs(props.endDate, 'YYYY-MM-DD').format('MM/DD/YYYY');
 
                 filter.values = [`${startString} to ${endString}`];
             }

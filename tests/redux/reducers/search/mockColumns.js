@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { List, Map } from 'immutable';
 
 const tableType = {

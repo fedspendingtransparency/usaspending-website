@@ -1,4 +1,6 @@
-
+/**
+ * @jest-environment jsdom
+ */
 import { Set } from 'immutable';
 
 import appliedFiltersReducer, { initialState } from 'redux/reducers/search/appliedFiltersReducer';

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * monthHelper-test.js
  * Created by michaelbray on 8/24/17.
  */

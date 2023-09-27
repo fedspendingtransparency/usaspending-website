@@ -1,11 +1,13 @@
 /**
+ * @jest-environment jsdom
+ * 
  * SummaryInsightsContainer-test.jsx
  * Created by Lizzie Salita 11/30/21
  */
 
 import React from 'react';
 import { render } from 'test-utils';
-import '@testing-library/jest-dom/extend-expect';
+import { expect } from '@jest/globals';
 import * as redux from 'react-redux';
 import * as apis from 'apis/disaster';
 import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';

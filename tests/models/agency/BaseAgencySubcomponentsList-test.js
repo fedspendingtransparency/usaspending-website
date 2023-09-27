@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import BaseAgencySubcomponentsList from 'models/v2/agency/BaseAgencySubcomponentsList';
 
 // eslint-disable-next-line import/prefer-default-export

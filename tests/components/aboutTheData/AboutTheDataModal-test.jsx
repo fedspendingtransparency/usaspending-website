@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render, screen } from 'test-utils';
 import AboutTheDataModal from 'components/aboutTheData/AboutTheDataModal';

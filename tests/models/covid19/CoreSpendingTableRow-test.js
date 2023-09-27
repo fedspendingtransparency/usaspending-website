@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * CoreSpendingTableRow-test.js
  * Created by Lizzie Salita 7/8/20
  */

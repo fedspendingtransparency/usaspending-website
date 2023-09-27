@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { cloneDeep, compact, sum } from 'lodash';
 import { scaleLinear } from 'd3-scale';
-import moment from 'moment';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
@@ -16,6 +15,8 @@ import { formatMoney } from 'helpers/moneyFormatter';
 import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
 import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
 import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';
+
+const dayjs = require('dayjs');
 
 
 const propTypes = {
@@ -168,7 +169,7 @@ const ContractGrantsActivityChart = ({
      */
     const xTickDateAndLabel = (ticks) => ticks.map((date) => {
         const newDate = new Date(date);
-        const year = convertDateToFY(moment(date));
+        const year = convertDateToFY(dayjs(date));
         const shortYear = (year).toString().slice(-2);
         const shortMonth = newDate.toLocaleString('en-us', { month: 'short' }).toUpperCase();
         const label = `${shortMonth} FY '${shortYear}`;
@@ -307,7 +308,7 @@ const ContractGrantsActivityChart = ({
     useEffect(() => {
         if (xDomain && xDomain.length > 0) {
             setStartLineData(Object.assign({}, startLineData, { value: getLineValue(dates._startDate, xDomain) }));
-            setTodayLineData(Object.assign({}, todayLineData, { value: getLineValue(moment(Date.now()), xDomain) }));
+            setTodayLineData(Object.assign({}, todayLineData, { value: getLineValue(dayjs(Date.now()), xDomain) }));
             setEndLineData(Object.assign({}, endLineData, { value: getLineValue(dates._endDate, xDomain) }));
             setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: getLineValue(dates._potentialEndDate, xDomain) }));
         }
