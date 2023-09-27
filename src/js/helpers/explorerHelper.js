@@ -7,11 +7,14 @@ import { startCase } from 'lodash';
 import { apiRequest } from './apiRequest';
 
 // eslint-disable-next-line import/prefer-default-export
-export const fetchBreakdown = (params) => apiRequest({
-    url: 'v2/spending/',
-    method: 'post',
-    data: params
-});
+export const fetchBreakdown = (params) => {
+    console.debug("PARAMS: ", params);
+    return apiRequest({
+        url: 'v2/spending/',
+        method: 'post',
+        data: params
+    });
+};
 
 export const pluralizeSubdivision = (activeSubdivision) => {
     let pluralText = '';

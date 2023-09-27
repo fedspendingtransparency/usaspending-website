@@ -58,7 +58,7 @@ const DetailContentContainer = (props) => {
             setIsTruncated(false);
             setTransition('end');
         }
-    }, 250), [transition]);
+    }, 250), []);
     const parseRootData = (dataInput) => {
         console.debug("2");
         const total = dataInput.total;
@@ -118,7 +118,7 @@ const DetailContentContainer = (props) => {
             setInFlight(false);
             setTransition('end');
         }
-    }, 250), [transition]);
+    }, 250), []);
     const parseData = (dataInput, requestInput, isRewindInput) => {
         console.debug("4");
         const total = dataInput.total;
@@ -199,21 +199,26 @@ const DetailContentContainer = (props) => {
         }
 
         // perform the API request
-        const requestFilters = Object.assign({}, filters);
-        console.debug("REQUEST: ", requestFilters, filters);
+        const requestFilters = Object.assign(filters, requestInput);
         if (requestFilters.quarter == null) {
             delete requestFilters.quarter;
         }
         if (requestFilters.period == null) {
             delete requestFilters.period;
         }
+        console.debug("REQUEST: ", requestFilters, filters, requestInput);
+
+        if (request) {
+            request.cancel();
+        }
         request = ExplorerHelper.fetchBreakdown({
             type: requestInput.subdivision,
             filters: requestFilters
         });
-
+        console.debug("WHAT IS REQUEST: ", request);
         return request.promise
             .then((res) => {
+                console.debug("RES: ", res);
                 if (isRootInput) {
                     parseRootData(res.data);
                 }
@@ -250,7 +255,7 @@ const DetailContentContainer = (props) => {
         };
         console.debug("7");
         console.debug("reset filters: ", resetFilters);
-        setFilters(resetFilters);
+        setFilters(Object.assign({}, filters, resetFilters));
         console.debug("this is what filters should be now: ", filters);
         const boolValue = true;
         loadFilters(requestTemp, boolValue);
@@ -347,7 +352,7 @@ const DetailContentContainer = (props) => {
         props.resetExplorerTable();
 
         setTransitionSteps(1);
-        setFilters(Object.assign({}, filters, newFilter));
+        setFilters(Object.assign(filters, newFilter));
         const boolValue = false;
         console.debug("pre load filters: ", requestTemp);
         loadFilters(requestTemp, boolValue);
@@ -430,7 +435,7 @@ const DetailContentContainer = (props) => {
         props.resetExplorerTable();
 
         setTransitionSteps(steps);
-        setFilters(newFilters);
+        setFilters(Object.assign(filters, newFilters));
         loadData(selectedTrailItem, isRoot, true);
     };
     const goToUnreportedTimeout = useEffect((activeScreen, dataArr) => window.setTimeout(() => {
@@ -445,7 +450,7 @@ const DetailContentContainer = (props) => {
             setInFlight(false);
             setTransition('end');
         }
-    }, 250), [transition]);
+    }, 250), []);
     const goToUnreported = (input) => {
         console.debug("13");
         const dataArr = [input];
