@@ -47,6 +47,7 @@ const DetailContentContainer = (props) => {
     let request = null;
     const parseRootDataTimeout = useEffect((dataInput, activeScreen) => window.setTimeout(() => {
         if (transition === 'start') {
+            console.debug("1");
             props.setExplorerActive(activeScreen);
 
             // save the data as an Immutable object for easy change comparison within
@@ -59,6 +60,7 @@ const DetailContentContainer = (props) => {
         }
     }, 250), [transition]);
     const parseRootData = (dataInput) => {
+        console.debug("2");
         const total = dataInput.total;
 
         // build the active screen root object
@@ -105,6 +107,7 @@ const DetailContentContainer = (props) => {
     };
     const parseDataTimeout = useEffect((activeScreen, isTruncatedTemp, parsedResults, dataInput) => window.setTimeout(() => {
         if (transition === 'start') {
+            console.debug("3");
             props.setExplorerActive(activeScreen);
 
             // save the data as an Immutable object for easy change comparison within
@@ -115,8 +118,9 @@ const DetailContentContainer = (props) => {
             setInFlight(false);
             setTransition('end');
         }
-    }, 250), []);
+    }, 250), [transition]);
     const parseData = (dataInput, requestInput, isRewindInput) => {
+        console.debug("4");
         const total = dataInput.total;
 
         let isTruncatedTemp = false;
@@ -185,7 +189,7 @@ const DetailContentContainer = (props) => {
 
     const loadData = (requestInput, isRootInput = false, isRewindInput = false) => {
         setInFlight(true);
-
+        console.debug("5");
         if (request) {
             request.cancel();
         }
@@ -196,6 +200,7 @@ const DetailContentContainer = (props) => {
 
         // perform the API request
         const requestFilters = Object.assign({}, filters);
+        console.debug("REQUEST: ", requestFilters, filters);
         if (requestFilters.quarter == null) {
             delete requestFilters.quarter;
         }
@@ -225,6 +230,7 @@ const DetailContentContainer = (props) => {
             });
     };
     const loadFilters = ((requestTemp, boolValue) => {
+        console.debug("6");
         loadData(requestTemp, boolValue);
     });
     const prepareRootRequest = (rootType, fy, quarter, period) => {
@@ -242,8 +248,10 @@ const DetailContentContainer = (props) => {
             within: 'root',
             subdivision: rootType
         };
-
+        console.debug("7");
+        console.debug("reset filters: ", resetFilters);
         setFilters(resetFilters);
+        console.debug("this is what filters should be now: ", filters);
         const boolValue = true;
         loadFilters(requestTemp, boolValue);
         // log the analytics event for a Spending Explorer starting point
@@ -255,6 +263,7 @@ const DetailContentContainer = (props) => {
 
     useEffect(() => {
         if (props.explorer.fy && (props.explorer.period || props.explorer.quarter)) {
+            console.debug("is this running first? 8");
             prepareRootRequest(
                 props.explorer.root,
                 props.explorer.fy,
@@ -269,7 +278,7 @@ const DetailContentContainer = (props) => {
             // API call is in progress, don't allow clicks
             return;
         }
-
+        console.debug("9");
         // determine how we are currently subdividing the data
         // determine the data element we should filter by
         // this is equal to how we are currently subdividing the spending
@@ -340,6 +349,7 @@ const DetailContentContainer = (props) => {
         setTransitionSteps(1);
         setFilters(Object.assign({}, filters, newFilter));
         const boolValue = false;
+        console.debug("pre load filters: ", requestTemp);
         loadFilters(requestTemp, boolValue);
 
         Analytics.event({
@@ -350,6 +360,7 @@ const DetailContentContainer = (props) => {
     };
 
     const changeSubdivisionType = (typeInput) => {
+        console.debug("10");
         // if we're skipping levels, then we are not adding filters, we're simply revisualizating
         // the data that is already filtered.
         // This means we don't need to modify the trail or the redux filter set.
@@ -369,6 +380,7 @@ const DetailContentContainer = (props) => {
     };
 
     const rewindToFilter = (input) => {
+        console.debug("11");
         const trail = props.explorer.trail.toJS();
         const oldFilters = filters;
         // don't do anything if this is the current filter (ie, the last one in the trail)
@@ -423,6 +435,7 @@ const DetailContentContainer = (props) => {
     };
     const goToUnreportedTimeout = useEffect((activeScreen, dataArr) => window.setTimeout(() => {
         if (transition === 'start') {
+            console.debug("12");
             props.setExplorerActive(activeScreen);
 
             // save the data as an Immutable object for easy change comparison within
@@ -432,8 +445,9 @@ const DetailContentContainer = (props) => {
             setInFlight(false);
             setTransition('end');
         }
-    }, 250), []);
+    }, 250), [transition]);
     const goToUnreported = (input) => {
+        console.debug("13");
         const dataArr = [input];
 
         // generate a trail object representing the current filter that is being applied
