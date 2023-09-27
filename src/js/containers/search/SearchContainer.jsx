@@ -125,7 +125,7 @@ const SearchContainer = ({ history }) => {
     const { current: prevAppliedFilters } = prevAppliedFiltersRef;
 
     useEffect(() => {
-    // receiving filters from previous search via hash.
+        // receiving filters from previous search via hash.
         const shouldFetchRemoteFilters = (
             urlHash &&
             SearchHelper.areFiltersEqual(stagedFilters, initialState)
@@ -172,7 +172,8 @@ const SearchContainer = ({ history }) => {
                 request.current.cancel();
             }
             // clear selected filters so we don't fetch previous search
-            // only when query hash is defined b/c if its a urlHash, we cant know if we're remounting w/ the query hash or going somewhere else
+            // only when query hash is defined b/c if it's a urlHash, we can't know if
+            // we're remounting w/ the query hash or going somewhere else
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
         };

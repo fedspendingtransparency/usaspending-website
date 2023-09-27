@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 1/4/18
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,6 +18,7 @@ import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as KeywordHelper from 'helpers/keywordHelper';
 
 import KeywordPage from 'components/keyword/KeywordPage';
+import { useRef, useState } from "@types/react";
 
 require('pages/keyword/keywordPage.scss');
 
@@ -26,8 +28,143 @@ const propTypes = {
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
     match: PropTypes.object,
+    // todo - delete this prop? no longer needed?
     history: PropTypes.object
 };
+
+// const KeywordContainer = (props) => {
+//     const [keyword, setKeyword] = useState('');
+//     const [summary, setSummary] = useState(null);
+//     const [summaryInFlight, setSummaryInFlight] = useState(false);
+//     const [downloadAvailable, setDownloadAvailable] = useState(false);
+//     const summaryRequest = useRef(null);
+//     const downloadRequest = useRef(null);
+//     const history = useHistory();
+//
+//     const handleUrl = (urlKeyword) => {
+//         if (urlKeyword) {
+//             // Convert the url to a keyword
+//             const keyword = decodeURIComponent(urlKeyword);
+//             // Update the keyword only if it has more than two characters
+//             if (keyword.length > 2) {
+//                 setKeyword(keyword);
+//             }
+//         }
+//         else if (keyword) {
+//             // The keyword param was removed from the url, reset the keyword
+//             setKeyword('');
+//         }
+//     }
+//
+//     const updateKeyword = (keyword) => {
+//         // Convert the keyword to a url slug
+//         const slug = encodeURIComponent(keyword);
+//         setKeyword(keyword);
+//
+//         // update the url
+//         history.replace(`/keyword_search/${slug}`);
+//
+//         Analytics.event({
+//             category: 'Keyword Search - Keyword',
+//             action: keyword
+//         });
+//     }
+//
+//     const startDownload  = () => {
+//         const params = {
+//             award_levels: ['prime_awards'],
+//             filters: {
+//                 keyword: keyword
+//             }
+//         };
+//
+//         requestDownload(params);
+//     }
+//
+//     const requestDownload = () => {
+//         if (downloadRequest) {
+//             downloadRequest.cancel();
+//         }
+//
+//         const downloadRequest = BulkDownloadHelper.requestAwardsDownload(params);
+//
+//         downloadRequest.promise
+//             .then((res) => {
+//                 props.setDownloadExpectedUrl(res.data.file_url);
+//                 props.setDownloadExpectedFile(res.data.file_name);
+//                 props.setDownloadPending(true);
+//             })
+//             .catch((err) => {
+//                 if (!isCancel(err)) {
+//                     // something went wrong
+//                     console.log(err);
+//
+//                     if (err.response) {
+//                         console.log(err.response.data.message);
+//                     }
+//                     else {
+//                         console.log(err.message);
+//                     }
+//                 }
+//             });
+//     }
+//
+//     const fetchSummary = () => {
+//         if (summaryRequest) {
+//             summaryRequest.cancel();
+//         }
+//
+//         setSummaryInFlight(true);
+//
+//         const params = {
+//             filters: {
+//                 keyword: keyword
+//             }
+//         };
+//
+//         const summaryRequest = KeywordHelper.fetchSummary(params);
+//         summaryRequest.promise
+//             .then((res) => {
+//                 const results = res.data.results;
+//                 const recordLimit = 500000;
+//                 setDownloadAvailable(results.prime_awards_count < recordLimit);
+//                 setSummaryInFlight(false);
+//                 setSummary({
+//                     primeCount: results.prime_awards_count,
+//                     primeAmount: results.prime_awards_obligation_amount
+//                 })
+//             })
+//             .catch((err) => {
+//                 if (!isCancel(err)) {
+//                     setSummaryInFlight(false);
+//                     console.log(err);
+//                     summaryRequest.cancel();
+//                 }
+//             });
+//     }
+//
+//     useEffect(() => {
+//         // todo - need if check here?
+//         handleUrl(props.match.params.keyword);
+//     },[]);
+//
+//     useEffect(() => {
+//         handleUrl(props.match.params.keyword);
+//     }, [props.match.params.keyword]);
+//
+//     return (
+//         <KeywordPage
+//             updateKeyword={updateKeyword}
+//             keyword={keyword}
+//             summary={summary}
+//             summaryInFlight={summaryInFlight}
+//             fetchSummary={fetchSummary}
+//             download={props.bulkDownload.download}
+//             downloadAvailable={downloadAvailable}
+//             startDownload={startDownload} />
+//     );
+//
+// }
 
 export class KeywordContainer extends React.Component {
     constructor(props) {
@@ -158,7 +295,7 @@ export class KeywordContainer extends React.Component {
     }
 
     updateKeyword(keyword) {
-    // Convert the keyword to a url slug
+        // Convert the keyword to a url slug
         const slug = encodeURIComponent(keyword);
         this.setState({
             keyword
