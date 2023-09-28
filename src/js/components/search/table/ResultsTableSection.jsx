@@ -62,6 +62,7 @@ export default class ResultsTableSection extends React.Component {
     }
 
     render() {
+        console.debug("\nRESULTS SECTION: ", this.props);
         const type = this.props.subaward ? 'Sub-Award' : 'Prime Award';
         const showTableMessage = (
             (!this.props.error && !this.props.inFlight && this.props.results.length === 0) ||
@@ -72,6 +73,7 @@ export default class ResultsTableSection extends React.Component {
             (!this.props.error && !this.props.inFlight && this.props.results.length > 0) ||
             this.props.inFlight
         );
+        console.debug("show dater table: ", showDataTable);
 
         const applyLineClamp = (elem) => {
             elem.classList.add("line-clamp");

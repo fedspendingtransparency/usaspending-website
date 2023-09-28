@@ -164,7 +164,7 @@ const ResultsTableContainer = (props) => {
 
         // parse the redux search order into the API-consumable format
         const searchOrder = sort;
-        let sortDirection = searchOrder?.direction;
+        let sortDirection = searchOrder.direction;
         if (!sortDirection) {
             sortDirection = 'desc';
         }
@@ -174,7 +174,7 @@ const ResultsTableContainer = (props) => {
             fields: requestFields,
             page: pageNumber,
             limit: resultLimit,
-            sort: searchOrder?.field,
+            sort: searchOrder.field,
             order: sortDirection,
             subawards: props.subaward
         };
@@ -208,7 +208,7 @@ const ResultsTableContainer = (props) => {
 
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
-                setResults(newState.results);
+                setResults([...newState.results]);
                 setPage(newState.page);
                 setLastPage(newState.lastPage);
 
@@ -257,7 +257,6 @@ const ResultsTableContainer = (props) => {
                 }
             });
         }, {});
-        console.debug("columns temp: ", columnsTemp);
         setColumns(Object.assign(columns, columnsTemp));
     };
 
@@ -280,11 +279,9 @@ const ResultsTableContainer = (props) => {
             tableType: tab
         };
 
-        const currentSortField = sort?.field;
-        console.debug("before has own property: ", newState, currentSortField, columns);
+        const currentSortField = sort.field;
         // check if the current sort field is available in the table type
-        const availableFields = columns[tab]?.data;
-        console.debug(availableFields, currentSortField);
+        const availableFields = columns[tab].data;
         if (!{}.hasOwnProperty.call(availableFields, currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
             const field = defaultSort(tab);
@@ -309,7 +306,6 @@ const ResultsTableContainer = (props) => {
     const parseTabCounts = (data) => {
         const awardCounts = data.results;
 
-        console.debug("awardcounts: ", awardCounts);
         let firstAvailable = '';
         let i = 0;
 
@@ -331,7 +327,8 @@ const ResultsTableContainer = (props) => {
         if (firstAvailable === '') {
             firstAvailable = availableTabs[0].internal;
         }
-        setCounts(Object.assign(counts,awardCounts));
+
+        setCounts(Object.assign(counts, awardCounts));
         switchTab(firstAvailable);
         updateFilters();
     };
@@ -374,11 +371,8 @@ const ResultsTableContainer = (props) => {
             });
     };
     useEffect(() => {
-        console.debug("load columns useeffect");
         loadColumns();
-        console.debug("props: ", props);
         if (SearchHelper.isSearchHashReady(location)) {
-            console.debug("inside if");
             pickDefaultTab();
         }
     }, [location]);
@@ -456,6 +450,7 @@ const ResultsTableContainer = (props) => {
         count: counts[type.internal],
         disabled: inFlight || counts[type.internal] === 0
     }));
+    console.debug("END OF TABLE CONTAINER REZULTS: ", results);
     return (
         <ResultsTableSection
             error={error}
