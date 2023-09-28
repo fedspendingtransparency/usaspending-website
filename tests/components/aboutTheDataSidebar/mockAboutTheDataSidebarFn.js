@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { Map } from 'immutable';
 import { Entry } from 'redux/reducers/aboutTheDataSidebar/aboutTheDataReducer';
 

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * downloadAnalytics-test.js
  * Created by Kevin Li 2/8/18
  */

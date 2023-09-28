@@ -34,7 +34,7 @@ BaseContract.populate = function populate(data) {
         dateSigned: data.date_signed,
         baseAndAllOptions: data.base_and_all_options,
         naics: data.naics_hierarchy,
-        psc: Object.entries(data.psc_hierarchy).reduce(pscHelper.deducePscType, pscHelper.emptyHierarchy),
+        psc: data.psc_hierarchy ? Object.entries(data.psc_hierarchy).reduce(pscHelper.deducePscType, pscHelper.emptyHierarchy) : {},
         fileC: {
             obligations: data.account_obligations_by_defc,
             outlays: data.account_outlays_by_defc

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * WithLatestFy-test.js
  * Created by Max Kendall 02/5/2021
 * */

@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render } from '@test-utils';
 import DataSubmissionExtraction from 'components/interactiveDataSources/scrollerSections/DataSubmissionExtraction';

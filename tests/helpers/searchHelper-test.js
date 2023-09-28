@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { initialState, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import { areFiltersEqual, isSearchHashReady } from 'helpers/searchHelper';
 

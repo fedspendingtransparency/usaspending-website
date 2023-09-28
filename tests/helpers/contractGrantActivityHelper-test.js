@@ -1,8 +1,9 @@
 /**
+ * @jest-environment jsdom
+ *
  * Created by Jonathan Hill 03/26/20
  */
 
-import moment from 'moment';
 import { cloneDeep } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import {
@@ -28,6 +29,8 @@ import {
     mockTransactions
 } from '../testResources/mockContractGrantActivityHelper';
 
+const dayjs = require('dayjs');
+
 describe('Contract Grant Activity Helper', () => {
     describe('Is Bad Data', () => {
         it('should return true if any running total is negative', () => {
@@ -41,7 +44,7 @@ describe('Contract Grant Activity Helper', () => {
         it('should return true if all transaction do not have a date', () => {
             const noDates = cloneDeep(mockTransactions).map((x) => {
                 const data = cloneDeep(x);
-                data.action_date = moment(null);
+                data.action_date = dayjs(null);
                 return data;
             });
             expect(areTransactionDatesOrAwardAmountsInvalid(goodDates, 'grant', noDates)).toBe(true);
@@ -63,19 +66,19 @@ describe('Contract Grant Activity Helper', () => {
             // 3
             it('should return true when there is no start date and end date exists and only one transaction', () => {
                 const data = cloneDeep(badStartDate);
-                data._endDate = moment('05/25/2011', 'MM/DD/YYYY'); 
+                data._endDate = dayjs('05/25/2011', 'MM/DD/YYYY'); 
                 expect(areTransactionDatesOrAwardAmountsInvalid(data, 'grant', oneTransaction)).toBe(true);
             });
             // 4.b
             it('should return true when there is no start date and end date exists and only one transaction and transaction date is > than end date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
-                newTransaction[0].action_date = moment('05/25/2014', 'MM/DD/YYYY');
+                newTransaction[0].action_date = dayjs('05/25/2014', 'MM/DD/YYYY');
                 expect(areTransactionDatesOrAwardAmountsInvalid(badStartDate, 'grant', newTransaction)).toBe(true);
             });
             // 5/b
             it('should return true when there is no end date and start date exists and only one transaction and transaction date is equal to start date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
-                newTransaction[0].action_date = moment('01/25/2011', 'MM/DD/YYYY');
+                newTransaction[0].action_date = dayjs('01/25/2011', 'MM/DD/YYYY');
                 expect(areTransactionDatesOrAwardAmountsInvalid(badEndDate, 'grant', newTransaction)).toBe(true);
             });
         });
@@ -91,7 +94,7 @@ describe('Contract Grant Activity Helper', () => {
             // 4.b
             it('should return true when there is no start date and potential end date exists and only one transaction and transaction date is > than potential end date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
-                newTransaction[0].action_date = moment('05/25/2019', 'MM/DD/YYYY');
+                newTransaction[0].action_date = dayjs('05/25/2019', 'MM/DD/YYYY');
                 const newDates = cloneDeep(badStartDate);
                 newDates._endDate = badEndDate._endDate;
                 expect(areTransactionDatesOrAwardAmountsInvalid(newDates, 'contract', newTransaction)).toBe(true);
@@ -99,7 +102,7 @@ describe('Contract Grant Activity Helper', () => {
             // 4.b
             it('should return true when there is no start date and current end date exists and only one transaction and transaction date is > than current end date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
-                newTransaction[0].action_date = moment('05/25/2014', 'MM/DD/YYYY');
+                newTransaction[0].action_date = dayjs('05/25/2014', 'MM/DD/YYYY');
                 const newDates = cloneDeep(badStartDate);
                 newDates._potentialEndDate = badPotentialEndDate._potentialEndDate;
                 expect(areTransactionDatesOrAwardAmountsInvalid(newDates, 'contract', newTransaction)).toBe(true);
@@ -107,7 +110,7 @@ describe('Contract Grant Activity Helper', () => {
             // 5.b
             it('should return true when there is no end date and start date exists and only one transaction and transaction date is === than start date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
-                newTransaction[0].action_date = moment('01/25/2011', 'MM/DD/YYYY');
+                newTransaction[0].action_date = dayjs('01/25/2011', 'MM/DD/YYYY');
                 expect(areTransactionDatesOrAwardAmountsInvalid(badEndDates, 'contract', newTransaction)).toBe(true);
             });
         });
@@ -133,7 +136,7 @@ describe('Contract Grant Activity Helper', () => {
                 });
                 it('should return dates as domain when good dates', () => {
                     const theDates = cloneDeep(goodDates);
-                    theDates._endDate = moment('05/25/2020', 'MM/DD/YYYY');
+                    theDates._endDate = dayjs('05/25/2020', 'MM/DD/YYYY');
                     const domain = getXDomain(theDates, 'grant', oneTransaction);
                     expect(domain[0]).toBe(theDates._startDate.valueOf());
                     expect(domain[1]).toBe(theDates._endDate.valueOf());
@@ -155,7 +158,7 @@ describe('Contract Grant Activity Helper', () => {
                 // 4.a
                 it('should return start domain as transaction date and end domain as current end date when one transaction and no start date and current end date exists and no potential end', () => {
                     const theDates = cloneDeep(badStartDate);
-                    theDates._potentialEndDate = moment(null);
+                    theDates._potentialEndDate = dayjs(null);
                     const domain = getXDomain(theDates, 'contract', oneTransaction);
                     expect(domain[0]).toBe(oneTransactionDate);
                     expect(domain[1]).toBe(theDates._endDate.valueOf());
@@ -209,7 +212,7 @@ describe('Contract Grant Activity Helper', () => {
             // 7
             it('should return transaction as start and current as end when bad start date no potential end', () => {
                 const theDates = cloneDeep(badStartDate);
-                theDates._potentialEndDate = moment(null);
+                theDates._potentialEndDate = dayjs(null);
                 const domain = getXDomain(theDates, 'contract', mockTransactions);
                 expect(domain[0]).toBe(firstTransactionDate);
                 expect(domain[1]).toBe(theDates._endDate.valueOf());
@@ -256,7 +259,7 @@ describe('Line Helper', () => {
         expect(getLineValue()).toBeNull();
     });
     it('should return null if date isNaN', () => {
-        expect(getLineValue(moment(''))).toBeNull();
+        expect(getLineValue(dayjs(''))).toBeNull();
     });
     it('should return a number if date exists', () => {
         expect(getLineValue(goodDates._startDate, [goodDates._startDate.subtract(7, 'd'), goodDates._startDate.add(7, 'd')])).toBe(goodDates._startDate.valueOf());
@@ -368,7 +371,7 @@ describe('Create Stepped Area Path', () => {
             yScale, // d3 linear scale
             400, // height of the graph
             { left: 45 }, // horizontal padding for the svg
-            'action_date', // x property of the data point must be moment object
+            'action_date', // x property of the data point must be dayjs object
             'running_obligation_total' // y property of the data point
         );
         const steppedPath = path.split('').reduce((acc, char) => {

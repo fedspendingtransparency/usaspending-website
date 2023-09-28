@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 11/1/17
  */
 
-import moment from 'moment';
+const dayjs = require('dayjs');
 
 export const awardDownloadOptions = {
     awardLevels: [
@@ -130,55 +130,55 @@ export const awardDownloadOptions = {
         column3: [
             {
                 label: 'yesterday',
-                startDate: moment().subtract(1, 'day').format('YYYY-MM-DD'),
-                endDate: moment().subtract(1, 'day').format('YYYY-MM-DD')
+                startDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+                endDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD')
             },
             {
                 label: 'last 7 days',
-                startDate: moment().subtract(1, 'week').format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: dayjs().subtract(1, 'week').format('YYYY-MM-DD'),
+                endDate: dayjs().format('YYYY-MM-DD')
             },
             {
                 label: 'last 15 days',
-                startDate: moment().subtract(15, 'day').format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: dayjs().subtract(15, 'day').format('YYYY-MM-DD'),
+                endDate: dayjs().format('YYYY-MM-DD')
             },
             {
                 label: 'last 30 days',
-                startDate: moment().subtract(30, 'day').format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: dayjs().subtract(30, 'day').format('YYYY-MM-DD'),
+                endDate: dayjs().format('YYYY-MM-DD')
             },
             {
                 label: 'last 60 days',
-                startDate: moment().subtract(60, 'day').format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: dayjs().subtract(60, 'day').format('YYYY-MM-DD'),
+                endDate: dayjs().format('YYYY-MM-DD')
             }
         ],
         column4: [
             {
                 label: 'this month',
-                startDate: moment().startOf('month').format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: dayjs().startOf('month').format('YYYY-MM-DD'),
+                endDate: dayjs().format('YYYY-MM-DD')
             },
             {
                 label: 'last 3 months',
-                startDate: moment().subtract(3, 'month').format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
+                endDate: dayjs().format('YYYY-MM-DD')
             },
             {
                 label: 'last 6 months',
-                startDate: moment().subtract(6, 'month').format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: dayjs().subtract(6, 'month').format('YYYY-MM-DD'),
+                endDate: dayjs().format('YYYY-MM-DD')
             },
             {
                 label: 'this year',
-                startDate: moment().startOf('year').format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: dayjs().startOf('year').format('YYYY-MM-DD'),
+                endDate: dayjs().format('YYYY-MM-DD')
             },
             {
                 label: 'last year',
-                startDate: moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
-                endDate: moment().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
+                startDate: dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
+                endDate: dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
             }
         ]
     }

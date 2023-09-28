@@ -48,8 +48,9 @@ const Covid19Page = ({ loading }) => {
         jumpToSection(section);
 
         // add section to url
-        history.replace(`${history.location.pathname}?section=${kebabCase(section)}`);
-
+        if (!window.location.href.includes(`section=${section}`)) {
+            history.replace(`${history.location.pathname}?section=${kebabCase(section)}`);
+        }
         // update the state
         setActiveSection(section);
         Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });

@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render, waitFor } from 'test-utils';
 import * as redux from 'react-redux';
