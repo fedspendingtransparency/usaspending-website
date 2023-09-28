@@ -1,4 +1,4 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 
 const apiUrl = process.env.API_URL || 'https://api.usaspending.gov:443';
 const siteUrl = process.env.SITE_URL || 'https://www.usaspending.gov';
@@ -54,8 +54,8 @@ const awardPageInfo = {
     requestObject: {
         filters: {
             time_period: [{
-                start_date: `${moment().subtract(1, 'y').year()}-10-01`,
-                end_date: moment().add(10, "y").format("YYYY-MM-DD")
+                start_date: `${dayjs().subtract(1, 'y').year()}-10-01`,
+                end_date: dayjs().add(10, "y").format("YYYY-MM-DD")
             }],
             award_type_codes: ["A", "B", "C", "D"],
             page: 1,

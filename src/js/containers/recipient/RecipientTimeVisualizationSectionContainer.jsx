@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import moment from 'moment';
 
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
 
@@ -18,6 +17,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as RecipientHelper from 'helpers/recipientHelper';
 import Analytics from 'helpers/analytics/Analytics';
 import RecipientTimeVisualizationSection from 'components/recipient/spendingOverTime/RecipientTimeVisualizationSection';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     recipient: PropTypes.object
@@ -90,7 +91,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
 
         if (this.state.visualizationPeriod !== 'fiscal_year') {
             // use the end of this month
-            const endOfMonth = moment().endOf('month');
+            const endOfMonth = dayjs().endOf('month');
             endDate = endOfMonth.format('YYYY-MM-DD');
         }
 
@@ -150,7 +151,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
 
         if (this.state.visualizationPeriod !== 'fiscal_year') {
             // use the end of this month
-            const endOfMonth = moment().endOf('month');
+            const endOfMonth = dayjs().endOf('month');
             endDate = endOfMonth.format('YYYY-MM-DD');
         }
 

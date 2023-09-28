@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * aboutTheDataSidebarHelper-test.js
  * Created by Andrea Blackwell 12/07/2022
  */

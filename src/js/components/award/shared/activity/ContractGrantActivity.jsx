@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import moment from 'moment';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
 import { convertDatesToRange } from 'helpers/timeRangeHelper';
@@ -9,6 +8,8 @@ import { RectanglePercentVizTooltip } from 'components/award/shared/awardAmounts
 import ContractGrantActivityChart from './ContractGrantActivityChart';
 import PaginatedTooltipContainer from './PaginatedTooltipContainer';
 import Tooltip from './Tooltip';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     transactions: PropTypes.array,
@@ -88,7 +89,7 @@ const ContractGrantActivity = ({
     });
 
     const formatDateData = (date) => {
-        const today = moment(Date.now());
+        const today = dayjs(Date.now());
         const dateFormatted = date.format("MM/DD/YYYY");
         return today.isAfter(date) ?
             `${dateFormatted} (${convertDatesToRange(date, today)} ago)` :
@@ -96,7 +97,7 @@ const ContractGrantActivity = ({
     };
 
     const verticalLinesTooltipData = (data, text) => {
-        const date = moment(data.value);
+        const date = dayjs(data.value);
         setThisLineOrTextIsHovered(text);
         return {
             styles: { // y position is in the middle of the line

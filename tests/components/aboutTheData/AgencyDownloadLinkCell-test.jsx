@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * AgencyDownloadLinkCell-test.jsx
  * Created by Lizzie Salita 1/14/21
  */

@@ -1,5 +1,8 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
+import { expect } from '@jest/globals';
 import { render, screen, fireEvent } from '@test-utils';
 
 import Accordion from '../../../src/js/components/sharedComponents/accordion/Accordion';

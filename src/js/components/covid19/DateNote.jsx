@@ -6,7 +6,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { getLatestPeriodAsMoment } from 'helpers/accountHelper';
+import { getLatestPeriodAsDayjs } from 'helpers/accountHelper';
 import { fetchAllSubmissionDates } from 'apis/account';
 
 const propTypes = {
@@ -25,7 +25,7 @@ const DateNote = ({ styles, useCache = true }) => {
             request.current = fetchAllSubmissionDates(useCache);
             try {
                 const { data } = await request.current.promise;
-                setDate(getLatestPeriodAsMoment(data.available_periods));
+                setDate(getLatestPeriodAsDayjs(data.available_periods));
                 request.current = null;
             }
             catch (e) {

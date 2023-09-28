@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { List } from 'immutable';
 import { render, screen } from '@test-utils';

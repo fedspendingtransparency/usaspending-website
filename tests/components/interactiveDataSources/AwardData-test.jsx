@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render } from '@test-utils';
 import AwardData from 'components/interactiveDataSources/scrollerSections/AwardData';

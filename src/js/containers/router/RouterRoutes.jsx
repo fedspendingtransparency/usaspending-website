@@ -39,6 +39,7 @@ const EquityCovidSpendingPage = React.lazy(() => import('components/dataDives/Eq
 const InteractiveDataSourcesPage = React.lazy(() => import('components/interactiveDataSources/InteractiveDataSourcesPage').then((comp) => comp));
 const TrainingVideosContainer = React.lazy(() => import('containers/trainingVideos/TrainingVideosContainer').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
+const TempNav = React.lazy(() => import('components/about/navTest/About').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
@@ -220,6 +221,11 @@ export const routes = [
     {
         path: '/temp-page',
         component: TempPage,
+        exact: true
+    },
+    {
+        path: '/temp-nav',
+        component: TempNav,
         exact: true
     },
     {

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * TrainingVideo-test.js
  * Created by Andrea Blackwell 12/21/22
  */
