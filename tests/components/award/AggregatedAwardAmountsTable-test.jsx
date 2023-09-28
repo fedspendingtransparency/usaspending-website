@@ -1,9 +1,12 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
+import { expect } from '@jest/globals';
 import { render, screen, fireEvent } from '@test-utils';
+import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import AggregatedAwardAmountsTableWrapper
     from "../../../src/js/components/award/idv/amounts/AggregatedAwardAmountsTableWrapper";
-import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import AwardAmountsTable from "../../../src/js/components/award/shared/awardAmounts/AwardAmountsTable";
 
 

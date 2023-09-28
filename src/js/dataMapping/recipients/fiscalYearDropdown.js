@@ -3,11 +3,12 @@
  * Created by Maxwell Kendall 01/21/2020
  */
 
-import moment from 'moment';
 import { currentFiscalYear, earliestFiscalYear } from "helpers/fiscalYearHelper";
 
-const earliestFY = moment(`10-01-${earliestFiscalYear}`);
-const currentFY = moment(`10-01-${currentFiscalYear()}`);
+const dayjs = require('dayjs');
+
+const earliestFY = dayjs(`10-01-${earliestFiscalYear}`);
+const currentFY = dayjs(`10-01-${currentFiscalYear()}`);
 const dropdownLabels = ['Trailing 12 Months', 'All Fiscal Years'];
 
 // eslint-disable-next-line import/prefer-default-export

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseAwardBreakdownRow-test.js
  * Created by Lizzie Salita 5/22/18
  */

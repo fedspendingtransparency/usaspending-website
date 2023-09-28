@@ -6,7 +6,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { Carousel, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 import { fetchBudgetaryResources } from 'apis/agency';
@@ -19,6 +18,8 @@ import ObligationsByAwardTypeContainer from 'containers/agency/visualizations/Ob
 
 import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     fy: PropTypes.string,
@@ -102,7 +103,7 @@ const FySummary = ({
             dataThroughNote = 'No data available for the selected fiscal year';
         }
         else {
-            dataThroughNote = `Data through ${moment(dataThroughDate).format('M/D/YYYY')}`;
+            dataThroughNote = `Data through ${dayjs(dataThroughDate).format('M/D/YYYY')}`;
         }
     }
 

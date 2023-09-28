@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * WithAgencySlugs-test.js
  * Created by Lizzie Salita 11/8/21
 * */

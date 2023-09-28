@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * socialShare-test
  * by Maxwell Kendall
  * 05/19/2020

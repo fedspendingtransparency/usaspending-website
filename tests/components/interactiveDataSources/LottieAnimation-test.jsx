@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render, fireEvent, waitFor } from 'test-utils';
 import LottieAnimation from 'components/interactiveDataSources/lottieAnimation/LottieAnimation';

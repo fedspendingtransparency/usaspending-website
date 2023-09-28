@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseReportingPeriodRow-test.js
  * Created by Lizzie Salita 12/8/20
  */

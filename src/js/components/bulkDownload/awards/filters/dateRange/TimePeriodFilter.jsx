@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
@@ -13,6 +12,8 @@ import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
 import DateRangeError from 'components/search/filters/timePeriod/DateRangeError';
 import DownloadDateRange from './DownloadDateRange';
 import TimePeriodButtons from './TimePeriodButtons';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     filterTimePeriodStart: PropTypes.string,
@@ -64,8 +65,8 @@ export default class TimePeriodFilter extends React.Component {
 
     prepopulateDatePickers() {
     // prepopulate the date pickers with the current filter values
-        const startDate = moment(this.props.filterTimePeriodStart, 'YYYY-MM-DD');
-        const endDate = moment(this.props.filterTimePeriodEnd, 'YYYY-MM-DD');
+        const startDate = dayjs(this.props.filterTimePeriodStart, 'YYYY-MM-DD');
+        const endDate = dayjs(this.props.filterTimePeriodEnd, 'YYYY-MM-DD');
 
         if (startDate.isValid() && endDate.isValid()) {
             this.setState({
@@ -77,13 +78,13 @@ export default class TimePeriodFilter extends React.Component {
 
     synchronizeDatePickers(nextProps) {
     // synchronize the date picker state to Redux controlled props
-    // convert start/end date strings to moment objects
+    // convert start/end date strings to dayjs objects
         let datesChanged = false;
         const newState = {};
 
         // check if the start date changed
         if (nextProps.filterTimePeriodStart !== this.props.filterTimePeriodStart) {
-            const startDate = moment(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
+            const startDate = dayjs(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
             // start date did change and it is a valid date (not null)
             if (startDate.isValid()) {
                 datesChanged = true;
@@ -98,7 +99,7 @@ export default class TimePeriodFilter extends React.Component {
 
         // check if the end date changed
         if (nextProps.filterTimePeriodEnd !== this.props.filterTimePeriodEnd) {
-            const endDate = moment(nextProps.filterTimePeriodEnd, 'YYYY-MM-DD');
+            const endDate = dayjs(nextProps.filterTimePeriodEnd, 'YYYY-MM-DD');
             if (endDate.isValid()) {
                 // end date did change and it is a valid date (not null)
                 datesChanged = true;
@@ -121,7 +122,7 @@ export default class TimePeriodFilter extends React.Component {
     // this is because the start/end range will be incomplete during the time the user has only
     // picked one date, or if they have picked an invalid range
     // additional logic is required to keep these values in sync with Redux
-        let value = moment(date);
+        let value = dayjs(date);
         if (!date) {
             value = null;
         }
@@ -140,7 +141,7 @@ export default class TimePeriodFilter extends React.Component {
         const start = this.state.startDateBulkUI;
         const end = this.state.endDateBulkUI;
 
-        const yearBeforeEnd = moment(this.state.endDateBulkUI).subtract(1, 'y');
+        const yearBeforeEnd = dayjs(this.state.endDateBulkUI).subtract(1, 'y');
 
         if (start && end) {
             // both sets of dates exist

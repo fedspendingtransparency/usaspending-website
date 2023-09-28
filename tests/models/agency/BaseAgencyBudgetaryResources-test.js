@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 
 export const mockBudgetaryResources = {

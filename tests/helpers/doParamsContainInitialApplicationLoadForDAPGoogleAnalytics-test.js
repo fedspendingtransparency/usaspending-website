@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import doParamsContainInitialApplicationLoadForDAPGoogleAnalytics from 'helpers/analytics/doParamsContainInitialApplicationLoadForDAPGoogleAnalytics';
 
 test('should return false if string is not present in params', () => {

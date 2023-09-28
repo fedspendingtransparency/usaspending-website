@@ -3,10 +3,11 @@
  * Created by Lizzie Salita 3/8/18
  */
 
-import moment from 'moment';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-export const parseDate = (string) => moment(string, 'YYYY-MM-DD');
+const dayjs = require('dayjs');
+
+export const parseDate = (string) => dayjs(string, 'YYYY-MM-DD');
 export const formatDate = (date) => date.format('MM/DD/YYYY');
 
 const BaseSubawardRow = {

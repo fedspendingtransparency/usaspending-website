@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * explorerQuarters-test.js
  * Created by Kevin Li 2/16/18
  */

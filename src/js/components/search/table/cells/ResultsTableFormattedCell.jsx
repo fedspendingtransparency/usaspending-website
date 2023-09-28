@@ -5,8 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { formatMoney } from 'helpers/moneyFormatter';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     rowIndex: PropTypes.number,
@@ -20,7 +21,7 @@ export default class ResultsTableFormattedCell extends React.Component {
     formatContent(original, type) {
         if (type === 'date') {
             // format the content as a date
-            return moment(original, 'YYYY-MM-DD').format('M/D/YYYY');
+            return dayjs(original, 'YYYY-MM-DD').format('M/D/YYYY');
         }
         else if (type === 'currency' && original !== '--') {
             return formatMoney(original);

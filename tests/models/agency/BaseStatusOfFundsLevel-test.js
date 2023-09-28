@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseStatusOfFundsLevel-test.js
  * Created by Lizzie Salita 11/23/21
  */

@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import {
     isAwardAggregate,
     isAwardFinancialAssistance,
@@ -6,7 +9,8 @@ import {
     isUSAAward,
     getSubmittingAgencyId
 } from 'helpers/awardSummaryHelper';
-import moment from 'moment';
+
+const dayjs = require('dayjs');
 
 
 describe('awardSummaryHelper', () => {
@@ -93,39 +97,39 @@ describe('awardSummaryHelper', () => {
     });
     describe('Is Bad Dates', () => {
         const goodDates = {
-            startDate: moment('01/02/2019', 'MM-DD-YYYY'),
-            endDate: moment('12/02/2019', 'MM-DD-YYYY'),
-            currentEndDate: moment('05/29/2019', 'MM-DD-YYYY')
+            startDate: dayjs('01/02/2019', 'MM-DD-YYYY'),
+            endDate: dayjs('12/02/2019', 'MM-DD-YYYY'),
+            currentEndDate: dayjs('05/29/2019', 'MM-DD-YYYY')
         };
         const startGreaterThanEndDate = {
-            startDate: moment('06/02/2019', 'MM-DD-YYYY'),
-            endDate: moment('05/29/2019', 'MM-DD-YYYY'),
-            currentEndDate: moment('04/02/2019', 'MM-DD-YYYY')
+            startDate: dayjs('06/02/2019', 'MM-DD-YYYY'),
+            endDate: dayjs('05/29/2019', 'MM-DD-YYYY'),
+            currentEndDate: dayjs('04/02/2019', 'MM-DD-YYYY')
         };
         const startGreaterThanCurrentEndDate = {
-            startDate: moment('06/02/2019', 'MM-DD-YYYY'),
-            endDate: moment('12/02/2019', 'MM-DD-YYYY'),
-            currentEndDate: moment('05/29/2019', 'MM-DD-YYYY')
+            startDate: dayjs('06/02/2019', 'MM-DD-YYYY'),
+            endDate: dayjs('12/02/2019', 'MM-DD-YYYY'),
+            currentEndDate: dayjs('05/29/2019', 'MM-DD-YYYY')
         };
         const currentEndDateGreaterThanEndDate = {
-            startDate: moment('01/02/2019', 'MM-DD-YYYY'),
-            endDate: moment('06/02/2019', 'MM-DD-YYYY'),
-            currentEndDate: moment('12/02/2019', 'MM-DD-YYYY')
+            startDate: dayjs('01/02/2019', 'MM-DD-YYYY'),
+            endDate: dayjs('06/02/2019', 'MM-DD-YYYY'),
+            currentEndDate: dayjs('12/02/2019', 'MM-DD-YYYY')
         };
         const startDateDoesNotExist = {
-            startDate: moment(null, 'MM-DD-YYYY'),
-            endDate: moment('12/02/2019', 'MM-DD-YYYY'),
-            currentEndDate: moment('06/02/2019', 'MM-DD-YYYY')
+            startDate: dayjs(null, 'MM-DD-YYYY'),
+            endDate: dayjs('12/02/2019', 'MM-DD-YYYY'),
+            currentEndDate: dayjs('06/02/2019', 'MM-DD-YYYY')
         };
         const endDateDoesNotExist = {
-            startDate: moment('01/02/2019', 'MM-DD-YYYY'),
-            endDate: moment(null, 'MM-DD-YYYY'),
-            currentEndDate: moment('06/02/2019', 'MM-DD-YYYY')
+            startDate: dayjs('01/02/2019', 'MM-DD-YYYY'),
+            endDate: dayjs(null, 'MM-DD-YYYY'),
+            currentEndDate: dayjs('06/02/2019', 'MM-DD-YYYY')
         };
         const currentEndDateDoesNotExist = {
-            startDate: moment('01/02/2019', 'MM-DD-YYYY'),
-            endDate: moment('06/02/2019', 'MM-DD-YYYY'),
-            currentEndDate: moment(null, 'MM-DD-YYYY')
+            startDate: dayjs('01/02/2019', 'MM-DD-YYYY'),
+            endDate: dayjs('06/02/2019', 'MM-DD-YYYY'),
+            currentEndDate: dayjs(null, 'MM-DD-YYYY')
         };
         describe('Contracts', () => {
             it('is a bad date if start date is greater than the end date', () => {

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseAwardAmounts-test.js
  * Created by David Trinh 2/11/19
  */

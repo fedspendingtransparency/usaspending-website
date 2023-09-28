@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import BaseBudgetCategoryRow from "models/v2/covid19/BaseBudgetCategoryRow";
 
 export const mockBaseBudgetCategoryRow = {
