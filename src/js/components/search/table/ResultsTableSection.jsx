@@ -73,7 +73,7 @@ export default class ResultsTableSection extends React.Component {
             (!this.props.error && !this.props.inFlight && this.props.results.length > 0) ||
             this.props.inFlight
         );
-        console.debug("show dater table: ", showDataTable);
+        console.debug("show dater table: ", showDataTable, showTableMessage);
 
         const applyLineClamp = (elem) => {
             elem.classList.add("line-clamp");
