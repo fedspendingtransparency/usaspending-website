@@ -3,7 +3,8 @@
  * Created by Kevin Li 4/28/17
  */
 
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from 'mousetrap';
@@ -23,29 +24,27 @@ const propTypes = {
 };
 
 const Glossary = (props) => {
+    const history = useHistory();
     const [contentHeight, setContentHeight] = useState(0);
     const [content, setContent] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
     const [loadingContent, setLoadingContent] = useState('');
 
-    const measureAvailableHeight = useCallback(() => {
+    const measureAvailableHeight = (useCallback(() => {
         const sidebarHeight = document.getElementById('glossary-sidebar')?.getBoundingClientRect().height || 0;
         const headerHeight = document.getElementById('glossary-sidebar-header')?.getBoundingClientRect().height || 0;
 
         setContentHeight(sidebarHeight - headerHeight);
-    });
+    }));
 
     const closeGlossary = useCallback(() => {
         props.hideGlossary();
 
         // remove search param from url
-        // todo - probably need to change this history to useHistory hook
-        // then get rid of history prop
-        if (props.history.location.search.includes('glossary')) {
-            props.history.replace({
-                search: ''
-            });
+        if (window.location.href.includes('glossary')) {
+            history.replace(`${history.location.pathname}`);
         }
+
         // move focus back to the main content
         const mainContent = document.getElementById('main-focus');
         if (mainContent) {
@@ -70,14 +69,12 @@ const Glossary = (props) => {
             setContent(<NoResults {...props} />);
         }
         else if (props.glossary.term.slug && props.glossary.term.slug !== '') {
-            // todo - what is updateContentHeight?
-            // send contentHeight instead?
-            // neither of these cmpnts have this as a prop though, strange
-            // leave it out at first
             setContent(<GlossaryDefinition {...props} />);
         }
         else setContent((<GlossarySearchResults {...props} />));
-    }, [measureAvailableHeight, props]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.loading, props.error, props.glossary.search.results, props.glossary.term.slug]);
 
     useEffect(() => {
         Mousetrap.bind('esc', closeGlossary);
