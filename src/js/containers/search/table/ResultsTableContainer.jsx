@@ -4,7 +4,7 @@
   **/
 
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -78,7 +78,6 @@ export const subTypes = [
 const ResultsTableContainer = (props) => {
     let tabCountRequest = null;
     let searchRequest = null;
-    const history = useHistory();
     const location = useLocation();
     const [searchParams, setSearchParams] = useState(new SearchAwardsOperation());
     const [page, setPage] = useState(0);
@@ -282,7 +281,8 @@ const ResultsTableContainer = (props) => {
         const currentSortField = sort.field;
         // check if the current sort field is available in the table type
         const availableFields = columns[tab].data;
-        if (!{}.hasOwnProperty.call(availableFields, currentSortField)) {
+        console.debug("before has own: ", newState, currentSortField, availableFields);
+        if (!Object.prototype.hasOwnProperty.call(availableFields, currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
             const field = defaultSort(tab);
             const fieldType = awardTableColumnTypes[field];
@@ -296,7 +296,9 @@ const ResultsTableContainer = (props) => {
             };
         }
         setTableType(newState.tableType);
-        setSort(Object.assign(sort, newState.sort));
+        if (newState.sort) {
+            setSort(Object.assign(sort, newState.sort));
+        }
         performSearch(true);
         Analytics.event({
             category: 'Advanced Search - Table Tab',
@@ -410,14 +412,14 @@ const ResultsTableContainer = (props) => {
     };
     const updateSort = (field, direction) => {
         if (field === 'Action Date') {
-            setSort(Object.assign(sort, {
+            setSort(Object.assign({
                 field: 'Sub-Award Date',
                 direction
             }));
             performSearch(true);
         }
         else {
-            setSort(Object.assign(sort, {
+            setSort(Object.assign({
                 field,
                 direction
             }));
