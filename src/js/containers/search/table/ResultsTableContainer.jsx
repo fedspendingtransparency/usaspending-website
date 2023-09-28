@@ -4,6 +4,7 @@
   **/
 
 import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -35,10 +36,8 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func,
-    location: PropTypes.object
+    subAwardIdClicked: PropTypes.func
 };
-
 export const tableTypes = [
     {
         label: 'Contracts',
@@ -79,6 +78,8 @@ export const subTypes = [
 const ResultsTableContainer = (props) => {
     let tabCountRequest = null;
     let searchRequest = null;
+    const history = useHistory();
+    const location = useLocation();
     const [searchParams, setSearchParams] = useState(new SearchAwardsOperation());
     const [page, setPage] = useState(0);
     const [lastPage, setLastPage] = useState(true);
@@ -94,6 +95,7 @@ const ResultsTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
 
+    console.debug("THINGS: ", history, location);
     const performSearch = (newSearch = false) => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
@@ -256,6 +258,7 @@ const ResultsTableContainer = (props) => {
                 }
             });
         }, {});
+        console.debug("columns temp: ", columnsTemp);
         setColumns(columnsTemp);
     };
 
@@ -369,21 +372,24 @@ const ResultsTableContainer = (props) => {
             });
     };
     useEffect(() => {
+        console.debug("load columns useeffect");
         loadColumns();
-        if (SearchHelper.isSearchHashReady(props?.location)) {
+        console.debug("props: ", props);
+        if (SearchHelper.isSearchHashReady(location)) {
+            console.debug("inside if");
             pickDefaultTab();
         }
-    }, [props.location]);
+    }, [location]);
     useEffect(() => {
         if (props.subaward && !props.noApplied) {
             // subaward toggle changed, update the search object
             pickDefaultTab();
         }
-        else if (SearchHelper.isSearchHashReady(props.location) && props.location.search) {
+        else if (SearchHelper.isSearchHashReady(location) && location.search) {
             // hash is (a) defined and (b) new
             pickDefaultTab();
         }
-    }, [props.subaward, props.noApplied, props.location, pickDefaultTab]);
+    }, [props.subaward, props.noApplied, location]);
     useEffect(() => () => {
         if (searchRequest) {
             searchRequest.cancel();
@@ -391,7 +397,7 @@ const ResultsTableContainer = (props) => {
         if (tabCountRequest) {
             tabCountRequest.cancel();
         }
-    }, [searchRequest, tabCountRequest]);
+    }, []);
     const loadNextPage = () => {
     // check if request is already in-flight
         if (inFlight) {
@@ -426,7 +432,7 @@ const ResultsTableContainer = (props) => {
         Analytics.event({
             category: 'Advanced Search - Spending by Prime Award',
             action: `Clicked ${id}`,
-            label: new URLSearchParams(props.location.search).get('hash')
+            label: new URLSearchParams(location.search).get('hash')
         });
     };
     const subAwardIdClick = (id) => {

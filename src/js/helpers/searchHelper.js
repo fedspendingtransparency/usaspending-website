@@ -197,7 +197,7 @@ export const areFiltersSelected = (filters) => !areFiltersEqual(filters);
 export const areFiltersDifferent = (a, b) => !areFiltersEqual(a, b);
 
 export const isSearchHashReady = (props) => {
-    if (props?.search) {
+    if (props.search) {
         const params = new URLSearchParams(props.search);
         for (const [key, value] of params.entries()) {
             if (key === 'hash' && value) {
