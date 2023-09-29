@@ -1,8 +1,4 @@
 // slide in animation
-@import "../../lib/bourbon/css3/animation";
-@import "../../lib/bourbon/settings/prefixer";
-@import "../../lib/bourbon/addons/prefixer";
-
 @keyframes atd-slidein {
     0% {
         transform: translate(300px, 0);
