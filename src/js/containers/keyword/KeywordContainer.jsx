@@ -146,10 +146,6 @@ const KeywordContainer = (props) => {
         handleUrl(props.match.params.keyword);
     }, [handleUrl, props.match.params.keyword]);
 
-    useEffect(() => {
-        handleUrl(props.match.params.keyword);
-    }, [handleUrl, props.match.params.keyword]);
-
     return (
         <KeywordPage
             updateKeyword={updateKeyword}
