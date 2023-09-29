@@ -79,7 +79,6 @@ const SearchContainer = ({ history }) => {
         download,
         appliedFilters: {
             filters: appliedFilters,
-            // TODO: Possibly rename these redux properties?
             _empty: areAppliedFiltersEmpty,
             _complete: areFiltersApplied
         }
