@@ -411,14 +411,14 @@ const ResultsTableContainer = (props) => {
     };
     const updateSort = (field, direction) => {
         if (field === 'Action Date') {
-            setSort(Object.assign(sort, {
+            setSort(Object.assign({
                 field: 'Sub-Award Date',
                 direction
             }));
             performSearch(true);
         }
         else {
-            setSort(Object.assign(sort, {
+            setSort(Object.assign({
                 field,
                 direction
             }));
