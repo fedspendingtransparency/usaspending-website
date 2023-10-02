@@ -30,7 +30,10 @@ const MapLayerToggle = (props) => {
 
     const items = props.available.map((layer) => {
         let tempLabel = '';
-        if (props.sources[layer].label === 'county') {
+        if (props.sources[layer].label === 'country') {
+            tempLabel = 'country';
+        }
+        else if (props.sources[layer].label === 'county') {
             tempLabel = 'counties';
         }
         else if (props.sources[layer].label === 'state') {
@@ -44,6 +47,7 @@ const MapLayerToggle = (props) => {
         if (props.active === layer) {
             active = 'active';
         }
+
         return (
             <li
                 key={layer}>

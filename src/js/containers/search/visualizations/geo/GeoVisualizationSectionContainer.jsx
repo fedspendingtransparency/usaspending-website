@@ -35,6 +35,7 @@ const propTypes = {
 };
 
 const apiScopes = {
+    country: 'country',
     state: 'state',
     county: 'county',
     congressionalDistrict: 'district'
@@ -244,6 +245,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.props.setAppliedFilterCompletion(false);
 
+        console.log(apiParams);
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
@@ -313,6 +315,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     changeMapLayer(layer) {
+        console.log(layer);
         this.setState({
             mapLayer: layer,
             renderHash: `geo-${uniqueId()}`,

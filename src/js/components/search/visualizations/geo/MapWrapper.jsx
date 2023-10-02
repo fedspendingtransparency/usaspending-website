@@ -57,6 +57,12 @@ const mapLegendToggleData = [
 ];
 
 const mapboxSources = {
+    country: {
+        label: 'country',
+        url: 'mapbox://mapbox.country-boundaries-v1',
+        layer: 'country_boundaries',
+        filterKey: 'iso_3166_1_alpha_3' // three digit country code
+    },
     state: {
         label: 'state',
         url: 'mapbox://usaspending.9cse49bi',

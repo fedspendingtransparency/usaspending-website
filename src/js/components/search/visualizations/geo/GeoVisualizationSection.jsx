@@ -41,7 +41,7 @@ const propTypes = {
     className: PropTypes.string
 };
 
-const availableLayers = ['state', 'county', 'congressionalDistrict'];
+const availableLayers = ['country', 'state', 'county', 'congressionalDistrict'];
 
 export default class GeoVisualizationSection extends React.Component {
     constructor(props) {
