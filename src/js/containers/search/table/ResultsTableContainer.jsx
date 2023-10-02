@@ -281,7 +281,6 @@ const ResultsTableContainer = (props) => {
         const currentSortField = sort.field;
         // check if the current sort field is available in the table type
         const availableFields = columns[tab].data;
-        console.debug("before has own: ", newState, currentSortField, availableFields);
         if (!Object.prototype.hasOwnProperty.call(availableFields, currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
             const field = defaultSort(tab);
@@ -297,7 +296,7 @@ const ResultsTableContainer = (props) => {
         }
         setTableType(newState.tableType);
         if (newState.sort) {
-            setSort(Object.assign(sort, newState.sort));
+            setSort(Object.assign({}, sort, newState.sort));
         }
         performSearch(true);
         Analytics.event({
@@ -307,7 +306,6 @@ const ResultsTableContainer = (props) => {
     };
     const parseTabCounts = (data) => {
         const awardCounts = data.results;
-
         let firstAvailable = '';
         let i = 0;
 
@@ -330,7 +328,7 @@ const ResultsTableContainer = (props) => {
             firstAvailable = availableTabs[0].internal;
         }
 
-        setCounts(Object.assign(counts, awardCounts));
+        setCounts(Object.assign({}, counts, awardCounts));
         switchTab(firstAvailable);
         updateFilters();
     };
@@ -368,6 +366,7 @@ const ResultsTableContainer = (props) => {
                     setInFlight(false);
                     setError(true);
                     props.setAppliedFilterCompletion(true);
+
                     console.log(err);
                 }
             });
@@ -387,7 +386,7 @@ const ResultsTableContainer = (props) => {
             // hash is (a) defined and (b) new
             pickDefaultTab();
         }
-    }, [props.subaward, props.noApplied, location]);
+    }, [props.subaward, props.noApplied, location, page]);
     useEffect(() => () => {
         if (searchRequest) {
             searchRequest.cancel();
@@ -412,14 +411,14 @@ const ResultsTableContainer = (props) => {
     };
     const updateSort = (field, direction) => {
         if (field === 'Action Date') {
-            setSort(Object.assign({
+            setSort(Object.assign(sort, {
                 field: 'Sub-Award Date',
                 direction
             }));
             performSearch(true);
         }
         else {
-            setSort(Object.assign({
+            setSort(Object.assign(sort, {
                 field,
                 direction
             }));
@@ -452,7 +451,7 @@ const ResultsTableContainer = (props) => {
         count: counts[type.internal],
         disabled: inFlight || counts[type.internal] === 0
     }));
-    console.debug("END OF TABLE CONTAINER REZULTS: ", results);
+
     return (
         <ResultsTableSection
             error={error}
