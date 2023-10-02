@@ -334,13 +334,14 @@ const RankVisualizationWrapperContainer = (props) => {
 
     useEffect(() => {
         // fetch data when scope, page, or hasNextPage changes
-        if (page) {
             fetchData();
-        }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [page, scope]);
+    }, [page]);
 
     useEffect(() => {
+        console.log("here");
+        console.log(error)
+        console.log(loading)
         props.setAppliedFilterCompletion(true);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [labelSeries, dataSeries, descriptions, linkSeries, loading, error, next, previous, hasNextPage, hasPreviousPage]);
