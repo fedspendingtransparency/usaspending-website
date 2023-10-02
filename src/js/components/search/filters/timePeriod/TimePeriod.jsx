@@ -16,6 +16,9 @@ import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 
 const dayjs = require('dayjs');
+const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
+
+dayjs.extend(isSameOrAfter);
 
 const defaultProps = {
     activeTab: 'fy',
