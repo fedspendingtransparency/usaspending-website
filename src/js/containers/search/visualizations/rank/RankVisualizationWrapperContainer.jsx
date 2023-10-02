@@ -25,7 +25,6 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
-import withAgencySlugs from "../../../agency/WithAgencySlugs";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -395,7 +394,6 @@ const RankVisualizationWrapperContainer = (props) => {
 };
 
 RankVisualizationWrapperContainer.propTypes = propTypes;
-const RankVisualizationWrapperContainerWithSlugs = withAgencySlugs(RankVisualizationWrapperContainer);
 
 export default connect(
     (state) => ({
@@ -404,4 +402,4 @@ export default connect(
         subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
-)(RankVisualizationWrapperContainerWithSlugs);
+)(RankVisualizationWrapperContainer);
