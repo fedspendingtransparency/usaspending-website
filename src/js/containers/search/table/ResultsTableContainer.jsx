@@ -295,7 +295,7 @@ const ResultsTableContainer = (props) => {
         }
         setTableType(newState.tableType);
         if (newState.sort) {
-            setSort(Object.assign({}, sort, newState.sort));
+            setSort(Object.assign(sort, newState.sort));
         }
         performSearch(true);
         Analytics.event({
@@ -386,14 +386,14 @@ const ResultsTableContainer = (props) => {
     };
     const updateSort = (field, direction) => {
         if (field === 'Action Date') {
-            setSort(Object.assign({
+            setSort(Object.assign(sort, {
                 field: 'Sub-Award Date',
                 direction
             }));
             performSearch(true);
         }
         else {
-            setSort(Object.assign({
+            setSort(Object.assign(sort, {
                 field,
                 direction
             }));
