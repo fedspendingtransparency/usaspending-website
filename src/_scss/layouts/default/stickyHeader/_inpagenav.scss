@@ -3,20 +3,29 @@
   flex-direction: row;
   list-style-type: none;
   margin: 0;
-  padding: 0;
-  height: 56px;
+  padding: $global-padding $global-padding * 4 ;
+  height: 34px;
+  background-color: $theme-color-headline-inverse;
+  border-bottom: $theme-color-body-inverse 2px solid;
 
   .in-page-nav__paginator {
     display: block;
-    margin-top: 16px;
     cursor: pointer;
-
+    width: 6px;
+    height: 10px;
+    color: $theme-color-1;
   }
 
   ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    font-size: $font-size-14;
+    line-height: 18px;
     padding: 0;
     scroll-behavior: smooth;
-    margin: 16px 32px;
+    margin: 0;
     overflow-x: auto;
     overflow-y: hidden;
     width: 90%;
@@ -41,8 +50,13 @@
   li {
     display: inline;
     cursor: pointer;
+    margin: 0 $global-margin * 4 0 0;
+
     a {
-      margin: 2px;
+      color: $theme-color-headline;
+    }
+    a:hover {
+      font-weight: $font-semibold;
     }
   }
 }

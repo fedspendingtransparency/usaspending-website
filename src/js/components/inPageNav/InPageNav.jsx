@@ -204,8 +204,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
                                 tabIndex="0"
                                 key={`in-page-nav-link-${section.label}`}
                                 onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
-                                onClick={() => jumpToSection(section.label)}>{section.label}
-                            </a>&nbsp;&nbsp;&nbsp;
+                                onClick={() => jumpToSection(section.label)}>
+                                {section.label}
+                            </a>
                         </li>))}
                 </ul>
 
