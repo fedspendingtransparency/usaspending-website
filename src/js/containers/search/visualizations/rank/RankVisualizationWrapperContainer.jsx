@@ -93,13 +93,6 @@ const RankVisualizationWrapperContainer = (props) => {
         setScope(newScope);
         setPage(1);
         setHasNextPage(false);
-        // this.setState({
-        //     scope,
-        //     page: 1,
-        //     hasNextPage: false
-        // }, () => {
-        //     this.fetchData();
-        // });
     };
 
     const changeSpendingBy = (tempSpendingBy) => {
@@ -133,11 +126,6 @@ const RankVisualizationWrapperContainer = (props) => {
         // change the state by subtracting 2 (since the page number is already incremented)
         const prevPage = max([1, page - 1]);
         setPage(prevPage);
-        // this.setState({
-        //     page: prevPage
-        // }, () => {
-        //     this.fetchData();
-        // });
     };
 
     const parseData = (data) => {
@@ -198,23 +186,8 @@ const RankVisualizationWrapperContainer = (props) => {
         setHasPreviousPage(data.page_metadata.hasPrevious);
         setLoading(false);
         setError(false);
-
-
-        // this.setState({
-        //     labelSeries,
-        //     dataSeries,
-        //     descriptions,
-        //     linkSeries,
-        //     loading: false,
-        //     error: false,
-        //     next: data.page_metadata.next,
-        //     previous: data.page_metadata.previous,
-        //     hasNextPage: data.page_metadata.hasNext,
-        //     hasPreviousPage: data.page_metadata.hasPrevious
-        // }, () => {
-        //     props.setAppliedFilterCompletion(true);
-        // });
     };
+
     const fetchData = () => {
         props.setAppliedFilterCompletion(false);
         setLoading(true);
@@ -335,10 +308,10 @@ const RankVisualizationWrapperContainer = (props) => {
     };
 
     useEffect(() => {
-        // fetch data when scope, page, or hasNextPage changes
+        // fetch data when scope or page changes
         fetchData();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [page]);
+    }, [page, scope]);
 
     useEffect(() => {
         props.setAppliedFilterCompletion(true);
@@ -346,7 +319,6 @@ const RankVisualizationWrapperContainer = (props) => {
     }, [labelSeries, dataSeries, descriptions, linkSeries, loading, error, next, previous, hasNextPage, hasPreviousPage]);
 
     useEffect(() => {
-        // newSearch();
         parseRank();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
@@ -361,8 +333,7 @@ const RankVisualizationWrapperContainer = (props) => {
             newSearch();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    // }, [props.reduxFilters, props.subaward]);
-    }, [props.noApplied]);
+    }, [props.reduxFilters, props.subaward]);
 
 
     const visualization = generateVisualization();
