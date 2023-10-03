@@ -258,7 +258,6 @@ const ResultsTableContainer = (props) => {
         }, {});
         setColumns(Object.assign(columns, columnsTemp));
     };
-
     const updateFilters = () => {
         const newSearch = new SearchAwardsOperation();
         newSearch.fromState(props.filters);
@@ -371,30 +370,6 @@ const ResultsTableContainer = (props) => {
                 }
             });
     };
-    useEffect(() => {
-        loadColumns();
-        if (SearchHelper.isSearchHashReady(location)) {
-            pickDefaultTab();
-        }
-    }, [location]);
-    useEffect(() => {
-        if (props.subaward && !props.noApplied) {
-            // subaward toggle changed, update the search object
-            pickDefaultTab();
-        }
-        else if (SearchHelper.isSearchHashReady(location) && location.search) {
-            // hash is (a) defined and (b) new
-            pickDefaultTab();
-        }
-    }, [props.subaward, props.noApplied, location, page]);
-    useEffect(() => () => {
-        if (searchRequest) {
-            searchRequest.cancel();
-        }
-        if (tabCountRequest) {
-            tabCountRequest.cancel();
-        }
-    }, []);
     const loadNextPage = () => {
     // check if request is already in-flight
         if (inFlight) {
@@ -440,6 +415,31 @@ const ResultsTableContainer = (props) => {
         });
         props.subAwardIdClicked(true);
     };
+
+    useEffect(() => {
+        loadColumns();
+        if (SearchHelper.isSearchHashReady(location)) {
+            pickDefaultTab();
+        }
+    }, [location]);
+    useEffect(() => {
+        if (props.subaward && !props.noApplied) {
+            // subaward toggle changed, update the search object
+            pickDefaultTab();
+        }
+        else if (SearchHelper.isSearchHashReady(location) && location.search) {
+            // hash is (a) defined and (b) new
+            pickDefaultTab();
+        }
+    }, [props.subaward, props.noApplied, location, page]);
+    useEffect(() => () => {
+        if (searchRequest) {
+            searchRequest.cancel();
+        }
+        if (tabCountRequest) {
+            tabCountRequest.cancel();
+        }
+    }, []);
 
     const tableTypeTemp = tableType;
     if (!columns[tableTypeTemp]) {
