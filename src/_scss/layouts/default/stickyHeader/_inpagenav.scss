@@ -2,18 +2,27 @@
   display: flex;
   flex-direction: row;
   list-style-type: none;
-  margin: 0;
-  padding: $global-padding $global-padding * 4 ;
+  max-width: 100%;
+  padding: $global-padding 0;
   height: 34px;
   background-color: $theme-color-headline-inverse;
   border-bottom: $theme-color-body-inverse 2px solid;
 
   .in-page-nav__paginator {
     display: block;
-    cursor: pointer;
-    width: 6px;
-    height: 10px;
-    color: $theme-color-1;
+    width: 2.5%;
+    padding-left: $global-padding * 1.5;
+
+    svg {
+      cursor: pointer;
+      width: 8px;
+      height: 18px;
+      color: $theme-color-1;
+
+      :hover {
+        color: red;
+      }
+    }
   }
 
   ul {
@@ -28,7 +37,7 @@
     margin: 0;
     overflow-x: auto;
     overflow-y: hidden;
-    width: 90%;
+    width: 100%;
     white-space: nowrap;
     max-width: 1600px;
     scroll-snap-type: x mandatory;
