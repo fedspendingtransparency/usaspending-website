@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * ObligationsByAwardTypeContainer-test.jsx
  * Created by Brett Varney 6/28/21
  */

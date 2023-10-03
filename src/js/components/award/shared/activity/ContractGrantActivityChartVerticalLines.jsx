@@ -5,8 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import SVGLine from 'components/sharedComponents/SVGLine';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     xScale: PropTypes.func,
@@ -71,7 +72,7 @@ const ContractGrantActivityChartVerticalLines = ({
         }
     ];
     const descriptions = [startLineValue, todayLineValue, endLineValue, potentialEndLineValue]
-        .map((line, i) => `A vertical line representing the ${lineData[i].text}, ${moment(lineData[i].date).format("dddd, MMMM Do YYYY") || ''}`);
+        .map((line, i) => `A vertical line representing the ${lineData[i].text}, ${dayjs(lineData[i].date).format("dddd, MMMM Do YYYY") || ''}`);
     return (
         <g className="contract-grant-activity-chart__vertical-lines">
             {/* {createAllTheLines()} */}

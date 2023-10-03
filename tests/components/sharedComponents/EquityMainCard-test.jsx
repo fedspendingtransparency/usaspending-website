@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * MainCard-test.jsx
  * Created by Nick Torres 06/27/22
  */

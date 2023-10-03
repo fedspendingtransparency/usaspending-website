@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * searchAnalytics-test.js
  * Created by Kevin Li 2/5/18
  */

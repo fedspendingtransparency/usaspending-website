@@ -5,11 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+
+const dayjs = require('dayjs');
 
 const defaultProps = {
     startDate: '01/01/2016',
@@ -99,7 +100,7 @@ export default class DateRange extends React.Component {
     render() {
         const earliestDateString =
             FiscalYearHelper.convertFYToDateRange(FiscalYearHelper.earliestFiscalYear)[0];
-        const earliestDate = moment(earliestDateString, 'YYYY-MM-DD').toDate();
+        const earliestDate = dayjs(earliestDateString, 'YYYY-MM-DD').toDate();
 
         const startDateDisabledDays = this.generateStartDateDisabledDays(earliestDate);
         const endDateDisabledDays = this.generateEndDateDisabledDays(earliestDate);
@@ -111,10 +112,10 @@ export default class DateRange extends React.Component {
             let start = null;
             let end = null;
             if (this.props.selectedStart) {
-                start = moment(this.props.selectedStart, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                start = dayjs(this.props.selectedStart, 'YYYY-MM-DD').format('MM/DD/YYYY');
             }
             if (this.props.selectedEnd) {
-                end = moment(this.props.selectedEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                end = dayjs(this.props.selectedEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
             }
             if (start && end) {
                 dateLabel = `${start} to ${end}`;

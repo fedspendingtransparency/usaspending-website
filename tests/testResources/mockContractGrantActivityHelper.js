@@ -2,42 +2,42 @@
  * Created by Jonathan Hill 03/26/20
  */
 
-import moment from 'moment';
+const dayjs = require('dayjs');
 
 export const goodDates = {
-    _startDate: moment('01/25/2011', 'MM/DD/YYYY'),
-    _endDate: moment('05/25/2013', 'MM/DD/YYYY'),
-    _potentialEndDate: moment('11/13/2015', 'MM/DD/YYYY')
+    _startDate: dayjs('01/25/2011', 'MM/DD/YYYY'),
+    _endDate: dayjs('05/25/2013', 'MM/DD/YYYY'),
+    _potentialEndDate: dayjs('11/13/2015', 'MM/DD/YYYY')
 };
 
 export const badDates = {
-    _startDate: moment(null),
-    _endDate: moment(null),
-    _potentialEndDate: moment(null)
+    _startDate: dayjs(null),
+    _endDate: dayjs(null),
+    _potentialEndDate: dayjs(null)
 };
 
 export const badEndDates = {
-    _startDate: moment('01/25/2011', 'MM/DD/YYYY'),
-    _endDate: moment(null),
-    _potentialEndDate: moment(null)
+    _startDate: dayjs('01/25/2011', 'MM/DD/YYYY'),
+    _endDate: dayjs(null),
+    _potentialEndDate: dayjs(null)
 };
 
 export const badStartDate = {
-    _startDate: moment(null),
-    _endDate: moment('05/25/2013', 'MM/DD/YYYY'),
-    _potentialEndDate: moment('11/13/2015', 'MM/DD/YYYY')
+    _startDate: dayjs(null),
+    _endDate: dayjs('05/25/2013', 'MM/DD/YYYY'),
+    _potentialEndDate: dayjs('11/13/2015', 'MM/DD/YYYY')
 };
 
 export const badEndDate = {
-    _startDate: moment('01/25/2011', 'MM/DD/YYYY'),
-    _endDate: moment(null),
-    _potentialEndDate: moment('11/13/2015', 'MM/DD/YYYY')
+    _startDate: dayjs('01/25/2011', 'MM/DD/YYYY'),
+    _endDate: dayjs(null),
+    _potentialEndDate: dayjs('11/13/2015', 'MM/DD/YYYY')
 };
 
 export const badPotentialEndDate = {
-    _startDate: moment('01/25/2011', 'MM/DD/YYYY'),
-    _endDate: moment('05/25/2013', 'MM/DD/YYYY'),
-    _potentialEndDate: moment(null)
+    _startDate: dayjs('01/25/2011', 'MM/DD/YYYY'),
+    _endDate: dayjs('05/25/2013', 'MM/DD/YYYY'),
+    _potentialEndDate: dayjs(null)
 };
 
 export const noTransactionDates = [
@@ -45,7 +45,7 @@ export const noTransactionDates = [
         id: 'CONT_TX_9700_-NONE-_N0001917C0001_P00023_-NONE-_16',
         type: 'D',
         type_description: 'DEFINITIVE CONTRACT',
-        action_date: moment(null),
+        action_date: dayjs(null),
         action_type: 'A',
         action_type_description: 'ADDITIONAL WORK (NEW AGREEMENT,FAR PART 6 APPLIES)',
         modification_number: 'P00023',
@@ -58,7 +58,7 @@ export const noTransactionDates = [
         id: 'CONT_TX_9700_-NONE-_N0001917C0001_P00023_-NONE-_16',
         type: 'D',
         type_description: 'DEFINITIVE CONTRACT',
-        action_date: moment(null),
+        action_date: dayjs(null),
         action_type: 'A',
         action_type_description: 'ADDITIONAL WORK (NEW AGREEMENT,FAR PART 6 APPLIES)',
         modification_number: 'P00023',
@@ -74,7 +74,7 @@ export const oneTransaction = [
         id: 'CONT_TX_9700_-NONE-_N0001917C0001_P00023_-NONE-_16',
         type: 'D',
         type_description: 'DEFINITIVE CONTRACT',
-        action_date: moment('2012-10-28', 'YYYY-MM-DD'),
+        action_date: dayjs('2012-10-28', 'YYYY-MM-DD'),
         action_type: 'A',
         action_type_description: 'ADDITIONAL WORK (NEW AGREEMENT,FAR PART 6 APPLIES)',
         modification_number: 'P00023',
@@ -90,7 +90,7 @@ export const mockTransactions = [
         id: 'CONT_TX_9700_-NONE-_N0001917C0001_P00023_-NONE-_16',
         type: 'D',
         type_description: 'DEFINITIVE CONTRACT',
-        action_date: moment('2012-10-28', 'YYYY-MM-DD'),
+        action_date: dayjs('2012-10-28', 'YYYY-MM-DD'),
         action_type: 'A',
         action_type_description: 'ADDITIONAL WORK (NEW AGREEMENT,FAR PART 6 APPLIES)',
         modification_number: 'P00023',
@@ -103,7 +103,7 @@ export const mockTransactions = [
         id: 'CONT_TX_9700_-NONE-_N0001917C0001_P00001_-NONE-_14',
         type: 'D',
         type_description: 'DEFINITIVE CONTRACT',
-        action_date: moment('2012-07-03', 'YYYY-MM-DD'),
+        action_date: dayjs('2012-07-03', 'YYYY-MM-DD'),
         action_type: 'M',
         action_type_description: 'OTHER ADMINISTRATIVE ACTION',
         modification_number: 'P00001',
@@ -116,7 +116,7 @@ export const mockTransactions = [
         id: 'CONT_TX_9700_-NONE-_N0001917C0001_P00014_-NONE-_14',
         type: 'D',
         type_description: 'DEFINITIVE CONTRACT',
-        action_date: moment('2012-03-25', 'YYYY-MM-DD'),
+        action_date: dayjs('2012-03-25', 'YYYY-MM-DD'),
         action_type: 'B',
         action_type_description: 'SUPPLEMENTAL AGREEMENT FOR WORK WITHIN SCOPE',
         modification_number: 'P00014',

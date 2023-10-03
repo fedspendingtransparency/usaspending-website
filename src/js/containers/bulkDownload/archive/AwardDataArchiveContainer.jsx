@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
-import moment from 'moment';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
 import AwardDataArchiveContent from 'components/bulkDownload/archive/AwardDataArchiveContent';
+
+const dayjs = require('dayjs');
 
 const currentFY = fiscalYearHelper.currentFiscalYear();
 
@@ -147,7 +148,7 @@ export default class AwardDataArchiveContainer extends React.Component {
             }
 
             // Format Updated Date
-            const date = moment(item.updated_date, "YYYY-MM-DD");
+            const date = dayjs(item.updated_date, "YYYY-MM-DD");
             const formattedDate = date.format("MM/DD/YYYY");
 
             // Format the Fiscal Year

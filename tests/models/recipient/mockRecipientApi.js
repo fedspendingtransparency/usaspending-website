@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * mockRecipientApi.js
  * Created by Lizzie Salita 6/25/18
  */

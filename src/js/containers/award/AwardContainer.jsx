@@ -90,6 +90,7 @@ const AwardContainer = (props) => {
             props.setAward(financialAssistance);
         }
     };
+
     const getSelectedAward = (id) => {
         if (awardRequest) {
             // A request is currently in-flight, cancel it
@@ -129,6 +130,7 @@ const AwardContainer = (props) => {
                 }
             });
     };
+
     const fetchAwardDownloadFile = (awardCategory = props.award.category, awardId = props.match.params.awardId) => {
         Analytics.event({
             category: 'Award Profile',
@@ -145,6 +147,7 @@ const AwardContainer = (props) => {
 
         return fetchAssistanceDownloadFile(awardId);
     };
+
     const downloadData = async (awardCategory = props.award.category, awardId = props.match.params.awardId) => {
         // don't show a modal about the download
         props.setDownloadCollapsed(true);
@@ -168,10 +171,12 @@ const AwardContainer = (props) => {
             downloadRequest = null;
         }
     };
+
     useEffect(() => {
         if (props.match.params.awardId !== prevProps?.match.params.awardId) {
             getSelectedAward(props.match.params.awardId);
         }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.match.params.awardId]);
 
     // eslint-disable-next-line arrow-body-style
@@ -182,6 +187,7 @@ const AwardContainer = (props) => {
             }
             props.resetAward();
         };
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
     return (

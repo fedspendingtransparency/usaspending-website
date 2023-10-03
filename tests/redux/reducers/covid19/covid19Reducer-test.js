@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * covid19Reducer-test.js
  * Created by Jonathan Hill 06/11/20
  */

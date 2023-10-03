@@ -1,15 +1,17 @@
 /**
+ * @jest-environment jsdom
+ * 
  * accountHelper-test.js
  * Created by Max Kendall 10/23/2020
  */
 
-import { getLatestPeriodAsMoment, getSubmissionDeadlines } from "helpers/accountHelper";
+import { getLatestPeriodAsDayjs, getSubmissionDeadlines } from "helpers/accountHelper";
 import { mockSubmissions } from '../mockData/helpers/aboutTheDataHelper';
 
 describe("accountHelper", () => {
-    describe("getLatestPeriodAsMoment", () => {
+    describe("getLatestPeriodAsDayjs", () => {
         it('should find the latest revealed period and return the period end date as a moment obj', () => {
-            const latestPeriod = getLatestPeriodAsMoment(mockSubmissions);
+            const latestPeriod = getLatestPeriodAsDayjs(mockSubmissions);
             expect(latestPeriod.format("MMMM DD[,] YYYY")).toEqual("September 30, 2020");
         });
     });
