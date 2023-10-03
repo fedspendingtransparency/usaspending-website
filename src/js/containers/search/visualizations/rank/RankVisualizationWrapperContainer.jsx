@@ -196,6 +196,8 @@ const RankVisualizationWrapperContainer = (props) => {
         setPrevious(data.page_metadata.previous);
         setHasNextPage(data.page_metadata.hasNext);
         setHasPreviousPage(data.page_metadata.hasPrevious);
+        setLoading(false);
+        setError(false);
 
 
         // this.setState({
@@ -334,20 +336,17 @@ const RankVisualizationWrapperContainer = (props) => {
 
     useEffect(() => {
         // fetch data when scope, page, or hasNextPage changes
-            fetchData();
+        fetchData();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [page]);
 
     useEffect(() => {
-        console.log("here");
-        console.log(error)
-        console.log(loading)
         props.setAppliedFilterCompletion(true);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [labelSeries, dataSeries, descriptions, linkSeries, loading, error, next, previous, hasNextPage, hasPreviousPage]);
 
     useEffect(() => {
-        newSearch();
+        // newSearch();
         parseRank();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
@@ -363,7 +362,7 @@ const RankVisualizationWrapperContainer = (props) => {
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     // }, [props.reduxFilters, props.subaward]);
-    }, [props]);
+    }, [props.noApplied]);
 
 
     const visualization = generateVisualization();
