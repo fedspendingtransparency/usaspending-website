@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, intersection } from 'lodash';
+import { uniqueId, intersection, throttle } from 'lodash';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
@@ -94,7 +94,7 @@ const ResultsTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
 
-    const performSearch = (newSearch = false) => {
+    const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
             searchRequest.cancel();
@@ -167,7 +167,6 @@ const ResultsTableContainer = (props) => {
         if (!sortDirection) {
             sortDirection = 'desc';
         }
-
         const params = {
             filters: searchParamsTemp.toParams(),
             fields: requestFields,
@@ -177,8 +176,10 @@ const ResultsTableContainer = (props) => {
             order: sortDirection,
             subawards: props.subaward
         };
-
         // Set the params needed for download API call
+        if (!params.filters.award_type_codes) {
+            return null;
+        }
         searchRequest = SearchHelper.performSpendingByAwardSearch(params);
         return searchRequest.promise
             .then((res) => {
@@ -221,7 +222,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    };
+    }, 200, { trailing: true });
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -261,7 +262,7 @@ const ResultsTableContainer = (props) => {
         setColumns(Object.assign(columns, columnsTemp));
     };
 
-    const updateFilters = () => {
+    const updateFilters = throttle(() => {
         const newSearch = new SearchAwardsOperation();
         newSearch.fromState(props.filters);
 
@@ -270,11 +271,10 @@ const ResultsTableContainer = (props) => {
         if (props.subaward && newSearch.dateType) {
             delete newSearch.dateType;
         }
-
         setSearchParams(newSearch);
         setPage(1);
         performSearch(true);
-    };
+    }, 150, { trailing: true });
 
     const switchTab = (tab) => {
         const newState = {
@@ -440,7 +440,7 @@ const ResultsTableContainer = (props) => {
         }
     }, [location]);
 
-    useEffect(() => {
+    useEffect(throttle(() => {
         if (props.subaward && !props.noApplied) {
             // subaward toggle changed, update the search object
             pickDefaultTab();
@@ -449,7 +449,7 @@ const ResultsTableContainer = (props) => {
             // hash is (a) defined and (b) new
             pickDefaultTab();
         }
-    }, [props.subaward, props.noApplied, location, page, tableType]);
+    }, 250, { trailing: true }), [props.subaward, props.noApplied, location, page, tableType]);
 
     useEffect(() => () => {
         if (searchRequest) {
