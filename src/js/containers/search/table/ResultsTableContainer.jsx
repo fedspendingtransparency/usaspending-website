@@ -449,7 +449,7 @@ const ResultsTableContainer = (props) => {
             // hash is (a) defined and (b) new
             pickDefaultTab();
         }
-    }, [props.subaward, props.noApplied, location, page, props.filters, tableType]);
+    }, [props.subaward, props.noApplied, location, page, tableType]);
 
     useEffect(() => () => {
         if (searchRequest) {
