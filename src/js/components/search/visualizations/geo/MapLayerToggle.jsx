@@ -31,16 +31,16 @@ const MapLayerToggle = (props) => {
     const items = props.available.map((layer) => {
         let tempLabel = '';
         if (props.sources[layer].label === 'country') {
-            tempLabel = 'country';
+            tempLabel = 'countries';
         }
         else if (props.sources[layer].label === 'county') {
-            tempLabel = 'counties';
+            tempLabel = 'U.S. counties';
         }
         else if (props.sources[layer].label === 'state') {
-            tempLabel = 'states';
+            tempLabel = 'U.S. states';
         }
         else {
-            tempLabel = 'Congressional Districts';
+            tempLabel = 'U.S. Congressional Districts';
         }
         const title = capitalizeLabel(tempLabel);
         let active = '';
