@@ -37,7 +37,7 @@ const MapLayerToggle = (props) => {
             tempLabel = 'U.S. counties';
         }
         else if (props.sources[layer].label === 'state') {
-            tempLabel = 'U.S. states';
+            tempLabel = 'U.S. states & territories';
         }
         else {
             tempLabel = 'U.S. Congressional Districts';
@@ -60,7 +60,7 @@ const MapLayerToggle = (props) => {
                     value={layer}>
                     {title}
                 </button>
-                {title === "Congressional Districts" ?
+                {title === "U.S. Congressional Districts" ?
                     <div className="map-layer__cd-tooltip">
                         <TooltipWrapper
                             icon="info"

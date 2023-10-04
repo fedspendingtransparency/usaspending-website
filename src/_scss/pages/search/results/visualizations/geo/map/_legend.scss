@@ -2,7 +2,7 @@
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
     border-radius: 4px;
     background-color: $color-white;
-    bottom: rem(80);
+    bottom: rem(50);
     @include media($tablet-screen) {
         bottom: rem(15);
     }

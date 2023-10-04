@@ -57,12 +57,12 @@
             line-height: rem(18);
             padding: 0;
             border-bottom: rem(4) solid $color-white;
-            max-width: rem(134);
+            max-width: rem(200);
 
             &.active, &:hover, &:active {
                 font-weight: $font-bold;
                 border-bottom: rem(4) solid $color-primary-darker;
-                max-width: rem(142);
+                max-width: rem(200);
 
             }
 
