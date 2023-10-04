@@ -314,7 +314,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     changeMapLayer(layer) {
-        console.log(layer);
         this.setState({
             mapLayer: layer,
             renderHash: `geo-${uniqueId()}`,
