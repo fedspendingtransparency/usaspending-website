@@ -311,7 +311,7 @@ const RankVisualizationWrapperContainer = (props) => {
         // fetch data when scope or page changes
         fetchData();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [page, scope]);
+    }, [page, scope, props.subaward]);
 
     useEffect(() => {
         props.setAppliedFilterCompletion(true);
