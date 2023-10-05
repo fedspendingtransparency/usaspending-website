@@ -120,7 +120,7 @@
                         top: rem(110) !important;
                         left: rem(-30) !important;
                     }
-                    @media (min-width: $tablet-screen) {
+                    @media ((min-width: $tablet-screen) and (max-width: $large-screen)) {
                         top: rem(32) !important;
                         left: rem(343) !important;
 
@@ -132,7 +132,8 @@
                             left: 29.2rem !important;
                         }
                     }
-                    @media (min-device-width: $medium-screen) {
+                    @media (min-device-width: $large-screen) {
+                        top: rem(32) !important;
                         left: rem(373) !important;
                     }
                 }
