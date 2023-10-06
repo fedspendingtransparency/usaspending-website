@@ -438,7 +438,17 @@ const ResultsTableContainer = (props) => {
         if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
         }
-    }, [location]);
+
+        return () => {
+            if (searchRequest) {
+                searchRequest.cancel();
+            }
+            if (tabCountRequest) {
+                tabCountRequest.cancel();
+            }
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(throttle(() => {
         if (props.subaward && !props.noApplied) {
@@ -450,15 +460,6 @@ const ResultsTableContainer = (props) => {
             pickDefaultTab();
         }
     }, 250, { trailing: true }), [props.subaward, props.noApplied, location, page, tableType]);
-
-    useEffect(() => () => {
-        if (searchRequest) {
-            searchRequest.cancel();
-        }
-        if (tabCountRequest) {
-            tabCountRequest.cancel();
-        }
-    }, []);
 
     const tableTypeTemp = tableType;
     if (!columns[tableTypeTemp]) {
