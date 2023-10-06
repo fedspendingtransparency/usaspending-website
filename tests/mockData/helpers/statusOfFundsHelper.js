@@ -150,3 +150,23 @@ export const mockParsedData =
             _outlays: 96459782.63
         }
     ];
+
+export const mockLevel4ApiResponse =
+    {
+        res: [
+            {
+                name: "INTEREST ON TREASURY DEBT SECURITIES",
+                obligated_amount: 807836208512.06,
+                gross_outlay_amount: 807836208512.06,
+                children: [
+                    {
+                        name: "Grants and fixed charges",
+                        obligated_amount: 807836208512.06,
+                        gross_outlay_amount: 807836208512.06
+                    }
+                ]
+            }
+        ]
+    };
+
+export const mockProgramActivityOrObjectClassName = 'INTEREST ON TREASURY DEBT SECURITIES';
