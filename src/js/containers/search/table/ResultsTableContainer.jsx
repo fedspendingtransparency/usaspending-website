@@ -438,7 +438,7 @@ const ResultsTableContainer = (props) => {
         if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
         }
-    }, [location]);
+    }, []);
 
     useEffect(throttle(() => {
         if (props.subaward && !props.noApplied) {
