@@ -155,18 +155,27 @@ export const mockLevel4ApiResponse =
     {
         res: [
             {
-                name: "INTEREST ON TREASURY DEBT SECURITIES",
-                obligated_amount: 807836208512.06,
-                gross_outlay_amount: 807836208512.06,
+                name: "INTEREST PAID TO CREDIT FINANCING ACCOUNTS",
+                obligated_amount: 11671286399.07,
+                gross_outlay_amount: 0,
                 children: [
                     {
                         name: "Grants and fixed charges",
-                        obligated_amount: 807836208512.06,
-                        gross_outlay_amount: 807836208512.06
+                        obligated_amount: 11671286399.07,
+                        gross_outlay_amount: 0
                     }
                 ]
             }
         ]
     };
 
-export const mockProgramActivityOrObjectClassName = 'INTEREST ON TREASURY DEBT SECURITIES';
+export const mockProgramActivityOrObjectClassName = 'INTEREST PAID TO CREDIT FINANCING ACCOUNTS';
+
+export const mockLevel5Data =
+    [
+        {
+            name: "Grants and fixed charges",
+            obligated_amount: 11671286399.07,
+            gross_outlay_amount: 0
+        }
+    ];

@@ -260,7 +260,6 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     const fetchLevel5Data = (prgActivityOrObjClass) => {
         const newData = getLevel5Data(prgActivityOrObjClass.name, level4ApiResponse);
         const parsedData = parseRows(newData, prgActivityOrObjClass.id);
-        console.log('parsedData', parsedData);
         const nameAndId = {
             name: `${prgActivityOrObjClass.name}`,
             id: `${prgActivityOrObjClass.id}`
