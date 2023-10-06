@@ -60,6 +60,7 @@ export const useAgencySlugs = () => {
                     const slugsMapping = mapSlugToTopTierCode(data.results);
                     const outlayMapping = mapTopTierCodeToOutlay(data.results);
                     const topTierCodesMapping = mapTopTierCodeToSlug(data.results);
+                    console.log(data.results)
                     const idMapping = mapIdToSlug(data.results);
                     dispatch(setAgencySlugs(slugsMapping, topTierCodesMapping, idMapping, outlayMapping));
                     setLoading(false);

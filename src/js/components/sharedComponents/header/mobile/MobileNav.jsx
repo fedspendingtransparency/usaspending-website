@@ -83,8 +83,9 @@ const MobileNav = (props) => {
     };
 
     useEffect(() => {
+        console.log("before condition")
         if (gaClickHeader) {
-            window.alert("here!");
+            console.log("here!");
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 event: 'mobile_link_click',
