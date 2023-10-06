@@ -76,6 +76,12 @@ const MobileNav = (props) => {
 
     const clickedHeaderLink = (route) => {
         setGaClickHeader(route);
+        console.log("here!");
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'mobile_link_click',
+            eventAction: gaClickHeader
+        });
         // Analytics.event({
         //     category: 'Header - Link',
         //     action: route
@@ -83,15 +89,15 @@ const MobileNav = (props) => {
     };
 
     useEffect(() => {
-        console.log("before condition")
-        if (gaClickHeader) {
-            console.log("here!");
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                event: 'mobile_link_click',
-                eventAction: gaClickHeader
-            });
-        }
+        // console.log("before condition")
+        // if (gaClickHeader) {
+        //     console.log("here!");
+        //     window.dataLayer = window.dataLayer || [];
+        //     window.dataLayer.push({
+        //         event: 'mobile_link_click',
+        //         eventAction: gaClickHeader
+        //     });
+        // }
     }, [gaClickHeader]);
 
     const openDetailedMobileNav = (index) => {
