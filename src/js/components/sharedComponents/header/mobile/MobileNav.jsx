@@ -25,12 +25,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileTop from './MobileTop';
 import MobileDropdownItem from "./MobileDropdownItem";
 
-const clickedHeaderLink = (route) => {
-    Analytics.event({
-        category: 'Header - Link',
-        action: route
-    });
-};
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
@@ -78,6 +72,26 @@ const MobileNav = (props) => {
     const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(null);
     const location = useLocation();
+    const [gaClickHeader, setGaClickHeader] = useState(null);
+
+    const clickedHeaderLink = (route) => {
+        setGaClickHeader(route);
+        // Analytics.event({
+        //     category: 'Header - Link',
+        //     action: route
+        // });
+    };
+
+    useEffect(() => {
+        if (gaClickHeader) {
+            window.alert("here!");
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'mobile_link_click',
+                eventAction: gaClickHeader
+            });
+        }
+    }, [gaClickHeader]);
 
     const openDetailedMobileNav = (index) => {
         setDetailMobileNavIsHidden(false);
