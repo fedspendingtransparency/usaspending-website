@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import moment from 'moment';
 import Analytics from 'helpers/analytics/Analytics';
 
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
@@ -17,6 +16,8 @@ import { generateSingular } from 'helpers/singularityHelper';
 import { useAgencySlugs } from "containers/agency/WithAgencySlugs";
 
 import TruncationWarning from './TruncationWarning';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     within: PropTypes.string,
@@ -139,7 +140,7 @@ const DetailHeader = (props) => {
                         {props.isLoading ? '--' : formatTreemapValues(props.total)}
                     </div>
                     <div className="update-date">
-                        Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
+                        Data as of {dayjs(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
                     </div>
                 </div>
             </div>

@@ -3,9 +3,9 @@
  * Created by Lizzie Salita 8/16/19
 **/
 
-import moment from "moment";
 import { apiRequest } from "./apiRequest";
 
+const dayjs = require('dayjs');
 /**
 //  * https://github.com/fedspendingtransparency/data-act-documentation/blob/master/usaspending_api/what-is-an-award.mdhttps://github.com/fedspendingtransparency/data-act-documentation/blob/master/usaspending_api/what-is-an-award.md
  * @param {String} awardId - human readable generated unique award ID
@@ -108,12 +108,12 @@ export const getAwardTypeByRecordtypeCountyAndState = (
 };
 
 export const datesByDateType = (dates, awardType) => {
-    const startDate = moment(dates._startDate.valueOf());
-    let endDate = moment(dates._endDate.valueOf());
+    const startDate = dayjs(dates._startDate.valueOf());
+    let endDate = dayjs(dates._endDate.valueOf());
     let currentEndDate = null;
     if (isContract(awardType)) {
-        endDate = moment(dates._potentialEndDate.valueOf());
-        currentEndDate = moment(dates._endDate.valueOf());
+        endDate = dayjs(dates._potentialEndDate.valueOf());
+        currentEndDate = dayjs(dates._endDate.valueOf());
     }
     return { startDate, endDate, currentEndDate };
 };

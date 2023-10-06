@@ -5,8 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import DatePicker from 'components/sharedComponents/DatePicker';
+
+const dayjs = require('dayjs');
 
 const defaultProps = {
     startDate: '01/01/2016',
@@ -53,7 +54,7 @@ export default class DownloadDateRange extends React.Component {
             // This requires adding a day after subtracting a year
             disabledDays.push({
                 after: this.props.endDate.toDate(),
-                before: moment(this.props.endDate).subtract(1, 'y').add(1, 'd').toDate()
+                before: dayjs(this.props.endDate).subtract(1, 'y').add(1, 'd').toDate()
             });
         }
 
@@ -70,7 +71,7 @@ export default class DownloadDateRange extends React.Component {
             // This requires subtracting a day after adding a year
             disabledDays.push({
                 before: this.props.startDate.toDate(),
-                after: moment(this.props.startDate).add(1, 'y').subtract(1, 'd').toDate()
+                after: dayjs(this.props.startDate).add(1, 'y').subtract(1, 'd').toDate()
             });
         }
 

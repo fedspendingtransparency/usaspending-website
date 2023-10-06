@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseAgencyRow-test.js
  * Created by Lizzie Salita 11/20/20
  */

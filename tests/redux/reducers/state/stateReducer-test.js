@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * stateReducer-test.js
  * Created by Lizzie Salita 5/7/18
  */

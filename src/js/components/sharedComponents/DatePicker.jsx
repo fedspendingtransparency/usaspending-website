@@ -6,9 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import moment from 'moment';
 import { uniqueId } from 'lodash';
 import * as Icons from './icons/Icons';
+
+const dayjs = require('dayjs');
 
 const defaultProps = {
     type: 'startDate',
@@ -169,7 +170,7 @@ export default class DatePicker extends React.Component {
             }
 
             // determine if this is a parseable date
-            const date = moment(this.state.inputValue, format);
+            const date = dayjs(this.state.inputValue, format);
             if (date.isValid()) {
                 // it's a valid date
                 this.handleDatePick(date.toDate());
@@ -217,7 +218,7 @@ export default class DatePicker extends React.Component {
         // handle null dates for the calendar default month and selecte date
         let pickedDay = null;
         if (this.props.value) {
-            // convert the moment object to a JS date object
+            // convert the dayjs object to a JS date object
             pickedDay = this.props.value.toDate();
         }
         else if (this.props.opposite) {
@@ -226,7 +227,7 @@ export default class DatePicker extends React.Component {
         }
         else {
             // no dates have been chosen at all, default to the current date
-            pickedDay = moment().toDate();
+            pickedDay = dayjs().toDate();
         }
 
         const inputId = `picker-${uniqueId()}`;

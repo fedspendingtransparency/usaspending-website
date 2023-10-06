@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 /* eslint-disable react/jsx-indent */
 import React from 'react';
 import Scroller from 'components/interactiveDataSources/scroller/Scroller';

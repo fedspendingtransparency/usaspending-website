@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * InfoBanner-test.jsx
  * Created by Lizzie Salita 12/31/20
  */

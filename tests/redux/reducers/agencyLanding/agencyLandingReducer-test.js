@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * agencyLandingReducer-test.js
  * Created by Lizzie Salita 7/26/17
  */

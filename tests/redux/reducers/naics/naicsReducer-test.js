@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { List } from 'immutable';
 
 import { naicsReducer, initialState } from 'redux/reducers/search/naicsReducer';

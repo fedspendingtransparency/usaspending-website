@@ -1,9 +1,11 @@
 /**
+ * @jest-environment jsdom
+ * 
  * Covid19Container-test.jsx
  * Created by Lizzie Salita 4/27/21
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import { expect } from '@jest/globals';
 import * as apis from 'apis/disaster';
 import * as actions from 'redux/actions/covid19/covid19Actions';
 import React from 'react';

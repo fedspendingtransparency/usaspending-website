@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * paginationHelper-test.js
  * Created by Lizzie Salita 6/13/19
  */
