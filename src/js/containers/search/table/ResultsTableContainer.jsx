@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -438,6 +438,15 @@ const ResultsTableContainer = (props) => {
         if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
         }
+
+        return () => {
+            if (searchRequest) {
+                searchRequest.cancel();
+            }
+            if (tabCountRequest) {
+                tabCountRequest.cancel();
+            }
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -451,15 +460,6 @@ const ResultsTableContainer = (props) => {
             pickDefaultTab();
         }
     }, 250, { trailing: true }), [props.subaward, props.noApplied, location, page, tableType]);
-
-    useLayoutEffect(() => () => {
-        if (searchRequest) {
-            searchRequest.cancel();
-        }
-        if (tabCountRequest) {
-            tabCountRequest.cancel();
-        }
-    }, []);
 
     const tableTypeTemp = tableType;
     if (!columns[tableTypeTemp]) {
