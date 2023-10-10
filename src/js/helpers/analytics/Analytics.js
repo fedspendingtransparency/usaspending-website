@@ -31,10 +31,10 @@ const Analytics = {
         if (!args.category || !args.action) {
             return;
         }
-        if (kGlobalConstants.QAT) {
+        if (args.gtm) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
-                event: 'event',
+                event: args.event || 'event',
                 eventProps: {
                     category: `${this._prefix}${args.category}`,
                     action: args.action,

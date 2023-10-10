@@ -72,33 +72,15 @@ const MobileNav = (props) => {
     const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(null);
     const location = useLocation();
-    const [gaClickHeader, setGaClickHeader] = useState(null);
 
     const clickedHeaderLink = (route) => {
-        setGaClickHeader(route);
-        console.log("here!");
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
+        Analytics.event({
             event: 'mobile_link_click',
-            eventAction: gaClickHeader
+            category: 'Header - Link',
+            action: route,
+            gtm: true
         });
-        // Analytics.event({
-        //     category: 'Header - Link',
-        //     action: route
-        // });
     };
-
-    useEffect(() => {
-        // console.log("before condition")
-        // if (gaClickHeader) {
-        //     console.log("here!");
-        //     window.dataLayer = window.dataLayer || [];
-        //     window.dataLayer.push({
-        //         event: 'mobile_link_click',
-        //         eventAction: gaClickHeader
-        //     });
-        // }
-    }, [gaClickHeader]);
 
     const openDetailedMobileNav = (index) => {
         setDetailMobileNavIsHidden(false);
