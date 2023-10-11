@@ -34,9 +34,11 @@ export default class TableRow extends React.PureComponent {
 
     logArchiveDownload(e, file = this.props.file) {
         Analytics.event({
+            event: 'bulk_download',
             category: archiveFileDownloadGACategory,
             action: 'File Download',
-            label: `File Name: ${getArchiveFileName(file)}`
+            label: `File Name: ${getArchiveFileName(file)}`,
+            gtm: true
         });
         fileFieldsForAnalytics
             .forEach((key) => {
@@ -44,9 +46,11 @@ export default class TableRow extends React.PureComponent {
                     ? file[key]
                     : `AllFYs`;
                 Analytics.event({
+                    event: 'archive_file_download'
                     category: archiveFileDownloadGACategory,
                     action: `${startCase(key)} Download Criterion`,
-                    label
+                    label,
+                    gtm: true
                 });
             });
     }

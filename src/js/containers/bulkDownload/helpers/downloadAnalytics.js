@@ -9,8 +9,10 @@ const categoryPrefix = 'Download Center - Download';
 
 export const logDownloadType = (type) => {
     Analytics.event({
+        event: 'download_center_type',
         category: `${categoryPrefix} Type`,
-        action: type
+        action: type,
+        gtm: true
     });
 };
 
@@ -29,9 +31,11 @@ export const convertDateRange = (dates) => {
 
 export const logSingleDownloadField = (type, name, value) => {
     Analytics.event({
+        event: 'bulk_download_field',
         category: `${categoryPrefix} - ${type}`,
         action: name,
-        label: value
+        label: value,
+        gtm: true
     });
 };
 
