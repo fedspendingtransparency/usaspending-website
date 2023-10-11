@@ -14,6 +14,7 @@ import agencyReducer, { initialState } from 'redux/reducers/agency/agencyReducer
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
 import { mockBudgetaryResources } from '../../../models/agency/BaseAgencyBudgetaryResources-test';
 import { mockSubcomponent } from '../../../models/agency/BaseStatusOfFundsLevel-test';
+import dayjs from "dayjs";
 
 const agencyOverview = Object.create(BaseAgencyOverview);
 agencyOverview.populate(mockAgency);
@@ -239,6 +240,97 @@ describe('agencyReducer', () => {
 
             expect(state.subagencyCount).toEqual(initialState.subagencyCount);
             expect(Object.getPrototypeOf(state.subagencyCount)).toEqual(BaseAgencySubagencyCount);
+        });
+    });
+
+    describe('SET_SUBAGENCY_TOTALS', () => {
+        it('should set spendingBySubagencyTotals to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_SUBAGENCY_TOTALS',
+                spendingBySubagencyTotals: 'totals'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.spendingBySubagencyTotals).toEqual('totals');
+        });
+    });
+
+    xdescribe('RESET_SUBAGENCY_TOTALS', () => {
+        it('should reset spendingBySubagencyTotals to its initial state', () => {
+            let state = agencyReducer(undefined, {
+                spendingBySubagencyTotals: 'totals'
+            });
+
+            const action = {
+                type: 'RESET_SUBAGENCY_TOTALS',
+                spendingBySubagencyTotals: 'totals'
+            };
+
+            expect(state.spendingBySubagencyTotals).toEqual('wrong');
+
+            state = agencyReducer(state, action);
+
+            // expect(state.spendingBySubagencyTotals).toEqual('totals');
+        });
+    });
+
+    xdescribe('SET_AGENCY_SLUGS', () => {
+        it('should set agencySlugs, topTierCodes, agencyIds, agencyOutlays to the provided values', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_SUBAGENCY_TOTALS',
+                agencySlugs: { slugs: 'slugs' }
+                // topTierCodes: 'codes',
+                // agencyIds: 'ids',
+                // agencyOutlays: 'outlays'
+            };
+
+            state = agencyReducer(state, action);
+
+            // expect(Object.getPrototypeOf(state.agencySlugs)).toEqual('wrong');
+
+            expect(state.agencySlugs).toMatchObject({ slugs: 'slugs' });
+            // expect(state.agencySlugs).toEqual('totals');
+            // expect(state.agencySlugs).toEqual('totals');
+            // expect(state.agencySlugs).toEqual('totals');
+        });
+    });
+
+    xdescribe('SET_DATA_THROUGH_DATES', () => {
+        it('should set dataThroughDates to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const today = dayjs();
+
+            console.log('today', today);
+
+            const action = {
+                type: 'SET_DATA_THROUGH_DATES',
+                dates: today
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.dataThroughDates).toEqual('totals');
+        });
+    });
+
+    describe('SET_IS_SOF_CHART_LOADED', () => {
+        it('should set isStatusOfFundsChartLoaded to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_IS_SOF_CHART_LOADED',
+                payload: 'chart status'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.isStatusOfFundsChartLoaded).toEqual('chart status');
         });
     });
 

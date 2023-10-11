@@ -52,10 +52,10 @@ export const setLevel4ApiResponse = (resObject) => ({
     resObject
 });
 
-export const setLevel5Data = (childrenArray) => ({
-    type: 'SET_LEVEL_5_DATA',
-    childrenArray
-});
+// export const setLevel5Data = (childrenArray) => ({
+//     type: 'SET_LEVEL_5_DATA',
+//     childrenArray
+// });
 
 export const setAgencyRecipients = (recipientDistribution) => ({
     type: 'SET_AGENCY_RECIPIENTS',
@@ -80,6 +80,10 @@ export const setSubagencyTotals = (spendingBySubagencyTotals) => ({
     spendingBySubagencyTotals
 });
 
+export const resetSubagencyTotals = () => ({
+    type: 'RESET_SUBAGENCY_TOTALS'
+});
+
 export const setAgencySlugs = (agencySlugs, topTierCodes, agencyIds, agencyOutlays) => ({
     type: 'SET_AGENCY_SLUGS',
     agencySlugs,
@@ -88,18 +92,14 @@ export const setAgencySlugs = (agencySlugs, topTierCodes, agencyIds, agencyOutla
     agencyOutlays
 });
 
-export const resetSubagencyTotals = () => ({
-    type: 'RESET_SUBAGENCY_TOTALS'
-});
+// export const setAgencySubcomponents = (agencySubcomponentsList) => ({
+//     type: 'SET_SUBCOMPONENTS_LIST',
+//     agencySubcomponentsList
+// });
 
-export const setAgencySubcomponents = (agencySubcomponentsList) => ({
-    type: 'SET_SUBCOMPONENTS_LIST',
-    agencySubcomponentsList
-});
-
-export const resetAgencySubcomponents = () => ({
-    type: 'RESET_SUBCOMPONENTS_LIST'
-});
+// export const resetAgencySubcomponents = () => ({
+//     type: 'RESET_SUBCOMPONENTS_LIST'
+// });
 
 export const setFederalAccountsList = (agencyFederalAccountsList) => ({
     type: 'SET_FEDERAL_ACC_LIST',
