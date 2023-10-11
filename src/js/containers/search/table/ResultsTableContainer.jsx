@@ -205,10 +205,11 @@ const ResultsTableContainer = (props) => {
                 searchRequest = null;
                 newState.page = res.data.page_metadata.page;
                 newState.lastPage = !res.data.page_metadata.hasNext;
-
+                console.debug("RESULTS: ", newState.results);
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
-                setResults([...newState.results]);
+                setResults(newState.results);
+                console.debug("new state page: ", newState.page);
                 setPage(newState.page);
                 setLastPage(newState.lastPage);
 
@@ -222,7 +223,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, 200, { trailing: true });
+    }, 100, { trailing: true });
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -433,12 +434,22 @@ const ResultsTableContainer = (props) => {
         disabled: inFlight || counts[type.internal] === 0
     }));
 
-    useEffect(() => {
+    useEffect(throttle(() => {
+        console.debug("triggered...");
         loadColumns();
-        if (SearchHelper.isSearchHashReady(location)) {
+
+        console.debug(props.subaward, props.noApplied, location, page);
+        if (props.subaward && !props.noApplied) {
+            console.debug("1");
+            // subaward toggle changed, update the search object
             pickDefaultTab();
         }
+        else if (SearchHelper.isSearchHashReady(location) && location.search) {
+            console.debug("2");
 
+            // hash is (a) defined and (b) new
+            pickDefaultTab();
+        }
         return () => {
             if (searchRequest) {
                 searchRequest.cancel();
@@ -447,22 +458,9 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, 100), [props.subaward, page, props.noApplied, location]);
 
-    useEffect(throttle(() => {
-        if (props.subaward && !props.noApplied) {
-            // subaward toggle changed, update the search object
-            pickDefaultTab();
-        }
-        else if (SearchHelper.isSearchHashReady(location) && location.search) {
-            // hash is (a) defined and (b) new
-            pickDefaultTab();
-        }
-    }, 250, { trailing: true }), [props.subaward, props.noApplied, location, page, tableType]);
-
-    const tableTypeTemp = tableType;
-    if (!columns[tableTypeTemp]) {
+    if (!columns[tableType]) {
         return null;
     }
 
@@ -471,10 +469,10 @@ const ResultsTableContainer = (props) => {
             error={error}
             inFlight={inFlight}
             results={results}
-            columns={columns[tableTypeTemp]}
+            columns={columns[tableType]}
             sort={sort}
             tableTypes={tabsWithCounts}
-            currentType={tableTypeTemp}
+            currentType={tableType}
             tableInstance={tableInstance}
             switchTab={switchTab}
             updateSort={updateSort}
