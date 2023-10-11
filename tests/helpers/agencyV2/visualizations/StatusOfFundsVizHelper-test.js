@@ -24,7 +24,7 @@ describe('StatusOfFundsVizHelper', () => {
     });
 
     describe('getLevel5Data', () => {
-        it('returns the children of the level 4 data object propertry that matches the name sent in as a param', () => {
+        it('returns the children of the level 4 data object property that matches the name sent in as a param', () => {
             expect(getLevel5Data(mockProgramActivityOrObjectClassName, mockLevel4ApiResponse)).toEqual(mockLevel5Data);
         });
     });
