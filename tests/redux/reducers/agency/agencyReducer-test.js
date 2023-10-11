@@ -1,6 +1,6 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * agencyReducer-test.js
  * Created by Lizzie Salita 5/26/20
  */
@@ -100,6 +100,81 @@ describe('agencyReducer', () => {
 
             expect(Object.getPrototypeOf(state.selectedSubcomponent)).toEqual(BaseStatusOfFundsLevel);
             expect(state.selectedSubcomponent.name).toEqual(mockSubcomponent.name);
+        });
+    });
+
+    describe('SET_FEDERAL_ACCOUNT', () => {
+        it('should set federalAccount to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_FEDERAL_ACCOUNT',
+                federalAccount: 'account'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.selectedFederalAccount).toEqual('account');
+        });
+    });
+
+    describe('SET_TAS', () => {
+        it('should set selectedTas to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_TAS',
+                tas: 'TAS'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.selectedTas).toEqual('TAS');
+        });
+    });
+
+    describe('SET_PA_OR_OC', () => {
+        it('should set selectedPrgActivityOrObjectClass to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_PA_OR_OC',
+                prgActivityOrObjectClass: 'Program Activity'
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.selectedPrgActivityOrObjectClass).toEqual('Program Activity');
+        });
+    });
+
+    describe('SET_CURRENT_LEVEL_NAME_AND_ID', () => {
+        it('should set currentLevelNameAndId to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_CURRENT_LEVEL_NAME_AND_ID',
+                nameAndId: { name: 'name', id: 'id' }
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.currentLevelNameAndId).toEqual({ name: 'name', id: 'id' });
+        });
+    });
+
+    describe('SET_LEVEL_4_API_RESPONSE', () => {
+        it('should set level4ApiResponse to the provided value', () => {
+            let state = agencyReducer(undefined, {});
+
+            const action = {
+                type: 'SET_LEVEL_4_API_RESPONSE',
+                resObject: { one: 'one', two: 'two' }
+            };
+
+            state = agencyReducer(state, action);
+
+            expect(state.level4ApiResponse).toEqual({ one: 'one', two: 'two' });
         });
     });
 
