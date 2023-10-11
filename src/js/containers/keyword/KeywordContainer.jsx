@@ -3,16 +3,19 @@
  * Created by Lizzie Salita 1/4/18
  */
 
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { withRouter } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
-import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
+import {
+    setDownloadExpectedUrl,
+    setDownloadExpectedFile,
+    setDownloadPending
+} from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as KeywordHelper from 'helpers/keywordHelper';
 
@@ -21,85 +24,62 @@ import KeywordPage from 'components/keyword/KeywordPage';
 require('pages/keyword/keywordPage.scss');
 
 const propTypes = {
-    bulkDownload: PropTypes.object,
-    setDownloadPending: PropTypes.func,
-    setDownloadExpectedFile: PropTypes.func,
-    setDownloadExpectedUrl: PropTypes.func,
-    match: PropTypes.object,
-    history: PropTypes.object
+    match: PropTypes.object
 };
 
-export class KeywordContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const KeywordContainer = (props) => {
+    const [keyword, setKeyword] = useState('');
+    const [summary, setSummary] = useState(null);
+    const [summaryInFlight, setSummaryInFlight] = useState(false);
+    const [downloadAvailable, setDownloadAvailable] = useState(false);
+    let summaryRequest = null;
+    let downloadRequest = null;
+    const history = useHistory();
+    const dispatch = useDispatch();
 
-        this.state = {
-            keyword: '',
-            summary: null,
-            summaryInFlight: false,
-            downloadAvailable: false
-        };
+    const downloadObject = useSelector((state) => state.bulkDownload.download);
 
-        this.summaryRequest = null;
-        this.downloadRequest = null;
-
-        this.updateKeyword = this.updateKeyword.bind(this);
-        this.fetchSummary = this.fetchSummary.bind(this);
-        this.startDownload = this.startDownload.bind(this);
-    }
-
-    componentDidMount() {
-        this.handleUrl(this.props.match.params.keyword);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.keyword !== prevProps.match.params.keyword) {
-            this.handleUrl(this.props.match.params.keyword);
-        }
-    }
-
-    handleUrl(urlKeyword) {
+    const handleUrl = useCallback((urlKeyword) => {
         if (urlKeyword) {
             // Convert the url to a keyword
-            const keyword = decodeURIComponent(urlKeyword);
+            setKeyword(decodeURIComponent(urlKeyword));
             // Update the keyword only if it has more than two characters
             if (keyword.length > 2) {
-                this.setState({
-                    keyword
-                });
+                setKeyword(keyword);
             }
         }
-        else if (this.state.keyword) {
+        else if (keyword) {
             // The keyword param was removed from the url, reset the keyword
-            this.setState({
-                keyword: ''
-            });
+            setKeyword('');
         }
-    }
+    });
 
-    startDownload() {
-        const params = {
-            award_levels: ['prime_awards'],
-            filters: {
-                keyword: this.state.keyword
-            }
-        };
+    const updateKeyword = (keywordParam) => {
+        // Convert the keyword to a url slug
+        const slug = encodeURIComponent(keywordParam);
+        setKeyword(keywordParam);
 
-        this.requestDownload(params);
-    }
+        // update the url
+        history.replace(`/keyword_search/${slug}`);
 
-    requestDownload(params) {
-        if (this.downloadRequest) {
-            this.downloadRequest.cancel();
+        Analytics.event({
+            category: 'Keyword Search - Keyword',
+            action: keywordParam
+        });
+    };
+
+    const requestDownload = (params) => {
+        if (downloadRequest) {
+            downloadRequest.cancel();
         }
 
-        this.downloadRequest = BulkDownloadHelper.requestAwardsDownload(params);
+        downloadRequest = BulkDownloadHelper.requestAwardsDownload(params);
 
-        this.downloadRequest.promise
+        downloadRequest.promise
             .then((res) => {
-                this.props.setDownloadExpectedUrl(res.data.file_url);
-                this.props.setDownloadExpectedFile(res.data.file_name);
-                this.props.setDownloadPending(true);
+                dispatch(setDownloadExpectedUrl(res.data.file_url));
+                dispatch(setDownloadExpectedFile(res.data.file_name));
+                dispatch(setDownloadPending(true));
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -114,83 +94,70 @@ export class KeywordContainer extends React.Component {
                     }
                 }
             });
-    }
+    };
 
-    fetchSummary() {
-        if (this.summaryRequest) {
-            this.summaryRequest.cancel();
-        }
-
-        this.setState({
-            summaryInFlight: true
-        });
-
+    const startDownload = () => {
         const params = {
+            award_levels: ['prime_awards'],
             filters: {
-                keyword: this.state.keyword
+                keyword
             }
         };
 
-        this.summaryRequest = KeywordHelper.fetchSummary(params);
-        this.summaryRequest.promise
+        requestDownload(params);
+    };
+
+    const fetchSummary = () => {
+        if (summaryRequest) {
+            summaryRequest.cancel();
+        }
+
+        setSummaryInFlight(true);
+
+        const params = {
+            filters: {
+                keyword
+            }
+        };
+
+        summaryRequest = KeywordHelper.fetchSummary(params);
+
+        summaryRequest.promise
             .then((res) => {
                 const results = res.data.results;
                 const recordLimit = 500000;
-                const downloadAvailable = results.prime_awards_count < recordLimit;
-                this.setState({
-                    summaryInFlight: false,
-                    summary: {
-                        primeCount: results.prime_awards_count,
-                        primeAmount: results.prime_awards_obligation_amount
-                    },
-                    downloadAvailable
+                setDownloadAvailable(results.prime_awards_count < recordLimit);
+                setSummaryInFlight(false);
+                setSummary({
+                    primeCount: results.prime_awards_count,
+                    primeAmount: results.prime_awards_obligation_amount
                 });
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    this.setState({
-                        summaryInFlight: false
-                    });
+                    setSummaryInFlight(false);
                     console.log(err);
-                    this.summaryRequest = null;
+                    summaryRequest.cancel();
                 }
             });
-    }
+    };
 
-    updateKeyword(keyword) {
-    // Convert the keyword to a url slug
-        const slug = encodeURIComponent(keyword);
-        this.setState({
-            keyword
-        }, () => {
-            // update the url
-            this.props.history.replace(`/keyword_search/${slug}`);
-            Analytics.event({
-                category: 'Keyword Search - Keyword',
-                action: keyword
-            });
-        });
-    }
+    useEffect(() => {
+        handleUrl(props.match.params.keyword);
+    }, [handleUrl, props.match.params.keyword]);
 
-    render() {
-        return (
-            <KeywordPage
-                updateKeyword={this.updateKeyword}
-                keyword={this.state.keyword}
-                summary={this.state.summary}
-                summaryInFlight={this.state.summaryInFlight}
-                fetchSummary={this.fetchSummary}
-                download={this.props.bulkDownload.download}
-                downloadAvailable={this.state.downloadAvailable}
-                startDownload={this.startDownload} />
-        );
-    }
-}
+    return (
+        <KeywordPage
+            updateKeyword={updateKeyword}
+            keyword={keyword}
+            summary={summary}
+            summaryInFlight={summaryInFlight}
+            fetchSummary={fetchSummary}
+            download={downloadObject}
+            downloadAvailable={downloadAvailable}
+            startDownload={startDownload} />
+    );
+};
 
 KeywordContainer.propTypes = propTypes;
-const KeywordContainerWithRouter = withRouter(KeywordContainer);
-
-export default connect(
-    (state) => ({ bulkDownload: state.bulkDownload }),
-    (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
-)(KeywordContainerWithRouter);
+export default KeywordContainer;
