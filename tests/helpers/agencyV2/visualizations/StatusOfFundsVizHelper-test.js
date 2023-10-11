@@ -12,14 +12,20 @@ import { mockData,
     mockProgramActivityOrObjectClassName,
     mockLevel5Data } from '../../../mockData/helpers/statusOfFundsHelper';
 
-test('parseRows', () => {
-    // the order of the objects is different in the parsedData
-    // so we check for length
-    // and use arrayContaining to check for contents, out of order
-    expect(parseRows(mockData)).toHaveLength(mockParsedData.length);
-    expect(parseRows(mockData)).toEqual(expect.arrayContaining(mockParsedData));
-});
+describe('StatusOfFundsVizHelper', () => {
+    describe('parseRows', () => {
+        it('should check for children in the data it receives and return an object using the BaseAgencySubcomponentsList as a template', () => {
+            // the order of the objects is different in the parsedData
+            // so we check for length
+            // and use arrayContaining to check for contents, out of order
+            expect(parseRows(mockData)).toHaveLength(mockParsedData.length);
+            expect(parseRows(mockData)).toEqual(expect.arrayContaining(mockParsedData));
+        });
+    });
 
-test('getLevel5Data', () => {
-    expect(getLevel5Data(mockProgramActivityOrObjectClassName, mockLevel4ApiResponse)).toEqual(mockLevel5Data);
+    describe('getLevel5Data', () => {
+        it('returns the children of the level 4 data object propertry that matches the name sent in as a param', () => {
+            expect(getLevel5Data(mockProgramActivityOrObjectClassName, mockLevel4ApiResponse)).toEqual(mockLevel5Data);
+        });
+    });
 });
