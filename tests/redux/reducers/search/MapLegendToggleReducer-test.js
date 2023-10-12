@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * MapLegendToggleReducer-test.js
  * Created by Jonathan Hill 04/15/20
  */

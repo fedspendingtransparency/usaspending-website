@@ -9,7 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { List } from 'immutable';
-import { withRouter } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -574,9 +573,9 @@ export class DetailContentContainer extends React.Component {
 }
 
 DetailContentContainer.propTypes = propTypes;
-const DetailContentContainerWithRouter = withRouter(withAgencySlugs(DetailContentContainer));
+const DetailContentContainerWithSlugs = withAgencySlugs(DetailContentContainer);
 
 export default connect(
     (state) => ({ explorer: state.explorer }),
     (dispatch) => bindActionCreators(explorerActions, dispatch)
-)(DetailContentContainerWithRouter);
+)(DetailContentContainerWithSlugs);

@@ -1,11 +1,13 @@
 /**
+ * @jest-environment jsdom
+ * 
  * AwardSpendingAgencyTableContainer-test.js
  * Created by Lizzie Salita 12/15/21
  * */
 
 import React from "react";
 import { render, waitFor, screen } from "test-utils";
-import "@testing-library/jest-dom/extend-expect";
+import { expect } from '@jest/globals';
 import AwardSpendingAgencyTableContainer from "containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer";
 import * as api from "apis/disaster";
 import * as hooks from "containers/agency/WithAgencySlugs";

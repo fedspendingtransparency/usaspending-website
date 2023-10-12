@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * Base Parent Award Details test
  * Created by maxwell kendall 06/28/19
  */

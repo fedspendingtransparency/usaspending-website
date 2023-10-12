@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { List } from 'immutable';
 import explorerReducer, { initialState, ActiveScreen } from 'redux/reducers/explorer/explorerReducer';
 

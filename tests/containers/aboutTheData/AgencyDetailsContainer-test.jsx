@@ -1,6 +1,9 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render, waitFor, fireEvent, screen } from 'test-utils';
-import '@testing-library/jest-dom/extend-expect';
+import { expect } from '@jest/globals';
 import * as agencyReportingAPI from 'apis/agencyReporting';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { mockReportingPeriodRow } from './mockData';

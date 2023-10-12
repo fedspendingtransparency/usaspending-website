@@ -3,7 +3,8 @@
  */
 
 import { formatMoney, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
-import moment from 'moment';
+
+const dayjs = require('dayjs');
 
 const PublicationOverviewRow = {
     populate(data, federalTotal) {
@@ -20,8 +21,8 @@ const PublicationOverviewRow = {
                     };
                 }
                 return {
-                    publicationDate: p ? moment(p).format('MM/DD/YYYY') : null,
-                    certificationDate: c ? moment(c).format('MM/DD/YYYY') : null,
+                    publicationDate: p ? dayjs(p).format('MM/DD/YYYY') : null,
+                    certificationDate: c ? dayjs(c).format('MM/DD/YYYY') : null,
                     isQuarterly,
                     period
                 };
@@ -39,7 +40,7 @@ const PublicationOverviewRow = {
         return formatNumber(this._discrepancyCount);
     },
     get publicationDate() {
-        if (this._publicationDate) return moment(this._publicationDate).format('MM/DD/YYYY');
+        if (this._publicationDate) return dayjs(this._publicationDate).format('MM/DD/YYYY');
         return '';
     },
     get total() {

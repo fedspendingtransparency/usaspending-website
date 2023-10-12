@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * DownloadButtonContainer-test.jsx
  * Created by Brett Varney 10/6/21
  */

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseSpendingByCategoryResult-test.js
  * Created by Lizzie Salita 6/5/18
  */

@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
 
 // eslint-disable-next-line import/prefer-default-export

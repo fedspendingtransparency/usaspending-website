@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/24/17
  */
 
-import moment from 'moment';
+const dayjs = require('dayjs');
 
 export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
@@ -15,14 +15,13 @@ export const quarterCloseWindow = 45;
 // The current fiscal year is used on the Advanced Search and Download Center pages
 export const currentFiscalYear = () => {
     // determine the current fiscal year
-    const currentMonth = moment().month();
-    let currentFY = moment().year();
+    const currentMonth = dayjs().month();
+    let currentFY = dayjs().year();
     if (currentMonth >= 9) {
     // months are zero-indexed, so 9 is October
     // starting in October we are in the next fiscal year
-        currentFY = moment().year() + 1;
+        currentFY = dayjs().year() + 1;
     }
-
     return currentFY;
 };
 
@@ -39,7 +38,7 @@ export const convertFYToDateRange = (fy) => {
 };
 
 export const convertDateToFY = (date) => {
-    // date needs to be a moment object
+    // date needs to be a dayjs object
     let year = date.year();
     const month = date.month();
 
@@ -77,9 +76,9 @@ export const convertQuarterToDate = (qtr, year) => {
 export const convertDateToQuarter = (date) => {
     // Returns the fiscal quarter that the date falls in
     let quarter = 0;
-    const month = moment.isMoment(date)
+    const month = dayjs(date).isValid()
         ? date.month()
-        : moment(date).month();
+        : dayjs(date).month();
 
     if (month >= 9 && month <= 11) {
         quarter = 1;
@@ -101,9 +100,9 @@ export const convertDateToQuarter = (date) => {
 
 export const nearestQuarterDate = (date) => {
     // Returns the nearest fiscal quarter date
-    const momentDate = moment(date);
-    const month = momentDate.month();
-    const milliseconds = momentDate.valueOf();
+    const dayjsDate = dayjs(date);
+    const month = dayjsDate.month();
+    const milliseconds = dayjsDate.valueOf();
 
     // get the previous and future quarter months
     let prev;
@@ -129,13 +128,13 @@ export const nearestQuarterDate = (date) => {
         future = '10';
     }
 
-    const prevYear = momentDate.year();
-    let futureYear = momentDate.year();
+    const prevYear = dayjsDate.year();
+    let futureYear = dayjsDate.year();
     if (month === 11 || month === 10 || month === 9) futureYear += 1;
 
     // get the previous & future quarter start dates for comparison
-    const prevMillis = moment(`${prev}-01-${prevYear}`, "MM-DD-YYYY").valueOf();
-    const futureMillis = moment(`${future}-01-${futureYear}`, "MM-DD-YYYY").valueOf();
+    const prevMillis = dayjs(`${prev}-01-${prevYear}`, "MM-DD-YYYY").valueOf();
+    const futureMillis = dayjs(`${future}-01-${futureYear}`, "MM-DD-YYYY").valueOf();
 
     const prevDifference = milliseconds - prevMillis;
     const futureDifference = futureMillis - milliseconds;
@@ -144,8 +143,8 @@ export const nearestQuarterDate = (date) => {
 };
 
 export const getTrailingTwelveMonths = () => {
-    const oneYearAgo = moment().subtract(1, 'year');
-    return [oneYearAgo.format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];
+    const oneYearAgo = dayjs().subtract(1, 'year');
+    return [oneYearAgo.format('YYYY-MM-DD'), dayjs().format('YYYY-MM-DD')];
 };
 
 export const allFiscalYears = (earliestYear = earliestFiscalYear, latestYear = currentFiscalYear()) => {
