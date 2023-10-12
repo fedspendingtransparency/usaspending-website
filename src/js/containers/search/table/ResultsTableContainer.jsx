@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -93,7 +93,7 @@ const ResultsTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
-
+    const initialRender = useRef(true);
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
@@ -101,7 +101,6 @@ const ResultsTableContainer = (props) => {
         }
 
         props.setAppliedFilterCompletion(false);
-
         const tableTypeTemp = tableType;
 
         // Append the current tab's award types to the search params if the Award Type filter
@@ -143,8 +142,11 @@ const ResultsTableContainer = (props) => {
         const requestFields = [];
 
         // Request fields for visible columns only
-        const columnVisibility = columns[tableTypeTemp].visibleOrder;
-        columnVisibility.forEach((field) => {
+        const columnVisibility = columns[tableTypeTemp]?.visibleOrder;
+        if (!columnVisibility) {
+            return null;
+        }
+        columnVisibility?.forEach((field) => {
             if (!requestFields.includes(field) && field !== "Action Date") {
                 // Prevent duplicates in the list of fields to request
                 if (Object.keys(apiFieldByTableColumnName).includes(field)) {
@@ -205,11 +207,9 @@ const ResultsTableContainer = (props) => {
                 searchRequest = null;
                 newState.page = res.data.page_metadata.page;
                 newState.lastPage = !res.data.page_metadata.hasNext;
-                console.debug("RESULTS: ", newState.results);
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
                 setResults(newState.results);
-                console.debug("new state page: ", newState.page);
                 setPage(newState.page);
                 setLastPage(newState.lastPage);
 
@@ -223,7 +223,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, 100, { trailing: true });
+    }, 400);
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -253,7 +253,7 @@ const ResultsTableContainer = (props) => {
                 [data.title]: createColumn(data)
             }), {});
 
-            return Object.assign({}, cols, {
+            return Object.assign(cols, {
                 [type.internal]: {
                     visibleOrder: visibleColumns,
                     data: parsedColumns
@@ -275,7 +275,7 @@ const ResultsTableContainer = (props) => {
         setSearchParams(newSearch);
         setPage(1);
         performSearch(true);
-    }, 150, { trailing: true });
+    }, 150);
 
     const switchTab = (tab) => {
         const newState = {
@@ -298,11 +298,10 @@ const ResultsTableContainer = (props) => {
                 direction
             };
         }
-        setTableType(newState.tableType);
+        setTableType(tab);
         if (newState.sort) {
             setSort(Object.assign(sort, newState.sort));
         }
-        performSearch(true);
         Analytics.event({
             category: 'Advanced Search - Table Tab',
             action: tab
@@ -434,21 +433,28 @@ const ResultsTableContainer = (props) => {
         disabled: inFlight || counts[type.internal] === 0
     }));
 
+    useEffect(() => {
+        if (initialRender.current) {
+            initialRender.current = false;
+        } else {
+            console.debug('performin search');
+            performSearch(true);
+        }
+    }, [tableType, sort, props.subaward]);
+
     useEffect(throttle(() => {
-        console.debug("triggered...");
+        console.debug("yish");
         loadColumns();
 
-        console.debug(props.subaward, props.noApplied, location, page);
-        if (props.subaward && !props.noApplied) {
-            console.debug("1");
-            // subaward toggle changed, update the search object
-            pickDefaultTab();
-        }
-        else if (SearchHelper.isSearchHashReady(location) && location.search) {
-            console.debug("2");
-
-            // hash is (a) defined and (b) new
-            pickDefaultTab();
+        if (initialRender.current === false) {
+            if (props.subaward && !props.noApplied) {
+                // subaward toggle changed, update the search object
+                pickDefaultTab();
+            }
+            else if (SearchHelper.isSearchHashReady(location) && location.search) {
+                // hash is (a) defined and (b) new
+                pickDefaultTab();
+            }
         }
         return () => {
             if (searchRequest) {
@@ -458,7 +464,7 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 100), [props.subaward, page, props.noApplied, location]);
+    }, 250), [props.subaward, page, props.noApplied, location, sort]);
 
     if (!columns[tableType]) {
         return null;
