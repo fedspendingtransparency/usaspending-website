@@ -182,7 +182,6 @@ const ResultsTableContainer = (props) => {
         if (!params.filters.award_type_codes) {
             return null;
         }
-        console.debug("PARAMS: ", params);
         searchRequest = SearchHelper.performSpendingByAwardSearch(params);
         return searchRequest.promise
             .then((res) => {
@@ -300,8 +299,10 @@ const ResultsTableContainer = (props) => {
             };
         }
         setTableType(tab);
-        if (newState.sort) {
+        if (newState.sort && !props.subaward) {
             setSort(Object.assign(sort, newState.sort));
+        } else if (newState.sort && props.subaward) {
+            setSort(newState.sort);
         }
         Analytics.event({
             category: 'Advanced Search - Table Tab',
@@ -395,17 +396,17 @@ const ResultsTableContainer = (props) => {
 
     const updateSort = (field, direction) => {
         if (field === 'Action Date') {
-            setSort(Object.assign(sort, {
+            setSort({
                 field: 'Sub-Award Date',
                 direction
-            }));
+            });
             performSearch(true);
         }
         else {
-            setSort(Object.assign(sort, {
+            setSort({
                 field,
                 direction
-            }));
+            });
             performSearch(true);
         }
     };
@@ -438,7 +439,6 @@ const ResultsTableContainer = (props) => {
         if (initialRender.current) {
             initialRender.current = false;
         } else {
-            console.debug('performin search');
             performSearch(true);
         }
     }, [tableType, props.subaward]);
