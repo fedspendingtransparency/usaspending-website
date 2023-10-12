@@ -35,6 +35,7 @@ const Analytics = {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 event: args.event || 'event',
+                event_category: `${this._prefix}${args.category}`,
                 eventProps: {
                     category: `${this._prefix}${args.category}`,
                     action: args.action,
