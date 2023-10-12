@@ -34,7 +34,7 @@ export default class TableRow extends React.PureComponent {
 
     logArchiveDownload(e, file = this.props.file) {
         Analytics.event({
-            event: 'bulk_download',
+            event: 'archive_bulk_download',
             category: archiveFileDownloadGACategory,
             action: 'File Download',
             label: `File Name: ${getArchiveFileName(file)}`,
@@ -46,7 +46,7 @@ export default class TableRow extends React.PureComponent {
                     ? file[key]
                     : `AllFYs`;
                 Analytics.event({
-                    event: 'archive_file_download'
+                    event: 'archive_fields_for_download',
                     category: archiveFileDownloadGACategory,
                     action: `${startCase(key)} Download Criterion`,
                     label,
