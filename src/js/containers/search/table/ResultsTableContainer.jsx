@@ -146,7 +146,7 @@ const ResultsTableContainer = (props) => {
         if (!columnVisibility) {
             return null;
         }
-        columnVisibility?.forEach((field) => {
+        columnVisibility.forEach((field) => {
             if (!requestFields.includes(field) && field !== "Action Date") {
                 // Prevent duplicates in the list of fields to request
                 if (Object.keys(apiFieldByTableColumnName).includes(field)) {
@@ -182,6 +182,7 @@ const ResultsTableContainer = (props) => {
         if (!params.filters.award_type_codes) {
             return null;
         }
+        console.debug("PARAMS: ", params);
         searchRequest = SearchHelper.performSpendingByAwardSearch(params);
         return searchRequest.promise
             .then((res) => {
@@ -440,10 +441,9 @@ const ResultsTableContainer = (props) => {
             console.debug('performin search');
             performSearch(true);
         }
-    }, [tableType, sort, props.subaward]);
+    }, [tableType, props.subaward]);
 
     useEffect(throttle(() => {
-        console.debug("yish");
         loadColumns();
 
         if (initialRender.current === false) {
