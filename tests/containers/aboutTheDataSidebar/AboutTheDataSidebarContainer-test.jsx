@@ -20,6 +20,11 @@ export const mockATDContainerProps = {
     setAboutTheDataTermFromUrl: jest.fn(),
     clearAboutTheDataTerm: jest.fn()
 };
+
+jest.mock('schema', () => ({
+    ...jest.requireActual('schema'),
+    ...require('../../../src/js/dataMapping/aboutTheDataSchema')
+}));
 describe('About The Data Sidebar Container Test', () => {
     afterEach(() => {
         jest.clearAllMocks();
@@ -30,12 +35,6 @@ describe('About The Data Sidebar Container Test', () => {
             render(<AboutTheDataContainer {...mockATDContainerProps} />);
         });
         screen.debug();
-        // expect(spy).toHaveBeenCalledWith({
-        //     filter: {
-        //         award_type: 'assistance',
-        //         def_codes: mockDefcParams
-        //     }
-        // });
     });
 });
 
