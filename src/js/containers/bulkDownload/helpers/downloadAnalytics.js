@@ -31,7 +31,7 @@ export const convertDateRange = (dates) => {
 
 export const logSingleDownloadField = (type, name, value) => {
     Analytics.event({
-        event: 'bulk_download_field',
+        event: 'download_center_field',
         category: `${categoryPrefix} - ${type}`,
         action: name,
         label: value,

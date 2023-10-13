@@ -75,10 +75,8 @@ const MobileNav = (props) => {
 
     const clickedHeaderLink = (route) => {
         Analytics.event({
-            event: 'mobile_link_click',
             category: 'Header - Link',
-            action: route,
-            gtm: true
+            action: route
         });
     };
 
