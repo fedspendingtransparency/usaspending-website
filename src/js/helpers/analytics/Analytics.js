@@ -36,13 +36,10 @@ const Analytics = {
             window.dataLayer.push({
                 event: args.event || 'event',
                 event_category: `${this._prefix}${args.category}`,
-                eventProps: {
-                    category: `${this._prefix}${args.category}`,
-                    action: args.action,
-                    label: args.label || undefined,
-                    value: args.value || undefined,
-                    nonInteraction: args.nonInteraction || undefined
-                }
+                event_action: args.action,
+                event_label: args.label || undefined,
+                event_value: args.value || undefined,
+                event_nonInteraction: args.nonInteraction || undefined
             });
         }
 
