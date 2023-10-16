@@ -223,7 +223,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, 400);
+    }, 500);
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -394,17 +394,17 @@ const ResultsTableContainer = (props) => {
 
     const updateSort = (field, direction) => {
         if (field === 'Action Date') {
-            setSort({
+            setSort(Object.assign(sort, {
                 field: 'Sub-Award Date',
                 direction
-            });
+            }));
             performSearch(true);
         }
         else {
-            setSort({
+            setSort(Object.assign(sort, {
                 field,
                 direction
-            });
+            }));
             performSearch(true);
         }
     };
@@ -437,9 +437,10 @@ const ResultsTableContainer = (props) => {
         if (initialRender.current) {
             initialRender.current = false;
         } else {
+            updateSort();
             performSearch(true);
         }
-    }, [tableType, props.subaward]);
+    }, [tableType, props.subaward, sort]);
 
     useEffect(throttle(() => {
         loadColumns();
@@ -453,6 +454,9 @@ const ResultsTableContainer = (props) => {
                 // hash is (a) defined and (b) new
                 pickDefaultTab();
             }
+            else if (!props.subaward) {
+                pickDefaultTab();
+            }
         }
         return () => {
             if (searchRequest) {
@@ -462,7 +466,7 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 250), [props.subaward, page, props.noApplied, location]);
+    }, 150), [props.subaward, page, props.noApplied, location]);
 
     if (!columns[tableType]) {
         return null;
