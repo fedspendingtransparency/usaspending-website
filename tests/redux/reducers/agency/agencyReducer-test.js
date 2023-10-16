@@ -5,6 +5,7 @@
  * Created by Lizzie Salita 5/26/20
  */
 
+import dayjs from "dayjs";
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
@@ -14,7 +15,6 @@ import agencyReducer, { initialState } from 'redux/reducers/agency/agencyReducer
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
 import { mockBudgetaryResources } from '../../../models/agency/BaseAgencyBudgetaryResources-test';
 import { mockSubcomponent } from '../../../models/agency/BaseStatusOfFundsLevel-test';
-import dayjs from "dayjs";
 
 const agencyOverview = Object.create(BaseAgencyOverview);
 agencyOverview.populate(mockAgency);
@@ -264,13 +264,11 @@ describe('agencyReducer', () => {
         });
     });
 
-    xdescribe('SET_DATA_THROUGH_DATES', () => {
+    describe('SET_DATA_THROUGH_DATES', () => {
         it('should set dataThroughDates to the provided value', () => {
             let state = agencyReducer(undefined, {});
 
             const today = dayjs();
-
-            console.log('today', today);
 
             const action = {
                 type: 'SET_DATA_THROUGH_DATES',
@@ -279,7 +277,7 @@ describe('agencyReducer', () => {
 
             state = agencyReducer(state, action);
 
-            expect(state.dataThroughDates).toEqual('totals');
+            expect(state.dataThroughDates).toEqual(today);
         });
     });
 

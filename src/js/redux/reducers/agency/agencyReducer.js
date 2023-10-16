@@ -121,7 +121,6 @@ const agencyReducer = (state = initialState, action) => {
                 agencyIds: action.agencyIds,
                 agencyOutlays: action.agencyOutlays
             };
-
         case 'SET_DATA_THROUGH_DATES':
             return {
                 ...state,
