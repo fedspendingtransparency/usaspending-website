@@ -108,16 +108,16 @@ const agencyReducer = (state = initialState, action) => {
                 ...state,
                 recipientDistribution: initialState.recipientDistribution
             };
-        case 'SET_SUBAGENCY_COUNT':
-            return {
-                ...state,
-                subagencyCount: action.subagencyCount
-            };
-        case 'RESET_SUBAGENCY_COUNT':
-            return {
-                ...state,
-                subagencyCount: initialState.subagencyCount
-            };
+        // case 'SET_SUBAGENCY_COUNT':
+        //     return {
+        //         ...state,
+        //         subagencyCount: action.subagencyCount
+        //     };
+        // case 'RESET_SUBAGENCY_COUNT':
+        //     return {
+        //         ...state,
+        //         subagencyCount: initialState.subagencyCount
+        //     };
         case 'SET_SUBAGENCY_TOTALS':
             return {
                 ...state,

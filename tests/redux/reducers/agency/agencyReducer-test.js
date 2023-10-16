@@ -211,37 +211,37 @@ describe('agencyReducer', () => {
         });
     });
 
-    describe('SET_SUBAGENCY_COUNT', () => {
-        it('should set subagencyCount to the provided value', () => {
-            let state = agencyReducer(undefined, {});
-
-            const action = {
-                type: 'SET_SUBAGENCY_COUNT',
-                subagencyCount: { officeCount: '10' }
-            };
-
-            state = agencyReducer(state, action);
-
-            expect(state.subagencyCount.officeCount).toEqual('10');
-        });
-    });
-
-    describe('RESET_SUBAGENCY_COUNT', () => {
-        it('should reset subagencyCount to its initial state', () => {
-            let state = agencyReducer(undefined, {
-                subagencyCount: { officeCount: '10' }
-            });
-
-            const action = {
-                type: 'RESET_SUBAGENCY_COUNT'
-            };
-
-            state = agencyReducer(state, action);
-
-            expect(state.subagencyCount).toEqual(initialState.subagencyCount);
-            expect(Object.getPrototypeOf(state.subagencyCount)).toEqual(BaseAgencySubagencyCount);
-        });
-    });
+    // describe('SET_SUBAGENCY_COUNT', () => {
+    //     it('should set subagencyCount to the provided value', () => {
+    //         let state = agencyReducer(undefined, {});
+    //
+    //         const action = {
+    //             type: 'SET_SUBAGENCY_COUNT',
+    //             subagencyCount: { officeCount: '10' }
+    //         };
+    //
+    //         state = agencyReducer(state, action);
+    //
+    //         expect(state.subagencyCount.officeCount).toEqual('10');
+    //     });
+    // });
+    //
+    // describe('RESET_SUBAGENCY_COUNT', () => {
+    //     it('should reset subagencyCount to its initial state', () => {
+    //         let state = agencyReducer(undefined, {
+    //             subagencyCount: { officeCount: '10' }
+    //         });
+    //
+    //         const action = {
+    //             type: 'RESET_SUBAGENCY_COUNT'
+    //         };
+    //
+    //         state = agencyReducer(state, action);
+    //
+    //         expect(state.subagencyCount).toEqual(initialState.subagencyCount);
+    //         expect(Object.getPrototypeOf(state.subagencyCount)).toEqual(BaseAgencySubagencyCount);
+    //     });
+    // });
 
     describe('SET_SUBAGENCY_TOTALS', () => {
         it('should set spendingBySubagencyTotals to the provided value', () => {

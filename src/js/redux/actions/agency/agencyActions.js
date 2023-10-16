@@ -66,14 +66,14 @@ export const resetAgencyRecipients = () => ({
     type: 'RESET_AGENCY_RECIPIENTS'
 });
 
-export const setSubagencyCount = (subagencyCount) => ({
-    type: 'SET_SUBAGENCY_COUNT',
-    subagencyCount
-});
-
-export const resetSubagencyCount = () => ({
-    type: 'RESET_SUBAGENCY_COUNT'
-});
+// export const setSubagencyCount = (subagencyCount) => ({
+//     type: 'SET_SUBAGENCY_COUNT',
+//     subagencyCount
+// });
+//
+// export const resetSubagencyCount = () => ({
+//     type: 'RESET_SUBAGENCY_COUNT'
+// });
 
 export const setSubagencyTotals = (spendingBySubagencyTotals) => ({
     type: 'SET_SUBAGENCY_TOTALS',
@@ -101,14 +101,14 @@ export const setAgencySlugs = (agencySlugs, topTierCodes, agencyIds, agencyOutla
 //     type: 'RESET_SUBCOMPONENTS_LIST'
 // });
 
-export const setFederalAccountsList = (agencyFederalAccountsList) => ({
-    type: 'SET_FEDERAL_ACC_LIST',
-    agencyFederalAccountsList
-});
+// export const setFederalAccountsList = (agencyFederalAccountsList) => ({
+//     type: 'SET_FEDERAL_ACC_LIST',
+//     agencyFederalAccountsList
+// });
 
-export const resetFederalAccountsList = () => ({
-    type: 'RESET_FEDERAL_ACC_LIST'
-});
+// export const resetFederalAccountsList = () => ({
+//     type: 'RESET_FEDERAL_ACC_LIST'
+// });
 
 export const setDataThroughDates = (dates) => ({
     type: 'SET_DATA_THROUGH_DATES',
