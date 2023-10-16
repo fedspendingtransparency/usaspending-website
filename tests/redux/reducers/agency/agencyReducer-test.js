@@ -243,26 +243,24 @@ describe('agencyReducer', () => {
         });
     });
 
-    xdescribe('SET_AGENCY_SLUGS', () => {
+    describe('SET_AGENCY_SLUGS', () => {
         it('should set agencySlugs, topTierCodes, agencyIds, agencyOutlays to the provided values', () => {
             let state = agencyReducer(undefined, {});
 
             const action = {
-                type: 'SET_SUBAGENCY_TOTALS',
-                agencySlugs: { slugs: 'slugs' }
-                // topTierCodes: 'codes',
-                // agencyIds: 'ids',
-                // agencyOutlays: 'outlays'
+                type: 'SET_AGENCY_SLUGS',
+                agencySlugs: { slugs: 'slugs' },
+                topTierCodes: { codes: 'codes' },
+                agencyIds: { ids: 'ids' },
+                agencyOutlays: { outlays: 'outlays' }
             };
 
             state = agencyReducer(state, action);
 
-            // expect(Object.getPrototypeOf(state.agencySlugs)).toEqual('wrong');
-
-            expect(state.agencySlugs).toMatchObject({ slugs: 'slugs' });
-            // expect(state.agencySlugs).toEqual('totals');
-            // expect(state.agencySlugs).toEqual('totals');
-            // expect(state.agencySlugs).toEqual('totals');
+            expect(state.agencySlugs).toEqual({ slugs: 'slugs' });
+            expect(state.topTierCodes).toEqual({ codes: 'codes' });
+            expect(state.agencyIds).toEqual({ ids: 'ids' });
+            expect(state.agencyOutlays).toEqual({ outlays: 'outlays' });
         });
     });
 
