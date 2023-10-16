@@ -462,7 +462,7 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 250), [props.subaward, page, props.noApplied, location, sort]);
+    }, 250), [props.subaward, page, props.noApplied, location]);
 
     if (!columns[tableType]) {
         return null;
