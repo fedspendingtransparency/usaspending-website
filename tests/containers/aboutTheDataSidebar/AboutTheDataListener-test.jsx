@@ -33,7 +33,14 @@ export const mockATDListenerProps = {
 describe('About The Data Sidebar Listener Test', () => {
     it(`Render ATD Listener with appropriate props`, () => {
         act(() => {
-            render(<AboutTheDataListenerContainer {...mockATDListenerProps} />);
+            render(
+                <AboutTheDataListenerContainer {...mockATDListenerProps} />,
+                {
+                    initialState: {
+                        aboutTheDataSidebar: mockData
+                    }
+                }
+            );
         });
         screen.debug();
     });
