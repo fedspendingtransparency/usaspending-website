@@ -299,10 +299,8 @@ const ResultsTableContainer = (props) => {
             };
         }
         setTableType(tab);
-        if (newState.sort && !props.subaward) {
+        if (newState.sort) {
             setSort(Object.assign(sort, newState.sort));
-        } else if (newState.sort && props.subaward) {
-            setSort(newState.sort);
         }
         Analytics.event({
             category: 'Advanced Search - Table Tab',
