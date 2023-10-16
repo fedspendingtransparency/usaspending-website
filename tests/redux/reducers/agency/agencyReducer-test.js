@@ -8,7 +8,7 @@
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
-import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
+import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
 import agencyReducer, { initialState } from 'redux/reducers/agency/agencyReducer';
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
@@ -71,9 +71,9 @@ describe('agencyReducer', () => {
 
     describe('RESET_AWARD_OBLIGATIONS', () => {
         it('should reset award obligations to its initial state', () => {
-            let state = agencyReducer(undefined, {
+            let state = agencyReducer({
                 _awardObligations: 123456789.01
-            });
+            }, {});
 
             const action = {
                 type: 'RESET_AWARD_OBLIGATIONS'
@@ -196,9 +196,9 @@ describe('agencyReducer', () => {
 
     describe('RESET_AGENCY_RECIPIENTS', () => {
         it('should reset award obligations to its initial state', () => {
-            let state = agencyReducer(undefined, {
+            let state = agencyReducer({
                 recipientDistribution: { test: 'hello' }
-            });
+            }, {});
 
             const action = {
                 type: 'RESET_AGENCY_RECIPIENTS'
@@ -210,38 +210,6 @@ describe('agencyReducer', () => {
             expect(Object.getPrototypeOf(state.recipientDistribution)).toEqual(BaseAgencyRecipients);
         });
     });
-
-    // describe('SET_SUBAGENCY_COUNT', () => {
-    //     it('should set subagencyCount to the provided value', () => {
-    //         let state = agencyReducer(undefined, {});
-    //
-    //         const action = {
-    //             type: 'SET_SUBAGENCY_COUNT',
-    //             subagencyCount: { officeCount: '10' }
-    //         };
-    //
-    //         state = agencyReducer(state, action);
-    //
-    //         expect(state.subagencyCount.officeCount).toEqual('10');
-    //     });
-    // });
-    //
-    // describe('RESET_SUBAGENCY_COUNT', () => {
-    //     it('should reset subagencyCount to its initial state', () => {
-    //         let state = agencyReducer(undefined, {
-    //             subagencyCount: { officeCount: '10' }
-    //         });
-    //
-    //         const action = {
-    //             type: 'RESET_SUBAGENCY_COUNT'
-    //         };
-    //
-    //         state = agencyReducer(state, action);
-    //
-    //         expect(state.subagencyCount).toEqual(initialState.subagencyCount);
-    //         expect(Object.getPrototypeOf(state.subagencyCount)).toEqual(BaseAgencySubagencyCount);
-    //     });
-    // });
 
     describe('SET_SUBAGENCY_TOTALS', () => {
         it('should set spendingBySubagencyTotals to the provided value', () => {
@@ -258,22 +226,20 @@ describe('agencyReducer', () => {
         });
     });
 
-    xdescribe('RESET_SUBAGENCY_TOTALS', () => {
+    describe('RESET_SUBAGENCY_TOTALS', () => {
         it('should reset spendingBySubagencyTotals to its initial state', () => {
-            let state = agencyReducer(undefined, {
+            let state = agencyReducer({
                 spendingBySubagencyTotals: 'totals'
-            });
+            }, {});
 
             const action = {
-                type: 'RESET_SUBAGENCY_TOTALS',
-                spendingBySubagencyTotals: 'totals'
+                type: 'RESET_SUBAGENCY_TOTALS'
             };
-
-            expect(state.spendingBySubagencyTotals).toEqual('wrong');
 
             state = agencyReducer(state, action);
 
-            // expect(state.spendingBySubagencyTotals).toEqual('totals');
+            expect(state.spendingBySubagencyTotals).toEqual(initialState.spendingBySubagencyTotals);
+            expect(Object.getPrototypeOf(state.spendingBySubagencyTotals)).toEqual(BaseSubagencySpendingRow);
         });
     });
 
