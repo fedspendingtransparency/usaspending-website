@@ -6,10 +6,9 @@
  */
 
 import React from 'react';
-import { mockData } from '../../components/aboutTheDataSidebar/mockAboutTheDataSidebarFn';
+import { mockData, standardTerm } from '../../components/aboutTheDataSidebar/mockAboutTheDataSidebarFn';
 import { render, screen, act } from '../../testResources/test-utils';
 import { AboutTheDataContainer } from "../../../src/js/containers/aboutTheDataSidebar/AboutTheDataContainer";
-import { standardTerm } from "../../components/aboutTheDataSidebar/mockAboutTheDataSidebarFn";
 import aboutTheDataReducer from "../../../src/js/redux/reducers/aboutTheDataSidebar/aboutTheDataReducer";
 import slideoutReducer from "../../../src/js/redux/reducers/slideouts/slideoutReducer";
 
