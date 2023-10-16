@@ -125,6 +125,7 @@
     "webpack-merge": "^5.9.0"
   },
   "resolutions": {
+    "@babel/traverse": "7.23.2",
     "trim-newlines": "4.0.2",
     "glob-parent": "6.0.2",
     "**/glob-parent": "6.0.2",
