@@ -142,7 +142,9 @@
     "yaml": "2.2.2",
     "semver": "7.5.3",
     "optionator": "0.9.3",
-    "word-wrap": "1.2.6"
+    "word-wrap": "1.2.6",
+    "postcss": "8.4.31",
+    "icss-utils": "5.0.0"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -184,7 +186,7 @@
     "mapbox-gl": "^2.11.1",
     "mockdate": "^3.0.5",
     "mousetrap": "^1.6.1",
-    "postcss": "^8.4.16",
+    "postcss": "^8.4.31",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-aria-modal": "^4.0.1",
