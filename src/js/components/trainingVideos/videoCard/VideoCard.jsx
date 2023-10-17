@@ -52,7 +52,7 @@ const VideoCard = ({
     let overline;
     const titleIndex = title.indexOf(":");
 
-    if (titleIndex > 0) {
+    if (titleIndex > 0 && (titleIndex + 2) < title.length) {
         changedTitle = title.substring(titleIndex + 2);
         overline = title.substring(0, titleIndex);
     }
