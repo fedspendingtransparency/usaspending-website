@@ -47,20 +47,20 @@ const VideoCard = ({
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
+
     let changedTitle;
     let overline;
-    if (title.startsWith("TUTORIAL:") || title.startsWith("OVERVIEW:")) {
-        changedTitle = title.substring(10);
-        overline = title.substring(0, 8);
+    const titleIndex = title.indexOf(":");
+
+    if (titleIndex > 0) {
+        changedTitle = title.substring(titleIndex + 2);
+        overline = title.substring(0, titleIndex);
     }
-    else if (title.startsWith("QUICK START:")) {
-        changedTitle = title.substring(13);
-        overline = title.substring(0, 11);
+    else {
+        changedTitle = title;
+        overline = "RESOURCE";
     }
-    else if (title.startsWith("DATA SOURCES:")) {
-        changedTitle = title.substring(14);
-        overline = title.substring(0, 12);
-    }
+
     return (
         <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
             <CardHero
