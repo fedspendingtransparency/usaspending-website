@@ -14,17 +14,46 @@ import TrainingVideosPage from "../../../src/js/components/trainingVideos/Traini
 jest.mock('../../../src/js/components/trainingVideos/TrainingVideosPage', () => {
     return jest.fn(() => null)
 })
-
-jest.mock('')
+jest.mock('../../../src/js/dataMapping/trainingVideos/playListMetadata', () => {
+    return {
+            items: [
+                {
+                    id: "b7SDGhSZ5wM",
+                    snippet: {
+                        title: "lofi hip hop radio",
+                        description: "Lofi Girl",
+                        publishedAt: 'Lofi Girl',
+                        thumbnails: 'none'
+                    },
+                    contentDetails: {
+                        duration: 'infinite',
+                    }
+                },
+                {
+                    id: "123abc",
+                    snippet: {
+                        title: "synthwave radio",
+                        description: "Lofi Girl",
+                        publishedAt: 'Lofi Girl',
+                        thumbnails: 'none'
+                    },
+                    contentDetails: {
+                        duration: 'infinite',
+                    }
+                }
+            ]
+    }
+});
 
 describe('TrainingVideosContainer', () => {
-    // afterEach(() => {
-    //     jest.clearAllMocks();
-    // });
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
     it('renders without crashing', () => {
         render(<TrainingVideosContainer />);
         expect(TrainingVideosPage).toHaveBeenCalledWith('wrong');
+
     })
 
     // test number of object against the number of cards created
