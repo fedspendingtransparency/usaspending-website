@@ -25,6 +25,7 @@
     @media (max-width:$medium-screen) {
       display:flex;
       justify-content:center;
+      flex-direction: column;
     }
     .card__hero.expanded {
       padding-top: 0;
@@ -68,7 +69,7 @@
       .usa-dt-picker__button{
         padding: 0;
         margin-right: 0;
-  
+
       }
       button{
         margin-left: 0;
