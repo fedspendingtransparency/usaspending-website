@@ -275,7 +275,7 @@ const ResultsTableContainer = (props) => {
         setSearchParams(newSearch);
         setPage(1);
         performSearch(true);
-    }, 150);
+    }, 350);
 
     const switchTab = (tab) => {
         const newState = {
@@ -466,7 +466,7 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 150), [props.subaward, page, props.noApplied, location]);
+    }, 350), [props.subaward, page, props.noApplied, location]);
 
     if (!columns[tableType]) {
         return null;
