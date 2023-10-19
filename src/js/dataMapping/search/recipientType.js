@@ -9,7 +9,7 @@
 /* eslint-disable max-len */
 // disable max-len for readability sake
 export const recipientTypes = {
-    'category_business': 'Business',
+    'business': 'Business',
     'small_business': 'Small Business',
     'other_than_small_business': 'Other Than Small Business',
     'corporate_entity_tax_exempt': 'Corporate Entity Tax Exempt',
