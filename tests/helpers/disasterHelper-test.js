@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * disasterHelper-test.js
  * Created by Jonathan Hill 07/14/20
  */

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * CoreReportingRow-test.js
  * Created by Lizzie Salita 1/12/21
  */

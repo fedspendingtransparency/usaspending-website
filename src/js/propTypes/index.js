@@ -14,7 +14,7 @@ export const AWARD_OVERVIEW_PROPS = PropTypes.shape({
     _totalObligation: PropTypes.number,
     _baseExercisedOptions: PropTypes.number,
     _baseAndAllOptions: PropTypes.number,
-    _dateSigned: PropTypes.object, // moment
+    _dateSigned: PropTypes.object, // date
     parentAward: PropTypes.string,
     parentId: PropTypes.string
 });
@@ -141,7 +141,7 @@ export const LATEST_PERIOD_PROPS = PropTypes.shape({
     year: PropTypes.number,
     quarter: PropTypes.number,
     period: PropTypes.number,
-    latestSubmissionDate: PropTypes.object // moment obj
+    latestSubmissionDate: PropTypes.object // date obj
 });
 
 export const SUBMISSION_PERIOD_PROPS = PropTypes.arrayOf(PropTypes.shape({

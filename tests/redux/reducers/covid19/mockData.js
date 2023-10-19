@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * mockData.js
  * Created by Jonathan Hill 06/11/20
  */

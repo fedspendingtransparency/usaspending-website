@@ -1,11 +1,13 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BudgetCategoriesTableContainer-test.js
  * Created by Lizzie Salita 10/15/21
  * */
 
 import React from "react";
 import { render, waitFor, screen } from "test-utils";
-import "@testing-library/jest-dom/extend-expect";
+import { expect } from '@jest/globals';
 import BudgetCategoriesTableContainer from "containers/covid19/budgetCategories/BudgetCategoriesTableContainer";
 import * as api from "apis/disaster";
 import * as hooks from "containers/agency/WithAgencySlugs";

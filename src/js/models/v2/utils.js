@@ -3,11 +3,11 @@
  * Created by michaelbray on 1/19/18.
  */
 
-import moment from 'moment';
+const dayjs = require('dayjs');
 
 export const parseDate = (dateString, format = 'YYYY-MM-DD') => {
     if (dateString) {
-        const date = moment(dateString, format);
+        const date = dayjs(dateString, format);
 
         if (date.isValid()) {
             return date;

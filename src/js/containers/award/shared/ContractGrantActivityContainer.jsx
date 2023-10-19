@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
@@ -16,6 +15,8 @@ import {
     contractActivityInfoContracts
 } from 'components/award/shared/InfoTooltipContent';
 import JumpToSectionButton from 'components/award/shared/awardAmounts/JumpToSectionButton';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -83,7 +84,7 @@ const ContractGrantActivityContainer = ({
             .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf())
             .reduce((acc, data) => {
                 const updatedData = { ...data };
-                updatedData.action_date = moment(updatedData.action_date, 'YYYY-MM-DD');
+                updatedData.action_date = dayjs(updatedData.action_date, 'YYYY-MM-DD');
                 const currentTransactionIndex = acc.findIndex((x) => x.action_date.valueOf() === updatedData.action_date.valueOf());
                 /**
                  * When we have multiple transactions on the same day, we will sum their obligation and

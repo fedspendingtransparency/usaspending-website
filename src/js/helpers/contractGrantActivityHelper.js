@@ -3,16 +3,17 @@
  */
 
 import { cloneDeep } from 'lodash';
-import moment from 'moment';
 import { isAwardFinancialAssistance } from 'helpers/awardSummaryHelper';
 import { badPotentialEndDate } from '../../../tests/testResources/mockContractGrantActivityHelper';
+
+const dayjs = require('dayjs');
 
 export const filteredAndSortedLinesFirstToLast = (lines) => lines
     .filter((line) => line).sort();
 
 export const dateMatchingFirstLineValue = (lines, dates, todayLineValue, endLineValue) => {
     const firstEndLine = filteredAndSortedLinesFirstToLast(lines)[0];
-    if (firstEndLine === todayLineValue) return moment(todayLineValue);
+    if (firstEndLine === todayLineValue) return dayjs(todayLineValue);
     if (firstEndLine === endLineValue) return dates._endDate;
     return dates._potentialEndDate;
 };
@@ -32,7 +33,7 @@ export const createSteppedAreaPath = (
     yScale, // d3 linear scale
     height, // height of the graph
     padding, // horizontal padding for the svg
-    xProperty, // x property of the data point must be moment object
+    xProperty, // x property of the data point must be dayjs object
     yProperty // y property of the data point
 ) => (
     data.reduce((acc, t, i, array) => {
@@ -71,7 +72,7 @@ export const createSteppedAreaPath = (
 /**
  * getLineValue
  * - determines if a line should be drawn
- * @param {Moment{}} date
+ * @param {dayjs{}} date
  * @returns {null || Number}
  */
 export const getLineValue = (date, xDomain) => {
@@ -102,7 +103,7 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
         return false;
     })) return true;
     /**
-     * handles null, '', or 'random string' passed to moment
+     * handles null, '', or 'random string' passed to dayjs
      */
     const badStart = isNaN(startDate.valueOf()) || !startDate;
     const badCurrent = isNaN(currentEndDate.valueOf()) || !currentEndDate;
@@ -148,9 +149,9 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
 /**
  * beforeDate
  * - determines if the first date is before the second date
- * @param {Moment{}} start - date to compare
- * @param {Moment{}} end - date to compare
- * @returns {Moment{}} - moment object
+ * @param {dayjs{}} start - date to compare
+ * @param {dayjs{}} end - date to compare
+ * @returns {dayjs{}} - dayjs object
  */
 export const beforeDate = (start, end) => {
     if (start.isBefore(end)) return start;
@@ -159,9 +160,9 @@ export const beforeDate = (start, end) => {
 /**
  * afterDate
  * - determines if the first date is after the second date
- * @param {Moment{}} start - date to compare
- * @param {Moment{}} end - date to compare
- * @returns {Moment{}} - moment object
+ * @param {dayjs{}} start - date to compare
+ * @param {dayjs{}} end - date to compare
+ * @returns {dayjs{}} - dayjs object
  */
 export const afterDate = (start, end) => {
     if (start.isAfter(end)) return start;
@@ -183,7 +184,7 @@ export const getXDomain = (dates, awardType, transactions) => {
     } = dates;
     const transactionData = cloneDeep(transactions);
     /**
-     * handles null, '', or 'random string' passed to moment
+     * handles null, '', or 'random string' passed to dayjs
      */
     const badStart = isNaN(startDate.valueOf()) || !startDate;
     const badCurrent = isNaN(currentEndDate.valueOf()) || !currentEndDate;

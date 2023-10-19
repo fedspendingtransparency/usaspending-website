@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseAgencyRecipients-test.js
  * Created by Lizzie Salita 7/1/21
  */

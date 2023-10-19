@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * searchFiltersReducer-test.js
  * Created by Kevin Li 1/17/17
  */
