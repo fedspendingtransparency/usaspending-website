@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import SingleCheckboxType from "../../../sharedComponents/checkbox/SingleCheckboxType";
+import { uniqueId } from "lodash";
 
 const defaultProps = {
     recipientTypeMapping: [
@@ -20,43 +22,43 @@ const defaultProps = {
         {
             id: 'recipient-minority-owned-business',
             name: 'Minority Owned Business',
-            filters: recipientTypeGroups.minority_owned_business
+            filters: recipientTypeGroups.category_minority_owned_business
         },
         {
             id: 'recipient-women-owned-business',
             name: 'Women Owned Business',
-            filters: recipientTypeGroups.woman_owned_business
+            filters: recipientTypeGroups.category_woman_owned_business
         },
         {
             id: 'recipient-veteran-owned-business',
             name: 'Veteran Owned Business',
-            filters: recipientTypeGroups.veteran_owned_business
+            filters: recipientTypeGroups.category_veteran_owned_business
         },
         {
             id: 'recipient-special-designations',
             name: 'Special Designations',
-            filters: recipientTypeGroups.special_designations
+            filters: recipientTypeGroups.category_special_designations
         },
         {
             id: 'recipient-nonprofit',
             name: 'Nonprofit',
-            filters: recipientTypeGroups.nonprofit
+            filters: recipientTypeGroups.category_nonprofit
         },
         {
             id: 'recipient-higher-education',
             name: 'Higher Education',
-            filters: recipientTypeGroups.higher_education
+            filters: recipientTypeGroups.category_higher_education
         },
         {
             id: 'recipient-government',
             name: 'Government',
-            filters: recipientTypeGroups.government
+            filters: recipientTypeGroups.category_government
         },
         {
             id: 'recipient-individuals',
             name: 'Individuals',
             filters: [],
-            value: recipientTypeGroups.individuals[0]
+            value: recipientTypeGroups.category_individuals
         }
     ]
 };
@@ -68,6 +70,13 @@ const propTypes = {
 };
 
 export default class RecipientType extends React.Component {
+    constructor(props) {
+        super(props);
+
+        // Bind functions
+        this.selectRecipientType = this.selectRecipientType.bind(this);
+    }
+
     componentDidUpdate(prevProps) {
         if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
             if (this.hint) {
@@ -76,17 +85,20 @@ export default class RecipientType extends React.Component {
         }
     }
 
+    selectRecipientType() {
+        console.log("here");
+    }
+
     render() {
+        console.log(this.props);
         const checkboxTypes =
             this.props.recipientTypeMapping.map((type, index) =>
-                (<PrimaryCheckboxType
-                    {...type}
-                    {...this.props}
-                    key={index}
-                    types={recipientTypes}
-                    filterType="Recipient"
-                    selectedCheckboxes={this.props.selectedTypes} />
-                )
+                (<input
+                    type="checkbox"
+                    id={`primary-checkbox-${index}`}
+                    value={`primary-checkbox-${type}`}
+                    checked={false}
+                    onChange={this.selectRecipientType} />)
             );
 
         return (
