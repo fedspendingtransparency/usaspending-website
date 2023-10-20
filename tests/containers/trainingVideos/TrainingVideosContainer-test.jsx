@@ -9,17 +9,6 @@ import React from 'react';
 import TrainingVideosContainer from "../../../src/js/containers/trainingVideos/TrainingVideosContainer";
 import { render } from "../../testResources/test-utils";
 import TrainingVideosPage from "../../../src/js/components/trainingVideos/TrainingVideosPage";
-import { array } from "prop-types";
-
-// Mock the child component, so that we can isolate functionality of the container
-jest.mock('../../../src/js/components/trainingVideos/TrainingVideosPage', () => {
-    return jest.fn(() => null)
-})
-jest.mock('../../../src/js/dataMapping/trainingVideos/playListMetadata', () => {
-    return {
-        items: metaData.items
-    }
-});
 
 const metaData = {
     items: [
@@ -32,7 +21,7 @@ const metaData = {
                 thumbnails: 'lofi girl studying'
             },
             contentDetails: {
-                duration: 'infinite',
+                duration: 'infinite'
             }
         },
         {
@@ -44,7 +33,7 @@ const metaData = {
                 thumbnails: 'synthwave boy gaming'
             },
             contentDetails: {
-                duration: 'infinite',
+                duration: 'infinite'
             }
         },
         {
@@ -56,7 +45,7 @@ const metaData = {
                 thumbnails: 'lofi girl chillin'
             },
             contentDetails: {
-                duration: 'infinite',
+                duration: 'infinite'
             }
         },
         {
@@ -68,11 +57,11 @@ const metaData = {
                 thumbnails: 'spooky lofi girl studying'
             },
             contentDetails: {
-                duration: 'october',
+                duration: 'october'
             }
         }
     ]
-}
+};
 
 const testResult = {
     featuredVideo: {
@@ -108,16 +97,23 @@ const testResult = {
             _duration: metaData.items[3].contentDetails.duration,
             thumbnails: metaData.items[3].snippet.thumbnails
         }
-    ],
-}
+    ]
+};
+
+// Mock the child component, so that we can isolate functionality of the container
+jest.mock('../../../src/js/components/trainingVideos/TrainingVideosPage', () => jest.fn(() => null));
+jest.mock('../../../src/js/dataMapping/trainingVideos/playListMetadata', () => ({
+    items: metaData.items
+}));
+
 
 describe('TrainingVideosContainer', () => {
     afterEach(() => {
         jest.clearAllMocks();
-    })
+    });
 
     it('renders container and page with mock data', () => {
-        render(<TrainingVideosContainer/>);
+        render(<TrainingVideosContainer />);
         expect(TrainingVideosPage).toHaveBeenCalledWith(testResult, {});
-    })
-})
+    });
+});
