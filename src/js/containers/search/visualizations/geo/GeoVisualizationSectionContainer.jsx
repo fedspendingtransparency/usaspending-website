@@ -42,15 +42,19 @@ const apiScopes = {
 
 const logMapLayerEvent = (layer) => {
     Analytics.event({
+        event: 'search_map_layer_event',
         category: 'Advanced Search - Map - Map Layer',
-        action: layer
+        action: layer,
+        gtm: true
     });
 };
 
 const logMapScopeEvent = (scope) => {
     Analytics.event({
+        event: 'search_map_location_type_event',
         category: 'Advanced Search - Map - Location Type',
-        action: scope
+        action: scope,
+        gtm: true
     });
 };
 

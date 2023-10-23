@@ -270,8 +270,10 @@ export const sendFieldCombinations = (events) => {
     }, []));
 
     Analytics.event({
+        event: 'search_send_all_fields',
         category: 'Advanced Search - Search Fields',
-        action: fields.sort().join('|')
+        action: fields.sort().join('|'),
+        gtm: true
     });
 };
 
