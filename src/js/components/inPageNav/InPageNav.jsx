@@ -187,7 +187,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
             <nav className="in-page-nav__wrapper" ref={navBar}>
                 {isOverflowLeft && !isMobile &&
                     <div
-                        className="in-page-nav__paginator left"
+                        className="in-page-nav__paginator"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "left")}
@@ -212,7 +212,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
                 {isOverflowRight && !isMobile &&
                     <div
-                        className="in-page-nav__paginator right"
+                        className="in-page-nav__paginator"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "right")}

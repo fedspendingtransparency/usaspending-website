@@ -1,27 +1,35 @@
 .in-page-nav__wrapper {
   display: flex;
+  align-items: center;
   flex-direction: row;
   list-style-type: none;
   max-width: 100%;
-  padding: $global-padding 0;
-  height: 34px;
+  padding: $global-padding * .5 0;
+  height: rem(34);
   background-color: $theme-color-headline-inverse;
   border-bottom: $theme-color-body-inverse 2px solid;
 
   .in-page-nav__paginator {
-    display: block;
-    width: 2.5%;
-    padding-left: $global-padding * 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem(24);
+    height: rem(24);
+    //background-color: greenyellow;
+    background-color: $theme-color-headline-inverse;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 $global-margin;
+
+    :hover {
+      background-color: $theme-color-body-inverse;
+    }
 
     svg {
       cursor: pointer;
-      width: 8px;
-      height: 18px;
+      width: rem(8);
+      height: rem(18);
       color: $theme-color-1;
-
-      :hover {
-        color: red;
-      }
     }
   }
 
@@ -29,10 +37,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 18px;
+    height: rem(18);
     font-size: $font-size-14;
-    line-height: 18px;
-    padding: 0;
+    line-height: rem(18);
+    padding: $global-padding * .5 0;
     scroll-behavior: smooth;
     margin: 0;
     overflow-x: auto;
