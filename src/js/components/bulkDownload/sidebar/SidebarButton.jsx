@@ -33,8 +33,10 @@ export default class SidebarButton extends React.Component {
 
     logExternalLink() {
         Analytics.event({
+            event: 'download_center_external_link',
             category: 'Download Center - Link',
-            action: this.props.url
+            action: this.props.url,
+            gtm: true
         });
     }
 
