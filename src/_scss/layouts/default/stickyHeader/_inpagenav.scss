@@ -15,13 +15,12 @@
     align-items: center;
     width: rem(24);
     height: rem(24);
-    //background-color: greenyellow;
     background-color: $theme-color-headline-inverse;
     border-radius: 50%;
     cursor: pointer;
     margin: 0 $global-margin;
 
-    :hover {
+    &:hover {
       background-color: $theme-color-body-inverse;
     }
 
