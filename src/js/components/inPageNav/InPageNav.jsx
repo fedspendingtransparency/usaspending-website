@@ -4,11 +4,18 @@
  **/
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from "lodash";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const InPageNav = ({ sections, jumpToSection }) => {
+const propTypes = {
+    sections: PropTypes.array,
+    activeSection: PropTypes.string,
+    jumpToSection: PropTypes.func
+};
+
+const InPageNav = ({ sections, activeSection, jumpToSection }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [ulElement, setUlElement] = useState(null);
     const [elementData, setElementData] = useState([]);
@@ -159,6 +166,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
         getInitialElements();
         window.addEventListener('resize', () => handleResize());
         return () => window.removeEventListener('resize', () => handleResize());
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -197,7 +205,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
                 <ul>
                     {sections.map((section) => (
-                        <li className="in-page-nav__element" key={`in-page-nav-li-${section.label}`}>
+                        <li className={`in-page-nav__element ${section.section === activeSection ? 'active' : ''}`} key={`in-page-nav-li-${section.label}`}>
                             <a
                                 role="button"
                                 tabIndex="0"
@@ -232,4 +240,5 @@ const InPageNav = ({ sections, jumpToSection }) => {
     );
 };
 
+InPageNav.propTypes = propTypes;
 export default InPageNav;
