@@ -4,7 +4,6 @@
  **/
 
 import React, { useEffect, useState } from 'react';
-
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -117,7 +116,6 @@ const About = () => {
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
         scrollToY(sectionTop + 15, 700);
     };
-
 
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
