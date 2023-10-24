@@ -498,6 +498,7 @@ export default class MapWrapper extends React.Component {
             changeMapLayer,
             className
         } = this.props;
+        console.log("map scope", scope);
         if (showLayerToggle && availableLayers.length > 1) {
             return (<MapLayerToggle
                 active={scope}
@@ -519,7 +520,9 @@ export default class MapWrapper extends React.Component {
                 units={spendingScale.units}
                 mapLegendToggleData={mapLegendToggleData}
                 updateMapLegendToggle={updateMapLegendToggle}
-                mapLegendToggle={mapLegendToggle} />
+                mapLegendToggle={mapLegendToggle}
+                scope={this.props.scope}
+            />
         );
     };
 
