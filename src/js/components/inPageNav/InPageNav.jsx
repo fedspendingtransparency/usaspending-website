@@ -174,7 +174,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
 
-
     useEffect(() => {
         checkIsOverflowHidden();
         ulElement?.addEventListener('scrollend', (e) => handleScroll(e));

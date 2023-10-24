@@ -1,10 +1,10 @@
 .in-page-nav__wrapper {
+  position: sticky;
   display: flex;
   align-items: center;
   flex-direction: row;
   list-style-type: none;
   max-width: 100%;
-  padding: $global-padding * .5 0;
   height: rem(34);
   background-color: $theme-color-headline-inverse;
   border-bottom: $theme-color-body-inverse 2px solid;
@@ -35,11 +35,9 @@
   ul {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: rem(18);
+    height: 100%;
     font-size: $font-size-14;
     line-height: rem(18);
-    padding: $global-padding * .5 0;
     scroll-behavior: smooth;
     margin: 0;
     overflow-x: auto;
@@ -67,6 +65,12 @@
     display: inline;
     cursor: pointer;
     margin: 0 $global-margin * 4 0 0;
+    padding-top: rem(6);
+    height: 100%;
+
+    &.active {
+      border-bottom: $theme-color-3 2px solid;
+    }
 
     a {
       color: $theme-color-headline;
