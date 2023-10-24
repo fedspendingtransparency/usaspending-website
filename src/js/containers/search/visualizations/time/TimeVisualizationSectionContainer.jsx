@@ -35,8 +35,10 @@ const propTypes = {
 
 const logPeriodEvent = (period) => {
     Analytics.event({
+        event: 'search_time_period_event',
         category: 'Advanced Search - Time - Period',
-        action: period
+        action: period,
+        gtm: true
     });
 };
 

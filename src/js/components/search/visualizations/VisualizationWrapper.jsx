@@ -58,8 +58,10 @@ const VisualizationWrapper = (props) => {
             if (_mounted) {
                 const activeLabel = tabOptions.find((el) => el.code === tab).label;
                 Analytics.event({
+                    event: 'search_visualization_type',
                     category: 'Advanced Search - Visualization Type',
-                    action: activeLabel
+                    action: activeLabel,
+                    gtm: true
                 });
             }
         }, 15 * 1000);
