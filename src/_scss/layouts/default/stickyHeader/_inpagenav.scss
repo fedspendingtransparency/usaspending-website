@@ -1,5 +1,6 @@
 .in-page-nav__wrapper {
   position: sticky;
+  top: 60px;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -50,7 +51,9 @@
     scrollbar-width: none;
 
     @media (max-width: 991px) {
-      display: block;
+      display: flex;
+      align-items: center;
+      margin: 0 $global-margin * 3;
       width: 100%;
       overflow-x: auto;
       overflow-y: hidden;
