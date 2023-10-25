@@ -69,6 +69,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             },
             visibleEntities: [],
             renderHash: `geo-${uniqueId()}`,
+            country_USA_data: {},
             loading: true,
             loadingTiles: true,
             error: false
@@ -249,17 +250,44 @@ export class GeoVisualizationSectionContainer extends React.Component {
         const addUSTerritories = (results) => {
             const prohibitedCountryCodes = ['ASM', 'FSM', 'GUM', 'MHL', 'MNP', 'PLW', 'PRI', 'VIR', 'XBK', 'XHO', 'XJA', 'XJV', 'XKR', 'XMW', 'XNV', 'XPL', 'XWK'];
             const filteredArray = apiParams.geo_layer_filters.filter((value) => prohibitedCountryCodes.includes(value));
-            const usaAmount = results.find((value) => value.shape_code === 'USA');
+            let usaData = this.state.country_USA_data?.length > 0 ? this.state.country_USA_data : results.find((value) => value.shape_code === 'USA');
 
-            filteredArray.forEach((value) => {
-                results.push({
-                    shape_code: value,
-                    display_name: usaAmount.display_name,
-                    aggregated_amount: usaAmount.aggregated_amount,
-                    population: null,
-                    per_capita: null
+            if (!usaData) {
+                const tempApiParams = {
+                    scope: this.state.scope,
+                    geo_layer: 'country',
+                    geo_layer_filters: ['USA'],
+                    filters: searchParams,
+                    subawards: this.props.subaward,
+                    auditTrail: 'Map Visualization'
+                };
+
+                SearchHelper.performSpendingByGeographySearch(tempApiParams);
+                this.apiRequest.promise.then((res) => {
+                    this.apiRequest = null;
+                    usaData = res.data.results;
+                    filteredArray.forEach((value) => {
+                        results.push({
+                            shape_code: value,
+                            display_name: usaData.display_name,
+                            aggregated_amount: usaData.aggregated_amount,
+                            population: null,
+                            per_capita: null
+                        });
+                    });
+                })
+                    .catch((err) => {
+                        if (!isCancel(err)) {
+                            console.log(err);
+                            this.apiRequest = null;
+                        }
+                    });
+            }
+            else {
+                this.setState({
+                    country_USA_data: usaData
                 });
-            });
+            }
 
             return results;
         };
