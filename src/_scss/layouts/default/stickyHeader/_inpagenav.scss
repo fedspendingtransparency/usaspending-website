@@ -21,7 +21,7 @@
     cursor: pointer;
     margin: 0 $global-margin;
 
-    &:hover {
+    &:hover, &:focus {
       background-color: $theme-color-body-inverse;
     }
 
@@ -30,6 +30,10 @@
       width: rem(8);
       height: rem(18);
       color: $theme-color-1;
+
+      &:hover {
+        color: $blue-vivid-70;
+      }
     }
   }
 
@@ -105,6 +109,7 @@
     height: 100%;
 
     &.active {
+      font-weight: $font-semibold;
       border-bottom: $theme-color-3 2px solid;
     }
 
