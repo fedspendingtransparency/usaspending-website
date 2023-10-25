@@ -190,11 +190,11 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
     }, [ulElement]);
 
     return (
-        <>
+        <div className="in-page-nav__container">
             <nav className="in-page-nav__wrapper" ref={navBar}>
                 {isOverflowLeft && !isMobile &&
                     <div
-                        className="in-page-nav__paginator"
+                        className="in-page-nav__paginator left"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "left")}
@@ -219,7 +219,7 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
 
                 {isOverflowRight && !isMobile &&
                     <div
-                        className="in-page-nav__paginator"
+                        className="in-page-nav__paginator right"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "right")}
@@ -236,7 +236,7 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
                     <br />UIElement Scrollwidth: {ulElement?.scrollWidth}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
