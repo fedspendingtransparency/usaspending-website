@@ -245,11 +245,31 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.props.setAppliedFilterCompletion(false);
 
+        // FABS prohibits the following US territories or freely associated states from being submitted using their GENC code.  They should be submitted using the country code "USA"
+        const addUSTerritories = (results) => {
+            const prohibitedCountryCodes = ['ASM', 'FSM', 'GUM', 'MHL', 'MNP', 'PLW', 'PRI', 'VIR', 'XBK', 'XHO', 'XJA', 'XJV', 'XKR', 'XMW', 'XNV', 'XPL', 'XWK'];
+            const filteredArray = apiParams.geo_layer_filters.filter((value) => prohibitedCountryCodes.includes(value));
+            const usaAmount = results.find((value) => value.shape_code === 'USA');
+
+            filteredArray.forEach((value) => {
+                results.push({
+                    shape_code: value,
+                    display_name: usaAmount.display_name,
+                    aggregated_amount: usaAmount.aggregated_amount,
+                    population: null,
+                    per_capita: null
+                });
+            });
+
+            return results;
+        };
+
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.apiRequest = null;
-                this.setState({ rawAPIData: res.data.results }, this.parseData);
+                const allGENCCodes = apiParams.geo_layer === "country" ? addUSTerritories(res.data.results) : res.data.results;
+                this.setState({ rawAPIData: allGENCCodes }, this.parseData);
             })
             .catch((err) => {
                 if (!isCancel(err)) {

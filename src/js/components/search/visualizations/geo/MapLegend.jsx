@@ -105,6 +105,10 @@ export default class MapLegend extends React.Component {
         this.props.updateMapLegendToggle(e.target.value);
     };
 
+    resetToggle = () => {
+        this.props.updateMapLegendToggle('totalSpending');
+    };
+
     render() {
         return (
             <div className="map-legend">
@@ -112,6 +116,7 @@ export default class MapLegend extends React.Component {
                     mapLegendToggleData={this.props.mapLegendToggleData}
                     mapLegendToggle={this.props.mapLegendToggle}
                     updateToggle={this.updateToggle}
+                    resetToggle={this.resetToggle}
                     mapType={this.props.scope} />
                 <ul className="map-legend-body">
                     {this.state.items}

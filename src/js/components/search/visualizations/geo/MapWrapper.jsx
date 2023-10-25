@@ -59,9 +59,9 @@ const mapLegendToggleData = [
 const mapboxSources = {
     country: {
         label: 'country',
-        url: 'mapbox://mapbox.country-boundaries-v1',
-        layer: 'country_boundaries',
-        filterKey: 'iso_3166_1_alpha_3' // three digit country code
+        url: 'mapbox://usaspending.9t5zlf5z',
+        layer: 'Countries-shp-9bdce0',
+        filterKey: 'GENC0' // three digit country code
     },
     state: {
         label: 'state',
@@ -366,8 +366,8 @@ export default class MapWrapper extends React.Component {
             entity.properties[source.filterKey]
         ));
 
-        // remove the duplicates values and pass them to the parent
-        const uniqueEntities = uniq(visibleEntities);
+        // remove the duplicates values and pass them to the parent, remove null values also
+        const uniqueEntities = uniq(visibleEntities).filter((n) => n);
 
         MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
     }
@@ -433,6 +433,7 @@ export default class MapWrapper extends React.Component {
         }
 
         const source = mapboxSources[this.props.scope];
+
         // calculate the range of data
         const scale = MapHelper.calculateRange(this.props.data.values);
         const colors = MapHelper.visualizationColors;
@@ -498,7 +499,6 @@ export default class MapWrapper extends React.Component {
             changeMapLayer,
             className
         } = this.props;
-        console.log("map scope", scope);
         if (showLayerToggle && availableLayers.length > 1) {
             return (<MapLayerToggle
                 active={scope}
@@ -511,7 +511,9 @@ export default class MapWrapper extends React.Component {
     };
 
     legend = () => {
-        const { stateProfile, updateMapLegendToggle, mapLegendToggle } = this.props;
+        const {
+            stateProfile, updateMapLegendToggle, mapLegendToggle, scope
+        } = this.props;
         const { spendingScale } = this.state;
         if (stateProfile) return null; // no legend for state profile pages
         return (
@@ -521,8 +523,7 @@ export default class MapWrapper extends React.Component {
                 mapLegendToggleData={mapLegendToggleData}
                 updateMapLegendToggle={updateMapLegendToggle}
                 mapLegendToggle={mapLegendToggle}
-                scope={this.props.scope}
-            />
+                scope={scope} />
         );
     };
 
@@ -537,6 +538,7 @@ export default class MapWrapper extends React.Component {
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
+                    mapType={this.props.scope}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
