@@ -298,13 +298,15 @@ const ResultsTableContainer = (props) => {
                 direction
             };
         }
-        setTableType(tab);
-        if (newState.sort) {
-            setSort(Object.assign(sort, newState.sort));
-        }
-        Analytics.event({
-            category: 'Advanced Search - Table Tab',
-            action: tab
+
+        this.setState(newState, () => {
+            this.performSearch(true);
+            Analytics.event({
+                event: 'search_table_tab',
+                category: 'Advanced Search - Table Tab',
+                action: tab,
+                gtm: true
+            });
         });
     };
 
@@ -411,17 +413,21 @@ const ResultsTableContainer = (props) => {
 
     const awardIdClick = (id) => {
         Analytics.event({
+            event: 'search_award_click',
             category: 'Advanced Search - Spending by Prime Award',
             action: `Clicked ${id}`,
-            label: new URLSearchParams(location.search).get('hash')
+            label: new URLSearchParams(this.props.location.search).get('hash'),
+            gtm: true
         });
     };
 
     const subAwardIdClick = (id) => {
         Analytics.event({
+            event: 'search_subaward_click',
             category: 'Advanced Search - Link',
             action: 'Subaward ID Clicked',
-            label: id
+            label: id,
+            gtm: true
         });
         props.subAwardIdClicked(true);
     };
