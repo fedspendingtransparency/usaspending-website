@@ -447,7 +447,7 @@ const ResultsTableContainer = (props) => {
             updateSort();
             performSearch(true);
         }
-    }, [tableType, props.subaward, sort, updateSort, performSearch]);
+    }, [tableType, props.subaward, sort]);
 
     useEffect(throttle(() => {
         loadColumns();
