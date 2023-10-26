@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -298,15 +298,15 @@ const ResultsTableContainer = (props) => {
                 direction
             };
         }
-
-        this.setState(newState, () => {
-            this.performSearch(true);
-            Analytics.event({
-                event: 'search_table_tab',
-                category: 'Advanced Search - Table Tab',
-                action: tab,
-                gtm: true
-            });
+        setTableType(tab);
+        if (newState.sort) {
+            setSort(Object.assign(sort, newState.sort));
+        }
+        Analytics.event({
+            event: 'search_table_tab',
+            category: 'Advanced Search - Table Tab',
+            action: tab,
+            gtm: true
         });
     };
 
@@ -394,7 +394,7 @@ const ResultsTableContainer = (props) => {
         }
     };
 
-    const updateSort = (field, direction) => {
+    const updateSort = useCallback((field, direction) => {
         if (field === 'Action Date') {
             setSort(Object.assign(sort, {
                 field: 'Sub-Award Date',
@@ -409,14 +409,14 @@ const ResultsTableContainer = (props) => {
             }));
             performSearch(true);
         }
-    };
+    });
 
     const awardIdClick = (id) => {
         Analytics.event({
             event: 'search_award_click',
             category: 'Advanced Search - Spending by Prime Award',
             action: `Clicked ${id}`,
-            label: new URLSearchParams(this.props.location.search).get('hash'),
+            label: new URLSearchParams(location.search).get('hash'),
             gtm: true
         });
     };
@@ -442,11 +442,12 @@ const ResultsTableContainer = (props) => {
     useEffect(() => {
         if (initialRender.current) {
             initialRender.current = false;
-        } else {
+        }
+        else {
             updateSort();
             performSearch(true);
         }
-    }, [tableType, props.subaward, sort]);
+    }, [tableType, props.subaward, sort, updateSort, performSearch]);
 
     useEffect(throttle(() => {
         loadColumns();
