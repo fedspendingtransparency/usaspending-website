@@ -126,31 +126,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
-    // fetchUSACountryData(searchParams) {
-    //     const tempApiParams = {
-    //         scope: this.state.scope,
-    //         geo_layer: apiScopes.country,
-    //         geo_layer_filters: ['USA'],
-    //         filters: searchParams,
-    //         subawards: this.props.subaward,
-    //         auditTrail: 'Map Visualization'
-    //     };
-    //
-    //     this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempApiParams);
-    //     this.apiRequest.promise.then((res) => {
-    //         this.apiRequest = null;
-    //         this.setState({
-    //             country_USA_data: res.data.results
-    //         });
-    //     })
-    //         .catch((err) => {
-    //             if (!isCancel(err)) {
-    //                 console.log(err);
-    //                 this.apiRequest = null;
-    //             }
-    //         });
-    // }
-
     updateMapLegendToggle = (value) => {
         this.props.updateMapLegendToggle(value);
     };
