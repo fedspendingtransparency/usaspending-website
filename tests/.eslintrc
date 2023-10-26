@@ -54,7 +54,7 @@
         // allow binding in React props because we don't have autobind in ES6
         "react/jsx-no-bind": [0],
         // warn instead of erroring on hash links
-        "jsx-a11y/href-no-hash": [1],
+        "jsx-a11y/href-no-hash": [0],
         // downgrading export default preference to warning, since we may add additional exports
         // to files in the future
         "import/prefer-default-export": [1],
@@ -77,6 +77,7 @@
             }
         ],
         // allow global require for tests
-        "global-require": [0]
+        "global-require": [0],
+        "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
     }
 }

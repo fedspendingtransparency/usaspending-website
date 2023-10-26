@@ -31,30 +31,27 @@ const Analytics = {
         if (!args.category || !args.action) {
             return;
         }
-        if (kGlobalConstants.QAT) {
+        if (args.gtm) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
-                event: 'event',
-                eventProps: {
-                    category: `${this._prefix}${args.category}`,
-                    action: args.action,
-                    label: args.label || undefined,
-                    value: args.value || undefined,
-                    nonInteraction: args.nonInteraction || undefined
-                }
+                event: args.event || 'event',
+                event_category: `${this._prefix}${args.category}`,
+                event_action: args.action,
+                event_label: args.label || undefined,
+                event_value: args.value || undefined,
+                event_nonInteraction: args.nonInteraction || undefined
             });
         }
-        else {
-            this._execute(
-                'send',
-                'event',
-                `${this._prefix}${args.category}`,
-                args.action,
-                args.label || undefined,
-                args.value || undefined,
-                args.nonInteraction || undefined
-            );
-        }
+
+        this._execute(
+            'send',
+            'event',
+            `${this._prefix}${args.category}`,
+            args.action,
+            args.label || undefined,
+            args.value || undefined,
+            args.nonInteraction || undefined
+        );
     },
     pageview(pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics) {
         if (kGlobalConstants.QAT) {
