@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-import { Map } from 'immutable';
 import { Entry } from 'redux/reducers/aboutTheDataSidebar/aboutTheDataReducer';
 
 export const standardTerm = new Entry({
@@ -25,22 +24,26 @@ export const mockData = {
         name: 'File A - Full file A description',
         slug: 'file-a'
     }),
+    termFromUrl: new Entry({
+        name: 'File A - Full file A description',
+        slug: 'file-a'
+    }),
     search: {
         input: 'file',
         results: [{
             description: {
                 fields: [{
-                        name: 'File A - Full file A description',
-                        slug: 'file-a'
-                    },
-                    {
-                        name: 'File B - Full description',
-                        slug: 'file-b'
-                    },
-                    {
-                        name: 'File C - Full description',
-                        slug: 'file-c'
-                    }
+                    name: 'File A - Full file A description',
+                    slug: 'file-a'
+                },
+                {
+                    name: 'File B - Full description',
+                    slug: 'file-b'
+                },
+                {
+                    name: 'File C - Full description',
+                    slug: 'file-c'
+                }
                 ],
                 heading: "Sitewide Data Source Descriptions"
             }

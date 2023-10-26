@@ -43,5 +43,6 @@ module.exports = {
     },
     transformIgnorePatterns: [
         "node_modules/(?!(data-transparency-ui))"],
-    modulePaths: ["<rootDir>/tests/testResources", "<rootDir>/src/js"]
+    modulePaths: ["<rootDir>/tests/testResources", "<rootDir>/src/js"],
+    moduleFileExtensions: ['js', 'jsx', 'json', 'md', 'mdx']
 };
