@@ -366,6 +366,13 @@ export default class MapWrapper extends React.Component {
             entity.properties[source.filterKey]
         ));
 
+        // prepend USA to account for prohibited country codes
+        const filteredArray = visibleEntities.filter((value) => this.props.prohibitedCountryCodes?.includes(value));
+
+        if (filteredArray?.length > 0) {
+            visibleEntities.push('USA');
+        }
+
         // remove the duplicates values and pass them to the parent, remove null values also
         const uniqueEntities = uniq(visibleEntities).filter((n) => n);
 

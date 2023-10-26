@@ -314,7 +314,8 @@ export default class GeoVisualizationSection extends React.Component {
                     center={[-95.569430, 38.852892]}
                     className={this.props.className}
                     mapLegendToggle={this.props.mapLegendToggle}
-                    updateMapLegendToggle={this.props.updateMapLegendToggle}>
+                    updateMapLegendToggle={this.props.updateMapLegendToggle}
+                    prohibitedCountryCodes={this.props.prohibitedCountryCodes} >
                     {disclaimer}
                     {message}
                 </MapWrapper>

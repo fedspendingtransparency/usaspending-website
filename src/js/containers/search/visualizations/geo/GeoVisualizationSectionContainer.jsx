@@ -55,6 +55,9 @@ const logMapScopeEvent = (scope) => {
     });
 };
 
+// FABS prohibits the following US territories or freely associated states from being submitted using their GENC code.  They should be submitted using the country code "USA"
+const prohibitedCountryCodes = ['ASM', 'FSM', 'GUM', 'MHL', 'MNP', 'PLW', 'PRI', 'VIR', 'XBK', 'XHO', 'XJA', 'XJV', 'XKR', 'XMW', 'XNV', 'XPL', 'XWK'];
+
 export class GeoVisualizationSectionContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -69,7 +72,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             },
             visibleEntities: [],
             renderHash: `geo-${uniqueId()}`,
-            country_USA_data: {},
+            country_USA_data: null,
             loading: true,
             loadingTiles: true,
             error: false
@@ -118,6 +121,31 @@ export class GeoVisualizationSectionContainer extends React.Component {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
     }
+
+    // fetchUSACountryData(searchParams) {
+    //     const tempApiParams = {
+    //         scope: this.state.scope,
+    //         geo_layer: apiScopes.country,
+    //         geo_layer_filters: ['USA'],
+    //         filters: searchParams,
+    //         subawards: this.props.subaward,
+    //         auditTrail: 'Map Visualization'
+    //     };
+    //
+    //     this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempApiParams);
+    //     this.apiRequest.promise.then((res) => {
+    //         this.apiRequest = null;
+    //         this.setState({
+    //             country_USA_data: res.data.results
+    //         });
+    //     })
+    //         .catch((err) => {
+    //             if (!isCancel(err)) {
+    //                 console.log(err);
+    //                 this.apiRequest = null;
+    //             }
+    //         });
+    // }
 
     updateMapLegendToggle = (value) => {
         this.props.updateMapLegendToggle(value);
@@ -244,54 +272,27 @@ export class GeoVisualizationSectionContainer extends React.Component {
             error: false
         });
 
-        this.props.setAppliedFilterCompletion(false);
-
-        // FABS prohibits the following US territories or freely associated states from being submitted using their GENC code.  They should be submitted using the country code "USA"
         const addUSTerritories = (results) => {
-            const prohibitedCountryCodes = ['ASM', 'FSM', 'GUM', 'MHL', 'MNP', 'PLW', 'PRI', 'VIR', 'XBK', 'XHO', 'XJA', 'XJV', 'XKR', 'XMW', 'XNV', 'XPL', 'XWK'];
             const filteredArray = apiParams.geo_layer_filters.filter((value) => prohibitedCountryCodes.includes(value));
-            let usaData = this.state.country_USA_data?.length > 0 ? this.state.country_USA_data : results.find((value) => value.shape_code === 'USA');
+            const usaData = results.find((value) => value.shape_code === 'USA');
 
-            if (!usaData) {
-                const tempApiParams = {
-                    scope: this.state.scope,
-                    geo_layer: 'country',
-                    geo_layer_filters: ['USA'],
-                    filters: searchParams,
-                    subawards: this.props.subaward,
-                    auditTrail: 'Map Visualization'
-                };
-
-                SearchHelper.performSpendingByGeographySearch(tempApiParams);
-                this.apiRequest.promise.then((res) => {
-                    this.apiRequest = null;
-                    usaData = res.data.results;
-                    filteredArray.forEach((value) => {
-                        results.push({
-                            shape_code: value,
-                            display_name: usaData.display_name,
-                            aggregated_amount: usaData.aggregated_amount,
-                            population: null,
-                            per_capita: null
-                        });
+            if (usaData) {
+                filteredArray.forEach((value) => {
+                    results.push({
+                        shape_code: value,
+                        display_name: usaData.display_name,
+                        aggregated_amount: usaData.aggregated_amount,
+                        per_capita: usaData.per_capita,
+                        population: usaData.population
                     });
-                })
-                    .catch((err) => {
-                        if (!isCancel(err)) {
-                            console.log(err);
-                            this.apiRequest = null;
-                        }
-                    });
-            }
-            else {
-                this.setState({
-                    country_USA_data: usaData
                 });
             }
 
             return results;
         };
 
+
+        this.props.setAppliedFilterCompletion(false);
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
@@ -383,7 +384,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 mapLegendToggle={this.props.mapLegendToggle}
                 subaward={this.props.subaward}
                 isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                className={this.props.className} />
+                className={this.props.className}
+                prohibitedCountryCodes={prohibitedCountryCodes} />
         );
     }
 }
