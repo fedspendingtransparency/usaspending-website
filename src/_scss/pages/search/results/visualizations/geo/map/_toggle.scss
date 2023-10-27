@@ -57,12 +57,12 @@
             line-height: rem(18);
             padding: 0;
             border-bottom: rem(4) solid $color-white;
-            max-width: rem(134);
+            max-width: rem(180);
 
             &.active, &:hover, &:active {
                 font-weight: $font-bold;
                 border-bottom: rem(4) solid $color-primary-darker;
-                max-width: rem(142);
+                max-width: rem(200);
 
             }
 
@@ -117,12 +117,12 @@
                 .tooltip-spacer {
                     width: 316px !important;
                     @media (max-width: 767px) {
-                        top: rem(80) !important;
+                        top: rem(110) !important;
                         left: rem(-30) !important;
                     }
-                    @media ((min-width: $tablet-screen) and (max-width: $medium-screen)) {
-                        top: rem(48) !important;
-                        left: rem(-30) !important;
+                    @media ((min-width: $tablet-screen) and (max-width: $large-screen)) {
+                        top: rem(32) !important;
+                        left: rem(343) !important;
 
                         .tooltip-pointer {
                             transform: rotate(90deg);
@@ -131,6 +131,10 @@
                             top: rem(-7) !important;
                             left: 29.2rem !important;
                         }
+                    }
+                    @media (min-device-width: $large-screen) {
+                        top: rem(32) !important;
+                        left: rem(373) !important;
                     }
                 }
             }
