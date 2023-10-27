@@ -57,6 +57,12 @@ const mapLegendToggleData = [
 ];
 
 const mapboxSources = {
+    country: {
+        label: 'country',
+        url: 'mapbox://usaspending.9t5zlf5z',
+        layer: 'Countries-shp-9bdce0',
+        filterKey: 'GENC0' // three digit country code
+    },
     state: {
         label: 'state',
         url: 'mapbox://usaspending.9cse49bi',
@@ -360,8 +366,17 @@ export default class MapWrapper extends React.Component {
             entity.properties[source.filterKey]
         ));
 
-        // remove the duplicates values and pass them to the parent
-        const uniqueEntities = uniq(visibleEntities);
+        if (this.props.scope === 'country') {
+            // prepend USA to account for prohibited country codes
+            const filteredArray = visibleEntities.filter((value) => this.props.prohibitedCountryCodes?.includes(value));
+
+            if (filteredArray?.length > 0) {
+                visibleEntities.push('USA');
+            }
+        }
+
+        // remove the duplicates values and pass them to the parent, remove null values also
+        const uniqueEntities = uniq(visibleEntities).filter((n) => n);
 
         MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
     }
@@ -427,6 +442,7 @@ export default class MapWrapper extends React.Component {
         }
 
         const source = mapboxSources[this.props.scope];
+
         // calculate the range of data
         const scale = MapHelper.calculateRange(this.props.data.values);
         const colors = MapHelper.visualizationColors;
@@ -473,7 +489,14 @@ export default class MapWrapper extends React.Component {
     };
 
     tooltip = () => {
-        const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
+        const {
+            tooltip: TooltipComponent, selectedItem, showHover, scope
+        } = this.props;
+        if (scope === "country" && selectedItem.label === "United States") {
+            selectedItem.label += " and Territories";
+        }
+
+        console.log(selectedItem);
         if (showHover) {
             return (
                 <TooltipComponent
@@ -504,7 +527,9 @@ export default class MapWrapper extends React.Component {
     };
 
     legend = () => {
-        const { stateProfile, updateMapLegendToggle, mapLegendToggle } = this.props;
+        const {
+            stateProfile, updateMapLegendToggle, mapLegendToggle, scope
+        } = this.props;
         const { spendingScale } = this.state;
         if (stateProfile) return null; // no legend for state profile pages
         return (
@@ -513,7 +538,8 @@ export default class MapWrapper extends React.Component {
                 units={spendingScale.units}
                 mapLegendToggleData={mapLegendToggleData}
                 updateMapLegendToggle={updateMapLegendToggle}
-                mapLegendToggle={mapLegendToggle} />
+                mapLegendToggle={mapLegendToggle}
+                scope={scope} />
         );
     };
 
@@ -528,6 +554,7 @@ export default class MapWrapper extends React.Component {
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
+                    mapType={this.props.scope}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />

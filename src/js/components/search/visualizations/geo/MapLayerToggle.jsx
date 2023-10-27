@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { CondensedCDTooltip } from '../../../award/shared/InfoTooltipContent';
-import { tabletScreen, xLargeScreen } from '../../../../dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
     active: PropTypes.string,
@@ -30,20 +29,24 @@ const MapLayerToggle = (props) => {
 
     const items = props.available.map((layer) => {
         let tempLabel = '';
-        if (props.sources[layer].label === 'county') {
-            tempLabel = 'counties';
+        if (props.sources[layer].label === 'country') {
+            tempLabel = 'countries';
+        }
+        else if (props.sources[layer].label === 'county') {
+            tempLabel = 'U.S. counties';
         }
         else if (props.sources[layer].label === 'state') {
-            tempLabel = 'states';
+            tempLabel = 'U.S. states & territories';
         }
         else {
-            tempLabel = 'Congressional Districts';
+            tempLabel = 'U.S. Congressional Districts';
         }
         const title = capitalizeLabel(tempLabel);
         let active = '';
         if (props.active === layer) {
             active = 'active';
         }
+
         return (
             <li
                 key={layer}>
@@ -56,12 +59,12 @@ const MapLayerToggle = (props) => {
                     value={layer}>
                     {title}
                 </button>
-                {title === "Congressional Districts" ?
+                {title === "U.S. Congressional Districts" ?
                     <div className="map-layer__cd-tooltip">
                         <TooltipWrapper
                             icon="info"
                             className={props.className}
-                            tooltipPosition={(window.innerWidth >= tabletScreen && window.innerWidth <= xLargeScreen) ? 'left' : 'right'}
+                            tooltipPosition="bottom"
                             tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
                     </div>
                     : null}
