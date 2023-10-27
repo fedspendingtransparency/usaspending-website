@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -18,7 +17,6 @@ import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
-import MapDisclaimer from './MapDisclaimer';
 import MapMessage from './MapMessage';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../sharedComponents/ReadMore';
@@ -49,7 +47,6 @@ export default class GeoVisualizationSection extends React.Component {
 
         this.state = {
             showHover: false,
-            showDisclaimer: false,
             selectedItem: {},
             tableBody: "",
             tableTitle: "",
@@ -59,18 +56,11 @@ export default class GeoVisualizationSection extends React.Component {
         this.className = "";
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
-        this.closeDisclaimer = this.closeDisclaimer.bind(this);
         this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
         this.handleUpdateBody = this.handleUpdateBody.bind(this);
     }
 
     componentDidMount() {
-        // check if the disclaimer cookie exists
-        if (!Cookies.get('usaspending_search_map_disclaimer')) {
-            // cookie does not exist, show the disclaimer
-            this.showDisclaimer();
-        }
-
         this.handleUpdateTitle();
         this.handleUpdateBody();
     }
@@ -86,7 +76,6 @@ export default class GeoVisualizationSection extends React.Component {
             this.handleUpdateBody();
         }
     }
-    showDisclaimer = () => this.setState({ showDisclaimer: true });
 
     showTooltip(geoId, position) {
         // convert state code to full string name
@@ -110,13 +99,6 @@ export default class GeoVisualizationSection extends React.Component {
         });
     }
 
-    closeDisclaimer() {
-        // set a cookie to hide the disclaimer in the future
-        Cookies.set('usaspending_search_map_disclaimer', 'hide', { expires: 730 });
-        this.setState({
-            showDisclaimer: false
-        });
-    }
     handleUpdateTitle() {
         const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
         const primeAwardTitle = "Spending by Geography";
@@ -177,12 +159,6 @@ export default class GeoVisualizationSection extends React.Component {
                     <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
                 </div>
             );
-        }
-
-        let disclaimer = null;
-        if (this.state.showDisclaimer) {
-            disclaimer = (<MapDisclaimer
-                closeDisclaimer={this.closeDisclaimer} />);
         }
 
         let message = null;
@@ -316,7 +292,6 @@ export default class GeoVisualizationSection extends React.Component {
                     mapLegendToggle={this.props.mapLegendToggle}
                     updateMapLegendToggle={this.props.updateMapLegendToggle}
                     prohibitedCountryCodes={this.props.prohibitedCountryCodes} >
-                    {disclaimer}
                     {message}
                 </MapWrapper>
                 <Note message={noteMessage} />
