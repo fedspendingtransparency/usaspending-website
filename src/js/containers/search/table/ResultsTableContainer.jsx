@@ -447,7 +447,7 @@ const ResultsTableContainer = (props) => {
             updateSort();
             performSearch(true);
         }
-    }, [tableType, props.subaward, sort]);
+    }, [props.subaward]);
 
     useEffect(throttle(() => {
         loadColumns();
@@ -473,7 +473,7 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 350), [props.subaward, page, props.noApplied, location]);
+    }, 350), [props.subaward, page, props.noApplied, location, tableType]);
 
     if (!columns[tableType]) {
         return null;
