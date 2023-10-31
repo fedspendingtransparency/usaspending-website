@@ -9,10 +9,23 @@ const propTypes = {
         value: PropTypes.string
     })),
     mapLegendToggle: PropTypes.string,
-    updateToggle: PropTypes.func
+    updateToggle: PropTypes.func,
+    mapType: PropTypes.string,
+    resetToggle: PropTypes.func
 };
 
-const MapLegendHeader = ({ mapLegendToggleData, mapLegendToggle, updateToggle }) => {
+const MapLegendHeader = ({
+    mapLegendToggleData, mapLegendToggle, updateToggle, mapType, resetToggle
+}) => {
+    const isChecked = (value) => {
+        if (mapType === 'country') {
+            if (mapLegendToggle === 'totalSpending' && value === 'totalSpending') return true;
+            resetToggle();
+            return false;
+        }
+        return value === mapLegendToggle;
+    };
+
     const headerToggle = () => {
         if (!mapLegendToggleData) return null;
 
@@ -25,8 +38,9 @@ const MapLegendHeader = ({ mapLegendToggleData, mapLegendToggle, updateToggle })
                     <input
                         type="radio"
                         id={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}
+                        disabled={mapType === 'country' && toggleButtonData.value === 'perCapita'}
                         value={toggleButtonData.value}
-                        checked={toggleButtonData.value === mapLegendToggle}
+                        checked={isChecked(toggleButtonData.value)}
                         onChange={updateToggle} />
                     {toggleButtonData.title}
                 </label>

@@ -24,8 +24,10 @@ export default class SubawardToggle extends React.Component {
         this.props.setSearchViewSubaward(newValue);
         if (newValue) {
             Analytics.event({
+                event: 'search_subaward_toggle',
                 category: 'Advanced Search - Search Fields',
-                action: 'Subawards Search'
+                action: 'Subawards Search',
+                gtm: true
             });
         }
     }

@@ -136,9 +136,11 @@ export class DownloadBottomBarContainer extends React.Component {
         // send an analytic event of action download type and label value with all the filter
         // field names
         Analytics.event({
+            event: 'advanced_search_download',
             category: 'Advanced Search - Download',
             action: this.props.download.type,
-            label: uniqueFilterFields(filters)
+            label: uniqueFilterFields(filters),
+            gtm: true
         });
     }
 

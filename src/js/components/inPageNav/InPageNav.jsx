@@ -4,11 +4,18 @@
  **/
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from "lodash";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const InPageNav = ({ sections, jumpToSection }) => {
+const propTypes = {
+    sections: PropTypes.array,
+    activeSection: PropTypes.string,
+    jumpToSection: PropTypes.func
+};
+
+const InPageNav = ({ sections, activeSection, jumpToSection }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [ulElement, setUlElement] = useState(null);
     const [elementData, setElementData] = useState([]);
@@ -159,6 +166,7 @@ const InPageNav = ({ sections, jumpToSection }) => {
         getInitialElements();
         window.addEventListener('resize', () => handleResize());
         return () => window.removeEventListener('resize', () => handleResize());
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -174,7 +182,6 @@ const InPageNav = ({ sections, jumpToSection }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
 
-
     useEffect(() => {
         checkIsOverflowHidden();
         ulElement?.addEventListener('scrollend', (e) => handleScroll(e));
@@ -183,11 +190,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
     }, [ulElement]);
 
     return (
-        <>
+        <div className="in-page-nav__container">
             <nav className="in-page-nav__wrapper" ref={navBar}>
                 {isOverflowLeft && !isMobile &&
                     <div
-                        className="in-page-nav__paginator in-page-nav__paginator-left"
+                        className="in-page-nav__paginator left"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "left")}
@@ -198,20 +205,21 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
                 <ul>
                     {sections.map((section) => (
-                        <li className="in-page-nav__element" key={`in-page-nav-li-${section.label}`}>
+                        <li className={`in-page-nav__element ${section.section === activeSection ? 'active' : ''}`} key={`in-page-nav-li-${section.label}`}>
                             <a
                                 role="button"
                                 tabIndex="0"
                                 key={`in-page-nav-link-${section.label}`}
                                 onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
-                                onClick={() => jumpToSection(section.label)}>{section.label}
-                            </a>&nbsp;&nbsp;&nbsp;
+                                onClick={() => jumpToSection(section.label)}>
+                                {section.label}
+                            </a>
                         </li>))}
                 </ul>
 
                 {isOverflowRight && !isMobile &&
                     <div
-                        className="in-page-nav__paginator in-page-nav__paginator-right"
+                        className="in-page-nav__paginator right"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "right")}
@@ -228,8 +236,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
                     <br />UIElement Scrollwidth: {ulElement?.scrollWidth}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
+InPageNav.propTypes = propTypes;
 export default InPageNav;

@@ -1,48 +1,191 @@
-.in-page-nav__wrapper {
-  display: flex;
-  flex-direction: row;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  height: 56px;
+.in-page-nav__container {
+  @import "all";
 
-  .in-page-nav__paginator {
-    display: block;
-    margin-top: 16px;
-    cursor: pointer;
+  height: rem(34);
+  width: 100%;
+  background-color: $theme-color-headline-inverse;
+  border-bottom: $theme-color-body-inverse 2px solid;
+  position: sticky;
+  top: 60px;
 
-  }
+  .in-page-nav__wrapper {
+    height: rem(34);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    list-style-type: none;
+    max-width: 100%;
 
-  ul {
-    padding: 0;
-    scroll-behavior: smooth;
-    margin: 16px 32px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 90%;
-    white-space: nowrap;
-    max-width: 1600px;
-    scroll-snap-type: x mandatory;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none;
+    @media(min-width: $medium-screen) {
+      margin: 0 rem(20);
+    }
+    @media(min-width: $large-screen) {
+      margin: 0 rem(40);
+    }
+    @media(min-width: $x-large-screen) {
+      margin: 0 auto;
+      width: rem(1600);
+    }
 
-    @media (max-width: 991px) {
-      display: block;
-      width: 100%;
+    .in-page-nav__paginator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: rem(24);
+      height: rem(24);
+      background-color: $theme-color-headline-inverse;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:hover, &:focus {
+        background-color: $theme-color-body-inverse;
+      }
+
+      &.left {
+        margin: 0 $global-margin 0 0;
+      }
+
+      &.right {
+        margin: 0 0 0 $global-margin;
+      }
+
+      svg {
+        cursor: pointer;
+        width: rem(8);
+        height: rem(18);
+        color: $theme-color-1;
+
+        &:hover {
+          color: $blue-vivid-70;
+        }
+      }
+    }
+
+    ul {
+      display: flex;
+      justify-content: space-evenly;
+      height: 100%;
+      font-size: $font-size-14;
+      line-height: rem(18);
+      scroll-behavior: smooth;
+      margin: 0;
+      padding-left: 0;
       overflow-x: auto;
       overflow-y: hidden;
+      width: 100%;
       white-space: nowrap;
+      max-width: 1600px;
       scroll-snap-type: x mandatory;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none;
-    }
-  }
 
-  li {
-    display: inline;
-    cursor: pointer;
-    a {
-      margin: 2px;
+      @media (max-width: 991px) {
+        display: flex;
+        align-items: center;
+        margin: 0 $global-margin * 3;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none;
+      }
+    }
+
+    // left side fade effect
+    ul:before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to left, rgba(249, 249, 249, 0), rgba(249, 249, 249, 1));
+      background-size: 40px;
+      background-position: 4% 100%;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: rem(32);
+
+      // this is obviously not ideal
+      // temporary, until we find a better solution
+      @media(min-width: 660px) {
+        background-position: 3% 100%;
+      }
+      @media(min-width: 900px) {
+        background-position: 2% 100%;
+      }
+      @media(min-width: $medium-screen) {
+        background-position: 4% 100%;
+      }
+      @media(min-width: $large-screen) {
+        background-position: 5% 100%;
+      }
+      @media(min-width: 1490px) {
+        background-position: 4% 100%;
+      }
+      @media(min-width: $x-large-screen) {
+        background-position: 9.5% 100%;
+      }
+    }
+
+    // right side fade effect
+    ul:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, rgba(249, 249, 249, 0), rgba(249, 249, 249, 1));
+      background-size: 40px;
+      background-position: 96% 100%;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: rem(32);
+
+      // this is obviously not ideal
+      // temporary, until we find a better solution
+      @media(min-width: 660px) {
+        background-position: 97% 100%;
+      }
+      @media(min-width: 900px) {
+        background-position: 98% 100%;
+      }
+      @media(min-width: $medium-screen) {
+        background-position: 96% 100%;
+      }
+      @media(min-width: $large-screen) {
+        background-position: 95%% 100%;
+      }
+      @media(min-width: 1490px) {
+        background-position: 96% 100%;
+      }
+      @media(min-width: $x-large-screen) {
+        background-position: 90.5% 100%;
+      }
+    }
+
+    li {
+      display: inline;
+      cursor: pointer;
+      margin: 0 $global-margin * 4 0 0;
+      padding-top: rem(6);
+      height: 100%;
+
+      &.active {
+        font-weight: $font-semibold;
+        border-bottom: $theme-color-3 2px solid;
+      }
+
+      a {
+        color: $theme-color-headline;
+      }
+
+      a:hover {
+        font-weight: $font-semibold;
+      }
     }
   }
 }

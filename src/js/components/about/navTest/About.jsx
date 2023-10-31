@@ -3,8 +3,7 @@
  * Created by Andrea Blackwell 8/22/2023
  **/
 
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -94,11 +93,9 @@ const aboutSections = [
     }
 ];
 
-
 const About = () => {
     const query = useQueryParams();
-    // commented out while in page nav feature is in development
-    // const [activeSection, setActiveSection] = useState(query.section || 'mission');
+    const [activeSection, setActiveSection] = useState(query.section || 'mission');
     const history = useHistory();
 
     const jumpToSection = (section = '') => {
@@ -120,13 +117,13 @@ const About = () => {
         scrollToY(sectionTop + 15, 700);
     };
 
-
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
             if (urlSection) {
+                setActiveSection(urlSection);
                 jumpToSection(urlSection);
                 // remove the query param from the url after scrolling to the given section
                 // history.replace(`/about`);
@@ -145,6 +142,7 @@ const About = () => {
                 metaTagProps={aboutPageMetaTags}
                 title="About"
                 sections={aboutSections}
+                activeSection={activeSection}
                 jumpToSection={jumpToSection}>
                 <main id="main-content" className="main-content">
                     <p>Test Page - For lower environments only</p>
