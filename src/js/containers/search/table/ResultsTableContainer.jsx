@@ -439,15 +439,14 @@ const ResultsTableContainer = (props) => {
         disabled: inFlight || counts[type.internal] === 0
     }));
 
-    useEffect(() => {
+    useEffect(throttle(() => {
         if (initialRender.current) {
             initialRender.current = false;
         }
         else {
-            updateSort();
-            performSearch(true);
+            performSearch();
         }
-    }, [props.subaward]);
+    }, 150), [tableType, props.subaward, sort]);
 
     useEffect(throttle(() => {
         loadColumns();
@@ -473,7 +472,7 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 350), [props.subaward, page, props.noApplied, location, tableType]);
+    }, 350), [props.subaward, page, props.noApplied, location]);
 
     if (!columns[tableType]) {
         return null;
