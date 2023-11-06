@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-import { uniqueId } from "lodash";
 
 const defaultProps = {
     recipientTypeMapping: [
@@ -83,24 +82,25 @@ export default class RecipientType extends React.Component {
         }
     }
 
-    selectRecipientType() {
-        console.log("here");
+    selectRecipientType(type) {
+        const selection = {
+            value: type
+        };
+        this.props.toggleCheckboxType(selection);
     }
 
     render() {
-        console.log(this.props);
         const checkboxTypes =
             this.props.recipientTypeMapping.map((category) =>
                 (<><p>{category.name}</p>
-                    {category.filters.map((type, index) =>
-                        (<div>
-                            <input
-                                type="checkbox"
-                                id={`primary-checkbox-${index}`}
-                                value={`primary-checkbox-${type}`}
-                                checked={false}
-                                onChange={this.selectRecipientType} />
-                            <span>{recipientTypes[type]}</span>
+                    {category?.filters?.map((type, index) =>
+                        (<div><input
+                            type="checkbox"
+                            id={`primary-checkbox-${index}`}
+                            value={type}
+                            checked={this.props.selectedTypes?.has(type)}
+                            onChange={() => this.selectRecipientType(type)} />
+                        <span>{recipientTypes[type]}</span>
                         </div>)
                     )}
                 </>)
