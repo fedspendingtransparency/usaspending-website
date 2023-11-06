@@ -7,9 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
-import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-import SingleCheckboxType from "../../../sharedComponents/checkbox/SingleCheckboxType";
 import { uniqueId } from "lodash";
 
 const defaultProps = {
@@ -92,13 +90,20 @@ export default class RecipientType extends React.Component {
     render() {
         console.log(this.props);
         const checkboxTypes =
-            this.props.recipientTypeMapping.map((type, index) =>
-                (<input
-                    type="checkbox"
-                    id={`primary-checkbox-${index}`}
-                    value={`primary-checkbox-${type}`}
-                    checked={false}
-                    onChange={this.selectRecipientType} />)
+            this.props.recipientTypeMapping.map((category) =>
+                (<><p>{category.name}</p>
+                    {category.filters.map((type, index) =>
+                        (<div>
+                            <input
+                                type="checkbox"
+                                id={`primary-checkbox-${index}`}
+                                value={`primary-checkbox-${type}`}
+                                checked={false}
+                                onChange={this.selectRecipientType} />
+                            <span>{recipientTypes[type]}</span>
+                        </div>)
+                    )}
+                </>)
             );
 
         return (
