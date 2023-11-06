@@ -23,17 +23,17 @@ const GlossaryHeader = (props) => {
 
     return (
         <div className="glossary-header">
-            <div role="navigation" aria-label="Glossary navigation">
-                <button
-                    className="close-button"
-                    id="glossary-close-button"
-                    aria-label="Close Glossary"
-                    title="Close Glossary"
-                    onClick={props.closeGlossary}
-                    ref={closeButtonRef}>
-                    <Icons.Close alt="Close Glossary" />
-                </button>
-            </div>
+            {/*<div role="navigation" aria-label="Glossary navigation">*/}
+            {/*    <button*/}
+            {/*        className="close-button"*/}
+            {/*        id="glossary-close-button"*/}
+            {/*        aria-label="Close Glossary"*/}
+            {/*        title="Close Glossary"*/}
+            {/*        onClick={props.closeGlossary}*/}
+            {/*        ref={closeButtonRef}>*/}
+            {/*        <Icons.Close alt="Close Glossary" />*/}
+            {/*    </button>*/}
+            {/*</div>*/}
             <h1
                 id="glossary-title"
                 className="glossary-title"

@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/28/17
  */
 
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -26,15 +26,14 @@ const AnimatedGlossaryWrapper = (props) => {
     return (
         <div className="usa-da-glossary-animations">
             <TransitionGroup>
-                {props?.glossary?.display && (
-                    <CSSTransition
-                        nodeRef={ref1}
-                        classNames="glossary-slide"
-                        timeout={{ enter: 500, exit: 500 }}
-                        exit>
-                        <div ref={ref1}><Glossary {...props} zIndexClass={zIndexClass} /></div>
-                    </CSSTransition>
-                )}
+                <CSSTransition
+                    nodeRef={ref1}
+                    classNames="glossary-slide"
+                    style={{ visibility: props.glossary.display ? 'visible' : 'hidden' }}
+                    timeout={{ enter: 1000, exit: 500 }}
+                    exit>
+                    <div ref={ref1}><Glossary {...props} zIndexClass={zIndexClass} /></div>
+                </CSSTransition>
             </TransitionGroup>
         </div>
     );

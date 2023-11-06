@@ -29,12 +29,12 @@ const Glossary = (props) => {
     const [scrollbar, setScrollbar] = useState(null);
     const [loadingContent, setLoadingContent] = useState('');
 
-    const measureAvailableHeight = (useCallback(() => {
-        const sidebarHeight = document.getElementById('glossary-sidebar')?.getBoundingClientRect().height || 0;
-        const headerHeight = document.getElementById('glossary-sidebar-header')?.getBoundingClientRect().height || 0;
-
-        setContentHeight(sidebarHeight - headerHeight);
-    }));
+    // const measureAvailableHeight = (useCallback(() => {
+    //     const sidebarHeight = document.getElementById('glossary-sidebar')?.getBoundingClientRect().height || 0;
+    //     const headerHeight = document.getElementById('glossary-sidebar-header')?.getBoundingClientRect().height || 0;
+    //
+    //     setContentHeight(sidebarHeight - headerHeight);
+    // }));
 
     const closeGlossary = useCallback(() => {
         props.hideGlossary();
@@ -55,7 +55,7 @@ const Glossary = (props) => {
     const thumb = () => <div className="atd-scrollbar-thumb" />;
 
     useEffect(() => {
-        measureAvailableHeight();
+        // measureAvailableHeight();
 
         if (props.loading) {
             setLoadingContent('Loading Glossary...');
@@ -78,17 +78,17 @@ const Glossary = (props) => {
     useEffect(() => {
         Mousetrap.bind('esc', closeGlossary);
 
-        window.addEventListener('resize', measureAvailableHeight);
-        return () => {
-            window.removeEventListener('resize', measureAvailableHeight);
-            Mousetrap.unbind('esc');
-        };
-    }, [closeGlossary, measureAvailableHeight]);
+        // window.addEventListener('resize', measureAvailableHeight);
+        // return () => {
+        //     window.removeEventListener('resize', measureAvailableHeight);
+        //     Mousetrap.unbind('esc');
+        // };
+    }, [closeGlossary]);
 
-    useEffect(() => {
-        measureAvailableHeight();
-        scrollbar?.scrollToTop();
-    }, [measureAvailableHeight, scrollbar]);
+    // useEffect(() => {
+    //     measureAvailableHeight();
+    //     scrollbar?.scrollToTop();
+    // }, [measureAvailableHeight, scrollbar]);
 
     useEffect(() => {
         if (props.glossary.term) {
@@ -103,25 +103,23 @@ const Glossary = (props) => {
                 role="dialog"
                 aria-labelledby="glossary-title"
                 className="glossary-sidebar">
-                <div
-                    id="glossary-sidebar-header"
-                    className="glossary-header-wrapper">
-                    <GlossaryHeader
-                        {...props}
-                        closeGlossary={closeGlossary} />
-                </div>
-                {props.loading &&
-                    <div className="glossary-loading-content">
-                        {loadingContent}
-                    </div>
-                }
-                <Scrollbars
-                    style={{ contentHeight }}
-                    renderTrackVertical={track}
-                    renderThumbVertical={thumb}
-                    ref={(s) => setScrollbar(s)}>
+                {/*<div*/}
+                {/*    id="glossary-sidebar-header"*/}
+                {/*    className="glossary-header-wrapper">*/}
+                {/*    <GlossaryHeader*/}
+                {/*        {...props}*/}
+                {/*        closeGlossary={closeGlossary} />*/}
+                {/*</div>*/}
+                <div className="glossary-loading-content">
                     {content}
-                </Scrollbars>
+                </div>
+                {/*<Scrollbars*/}
+                {/*    style={{ contentHeight }}*/}
+                {/*    renderTrackVertical={track}*/}
+                {/*    renderThumbVertical={thumb}*/}
+                {/*    ref={(s) => setScrollbar(s)}>*/}
+                {/*    {content}*/}
+                {/*</Scrollbars>*/}
             </aside>
         </div>
     );
