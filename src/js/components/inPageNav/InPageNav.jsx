@@ -6,7 +6,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from "lodash";
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
@@ -34,12 +34,16 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
         const firstElPosition = elArray[0]?.getBoundingClientRect();
         const lastElPosition = elArray[elArray.length - 1]?.getBoundingClientRect();
 
-        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0) {
+        if (firstElPosition.left < padding || ulEl.scrollLeft > padding) {
             left = true;
         }
 
-        if (lastElPosition.right > ulEl.clientWidth + padding || lastElPosition.right > ulEl.scrollWidth) {
+        if (ulEl.scrollWidth > ulEl.clientWidth) {
             right = true;
+        }
+
+        if (lastElPosition.right < ulEl.clientWidth + padding) {
+            right = false;
         }
 
         setIsOverflowLeft(left);
@@ -132,11 +136,9 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
                 name: el.innerHTML,
                 originalLeftOffset: box.left,
                 width: box.width
-
             });
         });
 
-        setPadding(((window.innerWidth - ulEl.clientWidth) + 20) / 2);
         setUlElement(ulEl);
         setElementData(tempElementData);
         checkIsOverflowHidden();
@@ -166,17 +168,20 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
         getInitialElements();
         window.addEventListener('resize', () => handleResize());
         return () => window.removeEventListener('resize', () => handleResize());
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (windowWidth) {
             setIsMobile(windowWidth < mediumScreen);
-            if (navBar.current) {
-                const ulEl = navBar.current.querySelector("ul");
-                setPadding(((window.innerWidth - ulEl.clientWidth) + 20) / 2);
+
+            if (windowWidth > mediumScreen) {
+                setPadding(20 + 24);
             }
+            else if (windowWidth > largeScreen) {
+                setPadding(40 + 24);
+            }
+
             checkIsOverflowHidden();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -190,8 +195,8 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
     }, [ulElement]);
 
     return (
-        <div className="in-page-nav__container">
-            <nav className="in-page-nav__wrapper" ref={navBar}>
+        <div className="in-page-nav__container" ref={navBar}>
+            <nav className="in-page-nav__wrapper">
                 {isOverflowLeft && !isMobile &&
                     <div
                         className="in-page-nav__paginator left"
@@ -227,15 +232,6 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
                         <FontAwesomeIcon icon="chevron-right" alt="Forward" />
                     </div>}
             </nav>
-            <div style={{ marginLeft: "32px" }} >
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <div onClick={() => reset()}>Reset (for development purposes)</div>
-                <div>[Debugging] UL Width: {ulElement?.clientWidth}
-                    <br />ScrollLeft (based on scrollLeft): {ulElement?.scrollLeft}
-                    <br />Padding: {padding}
-                    <br />UIElement Scrollwidth: {ulElement?.scrollWidth}
-                </div>
-            </div>
         </div>
     );
 };
