@@ -27,6 +27,24 @@
       width: rem(1600);
     }
 
+    // todo - get these two masks to apply at the same time
+    // for some reason IntelliJ thinks this linear-gradient is not valid here, but it does compile and it does work
+    &.left-fade-effect {
+      ul {
+        -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 10%);
+        //-webkit-mask-size: 50%;
+        //-webkit-mask-repeat: no-repeat;
+      }
+    }
+
+    &.right-fade-effect {
+      //ul {
+      //  -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 10%);
+      //  -webkit-mask-size: 50%;
+      //  -webkit-mask-repeat: no-repeat;
+      //}
+    }
+
     .in-page-nav__paginator {
       display: flex;
       justify-content: center;
@@ -92,80 +110,6 @@
         scrollbar-width: none;
       }
     }
-
-    // left side fade effect
-    //ul:before {
-    //  content: "";
-    //  position: absolute;
-    //  z-index: 1;
-    //  bottom: 0;
-    //  left: 0;
-    //  pointer-events: none;
-    //  background-image: linear-gradient(to left, rgba(249, 249, 249, 0), rgba(249, 249, 249, 1));
-    //  background-size: 40px;
-    //  background-position: 4% 100%;
-    //  background-repeat: no-repeat;
-    //  width: 100%;
-    //  height: rem(32);
-
-      // this is obviously not ideal
-      // temporary, until we find a better solution
-    //  @media(min-width: 660px) {
-    //    background-position: 3% 100%;
-    //  }
-    //  @media(min-width: 900px) {
-    //    background-position: 2% 100%;
-    //  }
-    //  @media(min-width: $medium-screen) {
-    //    background-position: 4% 100%;
-    //  }
-    //  @media(min-width: $large-screen) {
-    //    background-position: 5% 100%;
-    //  }
-    //  @media(min-width: 1490px) {
-    //    background-position: 4% 100%;
-    //  }
-    //  @media(min-width: $x-large-screen) {
-    //    background-position: 9.5% 100%;
-    //  }
-    //}
-
-    // right side fade effect
-    //ul:after {
-    //  content: "";
-    //  position: absolute;
-    //  z-index: 1;
-    //  bottom: 0;
-    //  left: 0;
-    //  pointer-events: none;
-    //  background-image: linear-gradient(to right, rgba(249, 249, 249, 0), rgba(249, 249, 249, 1));
-    //  background-size: 40px;
-    //  background-position: 96% 100%;
-    //  background-repeat: no-repeat;
-    //  width: 100%;
-    //  height: rem(32);
-
-      // this is obviously not ideal
-      // temporary, until we find a better solution
-    //  @media(min-width: 660px) {
-    //    background-position: 97% 100%;
-    //  }
-    //  @media(min-width: 900px) {
-    //    background-position: 98% 100%;
-    //  }
-    //  @media(min-width: $medium-screen) {
-    //    background-position: 96% 100%;
-    //  }
-    //  @media(min-width: $large-screen) {
-    //    background-position: 95%% 100%;
-    //  }
-    //  @media(min-width: 1490px) {
-    //    background-position: 96% 100%;
-    //  }
-    //  @media(min-width: $x-large-screen) {
-    //    background-position: 90.5% 100%;
-    //  }
-    //}
 
     li {
       display: inline;
