@@ -23,13 +23,13 @@ const RecipientTypeAccordion = ({
     return (
         expanded &&
                 category.filters?.map((type, index) =>
-                    (<div><input
+                    (<div className="recipient-type-filter__item"><input
                         type="checkbox"
                         id={`primary-checkbox-${index}`}
                         value={type}
                         checked={selectedTypes?.has(type)}
                         onChange={() => selectRecipientType(type)} />
-                    <span>{recipientTypes[type]}</span>
+                    <span className="label">{recipientTypes[type]}</span>
                     </div>)
                 )
     );

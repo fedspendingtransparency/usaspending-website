@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
@@ -99,20 +100,25 @@ export default class RecipientType extends React.Component {
     render() {
         const checkboxTypes =
             this.props.recipientTypeMapping.map((category) =>
-                (<>
-                    <p>
+                <div className="recipient-type-filter">
+                    <div>
                         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                        <span onClick={() => this.toggleExpanded(category)}>expanded&nbsp;
-                            {category.name}
+                        <span onClick={() => this.toggleExpanded(category)}>
+                            {!this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
+                            {this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
+                            &nbsp;&nbsp;
+                            <span className="recipient-type-filter__header">{category.name}</span>
+                            &nbsp;&nbsp;
+                            <span className="recipient-type-filter__item-count">{category.filters?.length} types</span>
                         </span>
-                    </p>
+                    </div>
                     <RecipientTypeAccordion
                         expanded={this.state.expanded?.includes(category.id)}
                         selectedType={this.props.selectedTypes}
                         category={category}
                         toggleCheckboxType={this.props.toggleCheckboxType}
                         recipientTypes={recipientTypes} />
-                </>)
+                </div>
             );
 
         return (
