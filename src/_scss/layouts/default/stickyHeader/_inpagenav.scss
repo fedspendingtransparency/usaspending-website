@@ -32,17 +32,19 @@
     &.left-fade-effect {
       ul {
         -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 10%);
+        mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 10%);
         //-webkit-mask-size: 50%;
         //-webkit-mask-repeat: no-repeat;
       }
     }
 
     &.right-fade-effect {
-      //ul {
-      //  -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 10%);
-      //  -webkit-mask-size: 50%;
-      //  -webkit-mask-repeat: no-repeat;
-      //}
+      ul {
+        -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 10%);
+        mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 10%);
+        //-webkit-mask-size: 50%;
+        //-webkit-mask-repeat: no-repeat;
+      }
     }
 
     .in-page-nav__paginator {
