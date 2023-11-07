@@ -35,7 +35,7 @@ const defaultProps = {
 export default class SecondaryCheckboxType extends React.Component {
     static logSecondaryTypeFilterEvent(type, filter) {
         Analytics.event({
-            event: 'search_secondary_checkbox_selection',
+            event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
             action: `Selected Secondary ${filter} Type`,
             label: type,
@@ -45,7 +45,7 @@ export default class SecondaryCheckboxType extends React.Component {
 
     static logDeselectFilterEvent(type, filter) {
         Analytics.event({
-            event: 'search_secondary_checkbox_deselection',
+            event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
             action: `Deselected Secondary ${filter} Type`,
             label: type,
