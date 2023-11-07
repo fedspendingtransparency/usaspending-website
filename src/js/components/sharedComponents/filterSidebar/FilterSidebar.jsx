@@ -1,4 +1,4 @@
-/**
+ /**
  * FilterSidebar.jsx
  * Created by Kevin Li 3/20/17
  */

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import RecipientTypeAccordion from "./RecipientTypeAccordion";
 
 const defaultProps = {
     recipientTypeMapping: [
@@ -70,9 +71,12 @@ export default class RecipientType extends React.Component {
     constructor(props) {
         super(props);
 
-        // Bind functions
-        this.selectRecipientType = this.selectRecipientType.bind(this);
-    }
+        this.state = {
+            expanded: []
+        };
+
+        this.toggleExpanded = this.toggleExpanded.bind(this);
+    };
 
     componentDidUpdate(prevProps) {
         if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
@@ -82,27 +86,29 @@ export default class RecipientType extends React.Component {
         }
     }
 
-    selectRecipientType(type) {
-        const selection = {
-            value: type
-        };
-        this.props.toggleCheckboxType(selection);
-    }
+    toggleExpanded(category) {
+        const containsId = this.state.expanded.indexOf(category.id);
+        if (containsId > -1) {
+            this.setState((prevState) => ({
+                expanded: [...prevState].slice(containsId)
+            }));
+        } else {
+            this.setState((prevState) => ({
+                expanded: prevState.push(category.id)
+            }));
+        }
+    };
 
     render() {
         const checkboxTypes =
             this.props.recipientTypeMapping.map((category) =>
-                (<><p>{category.name}</p>
-                    {category?.filters?.map((type, index) =>
-                        (<div><input
-                            type="checkbox"
-                            id={`primary-checkbox-${index}`}
-                            value={type}
-                            checked={this.props.selectedTypes?.has(type)}
-                            onChange={() => this.selectRecipientType(type)} />
-                        <span>{recipientTypes[type]}</span>
-                        </div>)
-                    )}
+                (<><span onClick={() => this.toggleExpanded(category)}>expanded</span><p>{category.name}</p>
+                    <RecipientTypeAccordion
+                        expanded={this.state.expanded?.includes(category.id)}
+                        selectedType={this.props.selectedTypes}
+                        category={category}
+                        toggleCheckboxType={this.props.toggleCheckboxType}
+                        recipientTypes={recipientTypes} />
                 </>)
             );
 
