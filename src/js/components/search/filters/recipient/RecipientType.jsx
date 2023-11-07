@@ -76,7 +76,7 @@ export default class RecipientType extends React.Component {
         };
 
         this.toggleExpanded = this.toggleExpanded.bind(this);
-    };
+    }
 
     componentDidUpdate(prevProps) {
         if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
@@ -88,23 +88,24 @@ export default class RecipientType extends React.Component {
 
     toggleExpanded(category) {
         const containsId = this.state.expanded?.indexOf(category.id);
-        const expanded = this.state.expanded || [];
-        console.log(this.state.expanded)
-        if (containsId > -1) {
-            // this.setState((prevState) => ({
-            //     expanded: [...prevState].slice(containsId)
-            // }));
-        } else {
-            this.setState({ expanded: [...expanded, category.id] });
-
-            // this.setState({ expanded: [...expanded, category.id] }, () => console.log(this.state.expanded));
+        if (containsId <= -1) {
+            this.setState({ expanded: [...this.state.expanded, category.id] });
         }
-    };
+        else {
+            this.setState({ expanded: this.state.expanded.filter((item) => item !== category.id) });
+        }
+    }
 
     render() {
         const checkboxTypes =
             this.props.recipientTypeMapping.map((category) =>
-                (<><span onClick={() => this.toggleExpanded(category)}>expanded</span><p>{category.name}</p>
+                (<>
+                    <p>
+                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                        <span onClick={() => this.toggleExpanded(category)}>expanded&nbsp;
+                            {category.name}
+                        </span>
+                    </p>
                     <RecipientTypeAccordion
                         expanded={this.state.expanded?.includes(category.id)}
                         selectedType={this.props.selectedTypes}
