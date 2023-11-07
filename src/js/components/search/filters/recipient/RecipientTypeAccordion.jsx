@@ -9,7 +9,7 @@ const propTypes = {
 };
 
 const RecipientTypeAccordion = ({
-    category, selectedTypes, toggleCheckboxType, recipientTypes
+    category, selectedTypes, toggleCheckboxType, recipientTypes, expanded
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -21,16 +21,17 @@ const RecipientTypeAccordion = ({
     };
 
     return (
-        category.filters?.map((type, index) =>
-            (<div><input
-                type="checkbox"
-                id={`primary-checkbox-${index}`}
-                value={type}
-                checked={selectedTypes?.has(type)}
-                onChange={() => selectRecipientType(type)} />
-                <span>{recipientTypes[type]}</span>
-             </div>)
-        )
+        expanded &&
+                category.filters?.map((type, index) =>
+                    (<div><input
+                        type="checkbox"
+                        id={`primary-checkbox-${index}`}
+                        value={type}
+                        checked={selectedTypes?.has(type)}
+                        onChange={() => selectRecipientType(type)} />
+                    <span>{recipientTypes[type]}</span>
+                    </div>)
+                )
     );
 };
 

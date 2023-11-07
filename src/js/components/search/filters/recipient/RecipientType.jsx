@@ -87,15 +87,17 @@ export default class RecipientType extends React.Component {
     }
 
     toggleExpanded(category) {
-        const containsId = this.state.expanded.indexOf(category.id);
+        const containsId = this.state.expanded?.indexOf(category.id);
+        const expanded = this.state.expanded || [];
+        console.log(this.state.expanded)
         if (containsId > -1) {
-            this.setState((prevState) => ({
-                expanded: [...prevState].slice(containsId)
-            }));
+            // this.setState((prevState) => ({
+            //     expanded: [...prevState].slice(containsId)
+            // }));
         } else {
-            this.setState((prevState) => ({
-                expanded: prevState.push(category.id)
-            }));
+            this.setState({ expanded: [...expanded, category.id] });
+
+            // this.setState({ expanded: [...expanded, category.id] }, () => console.log(this.state.expanded));
         }
     };
 
