@@ -195,8 +195,8 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
     }, [ulElement]);
 
     return (
-        <div className="in-page-nav__container" ref={navBar}>
-            <nav className={`in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
+        <div className="in-page-nav__container">
+            <nav ref={navBar} className={`in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
                 {isOverflowLeft && !isMobile &&
                     <div
                         className="in-page-nav__paginator left"
