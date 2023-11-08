@@ -27,23 +27,37 @@
       width: rem(1600);
     }
 
-    // todo - get these two masks to apply at the same time
-    // for some reason IntelliJ thinks this linear-gradient is not valid here, but it does compile and it does work
+    // todo - get these two masks to apply at the same time, when needed
+    // for some reason IntelliJ thinks this linear-gradient is not valid, but it does compile and it does work
     &.left-fade-effect {
       ul {
-        -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 10%);
-        mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 10%);
-        //-webkit-mask-size: 50%;
-        //-webkit-mask-repeat: no-repeat;
+        -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 8px);
+        mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 8px);
+
+        @media(min-width: $medium-screen) {
+          -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 20px);
+          mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 20px);
+        }
+        @media(min-width: $large-screen) {
+          -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 40px);
+          mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 40px);
+        }
       }
     }
 
     &.right-fade-effect {
       ul {
-        -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 10%);
-        mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 10%);
-        //-webkit-mask-size: 50%;
-        //-webkit-mask-repeat: no-repeat;
+        -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 8px);
+        mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 8px);
+
+        @media(min-width: $medium-screen) {
+          -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 20px);
+          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 20px);
+        }
+        @media(min-width: $large-screen) {
+          -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 40px);
+          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 40px);
+        }
       }
     }
 
