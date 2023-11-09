@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 const propTypes = {
@@ -11,7 +11,6 @@ const propTypes = {
 const RecipientTypeList = ({
     category, selectedTypes, toggleCheckboxType, recipientTypes, expanded
 }) => {
-
     const selectRecipientType = (type) => {
         const selection = {
             value: type
@@ -19,19 +18,17 @@ const RecipientTypeList = ({
         toggleCheckboxType(selection);
     };
 
-    return (
-        expanded &&
-                category.filters?.map((type, index) =>
-                    (<div className="recipient-type-filter__item"><input
+    return expanded &&
+            category.filters?.map((type, index) => (
+                <div className="recipient-type-filter__item">
+                    <input
                         type="checkbox"
                         id={`primary-checkbox-${index}`}
                         value={type}
                         checked={selectedTypes?.has(type)}
                         onChange={() => selectRecipientType(type)} />
                     <span className="label">{recipientTypes[type]}</span>
-                    </div>)
-                )
-    );
+                </div>));
 };
 
 RecipientTypeList.propTypes = propTypes;
