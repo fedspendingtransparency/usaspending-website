@@ -10,12 +10,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
-import RecipientType from 'components/search/filters/recipient/RecipientType';
+import RecipientType from 'components/search/filters/recipient/RecipientTypeAccordion';
 
 export class RecipientTypeContainer extends React.Component {
     static propTypes = {
         toggleRecipientType: PropTypes.func,
-        bulkRecipientTypeChange: PropTypes.func,
         recipientType: PropTypes.object,
         appliedType: PropTypes.object
     };
@@ -29,28 +28,8 @@ export class RecipientTypeContainer extends React.Component {
         this.justMounted = true;
     }
 
-    componentDidMount() {
-        this.selectedTypes(this.props.recipientType);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.recipientType !== this.props.recipientType) {
-            this.selectedTypes(this.props.recipientType);
-        }
+    componentDidUpdate() {
         this.justMounted = false; // only show filter msg after 1st render (including 1st componentDidUpdate)
-    }
-
-    selectedTypes(types) {
-    // break groups out into their constituent child elements
-        let flatTypes = new Set();
-
-        types.forEach((type) => {
-            flatTypes = flatTypes.add(type);
-        });
-
-        this.setState({
-            selectedTypes: flatTypes
-        });
     }
 
     toggleRecipientType = (selection) => {
@@ -68,9 +47,8 @@ export class RecipientTypeContainer extends React.Component {
         return (
             <RecipientType
                 dirtyFilters={this.dirtyFilters()}
-                selectedTypes={this.state.selectedTypes}
-                toggleCheckboxType={this.toggleRecipientType}
-                bulkTypeChange={this.bulkRecipientTypeChange} />
+                selectedTypes={this.props.recipientType}
+                toggleCheckboxType={this.toggleRecipientType} />
         );
     }
 }
