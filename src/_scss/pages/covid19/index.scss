@@ -73,19 +73,19 @@
           border-bottom: rem(3) solid $color-base;
           .body__header-left {
             @include display(flex);
-            padding-bottom: 0.5rem;
+            padding-bottom: math.div($global-padding, 2);
             @media (min-width: $tablet-screen) {
               padding-bottom: 0;
             }
           }
           .body__header-tooltip {
-            margin-top: rem(5);
+            margin-top: $global-margin;
           }
           .body__header-right {
             @include display(flex);
           }
           .body__header-icon {
-            margin-right: math.div($global-mrg, 2);
+            margin-right: math.div($global-margin, 2);
           }
           .body__header-text {
             font-size: 1.4rem;
@@ -195,24 +195,29 @@
             padding-top: 5rem;
             margin: 0;
             @media (max-width: $tablet-screen) {
-              padding-left: 6rem;
+              padding-left: $global-padding * 2;
+              padding-right: $global-padding * 2;
             }
             width: 100%;
           }
           .heading__description {
             font-size: 1.4rem;
             letter-spacing: 0;
-            line-height: 2.2rem;
+            line-height: 1.5rem;
             text-align: left;
             padding-left: 7rem;
-            padding-bottom: 5rem;
+            padding-bottom: 8.5rem;
             padding-right: 0;
+            p:first-of-type {
+              margin-top: 0;
+            }
             @media (max-width: $tablet-screen) {
-              padding-left: 6rem;
+              padding-left: $global-padding * 2;
+              padding-right: $global-padding * 2;
               padding-bottom: 3rem;
             }
             @media (max-width: 560px) {
-              padding-right: 5rem;
+              padding-right: $global-padding * 2;
             }
             .footnotes {
               font-size: $smallest-font-size;
