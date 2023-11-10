@@ -434,8 +434,10 @@ export class ResultsTableContainer extends React.Component {
         this.setState(newState, () => {
             this.performSearch(true);
             Analytics.event({
+                event: 'search_table_tab',
                 category: 'Advanced Search - Table Tab',
-                action: tab
+                action: tab,
+                gtm: true
             });
         });
     }
@@ -483,17 +485,21 @@ export class ResultsTableContainer extends React.Component {
 
     awardIdClick = (id) => {
         Analytics.event({
+            event: 'search_award_click',
             category: 'Advanced Search - Spending by Prime Award',
             action: `Clicked ${id}`,
-            label: new URLSearchParams(this.props.location.search).get('hash')
+            label: new URLSearchParams(this.props.location.search).get('hash'),
+            gtm: true
         });
     };
 
     subAwardIdClick = (id) => {
         Analytics.event({
+            event: 'search_subaward_click',
             category: 'Advanced Search - Link',
             action: 'Subaward ID Clicked',
-            label: id
+            label: id,
+            gtm: true
         });
         this.props.subAwardIdClicked(true);
     };
