@@ -5,13 +5,17 @@
   .fa-chevron-right, .fa-chevron-down {
     width: 12px;
     height: 12px;
-    color: #2378C3;
+    color: $theme-color-1;
+  }
+
+  .recipient-type-filter__heading {
+    display: flex;
   }
 
   .recipient-type-filter__header {
-    color: #5B616B;
+    color: $color-gray;
     font-size: rem(14);
-    font-weight: 600;
+    font-weight: $font-semibold;
     line-height: rem(21);
     margin-left: rem(4);
   }
@@ -19,19 +23,21 @@
   .recipient-type-filter__item-count {
     font-size: rem(10);
     font-style: italic;
-    font-weight: 400;
+    font-weight: $font-normal;
     line-height: rem(15);
+    white-space: nowrap;
+    margin-left: rem(8);
   }
 
   .recipient-type-filter__item {
-    margin-left: 16px;
+    margin-left: rem(16);
 
     .label {
-      margin-left: 8px;
-      color: #5B616B;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 21px; /* 150% */
+      margin-left: rem(8);
+      color: $color-gray;
+      font-size: rem(14);
+      font-weight: $font-normal;
+      line-height: rem(21); /* 150% */
     }
   }
 }

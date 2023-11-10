@@ -56,8 +56,7 @@ const defaultProps = {
         {
             id: 'recipient-individuals',
             name: 'Individuals',
-            filters: [],
-            value: recipientTypeGroups.category_individuals
+            filters: recipientTypeGroups.category_individuals
         }
     ]
 };
@@ -114,20 +113,23 @@ export default class RecipientTypeAccordion extends React.Component {
 
     render() {
         const checkboxTypes =
-            this.props.recipientTypeMapping.map((category) =>
-                (<div className="recipient-type-filter">
-                    <div
-                        onClick={() => this.toggleExpanded(category)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") this.toggleExpanded(category);
-                        }}
-                        role="button"
-                        tabIndex="0">
-                        {!this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
-                        {this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
-                        <span className="recipient-type-filter__header">{category.name}</span>
-                        &nbsp;&nbsp;
-                        <span className="recipient-type-filter__item-count">{category.filters?.length} types</span>
+            this.props.recipientTypeMapping.map((category) => (
+                <div className="recipient-type-filter">
+                    <div className="recipient-type-filter__heading">
+                        <div
+                            onClick={() => this.toggleExpanded(category)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") this.toggleExpanded(category);
+                            }}
+                            role="button"
+                            tabIndex="0">
+                            {!this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
+                            {this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
+                        </div>
+                        <div>
+                            <span className="recipient-type-filter__header">{category.name}&nbsp;&nbsp;</span>
+                            <span className="recipient-type-filter__item-count">{category.filters?.length} types</span>
+                        </div>
                     </div>
                     <RecipientTypeList
                         expanded={this.state.expanded?.includes(category.id)}
@@ -135,8 +137,7 @@ export default class RecipientTypeAccordion extends React.Component {
                         category={category}
                         toggleCheckboxType={this.props.toggleCheckboxType}
                         recipientTypes={recipientTypes} />
-                 </div>)
-            );
+                </div>));
 
         return (
             <div className="filter-item-wrap">
