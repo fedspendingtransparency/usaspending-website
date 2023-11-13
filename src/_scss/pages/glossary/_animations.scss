@@ -21,10 +21,15 @@
     }
 }  
 
-.glossary-slide-enter, .glossary-slide-enter-active {
-    @include animation(slidein 0.5s ease-in forwards);
+.glossary-slide {
+    transition: 1s;
+    left: 0;
 }
 
-.glossary-slide-exit, .glossary-slide-exit-active {
-    @include animation(slideout 0.5s ease-in forwards);
-}
+//.glossary-slide-enter, .glossary-slide-enter-active {
+//    @include animation(slidein 0.5s ease-in forwards);
+//}
+//
+//.glossary-slide-exit, .glossary-slide-exit-active {
+//    @include animation(slideout 0.5s ease-in forwards);
+//}
