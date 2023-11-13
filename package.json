@@ -160,7 +160,7 @@
     "@mdx-js/react": "^2.1.5",
     "accounting": "^0.4.1",
     "ajv": "^8.11.0",
-    "axios": "^1.6.0",
+    "axios": "^1.6.1",
     "buffer": "^6.0.3",
     "clean-webpack-plugin": "^4.0.0",
     "commander": "4.1.1",
