@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * AccountAwardSearchOperation-test.js
  * Created by Jonathan Hill 11/12/19
  */

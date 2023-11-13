@@ -5,7 +5,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { throttle, compact } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
 
@@ -13,6 +12,8 @@ import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
 import { titles } from 'dataMapping/award/datesSection';
 import { datesByDateType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
 import ProgressBar from './ProgressBar';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     dates: PropTypes.object,
@@ -123,8 +124,8 @@ export default class AwardDates extends Component {
         const thisIsAContract = isContract(awardType);
         const { start, end, currentEndDate } = this.datesData();
         const badDomainData = isBadDates(datesByDateType(dates, awardType), awardType);
-        const endDate = moment(end).add(1, 'd').valueOf();
-        const currentEnd = moment(currentEndDate).add(1, 'd').valueOf();
+        const endDate = dayjs(end).add(1, 'd').valueOf();
+        const currentEnd = dayjs(currentEndDate).add(1, 'd').valueOf();
         const tooltipInfo = getToolTipBySectionAndAwardType('dates', awardType);
         const milestones = thisIsAContract ?
             [
@@ -157,7 +158,7 @@ export default class AwardDates extends Component {
                     heightOfSVG={40}
                     heightOfProgressBar={10}
                     width={this.state.visualizationWidth}
-                    currentProgress={moment().valueOf()}
+                    currentProgress={dayjs().valueOf()}
                     milestones={milestones}
                     progressText="Today"
                     badDomainData={badDomainData}

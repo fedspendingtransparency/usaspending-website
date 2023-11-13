@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseChildRecipient-test.js
  * Created by Lizzie Salita 6/26/18
  */

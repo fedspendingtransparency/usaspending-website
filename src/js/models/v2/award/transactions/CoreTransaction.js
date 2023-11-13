@@ -3,9 +3,9 @@
  * Created by Lizzie Salita 3/8/18
  */
 
-import moment from 'moment';
+const dayjs = require('dayjs');
 
-export const parseDate = (string) => moment(string, 'YYYY-MM-DD');
+export const parseDate = (string) => dayjs(string, 'YYYY-MM-DD');
 export const formatDate = (date) => date.format('MM/DD/YYYY');
 
 const CoreTransaction = {

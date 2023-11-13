@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * apiHelper-test.js
  * Created by Jonathan Hill on 12/12/19.
 */

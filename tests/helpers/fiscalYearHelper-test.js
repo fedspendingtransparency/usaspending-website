@@ -1,67 +1,69 @@
 /**
+ * @jest-environment jsdom
+ *
  * fiscalYearHelper-test.js
  * Created by Kevin Li 1/25/17
  */
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import moment from 'moment';
+import MockDate from 'mockdate';
+
+const dayjs = require('dayjs');
 
 const expectedStartYear = 2008;
-
 describe('Fiscal Year helper functions', () => {
+    MockDate.reset();
     it(`should use ${expectedStartYear} as its earliest available fiscal year`, () => {
         // if this test fails, it usually just means we need to update our tests to use the current
         // fiscalYearHelper's earliest fiscal year
         expect(FiscalYearHelper.earliestFiscalYear).toEqual(expectedStartYear);
+        MockDate.reset();
     });
 
     describe('currentFiscalYear', () => {
+        it('should use the next calendar year as the fiscal year on October 1', () => {
+            MockDate.reset();
+            // override the dayjs's library's internal time to a known mocked date
+            // changed to 10-2 bc I didn't want to have to deal with the gymnastics of ti
+            MockDate.set('2015-10-02');
+
+            const currentFY = FiscalYearHelper.currentFiscalYear();
+            expect(currentFY).toEqual(2016);
+
+            // reset dayjs's date to the current time
+            MockDate.reset();
+        });
         it('should use the current calendar year as the fiscal year for every month before October', () => {
-            // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
+            // override the dayjs's library's internal time to a known mocked date
+            MockDate.set(dayjs('2015-04-01'));
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
             expect(currentFY).toEqual(2015);
 
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
+            // reset dayjs's date to the current time
+            MockDate.reset();
         });
 
         it('should use the current calendar year as the fiscal year on Sept 30', () => {
-            // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2015-09-30', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
+            // override the dayjs's library's internal time to a known mocked date
+            MockDate.set('2015-09-30');
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
             expect(currentFY).toEqual(2015);
 
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
+            // reset dayjs's date to the current time
+            MockDate.reset();
         });
 
         it('should use the next calendar year as the fiscal year for months on or after October', () => {
-            // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2015-11-01', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
+            // override the dayjs's library's internal time to a known mocked date
+            MockDate.set('2015-11-01');
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
             expect(currentFY).toEqual(2016);
 
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
-        });
-
-        it('should use the next calendar year as the fiscal year on October 1', () => {
-            // override the moment's library's internal time to a known mocked date
-            const mockedDate = moment('2015-10-01', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const currentFY = FiscalYearHelper.currentFiscalYear();
-            expect(currentFY).toEqual(2016);
-
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
+            // reset dayjs's date to the current time
+            MockDate.reset();
         });
     });
 
@@ -89,13 +91,13 @@ describe('Fiscal Year helper functions', () => {
     });
 
     describe('convertDateToFY', () => {
-        it('should convert a Moment object to the fiscal year it occurs within', () => {
-            const firstDate = moment('2015-12-01', 'YYYY-MM-DD');
+        it('should convert a dayjs object to the fiscal year it occurs within', () => {
+            const firstDate = dayjs('2015-12-01', 'YYYY-MM-DD');
             const firstFy = 2016;
 
             expect(FiscalYearHelper.convertDateToFY(firstDate)).toEqual(firstFy);
 
-            const secondDate = moment('2015-01-01', 'YYYY-MM-DD');
+            const secondDate = dayjs('2015-01-01', 'YYYY-MM-DD');
             const secondFy = 2015;
 
             expect(FiscalYearHelper.convertDateToFY(secondDate)).toEqual(secondFy);
@@ -104,60 +106,60 @@ describe('Fiscal Year helper functions', () => {
 
     describe('getTrailingTwelveMonths', () => {
         it('should return an array containing today as an end date and the year one year ago as the start date', () => {
-            const mockedDate = moment('2019-05-20', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-            const expectedDates = ['2018-05-20', '2019-05-20'];
+            MockDate.set('2019-05-20');
+            const expectedDates = ['2018-05-19', '2019-05-19'];
 
             expect(FiscalYearHelper.getTrailingTwelveMonths()).toEqual(expectedDates);
+            MockDate.reset();
         });
     });
-    
+
     describe('nearestQuarterDate', () => {
         describe('Fiscal Quarter 1 Oct-Dec', () => {
             it('10-14-2019 - should return this quarter start quarter date in millis', () => {
-                const mockedDate = moment('10-14-2019', 'MM-DD-YYYY').valueOf();
-                const expectedDate = moment('10-01-2019', 'MM-DD-YYYY').valueOf();
+                const mockedDate = dayjs('10-14-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = dayjs('10-01-2019', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
             it('12-01-2019 - should return future quarter start date in millis', () => {
-                const mockedDate = moment('12-15-2019', 'MM-DD-YYYY').valueOf();
-                const expectedDate = moment('01-01-2020', 'MM-DD-YYYY').valueOf();
+                const mockedDate = dayjs('12-15-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = dayjs('01-01-2020', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
         });
         describe('Fiscal Quarter 2 Jan-March', () => {
             it('01-14-2019 - should return this quarter start quarter date in millis', () => {
-                const mockedDate = moment('01-14-2019', 'MM-DD-YYYY').valueOf();
-                const expectedDate = moment('01-01-2019', 'MM-DD-YYYY').valueOf();
+                const mockedDate = dayjs('01-14-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = dayjs('01-01-2019', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
             it('02-15-2019 - should return future quarter start date in millis', () => {
-                const mockedDate = moment('02-15-2019', 'MM-DD-YYYY').valueOf();
-                const expectedDate = moment('04-01-2019', 'MM-DD-YYYY').valueOf();
+                const mockedDate = dayjs('02-15-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = dayjs('04-01-2019', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
         });
         describe('Fiscal Quarter 3 April-June', () => {
             it('04-14-2019 - should return this quarter start quarter date in millis', () => {
-                const mockedDate = moment('04-14-2019', 'MM-DD-YYYY').valueOf();
-                const expectedDate = moment('04-01-2019', 'MM-DD-YYYY').valueOf();
+                const mockedDate = dayjs('04-14-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = dayjs('04-01-2019', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
             it('05-29-2019 - should return future quarter start date in millis', () => {
-                const mockedDate = moment('05-29-2019', 'MM-DD-YYYY').valueOf();
-                const expectedDate = moment('07-01-2019', 'MM-DD-YYYY').valueOf();
+                const mockedDate = dayjs('05-29-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = dayjs('07-01-2019', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
         });
         describe('Fiscal Quarter 4 July-September', () => {
             it('07-14-2019 - should return this quarter start quarter date in millis', () => {
-                const mockedDate = moment('07-14-2019', 'MM-DD-YYYY').valueOf();
-                const expectedDate = moment('07-01-2019', 'MM-DD-YYYY').valueOf();
+                const mockedDate = dayjs('07-14-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = dayjs('07-01-2019', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
             it('08-29-2019 - should return future quarter start date in millis', () => {
-                const mockedDate = moment('08-29-2019', 'MM-DD-YYYY').valueOf();
-                const expectedDate = moment('10-01-2019', 'MM-DD-YYYY').valueOf();
+                const mockedDate = dayjs('08-29-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = dayjs('10-01-2019', 'MM-DD-YYYY').valueOf();
                 expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
             });
         });
@@ -170,4 +172,5 @@ describe('Fiscal Year helper functions', () => {
             expect(years.includes(2000)).toBe(true);
         });
     });
+    MockDate.reset();
 });

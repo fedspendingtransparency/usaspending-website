@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * RecipientDistributionContainer-test.jsx
  * Created by Lizzie Salita 7/1/21
  */

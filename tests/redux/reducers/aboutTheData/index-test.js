@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * accountReducer-test.js
  * Created by Max Kendall 🍻 12/9/2020
  */

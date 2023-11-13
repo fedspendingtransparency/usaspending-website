@@ -3,13 +3,12 @@
  * Created by Lizzie Salita 10/30/17
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { withRouter } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { downloadOptions } from 'dataMapping/navigation/menuOptions';
@@ -26,50 +25,81 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
-    match: PropTypes.object,
-    history: PropTypes.object
+    match: PropTypes.object
 };
 
-export class BulkDownloadPageContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const BulkDownloadPageContainer = (props) => {
+    let request = null;
+    const history = useHistory();
 
-        this.request = null;
-
-        this.startAwardDownload = this.startAwardDownload.bind(this);
-        this.startAccountDownload = this.startAccountDownload.bind(this);
-    }
-
-    componentDidMount() {
-        this.validateDataType(this.props.match.params.type);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.match.params.type !== this.props.match.params.type) {
-            this.validateDataType(this.props.match.params.type);
+    const requestDownload = (params, type) => {
+        if (request) {
+            request.cancel();
         }
-    }
 
-    validateDataType(typeParam) {
+        const bulkParams = params;
+
+        // Prevent empty arrays in the download request; empty array defaults are defined by the reducer
+        for (const filterType in bulkParams.filters) {
+            if (Array.isArray(bulkParams.filters[filterType]) && !bulkParams.filters[filterType].length) {
+                delete bulkParams.filters[filterType];
+            }
+        }
+
+        if (type === 'awards') {
+            // Need to check if sub_agency is set or not
+            if (bulkParams.filters.sub_agency && bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency') {
+                delete bulkParams.filters.sub_agency;
+            }
+
+            request = BulkDownloadHelper.requestAwardsDownload(bulkParams);
+        }
+
+        else if (type === 'accounts') {
+            request = BulkDownloadHelper.requestAccountsDownload(bulkParams);
+        }
+
+        request.promise
+            .then((res) => {
+                props.setDownloadExpectedUrl(res.data.file_url);
+                props.setDownloadExpectedFile(res.data.file_name);
+                props.setDownloadPending(true);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    // something went wrong
+                    console.log(err);
+
+                    if (err.response) {
+                        console.log(err.response.data.message);
+                    }
+                    else {
+                        console.log(err.message);
+                    }
+                }
+            });
+    };
+
+    const validateDataType = (typeParam) => {
         if (typeParam) {
             const dataType = downloadOptions.find((type) => type.url === `/download_center/${typeParam}`);
             if (dataType) {
-                this.props.setDataType(dataType.type);
+                props.setDataType(dataType.type);
             }
 
             else {
                 // Invalid url, go to the error page
-                this.props.history.replace('/error');
+                history.replace('/error');
             }
         }
         else {
             // If no type param is specified, default to award data
-            this.props.history.replace('/download_center/custom_award_data');
+            history.replace('/download_center/custom_award_data');
         }
-    }
+    };
 
-    startAwardDownload() {
-        const formState = this.props.bulkDownload.awards;
+    const startAwardDownload = () => {
+        const formState = props.bulkDownload.awards;
 
         // Create the Award Types array from the Redux state
         const primeAwardTypes = formState.awardTypes.primeAwards.toArray().reduce((acc, curr) => (
@@ -135,13 +165,13 @@ export class BulkDownloadPageContainer extends React.Component {
         }
         params.filters.agencies = [agencyParams];
 
-        this.requestDownload(params, 'awards');
+        requestDownload(params, 'awards');
 
-        logAwardDownload(this.props.bulkDownload.awards);
-    }
+        logAwardDownload(props.bulkDownload.awards);
+    };
 
-    startAccountDownload() {
-        const formState = this.props.bulkDownload.accounts;
+    const startAccountDownload = () => {
+        const formState = props.bulkDownload.accounts;
 
         const accountLevels = accountDownloadOptions.accountLevels;
         const accountLevel = accountLevels.find((account) =>
@@ -180,79 +210,32 @@ export class BulkDownloadPageContainer extends React.Component {
             params.filters.period = formState.period;
         }
 
-        this.requestDownload(params, 'accounts');
+        requestDownload(params, 'accounts');
 
-        logAccountDownload(this.props.bulkDownload.accounts);
-    }
+        logAccountDownload(props.bulkDownload.accounts);
+    };
 
-    requestDownload(params, type) {
-        if (this.request) {
-            this.request.cancel();
-        }
+    useEffect(() => {
+        validateDataType(props.match.params.type);
+    }, [props.match.params.type]);
 
-        const bulkParams = params;
-
-        // Prevent empty arrays in the download request; empty array defaults are defined by the reducer
-        for (const filterType in bulkParams.filters) {
-            if (Array.isArray(bulkParams.filters[filterType]) && !bulkParams.filters[filterType].length) {
-                delete bulkParams.filters[filterType];
-            }
-        }
-
-        if (type === 'awards') {
-            // Need to check if sub_agency is set or not
-            if (bulkParams.filters.sub_agency && bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency') {
-                delete bulkParams.filters.sub_agency;
-            }
-
-            this.request = BulkDownloadHelper.requestAwardsDownload(bulkParams);
-        }
-
-        else if (type === 'accounts') {
-            this.request = BulkDownloadHelper.requestAccountsDownload(bulkParams);
-        }
-
-        this.request.promise
-            .then((res) => {
-                this.props.setDownloadExpectedUrl(res.data.file_url);
-                this.props.setDownloadExpectedFile(res.data.file_name);
-                this.props.setDownloadPending(true);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    // something went wrong
-                    console.log(err);
-
-                    if (err.response) {
-                        console.log(err.response.data.message);
-                    }
-                    else {
-                        console.log(err.message);
-                    }
-                }
-            });
-    }
-
-    render() {
-        return (
-            <BulkDownloadPage
-                bulkDownload={this.props.bulkDownload}
-                dataType={this.props.bulkDownload.dataType}
-                startAwardDownload={this.startAwardDownload}
-                startAccountDownload={this.startAccountDownload}
-                dataTypes={downloadOptions} />
-        );
-    }
-}
+    return (
+        <BulkDownloadPage
+            bulkDownload={props.bulkDownload}
+            dataType={props.bulkDownload.dataType}
+            startAwardDownload={startAwardDownload}
+            startAccountDownload={startAccountDownload}
+            dataTypes={downloadOptions} />
+    );
+};
 
 BulkDownloadPageContainer.propTypes = propTypes;
-const BulkDownloadPageContainerWithRouter = withRouter(BulkDownloadPageContainer);
 
 export default connect(
-    // connects reduxStore to component as props (this.props.bulkDownload === reduxStore.bulkdDownload)
+    // connects reduxStore to component as props (props.bulkDownload === reduxStore.bulkdDownload)
     (state) => ({
         bulkDownload: state.bulkDownload
     }),
-    // connects "action creator" fns which update the reduxStore via dispatch to the component as props (this.props.setDefcodes will invoke)
+    // connects "action creator" fns which update the reduxStore via dispatch to the component as props (props.setDefcodes will invoke)
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
-)(BulkDownloadPageContainerWithRouter);
+)(BulkDownloadPageContainer);
