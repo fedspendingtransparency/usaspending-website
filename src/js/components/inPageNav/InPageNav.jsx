@@ -34,16 +34,12 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
         const firstElPosition = elArray[0]?.getBoundingClientRect();
         const lastElPosition = elArray[elArray.length - 1]?.getBoundingClientRect();
 
-        if (firstElPosition.left < padding || ulEl.scrollLeft > padding) {
+        if (firstElPosition.left < 0 || ulEl.scrollLeft > 0) {
             left = true;
         }
 
-        if (ulEl.scrollWidth > ulEl.clientWidth) {
+        if (lastElPosition.right > ulEl.clientWidth + padding || lastElPosition.right > ulEl.scrollWidth) {
             right = true;
-        }
-
-        if (lastElPosition.right < ulEl.clientWidth + padding) {
-            right = false;
         }
 
         setIsOverflowLeft(left);
