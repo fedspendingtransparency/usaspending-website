@@ -115,19 +115,20 @@ export default class RecipientTypeAccordion extends React.Component {
         const checkboxTypes =
             this.props.recipientTypeMapping.map((category) => (
                 <div className="recipient-type-filter">
-                    <div className="recipient-type-filter__heading">
-                        <div
-                            onClick={() => this.toggleExpanded(category)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") this.toggleExpanded(category);
-                            }}
-                            role="button"
-                            tabIndex="0">
+                    <div
+                        className="recipient-type-filter__heading"
+                        onClick={() => this.toggleExpanded(category)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") this.toggleExpanded(category);
+                        }}
+                        role="button"
+                        tabIndex="0">
+                        <div>
                             {!this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
                             {this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
                         </div>
-                        <div>
-                            <span className="recipient-type-filter__header">{category.name}&nbsp;&nbsp;</span>
+                        <div className="recipient-type-filter__header">
+                            <span>{category.name}</span>
                             <span className="recipient-type-filter__item-count">{category.filters?.length} types</span>
                         </div>
                     </div>

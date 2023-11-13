@@ -6,10 +6,16 @@
     width: 12px;
     height: 12px;
     color: $theme-color-1;
+    cursor: pointer;
   }
 
   .recipient-type-filter__heading {
     display: flex;
+    cursor: pointer;
+  }
+
+  span {
+    cursor: pointer;
   }
 
   .recipient-type-filter__header {
@@ -18,6 +24,7 @@
     font-weight: $font-semibold;
     line-height: rem(21);
     margin-left: rem(4);
+    cursor: pointer;
   }
 
   .recipient-type-filter__item-count {
@@ -27,10 +34,18 @@
     line-height: rem(15);
     white-space: nowrap;
     margin-left: rem(8);
+    cursor: pointer;
   }
 
   .recipient-type-filter__item {
     margin-left: rem(16);
+    margin-top: rem(4);
+    display: flex;
+    cursor: pointer;
+
+    input {
+      cursor: pointer;
+    }
 
     .label {
       margin-left: rem(8);
@@ -38,6 +53,7 @@
       font-size: rem(14);
       font-weight: $font-normal;
       line-height: rem(21); /* 150% */
+      cursor: pointer;
     }
   }
 }

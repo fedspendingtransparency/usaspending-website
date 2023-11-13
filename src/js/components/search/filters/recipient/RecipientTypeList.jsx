@@ -20,7 +20,7 @@ const RecipientTypeList = ({
 
     return expanded &&
             category.filters?.map((type, index) => (
-                <div className="recipient-type-filter__item">
+                <label className="recipient-type-filter__item">
                     <input
                         type="checkbox"
                         id={`primary-checkbox-${index}`}
@@ -28,7 +28,7 @@ const RecipientTypeList = ({
                         checked={selectedTypes?.has(type)}
                         onChange={() => selectRecipientType(type)} />
                     <span className="label">{recipientTypes[type]}</span>
-                </div>));
+                </label>));
 };
 
 RecipientTypeList.propTypes = propTypes;
