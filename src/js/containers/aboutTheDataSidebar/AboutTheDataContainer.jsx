@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import schema from 'dataMapping/aboutTheDataSchema';
-import AnimatedAboutTheDataWrapper from 'components/aboutTheDataSidebar/AnimatedAboutTheDataWrapper';
+import AboutTheData from 'components/aboutTheDataSidebar/AboutTheData';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { getDrilldownEntry } from 'helpers/aboutTheDataSidebarHelper';
 
@@ -37,9 +37,9 @@ export const AboutTheDataContainer = (props) => {
     }, [props.aboutTheDataSidebar]);
 
     return (
-        <AnimatedAboutTheDataWrapper
-            {...props}
-            schema={schema} />
+        <div className="usa-atd-animations">
+            {props?.aboutTheDataSidebar?.display && <AboutTheData {...props} schema={schema} />}
+        </div>
     );
 };
 

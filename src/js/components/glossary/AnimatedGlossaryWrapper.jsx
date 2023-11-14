@@ -3,10 +3,9 @@
  * Created by Kevin Li 4/28/17
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Glossary from './Glossary';
 
 const propTypes = {
@@ -17,7 +16,6 @@ const AnimatedGlossaryWrapper = (props) => {
     const [zIndexClass, setZIndexClass] = useState(null);
 
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
-    const ref1 = useRef(null);
 
     useEffect(() => {
         setZIndexClass(lastOpenedSlideout === 'glossary' ? 'z-index-plus-one' : 'z-index');
@@ -25,16 +23,7 @@ const AnimatedGlossaryWrapper = (props) => {
 
     return (
         <div className="usa-da-glossary-animations">
-            <TransitionGroup>
-                <CSSTransition
-                    nodeRef={ref1}
-                    classNames="glossary-slide"
-                    style={{ visibility: props.glossary.display ? 'visible' : 'hidden' }}
-                    timeout={{ enter: 1000, exit: 500 }}
-                    exit>
-                    <div ref={ref1}><Glossary {...props} zIndexClass={zIndexClass} /></div>
-                </CSSTransition>
-            </TransitionGroup>
+            <Glossary {...props} zIndexClass={zIndexClass} />
         </div>
     );
 };

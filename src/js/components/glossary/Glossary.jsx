@@ -55,7 +55,7 @@ const Glossary = (props) => {
     const thumb = () => <div className="atd-scrollbar-thumb" />;
 
     useEffect(() => {
-        // measureAvailableHeight();
+        measureAvailableHeight();
 
         if (props.loading) {
             setLoadingContent('Loading Glossary...');
@@ -97,7 +97,7 @@ const Glossary = (props) => {
     }, [props.glossary.term, scrollbar]);
 
     return (
-        <div className={`usa-da-glossary-wrapper ${props.zIndexClass}`}>
+        <div className={props.glossary.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `closed usa-da-glossary-wrapper ${props.zIndexClass}`}>
             <aside
                 id="glossary-sidebar"
                 role="dialog"

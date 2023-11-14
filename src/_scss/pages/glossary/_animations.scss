@@ -1,35 +1,25 @@
-// slide in animation
-@import "../../lib/bourbon/css3/animation";
-@import "../../lib/bourbon/settings/prefixer";
-@import "../../lib/bourbon/addons/prefixer";
 
-@keyframes slidein {
-    0% {
-        transform: translate(300px, 0);
+
+.usa-da-glossary-animations {
+    .opened.usa-da-glossary-wrapper {
+        animation: slidein 0.5s ease-in;
+        -webkit-animation: slidein 0.5s ease-in;
+        animation-delay: 0ms;
+        -webkit-animation-delay: 0ms;
+        opacity: 1;
+        overflow: hidden;
+        position: relative;
+        visibility: visible;
     }
-    100% {
-        transform: translate(0, 0);
+
+    .usa-da-glossary-wrapper {
+        //animation: slideout 0.5s ease-out;
+        //-webkit-animation: slideout 0.5s ease-out;
+        //animation-delay: 0ms;
+        //-webkit-animation-delay: 0ms;
+        //opacity: 0;
+        //overflow: hidden;
+        visibility: hidden;
+        display: none;
     }
 }
-
-@keyframes slideout {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(300px, 0);
-    }
-}  
-
-.glossary-slide {
-    transition: 1s;
-    left: 0;
-}
-
-//.glossary-slide-enter, .glossary-slide-enter-active {
-//    @include animation(slidein 0.5s ease-in forwards);
-//}
-//
-//.glossary-slide-exit, .glossary-slide-exit-active {
-//    @include animation(slideout 0.5s ease-in forwards);
-//}
