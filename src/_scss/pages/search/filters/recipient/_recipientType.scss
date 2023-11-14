@@ -45,11 +45,13 @@
     cursor: pointer;
 
     input {
-      cursor: pointer;
+      @include usa-input-checkbox;
+      margin: 0 rem(8) 0 0;
+      appearance: auto;
+      top: rem(3);
     }
 
     .label {
-      margin-left: rem(8);
       color: $color-gray;
       font-size: rem(14);
       font-weight: $font-normal;
