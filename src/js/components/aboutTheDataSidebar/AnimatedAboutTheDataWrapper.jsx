@@ -14,20 +14,14 @@ const propTypes = {
 };
 
 const AnimatedAboutTheDataWrapper = (props) => {
-    const ref1 = useRef(null);
     return (
         <div className="usa-atd-animations">
-            <TransitionGroup>
                 {props?.aboutTheDataSidebar?.display && (
-                    <CSSTransition
-                        nodeRef={ref1}
-                        classNames="atd-slide"
-                        timeout={{ enter: 500, exit: 500 }}
-                        exit>
-                        <div ref={ref1}><AboutTheData {...props} /></div>
-                    </CSSTransition>
+                    <div
+                        classNames="atd-slide">
+                        <AboutTheData {...props} />
+                    </div>
                 )}
-            </TransitionGroup>
         </div>
     );
 };
