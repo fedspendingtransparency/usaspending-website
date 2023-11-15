@@ -26,8 +26,9 @@ const Glossary = (props) => {
     const history = useHistory();
     const [contentHeight, setContentHeight] = useState(0);
     const [content, setContent] = useState(null);
+    const [loadingContent, setLoadingContent] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
-    const [loadingContent, setLoadingContent] = useState('');
+    const [firstMount, setFirstMount] = useState(true);
 
     const measureAvailableHeight = (useCallback(() => {
         const sidebarHeight = document.getElementById('glossary-sidebar')?.getBoundingClientRect().height || 0;
@@ -35,6 +36,12 @@ const Glossary = (props) => {
 
         setContentHeight(sidebarHeight - headerHeight);
     }));
+
+    useEffect(() => {
+        if (props.glossary.display) {
+            setFirstMount(false);
+        }
+    }, [props.glossary.display]);
 
     const closeGlossary = useCallback(() => {
         props.hideGlossary();
@@ -57,20 +64,29 @@ const Glossary = (props) => {
     useEffect(() => {
         measureAvailableHeight();
 
-        if (props.loading) {
-            setLoadingContent('Loading Glossary...');
-        }
-        else if (props.error) {
-            setLoadingContent('Error: Could not load Glossary.');
-        }
-
         if (props.glossary.search.results.length === 0) {
             setContent(<NoResults {...props} />);
+            setLoadingContent(null);
         }
         else if (props.glossary.term.slug && props.glossary.term.slug !== '') {
             setContent(<GlossaryDefinition {...props} />);
+            setLoadingContent(null);
         }
-        else setContent((<GlossarySearchResults {...props} />));
+        else {
+            setContent((<GlossarySearchResults {...props} />));
+            setLoadingContent(null);
+        }
+
+
+        if (props.loading) {
+            setLoadingContent(<div className="glossary-loading-content">Loading Glossary...</div>);
+            setContent(null);
+        }
+        else if (props.error) {
+            setLoadingContent(<div className="glossary-loading-content">Error: Could not load Glossary.</div>);
+            setContent(null);
+        }
+
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.loading, props.error, props.glossary.search.results, props.glossary.term.slug]);
@@ -83,7 +99,7 @@ const Glossary = (props) => {
             window.removeEventListener('resize', measureAvailableHeight);
             Mousetrap.unbind('esc');
         };
-    }, [closeGlossary]);
+    }, [closeGlossary, measureAvailableHeight]);
 
     useEffect(() => {
         measureAvailableHeight();
@@ -97,7 +113,9 @@ const Glossary = (props) => {
     }, [props.glossary.term, scrollbar]);
 
     return (
-        <div className={props.glossary.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `closed usa-da-glossary-wrapper ${props.zIndexClass}`}>
+        <div
+            style={{ visibility: firstMount ? "hidden" : "" }}
+            className={props.glossary.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
             <aside
                 id="glossary-sidebar"
                 role="dialog"
@@ -110,9 +128,7 @@ const Glossary = (props) => {
                         {...props}
                         closeGlossary={closeGlossary} />
                 </div>
-                <div className="glossary-loading-content">
-                    {content}
-                </div>
+                {loadingContent}
                 <Scrollbars
                     style={{ contentHeight }}
                     renderTrackVertical={track}
