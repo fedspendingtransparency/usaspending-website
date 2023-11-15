@@ -58,8 +58,8 @@ const Glossary = (props) => {
         }
     });
 
-    const track = () => <div className="atd-scrollbar-track" />;
-    const thumb = () => <div className="atd-scrollbar-thumb" />;
+    const track = () => <div className="glossary-scrollbar-track" />;
+    const thumb = () => <div className="glossary-scrollbar-thumb" />;
 
     useEffect(() => {
         measureAvailableHeight();

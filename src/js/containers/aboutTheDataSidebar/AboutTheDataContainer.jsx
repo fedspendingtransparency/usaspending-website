@@ -38,7 +38,7 @@ export const AboutTheDataContainer = (props) => {
 
     return (
         <div className="usa-atd-animations">
-            {props?.aboutTheDataSidebar?.display && <AboutTheData {...props} schema={schema} />}
+            <AboutTheData {...props} schema={schema} />
         </div>
     );
 };

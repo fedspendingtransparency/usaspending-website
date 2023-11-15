@@ -42,7 +42,13 @@ const AboutTheData = (props) => {
 
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
+    const [firstMount, setFirstMount] = useState(true);
 
+    useEffect(() => {
+        if (props.aboutTheDataSidebar.display) {
+            setFirstMount(false);
+        }
+    }, [props.aboutTheDataSidebar.display]);
     const clearDrilldown = () => {
         setDrilldownItemId(null);
         setDrilldownSection(null);
@@ -222,7 +228,9 @@ const AboutTheData = (props) => {
     }, [lastOpenedSlideout]);
 
     return (
-        <div id="usa-atd-wrapper" className={`usa-atd-wrapper ${zIndexClass}`}>
+        <div
+            style={{ visibility: firstMount ? "hidden" : "" }}
+            className={props.aboutTheDataSidebar.display ? `opened usa-atd-wrapper ${zIndexClass}` : `usa-atd-wrapper ${zIndexClass}`}>
             <aside
                 role="dialog"
                 aria-labelledby="atd-title"
@@ -238,10 +246,11 @@ const AboutTheData = (props) => {
                             performSearch={performSearch}
                             clearSearch={clearSearch} />
                         <Scrollbars
-                            style={{ height }}
+                            style={{ height: height < 0 ? "100%" : height }}
                             renderTrackVertical={track}
                             renderThumbVertical={thumb}
                             ref={(s) => setScrollbar(s)}>
+                            {console.log(height)}
                             {drilldown ?
                                 <div className="atd__body">
                                     <AboutTheDataDrilldown
