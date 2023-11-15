@@ -79,7 +79,7 @@ const ItemContent = React.memo(({
                                             <li
                                                 key={`link-${uniqueId(index)}`}
                                                 className={menuIndex > 1 ? 'list__extra-padding' : ''}>
-                                                <Link className="dropdown--item__link" to={item.url}>
+                                                <Link className="dropdown--item__link" to={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
                                                     {item.icon && item.icon !== '' && item.icon !== null ?
                                                         <FontAwesomeIcon
                                                             role="presentation"
@@ -128,6 +128,8 @@ const ItemContent = React.memo(({
                                                                 openGlossary(e);
                                                             }
                                                         }}
+                                                        target={item.shouldOpenNewTab ? "_blank" : null}
+                                                        rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
                                                         onMouseUp={(e) => {
                                                             if (item.url === '?about-the-data') {
                                                                 openATD(e);
@@ -185,7 +187,9 @@ const ItemContent = React.memo(({
                                                                 if (item.label === 'Release Notes' && e.key === 'Tab') {
                                                                     closeDropdown();
                                                                 }
-                                                            }}>
+                                                            }}
+                                                            target={item.shouldOpenNewTab ? "_blank" : null}
+                                                            rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
                                                             {item.icon && item.icon !== '' && item.icon !== null ?
                                                                 <FontAwesomeIcon
                                                                     role="presentation"

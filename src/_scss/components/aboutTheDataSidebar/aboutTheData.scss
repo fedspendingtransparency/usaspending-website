@@ -32,16 +32,6 @@
     }
 
     .usa-atd-wrapper {
-        animation: atd-slidein 0.5s ease-in;
-        -webkit-animation: atd-slidein 0.5s ease-in;
-        animation-delay: 0ms;
-        -webkit-animation-delay: 0ms;
-        opacity: 1;
-        overflow: hidden;
-        position: relative;
-        visibility: visible;
-    }
-    .usa-atd-wrapper {
         position: fixed;
         right: 0;
         top: 0;

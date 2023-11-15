@@ -4,11 +4,18 @@
  **/
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { throttle } from "lodash";
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const InPageNav = ({ sections, jumpToSection }) => {
+const propTypes = {
+    sections: PropTypes.array,
+    activeSection: PropTypes.string,
+    jumpToSection: PropTypes.func
+};
+
+const InPageNav = ({ sections, activeSection, jumpToSection }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [ulElement, setUlElement] = useState(null);
     const [elementData, setElementData] = useState([]);
@@ -125,11 +132,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
                 name: el.innerHTML,
                 originalLeftOffset: box.left,
                 width: box.width
-
             });
         });
 
-        setPadding(((window.innerWidth - ulEl.clientWidth) + 20) / 2);
         setUlElement(ulEl);
         setElementData(tempElementData);
         checkIsOverflowHidden();
@@ -165,15 +170,18 @@ const InPageNav = ({ sections, jumpToSection }) => {
     useEffect(() => {
         if (windowWidth) {
             setIsMobile(windowWidth < mediumScreen);
-            if (navBar.current) {
-                const ulEl = navBar.current.querySelector("ul");
-                setPadding(((window.innerWidth - ulEl.clientWidth) + 20) / 2);
+
+            if (windowWidth > mediumScreen) {
+                setPadding(20 + 24);
             }
+            else if (windowWidth > largeScreen) {
+                setPadding(40 + 24);
+            }
+
             checkIsOverflowHidden();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
-
 
     useEffect(() => {
         checkIsOverflowHidden();
@@ -183,11 +191,11 @@ const InPageNav = ({ sections, jumpToSection }) => {
     }, [ulElement]);
 
     return (
-        <>
-            <nav className="in-page-nav__wrapper" ref={navBar}>
+        <div className="in-page-nav__container">
+            <nav ref={navBar} className={`in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
                 {isOverflowLeft && !isMobile &&
                     <div
-                        className="in-page-nav__paginator in-page-nav__paginator-left"
+                        className="in-page-nav__paginator left"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "left")}
@@ -198,20 +206,21 @@ const InPageNav = ({ sections, jumpToSection }) => {
 
                 <ul>
                     {sections.map((section) => (
-                        <li className="in-page-nav__element" key={`in-page-nav-li-${section.label}`}>
+                        <li className={`in-page-nav__element ${section.section === activeSection ? 'active' : ''}`} key={`in-page-nav-li-${section.label}`}>
                             <a
                                 role="button"
                                 tabIndex="0"
                                 key={`in-page-nav-link-${section.label}`}
                                 onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
-                                onClick={() => jumpToSection(section.label)}>{section.label}
-                            </a>&nbsp;&nbsp;&nbsp;
+                                onClick={() => jumpToSection(section.label)}>
+                                {section.label}
+                            </a>
                         </li>))}
                 </ul>
 
                 {isOverflowRight && !isMobile &&
                     <div
-                        className="in-page-nav__paginator in-page-nav__paginator-right"
+                        className="in-page-nav__paginator right"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "right")}
@@ -219,17 +228,9 @@ const InPageNav = ({ sections, jumpToSection }) => {
                         <FontAwesomeIcon icon="chevron-right" alt="Forward" />
                     </div>}
             </nav>
-            <div style={{ marginLeft: "32px" }} >
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <div onClick={() => reset()}>Reset (for development purposes)</div>
-                <div>[Debugging] UL Width: {ulElement?.clientWidth}
-                    <br />ScrollLeft (based on scrollLeft): {ulElement?.scrollLeft}
-                    <br />Padding: {padding}
-                    <br />UIElement Scrollwidth: {ulElement?.scrollWidth}
-                </div>
-            </div>
-        </>
+        </div>
     );
 };
 
+InPageNav.propTypes = propTypes;
 export default InPageNav;

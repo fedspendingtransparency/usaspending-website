@@ -25,7 +25,12 @@ const propTypes = {
 };
 
 const handleDownloadClick = () => {
-    Analytics.event({ category: 'Download Center - Data Dictionary', action: 'Download' });
+    Analytics.event({
+        event: 'download_data_dictionary',
+        category: 'Download Center - Data Dictionary',
+        action: 'Download',
+        gtm: true
+    });
 };
 
 export default class DataDictionary extends React.Component {

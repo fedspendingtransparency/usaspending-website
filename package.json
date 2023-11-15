@@ -64,6 +64,7 @@
     "babel-jest": "^29.7.0",
     "babel-loader": "^9.1.0",
     "babel-plugin-module-resolver": "^5.0.0",
+    "browserify-sign": "^4.2.2",
     "chalk": "^4.1.2",
     "color-convert": "^2.0.1",
     "color-name": "^1.1.4",
@@ -124,6 +125,8 @@
     "webpack-merge": "^5.9.0"
   },
   "resolutions": {
+    "browserify-sign": "4.2.2",
+    "@babel/traverse": "7.23.2",
     "trim-newlines": "4.0.2",
     "glob-parent": "6.0.2",
     "**/glob-parent": "6.0.2",

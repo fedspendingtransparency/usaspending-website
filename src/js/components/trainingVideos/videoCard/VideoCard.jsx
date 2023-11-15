@@ -46,7 +46,8 @@ const VideoCard = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
 
     let changedTitle;
     let overline;

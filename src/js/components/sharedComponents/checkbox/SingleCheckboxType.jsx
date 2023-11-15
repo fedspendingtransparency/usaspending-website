@@ -28,17 +28,21 @@ const defaultProps = {
 export default class SingleCheckboxType extends React.Component {
     static logSingleTypeFilterEvent(type, filter) {
         Analytics.event({
+            event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
             action: `Selected ${filter} Type`,
-            label: type
+            label: type,
+            gtm: true
         });
     }
 
     static logDeselectSingleTypeFilterEvent(type, filter) {
         Analytics.event({
+            event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
             action: `Deselected ${filter} Type`,
-            label: type
+            label: type,
+            gtm: true
         });
     }
 
