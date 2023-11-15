@@ -229,6 +229,7 @@ const AboutTheData = (props) => {
 
     return (
         <div
+            id="usa-atd-wrapper"
             style={{ visibility: firstMount ? "hidden" : "" }}
             className={props.aboutTheDataSidebar.display ? `opened usa-atd-wrapper ${zIndexClass}` : `usa-atd-wrapper ${zIndexClass}`}>
             <aside
@@ -246,11 +247,10 @@ const AboutTheData = (props) => {
                             performSearch={performSearch}
                             clearSearch={clearSearch} />
                         <Scrollbars
-                            style={{ height: height < 0 ? "100%" : height }}
+                            style={{ height }}
                             renderTrackVertical={track}
                             renderThumbVertical={thumb}
                             ref={(s) => setScrollbar(s)}>
-                            {console.log(height)}
                             {drilldown ?
                                 <div className="atd__body">
                                     <AboutTheDataDrilldown
