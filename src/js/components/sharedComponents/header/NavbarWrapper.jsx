@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from 'react-router-dom';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
