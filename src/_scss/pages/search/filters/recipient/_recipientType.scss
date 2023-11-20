@@ -48,6 +48,9 @@
       @include usa-input-checkbox;
       margin: 0 rem(8) 0 0;
       top: rem(3);
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
     }
 
     .label {
