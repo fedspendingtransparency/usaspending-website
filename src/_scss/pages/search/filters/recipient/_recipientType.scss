@@ -39,15 +39,18 @@
   }
 
   .recipient-type-filter__item {
-    margin-left: rem(16);
-    margin-top: rem(4);
+    margin-left: 16px;
+    margin-top: 4px;
     display: flex;
     cursor: pointer;
 
     input {
       @include usa-input-checkbox;
-      margin: 0 rem(8) 0 0;
+      margin: 0 8px 0 0;
       top: rem(3);
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
     }
 
     .label {
