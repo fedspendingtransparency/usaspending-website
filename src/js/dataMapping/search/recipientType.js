@@ -102,6 +102,7 @@ export const recipientTypeGroups = {
         'limited_liability_corporation'
     ],
     category_minority_owned_business: [
+        'minority_owned_business',
         'alaskan_native_corporation_owned_firm',
         'american_indian_owned_business',
         'asian_pacific_american_owned_business',
@@ -114,15 +115,18 @@ export const recipientTypeGroups = {
         'other_minority_owned_business'
     ],
     category_woman_owned_business: [
+        'woman_owned_business',
         'women_owned_small_business',
         'economically_disadvantaged_women_owned_small_business',
         'joint_venture_women_owned_small_business',
         'joint_venture_economically_disadvantaged_women_owned_small_business'
     ],
     category_veteran_owned_business: [
+        'veteran_owned_business',
         'service_disabled_veteran_owned_business'
     ],
     category_special_designations: [
+        'special_designations',
         '8a_program_participant',
         'ability_one_program',
         'dot_certified_disadvantaged_business_enterprise',
@@ -144,10 +148,12 @@ export const recipientTypeGroups = {
         'veterinary_hospital'
     ],
     category_nonprofit: [
+        'nonprofit',
         'foundation',
         'community_development_corporations'
     ],
     category_higher_education: [
+        'higher_education',
         'public_institution_of_higher_education',
         'private_institution_of_higher_education',
         'minority_serving_institution_of_higher_education',
@@ -155,6 +161,7 @@ export const recipientTypeGroups = {
         'veterinary_college'
     ],
     category_government: [
+        'government',
         'national_government',
         'interstate_entity',
         'regional_and_state_government',

@@ -127,7 +127,7 @@ export default class RecipientTypeAccordion extends React.Component {
                         {this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
                         <div className="recipient-type-filter__header">
                             <span>{category.name}</span>
-                            <span className="recipient-type-filter__item-count">{category.filters?.length} types</span>
+                            <span className="recipient-type-filter__item-count">{category.filters?.length} {category.filters?.length === 1 ? 'type' : 'types'}</span>
                         </div>
                     </div>
                     <RecipientTypeList
