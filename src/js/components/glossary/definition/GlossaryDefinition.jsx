@@ -128,6 +128,7 @@ export default class GlossaryDefinition extends React.Component {
                 onClick: getSocialShareFn(option.name).bind(null, slug)
             };
         });
+
         return (
             <div className="glossary-definition">
                 <DefinitionTabs

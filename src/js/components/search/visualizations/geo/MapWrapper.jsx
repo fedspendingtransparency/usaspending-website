@@ -496,7 +496,6 @@ export default class MapWrapper extends React.Component {
             selectedItem.label += " and Territories";
         }
 
-        console.log(selectedItem);
         if (showHover) {
             return (
                 <TooltipComponent

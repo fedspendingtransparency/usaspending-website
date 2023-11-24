@@ -201,7 +201,7 @@ const MobileDropdownItem = ({
                     <ul>
                         {section3Items.map((item, i) => (
                             <li className="mobile-dropdown__section-downloads" key={i}>
-                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="mobile-dropdown__section-link">
+                                <a href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}
                                         <span className="mobile-dropdown__section-description">

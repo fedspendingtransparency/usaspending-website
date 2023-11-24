@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from 'react-router-dom';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -96,14 +96,13 @@ const NavbarWrapper = () => {
                 <div className="mobile-nav-animations">
                     <TransitionGroup>
                         {showMobileNav && (
-                            <CSSTransition
-                                classNames="mobile-nav-slide"
-                                timeout={{ enter: 225, exit: 225 }}>
+                            <div
+                                classNames="mobile-nav-slide">
                                 <MobileNav
                                     hideMobileNav={hideMobileNav}
                                     mobileNavInitialState={mobileNavInitialState}
                                     setMobileNavInitialState={setMobileNavInitialState} />
-                            </CSSTransition>
+                            </div>
                         )}
                     </TransitionGroup>
                 </div>
