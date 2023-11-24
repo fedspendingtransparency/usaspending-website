@@ -25,7 +25,6 @@ import { useQueryParams } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
-// import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import { scrollToY } from 'helpers/scrollToHelper';
@@ -73,7 +72,6 @@ const Covid19Page = ({ loading }) => {
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
     const jumpToSection = (section = '') => {
-        console.debug("section: ", section);
         // we've been provided a section to jump to
         // check if it's a valid section
         const sectionObj = find(covid19Sections, ['label', section]);
