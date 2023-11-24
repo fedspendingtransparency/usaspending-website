@@ -1,8 +1,4 @@
 // slide in animation
-@import "../../lib/bourbon/css3/animation";
-@import "../../lib/bourbon/settings/prefixer";
-@import "../../lib/bourbon/addons/prefixer";
-
 @keyframes atd-slidein {
     0% {
         transform: translate(300px, 0);
@@ -21,10 +17,13 @@
     }
 }
 
-.atd-slide-enter, .atd-slide-enter-active {
-    @include animation(atd-slidein 0.5s ease-in forwards);
-}
-
-.atd-slide-exit, .atd-slide-exit-active {
-    @include animation(atd-slideout 0.5s ease-in forwards);
+.usa-atd-wrapper {
+    animation: atd-slidein 0.5s ease-in;
+    -webkit-animation: atd-slidein 0.5s ease-in;
+    animation-delay: 0ms;
+    -webkit-animation-delay: 0ms;
+    opacity: 1;
+    overflow: hidden;
+    position: relative;
+    visibility: visible;
 }
