@@ -94,7 +94,7 @@
     .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
         width: 100%
     }
-    
+
     .usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg {
         margin-right: 0;
     }
@@ -135,7 +135,14 @@
                 width: 70%;
             }
             @media(min-width: $medium-screen) {
-                margin: rem(20) rem(20) rem(20) 0;
+                margin: rem(20);
+            }
+            @media(min-width: $large-screen) {
+              margin: rem(20) rem(40);
+            }
+            @media(min-width: $x-large-screen) {
+              max-width: 160rem;
+              margin: rem(20) auto;
             }
             @import './overview/pageTitle';
             .usda-message {
