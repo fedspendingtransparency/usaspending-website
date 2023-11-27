@@ -15,12 +15,10 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from 'helpers/queryParams';
 
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-import { scrollToY } from 'helpers/scrollToHelper';
+// import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
-import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
@@ -29,8 +27,6 @@ import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 
 require('pages/agency/index.scss');
-
-const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 
 const propTypes = {
     selectedFy: PropTypes.string,
@@ -79,22 +75,22 @@ export const AgencyProfileV2 = ({
 
     const sections = [
         {
-            name: 'overview',
-            display: 'Overview',
+            section: 'overview',
+            label: 'Overview',
             icon: 'landmark',
             dataThroughDate: overviewDataThroughDate,
             component: <AgencyOverview fy={selectedFy} dataThroughDate={overviewDataThroughDate} />
         },
         {
-            name: 'status-of-funds',
-            display: 'Status of Funds',
+            section: 'status-of-funds',
+            label: 'Status of Funds',
             icon: 'money-check-alt',
             dataThroughDate: statusDataThroughDate,
             component: <StatusOfFunds fy={selectedFy} />
         },
         {
-            name: 'award-spending',
-            display: 'Award Spending',
+            section: 'award-spending',
+            label: 'Award Spending',
             icon: 'hand-holding-usd',
             dataThroughDate: awardSpendingDataThroughDate,
             component: <AwardSpendingSubagency fy={`${selectedFy}`} />
@@ -104,14 +100,14 @@ export const AgencyProfileV2 = ({
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const matchedSection = sections.find((obj) => obj.name === section);
+        const matchedSection = sections.find((obj) => obj.section === section);
         if (!matchedSection) {
             // no matching section
             return;
         }
 
         // find the section in dom
-        const sectionDom = document.querySelector(`#agency-v2-${matchedSection.name}`);
+        const sectionDom = document.querySelector(`#agency-v2-${matchedSection.section}`);
         if (!sectionDom) {
             return;
         }
@@ -125,13 +121,28 @@ export const AgencyProfileV2 = ({
         setActiveSection(section);
 
         // add offsets
-        if (activeSection === 'overview') {
-            scrollToY(sectionDom.offsetTop - 150, 700);
-        }
-        else {
-            // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
-            scrollToY(sectionDom.offsetTop - 86, 700);
-        }
+        // if (activeSection === 'overview') {
+        //     // scrollToY(sectionDom.offsetTop - 230, 700);
+        //     window.scrollTo({
+        //         top: sectionDom.offsetTop - 126,
+        //         left: 0,
+        //         behavior: 'smooth'
+        //     });
+        // }
+        // else {
+        //     // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
+        //     // scrollToY(sectionDom.offsetTop - 126, 700);
+        //     window.scrollTo({
+        //         top: sectionDom.offsetTop - 126,
+        //         left: 0,
+        //         behavior: 'smooth'
+        //     });
+        // }
+        window.scrollTo({
+            top: sectionDom.offsetTop - 120,
+            left: 0,
+            behavior: 'smooth'
+        });
     };
 
     useEffect(() => {
@@ -148,30 +159,20 @@ export const AgencyProfileV2 = ({
             overLine="Agency Profile"
             title={name}
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
+            sections={sections}
+            jumpToSection={jumpToSection}
+            activeSection={activeSection}
             toolBarComponents={[
                 <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
-                <div className="sidebar usda__flex-col">
-                    <Sidebar
-                        pageName="agency-v2"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                        isGoingToBeSticky
-                        active={activeSection}
-                        jumpToSection={jumpToSection}
-                        detectActiveSection={setActiveSection}
-                        sections={sections.map((section) => ({
-                            section: section.name,
-                            label: section.display
-                        }))} />
-                </div>
                 <div className="body usda__flex-col">
                     <PageTitle fy={selectedFy} />
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
+                            <AgencySection key={section.section} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}
