@@ -9,7 +9,6 @@ import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { find, throttle } from 'lodash';
 import { useHistory } from "react-router-dom";
 import { useQueryParams } from 'helpers/queryParams';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
@@ -76,7 +75,7 @@ export const RecipientPage = ({
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const sectionObj = find(recipientSections, ['label', section]);
+        const sectionObj = find(recipientSections, ['section', section]);
         if (!sectionObj) return;
 
         // find the section in dom
@@ -89,7 +88,11 @@ export const RecipientPage = ({
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-        scrollToY(sectionTop - 25, 700);
+        window.scrollTo({
+            top: sectionTop - 25,
+            left: 0,
+            behavior: 'smooth'
+        });
     };
 
     useEffect(throttle(() => {
