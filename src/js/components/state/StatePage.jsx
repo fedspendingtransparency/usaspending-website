@@ -16,7 +16,6 @@ import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { useHistory } from "react-router-dom";
 import { useQueryParams } from 'helpers/queryParams';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import StateContent from './StateContent';
@@ -63,7 +62,7 @@ const StatePage = ({
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const sectionObj = find(stateSections, ['label', section]);
+        const sectionObj = find(stateSections, ['section', section]);
         if (!sectionObj) return;
 
         // find the section in dom
@@ -76,7 +75,12 @@ const StatePage = ({
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-        scrollToY(sectionTop - 25, 700);
+        window.scrollTo({
+            top: sectionTop - 25,
+            left: 0,
+            behavior: 'smooth'
+        });
+        setActiveSection(section);
     };
 
     useEffect(throttle(() => {
