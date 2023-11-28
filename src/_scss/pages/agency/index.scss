@@ -141,7 +141,7 @@
               margin: rem(20) rem(40);
             }
             @media(min-width: $x-large-screen) {
-              max-width: 160rem;
+              //max-width: rem(1600);
               margin: rem(20) auto;
             }
             @import './overview/pageTitle';

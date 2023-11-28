@@ -148,6 +148,7 @@ export const AgencyProfileV2 = ({
             sections={sections}
             jumpToSection={jumpToSection}
             activeSection={activeSection}
+            extraHeightInHeader
             toolBarComponents={[
                 <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />

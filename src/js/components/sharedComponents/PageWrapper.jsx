@@ -25,7 +25,8 @@ const PageWrapper = ({
     filters = {},
     sections,
     activeSection,
-    jumpToSection
+    jumpToSection,
+    extraHeightInHeader
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
@@ -38,7 +39,8 @@ const PageWrapper = ({
         {sections && <InPageNav
             sections={sections}
             activeSection={activeSection}
-            jumpToSection={jumpToSection} />}
+            jumpToSection={jumpToSection}
+            extraHeightInHeader={extraHeightInHeader} />}
         </>}
         {React.cloneElement(children, {
             className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`

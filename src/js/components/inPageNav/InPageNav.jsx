@@ -12,10 +12,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = {
     sections: PropTypes.array,
     activeSection: PropTypes.string,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    extraHeightInHeader: PropTypes.bool
 };
 
-const InPageNav = ({ sections, activeSection, jumpToSection }) => {
+const InPageNav = ({
+    sections, activeSection, jumpToSection, extraHeightInHeader
+}) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [ulElement, setUlElement] = useState(null);
     const [elementData, setElementData] = useState([]);
@@ -191,7 +194,7 @@ const InPageNav = ({ sections, activeSection, jumpToSection }) => {
     }, [ulElement]);
 
     return (
-        <div className="in-page-nav__container">
+        <div className={`in-page-nav__container ${extraHeightInHeader ? 'extra-height-in-header' : ''}`}>
             <nav ref={navBar} className={`in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
                 {isOverflowLeft && !isMobile &&
                     <div
