@@ -27,7 +27,6 @@ import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodol
 import OtherResources from 'components/covid19/OtherResources';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
-import { scrollToY } from 'helpers/scrollToHelper';
 
 require('pages/covid19/index.scss');
 
@@ -87,7 +86,11 @@ const Covid19Page = ({ loading }) => {
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-        scrollToY(sectionTop - 25, 700);
+        window.scrollTo({
+            top: sectionTop - 25,
+            left: 0,
+            behavior: 'smooth'
+        });
     };
 
     useEffect(() => {
