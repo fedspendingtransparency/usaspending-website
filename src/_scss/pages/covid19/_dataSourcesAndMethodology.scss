@@ -14,8 +14,10 @@
 
     .dsm__heading {
         font-size: rem(30);
-        width: 100%;
+        width: 75%;
         text-align: left;
+        margin-left:auto;
+        margin-right:auto;
         font-weight: 600;
         border-bottom: 1px solid;
     }
@@ -33,6 +35,8 @@
 
     .otherResources__list {
         width: 75%;
+        margin-left: auto;
+        margin-right: auto;
         margin-top: rem(25);
         padding-left: 2%;
         font-size: rem(14);
@@ -88,6 +92,8 @@
     
     .dsm__topSection {
         width: 75%;
+        margin: auto;
+        text-align: center;
         padding-right: 3%;
     }
 
