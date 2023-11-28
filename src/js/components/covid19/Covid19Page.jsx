@@ -27,6 +27,7 @@ import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodol
 import OtherResources from 'components/covid19/OtherResources';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
+import Analytics from 'helpers/analytics/Analytics';
 
 require('pages/covid19/index.scss');
 
@@ -91,6 +92,7 @@ const Covid19Page = ({ loading }) => {
             left: 0,
             behavior: 'smooth'
         });
+        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
     };
 
     useEffect(() => {
