@@ -74,7 +74,7 @@ const Covid19Page = ({ loading }) => {
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const sectionObj = find(covid19Sections, ['label', section]);
+        const sectionObj = find(covid19Sections, ['section', section]);
         if (!sectionObj) return;
 
         // find the section in dom
@@ -83,7 +83,7 @@ const Covid19Page = ({ loading }) => {
 
         // add section to url
         history.replace(`?section=${sectionObj.section}`);
-
+        setActiveSection(section);
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
