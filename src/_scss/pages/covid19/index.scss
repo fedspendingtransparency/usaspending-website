@@ -107,15 +107,18 @@
         .body__content {
           width: 100%; // Fixes an IE Flexbox bug
           h4.body__narrative {
-            text-align: left;
+            text-align: center;
             font-weight: $font-semibold;
             font-size: 2rem;
+            width: 50%;
+            margin: auto;
             @include profile-page-wrap;
           }
 
           .body__narrative-description {
             font-size: $small-font-size;
             text-align: left;
+            width: 50%;
             margin: auto;
             padding-bottom: 5rem;
             @include profile-page-wrap;
@@ -210,6 +213,12 @@
             padding-right: 0;
             p:first-of-type {
               margin-top: 0;
+            }
+            @media (min-width: $large-screen) {
+              p {
+                width: 75%;
+              }
+              
             }
             @media (max-width: $tablet-screen) {
               padding-left: $global-padding * 2;
