@@ -16,8 +16,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from 'helpers/queryParams';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-// import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
@@ -121,25 +122,10 @@ export const AgencyProfileV2 = ({
         setActiveSection(section);
 
         // add offsets
-        // if (activeSection === 'overview') {
-        //     // scrollToY(sectionDom.offsetTop - 230, 700);
-        //     window.scrollTo({
-        //         top: sectionDom.offsetTop - 126,
-        //         left: 0,
-        //         behavior: 'smooth'
-        //     });
-        // }
-        // else {
-        //     // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
-        //     // scrollToY(sectionDom.offsetTop - 126, 700);
-        //     window.scrollTo({
-        //         top: sectionDom.offsetTop - 126,
-        //         left: 0,
-        //         behavior: 'smooth'
-        //     });
-        // }
+        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
         window.scrollTo({
-            top: sectionDom.offsetTop - 120,
+            top: sectionTop - 24,
             left: 0,
             behavior: 'smooth'
         });
