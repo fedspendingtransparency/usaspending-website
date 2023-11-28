@@ -40,7 +40,7 @@
       margin: 0 0 rem(20) 0;
       background: $color-white;
       @media (min-width: $medium-screen) {
-        margin: rem(20) rem(20) rem(20) 0;
+        margin: rem(20) 0;
         border-radius: 0.5rem 0.5rem 0 0;
       }
       @media (min-width: $tablet-screen) {
