@@ -27,7 +27,7 @@ import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodol
 import OtherResources from 'components/covid19/OtherResources';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
-import { scrollToY } from 'helpers/scrollToHelper';
+import Analytics from 'helpers/analytics/Analytics';
 
 require('pages/covid19/index.scss');
 
@@ -74,7 +74,7 @@ const Covid19Page = ({ loading }) => {
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const sectionObj = find(covid19Sections, ['label', section]);
+        const sectionObj = find(covid19Sections, ['section', section]);
         if (!sectionObj) return;
 
         // find the section in dom
@@ -83,11 +83,16 @@ const Covid19Page = ({ loading }) => {
 
         // add section to url
         history.replace(`?section=${sectionObj.section}`);
-
+        setActiveSection(section);
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-        scrollToY(sectionTop - 25, 700);
+        window.scrollTo({
+            top: sectionTop - 25,
+            left: 0,
+            behavior: 'smooth'
+        });
+        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
     };
 
     useEffect(() => {

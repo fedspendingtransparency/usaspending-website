@@ -1,11 +1,12 @@
 @use "sass:math";
+
 .usa-da-covid19-page {
   @import "all";
   @import "layouts/default/default";
   @import "layouts/default/stickyHeader/header";
   @import "components/pageLoading";
   @import "./header";
-  
+
   @include display(flex);
   @include justify-content(flex-start);
   @include align-items(center);
@@ -20,18 +21,22 @@
   .footer-container {
     width: 100%;
   }
+
   .main-content {
     @include display(flex);
     @include flex-grow(1);
     @include flex-wrap(wrap);
     max-width: rem(1600);
     margin: auto;
+
     ul {
       padding: 0;
+
       li {
         list-style: none;
       }
     }
+
     .body {
       @include display(flex);
       @include flex(1 1 auto);
@@ -39,13 +44,16 @@
       @include flex-direction(column);
       margin: 0 0 rem(20) 0;
       background: $color-white;
+
       @media (min-width: $medium-screen) {
-        margin: rem(20) rem(20) rem(20) 0;
+        margin: rem(20) 0;
         border-radius: 0.5rem 0.5rem 0 0;
       }
+
       @media (min-width: $tablet-screen) {
         width: 70%;
       }
+
       .body__section {
         @import "components/glossaryLink";
         @import "components/externalLink";
@@ -71,25 +79,32 @@
           align-items: center;
           @include justify-content(space-between);
           border-bottom: rem(3) solid $color-base;
+
           .body__header-left {
             @include display(flex);
             padding-bottom: math.div($global-padding, 2);
+
             @media (min-width: $tablet-screen) {
               padding-bottom: 0;
             }
           }
+
           .body__header-tooltip {
             margin-top: $global-margin;
           }
+
           .body__header-right {
             @include display(flex);
           }
+
           .body__header-icon {
             margin-right: math.div($global-margin, 2);
           }
+
           .body__header-text {
             font-size: 1.4rem;
           }
+
           h2 {
             @include display(flex);
             margin: 0;
@@ -98,81 +113,100 @@
             font-weight: $font-semibold;
           }
         }
+
         hr {
           width: 100%;
           height: rem(2);
           background: $color-gray;
           border: none;
         }
+
         .body__content {
           width: 100%; // Fixes an IE Flexbox bug
+
           h4.body__narrative {
-            text-align: left;
+            text-align: center;
             font-weight: $font-semibold;
             font-size: 2rem;
+            width: 50%;
+            margin: auto;
+            margin-top: 2rem;
             @include profile-page-wrap;
           }
 
           .body__narrative-description {
             font-size: $small-font-size;
             text-align: left;
+            width: 50%;
             margin: auto;
-            padding-bottom: 5rem;
+            padding-bottom: 2.5rem;
             @include profile-page-wrap;
             .footnotes {
               font-size: $smallest-font-size;
+
               .usda-external-link {
                 font-size: $smallest-font-size;
               }
             }
+
             .glossary-term {
               font-weight: $font-semibold;
             }
           }
+
           @import "./tables";
+
           .default-note {
             font-size: $small-font-size;
           }
+
           .loading-animation {
             @import "../../loading";
           }
         }
+
         .information-body {
-          background: linear-gradient(
-            225deg,
-            rgba(220, 201, 229, 0.1) 0%,
-            rgba(182, 153, 198, 0.1) 100%,
-            rgba(182, 153, 198, 0.1) 100%
-          );
+          background: linear-gradient(225deg,
+              rgba(220, 201, 229, 0.1) 0%,
+              rgba(182, 153, 198, 0.1) 100%,
+              rgba(182, 153, 198, 0.1) 100%);
         }
+
         .information-body-arp {
           background-color: #EBEFF4;
         }
+
         .information-top {
           width: 100%;
           opacity: 0.2;
           transform: scaleY(-1);
           background-color: #763e94;
+
           @media (min-width: $medium-screen) {
             border-radius: 0 0 rem(5) rem(5);
           }
         }
+
         .information-top-arp {
           width: 100%;
           transform: scaleY(-1);
           background-color: #B9C5D2;
+
           @media (min-width: $medium-screen) {
             border-radius: 0 0 rem(5) rem(5);
           }
         }
+
         .color-purple {
           color: $color-disaster-covid-19;
           font-weight: $font-bold;
         }
+
         .color-blue-arp {
           color: #0A2F5A;
           font-weight: $font-bold;
         }
+
         .read-more-button {
           @include button-link;
         }
@@ -181,9 +215,11 @@
           border-radius: 0.5rem 0.5rem 0 0;
           @include display(block);
           text-align: left;
+
           .heading__top {
             height: 1.66rem;
           }
+
           .heading__title {
             font-size: 3.6rem;
             font-weight: $font-semibold;
@@ -194,12 +230,15 @@
             padding-right: 5rem;
             padding-top: 5rem;
             margin: 0;
+
             @media (max-width: $tablet-screen) {
               padding-left: $global-padding * 2;
               padding-right: $global-padding * 2;
             }
+
             width: 100%;
           }
+
           .heading__description {
             font-size: 1.4rem;
             letter-spacing: 0;
@@ -208,40 +247,58 @@
             padding-left: 7rem;
             padding-bottom: 8.5rem;
             padding-right: 0;
+
             p:first-of-type {
               margin-top: 0;
             }
+
+            @media (min-width: $large-screen) {
+              p {
+                width: 75%;
+              }
+
+            }
+
             @media (max-width: $tablet-screen) {
               padding-left: $global-padding * 2;
               padding-right: $global-padding * 2;
               padding-bottom: 3rem;
             }
+
             @media (max-width: 560px) {
               padding-right: $global-padding * 2;
             }
+
             .footnotes {
               font-size: $smallest-font-size;
+
               .usda-external-link {
                 font-size: $smallest-font-size;
               }
             }
+
             .glossary-term {
               font-weight: $font-semibold;
             }
           }
+
           .aligned-heading {
             display: block;
+
             @include media(560px) {
               display: flex;
               align-items: flex-end;
             }
           }
+
           .heading__img-arp {
             display: flex;
             align-items: flex-end;
+
             img {
               max-height: 30rem;
             }
+
             @media (max-width: 560px) {
               img {
                 display: block;
@@ -250,12 +307,15 @@
               }
             }
           }
+
           .heading__img-all {
             display: flex;
             align-items: flex-end;
+
             img {
               max-height: 40rem;
             }
+
             @media (max-width: 560px) {
               img {
                 display: block;
@@ -265,28 +325,34 @@
             }
           }
         }
+
         &.award_question {
           .body__header {
             display: none;
           }
+
           .award-question__container {
             @include display(flex);
             flex-wrap: wrap;
             text-align: left;
             width: 100%;
+
             .information-top {
               height: 0.5rem;
               width: 100%;
               border-radius: 0;
             }
+
             .information-top-arp {
               height: 0.5rem;
               width: 100%;
               border-radius: 0;
             }
+
             .glossary-term {
               font-weight: $font-semibold;
             }
+
             .award-question__title {
               margin: 0;
               font-size: 3.6rem;
@@ -298,29 +364,52 @@
               padding-right: 5rem;
               padding-top: 5rem;
               padding-bottom: 2rem;
+
               @media (max-width: $tablet-screen) {
                 padding-left: 6rem;
               }
+
+              @media (min-width: $large-screen) {
+                margin: auto;
+                width: 50%;
+              }
+
               width: 100%;
             }
+
             .award-question__sub-section {
               font-size: 1.4rem;
               letter-spacing: 0;
               line-height: 2.2rem;
               text-align: left;
+
               .award-question__sub-section_paragraph:first-of-type {
                 margin-top: 1.6rem;
                 padding-left: 7rem;
                 padding-bottom: 5rem;
                 padding-right: 5rem;
+
                 @media (max-width: $tablet-screen) {
                   padding-left: 6rem;
+                }
+
+                @media (min-width: $large-screen) {
+                  margin: auto;
+                  width: 50%;
+                }
+              }
+
+              .award-question__sub-section_paragraph {
+                @media (min-width: $large-screen) {
+                  margin: auto;
+                  width: 50%;
                 }
               }
             }
           }
         }
       }
+
       .body__section:first-of-type {
         padding: 0;
       }
@@ -340,8 +429,10 @@
       }
     }
   }
+
   .footer-reference {
     width: 100%;
   }
+
   @import "../../layouts/default/header/warning";
 }
