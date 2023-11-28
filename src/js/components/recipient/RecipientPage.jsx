@@ -93,6 +93,7 @@ export const RecipientPage = ({
             left: 0,
             behavior: 'smooth'
         });
+        setActiveSection(section);
     };
 
     useEffect(throttle(() => {
