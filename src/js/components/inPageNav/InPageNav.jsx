@@ -330,6 +330,8 @@ const InPageNav = (props) => {
                 className={`in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
                 {isOverflowLeft && !isMobile &&
                     <div
+                        aria-label="In-page navigation left paginator"
+                        title="In-page navigation left paginator"
                         className="in-page-nav__paginator left"
                         tabIndex="0"
                         role="button"
@@ -355,6 +357,8 @@ const InPageNav = (props) => {
 
                 {isOverflowRight && !isMobile &&
                     <div
+                        aria-label="In-page navigation right paginator"
+                        title="In-page navigation right paginator"
                         className="in-page-nav__paginator right"
                         tabIndex="0"
                         role="button"
