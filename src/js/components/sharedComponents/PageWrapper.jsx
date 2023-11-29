@@ -36,6 +36,8 @@ const PageWrapper = ({
             overLine={overLine}
             toolBar={toolBarComponents} />
         {sections && <InPageNav
+            detectActiveSection
+            pageName={pageName}
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection} />}

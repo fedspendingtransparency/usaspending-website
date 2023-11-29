@@ -12,11 +12,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = {
     sections: PropTypes.array,
     activeSection: PropTypes.string,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
 const InPageNav = (props) => {
-    const { sections, jumpToSection } = props;
+    const {
+        sections, jumpToSection, pageName, detectActiveSection
+    } = props;
     const [activeSection, setActiveSection] = useState(props.activeSection);
     const [windowWidth, setWindowWidth] = useState(0);
     const [ulElement, setUlElement] = useState(null);
@@ -27,8 +30,6 @@ const InPageNav = (props) => {
     const [isMobile, setIsMobile] = useState(0);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
-    const [detectActiveSection, setDetectActiveSection] = useState(true);
-    const pageName = "about";
 
     // detect if the element is overflowing on the left or the right
     const checkIsOverflowHidden = () => {
@@ -321,7 +322,6 @@ const InPageNav = (props) => {
         highlightCurrentSection,
         sectionPositions.length
     ]);
-    // ////////
 
     return (
         <div className="in-page-nav__container">

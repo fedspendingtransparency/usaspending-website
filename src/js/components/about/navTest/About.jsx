@@ -137,7 +137,7 @@ const About = () => {
     return (
         <PageFeatureFlag>
             <PageWrapper
-                pageName="About"
+                pageName="about"
                 classNames="usa-da-about-page"
                 metaTagProps={aboutPageMetaTags}
                 title="About"
