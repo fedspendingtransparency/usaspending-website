@@ -114,7 +114,7 @@ const About = () => {
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-        scrollToY(sectionTop + 15, 700);
+        scrollToY(sectionTop - 5, 700);
     };
 
     useEffect(throttle(() => {
