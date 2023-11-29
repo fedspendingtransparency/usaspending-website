@@ -129,7 +129,7 @@ const Covid19Page = ({ loading }) => {
 
     return (
         <PageWrapper
-            pageName="COVID-19 Spending"
+            pageName="covid19"
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
