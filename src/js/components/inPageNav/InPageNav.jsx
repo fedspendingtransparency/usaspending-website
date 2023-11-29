@@ -325,7 +325,9 @@ const InPageNav = (props) => {
 
     return (
         <div className="in-page-nav__container">
-            <nav ref={navBar} className={`in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
+            <nav
+                ref={navBar}
+                className={`in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
                 {isOverflowLeft && !isMobile &&
                     <div
                         className="in-page-nav__paginator left"
