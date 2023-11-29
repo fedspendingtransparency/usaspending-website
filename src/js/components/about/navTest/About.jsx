@@ -101,7 +101,7 @@ const About = () => {
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const sectionObj = find(aboutSections, ['label', section]);
+        const sectionObj = find(aboutSections, ['section', section]);
         if (!sectionObj) return;
 
         // find the section in dom
