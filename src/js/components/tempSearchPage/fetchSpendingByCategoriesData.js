@@ -19,10 +19,10 @@ const apiParamsObj =
         subawards: false
     };
 
-function fetchSpendingOverTimeData() {
+function fetchSpendingByCategoriesData() {
     const promise = performSpendingByCategorySearch(apiParamsObj).promise.then(({ data }) => data);
 
     return wrapPromise(promise);
 }
 
-export default fetchSpendingOverTimeData;
+export default fetchSpendingByCategoriesData;

@@ -69,10 +69,10 @@ const apiParamsObj =
         auditTrail: "Map Visualization"
     };
 
-function fetchSpendingOverTimeData() {
+function fetchSpendingByGeographyData() {
     const promise = performSpendingByGeographySearch(apiParamsObj).promise.then(({ data }) => data);
 
     return wrapPromise(promise);
 }
 
-export default fetchSpendingOverTimeData;
+export default fetchSpendingByGeographyData;
