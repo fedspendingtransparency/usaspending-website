@@ -6,7 +6,7 @@ import TempAwardTable from "./TempAwardTable";
 import TempSpendingOverTime from "./TempSpendingOverTime";
 import TempLoadingComponent from "./TempLoadingComponent";
 
-const TempComponent3 = lazy(() => import('./TempComponent3'));
+const TempMapSection = lazy(() => import('./TempMapSection'));
 const TempComponent4 = lazy(() => import('./TempComponent4'));
 
 require("pages/search/searchPage.scss");
@@ -36,10 +36,9 @@ const TempSearchPage = () => {
                     </Suspense>
                     <Suspense fallback={<TempLoadingComponent />}>
                         <div ref={ref3}>
-                            {inView3 && <TempComponent3 />}
+                            {inView3 && <TempMapSection />}
                         </div>
                     </Suspense>
-                    <TempSpendingOverTime />
                     <Suspense fallback={<TempLoadingComponent />}>
                         <div ref={ref4}>
                             {inView4 && <TempComponent4 />}

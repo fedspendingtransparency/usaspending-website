@@ -3,10 +3,10 @@ import fetchData from './fetchAwardsTableData';
 
 const resource = fetchData();
 
-const TempComponent3 = () => {
+const TempMapSection = () => {
     const content = resource.read();
-    const term = content.results[0].term;
-    const definition = content.results[0].official;
+    const message = content.messages[0];
+    const sampleId = content.results[0]['Award ID'];
 
     return (
         <section
@@ -17,15 +17,24 @@ const TempComponent3 = () => {
                 margin: '40px 40px',
                 textAlign: 'center',
                 fontSize: '24px',
-                paddingTop: '80px'
+                paddingTop: '40px'
             }}>
-            COMPONENT 3
             <div>
-                {term}
-                {definition}
+                Map Section
+            </div>
+            <br />
+            <div>
+                {message}
+            </div>
+            <br />
+            <div>
+                Award ID of first result:
+            </div>
+            <div>
+                {sampleId}
             </div>
         </section>
     );
 };
 
-export default TempComponent3;
+export default TempMapSection;
