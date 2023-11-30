@@ -1,18 +1,18 @@
 import React from "react";
-import fetchData from './fetchSpendingByGeographyData';
+import fetchData from './fetchSpendingByCategoriesData';
 
 const resource = fetchData();
 
-const TempMapSection = () => {
+const TempCategoriesSection = () => {
     const content = resource.read();
     const message = content.messages[0];
-    const displayName = content.results[0].display_name;
+    const agencyName = content.results[0].name;
 
     return (
         <section
-            id="temp-component-three"
+            id="temp-component-four"
             style={{
-                border: '2px solid blue',
+                border: '2px solid gold',
                 height: '400px',
                 margin: '40px 40px',
                 textAlign: 'center',
@@ -20,7 +20,7 @@ const TempMapSection = () => {
                 paddingTop: '40px'
             }}>
             <div>
-                Map Section
+                Categories Section
             </div>
             <br />
             <div>
@@ -28,13 +28,13 @@ const TempMapSection = () => {
             </div>
             <br />
             <div>
-                Display Name of first result:
+                Agency Name of first result:
             </div>
             <div>
-                {displayName}
+                {agencyName}
             </div>
         </section>
     );
 };
 
-export default TempMapSection;
+export default TempCategoriesSection;
