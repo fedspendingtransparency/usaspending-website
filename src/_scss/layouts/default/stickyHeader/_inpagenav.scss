@@ -1,4 +1,4 @@
-.in-page-nav__container {
+.usda-in-page-nav__container {
   @import "all";
 
   height: rem(34);
@@ -9,7 +9,7 @@
   top: 60px;
   z-index: 25;
 
-  .in-page-nav__wrapper {
+  .usda-in-page-nav__wrapper {
     height: rem(34);
     display: flex;
     align-items: center;
@@ -83,7 +83,7 @@
       }
     }
 
-    .in-page-nav__paginator {
+    .usda-in-page-nav__paginator {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -172,7 +172,7 @@
   }
 }
 
-.in-page-nav__wrapper ul::-webkit-scrollbar {
+.usda-in-page-nav__wrapper ul::-webkit-scrollbar {
   width: 0;
   height: 0;
   background: transparent; /* Chrome/Safari/Webkit */
