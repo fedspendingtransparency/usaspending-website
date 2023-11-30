@@ -1,4 +1,4 @@
-.in-page-nav__container {
+.usda-in-page-nav__container {
   @import "all";
 
   height: rem(34);
@@ -15,7 +15,7 @@
       }
     }
 
-  .in-page-nav__wrapper {
+  .usda-in-page-nav__wrapper {
     height: rem(34);
     display: flex;
     align-items: center;
@@ -34,7 +34,6 @@
       width: rem(1600);
     }
 
-    // todo - get these two masks to apply at the same time, when needed
     // for some reason IntelliJ thinks this linear-gradient is not valid, but it does compile and it does work
     &.left-fade-effect {
       @media(min-width: $medium-screen) {
@@ -70,7 +69,27 @@
       }
     }
 
-    .in-page-nav__paginator {
+    // when both classes are present we need to apply the fade effect to both sides
+    // but listing both linear-gradient rules from above did not work
+    // so we're approximating the px values with percentages here, and slightly different syntax
+    &.left-fade-effect.right-fade-effect {
+      ul {
+        -webkit-mask-image: linear-gradient(to left, transparent, black 4%, black 96%, transparent 100%);
+        mask-image: linear-gradient(to left, transparent, black 4%, black 96%, transparent 100%);
+
+        @media(min-width: $medium-screen) {
+          -webkit-mask-image: linear-gradient(to left, transparent, black 6%, black 94%, transparent 100%);
+          mask-image: linear-gradient(to left, transparent, black 6%, black 94%, transparent 100%);
+        }
+
+        @media(min-width: $large-screen) {
+          -webkit-mask-image: linear-gradient(to left, transparent, black 8%, black 92%, transparent 100%);;
+          mask-image: linear-gradient(to left, transparent, black 8%, black 92%, transparent 100%);;
+        }
+      }
+    }
+
+    .usda-in-page-nav__paginator {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -159,7 +178,7 @@
   }
 }
 
-.in-page-nav__wrapper ul::-webkit-scrollbar {
+.usda-in-page-nav__wrapper ul::-webkit-scrollbar {
   width: 0;
   height: 0;
   background: transparent; /* Chrome/Safari/Webkit */
