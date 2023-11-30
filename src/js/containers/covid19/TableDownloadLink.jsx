@@ -61,7 +61,12 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
             console.log(err);
             downloadRequest.current = null;
         }
-        Analytics.event({ category: 'COVID-19 - Spending by Recipient', action: 'download' });
+        Analytics.event({
+            event: 'covid_19_table_download',
+            category: 'COVID-19 - Spending by Recipient',
+            action: 'download',
+            gtm: true
+        });
     };
 
     return (

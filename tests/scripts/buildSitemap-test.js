@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import axios from 'axios';
 
 const pages = require('../../scripts/sitemaps/pages');

@@ -5,9 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     awards: PropTypes.object
@@ -161,12 +162,12 @@ export default class UserSelections extends React.Component {
         let endDate = this.props.awards.dateRange.endDate;
 
         if (startDate !== '') {
-            const start = moment(this.props.awards.dateRange.startDate);
+            const start = dayjs(this.props.awards.dateRange.startDate);
             startDate = start.format("MM/DD/YYYY");
         }
 
         if (endDate !== '') {
-            const end = moment(this.props.awards.dateRange.endDate);
+            const end = dayjs(this.props.awards.dateRange.endDate);
             endDate = end.format("MM/DD/YYYY");
         }
 

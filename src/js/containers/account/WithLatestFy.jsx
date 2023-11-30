@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { get } from 'lodash';
 
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
-import { getLatestPeriodAsMoment, getLatestPeriod } from 'helpers/accountHelper';
+import { getLatestPeriodAsDayjs, getLatestPeriod } from 'helpers/accountHelper';
 import { fetchAllSubmissionDates } from 'apis/account';
 import {
     isPeriodVisible,
@@ -35,9 +35,9 @@ export const useLatestAccountData = () => {
             request.current.promise
                 .then(({ data: { available_periods: periods } }) => {
                     dispatch(setSubmissionPeriods(periods));
-                    getLatestPeriodAsMoment(periods);
+                    getLatestPeriodAsDayjs(periods);
                     setLatestData({
-                        latestMoment: getLatestPeriodAsMoment(periods),
+                        latestMoment: getLatestPeriodAsDayjs(periods),
                         latestPeriod: getLatestPeriod(periods)
                     });
                     setIsLoading(false);
@@ -53,7 +53,7 @@ export const useLatestAccountData = () => {
         }
         else if (!latestMoment || !latestPeriod) {
             setLatestData({
-                latestMoment: getLatestPeriodAsMoment(submissionPeriods.toJS()),
+                latestMoment: getLatestPeriodAsDayjs(submissionPeriods.toJS()),
                 latestPeriod: getLatestPeriod(submissionPeriods.toJS())
             });
         }

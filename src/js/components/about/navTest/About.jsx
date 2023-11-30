@@ -3,8 +3,7 @@
  * Created by Andrea Blackwell 8/22/2023
  **/
 
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -94,17 +93,15 @@ const aboutSections = [
     }
 ];
 
-
 const About = () => {
     const query = useQueryParams();
-    // commented out while in page nav feature is in development
-    // const [activeSection, setActiveSection] = useState(query.section || 'mission');
+    const [activeSection, setActiveSection] = useState(query.section || 'mission');
     const history = useHistory();
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const sectionObj = find(aboutSections, ['label', section]);
+        const sectionObj = find(aboutSections, ['section', section]);
         if (!sectionObj) return;
 
         // find the section in dom
@@ -117,9 +114,8 @@ const About = () => {
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-        scrollToY(sectionTop + 15, 700);
+        scrollToY(sectionTop - 5, 700);
     };
-
 
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
@@ -127,6 +123,7 @@ const About = () => {
         if (isMounted) {
             const urlSection = query.section;
             if (urlSection) {
+                setActiveSection(urlSection);
                 jumpToSection(urlSection);
                 // remove the query param from the url after scrolling to the given section
                 // history.replace(`/about`);
@@ -140,11 +137,12 @@ const About = () => {
     return (
         <PageFeatureFlag>
             <PageWrapper
-                pageName="About"
+                pageName="about"
                 classNames="usa-da-about-page"
                 metaTagProps={aboutPageMetaTags}
                 title="About"
                 sections={aboutSections}
+                activeSection={activeSection}
                 jumpToSection={jumpToSection}>
                 <main id="main-content" className="main-content">
                     <p>Test Page - For lower environments only</p>

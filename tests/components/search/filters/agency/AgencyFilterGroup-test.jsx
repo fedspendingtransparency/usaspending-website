@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AgencyFilterGroup from '../../../../../src/js/components/search/topFilterBar/filterGroups/AgencyFilterGroup';

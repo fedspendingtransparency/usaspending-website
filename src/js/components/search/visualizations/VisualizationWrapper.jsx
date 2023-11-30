@@ -7,7 +7,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Analytics from 'helpers/analytics/Analytics';
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { showModal } from 'redux/actions/modal/modalActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from 'react-redux';
@@ -40,6 +40,7 @@ const propTypes = {
 const VisualizationWrapper = (props) => {
     const [_mounted, setMounted] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
     let _queuedAnalyticEvent = null;
     const logVisualizationTab = useCallback((tab) => {
         if (props.noFiltersApplied) {
@@ -57,8 +58,10 @@ const VisualizationWrapper = (props) => {
             if (_mounted) {
                 const activeLabel = tabOptions.find((el) => el.code === tab).label;
                 Analytics.event({
+                    event: 'search_visualization_type',
                     category: 'Advanced Search - Visualization Type',
-                    action: activeLabel
+                    action: activeLabel,
+                    gtm: true
                 });
             }
         }, 15 * 1000);
@@ -70,7 +73,7 @@ const VisualizationWrapper = (props) => {
     };
 
     const parseTab = () => {
-        const params = props.history.location.search.split("&");
+        const params = history.location.search.split("&");
         params.shift();
         if ((params.length === 1 || params.length === 2) && params[0].substring(0, 4) === "tab=") {
             clickedTab(params[0].substring(4)); // everything after tab=
@@ -167,4 +170,4 @@ const VisualizationWrapper = (props) => {
 
 VisualizationWrapper.propTypes = propTypes;
 
-export default withRouter(VisualizationWrapper);
+export default VisualizationWrapper;

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * searchAnalytics-test.js
  * Created by Kevin Li 2/5/18
  */
@@ -268,7 +270,9 @@ describe('searchAnalytics', () => {
             expect(Analytics.event).toHaveBeenCalledTimes(1);
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Advanced Search - Search Fields',
-                action: 'action|z'
+                action: 'action|z',
+                event: 'search_send_all_fields',
+                gtm: true
             });
 
             Analytics.event.mockClear();

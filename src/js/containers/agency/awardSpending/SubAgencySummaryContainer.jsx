@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import moment from 'moment';
 
 import { InformationBoxes } from "data-transparency-ui";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agency';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
 import { setDataThroughDates } from 'redux/actions/agency/agencyActions';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     fy: PropTypes.string,
@@ -109,7 +110,7 @@ const SubAgencySummaryContainer = ({
                 // set "Data Through" date for section
                 let awardSpendingDataThroughDate = res.data.latest_action_date;
                 if (awardSpendingDataThroughDate) {
-                    awardSpendingDataThroughDate = moment(awardSpendingDataThroughDate).format('M/D/YYYY');
+                    awardSpendingDataThroughDate = dayjs(awardSpendingDataThroughDate).format('M/D/YYYY');
                 }
                 else {
                     awardSpendingDataThroughDate = 'no data';

@@ -173,7 +173,7 @@ class SearchAwardsOperation {
         }
 
         // Add award types
-        if (this.awardType.length > 0) {
+        if (this.awardType?.length > 0) {
             filters[rootKeys.awardType] = this.awardType;
         }
 

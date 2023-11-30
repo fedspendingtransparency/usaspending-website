@@ -24,6 +24,7 @@ const PageWrapper = ({
     toolBarComponents = [],
     filters = {},
     sections,
+    activeSection,
     jumpToSection
 }) => (
     <div className={classNames} ref={ref}>
@@ -34,7 +35,12 @@ const PageWrapper = ({
             stickyBreakPoint={getStickyBreakPointForSidebar()}
             overLine={overLine}
             toolBar={toolBarComponents} />
-        {sections && <InPageNav sections={sections} jumpToSection={jumpToSection} />}
+        {sections && <InPageNav
+            detectActiveSection
+            pageName={pageName}
+            sections={sections}
+            activeSection={activeSection}
+            jumpToSection={jumpToSection} />}
         </>}
         {React.cloneElement(children, {
             className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
@@ -55,6 +61,7 @@ PageWrapper.propTypes = {
     noHeader: PropTypes.bool,
     filters: PropTypes.object,
     sections: PropTypes.array,
+    activeSection: PropTypes.string,
     jumpToSection: PropTypes.func
 };
 

@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * downloadAnalytics-test.js
  * Created by Kevin Li 2/8/18
  */
@@ -24,7 +26,9 @@ describe('downloadAnalytics', () => {
             expect(Analytics.event).toHaveBeenCalledTimes(1);
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Download Center - Download Type',
-                action: 'award'
+                action: 'award',
+                event: 'download_center_type',
+                gtm: true
             });
 
             Analytics.event.mockClear();
@@ -68,10 +72,13 @@ describe('downloadAnalytics', () => {
 
             expect(Analytics.event).toHaveBeenCalledTimes(1);
             expect(Analytics.event).toHaveBeenCalledWith({
-                category: 'Download Center - Download - award',
                 action: 'name',
+                category: 'Download Center - Download - award',
+                event: 'download_center_field',
+                gtm: true,
                 label: 'value'
             });
+
             Analytics.event.mockClear();
         });
     });
@@ -116,44 +123,60 @@ describe('downloadAnalytics', () => {
 
             expect(Analytics.event).toHaveBeenCalledTimes(8);
             expect(Analytics.event).toHaveBeenCalledWith({
-                category: 'Download Center - Download - award',
                 action: 'Award Levels',
+                category: 'Download Center - Download - award',
+                event: 'download_center_field',
+                gtm: true,
                 label: 'Prime Awards'
             });
             expect(Analytics.event).toHaveBeenCalledWith({
-                category: 'Download Center - Download - award',
                 action: 'Award Types',
+                category: 'Download Center - Download - award',
+                event: 'download_center_field',
+                gtm: true,
                 label: 'Direct Payments'
             });
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Download Center - Download - award',
                 action: 'Agency',
-                label: 'Test'
+                label: 'Test',
+                event: 'download_center_field',
+                gtm: true
             });
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Download Center - Download - award',
                 action: 'Sub Agency',
-                label: 'Test 2'
+                label: 'Test 2',
+                event: 'download_center_field',
+                gtm: true
             });
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Download Center - Download - award',
                 action: 'Location',
-                label: 'United States, South Carolina'
+                label: 'United States, South Carolina',
+                event: 'download_center_field',
+                gtm: true
             });
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Download Center - Download - award',
                 action: 'Date Type',
-                label: 'Action Date'
+                label: 'Action Date',
+                event: 'download_center_field',
+                gtm: true
             });
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Download Center - Download - award',
                 action: 'File Format',
-                label: 'csv'
+                label: 'csv',
+                event: 'download_center_field',
+                gtm: true
             });
             expect(Analytics.event).toHaveBeenCalledWith({
                 category: 'Download Center - Download - award',
                 action: 'Date Range',
-                label: '1900-01-01 - 1900-01-02'
+                label: '1900-01-01 - 1900-01-02',
+                event: 'download_center_field',
+                gtm: true
             });
         });
     });

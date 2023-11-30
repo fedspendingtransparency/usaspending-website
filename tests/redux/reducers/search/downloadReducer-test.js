@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * downloadReducer-test.js
  * Created by Emily Gullo 08/24/2017
  */

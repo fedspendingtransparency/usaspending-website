@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountDataContainer tests populates the agency list 1`] = `
+[MockFunction] {
+  "calls": [
+    [
+      {
+        "accounts": {
+          "accountLevel": "treasuryAccount",
+          "agency": {
+            "id": "123",
+            "name": "Mock Agency",
+          },
+          "budgetFunction": {
+            "code": "300",
+            "title": "Mock Budget Function",
+          },
+          "budgetSubfunction": {
+            "code": "123",
+            "title": "Mock Budget Sub Function",
+          },
+          "defCodes": [
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+          ],
+          "federalAccount": {
+            "id": "212",
+            "name": "Mock Federal Account",
+          },
+          "fileFormat": "csv",
+          "fy": "1989",
+          "period": "",
+          "quarter": "1",
+          "submissionTypes": [
+            "accountBalances",
+          ],
+        },
+        "agencies": {
+          "cfoAgencies": [],
+          "otherAgencies": [],
+        },
+        "budgetFunctions": [],
+        "budgetSubfunctions": [],
+        "clearAccountFilters": [Function],
+        "clickedDownload": [MockFunction],
+        "federalAccounts": [],
+        "setBudgetSubfunctionList": [Function],
+        "setDefCodes": [MockFunction],
+        "setFederalAccountList": [Function],
+        "updateFilter": [Function],
+      },
+      {},
+    ],
+    [
+      {
+        "accounts": {
+          "accountLevel": "treasuryAccount",
+          "agency": {
+            "id": "123",
+            "name": "Mock Agency",
+          },
+          "budgetFunction": {
+            "code": "300",
+            "title": "Mock Budget Function",
+          },
+          "budgetSubfunction": {
+            "code": "123",
+            "title": "Mock Budget Sub Function",
+          },
+          "defCodes": [
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+          ],
+          "federalAccount": {
+            "id": "212",
+            "name": "Mock Federal Account",
+          },
+          "fileFormat": "csv",
+          "fy": "1989",
+          "period": "",
+          "quarter": "1",
+          "submissionTypes": [
+            "accountBalances",
+          ],
+        },
+        "agencies": {
+          "cfoAgencies": "stuff",
+          "otherAgencies": "other stuff",
+        },
+        "budgetFunctions": [
+          {
+            "budget_function_code": "300",
+            "budget_function_title": "Mock Budget Function",
+          },
+        ],
+        "budgetSubfunctions": [],
+        "clearAccountFilters": [Function],
+        "clickedDownload": [MockFunction],
+        "federalAccounts": [],
+        "setBudgetSubfunctionList": [Function],
+        "setDefCodes": [MockFunction],
+        "setFederalAccountList": [Function],
+        "updateFilter": [Function],
+      },
+      {},
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": null,
+    },
+    {
+      "type": "return",
+      "value": null,
+    },
+  ],
+}
+`;

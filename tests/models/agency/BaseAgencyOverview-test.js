@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseAgencyOverview-test.js
  * Created by Lizzie Salita 12/4/20
  */

@@ -6,7 +6,6 @@
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
 import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
-import BaseAgencySubcomponentsList from 'models/v2/agency/BaseAgencySubcomponentsList';
 
 // Create an empty recipient object for the initial state
 const recipientDistribution = Object.create(BaseAgencyRecipients);
@@ -17,9 +16,6 @@ subagencyCount.populate();
 
 const spendingBySubagencyTotals = Object.create(BaseSubagencySpendingRow);
 spendingBySubagencyTotals.populateCore();
-
-const agencySubcomponentsList = Object.create(BaseAgencySubcomponentsList);
-agencySubcomponentsList.populate();
 
 export const initialState = {
     overview: {
@@ -41,7 +37,6 @@ export const initialState = {
     selectedPrgActivityOrObjectClass: null,
     currentLevelNameAndId: null,
     level4ApiResponse: null,
-    agencySubcomponentsList,
     awardSpendingDataThroughDate: null,
     isStatusOfFundsChartLoaded: false
 };
@@ -108,20 +103,15 @@ const agencyReducer = (state = initialState, action) => {
                 ...state,
                 recipientDistribution: initialState.recipientDistribution
             };
-        case 'SET_SUBAGENCY_COUNT':
-            return {
-                ...state,
-                subagencyCount: action.subagencyCount
-            };
-        case 'RESET_SUBAGENCY_COUNT':
-            return {
-                ...state,
-                subagencyCount: initialState.subagencyCount
-            };
         case 'SET_SUBAGENCY_TOTALS':
             return {
                 ...state,
                 spendingBySubagencyTotals: action.spendingBySubagencyTotals
+            };
+        case 'RESET_SUBAGENCY_TOTALS':
+            return {
+                ...state,
+                spendingBySubagencyTotals: initialState.spendingBySubagencyTotals
             };
         case 'SET_AGENCY_SLUGS':
             return {
@@ -130,36 +120,6 @@ const agencyReducer = (state = initialState, action) => {
                 topTierCodes: action.topTierCodes,
                 agencyIds: action.agencyIds,
                 agencyOutlays: action.agencyOutlays
-            };
-        case 'RESET_SUBAGENCY_TOTALS':
-            return {
-                ...state,
-                spendingBySubagencyTotals: initialState.spendingBySubagencyTotals
-            };
-        case 'SET_SUBCOMPONENTS_LIST':
-            return {
-                ...state,
-                agencySubcomponentsList: action.agencySubcomponentsList
-            };
-        case 'RESET_SUBCOMPONENTS_LIST':
-            return {
-                ...state,
-                agencySubcomponentsList: initialState.agencySubcomponentsList
-            };
-        case 'SET_FEDERAL_ACC_LIST':
-            return {
-                ...state,
-                agencySubcomponentsList: action.agencySubcomponentsList
-            };
-        case 'RESET_FEDERAL_ACC_LIST':
-            return {
-                ...state,
-                agencySubcomponentsList: action.agencySubcomponentsList
-            };
-        case 'SET_TAS_LIST':
-            return {
-                ...state,
-                agencySubcomponentsList: initialState.agencySubcomponentsList
             };
         case 'SET_DATA_THROUGH_DATES':
             return {

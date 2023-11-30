@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from "react-dom/client";
 import { hot } from "react-hot-loader";
 
 import AppContainer from 'containers/AppContainer';
@@ -15,10 +15,11 @@ require('helpers/rafPolyfill');
 
 registerIcons();
 
-const appDiv = document.getElementById('app');
-const App = render(
-    <AppContainer />,
-    appDiv
+const appDiv = document.getElementById("app");
+const root = createRoot(appDiv);
+
+const App = root.render(
+    <AppContainer />
 );
 
 export default hot(module)(App);

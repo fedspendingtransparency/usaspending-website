@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ *
  * moreOptionsTabsHelper-test.js
  * Created by James Lee on 6/26/20
 */

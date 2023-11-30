@@ -74,7 +74,6 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
 
     const maxLevel = 4;
 
-    // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
 

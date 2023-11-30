@@ -8,17 +8,46 @@
     @import "../../elements/buttons";
     @import "../../elements/typography";
 
-    @import "./_animations";
+    @keyframes slidein {
+        0% {
+            transform: translate(300px, 0);
+            visibility: hidden;
+        }
+        100% {
+            transform: translate(0, 0);
+            visibility: visible;
+        }
+    }
 
-    @import "byPage";
+    @keyframes slideout {
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(300px, 0);
+            visibility: hidden;
+        }
+    }
 
     .usa-atd-wrapper {
         position: fixed;
         right: 0;
         top: 0;
-        width: 310px;
         height: 100%;
         box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+
+        &.opened {
+            animation: slidein 0.5s ease-in forwards;
+            -webkit-animation: slidein 0.5s ease-in forwards;
+            overflow: hidden;
+            visibility: visible;
+        }
+
+        &:not(.opened) {
+            animation: slideout 0.5s ease-out forwards;
+            -webkit-animation: slideout 0.5s ease-out forwards;
+            overflow: hidden;
+        }
 
         .usda-share-icon .copy-confirmation {
             background-color: $color-white;

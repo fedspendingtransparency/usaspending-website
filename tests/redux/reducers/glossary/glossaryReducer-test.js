@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * glossaryReducer-test.js
  * Created by Kevin Li 5/3/17
  */

@@ -5,13 +5,14 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import {
     createSteppedAreaPath,
     filteredAndSortedLinesFirstToLast,
     dateMatchingFirstLineValue,
     shouldExtendAreaPathWhenLastDataPointYValueChange
 } from 'helpers/contractGrantActivityHelper';
+
+const dayjs = require('dayjs');
 
 const propTypes = {
     xScale: PropTypes.func,
@@ -88,7 +89,7 @@ const ContractGrantActivityChartAreaPaths = ({
             [todayLineValue, endLineValue, potentialEndLineValue]);
         if (!verticalLines?.length) return false;
         const everyLineIsAfterLastTransaction = verticalLines.every((line) => (
-            lastTransaction.action_date.isBefore(moment(line))
+            lastTransaction.action_date.isBefore(dayjs(line))
         ));
         if (everyLineIsAfterLastTransaction) return true;
         return false;
@@ -141,7 +142,7 @@ const ContractGrantActivityChartAreaPaths = ({
             const firstEndLine = filteredAndSortedLinesFirstToLast([endLineValue, potentialEndLineValue])[0];
             // find index of first transaction after the first end line
             const firstTransactionAfterFirstEndLineIndex = transactions.findIndex((t) => {
-                if (t.action_date.isAfter(moment(firstEndLine))) return true;
+                if (t.action_date.isAfter(dayjs(firstEndLine))) return true;
                 return false;
             });
             if (firstTransactionAfterFirstEndLineIndex !== -1) {
@@ -227,7 +228,7 @@ const ContractGrantActivityChartAreaPaths = ({
                                 y: lastTransaction.running_obligation_total
                             },
                             {
-                                x: moment(lastTransaction.action_date.valueOf() + xAdjustment),
+                                x: dayjs(lastTransaction.action_date.valueOf() + xAdjustment),
                                 y: lastTransaction.running_obligation_total
                             }
                         ],

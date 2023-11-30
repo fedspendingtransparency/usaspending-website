@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
 import {
     spendingOptions,
@@ -25,16 +25,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileTop from './MobileTop';
 import MobileDropdownItem from "./MobileDropdownItem";
 
-const clickedHeaderLink = (route) => {
-    Analytics.event({
-        category: 'Header - Link',
-        action: route
-    });
-};
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
-    location: PropTypes.object,
     mobileNavInitialState: PropTypes.bool,
     setMobileNavInitialState: PropTypes.func
 };
@@ -74,10 +67,18 @@ const navbarConfig = [
 ];
 
 const MobileNav = (props) => {
-    const { location, mobileNavInitialState, setMobileNavInitialState } = props;
+    const { mobileNavInitialState, setMobileNavInitialState } = props;
     const [url, setUrl] = useState('');
     const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(null);
+    const location = useLocation();
+
+    const clickedHeaderLink = (route) => {
+        Analytics.event({
+            category: 'Header - Link',
+            action: route
+        });
+    };
 
     const openDetailedMobileNav = (index) => {
         setDetailMobileNavIsHidden(false);
@@ -188,4 +189,4 @@ const MobileNav = (props) => {
 };
 
 MobileNav.propTypes = propTypes;
-export default withRouter(MobileNav);
+export default MobileNav;

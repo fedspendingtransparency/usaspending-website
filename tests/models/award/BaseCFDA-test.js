@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseCFDA-test.js
  * Created by Jonathan Hill 03/18/20
  */

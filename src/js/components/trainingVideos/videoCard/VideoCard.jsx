@@ -46,16 +46,22 @@ const VideoCard = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
+
     let changedTitle;
     let overline;
-    if (title.startsWith("TUTORIAL:") || title.startsWith("OVERVIEW:")) {
-        changedTitle = title.substring(10);
-        overline = title.substring(0, 8);
-    } else if (title.startsWith("QUICK START:")) {
-        changedTitle = title.substring(13);
-        overline = title.substring(0, 11);
+    const titleIndex = title.indexOf(":");
+
+    if (titleIndex > 0 && (titleIndex + 2) < title.length) {
+        changedTitle = title.substring(titleIndex + 2);
+        overline = title.substring(0, titleIndex);
     }
+    else {
+        changedTitle = title;
+        overline = "RESOURCE";
+    }
+
     return (
         <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
             <CardHero

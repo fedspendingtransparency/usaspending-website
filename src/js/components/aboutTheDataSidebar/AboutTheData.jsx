@@ -42,34 +42,13 @@ const AboutTheData = (props) => {
 
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
+    const [firstMount, setFirstMount] = useState(true);
 
     useEffect(() => {
-        setZIndexClass(lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index');
-    }, [lastOpenedSlideout]);
-
-    useEffect(() => {
-        setSearchTerm(input);
-
-        if (input === null || input?.length === 0 || isEqual(results, searchResults)) {
-            setSearchResultsPending(false);
-            setIsLoading(false);
+        if (props.aboutTheDataSidebar.display) {
+            setFirstMount(false);
         }
-
-        // if there are already results on redux set the UI to the results
-        if (input?.length > 0 && !isEqual(results, searchResults)) {
-            setSearchResultsPending(true);
-            setSearchResults(results);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        if (searchResultsPending && isEqual(results, searchResults)) {
-            setSearchResultsPending(false);
-            setIsLoading(false);
-        }
-    }, [results, searchResults, searchResultsPending]);
-
+    }, [props.aboutTheDataSidebar.display]);
     const clearDrilldown = () => {
         setDrilldownItemId(null);
         setDrilldownSection(null);
@@ -147,8 +126,9 @@ const AboutTheData = (props) => {
 
         setHeight(sidebarHeight);
     };
+
     const closeAboutTheData = useCallback(() => {
-        // close the atd drawer when the escape key is pressed for accessibility and general
+        // close the atd drawer when the escape key is pressed, for accessibility and general non-annoyance
         props.hideAboutTheData();
         clearDrilldown();
 
@@ -190,6 +170,29 @@ const AboutTheData = (props) => {
         );
 
     useEffect(() => {
+        setSearchTerm(input);
+
+        if (input === null || input?.length === 0 || isEqual(results, searchResults)) {
+            setSearchResultsPending(false);
+            setIsLoading(false);
+        }
+
+        // if there are already results on redux set the UI to the results
+        if (input?.length > 0 && !isEqual(results, searchResults)) {
+            setSearchResultsPending(true);
+            setSearchResults(results);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (searchResultsPending && isEqual(results, searchResults)) {
+            setSearchResultsPending(false);
+            setIsLoading(false);
+        }
+    }, [results, searchResults, searchResultsPending]);
+
+    useEffect(() => {
         if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
             const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
             setDrilldownItemId(entry.entryId);
@@ -220,8 +223,15 @@ const AboutTheData = (props) => {
         }
     }, [drilldownItemId, drilldownSection, scrollbar]);
 
+    useEffect(() => {
+        setZIndexClass(lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index');
+    }, [lastOpenedSlideout]);
+
     return (
-        <div id="usa-atd-wrapper" className={`usa-atd-wrapper ${zIndexClass}`}>
+        <div
+            id="usa-atd-wrapper"
+            style={{ visibility: firstMount ? "hidden" : "" }}
+            className={props.aboutTheDataSidebar.display ? `opened usa-atd-wrapper ${zIndexClass}` : `usa-atd-wrapper ${zIndexClass}`}>
             <aside
                 role="dialog"
                 aria-labelledby="atd-title"
@@ -244,10 +254,10 @@ const AboutTheData = (props) => {
                             {drilldown ?
                                 <div className="atd__body">
                                     <AboutTheDataDrilldown
-                                        section={drilldownSection.heading}
-                                        name={drilldownSection.fields[drilldownItemId].name}
+                                        section={drilldownSection?.heading}
+                                        name={drilldownSection?.fields[drilldownItemId]?.name}
                                         clearDrilldown={clearDrilldown}
-                                        slug={drilldownSection.fields[drilldownItemId].slug} />
+                                        slug={drilldownSection?.fields[drilldownItemId]?.slug} />
                                 </div>
                                 :
                                 <>

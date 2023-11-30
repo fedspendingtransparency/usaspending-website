@@ -1,4 +1,6 @@
 /**
+ * @jest-environment jsdom
+ * 
  * BaseContractAdditionalDetails-test.js
  * Created by David Trinh 10/10/18
  */
