@@ -324,15 +324,15 @@ const InPageNav = (props) => {
     ]);
 
     return (
-        <div className="in-page-nav__container">
+        <div className="usda-in-page-nav__container">
             <nav
                 ref={navBar}
-                className={`in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
+                className={`usda-in-page-nav__wrapper ${isOverflowLeft ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
                 {isOverflowLeft && !isMobile &&
                     <div
                         aria-label="In-page navigation left paginator"
                         title="In-page navigation left paginator"
-                        className="in-page-nav__paginator left"
+                        className="usda-in-page-nav__paginator left"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "left")}
@@ -343,7 +343,7 @@ const InPageNav = (props) => {
 
                 <ul>
                     {sections.map((section) => (
-                        <li className={`in-page-nav__element ${section.section === activeSection ? 'active' : ''}`} key={`in-page-nav-li-${section.label}`}>
+                        <li className={`usda-in-page-nav__element ${section.section === activeSection ? 'active' : ''}`} key={`in-page-nav-li-${section.label}`}>
                             <a
                                 role="button"
                                 tabIndex="0"
@@ -359,7 +359,7 @@ const InPageNav = (props) => {
                     <div
                         aria-label="In-page navigation right paginator"
                         title="In-page navigation right paginator"
-                        className="in-page-nav__paginator right"
+                        className="usda-in-page-nav__paginator right"
                         tabIndex="0"
                         role="button"
                         onKeyDown={(e) => onKeyPress(e, "right")}
