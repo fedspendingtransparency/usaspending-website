@@ -10,7 +10,6 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
-import InPageNav from "../inPageNav/InPageNav";
 
 const PageWrapper = ({
     pageName,
@@ -25,7 +24,8 @@ const PageWrapper = ({
     filters = {},
     sections,
     activeSection,
-    jumpToSection
+    jumpToSection,
+    inPageNav = false
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
@@ -34,14 +34,13 @@ const PageWrapper = ({
             title={title}
             stickyBreakPoint={getStickyBreakPointForSidebar()}
             overLine={overLine}
-            toolBar={toolBarComponents} />
-        {sections && <InPageNav
+            toolBar={toolBarComponents}
+            inPageNav={inPageNav}
             detectActiveSection
             pageName={pageName}
             sections={sections}
             activeSection={activeSection}
-            jumpToSection={jumpToSection} />}
-        </>}
+            jumpToSection={jumpToSection} /></>}
         {React.cloneElement(children, {
             className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
         })}
