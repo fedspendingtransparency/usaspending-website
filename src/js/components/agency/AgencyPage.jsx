@@ -140,15 +140,15 @@ export const AgencyProfileV2 = ({
 
     return (
         <PageWrapper
-            pageName="Agency Profile"
+            pageName="agency-v2"
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
+            inPageNav
             sections={sections}
             jumpToSection={jumpToSection}
             activeSection={activeSection}
-            extraHeightInHeader
             toolBarComponents={[
                 <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
