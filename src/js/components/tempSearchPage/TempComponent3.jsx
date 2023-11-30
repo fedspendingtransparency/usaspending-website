@@ -1,25 +1,25 @@
 import React from "react";
-import fetchData from './fetchData';
+import fetchData from './fetchAwardsTableData';
 
 const resource = fetchData();
 
-const TempComponent4 = () => {
+const TempComponent3 = () => {
     const content = resource.read();
     const term = content.results[0].term;
     const definition = content.results[0].official;
 
     return (
         <section
-            id="temp-component-four"
+            id="temp-component-three"
             style={{
-                border: '2px solid gold',
+                border: '2px solid blue',
                 height: '400px',
                 margin: '40px 40px',
                 textAlign: 'center',
                 fontSize: '24px',
                 paddingTop: '80px'
             }}>
-            COMPONENT 4
+            COMPONENT 3
             <div>
                 {term}
                 {definition}
@@ -28,4 +28,4 @@ const TempComponent4 = () => {
     );
 };
 
-export default TempComponent4;
+export default TempComponent3;

@@ -122,6 +122,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
             apiParams.auditTrail = auditTrail;
         }
 
+        console.log('apiParams', apiParams);
+
         this.apiRequest = SearchHelper.performSpendingOverTimeSearch(apiParams);
 
         this.apiRequest.promise

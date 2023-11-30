@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from "react";
 import { useInView } from "react-intersection-observer";
-import PageWrapper from "./sharedComponents/PageWrapper";
-import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-import TempComponent1 from "./TempComponent1";
-import TempComponent2 from "./TempComponent2";
+import PageWrapper from "../sharedComponents/PageWrapper";
+import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
+import TempAwardTable from "./TempAwardTable";
+import TempSpendingOverTime from "./TempSpendingOverTime";
 import TempLoadingComponent from "./TempLoadingComponent";
 
 const TempComponent3 = lazy(() => import('./TempComponent3'));
@@ -29,15 +29,17 @@ const TempSearchPage = () => {
                 title="Temp Search Page">
                 <main id="main-content" className="main-content">
                     <Suspense fallback={<TempLoadingComponent />}>
-                        <TempComponent1 />
+                        <TempAwardTable />
                     </Suspense>
-                    <TempComponent2 />
+                    <Suspense fallback={<TempLoadingComponent />}>
+                        <TempSpendingOverTime />
+                    </Suspense>
                     <Suspense fallback={<TempLoadingComponent />}>
                         <div ref={ref3}>
                             {inView3 && <TempComponent3 />}
                         </div>
                     </Suspense>
-                    <TempComponent2 />
+                    <TempSpendingOverTime />
                     <Suspense fallback={<TempLoadingComponent />}>
                         <div ref={ref4}>
                             {inView4 && <TempComponent4 />}
