@@ -15,6 +15,7 @@ import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadAct
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
+import { useLatestAccountData } from "../../account/WithLatestFy";
 
 const propTypes = {
     bulkDownload: PropTypes.object,
@@ -82,7 +83,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     checkStatus() {
         if (this.props.bulkDownload?.download.expectedFile !== '') {
             if (this.statusRequest) {
-                this.statusRequest.cancel();
+                // this.statusRequest.cancel();
             }
             this.statusRequest = BulkDownloadHelper.requestBulkDownloadStatus({
                 file_name: this.props.bulkDownload.download.expectedFile
@@ -90,6 +91,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
 
             this.statusRequest.promise
                 .then((res) => {
+                    console.log('res:', res);
                     this.parseStatus(res.data);
                 })
                 .catch((err) => {
