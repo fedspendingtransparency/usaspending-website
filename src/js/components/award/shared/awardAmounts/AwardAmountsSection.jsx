@@ -25,7 +25,7 @@ const AwardAmountsSection = ({
 }) => {
     const [active, setActive] = useState("overall");
 
-    const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview, active === "infrastructure");
+    const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview, active);
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
 
     const switchTab = (tab) => {
