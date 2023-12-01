@@ -18,6 +18,7 @@ import { useHistory } from "react-router-dom";
 import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import StateContent from './StateContent';
 
 const propTypes = {
@@ -38,6 +39,8 @@ const StatePage = ({
     const history = useHistory();
     const query = useQueryParams();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const slug = `state/${id}/${stateProfile.fy}`;
     const emailArgs = {
@@ -73,8 +76,15 @@ const StatePage = ({
         history.replace(`?section=${sectionObj.section}`);
 
         // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
+        let conditionalOffset;
+        if (isMobile) {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 140 : 60;
+        }
+        else {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+        }
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
         window.scrollTo({
             top: sectionTop - 25,
             left: 0,
@@ -99,6 +109,18 @@ const StatePage = ({
             isMounted = false;
         };
     }, 100), [history, query.section]);
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
 
     let content = <StateContent id={id} stateProfile={stateProfile} />;
     if (error) {
