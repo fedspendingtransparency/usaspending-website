@@ -136,7 +136,8 @@ const StatePage = ({
             ]}
             sections={stateSections}
             activeSection={activeSection}
-            jumpToSection={jumpToSection}>
+            jumpToSection={jumpToSection}
+            inPageNav>
             <main id="main-content" className="main-content">
                 <Helmet>
                     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
