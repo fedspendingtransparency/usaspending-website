@@ -152,7 +152,8 @@ export const RecipientPage = ({
             ]}
             sections={recipientSections}
             activeSection={activeSection}
-            jumpToSection={jumpToSection}>
+            jumpToSection={jumpToSection}
+            inPageNav>
             <>
                 <main id="main-content" className="main-content">
                     <LoadingWrapper isLoading={loading}>
