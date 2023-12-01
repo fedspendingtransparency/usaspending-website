@@ -49,13 +49,40 @@ describe('BulkDownloadBottomBarContainer tests', () => {
         expect(BottomBarDom).toBeTruthy();
     });
 
-    it('properly shows error message and closes bottom bar', async () => {
+    it('shows download ready message', async () => {
         mockPropTypes.bulkDownload.download.pendingDownload = true;
         mockPropTypes.bulkDownload.download.showCollapsedProgress = true;
         mockPropTypes.bulkDownload.download.expectedFile = 'test.zip';
 
         jest.spyOn(BulkDownloadHelper, 'requestBulkDownloadStatus').mockReturnValue({
-            promise: Promise.resolve({ data: { status: 'failed' } }),
+            promise: Promise.resolve({ data: { status: 'finished' } }),
+            cancel: () => {}
+        });
+
+        render(<BulkDownloadBottomBarContainer {...mockPropTypes} />);
+
+        await waitFor(() => {
+            const BottomBarDom = screen.getByText('Your file is ready for download.');
+            expect(BottomBarDom).toBeTruthy();
+
+            setTimeout(() => {
+                expect(BottomBarDom).toBeFalsy();
+            }, 5001);
+        });
+    });
+
+    it('shows error message and closes bottom bar', async () => {
+        mockPropTypes.bulkDownload.download.pendingDownload = true;
+        mockPropTypes.bulkDownload.download.showCollapsedProgress = true;
+        mockPropTypes.bulkDownload.download.expectedFile = 'test.zip';
+
+        jest.spyOn(BulkDownloadHelper, 'requestBulkDownloadStatus').mockReturnValue({
+            promise: Promise.resolve({
+                data: {
+                    status: 'failed',
+                    message: 'error test message'
+                }
+            }),
             cancel: () => {}
         });
 
