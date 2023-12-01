@@ -15,7 +15,6 @@ import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadAct
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import { useLatestAccountData } from "../../account/WithLatestFy";
 
 const propTypes = {
     bulkDownload: PropTypes.object,
@@ -63,13 +62,13 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     componentWillUnmount() {
-    // this happens when page navigation occurs
+        // this happens when page navigation occurs
         window.removeEventListener('beforeunload', this.windowWillClose);
         window.clearTimeout(this.statusTimer);
     }
 
     displayBar() {
-    // monitor for window close events
+        // monitor for window close events
         window.addEventListener('beforeunload', this.windowWillClose);
         this.setState({
             visible: true,
@@ -83,7 +82,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     checkStatus() {
         if (this.props.bulkDownload?.download.expectedFile !== '') {
             if (this.statusRequest) {
-                // this.statusRequest.cancel();
+                this.statusRequest.cancel();
             }
             this.statusRequest = BulkDownloadHelper.requestBulkDownloadStatus({
                 file_name: this.props.bulkDownload.download.expectedFile
@@ -174,7 +173,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     closeBar() {
-    // stop monitoring for window close events
+        // stop monitoring for window close events
         window.removeEventListener('beforeunload', this.windowWillClose);
         this.props.resetDownload();
         this.setState({
@@ -183,11 +182,11 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     windowWillClose(e) {
-    /* eslint-disable no-param-reassign */
-    // we need to modify the browser event to trigger a warning message
+        /* eslint-disable no-param-reassign */
+        // we need to modify the browser event to trigger a warning message
         e.returnValue = `You have a file that is still being generated. If you leave, the file \
 will no longer download to your computer. Are you sure you want to do this?`;
-    /* eslint-ensable no-param-reassign */
+        /* eslint-ensable no-param-reassign */
     }
 
     render() {

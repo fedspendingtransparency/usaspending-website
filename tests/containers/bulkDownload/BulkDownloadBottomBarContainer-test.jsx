@@ -54,19 +54,10 @@ describe('BulkDownloadBottomBarContainer tests', () => {
         mockPropTypes.bulkDownload.download.showCollapsedProgress = true;
         mockPropTypes.bulkDownload.download.expectedFile = 'test.zip';
 
-        const mockErrorResponse = {
-            promise: new Promise((resolve) => {
-                process.nextTick(() => {
-                    resolve({
-                        data: {
-                            status: 'failed'
-                        }
-                    });
-                });
-            })
-        };
-
-        jest.spyOn(BulkDownloadHelper, 'requestBulkDownloadStatus').mockReturnValueOnce(mockErrorResponse);
+        jest.spyOn(BulkDownloadHelper, 'requestBulkDownloadStatus').mockReturnValue({
+            promise: Promise.resolve({ data: { status: 'failed' } }),
+            cancel: () => {}
+        });
 
         render(<BulkDownloadBottomBarContainer {...mockPropTypes} />);
 
