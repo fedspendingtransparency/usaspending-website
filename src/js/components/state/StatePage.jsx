@@ -119,7 +119,7 @@ const StatePage = ({
 
     return (
         <PageWrapper
-            pageName="State Profile"
+            pageName="state"
             classNames="usa-da-state-page"
             overLine="state profile"
             title={stateProfile.overview.name}
