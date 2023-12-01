@@ -19,7 +19,7 @@ import { AlternateNamesRecipientModalContainer } from 'containers/recipient/moda
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import RecipientContent from './RecipientContent';
 
 const propTypes = {
@@ -46,6 +46,8 @@ export const RecipientPage = ({
     const hideAlternateModal = () => showAlternateRecipientModal(false);
     const showChildRecipientModal = () => showChildModal(true);
     const hideChildRecipientModal = () => showChildModal(false);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const slug = `recipient/${id}/${recipient.fy}`;
     const emailArgs = {
@@ -86,8 +88,15 @@ export const RecipientPage = ({
         history.replace(`?section=${sectionObj.section}`);
 
         // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
+        let conditionalOffset;
+        if (isMobile) {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 140 : 60;
+        }
+        else {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+        }
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
         window.scrollTo({
             top: sectionTop - 25,
             left: 0,
@@ -113,6 +122,18 @@ export const RecipientPage = ({
         };
     }, 100), [history, query.section]);
 
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     let content = (
         <RecipientContent
             id={id}
@@ -131,7 +152,6 @@ export const RecipientPage = ({
     const backgroundColor = {
         backgroundColor: "#1a4480"
     };
-
 
     return (
         <PageWrapper
