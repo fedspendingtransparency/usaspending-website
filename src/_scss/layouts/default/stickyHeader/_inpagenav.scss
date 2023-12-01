@@ -9,12 +9,6 @@
   top: rem(60);
   z-index: 25;
 
-    &.extra-height-in-header {
-      @media(max-width: $medium-screen) {
-        top: rem(110);
-      }
-    }
-
   .usda-in-page-nav__wrapper {
     height: rem(34);
     display: flex;
