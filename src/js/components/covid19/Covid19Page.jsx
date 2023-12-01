@@ -28,6 +28,7 @@ import OtherResources from 'components/covid19/OtherResources';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import Analytics from 'helpers/analytics/Analytics';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 require('pages/covid19/index.scss');
 
@@ -69,8 +70,12 @@ const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
     const history = useHistory();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
+
+
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
@@ -85,8 +90,16 @@ const Covid19Page = ({ loading }) => {
         history.replace(`?section=${sectionObj.section}`);
         setActiveSection(section);
         // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
+        let conditionalOffset;
+        if (isMobile) {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 140 : 60;
+        }
+        else {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+        }
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
+
         window.scrollTo({
             top: sectionTop - 25,
             left: 0,
@@ -110,8 +123,6 @@ const Covid19Page = ({ loading }) => {
             if (urlSection) {
                 setActiveSection(urlSection);
                 jumpToSection(urlSection);
-                // remove the query param from the url after scrolling to the given section
-                // history.replace(`/about`);
             }
         }
         return () => {
@@ -127,6 +138,18 @@ const Covid19Page = ({ loading }) => {
         handleShareOptionClick(name, slug, getEmailSocialShareData);
     };
 
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     return (
         <PageWrapper
             pageName="covid19"
@@ -141,7 +164,8 @@ const Covid19Page = ({ loading }) => {
             ]}
             sections={covid19Sections}
             activeSection={activeSection}
-            jumpToSection={jumpToSection}>
+            jumpToSection={jumpToSection}
+            inPageNav>
             <LoadingWrapper isLoading={loading}>
                 <Helmet>
                     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
