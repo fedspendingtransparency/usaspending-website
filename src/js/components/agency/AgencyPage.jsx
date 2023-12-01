@@ -13,11 +13,14 @@ import {
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { throttle } from "lodash";
 import { useQueryParams } from 'helpers/queryParams';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-// import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
@@ -56,6 +59,9 @@ export const AgencyProfileV2 = ({
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const { name } = useSelector((state) => state.agency.overview);
     const { isStatusOfFundsChartLoaded } = useSelector((state) => state.agency);
+
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const dataThroughDates = useSelector((state) => state.agency.dataThroughDates);
     const overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate;
@@ -121,25 +127,17 @@ export const AgencyProfileV2 = ({
         setActiveSection(section);
 
         // add offsets
-        // if (activeSection === 'overview') {
-        //     // scrollToY(sectionDom.offsetTop - 230, 700);
-        //     window.scrollTo({
-        //         top: sectionDom.offsetTop - 126,
-        //         left: 0,
-        //         behavior: 'smooth'
-        //     });
-        // }
-        // else {
-        //     // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
-        //     // scrollToY(sectionDom.offsetTop - 126, 700);
-        //     window.scrollTo({
-        //         top: sectionDom.offsetTop - 126,
-        //         left: 0,
-        //         behavior: 'smooth'
-        //     });
-        // }
+        let conditionalOffset;
+        if (isMobile) {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 140 : 60;
+        }
+        else {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+        }
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
         window.scrollTo({
-            top: sectionDom.offsetTop - 120,
+            top: sectionTop - 25,
             left: 0,
             behavior: 'smooth'
         });
@@ -152,13 +150,26 @@ export const AgencyProfileV2 = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section, isStatusOfFundsChartLoaded]);
 
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     return (
         <PageWrapper
-            pageName="Agency Profile"
+            pageName="agency-v2"
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
+            inPageNav
             sections={sections}
             jumpToSection={jumpToSection}
             activeSection={activeSection}
