@@ -141,7 +141,8 @@ const Covid19Page = ({ loading }) => {
             ]}
             sections={covid19Sections}
             activeSection={activeSection}
-            jumpToSection={jumpToSection}>
+            jumpToSection={jumpToSection}
+            inPageNav>
             <LoadingWrapper isLoading={loading}>
                 <Helmet>
                     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
