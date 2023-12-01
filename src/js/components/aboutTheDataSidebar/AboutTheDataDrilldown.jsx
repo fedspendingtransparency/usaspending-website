@@ -45,12 +45,21 @@ const AboutTheDataDrilldown = ({
 
     const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [isError, setIsError] = useState(false);
+    const [showSecondBackButton, setShowSecondBackButton] = useState(false);
 
     const handleKeyUp = (e) => {
         if (e.key === "Enter") {
             clearDrilldown();
         }
     };
+
+    useEffect(() => {
+        const thumbElementHeight = document.getElementById("atd-scrollbar-thumb").getBoundingClientRect().height;
+        console.log('thumbElementHeight', thumbElementHeight);
+        if (thumbElementHeight > 160) {
+            setShowSecondBackButton(true);
+        }
+    }, []);
 
     useEffect(() => {
         if (slug?.length > 0) {
@@ -92,6 +101,16 @@ const AboutTheDataDrilldown = ({
                     <div className="atd__copy">{drilldownComponent}</div>
                 }
             </div>
+            {showSecondBackButton &&
+                <>
+                    <div className="atd__back" role="button" onKeyUp={(e) => handleKeyUp(e)} tabIndex="0" onClick={() => clearDrilldown()}>
+                        <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
+                        <span className="atd__back__label">
+                    Back
+                        </span>
+                    </div>
+                </>
+            }
         </Suspense>
     </>);
 };
