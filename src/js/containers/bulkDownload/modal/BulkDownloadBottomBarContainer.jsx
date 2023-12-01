@@ -91,7 +91,6 @@ export class BulkDownloadBottomBarContainer extends React.Component {
 
             this.statusRequest.promise
                 .then((res) => {
-                    console.log('res:', res);
                     this.parseStatus(res.data);
                 })
                 .catch((err) => {
@@ -124,8 +123,8 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     scheduleNextStatus() {
-    // determine when the next status check should be
-    // it should be 15 seconds for the first minute, then 30 seconds after that
+        // determine when the next status check should be
+        // it should be 15 seconds for the first minute, then 30 seconds after that
         let timeToWait = 15;
         if (this.statusCount >= 4) {
             timeToWait = 30;
@@ -140,7 +139,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     displayError(message) {
-    // update redux
+        // update redux
         this.props.setDownloadPending(false);
         this.props.setDownloadCollapsed(false);
 
@@ -149,12 +148,13 @@ export class BulkDownloadBottomBarContainer extends React.Component {
             title: 'An error occurred while generating your file.',
             description: message
         }, () => {
-            window.setTimeout(this.closeBar, 5000); // close the bar in 5 seconds
+            // close the bar in 5 seconds
+            window.setTimeout(this.closeBar, 5000);
         });
     }
 
     downloadFile(url) {
-    // stop monitoring for window close events
+        // stop monitoring for window close events
         window.removeEventListener('beforeunload', this.windowWillClose);
 
         // start the download

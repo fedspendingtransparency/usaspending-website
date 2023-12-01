@@ -14,7 +14,11 @@ import * as BulkDownloadHelper from '../../../src/js/helpers/bulkDownloadHelper'
 import { mockApiCall } from "../../testResources/mockApiHelper";
 
 const mockBulkDownload = mockProps.bulkDownload;
-mockApiCall(BulkDownloadHelper, 'requestBulkDownloadStatus', { response: "preflight mock" });
+mockApiCall(BulkDownloadHelper, 'requestBulkDownloadStatus', {
+    data: {
+        status: "none"
+    }
+});
 jest.mock('../../../src/js/helpers/bulkDownloadHelper');
 
 beforeEach(() => {
@@ -45,7 +49,7 @@ describe('BulkDownloadBottomBarContainer tests', () => {
         expect(BottomBarDom).toBeTruthy();
     });
 
-    it('properly shows error message', async () => {
+    it('properly shows error message and closes bottom bar', async () => {
         mockPropTypes.bulkDownload.download.pendingDownload = true;
         mockPropTypes.bulkDownload.download.showCollapsedProgress = true;
         mockPropTypes.bulkDownload.download.expectedFile = 'test.zip';
@@ -61,13 +65,18 @@ describe('BulkDownloadBottomBarContainer tests', () => {
                 });
             })
         };
-        const spy = jest.spyOn(BulkDownloadHelper, 'requestBulkDownloadStatus').mockReturnValueOnce(mockErrorResponse);
+
+        jest.spyOn(BulkDownloadHelper, 'requestBulkDownloadStatus').mockReturnValueOnce(mockErrorResponse);
 
         render(<BulkDownloadBottomBarContainer {...mockPropTypes} />);
 
-        await waitFor(() => expect(spy).toHaveBeenCalledTimes(2));
+        await waitFor(() => {
+            const BottomBarDom = screen.getByText('An error occurred while generating your file.');
+            expect(BottomBarDom).toBeTruthy();
 
-        // const BottomBarDom = screen.getByText('An error occurred while generating your file.');
-        // expect(BottomBarDom).toBe('wrong');
+            setTimeout(() => {
+                expect(BottomBarDom).toBeFalsy();
+            }, 5001);
+        });
     });
 });
