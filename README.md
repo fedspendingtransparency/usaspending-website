@@ -13,6 +13,7 @@ _Assumptions_:
 * You're able to install software on your machine.
 * You have git installed on your machine and are able to clone code repositories from GitHub. If this isn't the case, the easiest way to get started is to install [GitHub Desktop](https://desktop.github.com/ "GitHub desktop"), available for Windows or Mac.
 * You're familiar with opening a terminal on your machine and using the command line as needed.
+[GitHub Desktop](https://desktop.github.com/ "GitHub desktop")
 
 ### Install and Configure
 _Get the code and install the runtime and dependencies_
