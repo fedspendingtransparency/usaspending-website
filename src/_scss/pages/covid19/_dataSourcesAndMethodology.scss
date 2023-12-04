@@ -7,19 +7,22 @@
 
     .resources__container {
         padding-right: $global-padding * 2;
-        padding-left: $global-padding * 2; 
+        padding-left: $global-padding * 2;
         padding-bottom: 5%;
         width: 100%;
     }
 
     .dsm__heading {
         font-size: rem(30);
-        width: 75%;
         text-align: left;
-        margin-left:auto;
-        margin-right:auto;
         font-weight: 600;
         border-bottom: 1px solid;
+
+        @media (min-width:$large-screen) {
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 
     .dsm__topSection p {
@@ -34,42 +37,52 @@
     }
 
     .otherResources__list {
-        width: 75%;
-        margin-left: auto;
-        margin-right: auto;
+        @media (min-width:$large-screen) {
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         margin-top: rem(25);
         padding-left: 2%;
         font-size: rem(14);
     }
 
-    .otherResources__list > li {
+    .otherResources__list>li {
         list-style: disc;
         padding-bottom: rem(10);
+
         .other-resources__link__container {
             @include display(flex);
             @include flex-wrap(wrap);
+
             @media(min-width: $large-screen) {
                 display: block;
             }
-          .other-resources__link__text {
-            padding-right: 0.3rem;
-          }
-          a {
-            word-break: break-word;
-          }
+
+            .other-resources__link__text {
+                padding-right: 0.3rem;
+            }
+
+            a {
+                word-break: break-word;
+            }
         }
     }
 
     .information-top {
         height: 0.5rem;
         width: 100%;
+
         &.dsm--border-radius {
             border-radius: 0;
         }
     }
+
     .information-top-arp {
         height: 0.5rem;
         width: 100%;
+
         &.dsm--border-radius {
             border-radius: 0;
         }
@@ -79,21 +92,24 @@
 @include media($medium-screen) {
     .dsm__container {
         padding-right: $global-padding * 2;
-        padding-left: $global-padding * 2; 
+        padding-left: $global-padding * 2;
         padding-bottom: 0%;
     }
 
     .resources__container {
         padding-right: $global-padding * 2;
-        padding-left: $global-padding * 2; 
+        padding-left: $global-padding * 2;
         padding-bottom: 5%;
         width: 100%;
     }
-    
+
     .dsm__topSection {
-        width: 75%;
-        margin: auto;
-        text-align: center;
+        @media (min-width:$large-screen) {
+            width: 75%;
+            margin: auto;
+            text-align: center;
+        }
+
         padding-right: 3%;
     }
 
@@ -106,4 +122,3 @@
         padding-bottom: 0;
     }
 }
-

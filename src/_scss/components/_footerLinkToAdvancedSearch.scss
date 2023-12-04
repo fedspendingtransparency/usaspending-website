@@ -26,9 +26,12 @@
         p {
             font-size: rem(18);
             font-weight: $font-light;
-            width: 75%;
-            text-align: left;
-            margin: auto;
+
+            @media (min-width: $large-screen) {
+                width: 75%;
+                text-align: left;
+                margin: auto;
+            }
 
             & strong {
                 font-weight: $font-semibold;

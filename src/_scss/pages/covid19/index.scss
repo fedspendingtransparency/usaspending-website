@@ -125,22 +125,28 @@
           width: 100%; // Fixes an IE Flexbox bug
 
           h4.body__narrative {
-            text-align: center;
+            text-align: left;
             font-weight: $font-semibold;
             font-size: 2rem;
-            width: 50%;
-            margin: auto;
-            margin-top: 2rem;
             @include profile-page-wrap;
+
+            @media (min-width:$large-screen) {
+              text-align: center;
+              width: 50%;
+              margin: 2rem auto 0 auto;
+            }
           }
 
           .body__narrative-description {
             font-size: $small-font-size;
             text-align: left;
-            width: 50%;
-            margin: auto;
             padding-bottom: 2.5rem;
             @include profile-page-wrap;
+
+            @media (min-width:$large-screen) {
+              width: 50%;
+              margin: auto;
+            }
             .footnotes {
               font-size: $smallest-font-size;
 
