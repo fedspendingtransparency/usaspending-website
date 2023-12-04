@@ -18,6 +18,8 @@
         width: 100%;
         @include media($medium-screen) {
             @include flex(1 1 75%);
+            // Evenly distribute the 30px space between the sidebar & content
+            margin-left: rem(15);
         }
     }
 }
