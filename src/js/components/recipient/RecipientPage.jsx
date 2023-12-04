@@ -104,23 +104,12 @@ export const RecipientPage = ({
         });
         setActiveSection(section);
     };
-
-    useEffect(throttle(() => {
-        // this allows the page to jump to a section on page load, when
-        // using a link to open the page
-        // prevents a console error about react unmounted component leak
-        let isMounted = true;
-        if (isMounted) {
-            const urlSection = query.section;
-            if (urlSection) {
-                setActiveSection(urlSection);
-                jumpToSection(urlSection);
-            }
-        }
-        return () => {
-            isMounted = false;
-        };
-    }, 100), [history, query.section]);
+    useEffect(() => {
+        setTimeout(() => {
+            jumpToSection(query.section);
+        }, 2000);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query.section]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
