@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { find, throttle } from 'lodash';
@@ -49,7 +48,6 @@ export const RecipientPage = ({
     const hideChildRecipientModal = () => showChildModal(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const { isChartLoaded } = useSelector((state) => state.recipient);
 
     const slug = `recipient/${id}/${recipient.fy}`;
     const emailArgs = {
@@ -107,7 +105,7 @@ export const RecipientPage = ({
         setActiveSection(section);
     };
     useEffect(() => {
-        if (!isChartLoaded && query.section) {
+        if (!loading && query.section) {
             jumpToSection(query.section);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
