@@ -11,14 +11,9 @@ import { mockProps } from './mockData';
 import { render, screen } from '../../testResources/test-utils';
 import { BulkDownloadBottomBarContainer } from "../../../src/js/containers/bulkDownload/modal/BulkDownloadBottomBarContainer";
 import * as BulkDownloadHelper from '../../../src/js/helpers/bulkDownloadHelper';
-import { mockApiCall } from "../../testResources/mockApiHelper";
 
 const mockBulkDownload = mockProps.bulkDownload;
-mockApiCall(BulkDownloadHelper, 'requestBulkDownloadStatus', {
-    data: {
-        status: "none"
-    }
-});
+
 jest.mock('../../../src/js/helpers/bulkDownloadHelper');
 
 beforeEach(() => {
