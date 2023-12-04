@@ -4,8 +4,13 @@
     h2 {
         font-size: rem(38);
         line-height: rem(47);
+        margin: rem(16) 0;
+        text-align: left;
+
+        @media (min-width:$large-screen) {
         margin: rem(16) auto;
         text-align: center;        
+        }
     }
 
     button {
