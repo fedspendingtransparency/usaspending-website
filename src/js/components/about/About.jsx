@@ -8,7 +8,7 @@ import React from 'react';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
 
-import AboutContent from './AboutContent';
+import AboutPage from './AboutPage';
 
 require('pages/about/aboutPage.scss');
 
@@ -19,7 +19,7 @@ const About = () => (
         metaTagProps={aboutPageMetaTags}
         title="About">
         <main id="main-content" className="main-content">
-            <AboutContent />
+            <AboutPage />
         </main>
     </PageWrapper>
 );

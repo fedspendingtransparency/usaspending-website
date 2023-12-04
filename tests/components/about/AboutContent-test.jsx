@@ -1,13 +1,13 @@
 /**
  * @jest-environment jsdom
- * 
- * AboutContent-test.jsx
+ *
+ * AboutPage-test.jsx
  * Created by Lizzie Salita 3/9/21
  */
 
 import React from 'react';
 import { Route } from 'react-router-dom';
-import AboutContent from 'components/about/AboutContent';
+import AboutContent from 'components/about/AboutPage';
 import { expect } from '@jest/globals';
 import { render, screen } from '@test-utils';
 
