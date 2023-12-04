@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { waitFor } from "@testing-library/react";
+import { fireEvent, waitFor, act } from "@testing-library/react";
 import { mockProps } from './mockData';
 import { render, screen } from '../../testResources/test-utils';
 import { BulkDownloadBottomBarContainer } from "../../../src/js/containers/bulkDownload/modal/BulkDownloadBottomBarContainer";
@@ -91,5 +91,20 @@ describe('BulkDownloadBottomBarContainer tests', () => {
                 expect(BottomBarDom).toBeFalsy();
             }, 5001);
         });
+    });
+
+    it('shows windowWillClose message before closing', () => {
+        mockPropTypes.bulkDownload.download.pendingDownload = true;
+        mockPropTypes.bulkDownload.download.showCollapsedProgress = true;
+
+        window.removeEventListener = jest.fn();
+
+        render(<BulkDownloadBottomBarContainer {...mockPropTypes} />);
+
+        act(() => {
+            fireEvent(window, new Event('beforeunload'));
+        });
+
+        expect(window.removeEventListener).toBeCalled();
     });
 });
