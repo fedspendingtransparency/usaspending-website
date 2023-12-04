@@ -83,7 +83,7 @@ describe('BulkDownloadBottomBarContainer tests', () => {
 
         render(<BulkDownloadBottomBarContainer {...mockPropTypes} />);
 
-        await waitFor(() => {
+        waitFor(() => {
             const BottomBarDom = screen.getByText('An error occurred while generating your file.');
             expect(BottomBarDom).toBeTruthy();
 
