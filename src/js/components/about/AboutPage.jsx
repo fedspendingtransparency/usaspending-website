@@ -103,7 +103,7 @@ const AboutPage = () => {
 
     return (
         <PageWrapper
-            pageName="About"
+            pageName="about"
             classNames="usa-da-about-page"
             metaTagProps={aboutPageMetaTags}
             title="About"
