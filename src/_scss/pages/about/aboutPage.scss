@@ -14,12 +14,14 @@
         @import "./_contentWrap";
         @import "elements/_divider";
 
-        @import "./_sidebar";
-
         @import "./_section";
 
         .about-content-wrapper {
             @include span-columns(16);
+
+            .about-content {
+                @include span-columns(16);
+            }
         }
     }
 }
