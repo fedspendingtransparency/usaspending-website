@@ -4,6 +4,9 @@ import fetchData from './fetchSpendingByCategoriesData';
 const resource = fetchData();
 
 const TempCategoriesSection = () => {
+    if (resource) {
+        console.log('categories section api call done');
+    }
     const content = resource.read();
     const message = content.messages[0];
     const agencyName = content.results[0].name;
@@ -13,7 +16,7 @@ const TempCategoriesSection = () => {
             id="temp-component-four"
             style={{
                 border: '2px solid gold',
-                height: '400px',
+                height: '800px',
                 margin: '40px 40px',
                 textAlign: 'center',
                 fontSize: '24px',

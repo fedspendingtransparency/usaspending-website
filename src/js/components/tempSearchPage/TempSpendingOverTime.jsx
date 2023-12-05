@@ -4,6 +4,9 @@ import fetchSpendingOverTimeData from './fetchSpendingOverTimeData';
 const resource = fetchSpendingOverTimeData();
 
 const TempSpendingOverTime = () => {
+    if (resource) {
+        console.log('spending over time api call done');
+    }
     const content = resource.read();
     const message = content.messages[0];
     const aggregatedAmount = content.results[0].aggregated_amount;
@@ -13,7 +16,7 @@ const TempSpendingOverTime = () => {
             id="temp-component-two"
             style={{
                 border: '2px solid green',
-                height: '400px',
+                height: '800px',
                 margin: '40px 40px',
                 textAlign: 'center',
                 fontSize: '24px',

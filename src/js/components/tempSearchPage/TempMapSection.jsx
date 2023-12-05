@@ -4,6 +4,9 @@ import fetchData from './fetchSpendingByGeographyData';
 const resource = fetchData();
 
 const TempMapSection = () => {
+    if (resource) {
+        console.log('map section api call done');
+    }
     const content = resource.read();
     const message = content.messages[0];
     const displayName = content.results[0].display_name;
@@ -13,7 +16,7 @@ const TempMapSection = () => {
             id="temp-component-three"
             style={{
                 border: '2px solid blue',
-                height: '400px',
+                height: '800px',
                 margin: '40px 40px',
                 textAlign: 'center',
                 fontSize: '24px',

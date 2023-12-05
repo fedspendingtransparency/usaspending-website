@@ -6,6 +6,9 @@ const resource = fetchAwardsTableData();
 const countAPICall = fetchAwardTableCount();
 
 const TempAwardTable = () => {
+    if (resource) {
+        console.log('awards table api call done');
+    }
     const content = resource.read();
     const message = content.messages[0];
     const sampleId = content.results[0]['Award ID'];

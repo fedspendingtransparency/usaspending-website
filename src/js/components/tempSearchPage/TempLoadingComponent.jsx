@@ -3,7 +3,7 @@ import React from "react";
 const TempLoadingComponent = () => (
     <div style={{
         border: '2px solid purple',
-        height: '400px',
+        height: '800px',
         margin: '40px 40px',
         textAlign: 'center',
         fontSize: '24px'
