@@ -270,7 +270,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
             return results;
         };
 
-
         this.props.setAppliedFilterCompletion(false);
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise

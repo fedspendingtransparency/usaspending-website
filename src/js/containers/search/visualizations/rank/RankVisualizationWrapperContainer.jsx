@@ -222,8 +222,6 @@ const RankVisualizationWrapperContainer = (props) => {
             subawards: props.subaward
         };
 
-        console.log('apiParams', apiParams);
-
         apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         apiRequest.promise
             .then((res) => {
