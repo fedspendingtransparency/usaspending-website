@@ -1,5 +1,5 @@
 /**
- * AboutContent.jsx
+ * AboutPage.jsx
  * Created by Mike Bray 11/20/2017
  **/
 
@@ -8,9 +8,10 @@ import { useHistory } from 'react-router-dom';
 import { find, throttle } from 'lodash';
 import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-import { scrollToY } from 'helpers/scrollToHelper';
-import Sidebar from '../sharedComponents/sidebar/Sidebar';
+import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
+import { aboutPageMetaTags } from 'helpers/metaTagHelper';
+
+import PageWrapper from "../sharedComponents/PageWrapper";
 
 import Mission from './Mission';
 import Background from './Background';
@@ -18,6 +19,8 @@ import MoreInfo from './MoreInfo';
 import Contact from './Contact';
 import Development from './Development';
 import Licensing from './Licensing';
+
+require('pages/about/aboutPage.scss');
 
 const aboutSections = [
     {
@@ -46,7 +49,7 @@ const aboutSections = [
     }
 ];
 
-const AboutContent = () => {
+const AboutPage = () => {
     const history = useHistory();
     const query = useQueryParams();
 
@@ -72,9 +75,14 @@ const AboutContent = () => {
         setActiveSection(section);
 
         // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
+        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-        scrollToY(sectionTop + 15, 700);
+
+        window.scrollTo({
+            top: sectionTop - 25,
+            left: 0,
+            behavior: 'smooth'
+        });
     };
 
     useEffect(throttle(() => {
@@ -94,29 +102,31 @@ const AboutContent = () => {
     }, 100), [history, query.section]);
 
     return (
-        <div className="about-content-wrapper">
-            <div className="about-sidebar">
-                <Sidebar
-                    isGoingToBeSticky
-                    active={activeSection}
-                    pageName="about"
-                    sections={aboutSections}
-                    detectActiveSection={setActiveSection}
-                    jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
-            </div>
-            <div className="about-content">
-                <div className="about-padded-content">
-                    <Mission />
-                    <Background />
-                    <Development />
-                    <Licensing />
-                    <MoreInfo />
-                    <Contact />
+        <PageWrapper
+            pageName="about"
+            classNames="usa-da-about-page"
+            metaTagProps={aboutPageMetaTags}
+            title="About"
+            inPageNav
+            sections={aboutSections}
+            jumpToSection={jumpToSection}
+            activeSection={activeSection}>
+            <main id="main-content" className="main-content">
+                <div className="about-content-wrapper">
+                    <div className="about-content">
+                        <div className="about-padded-content">
+                            <Mission />
+                            <Background />
+                            <Development />
+                            <Licensing />
+                            <MoreInfo />
+                            <Contact />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </main>
+        </PageWrapper>
     );
 };
 
-export default AboutContent;
+export default AboutPage;
