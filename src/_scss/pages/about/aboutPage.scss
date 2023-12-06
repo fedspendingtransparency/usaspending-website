@@ -23,5 +23,13 @@
                 @include span-columns(16);
             }
         }
+
+        @include media($large-screen) {
+            .about-padded-content {
+                width: 75%;
+                max-width: rem(975);
+                margin: auto;
+            }
+        }
     }
 }
