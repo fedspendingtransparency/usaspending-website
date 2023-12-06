@@ -1,12 +1,9 @@
 import React, { lazy, Suspense } from "react";
-import { useInView } from "react-intersection-observer";
+import { useInView, InView } from "react-intersection-observer";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
 import TempAwardTable from "./TempAwardTable";
 import TempLoadingComponent from "./TempLoadingComponent";
-// import TempSpendingOverTime from "./TempSpendingOverTime";
-// import TempMapSection from "./TempMapSection";
-// import TempCategoriesSection from "./TempCategoriesSection";
 
 const TempSpendingOverTime = lazy(() => import('./TempSpendingOverTime'));
 const TempMapSection = lazy(() => import('./TempMapSection'));
@@ -16,15 +13,18 @@ require("pages/search/searchPage.scss");
 
 const TempSearchPage = () => {
     const { ref: ref2, inView: inView2 } = useInView({
-        threshold: 0.1,
+        // threshold: 0.1,
+        rootMargin: '20px',
         triggerOnce: true
     });
     const { ref: ref3, inView: inView3 } = useInView({
-        threshold: 0.1,
+        // threshold: 0.1,
+        rootMargin: '20px',
         triggerOnce: true
     });
     const { ref: ref4, inView: inView4 } = useInView({
-        threshold: 0.1,
+        // threshold: 0.1,
+        rootMargin: '20px',
         triggerOnce: true
     });
 
@@ -39,6 +39,16 @@ const TempSearchPage = () => {
                         <TempAwardTable />
                     </Suspense>
 
+                    {/* <InView> */}
+                    {/*     /!* what can we use 'entry' for?  *!/ */}
+                    {/*     {({ inView, ref, entry }) => ( */}
+                    {/*         <div ref={ref1}> */}
+                    {/*             {inView2 && <TempSpendingOverTime />} */}
+                    {/*         </div> */}
+                    {/*     ) */}
+                    {/*     } */}
+                    {/* </InView> */}
+
                     {/* <Suspense fallback={<TempLoadingComponent />}> */}
                     {/*     <TempSpendingOverTime /> */}
                     {/* </Suspense> */}
@@ -47,6 +57,15 @@ const TempSearchPage = () => {
                             {inView2 && <TempSpendingOverTime />}
                         </div>
                     </Suspense>
+
+                    {/* <InView> */}
+                    {/*     /!* what can we use 'entry' for?  *!/ */}
+                    {/*     {({ inView, ref }) => ( */}
+                    {/*         <div ref={ref2}> */}
+                    {/*             {inView2 && <TempMapSection />} */}
+                    {/*         </div> */}
+                    {/*     )} */}
+                    {/* </InView> */}
 
                     {/* <Suspense fallback={<TempLoadingComponent />}> */}
                     {/*     <TempMapSection /> */}

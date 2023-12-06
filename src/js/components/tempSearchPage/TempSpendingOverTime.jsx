@@ -5,7 +5,7 @@ const resource = fetchSpendingOverTimeData();
 
 const TempSpendingOverTime = () => {
     if (resource) {
-        console.log('spending over time api call done');
+        console.log('spending over time api call');
     }
     const content = resource.read();
     const message = content.messages[0];

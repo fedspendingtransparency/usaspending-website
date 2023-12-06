@@ -5,7 +5,7 @@ const resource = fetchData();
 
 const TempMapSection = () => {
     if (resource) {
-        console.log('map section api call done');
+        console.log('map section api call');
     }
     const content = resource.read();
     const message = content.messages[0];

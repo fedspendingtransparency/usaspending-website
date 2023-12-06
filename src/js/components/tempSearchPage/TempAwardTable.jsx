@@ -7,7 +7,7 @@ const countAPICall = fetchAwardTableCount();
 
 const TempAwardTable = () => {
     if (resource) {
-        console.log('awards table api call done');
+        console.log('awards table api call');
     }
     const content = resource.read();
     const message = content.messages[0];

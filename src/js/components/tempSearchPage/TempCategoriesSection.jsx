@@ -5,7 +5,7 @@ const resource = fetchData();
 
 const TempCategoriesSection = () => {
     if (resource) {
-        console.log('categories section api call done');
+        console.log('categories section api call');
     }
     const content = resource.read();
     const message = content.messages[0];
