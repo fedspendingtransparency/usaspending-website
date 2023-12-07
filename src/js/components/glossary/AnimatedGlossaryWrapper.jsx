@@ -6,7 +6,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Glossary from './Glossary';
 
 const propTypes = {
@@ -24,16 +23,7 @@ const AnimatedGlossaryWrapper = (props) => {
 
     return (
         <div className="usa-da-glossary-animations">
-            <TransitionGroup>
-                {props.glossary.display && (
-                    <CSSTransition
-                        classNames="glossary-slide"
-                        timeout={500}
-                        exit>
-                        <Glossary {...props} zIndexClass={zIndexClass} />
-                    </CSSTransition>
-                )}
-            </TransitionGroup>
+            <Glossary {...props} zIndexClass={zIndexClass} />
         </div>
     );
 };
