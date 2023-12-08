@@ -8,7 +8,6 @@ import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutThe
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import Mousetrap from "mousetrap";
 import { isEqual } from "lodash";
 import { getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
@@ -92,7 +91,7 @@ const AboutTheData = (props) => {
                                 )
                                     :
                                     <>
-                                        { part }
+                                        {part}
                                     </>
                                 }
                             </>
@@ -127,15 +126,17 @@ const AboutTheData = (props) => {
         setHeight(sidebarHeight);
     };
 
-    const closeAboutTheData = useCallback(() => {
-        // close the atd drawer when the escape key is pressed, for accessibility and general non-annoyance
-        props.hideAboutTheData();
-        clearDrilldown();
+    const closeAboutTheData = useCallback((e) => {
+        if (e.key === 'Escape') {
+            // close the atd drawer when the escape key is pressed, for accessibility and general non-annoyance
+            props.hideAboutTheData();
+            clearDrilldown();
 
-        // move focus back to the main content
-        const mainContent = document.getElementById('main-focus');
-        if (mainContent) {
-            mainContent.focus();
+            // move focus back to the main content
+            const mainContent = document.getElementById('main-focus');
+            if (mainContent) {
+                mainContent.focus();
+            }
         }
     });
 
@@ -200,12 +201,15 @@ const AboutTheData = (props) => {
             setIsLoading(false);
         }
 
-        Mousetrap.bind('esc', closeAboutTheData);
+        // Mousetrap.bind('esc', closeAboutTheData);
 
         window.addEventListener('resize', measureAvailableHeight);
+        window.addEventListener('keyup', closeAboutTheData);
         return () => {
             window.removeEventListener('resize', measureAvailableHeight);
-            Mousetrap.unbind('esc');
+            window.removeEventListener('keyup', closeAboutTheData);
+
+            // Mousetrap.unbind('esc');
         };
     }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
 
