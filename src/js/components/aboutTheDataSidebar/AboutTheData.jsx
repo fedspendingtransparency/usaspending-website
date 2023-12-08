@@ -201,15 +201,11 @@ const AboutTheData = (props) => {
             setIsLoading(false);
         }
 
-        // Mousetrap.bind('esc', closeAboutTheData);
-
         window.addEventListener('resize', measureAvailableHeight);
         window.addEventListener('keyup', closeAboutTheData);
         return () => {
             window.removeEventListener('resize', measureAvailableHeight);
             window.removeEventListener('keyup', closeAboutTheData);
-
-            // Mousetrap.unbind('esc');
         };
     }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
 
