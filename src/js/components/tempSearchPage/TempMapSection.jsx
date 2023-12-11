@@ -13,7 +13,7 @@ const TempMapSection = () => {
 
     return (
         <section
-            id="temp-component-three"
+            className="temp-component-three"
             style={{
                 border: '2px solid blue',
                 height: '800px',

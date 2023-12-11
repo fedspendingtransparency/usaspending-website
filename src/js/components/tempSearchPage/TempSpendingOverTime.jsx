@@ -13,7 +13,7 @@ const TempSpendingOverTime = () => {
 
     return (
         <section
-            id="temp-component-two"
+            className="temp-component-two"
             style={{
                 border: '2px solid green',
                 height: '800px',

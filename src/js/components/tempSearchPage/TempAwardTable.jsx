@@ -23,7 +23,7 @@ const TempAwardTable = () => {
 
     return (
         <section
-            id="temp-component-one"
+            className="temp-component-one"
             style={{
                 border: '2px solid red',
                 height: '800px',

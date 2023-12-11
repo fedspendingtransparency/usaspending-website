@@ -13,7 +13,7 @@ const TempCategoriesSection = () => {
 
     return (
         <section
-            id="temp-component-four"
+            className="temp-component-four"
             style={{
                 border: '2px solid gold',
                 height: '800px',

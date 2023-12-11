@@ -1,5 +1,4 @@
-import React, { lazy, Suspense } from "react";
-import { useInView, InView } from "react-intersection-observer";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
 import TempAwardTable from "./TempAwardTable";
@@ -12,21 +11,50 @@ const TempCategoriesSection = lazy(() => import('./TempCategoriesSection'));
 require("pages/search/searchPage.scss");
 
 const TempSearchPage = () => {
-    const { ref: ref2, inView: inView2 } = useInView({
-        // threshold: 0.1,
-        rootMargin: '20px',
-        triggerOnce: true
-    });
-    const { ref: ref3, inView: inView3 } = useInView({
-        // threshold: 0.1,
-        rootMargin: '20px',
-        triggerOnce: true
-    });
-    const { ref: ref4, inView: inView4 } = useInView({
-        // threshold: 0.1,
-        rootMargin: '20px',
-        triggerOnce: true
-    });
+    const [observerSupported, setObserverSupported] = useState(false);
+    const [spendingIsVisible, setSpendingIsVisible] = useState(false);
+    const [mapIsVisible, setMapIsVisible] = useState(false);
+    const [categoriesIsVisible, setCategoriesIsVisible] = useState(false);
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    function observerCallback(entries) {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                if (entry.target.className.includes('spending')) {
+                    setSpendingIsVisible(true);
+                }
+                else if (entry.target.className.includes('map')) {
+                    setMapIsVisible(true);
+                }
+                else if (entry.target.className.includes('categories')) {
+                    setCategoriesIsVisible(true);
+                }
+            }
+        });
+    }
+
+    // eslint-disable-next-line consistent-return
+    useEffect(() => {
+        setObserverSupported('IntersectionObserver' in window);
+
+        if (observerSupported) {
+            // eslint-disable-next-line no-undef
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const target = '#search-page-component';
+            const targets = document.querySelectorAll(target);
+            targets.forEach((i) => {
+                if (i) {
+                    observer.observe(i);
+                }
+            });
+            return () => observer.disconnect();
+        }
+    }, [observerOptions, observerSupported]);
 
     return (
         <PageFeatureFlag>
@@ -36,54 +64,35 @@ const TempSearchPage = () => {
                 title="Temp Search Page">
                 <main id="main-content" className="main-content">
                     <Suspense fallback={<TempLoadingComponent />}>
-                        <TempAwardTable />
-                    </Suspense>
-
-                    {/* <InView> */}
-                    {/*     /!* what can we use 'entry' for?  *!/ */}
-                    {/*     {({ inView, ref, entry }) => ( */}
-                    {/*         <div ref={ref1}> */}
-                    {/*             {inView2 && <TempSpendingOverTime />} */}
-                    {/*         </div> */}
-                    {/*     ) */}
-                    {/*     } */}
-                    {/* </InView> */}
-
-                    {/* <Suspense fallback={<TempLoadingComponent />}> */}
-                    {/*     <TempSpendingOverTime /> */}
-                    {/* </Suspense> */}
-                    <Suspense fallback={<TempLoadingComponent />}>
-                        <div ref={ref2}>
-                            {inView2 && <TempSpendingOverTime />}
+                        <div id="search-page-component" className="award">
+                            <TempAwardTable />
                         </div>
                     </Suspense>
 
-                    {/* <InView> */}
-                    {/*     /!* what can we use 'entry' for?  *!/ */}
-                    {/*     {({ inView, ref }) => ( */}
-                    {/*         <div ref={ref2}> */}
-                    {/*             {inView2 && <TempMapSection />} */}
-                    {/*         </div> */}
-                    {/*     )} */}
-                    {/* </InView> */}
-
-                    {/* <Suspense fallback={<TempLoadingComponent />}> */}
-                    {/*     <TempMapSection /> */}
-                    {/* </Suspense> */}
                     <Suspense fallback={<TempLoadingComponent />}>
-                        <div ref={ref3}>
-                            {inView3 && <TempMapSection />}
+                        <div id="search-page-component" className="spending">
+                            {spendingIsVisible &&
+                                <TempSpendingOverTime />
+                            }
                         </div>
                     </Suspense>
 
-                    {/* <Suspense fallback={<TempLoadingComponent />}> */}
-                    {/*     <TempCategoriesSection /> */}
-                    {/* </Suspense> */}
                     <Suspense fallback={<TempLoadingComponent />}>
-                        <div ref={ref4}>
-                            {inView4 && <TempCategoriesSection />}
+                        <div id="search-page-component" className="map">
+                            {mapIsVisible &&
+                                <TempMapSection />
+                            }
                         </div>
                     </Suspense>
+
+                    <Suspense fallback={<TempLoadingComponent />}>
+                        <div id="search-page-component" className="categories">
+                            {categoriesIsVisible &&
+                                <TempCategoriesSection />
+                            }
+                        </div>
+                    </Suspense>
+
                 </main>
             </PageWrapper>
         </PageFeatureFlag>
