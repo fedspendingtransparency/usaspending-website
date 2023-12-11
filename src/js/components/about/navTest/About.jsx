@@ -143,7 +143,8 @@ const About = () => {
                 title="About"
                 sections={aboutSections}
                 activeSection={activeSection}
-                jumpToSection={jumpToSection}>
+                jumpToSection={jumpToSection}
+                inPageNav >
                 <main id="main-content" className="main-content">
                     <p>Test Page - For lower environments only</p>
                     <AboutContent />
