@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { render, fireEvent, waitFor } from 'test-utils';
+import { act } from '@testing-library/react';
 import LottieAnimation from 'components/interactiveDataSources/lottieAnimation/LottieAnimation';
 
 describe('Lottie Animation', () => {
@@ -25,7 +26,9 @@ describe('Lottie Animation', () => {
     it('should update the `direction` state during `changeDirection()`', () => {
         const ref = React.createRef();
         render(<LottieAnimation ref={ref} />);
-        ref.current.changeDirection('up');
+        act(() => {
+            ref.current.changeDirection('up');
+        });
         expect(ref.current.state.direction).toBe('up');
     });
     it('should update the `oldScrollY` state on scroll when `isScrollerBackdrop` prop is true', () => {

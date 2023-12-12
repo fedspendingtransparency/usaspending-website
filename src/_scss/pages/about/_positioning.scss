@@ -1,3 +1,6 @@
+// this is no longer needed for the about page but it is used on a few DSM pages
+// after sidebar is removed from DSM pages, this file can be deleted
+
 .about-content-wrapper {
     @include span-columns(16);
 

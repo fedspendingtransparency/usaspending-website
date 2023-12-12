@@ -112,10 +112,12 @@ const MetaTags = ({
             const sendDAPPageviewEvent = isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined;
             Analytics.pageview(pathname, title, sendDAPPageviewEvent);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [title]);
 
     useEffect(() => {
         generateTags();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         url,
         title,

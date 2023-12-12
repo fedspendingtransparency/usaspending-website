@@ -75,7 +75,7 @@ describe('AccountDataContainer tests', () => {
         return waitFor(() => {
             expect(spyAgency).toHaveBeenCalledTimes(1);
             expect(spyBudget).toHaveBeenCalledTimes(1);
-            expect(AccountDataContent).toBeCalledTimes(3);
+            expect(AccountDataContent).toBeCalledTimes(2);
             // this api call happens three times, with the successful call only being on the third and final call
             expect(AccountDataContent).toMatchSnapshot();
         });

@@ -12,7 +12,7 @@
 
     @include media($large-screen) {
         .about-padded-content {
-            padding: rem(38) rem(288) rem(22) rem(88);
+            padding: rem(38) rem(88) rem(22) rem(88);
         }
     }
 }
