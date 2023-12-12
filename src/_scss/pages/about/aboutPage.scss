@@ -17,10 +17,10 @@
         @import "./_section";
 
         .about-content-wrapper {
-            @include span-columns(16);
+            @include grid-column(16);
 
             .about-content {
-                @include span-columns(16);
+                @include grid-column(16);
             }
         }
 

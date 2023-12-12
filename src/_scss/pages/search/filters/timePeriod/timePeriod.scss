@@ -66,10 +66,10 @@
             margin: -1px 0 0;
 
             .left-fy {
-                @include span-columns(7);
+                @include grid-column(7);
             }
             .right-fy {
-                @include span-columns(7);
+                @include grid-column(7);
             }
 
             li {
@@ -98,7 +98,7 @@
                 }
             }
             .fiscal-year-option-all {
-                @include span-columns(16);
+                @include grid-column(16);
             }
         }
         .fiscal-years,
@@ -109,7 +109,9 @@
             z-index: 1;
         }
         .date-range-option {
-            @include outer-container;
+            @include grid-container;
+            margin-left: auto;
+            margin-right: auto;
             input {
                 @include usa-input;
             }
