@@ -26,12 +26,15 @@ const TempSearchPage = () => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 if (entry.target.className.includes('spending')) {
+                    console.log('in spending block');
                     setSpendingIsVisible(true);
                 }
                 else if (entry.target.className.includes('map')) {
+                    console.log('in map block');
                     setMapIsVisible(true);
                 }
                 else if (entry.target.className.includes('categories')) {
+                    console.log('in categories block');
                     setCategoriesIsVisible(true);
                 }
             }
@@ -44,15 +47,23 @@ const TempSearchPage = () => {
 
         if (observerSupported) {
             // eslint-disable-next-line no-undef
-            const observer = new IntersectionObserver(observerCallback, observerOptions);
-            const target = '#search-page-component';
-            const targets = document.querySelectorAll(target);
-            targets.forEach((i) => {
-                if (i) {
-                    observer.observe(i);
-                }
-            });
-            return () => observer.disconnect();
+            // const observer = new IntersectionObserver(observerCallback, observerOptions);
+            // const target = '#search-page-component';
+            // const targets = document.querySelectorAll(target);
+            // targets.forEach((i) => {
+            //     if (i) {
+            //         observer.observe(i);
+            //     }
+            // });
+            // return () => observer.disconnect();
+
+            // eslint-disable-next-line no-undef
+            const spendingObserver = new IntersectionObserver(observerCallback, observerOptions);
+            const spendingTarget = document.getElementsByClassName('spending');
+            console.log('spendingTarget', spendingTarget);
+            spendingObserver.observe(spendingTarget[0]);
+
+            return () => spendingObserver.disconnect();
         }
     }, [observerOptions, observerSupported]);
 
