@@ -106,7 +106,7 @@
 
                     @media ((min-width: $tablet-screen) and (max-width: $large-screen)) {
                         top: rem(32) !important;
-                        left: rem(343) !important;
+                        left: rem(344) !important;
 
                         .tooltip-pointer {
                             transform: rotate(90deg);
@@ -120,7 +120,7 @@
 
                     @media (min-width: $large-screen) {
                         top: rem(32) !important;
-                        left: rem(300) !important;
+                        left: rem(373) !important;
                     }
                 }
             }
