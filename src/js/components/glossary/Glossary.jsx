@@ -43,7 +43,7 @@ const Glossary = (props) => {
     }, [props.glossary.display]);
 
     const closeGlossary = useCallback((e) => {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' || (e.type === 'click')) {
             props.hideGlossary();
 
             // remove search param from url

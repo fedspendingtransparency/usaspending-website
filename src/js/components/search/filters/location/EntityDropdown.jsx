@@ -121,7 +121,7 @@ export default class EntityDropdown extends React.Component {
     }
 
     closeDropdown(e) {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' || (e.type === 'click')) {
             this.setState({
                 expanded: false
             }, () => {
