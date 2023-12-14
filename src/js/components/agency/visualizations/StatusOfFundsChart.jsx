@@ -340,15 +340,14 @@ const StatusOfFundsChart = ({
             const maxPosObl = positiveObligationsArray.length ? positiveObligationsArray.reduce((a, b) => Math.max(a, b)) : null;
             const maxNegObl = negativeObligationsArray.length ? negativeObligationsArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
 
-            const arrayOfMaxValues = [];
-            arrayOfMaxValues.push(Math.abs(maxNegTbr) > Math.abs(maxPosTbr) ? maxNegTbr : maxPosTbr);
-            arrayOfMaxValues.push(Math.abs(maxNegObl) > Math.abs(maxPosObl) ? maxNegObl : maxPosObl);
+            const largestPosValue = Math.max(maxPosTbr, maxPosObl);
+            const largestNegValue = Math.max(maxNegTbr, maxNegObl) * -1;
 
             if (negativeTbr || negativeObl) {
-                x.domain(d3.extent(arrayOfMaxValues)).nice(2);
+                x.domain([largestNegValue, largestPosValue]).nice(2);
             }
             else {
-                x.domain([0, Math.max(maxPosTbr, maxPosObl)]).nice(2);
+                x.domain([0, largestPosValue]).nice(2);
             }
 
             // extract sorted agency names
@@ -696,15 +695,14 @@ const StatusOfFundsChart = ({
             const maxPosOutlay = positiveOutlaysArray.length ? positiveOutlaysArray.reduce((a, b) => Math.max(a, b)) : null;
             const maxNegOutlay = negativeOutlaysArray.length ? negativeOutlaysArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
 
-            const arrayOfMaxValues = [];
-            arrayOfMaxValues.push(Math.abs(maxNegTbr) > Math.abs(maxPosTbr) ? maxNegTbr : maxPosTbr);
-            arrayOfMaxValues.push(Math.abs(maxNegOutlay) > Math.abs(maxPosOutlay) ? maxNegOutlay : maxPosOutlay);
+            const largestPosValue = Math.max(maxPosTbr, maxPosOutlay);
+            const largestNegValue = Math.max(maxNegTbr, maxNegOutlay) * -1;
 
             if (negativeTbr || negativeOutlay) {
-                x.domain(d3.extent(arrayOfMaxValues)).nice(2);
+                x.domain([largestNegValue, largestPosValue]).nice(2);
             }
             else {
-                x.domain([0, Math.max(maxPosTbr, maxPosOutlay)]).nice(2);
+                x.domain([0, largestPosValue]).nice(2);
             }
 
             // extract sorted agency names
