@@ -16,9 +16,11 @@
 
         @include display(flex);
         @include flex-direction(column);
+
         @include media($tablet-screen) {
             @include flex-direction(row);
         }
+
         @include justify-content(center);
         @include align-items(center);
         position: relative;
@@ -28,10 +30,12 @@
             margin-left: 0;
             margin-top: rem(5);
             display: flex;
+
             @include media($tablet-screen) {
                 margin-left: rem(10);
                 margin-top: 0;
             }
+
             @include media($large-screen) {
                 margin-left: rem(20);
             }
@@ -40,6 +44,7 @@
                 margin-top: 0;
                 margin-left: 0;
             }
+
             .map-layer__cd-tooltip {
                 svg {
                     margin-left: rem(5);
@@ -59,7 +64,9 @@
             border-bottom: rem(4) solid $color-white;
             max-width: rem(180);
 
-            &.active, &:hover, &:active {
+            &.active,
+            &:hover,
+            &:active {
                 font-weight: $font-bold;
                 border-bottom: rem(4) solid $color-primary-darker;
                 max-width: rem(200);
@@ -81,45 +88,22 @@
                 }
             }
         }
+
         .map-layer__cd-tooltip {
             display: inline-flex;
             white-space: normal;
 
-            .state-profile__map-toggle {
-                .tooltip-spacer {
-                    width: 316px !important;
-                    @media (max-width: 767px) {
-                        top: rem(62) !important;
-                        left: rem(-30) !important;
-                    }
-                    @media ((min-width: $tablet-screen) and (max-width: $large-screen)) {
-                        top: rem(40) !important;
-                        left: rem(-30) !important;
-
-                        .smart-bottom-right {
-                            left: rem(235);
-
-                        }
-                    }
-                    @media ((min-width: $large-screen) and (max-width: $x-large-screen)) {
-                        top: rem(40) !important;
-                        left: rem(-20) !important;
-
-                        .smart-bottom-right {
-                            left: rem(235);
-
-                        }
-                    }
-                }
-            }
+        
 
             .award-search__geo-toggle {
                 .tooltip-spacer {
                     width: 316px !important;
+
                     @media (max-width: 767px) {
                         top: rem(110) !important;
                         left: rem(-30) !important;
                     }
+
                     @media ((min-width: $tablet-screen) and (max-width: $large-screen)) {
                         top: rem(32) !important;
                         left: rem(343) !important;
@@ -127,14 +111,16 @@
                         .tooltip-pointer {
                             transform: rotate(90deg);
                         }
+
                         .smart-bottom-right {
                             top: rem(-7) !important;
                             left: 29.2rem !important;
                         }
                     }
-                    @media (min-device-width: $large-screen) {
+
+                    @media (min-width: $large-screen) {
                         top: rem(32) !important;
-                        left: rem(373) !important;
+                        left: rem(300) !important;
                     }
                 }
             }
