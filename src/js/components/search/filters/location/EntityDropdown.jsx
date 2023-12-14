@@ -121,7 +121,7 @@ export default class EntityDropdown extends React.Component {
     }
 
     closeDropdown(e) {
-        if (e.key === 'Escape' || (e.type === 'click')) {
+        if (e.key === 'Escape' || e.key === 'Enter' || (e.type === 'mouseup' && e.target.className.includes('list-item'))) {
             this.setState({
                 expanded: false
             }, () => {
@@ -165,6 +165,7 @@ export default class EntityDropdown extends React.Component {
         document.addEventListener('keyup', this.pressedLetter);
 
         document.addEventListener('keyup', this.closeDropdown);
+        document.addEventListener('mouseup', this.closeDropdown);
         document.addEventListener('keyup', this.focusNext);
         document.addEventListener('keyup', this.focusPrev);
 
@@ -186,6 +187,7 @@ export default class EntityDropdown extends React.Component {
         document.removeEventListener('keyup', this.pressedLetter);
 
         document.removeEventListener('keyup', this.closeDropdown);
+        document.removeEventListener('mouseup', this.closeDropdown);
         document.removeEventListener('keyup', this.focusNext);
         document.removeEventListener('keyup', this.focusPrev);
     }
