@@ -23,32 +23,18 @@ const delta = 100;
 // define map sources
 const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
 
-const areEqual = (oldProps, newProps) => {
-    // this component should only re-render when it is unmounted first or the center changed
-    if (newProps.center !== oldProps.center) {
-        return true;
-    }
-    return false;
-};
+// this component should only re-render when it is unmounted first or the center changed
+const areEqual = (oldProps, newProps) => newProps.center !== oldProps.center;
 
-const Mapbox = React.memo((props) => {
+const MapBox = React.memo((props) => {
     const { loadedMap, unloadedMap, center } = props;
     const prevProps = usePrevious(props);
 
-    const [mapReady, setMapReady] = useState(false);
-    const [dataLayers, setDataLayers] = useState([]);
     const [windowWidth, setWindowWidth] = useState(0);
     const [showNavigationButtons, setShowNavigationButtons] = useState(false);
+    const [componentUnmounted, setComponentUnmounted] = useState(false);
     let map = null;
-    let componentUnmounted = false;
     let mapDiv;
-    // const [moveUp, setMoveUp] = useState([0,0]);
-    // const [moveLeft, setMoveLeft] = useState([0,0]);
-    // const [moveRight, setMoveRight] = useState([0,0]);
-    // const [moveDown, setMoveDown] = useState([0,0]);
-
-    // Bind window functions
-    this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 16);
 
     const moveMap = (bearing) => {
         map.panBy(bearing);
@@ -118,17 +104,16 @@ const Mapbox = React.memo((props) => {
 
         // prepare the shapes
         map.on('load', () => {
+            // don't update the state if the map has been unmounted
             if (componentUnmounted) {
-                // don't update the state if the map has been unmounted
                 return;
             }
-            setMapReady(true);
             setShowNavigationButtons(showNavigationButtonsTest);
             loadedMap(map);
         });
     };
 
-    const handleWindowResize = () => {
+    const handleWindowResizeTest = () => {
     // determine if the width changed
         const windowWidthTest = window.innerWidth;
         if (windowWidth !== windowWidthTest) {
@@ -142,6 +127,9 @@ const Mapbox = React.memo((props) => {
             }
         }
     };
+
+    // Bind window functions
+    const handleWindowResize = throttle(handleWindowResizeTest.bind(this), 16);
 
     const handleCenterChanged = () => {
         if (map) {
@@ -158,22 +146,21 @@ const Mapbox = React.memo((props) => {
     }
 
     useEffect(() => {
-        componentUnmounted = false;
+        setComponentUnmounted(false);
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
     useEffect(() => {
-        if (!isEqual(center, prevProps.center)) {
-            handleCenterChanged();
-        }
-    });
+        handleCenterChanged();
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [center]);
 
     useEffect(() => {
         window.removeEventListener('resize', handleWindowResize);
         unloadedMap();
-        componentUnmounted = true;
+        setComponentUnmounted(true);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 

@@ -553,10 +553,7 @@ export default class MapWrapper extends React.Component {
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
-                    mapType={this.props.scope}
-                    ref={(component) => {
-                        this.mapRef = component;
-                    }} />
+                    mapType={this.props.scope} />
                 {this.toggle()}
                 {this.legend()}
                 {this.tooltip()}
