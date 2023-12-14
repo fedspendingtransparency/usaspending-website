@@ -3,13 +3,13 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle, isEqual } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
-
 import kGlobalConstants from 'GlobalConstants';
+import { usePrevious } from '../../../../../helpers';
 
 const propTypes = {
     loadedMap: PropTypes.func,
@@ -23,228 +23,196 @@ const delta = 100;
 // define map sources
 const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
 
-export default class MapBox extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            mapReady: false,
-            dataLayers: [],
-            windowWidth: 0,
-            showNavigationButtons: false
-        };
-
-        this.map = null;
-        this.componentUnmounted = false;
-
-        // Bind window functions
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 16);
-
-        // Bind movement functions
-        this.moveUp = this.moveUp.bind(this);
-        this.moveLeft = this.moveLeft.bind(this);
-        this.moveRight = this.moveRight.bind(this);
-        this.moveDown = this.moveDown.bind(this);
+const areEqual = (oldProps, newProps) => {
+    // this component should only re-render when it is unmounted first or the center changed
+    if (newProps.center !== oldProps.center) {
+        return true;
     }
+    return false;
+};
 
-    componentDidMount() {
-        this.componentUnmounted = false;
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-    }
+const Mapbox = React.memo((props) => {
+    const { loadedMap, unloadedMap, center } = props;
+    const prevProps = usePrevious(props);
 
-    shouldComponentUpdate(nextProps, nextState) {
-    // this component should only re-render when it is unmounted first, if we should
-    // show/hide the navigation buttons, or the center changed
-        if (nextState.showNavigationButtons !== this.state.showNavigationButtons) {
-            return true;
-        }
-        if (nextProps.center !== this.props.center) {
-            return true;
-        }
-        return false;
-    }
+    const [mapReady, setMapReady] = useState(false);
+    const [dataLayers, setDataLayers] = useState([]);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [showNavigationButtons, setShowNavigationButtons] = useState(false);
+    let map = null;
+    let componentUnmounted = false;
+    let mapDiv;
+    // const [moveUp, setMoveUp] = useState([0,0]);
+    // const [moveLeft, setMoveLeft] = useState([0,0]);
+    // const [moveRight, setMoveRight] = useState([0,0]);
+    // const [moveDown, setMoveDown] = useState([0,0]);
 
-    componentDidUpdate(prevProps) {
-        if (!isEqual(this.props.center, prevProps.center)) {
-            this.handleCenterChanged();
-        }
-    }
+    // Bind window functions
+    this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 16);
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-        this.props.unloadedMap();
-        this.componentUnmounted = true;
-    }
+    const moveMap = (bearing) => {
+        map.panBy(bearing);
+    };
+    const moveUp = () => {
+        moveMap([0, -delta]);
+    };
+    const moveLeft = () => {
+        moveMap([-delta, 0]);
+    };
+    const moveRight = () => {
+        moveMap([delta, 0]);
+    };
+    const moveDown = () => {
+        moveMap([0, delta]);
+    };
 
-    getMapLayer(layerId) {
-        return this.map.getLayer(layerId);
-    }
-
-    setDataLayers(layerIds) {
-        this.setState({
-            dataLayers: layerIds
-        });
-    }
-
-    moveUp() {
-        this.moveMap([0, -delta]);
-    }
-
-    moveLeft() {
-        this.moveMap([-delta, 0]);
-    }
-
-    moveRight() {
-        this.moveMap([delta, 0]);
-    }
-
-    moveDown() {
-        this.moveMap([0, delta]);
-    }
-
-    moveMap(bearing) {
-        this.map.panBy(bearing);
-    }
-
-    centerMap(map) {
-        map.jumpTo({
+    const centerMap = (mapVar) => {
+        mapVar.jumpTo({
             zoom: 2.25,
-            center: this.props.center
+            center
         });
-    }
+    };
 
-    resizeMap() {
-        if (this.state.windowWidth < 768) {
-            this.map.dragPan.disable();
-            this.centerMap(this.map);
-            this.setState({
-                showNavigationButtons: true
-            });
+    const resizeMap = () => {
+        if (windowWidth < 768) {
+            map.dragPan.disable();
+            centerMap(map);
+            setShowNavigationButtons(true);
         }
         else {
-            this.map.dragPan.enable();
-            this.setState({
-                showNavigationButtons: false
-            });
+            map.dragPan.enable();
+            setShowNavigationButtons(false);
         }
-    }
+    };
 
-    mountMap() {
+    const mountMap = () => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
-        this.map = new MapboxGL.Map({
-            container: this.mapDiv,
+        map = new MapboxGL.Map({
+            container: mapDiv,
             style: mapStyle,
             logoPosition: 'bottom-right',
             attributionControl: false,
-            center: this.props.center,
+            center,
             zoom: 3.2,
             dragRotate: false // disable 3D view
         });
 
         // add navigation controls
-        this.map.addControl(new MapboxGL.NavigationControl());
-        this.map.addControl(new MapboxGL.AttributionControl({
+        map.addControl(new MapboxGL.NavigationControl());
+        map.addControl(new MapboxGL.AttributionControl({
             compact: false
         }));
 
         // disable the compass controls
-        this.map.dragRotate.disable();
+        map.dragRotate.disable();
 
-        let showNavigationButtons = false;
-        if (this.state.windowWidth < 768) {
-            showNavigationButtons = true;
-            this.map.dragPan.disable();
-            this.centerMap(this.map);
+        let showNavigationButtonsTest = false;
+        if (windowWidth < 768) {
+            showNavigationButtonsTest = true;
+            map.dragPan.disable();
+            centerMap(map);
         }
 
         // disable scroll zoom
-        this.map.scrollZoom.disable();
+        map.scrollZoom.disable();
 
         // prepare the shapes
-        this.map.on('load', () => {
-            if (this.componentUnmounted) {
+        map.on('load', () => {
+            if (componentUnmounted) {
                 // don't update the state if the map has been unmounted
                 return;
             }
-
-            this.setState({
-                mapReady: true,
-                showNavigationButtons
-            }, () => {
-                this.props.loadedMap(this.map);
-            });
+            setMapReady(true);
+            setShowNavigationButtons(showNavigationButtonsTest);
+            loadedMap(map);
         });
-    }
+    };
 
-    handleWindowResize() {
+    const handleWindowResize = () => {
     // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
+        const windowWidthTest = window.innerWidth;
+        if (windowWidth !== windowWidthTest) {
             // width changed, update the visualization width
-            this.setState({
-                windowWidth
-            }, () => {
-                if (this.map) {
-                    this.resizeMap();
-                }
-                else {
-                    this.mountMap();
-                }
-            });
+            setWindowWidth(windowWidthTest);
+            if (map) {
+                resizeMap();
+            }
+            else {
+                mountMap();
+            }
         }
-    }
+    };
 
-    handleCenterChanged() {
-        if (this.map) {
-            this.centerMap(this.map);
+    const handleCenterChanged = () => {
+        if (map) {
+            centerMap(map);
         }
         else {
-            this.mountMap();
+            mountMap();
         }
+    };
+
+    let hideClass = '';
+    if (showNavigationButtons === false) {
+        hideClass = ' hide';
     }
 
-    render() {
-        let hideClass = '';
-        if (this.state.showNavigationButtons === false) {
-            hideClass = ' hide';
-        }
+    useEffect(() => {
+        componentUnmounted = false;
+        handleWindowResize();
+        window.addEventListener('resize', handleWindowResize);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
 
-        return (
-            <div
-                className="mapbox-item"
-                ref={(div) => {
-                    this.mapDiv = div;
-                }}>
-                <div className={`map-buttons ${hideClass}`}>
-                    <div className="first-row">
-                        <button
-                            onMouseDown={this.moveUp}
-                            onTouchStart={this.moveUp}>
-                            <Icons.AngleUp />
-                        </button>
-                    </div>
-                    <div className="second-row">
-                        <button
-                            onMouseDown={this.moveLeft}
-                            onTouchStart={this.moveLeft}>
-                            <Icons.AngleLeft />
-                        </button>
-                        <button
-                            onMouseDown={this.moveDown}
-                            onTouchStart={this.moveDown}>
-                            <Icons.AngleDown />
-                        </button>
-                        <button
-                            onMouseDown={this.moveRight}
-                            onTouchStart={this.moveRight}>
-                            <Icons.AngleRight />
-                        </button>
-                    </div>
+    useEffect(() => {
+        if (!isEqual(center, prevProps.center)) {
+            handleCenterChanged();
+        }
+    });
+
+    useEffect(() => {
+        window.removeEventListener('resize', handleWindowResize);
+        unloadedMap();
+        componentUnmounted = true;
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
+
+    return (
+        <div
+            className="mapbox-item"
+            ref={(div) => {
+                mapDiv = div;
+            }}>
+            <div className={`map-buttons ${hideClass}`}>
+                <div className="first-row">
+                    <button
+                        onMouseDown={moveUp}
+                        onTouchStart={moveUp}>
+                        <Icons.AngleUp />
+                    </button>
+                </div>
+                <div className="second-row">
+                    <button
+                        onMouseDown={moveLeft}
+                        onTouchStart={moveLeft}>
+                        <Icons.AngleLeft />
+                    </button>
+                    <button
+                        onMouseDown={moveDown}
+                        onTouchStart={moveDown}>
+                        <Icons.AngleDown />
+                    </button>
+                    <button
+                        onMouseDown={moveRight}
+                        onTouchStart={moveRight}>
+                        <Icons.AngleRight />
+                    </button>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+}, areEqual);
 
 MapBox.propTypes = propTypes;
+
+export default MapBox;
