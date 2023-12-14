@@ -127,7 +127,7 @@ const AboutTheData = (props) => {
     };
 
     const closeAboutTheData = useCallback((e) => {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' || (e.type === 'click')) {
             // close the atd drawer when the escape key is pressed, for accessibility and general non-annoyance
             props.hideAboutTheData();
             clearDrilldown();
