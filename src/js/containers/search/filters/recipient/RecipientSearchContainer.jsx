@@ -8,9 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
 import RecipientSearch from 'components/search/filters/recipient/RecipientSearch';
 
 const propTypes = {
@@ -19,34 +17,26 @@ const propTypes = {
     appliedRecipients: PropTypes.object
 };
 
-export class RecipientSearchContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const RecipientSearchContainer = (props) => {
+    const toggleRecipient = (recipient) => {
+        props.updateSelectedRecipients(recipient);
+    };
 
-        // Bind functions
-        this.toggleRecipient = this.toggleRecipient.bind(this);
-    }
-
-    toggleRecipient(recipient) {
-        this.props.updateSelectedRecipients(recipient);
-    }
-
-    dirtyFilters() {
-        if (is(this.props.selectedRecipients, this.props.appliedRecipients)) {
+    const dirtyFilters = () => {
+        if (is(props.selectedRecipients, props.appliedRecipients)) {
             return null;
         }
         return Symbol('dirty recipients');
-    }
+    };
 
-    render() {
-        return (
-            <RecipientSearch
-                {...this.props}
-                dirtyFilters={this.dirtyFilters()}
-                toggleRecipient={this.toggleRecipient} />
-        );
-    }
-}
+
+    return (
+        <RecipientSearch
+            {...props}
+            dirtyFilters={dirtyFilters}
+            toggleRecipient={toggleRecipient} />
+    );
+};
 
 RecipientSearchContainer.propTypes = propTypes;
 
