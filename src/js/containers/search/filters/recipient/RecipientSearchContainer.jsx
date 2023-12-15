@@ -29,7 +29,6 @@ const RecipientSearchContainer = (props) => {
         return Symbol('dirty recipients');
     };
 
-
     return (
         <RecipientSearch
             {...props}
