@@ -6,10 +6,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
-import { throttle, isEqual } from 'lodash';
+import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import kGlobalConstants from 'GlobalConstants';
-import { usePrevious } from '../../../../../helpers';
 
 const propTypes = {
     loadedMap: PropTypes.func,
@@ -23,18 +22,15 @@ const delta = 100;
 // define map sources
 const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
 
-// this component should only re-render when it is unmounted first or the center changed
-const areEqual = (oldProps, newProps) => newProps.center !== oldProps.center;
-
-const MapBox = React.memo((props) => {
+const MapBox = React.forwardRef((props, ref) => {
     const { loadedMap, unloadedMap, center } = props;
-    const prevProps = usePrevious(props);
 
     const [windowWidth, setWindowWidth] = useState(0);
     const [showNavigationButtons, setShowNavigationButtons] = useState(false);
     const [componentUnmounted, setComponentUnmounted] = useState(false);
     let map = null;
     let mapDiv;
+    console.log('ref: ', ref);
 
     const moveMap = (bearing) => {
         map.panBy(bearing);
@@ -150,7 +146,7 @@ const MapBox = React.memo((props) => {
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []);
+    }, [handleWindowResize]);
 
     useEffect(() => {
         handleCenterChanged();
@@ -198,7 +194,7 @@ const MapBox = React.memo((props) => {
             </div>
         </div>
     );
-}, areEqual);
+});
 
 MapBox.propTypes = propTypes;
 
