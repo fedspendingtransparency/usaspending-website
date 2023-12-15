@@ -3,7 +3,7 @@
  * Created by michaelbray on 2/17/17.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -14,19 +14,10 @@ const propTypes = {
     selectedRecipients: PropTypes.object
 };
 
-export class RecipientNameDUNSContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            recipientSearchString: '',
-            showWarning: false
-        };
-
-        this.handleTextInput = this.handleTextInput.bind(this);
-        this.searchRecipient = this.searchRecipient.bind(this);
-    }
-
+const RecipientNameDUNSContainer = (props) => {
+    const [recipientSearchString, setRecipientSearchString] = useState('');
+    const [showWarning, setShowWarning] = useState(false);
+    
     searchRecipient() {
         const searchString = this.state.recipientSearchString;
 
