@@ -194,10 +194,10 @@ export default class MapWrapper extends React.Component {
         }
 
         // enable the base layer
-        this.mapRef.map.setLayoutProperty(layers.base, 'visibility', 'visible');
+        this.map.setLayoutProperty(layers.base, 'visibility', 'visible');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'visible');
+            this.map.setLayoutProperty(highlight, 'visibility', 'visible');
         });
     }
 
@@ -210,10 +210,10 @@ export default class MapWrapper extends React.Component {
         }
 
         // hide the base layer
-        this.mapRef.map.setLayoutProperty(layers.base, 'visibility', 'none');
+        this.map.setLayoutProperty(layers.base, 'visibility', 'none');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'none');
+            this.map.setLayoutProperty(highlight, 'visibility', 'none');
         });
     }
 
@@ -223,7 +223,7 @@ export default class MapWrapper extends React.Component {
      * @returns {string} first symbol layer id.
      */
     firstSymbolId = () => {
-        const layers = this.mapRef.map.getStyle().layers;
+        const layers = this.map.getStyle().layers;
         // Find the index of the first symbol layer in the map style
         let firstSymbolId = null;
         for (let i = 0; i < layers.length; i++) {
@@ -253,7 +253,7 @@ export default class MapWrapper extends React.Component {
 
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
-        this.mapRef.map.addLayer({
+        this.map.addLayer({
             id: baseLayer,
             type: 'fill',
             source: type,
@@ -269,7 +269,7 @@ export default class MapWrapper extends React.Component {
         const colors = MapHelper.visualizationColors;
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
-            this.mapRef.map.addLayer({
+            this.map.addLayer({
                 id: layerName,
                 type: 'fill',
                 source: type,
@@ -282,8 +282,8 @@ export default class MapWrapper extends React.Component {
             }, this.firstSymbolId());
 
             // setup mouseover events
-            this.mapRef.map.on('mousemove', layerName, this.mouseOverLayer.bind(this));
-            this.mapRef.map.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
+            this.map.on('mousemove', layerName, this.mouseOverLayer.bind(this));
+            this.map.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
 
             // save a reference to this layer
             sourceRef.highlights.push(layerName);
@@ -315,19 +315,19 @@ export default class MapWrapper extends React.Component {
 
             // check if we need to zoom in to show the layer
             if (source.minZoom) {
-                const currentZoom = this.mapRef.map.getZoom();
+                const currentZoom = this.map.getZoom();
                 if (currentZoom < source.minZoom) {
                     // we are zoomed too far out and won't be able to see the new map layer, zoom in
                     // don't allow users to zoom further out than the min zoom
-                    this.mapRef.map.setMinZoom(source.minZoom);
+                    this.map.setMinZoom(source.minZoom);
                 }
             }
             else {
-                this.mapRef.map.setMinZoom(0);
+                this.map.setMinZoom(0);
             }
 
 
-            const parentMap = this.mapRef.map;
+            const parentMap = this.map;
             function renderResolver() {
                 parentMap.off('render', renderResolver);
                 resolve();
@@ -345,14 +345,14 @@ export default class MapWrapper extends React.Component {
             }
 
             // if we're loading new data, we need to wait for the data to be ready
-            this.mapRef.map.on('sourcedata', loadResolver);
+            this.map.on('sourcedata', loadResolver);
         });
     }
 
     measureMap(forced = false) {
     // determine which entities (state, counties, etc based on current scope) are in view
     // use Mapbox SDK to determine the currently rendered shapes in the base layer
-        const mapLoaded = this.mapRef.map.loaded();
+        const mapLoaded = this.map.loaded();
         // wait for the map to load before continuing
         if (!mapLoaded) {
             window.requestAnimationFrame(() => {
@@ -361,7 +361,7 @@ export default class MapWrapper extends React.Component {
             return;
         }
 
-        const entities = this.mapRef.map.queryRenderedFeatures({
+        const entities = this.map.queryRenderedFeatures({
             layers: [`base_${this.props.scope}`]
         });
 
@@ -387,7 +387,7 @@ export default class MapWrapper extends React.Component {
 
     prepareChangeListeners() {
     // detect visible entities whenever the map moves
-        const parentMap = this.mapRef.map;
+        const parentMap = this.map;
         function renderCallback() {
             if (parentMap.loaded()) {
                 parentMap.off('render', renderCallback);
@@ -398,17 +398,17 @@ export default class MapWrapper extends React.Component {
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
         this.renderCallback = () => {
-            this.mapRef.map.on('render', renderCallback);
+            this.map.on('render', renderCallback);
         };
-        this.mapRef.map.on('moveend', this.renderCallback);
+        this.map.on('moveend', this.renderCallback);
         // but also do it when the map resizes, since the view will be different
-        this.mapRef.map.on('resize', this.renderCallback);
+        this.map.on('resize', this.renderCallback);
     }
 
     removeChangeListeners() {
     // remove the render callbacks
-        this.mapRef.map.off('moveend', this.renderCallback);
-        this.mapRef.map.off('resize', this.renderCallback);
+        this.map.off('moveend', this.renderCallback);
+        this.map.off('resize', this.renderCallback);
     }
 
     mouseOverLayer(e) {
@@ -472,7 +472,7 @@ export default class MapWrapper extends React.Component {
                 // if there are locations that are displayable, include those in the filter
                 filter = ['in', source.filterKey].concat(valueSet);
             }
-            this.mapRef.map.setFilter(layerName, filter);
+            this.map.setFilter(layerName, filter);
         });
 
         this.setState({
