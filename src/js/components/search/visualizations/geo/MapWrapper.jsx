@@ -102,7 +102,10 @@ export default class MapWrapper extends React.Component {
             mapReady: false
         };
 
-        this.mapRef = null;
+        this.map = null;
+        this.mapRef = (mapAssign) => {
+            this.map = mapAssign;
+        };
         this.mapOperationQueue = {};
         this.loadedLayers = {};
         this.broadcastReceivers = [];
@@ -242,7 +245,8 @@ export default class MapWrapper extends React.Component {
 
         // load the data source
         const source = mapboxSources[type];
-        this.mapRef.map.addSource(type, {
+        console.log('map: ', this.map);
+        this.map.addSource(type, {
             type: 'vector',
             url: source.url
         });
@@ -554,9 +558,7 @@ export default class MapWrapper extends React.Component {
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
                     mapType={this.props.scope}
-                    ref={(component) => {
-                        this.mapRef = component;
-                    }} />
+                    mapRef={this.mapRef} />
                 {this.toggle()}
                 {this.legend()}
                 {this.tooltip()}

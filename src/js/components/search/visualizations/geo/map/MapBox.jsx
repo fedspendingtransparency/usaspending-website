@@ -13,7 +13,8 @@ import kGlobalConstants from 'GlobalConstants';
 const propTypes = {
     loadedMap: PropTypes.func,
     unloadedMap: PropTypes.func,
-    center: PropTypes.array
+    center: PropTypes.array,
+    mapRef: PropTypes.any
 };
 
 // Define map movement increment
@@ -23,14 +24,15 @@ const delta = 100;
 const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
 
 const MapBox = React.forwardRef((props, ref) => {
-    const { loadedMap, unloadedMap, center } = props;
+    const {
+        loadedMap, unloadedMap, center, mapRef
+    } = props;
 
     const [windowWidth, setWindowWidth] = useState(0);
     const [showNavigationButtons, setShowNavigationButtons] = useState(false);
     const [componentUnmounted, setComponentUnmounted] = useState(false);
     let map = null;
     let mapDiv;
-    console.log('ref: ', ref);
 
     const moveMap = (bearing) => {
         map.panBy(bearing);
@@ -157,6 +159,7 @@ const MapBox = React.forwardRef((props, ref) => {
         window.removeEventListener('resize', handleWindowResize);
         unloadedMap();
         setComponentUnmounted(true);
+        mapRef(map);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
