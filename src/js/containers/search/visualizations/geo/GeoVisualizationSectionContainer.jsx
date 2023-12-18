@@ -22,6 +22,8 @@ import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import BaseSpendingByGeographyResult
+    from "../../../../models/v2/search/visualizations/geo/BaseSpendingByGeographyResult";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -276,8 +278,16 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.apiRequest.promise
             .then((res) => {
                 this.apiRequest = null;
-                const allGENCCodes = apiParams.geo_layer === "country" ? addUSTerritories(res.data.results) : res.data.results;
-                this.setState({ rawAPIData: allGENCCodes }, this.parseData);
+                const data = res.data.results;
+                const parsedData = data.map((item) => {
+                    const geoElement = Object.create(BaseSpendingByGeographyResult);
+                    geoElement.populate(item);
+
+                    return geoElement;
+                });
+
+                const allGENCCodes = apiParams.geo_layer === "country" ? addUSTerritories(parsedData) : parsedData;
+                this.setState({ rawAPIData: allGENCCodes }, this.setParsedData);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -330,7 +340,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         return { values, locations, labels };
     };
 
-    parseData() {
+    setParsedData() {
         this.props.setAppliedFilterCompletion(true);
 
         this.setState({
