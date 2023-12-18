@@ -198,7 +198,7 @@ const InteractiveDataSourcesPage = () => {
     };
     return (
         <PageWrapper
-            pageName="Data Sources"
+            pageName="interactive-data-sources"
             classNames="usa-da-interactive-data-sources-page"
             overLine="resources"
             metaTagProps={interactiveDataSourcesPageMetaTags}
