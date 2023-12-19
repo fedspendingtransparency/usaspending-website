@@ -146,6 +146,10 @@
   .main-content {
     @include display(flex);
     width: 100%;
+
+    @media(min-width: $large-screen) {
+      width: 75%;
+    }
     @include flex-grow(1);
     @include flex-wrap(wrap);
     max-width: rem(1600);
