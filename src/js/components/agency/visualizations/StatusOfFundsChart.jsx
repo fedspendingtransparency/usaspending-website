@@ -341,7 +341,7 @@ const StatusOfFundsChart = ({
             const maxNegObl = negativeObligationsArray.length ? negativeObligationsArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
 
             const largestPosValue = Math.max(maxPosTbr, maxPosObl);
-            const largestNegValue = Math.max(maxNegTbr, maxNegObl) * -1;
+            const largestNegValue = Math.max(Math.abs(maxNegTbr), Math.abs(maxNegObl)) * -1;
 
             if (negativeTbr || negativeObl) {
                 x.domain([largestNegValue, largestPosValue]).nice(2);
@@ -696,7 +696,7 @@ const StatusOfFundsChart = ({
             const maxNegOutlay = negativeOutlaysArray.length ? negativeOutlaysArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
 
             const largestPosValue = Math.max(maxPosTbr, maxPosOutlay);
-            const largestNegValue = Math.max(maxNegTbr, maxNegOutlay) * -1;
+            const largestNegValue = Math.max(Math.abs(maxNegTbr), Math.abs(maxNegOutlay)) * -1;
 
             if (negativeTbr || negativeOutlay) {
                 x.domain([largestNegValue, largestPosValue]).nice(2);
