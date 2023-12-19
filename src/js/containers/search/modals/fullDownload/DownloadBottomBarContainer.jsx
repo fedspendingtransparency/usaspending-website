@@ -151,10 +151,13 @@ export class DownloadBottomBarContainer extends React.Component {
 
     checkStatus() {
         let expectedFile = '';
+        let downloadType = '';
         if (this.props.download.expectedFile !== '') {
             expectedFile = this.props.download.expectedFile;
+            downloadType = this.props.download.type;
         } else if ((typeof this.state.expectedFile) === "object" && Object.prototype.hasOwnProperty.call(this.state.expectedFile, "file")) {
             expectedFile = this.state.expectedFile.file;
+            downloadType = this.state.expectedFile.type;
         }
 
         if (expectedFile !== '') {
@@ -163,7 +166,7 @@ export class DownloadBottomBarContainer extends React.Component {
             }
             this.statusRequest = DownloadHelper.requestDownloadStatus({
                 file_name: expectedFile,
-                type: this.props.download.type
+                type: downloadType
             });
 
             this.statusRequest.promise
