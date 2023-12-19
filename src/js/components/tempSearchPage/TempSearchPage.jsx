@@ -22,23 +22,37 @@ const TempSearchPage = () => {
         threshold: 0.1
     };
 
-    function observerCallback(entries) {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                if (entry.target.className.includes('spending')) {
-                    console.log('in spending block');
-                    setSpendingIsVisible(true);
-                }
-                else if (entry.target.className.includes('map')) {
-                    console.log('in map block');
-                    setMapIsVisible(true);
-                }
-                else if (entry.target.className.includes('categories')) {
-                    console.log('in categories block');
-                    setCategoriesIsVisible(true);
-                }
-            }
-        });
+    function spendingObserverCallback(entries) {
+        // entries.forEach((entry) => {
+        //     if (entry.isIntersecting) {
+        // if (entry.target.className.includes('spending')) {
+        // setSpendingIsVisible(true);
+        // }
+        // else if (entry.target.className.includes('map')) {
+        //     console.log('in map block');
+        //     setMapIsVisible(true);
+        // }
+        // else if (entry.target.className.includes('categories')) {
+        //     console.log('in categories block');
+        //     setCategoriesIsVisible(true);
+        // }
+        // }
+        // });
+        if (entries[0].isIntersecting) {
+            setSpendingIsVisible(true);
+        }
+    }
+
+    function mapObserverCallback(entries) {
+        if (entries[0].isIntersecting) {
+            setMapIsVisible(true);
+        }
+    }
+
+    function categoriesObserverCallback(entries) {
+        if (entries[0].isIntersecting) {
+            setCategoriesIsVisible(true);
+        }
     }
 
     // eslint-disable-next-line consistent-return
@@ -47,25 +61,56 @@ const TempSearchPage = () => {
 
         if (observerSupported) {
             // eslint-disable-next-line no-undef
-            const observer = new IntersectionObserver(observerCallback, observerOptions);
-            const target = '#search-page-component';
-            const targets = document.querySelectorAll(target);
-            targets.forEach((i) => {
-                if (i) {
-                    observer.observe(i);
-                }
-            });
-            return () => observer.disconnect();
+            // const observer = new IntersectionObserver(observerCallback, observerOptions);
+            // const target = '#search-page-component';
+            // const targets = document.querySelectorAll(target);
+            // targets.forEach((i) => {
+            //     if (i) {
+            //         observer.observe(i);
+            //     }
+            // });
+            // return () => observer.disconnect();
 
             // eslint-disable-next-line no-undef
-            //         const spendingObserver = new IntersectionObserver(observerCallback, observerOptions);
-            //         const spendingTarget = document.getElementsByClassName('spending');
-            //         console.log('spendingTarget', spendingTarget);
-            //         spendingObserver.observe(spendingTarget[0]);
-            //
-            //         return () => spendingObserver.disconnect();
+            const spendingObserver = new IntersectionObserver(spendingObserverCallback, observerOptions);
+            const spendingTarget = document.getElementsByClassName('spending');
+            spendingObserver.observe(spendingTarget[0]);
+
+            return () => spendingObserver.disconnect();
         }
     }, [observerOptions, observerSupported]);
+
+    // eslint-disable-next-line consistent-return
+    useEffect(() => {
+        setObserverSupported('IntersectionObserver' in window);
+
+        if (observerSupported) {
+            // eslint-disable-next-line no-undef
+            const mapObserver = new IntersectionObserver(mapObserverCallback, observerOptions);
+            const mapTarget = document.getElementsByClassName('map');
+            mapObserver.observe(mapTarget[0]);
+
+            return () => mapObserver.disconnect();
+        }
+    }, [observerOptions, observerSupported]);
+
+    // eslint-disable-next-line consistent-return
+    useEffect(() => {
+        setObserverSupported('IntersectionObserver' in window);
+
+        if (observerSupported) {
+            // eslint-disable-next-line no-undef
+            const categoriesObserver = new IntersectionObserver(categoriesObserverCallback, observerOptions);
+            const categoriesTarget = document.getElementsByClassName('map');
+            categoriesObserver.observe(categoriesTarget[0]);
+
+            return () => categoriesObserver.disconnect();
+        }
+    }, [observerOptions, observerSupported]);
+
+    console.log('spendingIsVisible', spendingIsVisible);
+    console.log('mapIsVisible', mapIsVisible);
+    console.log('categoriesIsVisible', categoriesIsVisible);
 
     return (
         <PageFeatureFlag>
