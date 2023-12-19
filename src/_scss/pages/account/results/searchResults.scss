@@ -1,5 +1,4 @@
 .filter-results {
-    @include grid-column(16);
     @import "pages/search/searchSidebar";
     .search-sidebar {
         display: none;
@@ -10,13 +9,9 @@
         @import "../filters/filters";
     }
     .search-results-wrapper {
-        @include grid-column(16);
-        @include media($medium-screen) {
-            @include grid-column(12);
-        }
+
         @import "pages/search/topFilterBar/topFilterBar";
         .search-results {
-            @include grid-column(16);
             background-color: $color-white;
             box-shadow: $container-shadow;
             padding: rem(30);
