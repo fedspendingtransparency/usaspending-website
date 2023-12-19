@@ -38,6 +38,8 @@ export class DownloadBottomBarContainer extends React.Component {
             visible: false,
             showError: false,
             showSuccess: false,
+            expectedFile: '',
+            expectedUrl: '',
             title: 'We\'re preparing your download(s)...',
             description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
         };
@@ -115,9 +117,12 @@ export class DownloadBottomBarContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
-                this.props.setDownloadExpectedFile(res.data.file_name);
-                this.props.setDownloadExpectedUrl(res.data.file_url);
-                this.checkStatus();
+                this.setState({
+                    expectedFile: this.props.setDownloadExpectedFile(res.data.file_name),
+                    expectedUrl: this.props.setDownloadExpectedUrl(res.data.file_url)
+                }, () => {
+                    this.checkStatus();
+                });
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -145,13 +150,23 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     checkStatus() {
+        let expectedFile = '';
+        let downloadType = '';
         if (this.props.download.expectedFile !== '') {
+            expectedFile = this.props.download.expectedFile;
+            downloadType = this.props.download.type;
+        } else if ((typeof this.state.expectedFile) === "object" && Object.prototype.hasOwnProperty.call(this.state.expectedFile, "file")) {
+            expectedFile = this.state.expectedFile.file;
+            downloadType = this.state.expectedFile.type;
+        }
+
+        if (expectedFile !== '') {
             if (this.statusRequest) {
                 this.statusRequest.cancel();
             }
             this.statusRequest = DownloadHelper.requestDownloadStatus({
-                file_name: this.props.download.expectedFile,
-                type: this.props.download.type
+                file_name: expectedFile,
+                type: downloadType
             });
 
             this.statusRequest.promise
