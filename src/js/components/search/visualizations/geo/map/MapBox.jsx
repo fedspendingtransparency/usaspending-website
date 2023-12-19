@@ -13,8 +13,7 @@ import kGlobalConstants from 'GlobalConstants';
 const propTypes = {
     loadedMap: PropTypes.func,
     unloadedMap: PropTypes.func,
-    center: PropTypes.array,
-    mapRef: PropTypes.any
+    center: PropTypes.array
 };
 
 // Define map movement increment
@@ -25,7 +24,7 @@ const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
 
 const MapBox = React.forwardRef((props, ref) => {
     const {
-        loadedMap, unloadedMap, center, mapRef
+        loadedMap, unloadedMap, center
     } = props;
 
     const [windowWidth, setWindowWidth] = useState(0);
@@ -159,7 +158,6 @@ const MapBox = React.forwardRef((props, ref) => {
         window.removeEventListener('resize', handleWindowResize);
         unloadedMap();
         setComponentUnmounted(true);
-        mapRef(map);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
