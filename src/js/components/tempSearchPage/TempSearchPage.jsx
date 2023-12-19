@@ -47,23 +47,23 @@ const TempSearchPage = () => {
 
         if (observerSupported) {
             // eslint-disable-next-line no-undef
-            // const observer = new IntersectionObserver(observerCallback, observerOptions);
-            // const target = '#search-page-component';
-            // const targets = document.querySelectorAll(target);
-            // targets.forEach((i) => {
-            //     if (i) {
-            //         observer.observe(i);
-            //     }
-            // });
-            // return () => observer.disconnect();
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const target = '#search-page-component';
+            const targets = document.querySelectorAll(target);
+            targets.forEach((i) => {
+                if (i) {
+                    observer.observe(i);
+                }
+            });
+            return () => observer.disconnect();
 
             // eslint-disable-next-line no-undef
-            const spendingObserver = new IntersectionObserver(observerCallback, observerOptions);
-            const spendingTarget = document.getElementsByClassName('spending');
-            console.log('spendingTarget', spendingTarget);
-            spendingObserver.observe(spendingTarget[0]);
-
-            return () => spendingObserver.disconnect();
+            //         const spendingObserver = new IntersectionObserver(observerCallback, observerOptions);
+            //         const spendingTarget = document.getElementsByClassName('spending');
+            //         console.log('spendingTarget', spendingTarget);
+            //         spendingObserver.observe(spendingTarget[0]);
+            //
+            //         return () => spendingObserver.disconnect();
         }
     }, [observerOptions, observerSupported]);
 
@@ -80,31 +80,52 @@ const TempSearchPage = () => {
                         </div>
                     </Suspense>
 
-                    <Suspense fallback={<TempLoadingComponent />}>
-                        <div id="search-page-component" className="spending">
-                            {spendingIsVisible &&
-                                <TempSpendingOverTime />
-                            }
-                        </div>
-                    </Suspense>
+                    <div id="search-page-component" className="spending">
+                        {spendingIsVisible &&
+                            <TempSpendingOverTime />
+                        }
+                    </div>
 
-                    <Suspense fallback={<TempLoadingComponent />}>
-                        <div id="search-page-component" className="map">
-                            {mapIsVisible &&
-                                <TempMapSection />
-                            }
-                        </div>
-                    </Suspense>
+                    {/* <Suspense fallback={<TempLoadingComponent />}> */}
+                    {/*     <div id="search-page-component" className="spending"> */}
+                    {/*         {spendingIsVisible && */}
+                    {/*             <TempSpendingOverTime /> */}
+                    {/*         } */}
+                    {/*     </div> */}
+                    {/* </Suspense> */}
 
-                    <Suspense fallback={<TempLoadingComponent />}>
-                        <div id="search-page-component" className="categories">
-                            {categoriesIsVisible &&
-                                <TempCategoriesSection />
-                            }
-                        </div>
-                    </Suspense>
+
+                    <div id="search-page-component" className="map">
+                        {mapIsVisible &&
+                            <TempMapSection />
+                        }
+                    </div>
+
+                    {/* <Suspense fallback={<TempLoadingComponent />}> */}
+                    {/*     <div id="search-page-component" className="map"> */}
+                    {/*         {mapIsVisible && */}
+                    {/*             <TempMapSection /> */}
+                    {/*         } */}
+                    {/*     </div> */}
+                    {/* </Suspense> */}
+
+
+                    <div id="search-page-component" className="categories">
+                        {categoriesIsVisible &&
+                            <TempCategoriesSection />
+                        }
+                    </div>
+
+                    {/* <Suspense fallback={<TempLoadingComponent />}> */}
+                    {/*     <div id="search-page-component" className="categories"> */}
+                    {/*         {categoriesIsVisible && */}
+                    {/*             <TempCategoriesSection /> */}
+                    {/*         } */}
+                    {/*     </div> */}
+                    {/* </Suspense> */}
 
                 </main>
+
             </PageWrapper>
         </PageFeatureFlag>
     );
