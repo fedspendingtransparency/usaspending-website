@@ -233,6 +233,7 @@ export default class MapWrapper extends React.Component {
     };
 
     loadSource(type) {
+        console.log('map: ', this.mapRef.current);
         const baseLayer = `base_${type}`;
 
         const sourceRef = {
@@ -242,8 +243,6 @@ export default class MapWrapper extends React.Component {
 
         // load the data source
         const source = mapboxSources[type];
-        console.log('mapRef.current: ', this.mapRef.current);
-        console.log('mapRef.map: ', this.map);
         this.mapRef.current.map.addSource(type, {
             type: 'vector',
             url: source.url
