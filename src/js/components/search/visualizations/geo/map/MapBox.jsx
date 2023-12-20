@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useEffect, useState, useImperativeHandle } from 'react';
+import React, { useEffect, useState, useImperativeHandle, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
@@ -25,7 +25,7 @@ const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
 
 const MapBox = React.forwardRef((props, ref) => {
     let componentUnmounted = false;
-    let map;
+    const map = useRef();
     const test = 'test';
     const mapDiv = React.useRef(null);
 
@@ -38,7 +38,7 @@ const MapBox = React.forwardRef((props, ref) => {
     }));
 
     const moveMap = (bearing) => {
-        map.panBy(bearing);
+        map.current.panBy(bearing);
     };
 
     const moveUp = () => {
@@ -59,7 +59,7 @@ const MapBox = React.forwardRef((props, ref) => {
 
 
     const centerMap = (m) => {
-        m.jumpTo({
+        m.current.jumpTo({
             zoom: 2.25,
             center: props.center
         });
@@ -67,19 +67,19 @@ const MapBox = React.forwardRef((props, ref) => {
 
     const resizeMap = () => {
         if (windowWidth < 768) {
-            map.dragPan.disable();
+            map.current.dragPan.disable();
             centerMap(map);
             setShowNavButtons(true);
         }
         else {
-            map.dragPan.enable();
+            map.current.dragPan.enable();
             setShowNavButtons(false);
         }
     };
 
     const mountMap = () => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
-        map = new MapboxGL.Map({
+        map.current = new MapboxGL.Map({
             container: mapDiv.current,
             style: mapStyle,
             logoPosition: 'bottom-right',
@@ -90,26 +90,26 @@ const MapBox = React.forwardRef((props, ref) => {
         });
 
         // add navigation controls
-        map.addControl(new MapboxGL.NavigationControl());
-        map.addControl(new MapboxGL.AttributionControl({
+        map.current.addControl(new MapboxGL.NavigationControl());
+        map.current.addControl(new MapboxGL.AttributionControl({
             compact: false
         }));
 
         // disable the compass controls
-        map.dragRotate.disable();
+        map.current.dragRotate.disable();
 
         let showNavigationButtons = false;
         if (windowWidth < 768) {
             showNavigationButtons = true;
-            map.dragPan.disable();
+            map.current.dragPan.disable();
             centerMap(map);
         }
 
         // disable scroll zoom
-        map.scrollZoom.disable();
+        map.current.scrollZoom.disable();
 
         // prepare the shapes
-        map.on('load', () => {
+        map.current.on('load', () => {
             if (componentUnmounted) {
                 // don't update the state if the map has been unmounted
                 return;
@@ -127,7 +127,7 @@ const MapBox = React.forwardRef((props, ref) => {
             if (currentWindowWidth !== windowWidth) {
                 // width changed, update the visualization width
                 setWindowWidth(currentWindowWidth);
-                if (map) {
+                if (map.current) {
                     resizeMap();
                 }
                 else {
@@ -138,7 +138,7 @@ const MapBox = React.forwardRef((props, ref) => {
     };
 
     const handleCenterChanged = () => {
-        if (map) {
+        if (map.current) {
             centerMap(map);
         }
         else {
