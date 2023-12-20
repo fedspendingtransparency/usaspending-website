@@ -178,10 +178,13 @@ export default class AwardDataContent extends React.Component {
                             validForm={this.state.validForm}
                             validDates={this.state.validDates}
                             dataType="awards" />
+                        <div className="download-center__reset-container">
+                            <button className="download-center__reset" onClick={this.resetForm}>
+                            Reset form and start over
+                            </button>
+                        </div>
                     </form>
-                    <button className="download-center__reset" onClick={this.resetForm}>
-                        Reset form and start over
-                    </button>
+
                 </div>
                 <div className="download-info">
                     <h3 className="download-info__title">About Award Data</h3>

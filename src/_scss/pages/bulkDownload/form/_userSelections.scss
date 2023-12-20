@@ -3,6 +3,10 @@
     padding: rem(20);
     @import "mixins/fullSectionWrap";
     @include fullSectionWrap((rem(40)), (rem(30)));
+    @media(max-width: $medium-screen) {
+        padding: 30px 20px;
+        width: 78%;
+    }
     .download-user-selections__left-col {
         @include grid-column(16);
         @include media($medium-screen) {
