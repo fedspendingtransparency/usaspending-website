@@ -1,4 +1,8 @@
 /* Fixes known sizing inconsistency bug for lottie web on safari browsers */
 .lottie-animation-container {
     width: 100%;
+    @media(min-width: 1200px) {
+        width: 75%;
+        margin: auto;
+    }
 }
