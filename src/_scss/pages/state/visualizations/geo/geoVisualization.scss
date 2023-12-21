@@ -8,6 +8,24 @@
     .visualization-tooltip {
         @import "components/visualizations/tooltip/_tooltip";
     }
+    .tooltip-spacer {
+        @media(min-width: $small-screen) {
+            top: rem(36);
+            left: rem(-16);
+        }
+        @media(min-width: $tablet-screen) {
+            top: rem(36);
+            left: rem(84);
+        }
+        @media(min-width: $medium-screen) {
+            top: rem(36);
+            left: rem(88);
+        }
+        @media(min-width: $large-screen) {
+            top: rem(36);
+            left: rem(98);
+        }
+    }
     //HIDE THE MAPBOX COMPASS CONTROLS
     & .mapboxgl-ctrl-compass {
         display: none !important;
