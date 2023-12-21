@@ -1,13 +1,12 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
 import TempAwardTable from "./TempAwardTable";
+import TempSpendingOverTime from "./TempSpendingOverTime";
+import TempMapSection from "./TempMapSection";
+import TempCategoriesSection from "./TempCategoriesSection";
 import TempLoadingComponent from "./TempLoadingComponent";
 import TempPlaceholderComponent from "./TempPlaceholderComponent";
-
-const TempSpendingOverTime = lazy(() => import('./TempSpendingOverTime'));
-const TempMapSection = lazy(() => import('./TempMapSection'));
-const TempCategoriesSection = lazy(() => import('./TempCategoriesSection'));
 
 require("pages/search/searchPage.scss");
 
@@ -20,31 +19,19 @@ const TempSearchPage = () => {
 
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: [0.25, 0.75]
+        threshold: 0.1
     };
-
-    // let previousY = sections.reduce(
-    //     (result, item) => ((result[item.anchor] = 0), result),
-    //     {}
-    // );
 
     const callbackFunction = (entries) => {
         entries.forEach((entry) => {
-            // if (entry.isIntersecting) {
-            //     setIsVisible(entry.target.className);
-            // }
-
             const ratio = entry.intersectionRatio;
             const boundingRect = entry.boundingClientRect;
             const section = entry.target.className;
-            // const section = entry.target.id.replace('section-', '');
             // const isScrollingDown = previousY[section] > boundingRect.y;
 
-            // const topThreshold = 15;
             const topThreshold = 1000;
-            const bottomThreshold = 0;
 
+            // todo - set new number for topThreshold for mobile and/or tablet
             // const newMode = checkScreenMode(window.innerWidth);
             //
             // if (newMode !== screenMode) {
@@ -56,11 +43,9 @@ const TempSearchPage = () => {
             //     bottomThreshold = 95;
             // }
 
-            const inView =
-                boundingRect.top < topThreshold &&
-                boundingRect.bottom > bottomThreshold;
+            const inView = boundingRect.top < topThreshold && ratio < 1;
 
-            if (entry.isIntersecting && ratio < 1 && inView) {
+            if (entry.isIntersecting && inView) {
                 setIsVisible(section);
                 if (section === 'spending') {
                     setSpendingHasLoaded(true);
@@ -72,11 +57,6 @@ const TempSearchPage = () => {
                     setCategoriesHasLoaded(true);
                 }
             }
-
-            // previousY = {
-            //     ...previousY,
-            //     [section]: boundingRect.y
-            // };
         });
     };
 
@@ -85,7 +65,6 @@ const TempSearchPage = () => {
         setObserverSupported('IntersectionObserver' in window);
 
         if (observerSupported) {
-            // eslint-disable-next-line no-undef
             const target = '#search-page-component';
             const targets = document.querySelectorAll(target);
 
