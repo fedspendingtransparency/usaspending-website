@@ -27,7 +27,6 @@ const TempSearchPage = () => {
             const ratio = entry.intersectionRatio;
             const boundingRect = entry.boundingClientRect;
             const section = entry.target.className;
-            // const isScrollingDown = previousY[section] > boundingRect.y;
 
             const topThreshold = 1000;
 
