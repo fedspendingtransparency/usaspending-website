@@ -18,33 +18,14 @@ const TempSearchPage = () => {
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
 
     const observerOptions = {
-        root: null,
         threshold: 0.1
     };
 
     const callbackFunction = (entries) => {
         entries.forEach((entry) => {
-            const ratio = entry.intersectionRatio;
-            const boundingRect = entry.boundingClientRect;
             const section = entry.target.className;
 
-            const topThreshold = 1000;
-
-            // todo - set new number for topThreshold for mobile and/or tablet
-            // const newMode = checkScreenMode(window.innerWidth);
-            //
-            // if (newMode !== screenMode) {
-            //     setScreenMode(newMode);
-            // }
-            //
-            // if (newMode !== ScreenModeEnum.desktop) {
-            //     topThreshold = 80;
-            //     bottomThreshold = 95;
-            // }
-
-            const inView = boundingRect.top < topThreshold && ratio < 1;
-
-            if (entry.isIntersecting && inView) {
+            if (entry.isIntersecting) {
                 setIsVisible(section);
                 if (section === 'spending') {
                     setSpendingHasLoaded(true);
