@@ -17,9 +17,9 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 
-import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
+import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { parseRows } from 'helpers/search/visualizations/geoHelper';
@@ -125,21 +125,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
-    updateMapLegendToggle = (value) => {
-        this.props.updateMapLegendToggle(value);
-    };
-
-    changeScope(scope) {
-        if (scope === this.state.scope) {
-            // scope has not changed
-            return;
-        }
+    setParsedData() {
+        this.props.setAppliedFilterCompletion(true);
 
         this.setState({
-            scope
-        }, () => {
-            this.prepareFetch(true);
-            logMapScopeEvent(scope);
+            data: this.valuesLocationsLabelsFromAPIData(),
+            renderHash: `geo-${uniqueId()}`,
+            loading: false,
+            error: false
         });
     }
 
@@ -252,7 +245,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
 
         this.props.setAppliedFilterCompletion(false);
-        this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
+        this.apiRequest = performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.apiRequest = null;
@@ -310,16 +303,23 @@ export class GeoVisualizationSectionContainer extends React.Component {
         return { values, locations, labels };
     };
 
-    setParsedData() {
-        this.props.setAppliedFilterCompletion(true);
+    changeScope(scope) {
+        if (scope === this.state.scope) {
+            // scope has not changed
+            return;
+        }
 
         this.setState({
-            data: this.valuesLocationsLabelsFromAPIData(),
-            renderHash: `geo-${uniqueId()}`,
-            loading: false,
-            error: false
+            scope
+        }, () => {
+            this.prepareFetch(true);
+            logMapScopeEvent(scope);
         });
     }
+
+    updateMapLegendToggle = (value) => {
+        this.props.updateMapLegendToggle(value);
+    };
 
     changeMapLayer(layer) {
         this.setState({
