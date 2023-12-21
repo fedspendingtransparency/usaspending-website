@@ -1,4 +1,7 @@
 .archive-info {
+    @media(max-width: 992px) {
+        width: 76%;
+    }
     @include display(flex);
     background-color: $color-primary-alt-lightest;
     border: solid 1px $color-primary-alt-light;

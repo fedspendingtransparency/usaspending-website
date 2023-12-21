@@ -43,7 +43,7 @@
             margin-top: 0;
             td {
                 &:first-child {
-                    @include span-columns(6 of 12, table);
+                    @include grid-column(6 of 12);
 
                     p {
                         a {
@@ -54,7 +54,7 @@
                         }
                     }
                 }
-                @include span-columns(2 of 12, table);
+                @include grid-column(2 of 12);
             }
 
             .usda-table__body {
