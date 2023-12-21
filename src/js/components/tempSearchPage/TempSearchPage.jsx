@@ -3,6 +3,7 @@ import PageWrapper from "../sharedComponents/PageWrapper";
 import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
 import TempAwardTable from "./TempAwardTable";
 import TempLoadingComponent from "./TempLoadingComponent";
+import TempPlaceholderComponent from "./TempPlaceholderComponent";
 
 const TempSpendingOverTime = lazy(() => import('./TempSpendingOverTime'));
 const TempMapSection = lazy(() => import('./TempMapSection'));
@@ -13,11 +14,70 @@ require("pages/search/searchPage.scss");
 const TempSearchPage = () => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [isVisible, setIsVisible] = useState('');
+    const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
+    const [mapHasLoaded, setMapHasLoaded] = useState(false);
+    const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
 
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.1
+        threshold: [0.25, 0.75]
+    };
+
+    // let previousY = sections.reduce(
+    //     (result, item) => ((result[item.anchor] = 0), result),
+    //     {}
+    // );
+
+    const callbackFunction = (entries) => {
+        entries.forEach((entry) => {
+            // if (entry.isIntersecting) {
+            //     setIsVisible(entry.target.className);
+            // }
+
+            const ratio = entry.intersectionRatio;
+            const boundingRect = entry.boundingClientRect;
+            const section = entry.target.className;
+            // const section = entry.target.id.replace('section-', '');
+            // const isScrollingDown = previousY[section] > boundingRect.y;
+
+            // const topThreshold = 15;
+            const topThreshold = 1000;
+            const bottomThreshold = 0;
+
+            // const newMode = checkScreenMode(window.innerWidth);
+            //
+            // if (newMode !== screenMode) {
+            //     setScreenMode(newMode);
+            // }
+            //
+            // if (newMode !== ScreenModeEnum.desktop) {
+            //     topThreshold = 80;
+            //     bottomThreshold = 95;
+            // }
+
+            const inView =
+                boundingRect.top < topThreshold &&
+                boundingRect.bottom > bottomThreshold;
+
+            if (entry.isIntersecting && ratio < 1 && inView) {
+                setIsVisible(section);
+                if (section === 'spending') {
+                    setSpendingHasLoaded(true);
+                }
+                else if (section === 'map') {
+                    setMapHasLoaded(true);
+                }
+                else if (section === 'categories') {
+                    setCategoriesHasLoaded(true);
+                }
+            }
+
+            // previousY = {
+            //     ...previousY,
+            //     [section]: boundingRect.y
+            // };
+        });
     };
 
     // eslint-disable-next-line consistent-return
@@ -29,30 +89,19 @@ const TempSearchPage = () => {
             const target = '#search-page-component';
             const targets = document.querySelectorAll(target);
 
-            console.log('targets', targets);
-
             // eslint-disable-next-line no-undef
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    console.log('entry', entry);
-                    if (entry.isIntersecting) {
-                        setIsVisible(entry.target.className);
-                    }
-                });
-            });
+            const observer = new IntersectionObserver(callbackFunction, observerOptions);
 
             targets.forEach((i) => {
                 if (i.className) {
-                    console.log('i', i);
                     observer.observe(i);
                 }
             });
 
             return () => observer.disconnect();
         }
-    }, [observerOptions, observerSupported]);
-
-    console.log('isVisible', isVisible);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [observerSupported]);
 
     return (
         <PageFeatureFlag>
@@ -68,19 +117,22 @@ const TempSearchPage = () => {
                     </Suspense>
 
                     <div id="search-page-component" className="spending">
-                        {isVisible === 'spending' &&
+                        {!spendingHasLoaded && <TempPlaceholderComponent />}
+                        {(isVisible === 'spending' || spendingHasLoaded) &&
                             <TempSpendingOverTime />
                         }
                     </div>
 
                     <div id="search-page-component" className="map">
-                        {isVisible === 'map' &&
+                        {!mapHasLoaded && <TempPlaceholderComponent />}
+                        {(isVisible === 'map' || mapHasLoaded) &&
                             <TempMapSection />
                         }
                     </div>
 
                     <div id="search-page-component" className="categories">
-                        {isVisible === 'categories' &&
+                        {!categoriesHasLoaded && <TempPlaceholderComponent />}
+                        {(isVisible === 'categories' || categoriesHasLoaded) &&
                             <TempCategoriesSection />
                         }
                     </div>
