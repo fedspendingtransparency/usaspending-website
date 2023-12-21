@@ -107,6 +107,11 @@
                     }
                 }
             }
+
+            @media(max-width: $medium-screen) {
+                margin-left: 0;
+                width: 78%;
+            }
         }
 
         .trainingContent__strong {
