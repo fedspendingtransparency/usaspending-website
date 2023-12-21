@@ -132,10 +132,13 @@ export default class AccountDataContent extends React.Component {
                             filters={accounts}
                             validDates
                             dataType="accounts" />
-                    </div>
-                    <button className="download-center__reset" onClick={this.resetForm}>
+                        <div className="download-center__reset-container">
+                            <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over
-                    </button>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
                 <div className="download-info">
                     <h3 className="download-info__title">About Account Data</h3>

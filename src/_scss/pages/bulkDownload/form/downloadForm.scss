@@ -144,6 +144,9 @@
             &:first-of-type {
                 margin-top: rem(10);
             }
+            @media(max-width: $medium-screen) {
+                max-width: 75%;
+            }
         }
 
         .download-filter__content-note_bold {
@@ -187,6 +190,9 @@
     }
     .submit-wrapper {
         margin: rem(30) rem(15);
+        @media(max-width: $medium-screen) {
+            width: 75%;
+        }
     }
     .submit-button {
         button, input {

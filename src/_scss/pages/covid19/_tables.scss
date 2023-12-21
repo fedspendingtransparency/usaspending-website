@@ -22,7 +22,7 @@
 
     .usda-table__row {
         .usda-table__cell:last-of-type {
-            @include span-columns(1 of 12, table);
+            @include grid-column(1 of 12);
         }
     }
 }
