@@ -1,48 +1,38 @@
-import BaseSpendingByGeographyResult from 'models/v2/search/BaseSpendingByGeographyResult';
+import BaseSpendingByGeographyResult from 'models/v2/search/visualizations/geo/BaseSpendingByGeographyResult';
 
-// eslint-disable-next-line import/prefer-default-export
-export const parseRows = (data) => {
-    const dataAndTotalObligation = data.map((d) => {
-        let dataChildrenAndTotalObligation = [];
-        if (d.children && d.children.length > 0) {
-            dataChildrenAndTotalObligation = d.children.map((child) => ({
-                ...child
-            }));
-        }
+// FABS prohibits the following US territories or freely associated states from being submitted using their GENC code.  They should be submitted using the country code "USA"
+export const prohibitedCountryCodes = ['ASM', 'FSM', 'GUM', 'MHL', 'MNP', 'PLW', 'PRI', 'VIR', 'XBK', 'XHO', 'XJA', 'XJV', 'XKR', 'XMW', 'XNV', 'XPL', 'XWK'];
 
-        if (dataChildrenAndTotalObligation.length > 0) {
-            return {
-                ...d,
-                children: dataChildrenAndTotalObligation
-            };
-        }
 
-        return {
-            ...d
-        };
+const addUSTerritories = (results, apiParams) => {
+    const filteredArray = apiParams.geo_layer_filters.filter((value) => prohibitedCountryCodes.includes(value));
+    const usaData = results.find((value) => value.shape_code === 'USA');
+
+    if (usaData) {
+        filteredArray.forEach((value) => {
+            results.push({
+                shape_code: value,
+                display_name: usaData.display_name,
+                aggregated_amount: usaData.aggregated_amount,
+                per_capita: usaData.per_capita,
+                population: usaData.population
+            });
+        });
+    }
+
+    return results;
+};
+
+export const parseRows = (data, apiParams) => {
+    const parsedData = data.map((item) => {
+        const geoElement = Object.create(BaseSpendingByGeographyResult);
+        geoElement.populate(item);
+        return geoElement;
     });
 
-    // parse row and row's children
-    const parsedData = dataAndTotalObligation.map((item) => {
-        const subagencyTotalsRow = Object.create(BaseSubagencySpendingRow);
-        subagencyTotalsRow.populateCore(item);
+    if (apiParams.geo_layer === "country") {
+        return addUSTerritories(parsedData, apiParams);
+    }
 
-        let rowChildren = [];
-        if (item.children && item.children.length > 0) {
-            rowChildren = item.children.map((childItem) => {
-                const subagencyTotalsRowChild = Object.create(BaseSubagencySpendingRowChildren);
-                subagencyTotalsRowChild.populate(childItem);
-                return subagencyTotalsRowChild;
-            });
-        }
-
-        if (rowChildren && rowChildren.length > 0) {
-            Object.defineProperty(subagencyTotalsRow, "children", {
-                value: rowChildren
-            });
-        }
-
-        return subagencyTotalsRow;
-    });
     return parsedData;
 };
