@@ -240,8 +240,6 @@ export default class MapWrapper extends React.Component {
         };
 
         // load the data source
-
-        console.log('map: ', this.mapRef.current.map.current.current);
         const source = mapboxSources[type];
         this.mapRef.current.map.current.addSource(type, {
             type: 'vector',

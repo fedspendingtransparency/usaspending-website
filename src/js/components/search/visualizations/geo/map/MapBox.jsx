@@ -60,7 +60,7 @@ const MapBox = React.forwardRef((props, ref) => {
 
     const centerMap = (m) => {
         m.current.jumpTo({
-            zoom: 2.25,
+            zoom: 4,
             center: props.center
         });
     };
@@ -150,18 +150,18 @@ const MapBox = React.forwardRef((props, ref) => {
         componentUnmounted = false;
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
-    });
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+            props.unloadedMap();
+            componentUnmounted = true;
+        };
+    }, [windowWidth]);
 
     useEffect(() => {
         handleCenterChanged();
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [props.center]);
-
-    useEffect(() => () => {
-        window.removeEventListener('resize', handleWindowResize);
-        props.unloadedMap();
-        componentUnmounted = true;
-    }, []);
 
     return (
         <div
@@ -169,7 +169,7 @@ const MapBox = React.forwardRef((props, ref) => {
             ref={(div) => {
                 mapDiv.current = div;
             }}>
-            <div className={`map-buttons ${showNavButtons ? 'hide' : ''}`}>
+            <div className={`map-buttons ${showNavButtons ? '' : 'hide'}`}>
                 <div className="first-row">
                     <button
                         onMouseDown={moveUp}
