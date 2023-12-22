@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React from 'react';
+import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
 
@@ -90,7 +90,7 @@ const mapboxSources = {
     }
 };
 
-export default class MapWrapper extends React.Component {
+export default class MapWrapper extends Component {
     constructor(props) {
         super(props);
 
@@ -103,7 +103,7 @@ export default class MapWrapper extends React.Component {
             mapReady: false
         };
 
-        this.mapRef = React.createRef();
+        this.mapRef = createRef();
         this.mapOperationQueue = {};
         this.loadedLayers = {};
         this.broadcastReceivers = [];

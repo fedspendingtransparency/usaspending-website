@@ -26,7 +26,7 @@ const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
 const MapBox = forwardRef((props, ref) => {
     let componentUnmounted = false;
     const map = useRef();
-    const mapDiv = React.useRef(null);
+    const mapDiv = useRef(null);
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
