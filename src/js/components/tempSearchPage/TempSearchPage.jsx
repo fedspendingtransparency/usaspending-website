@@ -1,11 +1,10 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
 import TempAwardTable from "./TempAwardTable";
 import TempSpendingOverTime from "./TempSpendingOverTime";
 import TempMapSection from "./TempMapSection";
 import TempCategoriesSection from "./TempCategoriesSection";
-import TempLoadingComponent from "./TempLoadingComponent";
 import TempPlaceholderComponent from "./TempPlaceholderComponent";
 
 require("pages/search/searchPage.scss");
@@ -13,6 +12,7 @@ require("pages/search/searchPage.scss");
 const TempSearchPage = () => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [isVisible, setIsVisible] = useState('');
+    const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
@@ -27,7 +27,10 @@ const TempSearchPage = () => {
 
             if (entry.isIntersecting) {
                 setIsVisible(section);
-                if (section === 'spending') {
+                if (section === 'award') {
+                    setAwardTableHasLoaded(true);
+                }
+                else if (section === 'spending') {
                     setSpendingHasLoaded(true);
                 }
                 else if (section === 'map') {
@@ -69,11 +72,12 @@ const TempSearchPage = () => {
                 classNames="usa-da-search-page"
                 title="Temp Search Page">
                 <main id="main-content" className="main-content">
-                    <Suspense fallback={<TempLoadingComponent />}>
-                        <div id="search-page-component" className="award">
+                    <div id="search-page-component" className="award">
+                        {!awardTableHasLoaded && <TempPlaceholderComponent />}
+                        {(isVisible === 'award' || awardTableHasLoaded) &&
                             <TempAwardTable />
-                        </div>
-                    </Suspense>
+                        }
+                    </div>
 
                     <div id="search-page-component" className="spending">
                         {!spendingHasLoaded && <TempPlaceholderComponent />}
