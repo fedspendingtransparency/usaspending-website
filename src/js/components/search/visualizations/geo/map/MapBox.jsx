@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useEffect, useState, useImperativeHandle, useRef } from 'react';
+import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
@@ -23,7 +23,7 @@ const delta = 100;
 // define map sources
 const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
 
-const MapBox = React.forwardRef((props, ref) => {
+const MapBox = forwardRef((props, ref) => {
     let componentUnmounted = false;
     const map = useRef();
     const test = 'test';
