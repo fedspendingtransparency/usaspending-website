@@ -1,5 +1,5 @@
 .visualization-top {
-    @include row();
+    @include grid-column();
     margin-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Mousetrap from 'mousetrap';
 import { uniqueId, isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from "data-transparency-ui";
@@ -121,15 +120,17 @@ export default class EntityDropdown extends React.Component {
         });
     }
 
-    closeDropdown() {
-        this.setState({
-            expanded: false
-        }, () => {
-            if (this.dropdown) {
-                this.dropdown.focus();
-            }
-            this.unbindAccessibility();
-        });
+    closeDropdown(e) {
+        if (e.key === 'Escape' || e.key === 'Enter' || (e.type === 'mouseup' && e.target.className.includes('list-item'))) {
+            this.setState({
+                expanded: false
+            }, () => {
+                if (this.dropdown) {
+                    this.dropdown.focus();
+                }
+                this.unbindAccessibility();
+            });
+        }
     }
 
     toggleDropdown(e) {
@@ -162,9 +163,11 @@ export default class EntityDropdown extends React.Component {
     bindAccessibility() {
         document.addEventListener('mousedown', this.handleDeselection);
         document.addEventListener('keyup', this.pressedLetter);
-        Mousetrap.bind('esc', this.closeDropdown);
-        Mousetrap.bind('down', this.focusNext);
-        Mousetrap.bind('up', this.focusPrev);
+
+        document.addEventListener('keyup', this.closeDropdown);
+        document.addEventListener('mouseup', this.closeDropdown);
+        document.addEventListener('keyup', this.focusNext);
+        document.addEventListener('keyup', this.focusPrev);
 
         this.dropdownRef = this.wrapperDiv.querySelector('.geo-entity-list');
 
@@ -182,14 +185,16 @@ export default class EntityDropdown extends React.Component {
     unbindAccessibility() {
         document.removeEventListener('mousedown', this.handleDeselection);
         document.removeEventListener('keyup', this.pressedLetter);
-        Mousetrap.unbind('esc', this.closeDropdown);
-        Mousetrap.unbind('down', this.focusNext);
-        Mousetrap.unbind('up', this.focusPrev);
+
+        document.removeEventListener('keyup', this.closeDropdown);
+        document.removeEventListener('mouseup', this.closeDropdown);
+        document.removeEventListener('keyup', this.focusNext);
+        document.removeEventListener('keyup', this.focusPrev);
     }
 
     focusNext(e) {
         const active = document.activeElement;
-        if (active && this.dropdownRef && this.dropdownRef.contains(active)) {
+        if (e.key === 'ArrowDown' && active && this.dropdownRef && this.dropdownRef.contains(active)) {
             // a dropdown list item is currently selected
             e.preventDefault();
             // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
@@ -207,7 +212,7 @@ export default class EntityDropdown extends React.Component {
 
     focusPrev(e) {
         const active = document.activeElement;
-        if (active && this.dropdownRef && this.dropdownRef.contains(active)) {
+        if (e.key === 'ArrowUp' && active && this.dropdownRef && this.dropdownRef.contains(active)) {
             // a dropdown list item is currently selected
             e.preventDefault();
             // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed

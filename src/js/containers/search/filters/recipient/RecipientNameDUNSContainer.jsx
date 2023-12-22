@@ -3,7 +3,7 @@
  * Created by michaelbray on 2/17/17.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -14,58 +14,43 @@ const propTypes = {
     selectedRecipients: PropTypes.object
 };
 
-export class RecipientNameDUNSContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const RecipientNameDUNSContainer = (props) => {
+    const [recipientSearchString, setRecipientSearchString] = useState('');
+    const [showWarning, setShowWarning] = useState(false);
 
-        this.state = {
-            recipientSearchString: '',
-            showWarning: false
-        };
-
-        this.handleTextInput = this.handleTextInput.bind(this);
-        this.searchRecipient = this.searchRecipient.bind(this);
-    }
-
-    searchRecipient() {
-        const searchString = this.state.recipientSearchString;
+    const searchRecipient = () => {
+        const searchString = recipientSearchString;
 
         // Only search if input is 3 or more characters and is not already
         // in the list of results
-        if (searchString.length >= 3 && !this.props.selectedRecipients.has(searchString)) {
-            this.props.toggleRecipient(searchString);
+        if (searchString.length >= 3 && !props.selectedRecipients.has(searchString)) {
+            props.toggleRecipient(searchString);
 
             // Reset input
-            this.setState({
-                recipientSearchString: ''
-            });
+            setRecipientSearchString('');
         }
         else {
             this.setState({
                 showWarning: true
             });
         }
-    }
+    };
 
-    handleTextInput(recipientInput) {
-    // Save input and clear any errors
-        this.setState({
-            recipientSearchString: recipientInput.target.value,
-            showWarning: false
-        });
-    }
+    const handleTextInput = (recipientInput) => {
+        // Save input and clear any errors
+        setRecipientSearchString(recipientInput.target.value);
+        setShowWarning(false);
+    };
 
-    render() {
-        return (
-            <RecipientName
-                changedInput={this.handleTextInput}
-                searchRecipient={this.searchRecipient}
-                value={this.state.recipientSearchString}
-                showWarning={this.state.showWarning}
-                selectedRecipients={this.props.selectedRecipients} />
-        );
-    }
-}
+    return (
+        <RecipientName
+            changedInput={handleTextInput}
+            searchRecipient={searchRecipient}
+            value={recipientSearchString}
+            showWarning={showWarning}
+            selectedRecipients={props.selectedRecipients} />
+    );
+};
 
 export default connect(
     (state) => ({

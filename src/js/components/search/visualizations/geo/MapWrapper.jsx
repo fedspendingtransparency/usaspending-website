@@ -9,6 +9,7 @@ import { uniq } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
+import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
@@ -367,7 +368,7 @@ export default class MapWrapper extends React.Component {
 
         if (this.props.scope === 'country') {
             // prepend USA to account for prohibited country codes
-            const filteredArray = visibleEntities.filter((value) => this.props.prohibitedCountryCodes?.includes(value));
+            const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
 
             if (filteredArray?.length > 0) {
                 visibleEntities.push('USA');
