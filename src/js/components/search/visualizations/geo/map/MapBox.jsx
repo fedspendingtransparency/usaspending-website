@@ -29,7 +29,7 @@ const MapBox = React.forwardRef((props, ref) => {
     const test = 'test';
     const mapDiv = React.useRef(null);
 
-    const [windowWidth, setWindowWidth] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
 
     useImperativeHandle(ref, () => ({
@@ -120,22 +120,14 @@ const MapBox = React.forwardRef((props, ref) => {
         });
     };
 
-    const handleWindowResize = () => {
+    const handleWindowResize = throttle(() => {
         // determine if the width changed
-        throttle(() => {
-            const currentWindowWidth = window.innerWidth;
-            if (currentWindowWidth !== windowWidth) {
-                // width changed, update the visualization width
-                setWindowWidth(currentWindowWidth);
-                if (map.current) {
-                    resizeMap();
-                }
-                else {
-                    mountMap();
-                }
-            }
-        }, 16);
-    };
+        const currentWindowWidth = window.innerWidth;
+        if (currentWindowWidth !== windowWidth) {
+            // width changed, update the visualization width
+            setWindowWidth(currentWindowWidth);
+        }
+    }, 16);
 
     const handleCenterChanged = () => {
         if (map.current) {
@@ -156,12 +148,21 @@ const MapBox = React.forwardRef((props, ref) => {
             props.unloadedMap();
             componentUnmounted = true;
         };
-    }, [windowWidth]);
+    }, []);
 
     useEffect(() => {
         handleCenterChanged();
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [props.center]);
+
+    useEffect(() => {
+        if (map.current) {
+            resizeMap();
+        }
+        else {
+            mountMap();
+        }
+    }, [windowWidth]);
 
     return (
         <div
