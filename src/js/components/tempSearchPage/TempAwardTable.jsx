@@ -5,7 +5,7 @@ import fetchAwardTableCount from './fetchAwardTableCount';
 const resource = fetchAwardsTableData();
 const countAPICall = fetchAwardTableCount();
 
-const TempAwardTable = () => {
+const TempAwardTable = React.memo(() => {
     if (resource) {
         console.log('awards table api call');
     }
@@ -60,6 +60,6 @@ const TempAwardTable = () => {
             </div>
         </section>
     );
-};
+});
 
 export default TempAwardTable;

@@ -100,7 +100,6 @@ const TempSearchPage = () => {
                         }
                     </div>
                 </main>
-
             </PageWrapper>
         </PageFeatureFlag>
     );

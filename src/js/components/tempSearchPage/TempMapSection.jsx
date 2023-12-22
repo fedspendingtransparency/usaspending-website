@@ -3,7 +3,7 @@ import fetchData from './fetchSpendingByGeographyData';
 
 const resource = fetchData();
 
-const TempMapSection = () => {
+const TempMapSection = React.memo(() => {
     if (resource) {
         console.log('map section api call');
     }
@@ -38,6 +38,6 @@ const TempMapSection = () => {
             </div>
         </section>
     );
-};
+});
 
 export default TempMapSection;

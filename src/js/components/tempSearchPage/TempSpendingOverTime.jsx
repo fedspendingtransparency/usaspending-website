@@ -3,7 +3,7 @@ import fetchSpendingOverTimeData from './fetchSpendingOverTimeData';
 
 const resource = fetchSpendingOverTimeData();
 
-const TempSpendingOverTime = () => {
+const TempSpendingOverTime = React.memo(() => {
     if (resource) {
         console.log('spending over time api call');
     }
@@ -38,6 +38,6 @@ const TempSpendingOverTime = () => {
             </div>
         </section>
     );
-};
+});
 
 export default TempSpendingOverTime;

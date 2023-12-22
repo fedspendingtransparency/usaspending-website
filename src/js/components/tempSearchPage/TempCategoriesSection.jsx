@@ -3,7 +3,7 @@ import fetchData from './fetchSpendingByCategoriesData';
 
 const resource = fetchData();
 
-const TempCategoriesSection = () => {
+const TempCategoriesSection = React.memo(() => {
     if (resource) {
         console.log('categories section api call');
     }
@@ -38,6 +38,6 @@ const TempCategoriesSection = () => {
             </div>
         </section>
     );
-};
+});
 
 export default TempCategoriesSection;
