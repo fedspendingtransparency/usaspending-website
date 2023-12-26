@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { TransitionGroup } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from 'react-router-dom';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +25,7 @@ const NavbarWrapper = () => {
 
     useEffect(() => {
         if (showMobileNav) {
+            console.log("here")
             // disable body scrolling
             document.querySelector('body').classList.add('show-mobile-nav');
         }
@@ -94,17 +94,15 @@ const NavbarWrapper = () => {
                     </div>
                 </div>
                 <div className="mobile-nav-animations">
-                    <TransitionGroup>
-                        {showMobileNav && (
-                            <div
-                                classNames="mobile-nav-slide">
-                                <MobileNav
-                                    hideMobileNav={hideMobileNav}
-                                    mobileNavInitialState={mobileNavInitialState}
-                                    setMobileNavInitialState={setMobileNavInitialState} />
-                            </div>
-                        )}
-                    </TransitionGroup>
+                    {showMobileNav && (
+                        <div
+                            classNames="mobile-nav-slide">
+                            <MobileNav
+                                hideMobileNav={hideMobileNav}
+                                mobileNavInitialState={mobileNavInitialState}
+                                setMobileNavInitialState={setMobileNavInitialState} />
+                        </div>
+                    )}
                 </div>
                 <div className="site-navigation__menu full-menu">
                     <MegaMenu />
