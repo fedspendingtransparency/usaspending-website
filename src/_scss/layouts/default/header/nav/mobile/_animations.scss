@@ -1,18 +1,27 @@
-.mobile-nav-opened {
-    animation: mobileNavExit 0.5s ease-out forwards;
-    -webkit-animation: mobileNavExit 0.5s ease-out forwards;
-    visibility: visible;
-}
+.mobile-nav-entrance {
+    //position: fixed;
+    //right: 0;
+    //top: 0;
 
-//:not(.opened) {
-//    animation: mobileNavExit 0.5s ease-out forwards;
-//    -webkit-animation: mobileNavExit 0.5s ease-out forwards;
-//    overflow: hidden;
-//}
+    &.opened {
+        //animation: rolldown 0.5s ease-in forwards;
+        //-webkit-animation: rolldown 0.5s ease-in forwards;
+        display: block;
+        -webkit-animation: fadeInFromNone 0.5s ease-out;
+        -moz-animation: fadeInFromNone 0.5s ease-out;
+        -o-animation: fadeInFromNone 0.5s ease-out;
+        animation: fadeInFromNone 0.5s ease-out;
+    }
 
-.mobile-nav-animations {
-    // slide in animation
-    @keyframes mobileNavEnter {
+    &:not(.opened) {
+        -webkit-animation: fadeOutToNone 0.5s ease-out;
+        -moz-animation: fadeOutToNone 0.5s ease-out;
+        -o-animation: fadeOutToNone 0.5s ease-out;
+        animation: fadeOutToNone 0.5s ease-out;
+        display: none;
+    }
+
+    @-webkit-keyframes fadeInFromNone {
         // slide in from top
         0% {
             transform: translate(0, -100vh);
@@ -22,7 +31,7 @@
         }
     }
 
-    @keyframes mobileNavExit {
+    @-webkit-keyframes fadeOutToNone {
         // slide out to top
         0% {
             transform: translate(0, 0);
@@ -31,6 +40,60 @@
             transform: translate(0, -100vh);
         }
     }
+
+    @-moz-keyframes fadeInFromNone {
+        0% {
+            display: none;
+            height: 0;
+        }
+        //
+        //1% {
+        //    display: block;
+        //}
+
+        100% {
+            display: block;
+            height: 100%;
+
+        }
+    }
+
+    @-o-keyframes fadeInFromNone {
+        0% {
+            display: none;
+            height: 0;
+        }
+        //
+        //1% {
+        //    display: block;
+        //}
+
+        100% {
+            display: block;
+            height: 100%;
+
+        }
+    }
+
+    @keyframes fadeInFromNone {
+        0% {
+            display: none;
+            height: 0;
+        }
+        //
+        //1% {
+        //    display: block;
+        //}
+
+        100% {
+            display: block;
+            height: 100%;
+
+        }
+    }
+}
+.mobile-nav-animations {
+    // slide in animation
 
     // this one applies to the mobile-dropdown__list
     // and we only have Enter here because we're using

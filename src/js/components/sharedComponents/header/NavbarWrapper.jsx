@@ -100,9 +100,7 @@ const NavbarWrapper = () => {
                         </button>
                     </div>
                 </div>
-                <div
-                    style={{ visibility: showMobileNav ? "" : "hidden" }}
-                    className={showMobileNav ? "mobile-nav-opened" : ''}>
+                <div className={showMobileNav ? 'mobile-nav-entrance opened' : 'mobile-nav-entrance'}>
                     <div className="mobile-nav-animations">
                         <MobileNav
                             hideMobileNav={hideMobileNav}
