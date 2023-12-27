@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQueryParams } from 'helpers/queryParams';
-import { throttle } from 'lodash';
+import { find, throttle } from 'lodash';
 import { ComingSoon, ShareIcon } from 'data-transparency-ui';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { scrollToY } from 'helpers/scrollToHelper';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import InteractiveDataSourcesSection from './InteractiveDataSourcesSection';
 import { interactiveDataSourcesPageMetaTags } from '../../helpers/metaTagHelper';
-import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import AboutSection from './sections/AboutSection';
 import IntroSection from './sections/IntroSection';
 import FederalSpendingOverview from './scrollerSections/FederalSpendingOverview';
@@ -28,147 +27,166 @@ import DownloadStaticFile from "../sharedComponents/DownloadStaticFile";
 
 require('pages/interactiveDataSources/index.scss');
 
-const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 const InteractiveDataSourcesPage = () => {
     const [activeSection, setActiveSection] = useState('intro-section');
     const query = useQueryParams();
     const history = useHistory();
+    const [windowWidth, setWindowWidth] = useState(0);
+
     const sections = [
         {
-            name: 'intro-section',
-            display: 'Introduction',
+            section: 'intro-section',
+            label: 'Introduction',
             showSectionTitle: false,
             scroller: false,
             component: <IntroSection />
         },
         {
-            name: 'history-section',
-            display: 'History of the DATA Act',
+            section: 'history-section',
+            label: 'History of the DATA Act',
             showSectionTitle: false,
             scroller: false,
             component: <AboutSection />
         },
         {
-            name: 'federal-spending-overview',
-            display: 'Federal Spending Overview',
+            section: 'federal-spending-overview',
+            label: 'Federal Spending Overview',
             showSectionTitle: false,
             scroller: true,
             component: <FederalSpendingOverview title="Federal Spending Overview" subtitle="How do federal dollars move from Congress to the American people?" />
         },
         {
-            name: 'data-available',
-            display: 'Data Available on USAspending.gov',
+            section: 'data-available',
+            label: 'Data Available on USAspending.gov',
             showSectionTitle: false,
             scroller: true,
             component: <DataAvailable title="Data Available on USAspending.gov" subtitle="What kinds of data does USAspending.gov have?" />
         },
         {
-            name: 'data-types',
-            display: 'Data Types',
+            section: 'data-types',
+            label: 'Data Types',
             showSectionTitle: false,
             scroller: true,
             component: <DataTypes title="Data Types" subtitle="How can I understand all the data types on USAspending.gov?" />
         },
         {
-            name: 'data-source-systems',
-            display: 'Source Systems',
+            section: 'data-source-systems',
+            label: 'Source Systems',
             showSectionTitle: false,
             scroller: true,
             component: <DataSourceSystems title="Source Systems" subtitle="What government data systems flow into USAspending.gov?" />
         },
         {
-            name: 'account-data',
-            display: 'Account Data',
+            section: 'account-data',
+            label: 'Account Data',
             showSectionTitle: false,
             scroller: true,
             component: <AccountData title="Account Data" subtitle="What are the sources for account data on USAspending.gov?" />
         },
         {
-            name: 'award-data',
-            display: 'Award Data',
+            section: 'award-data',
+            label: 'Award Data',
             showSectionTitle: false,
             scroller: true,
             component: <AwardData title="Award Data" subtitle="What are the sources for award data on USAspending.gov?" />
         },
         {
-            name: 'additional-data',
-            display: 'Additional Data',
+            section: 'additional-data',
+            label: 'Additional Data',
             showSectionTitle: false,
             scroller: true,
             component: <AdditionalData title="Additional Data" subtitle="What are the sources for additional data on USAspending.gov?" />
         },
         {
-            name: 'data-submission-extraction',
-            display: 'Data Submission and Extraction',
+            section: 'data-submission-extraction',
+            label: 'Data Submission and Extraction',
             showSectionTitle: false,
             scroller: true,
             component: <DataSubmissionExtraction title="Data Submission and Extraction" subtitle="What data are submitted to, versus extracted by, USAspending.gov?" />
         },
         {
-            name: 'frequency',
-            display: 'Frequency of Data Updates',
+            section: 'frequency',
+            label: 'Frequency of Data Updates',
             showSectionTitle: false,
             scroller: true,
             component: <Frequency title="Frequency of Data Updates" subtitle="How often are data updated on USAspending.gov?" />
         },
         {
-            name: 'data-validation',
-            display: 'Data Validation',
+            section: 'data-validation',
+            label: 'Data Validation',
             showSectionTitle: false,
             scroller: true,
             component: <DataValidation title="Data Validation" subtitle="How does the DATA Act Broker validate data before they are publicly available?" />
         },
         {
-            name: 'data-access',
-            display: 'Features on USAspending.gov',
+            section: 'data-access',
+            label: 'Features on USAspending.gov',
             showSectionTitle: false,
             scroller: true,
             component: <DataFeatures title="Features on USAspending.gov" subtitle="Where can I find data on USAspending.gov from these sources?" />
         },
         {
-            name: 'data-use-cases',
-            display: 'Use Cases',
+            section: 'data-use-cases',
+            label: 'Use Cases',
             showSectionTitle: false,
             scroller: true,
             component: <DataUseCases title="Use Cases" subtitle="What can I do with the data on USAspending.gov?" />
         }
     ];
     const jumpToSection = (section = '') => {
-        // check if valid section
-        const matchedSection = sections.find((obj) => obj.name === section);
-        if (!matchedSection) return; // no matching section
-        // scroll to correct section
-        const sectionDom = document.querySelector(`#interactive-data-sources-${matchedSection.name}`);
+        // we've been provided a section to jump to
+        // check if it's a valid section
+        const sectionObj = find(sections, ['section', section]);
+        if (!sectionObj) return;
+
+        // find the section in dom
+        const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
         if (!sectionDom) return;
-        if (activeSection === 'intro-section') {
-            scrollToY(sectionDom.offsetTop - 150, 700);
-        }
-        else if (matchedSection.scroller) {
-            // for scroller sections, add height
-            scrollToY(sectionDom.offsetTop + 18, 700);
-        }
-        else {
-            // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
-            scrollToY(sectionDom.offsetTop - 86, 700);
-        }
-        setActiveSection(matchedSection.name);
+
+        // add section to url
+        history.replace(`?section=${sectionObj.section}`);
+        setActiveSection(section);
+        // add offsets
+        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
+        window.scrollTo({
+            top: sectionTop - 25,
+            left: 0,
+            behavior: 'smooth'
+        });
     };
+    useEffect(() => {
+        if (query.section) {
+            jumpToSection(query.section);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query.section]);
+
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
             if (urlSection) {
-                // TODO: revisit settimeout
-                setTimeout(() => {
-                    jumpToSection(urlSection);
-                }, 1000);
+                setActiveSection(urlSection);
+                jumpToSection(urlSection);
             }
         }
         return () => {
             isMounted = false;
         };
     }, 100), [history, query.section]);
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
 
 
     const emailData = {
@@ -180,7 +198,7 @@ const InteractiveDataSourcesPage = () => {
     };
     return (
         <PageWrapper
-            pageName="Data Sources"
+            pageName="interactive-data-sources"
             classNames="usa-da-interactive-data-sources-page"
             overLine="resources"
             metaTagProps={interactiveDataSourcesPageMetaTags}
@@ -189,27 +207,16 @@ const InteractiveDataSourcesPage = () => {
                 <ShareIcon url={getBaseUrl('data-sources')} onShareOptionClick={handleShare} />,
                 <DownloadStaticFile
                     path="/data/data-sources-download.pdf" />
-            ]}>
+            ]}
+            sections={sections}
+            activeSection={activeSection}
+            jumpToSection={jumpToSection}
+            inPageNav>
             <main id="main-content" className="main-content usda__flex-row">
-                <div className="sidebar usda__flex-col">
-                    <div className="sidebar_content">
-                        <Sidebar
-                            pageName="interactive-data-sources"
-                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                            isGoingToBeSticky
-                            active={activeSection}
-                            jumpToSection={jumpToSection}
-                            detectActiveSection={setActiveSection}
-                            sections={sections.map((section) => ({
-                                section: section.name,
-                                label: section.display
-                            }))} />
-                    </div>
-                </div>
                 <div className="body usda__flex-col">
                     {sections.map((section) => (
                         <InteractiveDataSourcesSection
-                            key={section.name}
+                            key={section.section}
                             section={section}>
                             {section.component || <ComingSoon />}
                         </InteractiveDataSourcesSection>

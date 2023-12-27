@@ -17,11 +17,12 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 
-import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
+import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import { parseRows } from 'helpers/search/visualizations/geoHelper';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -59,8 +60,6 @@ const logMapScopeEvent = (scope) => {
     });
 };
 
-// FABS prohibits the following US territories or freely associated states from being submitted using their GENC code.  They should be submitted using the country code "USA"
-const prohibitedCountryCodes = ['ASM', 'FSM', 'GUM', 'MHL', 'MNP', 'PLW', 'PRI', 'VIR', 'XBK', 'XHO', 'XJA', 'XJV', 'XKR', 'XMW', 'XNV', 'XPL', 'XWK'];
 
 export class GeoVisualizationSectionContainer extends React.Component {
     constructor(props) {
@@ -126,21 +125,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
-    updateMapLegendToggle = (value) => {
-        this.props.updateMapLegendToggle(value);
-    };
-
-    changeScope(scope) {
-        if (scope === this.state.scope) {
-            // scope has not changed
-            return;
-        }
+    setParsedData() {
+        this.props.setAppliedFilterCompletion(true);
 
         this.setState({
-            scope
-        }, () => {
-            this.prepareFetch(true);
-            logMapScopeEvent(scope);
+            data: this.valuesLocationsLabelsFromAPIData(),
+            renderHash: `geo-${uniqueId()}`,
+            loading: false,
+            error: false
         });
     }
 
@@ -251,33 +243,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
             error: false
         });
 
-        const addUSTerritories = (results) => {
-            const filteredArray = apiParams.geo_layer_filters.filter((value) => prohibitedCountryCodes.includes(value));
-            const usaData = results.find((value) => value.shape_code === 'USA');
-
-            if (usaData) {
-                filteredArray.forEach((value) => {
-                    results.push({
-                        shape_code: value,
-                        display_name: usaData.display_name,
-                        aggregated_amount: usaData.aggregated_amount,
-                        per_capita: usaData.per_capita,
-                        population: usaData.population
-                    });
-                });
-            }
-
-            return results;
-        };
-
 
         this.props.setAppliedFilterCompletion(false);
-        this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
+        this.apiRequest = performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.apiRequest = null;
-                const allGENCCodes = apiParams.geo_layer === "country" ? addUSTerritories(res.data.results) : res.data.results;
-                this.setState({ rawAPIData: allGENCCodes }, this.parseData);
+                const parsedData = parseRows(res.data.results, apiParams);
+                this.setState({ rawAPIData: parsedData }, this.setParsedData);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -330,16 +303,23 @@ export class GeoVisualizationSectionContainer extends React.Component {
         return { values, locations, labels };
     };
 
-    parseData() {
-        this.props.setAppliedFilterCompletion(true);
+    changeScope(scope) {
+        if (scope === this.state.scope) {
+            // scope has not changed
+            return;
+        }
 
         this.setState({
-            data: this.valuesLocationsLabelsFromAPIData(),
-            renderHash: `geo-${uniqueId()}`,
-            loading: false,
-            error: false
+            scope
+        }, () => {
+            this.prepareFetch(true);
+            logMapScopeEvent(scope);
         });
     }
+
+    updateMapLegendToggle = (value) => {
+        this.props.updateMapLegendToggle(value);
+    };
 
     changeMapLayer(layer) {
         this.setState({
@@ -363,8 +343,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 mapLegendToggle={this.props.mapLegendToggle}
                 subaward={this.props.subaward}
                 isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                className={this.props.className}
-                prohibitedCountryCodes={prohibitedCountryCodes} />
+                className={this.props.className} />
         );
     }
 }
