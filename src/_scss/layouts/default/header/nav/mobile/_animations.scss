@@ -1,3 +1,15 @@
+.mobile-nav-opened {
+    animation: mobileNavExit 0.5s ease-out forwards;
+    -webkit-animation: mobileNavExit 0.5s ease-out forwards;
+    visibility: visible;
+}
+
+//:not(.opened) {
+//    animation: mobileNavExit 0.5s ease-out forwards;
+//    -webkit-animation: mobileNavExit 0.5s ease-out forwards;
+//    overflow: hidden;
+//}
+
 .mobile-nav-animations {
     // slide in animation
     @keyframes mobileNavEnter {
@@ -32,15 +44,23 @@
         }
     }
 
-    .mobile-nav-slide-enter, .mobile-nav-slide-enter-active {
-        @include animation(mobileNavEnter 0.225s ease-in forwards);
-    }
+    //.mobile-nav-slide-enter, .mobile-nav-slide-enter-active {
+    //    @include animation(mobileNavEnter 0.225s ease-in forwards);
+    //}
 
-    .mobile-nav-slide-exit, .mobile-nav-slide-exit-active {
-        @include animation(mobileNavExit 0.225s ease-in forwards);
-    }
+    //.opened {
+    //    //transform:translateY(0px);
+    //    //-webkit-transition: all 5s ease-in-out;
+    //    //-moz-transition: all 5s ease-in-out;
+    //    //transition: all 5s ease-in-out;
+    //
+    //    animation: mobileNavEnter 1s ease-in-out;
+    //    -webkit-animation: mobileNavEnter 1s ease-in-out;
+    //}
 
-    .mobile-nav-side-slide-enter, .mobile-nav-side-slide-enter-active {
-        @include animation(mobileNavSideEnter 0.225s ease-in forwards);
-    }
+
+
+    //.mobile-nav-side-slide-enter, .mobile-nav-side-slide-enter-active {
+    //    @include animation(mobileNavSideEnter 0.225s ease-in forwards);
+    //}
 }

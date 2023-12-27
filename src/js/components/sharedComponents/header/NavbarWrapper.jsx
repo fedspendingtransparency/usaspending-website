@@ -13,8 +13,15 @@ const NavbarWrapper = () => {
     // the purpose of this var is to prevent the usas logo from sliding in from
     // the left when the menu opens initially
     const [mobileNavInitialState, setMobileNavInitialState] = useState(true);
+    const [firstMount, setFirstMount] = useState(true);
 
     const { pathname } = useLocation();
+
+    useEffect(() => {
+        if (showMobileNav) {
+            setFirstMount(false);
+        }
+    }, [showMobileNav]);
 
     useEffect(() => {
         if (pathname === "/") {
@@ -93,16 +100,15 @@ const NavbarWrapper = () => {
                         </button>
                     </div>
                 </div>
-                <div className="mobile-nav-animations">
-                    {showMobileNav && (
-                        <div
-                            classNames="mobile-nav-slide">
-                            <MobileNav
-                                hideMobileNav={hideMobileNav}
-                                mobileNavInitialState={mobileNavInitialState}
-                                setMobileNavInitialState={setMobileNavInitialState} />
-                        </div>
-                    )}
+                <div
+                    style={{ visibility: showMobileNav ? "" : "hidden" }}
+                    className={showMobileNav ? "mobile-nav-opened" : ''}>
+                    <div className="mobile-nav-animations">
+                        <MobileNav
+                            hideMobileNav={hideMobileNav}
+                            mobileNavInitialState={mobileNavInitialState}
+                            setMobileNavInitialState={setMobileNavInitialState} />
+                    </div>
                 </div>
                 <div className="site-navigation__menu full-menu">
                     <MegaMenu />
