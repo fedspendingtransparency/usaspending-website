@@ -100,13 +100,12 @@ const NavbarWrapper = () => {
                         </button>
                     </div>
                 </div>
-                <div className={showMobileNav ? 'mobile-nav-entrance opened' : 'mobile-nav-entrance'}>
-                    <div className="mobile-nav-animations">
-                        <MobileNav
-                            hideMobileNav={hideMobileNav}
-                            mobileNavInitialState={mobileNavInitialState}
-                            setMobileNavInitialState={setMobileNavInitialState} />
-                    </div>
+                <div className="mobile-nav-animations">
+                    <MobileNav
+                        showMobileNav={showMobileNav}
+                        hideMobileNav={hideMobileNav}
+                        mobileNavInitialState={mobileNavInitialState}
+                        setMobileNavInitialState={setMobileNavInitialState} />
                 </div>
                 <div className="site-navigation__menu full-menu">
                     <MegaMenu />

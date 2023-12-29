@@ -1,11 +1,5 @@
-.mobile-nav-entrance {
-    //position: fixed;
-    //right: 0;
-    //top: 0;
-
+.mobile-nav {
     &.opened {
-        //animation: rolldown 0.5s ease-in forwards;
-        //-webkit-animation: rolldown 0.5s ease-in forwards;
         display: block;
         -webkit-animation: fadeInFromNone 0.5s ease-out;
         -moz-animation: fadeInFromNone 0.5s ease-out;
@@ -19,25 +13,30 @@
         -o-animation: fadeOutToNone 0.5s ease-out;
         animation: fadeOutToNone 0.5s ease-out;
         display: none;
+        height: 0;
     }
 
     @-webkit-keyframes fadeInFromNone {
-        // slide in from top
         0% {
-            transform: translate(0, -100vh);
+            display: none;
+            height: 0;
         }
+
         100% {
-            transform: translate(0, 0);
+            display: block;
+            height: 100%;
         }
     }
 
     @-webkit-keyframes fadeOutToNone {
-        // slide out to top
         0% {
-            transform: translate(0, 0);
+            height: 100%;
+            display: block;
         }
+
         100% {
-            transform: translate(0, -100vh);
+            display: none;
+            height: 0;
         }
     }
 
@@ -46,15 +45,10 @@
             display: none;
             height: 0;
         }
-        //
-        //1% {
-        //    display: block;
-        //}
 
         100% {
             display: block;
             height: 100%;
-
         }
     }
 
@@ -63,15 +57,10 @@
             display: none;
             height: 0;
         }
-        //
-        //1% {
-        //    display: block;
-        //}
 
         100% {
             display: block;
             height: 100%;
-
         }
     }
 
@@ -80,15 +69,10 @@
             display: none;
             height: 0;
         }
-        //
-        //1% {
-        //    display: block;
-        //}
 
         100% {
             display: block;
             height: 100%;
-
         }
     }
 }
@@ -106,24 +90,4 @@
             transform: translateX(0);
         }
     }
-
-    //.mobile-nav-slide-enter, .mobile-nav-slide-enter-active {
-    //    @include animation(mobileNavEnter 0.225s ease-in forwards);
-    //}
-
-    //.opened {
-    //    //transform:translateY(0px);
-    //    //-webkit-transition: all 5s ease-in-out;
-    //    //-moz-transition: all 5s ease-in-out;
-    //    //transition: all 5s ease-in-out;
-    //
-    //    animation: mobileNavEnter 1s ease-in-out;
-    //    -webkit-animation: mobileNavEnter 1s ease-in-out;
-    //}
-
-
-
-    //.mobile-nav-side-slide-enter, .mobile-nav-side-slide-enter-active {
-    //    @include animation(mobileNavSideEnter 0.225s ease-in forwards);
-    //}
 }
