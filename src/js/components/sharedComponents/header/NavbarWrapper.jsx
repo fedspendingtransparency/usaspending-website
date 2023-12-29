@@ -13,15 +13,8 @@ const NavbarWrapper = () => {
     // the purpose of this var is to prevent the usas logo from sliding in from
     // the left when the menu opens initially
     const [mobileNavInitialState, setMobileNavInitialState] = useState(true);
-    const [firstMount, setFirstMount] = useState(true);
 
     const { pathname } = useLocation();
-
-    useEffect(() => {
-        if (showMobileNav) {
-            setFirstMount(false);
-        }
-    }, [showMobileNav]);
 
     useEffect(() => {
         if (pathname === "/") {
@@ -32,7 +25,6 @@ const NavbarWrapper = () => {
 
     useEffect(() => {
         if (showMobileNav) {
-            console.log("here")
             // disable body scrolling
             document.querySelector('body').classList.add('show-mobile-nav');
         }
@@ -100,13 +92,11 @@ const NavbarWrapper = () => {
                         </button>
                     </div>
                 </div>
-                <div className="mobile-nav-animations">
-                    <MobileNav
-                        showMobileNav={showMobileNav}
-                        hideMobileNav={hideMobileNav}
-                        mobileNavInitialState={mobileNavInitialState}
-                        setMobileNavInitialState={setMobileNavInitialState} />
-                </div>
+                <MobileNav
+                    showMobileNav={showMobileNav}
+                    hideMobileNav={hideMobileNav}
+                    mobileNavInitialState={mobileNavInitialState}
+                    setMobileNavInitialState={setMobileNavInitialState} />
                 <div className="site-navigation__menu full-menu">
                     <MegaMenu />
                 </div>
