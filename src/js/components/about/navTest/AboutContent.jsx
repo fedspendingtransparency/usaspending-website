@@ -1,5 +1,5 @@
 /**
- * navTest/AboutContent.jsx
+ * navTest/AboutPage.jsx
  * Created by Andrea Blackwell 8/22/2023
  **/
 

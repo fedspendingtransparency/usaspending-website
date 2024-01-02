@@ -7,26 +7,37 @@
     padding: ($global-pad * 4) 0;
     position: relative;
     width: 100%;
+
     .footerLinkToAdvancedSearch__content {
         @include flex(1 1 auto);
-        margin: 0 rem(20);
+        margin: 0 rem(16);
+
         h4,
         p {
             text-align: left;
-            margin-left: rem(5);
         }
+
         h4 {
             font-size: rem(38);
             line-height: rem(47);
-            margin: rem(5) 0;
+            margin: $global-margin 0;
         }
+
         p {
             font-size: rem(18);
             font-weight: $font-light;
+
+            @media (min-width: $large-screen) {
+                width: 75%;
+                text-align: left;
+                margin: auto;
+            }
+
             & strong {
                 font-weight: $font-semibold;
             }
         }
+
         .footerLinkToAdvancedSearch__button {
             display: block;
             margin: rem(30) auto 0 auto;
@@ -34,6 +45,11 @@
             height: rem(50);
             text-align: center;
             font-size: rem(24);
+        }
+
+        @media (min-width: $large-screen) {
+            margin: auto;
+            width: 75%;
         }
     }
 }

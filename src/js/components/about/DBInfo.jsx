@@ -17,7 +17,7 @@ const DBInfo = () => (
     <div className="usa-da-db-info">
         <MetaTags {...MetaTagHelper.dbInfoPageMetaTags} />
         <Header />
-        <main id="main-content">
+        <main id="main-content" className="main-content">
             <div className="article-wrapper">
                 <h1>Limitation on Permissible Use of Dun &amp; Bradstreet, Inc. Data</h1>
                 <p>This website contains data supplied by third party information suppliers, one of which is D&B. For the purposes of the

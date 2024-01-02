@@ -1,7 +1,7 @@
 .visualization-description {
-    @include span-columns(16);
+    @include grid-column(16);
     @include media($tablet-screen) {
-        @include span-columns(9);
+        @include grid-column(9);
     }
     .content {
         color: $color-base;

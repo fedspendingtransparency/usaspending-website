@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/23/17
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -18,25 +18,22 @@ const propTypes = {
     description: PropTypes.string
 };
 
-export default class GeoVisualizationTooltip extends React.Component {
-    componentDidMount() {
-        this.positionTooltip();
-    }
-    componentDidUpdate() {
-        this.positionTooltip();
-    }
+const GeoVisualizationTooltip = (props) => {
+    let containerDiv;
+    let tooltipDiv;
+    let pointerDiv;
 
-    positionTooltip() {
-    // we need to wait for the tooltip to render before we can full position it due to its
-    // dynamic width
-        const tooltipWidth = this.div.offsetWidth;
-        const containerX = this.containerDiv.getBoundingClientRect().left;
+    const positionTooltip = () => {
+        // we need to wait for the tooltip to render before we can full position it due to its
+        // dynamic width
+        const tooltipWidth = tooltipDiv.offsetWidth;
+        const containerX = containerDiv.getBoundingClientRect().left;
         const windowWidth = window.innerWidth;
 
         // determine the tooltip direction
         let direction = 'left';
         // // allow 20px padding
-        if (tooltipWidth + containerX + this.props.x >= windowWidth - 20) {
+        if (tooltipWidth + containerX + props.x >= windowWidth - 20) {
             direction = 'right';
         }
 
@@ -46,47 +43,51 @@ export default class GeoVisualizationTooltip extends React.Component {
             offset = 9 + tooltipWidth;
         }
 
-        this.div.style.top = `${this.props.y - 15}px`;
-        this.div.style.left = `${this.props.x - offset}px`;
-        this.div.className = `tooltip ${direction}`;
-        this.pointerDiv.className = `tooltip-pointer ${direction}`;
-    }
+        tooltipDiv.style.top = `${props.y - 15}px`;
+        tooltipDiv.style.left = `${props.x - offset}px`;
+        tooltipDiv.className = `tooltip ${direction}`;
+        pointerDiv.className = `tooltip-pointer ${direction}`;
+    };
 
-    render() {
-        return (
+    useEffect(() => {
+        positionTooltip();
+    });
+
+    return (
+        <div
+            className="visualization-tooltip"
+            ref={(div) => {
+                containerDiv = div;
+            }}>
             <div
-                className="visualization-tooltip"
+                className="tooltip"
                 ref={(div) => {
-                    this.containerDiv = div;
+                    tooltipDiv = div;
                 }}>
                 <div
-                    className="tooltip"
+                    className="tooltip-pointer"
                     ref={(div) => {
-                        this.div = div;
-                    }}>
-                    <div
-                        className="tooltip-pointer"
-                        ref={(div) => {
-                            this.pointerDiv = div;
-                        }} />
-                    <div className="tooltip-title">
-                        {this.props.label}
-                    </div>
-                    <div className="tooltip-body">
-                        <div className="tooltip-left">
-                            <div className="tooltip-value">
-                                {MoneyFormatter.formatMoney(this.props.value)}
-                            </div>
-                            {this.props.description &&
-                                                <div className="tooltip-label">
-                                                    {this.props.description}
-                                                </div>}
+                        pointerDiv = div;
+                    }} />
+                <div className="tooltip-title">
+                    {props.label}
+                </div>
+                <div className="tooltip-body">
+                    <div className="tooltip-left">
+                        <div className="tooltip-value">
+                            {MoneyFormatter.formatMoney(props.value)}
                         </div>
+                        {props.description &&
+                                <div className="tooltip-label">
+                                    {props.description}
+                                </div>}
                     </div>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 GeoVisualizationTooltip.propTypes = propTypes;
+
+export default GeoVisualizationTooltip;

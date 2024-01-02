@@ -6,22 +6,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 
 import { covidDataSourcesMetaTags } from 'helpers/metaTagHelper';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { dataDisclaimerHeight } from 'dataMapping/covid19/covid19';
-import { getStickyBreakPointForSidebar, useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
+import { useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import {
     getStickyBreakPointForCovidBanner,
     createJumpToSectionForSidebar
 } from 'helpers/covid19Helper';
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 const getEmailSocialShareData = {
@@ -120,6 +117,8 @@ const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.red
 }), {}));
 
 export default () => {
+    const history = useHistory();
+
     const [errorMsg, isLoading, defCodes] = useDefCodes();
     const [activeSection, setActiveSection] = useState(sections[0].section);
     const dataDisclaimerBannerRef = useRef(null);
@@ -149,6 +148,11 @@ export default () => {
         const matchedSection = sections.find((obj) => obj.section === section);
         jumpToSection(section);
         setActiveSection(matchedSection.section);
+
+        // add section to url
+        if (!window.location.href.includes(`section=${section}`)) {
+            history.replace(`/disaster/covid-19/data-sources?section=${section}`);
+        }
     };
 
     const handleShare = (name) => {
@@ -157,7 +161,7 @@ export default () => {
 
     return (
         <PageWrapper
-            pageName="COVID DS&M"
+            pageName="data-sources"
             classNames="usa-da-dsm-page"
             ref={dataDisclaimerBannerRef}
             overLine="Data Sources &amp; Methodology"
@@ -167,7 +171,11 @@ export default () => {
                 <ShareIcon
                     onShareOptionClick={handleShare}
                     url={getBaseUrl("disaster/covid-19/data-sources")} />
-            ]}>
+            ]}
+            inPageNav
+            sections={sections}
+            jumpToSection={jumpToDataSourcesSection}
+            activeSection={activeSection}>
             <>
                 {dataDisclaimerBanner !== 'hide' && (
                     <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
@@ -185,19 +193,6 @@ export default () => {
                     </div>
                 )}
                 <main id="main-content" className="main-content">
-                    <div className={`sidebar usda__flex-col${dataDisclaimerBanner !== 'hide' ? ' covid-sidebar-banner' : ''}`}>
-                        <Sidebar
-                            isGoingToBeSticky
-                            pageName="data-sources"
-                            fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
-                            verticalSectionOffset={dataDisclaimerBanner === 'hide'
-                                ? stickyHeaderHeight
-                                : stickyHeaderHeight + dataDisclaimerHeight}
-                            active={activeSection}
-                            jumpToSection={jumpToDataSourcesSection}
-                            detectActiveSection={setActiveSection}
-                            sections={sections} />
-                    </div>
                     <div className="about-content-wrapper">
                         <div className="about-content">
                             <div className="about-padded-content">

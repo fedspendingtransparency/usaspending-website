@@ -3,12 +3,13 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React from 'react';
+import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
+import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
@@ -89,7 +90,7 @@ const mapboxSources = {
     }
 };
 
-export default class MapWrapper extends React.Component {
+export default class MapWrapper extends Component {
     constructor(props) {
         super(props);
 
@@ -102,7 +103,7 @@ export default class MapWrapper extends React.Component {
             mapReady: false
         };
 
-        this.mapRef = null;
+        this.mapRef = createRef();
         this.mapOperationQueue = {};
         this.loadedLayers = {};
         this.broadcastReceivers = [];
@@ -136,7 +137,7 @@ export default class MapWrapper extends React.Component {
     }
 
     componentWillUnmount() {
-    // remove any broadcast listeners
+        // remove any broadcast listeners
         if (!this.props.stateProfile) {
             this.removeChangeListeners();
         }
@@ -146,7 +147,7 @@ export default class MapWrapper extends React.Component {
     }
 
     mapReady() {
-    // map has mounted, load the state shapes
+        // map has mounted, load the state shapes
         this.setState({
             mapReady: true
         }, () => {
@@ -155,7 +156,7 @@ export default class MapWrapper extends React.Component {
     }
 
     mapRemoved() {
-    // map is about to be removed
+        // map is about to be removed
         this.setState({
             mapReady: false
         });
@@ -191,10 +192,10 @@ export default class MapWrapper extends React.Component {
         }
 
         // enable the base layer
-        this.mapRef.map.setLayoutProperty(layers.base, 'visibility', 'visible');
+        this.mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'visible');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'visible');
+            this.mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'visible');
         });
     }
 
@@ -207,10 +208,10 @@ export default class MapWrapper extends React.Component {
         }
 
         // hide the base layer
-        this.mapRef.map.setLayoutProperty(layers.base, 'visibility', 'none');
+        this.mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'none');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'none');
+            this.mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'none');
         });
     }
 
@@ -220,7 +221,7 @@ export default class MapWrapper extends React.Component {
      * @returns {string} first symbol layer id.
      */
     firstSymbolId = () => {
-        const layers = this.mapRef.map.getStyle().layers;
+        const layers = this.mapRef.current.map.current.getStyle().layers;
         // Find the index of the first symbol layer in the map style
         let firstSymbolId = null;
         for (let i = 0; i < layers.length; i++) {
@@ -234,7 +235,6 @@ export default class MapWrapper extends React.Component {
 
     loadSource(type) {
         const baseLayer = `base_${type}`;
-
         const sourceRef = {
             base: baseLayer,
             highlights: []
@@ -242,14 +242,14 @@ export default class MapWrapper extends React.Component {
 
         // load the data source
         const source = mapboxSources[type];
-        this.mapRef.map.addSource(type, {
+        this.mapRef.current.map.current.addSource(type, {
             type: 'vector',
             url: source.url
         });
 
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
-        this.mapRef.map.addLayer({
+        this.mapRef.current.map.current.addLayer({
             id: baseLayer,
             type: 'fill',
             source: type,
@@ -265,7 +265,7 @@ export default class MapWrapper extends React.Component {
         const colors = MapHelper.visualizationColors;
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
-            this.mapRef.map.addLayer({
+            this.mapRef.current.map.current.addLayer({
                 id: layerName,
                 type: 'fill',
                 source: type,
@@ -278,8 +278,8 @@ export default class MapWrapper extends React.Component {
             }, this.firstSymbolId());
 
             // setup mouseover events
-            this.mapRef.map.on('mousemove', layerName, this.mouseOverLayer.bind(this));
-            this.mapRef.map.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
+            this.mapRef.current.map.current.on('mousemove', layerName, this.mouseOverLayer.bind(this));
+            this.mapRef.current.map.current.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
 
             // save a reference to this layer
             sourceRef.highlights.push(layerName);
@@ -311,19 +311,19 @@ export default class MapWrapper extends React.Component {
 
             // check if we need to zoom in to show the layer
             if (source.minZoom) {
-                const currentZoom = this.mapRef.map.getZoom();
+                const currentZoom = this.mapRef.current.map.current.getZoom();
                 if (currentZoom < source.minZoom) {
                     // we are zoomed too far out and won't be able to see the new map layer, zoom in
                     // don't allow users to zoom further out than the min zoom
-                    this.mapRef.map.setMinZoom(source.minZoom);
+                    this.mapRef.current.map.current.setMinZoom(source.minZoom);
                 }
             }
             else {
-                this.mapRef.map.setMinZoom(0);
+                this.mapRef.current.map.current.setMinZoom(0);
             }
 
 
-            const parentMap = this.mapRef.map;
+            const parentMap = this.mapRef.current.map.current;
             function renderResolver() {
                 parentMap.off('render', renderResolver);
                 resolve();
@@ -341,14 +341,14 @@ export default class MapWrapper extends React.Component {
             }
 
             // if we're loading new data, we need to wait for the data to be ready
-            this.mapRef.map.on('sourcedata', loadResolver);
+            this.mapRef.current.map.current.on('sourcedata', loadResolver);
         });
     }
 
     measureMap(forced = false) {
-    // determine which entities (state, counties, etc based on current scope) are in view
-    // use Mapbox SDK to determine the currently rendered shapes in the base layer
-        const mapLoaded = this.mapRef.map.loaded();
+        // determine which entities (state, counties, etc based on current scope) are in view
+        // use Mapbox SDK to determine the currently rendered shapes in the base layer
+        const mapLoaded = this.mapRef.current.map.current.loaded();
         // wait for the map to load before continuing
         if (!mapLoaded) {
             window.requestAnimationFrame(() => {
@@ -357,7 +357,7 @@ export default class MapWrapper extends React.Component {
             return;
         }
 
-        const entities = this.mapRef.map.queryRenderedFeatures({
+        const entities = this.mapRef.current.map.current.queryRenderedFeatures({
             layers: [`base_${this.props.scope}`]
         });
 
@@ -368,7 +368,7 @@ export default class MapWrapper extends React.Component {
 
         if (this.props.scope === 'country') {
             // prepend USA to account for prohibited country codes
-            const filteredArray = visibleEntities.filter((value) => this.props.prohibitedCountryCodes?.includes(value));
+            const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
 
             if (filteredArray?.length > 0) {
                 visibleEntities.push('USA');
@@ -382,8 +382,8 @@ export default class MapWrapper extends React.Component {
     }
 
     prepareChangeListeners() {
-    // detect visible entities whenever the map moves
-        const parentMap = this.mapRef.map;
+        // detect visible entities whenever the map moves
+        const parentMap = this.mapRef.current.map.current;
         function renderCallback() {
             if (parentMap.loaded()) {
                 parentMap.off('render', renderCallback);
@@ -394,17 +394,17 @@ export default class MapWrapper extends React.Component {
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
         this.renderCallback = () => {
-            this.mapRef.map.on('render', renderCallback);
+            this.mapRef.current.map.current.on('render', renderCallback);
         };
-        this.mapRef.map.on('moveend', this.renderCallback);
+        this.mapRef.current.map.current.on('moveend', this.renderCallback);
         // but also do it when the map resizes, since the view will be different
-        this.mapRef.map.on('resize', this.renderCallback);
+        this.mapRef.current.map.current.on('resize', this.renderCallback);
     }
 
     removeChangeListeners() {
-    // remove the render callbacks
-        this.mapRef.map.off('moveend', this.renderCallback);
-        this.mapRef.map.off('resize', this.renderCallback);
+        // remove the render callbacks
+        this.mapRef.current.map.current.off('moveend', this.renderCallback);
+        this.mapRef.current.map.current.off('resize', this.renderCallback);
     }
 
     mouseOverLayer(e) {
@@ -434,7 +434,7 @@ export default class MapWrapper extends React.Component {
     }
 
     displayData() {
-    // don't do anything if the map has not yet loaded
+        // don't do anything if the map has not yet loaded
         if (!this.state.mapReady) {
             // add to the map operation queue
             this.queueMapOperation('displayData', this.displayData);
@@ -468,7 +468,7 @@ export default class MapWrapper extends React.Component {
                 // if there are locations that are displayable, include those in the filter
                 filter = ['in', source.filterKey].concat(valueSet);
             }
-            this.mapRef.map.setFilter(layerName, filter);
+            this.mapRef.current.map.current.setFilter(layerName, filter);
         });
 
         this.setState({
@@ -496,7 +496,6 @@ export default class MapWrapper extends React.Component {
             selectedItem.label += " and Territories";
         }
 
-        console.log(selectedItem);
         if (showHover) {
             return (
                 <TooltipComponent
@@ -555,9 +554,7 @@ export default class MapWrapper extends React.Component {
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
                     mapType={this.props.scope}
-                    ref={(component) => {
-                        this.mapRef = component;
-                    }} />
+                    ref={this.mapRef} />
                 {this.toggle()}
                 {this.legend()}
                 {this.tooltip()}

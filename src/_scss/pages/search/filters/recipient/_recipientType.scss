@@ -1,0 +1,64 @@
+.recipient-type-filter {
+  padding-bottom: rem(16);
+  margin-left: rem(16);
+
+  .fa-chevron-right, .fa-chevron-down {
+    width: 12px;
+    height: 12px;
+    color: $theme-color-1;
+    cursor: pointer;
+    margin-top: rem(4);
+  }
+
+  .recipient-type-filter__heading {
+    display: flex;
+    cursor: pointer;
+  }
+
+  span {
+    cursor: pointer;
+  }
+
+  .recipient-type-filter__header {
+    color: $color-gray;
+    font-size: rem(14);
+    font-weight: $font-semibold;
+    line-height: rem(21);
+    margin-left: rem(4);
+    cursor: pointer;
+  }
+
+  .recipient-type-filter__item-count {
+    font-size: rem(10);
+    font-style: italic;
+    font-weight: $font-normal;
+    line-height: rem(15);
+    white-space: nowrap;
+    margin-left: rem(8);
+    cursor: pointer;
+  }
+
+  .recipient-type-filter__item {
+    margin-left: rem(16);
+    margin-top: rem(4);
+    display: flex;
+    cursor: pointer;
+
+    input {
+      @include usa-input-checkbox;
+      margin: 0 rem(8) 0 0;
+      top: rem(3);
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
+    }
+
+    .label {
+      color: $color-gray;
+      font-size: rem(14);
+      font-weight: $font-normal;
+      line-height: rem(21); /* 150% */
+      cursor: pointer;
+    }
+  }
+}

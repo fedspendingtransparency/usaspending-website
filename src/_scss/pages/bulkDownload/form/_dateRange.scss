@@ -29,5 +29,8 @@
     }
     .data-note {
         font-style: italic;
+        @media(max-width: $medium-screen) {
+            max-width: 75%;
+        }
     }
 }
