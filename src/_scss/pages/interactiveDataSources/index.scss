@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .usa-da-interactive-data-sources-page {
   @import "all";
   @import "layouts/default/default";
@@ -14,7 +16,8 @@
   width: 100%;
 
   .site-header,
-  .usda-page__container,
+  .sticky-header,
+  .page__loading,
   .main-content,
   .footer-container {
     width: 100%;
