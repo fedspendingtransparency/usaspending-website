@@ -7,6 +7,7 @@
     width: 100%;
     @include media($tablet-screen) {
         @include display(flex);
+        float: none;
     }
     .award-search__glossary-term {
         font-weight: $font-semibold;

@@ -3,6 +3,9 @@
     margin-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";
+    margin-left: 0;
+    width: 100%;
+    display: flex;
     .visualization-period {
         .content {
             ul {
