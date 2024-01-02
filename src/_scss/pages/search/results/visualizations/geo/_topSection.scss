@@ -7,12 +7,22 @@
     display:flex;
     @media(max-width: $tablet-screen) {
         display: block;
+        margin-left: 0;
+        width: 100%;
+    }
+    @include media($tablet-screen) {
+        margin-left: 0;
+        width: 100%;
+        float: none;
     }
     .visualization-period {
         .content {
-            li {
-                //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
-                @include grid-column(8);
+            ul {
+                margin: 0 auto;
+                li {
+                    //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
+                    @include grid-column(8);
+                }
             }
         }
     }

@@ -1,5 +1,4 @@
 .visualization-top {
-    @include grid-column();
     margin-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";
@@ -14,6 +13,10 @@
     display:flex;
     @media(max-width: $tablet-screen) {
         display: block;
+    }
+    @media(min-width: $large-screen) {
+        max-height: 111px;
+        margin-left: 0;
     }
     .award-search__glossary-term {
         font-weight: $font-semibold;
