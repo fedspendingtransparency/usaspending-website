@@ -1,6 +1,6 @@
 .usa-da-glossary-animations {
-    @import "../../lib/bourbon/bourbon";
-    @import '../../lib/neat/neat';
+    @import 'bourbon/app/assets/stylesheets/_bourbon';
+    @import 'bourbon-neat/core/_neat';
 
     @import "../../core/variables";
     @import "../../core/utilities";
@@ -8,7 +8,27 @@
     @import "../../elements/buttons";
     @import "../../elements/typography";
 
-    @import "./_animations";
+
+    @keyframes slidein {
+        0% {
+            transform: translate(300px, 0);
+            visibility: hidden;
+        }
+        100% {
+            transform: translate(0, 0);
+            visibility: visible;
+        }
+    }
+
+    @keyframes slideout {
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(300px, 0);
+            visibility: hidden;
+        }
+    }
 
     .usa-da-glossary-wrapper {
         position: fixed;
@@ -17,6 +37,19 @@
         width: 310px;
         height: 100%;
         box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+
+        &.opened {
+            animation: slidein 0.5s ease-in forwards;
+            -webkit-animation: slidein 0.5s ease-in forwards;
+            overflow: hidden;
+            visibility: visible;
+        }
+
+        &:not(.opened) {
+            animation: slideout 0.5s ease-out forwards;
+            -webkit-animation: slideout 0.5s ease-out forwards;
+            overflow: hidden;
+        }
 
         .glossary-sidebar {
             background-color: $color-primary-darker;

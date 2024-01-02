@@ -47,7 +47,7 @@ const excludedSubFilters = ["IDV_B"];
 export default class PrimaryCheckboxType extends React.Component {
     static logPrimaryTypeFilterEvent(type, filter) {
         Analytics.event({
-            event: 'search_primary_checkbox_selection',
+            event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
             action: `Selected ${filter} Type`,
             label: type,
@@ -57,7 +57,7 @@ export default class PrimaryCheckboxType extends React.Component {
 
     static logDeselectFilterEvent(type, filter) {
         Analytics.event({
-            event: 'search_primary_checkbox_deselection',
+            event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
             action: `Deselected ${filter} Type Children`,
             label: type,

@@ -10,6 +10,7 @@
 // disable max-len for readability sake
 export const recipientTypes = {
     'category_business': 'Business',
+    'business': 'Business',
     'small_business': 'Small Business',
     'other_than_small_business': 'Other Than Small Business',
     'corporate_entity_tax_exempt': 'Corporate Entity Tax Exempt',
@@ -19,6 +20,7 @@ export const recipientTypes = {
     'manufacturer_of_goods': 'Manufacturer of Goods',
     'subchapter_s_corporation': 'Sub-Chapter S Corporation',
     'limited_liability_corporation': 'Limited Liability Corporation (LLC)',
+    'category_minority_owned_business': 'Minority Owned Business',
     'minority_owned_business': 'Minority Owned Business',
     'alaskan_native_corporation_owned_firm': 'Alaskan Native Corporation Owned Firm',
     'american_indian_owned_business': 'American Indian Owned Business',
@@ -31,12 +33,15 @@ export const recipientTypes = {
     'tribally_owned_firm': 'Tribally Owned Firm',
     'other_minority_owned_business': 'Other Minority Owned Business',
     'woman_owned_business': 'Women Owned Business',
+    'category_women_owned_small_business': 'Women Owned Small Business',
     'women_owned_small_business': 'Women Owned Small Business',
     'economically_disadvantaged_women_owned_small_business': 'Economically Disadvantaged Women Owned Small Business',
     'joint_venture_women_owned_small_business': 'Joint Venture Women Owned Small Business',
     'joint_venture_economically_disadvantaged_women_owned_small_business': 'Joint Venture Economically Disadvantaged Women Owned Small Business',
+    'category_veteran_owned_business': 'Veteran Owned Business',
     'veteran_owned_business': 'Veteran Owned Business',
     'service_disabled_veteran_owned_business': 'Service Disabled Veteran Owned Business',
+    'category_special_designations': 'Special Designations',
     'special_designations': 'Special Designations',
     '8a_program_participant': '8a Program Participant',
     'ability_one_program': 'Ability One Program',
@@ -57,15 +62,18 @@ export const recipientTypes = {
     'domestic_shelter': 'Domestic Shelter',
     'hospital': 'Hospital',
     'veterinary_hospital': 'Veterinary Hospital',
+    'category_nonprofit': 'Nonprofit',
     'nonprofit': 'Nonprofit',
     'foundation': 'Foundation',
     'community_development_corporations': 'Community Development Corporations',
+    'category_higher_education': 'Higher Education',
     'higher_education': 'Higher Education',
     'public_institution_of_higher_education': 'Public Institution of Higher Education',
     'private_institution_of_higher_education': 'Private Institution of Higher Education',
     'minority_serving_institution_of_higher_education': 'Minority-Serving Institution of Higher Education',
     'school_of_forestry': 'School of Forestry',
     'veterinary_college': 'Veterinary College',
+    'category_government': 'Government',
     'government': 'Government',
     'national_government': 'National Government',
     'interstate_entity': 'Interstate Entity',
@@ -76,11 +84,13 @@ export const recipientTypes = {
     'local_government': 'Local Government',
     'indian_native_american_tribal_government': 'Indian Native American Tribal Government',
     'authorities_and_commissions': 'Authorities and Commissions',
+    'category_individuals': 'Individuals',
     'individuals': 'Individuals'
 };
 
 export const recipientTypeGroups = {
     category_business: [
+        'business',
         'small_business',
         'other_than_small_business',
         'corporate_entity_tax_exempt',
@@ -91,7 +101,8 @@ export const recipientTypeGroups = {
         'subchapter_s_corporation',
         'limited_liability_corporation'
     ],
-    minority_owned_business: [
+    category_minority_owned_business: [
+        'minority_owned_business',
         'alaskan_native_corporation_owned_firm',
         'american_indian_owned_business',
         'asian_pacific_american_owned_business',
@@ -103,16 +114,19 @@ export const recipientTypeGroups = {
         'tribally_owned_firm',
         'other_minority_owned_business'
     ],
-    woman_owned_business: [
+    category_woman_owned_business: [
+        'woman_owned_business',
         'women_owned_small_business',
         'economically_disadvantaged_women_owned_small_business',
         'joint_venture_women_owned_small_business',
         'joint_venture_economically_disadvantaged_women_owned_small_business'
     ],
-    veteran_owned_business: [
+    category_veteran_owned_business: [
+        'veteran_owned_business',
         'service_disabled_veteran_owned_business'
     ],
-    special_designations: [
+    category_special_designations: [
+        'special_designations',
         '8a_program_participant',
         'ability_one_program',
         'dot_certified_disadvantaged_business_enterprise',
@@ -133,18 +147,21 @@ export const recipientTypeGroups = {
         'hospital',
         'veterinary_hospital'
     ],
-    nonprofit: [
+    category_nonprofit: [
+        'nonprofit',
         'foundation',
         'community_development_corporations'
     ],
-    higher_education: [
+    category_higher_education: [
+        'higher_education',
         'public_institution_of_higher_education',
         'private_institution_of_higher_education',
         'minority_serving_institution_of_higher_education',
         'school_of_forestry',
         'veterinary_college'
     ],
-    government: [
+    category_government: [
+        'government',
         'national_government',
         'interstate_entity',
         'regional_and_state_government',
@@ -155,32 +172,32 @@ export const recipientTypeGroups = {
         'indian_native_american_tribal_government',
         'authorities_and_commissions'
     ],
-    individuals: [
+    category_individuals: [
         'individuals'
     ]
 };
 
 export const groupKeys = [
     'category_business',
-    'minority_owned_business',
-    'woman_owned_business',
-    'veteran_owned_business',
-    'special_designations',
-    'nonprofit',
-    'higher_education',
-    'government',
-    'individuals'];
+    'category_minority_owned_business',
+    'category_woman_owned_business',
+    'category_veteran_owned_business',
+    'category_special_designations',
+    'category_nonprofit',
+    'category_higher_education',
+    'category_government',
+    'category_individuals'];
 
 export const groupLabels = {
     category_business: 'Business',
-    minority_owned_business: 'Minority Owned Business',
-    woman_owned_business: 'Women Owned Business',
-    veteran_owned_business: 'Veteran Owned Business',
-    special_designations: 'Special Designations',
-    nonprofit: 'Nonprofit',
-    higher_education: 'Higher Education',
-    government: 'Government',
-    individuals: 'Individuals'
+    category_minority_owned_business: 'Minority Owned Business',
+    category_woman_owned_business: 'Women Owned Business',
+    category_veteran_owned_business: 'Veteran Owned Business',
+    category_special_designations: 'Special Designations',
+    category_nonprofit: 'Nonprofit',
+    category_higher_education: 'Higher Education',
+    category_government: 'Government',
+    category_individuals: 'Individuals'
 };
 
 /* eslint-enable max-len */

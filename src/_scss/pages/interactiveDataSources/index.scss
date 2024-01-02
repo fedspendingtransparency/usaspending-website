@@ -146,6 +146,10 @@
   .main-content {
     @include display(flex);
     width: 100%;
+
+    @media(min-width: $large-screen) {
+      width: 75%;
+    }
     @include flex-grow(1);
     @include flex-wrap(wrap);
     max-width: rem(1600);
@@ -168,14 +172,12 @@
       }
     }
 
-    @import "./sidebar";
-
     .body {
       @include display(flex);
       width: 100%;
       @include flex-direction(column);
       padding: 0px;
-      margin: rem(20) rem(20) rem(20) 0;
+      margin: rem(20) 0 rem(20) 0;
       background: $color-white;
 
       @media (min-width: $tablet-screen) {

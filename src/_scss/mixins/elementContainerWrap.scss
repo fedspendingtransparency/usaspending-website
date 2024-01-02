@@ -2,7 +2,10 @@
 @use "sass:math";
 
 @mixin elementContainerWrap {
-    @include outer-container(100%);
+    @include grid-container;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
     background-color: $color-white;
     border-bottom: rem(1) solid $color-gray-border;
     border-right: rem(1) solid $color-gray-border;

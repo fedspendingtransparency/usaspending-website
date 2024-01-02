@@ -85,10 +85,10 @@
 
         .about-section-content-inline-buttons {
             margin-bottom: rem(38);
-            @include span-columns(16);
+            @include grid-column(16);
 
             .button-holder {
-                @include span-columns(16);
+                @include grid-column(16);
 
                 button {
                     display: block;
@@ -99,13 +99,18 @@
 
             @include media($large-screen) {
                 .button-holder {
-                    @include span-columns(8);
+                    @include grid-column(8);
                     padding-right: rem(18);
 
                     button {
                         display: inline-block;
                     }
                 }
+            }
+
+            @media(max-width: $medium-screen) {
+                margin-left: 0;
+                width: 78%;
             }
         }
 

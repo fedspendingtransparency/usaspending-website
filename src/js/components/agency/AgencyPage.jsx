@@ -13,14 +13,15 @@ import {
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { throttle } from "lodash";
 import { useQueryParams } from 'helpers/queryParams';
 
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
-import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
@@ -29,8 +30,6 @@ import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 
 require('pages/agency/index.scss');
-
-const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 
 const propTypes = {
     selectedFy: PropTypes.string,
@@ -61,6 +60,9 @@ export const AgencyProfileV2 = ({
     const { name } = useSelector((state) => state.agency.overview);
     const { isStatusOfFundsChartLoaded } = useSelector((state) => state.agency);
 
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+
     const dataThroughDates = useSelector((state) => state.agency.dataThroughDates);
     const overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate;
     const statusDataThroughDate = dataThroughDates?.statusDataThroughDate;
@@ -79,22 +81,22 @@ export const AgencyProfileV2 = ({
 
     const sections = [
         {
-            name: 'overview',
-            display: 'Overview',
+            section: 'overview',
+            label: 'Overview',
             icon: 'landmark',
             dataThroughDate: overviewDataThroughDate,
             component: <AgencyOverview fy={selectedFy} dataThroughDate={overviewDataThroughDate} />
         },
         {
-            name: 'status-of-funds',
-            display: 'Status of Funds',
+            section: 'status-of-funds',
+            label: 'Status of Funds',
             icon: 'money-check-alt',
             dataThroughDate: statusDataThroughDate,
             component: <StatusOfFunds fy={selectedFy} />
         },
         {
-            name: 'award-spending',
-            display: 'Award Spending',
+            section: 'award-spending',
+            label: 'Award Spending',
             icon: 'hand-holding-usd',
             dataThroughDate: awardSpendingDataThroughDate,
             component: <AwardSpendingSubagency fy={`${selectedFy}`} />
@@ -104,14 +106,14 @@ export const AgencyProfileV2 = ({
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const matchedSection = sections.find((obj) => obj.name === section);
+        const matchedSection = sections.find((obj) => obj.section === section);
         if (!matchedSection) {
             // no matching section
             return;
         }
 
         // find the section in dom
-        const sectionDom = document.querySelector(`#agency-v2-${matchedSection.name}`);
+        const sectionDom = document.querySelector(`#agency-v2-${matchedSection.section}`);
         if (!sectionDom) {
             return;
         }
@@ -125,13 +127,20 @@ export const AgencyProfileV2 = ({
         setActiveSection(section);
 
         // add offsets
-        if (activeSection === 'overview') {
-            scrollToY(sectionDom.offsetTop - 150, 700);
+        let conditionalOffset;
+        if (isMobile) {
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 140 : 60;
         }
         else {
-            // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
-            scrollToY(sectionDom.offsetTop - 86, 700);
+            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
         }
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
+        window.scrollTo({
+            top: sectionTop - 25,
+            left: 0,
+            behavior: 'smooth'
+        });
     };
 
     useEffect(() => {
@@ -141,37 +150,40 @@ export const AgencyProfileV2 = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section, isStatusOfFundsChartLoaded]);
 
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     return (
         <PageWrapper
-            pageName="Agency Profile"
+            pageName="agency-v2"
             classNames="usa-da-agency-page-v2"
             overLine="Agency Profile"
             title={name}
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
+            inPageNav
+            sections={sections}
+            jumpToSection={jumpToSection}
+            activeSection={activeSection}
             toolBarComponents={[
                 <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
-                <div className="sidebar usda__flex-col">
-                    <Sidebar
-                        pageName="agency-v2"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                        isGoingToBeSticky
-                        active={activeSection}
-                        jumpToSection={jumpToSection}
-                        detectActiveSection={setActiveSection}
-                        sections={sections.map((section) => ({
-                            section: section.name,
-                            label: section.display
-                        }))} />
-                </div>
                 <div className="body usda__flex-col">
                     <PageTitle fy={selectedFy} />
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
+                            <AgencySection key={section.section} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}

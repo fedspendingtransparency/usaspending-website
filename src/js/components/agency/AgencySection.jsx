@@ -7,8 +7,8 @@ const dayjs = require('dayjs');
 
 const propTypes = {
     section: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        display: PropTypes.string.isRequired
+        section: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired
     }),
     icon: PropTypes.string,
     children: PropTypes.element,
@@ -35,9 +35,9 @@ const AgencySection = ({
 
     return (
         <SectionTitle
-            id={`agency-v2-${section.name}`}
+            id={`agency-v2-${section.section}`}
             icon={<FontAwesomeIcon size="2x" icon={icon} />}
-            title={section.display}
+            title={section.label}
             isCollapsible >
             {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
             {isLoading ? <LoadingMessage /> : children}

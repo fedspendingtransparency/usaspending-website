@@ -362,4 +362,4 @@ const canonicalUrl = 'https://www.usaspending.gov';
 
 const trailingSlashRegExp = new RegExp(/\/$/);
 
-export const getCanonicalUrl = (path) => `${canonicalUrl}${path.replace(trailingSlashRegExp, '')}`;
+export const getCanonicalUrl = (path) => `${canonicalUrl}${path?.replace(trailingSlashRegExp, '')}`;
