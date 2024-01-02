@@ -1,124 +1,136 @@
 .mobile-nav {
 
     &.opened {
+        animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
         -webkit-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        //-moz-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        //-o-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        //animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -o-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -moz-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
         display: block;
-        //opacity: 1;
+        opacity: 1;
         height: 100%;
     }
 
     &:not(.opened) {
-        //-webkit-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        //-moz-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        //-o-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        //animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        //opacity: 0;
+        -webkit-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -moz-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -o-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        opacity: 0;
         display: none;
         height: 0;
     }
 
     @-webkit-keyframes fadeInFromNone {
-        0% {
+        from {
             display: none;
             height: 0;
-            //opacity: 0;
+            opacity: 0;
         }
 
-        100% {
+        to {
             height: 100%;
-            //opacity: 1;
+            opacity: 1;
             display: block;
         }
     }
 
+    @keyframes fadeInFromNone {
+        from {
+            display: none;
+            height: 0;
+            opacity: 0;
+        }
+
+        to {
+            height: 100%;
+            opacity: 1;
+            display: block;
+        }
+    }
 
     @-moz-keyframes fadeInFromNone {
-        //0% {
-        //    //height: 0;
-        //    opacity: 0;
-        //}
-        //
-        //
-        //100% {
-        //    //height: 100%;
-        //    opacity: 1;
-        //}
+        from {
+            display: none;
+            height: 0;
+            opacity: 0;
+        }
+
+        to {
+            height: 100%;
+            opacity: 1;
+            display: block;
+        }
     }
 
     @-o-keyframes fadeInFromNone {
-        //0% {
-        //    //height: 0;
-        //    opacity: 0;
-        //}
-        //
-        //
-        //100% {
-        //    //height: 100%;
-        //    opacity: 1;
-        //}
+        from {
+            display: none;
+            height: 0;
+            opacity: 0;
+        }
+
+        to {
+            height: 100%;
+            opacity: 1;
+            display: block;
+        }
     }
 
     @-webkit-keyframes fadeOutToNone {
-        //0% {
-        //    height: 100%;
-        //    display: block;
-        //}
-        //
-        //100% {
-        //    display: none;
-        //    height: 0;
-        //}
+        from {
+            height: 100%;
+            opacity: 1;
+            display: block;
+        }
+
+        to {
+            display: none;
+            height: 0;
+            opacity: 0;
+        }
     }
 
     @keyframes fadeOutToNone {
-        //0% {
-        //    height: 100%;
-        //    display: block;
-        //}
-        //
-        //100% {
-        //    display: none;
-        //    height: 0;
-        //}
+        from {
+            height: 100%;
+            opacity: 1;
+            display: block;
+        }
+
+        to {
+            display: none;
+            height: 0;
+            opacity: 0;
+        }
     }
 
     @-moz-keyframes fadeOutToNone {
-        //0% {
-        //    height: 100%;
-        //    display: block;
-        //}
-        //
-        //100% {
-        //    display: none;
-        //    height: 0;
-        //}
+        from {
+            height: 100%;
+            opacity: 1;
+            display: block;
+        }
+
+        to {
+            display: none;
+            height: 0;
+            opacity: 0;
+        }
     }
 
     @-o-keyframes fadeOutToNone {
-        //0% {
-        //    height: 100%;
-        //    display: block;
-        //}
-        //
-        //100% {
-        //    display: none;
-        //    height: 0;
-        //}
+        from {
+            height: 100%;
+            opacity: 1;
+            display: block;
+        }
+
+        to {
+            display: none;
+            height: 0;
+            opacity: 0;
+        }
     }
 
-    @keyframes fadeInFromNone {
-        //0% {
-        //    //height: 0;
-        //    opacity: 0;
-        //}
-        //
-        //
-        //100% {
-        //    //height: 100%;
-        //    opacity: 1;
-        //}
-    }
+
 }
