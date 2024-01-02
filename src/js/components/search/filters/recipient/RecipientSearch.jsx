@@ -54,7 +54,6 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
                 {localSelectedRecipients}
                 <SubmitHint
                     ref={(component) => {
-                        // this.hint = component;
                         setHint(component);
                     }} />
             </div>
