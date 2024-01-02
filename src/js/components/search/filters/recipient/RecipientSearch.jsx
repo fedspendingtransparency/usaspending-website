@@ -2,7 +2,7 @@
  * Created by michaelbray on 2/16/17.
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import RecipientNameDUNSContainer from
@@ -16,39 +16,51 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol
 };
 
-export default class RecipientSearch extends React.Component {
-    componentDidUpdate(prevProps) {
-        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
-            if (this.hint) {
-                this.hint.showHint();
+const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) => {
+    const [hint, setHint] = useState(null);
+
+    let localSelectedRecipients = null;
+
+    if (selectedRecipients.size > 0) {
+        localSelectedRecipients = (<SelectedRecipients
+            selectedRecipients={selectedRecipients}
+            toggleRecipient={toggleRecipient} />);
+    }
+
+    const usePrevious = (value) => {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        }, [value]);
+        return ref.current;
+    };
+
+    const prevDirtyFilters = usePrevious(dirtyFilters);
+
+    useEffect(() => {
+        if (dirtyFilters && prevDirtyFilters !== dirtyFilters) {
+            if (hint) {
+                hint.showHint();
             }
         }
-    }
+    }, [dirtyFilters, hint, prevDirtyFilters]);
 
-    render() {
-        let selectedRecipients = null;
-
-        if (this.props.selectedRecipients.size > 0) {
-            selectedRecipients = (<SelectedRecipients
-                selectedRecipients={this.props.selectedRecipients}
-                toggleRecipient={this.props.toggleRecipient} />);
-        }
-
-        return (
-            <div className="recipient-filter">
-                <div className="filter-item-wrap">
-                    <RecipientNameDUNSContainer
-                        {...this.props}
-                        toggleRecipient={this.props.toggleRecipient} />
-                    {selectedRecipients}
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
-                </div>
+    return (
+        <div className="recipient-filter">
+            <div className="filter-item-wrap">
+                <RecipientNameDUNSContainer
+                    selectedRecipients={selectedRecipients}
+                    toggleRecipient={toggleRecipient} />
+                {localSelectedRecipients}
+                <SubmitHint
+                    ref={(component) => {
+                        // this.hint = component;
+                        setHint(component);
+                    }} />
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 RecipientSearch.propTypes = propTypes;
+export default RecipientSearch;
