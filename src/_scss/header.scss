@@ -24,10 +24,10 @@
     }
 
     & .top-alert-icon {
-        @include span-columns(1);
+        @include grid-column(1);
     }
 
     & .top-alert-text {
-        @include span-columns(15);
+        @include grid-column(15);
     }
 }

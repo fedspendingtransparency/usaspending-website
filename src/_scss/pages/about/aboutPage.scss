@@ -17,10 +17,19 @@
         @import "./_section";
 
         .about-content-wrapper {
-            @include span-columns(16);
-
+            @include grid-column(16);
+            @media(min-width: $small-screen) {
+                margin-left: 0;
+                max-width: 160rem;
+                width:100%;
+            }
             .about-content {
-                @include span-columns(16);
+                @include grid-column(16);
+                @media(min-width: $small-screen) {
+                    margin-left: 0;
+                    max-width: 160rem;
+                    width:100%;
+                }
             }
         }
 

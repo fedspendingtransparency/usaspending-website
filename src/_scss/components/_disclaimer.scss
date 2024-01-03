@@ -9,7 +9,9 @@
 }
 
 @mixin usa-disclaimer-inner {
-    @include outer-container();
+    @include grid-container;
+    margin-left: auto;
+    margin-right: auto;
     @include padding(null $site-margins-mobile);
     max-width: $site-max-width;
 
