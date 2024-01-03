@@ -3,13 +3,14 @@
  * Created by michaelbray on 5/17/17.
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import RecipientTypeList from "./RecipientTypeList";
+import { usePrevious } from '../../../../helpers';
 
 const defaultProps = {
     recipientTypeMapping: [
@@ -89,6 +90,7 @@ const RecipientTypeAccordion = ({
 }) => {
     const [expanded, setExpanded] = useState(expandRecipientTypeAccordions(recipientTypeMapping, selectedTypes));
     const [hint, setHint] = useState(null);
+    const prevDirtyFilters = usePrevious(dirtyFilters);
 
     const toggleExpanded = (category) => {
         const containsId = expanded?.indexOf(category.id);
@@ -125,16 +127,6 @@ const RecipientTypeAccordion = ({
                     toggleCheckboxType={toggleCheckboxType}
                     recipientTypes={recipientTypes} />
             </div>));
-
-    const usePrevious = (value) => {
-        const ref = useRef();
-        useEffect(() => {
-            ref.current = value;
-        }, [value]);
-        return ref.current;
-    };
-
-    const prevDirtyFilters = usePrevious(dirtyFilters);
 
     useEffect(() => {
         if (dirtyFilters && prevDirtyFilters !== dirtyFilters) {
