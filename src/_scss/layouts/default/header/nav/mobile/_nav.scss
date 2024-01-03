@@ -2,21 +2,6 @@
     ul.mobile-nav-content__list {
         @include unstyled-list;
 
-        @keyframes mobileNavEnterLtoR {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
-
-        // there is no need for an animation-exit class here bc
-        // we're using display none which overrides the animation
-        .animation-enter {
-            animation: mobileNavEnterLtoR 0.225s ease-in forwards;
-        }
-
         li.mobile-nav-content__list-item {
             text-align: left;
             margin: rem(0) rem(16) rem(24) rem(16);
