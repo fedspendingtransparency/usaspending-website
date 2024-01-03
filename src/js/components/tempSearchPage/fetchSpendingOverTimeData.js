@@ -2,20 +2,20 @@ import { performSpendingOverTimeSearch } from "helpers/searchHelper";
 import wrapPromise from "./wrapPromise";
 
 // this is with only fy24 chosen from filters
-const apiParamsFY24 =
-    {
-        group: "fiscal_year",
-        filters: {
-            time_period: [
-                {
-                    start_date: "2023-10-01",
-                    end_date: "2024-09-30"
-                }
-            ]
-        },
-        subawards: false,
-        auditTrail: "Spending Over Time Visualization"
-    };
+// const apiParamsFY24 =
+//     {
+//         group: "fiscal_year",
+//         filters: {
+//             time_period: [
+//                 {
+//                     start_date: "2023-10-01",
+//                     end_date: "2024-09-30"
+//                 }
+//             ]
+//         },
+//         subawards: false,
+//         auditTrail: "Spending Over Time Visualization"
+//     };
 
 // all fy selected
 const apiParamsAllFY =
