@@ -6,7 +6,6 @@
         -o-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
         -moz-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
         display: block;
-        opacity: 1;
         height: 100%;
     }
 
@@ -15,7 +14,6 @@
         -moz-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
         -o-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
         animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        opacity: 0;
         display: none;
         height: 0;
     }
@@ -24,12 +22,10 @@
         from {
             display: none;
             height: 0;
-            opacity: 0;
         }
 
         to {
             height: 100%;
-            opacity: 1;
             display: block;
         }
     }
@@ -38,12 +34,10 @@
         from {
             display: none;
             height: 0;
-            opacity: 0;
         }
 
         to {
             height: 100%;
-            opacity: 1;
             display: block;
         }
     }
@@ -52,12 +46,10 @@
         from {
             display: none;
             height: 0;
-            opacity: 0;
         }
 
         to {
             height: 100%;
-            opacity: 1;
             display: block;
         }
     }
@@ -66,12 +58,10 @@
         from {
             display: none;
             height: 0;
-            opacity: 0;
         }
 
         to {
             height: 100%;
-            opacity: 1;
             display: block;
         }
     }
@@ -79,56 +69,48 @@
     @-webkit-keyframes fadeOutToNone {
         from {
             height: 100%;
-            opacity: 1;
             display: block;
         }
 
         to {
             display: none;
             height: 0;
-            opacity: 0;
         }
     }
 
     @keyframes fadeOutToNone {
         from {
             height: 100%;
-            opacity: 1;
             display: block;
         }
 
         to {
             display: none;
             height: 0;
-            opacity: 0;
         }
     }
 
     @-moz-keyframes fadeOutToNone {
         from {
             height: 100%;
-            opacity: 1;
             display: block;
         }
 
         to {
             display: none;
             height: 0;
-            opacity: 0;
         }
     }
 
     @-o-keyframes fadeOutToNone {
         from {
             height: 100%;
-            opacity: 1;
             display: block;
         }
 
         to {
             display: none;
             height: 0;
-            opacity: 0;
         }
     }
 
