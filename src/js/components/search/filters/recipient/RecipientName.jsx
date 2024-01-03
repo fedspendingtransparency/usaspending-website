@@ -14,27 +14,17 @@ const propTypes = {
     searchRecipient: PropTypes.func,
     changedInput: PropTypes.func,
     value: PropTypes.string,
-    showWarning: PropTypes.bool,
-    selectedRecipients: PropTypes.object
+    showWarning: PropTypes.bool
 };
 
-export default class RecipientName extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.searchRecipient = this.searchRecipient.bind(this);
-    }
-
-    searchRecipient(e) {
-        e.preventDefault();
-        this.props.searchRecipient();
-    }
-
-    generateWarning() {
-        if (this.props.showWarning) {
+const RecipientName = ({
+    searchRecipient, changedInput, value, showWarning
+}) => {
+    const generateWarning = () => {
+        if (showWarning) {
             let errorProps = {};
 
-            if (this.props.value && this.props.value.length < 3) {
+            if (value && value.length < 3) {
                 errorProps = {
                     header: 'Error',
                     description: 'Please enter more than two characters.'
@@ -51,30 +41,34 @@ export default class RecipientName extends React.Component {
         }
 
         return null;
-    }
+    };
 
-    render() {
-        return (
-            <div className="recipient-filter search-filter">
-                <form onSubmit={this.searchRecipient}>
-                    <div className="recipient-filter-item-wrap">
-                        <input
-                            id="search"
-                            type="text"
-                            className="recipient-input"
-                            placeholder={`Recipient Name, UEI, or ${DUNS_LABEL}DUNS`}
-                            value={this.props.value}
-                            onChange={this.props.changedInput} />
-                        <IndividualSubmit
-                            className="recipient-submit"
-                            onClick={this.searchRecipient}
-                            label="Filter by recipient name" />
-                    </div>
-                </form>
-                {this.generateWarning()}
-            </div>
-        );
-    }
-}
+    const localSearchRecipient = (e) => {
+        e.preventDefault();
+        searchRecipient();
+    };
+
+    return (
+        <div className="recipient-filter search-filter">
+            <form onSubmit={localSearchRecipient}>
+                <div className="recipient-filter-item-wrap">
+                    <input
+                        id="search"
+                        type="text"
+                        className="recipient-input"
+                        placeholder={`Recipient Name, UEI, or ${DUNS_LABEL}DUNS`}
+                        value={value}
+                        onChange={changedInput} />
+                    <IndividualSubmit
+                        className="recipient-submit"
+                        onClick={localSearchRecipient}
+                        label="Filter by recipient name" />
+                </div>
+            </form>
+            {generateWarning()}
+        </div>
+    );
+};
 
 RecipientName.propTypes = propTypes;
+export default RecipientName;

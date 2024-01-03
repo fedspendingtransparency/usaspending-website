@@ -30,9 +30,7 @@ const RecipientNameDUNSContainer = (props) => {
             setRecipientSearchString('');
         }
         else {
-            this.setState({
-                showWarning: true
-            });
+            setShowWarning(true);
         }
     };
 
@@ -47,8 +45,7 @@ const RecipientNameDUNSContainer = (props) => {
             changedInput={handleTextInput}
             searchRecipient={searchRecipient}
             value={recipientSearchString}
-            showWarning={showWarning}
-            selectedRecipients={props.selectedRecipients} />
+            showWarning={showWarning} />
     );
 };
 

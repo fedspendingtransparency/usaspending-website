@@ -1,46 +1,118 @@
-.mobile-nav-animations {
-    // slide in animation
-    @keyframes mobileNavEnter {
-        // slide in from top
-        0% {
-            transform: translate(0, -100vh);
+.mobile-nav {
+
+    &.opened {
+        animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -webkit-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -o-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -moz-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        display: block;
+        height: 100%;
+    }
+
+    &:not(.opened) {
+        -webkit-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -moz-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        -o-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+        display: none;
+        height: 0;
+    }
+
+    @-webkit-keyframes fadeInFromNone {
+        from {
+            display: none;
+            height: 0;
         }
-        100% {
-            transform: translate(0, 0);
+
+        to {
+            height: 100%;
+            display: block;
         }
     }
 
-    @keyframes mobileNavExit {
-        // slide out to top
-        0% {
-            transform: translate(0, 0);
+    @keyframes fadeInFromNone {
+        from {
+            display: none;
+            height: 0;
         }
-        100% {
-            transform: translate(0, -100vh);
-        }
-    }
 
-    // this one applies to the mobile-dropdown__list
-    // and we only have Enter here because we're using
-    // display none to hide it
-    @keyframes mobileNavSideEnter {
-        0% {
-            transform: translateX(100%);
-        }
-        100% {
-            transform: translateX(0);
+        to {
+            height: 100%;
+            display: block;
         }
     }
 
-    .mobile-nav-slide-enter, .mobile-nav-slide-enter-active {
-        @include animation(mobileNavEnter 0.225s ease-in forwards);
+    @-moz-keyframes fadeInFromNone {
+        from {
+            display: none;
+            height: 0;
+        }
+
+        to {
+            height: 100%;
+            display: block;
+        }
     }
 
-    .mobile-nav-slide-exit, .mobile-nav-slide-exit-active {
-        @include animation(mobileNavExit 0.225s ease-in forwards);
+    @-o-keyframes fadeInFromNone {
+        from {
+            display: none;
+            height: 0;
+        }
+
+        to {
+            height: 100%;
+            display: block;
+        }
     }
 
-    .mobile-nav-side-slide-enter, .mobile-nav-side-slide-enter-active {
-        @include animation(mobileNavSideEnter 0.225s ease-in forwards);
+    @-webkit-keyframes fadeOutToNone {
+        from {
+            height: 100%;
+            display: block;
+        }
+
+        to {
+            display: none;
+            height: 0;
+        }
     }
+
+    @keyframes fadeOutToNone {
+        from {
+            height: 100%;
+            display: block;
+        }
+
+        to {
+            display: none;
+            height: 0;
+        }
+    }
+
+    @-moz-keyframes fadeOutToNone {
+        from {
+            height: 100%;
+            display: block;
+        }
+
+        to {
+            display: none;
+            height: 0;
+        }
+    }
+
+    @-o-keyframes fadeOutToNone {
+        from {
+            height: 100%;
+            display: block;
+        }
+
+        to {
+            display: none;
+            height: 0;
+        }
+    }
+
+
 }
