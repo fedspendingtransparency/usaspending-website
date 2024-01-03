@@ -9,7 +9,7 @@ import { is } from 'immutable';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import RecipientType from 'components/search/filters/recipient/RecipientTypeAccordion';
+import RecipientTypeAccordion from 'components/search/filters/recipient/RecipientTypeAccordion';
 
 const propTypes = {
     toggleRecipientType: PropTypes.func,
@@ -41,7 +41,7 @@ const RecipientTypeContainer = (props) => {
     };
 
     return (
-        <RecipientType
+        <RecipientTypeAccordion
             dirtyFilters={dirtyFilters()}
             selectedTypes={props.recipientType}
             toggleCheckboxType={toggleRecipientType} />
