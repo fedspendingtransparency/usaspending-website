@@ -1,16 +1,31 @@
 .filter-results {
     @import "pages/search/searchSidebar";
+    @include media($medium-screen) {
+        display: block;
+        float: left;
+        width: 100%;
+    }
     .search-sidebar {
         display: none;
         margin-top: 0;
         @include media($medium-screen) {
             @include grid-column(4);
+            margin-left: 0;
+            width: 23.125%;
+            float: left;
+            margin-right: 2.5%;
+            display: block;
         }
         @import "../filters/filters";
     }
     .search-results-wrapper {
-
         @import "pages/search/topFilterBar/topFilterBar";
+        @include media($medium-screen) {
+            margin-left: 0;
+            width: 74.375%;
+            float: right;
+            margin-right: 0;
+        }
         .search-results {
             background-color: $color-white;
             box-shadow: $container-shadow;
