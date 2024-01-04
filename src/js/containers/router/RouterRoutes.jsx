@@ -40,6 +40,7 @@ const InteractiveDataSourcesPage = React.lazy(() => import('components/interacti
 const TrainingVideosContainer = React.lazy(() => import('containers/trainingVideos/TrainingVideosContainer').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
 const TempNav = React.lazy(() => import('components/about/navTest/About').then((comp) => comp));
+const TempSearchPage = React.lazy(() => import('components/tempSearchPage/TempSearchPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
@@ -226,6 +227,11 @@ export const routes = [
     {
         path: '/temp-nav',
         component: TempNav,
+        exact: true
+    },
+    {
+        path: '/temp-search-page',
+        component: TempSearchPage,
         exact: true
     },
     {
