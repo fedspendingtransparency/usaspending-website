@@ -72,9 +72,12 @@ export default class TimeTooltip extends React.Component {
         if (direction === 'right') {
             offset = -9 - tooltipWidth;
         }
-
+        let yOffset = 75;
+        if (direction === 'right') {
+            yOffset = 65;
+        }
         this.div.style.transform =
-            `translate(${this.props.position.x + offset}px,${this.props.position.y}px)`;
+            `translate(${this.props.position.x + offset}px,${this.props.position.y + yOffset}px)`;
         this.div.className = `tooltip ${direction}`;
         this.pointerDiv.className = `tooltip-pointer ${direction}`;
     }

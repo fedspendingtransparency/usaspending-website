@@ -1,5 +1,9 @@
 .map-container {
     position: relative;
+
+    @media (max-width: $tablet-screen) {
+        display: flex;
+    }
     .mapbox-item {
         display: block;
         height: 100%;

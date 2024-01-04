@@ -3,8 +3,11 @@
     padding-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";
+    margin-left: 0;
+    width: 100%;
     @include media($tablet-screen) {
         @include display(flex);
+        float: none;
     }
     .award-search__glossary-term {
         font-weight: $font-semibold;

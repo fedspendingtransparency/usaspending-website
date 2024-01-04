@@ -64,13 +64,15 @@
             list-style-type: none;
             padding: $global-pad $global-pad 0;
             margin: -1px 0 0;
-
-            .left-fy {
-                @include grid-column(7);
-            }
-            .right-fy {
-                @include grid-column(7);
-            }
+            .fy-columns-container {
+                display: flex;
+                    .left-fy {
+                        margin-right: 2.5%;
+                        float: left;
+                        width: 42.3%;
+                    }
+            
+                }
 
             li {
                 line-height: rem(30);
@@ -96,9 +98,6 @@
                         }
                     }
                 }
-            }
-            .fiscal-year-option-all {
-                @include grid-column(16);
             }
         }
         .fiscal-years,

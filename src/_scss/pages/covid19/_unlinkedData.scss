@@ -8,13 +8,23 @@
                 }
             }
         }
-
         .unlinked-tt {
             @include display(inline-flex);
-            
             svg {
                 width: 3rem;
             }
         }
+        .usda-table__row {
+            width: 100%;
+            td.usda-table__cell.usda-table__cell_name {
+                margin-left: 0;
+                width: 50%;
+            }
+            td.usda-table__cell.usda-table__cell_right {
+                margin-left: 0;
+                width: 16.6%;
+            }
+        }
+
     }
 }
