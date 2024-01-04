@@ -131,7 +131,7 @@ const Glossary = (props) => {
                 </div>
                 {loadingContent}
                 <Scrollbars
-                    style={{ contentHeight }}
+                    style={{ height: contentHeight }}
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}
                     ref={(s) => setScrollbar(s)}>
