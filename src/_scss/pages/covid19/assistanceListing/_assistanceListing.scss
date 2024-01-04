@@ -4,22 +4,31 @@
             tr.usda-table__row {
                 td.usda-table__cell {
                     &:first-of-type {
+                        margin-left: 0;
                         .fa-external-link-alt {
                             margin-left: rem(5);
                         }
                     }
+
+                    margin-left: 0;
+                    vertical-align: middle;
                     .assistance-listing__button__container {
-                      .assistance-listing__button {
-                          @include button-link;
-                          .assistance-listing__button__icon {
-                            margin-left: 0.3rem;
-                            white-space: nowrap;
-                          }
-                      }
+                        .assistance-listing__button {
+                            @include button-link;
+
+                            .assistance-listing__button__icon {
+                                margin-left: 0.3rem;
+                                white-space: nowrap;
+                            }
+                        }
                     }
+                }
+                td.usda-table__cell_right:last-of-type {
+                    width: 100%;
                 }
             }
         }
     }
 }
+
 @import 'pages/covid19/_unlinkedData';

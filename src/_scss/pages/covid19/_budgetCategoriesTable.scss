@@ -3,9 +3,11 @@
         .table-type-toggle {
             padding: rem(15) rem(20);
             margin-right: rem(5);
+
             .tab-content {
                 font-size: rem(18);
             }
+
             &.active {
                 .tab-content {
                     font-weight: $font-semibold;
@@ -13,26 +15,33 @@
             }
         }
     }
+
     .body__narrative-description .sba-note-container {
         display: flex;
         flex-direction: column;
+
         ul:first-of-type {
             margin-top: 0.7rem;
         }
+
         ul {
             text-align: left;
             margin: 0;
         }
+
         .outer-list {
             padding-left: 8rem;
         }
+
         .inner-list {
             padding-left: 4rem;
         }
+
         .outer-list:before {
             content: '•';
             text-indent: -5px;
         }
+
         .inner-list:before {
             content: "-";
         }
@@ -41,26 +50,37 @@
     .budget-categories__content {
         .usda-table {
             margin-top: 0;
+
             td {
                 &:first-child {
-                    @include span-columns(6 of 12, table);
-
                     p {
                         a {
+
                             // IE11 fix for td not having the correct width
-                            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                            @media all and (-ms-high-contrast: none),
+                            (-ms-high-contrast: active) {
                                 max-width: 50%;
                             }
                         }
                     }
                 }
-                @include span-columns(2 of 12, table);
             }
 
             .usda-table__body {
                 tr.usda-table__row {
                     td.usda-table__cell {
                         padding-left: rem(15);
+
+                        &:first-of-type {
+                            margin-left: 0;
+                        }
+
+                        margin-left: 0;
+                        vertical-align: middle;
+                    }
+
+                    td.usda-table__cell_right:last-of-type {
+                        width: 100%;
                     }
                 }
             }
@@ -71,6 +91,7 @@
         .overview-data__label {
             white-space: wrap;
         }
+
         @include media($large-screen) {
             .overview-data__label {
                 white-space: nowrap;
@@ -106,6 +127,7 @@
                     color: $color-base;
                     font-weight: $font-normal;
                 }
+
                 .usa-dt-picker__button-icon svg {
                     height: rem(12);
                     margin-bottom: rem(3);
@@ -117,15 +139,17 @@
                 z-index: 4;
                 // some styles need to go here to hide the scroll bar in ie
                 -ms-overflow-style: none;
+
                 .usa-dt-picker__list-item {
-                  border-top: none;
-                  .usa-dt-picker__item {
-                    font-size: 1.4rem;
-                    letter-spacing: 0;
-                    line-height: 1.8rem;
-                  }
+                    border-top: none;
+
+                    .usa-dt-picker__item {
+                        font-size: 1.4rem;
+                        letter-spacing: 0;
+                        line-height: 1.8rem;
+                    }
                 }
-              }
+            }
         }
 
         .budget-categories-tooltip {
@@ -134,4 +158,3 @@
         }
     }
 }
-@import 'pages/covid19/_unlinkedData';

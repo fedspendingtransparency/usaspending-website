@@ -4,8 +4,8 @@ import { SectionTitle } from 'data-transparency-ui';
 
 const propTypes = {
     section: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        display: PropTypes.string.isRequired,
+        section: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
         showSectionTitle: PropTypes.bool
     }),
     icon: PropTypes.string,
@@ -21,13 +21,13 @@ const InteractiveDataSourcesSection = ({
             ?
             <SectionTitle
                 // isCollapsible // Currently disable for `Scroller`
-                id={`interactive-data-sources-${section.name}`}
-                title={section.display}>
+                id={`interactive-data-sources-${section.section}`}
+                title={section.label}>
                 {children}
             </SectionTitle>
             :
             <section
-                id={`interactive-data-sources-${section.name}`}>
+                id={`interactive-data-sources-${section.section}`}>
                 {children}
             </section>
         }

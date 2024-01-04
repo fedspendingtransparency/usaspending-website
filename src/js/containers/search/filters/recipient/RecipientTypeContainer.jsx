@@ -3,55 +3,52 @@
  * Created by michaelbray on 2/16/17.
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Set, is } from 'immutable';
+import { is } from 'immutable';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import RecipientTypeAccordion from 'components/search/filters/recipient/RecipientTypeAccordion';
 
-import RecipientType from 'components/search/filters/recipient/RecipientTypeAccordion';
+const propTypes = {
+    toggleRecipientType: PropTypes.func,
+    recipientType: PropTypes.object,
+    appliedType: PropTypes.object
+};
 
-export class RecipientTypeContainer extends React.Component {
-    static propTypes = {
-        toggleRecipientType: PropTypes.func,
-        recipientType: PropTypes.object,
-        appliedType: PropTypes.object
+const RecipientTypeContainer = (props) => {
+    let justMounted = true;
+    const firstUpdate = useRef(true);
+
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+        justMounted = false;
+    }, []);
+
+    const toggleRecipientType = (selection) => {
+        props.toggleRecipientType(selection);
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedTypes: new Set()
-        };
-        this.justMounted = true;
-    }
-
-    componentDidUpdate() {
-        this.justMounted = false; // only show filter msg after 1st render (including 1st componentDidUpdate)
-    }
-
-    toggleRecipientType = (selection) => {
-        this.props.toggleRecipientType(selection);
-    };
-
-    dirtyFilters = () => {
-        if (this.justMounted || is(this.props.recipientType, this.props.appliedType)) {
+    const dirtyFilters = () => {
+        if (justMounted || is(props.recipientType, props.appliedType)) {
             return null;
         }
         return Symbol('dirty recipient type');
     };
 
-    render() {
-        return (
-            <RecipientType
-                dirtyFilters={this.dirtyFilters()}
-                selectedTypes={this.props.recipientType}
-                toggleCheckboxType={this.toggleRecipientType} />
-        );
-    }
-}
+    return (
+        <RecipientTypeAccordion
+            dirtyFilters={dirtyFilters()}
+            selectedTypes={props.recipientType}
+            toggleCheckboxType={toggleRecipientType} />
+    );
+};
+
+RecipientTypeContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
