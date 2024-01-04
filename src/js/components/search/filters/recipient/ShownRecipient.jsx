@@ -12,22 +12,19 @@ const propTypes = {
     label: PropTypes.string
 };
 
-export default class ShownRecipient extends React.Component {
-    render() {
-        return (
-            <button
-                className="shown-filter-button"
-                value={this.props.label}
-                onClick={this.props.toggleRecipient}
-                title="Click to remove filter."
-                aria-label={`Applied filter: ${this.props.label}`}>
-                {this.props.label}
-                <span className="close">
-                    <FontAwesomeIcon icon="times" />
-                </span>
-            </button>
-        );
-    }
-}
+const ShownRecipient = ({ toggleRecipient, label }) => (
+    <button
+        className="shown-filter-button"
+        value={label}
+        onClick={toggleRecipient}
+        title="Click to remove filter."
+        aria-label={`Applied filter: ${label}`}>
+        {label}
+        <span className="close">
+            <FontAwesomeIcon icon="times" />
+        </span>
+    </button>
+);
 
 ShownRecipient.propTypes = propTypes;
+export default ShownRecipient;

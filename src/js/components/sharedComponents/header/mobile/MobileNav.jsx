@@ -110,7 +110,7 @@ const MobileNav = (props) => {
     }, [location.pathname]);
 
     return (
-        <div className="mobile-nav">
+        <div className={props.showMobileNav ? 'mobile-nav opened' : 'mobile-nav'}>
             <div className="mobile-nav__top">
                 <MobileTop
                     closeDetailedMobileNav={closeDetailedMobileNav}

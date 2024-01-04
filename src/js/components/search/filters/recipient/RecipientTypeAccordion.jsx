@@ -3,13 +3,14 @@
  * Created by michaelbray on 5/17/17.
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { recipientTypes, recipientTypeGroups } from 'dataMapping/search/recipientType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import RecipientTypeList from "./RecipientTypeList";
+import { usePrevious } from '../../../../helpers';
 
 const defaultProps = {
     recipientTypeMapping: [
@@ -78,81 +79,78 @@ const propTypes = {
     recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
     selectedTypes: PropTypes.object,
     dirtyFilters: PropTypes.symbol,
-    expandRecipientTypeAccordions: PropTypes.func
+    toggleCheckboxType: PropTypes.func
 };
 
-export default class RecipientTypeAccordion extends React.Component {
-    constructor(props) {
-        super(props);
+const RecipientTypeAccordion = ({
+    recipientTypeMapping,
+    selectedTypes,
+    dirtyFilters,
+    toggleCheckboxType
+}) => {
+    const [expanded, setExpanded] = useState(expandRecipientTypeAccordions(recipientTypeMapping, selectedTypes));
+    const [hint, setHint] = useState(null);
+    const prevDirtyFilters = usePrevious(dirtyFilters);
 
-        this.state = {
-            expanded: expandRecipientTypeAccordions(this.props.recipientTypeMapping, this.props.selectedTypes),
-            selectedTypes: []
-        };
-
-        this.toggleExpanded = this.toggleExpanded.bind(this);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
-            if (this.hint) {
-                this.hint.showHint();
-            }
-        }
-    }
-
-    toggleExpanded(category) {
-        const containsId = this.state.expanded?.indexOf(category.id);
+    const toggleExpanded = (category) => {
+        const containsId = expanded?.indexOf(category.id);
         if (containsId <= -1) {
-            this.setState({ expanded: [...this.state.expanded, category.id] });
+            setExpanded([...expanded, category.id]);
         }
         else {
-            this.setState({ expanded: this.state.expanded.filter((item) => item !== category.id) });
+            setExpanded(expanded.filter((item) => item !== category.id));
         }
-    }
+    };
 
-    render() {
-        const checkboxTypes =
-            this.props.recipientTypeMapping.map((category) => (
-                <div className="recipient-type-filter">
-                    <div
-                        className="recipient-type-filter__heading"
-                        onClick={() => this.toggleExpanded(category)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") this.toggleExpanded(category);
-                        }}
-                        role="button"
-                        tabIndex="0">
-                        {!this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
-                        {this.state.expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
-                        <div className="recipient-type-filter__header">
-                            <span>{category.name}</span>
-                            <span className="recipient-type-filter__item-count">{category.filters?.length} {category.filters?.length === 1 ? 'type' : 'types'}</span>
-                        </div>
+    const checkboxTypes =
+        recipientTypeMapping.map((category) => (
+            <div className="recipient-type-filter">
+                <div
+                    className="recipient-type-filter__heading"
+                    onClick={() => toggleExpanded(category)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") toggleExpanded(category);
+                    }}
+                    role="button"
+                    tabIndex="0">
+                    {!expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
+                    {expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
+                    <div className="recipient-type-filter__header">
+                        <span>{category.name}</span>
+                        <span className="recipient-type-filter__item-count">{category.filters?.length} {category.filters?.length === 1 ? 'type' : 'types'}</span>
                     </div>
-                    <RecipientTypeList
-                        expanded={this.state.expanded?.includes(category.id)}
-                        selectedTypes={this.props.selectedTypes}
-                        category={category}
-                        toggleCheckboxType={this.props.toggleCheckboxType}
-                        recipientTypes={recipientTypes} />
-                </div>));
-
-        return (
-            <div className="filter-item-wrap">
-                <div className="checkbox-type-filter">
-                    <ul className="checkbox-types">
-                        {checkboxTypes}
-                    </ul>
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
                 </div>
+                <RecipientTypeList
+                    expanded={expanded?.includes(category.id)}
+                    selectedTypes={selectedTypes}
+                    category={category}
+                    toggleCheckboxType={toggleCheckboxType}
+                    recipientTypes={recipientTypes} />
+            </div>));
+
+    useEffect(() => {
+        if (dirtyFilters && prevDirtyFilters !== dirtyFilters) {
+            if (hint) {
+                hint.showHint();
+            }
+        }
+    }, [dirtyFilters, hint, prevDirtyFilters]);
+
+    return (
+        <div className="filter-item-wrap">
+            <div className="checkbox-type-filter">
+                <ul className="checkbox-types">
+                    {checkboxTypes}
+                </ul>
+                <SubmitHint
+                    ref={(component) => {
+                        setHint(component);
+                    }} />
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 RecipientTypeAccordion.defaultProps = defaultProps;
 RecipientTypeAccordion.propTypes = propTypes;
+export default RecipientTypeAccordion;
