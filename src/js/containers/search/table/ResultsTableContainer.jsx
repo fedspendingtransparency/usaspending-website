@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -94,6 +94,7 @@ const ResultsTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const initialRender = useRef(true);
+
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
@@ -394,7 +395,7 @@ const ResultsTableContainer = (props) => {
         }
     };
 
-    const updateSort = useCallback((field, direction) => {
+    const updateSort = (field, direction) => {
         if (field === 'Action Date') {
             setSort(Object.assign(sort, {
                 field: 'Sub-Award Date',
@@ -409,7 +410,7 @@ const ResultsTableContainer = (props) => {
             }));
             performSearch(true);
         }
-    });
+    };
 
     const awardIdClick = (id) => {
         Analytics.event({
@@ -443,10 +444,10 @@ const ResultsTableContainer = (props) => {
         if (initialRender.current) {
             initialRender.current = false;
         }
-        else {
+        else if (inFlight) {
             performSearch();
         }
-    }, 150), [tableType, props.subaward, sort]);
+    }, 150), [tableType, props.subaward, sort, inFlight]);
 
     useEffect(throttle(() => {
         loadColumns();
