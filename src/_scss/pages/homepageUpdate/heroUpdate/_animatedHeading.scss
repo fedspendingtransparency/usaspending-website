@@ -27,15 +27,17 @@ $green-text: $color-infrastructure-outlays;
 .hero__headline {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    @media (max-width: $medium-screen) {
-        margin: 0;
+    align-self: flex-start;
+
+    // to prevent the headline from making homepage-hero-content
+    // expand outside the browser window at small sizes
+    max-width: 200px;
+    @media (min-width: 430px) {
+        max-width: unset;
     }
 
-    // left aligns content in flex box justify-content: center container
-    @media (max-width: 710px) {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(262px, max-content));
+    @media (min-width: $medium-screen) {
+        justify-content: center;
     }
 
     .landing-phrase {
