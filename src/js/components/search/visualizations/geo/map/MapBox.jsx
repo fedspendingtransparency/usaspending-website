@@ -127,15 +127,6 @@ const MapBox = forwardRef((props, ref) => {
         }
     }, 16);
 
-    const handleCenterChanged = () => {
-        if (map.current) {
-            centerMap(map);
-        }
-        else {
-            mountMap();
-        }
-    };
-
     useEffect(() => {
         componentUnmounted = false;
         handleWindowResize();
@@ -149,18 +140,13 @@ const MapBox = forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
-        handleCenterChanged();
-        /* eslint-disable react-hooks/exhaustive-deps */
-    }, [props.center]);
-
-    useEffect(() => {
         if (map.current) {
             resizeMap();
         }
         else {
             mountMap();
         }
-    }, [windowWidth]);
+    }, [mountMap, resizeMap, windowWidth]);
 
     return (
         <div
