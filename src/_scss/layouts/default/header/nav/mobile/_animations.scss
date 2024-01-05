@@ -1,118 +1,17 @@
 .mobile-nav {
-
     &.opened {
-        animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        -webkit-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        -o-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        -moz-animation: fadeInFromNone 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        display: block;
+        transition: height 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+        -webkit-transition: height 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+        -o-transition: height 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+        -moz-transition: height 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
         height: 100%;
     }
 
     &:not(.opened) {
-        -webkit-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        -moz-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        -o-animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        animation: fadeOutToNone 0.5s  cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
-        display: none;
+        transition: height 0.5s ease-out 0.005s;
+        -webkit-transition: height 0.5s ease-out 0.005s;
+        -moz-transition: height 0.5s ease-out 0.005s;
+        -o-transition: height 0.5s ease-out 0.005s;
         height: 0;
     }
-
-    @-webkit-keyframes fadeInFromNone {
-        from {
-            display: none;
-            height: 0;
-        }
-
-        to {
-            height: 100%;
-            display: block;
-        }
-    }
-
-    @keyframes fadeInFromNone {
-        from {
-            display: none;
-            height: 0;
-        }
-
-        to {
-            height: 100%;
-            display: block;
-        }
-    }
-
-    @-moz-keyframes fadeInFromNone {
-        from {
-            display: none;
-            height: 0;
-        }
-
-        to {
-            height: 100%;
-            display: block;
-        }
-    }
-
-    @-o-keyframes fadeInFromNone {
-        from {
-            display: none;
-            height: 0;
-        }
-
-        to {
-            height: 100%;
-            display: block;
-        }
-    }
-
-    @-webkit-keyframes fadeOutToNone {
-        from {
-            height: 100%;
-            display: block;
-        }
-
-        to {
-            display: none;
-            height: 0;
-        }
-    }
-
-    @keyframes fadeOutToNone {
-        from {
-            height: 100%;
-            display: block;
-        }
-
-        to {
-            display: none;
-            height: 0;
-        }
-    }
-
-    @-moz-keyframes fadeOutToNone {
-        from {
-            height: 100%;
-            display: block;
-        }
-
-        to {
-            display: none;
-            height: 0;
-        }
-    }
-
-    @-o-keyframes fadeOutToNone {
-        from {
-            height: 100%;
-            display: block;
-        }
-
-        to {
-            display: none;
-            height: 0;
-        }
-    }
-
-
 }
