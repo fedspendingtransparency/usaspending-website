@@ -1,17 +1,17 @@
 .mobile-nav {
     &.opened {
-        transition: height 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
-        -webkit-transition: height 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
-        -o-transition: height 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
-        -moz-transition: height 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+        transition: height 0.5s ease-in;
+        -webkit-transition: height 0.5s ease-in;
+        -o-transition: height 0.5s ease-in;
+        -moz-transition: height 0.5s ease-in;
         height: 100%;
     }
 
     &:not(.opened) {
-        transition: height 0.5s ease-out 0.005s;
-        -webkit-transition: height 0.5s ease-out 0.005s;
-        -moz-transition: height 0.5s ease-out 0.005s;
-        -o-transition: height 0.5s ease-out 0.005s;
+        transition: height 0.5s ease-out;
+        -webkit-transition: height 0.5s ease-out;
+        -moz-transition: height 0.5s ease-out;
+        -o-transition: height 0.5s ease-out;
         height: 0;
     }
 }
