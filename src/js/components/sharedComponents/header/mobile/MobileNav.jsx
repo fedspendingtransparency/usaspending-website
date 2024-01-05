@@ -66,7 +66,7 @@ const navbarConfig = [
     }
 ];
 
-const MobileNav = (props) => {
+const MobileNav = React.memo((props) => {
     const { mobileNavInitialState, setMobileNavInitialState } = props;
     const [url, setUrl] = useState('');
     const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
@@ -186,7 +186,7 @@ const MobileNav = (props) => {
             </div>
         </div>
     );
-};
+});
 
 MobileNav.propTypes = propTypes;
 export default MobileNav;
