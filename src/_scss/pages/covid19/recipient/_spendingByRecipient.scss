@@ -1,8 +1,34 @@
 .spending-by-recipient {
-    .usda-table {
-        // because the search bar sits above the table in this section
-        margin-top: 0;
+  .usda-table {
+    margin-top: 0;
+    td {
+        &:first-child {
+            p {
+                a {
+                    // IE11 fix for td not having the correct width
+                    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                        max-width: 50%;
+                    }
+                }
+            }
+        }
     }
+    .usda-table__body {
+        tr.usda-table__row {
+            td.usda-table__cell {
+                &:first-of-type {
+                    margin-left: 0;
+                }
+
+                margin-left: 0;
+                vertical-align: middle;
+            }
+            td.usda-table__cell_right:last-of-type {
+                width: 100%;
+            }
+        }
+    }
+}
     .table-utility {
 
     .table-utility__left {
