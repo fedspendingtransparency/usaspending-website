@@ -444,10 +444,13 @@ const ResultsTableContainer = (props) => {
         if (initialRender.current) {
             initialRender.current = false;
         }
-        else if (!inFlight && !props.subaward) {
+        else if (!props.subaward) {
             performSearch();
         }
-    }, 400), [tableType, props.subaward, sort]);
+        else if (props.subaward) {
+            performSearch(true);
+        }
+    }, 400), [tableType, sort]);
 
     useEffect(throttle(() => {
         loadColumns();
@@ -473,7 +476,7 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 400), [props.subaward, page, props.noApplied, location]);
+    }, 400), [page, props.noApplied, location, props.subaward]);
 
     if (!columns[tableType]) {
         return null;
