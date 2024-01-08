@@ -161,6 +161,10 @@
                 hr {
                     height: rem(2)
                 }
+
+                .pager__item {
+                    margin-bottom: 0;
+                }
             }
             @import './statusOfFunds/statusOfFunds';
             @import './statusOfFunds/introSection';
