@@ -8,7 +8,6 @@
             margin-top: 0;
             td {
                 &:first-child {
-                    @include span-columns(6 of 12, table);
                     p {
                         a {
                             // IE11 fix for td not having the correct width
@@ -18,7 +17,21 @@
                         }
                     }
                 }
-                @include span-columns(2 of 12, table);
+            }
+            .usda-table__body {
+                tr.usda-table__row {
+                    td.usda-table__cell {
+                        &:first-of-type {
+                            margin-left: 0;
+                        }
+    
+                        margin-left: 0;
+                        vertical-align: middle;
+                    }
+                    td.usda-table__cell_right:last-of-type {
+                        width: 100%;
+                    }
+                }
             }
         }
     }

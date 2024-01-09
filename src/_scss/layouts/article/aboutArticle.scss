@@ -26,8 +26,8 @@
             }
         }
         @include media($medium-screen) {
-            @include span-columns(12);
-            @include shift(2);
+            @include grid-column(12);
+            @include grid-shift(2);
             float: none;
             & ul {
                 padding-left: 0;
@@ -35,8 +35,8 @@
             }
         }
         @include media($large-screen) {
-            @include span-columns(10);
-            @include shift(3);
+            @include grid-column(10);
+            @include grid-shift(3);
             float: none;
             & ul {
                 padding-left: 0;
@@ -46,8 +46,8 @@
         @include media($x-large-screen) {
             max-width: $site-max-width;
             padding-left: 0;
-            @include span-columns(8);
-            @include shift(4);
+            @include grid-column(8);
+            @include grid-shift(4);
             float: none;
             & ul {
                 padding-left: 0;

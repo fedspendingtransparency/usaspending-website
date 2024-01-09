@@ -25,21 +25,6 @@
     @include flex-direction(row);
     @include align-items(center);
 
-    @keyframes mobileNavEnterLtoR {
-        0% {
-            transform: translateX(-100%);
-        }
-        100% {
-            transform: translateX(0);
-        }
-    }
-
-    // there is no need for an animation-exit class here bc
-    // we're using display none which overrides the animation
-    .animation-enter {
-        animation: mobileNavEnterLtoR 0.225s ease-in forwards;
-    }
-
     margin: rem(0) rem(16);
     @media (min-width: $tablet-screen) {
         margin: rem(0) rem(32);

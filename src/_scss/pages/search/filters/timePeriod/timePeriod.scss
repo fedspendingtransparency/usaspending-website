@@ -64,13 +64,15 @@
             list-style-type: none;
             padding: $global-pad $global-pad 0;
             margin: -1px 0 0;
-
-            .left-fy {
-                @include span-columns(7);
-            }
-            .right-fy {
-                @include span-columns(7);
-            }
+            .fy-columns-container {
+                display: flex;
+                    .left-fy {
+                        margin-right: 2.5%;
+                        float: left;
+                        width: 42.3%;
+                    }
+            
+                }
 
             li {
                 line-height: rem(30);
@@ -97,9 +99,6 @@
                     }
                 }
             }
-            .fiscal-year-option-all {
-                @include span-columns(16);
-            }
         }
         .fiscal-years,
         .date-range-option {
@@ -109,7 +108,9 @@
             z-index: 1;
         }
         .date-range-option {
-            @include outer-container;
+            @include grid-container;
+            margin-left: auto;
+            margin-right: auto;
             input {
                 @include usa-input;
             }

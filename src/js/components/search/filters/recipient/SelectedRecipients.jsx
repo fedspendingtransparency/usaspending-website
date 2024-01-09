@@ -12,28 +12,27 @@ const propTypes = {
     toggleRecipient: PropTypes.func
 };
 
-export default class SelectedRecipients extends React.Component {
-    render() {
-        const shownRecipients = [];
-        this.props.selectedRecipients.forEach((recipient) => {
-            const value = (
-                <ShownRecipient
-                    recipient={recipient}
-                    label={`RECIPIENT | ${recipient}`}
-                    key={recipient}
-                    toggleRecipient={this.props.toggleRecipient.bind(null, recipient)} />
-            );
-            shownRecipients.push(value);
-        });
-
-        return (
-            <div
-                className="selected-filters"
-                role="status">
-                {shownRecipients}
-            </div>
+const SelectedRecipients = ({ selectedRecipients, toggleRecipient }) => {
+    const shownRecipients = [];
+    selectedRecipients.forEach((recipient) => {
+        const value = (
+            <ShownRecipient
+                recipient={recipient}
+                label={`RECIPIENT | ${recipient}`}
+                key={recipient}
+                toggleRecipient={toggleRecipient.bind(null, recipient)} />
         );
-    }
-}
+        shownRecipients.push(value);
+    });
+
+    return (
+        <div
+            className="selected-filters"
+            role="status">
+            {shownRecipients}
+        </div>
+    );
+};
 
 SelectedRecipients.propTypes = propTypes;
+export default SelectedRecipients;

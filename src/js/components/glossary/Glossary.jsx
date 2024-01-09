@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import Mousetrap from 'mousetrap';
 
 import GlossaryHeader from './GlossaryHeader';
 import GlossarySearchResults from './search/GlossarySearchResults';
@@ -43,18 +42,20 @@ const Glossary = (props) => {
         }
     }, [props.glossary.display]);
 
-    const closeGlossary = useCallback(() => {
-        props.hideGlossary();
+    const closeGlossary = useCallback((e) => {
+        if (e.key === 'Escape' || (e.type === 'click')) {
+            props.hideGlossary();
 
-        // remove search param from url
-        if (window.location.href.includes('glossary')) {
-            history.replace(`${history.location.pathname}`);
-        }
+            // remove search param from url
+            if (window.location.href.includes('glossary')) {
+                history.replace(`${history.location.pathname}`);
+            }
 
-        // move focus back to the main content
-        const mainContent = document.getElementById('main-focus');
-        if (mainContent) {
-            mainContent.focus();
+            // move focus back to the main content
+            const mainContent = document.getElementById('main-focus');
+            if (mainContent) {
+                mainContent.focus();
+            }
         }
     });
 
@@ -92,12 +93,12 @@ const Glossary = (props) => {
     }, [props.loading, props.error, props.glossary.search.results, props.glossary.term.slug]);
 
     useEffect(() => {
-        Mousetrap.bind('esc', closeGlossary);
+        window.addEventListener('keyup', closeGlossary);
 
         window.addEventListener('resize', measureAvailableHeight);
         return () => {
             window.removeEventListener('resize', measureAvailableHeight);
-            Mousetrap.unbind('esc');
+            window.removeEventListener('keyup', closeGlossary);
         };
     }, [closeGlossary, measureAvailableHeight]);
 
@@ -130,7 +131,7 @@ const Glossary = (props) => {
                 </div>
                 {loadingContent}
                 <Scrollbars
-                    style={{ contentHeight }}
+                    style={{ height: contentHeight }}
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}
                     ref={(s) => setScrollbar(s)}>

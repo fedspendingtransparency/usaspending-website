@@ -1,5 +1,4 @@
 .visualization-top {
-    @include row();
     margin-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";
@@ -7,13 +6,16 @@
         .content {
             li {
                 //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
-                @include span-columns(5.3);
+                @include grid-column(5.3);
             }
         }
     }
     display:flex;
     @media(max-width: $tablet-screen) {
         display: block;
+    }
+    @media(min-width: $large-screen) {
+        margin-left: 0;
     }
     .award-search__glossary-term {
         font-weight: $font-semibold;

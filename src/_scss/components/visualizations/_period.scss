@@ -1,21 +1,36 @@
 .visualization-period {
-    @include span-columns(16);
+    @include grid-column(16);
     @import "_scope";
     margin-top: $global-mrg;
+    margin-left: 0;
+    width: 100%;
     @include media($tablet-screen) {
-        @include span-columns(7);
+        @include grid-column(7);
         margin-top: 0;
+        margin-left: 0;
     }
     align-self:flex-end;
     .content {
-        @include span-columns(16);
-        li {
-            float: left;
-            @include span-columns(5.3);
-            @include media($tablet-screen) {
-                margin-bottom: 0;
+        @include grid-column(16);
+        margin-left: 0;
+        width: 100%;
+        @include media($tablet-screen) {
+            width: 100%;
+            margin-left: 0;
+        }
+        ul {
+            display: flex;
+            li {
+                float: left;
+                @include grid-column(5.3);
+                margin-left: 0;
+                @include media($tablet-screen) {
+                    margin-bottom: 0;
+                    margin-left: 0;
+                }
             }
         }
+
         @import "./components/_comingSoon";
         @include comingSoon;
         .coming-soon {

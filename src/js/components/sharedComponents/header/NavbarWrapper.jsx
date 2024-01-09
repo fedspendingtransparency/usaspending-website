@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { TransitionGroup } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from 'react-router-dom';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +6,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./megaMenu/MegaMenu";
 
-const NavbarWrapper = () => {
+const NavbarWrapper = React.memo(() => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [isHomepage, setIsHomepage] = useState(false);
 
@@ -93,26 +92,18 @@ const NavbarWrapper = () => {
                         </button>
                     </div>
                 </div>
-                <div className="mobile-nav-animations">
-                    <TransitionGroup>
-                        {showMobileNav && (
-                            <div
-                                classNames="mobile-nav-slide">
-                                <MobileNav
-                                    hideMobileNav={hideMobileNav}
-                                    mobileNavInitialState={mobileNavInitialState}
-                                    setMobileNavInitialState={setMobileNavInitialState} />
-                            </div>
-                        )}
-                    </TransitionGroup>
-                </div>
+                <MobileNav
+                    showMobileNav={showMobileNav}
+                    hideMobileNav={hideMobileNav}
+                    mobileNavInitialState={mobileNavInitialState}
+                    setMobileNavInitialState={setMobileNavInitialState} />
                 <div className="site-navigation__menu full-menu">
                     <MegaMenu />
                 </div>
             </div>
         </nav>
     );
-};
+});
 
 export default NavbarWrapper;
 

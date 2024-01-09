@@ -1,13 +1,19 @@
 .visualization-top {
-    @include row();
+    @include grid-column();
     margin-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";
+    margin-left: 0;
+    width: 100%;
+    @include media($tablet-screen) {
+        @include display(flex);
+        float: none;
+    }
     .visualization-period {
         .content {
             li {
                 //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
-                @include span-columns(5.3);
+                @include grid-column(5.3);
             }
         }
     }
