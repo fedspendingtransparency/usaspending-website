@@ -12,7 +12,8 @@ before_install:
   - npm install -g npm@9.8.1
   - npm install -g webpack@5.88.2
   - npm install -g webpack-cli@5.1.4
-  - npm ci --legacy-peer-deps --timeout=90000
+install:
+  - npm install --legacy-peer-deps --timeout=90000
 script:
   - npm run dev
   - npm run travis
