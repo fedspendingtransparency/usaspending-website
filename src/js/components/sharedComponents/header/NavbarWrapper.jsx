@@ -6,7 +6,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./megaMenu/MegaMenu";
 
-const NavbarWrapper = () => {
+const NavbarWrapper = React.memo(() => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [isHomepage, setIsHomepage] = useState(false);
 
@@ -103,7 +103,7 @@ const NavbarWrapper = () => {
             </div>
         </nav>
     );
-};
+});
 
 export default NavbarWrapper;
 
