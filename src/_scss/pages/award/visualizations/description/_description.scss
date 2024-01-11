@@ -5,7 +5,6 @@
           margin-bottom: rem(28);
         }
         .award-description__naics-psc {
-            align-items: flex-end;
             .naics-psc__section {
                 @media all and (max-width: $tablet-screen){
                     padding-bottom: rem(32);
@@ -60,6 +59,14 @@
                         height: rem(14);
                         width: rem(13);
                     }
+                }
+            }
+            .psc__extra-margin {
+                @media(min-width: $medium-screen) {
+                    margin-bottom: 35px;
+                }
+                @media(min-width: 1039px) {
+                    margin-bottom: 18px;
                 }
             }
         }
