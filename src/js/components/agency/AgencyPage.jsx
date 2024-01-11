@@ -198,5 +198,4 @@ export const AgencyProfileV2 = ({
 };
 
 AgencyProfileV2.propTypes = propTypes;
-
 export default AgencyProfileV2;
