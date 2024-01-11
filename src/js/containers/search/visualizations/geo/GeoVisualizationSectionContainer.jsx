@@ -333,6 +333,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     render() {
+        console.debug("SCOPE: ", this.state);
         return (
             <GeoVisualizationSection
                 {...this.state}
