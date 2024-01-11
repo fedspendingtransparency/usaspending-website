@@ -555,6 +555,7 @@ export default class MapWrapper extends Component {
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
                     mapType={this.props.scope}
+                    stateProfile={this.props.stateProfile}
                     ref={this.mapRef} />
                 {this.toggle()}
                 {this.legend()}

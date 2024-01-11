@@ -15,7 +15,7 @@ const propTypes = {
     loadedMap: PropTypes.func,
     unloadedMap: PropTypes.func,
     center: PropTypes.array,
-    source: PropTypes.string
+    stateProfile: PropTypes.bool
 };
 
 // Define map movement increment
@@ -84,7 +84,7 @@ const MapBox = forwardRef((props, ref) => {
             logoPosition: 'bottom-right',
             attributionControl: false,
             center: props.center,
-            zoom: 4.2,
+            zoom: props.stateProfile ? 4.2 : 3.2,
             dragRotate: false // disable 3D view
         });
 
