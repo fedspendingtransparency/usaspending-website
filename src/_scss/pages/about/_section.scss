@@ -35,6 +35,9 @@
         a {
             white-space: nowrap;
         }
+        .do-wrap {
+            white-space: normal;
+        }
         p {
             font-size: rem(18);
             line-height: rem(28);
