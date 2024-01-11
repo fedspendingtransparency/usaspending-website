@@ -14,6 +14,7 @@ const FOIAPage = () => (
             If your FOIA request is about data and information for a specific agency, please contact
             that agency directly.&nbsp;
             <a
+                className="about-section-content do-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.foia.gov/report-makerequest.html">

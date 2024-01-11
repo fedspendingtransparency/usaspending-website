@@ -104,8 +104,9 @@ const PrivacyPage = () => (
             to all the information and resources USASpending.gov provides.
         </p>
         <p>
-            If you&#39;d like to disable cookies,&nbsp;
+            If you&#39;d like to disable cookies,{' '}
             <a
+                className="about-section-content do-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.usa.gov/optout-instructions">
@@ -140,13 +141,14 @@ const PrivacyPage = () => (
             apply retroactively.
         </p>
         <p>
-            <strong>NOTE:</strong> View or print the&nbsp;
+            <strong>NOTE:</strong> View or print the{' '}
             <a
+                className="about-section-content do-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.fiscal.treasury.gov/pia.html">
                 Privacy Impact Assessment (PIA)
-            </a>&nbsp;performed on USAspending.gov.
+            </a>{' '}performed on USAspending.gov.
         </p>
     </LegalPage>
 );
