@@ -142,6 +142,7 @@ export default class GeoVisualizationSection extends React.Component {
                     availableLayers={availableLayers}
                     showLayerToggle
                     center={center}
+                    zoomLevel={4}
                     stateProfile>
                     {message}
                 </MapWrapper>

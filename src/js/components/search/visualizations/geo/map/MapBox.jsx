@@ -14,7 +14,8 @@ import kGlobalConstants from 'GlobalConstants';
 const propTypes = {
     loadedMap: PropTypes.func,
     unloadedMap: PropTypes.func,
-    center: PropTypes.array
+    center: PropTypes.array,
+    source: PropTypes.string
 };
 
 // Define map movement increment
@@ -83,7 +84,7 @@ const MapBox = forwardRef((props, ref) => {
             logoPosition: 'bottom-right',
             attributionControl: false,
             center: props.center,
-            zoom: 3.2,
+            zoom: 4.2,
             dragRotate: false // disable 3D view
         });
 

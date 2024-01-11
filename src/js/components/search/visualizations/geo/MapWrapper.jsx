@@ -309,6 +309,7 @@ export default class MapWrapper extends Component {
 
             this.showSource(this.props.scope);
 
+            console.log(source.minZoom)
             // check if we need to zoom in to show the layer
             if (source.minZoom) {
                 const currentZoom = this.mapRef.current.map.current.getZoom();
