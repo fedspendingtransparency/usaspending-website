@@ -69,7 +69,7 @@ const GeoVisualizationSectionContainer = (props) => {
         values: [],
         locations: []
     });
-    const [visibleEntities, setVisibileEntities] = useState([]);
+    const [visibleEntities, setVisibleEntities] = useState([]);
     const [renderHash, setRenderHash] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
@@ -126,13 +126,6 @@ const GeoVisualizationSectionContainer = (props) => {
 
     const mapLoaded = () => {
         setLoadingTiles(false);
-
-        window.setTimeout(() => {
-            // SUPER BODGE: wait 300ms before measuring the map
-            // Mapbox source and render events appear to be firing the tiles are actually ready
-            // when served from cache
-            prepareFetch();
-        }, 300);
     };
 
     const compareEntities = (entities) => {
@@ -231,9 +224,7 @@ const GeoVisualizationSectionContainer = (props) => {
                 return;
             }
         }
-
-        setVisibileEntities(entities);
-        fetchData();
+        setVisibleEntities(entities);
     };
 
     /**
@@ -253,8 +244,6 @@ const GeoVisualizationSectionContainer = (props) => {
         }
 
         setScope(newScope);
-        prepareFetch(true);
-        logMapScopeEvent(newScope);
     };
 
     const changeMapLayer = (layer) => {
@@ -262,7 +251,6 @@ const GeoVisualizationSectionContainer = (props) => {
         setRenderHash(`geo-${uniqueId()}`);
         setLoadingTiles(true);
 
-        prepareFetch(true);
         logMapLayerEvent(layer);
     };
 
@@ -275,8 +263,6 @@ const GeoVisualizationSectionContainer = (props) => {
 
         const movedListener = MapBroadcaster.on('mapMoved', prepareFetch);
         mapListeners.push(movedListener);
-
-        console.log('mapListeners: ', mapListeners);
 
         // log the initial event
         logMapScopeEvent(scope);
@@ -301,6 +287,37 @@ const GeoVisualizationSectionContainer = (props) => {
         handleMapLegendToggleChange();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.mapLegendToggle]);
+
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [visibleEntities]);
+
+    useEffect(() => {
+        window.setTimeout(() => {
+            // SUPER BODGE: wait 300ms before measuring the map
+            // Mapbox source and render events appear to be firing the tiles are actually ready
+            // when served from cache
+            prepareFetch();
+        }, 300);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadingTiles]);
+
+    useEffect(() => {
+        setParsedData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [rawAPIData]);
+
+    useEffect(() => {
+        prepareFetch(true);
+        logMapScopeEvent(scope);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [scope]);
+
+    useEffect(() => {
+        prepareFetch(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mapLayer, renderHash, loadingTiles]);
 
     return (
         <GeoVisualizationSection
