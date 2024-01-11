@@ -27,7 +27,7 @@ $green-text: $color-infrastructure-outlays;
 .hero__headline {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+
     @media (max-width: $medium-screen) {
         margin: 0;
     }
@@ -36,6 +36,10 @@ $green-text: $color-infrastructure-outlays;
     @media (max-width: 710px) {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(262px, max-content));
+    }
+
+    @media (min-width: $medium-screen) {
+        justify-content: center;
     }
 
     .landing-phrase {
