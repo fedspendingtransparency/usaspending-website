@@ -3,12 +3,12 @@
  * Created by Kevin Li 2/13/17
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, isEqual, keyBy } from 'lodash';
+import { uniqueId, keyBy } from 'lodash';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -70,7 +70,7 @@ const GeoVisualizationSectionContainer = (props) => {
         locations: []
     });
     const [visibleEntities, setVisibileEntities] = useState([]);
-    const [renderHash, setRenderHash] = useState('geo-${uniqueId()}');
+    const [renderHash, setRenderHash] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
@@ -266,65 +266,72 @@ const GeoVisualizationSectionContainer = (props) => {
         logMapLayerEvent(layer);
     };
 
-    // componentDidMount() {
-    //     const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
-    //     mapListeners.push(doneListener);
-    //     const measureListener = MapBroadcaster.on('mapReady', mapLoaded);
-    //     mapListeners.push(measureListener);
-    //     const movedListener = MapBroadcaster.on('mapMoved', prepareFetch);
-    //     mapListeners.push(movedListener);
-    //
-    //     // log the initial event
-    //     logMapScopeEvent(scope);
-    //     logMapLayerEvent(mapLayer);
-    // }
-    //
-    // componentDidUpdate(prevProps) {
-    //     if (!isEqual(prevProps.reduxFilters, props.reduxFilters) && !props.noApplied) {
-    //         prepareFetch(true);
-    //     }
-    //     else if (prevProps.subaward !== props.subaward && !props.noApplied) {
-    //         // subaward toggle changed, update the search object
-    //         prepareFetch(true);
-    //     }
-    //     else if (prevProps.mapLegendToggle !== props.mapLegendToggle) {
-    //         handleMapLegendToggleChange();
-    //     }
-    // }
-    //
-    // componentWillUnmount() {
-    // // remove any broadcast listeners
-    //     mapListeners.forEach((listenerRef) => {
-    //         MapBroadcaster.off(listenerRef.event, listenerRef.id);
-    //     });
-    // }
+    useEffect(() => {
+        const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
+        mapListeners.push(doneListener);
+
+        const measureListener = MapBroadcaster.on('mapReady', mapLoaded);
+        mapListeners.push(measureListener);
+
+        const movedListener = MapBroadcaster.on('mapMoved', prepareFetch);
+        mapListeners.push(movedListener);
+
+        console.log('mapListeners: ', mapListeners);
+
+        // log the initial event
+        logMapScopeEvent(scope);
+        logMapLayerEvent(mapLayer);
+
+        return () => {
+            // remove any broadcast listeners
+            mapListeners.forEach((listenerRef) => {
+                MapBroadcaster.off(listenerRef.event, listenerRef.id);
+            });
+        };
+    });
+
+    useEffect(() => {
+        if (!props.noApplied) {
+            prepareFetch(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.reduxFilters, props.subaward]);
+
+    useEffect(() => {
+        handleMapLegendToggleChange();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.mapLegendToggle]);
 
     return (
         <GeoVisualizationSection
-            {...state}
-            noResults={data.values.length === 0}
+            scope={scope}
+            mapLayer={mapLayer}
             changeScope={changeScope}
             changeMapLayer={changeMapLayer}
-            updateMapLegendToggle={updateMapLegendToggle}
+            renderHash={renderHash}
+            data={data}
+            loading={loading}
+            error={error}
+            noResults={data.values.length === 0}
             mapLegendToggle={props.mapLegendToggle}
+            updateMapLegendToggle={updateMapLegendToggle}
             subaward={props.subaward}
-            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-            className={props.className} />
+            className={props.className}
+            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
     );
 };
 
 GeoVisualizationSectionContainer.propTypes = propTypes;
 
-export default connect(
-    (state) => ({
-        reduxFilters: appliedFilters.filters,
-        noApplied: appliedFilters._empty,
-        subaward: searchView.subaward,
-        mapLegendToggle: searchMapLegendToggle
-    }),
-    (dispatch) => ({
-        ...bindActionCreators(Object.assign({}, searchFilterActions,
-            { setAppliedFilterCompletion }, { updateMapLegendToggle }),
-        dispatch)
-    })
+export default connect((state) => ({
+    reduxFilters: state.appliedFilters.filters,
+    noApplied: state.appliedFilters._empty,
+    subaward: state.searchView.subaward,
+    mapLegendToggle: state.searchMapLegendToggle
+}),
+(dispatch) => ({
+    ...bindActionCreators(Object.assign({}, searchFilterActions,
+        { setAppliedFilterCompletion }, { updateMapLegendToggle }),
+    dispatch)
+})
 )(GeoVisualizationSectionContainer);
