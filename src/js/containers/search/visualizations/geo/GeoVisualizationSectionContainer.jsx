@@ -304,16 +304,6 @@ const GeoVisualizationSectionContainer = (props) => {
     }, [visibleEntities]);
 
     useEffect(() => {
-        window.setTimeout(() => {
-            // SUPER BODGE: wait 300ms before measuring the map
-            // Mapbox source and render events appear to be firing the tiles are actually ready
-            // when served from cache
-            prepareFetch();
-        }, 300);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadingTiles]);
-
-    useEffect(() => {
         if (useEffectRef.current.rawAPIData) {
             useEffectRef.current.rawAPIData = false;
             return;
@@ -345,7 +335,7 @@ const GeoVisualizationSectionContainer = (props) => {
             error={error}
             noResults={data.values.length === 0}
             mapLegendToggle={props.mapLegendToggle}
-            updateMapLegendToggle={updateMapLegendToggle}
+            updateMapLegendToggle={props.updateMapLegendToggle}
             subaward={props.subaward}
             className={props.className}
             isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
