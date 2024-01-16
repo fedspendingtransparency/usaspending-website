@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/13/17
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -77,6 +77,11 @@ const GeoVisualizationSectionContainer = (props) => {
 
     let apiRequest = null;
     const mapListeners = [];
+    // this ref as been added to stop the related useEffect triggering on initial render
+    const useEffectRef = useRef({
+        visibleEntities: true,
+        rawAPIData: true
+    });
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
@@ -158,6 +163,7 @@ const GeoVisualizationSectionContainer = (props) => {
 
         // if no entities are visible, don't make an API request because nothing in the US is visible
         if (visibleEntities.length === 0) {
+            console.log('check');
             setLoading(false);
             setError(false);
             setData({
@@ -289,6 +295,10 @@ const GeoVisualizationSectionContainer = (props) => {
     }, [props.mapLegendToggle]);
 
     useEffect(() => {
+        if (useEffectRef.current.visibleEntities) {
+            useEffectRef.current.visibleEntities = false;
+            return;
+        }
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visibleEntities]);
@@ -304,6 +314,10 @@ const GeoVisualizationSectionContainer = (props) => {
     }, [loadingTiles]);
 
     useEffect(() => {
+        if (useEffectRef.current.rawAPIData) {
+            useEffectRef.current.rawAPIData = false;
+            return;
+        }
         setParsedData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rawAPIData]);
