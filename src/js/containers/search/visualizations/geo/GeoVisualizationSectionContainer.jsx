@@ -313,6 +313,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     };
 
     changeScope(scope) {
+        console.debug("SCAUP:", scope);
         if (scope === this.state.scope) {
             // scope has not changed
             return;
@@ -373,7 +374,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     if (entry[0].length === 3) {
                         if (entry[0] === 'USA') {
                             numCountries++;
-                        } else {
+                        }
+                        else {
                             numCountries++;
                             international = true;
                         }
@@ -381,11 +383,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     // country and state, ONLY USA
                     else if (entry[0].length === 6) {
                         numStates++;
-                    } else if (entry[0].length === 9 || entry[0].length === 10) {
+                    }
+                    else if (entry[0].length === 9 || entry[0].length === 10) {
                         // cd or county
                         if (entry[1].display.entity === 'County') {
                             numCounties++;
-                        } else if (entry[1].display.entity.includes('congressional district')) {
+                        }
+                        else if (entry[1].display.entity.includes('congressional district')) {
                             numCDs++;
                         }
                     }
@@ -395,23 +399,107 @@ export class GeoVisualizationSectionContainer extends React.Component {
             // change map layers based on make up of items
             if (numCountries === onlyObject.size) { // only countries
                 this.changeMapLayer("country");
-            } else if (numStates === onlyObject.size) { // only states
+            }
+            else if (numStates === onlyObject.size) { // only states
                 this.changeMapLayer("state");
-            } else if (numCounties === onlyObject.size) { // only counties
+            }
+            else if (numCounties === onlyObject.size) { // only counties
                 this.changeMapLayer("county");
-            } else if (numCDs === onlyObject.size) { // only cds
+            }
+            else if (numCDs === onlyObject.size) { // only cds
                 this.changeMapLayer("congressionalDistrict");
-            } else if ((numCDs + numCounties) === onlyObject.size ||
+            }
+            else if ((numCDs + numCounties) === onlyObject.size ||
                                (numStates + numCDs) === onlyObject.size ||
                                (numStates + numCounties) === onlyObject.size) {
                 this.changeMapLayer("state");
-            } else if (international === true) {
+            }
+            else if (international === true) {
+                this.changeMapLayer("country");
+            }
+        }
+
+        else if (this.props.reduxFilters.selectedRecipientLocations.size === 1) {
+            const onlyObject = this.props.reduxFilters.selectedRecipientLocations.first().filter;
+            if (onlyObject.district_current || onlyObject.district_original) {
+                this.changeMapLayer("congressionalDistrict");
+            }
+            else if (onlyObject.county) {
+                this.changeMapLayer("county");
+            }
+            else if (onlyObject.state) {
+                // do nothing
+            }
+            else if (onlyObject.country !== "USA") {
+                this.changeMapLayer("country");
+            }
+            // defaults to state
+        }
+        else if (this.props.reduxFilters.selectedRecipientLocations.size > 1) {
+            const onlyObject = this.props.reduxFilters.selectedRecipientLocations;
+            let numStates = 0;
+            let numCountries = 0;
+            let numCounties = 0;
+            let numCDs = 0;
+            let international = false;
+            for (const entry of onlyObject.entries()) {
+                // key value pair [0] is key
+                if (entry.length === 2) {
+                    // country can be usa or international
+                    if (entry[0].length === 3) {
+                        if (entry[0] === 'USA') {
+                            numCountries++;
+                        }
+                        else {
+                            numCountries++;
+                            international = true;
+                        }
+                    }
+                    // country and state, ONLY USA
+                    else if (entry[0].length === 6) {
+                        numStates++;
+                    }
+                    else if (entry[0].length === 9 || entry[0].length === 10) {
+                        // cd or county
+                        if (entry[1].display.entity === 'County') {
+                            numCounties++;
+                        }
+                        else if (entry[1].display.entity.includes('congressional district')) {
+                            numCDs++;
+                        }
+                    }
+                }
+            }
+
+            // change map layers based on make up of items
+            if (numCountries === onlyObject.size) { // only countries
+                this.changeMapLayer("country");
+            }
+            else if (numStates === onlyObject.size) { // only states
+                this.changeMapLayer("state");
+            }
+            else if (numCounties === onlyObject.size) { // only counties
+                this.changeMapLayer("county");
+            }
+            else if (numCDs === onlyObject.size) { // only cds
+                this.changeMapLayer("congressionalDistrict");
+            }
+            else if ((numCDs + numCounties) === onlyObject.size ||
+                                       (numStates + numCDs) === onlyObject.size ||
+                                       (numStates + numCounties) === onlyObject.size) {
+                this.changeMapLayer("state");
+            }
+            else if (international === true) {
                 this.changeMapLayer("country");
             }
         }
         // default
-        else if (this.props.reduxFilters.selectedLocations.size === 0) {
+        else if (this.props.reduxFilters.selectedLocations.size === 0 && this.props.reduxFilters.selectedRecipientLocations.size === 0) {
             this.changeMapLayer("state");
+        }
+
+        if (this.props.reduxFilters.selectedLocations.size === 0 && this.props.reduxFilters.selectedRecipientLocations.size > 0) {
+            this.changeScope("recipient_location");
         }
     }
     render() {
