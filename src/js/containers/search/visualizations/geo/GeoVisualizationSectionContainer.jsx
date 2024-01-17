@@ -313,7 +313,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
     };
 
     changeScope(scope) {
-        console.debug("SCAUP:", scope);
         if (scope === this.state.scope) {
             // scope has not changed
             return;
@@ -343,7 +342,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     updateMapScope() {
-        // there is only 1 item
+        // there is only 1 item, place of performance
         if (this.props.reduxFilters.selectedLocations.size === 1) {
             const onlyObject = this.props.reduxFilters.selectedLocations.first().filter;
             if (onlyObject.district_current || onlyObject.district_original) {
@@ -418,7 +417,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 this.changeMapLayer("country");
             }
         }
-
+        // now repeat everything for recipient location which is in different object
         else if (this.props.reduxFilters.selectedRecipientLocations.size === 1) {
             const onlyObject = this.props.reduxFilters.selectedRecipientLocations.first().filter;
             if (onlyObject.district_current || onlyObject.district_original) {
