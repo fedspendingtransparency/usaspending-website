@@ -33,11 +33,32 @@ const MapBox = forwardRef((props, ref) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
-    const [zoomLevel, setZoomLevel] = useState(3.2);
 
     useImperativeHandle(ref, () => ({
         map
     }));
+
+    const calculateMapZoom = () => {
+        if (props.stateProfile) {
+            if (props?.stateInfo?.code !== '') {
+                const state = statesBySqMile.find((s) => s.code === props.stateInfo.code);
+                if (state?.size > 500000) {
+                    return 3;
+                }
+                else if (state?.size < 1000) {
+                    return 9.6;
+                }
+                else if (state?.size < 10000) {
+                    return 6.2;
+                }
+                else if (state?.size < 140000) {
+                    return 4.8;
+                }
+            }
+            return 4.2;
+        }
+        return 3.2;
+    };
 
     const moveMap = (bearing) => {
         map.current.panBy(bearing);
@@ -131,28 +152,7 @@ const MapBox = forwardRef((props, ref) => {
         }
     }, 16);
 
-    const calculateMapZoom = () => {
-        if (props.stateProfile) {
-            if (props?.stateInfo?.code !== '') {
-                const state = statesBySqMile.find((s) => s.code === props.stateInfo.code);
-                if (state?.size > 500000) {
-                    return 3;
-                } else if (state?.size < 1000) {
-                    return 9.6;
-                } else if (state?.size < 10000) {
-                    return 6.2;
-                } else if (state?.size < 140000) {
-                    return 4.8;
-                }
-            }
-            return 4.2;
-        } else {
-            return 3.2;
-        }
-    };
-
     useEffect(() => {
-        calculateMapZoom()
         componentUnmounted = false;
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
@@ -168,12 +168,10 @@ const MapBox = forwardRef((props, ref) => {
         if (map.current) {
             resizeMap();
         }
-        else {
-            if (props.stateInfo?.code !== '') {
-                mountMap();
-            }
+        else if (props.stateInfo?.code !== '') {
+            mountMap();
         }
-    }, [windowWidth, props.stateInfo?.code, props.stateProfile]);
+    }, [windowWidth, props.stateProfile, resizeMap, props.stateInfo.code, mountMap]);
 
     return (
         <div
