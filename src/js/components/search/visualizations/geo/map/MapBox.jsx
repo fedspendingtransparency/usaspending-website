@@ -132,27 +132,24 @@ const MapBox = forwardRef((props, ref) => {
     }, 16);
 
     const calculateMapZoom = () => {
-        if (props.stateProfile && props?.stateInfo?.code !== '') {
-            const state = statesBySqMile.find((s) => s.code === props.stateInfo.code);
-            if (state?.size > 500000) {
-                return 3;
-            } else if (state?.size < 1000) {
-                return 9.6;
-            } else if (state?.size < 10000) {
-                return 6.2;
-            } else if (state?.size < 140000) {
-                return 4.8;
+        if (props.stateProfile) {
+            if (props?.stateInfo?.code !== '') {
+                const state = statesBySqMile.find((s) => s.code === props.stateInfo.code);
+                if (state?.size > 500000) {
+                    return 3;
+                } else if (state?.size < 1000) {
+                    return 9.6;
+                } else if (state?.size < 10000) {
+                    return 6.2;
+                } else if (state?.size < 140000) {
+                    return 4.8;
+                }
             }
+            return 4.2;
+        } else {
+            return 3.2;
         }
-
-        return 4.2;
     };
-
-    useEffect(() => {
-        if (Object.keys(props.stateInfo).length > 0 && props.stateProfile && props.stateInfo?.code !== '') {
-            setZoomLevel(calculateMapZoom());
-        }
-    }, [props.stateInfo]);
 
     useEffect(() => {
         calculateMapZoom()
