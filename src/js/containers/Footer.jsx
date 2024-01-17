@@ -11,7 +11,7 @@ import { tabletScreen, mLargeScreen } from 'dataMapping/shared/mobileBreakpoints
 
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookSquare, faLinkedin, faGithub, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 import { showModal } from 'redux/actions/modal/modalActions';
 
@@ -155,8 +155,8 @@ const Footer = ({
                                 </button>
                             </li>
                             <li>
-                                <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
-                                    <FontAwesomeIcon icon={faTwitter} size="sm" color="#dfe1e2" />
+                                <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="X (Twitter)">
+                                    <img src="img/social-icons/svg/x-logo.svg" alt="X (Twitter) logo" style={{ color: "#dfe1e2", height: "24px", width: "24px" }} />
                                 </button>
                             </li>
                             <li>
