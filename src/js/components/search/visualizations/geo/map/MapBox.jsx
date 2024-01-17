@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
+import statesBySqMile from "dataMapping/state/statesBySqMile";
 
 import kGlobalConstants from 'GlobalConstants';
 
@@ -15,7 +16,8 @@ const propTypes = {
     loadedMap: PropTypes.func,
     unloadedMap: PropTypes.func,
     center: PropTypes.array,
-    stateProfile: PropTypes.bool
+    stateProfile: PropTypes.bool,
+    stateInfo: PropTypes.object
 };
 
 // Define map movement increment
@@ -31,6 +33,7 @@ const MapBox = forwardRef((props, ref) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
+    const [zoomLevel, setZoomLevel] = useState(3.2);
 
     useImperativeHandle(ref, () => ({
         map
@@ -84,7 +87,7 @@ const MapBox = forwardRef((props, ref) => {
             logoPosition: 'bottom-right',
             attributionControl: false,
             center: props.center,
-            zoom: props.stateProfile ? 4.2 : 3.2,
+            zoom: calculateMapZoom(),
             dragRotate: false // disable 3D view
         });
 
@@ -128,7 +131,31 @@ const MapBox = forwardRef((props, ref) => {
         }
     }, 16);
 
+    const calculateMapZoom = () => {
+        if (props.stateProfile && props?.stateInfo?.code !== '') {
+            const state = statesBySqMile.find((s) => s.code === props.stateInfo.code);
+            if (state?.size > 500000) {
+                return 3;
+            } else if (state?.size < 1000) {
+                return 9.6;
+            } else if (state?.size < 10000) {
+                return 6.2;
+            } else if (state?.size < 140000) {
+                return 4.8;
+            }
+        }
+
+        return 4.2;
+    };
+
     useEffect(() => {
+        if (Object.keys(props.stateInfo).length > 0 && props.stateProfile && props.stateInfo?.code !== '') {
+            setZoomLevel(calculateMapZoom());
+        }
+    }, [props.stateInfo]);
+
+    useEffect(() => {
+        calculateMapZoom()
         componentUnmounted = false;
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
@@ -145,9 +172,11 @@ const MapBox = forwardRef((props, ref) => {
             resizeMap();
         }
         else {
-            mountMap();
+            if (props.stateInfo?.code !== '') {
+                mountMap();
+            }
         }
-    }, [windowWidth]);
+    }, [windowWidth, props.stateInfo?.code, props.stateProfile]);
 
     return (
         <div
