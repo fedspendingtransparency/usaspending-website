@@ -5,11 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Picker, ShareIcon } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { startCase, isEqual } from "lodash";
 
-import { getSocialShareFn, socialShareOptions, handleShareOptionClick } from 'helpers/socialShare';
+import { handleShareOptionClick } from 'helpers/socialShare';
 
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
@@ -106,35 +106,13 @@ export default class GlossaryDefinition extends React.Component {
     render() {
         const slug = `?glossary=${this.props.glossary.term.toJS().slug}`;
         const url = `https://www.usaspending.gov/${slug}`;
-        // const options = socialShareOptions.map((option) => {
-        //     if (option.name === 'copy') {
-        //         return {
-        //             ...option,
-        //             onClick: this.getCopyFn
-        //         };
-        //     }
-        //     if (option.name === 'email') {
-        //         const onClick = getSocialShareFn(option.name).bind(null, {
-        //             subject: getGlossaryEmailSubject(url),
-        //             body: getGlossaryEmailBody(url)
-        //         });
-        //         return {
-        //             ...option,
-        //             onClick
-        //         };
-        //     }
-        //     return {
-        //         ...option,
-        //         onClick: getSocialShareFn(option.name).bind(null, slug)
-        //     };
-        // });
 
         const onShareClick = (name) => {
             const emailArgs = {
                 subject: getGlossaryEmailSubject(url),
                 body: getGlossaryEmailBody(url)
             };
-            handleShareOptionClick(name, url, emailArgs);
+            handleShareOptionClick(name, slug, emailArgs);
         };
 
         return (
@@ -146,7 +124,7 @@ export default class GlossaryDefinition extends React.Component {
                     clickedTab={this.clickedTab} />
                 <div className="glossary-definition__column-share-icon">
                     <ShareIcon
-                        url={slug}
+                        url={url}
                         tabIndex={0}
                         onShareOptionClick={onShareClick}
                         colors={{ backgroundColor: "#215493", color: "#e2e2e2" }}
