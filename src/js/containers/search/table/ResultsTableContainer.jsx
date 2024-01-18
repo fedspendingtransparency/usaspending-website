@@ -107,7 +107,16 @@ const ResultsTableContainer = (props) => {
         // Append the current tab's award types to the search params if the Award Type filter
         // isn't populated. If it is, perform a search on the intersection of the current tab's
         // award types and the Award Type filter's content
-        const searchParamsTemp = Object.assign(new SearchAwardsOperation(), searchParams);
+        const searchParamsTemp = new SearchAwardsOperation();
+        searchParamsTemp.fromState(props.filters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request; also has to be done for the tabCounts request
+        if (props.subaward && searchParamsTemp.dateType) {
+            delete searchParamsTemp.dateType;
+        }
+
+        // todo - confirm that this block is still necessary, bc searchParams state var is no longer updated in updateFilters
         // generate an array of award type codes representing the current table tab we're showing
         // and use a different mapping if we're showing a subaward table vs a prime award table
         const groupsFromTableType =
@@ -265,15 +274,6 @@ const ResultsTableContainer = (props) => {
     };
 
     const updateFilters = throttle(() => {
-        const newSearch = new SearchAwardsOperation();
-        newSearch.fromState(props.filters);
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove
-        // dateType for this request; also has to be done for the tabCounts request
-        if (props.subaward && newSearch.dateType) {
-            delete newSearch.dateType;
-        }
-        setSearchParams(newSearch);
         setPage(1);
         performSearch(true);
     }, 350);
@@ -354,7 +354,8 @@ const ResultsTableContainer = (props) => {
         const searchParamsTemp = new SearchAwardsOperation();
         searchParamsTemp.fromState(props.filters);
 
-        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request; also has to be done for the main request, in performSearch
+        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request
+        // also has to be done for the main request, in performSearch
         if (props.subaward && searchParamsTemp.dateType) {
             delete searchParamsTemp.dateType;
         }
@@ -453,8 +454,6 @@ const ResultsTableContainer = (props) => {
     }, 400), [tableType, sort]);
 
     useEffect(throttle(() => {
-        loadColumns();
-
         if (initialRender.current === false) {
             if (props.subaward && !props.noApplied) {
                 // subaward toggle changed, update the search object
@@ -476,7 +475,16 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 400), [page, props.noApplied, location, props.subaward]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, 400), [props]);
+
+    useEffect(() => {
+        loadColumns();
+        if (SearchHelper.isSearchHashReady(location)) {
+            pickDefaultTab();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     if (!columns[tableType]) {
         return null;
