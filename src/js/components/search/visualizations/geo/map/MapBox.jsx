@@ -43,7 +43,7 @@ const MapBox = forwardRef((props, ref) => {
             if (props?.stateInfo?.code !== '') {
                 const state = statesBySqMile.find((s) => s.code === props.stateInfo.code);
                 if (state?.size > 500000) {
-                    return 3;
+                    return 3.0;
                 }
                 else if (state?.size < 1000) {
                     return 9.6;
