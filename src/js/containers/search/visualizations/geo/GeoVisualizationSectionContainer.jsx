@@ -26,7 +26,6 @@ import { parseRows } from 'helpers/search/visualizations/geoHelper';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    resultsMeta: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
