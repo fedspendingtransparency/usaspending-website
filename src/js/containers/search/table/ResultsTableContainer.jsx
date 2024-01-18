@@ -104,9 +104,7 @@ const ResultsTableContainer = (props) => {
         props.setAppliedFilterCompletion(false);
         const tableTypeTemp = tableType;
 
-        // Append the current tab's award types to the search params if the Award Type filter
-        // isn't populated. If it is, perform a search on the intersection of the current tab's
-        // award types and the Award Type filter's content
+        // get searchParams from state
         const searchParamsTemp = new SearchAwardsOperation();
         searchParamsTemp.fromState(props.filters);
 
@@ -116,7 +114,6 @@ const ResultsTableContainer = (props) => {
             delete searchParamsTemp.dateType;
         }
 
-        // todo - confirm that this block is still necessary, bc searchParams state var is no longer updated in updateFilters
         // generate an array of award type codes representing the current table tab we're showing
         // and use a different mapping if we're showing a subaward table vs a prime award table
         const groupsFromTableType =
@@ -274,6 +271,12 @@ const ResultsTableContainer = (props) => {
     };
 
     const updateFilters = throttle(() => {
+        // the searchParams state var is now only used in the
+        // block using intersection in performSearch
+        const newSearch = new SearchAwardsOperation();
+        newSearch.fromState(props.filters);
+        setSearchParams(newSearch);
+
         setPage(1);
         performSearch(true);
     }, 350);
