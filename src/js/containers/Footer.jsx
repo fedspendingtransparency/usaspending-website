@@ -156,7 +156,7 @@ const Footer = ({
                             </li>
                             <li>
                                 <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="X (Twitter)">
-                                    <img src="img/social-icons/svg/x-logo.svg" alt="X (Twitter) logo" style={{ color: "#dfe1e2", height: "24px", width: "24px" }} />
+                                    <img src="img/social-icons/svg/x-logo.svg" alt="X (Twitter) logo" style={{ height: "32px", width: "24px" }} />
                                 </button>
                             </li>
                             <li>

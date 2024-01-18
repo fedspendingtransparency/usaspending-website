@@ -99,7 +99,7 @@ const GlossaryDropdownOption = ({ icon, title }) => (
 
 const GlossaryDropdownOptionTwitter = ({ title }) => (
     <>
-        <img src="img/social-icons/svg/x-logo.svg" alt="X (Twitter) logo" />
+        <img src="img/social-icons/svg/x-logo-glossary.svg" alt="X (Twitter) logo" style={{ width: "12px", height: "12px", marginRight: "12px" }} />
         <span>{title}</span>
     </>
 );
