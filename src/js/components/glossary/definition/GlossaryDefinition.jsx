@@ -5,11 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Picker } from 'data-transparency-ui';
+import { Picker, ShareIcon } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { startCase, isEqual } from "lodash";
 
-import { getSocialShareFn, socialShareOptions } from 'helpers/socialShare';
+import { getSocialShareFn, socialShareOptions, handleShareOptionClick } from 'helpers/socialShare';
 
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
@@ -106,28 +106,36 @@ export default class GlossaryDefinition extends React.Component {
     render() {
         const slug = `?glossary=${this.props.glossary.term.toJS().slug}`;
         const url = `https://www.usaspending.gov/${slug}`;
-        const options = socialShareOptions.map((option) => {
-            if (option.name === 'copy') {
-                return {
-                    ...option,
-                    onClick: this.getCopyFn
-                };
-            }
-            if (option.name === 'email') {
-                const onClick = getSocialShareFn(option.name).bind(null, {
-                    subject: getGlossaryEmailSubject(url),
-                    body: getGlossaryEmailBody(url)
-                });
-                return {
-                    ...option,
-                    onClick
-                };
-            }
-            return {
-                ...option,
-                onClick: getSocialShareFn(option.name).bind(null, slug)
+        // const options = socialShareOptions.map((option) => {
+        //     if (option.name === 'copy') {
+        //         return {
+        //             ...option,
+        //             onClick: this.getCopyFn
+        //         };
+        //     }
+        //     if (option.name === 'email') {
+        //         const onClick = getSocialShareFn(option.name).bind(null, {
+        //             subject: getGlossaryEmailSubject(url),
+        //             body: getGlossaryEmailBody(url)
+        //         });
+        //         return {
+        //             ...option,
+        //             onClick
+        //         };
+        //     }
+        //     return {
+        //         ...option,
+        //         onClick: getSocialShareFn(option.name).bind(null, slug)
+        //     };
+        // });
+
+        const onShareClick = (name) => {
+            const emailArgs = {
+                subject: getGlossaryEmailSubject(url),
+                body: getGlossaryEmailBody(url)
             };
-        });
+            handleShareOptionClick(name, url, emailArgs);
+        };
 
         return (
             <div className="glossary-definition">
@@ -136,15 +144,14 @@ export default class GlossaryDefinition extends React.Component {
                     hasOfficial={this.state.hasOfficial}
                     activeTab={this.state.tab}
                     clickedTab={this.clickedTab} />
-                <Picker
-                    options={options}
-                    dropdownDirection="left"
-                    backgroundColor="#215493"
-                    selectedOption="copy"
-                    sortFn={() => 1}>
-                    <FontAwesomeIcon className="glossary-share-icon" icon="share-alt" color="#e2e2e2" size="lg" />
-                </Picker>
-                <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}`}><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
+                <div className="glossary-definition__column-share-icon">
+                    <ShareIcon
+                        url={slug}
+                        tabIndex={0}
+                        onShareOptionClick={onShareClick}
+                        colors={{ backgroundColor: "#215493", color: "#e2e2e2" }}
+                        dropDownDirection="left" />
+                </div>
                 <ItemDefinition
                     {...this.props.glossary.term.toJS()}
                     type={this.state.tab} />

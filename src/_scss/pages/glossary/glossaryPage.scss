@@ -76,6 +76,59 @@
                 font-size: rem(16);
                 color: $gray-cool-10;
             }
+
+            .glossary-definition__column-share-icon {
+                display: inline-flex;
+                width: auto;
+                float: right;
+                span {
+                    display: none;
+                }
+
+                .usda-share-icon {
+                    margin: 0;
+                }
+
+                .copy-confirmation {
+                    right: rem(-7);
+                    top: rem(40);
+                    width: rem(140);
+                }
+            }
+
+            .usa-dt-picker__list {
+                min-width: 15rem;
+                padding-top: 8px;
+                overflow: hidden;
+                padding-bottom: 8px;
+
+                .usa-dt-picker__list-item {
+                    border-top: none;
+                }
+
+                svg {
+                    color: $gray-cool-60;
+                }
+
+                span {
+                    display: block;
+                    color: $gray-cool-60;
+                    font-weight: $font-semibold;
+                    font-size: rem(16);
+                    margin-left: 16px;
+                }
+
+                .usa-dt-picker__item {
+                    padding-left: 16px;
+                    padding-right: unset;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+
+                    &:hover {
+                        background-color: $gray-cool-3;
+                    }
+                }
+            }
         }
 
         &.z-index {
