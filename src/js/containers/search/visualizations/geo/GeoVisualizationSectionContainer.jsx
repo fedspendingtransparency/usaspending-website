@@ -344,9 +344,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     mapScopeLogic(type) {
         const selectedLocationByType = type === "pop" ? "selectedLocations" : "selectedRecipientLocations";
-
         // there is only 1 item, place of performance
-        if (this.props.reduxFilters.reduxFilters[selectedLocationByType].size === 1) {
+        if (this.props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = this.props.reduxFilters[selectedLocationByType].first().filter;
             if (onlyObject.district_current || onlyObject.district_original) {
                 this.changeMapLayer("congressionalDistrict");
@@ -425,8 +424,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
         }
     }
     updateMapScope() {
-        this.mapScopeLogic('pop');
-        this.mapScopeLogic('recipient');
+        if (this.props.reduxFilters.selectedLocations.size > 0) {
+            this.mapScopeLogic('pop');
+        }
+
+        if (this.props.reduxFilters.selectedRecipientLocations.size > 0) {
+            this.mapScopeLogic('recipient');
+        }
+
         if (this.props.reduxFilters.selectedLocations.size === 0 && this.props.reduxFilters.selectedRecipientLocations.size > 0) {
             this.changeScope("recipient_location");
         }
