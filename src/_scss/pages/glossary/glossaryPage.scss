@@ -87,19 +87,23 @@
 
                 .usda-share-icon {
                     margin: 0;
+                    margin-bottom: rem(0);
                 }
 
                 .copy-confirmation {
                     right: rem(-7);
                     top: rem(40);
-                    width: rem(140);
+                    width: rem(148);
+                    height: rem(58);
+                    color: $gray-cool-60;
+                    font-weight: $font-semibold;
                 }
             }
 
             .usa-dt-picker__list {
-                min-width: 15rem;
-                padding-top: 8px;
+                min-width: rem(148);
                 overflow: hidden;
+                padding-top: 8px;
                 padding-bottom: 8px;
 
                 .usa-dt-picker__list-item {
@@ -108,14 +112,16 @@
 
                 svg {
                     color: $gray-cool-60;
+                    height: 16px;
+                    width: 16px;
                 }
 
                 span {
                     display: block;
                     color: $gray-cool-60;
+                    font-size: rem(18);
                     font-weight: $font-semibold;
-                    font-size: rem(16);
-                    margin-left: 16px;
+                    margin-left: 4px;
                 }
 
                 .usa-dt-picker__item {
@@ -123,10 +129,6 @@
                     padding-right: unset;
                     padding-top: 8px;
                     padding-bottom: 8px;
-
-                    &:hover {
-                        background-color: $gray-cool-3;
-                    }
                 }
             }
         }
