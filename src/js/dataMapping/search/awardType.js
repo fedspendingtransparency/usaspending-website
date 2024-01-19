@@ -32,7 +32,8 @@ export const awardTypeCodes = {
     '07': 'Direct Loans',
     '08': 'Guaranteed/Insured Loans',
     '09': 'Insurance',
-    '11': 'Other Financial Assistance'
+    '11': 'Other Financial Assistance',
+    '-1': 'Not Specified'
 };
 
 export const glossaryLinks = {
@@ -62,7 +63,8 @@ export const glossaryLinks = {
     '07': 'direct-loan',
     '08': 'guaranteed-insured-loans',
     '09': 'insurance',
-    '11': 'other-financial-assistance'
+    '11': 'other-financial-assistance',
+    '-1': 'Not Specified'
 };
 
 /* eslint-enable quote-props */
@@ -73,7 +75,7 @@ export const awardTypeGroups = {
     grants: ['02', '03', '04', '05'],
     direct_payments: ['10', '06'],
     loans: ['07', '08'],
-    other: ['09', '11']
+    other: ['09', '11', '-1']
 };
 
 export const analyticsAwardTypeGroupLabels = {
