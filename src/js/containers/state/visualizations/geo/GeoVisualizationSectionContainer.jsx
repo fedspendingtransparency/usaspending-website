@@ -211,6 +211,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             <GeoVisualizationSection
                 {...this.state}
                 stateCenter={this.props.stateProfile.center}
+                stateInfo={this.props.stateProfile.overview}
                 noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer}
