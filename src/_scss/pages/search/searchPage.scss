@@ -30,6 +30,7 @@
         @import "./results/searchResults";
         @import "./topFilterBar/topFilterBar";
 
+        // todo - delete this class if not used anywhere
         .last-update {
             font-size: rem(12);
             margin-bottom: rem(5);
