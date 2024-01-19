@@ -117,7 +117,6 @@ const SearchPage = ({
     }, [windowWidth]);
 
     useEffect(() => {
-        // todo - is this necessary?
         setStateHash(hash);
     }, [hash]);
 
