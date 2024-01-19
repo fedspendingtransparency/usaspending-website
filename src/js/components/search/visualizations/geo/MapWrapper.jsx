@@ -32,7 +32,8 @@ const propTypes = {
     stateProfile: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    stateInfo: PropTypes.object
 };
 
 const defaultProps = {
@@ -554,6 +555,8 @@ export default class MapWrapper extends Component {
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
                     mapType={this.props.scope}
+                    stateInfo={this.props.stateInfo}
+                    stateProfile={this.props.stateProfile}
                     ref={this.mapRef} />
                 {this.toggle()}
                 {this.legend()}
