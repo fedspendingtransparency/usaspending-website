@@ -342,6 +342,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     updateMapScope() {
+        const selectedLocationByType = type === "pop" ? "selectedLocations" : "selectedRecipientLocations";
         // there is only 1 item, place of performance
         if (this.props.reduxFilters.selectedLocations.size === 1) {
             const onlyObject = this.props.reduxFilters.selectedLocations.first().filter;
