@@ -124,7 +124,6 @@
                 list-style: none;
             }
         }
-        @import './sidebar';
         .body {
             @include display(flex);
             width: 100%;
