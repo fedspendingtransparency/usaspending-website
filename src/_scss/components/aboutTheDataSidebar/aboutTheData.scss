@@ -256,6 +256,10 @@
 
             }
 
+            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
+                padding-bottom: 0px;
+            }
+
             .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
                 background-color: white;
 
@@ -283,6 +287,7 @@
                     color: $gray-cool-60;
                     width: 16px;
                     height: 16px;
+                    margin-top: 4px;
                 }
 
                 span {
