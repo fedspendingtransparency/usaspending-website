@@ -184,9 +184,19 @@
             justify-content: space-between;
 
             li {
+                svg.footer__twitter-logo {
+                    height: rem(24);
+                    width: rem(32);
+                }
                 &:hover {
                     svg {
                         color: $gray-cool-5;
+                    }
+                    svg.footer__twitter-logo {
+                        fill: $gray-cool-5;
+                        path {
+                            fill: $gray-cool-5;
+                        }
                     }
                 }
 
