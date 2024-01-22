@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useQueryParams } from 'helpers/queryParams';
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { find, throttle } from 'lodash';
 import { ComingSoon, ShareIcon } from 'data-transparency-ui';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -144,7 +144,11 @@ const InteractiveDataSourcesPage = () => {
         if (!sectionDom) return;
 
         // add section to url
-        history.replace(`?section=${sectionObj.section}`);
+        const newQueryParams = combineQueryParams(query, { section: `${section}` });
+        history.replace({
+            pathname: ``,
+            search: getQueryParamString(newQueryParams)
+        });
         setActiveSection(section);
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
