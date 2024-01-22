@@ -100,7 +100,7 @@
                 }
             }
 
-            .usa-dt-picker__list {
+            .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
                 min-width: rem(148);
                 overflow: hidden;
                 padding-top: 8px;
@@ -108,6 +108,18 @@
 
                 .usa-dt-picker__list-item {
                     border-top: none;
+                    height: 32px;
+
+                    .usa-dt-picker__item {
+                        padding-left: 16px;
+                        padding-right: unset;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
+
+                        &:hover {
+                            border: none;
+                        }
+                    }
                 }
 
                 svg {
@@ -124,12 +136,7 @@
                     margin-left: 4px;
                 }
 
-                .usa-dt-picker__item {
-                    padding-left: 16px;
-                    padding-right: unset;
-                    padding-top: 8px;
-                    padding-bottom: 8px;
-                }
+
             }
         }
 
