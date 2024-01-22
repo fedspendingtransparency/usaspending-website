@@ -64,7 +64,7 @@ export const glossaryLinks = {
     '08': 'guaranteed-insured-loans',
     '09': 'insurance',
     '11': 'other-financial-assistance',
-    '-1': 'Not Specified'
+    '-1': 'not-specified'
 };
 
 /* eslint-enable quote-props */
