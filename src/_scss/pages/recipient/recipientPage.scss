@@ -12,7 +12,7 @@
 		}
 	}
 
-	.usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item { 
+	.usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item {
         padding-left: 25px;
     }
 
@@ -28,7 +28,7 @@
         min-width: 126px;
 		width: auto;
     }
-	
+
 	.main-content {
 		@import "../../mixins/fullSectionWrap";
 		@include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
@@ -38,7 +38,5 @@
 		@import "./_contentWrap";
 		@import "elements/_divider";
 		@import "./_overview";
-
-        @import "./_sidebar";
 	}
 }
