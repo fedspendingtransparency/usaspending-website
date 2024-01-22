@@ -129,6 +129,9 @@
               }
             }
             .usa-dt-picker .usa-dt-picker__dropdown-container {
+              .usa-dt-picker__button {
+                padding-bottom: 4px;
+              }
               .usa-dt-picker__button svg:hover {
                 color: $blue-70v;
               }
@@ -139,7 +142,7 @@
 
               .usa-dt-picker__list {
                 min-width: 15rem;
-                margin-top: 20px;
+                margin-top: 0px;
                 padding-top: 8px;
                 overflow: hidden;
                 padding-bottom: 8px;
