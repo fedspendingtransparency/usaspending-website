@@ -171,7 +171,7 @@ const MapBox = forwardRef((props, ref) => {
         else if (props.stateInfo?.code !== '') {
             mountMap();
         }
-    }, [windowWidth, props.stateProfile, resizeMap, props.stateInfo.code, mountMap]);
+    }, [windowWidth, props.stateProfile, resizeMap, props.stateInfo?.code, mountMap]);
 
     return (
         <div
