@@ -394,7 +394,6 @@ const ResultsTableContainer = (props) => {
             // more pages are available, load them
             setPage(page + 1);
             setLoadNextPage(true);
-            // performSearch();
         }
     };
 
