@@ -23,8 +23,7 @@ const propTypes = {
     showMobileFilters: PropTypes.bool,
     requestsComplete: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
-    toggleMobileFilters: PropTypes.func,
-    clearAllFilters: PropTypes.func
+    toggleMobileFilters: PropTypes.func
 };
 
 const SearchResults = (props) => {
