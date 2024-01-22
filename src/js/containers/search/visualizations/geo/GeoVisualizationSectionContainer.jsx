@@ -347,19 +347,28 @@ export class GeoVisualizationSectionContainer extends React.Component {
         // there is only 1 item, place of performance
         if (this.props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = this.props.reduxFilters[selectedLocationByType].first().filter;
+            let locationType = "state";
             if (onlyObject.district_current || onlyObject.district_original) {
+                locationType = "congressionalDistrict";
                 this.changeMapLayer("congressionalDistrict");
             }
             else if (onlyObject.county) {
+                locationType = "county";
                 this.changeMapLayer("county");
             }
             else if (onlyObject.state) {
                 // do nothing
             }
             else if (onlyObject.country !== "USA") {
+                locationType = "country";
                 this.changeMapLayer("country");
             }
             // defaults to state
+            this.setState({
+                defaultLocation: { data: onlyObject, locationType }
+            }, () => {
+                console.log("in container", this.state.defaultLocation);
+            });
         }
         else if (this.props.reduxFilters[selectedLocationByType].size > 1) {
             const onlyObject = this.props.reduxFilters[selectedLocationByType];
@@ -396,6 +405,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     }
                 }
             }
+
 
             // change map layers based on make up of items
             if (numCountries === onlyObject.size) { // only countries
@@ -447,7 +457,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 mapLegendToggle={this.props.mapLegendToggle}
                 subaward={this.props.subaward}
                 isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                className={this.props.className} />
+                className={this.props.className}
+                defaultLocation={this.state.defaultLocation} />
         );
     }
 }

@@ -439,6 +439,15 @@ export const performZIPGeocode = (zip) => apiRequest({
     }
 });
 
+export const performCountryGeocode = (location) => apiRequest({
+    baseURL: 'https://api.mapbox.com/',
+    url: `geocoding/v5/mapbox.places/${location}.json`,
+    params: {
+        access_token: kGlobalConstants.MAPBOX_TOKEN,
+        types: 'country'
+    }
+});
+
 export const getCitySearchRequestObj = (searchText = "", state = "", country = "", scope = "") => {
     const requestObj = {
         search_text: searchText,
