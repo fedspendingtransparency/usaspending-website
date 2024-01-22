@@ -265,7 +265,7 @@
             }
 
             .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-                min-width: 15rem;
+                width: 148px;
                 margin-top: 4px;
                 padding-top: 8px;
                 padding-bottom: 8px;
@@ -288,7 +288,8 @@
                 span {
                     color: $gray-cool-60;
                     font-weight: $font-semibold;
-                    font-size: rem(16);
+                    font-size: 16px;
+                    line-height: 24px;
                     margin-left: 16px;
                 }
 
