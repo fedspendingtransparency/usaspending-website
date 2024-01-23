@@ -31,6 +31,7 @@ const propTypes = {
 
 const clickedFooterLink = (route) => {
     Analytics.event({
+        event: 'footer-external-links',
         category: 'Footer - Link',
         action: route
     });

@@ -18,6 +18,7 @@ const AboutTheDataListView = ({ section, selectItem }) => {
         e.preventDefault();
         selectItem(index, section);
         Analytics.event({
+            event: 'atd_entry_name',
             category: 'About the Data',
             action: `Clicked ${list.name}`
         });

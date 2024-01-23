@@ -25,6 +25,7 @@ const propTypes = {
 };
 const clickedHeaderLink = (route) => {
     Analytics.event({
+        event: 'Header - Link',
         category: 'Header - Link',
         action: route
     });

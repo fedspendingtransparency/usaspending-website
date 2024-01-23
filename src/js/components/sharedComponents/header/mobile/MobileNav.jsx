@@ -75,6 +75,7 @@ const MobileNav = React.memo((props) => {
 
     const clickedHeaderLink = (route) => {
         Analytics.event({
+            event: 'Header Link - Mobile',
             category: 'Header - Link',
             action: route
         });
