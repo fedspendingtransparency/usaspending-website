@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { find, throttle } from 'lodash';
 import { useHistory } from "react-router-dom";
-import { useQueryParams } from 'helpers/queryParams';
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
@@ -85,7 +85,11 @@ export const RecipientPage = ({
         if (!sectionDom) return;
 
         // add section to url
-        history.replace(`?section=${sectionObj.section}`);
+        const newQueryParams = combineQueryParams(query, { section: `${section}` });
+        history.replace({
+            pathname: ``,
+            search: getQueryParamString(newQueryParams)
+        });
 
         // add offsets
         let conditionalOffset;

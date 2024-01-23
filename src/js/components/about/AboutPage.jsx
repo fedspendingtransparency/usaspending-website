@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { find, throttle } from 'lodash';
-import { useQueryParams } from 'helpers/queryParams';
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
@@ -68,7 +68,11 @@ const AboutPage = () => {
 
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
-            history.replace(`/about?section=${section}`);
+            const newQueryParams = combineQueryParams(query, { section: `${section}` });
+            history.replace({
+                pathname: ``,
+                search: getQueryParamString(newQueryParams)
+            });
         }
 
         // update the state
