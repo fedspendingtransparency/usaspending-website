@@ -143,24 +143,14 @@ const StatusOfFundsChart = ({
         if (window.innerWidth >= 992 && window.innerWidth < 1200 && toggle) {
             return viewHeight * 1.5;
         }
-        // else
         else if (isMobile) {
-            // if (toggle) {
-            //     return viewHeight * 2.54;
-            // }
             return (viewHeight + 10) * 2.4;
         }
         else if (isMediumScreen) {
-            // if (!toggle) {
             return 800 + margins.top + margins.bottom;
-            // }
-            // return 1600 + margins.top + margins.bottom;
         }
         else if (isLargeScreen) {
-            // if (!toggle) {
             return 1300 + margins.top + margins.bottom;
-            // }
-            // return 1500 + margins.top + margins.bottom;
         }
 
         return viewHeight * 1.06;
@@ -661,17 +651,12 @@ const StatusOfFundsChart = ({
             // this fn is called when placing the labels
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 600 && window.innerWidth < 1200) {
-                    // return 'translate(-150,-85)';
                     return 'translate(-150,-60)';
                 }
-                // else if (isMediumScreen && !isMobile) { // 600-768px
-                //     return 'translate(-150,-90)';
-                // }
                 else if (isMobile) { // < 600px
                     return 'translate(-150,-40)';
                 }
                 else if (!isLargeScreen) { // > 1200px; which seems counterintuitive, but is true
-                    // return 'translate(-150,-90)';
                     return 'translate(60,0)';
                 }
                 return 'translate(-150,-135)'; // ??? what sizes?
@@ -823,11 +808,7 @@ const StatusOfFundsChart = ({
                 .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)");
             barGroups.append("rect")
                 .attr('transform', transformBarGroup)
-                // use this for 992-1200
-                // .attr('transform', "translate(-130,10)")
                 .attr("x", -8)
-
-            // this chunk from the !toggle section for bar-group
                 .attr("y", (d) => {
                     if (isLargeScreen) {
                         if (isMediumScreen) {
@@ -838,23 +819,6 @@ const StatusOfFundsChart = ({
                     return y(d.name) + 40;
                     // return y(d.name);
                 })
-
-
-            // this is the code that was originally here
-            // .attr("y", (d) => {
-            //     if (!isMobile) {
-            //         if (isMediumScreen) {
-            //             return y(d.name) + 40;
-            //             // return y(d.name);
-            //         }
-            //         return y(d.name) + 100;
-            //         // return y(d.name);
-            //     }
-            //     return y(d.name) - 10;
-            //     // return y(d.name);
-            // })
-
-
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
                 .attr("height", () => {
                     if (!isMobile) {
@@ -882,13 +846,6 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-
-
-            // this chunk from the !toggle section, bar-group
-            // but also used in the sections to draw the bars
-            // when !toggle
-            // use this for >1200
-            // but still need to tweak the label alignment slightly
                 .attr("y", (d) => {
                     if (isLargeScreen) {
                         if (isMediumScreen) {
@@ -900,25 +857,6 @@ const StatusOfFundsChart = ({
                     return y(d.name) + 40;
                 // return y(d.name) - 10;
                 })
-
-
-            // .attr("y", (d) => {
-            //     if (!isMobile) {
-            //         if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-            //             return y(d.name) + 50;
-            //         }
-            //         else if (isMediumScreen) {
-            //             return y(d.name) + 40;
-            //         // return y(d.name) + 10;
-            //         }
-            //         return y(d.name) + 100;
-            //     // return y(d.name);
-            //     }
-            //     return y(d.name) - 10;
-            // // return y(d.name) + 40;
-            // })
-
-
                 .attr("width", (d) => {
                     if (negativeTbr || negativeOutlay) {
                         return drawNegativeOutlays(d);
