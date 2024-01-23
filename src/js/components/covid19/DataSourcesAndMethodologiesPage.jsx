@@ -17,7 +17,7 @@ import {
     getStickyBreakPointForCovidBanner,
     createJumpToSectionForSidebar
 } from 'helpers/covid19Helper';
-import { useQueryParams, combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
+import { useQueryParams, combineQueryParams, getQueryParamString } from "helpers/queryParams";
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
