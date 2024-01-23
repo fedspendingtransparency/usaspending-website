@@ -19,7 +19,7 @@ const propTypes = {
     clearGlossaryTerm: PropTypes.func
 };
 
-const getGlossaryEmailSubject = (url) => `USAspending.gov Glossary Term: ${startCase(url.split("=")[1])}`;
+const getGlossaryEmailSubject = (slug) => `USAspending.gov Glossary Term: ${startCase(slug)}`;
 const getGlossaryEmailBody = (url) => `View the definition of this federal spending term on USAspending.gov: ${url}`;
 
 export default class GlossaryDefinition extends React.Component {
@@ -104,13 +104,25 @@ export default class GlossaryDefinition extends React.Component {
     }
 
     render() {
-        const slug = `?glossary=${this.props.glossary.term.toJS().slug}`;
-        const url = `https://www.usaspending.gov/${slug}`;
+        const slug = this.props.glossary.term.toJS().slug;
+
+        const stripUrl = () => {
+            const query = new URL(window.location.href);
+            if (query.search !== '') {
+                const test = window.location.href.includes("?");
+                if (test) {
+                    return `${window.location.href}&glossary=`;
+                }
+            }
+            return `${window.location.href}?glossary=`;
+        };
+
+        const value = stripUrl();
 
         const onShareClick = (name) => {
             const emailArgs = {
-                subject: getGlossaryEmailSubject(url),
-                body: getGlossaryEmailBody(url)
+                subject: getGlossaryEmailSubject(slug),
+                body: getGlossaryEmailBody(value + slug)
             };
             handleShareOptionClick(name, slug, emailArgs);
         };
@@ -124,7 +136,7 @@ export default class GlossaryDefinition extends React.Component {
                     clickedTab={this.clickedTab} />
                 <div className="glossary-definition__column-share-icon">
                     <ShareIcon
-                        url={url}
+                        url={value + slug}
                         tabIndex={0}
                         onShareOptionClick={onShareClick}
                         colors={{ backgroundColor: "#215493", color: "#e2e2e2" }}
