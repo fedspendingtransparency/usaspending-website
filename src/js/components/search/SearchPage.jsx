@@ -10,16 +10,15 @@ import { DownloadIconButton, ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-
+import { AddFilter } from 'components/sharedComponents/icons/Icons';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
+import MobileFilters from "./mobile/MobileFilters";
 
 const propTypes = {
     download: PropTypes.object,
@@ -84,14 +83,14 @@ const SearchPage = ({
     /**
      * Shows the full download modal
      */
-    const showModal = () => {
+    const showDownloadModal = () => {
         setShowFullDownload(true);
     };
 
     /**
      * Hides the full download modal
      */
-    const hideModal = () => {
+    const hideDownloadModal = () => {
         setShowFullDownload(false);
     };
 
@@ -102,6 +101,18 @@ const SearchPage = ({
     );
     if (isMobile) {
         fullSidebar = null;
+    }
+
+    const pluralizeFilterLabel = (count) => {
+        if (count === 1) {
+            return 'Filter';
+        }
+        return 'Filters';
+    };
+
+    let showCountBadge = '';
+    if (filterCount === 0) {
+        showCountBadge = 'hide';
     }
 
     useEffect(() => {
@@ -138,7 +149,7 @@ const SearchPage = ({
                     }
                     isEnabled={downloadAvailable}
                     downloadInFlight={downloadInFlight}
-                    onClick={showModal} />
+                    onClick={showDownloadModal} />
             ]}
             filters={appliedFilters}>
             <div id="main-content">
@@ -148,6 +159,30 @@ const SearchPage = ({
                         {isMobile === false ?
                             <KeywordSearchLink />
                             : '' }
+                    </div>
+                    <div className="mobile-filter-button-wrapper">
+                        <button
+                            className="mobile-filter-button"
+                            onClick={toggleMobileFilters}>
+                            <div className="mobile-filter-button-content">
+                                <div className={`mobile-filter-button-count ${showCountBadge}`}>
+                                    {filterCount}
+                                </div>
+                                <div className="mobile-filter-button-icon">
+                                    <AddFilter alt="Toggle filters" />
+                                </div>
+                                <div className="mobile-filter-button-label">
+                                    {pluralizeFilterLabel(filterCount)}
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div className="mobile-search-sidebar">
+                        <MobileFilters
+                            filters={filters}
+                            filterCount={filterCount}
+                            showMobileFilters={showMobileFilters}
+                            toggleMobileFilters={toggleMobileFilters} />
                     </div>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
@@ -165,7 +200,7 @@ const SearchPage = ({
                 <FullDownloadModalContainer
                     download={download}
                     mounted={showFullDownload}
-                    hideModal={hideModal} />
+                    hideModal={hideDownloadModal} />
             </div>
         </PageWrapper>
     );
