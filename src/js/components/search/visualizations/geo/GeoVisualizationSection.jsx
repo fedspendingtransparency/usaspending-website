@@ -95,7 +95,8 @@ export default class GeoVisualizationSection extends React.Component {
 
         this.locationRequest.promise
             .then((res) => {
-                this.setState({ centerPoint: res.data?.features[0]?.center });
+                console.log(res.data?.features[0]?.center);
+                this.setState({ centerPoint: res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892] });
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -317,7 +318,7 @@ export default class GeoVisualizationSection extends React.Component {
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
                     showLayerToggle
-                    center={this.state.centerPoint?.length > 0 ? this.state.centerPoint : [-95.569430, 38.852892]}
+                    center={this.state.centerPoint}
                     className={this.props.className}
                     mapLegendToggle={this.props.mapLegendToggle}
                     updateMapLegendToggle={this.props.updateMapLegendToggle} >
