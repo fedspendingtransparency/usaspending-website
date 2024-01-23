@@ -15,7 +15,7 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { useHistory } from "react-router-dom";
-import { useQueryParams } from 'helpers/queryParams';
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -73,7 +73,11 @@ const StatePage = ({
         if (!sectionDom) return;
 
         // add section to url
-        history.replace(`?section=${sectionObj.section}`);
+        const newQueryParams = combineQueryParams(query, { section: `${section}` });
+        history.replace({
+            pathname: ``,
+            search: getQueryParamString(newQueryParams)
+        });
 
         // add offsets
         let conditionalOffset;
