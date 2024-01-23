@@ -93,6 +93,8 @@ const ResultsTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
+    const [isLoadingNextPage, setLoadNextPage] = useState(false);
+
     const initialRender = useRef(true);
 
     const performSearch = throttle((newSearch = false) => {
@@ -391,7 +393,7 @@ const ResultsTableContainer = (props) => {
         if (!lastPage) {
             // more pages are available, load them
             setPage(page + 1);
-            performSearch();
+            setLoadNextPage(true);
         }
     };
 
@@ -476,7 +478,14 @@ const ResultsTableContainer = (props) => {
                 tabCountRequest.cancel();
             }
         };
-    }, 400), [page, props.noApplied, location, props.subaward]);
+    }, 400), [props.noApplied, location, props.subaward]);
+
+    useEffect(throttle(() => {
+        if (isLoadingNextPage) {
+            performSearch();
+            setLoadNextPage(false);
+        }
+    }, 400), [isLoadingNextPage]);
 
     if (!columns[tableType]) {
         return null;
