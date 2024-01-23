@@ -32,13 +32,6 @@ const StatusOfFundsChart = ({
     const [hoverData, setHoverData] = useState(null);
 
     const viewHeight = 760;
-    // let viewHeight;
-    // if (!toggle) {
-    //     viewHeight = 760;
-    // }
-    // else {
-    //     viewHeight = 1200;
-    // }
     const viewWidth = 1000;
     const margins = {
         top: 40, right: 0, bottom: 10, left: isLargeScreen ? 180 : 245
@@ -147,11 +140,11 @@ const StatusOfFundsChart = ({
         return chartHeight;
     };
     const chartHeightViewBox = () => {
-        // if (window.innerWidth >= 992 && window.innerWidth < 1200 && toggle) {
-        //     return viewHeight * 1.5;
-        // }
+        if (window.innerWidth >= 992 && window.innerWidth < 1200 && toggle) {
+            return viewHeight * 1.5;
+        }
         // else
-        if (isMobile) {
+        else if (isMobile) {
             // if (toggle) {
             //     return viewHeight * 2.54;
             // }
@@ -861,51 +854,6 @@ const StatusOfFundsChart = ({
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
                 .attr('id', 'hlines');
-            // append total budgetary resources bars
-            // barGroups.append("rect")
-            //     .attr('transform', tickMobileXAxis)
-            //     .attr("x", (d) => {
-            //         if (d._budgetaryResources < 0) {
-            //             return x(d._budgetaryResources) - 8;
-            //         }
-            //         if (!negativeTbr && !negativeOutlay) {
-            //             return x(0) - 8;
-            //         }
-            //         return x(0);
-            //     })
-            //     .attr("y", (d) => {
-            //         if (!isMobile) {
-            //             if (isMediumScreen || (window.innerWidth >= 992 && window.innerWidth < 1200)) {
-            //                 return y(d.name);
-            //             }
-            //             return y(d.name) + 50;
-            //         }
-            //         return y(d.name) - 90;
-            //     })
-            //     .attr("width", (d) => {
-            //         if (negativeTbr || negativeOutlay) {
-            //             return drawNegativeBudgetaryResources(d, x);
-            //         }
-            //         if (d._budgetaryResources === 0) {
-            //             return 0;
-            //         }
-            //         return x(d._budgetaryResources) + 11;
-            //     })
-            //     .attr("height", () => {
-            //         if (!isMobile) {
-            //             if (isMediumScreen) {
-            //                 return "31.12";
-            //             }
-            //             return "42.37";
-            //         }
-            //         return "63.63";
-            //     })
-            //     .attr('class', 'hbars')
-            //     .attr('id', 'tbr-bar')
-            //     .attr("style", "outline: thin solid #D7D8D9;")
-            //     .attr('aria-disabled', "true")
-            //     .attr("stroke-width", 2)
-            //     .attr('fill', 'url(#diagonalHatch)');
 
             // append total outlay bars
             barGroups.append("rect")
@@ -924,8 +872,8 @@ const StatusOfFundsChart = ({
             // this chunk from the !toggle section, bar-group
             // but also used in the sections to draw the bars
             // when !toggle
-                // use this for >1200
-                // but still need to tweak the label alignment slightly
+            // use this for >1200
+            // but still need to tweak the label alignment slightly
                 .attr("y", (d) => {
                     if (isLargeScreen) {
                         if (isMediumScreen) {
@@ -935,7 +883,7 @@ const StatusOfFundsChart = ({
                         return y(d.name) + 10;
                     }
                     return y(d.name) + 40;
-                    // return y(d.name) - 10;
+                // return y(d.name) - 10;
                 })
 
 
@@ -946,13 +894,13 @@ const StatusOfFundsChart = ({
             //         }
             //         else if (isMediumScreen) {
             //             return y(d.name) + 40;
-            //             // return y(d.name) + 10;
+            //         // return y(d.name) + 10;
             //         }
             //         return y(d.name) + 100;
-            //         // return y(d.name);
+            //     // return y(d.name);
             //     }
             //     return y(d.name) - 10;
-            //     // return y(d.name) + 40;
+            // // return y(d.name) + 40;
             // })
 
 
