@@ -649,19 +649,21 @@ const StatusOfFundsChart = ({
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
             // this fn is called when placing the labels
             const tickMobileYAxis = () => {
-                if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-                    return 'translate(-150,-85)';
+                if (window.innerWidth >= 600 && window.innerWidth < 1200) {
+                    // return 'translate(-150,-85)';
+                    return 'translate(-150,-60)';
                 }
-                else if (isMediumScreen && !isMobile) {
-                    return 'translate(-150,-90)';
-                }
-                else if (isMobile) {
+                // else if (isMediumScreen && !isMobile) { // 600-768px
+                //     return 'translate(-150,-90)';
+                // }
+                else if (isMobile) { // < 600px
                     return 'translate(-150,-40)';
                 }
-                else if (!isLargeScreen) {
+                else if (!isLargeScreen) { // > 1200px; which seems counterintuitive, but is true
+                    // return 'translate(-150,-90)';
                     return 'translate(60,0)';
                 }
-                return 'translate(-150,-135)';
+                return 'translate(-150,-135)'; // ??? what sizes?
             };
 
             // scale to x data points;
