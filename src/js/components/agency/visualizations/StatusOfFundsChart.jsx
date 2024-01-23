@@ -607,7 +607,6 @@ const StatusOfFundsChart = ({
             // setup x and y scales
             const y = scaleBand()
                 .range([0, isMobile ? viewHeight * 2.5 : chartHeightYScale()])
-                // .range([0, isMobile ? viewHeight * 2.1 : chartHeightYScale()])
                 .padding(isMobile ? 0.7 : paddingResize());
             const x = scaleLinear()
                 .range([0, isLargeScreen ? chartWidth + 289 : chartWidth + 80]);
@@ -817,7 +816,6 @@ const StatusOfFundsChart = ({
                         return y(d.name);
                     }
                     return y(d.name) + 40;
-                    // return y(d.name);
                 })
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
                 .attr("height", () => {
@@ -851,11 +849,9 @@ const StatusOfFundsChart = ({
                         if (isMediumScreen) {
                             return y(d.name) + 10;
                         }
-                        // return y(d.name);
                         return y(d.name) + 10;
                     }
                     return y(d.name) + 40;
-                // return y(d.name) - 10;
                 })
                 .attr("width", (d) => {
                     if (negativeTbr || negativeOutlay) {
