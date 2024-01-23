@@ -93,6 +93,8 @@ const ResultsTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
+    const [isLoadingNextPage, setLoadNextPage] = useState(false);
+
     const initialRender = useRef(true);
 
     const performSearch = throttle((newSearch = false) => {
@@ -395,7 +397,7 @@ const ResultsTableContainer = (props) => {
         if (!lastPage) {
             // more pages are available, load them
             setPage(page + 1);
-            performSearch();
+            setLoadNextPage(true);
         }
     };
 
@@ -480,6 +482,13 @@ const ResultsTableContainer = (props) => {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), [props]);
+
+    useEffect(throttle(() => {
+        if (isLoadingNextPage) {
+            performSearch();
+            setLoadNextPage(false);
+        }
+    }, 400), [isLoadingNextPage]);
 
     useEffect(() => {
         loadColumns();

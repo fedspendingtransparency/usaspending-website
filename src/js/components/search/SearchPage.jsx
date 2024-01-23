@@ -3,210 +3,208 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
-
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { AddFilter } from 'components/sharedComponents/icons/Icons';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
+import MobileFilters from "./mobile/MobileFilters";
 
 const propTypes = {
     download: PropTypes.object,
-    clearAllFilters: PropTypes.func,
     filters: PropTypes.object,
     appliedFilters: PropTypes.object,
     downloadAvailable: PropTypes.bool,
     downloadInFlight: PropTypes.bool,
     requestsComplete: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
-    hash: PropTypes.string,
-    showAboutTheDataIcon: PropTypes.bool
+    hash: PropTypes.string
 };
 
 const slug = 'search/';
 const emailSubject = 'Award Search results on USAspending.gov';
 
-export default class SearchPage extends React.Component {
-    constructor(props) {
-        super(props);
+const SearchPage = ({
+    download,
+    filters,
+    appliedFilters,
+    downloadAvailable,
+    downloadInFlight,
+    requestsComplete,
+    noFiltersApplied,
+    hash
+}) => {
+    const [showMobileFilters, setShowMobileFilters] = useState(false);
+    const [filterCount, setFilterCount] = useState(0);
+    const [showFullDownload, setShowFullDownload] = useState(false);
+    const [stateHash, setStateHash] = useState(hash);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
-        this.state = {
-            showMobileFilters: false,
-            filterCount: 0,
-            isMobile: false,
-            showFullDownload: false,
-            hash: props.hash
-        };
-
-        // throttle the occurrences of the scroll callback to once every 50ms
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-
-        this.updateFilterCount = this.updateFilterCount.bind(this);
-        this.toggleMobileFilters = this.toggleMobileFilters.bind(this);
-
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
-    }
-
-    componentDidMount() {
-    // watch the page for scroll and resize events
-        window.addEventListener('resize', this.handleWindowResize);
-        this.handleWindowResize();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.hash !== this.props.hash) {
-            this.state.hash = this.props.hash;
-        }
-    }
-
-    componentWillUnmount() {
-    // stop observing scroll and resize events
-        window.removeEventListener('resize', this.handleWindowResize);
-    }
-
-
-    getSlugWithHash() {
-        if (this.props.hash) {
-            return `${slug}?hash=${this.props.hash}`;
+    const getSlugWithHash = () => {
+        if (hash) {
+            return `${slug}?hash=${hash}`;
         }
         return slug;
-    }
+    };
 
-    handleShare = (name) => {
+    const handleShare = (name) => {
         handleShareOptionClick(name, this.getSlugWithHash(), {
             subject: emailSubject,
             body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(this.getSlugWithHash())}`
         });
     };
 
-    handleWindowResize() {
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth
-            || document.body.clientWidth;
-
-        if (windowWidth < 992 && !this.state.isMobile) {
-            this.setState({
-                isMobile: true
-            });
-        }
-        else if (windowWidth >= 992 && this.state.isMobile) {
-            this.setState({
-                isMobile: false
-            });
-        }
-    }
-
     /**
      * Use the top filter bar container's internal filter parsing to track the current number of
      * filters applied
      */
-
-    updateFilterCount(count) {
-        this.setState({
-            filterCount: count
-        });
-    }
+    const updateFilterCount = (count) => {
+        setFilterCount(count);
+    };
 
     /**
      * Toggle whether or not to show the mobile filter view
      */
-
-    toggleMobileFilters() {
-        this.setState({
-            showMobileFilters: !this.state.showMobileFilters
-        });
-    }
+    const toggleMobileFilters = () => {
+        setShowMobileFilters(!showMobileFilters);
+    };
 
     /**
      * Shows the full download modal
      */
-
-    showModal() {
-        this.setState({
-            showFullDownload: true
-        });
-    }
+    const showDownloadModal = () => {
+        setShowFullDownload(true);
+    };
 
     /**
      * Hides the full download modal
      */
+    const hideDownloadModal = () => {
+        setShowFullDownload(false);
+    };
 
-    hideModal() {
-        this.setState({
-            showFullDownload: false
-        });
+    let fullSidebar = (
+        <SearchSidebar
+            filters={filters}
+            hash={hash} />
+    );
+    if (isMobile) {
+        fullSidebar = null;
     }
 
-    render() {
-        let fullSidebar = (
-            <SearchSidebar
-                filters={this.props.filters}
-                hash={this.props.hash} />
-        );
-        if (this.state.isMobile) {
-            fullSidebar = null;
+    const pluralizeFilterLabel = (count) => {
+        if (count === 1) {
+            return 'Filter';
         }
+        return 'Filters';
+    };
 
-        return (
-            <PageWrapper
-                pageName="Advanced Search"
-                classNames="usa-da-search-page"
-                title="Advanced Search"
-                metaTagProps={MetaTagHelper.getSearchPageMetaTags(this.state.hash)}
-                toolBarComponents={[
-                    <ShareIcon
-                        isEnabled
-                        url={getBaseUrl(this.getSlugWithHash())}
-                        onShareOptionClick={this.handleShare} />,
-                    <DownloadIconButton
-                        tooltipComponent={(!this.props.downloadAvailable && this.props.hash)
-                            ? <NoDownloadHover />
-                            : null
-                        }
-                        isEnabled={this.props.downloadAvailable}
-                        downloadInFlight={this.props.downloadInFlight}
-                        onClick={this.showModal} />
-                ]}
-                filters={this.props.appliedFilters}>
-                <div id="main-content">
-                    <div className="search-contents">
-                        <div className="full-search-sidebar">
-                            { fullSidebar }
-                            {this.state.isMobile === false ?
-                                <KeywordSearchLink />
-                                : '' }
-                        </div>
-                        <Helmet>
-                            <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
-                        </Helmet>
-                        <SearchResults
-                            filters={this.props.filters}
-                            isMobile={this.state.isMobile}
-                            filterCount={this.state.filterCount}
-                            showMobileFilters={this.state.showMobileFilters}
-                            updateFilterCount={this.updateFilterCount}
-                            toggleMobileFilters={this.toggleMobileFilters}
-                            requestsComplete={this.props.requestsComplete}
-                            noFiltersApplied={this.props.noFiltersApplied} />
-                    </div>
-                    <FullDownloadModalContainer
-                        download={this.props.download}
-                        mounted={this.state.showFullDownload}
-                        hideModal={this.hideModal} />
-                </div>
-            </PageWrapper>
-        );
+    let showCountBadge = '';
+    if (filterCount === 0) {
+        showCountBadge = 'hide';
     }
-}
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
+    useEffect(() => {
+        setStateHash(hash);
+    }, [hash]);
+
+    return (
+        <PageWrapper
+            pageName="Advanced Search"
+            classNames="usa-da-search-page"
+            title="Advanced Search"
+            metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
+            toolBarComponents={[
+                <ShareIcon
+                    isEnabled
+                    url={getBaseUrl(getSlugWithHash())}
+                    onShareOptionClick={handleShare} />,
+                <DownloadIconButton
+                    tooltipComponent={(!downloadAvailable && hash)
+                        ? <NoDownloadHover />
+                        : null
+                    }
+                    isEnabled={downloadAvailable}
+                    downloadInFlight={downloadInFlight}
+                    onClick={showDownloadModal} />
+            ]}
+            filters={appliedFilters}>
+            <div id="main-content">
+                <div className="search-contents">
+                    <div className="full-search-sidebar">
+                        { fullSidebar }
+                        {isMobile === false ?
+                            <KeywordSearchLink />
+                            : '' }
+                    </div>
+                    <div className="mobile-filter-button-wrapper">
+                        <button
+                            className="mobile-filter-button"
+                            onClick={toggleMobileFilters}>
+                            <div className="mobile-filter-button-content">
+                                <div className={`mobile-filter-button-count ${showCountBadge}`}>
+                                    {filterCount}
+                                </div>
+                                <div className="mobile-filter-button-icon">
+                                    <AddFilter alt="Toggle filters" />
+                                </div>
+                                <div className="mobile-filter-button-label">
+                                    {pluralizeFilterLabel(filterCount)}
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div className="mobile-search-sidebar">
+                        <MobileFilters
+                            filters={filters}
+                            filterCount={filterCount}
+                            showMobileFilters={showMobileFilters}
+                            toggleMobileFilters={toggleMobileFilters} />
+                    </div>
+                    <Helmet>
+                        <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
+                    </Helmet>
+                    <SearchResults
+                        filters={filters}
+                        isMobile={isMobile}
+                        filterCount={filterCount}
+                        showMobileFilters={showMobileFilters}
+                        updateFilterCount={updateFilterCount}
+                        toggleMobileFilters={toggleMobileFilters}
+                        requestsComplete={requestsComplete}
+                        noFiltersApplied={noFiltersApplied} />
+                </div>
+                <FullDownloadModalContainer
+                    download={download}
+                    mounted={showFullDownload}
+                    hideModal={hideDownloadModal} />
+            </div>
+        </PageWrapper>
+    );
+};
 
 SearchPage.propTypes = propTypes;
+export default SearchPage;
