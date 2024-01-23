@@ -446,7 +446,8 @@ const StatusOfFundsChart = ({
                 .enter()
                 .append('g')
                 .attr('class', 'bar-group')
-                .attr('tabindex', 0);
+                .attr('tabindex', 0)
+                .attr('transform', window.innerWidth > largeScreen ? "translate(0, -10)" : "translate(0, 0)");
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
@@ -646,7 +647,17 @@ const StatusOfFundsChart = ({
                     setIsHovered(false);
                     setHoverData(null);
                 });
-            const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
+            const tickMobileXAxis = isLargeScreen ? 'translate(-130, 0)' : 'translate(90, 0)';
+            const transformBarGroup = () => {
+                if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+                    return "translate(-130,10)";
+                }
+                else if (isLargeScreen) {
+                    return "translate(-130, 0)";
+                }
+                return "translate(90, 0)";
+            };
+
             // this fn is called when placing the labels
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 600 && window.innerWidth < 1200) {
@@ -811,7 +822,9 @@ const StatusOfFundsChart = ({
                 .attr('tabindex', 0)
                 .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)");
             barGroups.append("rect")
-                .attr('transform', tickMobileXAxis)
+                .attr('transform', transformBarGroup)
+                // use this for 992-1200
+                // .attr('transform', "translate(-130,10)")
                 .attr("x", -8)
 
             // this chunk from the !toggle section for bar-group
