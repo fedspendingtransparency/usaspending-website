@@ -1,11 +1,3 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFacebookSquare,
-    faLinkedin,
-    faTwitter,
-    faRedditSquare
-} from "@fortawesome/free-brands-svg-icons";
 import Analytics from 'helpers/analytics/Analytics';
 
 export const socialUrls = {
@@ -90,19 +82,3 @@ export const handleShareOptionClick = (name, url, emailArgs) => {
         fn();
     }
 };
-
-const GlossaryDropdownOption = ({ icon, title }) => (
-    <>
-        <FontAwesomeIcon icon={icon} color="#555" size="sm" />
-        <span>{title}</span>
-    </>
-);
-
-export const socialShareOptions = [
-    { component: <GlossaryDropdownOption icon="link" title="Copy link" />, name: `copy` },
-    { component: <GlossaryDropdownOption icon="envelope" title="Email" />, name: 'email' },
-    { component: <GlossaryDropdownOption icon={faTwitter} title="Twitter" />, name: 'twitter' },
-    { component: <GlossaryDropdownOption icon={faFacebookSquare} title="Facebook" />, name: 'facebook' },
-    { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" />, name: 'linkedin' },
-    { component: <GlossaryDropdownOption icon={faRedditSquare} title="Reddit" />, name: 'reddit' }
-];
