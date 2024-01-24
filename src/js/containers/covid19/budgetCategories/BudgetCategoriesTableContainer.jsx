@@ -361,7 +361,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const spendingCategoryOnChange = (key) => {
         setSpendingCategory(key);
-        Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
+        Analytics.event({ event: 'covid_profile', category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
     const spendingViewPicker = () => (
