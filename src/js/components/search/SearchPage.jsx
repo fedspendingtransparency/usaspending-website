@@ -59,9 +59,9 @@ const SearchPage = ({
     };
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, this.getSlugWithHash(), {
+        handleShareOptionClick(name, getSlugWithHash(), {
             subject: emailSubject,
-            body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(this.getSlugWithHash())}`
+            body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(getSlugWithHash())}`
         });
     };
 
