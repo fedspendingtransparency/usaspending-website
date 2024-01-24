@@ -358,7 +358,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
             else if (onlyObject.country !== "USA") {
                 // TODO - Commenting out this line to ensure the map always shows results
-                //  before DEV-10522 is completed; For DEV-10522 change this back to country
+                //  before DEV-10520 is completed; For DEV-10520 change this back to country
                 // this.changeMapLayer("country");
             }
             // defaults to state
@@ -402,7 +402,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             // change map layers based on make up of items
             if (numCountries === onlyObject.size) { // only countries
                 // TODO - Changing this line to state to ensure the map always shows results
-                //  before DEV-10522 is completed; For DEV-10522 change this back to country
+                //  before DEV-10520 is completed; For DEV-10520 change this back to country
                 this.changeMapLayer("state");
             }
             else if (numStates === onlyObject.size) { // only states
@@ -421,7 +421,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
             else if (international === true) {
                 // TODO - Changing this line to state to ensure the map always shows results
-                //  before DEV-10522 is completed; For DEV-10522 change this back to country
+                //  before DEV-10520 is completed; For DEV-10520 change this back to country
                 this.changeMapLayer("state");
             }
         }
