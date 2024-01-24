@@ -75,3 +75,6 @@ db.sql
 # local lighthouse reports
 .lighthouseci/
 
+# local settings
+/src/js/LocalConstants.js
+
