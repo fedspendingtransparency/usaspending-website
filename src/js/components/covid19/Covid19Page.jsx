@@ -101,7 +101,7 @@ const Covid19Page = ({ loading }) => {
             left: 0,
             behavior: 'smooth'
         });
-        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
+        Analytics.event({ event: 'covid_profile', category: 'COVID-19 - Profile', action: `${section} - click` });
     };
 
     useEffect(() => {

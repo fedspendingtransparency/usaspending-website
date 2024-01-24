@@ -21,16 +21,19 @@ const StayInTouch = (pageName) => {
     const dispatch = useDispatch();
 
     const trackLinkSignUp = () => Analytics.event({
+        event: 'stay-in-touch',
         category: pageName,
         action: 'Link',
         label: 'sign-up'
     });
     const trackLinkLearnMore = () => Analytics.event({
+        event: 'stay-in-touch',
         category: pageName,
         action: 'Link',
         label: 'learn-more'
     });
     const trackLinkSurvey = () => Analytics.event({
+        event: 'stay-in-touch',
         category: pageName,
         action: 'Survey',
         label: 'survey'

@@ -70,7 +70,7 @@ const BudgetCategories = ({ publicLaw }) => {
         const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
 
         setActiveTab(tabInternal);
-        Analytics.event({ category: 'COVID-19 - Profile', action: `Total Spending - ${activeTab}` });
+        Analytics.event({ event: 'covid_profile', category: 'COVID-19 - Profile', action: `Total Spending - ${activeTab}` });
     };
 
     useEffect(() => {

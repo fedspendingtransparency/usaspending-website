@@ -32,6 +32,7 @@ const MainCards = ({ contentObject }) => {
 
     const analyticsEvent = (item) => {
         Analytics.event({
+            event: 'Data Dives',
             category: 'Data Dives: Equity Covid Spending Page Main Card',
             action: `Clicked ${item} See Project Button`
         });

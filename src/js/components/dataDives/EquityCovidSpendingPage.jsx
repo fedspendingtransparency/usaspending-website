@@ -21,6 +21,7 @@ require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 const EquityCovidSpendingPage = () => {
     const analyticsEvent = (action) => {
         Analytics.event({
+            event: 'Data Dives',
             category: 'Data Dives: Equity Covid Spending Page',
             action
         });

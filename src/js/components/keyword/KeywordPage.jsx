@@ -70,6 +70,7 @@ export default class KeywordPage extends React.Component {
         this.props.startDownload();
         this.showModal();
         Analytics.event({
+            event: 'keyword-download',
             category: 'Keyword Search - Download',
             action: this.props.keyword
         });

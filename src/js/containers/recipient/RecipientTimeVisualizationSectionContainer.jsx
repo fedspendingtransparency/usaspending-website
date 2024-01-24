@@ -26,6 +26,7 @@ const propTypes = {
 
 const logPeriodEvent = (period) => {
     Analytics.event({
+        event: 'recipient_profile_viz_time_period',
         category: 'Recipient - Time - Period',
         action: period
     });
