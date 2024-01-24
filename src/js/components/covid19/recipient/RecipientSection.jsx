@@ -21,7 +21,7 @@ const RecipientSection = ({ publicLaw }) => {
     const changeActiveTab = (tab) => {
         const tabInternal = tabs.find((item) => item.internal === tab).internal;
         setActiveTab(tabInternal);
-        Analytics.event({ category: 'covid-19 - profile', action: `award spending by recipient - ${activeTab}` });
+        Analytics.event({ event: 'covid_profile', category: 'covid-19 - profile', action: `award spending by recipient - ${activeTab}` });
     };
     return (
         <div className="body__content recipient__container">

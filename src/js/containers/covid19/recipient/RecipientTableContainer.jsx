@@ -104,6 +104,7 @@ const loanColumns = [
 
 const clickedRecipientProfile = (recipientName) => {
     Analytics.event({
+        event: 'covid_spending_recipient',
         category: 'COVID-19 - Award Spending by Recipient - Recipients',
         action: 'recipient profile click',
         label: recipientName

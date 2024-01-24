@@ -69,7 +69,7 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
-        Analytics.event({ category: 'COVID-19 - Award Spending by CFDA', action: `${activeTab} - click` });
+        Analytics.event({ event: 'covid_award_spending_cfda', category: 'COVID-19 - Award Spending by CFDA', action: `${activeTab} - click` });
     };
 
     // Keep track of previous tab to prevent duplicate requests in summary

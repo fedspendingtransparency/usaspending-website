@@ -48,6 +48,7 @@ export default class ExplorerVisualization extends React.Component {
         window.addEventListener('resize', this.measureWidth);
 
         Analytics.event({
+            event: 'Spending Explorer - Visualization Type',
             category: 'Spending Explorer - Visualization Type',
             action: this.state.viewType
         });
@@ -75,6 +76,7 @@ export default class ExplorerVisualization extends React.Component {
         });
 
         Analytics.event({
+            event: 'Spending Explorer - Visualization Type',
             category: 'Spending Explorer - Visualization Type',
             action: viewType
         });

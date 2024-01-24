@@ -11,11 +11,13 @@ import Analytics from 'helpers/analytics/Analytics';
 
 const FeaturedContent = () => {
     const trackFeaturedCovidLink = () => Analytics.event({
+        event: 'homepage_featured_content_links',
         category: 'Homepage',
         action: 'Link',
         label: 'covid-19 featured content'
     });
     const trackFeaturedResourcesLink = () => Analytics.event({
+        event: 'homepage_featured_content_links',
         category: 'Homepage',
         action: 'Link',
         label: 'resources featured content'

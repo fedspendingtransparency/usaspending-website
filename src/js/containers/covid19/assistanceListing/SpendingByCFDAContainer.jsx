@@ -194,6 +194,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         ));
         history.push('/search');
         Analytics.event({
+            event: 'covid_spending_assistance_listing',
             category: `COVID-19 - Award Spending by Assistance Listing - ${activeTab}`,
             action: 'CFDA listing click',
             label: cfdaData.description

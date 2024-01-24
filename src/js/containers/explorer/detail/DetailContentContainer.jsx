@@ -108,6 +108,7 @@ export class DetailContentContainer extends React.Component {
 
         // log the analytics event for a Spending Explorer starting point
         Analytics.event({
+            event: 'Spending Explorer - Starting Point',
             category: 'Spending Explorer - Starting Point',
             action: rootType
         });
@@ -299,6 +300,7 @@ export class DetailContentContainer extends React.Component {
         }
 
         Analytics.event({
+            event: 'Spending Explorer - Data Type',
             category: 'Spending Explorer - Data Type',
             action: request.subdivision
         });
@@ -320,6 +322,7 @@ export class DetailContentContainer extends React.Component {
             window.open(`/award/${id}`, "_blank");
 
             Analytics.event({
+                event: 'Spending Explorer - Award Click Exit',
                 category: 'Spending Explorer - Exit',
                 action: `/award/${id}`
             });
@@ -385,6 +388,7 @@ export class DetailContentContainer extends React.Component {
         });
 
         Analytics.event({
+            event: 'Spending Explorer - Drilldown',
             category: 'Spending Explorer - Drilldown',
             action: filterBy,
             label: `${data.name} - ${data.id}`

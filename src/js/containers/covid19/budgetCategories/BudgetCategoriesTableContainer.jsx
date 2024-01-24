@@ -148,6 +148,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
+            event: 'covid_spending_agency',
             category: `COVID-19 - Total Spending by Budget Category - ${props.type}`,
             action: `${spendingCategory} - agency profile click`,
             label: agencyName
@@ -156,6 +157,7 @@ const BudgetCategoriesTableContainer = (props) => {
 
     const clickedFedAcctProfile = (accountName) => {
         Analytics.event({
+            event: 'covid_spending_budget',
             category: `COVID-19 - Total Spending by Budget Category - ${props.type}`,
             action: `${spendingCategory} - federal account profile click`,
             label: accountName

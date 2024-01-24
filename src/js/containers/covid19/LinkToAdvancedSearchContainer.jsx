@@ -39,6 +39,7 @@ const FooterLinkToAdvancedSearchContainer = () => {
         addDefCodesToAdvancedSearchFilter();
         history.push('/search');
         Analytics.event({
+            event: 'covid-advanced-search-click',
             category: 'COVID-19 - More Information',
             action: 'advanced search click'
         });
@@ -46,6 +47,7 @@ const FooterLinkToAdvancedSearchContainer = () => {
 
     const clickedCustomAcctData = () => {
         Analytics.event({
+            event: 'covid-custom-account-click',
             category: 'COVID-19 - More Information',
             action: 'custom account data click'
         });
