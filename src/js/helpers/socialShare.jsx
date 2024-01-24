@@ -89,26 +89,3 @@ export const handleShareOptionClick = (name, url, emailArgs) => {
         fn();
     }
 };
-
-const GlossaryDropdownOption = ({ icon, title }) => (
-    <>
-        <FontAwesomeIcon icon={icon} color="#555" size="sm" />
-        <span>{title}</span>
-    </>
-);
-
-const GlossaryDropdownOptionTwitter = ({ title }) => (
-    <>
-        <img src="img/social-icons/svg/x-logo-glossary.svg" alt="X (Twitter) logo" style={{ width: "12px", height: "12px", marginRight: "12px" }} />
-        <span>{title}</span>
-    </>
-);
-
-export const socialShareOptions = [
-    { component: <GlossaryDropdownOption icon="link" title="Copy link" />, name: `copy` },
-    { component: <GlossaryDropdownOption icon="envelope" title="Email" />, name: 'email' },
-    { component: <GlossaryDropdownOptionTwitter title="X (Twitter)" />, name: 'twitter' },
-    { component: <GlossaryDropdownOption icon={faFacebookSquare} title="Facebook" />, name: 'facebook' },
-    { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" />, name: 'linkedin' },
-    { component: <GlossaryDropdownOption icon={faRedditSquare} title="Reddit" />, name: 'reddit' }
-];
