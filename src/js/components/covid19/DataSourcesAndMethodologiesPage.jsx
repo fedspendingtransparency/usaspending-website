@@ -17,6 +17,7 @@ import {
     getStickyBreakPointForCovidBanner,
     createJumpToSectionForSidebar
 } from 'helpers/covid19Helper';
+import { useQueryParams, combineQueryParams, getQueryParamString } from "helpers/queryParams";
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
@@ -118,6 +119,7 @@ const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.red
 
 export default () => {
     const history = useHistory();
+    const query = useQueryParams();
 
     const [errorMsg, isLoading, defCodes] = useDefCodes();
     const [activeSection, setActiveSection] = useState(sections[0].section);
@@ -151,7 +153,11 @@ export default () => {
 
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
-            history.replace(`/disaster/covid-19/data-sources?section=${section}`);
+            const newQueryParams = combineQueryParams(query, { section: `${section}` });
+            history.replace({
+                pathname: ``,
+                search: getQueryParamString(newQueryParams)
+            });
         }
     };
 
