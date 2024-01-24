@@ -1,10 +1,3 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFacebookSquare,
-    faLinkedin,
-    faRedditSquare
-} from "@fortawesome/free-brands-svg-icons";
 import Analytics from 'helpers/analytics/Analytics';
 
 export const socialUrls = {
