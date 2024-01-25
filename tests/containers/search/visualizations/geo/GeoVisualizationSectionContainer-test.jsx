@@ -6,14 +6,12 @@
  */
 
 import React from 'react';
-import { performSpendingByGeographySearch, mockReduxFilters } from './mocks/geoHelper';
+import { mockReduxFilters } from './mocks/geoHelper';
 import { render, screen } from '../../../../testResources/test-utils';
 import GeoVisualizationSectionContainer
     from "../../../../../src/js/containers/search/visualizations/geo/GeoVisualizationSectionContainer";
-import GeoVisualizationSection
-    from "../../../../../src/js/components/search/visualizations/geo/GeoVisualizationSection";
 
-jest.mock('../../../../../src/js/components/search/visualizations/geo/GeoVisualizationSection', () => jest.fn(() => null));
+jest.mock('../../../../../src/js/components/search/visualizations/geo/GeoVisualizationSection', () => (childProps) => (<div>{JSON.stringify(childProps)}</div>));
 
 const mockProps = {
     reduxFilter: mockReduxFilters,
@@ -29,8 +27,8 @@ describe('GeoVisualizationSectionContainer tests', () => {
     it('renders the container', () => {
         render(<GeoVisualizationSectionContainer {...mockProps} />);
 
-        const GeoVisDom = screen.getByText('hellow');
+        const test = screen.getByText('"className":"award-search__geo-toggle"', { exact: false });
 
-        expect(GeoVisDom).toBeTruthy();
+        expect(test).toBeTruthy();
     });
 });
