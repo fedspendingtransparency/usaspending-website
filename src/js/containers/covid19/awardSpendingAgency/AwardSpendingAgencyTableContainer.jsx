@@ -130,6 +130,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
+            event: 'covid_spending_agency',
             category: `COVID-19 - Total Spending by Agency - ${props.type}`,
             action: 'agency profile click',
             label: agencyName

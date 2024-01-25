@@ -55,7 +55,7 @@ const AwardDescription = ({
                             {Object.keys(naics).length === 0 ? <NoResultsMessage /> : <LineTree type="naics" data={naics} />}
                         </FlexGridCol>
                         <FlexGridCol tablet={6} className="naics-psc__section">
-                            <div className="naics-psc__heading">
+                            <div className="naics-psc__heading psc__extra-margin">
                                 Product or Service Code
                                 <span>
                                     {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}

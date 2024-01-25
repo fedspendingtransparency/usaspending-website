@@ -30,14 +30,6 @@
         @import "./results/searchResults";
         @import "./topFilterBar/topFilterBar";
 
-        .last-update {
-            font-size: rem(12);
-            margin-bottom: rem(5);
-            strong {
-                font-weight: $font-bold;
-            }
-        }
-
         .tablet-search__modal {
             display:none;
             @media(min-width: $tablet-screen) and (max-width: $medium-screen) {

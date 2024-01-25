@@ -13,8 +13,9 @@ const AccessibilityPage = () => (
         <p>
             The U.S. Department of the Treasury is committed to making USASpending.gov accessible
             to all members of the public and ensuring that it meets or exceeds the
-            requirements of&nbsp;
+            requirements of{' '}
             <a
+                className="about-section-content do-wrap"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://section508.gov/">

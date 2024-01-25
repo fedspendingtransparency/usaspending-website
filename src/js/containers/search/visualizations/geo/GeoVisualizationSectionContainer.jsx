@@ -82,7 +82,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
         };
 
         this.apiRequest = null;
-
         this.mapListeners = [];
 
         this.changeScope = this.changeScope.bind(this);
@@ -90,6 +89,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.receivedEntities = this.receivedEntities.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
+        this.mapScopeLogic = this.mapScopeLogic.bind(this);
+        this.updateMapScope = this.updateMapScope.bind(this);
     }
 
     componentDidMount() {
@@ -100,21 +101,30 @@ export class GeoVisualizationSectionContainer extends React.Component {
         const movedListener = MapBroadcaster.on('mapMoved', this.prepareFetch);
         this.mapListeners.push(movedListener);
 
+        this.updateMapScope();
+
         // log the initial event
         logMapScopeEvent(this.state.scope);
         logMapLayerEvent(this.state.mapLayer);
     }
 
     componentDidUpdate(prevProps) {
+        let updateMap = false;
         if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
             this.prepareFetch(true);
+            updateMap = true;
         }
         else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
             // subaward toggle changed, update the search object
             this.prepareFetch(true);
+            updateMap = true;
         }
         else if (prevProps.mapLegendToggle !== this.props.mapLegendToggle) {
             this.handleMapLegendToggleChange();
+        }
+
+        if (updateMap) {
+            this.updateMapScope();
         }
     }
 
@@ -332,6 +342,106 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
+    mapScopeLogic(type) {
+        const selectedLocationByType = type === "pop" ? "selectedLocations" : "selectedRecipientLocations";
+        // there is only 1 item, place of performance
+        if (this.props.reduxFilters[selectedLocationByType].size === 1) {
+            const onlyObject = this.props.reduxFilters[selectedLocationByType].first().filter;
+            if (onlyObject.district_current || onlyObject.district_original) {
+                this.changeMapLayer("congressionalDistrict");
+            }
+            else if (onlyObject.county) {
+                this.changeMapLayer("county");
+            }
+            else if (onlyObject.state) {
+                // do nothing
+            }
+            else if (onlyObject.country !== "USA") {
+                // TODO - Commenting out this line to ensure the map always shows results
+                //  before DEV-10520 is completed; For DEV-10520 change this back to country
+                // this.changeMapLayer("country");
+            }
+            // defaults to state
+        }
+        else if (this.props.reduxFilters[selectedLocationByType].size > 1) {
+            const onlyObject = this.props.reduxFilters[selectedLocationByType];
+            let numStates = 0;
+            let numCountries = 0;
+            let numCounties = 0;
+            let numCDs = 0;
+            let international = false;
+            for (const entry of onlyObject.entries()) {
+                // key value pair [0] is key
+                if (entry.length === 2) {
+                    // country can be usa or international
+                    if (entry[0].length === 3) {
+                        if (entry[0] === 'USA') {
+                            numCountries++;
+                        }
+                        else {
+                            numCountries++;
+                            international = true;
+                        }
+                    }
+                    // country and state, ONLY USA
+                    else if (entry[0].length === 6) {
+                        numStates++;
+                    }
+                    else if (entry[0].length === 9 || entry[0].length === 10) {
+                        // cd or county
+                        if (entry[1].display.entity === 'County') {
+                            numCounties++;
+                        }
+                        else if (entry[1].display.entity.includes('congressional district')) {
+                            numCDs++;
+                        }
+                    }
+                }
+            }
+
+            // change map layers based on make up of items
+            if (numCountries === onlyObject.size) { // only countries
+                // TODO - Changing this line to state to ensure the map always shows results
+                //  before DEV-10520 is completed; For DEV-10520 change this back to country
+                this.changeMapLayer("state");
+            }
+            else if (numStates === onlyObject.size) { // only states
+                this.changeMapLayer("state");
+            }
+            else if (numCounties === onlyObject.size) { // only counties
+                this.changeMapLayer("county");
+            }
+            else if (numCDs === onlyObject.size) { // only cds
+                this.changeMapLayer("congressionalDistrict");
+            }
+            else if ((numCDs + numCounties) === onlyObject.size ||
+                                       (numStates + numCDs) === onlyObject.size ||
+                                       (numStates + numCounties) === onlyObject.size) {
+                this.changeMapLayer("state");
+            }
+            else if (international === true) {
+                // TODO - Changing this line to state to ensure the map always shows results
+                //  before DEV-10520 is completed; For DEV-10520 change this back to country
+                this.changeMapLayer("state");
+            }
+        }
+        else if (this.props.reduxFilters[selectedLocationByType].size === 0) {
+            this.changeMapLayer("state");
+        }
+    }
+    updateMapScope() {
+        if (this.props.reduxFilters.selectedLocations.size > 0) {
+            this.mapScopeLogic('pop');
+        }
+
+        if (this.props.reduxFilters.selectedRecipientLocations.size > 0) {
+            this.mapScopeLogic('recipient');
+        }
+
+        if (this.props.reduxFilters.selectedLocations.size === 0 && this.props.reduxFilters.selectedRecipientLocations.size > 0) {
+            this.changeScope("recipient_location");
+        }
+    }
     render() {
         return (
             <GeoVisualizationSection
@@ -349,7 +459,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
 }
 
 GeoVisualizationSectionContainer.propTypes = propTypes;
-
 export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,

@@ -14,7 +14,7 @@ import {
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { throttle } from "lodash";
-import { useQueryParams } from 'helpers/queryParams';
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -120,7 +120,11 @@ export const AgencyProfileV2 = ({
 
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
-            history.replace(`${history.location.pathname}?section=${section}`);
+            const newQueryParams = combineQueryParams(query, { section: `${section}` });
+            history.replace({
+                pathname: ``,
+                search: getQueryParamString(newQueryParams)
+            });
         }
 
         // update the state
@@ -194,5 +198,4 @@ export const AgencyProfileV2 = ({
 };
 
 AgencyProfileV2.propTypes = propTypes;
-
 export default AgencyProfileV2;

@@ -91,6 +91,7 @@ export default class ResultItem extends React.Component {
     clickedLink(term) {
         this.props.selectTerm(this.props.item);
         Analytics.event({
+            event: 'glossary-link',
             category: 'Glossary',
             action: `Clicked ${term.target.innerText}`
         });

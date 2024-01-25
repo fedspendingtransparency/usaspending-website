@@ -128,7 +128,7 @@ const AwardSpendingAgency = ({ publicLaw }) => {
             subtitle: tabSubtitle
         });
 
-        Analytics.event({ category: 'COVID-19 - Award Spending by Agency', action: `${tabSubtitle} - click` });
+        Analytics.event({ event: 'covid_award_spending_agency', category: 'COVID-19 - Award Spending by Agency', action: `${tabSubtitle} - click` });
     };
 
     const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {

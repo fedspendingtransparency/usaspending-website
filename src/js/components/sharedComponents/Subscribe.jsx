@@ -15,6 +15,7 @@ export default class Subscribe extends React.Component {
     };
 
     trackLink = () => Analytics.event({
+        event: 'stay-in-touch',
         category: this.props.pageName,
         action: 'Link',
         label: 'sign-up'

@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
+        event: 'Header Link - Mobile',
         category: 'Header - Link',
         action: route
     });

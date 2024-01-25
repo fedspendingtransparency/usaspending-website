@@ -148,6 +148,7 @@ export const mapboxSources = {
 
 export const logMapLayerEvent = (layer) => {
     Analytics.event({
+        event: 'covid_map_layer',
         category: 'COVID-19 - Map - Map Layer',
         action: layer
     });
@@ -155,6 +156,7 @@ export const logMapLayerEvent = (layer) => {
 
 export const logMapScopeEvent = (scope) => {
     Analytics.event({
+        event: 'covid_map_location_type',
         category: 'COVID-19 - Map - Location Type',
         action: scope
     });

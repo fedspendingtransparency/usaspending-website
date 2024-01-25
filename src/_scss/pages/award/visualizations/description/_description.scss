@@ -61,6 +61,14 @@
                     }
                 }
             }
+            .psc__extra-margin {
+                @media(min-width: $medium-screen) {
+                    margin-bottom: 35px;
+                }
+                @media(min-width: 1039px) {
+                    margin-bottom: 18px;
+                }
+            }
         }
     }
 }

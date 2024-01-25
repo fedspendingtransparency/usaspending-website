@@ -133,6 +133,7 @@ const WordOfTheDay = () => {
 
     const readMoreAction = () => {
         Analytics.event({
+            event: 'homepage-word-of-the-day',
             category: 'Homepage',
             action: 'Link',
             label: 'word of the day'
