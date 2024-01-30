@@ -31,6 +31,7 @@ const propTypes = {
     hash: PropTypes.string
 };
 
+// comment here
 const slug = 'search/';
 const emailSubject = 'Award Search results on USAspending.gov';
 
