@@ -63,6 +63,7 @@ const KeywordContainer = (props) => {
         history.replace(`/keyword_search/${slug}`);
 
         Analytics.event({
+            event: 'keyword',
             category: 'Keyword Search - Keyword',
             action: keywordParam
         });

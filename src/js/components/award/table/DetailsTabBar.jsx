@@ -22,6 +22,7 @@ export default class DetailsTabBar extends React.Component {
             const onClick = tab.internal === 'subaward'
                 ? () => {
                     Analytics.event({
+                        event: 'award_history_table_tab',
                         category: 'Award Page',
                         action: 'Subaward Table',
                         label: `${this.props.awardId}`

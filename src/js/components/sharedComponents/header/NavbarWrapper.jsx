@@ -36,6 +36,7 @@ const NavbarWrapper = React.memo(() => {
 
     const clickedHeaderLink = (route) => {
         Analytics.event({
+            event: 'Header - Link',
             category: 'Header - Link',
             action: route
         });

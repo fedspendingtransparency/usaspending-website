@@ -23,6 +23,7 @@ const SummaryStats = () => {
     const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
     const trackExplorerLink = () => Analytics.event({
+        event: 'homepage-summary-stats',
         category: 'Homepage',
         action: 'Link',
         label: 'explorer'

@@ -259,6 +259,7 @@ export default class ResultsTableContainer extends React.Component {
             if (this.props.keyword) {
                 this.performSearch(true);
                 Analytics.event({
+                    event: 'keyword',
                     category: 'Keyword Search - Table Tab',
                     action: tab
                 });

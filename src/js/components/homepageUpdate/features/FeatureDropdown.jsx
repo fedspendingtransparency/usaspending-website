@@ -11,6 +11,7 @@ import Analytics from 'helpers/analytics/Analytics';
 
 const clickedHomepageLink = (route) => {
     Analytics.event({
+        event: 'homepage_link_click',
         category: 'Homepage - Link',
         action: route
     });

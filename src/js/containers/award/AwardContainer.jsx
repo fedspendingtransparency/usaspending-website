@@ -133,6 +133,7 @@ const AwardContainer = (props) => {
 
     const fetchAwardDownloadFile = (awardCategory = props.award.category, awardId = props.match.params.awardId) => {
         Analytics.event({
+            event: 'award-profile-download-initiated',
             category: 'Award Profile',
             action: 'Download Initiated',
             label: `Award Id ${awardId}`
