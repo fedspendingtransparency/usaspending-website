@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/13/17
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -77,7 +77,7 @@ const GeoVisualizationSectionContainer = (props) => {
     let apiRequest = null;
     const mapListeners = [];
     // this ref as been added to stop the related useEffect triggering on initial render
-    const useEffectRef = useRef({
+    const useEffectRef = React.useRef({
         visibleEntities: true,
         rawAPIData: true
     });
@@ -162,7 +162,6 @@ const GeoVisualizationSectionContainer = (props) => {
 
         // if no entities are visible, don't make an API request because nothing in the US is visible
         if (visibleEntities.length === 0) {
-            console.log('check');
             setLoading(false);
             setError(false);
             setData({

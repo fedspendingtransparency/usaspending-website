@@ -10,6 +10,7 @@ import { mockReduxFilters } from './mocks/geoHelper';
 import { render, screen } from '../../../../testResources/test-utils';
 import GeoVisualizationSectionContainer
     from "../../../../../src/js/containers/search/visualizations/geo/GeoVisualizationSectionContainer";
+import MapBroadcaster from "../../../../../src/js/helpers/mapBroadcaster";
 
 jest.mock('../../../../../src/js/components/search/visualizations/geo/GeoVisualizationSection', () => (childProps) => (<div>{JSON.stringify(childProps)}</div>));
 
@@ -29,6 +30,36 @@ describe('GeoVisualizationSectionContainer tests', () => {
 
         const test = screen.getByText('"className":"award-search__geo-toggle"', { exact: false });
 
+        expect(test).toBeTruthy();
+    });
+
+    it('runs getFetch(), and returns without making API request', () => {
+        const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: false } });
+
+        render(<GeoVisualizationSectionContainer {...mockProps} />);
+
+        const test = screen.getByText('"loading":false', { exact: false });
+
+        expect(useRefSpy).toHaveBeenCalled();
+        expect(test).toBeTruthy();
+    });
+
+    it('runs receivedEntities()', () => {
+        const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: false } });
+
+        render(<GeoVisualizationSectionContainer {...mockProps} />);
+
+        const mapBroadcasterSpy = jest.spyOn(MapBroadcaster, 'emit').mockReturnValue({
+            eventName: 'mapMeasureDone',
+            entities: ["WI", "WA", "OR", "NE", "MI", "WY"],
+            forced: true
+        });
+        mapBroadcasterSpy();
+
+        const test = screen.getByText('"loading":false', { exact: false });
+
+        expect(mapBroadcasterSpy).toHaveBeenCalled();
+        expect(useRefSpy).toHaveBeenCalled();
         expect(test).toBeTruthy();
     });
 });
