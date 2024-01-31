@@ -6,11 +6,12 @@
  */
 
 import React from 'react';
-import { mockReduxFilters } from './mocks/geoHelper';
-import { render, screen } from '../../../../testResources/test-utils';
+import { mockReduxFilters, mockApiRequestResponse } from './mocks/geoHelper';
+import { render, screen, waitFor, act } from '../../../../testResources/test-utils';
 import GeoVisualizationSectionContainer
     from "../../../../../src/js/containers/search/visualizations/geo/GeoVisualizationSectionContainer";
-import MapBroadcaster from "../../../../../src/js/helpers/mapBroadcaster";
+import mapBroadcaster from "../../../../../src/js/helpers/mapBroadcaster";
+import * as search from "../../../../../src/js/apis/search";
 
 jest.mock('../../../../../src/js/components/search/visualizations/geo/GeoVisualizationSection', () => (childProps) => (<div>{JSON.stringify(childProps)}</div>));
 
@@ -44,22 +45,32 @@ describe('GeoVisualizationSectionContainer tests', () => {
         expect(test).toBeTruthy();
     });
 
-    it('runs receivedEntities()', () => {
+    it('runs receivedEntities()', async () => {
         const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: false } });
+
+        jest.spyOn(search, 'performSpendingByGeographySearch').mockReturnValue({
+            promise: Promise.resolve(mockApiRequestResponse)
+        });
+        jest.mock('../../../../../src/js/helpers/mapBroadcaster', () => {
+            const EventEmitter = require('events');
+            const emitter = new EventEmitter();
+            emitter.send = jest.fn();
+            emitter.setConfig = jest.fn();
+            return emitter;
+        });
 
         render(<GeoVisualizationSectionContainer {...mockProps} />);
 
-        const mapBroadcasterSpy = jest.spyOn(MapBroadcaster, 'emit').mockReturnValue({
-            eventName: 'mapMeasureDone',
-            entities: ["WI", "WA", "OR", "NE", "MI", "WY"],
-            forced: true
+        act(() => {
+            mapBroadcaster.emit('mapMeasureDone', ["WI", "WA", "OR"], true);
         });
-        mapBroadcasterSpy();
 
-        const test = screen.getByText('"loading":false', { exact: false });
+        await waitFor(() => {
+            const test = screen.getByText('"locations":["WA","OR","WI"]', { exact: false });
 
-        expect(mapBroadcasterSpy).toHaveBeenCalled();
+            expect(test).toBeTruthy();
+        });
+
         expect(useRefSpy).toHaveBeenCalled();
-        expect(test).toBeTruthy();
     });
 });
