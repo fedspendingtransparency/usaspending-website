@@ -25,6 +25,10 @@ const mockProps = {
     className: 'award-search__geo-toggle'
 };
 
+beforeEach(() => {
+    jest.resetAllMocks();
+});
+
 describe('GeoVisualizationSectionContainer tests', () => {
     it('renders the container', () => {
         render(<GeoVisualizationSectionContainer {...mockProps} />);
@@ -45,7 +49,7 @@ describe('GeoVisualizationSectionContainer tests', () => {
         expect(test).toBeTruthy();
     });
 
-    it('runs receivedEntities()', async () => {
+    it('runs receivedEntities() and getFetch() with proper response', async () => {
         const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: false } });
 
         jest.spyOn(search, 'performSpendingByGeographySearch').mockReturnValue({
@@ -72,5 +76,41 @@ describe('GeoVisualizationSectionContainer tests', () => {
         });
 
         expect(useRefSpy).toHaveBeenCalled();
+    });
+
+    it('runs receivedEntities() and getFetch() with error response', async () => {
+        const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: false } });
+        const consoleSpy = jest.spyOn(console, 'log');
+
+        jest.spyOn(search, 'performSpendingByGeographySearch').mockReturnValue({
+            promise: Promise.resolve({
+                data: {
+                    status: 'failed',
+                    message: 'test error message'
+                }
+            })
+        });
+        jest.mock('../../../../../src/js/helpers/mapBroadcaster', () => {
+            const EventEmitter = require('events');
+            const emitter = new EventEmitter();
+            emitter.send = jest.fn();
+            emitter.setConfig = jest.fn();
+            return emitter;
+        });
+
+        render(<GeoVisualizationSectionContainer {...mockProps} />);
+
+        act(() => {
+            mapBroadcaster.emit('mapMeasureDone', ["WI", "WA", "OR"], true);
+        });
+
+        await waitFor(() => {
+            const test = screen.getByText('"error":true', { exact: false });
+
+            expect(test).toBeTruthy();
+        });
+
+        expect(useRefSpy).toHaveBeenCalled();
+        expect(consoleSpy).toHaveBeenCalled();
     });
 });
