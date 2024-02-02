@@ -1,7 +1,7 @@
 .download-center {
     @import "./archiveInfoBox";
     .archive-info {
-        margin-top: rem(30);
+        margin: rem(30) 0;
         @include media($medium-screen) {
             margin: rem(30) rem(20) rem(30) rem(30);
         }
