@@ -19,7 +19,6 @@ import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContaine
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
-import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 const propTypes = {
     dataType: PropTypes.string,
@@ -109,11 +108,6 @@ export default class BulkDownloadPage extends React.Component {
                 metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
                 <main id="main-content">
                     <div className="bulk-download">
-                        <div className="bulk-download__sidebar">
-                            <BulkDownloadSidebar
-                                dataTypes={this.props.dataTypes}
-                                active={this.props.dataType} />
-                        </div>
                         <div className="bulk-download__data">
                             {downloadDataContent}
                         </div>

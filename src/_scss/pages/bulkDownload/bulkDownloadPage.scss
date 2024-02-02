@@ -16,20 +16,6 @@
             margin-right: 0 !important;
             width: 76% !important;
         }
-        .bulk-download__sidebar {
-            @import "./sidebar/sidebar";
-            @include grid-column(16);
-            @include media($medium-screen) {
-                @include grid-column(4);
-                margin-left: 0 !important;
-            }
-            .api-info {
-                padding: rem(30);
-                h5 {
-                    margin: 0;
-                }
-            }
-        }
 
         .bulk-download__data {
             @import "downloadData";
