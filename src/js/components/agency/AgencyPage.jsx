@@ -28,6 +28,7 @@ import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
 import StatusOfFunds from './statusOfFunds/StatusOfFunds';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
+import TitleBarFilter from '../sharedComponents/dropdowns/TitleBarFilter';
 
 require('pages/agency/index.scss');
 
@@ -178,6 +179,7 @@ export const AgencyProfileV2 = ({
             jumpToSection={jumpToSection}
             activeSection={activeSection}
             toolBarComponents={[
+                <TitleBarFilter size="sm" buttonText="TEXT" leftIcon="calendar-alt" enabled />,
                 <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
