@@ -8,13 +8,17 @@
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
         padding:  0;
-        @media(min-width: $medium-screen) {
-            display: flex;
-        }
+
         @media(max-width: $medium-screen) {
             margin-left: 0 !important;
             margin-right: 0 !important;
             width: 76% !important;
+        }
+
+        @include media($large-screen) {
+            width: 75%;
+            max-width: rem(975);
+            margin: auto;
         }
 
         .bulk-download__data {
