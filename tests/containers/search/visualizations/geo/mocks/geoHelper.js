@@ -1,3 +1,4 @@
+import { Set } from 'immutable';
 import { geo } from '../../mockVisualizations';
 
 // Fetch Transactions Total for Geo
@@ -14,7 +15,7 @@ export const performSpendingByGeographySearch = () => (
     }
 );
 
-export const mockApiRequestResponse = {
+export const mockApiRequestResponse = [{
     data: {
         scope: 'place_of_performance',
         geo_layer: 'state',
@@ -88,51 +89,120 @@ export const mockApiRequestResponse = {
         data: '{\'scope\':\'place_of_performance\',\'geo_layer\':\'state\',\'geo_layer_filters\':[\'WI\',\'WA\',\'OR\'],\'filters\':{\'time_period\':[{\'start_date\':\'2023-10-01\',\'end_date\':\'2024-09-30\'}]},\'subawards\':false,\'auditTrail\':\'Map Visualization\'}'
     },
     request: {}
-};
+}, {
+    scope: "place_of_performance",
+    geo_layer: "state",
+    results: [
+        {
+            shape_code: "MO",
+            display_name: "Missouri",
+            aggregated_amount: 21934426457.11,
+            population: 6154913,
+            per_capita: 3563.73
+        },
+        {
+            shape_code: "KS",
+            display_name: "Kansas",
+            aggregated_amount: 7039995133.96,
+            population: 2937880,
+            per_capita: 2396.28
+        },
+        {
+            shape_code: "OK",
+            display_name: "Oklahoma",
+            aggregated_amount: 12702545145.61,
+            population: 3959353,
+            per_capita: 3208.24
+        }
+    ],
+    messages: [
+        "For searches, time period start and end dates are currently limited to an earliest date of 2007-10-01.  For data going back to 2000-10-01, use either the Custom Award Download feature on the website or one of our download or bulk_download API endpoints as listed on https://api.usaspending.gov/docs/endpoints."
+    ]
+}];
 
 export const mockReduxFilters = {
-    keyword: {},
-    defCodes: {
-        require: [],
-        exclude: [],
-        counts: []
-    },
-    pscCodes: {
-        require: [],
-        exclude: [],
-        counts: []
-    },
-    setAside: [],
-    tasCodes: {
-        require: [],
-        exclude: [],
-        counts: []
-    },
-    awardType: [],
-    naicsCodes: {
-        require: [],
-        exclude: [],
-        counts: []
-    },
-    pricingType: [],
-    awardAmounts: {},
-    selectedCFDA: {},
-    timePeriodFY: [
-        2023
-    ],
-    newAwardsOnly: false,
-    recipientType: [],
-    timePeriodEnd: null,
-    extentCompeted: [],
-    timePeriodType: 'fy',
-    timePeriodStart: null,
-    selectedAwardIDs: {},
-    treasuryAccounts: {},
-    selectedLocations: {},
-    selectedRecipients: [],
-    locationDomesticForeign: 'all',
-    selectedFundingAgencies: {},
-    recipientDomesticForeign: 'all',
-    selectedAwardingAgencies: {},
-    selectedRecipientLocations: {}
+    filters: {
+        awardAmounts: Set([]),
+        awardType: Set([]),
+        defCodes: Set([
+            ['require', []],
+            ['exclude', []],
+            ['counts', []]
+        ]),
+        extentCompeted: Set([]),
+        keyword: Set([]),
+        locationDomesticForeign: 'all',
+        naicsCodes: Set([
+            ['require', []],
+            ['exclude', []],
+            ['counts', []]
+        ]),
+        newAwardsOnly: false,
+        pscCodes: Set([
+            ['require', []],
+            ['exclude', []],
+            ['counts', []]
+        ]),
+        pricingType: Set([]),
+        recipientDomesticForeign: 'all',
+        recipientType: Set([]),
+        selectedAwardIDs: Set([]),
+        selectedAwardingAgencies: Set([]),
+        selectedCFDA: Set([]),
+        selectedFundingAgencies: Set([]),
+        selectedLocations: {
+            USA_WY: {
+                identifier: "USA_WY",
+                filter: {
+                    country: "USA",
+                    state: "WY"
+                },
+                display: {
+                    entity: "State",
+                    standalone: "Wyoming",
+                    title: "Wyoming"
+                }
+            },
+            USA_WI: {
+                identifier: "USA_WI",
+                filter: {
+                    country: "USA",
+                    state: "WI"
+                },
+                display: {
+                    entity: "State",
+                    standalone: "Wisconsin",
+                    title: "Wisconsin"
+                }
+            },
+            USA_OR: {
+                identifier: "USA_OR",
+                filter: {
+                    country: "USA",
+                    state: "OR"
+                },
+                display: {
+                    entity: "State",
+                    standalone: "Oregon",
+                    title: "Oregon"
+                }
+            }
+        },
+        selectedRecipientLocations: Set([]),
+        selectedRecipients: Set([]),
+        setAside: Set([]),
+        tasCodes: Set([
+            ['require', []],
+            ['exclude', []],
+            ['counts', []]
+        ]),
+        timePeriodEnd: null,
+        timePeriodFY: Set([
+            2023
+        ]),
+        timePeriodStart: null,
+        timePeriodType: 'fy',
+        treasuryAccounts: Set([])
+    }
 };
+

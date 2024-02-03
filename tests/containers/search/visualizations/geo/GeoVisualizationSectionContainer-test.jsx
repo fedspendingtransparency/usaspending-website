@@ -6,13 +6,20 @@
  */
 
 import React from 'react';
+import { createStore } from 'redux';
+import { Provider } from "react-redux";
+import { Set } from 'immutable';
+
 import { mockReduxFilters, mockApiRequestResponse } from './mocks/geoHelper';
 import { render, screen, waitFor, act } from '../../../../testResources/test-utils';
 import GeoVisualizationSectionContainer
     from "../../../../../src/js/containers/search/visualizations/geo/GeoVisualizationSectionContainer";
 import mapBroadcaster from "../../../../../src/js/helpers/mapBroadcaster";
 import * as search from "../../../../../src/js/apis/search";
+import appliedFiltersReducer from "../../../../../src/js/redux/reducers/search/appliedFiltersReducer";
 
+// mocking the child component to stringify the props being passed down.
+// This allows us to search the string for proper props
 jest.mock('../../../../../src/js/components/search/visualizations/geo/GeoVisualizationSection', () => (childProps) => (<div>{JSON.stringify(childProps)}</div>));
 
 const mockProps = {
@@ -21,7 +28,7 @@ const mockProps = {
     noApplied: false,
     subaward: false,
     mapLegendToggle: 'totalSpending',
-    updateMapLegendToggle: jest.fn(),
+    updateMapLegendToggle: 'totalSpending',
     className: 'award-search__geo-toggle'
 };
 
@@ -53,7 +60,7 @@ describe('GeoVisualizationSectionContainer tests', () => {
         const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: false } });
 
         jest.spyOn(search, 'performSpendingByGeographySearch').mockReturnValue({
-            promise: Promise.resolve(mockApiRequestResponse)
+            promise: Promise.resolve(mockApiRequestResponse[0])
         });
         jest.mock('../../../../../src/js/helpers/mapBroadcaster', () => {
             const EventEmitter = require('events');
@@ -66,7 +73,7 @@ describe('GeoVisualizationSectionContainer tests', () => {
         render(<GeoVisualizationSectionContainer {...mockProps} />);
 
         act(() => {
-            mapBroadcaster.emit('mapMeasureDone', ["WI", "WA", "OR"], true);
+            mapBroadcaster.emit('mapMeasureDone', ["WI", "WA", "OR"], false);
         });
 
         await waitFor(() => {
@@ -112,5 +119,53 @@ describe('GeoVisualizationSectionContainer tests', () => {
 
         expect(useRefSpy).toHaveBeenCalled();
         expect(consoleSpy).toHaveBeenCalled();
+    });
+
+    it('runs compareEntities()', async () => {
+        const mockRe = {
+            appliedFilters: {
+                filters: {
+                    ...mockReduxFilters.filters,
+                    selectedLocations: Set([{
+                        filter: {
+                            state: true
+                        }
+                    }]),
+                    selectedRecipientLocations: Set([])
+                }
+            },
+            searchView: {
+                subAward: false
+            }
+        };
+        const mockStore = createStore(appliedFiltersReducer, mockRe);
+
+        const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: false } });
+
+        jest.spyOn(search, 'performSpendingByGeographySearch')
+            .mockReturnValue({ promise: Promise.resolve(mockApiRequestResponse[0]) });
+
+        jest.mock('../../../../../src/js/helpers/mapBroadcaster', () => {
+            const EventEmitter = require('events');
+            const emitter = new EventEmitter();
+            emitter.send = jest.fn();
+            emitter.setConfig = jest.fn();
+            return emitter;
+        });
+
+        render((
+            <Provider store={mockStore}><GeoVisualizationSectionContainer {...mockProps} /></Provider>
+        ));
+
+        act(() => {
+            mapBroadcaster.emit('mapMeasureDone', ["WI", "WA", "OR"], false);
+        });
+
+        await waitFor(() => {
+            const testFirst = screen.getByText('"locations":["WA","OR","WI"]', { exact: false });
+            expect(testFirst).toBeTruthy();
+        });
+
+        expect(useRefSpy).toHaveBeenCalled();
     });
 });
