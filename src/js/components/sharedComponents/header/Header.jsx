@@ -4,11 +4,8 @@ import PropTypes from 'prop-types';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NavbarWrapper from './NavbarWrapper';
-import InfoBanner from "./InfoBanner";
 import GovBanner from "./GovBanner";
-import AboutTheDataLink from "../AboutTheDataLink";
 
 export default class Header extends React.Component {
     constructor(props) {
