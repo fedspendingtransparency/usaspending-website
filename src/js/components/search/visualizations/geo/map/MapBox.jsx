@@ -102,8 +102,6 @@ const MapBox = forwardRef((props, ref) => {
 
     const mountMap = () => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
-
-        console.log(props.center);
         map.current = new MapboxGL.Map({
             container: mapDiv.current,
             style: mapStyle,
