@@ -17,6 +17,7 @@ const propTypes = {
 
 const Training = (pageName) => {
     const trackLink = () => Analytics.event({
+        event: 'stay-in-touch',
         category: pageName,
         action: 'Link',
         label: 'learn-more'

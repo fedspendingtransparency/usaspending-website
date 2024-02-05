@@ -54,6 +54,7 @@ export default class ExplorerSidebar extends React.Component {
         // only log analytic event after 10 seconds
         this._queuedAnalyticEvent = window.setTimeout(() => {
             Analytics.event({
+                event: 'spending-explorer-time-period',
                 category: 'Spending Explorer - Time Period',
                 action: `Q${quarter} FY${fiscalYear}`
             });

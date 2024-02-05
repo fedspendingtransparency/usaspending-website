@@ -126,6 +126,7 @@ const AwardSearch = () => {
             });
     };
     const trackClick = (buttonName) => Analytics.event({
+        event: 'homepage_search_award_data_section',
         category: 'Homepage',
         action: 'Link',
         label: `carousel ${buttonName}`

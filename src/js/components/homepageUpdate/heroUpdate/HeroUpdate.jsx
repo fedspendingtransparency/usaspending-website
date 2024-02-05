@@ -18,11 +18,13 @@ const HeroUpdate = () => {
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= mediumScreen);
 
     const trackSearchLink = () => Analytics.event({
+        event: 'homepage_start_searching_awards',
         category: 'Homepage',
         action: 'Link',
         label: 'search'
     });
     const trackAboutLink = () => Analytics.event({
+        event: 'homepage_link',
         category: 'Homepage',
         action: 'Link',
         label: 'about'

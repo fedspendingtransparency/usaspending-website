@@ -19,6 +19,7 @@ const exploreData = [
         buttonLink: '/agency',
         buttonSize: 'sm',
         action: () => Analytics.event({
+            event: 'homepage_explore-the-data',
             category: 'Homepage',
             action: 'Link',
             label: 'explore agency profiles card'
@@ -32,6 +33,7 @@ const exploreData = [
         buttonLink: '/recipient',
         buttonSize: 'sm',
         action: () => Analytics.event({
+            event: 'homepage_explore-the-data',
             category: 'Homepage',
             action: 'Link',
             label: 'view recipient profiles card'
@@ -45,6 +47,7 @@ const exploreData = [
         buttonLink: '/state',
         buttonSize: 'sm',
         action: () => Analytics.event({
+            event: 'homepage_explore-the-data',
             category: 'Homepage',
             action: 'Link',
             label: 'browse state profiles card'
@@ -61,6 +64,7 @@ const accessData = [
         buttonText: 'Go to award data download',
         buttonLink: '/download_center/custom_award_data',
         action: () => Analytics.event({
+            event: 'homepage_explore-the-data',
             category: 'Homepage',
             action: 'Link',
             label: 'custom award data download card'
@@ -74,6 +78,7 @@ const accessData = [
         buttonLink: '/download_center/custom_account_data',
         buttonSize: 'sm',
         action: () => Analytics.event({
+            event: 'homepage_explore-the-data',
             category: 'Homepage',
             action: 'Link',
             label: 'account data download'
@@ -87,6 +92,7 @@ const accessData = [
         buttonLink: 'https://api.usaspending.gov/docs/endpoints',
         govLink: true,
         action: () => Analytics.event({
+            event: 'homepage_explore-the-data',
             category: 'Homepage',
             action: 'Link',
             label: 'view api endpoints'

@@ -42,10 +42,9 @@ const Analytics = {
                 event_nonInteraction: args.nonInteraction || undefined
             });
         }
-
         this._execute(
             'send',
-            'event',
+            args.event || 'event',
             `${this._prefix}${args.category}`,
             args.action,
             args.label || undefined,
