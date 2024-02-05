@@ -17,6 +17,7 @@ const cardObjects = [
         buttonText: 'Go to Award Search',
         buttonLink: '/search',
         action: () => Analytics.event({
+            event: 'homepage_ready-to-get-started',
             category: 'Homepage',
             action: 'Link',
             label: 'award search card'
@@ -31,6 +32,7 @@ const cardObjects = [
         buttonText: 'Dive into Spending Explorer',
         buttonLink: '/explorer',
         action: () => Analytics.event({
+            event: 'homepage_ready-to-get-started',
             category: 'Homepage',
             action: 'Link',
             label: 'spending explorer card'
@@ -45,6 +47,7 @@ const cardObjects = [
         buttonText: 'Browse Recipient Profiles',
         buttonLink: '/recipient',
         action: () => Analytics.event({
+            event: 'homepage_ready-to-get-started',
             category: 'Homepage',
             action: 'Link',
             label: 'spending profiles card'
@@ -59,6 +62,7 @@ const cardObjects = [
         buttonText: 'Read about the Data Sources',
         buttonLink: '/data-sources',
         action: () => Analytics.event({
+            event: 'homepage_ready-to-get-started',
             category: 'Homepage',
             action: 'Link',
             label: 'resources card'

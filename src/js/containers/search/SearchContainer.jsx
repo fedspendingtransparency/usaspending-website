@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { Redirect, useLocation, useParams } from 'react-router-dom';
 
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
@@ -72,6 +73,7 @@ export const parseRemoteFilters = (data) => {
 
 const SearchContainer = ({ history }) => {
     const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
+    const query = useQueryParams();
 
     const dispatch = useDispatch();
     const {
@@ -207,9 +209,10 @@ const SearchContainer = ({ history }) => {
         request.current.promise
             .then((res) => {
                 // update the URL with the received hash
+                const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
                 history.replace({
                     pathname: `/search/`,
-                    search: `?${new URLSearchParams({ hash: res.data.hash }).toString()}`
+                    search: getQueryParamString(newQueryParams)
                 });
                 setGenerateHashInFlight(false);
             })

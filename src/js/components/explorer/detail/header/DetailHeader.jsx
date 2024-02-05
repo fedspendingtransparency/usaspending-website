@@ -35,6 +35,7 @@ const propTypes = {
 
 const exitExplorer = (target) => {
     Analytics.event({
+        event: 'Spending Explorer - Award Click Exit',
         category: 'Spending Explorer - Exit',
         action: target
     });

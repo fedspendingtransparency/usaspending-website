@@ -24,12 +24,11 @@
   @include align-self(center);
   margin-bottom: rem(20);
   @import './_subawardToggle';
-  @media(min-width: $tablet-screen) {
+  @media(min-width: $medium-screen) {
     display: none;
   }
 
   .button-type__text-right-icon-light {
-    padding-left: 0;
     margin: 0 0 20px 0;
     padding: 0;
   }

@@ -1,7 +1,7 @@
 .mobile-search-sidebar {
     @import "./_sidebarTransitions";
 
-    z-index: $z-mobile-filter;
+    z-index: $z-header;
     @include media($medium-screen) {
         display: none;
     }

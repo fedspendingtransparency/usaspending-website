@@ -1,11 +1,3 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFacebookSquare,
-    faLinkedin,
-    faTwitter,
-    faRedditSquare
-} from "@fortawesome/free-brands-svg-icons";
 import Analytics from 'helpers/analytics/Analytics';
 
 export const socialUrls = {
@@ -22,31 +14,41 @@ const openShareWindow = (url) => {
 const handleShareClickFacebook = (url) => {
     const finalUrl = `${socialUrls.facebook}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
-    Analytics.event({ category: `${url}`, action: 'share link click', label: 'facebook' });
+    Analytics.event({
+        event: 'Social Share Facebook', category: `${url}`, action: 'share link click', label: 'facebook'
+    });
 };
 
 const handleShareClickTwitter = (url) => {
     const finalUrl = `${socialUrls.twitter}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
-    Analytics.event({ category: `${url}`, action: 'share link click', label: 'twitter' });
+    Analytics.event({
+        event: 'Social Share Twitter', category: `${url}`, action: 'share link click', label: 'twitter'
+    });
 };
 
 const handleShareClickLinkedin = (url) => {
     const finalUrl = `${socialUrls.linkedin}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
-    Analytics.event({ category: `${url}`, action: 'share link click', label: 'linkedIn' });
+    Analytics.event({
+        event: 'Social Share LinkedIn', category: `${url}`, action: 'share link click', label: 'linkedIn'
+    });
 };
 
 const handleShareClickReddit = (url) => {
     const finalUrl = `${socialUrls.reddit}${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
-    Analytics.event({ category: `${url}`, action: 'share link click', label: 'reddit' });
+    Analytics.event({
+        event: 'Social Share Reddit', category: `${url}`, action: 'share link click', label: 'reddit'
+    });
 };
 
 const handleShareClickEmail = (subject, body) => {
     const finalUrl = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = finalUrl;
-    Analytics.event({ category: `${subject}`, action: 'share link click', label: 'email' });
+    Analytics.event({
+        event: 'Social Share Email', category: `${subject}`, action: 'share link click', label: 'email'
+    });
 };
 
 export const getBaseUrl = (slug) => `https://www.usaspending.gov/${slug}`;
@@ -59,7 +61,9 @@ const handlersBySocialMedium = {
         handleShareClickEmail(subject, body);
     },
     linkedin: (url) => handleShareClickLinkedin(url),
-    copy: (slug) => Analytics.event({ category: slug, action: 'copy link', label: `${getBaseUrl(slug)}` })
+    copy: (slug) => Analytics.event({
+        event: 'Social Share Copy', category: slug, action: 'copy link', label: `${getBaseUrl(slug)}`
+    })
 };
 
 export const getSocialShareFn = (socialMedium, url) => {
@@ -86,23 +90,8 @@ export const handleShareOptionClick = (name, url, emailArgs) => {
     }
     else if (name !== 'copy') {
         fn(url);
-    } else {
+    }
+    else {
         fn();
     }
 };
-
-const GlossaryDropdownOption = ({ icon, title }) => (
-    <>
-        <FontAwesomeIcon icon={icon} color="#555" size="sm" />
-        <span>{title}</span>
-    </>
-);
-
-export const socialShareOptions = [
-    { component: <GlossaryDropdownOption icon="link" title="Copy link" />, name: `copy` },
-    { component: <GlossaryDropdownOption icon="envelope" title="Email" />, name: 'email' },
-    { component: <GlossaryDropdownOption icon={faTwitter} title="Twitter" />, name: 'twitter' },
-    { component: <GlossaryDropdownOption icon={faFacebookSquare} title="Facebook" />, name: 'facebook' },
-    { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" />, name: 'linkedin' },
-    { component: <GlossaryDropdownOption icon={faRedditSquare} title="Reddit" />, name: 'reddit' }
-];

@@ -19,6 +19,7 @@ const propTypes = {
 export default class GlossarySearchResults extends React.Component {
     static logGlossaryTermEvent(term) {
         Analytics.event({
+            event: 'glossary-link',
             category: 'Glossary',
             action: 'Clicked Glossary Term',
             label: term

@@ -3,64 +3,55 @@
  * 02/18/2021
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { ShareIcon } from 'data-transparency-ui';
 
 import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-import { createJumpToSectionForSidebar } from 'helpers/covid19Helper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 
-const sections = [
-    {
-        label: 'Using this Table',
-        section: 'using_this_table',
-        show: true
-    },
-    {
-        label: 'Percent of Total Federal Budget',
-        section: 'percent_of_total',
-        show: true
-    },
-    {
-        label: 'Most Recent Update',
-        section: 'most_recent_update',
-        show: true
-    },
-    {
-        label: 'Number of TASs Missing from Account Balance Data',
-        section: 'missing_tas',
-        show: true
-    },
-    {
-        label: 'Reporting Difference in Obligations',
-        section: 'obligations_discrepancies',
-        show: true
-    },
-    {
-        label: 'Number of Unlinked Awards',
-        section: 'unlinked_awards',
-        show: true
-    },
-    {
-        label: 'Agency Comments',
-        section: 'agency_comments',
-        show: true
-    }
-];
+// todo - use these sections when adding inPageNav to this page
+// const sections = [
+//     {
+//         label: 'Using this Table',
+//         section: 'using_this_table',
+//         show: true
+//     },
+//     {
+//         label: 'Percent of Total Federal Budget',
+//         section: 'percent_of_total',
+//         show: true
+//     },
+//     {
+//         label: 'Most Recent Update',
+//         section: 'most_recent_update',
+//         show: true
+//     },
+//     {
+//         label: 'Number of TASs Missing from Account Balance Data',
+//         section: 'missing_tas',
+//         show: true
+//     },
+//     {
+//         label: 'Reporting Difference in Obligations',
+//         section: 'obligations_discrepancies',
+//         show: true
+//     },
+//     {
+//         label: 'Number of Unlinked Awards',
+//         section: 'unlinked_awards',
+//         show: true
+//     },
+//     {
+//         label: 'Agency Comments',
+//         section: 'agency_comments',
+//         show: true
+//     }
+// ];
 
 require('pages/data-sources/index.scss');
-
-const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.reduce((acc, obj) => ({
-    ...acc,
-    [obj.section]: { title: obj.label }
-}), {}));
 
 const emailData = {
     subject: "Agency Submission Statistics: Data Sources and Methodology",
@@ -68,16 +59,6 @@ const emailData = {
 };
 
 const DataSourcesAndMethodologiesPage = () => {
-    const [activeSection, setActiveSection] = useState(sections[0].section);
-
-    const jumpToDataSourcesSection = (section) => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const matchedSection = sections.find((obj) => obj.section === section);
-        jumpToSection(section);
-        setActiveSection(matchedSection.section);
-    };
-
     const handleShare = (name) => {
         handleShareOptionClick(name, `submission-statistics/data-sources`, emailData);
     };
@@ -95,17 +76,6 @@ const DataSourcesAndMethodologiesPage = () => {
                     onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
-                <div className="sidebar usda__flex-col">
-                    <Sidebar
-                        isGoingToBeSticky
-                        pageName="data-sources"
-                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
-                        verticalSectionOffset={stickyHeaderHeight}
-                        active={activeSection}
-                        jumpToSection={jumpToDataSourcesSection}
-                        detectActiveSection={setActiveSection}
-                        sections={sections} />
-                </div>
                 <div className="about-content-wrapper">
                     <div className="about-content">
                         <div className="about-padded-content">

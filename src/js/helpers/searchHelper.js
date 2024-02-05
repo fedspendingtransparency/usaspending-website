@@ -12,13 +12,13 @@ import { apiRequest } from './apiRequest';
 
 // Agency search for autocomplete
 export const fetchAwardingAgencies = (req) => apiRequest({
-    url: 'v2/autocomplete/awarding_agency',
+    url: 'v2/autocomplete/awarding_agency/',
     method: 'post',
     data: req
 });
 
 export const fetchFundingAgencies = (req) => apiRequest({
-    url: 'v2/autocomplete/funding_agency',
+    url: 'v2/autocomplete/funding_agency/',
     method: 'post',
     data: req
 });

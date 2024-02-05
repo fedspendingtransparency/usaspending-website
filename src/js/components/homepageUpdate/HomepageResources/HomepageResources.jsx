@@ -32,6 +32,7 @@ const HomepageResources = () => {
             ),
             buttonLink: '/federal-spending-guide',
             action: () => Analytics.event({
+                event: 'homepage_find-resources',
                 category: 'Homepage',
                 action: 'Link',
                 label: 'learn how to use the data card'
@@ -53,6 +54,7 @@ const HomepageResources = () => {
             ),
             buttonLink: '/data-dictionary',
             action: () => Analytics.event({
+                event: 'homepage_find-resources',
                 category: 'Homepage',
                 action: 'Link',
                 label: 'data dictionary card'
@@ -74,6 +76,7 @@ const HomepageResources = () => {
             ),
             action: () => {
                 Analytics.event({
+                    event: 'homepage_find-resources',
                     category: 'Homepage',
                     action: 'Link',
                     label: 'data model card'
@@ -101,6 +104,7 @@ const HomepageResources = () => {
             ),
             action: () => {
                 Analytics.event({
+                    event: 'homepage_find-resources',
                     category: 'Homepage',
                     action: 'Link',
                     label: 'glossary card'
