@@ -4,7 +4,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { scrollToY } from '../../helpers/scrollToHelper';
 import Accordion from "../sharedComponents/accordion/Accordion";
 import GlossaryLink from '../sharedComponents/GlossaryLink';
 
@@ -14,7 +13,11 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         if (!sectionDom) {
             return;
         }
-        scrollToY(sectionDom.offsetTop + 585, 700);
+        window.scrollTo({
+            top: sectionDom.offsetTop + 585,
+            left: 0,
+            behavior: 'smooth'
+        });
     };
 
     const awardAccountSpendingComparisonQuestions = [{
