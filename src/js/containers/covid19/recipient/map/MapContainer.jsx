@@ -291,6 +291,11 @@ export class MapContainer extends React.Component {
             .then((res) => {
                 this.apiRequest = null;
                 this.setState({ rawAPIData: res.data.results }, this.parseData);
+
+                this.setState({
+                    loading: false,
+                    error: false
+                });
             })
             .catch((err) => {
                 if (!isCancel(err)) {

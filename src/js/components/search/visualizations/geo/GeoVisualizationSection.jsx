@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
+import { isCancel } from "axios";
 
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
@@ -21,7 +22,6 @@ import MapMessage from './MapMessage';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../sharedComponents/ReadMore';
 import { performCountryGeocode } from "../../../../helpers/mapHelper";
-import {isCancel} from "axios";
 
 const propTypes = {
     scope: PropTypes.string,
@@ -61,7 +61,6 @@ export default class GeoVisualizationSection extends React.Component {
         this.hideTooltip = this.hideTooltip.bind(this);
         this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
         this.handleUpdateBody = this.handleUpdateBody.bind(this);
-        // this.calculateCenterPoint = this.calculateCenterPoint.bind(this);
     }
 
     componentDidMount() {
@@ -80,38 +79,7 @@ export default class GeoVisualizationSection extends React.Component {
             this.handleUpdateBody();
         }
 
-        // console.log("calculating center point1");
-        //
-        //
-        // if (this.props.defaultLocation?.data?.country) {
-        //     this.setState({ defaultLocation: this.props.defaultLocation }, () => {
-        //         // calculate the center of the default location
-        //         console.log(this.props.defaultLocation.data.country)
-        //         this.calculateCenterPoint(this.props.defaultLocation.data.country);
-        //     });
-        // } else {
-        //     if (this.props.defaultLocation !== prevProps.defaultLocation) {
-        //         this.setState({centerPoint: [-95.569430, 38.852892]});
-        //     }
-        // }
     }
-
-    // calculateCenterPoint(location) {
-    //     console.log("calculating center point2");
-    //     this.locationRequest = performCountryGeocode(location);
-    //
-    //     this.locationRequest.promise
-    //         .then((res) => {
-    //             console.log(res.data?.features[0]?.center);
-    //             this.setState({ centerPoint: res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892] });
-    //         })
-    //         .catch((err) => {
-    //             if (!isCancel(err)) {
-    //                 console.log(err);
-    //                 this.locationRequest = null;
-    //             }
-    //         });
-    // };
 
     showTooltip(geoId, position) {
         // convert state code to full string name
@@ -324,7 +292,7 @@ export default class GeoVisualizationSection extends React.Component {
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
                     showLayerToggle
-                    center={[19.21, -10.98]}
+                    center={this.state.center}
                     className={this.props.className}
                     mapLegendToggle={this.props.mapLegendToggle}
                     updateMapLegendToggle={this.props.updateMapLegendToggle} >

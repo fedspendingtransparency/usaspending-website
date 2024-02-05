@@ -23,6 +23,7 @@ import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { parseRows } from 'helpers/search/visualizations/geoHelper';
+import {performCountryGeocode} from "../../../../helpers/mapHelper";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -143,7 +144,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loading: false,
             error: false
-        });
+        }, () => { console.log(this.state.data); });
     }
 
     mapLoaded() {
@@ -261,6 +262,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 this.apiRequest = null;
                 const parsedData = parseRows(res.data.results, apiParams);
                 this.setState({ rawAPIData: parsedData }, this.setParsedData);
+
+                this.setState({
+                    loading: false,
+                    error: false
+                });
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -290,6 +296,27 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     };
 
+    calculateCenterPoint(location) {
+        console.log("calculating center point2, location: ", location);
+        if (location) {
+            this.locationRequest = performCountryGeocode(location);
+
+            this.locationRequest.promise
+                .then((res) => {
+                    console.log(res.data?.features[0]?.center);
+                    this.setState({ center: res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892] });
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(err);
+                        this.locationRequest = null;
+                    }
+                });
+        } else {
+            this.setState({ center: [-95.569430, 38.852892] });
+        }
+    }
+
     /**
      * valuesLocationsLabelsFromAPIData
      * - creates locations, values, and labels for the map visualization from api data
@@ -310,6 +337,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 };
             }
         });
+
+        console.log(values, locations, labels);
+        this.calculateCenterPoint(locations[0]);
+
         return { values, locations, labels };
     };
 
@@ -359,7 +390,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             else if (onlyObject.country !== "USA") {
                 // TODO - Commenting out this line to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                // this.changeMapLayer("country");
+                this.changeMapLayer("country");
             }
             // defaults to state
         }
@@ -403,7 +434,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             if (numCountries === onlyObject.size) { // only countries
                 // TODO - Changing this line to state to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                this.changeMapLayer("state");
+                this.changeMapLayer("country");
             }
             else if (numStates === onlyObject.size) { // only states
                 this.changeMapLayer("state");
@@ -422,7 +453,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             else if (international === true) {
                 // TODO - Changing this line to state to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                this.changeMapLayer("state");
+                this.changeMapLayer("country");
             }
         }
         else if (this.props.reduxFilters[selectedLocationByType].size === 0) {
