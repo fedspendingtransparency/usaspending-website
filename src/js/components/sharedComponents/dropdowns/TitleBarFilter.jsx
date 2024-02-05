@@ -36,7 +36,7 @@ const defaultSort = (a, b, selectedOption) => {
 };
 
 export const TitleBarFilter = ({
-    size, label, buttonText, leftIcon, enabled, sortFn = defaultSort, selectedOption, className, id, options
+    size, label, buttonText, leftIcon, enabled, sortFn = defaultSort, selectedOption, id, options
 }) => {
     const pickerRef = useRef(null);
     const buttonRef = useRef(null);
