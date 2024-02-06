@@ -80,6 +80,7 @@ export default class BulkDownloadPage extends React.Component {
     }
 
     render() {
+        let awardDataArchiveClass = '';
         let downloadDataContent = (
             <AwardDataContainer
                 clickedDownload={this.clickedDownload} />
@@ -88,6 +89,7 @@ export default class BulkDownloadPage extends React.Component {
             downloadDataContent = (
                 <AwardDataArchiveContainer />
             );
+            awardDataArchiveClass = 'award-data-archive-special-width';
         }
         if (this.props.dataType === 'accounts') {
             downloadDataContent = (
@@ -107,7 +109,7 @@ export default class BulkDownloadPage extends React.Component {
                 title="Download Center"
                 metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
                 <main id="main-content">
-                    <div className="bulk-download">
+                    <div className={`bulk-download ${awardDataArchiveClass}`}>
                         <div className="bulk-download__data">
                             {downloadDataContent}
                         </div>

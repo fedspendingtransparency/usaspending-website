@@ -19,6 +19,9 @@
         @include media($medium-screen) {
             max-width: rem(600);
             margin: auto;
+            &.award-data-archive-special-width {
+                max-width: rem(975);
+            }
         }
 
         .bulk-download__data {
