@@ -379,15 +379,15 @@ export class GeoVisualizationSectionContainer extends React.Component {
         // there is only 1 item, place of performance
         if (this.props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = this.props.reduxFilters[selectedLocationByType].first().filter;
-            console.log('object only', onlyObject);
             if (onlyObject.district_current || onlyObject.district_original) {
                 this.changeMapLayer("congressionalDistrict");
+                this.setState({ center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]) });
             }
             else if (onlyObject.county) {
                 this.changeMapLayer("county");
+                this.setState({ center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]) });
             }
             else if (onlyObject.state) {
-                console.log(stateFIPSByAbbreviation[onlyObject.state]);
                 this.setState({ center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]) });
                 // do not change the map layer, it is already state
             }
