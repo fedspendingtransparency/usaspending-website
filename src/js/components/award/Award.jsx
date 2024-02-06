@@ -9,7 +9,6 @@ import { ShareIcon, DownloadIconButton } from 'data-transparency-ui';
 import { find, startCase } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import Error from 'components/sharedComponents/Error';
@@ -106,7 +105,11 @@ export default class Award extends React.Component {
         }
 
         const sectionTop = sectionDom.offsetTop - 145;
-        scrollToY(sectionTop, 700);
+        window.scrollTo({
+            top: sectionTop,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     renderContent(overview, awardId) {
