@@ -49,6 +49,7 @@ const GeoVisualizationSection = (props) => {
     const [tableTitle, setTableTitle] = useState("");
     const [tablePreview, setTablePreview] = useState("");
     const [expanded, setExpanded] = useState(null);
+    const [center, setCenter] = useState(props.center); // [lng, lat
     const sectionHr = useRef(null);
     const prevProps = usePrevious(props);
 
@@ -119,7 +120,7 @@ const GeoVisualizationSection = (props) => {
     useEffect(() => {
         handleUpdateTitle();
         handleUpdateBody();
-    }, [handleUpdateBody]);
+    }, []);
 
     useEffect(() => {
         if (!expanded || expanded === null) {
@@ -132,8 +133,9 @@ const GeoVisualizationSection = (props) => {
             handleUpdateBody();
         }
 
+        setCenter(props.center);
         console.log(props.center);
-    }, [expanded, handleUpdateBody, props.center, props.subaward]);
+    }, [expanded, props.center, props.subaward]);
 
     const applyLineClamp = (elem) => {
         elem.classList.add("line-clamp");
