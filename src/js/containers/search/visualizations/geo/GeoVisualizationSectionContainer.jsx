@@ -23,7 +23,7 @@ import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { parseRows } from 'helpers/search/visualizations/geoHelper';
-import {performCountryGeocode} from "../../../../helpers/mapHelper";
+import { performCountryGeocode } from "../../../../helpers/mapHelper";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -79,7 +79,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             country_USA_data: null,
             loading: true,
             loadingTiles: true,
-            error: false
+            error: false,
+            center: [-95.569430, 38.852892]
         };
 
         this.apiRequest = null;
@@ -338,8 +339,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
         });
 
-        console.log(values, locations, labels);
-        this.calculateCenterPoint(locations[0]);
+        // console.log(values, locations, labels);
+        // this.calculateCenterPoint(locations[0]);
 
         return { values, locations, labels };
     };
@@ -378,6 +379,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         // there is only 1 item, place of performance
         if (this.props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = this.props.reduxFilters[selectedLocationByType].first().filter;
+            console.log('object only', onlyObject);
             if (onlyObject.district_current || onlyObject.district_original) {
                 this.changeMapLayer("congressionalDistrict");
             }
@@ -391,6 +393,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 // TODO - Commenting out this line to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
                 this.changeMapLayer("country");
+                this.calculateCenterPoint(onlyObject.country);
             }
             // defaults to state
         }
