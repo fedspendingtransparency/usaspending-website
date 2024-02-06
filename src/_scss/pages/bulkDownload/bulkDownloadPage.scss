@@ -7,7 +7,7 @@
     .bulk-download {
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
-        padding:  0;
+        padding: 0;
 
         @media(max-width: $medium-screen) {
             margin-left: 0 !important;
@@ -15,9 +15,9 @@
             width: 76% !important;
         }
 
-        @include media($large-screen) {
-            width: $padded-content-width;
-            max-width: $page-content-max-width;
+
+        @include media($medium-screen) {
+            max-width: rem(600);
             margin: auto;
         }
 
@@ -36,6 +36,11 @@
             border-right: 1px solid $color-gray-border;
             border-bottom: 1px solid $color-gray-border;
             padding: rem(30) rem(20);
+
+            @media(min-width: $medium-screen) {
+                margin-left: 0 !important;
+                width: 100% !important;
+            }
         }
     }
 }
