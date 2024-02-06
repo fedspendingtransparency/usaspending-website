@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, isEqual, keyBy } from 'lodash';
+import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
+import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -23,7 +25,6 @@ import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { parseRows } from 'helpers/search/visualizations/geoHelper';
-import { performCountryGeocode } from "../../../../helpers/mapHelper";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -145,7 +146,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loading: false,
             error: false
-        }, () => { console.log(this.state.data); });
+        });
     }
 
     mapLoaded() {
@@ -298,13 +299,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
     };
 
     calculateCenterPoint(location) {
-        console.log("calculating center point2, location: ", location);
+        console.log(location);
+
         if (location) {
             this.locationRequest = performCountryGeocode(location);
 
             this.locationRequest.promise
                 .then((res) => {
-                    console.log(res.data?.features[0]?.center);
+                    console.log(res);
                     this.setState({ center: res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892] });
                 })
                 .catch((err) => {
@@ -313,7 +315,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                         this.locationRequest = null;
                     }
                 });
-        } else {
+        }
+        else {
             this.setState({ center: [-95.569430, 38.852892] });
         }
     }
@@ -338,9 +341,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 };
             }
         });
-
-        // console.log(values, locations, labels);
-        // this.calculateCenterPoint(locations[0]);
 
         return { values, locations, labels };
     };
@@ -387,11 +387,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 this.changeMapLayer("county");
             }
             else if (onlyObject.state) {
-                // do nothing
+                console.log(stateFIPSByAbbreviation[onlyObject.state]);
+                this.setState({ center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]) });
+                // do not change the map layer, it is already state
             }
             else if (onlyObject.country !== "USA") {
                 // TODO - Commenting out this line to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
+                console.log("country");
                 this.changeMapLayer("country");
                 this.calculateCenterPoint(onlyObject.country);
             }

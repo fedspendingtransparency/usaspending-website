@@ -49,7 +49,6 @@ const GeoVisualizationSection = (props) => {
     const [tableTitle, setTableTitle] = useState("");
     const [tablePreview, setTablePreview] = useState("");
     const [expanded, setExpanded] = useState(null);
-    const [center, setCenter] = useState(props.center); // [lng, lat
     const sectionHr = useRef(null);
     const prevProps = usePrevious(props);
 
@@ -132,10 +131,7 @@ const GeoVisualizationSection = (props) => {
             handleUpdateTitle();
             handleUpdateBody();
         }
-
-        setCenter(props.center);
-        console.log(props.center);
-    }, [expanded, props.center, props.subaward]);
+    }, [expanded, props.subaward]);
 
     const applyLineClamp = (elem) => {
         elem.classList.add("line-clamp");
@@ -276,7 +272,7 @@ const GeoVisualizationSection = (props) => {
                 tooltip={GeoVisualizationTooltip}
                 availableLayers={availableLayers}
                 showLayerToggle
-                center={[-63.0818298, 18.1945854999999]}
+                center={props.center}
                 className={props.className}
                 mapLegendToggle={props.mapLegendToggle}
                 updateMapLegendToggle={props.updateMapLegendToggle} >

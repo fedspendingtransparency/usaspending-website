@@ -173,6 +173,12 @@ const MapBox = forwardRef((props, ref) => {
         }
     }, [windowWidth, props.stateProfile, resizeMap, props.stateInfo?.code, mountMap]);
 
+    useEffect(() => {
+        if (map.current) {
+            centerMap(map);
+        }
+    }, [props.center]);
+
     return (
         <div
             className="mapbox-item"
