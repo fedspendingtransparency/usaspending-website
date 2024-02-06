@@ -6,20 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { TooltipWrapper } from 'data-transparency-ui';
-import CovidTooltip from './CovidTooltip';
 
 const propTypes = {
     fy: PropTypes.string
 };
 
-const PageTitle = ({
-    fy
-}) => {
+const PageTitle = () => {
     const {
         name,
-        logo,
-        covidDefCodes
+        logo
     } = useSelector((state) => state.agency.overview);
 
     const image = logo ? (
