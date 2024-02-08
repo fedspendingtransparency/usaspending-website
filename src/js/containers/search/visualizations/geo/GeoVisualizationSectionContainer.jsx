@@ -380,6 +380,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
         if (this.props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = this.props.reduxFilters[selectedLocationByType].first().filter;
             if (onlyObject.district_current || onlyObject.district_original) {
+                console.log("single location selected", this.props.reduxFilters[selectedLocationByType].size === 1);
+
                 this.changeMapLayer("congressionalDistrict");
                 this.setState({
                     center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]),
@@ -496,7 +498,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 mapLegendToggle={this.props.mapLegendToggle}
                 subaward={this.props.subaward}
                 isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                className={this.props.className} />
+                className={this.props.className}
+                singleLocationSelected={this.state.singleLocationSelected} />
         );
     }
 }

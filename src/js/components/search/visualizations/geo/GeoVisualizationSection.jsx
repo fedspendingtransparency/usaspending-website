@@ -117,6 +117,7 @@ const GeoVisualizationSection = (props) => {
     });
 
     useEffect(() => {
+        console.log(props);
         handleUpdateTitle();
         handleUpdateBody();
     }, []);
