@@ -93,6 +93,7 @@ const mapboxSources = {
 
 const MapWrapper = (props) => {
     const mapRef = useRef();
+    const scopeRef = useRef(props.scope);
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
         scale: null,
@@ -230,14 +231,13 @@ const MapWrapper = (props) => {
     };
 
     const prepareLayers = () => new Promise((resolve, reject) => {
-        if (mapReady === false) {
-            console.log('check');
+        if (!mapReady) {
             // something went wrong, the map isn't ready yet
             reject();
         }
 
         const source = mapboxSources[props.scope];
-        if (source === false) {
+        if (!source) {
             reject();
         }
 
@@ -331,11 +331,10 @@ const MapWrapper = (props) => {
     const mapReadyPrep = () => {
         // map has mounted, load the state shapes
         setMapReady(true);
-        prepareMap();
     };
 
     const measureMap = (forced = false) => {
-        // determine which entities (state, counties, etc based on current scope) are in view
+        // determine which entities (state, counties, etc. based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const mapLoaded = mapRef.current.map.current.loaded();
         // wait for the map to load before continuing
@@ -377,6 +376,7 @@ const MapWrapper = (props) => {
 
     const removeChangeListeners = () => {
         // remove the render callbacks
+        // TODO: Not having a map object is causing the app to crash when leaving the map tab
         mapRef.current.map.current.off('moveend', renderCallback);
         mapRef.current.map.current.off('resize', renderCallback);
     };
@@ -509,15 +509,23 @@ const MapWrapper = (props) => {
     });
 
     useEffect(() => {
-        queueMapOperation('displayData', displayData);
-        prepareMap();
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.scope, props.renderHash]);
-
-    useEffect(() => {
-        displayData();
+        if (scopeRef.current !== props.scope) {
+            queueMapOperation('displayData', displayData);
+            prepareMap();
+            scopeRef.current = props.scope;
+        }
+        else {
+            displayData();
+        }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.renderHash]);
+
+    useEffect(() => {
+        if (mapReady) {
+            prepareMap();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [mapReady]);
 
     return (
         <div className="map-container">
