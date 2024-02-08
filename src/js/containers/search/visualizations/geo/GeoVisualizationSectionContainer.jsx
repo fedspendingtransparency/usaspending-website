@@ -264,7 +264,7 @@ const GeoVisualizationSectionContainer = (props) => {
                 .then((res) => {
                     console.log(res);
                     setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892]);
-                    console.log(res.data?.features[0]?.center);
+                    console.log(res.data?.features[0]?.center)
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -461,6 +461,12 @@ const GeoVisualizationSectionContainer = (props) => {
         prepareFetch(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, renderHash, loadingTiles]);
+
+    useEffect(() => {
+        if (center) {
+            console.log(center);
+        }
+    }, [center]);
 
     return (
         <GeoVisualizationSection

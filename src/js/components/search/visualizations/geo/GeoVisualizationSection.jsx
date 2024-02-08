@@ -51,6 +51,7 @@ const GeoVisualizationSection = (props) => {
     const [expanded, setExpanded] = useState(null);
     const sectionHr = useRef(null);
     const prevProps = usePrevious(props);
+    const [center, setCenter] = useState(props.center);
 
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
@@ -121,6 +122,11 @@ const GeoVisualizationSection = (props) => {
         handleUpdateTitle();
         handleUpdateBody();
     }, []);
+
+    useEffect(() => {
+        setCenter(props.center);
+        console.log(props.center);
+    }, [props.center]);
 
     useEffect(() => {
         if (!expanded || expanded === null) {
@@ -273,7 +279,7 @@ const GeoVisualizationSection = (props) => {
                 tooltip={GeoVisualizationTooltip}
                 availableLayers={availableLayers}
                 showLayerToggle
-                center={props.center}
+                center={center}
                 className={props.className}
                 mapLegendToggle={props.mapLegendToggle}
                 updateMapLegendToggle={props.updateMapLegendToggle}

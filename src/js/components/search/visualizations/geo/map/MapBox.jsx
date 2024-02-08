@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef } from 'react';
+import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
@@ -33,6 +33,7 @@ const MapBox = forwardRef((props, ref) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
+    const [center, setCenter] = useState(props.center ? props.center : [-95, 37]);
 
     useImperativeHandle(ref, () => ({
         map
@@ -81,12 +82,12 @@ const MapBox = forwardRef((props, ref) => {
     };
 
 
-    const centerMap = (m) => {
+    const centerMap = useCallback((m) => {
         m.current.jumpTo({
             zoom: 4,
-            center: [-95.569430, 38.852892]
+            center
         });
-    };
+    });
 
     const resizeMap = () => {
         if (windowWidth < 768) {
@@ -108,7 +109,7 @@ const MapBox = forwardRef((props, ref) => {
             style: mapStyle,
             logoPosition: 'bottom-right',
             attributionControl: false,
-            center: [-95.569430, 38.852892],
+            center,
             zoom: calculateMapZoom(),
             dragRotate: false // disable 3D view
         });
@@ -167,6 +168,15 @@ const MapBox = forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
+        if (props.center?.length > 0) {
+            setCenter(props.center);
+        } else {
+            setCenter([-95, 37]);
+        }
+        
+    }, [props.center]);
+
+    useEffect(() => {
         console.log("Mapbox center", props.center);
 
         if (map.current) {
@@ -184,7 +194,7 @@ const MapBox = forwardRef((props, ref) => {
         }
 
         console.log(props.center);
-    }, [props.center]);
+    }, [centerMap, props.center]);
 
     return (
         <div

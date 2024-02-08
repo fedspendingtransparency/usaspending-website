@@ -144,9 +144,12 @@ export default class MapWrapper extends Component {
             }
         }
 
-        // if (prevProps.data?.locations !== this.props.data?.locations || prevProps.scope !== this.props.scope) {
-        //     this.reCenterMap(this.props.scope);
-        // }
+        console.log(this.props.singleLocationSelected);
+        console.log(this.props.center);
+
+        if (prevProps.singleLocationSelected !== this.props.singleLocationSelected || prevProps.scope !== this.props.scope) {
+            this.reCenterMap(this.props.scope);
+        }
     }
 
     componentWillUnmount() {
@@ -596,7 +599,7 @@ export default class MapWrapper extends Component {
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
-                    center={this.state.center}
+                    center={this.props.center}
                     mapType={this.props.scope}
                     stateInfo={this.props.stateInfo}
                     stateProfile={this.props.stateProfile}
