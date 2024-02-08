@@ -121,14 +121,15 @@
 
     ul[class^='filter__dropdown-list'] {
         @include unstyled-list;
-        position: absolute;
+        z-index: 50;
         display: block;
-        width: fit-content;
+        position: absolute;
         overflow-y: scroll;
+        transform: translate(1px, 136px);
+        
         .filter__dropdown-list-item {
             .filter__dropdown-item {
                 @include button-unstyled;
-                text-align: left;
                 font-weight: $font-semibold;
                 color: $gray-cool-60;
             }
@@ -140,14 +141,16 @@
         }
     }
     ul[class^='filter__dropdown-list'].enabled {
-        border: solid 2px rgba(251, 252, 253, 0.5); // $gray-cool-1 rgb value
+        background-color: $color-white; 
+        box-shadow: solid 2px rgba(251, 252, 253, 0.5);
     }
     ul[class^='filter__dropdown-list'].not-enabled {
-        border: solid 2px rgba(251, 252, 253, 0.25); // $gray-cool-1 rgb value
+        background-color: $color-white;
+        box-shadow: solid 2px rgba(251, 252, 253, 0.25);
     }
     .filter__dropdown-list-sm {
-        padding-left: 1.5 * $global-padding;
-        padding-right: 1.5 * $global-padding;
+        padding-left:1.5 * $global-padding !important;
+        padding-right: 1.5 * $global-padding !important;
         border-radius: 3px;
         li {
             margin-top: rem(5.5);
@@ -159,8 +162,8 @@
         }
     }
     .filter__dropdown-list-md {
-        padding-left: 2 * $global-padding;
-        padding-right: 2 * $global-padding;
+        padding-left: 2 * $global-padding !important;
+        padding-right: 2 * $global-padding !important;
         border-radius: 4px;
         li {
             margin-top: rem(8);
@@ -172,8 +175,8 @@
         }
     }
     .filter__dropdown-list-lg {
-        padding-left: 3 * $global-padding;
-        padding-right: 3 * $global-padding;
+        padding-left: 3 * $global-padding !important;
+        padding-right: 3 * $global-padding !important;
         border-radius: 6px;
         li {
             margin-top: rem(13);

@@ -1,20 +1,19 @@
 /**
- * TitleBarFilter.jsx
- * Created by Nick Torres 1/31/2024
+ * NewPicker.jsx
+ * Created by Nick Torres 2/7/2024
  */
-import React, { useState, useEffect, useRef } from 'react';
+
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { allFiscalYears, currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from '../../../helpers/fiscalYearHelper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { uniqueId } from 'lodash';
 
 const propTypes = {
     size: PropTypes.oneOf(['sm', 'md', 'lg', 'small', 'medium', 'large']),
     label: PropTypes.string,
-    buttonText: PropTypes.string,
     leftIcon: PropTypes.string,
-    enabled: PropTypes.bool,
     sortFn: PropTypes.func,
+    icon: PropTypes.node,
     selectedOption: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     className: PropTypes.string,
     id: PropTypes.string,
@@ -24,11 +23,9 @@ const propTypes = {
         onClick: PropTypes.func,
         classNames: PropTypes.string
     })),
-    selectedFy: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    earliestFy: PropTypes.number,
-    latestFy: PropTypes.number,
-    handleFyChange: PropTypes.func,
-    dropdownBackgroundColor: PropTypes.string
+    children: PropTypes.node,
+    backgroundColor: PropTypes.string,
+    enabled: PropTypes.bool
 };
 
 const defaultSort = (a, b, selectedOption) => {
@@ -41,26 +38,16 @@ const defaultSort = (a, b, selectedOption) => {
     return 0;
 };
 
-const defaultNumberSort = (a, b) => {
-    if (Number.isInteger(a)) return b - a;
-    return parseInt(b, 10) - parseInt(a, 10);
-};
-
-export const TitleBarFilter = ({
+const NewPicker = ({
     size,
-    label,
-    buttonText,
+    label = '',
+    children,
     leftIcon,
     enabled,
-    sortFn = defaultNumberSort,
-    selectedOption,
-    id,
+    id = '',
     options,
-    selectedFy = 2020,
-    earliestFy = 2017,
-    latestFy,
-    handleFyChange,
-    dropdownBackgroundColor = '#fff'
+    selectedOption,
+    sortFn = defaultSort
 }) => {
     const pickerRef = useRef(null);
     const buttonRef = useRef(null);
@@ -68,42 +55,6 @@ export const TitleBarFilter = ({
     const [isEnabled, setIsEnabled] = useState(enabled || false);
     const fontAwesomeIconId = "usa-dt-picker__button-icon--svg";
 
-    let variation = '';
-    if (size === 'sm' || size === 'small') {
-        variation = '-sm';
-    }
-    else if (size === 'md' || size === 'medium') {
-        variation = '-md';
-    }
-    else if (size === 'lg' || size === 'large') {
-        variation = '-lg';
-    }
-
-    const renderOptions = () => {
-        // override default earliest/latest options
-        if (options?.length) return options?.map((obj) => ({ ...obj, onClick: handleFyChange }));
-        if (latestFy) {
-            return allFiscalYears(earliestFy, latestFy)
-                .map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleFyChange }));
-        }
-        return [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }];
-    };
-
-    const toggleMenu = (e) => {
-        e.preventDefault();
-        if (!expanded) {
-            setExpanded(!expanded);
-        }
-    };
-
-    const enableButton = (e) => {
-        e.preventDefault();
-        if (!isEnabled) {
-            setIsEnabled(!isEnabled);
-        }
-    };
-
-    const handleSort = (a, b) => sortFn(a, b, selectedOption);
     useEffect(() => {
         const closeMenu = (e) => {
             if ((
@@ -124,15 +75,36 @@ export const TitleBarFilter = ({
         };
     }, [expanded, id]);
 
+    const toggleMenu = (e) => {
+        e.preventDefault();
+        if (!expanded) {
+            setExpanded(!expanded);
+        }
+    };
+
+    const handleSort = (a, b) => sortFn(a, b, selectedOption);
+    const enableButton = (e) => {
+        e.preventDefault();
+        if (!isEnabled) {
+            setIsEnabled(!isEnabled);
+        }
+    };
     const createOnClickFn = (cb) => (param) => {
         cb(param);
         setExpanded(false);
     };
 
-    if (options === null) {
-        // eslint-disable-next-line no-param-reassign
-        options = renderOptions(getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear()));
+    let variation = '';
+    if (size === 'sm' || size === 'small') {
+        variation = '-sm';
     }
+    else if (size === 'md' || size === 'medium') {
+        variation = '-md';
+    }
+    else if (size === 'lg' || size === 'large') {
+        variation = '-lg';
+    }
+
 
     return (
         <div className="filter__dropdown-container" ref={pickerRef}>
@@ -145,7 +117,12 @@ export const TitleBarFilter = ({
                 <span className="filter__dropdown-left-icon">
                     <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />
                 </span>
-                <span className="filter__dropdown-button-text">{buttonText}</span>
+                {children ?
+                    <>{ children }</> :
+                    <span className="filter__dropdown-button-text">
+                        {selectedOption}
+                    </span>
+                }
                 <span className="filter__dropdown-chevron">
                     {!expanded && (
                         <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
@@ -155,7 +132,7 @@ export const TitleBarFilter = ({
                     )}
                 </span>
             </button>
-            <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'}`} style={{ backgroundColor: dropdownBackgroundColor }}>
+            <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'}`}>
                 {options?.sort(handleSort)
                     .map((option) => ({
                         ...option,
@@ -180,5 +157,5 @@ export const TitleBarFilter = ({
     );
 };
 
-TitleBarFilter.propTypes = propTypes;
-export default TitleBarFilter;
+NewPicker.propTypes = propTypes;
+export default NewPicker;
