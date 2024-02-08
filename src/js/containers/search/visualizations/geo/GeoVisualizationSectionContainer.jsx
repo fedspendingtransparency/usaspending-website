@@ -263,7 +263,8 @@ const GeoVisualizationSectionContainer = (props) => {
             locationRequest.promise
                 .then((res) => {
                     console.log(res);
-                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892] );
+                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892]);
+                    console.log(res.data?.features[0]?.center);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {

@@ -84,7 +84,7 @@ const MapBox = forwardRef((props, ref) => {
     const centerMap = (m) => {
         m.current.jumpTo({
             zoom: 4,
-            center: props.center
+            center: [-95.569430, 38.852892]
         });
     };
 
@@ -108,7 +108,7 @@ const MapBox = forwardRef((props, ref) => {
             style: mapStyle,
             logoPosition: 'bottom-right',
             attributionControl: false,
-            center: props.center,
+            center: [-95.569430, 38.852892],
             zoom: calculateMapZoom(),
             dragRotate: false // disable 3D view
         });
@@ -154,6 +154,7 @@ const MapBox = forwardRef((props, ref) => {
     }, 16);
 
     useEffect(() => {
+        console.log("Mapbox center", props.center);
         componentUnmounted = false;
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
@@ -166,13 +167,16 @@ const MapBox = forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
+        console.log("Mapbox center", props.center);
+
         if (map.current) {
             resizeMap();
         }
         else if (props.stateInfo?.code !== '') {
             mountMap();
         }
-    }, [windowWidth, props.stateProfile, props.stateInfo?.code]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [windowWidth, props.stateProfile, props.center, props.stateInfo?.code]);
 
     useEffect(() => {
         if (map.current) {
