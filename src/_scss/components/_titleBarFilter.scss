@@ -132,15 +132,14 @@
             overflow-y: hidden;
         }
         .filter__dropdown-list-item {
+            &:hover {
+                background-color: $gray-cool-3;
+                cursor: pointer;
+            }
             .filter__dropdown-item {
                 @include button-unstyled;
                 font-weight: $font-semibold;
                 color: $gray-cool-60;
-            }
-
-            &:hover {
-                background-color: $gray-cool-3;
-                cursor: pointer;
             }
         }
     }
