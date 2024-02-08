@@ -15,7 +15,6 @@ import {
 } from 'dataMapping/covid19/covid19';
 
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 
@@ -100,7 +99,11 @@ export const jumpToSection = (
     }
 
     // add offsets
-    scrollToY(sectionDom.offsetTop - verticalOffset, 700);
+    window.scrollTo({
+        top: sectionDom.offsetTop - verticalOffset,
+        left: 0,
+        behavior: 'smooth'
+    });
 };
 
 export const createJumpToSectionForSidebar = (prefix, domSections) => (
