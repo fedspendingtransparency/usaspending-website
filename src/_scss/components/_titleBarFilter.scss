@@ -142,11 +142,11 @@
     }
     ul[class^='filter__dropdown-list'].enabled {
         background-color: $color-white; 
-        box-shadow: solid 2px rgba(251, 252, 253, 0.5);
+        border: solid 2px rgba(251, 252, 253, 0.5);
     }
     ul[class^='filter__dropdown-list'].not-enabled {
         background-color: $color-white;
-        box-shadow: solid 2px rgba(251, 252, 253, 0.25);
+        border: solid 2px rgba(251, 252, 253, 0.25);
     }
     .filter__dropdown-list-sm {
         padding-left:1.5 * $global-padding !important;
