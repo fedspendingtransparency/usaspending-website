@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { isEqual } from "lodash";
@@ -16,6 +17,8 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
+import { useQueryParams, combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
+
 
 const propTypes = {
     aboutTheDataSidebar: PropTypes.object,
@@ -26,6 +29,8 @@ const propTypes = {
 };
 
 const AboutTheData = (props) => {
+    const history = useHistory();
+    const query = useQueryParams();
     const [height, setHeight] = useState(0);
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
@@ -131,6 +136,13 @@ const AboutTheData = (props) => {
             // close the atd drawer when the escape key is pressed, for accessibility and general non-annoyance
             props.hideAboutTheData();
             clearDrilldown();
+
+            // remove search param from url
+            if (window.location.href.includes('about-the-data')) {
+                delete query['about-the-data'];
+                const newQueryParams = combineQueryParams(query, '');
+                window.history.pushState({}, null, `${history.location.pathname}${getQueryParamString(newQueryParams)}`);
+            }
 
             // move focus back to the main content
             const mainContent = document.getElementById('main-focus');
