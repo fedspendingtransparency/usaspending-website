@@ -506,7 +506,8 @@ const MapWrapper = (props) => {
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
         };
-    });
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
 
     useEffect(() => {
         if (scopeRef.current !== props.scope) {
