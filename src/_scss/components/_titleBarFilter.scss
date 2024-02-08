@@ -1,6 +1,6 @@
 .filter__dropdown-container {
-    display: flex;
-    align-items: center;
+    display: block;
+    width: auto;
     span[class^=' filter__dropdown-label'] {
         font-weight: $font-semibold;
         line-height: 1.5;
@@ -125,8 +125,11 @@
         display: block;
         position: absolute;
         overflow-y: scroll;
-        transform: translate(1px, 136px);
+        transform: translate(0px, -12px);
         
+        @media(min-width: $large-screen) {
+            overflow-y: hidden;
+        }
         .filter__dropdown-list-item {
             .filter__dropdown-item {
                 @include button-unstyled;
@@ -142,12 +145,9 @@
     }
     ul[class^='filter__dropdown-list'].enabled {
         background-color: $color-white; 
-        border: solid 2px rgba(251, 252, 253, 0.5);
+        border: solid 2px $gray-cool-10;
     }
-    ul[class^='filter__dropdown-list'].not-enabled {
-        background-color: $color-white;
-        border: solid 2px rgba(251, 252, 253, 0.25);
-    }
+
     .filter__dropdown-list-sm {
         padding-left:1.5 * $global-padding !important;
         padding-right: 1.5 * $global-padding !important;
