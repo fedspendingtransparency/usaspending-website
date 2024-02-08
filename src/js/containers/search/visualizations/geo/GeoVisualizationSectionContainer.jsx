@@ -381,11 +381,17 @@ export class GeoVisualizationSectionContainer extends React.Component {
             const onlyObject = this.props.reduxFilters[selectedLocationByType].first().filter;
             if (onlyObject.district_current || onlyObject.district_original) {
                 this.changeMapLayer("congressionalDistrict");
-                this.setState({ center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]) });
+                this.setState({
+                    center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]),
+                    singleLocationSelected: onlyObject
+                });
             }
             else if (onlyObject.county) {
                 this.changeMapLayer("county");
-                this.setState({ center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]) });
+                this.setState({
+                    center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]),
+                    singleLocationSelected: onlyObject
+                });
             }
             else if (onlyObject.state) {
                 this.setState({ center: stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]) });

@@ -10,6 +10,7 @@ import { uniq } from 'lodash';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
+import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
@@ -33,7 +34,8 @@ const propTypes = {
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     className: PropTypes.string,
-    stateInfo: PropTypes.object
+    stateInfo: PropTypes.object,
+    singleLocationSelected: PropTypes.object
 };
 
 const defaultProps = {
@@ -75,13 +77,17 @@ const mapboxSources = {
         label: 'county',
         url: 'mapbox://usaspending.29sdfmwu',
         layer: 'tl_2019_us_county',
-        filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
+        filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
     },
     congressionalDistrict: {
         label: 'congressional district',
         url: 'mapbox://usaspending.118-CD-tiles',
         layer: '118-CD',
-        filterKey: 'GEOID20' // the GEOID is state FIPS + district
+        filterKey: 'GEOID20', // the GEOID is state FIPS + district
+        lat: 'INTPTLAT20',
+        long: 'INTPTLON20'
     },
     zip: {
         label: 'ZIP Code Tabulation Area',
@@ -101,7 +107,8 @@ export default class MapWrapper extends Component {
                 segments: [],
                 units: {}
             },
-            mapReady: false
+            mapReady: false,
+            center: this.props.center
         };
 
         this.mapRef = createRef();
@@ -114,6 +121,7 @@ export default class MapWrapper extends Component {
         this.mapRemoved = this.mapRemoved.bind(this);
 
         this.measureMap = this.measureMap.bind(this);
+        this.reCenterMap = this.reCenterMap.bind(this);
     }
 
     componentDidMount() {
@@ -135,6 +143,10 @@ export default class MapWrapper extends Component {
                 this.displayData();
             }
         }
+
+        // if (prevProps.data?.locations !== this.props.data?.locations || prevProps.scope !== this.props.scope) {
+        //     this.reCenterMap(this.props.scope);
+        // }
     }
 
     componentWillUnmount() {
@@ -234,7 +246,32 @@ export default class MapWrapper extends Component {
         return firstSymbolId;
     };
 
+    reCenterMap(type) {
+        if (this.props.singleLocationSelected) {
+            console.log(stateFIPSByAbbreviation.this.props.singleLocationSelected.state);
+        }
+        // console.log("in recenter, ", this.props.singleLocationSelected);
+        // const entities = this.mapRef.current.map.current.queryRenderedFeatures({
+        //     layers: [`base_${type}`]
+        // });
+        //
+        // console.log(entities);
+
+
+        // let found;
+        // if (this.props.data.locations.length === 1) {
+        //     found = entities.find((element) => element.properties.GEOID20 === this.props.data?.locations[0]);
+        //     if (found) {
+        //         console.log([parseFloat(found.properties.INTPTLAT20), parseFloat(found.properties.INTPTLON20)]);
+        //         console.log(found);
+        //         this.setState({ center: [parseFloat(found.properties.INTPTLON20), parseFloat(found.properties.INTPTLAT20)] });
+        //     }
+        // }
+    }
+
     loadSource(type) {
+        console.log("load source type", type);
+
         const baseLayer = `base_${type}`;
         const sourceRef = {
             base: baseLayer,
@@ -285,6 +322,8 @@ export default class MapWrapper extends Component {
             // save a reference to this layer
             sourceRef.highlights.push(layerName);
         });
+
+        // this.reCenterMap(type);
 
         this.loadedLayers[type] = sourceRef;
     }
@@ -361,6 +400,8 @@ export default class MapWrapper extends Component {
         const entities = this.mapRef.current.map.current.queryRenderedFeatures({
             layers: [`base_${this.props.scope}`]
         });
+
+        // this.reCenterMap(this.props.scope);
 
         const source = mapboxSources[this.props.scope];
         const visibleEntities = entities.map((entity) => (
@@ -472,6 +513,8 @@ export default class MapWrapper extends Component {
             this.mapRef.current.map.current.setFilter(layerName, filter);
         });
 
+        this.reCenterMap(this.props.scope);
+
         this.setState({
             spendingScale: scale
         });
@@ -553,7 +596,7 @@ export default class MapWrapper extends Component {
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
-                    center={this.props.center}
+                    center={this.state.center}
                     mapType={this.props.scope}
                     stateInfo={this.props.stateInfo}
                     stateProfile={this.props.stateProfile}

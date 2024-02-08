@@ -275,7 +275,8 @@ const GeoVisualizationSection = (props) => {
                 center={props.center}
                 className={props.className}
                 mapLegendToggle={props.mapLegendToggle}
-                updateMapLegendToggle={props.updateMapLegendToggle} >
+                updateMapLegendToggle={props.updateMapLegendToggle}
+                singleLocationSelected={props.singleLocationSelected} >
                 {getMessage()}
             </MapWrapper>
             <Note message={noteMessage} />

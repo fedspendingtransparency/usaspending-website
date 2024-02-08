@@ -103,6 +103,7 @@ const MapBox = forwardRef((props, ref) => {
     const mountMap = () => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
         map.current = new MapboxGL.Map({
+            id: 'mapbox-map',
             container: mapDiv.current,
             style: mapStyle,
             logoPosition: 'bottom-right',
@@ -171,12 +172,14 @@ const MapBox = forwardRef((props, ref) => {
         else if (props.stateInfo?.code !== '') {
             mountMap();
         }
-    }, [windowWidth, props.stateProfile, resizeMap, props.stateInfo?.code, mountMap]);
+    }, [windowWidth, props.stateProfile, props.stateInfo?.code]);
 
     useEffect(() => {
         if (map.current) {
             centerMap(map);
         }
+
+        console.log(props.center);
     }, [props.center]);
 
     return (
