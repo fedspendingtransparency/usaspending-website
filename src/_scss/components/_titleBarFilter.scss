@@ -1,6 +1,7 @@
 .filter__dropdown-container {
     display: block;
     width: auto;
+    position: relative;
     span[class^=' filter__dropdown-label'] {
         font-weight: $font-semibold;
         line-height: 1.5;
@@ -126,7 +127,7 @@
         position: absolute;
         overflow-y: scroll;
         transform: translate(0px, -12px);
-        
+        width: 100%;
         @media(min-width: $large-screen) {
             overflow-y: hidden;
         }
