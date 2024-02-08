@@ -23,7 +23,7 @@ const DownloadStaticFile = ({ path }) => (
             download>
             <div className="download_static-file__button-content">
                 <FontAwesomeIcon data-href={path} icon={faFileDownload} />
-            Download
+                <span>Download</span>
             </div>
         </a>
     </div>);
