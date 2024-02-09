@@ -114,8 +114,6 @@ const MapWrapper = (props) => {
 
     const hideSource = (type) => {
         const layers = layersRef.current[type];
-        console.log('layersRef.current: ', layersRef.current);
-        console.log('layers: ', layers);
 
         if (!layers) {
             // we haven't loaded the layer yet, stop
@@ -163,7 +161,6 @@ const MapWrapper = (props) => {
     };
 
     const loadSource = (type) => {
-        console.log('type: ', type);
         const baseLayer = `base_${type}`;
         const sourceRef = {
             base: baseLayer,
@@ -351,15 +348,15 @@ const MapWrapper = (props) => {
         }
 
         const entities = mapRef.current.map.current.queryRenderedFeatures({
-            layers: [`base_${props.scope}`]
+            layers: [`base_${scopeRef.current}`]
         });
 
-        const source = mapboxSources[props.scope];
+        const source = mapboxSources[scopeRef.current];
         const visibleEntities = entities.map((entity) => (
             entity.properties[source.filterKey]
         ));
 
-        if (props.scope === 'country') {
+        if (scopeRef.current === 'country') {
             // prepend USA to account for prohibited country codes
             const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
 
