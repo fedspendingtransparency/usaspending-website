@@ -183,7 +183,7 @@ export const AgencyProfileV2 = ({
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="body usda__flex-col">
-                    <PageTitle fy={selectedFy} />
+                    <PageTitle />
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
