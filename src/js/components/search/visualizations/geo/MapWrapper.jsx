@@ -137,10 +137,12 @@ export default class MapWrapper extends Component {
                 // the scope changed, we need to reload the layers
                 this.queueMapOperation('displayData', this.displayData);
                 this.prepareMap();
+                console.log("test")
             }
             else {
                 // only the data changed
                 this.displayData();
+                console.log("test2")
             }
         }
     }
@@ -251,7 +253,7 @@ export default class MapWrapper extends Component {
         console.log(this.props.singleLocationSelected);
         if (this.props.singleLocationSelected) {
             if (type === "congressionalDistrict") {
-                const district = this.props.singleLocationSelected.hasOwnProperty('district_current') ? this.props.singleLocationSelected.district_current : this.props.singleLocationSelected.district;
+                const district = Object.prototype.hasOwnProperty.call(this.props.singleLocationSelected, 'district_current') ? this.props.singleLocationSelected.district_current : this.props.singleLocationSelected.district;
                 filterKey = "GEOID20";
                 lat += "20";
                 long += "20";
