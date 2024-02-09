@@ -180,7 +180,6 @@ export const AgencyProfileV2 = ({
             activeSection={activeSection}
             toolBarComponents={[
                 <NumericPickerWrapper size="sm" leftIcon="calendar-alt" enabled selectedValue={selectedFy} latestValue={latestFy} handleChange={(fy) => setSelectedFy({ fy })} />,
-                <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">

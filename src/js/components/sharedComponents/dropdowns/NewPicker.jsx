@@ -105,54 +105,59 @@ const NewPicker = ({
         variation = '-lg';
     }
 
-
+    console.debug("selected option: ", selectedOption);
     return (
         <div className="filter__dropdown-container" ref={pickerRef}>
             {label !== '' && <span className={`filter__dropdown-label${variation} ${isEnabled ? 'enabled' : 'not-enabled'}`}>{label}</span>}
-            <button
-                className={`filter__dropdown-button${variation} ${isEnabled ? 'enabled' : 'not-enabled'}`}
-                ref={buttonRef}
-                aria-label="Filter Dropdown Button"
-                onClick={toggleMenu}>
-                <span className="filter__dropdown-left-icon">
-                    <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />
-                </span>
-                {children ?
-                    <>{ children }</> :
-                    <span className="filter__dropdown-button-text">
-                        {selectedOption}
+            <div className="filter__dropdown-button-list-container">
+                <button
+                    className={`filter__dropdown-button${variation} ${isEnabled ? 'enabled' : 'not-enabled'}`}
+                    ref={buttonRef}
+                    aria-label="Filter Dropdown Button"
+                    onClick={toggleMenu}>
+                    <span className="filter__dropdown-left-icon">
+                        <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />
                     </span>
-                }
-                <span className="filter__dropdown-chevron">
-                    {!expanded && (
-                        <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
-                    )}
-                    {expanded && (
-                        <FontAwesomeIcon icon="chevron-up" alt="Toggle menu" />
-                    )}
-                </span>
-            </button>
-            <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'}`}>
-                {options?.sort(handleSort)
-                    .map((option) => ({
-                        ...option,
-                        onClick: createOnClickFn(option.onClick)
-                    }))
-                    .map((option) => (
-                        <li key={uniqueId()} className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''}`}>
-                            <button
-                                className={`filter__dropdown-item ${option.name === selectedOption ? 'active' : ''}`}
-                                value={`${option.value || option.name}`}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    option.onClick(option.value);
-                                }}>
-                                {option.component ? option.component : option.name}
-                            </button>
-                        </li>
-                    ))
-                }
-            </ul>
+                    {children ?
+                        <>{children}</> :
+                        <span className="filter__dropdown-button-text">
+                            {selectedOption}
+                        </span>
+                    }
+                    <span className="filter__dropdown-chevron">
+                        {!expanded && (
+                            <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
+                        )}
+                        {expanded && (
+                            <FontAwesomeIcon icon="chevron-up" alt="Toggle menu" />
+                        )}
+                    </span>
+                </button>
+                <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'}`}>
+                    {options?.sort(handleSort)
+                        .map((option) => ({
+                            ...option,
+                            onClick: createOnClickFn(option.onClick)
+                        }))
+                        .map((option) => {
+                            console.debug("option map: ", option);
+                            return (
+                                <li key={uniqueId()} className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
+                                    <button
+                                        className="filter__dropdown-item"
+                                        value={`${option.value || option.name}`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            option.onClick(option.value);
+                                        }}>
+                                        {option.component ? option.component : option.name}
+                                    </button>
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
+            </div>
         </div>
     );
 };

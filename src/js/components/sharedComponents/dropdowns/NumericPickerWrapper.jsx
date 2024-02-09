@@ -48,6 +48,7 @@ const NumericPickerWrapper = ({
         <div className="numeric-picker__container">
             <NewPicker
                 backgroundColor={backgroundColor}
+                label="Filter by:"
                 size={size}
                 className="numeric-picker__wrapper"
                 leftIcon="calendar-alt"
