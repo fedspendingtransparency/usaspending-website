@@ -319,7 +319,7 @@ const GeoVisualizationSectionContainer = (props) => {
             if (numCountries === onlyObject.size) { // only countries
                 // TODO - Changing this line to state to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                this.changeMapLayer("state");
+                changeMapLayer("state");
             }
             else if (numStates === onlyObject.size) { // only states
                 changeMapLayer("state");
@@ -338,7 +338,7 @@ const GeoVisualizationSectionContainer = (props) => {
             else if (international === true) {
                 // TODO - Changing this line to state to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                this.changeMapLayer("state");
+                changeMapLayer("state");
             }
         }
         else if (props.reduxFilters[selectedLocationByType].size === 0) {
