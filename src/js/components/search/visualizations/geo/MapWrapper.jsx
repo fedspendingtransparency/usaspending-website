@@ -93,14 +93,16 @@ const mapboxSources = {
 
 const MapWrapper = (props) => {
     const mapRef = useRef();
+    // TODO: Change to a useState()?
     const scopeRef = useRef(props.scope);
+    const layersRef = useRef({});
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
         scale: null,
         segments: [],
         units: {}
     });
-    const loadedLayers = {};
+    // const loadedLayers = {};
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
@@ -111,7 +113,9 @@ const MapWrapper = (props) => {
     };
 
     const hideSource = (type) => {
-        const layers = loadedLayers[type];
+        const layers = layersRef.current[type];
+        console.log('layersRef.current: ', layersRef.current);
+        console.log('layers: ', layers);
 
         if (!layers) {
             // we haven't loaded the layer yet, stop
@@ -159,6 +163,7 @@ const MapWrapper = (props) => {
     };
 
     const loadSource = (type) => {
+        console.log('type: ', type);
         const baseLayer = `base_${type}`;
         const sourceRef = {
             base: baseLayer,
@@ -210,11 +215,11 @@ const MapWrapper = (props) => {
             sourceRef.highlights.push(layerName);
         });
 
-        loadedLayers[type] = sourceRef;
+        layersRef.current[type] = sourceRef;
     };
 
     const showSource = (type) => {
-        const layers = loadedLayers[type];
+        const layers = layersRef.current[type];
         // check if we've already loaded the data layer
         if (!layers) {
             // we haven't loaded it yet, do that now
