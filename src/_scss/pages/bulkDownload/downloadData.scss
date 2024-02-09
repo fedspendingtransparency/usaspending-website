@@ -39,15 +39,13 @@
 
     .download-info {
         @include grid-column(16);
+        margin-left: rem(10);
+        width: 94%;
         @include media($medium-screen) {
             @include grid-column(7);
             border-left: solid 1px #e1e1e1;
             padding: rem(15) rem(30) 0 rem(30);
-        }
-
-        @media(max-width: $medium-screen){
-            margin-left: 0;
-            width: 78%;
+            width: 94%;
         }
 
         h3.download-info__title {
