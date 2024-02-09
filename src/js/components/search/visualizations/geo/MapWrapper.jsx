@@ -248,12 +248,14 @@ export default class MapWrapper extends Component {
         let lat = "INTPTLAT";
         let long = "INTPTLON";
 
+        console.log(this.props.singleLocationSelected);
         if (this.props.singleLocationSelected) {
             if (type === "congressionalDistrict") {
+                const district = this.props.singleLocationSelected.hasOwnProperty('district_current') ? this.props.singleLocationSelected.district_current : this.props.singleLocationSelected.district;
                 filterKey = "GEOID20";
                 lat += "20";
                 long += "20";
-                value = `${stateFIPSByAbbreviation[this.props.singleLocationSelected.state]}${this.props.singleLocationSelected.congressionalDistrict}`;
+                value = `${stateFIPSByAbbreviation[this.props.singleLocationSelected.state]}${district}`;
             }
             else if (type === "county") {
                 filterKey = "COUNTYFP";
