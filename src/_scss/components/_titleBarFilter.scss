@@ -149,39 +149,37 @@
     }
 
     .filter__dropdown-list-sm {
-        // padding-left:1.5 * $global-padding !important;
-        // padding-right: 1.5 * $global-padding !important;
         border-radius: 3px;
         li {
-            margin-top: rem(5.5);
-            margin-bottom: rem(5.5);
-
+            padding-top: rem(5.5);
+            padding-bottom: rem(5.5);
+            padding-left:1.5 * $global-padding;
+            padding-right: 1.5 * $global-padding;
             button {
                 font-size: $font-size-14;
             }   
         }
     }
     .filter__dropdown-list-md {
-        // padding-left: 2 * $global-padding !important;
-        // padding-right: 2 * $global-padding !important;
+
         border-radius: 4px;
         li {
-            margin-top: rem(8);
-            margin-bottom: rem(8);
-
+            padding-top: rem(8);
+            padding-bottom: rem(8);
+            padding-left: 2 * $global-padding;
+            padding-right: 2 * $global-padding;
             button {
                 font-size: $font-size-16;
             }
         }
     }
     .filter__dropdown-list-lg {
-        // padding-left: 3 * $global-padding !important;
-        // padding-right: 3 * $global-padding !important;
         border-radius: 6px;
         li {
-            margin-top: rem(13);
-            margin-bottom: rem(13);
-
+            padding-top: rem(13);
+            padding-bottom: rem(13);
+            padding-left: 3 * $global-padding;
+            padding-right: 3 * $global-padding;
             button {
                 font-size: $font-size-20;
             }
