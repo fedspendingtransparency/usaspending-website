@@ -143,13 +143,6 @@ export default class MapWrapper extends Component {
                 this.displayData();
             }
         }
-
-        console.log(this.props.singleLocationSelected);
-        console.log(this.props.center);
-
-        if (prevProps.singleLocationSelected !== this.props.singleLocationSelected || prevProps.scope !== this.props.scope) {
-            this.reCenterMap(this.props.scope);
-        }
     }
 
     componentWillUnmount() {
@@ -250,26 +243,39 @@ export default class MapWrapper extends Component {
     };
 
     reCenterMap(type) {
+        let value;
+        let filterKey;
+        let lat = "INTPTLAT";
+        let long = "INTPTLON";
+
         if (this.props.singleLocationSelected) {
-            console.log(stateFIPSByAbbreviation.this.props.singleLocationSelected.state);
+            if (type === "congressionalDistrict") {
+                filterKey = "GEOID20";
+                lat += "20";
+                long += "20";
+                value = `${stateFIPSByAbbreviation[this.props.singleLocationSelected.state]}${this.props.singleLocationSelected.congressionalDistrict}`;
+            }
+            else if (type === "county") {
+                filterKey = "COUNTYFP";
+                value = `${this.props.singleLocationSelected.county}`;
+            }
+
+            const entities = this.mapRef.current.map.current.queryRenderedFeatures({
+                layers: [`base_${type}`]
+            });
+
+            console.log(value);
+            console.log(entities);
+            console.log(filterKey);
+            console.log(lat);
+            console.log(long)
+
+            const found = entities.find((element) => element.properties[filterKey] === value);
+            if (found) {
+                console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
+                this.setState({ center: [parseFloat(found.properties[long]), parseFloat(found.properties[lat])] });
+            }
         }
-        // console.log("in recenter, ", this.props.singleLocationSelected);
-        // const entities = this.mapRef.current.map.current.queryRenderedFeatures({
-        //     layers: [`base_${type}`]
-        // });
-        //
-        // console.log(entities);
-
-
-        // let found;
-        // if (this.props.data.locations.length === 1) {
-        //     found = entities.find((element) => element.properties.GEOID20 === this.props.data?.locations[0]);
-        //     if (found) {
-        //         console.log([parseFloat(found.properties.INTPTLAT20), parseFloat(found.properties.INTPTLON20)]);
-        //         console.log(found);
-        //         this.setState({ center: [parseFloat(found.properties.INTPTLON20), parseFloat(found.properties.INTPTLAT20)] });
-        //     }
-        // }
     }
 
     loadSource(type) {
@@ -404,7 +410,7 @@ export default class MapWrapper extends Component {
             layers: [`base_${this.props.scope}`]
         });
 
-        // this.reCenterMap(this.props.scope);
+        this.reCenterMap(this.props.scope);
 
         const source = mapboxSources[this.props.scope];
         const visibleEntities = entities.map((entity) => (
@@ -516,7 +522,7 @@ export default class MapWrapper extends Component {
             this.mapRef.current.map.current.setFilter(layerName, filter);
         });
 
-        this.reCenterMap(this.props.scope);
+        // this.reCenterMap(this.props.scope);
 
         this.setState({
             spendingScale: scale

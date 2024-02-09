@@ -255,16 +255,12 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const calculateCenterPoint = (location) => {
-        console.log(location);
-
         if (location) {
             let locationRequest = performCountryGeocode(location);
 
             locationRequest.promise
                 .then((res) => {
-                    console.log(res);
                     setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892]);
-                    console.log(res.data?.features[0]?.center)
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -293,7 +289,6 @@ const GeoVisualizationSectionContainer = (props) => {
             const onlyObject = props.reduxFilters[selectedLocationByType].first().filter;
             if (onlyObject.district_current || onlyObject.district_original) {
                 changeMapLayer("congressionalDistrict");
-                console.log("single location selected", props.reduxFilters[selectedLocationByType].size === 1);
                 setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
                 setSingleLocationSelected(onlyObject);
             }
@@ -307,9 +302,6 @@ const GeoVisualizationSectionContainer = (props) => {
                 // do not change the map layer, it is already state
             }
             else if (onlyObject.country !== "USA") {
-                // TODO - Commenting out this line to ensure the map always shows results
-                //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                console.log("country");
                 changeMapLayer("country");
                 calculateCenterPoint(onlyObject.country);
             }
@@ -353,8 +345,6 @@ const GeoVisualizationSectionContainer = (props) => {
 
             // change map layers based on make up of items
             if (numCountries === onlyObject.size) { // only countries
-                // TODO - Changing this line to state to ensure the map always shows results
-                //  before DEV-10520 is completed; For DEV-10520 change this back to country
                 changeMapLayer("country");
             }
             else if (numStates === onlyObject.size) { // only states
@@ -372,8 +362,6 @@ const GeoVisualizationSectionContainer = (props) => {
                 changeMapLayer("state");
             }
             else if (international === true) {
-                // TODO - Changing this line to state to ensure the map always shows results
-                //  before DEV-10520 is completed; For DEV-10520 change this back to country
                 changeMapLayer("country");
             }
         }

@@ -155,7 +155,6 @@ const MapBox = forwardRef((props, ref) => {
     }, 16);
 
     useEffect(() => {
-        console.log("Mapbox center", props.center);
         componentUnmounted = false;
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
@@ -170,15 +169,13 @@ const MapBox = forwardRef((props, ref) => {
     useEffect(() => {
         if (props.center?.length > 0) {
             setCenter(props.center);
-        } else {
+        }
+        else {
             setCenter([-95, 37]);
         }
-        
     }, [props.center]);
 
     useEffect(() => {
-        console.log("Mapbox center", props.center);
-
         if (map.current) {
             resizeMap();
         }
@@ -191,10 +188,11 @@ const MapBox = forwardRef((props, ref) => {
     useEffect(() => {
         if (map.current) {
             centerMap(map);
+            console.log("mapbox center");
         }
 
         console.log(props.center);
-    }, [centerMap, props.center]);
+    }, [props.center]);
 
     return (
         <div
