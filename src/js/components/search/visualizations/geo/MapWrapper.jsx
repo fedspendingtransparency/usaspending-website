@@ -258,6 +258,9 @@ const MapWrapper = (props) => {
 
     const showSource = () => {
         const layers = layersRef.current[scope];
+        console.log("layers", layers);
+        console.log("scope", scope, props.scope);
+        
         // check if we've already loaded the data layer
         if (!layers) {
             // we haven't loaded it yet, do that now
@@ -596,7 +599,7 @@ const MapWrapper = (props) => {
                 loadedMap={mapReadyPrep}
                 unloadedMap={mapRemoved}
                 center={props.center}
-                mapType={props.scope}
+                mapType={scope}
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}
                 ref={mapRef} />
