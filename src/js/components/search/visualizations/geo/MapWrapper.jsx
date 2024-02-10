@@ -39,11 +39,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    data: {
-        locations: [],
-        values: []
-    },
-    scope: 'state',
     availableLayers: ['state'],
     showLayerToggle: false,
     children: null
@@ -100,6 +95,7 @@ const mapboxSources = {
 const MapWrapper = (props) => {
     const mapRef = useRef();
     // TODO: Change to a useState()?
+    const [scope, setScope] = useState(props.scope);
     const scopeRef = useRef(props.scope);
     const layersRef = useRef({});
     const [mapReady, setMapReady] = useState(false);
@@ -118,9 +114,10 @@ const MapWrapper = (props) => {
         setMapReady(false);
     };
 
-    const hideSource = (type) => {
-        const layers = layersRef.current[type];
-
+    const hideSource = () => {
+        const layers = layersRef.current[scope];
+        console.log("layers", layers);
+        console.log("scopeRef.current", scope, props.scope);
         if (!layers) {
             // we haven't loaded the layer yet, stop
             return;
@@ -153,7 +150,7 @@ const MapWrapper = (props) => {
     };
 
     const mouseOverLayer = (e) => {
-        const source = mapboxSources[props.scope];
+        const source = mapboxSources[scope];
         // grab the filter ID from the GeoJSON feature properties
         const entityId = e.features[0].properties[source.filterKey];
         props.showTooltip(entityId, {
@@ -166,28 +163,28 @@ const MapWrapper = (props) => {
         props.hideTooltip();
     };
 
-    const reCenterMap = (type) => {
+    const reCenterMap = () => {
         let value;
         let filterKey;
         let lat = "INTPTLAT";
         let long = "INTPTLON";
 
-        console.log(this.props.singleLocationSelected);
-        if (this.props.singleLocationSelected) {
-            if (type === "congressionalDistrict") {
-                const district = Object.prototype.hasOwnProperty.call(this.props.singleLocationSelected, 'district_current') ? this.props.singleLocationSelected.district_current : this.props.singleLocationSelected.district;
+        console.log(props.singleLocationSelected);
+        if (props.singleLocationSelected) {
+            if (scope === "congressionalDistrict") {
+                const district = Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'district_current') ? props.singleLocationSelected.district_current : props.singleLocationSelected.district;
                 filterKey = "GEOID20";
                 lat += "20";
                 long += "20";
-                value = `${stateFIPSByAbbreviation[this.props.singleLocationSelected.state]}${district}`;
+                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
             }
-            else if (type === "county") {
+            else if (scope === "county") {
                 filterKey = "COUNTYFP";
-                value = `${this.props.singleLocationSelected.county}`;
+                value = `${props.singleLocationSelected.county}`;
             }
 
-            const entities = this.mapRef.current.map.current.queryRenderedFeatures({
-                layers: [`base_${type}`]
+            const entities = mapRef.current.map.current.queryRenderedFeatures({
+                layers: [`base_${scope}`]
             });
 
             console.log(value);
@@ -202,18 +199,18 @@ const MapWrapper = (props) => {
                 this.setState({ center: [parseFloat(found.properties[long]), parseFloat(found.properties[lat])] });
             }
         }
-    }
+    };
 
-    const loadSource = (type) => {
-        const baseLayer = `base_${type}`;
+    const loadSource = () => {
+        const baseLayer = `base_${scope}`;
         const sourceRef = {
             base: baseLayer,
             highlights: []
         };
 
         // load the data source
-        const source = mapboxSources[type];
-        mapRef.current.map.current.addSource(type, {
+        const source = mapboxSources[scope];
+        mapRef.current.map.current.addSource(scope, {
             type: 'vector',
             url: source.url
         });
@@ -223,7 +220,7 @@ const MapWrapper = (props) => {
         mapRef.current.map.current.addLayer({
             id: baseLayer,
             type: 'fill',
-            source: type,
+            source: scope,
             'source-layer': source.layer,
             paint: {
                 'fill-outline-color': 'rgba(0,0,0,0.3)',
@@ -235,11 +232,11 @@ const MapWrapper = (props) => {
         // set up temporary empty filters that will show nothing
         const colors = MapHelper.visualizationColors;
         colors.forEach((color, index) => {
-            const layerName = `highlight_${type}_group_${index}`;
+            const layerName = `highlight_${scope}_group_${index}`;
             mapRef.current.map.current.addLayer({
                 id: layerName,
                 type: 'fill',
-                source: type,
+                source: scope,
                 'source-layer': source.layer,
                 paint: {
                     'fill-outline-color': 'rgba(0,0,0,0.3)',
@@ -256,15 +253,15 @@ const MapWrapper = (props) => {
             sourceRef.highlights.push(layerName);
         });
 
-        layersRef.current[type] = sourceRef;
+        layersRef.current[scope] = sourceRef;
     };
 
-    const showSource = (type) => {
-        const layers = layersRef.current[type];
+    const showSource = () => {
+        const layers = layersRef.current[scope];
         // check if we've already loaded the data layer
         if (!layers) {
             // we haven't loaded it yet, do that now
-            loadSource(type);
+            loadSource(scope);
             return;
         }
 
@@ -282,19 +279,19 @@ const MapWrapper = (props) => {
             reject();
         }
 
-        const source = mapboxSources[props.scope];
+        const source = mapboxSources[scope];
         if (!source) {
             reject();
         }
 
         // hide all the other layers
         Object.keys(mapboxSources).forEach((type) => {
-            if (type !== props.scope) {
+            if (type !== scope) {
                 hideSource(type);
             }
         });
 
-        showSource(props.scope);
+        showSource(scope);
 
         // check if we need to zoom in to show the layer
         if (source.minZoom) {
@@ -392,17 +389,19 @@ const MapWrapper = (props) => {
         }
 
         const entities = mapRef.current.map.current.queryRenderedFeatures({
-            layers: [`base_${scopeRef.current}`]
+            layers: [`base_${scope}`]
         });
 
-        reCenterMap(scopeRef.current);
+        if(scope) {
+            reCenterMap(scope);
+        }
 
-        const source = mapboxSources[scopeRef.current];
+        const source = mapboxSources[scope];
         const visibleEntities = entities.map((entity) => (
             entity.properties[source.filterKey]
         ));
 
-        if (scopeRef.current === 'country') {
+        if (scope === 'country') {
             // prepend USA to account for prohibited country codes
             const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
 
@@ -434,6 +433,7 @@ const MapWrapper = (props) => {
     };
 
     const displayData = () => {
+        console.log("displayData", mapReady, scope);
         // don't do anything if the map has not yet loaded
         if (!mapReady) {
             // add to the map operation queue
@@ -441,7 +441,12 @@ const MapWrapper = (props) => {
             return;
         }
 
-        const source = mapboxSources[props.scope];
+        if (!scope) {
+            return;
+        }
+        console.log("should not be here");
+
+        const source = mapboxSources[scope];
 
         // calculate the range of data
         const scale = MapHelper.calculateRange(props.data.values);
@@ -461,7 +466,7 @@ const MapWrapper = (props) => {
 
         // generate Mapbox filters from the values
         filterValues.forEach((valueSet, index) => {
-            const layerName = `highlight_${props.scope}_group_${index}`;
+            const layerName = `highlight_${scope}_group_${index}`;
             // by default set up the filter to not include anything
             let filter = ['in', source.filterKey, ''];
             if (valueSet.length > 0) {
@@ -509,7 +514,6 @@ const MapWrapper = (props) => {
         const {
             showLayerToggle,
             availableLayers,
-            scope,
             changeMapLayer,
             className
         } = props;
@@ -526,7 +530,7 @@ const MapWrapper = (props) => {
 
     const legend = () => {
         const {
-            stateProfile, updateMapLegendToggle, mapLegendToggle, scope
+            stateProfile, updateMapLegendToggle, mapLegendToggle,
         } = props;
         if (stateProfile) return null; // no legend for state profile pages
         return (
@@ -540,10 +544,13 @@ const MapWrapper = (props) => {
         );
     };
 
+
     useEffect(() => {
-        displayData();
-        if (!props.stateProfile) {
-            prepareBroadcastReceivers();
+        if (mapReady) {
+            displayData();
+            if (!props.stateProfile) {
+                prepareBroadcastReceivers();
+            }
         }
         return () => {
             // remove any broadcast listeners
@@ -555,22 +562,29 @@ const MapWrapper = (props) => {
             });
         };
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []);
-
-    useEffect(() => {
-        if (scopeRef.current !== props.scope) {
-            queueMapOperation('displayData', displayData);
-            prepareMap();
-            scopeRef.current = props.scope;
-        }
-        else {
-            displayData();
-        }
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.renderHash]);
+    }, [mapReady]);
 
     useEffect(() => {
         if (mapReady) {
+            queueMapOperation('displayData', displayData);
+            prepareMap();
+        }
+    }, [scope]);
+
+    useEffect(() => {
+        if (mapReady) {
+            if (scope && scope !== props.scope) {
+                setScope(props.scope);
+            } else {
+                displayData();
+            }
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props.renderHash, props.scope]);
+
+    useEffect(() => {
+        console.log("mapReady", mapReady);
+        if (mapReady && scope) {
             prepareMap();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */

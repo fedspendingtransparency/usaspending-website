@@ -178,21 +178,11 @@ const MapBox = forwardRef((props, ref) => {
     useEffect(() => {
         if (map.current) {
             resizeMap();
-        }
-        else if (props.stateInfo?.code !== '') {
+        } else {
             mountMap();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [windowWidth, props.stateProfile, props.center, props.stateInfo?.code]);
-
-    useEffect(() => {
-        if (map.current) {
-            centerMap(map);
-            console.log("mapbox center");
-        }
-
-        console.log(props.center);
-    }, [props.center]);
+    }, [windowWidth]);
 
     return (
         <div

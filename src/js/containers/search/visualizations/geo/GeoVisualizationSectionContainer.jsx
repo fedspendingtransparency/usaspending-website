@@ -64,7 +64,7 @@ const logMapScopeEvent = (scope) => {
 
 const GeoVisualizationSectionContainer = (props) => {
     const [scope, setScope] = useState('place_of_performance');
-    const [mapLayer, setMapLayer] = useState('state');
+    const [mapLayer, setMapLayer] = useState(null);
     const [rawAPIData, setRawAPIData] = useState([]);
     const [data, setData] = useState({
         values: [],
