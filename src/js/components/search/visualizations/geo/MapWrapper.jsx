@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
 
@@ -97,13 +97,16 @@ const MapWrapper = (props) => {
     // TODO: Change to a useState()?
     const [scope, setScope] = useState(props.scope);
     const scopeRef = useRef(props.scope);
-    const layersRef = useRef({});
+    // const [mapLayers, setMapLayers] = useState({});
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
         scale: null,
         segments: [],
         units: {}
     });
+
+    const mapLayers = {};
+
     // const loadedLayers = {};
     const broadcastReceivers = [];
     let renderCallback = null;
@@ -114,10 +117,8 @@ const MapWrapper = (props) => {
         setMapReady(false);
     };
 
-    const hideSource = () => {
-        const layers = layersRef.current[scope];
-        console.log("layers", layers);
-        console.log("scopeRef.current", scope, props.scope);
+    const hideSource = (type) => {
+        const layers = mapLayers[type];
         if (!layers) {
             // we haven't loaded the layer yet, stop
             return;
@@ -195,8 +196,8 @@ const MapWrapper = (props) => {
 
             const found = entities.find((element) => element.properties[filterKey] === value);
             if (found) {
-                console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
-                this.setState({ center: [parseFloat(found.properties[long]), parseFloat(found.properties[lat])] });
+                // console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
+                // this.setState({ center: [parseFloat(found.properties[long]), parseFloat(found.properties[lat])] });
             }
         }
     };
@@ -253,28 +254,30 @@ const MapWrapper = (props) => {
             sourceRef.highlights.push(layerName);
         });
 
-        layersRef.current[scope] = sourceRef;
+        mapLayers[scope] = sourceRef;
     };
 
-    const showSource = () => {
-        const layers = layersRef.current[scope];
-        console.log("layers", layers);
-        console.log("scope", scope, props.scope);
-        
-        // check if we've already loaded the data layer
-        if (!layers) {
-            // we haven't loaded it yet, do that now
-            loadSource(scope);
-            return;
-        }
+    const showSource = useCallback((type) => {
+        setTimeout(() => {
+            const layers = mapLayers[scope];
+            console.log("show layers", layers, mapLayers, mapLayers[scope], props.scope);
 
-        // enable the base layer
-        mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'visible');
-        layers.highlights.forEach((highlight) => {
-            // iterate through all the highlight layers and enable them
-            mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'visible');
-        });
-    };
+            // check if we've already loaded the data layer
+            if (!mapLayers[type]) {
+                console.log("here")
+                // we haven't loaded it yet, do that now
+                loadSource(scope);
+                return;
+            }
+
+            // enable the base layer
+            mapRef.current.map.current.setLayoutProperty(mapLayers[type].base, 'visibility', 'visible');
+            layers.highlights.forEach((highlight) => {
+                // iterate through all the highlight layers and enable them
+                mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'visible');
+            });
+        }, 3000);
+    });
 
     const prepareLayers = () => new Promise((resolve, reject) => {
         if (!mapReady) {
@@ -447,7 +450,6 @@ const MapWrapper = (props) => {
         if (!scope) {
             return;
         }
-        console.log("should not be here");
 
         const source = mapboxSources[scope];
 
@@ -573,6 +575,10 @@ const MapWrapper = (props) => {
             prepareMap();
         }
     }, [scope]);
+
+    useEffect(() => {
+        console.log(mapLayers);
+    }, [mapLayers]);
 
     useEffect(() => {
         if (mapReady) {
