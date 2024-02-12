@@ -93,7 +93,8 @@ const mapboxSources = {
 
 const MapWrapper = (props) => {
     const mapRef = useRef();
-    const scopeRef = useRef(props.scope);
+    // const scopeRef = useRef(props.scope);
+    const [mapScope, setMapScope] = useState(props.scope);
     const layersRef = useRef({});
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
@@ -346,16 +347,19 @@ const MapWrapper = (props) => {
             return;
         }
 
+        console.log('mapScope: ', mapScope);
+        console.log('props.scope: ', props.scope);
+
         const entities = mapRef.current.map.current.queryRenderedFeatures({
-            layers: [`base_${scopeRef.current}`]
+            layers: [`base_${mapScope}`]
         });
 
-        const source = mapboxSources[scopeRef.current];
+        const source = mapboxSources[mapScope];
         const visibleEntities = entities.map((entity) => (
             entity.properties[source.filterKey]
         ));
 
-        if (scopeRef.current === 'country') {
+        if (mapScope === 'country') {
             // prepend USA to account for prohibited country codes
             const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
 
@@ -377,7 +381,6 @@ const MapWrapper = (props) => {
 
     const removeChangeListeners = () => {
         // remove the render callbacks
-        // TODO: Not having a map object is causing the app to crash when leaving the map tab
         if (mapRef.current) {
             mapRef.current.map.current.off('moveend', renderCallback);
             mapRef.current.map.current.off('resize', renderCallback);
@@ -513,10 +516,10 @@ const MapWrapper = (props) => {
     }, []);
 
     useEffect(() => {
-        if (scopeRef.current !== props.scope) {
+        if (mapScope !== props.scope) {
             queueMapOperation('displayData', displayData);
             prepareMap();
-            scopeRef.current = props.scope;
+            setMapScope(props.scope);
         }
         else {
             displayData();
