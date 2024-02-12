@@ -171,6 +171,10 @@
                     color: $gray-cool-60;
                 }
             }
+
+            .filter__dropdown-list-item.active {
+                background-color: $gray-cool-5;
+            }
         }
 
         ul[class^='filter__dropdown-list'].enabled {
