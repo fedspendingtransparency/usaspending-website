@@ -349,6 +349,7 @@ const MapWrapper = (props) => {
             return;
         }
 
+        // TODO: investigate if we can useState instead of useRef for scopeRef
         const entities = mapRef.current.map.current.queryRenderedFeatures({
             layers: [`base_${scopeRef.current}`]
         });
