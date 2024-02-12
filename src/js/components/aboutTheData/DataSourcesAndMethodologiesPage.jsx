@@ -3,53 +3,17 @@
  * 02/18/2021
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { find, throttle } from 'lodash';
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { ShareIcon } from 'data-transparency-ui';
-
 import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-
-// todo - use these sections when adding inPageNav to this page
-// const sections = [
-//     {
-//         label: 'Using this Table',
-//         section: 'using_this_table',
-//         show: true
-//     },
-//     {
-//         label: 'Percent of Total Federal Budget',
-//         section: 'percent_of_total',
-//         show: true
-//     },
-//     {
-//         label: 'Most Recent Update',
-//         section: 'most_recent_update',
-//         show: true
-//     },
-//     {
-//         label: 'Number of TASs Missing from Account Balance Data',
-//         section: 'missing_tas',
-//         show: true
-//     },
-//     {
-//         label: 'Reporting Difference in Obligations',
-//         section: 'obligations_discrepancies',
-//         show: true
-//     },
-//     {
-//         label: 'Number of Unlinked Awards',
-//         section: 'unlinked_awards',
-//         show: true
-//     },
-//     {
-//         label: 'Agency Comments',
-//         section: 'agency_comments',
-//         show: true
-//     }
-// ];
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 
 require('pages/data-sources/index.scss');
 
@@ -59,13 +23,112 @@ const emailData = {
 };
 
 const DataSourcesAndMethodologiesPage = () => {
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [activeSection, setActiveSection] = useState('using_this_table');
+    const query = useQueryParams();
+    const history = useHistory();
+    const sections = [
+        {
+            label: 'Using this Table',
+            section: 'using_this_table',
+            show: true
+        },
+        {
+            label: 'Percent of Total Federal Budget',
+            section: 'percent_of_total',
+            show: true
+        },
+        {
+            label: 'Most Recent Update',
+            section: 'most_recent_update',
+            show: true
+        },
+        {
+            label: 'Number of TASs Missing from Account Balance Data',
+            section: 'missing_tas',
+            show: true
+        },
+        {
+            label: 'Reporting Difference in Obligations',
+            section: 'obligations_discrepancies',
+            show: true
+        },
+        {
+            label: 'Number of Unlinked Awards',
+            section: 'unlinked_awards',
+            show: true
+        },
+        {
+            label: 'Agency Comments',
+            section: 'agency_comments',
+            show: true
+        }
+    ];
     const handleShare = (name) => {
         handleShareOptionClick(name, `submission-statistics/data-sources`, emailData);
     };
+    const jumpToSection = (section = '') => {
+        // we've been provided a section to jump to
+        // check if it's a valid section
+        const sectionObj = find(sections, ['section', section]);
+        if (!sectionObj) return;
+
+        // find the section in dom
+        const sectionDom = document.querySelector(`#submissions-statistics-dsm-${sectionObj.section}`);
+        if (!sectionDom) return;
+
+        // add section to url
+        const newQueryParams = combineQueryParams(query, { section: `${section}` });
+        history.replace({
+            pathname: ``,
+            search: getQueryParamString(newQueryParams)
+        });
+        setActiveSection(section);
+        // add offsets
+        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
+        window.scrollTo({
+            top: sectionTop - 25,
+            left: 0,
+            behavior: 'smooth'
+        });
+    };
+    useEffect(() => {
+        if (query.section) {
+            jumpToSection(query.section);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query.section]);
+    useEffect(throttle(() => {
+        // prevents a console error about react unmounted component leak
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                setActiveSection(urlSection);
+                jumpToSection(urlSection);
+            }
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, 100), [history, query.section]);
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
 
     return (
         <PageWrapper
-            pageName="Submissions Statistics DS&M"
+            pageName="submissions-statistics-dsm"
             overLine="Data Sources and Methodology"
             title="Agency Submissions Statistics"
             classNames="usa-da-dsm-page"
@@ -74,12 +137,16 @@ const DataSourcesAndMethodologiesPage = () => {
                 <ShareIcon
                     url={getBaseUrl('submission-statistics')}
                     onShareOptionClick={handleShare} />
-            ]}>
+            ]}
+            sections={sections}
+            activeSection={activeSection}
+            jumpToSection={jumpToSection}
+            inPageNav>
             <main id="main-content" className="main-content">
                 <div className="about-content-wrapper">
                     <div className="about-content">
                         <div className="about-padded-content">
-                            <div className="about-section-wrapper" id="data-sources-using_this_table">
+                            <section className="about-section-wrapper" key="submissions-statistics-dsm-using_this_table" id="submissions-statistics-dsm-using_this_table">
                                 <div className="back-link">
                                     <Link
                                         to="/submission-statistics"
@@ -103,8 +170,8 @@ const DataSourcesAndMethodologiesPage = () => {
                                         Note that this means when you see a reference to a file (e.g., “File A”), the reference is to the dataset produced from files of that type and not necessarily to that agency’s specific file submission. For example, the USDA value in the “Reporting Difference in Obligations” column compares obligations associated with USDA-owned TASs found in any agency’s File A with those found in any agency’s File B (not just USDA’s File A and File B).  Note also that by “File D1” and “File D2” specifically, we mean the up-to-date set of procurement and assistance data (respectively) that pertains to the agency and relevant submission period, not the award data as it existed at the time of the financial data submission.
                                     </p>
                                 </div>
-                            </div>
-                            <div className="about-section-wrapper" id="data-sources-percent_of_total">
+                            </section>
+                            <section className="about-section-wrapper" key="submissions-statistics-dsm-percent_of_total" id="submissions-statistics-dsm-percent_of_total">
                                 <h2 className="about-section-title">Percent of Total Federal Budget</h2>
                                 <div className="about-section-content">
                                     <p>
@@ -118,8 +185,8 @@ const DataSourcesAndMethodologiesPage = () => {
                                         The percentages are based on the total budgetary resources for all TAS submitted in File A that matches the Agency Identifier (AID) divided by the total budgetary resources reported in GTAS (Line 1910 of the SF-133).
                                     </p>
                                 </div>
-                            </div>
-                            <div className="about-section-wrapper" id="data-sources-most_recent_update">
+                            </section>
+                            <section className="about-section-wrapper" key="submissions-statistics-dsm-most_recent_update" id="submissions-statistics-dsm-most_recent_update">
                                 <h2 className="about-section-title">Most Recent Update</h2>
                                 <div className="about-section-content">
                                     <p>
@@ -160,8 +227,8 @@ const DataSourcesAndMethodologiesPage = () => {
                                     <p><strong>Calculation:</strong></p>
                                     <p>The data in the column reflects the most recent date that the agency published a financial data submission for the selected fiscal year and period.</p>
                                 </div>
-                            </div>
-                            <div className="about-section-wrapper" id="data-sources-missing_tas">
+                            </section>
+                            <section className="about-section-wrapper" key="submissions-statistics-dsm-missing_tas" id="submissions-statistics-dsm-missing_tas">
                                 <h2 className="about-section-title">Number of TASs Missing from Account Balance data</h2>
                                 <div className="about-section-content">
                                     <p>
@@ -172,8 +239,8 @@ const DataSourcesAndMethodologiesPage = () => {
                                         The numbers in the column are based on the difference between the count of the agency’s (non-financing account) TASs in GTAS and the count of the agency’s TASs in File A. Note that financing TASs are excluded from this calculation as they do not involve budgetary spending; thus, while present in GTAS, they are not appropriate for publication on USAspending.gov.
                                     </p>
                                 </div>
-                            </div>
-                            <div className="about-section-wrapper" id="data-sources-obligations_discrepancies">
+                            </section>
+                            <section className="about-section-wrapper" key="submissions-statistics-dsm-obligations_discrepancies" id="submissions-statistics-dsm-obligations_discrepancies">
                                 <h2 className="about-section-title">
                                     Reporting Difference in Obligations
                                 </h2>
@@ -192,8 +259,8 @@ const DataSourcesAndMethodologiesPage = () => {
                                         The numbers in this column are based on the difference between obligations for the agency’s TASs in File A and File B. This can be replicated by comparing obligations_incurred for the agency’s TASs in the Account Balances (File A) and Account Breakdown by Program Activity & Object Class (File B) in the Custom Account Download.
                                     </p>
                                 </div>
-                            </div>
-                            <div className="about-section-wrapper" id="data-sources-unlinked_awards">
+                            </section>
+                            <section className="about-section-wrapper" key="submissions-statistics-dsm-unlinked_awards" id="submissions-statistics-dsm-unlinked_awards">
                                 <h2 className="about-section-title">Number of Unlinked Awards</h2>
                                 <div className="about-section-content">
                                     <p>These columns show how many awards that pertain to the selected submission period are “unlinked.” Unlinked awards lack a shared award ID that allows two systems to match their records. Agencies submit two distinct datasets to USAspending for awards—File C and File D, parts 1 and 2. File C is submitted and published on the site on a monthly or quarterly basis from audited agency financial systems. File D1 (procurement) and File D2 (financial assistance) data is separately submitted (ingested from the Federal Procurement Data System, in the case of procurement data) and published on the site up to daily from agency assistance or procurement systems. Because these data originate from different communities and different systems within agencies that are subject to different policies and reporting requirements, there are sometimes gaps between the awards captured in each dataset. </p>
@@ -224,8 +291,8 @@ const DataSourcesAndMethodologiesPage = () => {
                                         For financial assistance data, this calculation excludes loans with total_subsidy_cost that is less than or equal to zero, since such loans have no budgetary cost to the government and therefore should not be reported in File C. Note that this column is concerned with unlinked awards that had obligation activity in the selected period or quarter, but the linkage itself occurs at the Award ID level across time. This means that if there is a time gap between when an award is reported between these two datasets, it will not prevent an award from being linked; such awards will show up in this count.
                                     </p>
                                 </div>
-                            </div>
-                            <div className="about-section-wrapper" id="data-sources-agency_comments">
+                            </section>
+                            <section className="about-section-wrapper" key="submissions-statistics-dsm-agency_comments" id="submissions-statistics-dsm-agency_comments">
                                 <div className="about-section-content">
                                     <h2 className="about-section-title">Agency Comments</h2>
                                     <p>
@@ -264,7 +331,7 @@ const DataSourcesAndMethodologiesPage = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </section>
                         </div>
                     </div>
                 </div>

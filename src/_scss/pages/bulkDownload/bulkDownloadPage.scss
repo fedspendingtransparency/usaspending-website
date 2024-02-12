@@ -7,27 +7,20 @@
     .bulk-download {
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
-        padding:  0;
-        @media(min-width: $medium-screen) {
-            display: flex;
-        }
+        padding: 0;
+
         @media(max-width: $medium-screen) {
             margin-left: 0 !important;
             margin-right: 0 !important;
             width: 76% !important;
         }
-        .bulk-download__sidebar {
-            @import "./sidebar/sidebar";
-            @include grid-column(16);
-            @include media($medium-screen) {
-                @include grid-column(4);
-                margin-left: 0 !important;
-            }
-            .api-info {
-                padding: rem(30);
-                h5 {
-                    margin: 0;
-                }
+
+
+        @include media($medium-screen) {
+            max-width: rem(600);
+            margin: auto;
+            &.award-data-archive-special-width {
+                max-width: rem(975);
             }
         }
 
@@ -46,6 +39,11 @@
             border-right: 1px solid $color-gray-border;
             border-bottom: 1px solid $color-gray-border;
             padding: rem(30) rem(20);
+
+            @media(min-width: $medium-screen) {
+                margin-left: 0 !important;
+                width: 100% !important;
+            }
         }
     }
 }
