@@ -93,9 +93,8 @@ const mapboxSources = {
 
 const MapWrapper = (props) => {
     const mapRef = useRef();
-    // const scopeRef = useRef(props.scope);
-    const [mapScope, setMapScope] = useState(props.scope);
-    const layersRef = useRef({});
+    const scopeRef = useRef(props.scope);
+    const [mapLayers, setMapLayers] = useState({});
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
         scale: null,
@@ -113,7 +112,7 @@ const MapWrapper = (props) => {
     };
 
     const hideSource = (type) => {
-        const layers = layersRef.current[type];
+        const layers = mapLayers[type];
 
         if (!layers) {
             // we haven't loaded the layer yet, stop
@@ -212,11 +211,14 @@ const MapWrapper = (props) => {
             sourceRef.highlights.push(layerName);
         });
 
-        layersRef.current[type] = sourceRef;
+        setMapLayers((prevLayers) => ({
+            ...prevLayers,
+            [type]: sourceRef
+        }));
     };
 
     const showSource = (type) => {
-        const layers = layersRef.current[type];
+        const layers = mapLayers[type];
         // check if we've already loaded the data layer
         if (!layers) {
             // we haven't loaded it yet, do that now
@@ -347,19 +349,16 @@ const MapWrapper = (props) => {
             return;
         }
 
-        console.log('mapScope: ', mapScope);
-        console.log('props.scope: ', props.scope);
-
         const entities = mapRef.current.map.current.queryRenderedFeatures({
-            layers: [`base_${mapScope}`]
+            layers: [`base_${scopeRef.current}`]
         });
 
-        const source = mapboxSources[mapScope];
+        const source = mapboxSources[scopeRef.current];
         const visibleEntities = entities.map((entity) => (
             entity.properties[source.filterKey]
         ));
 
-        if (mapScope === 'country') {
+        if (scopeRef.current === 'country') {
             // prepend USA to account for prohibited country codes
             const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
 
@@ -516,10 +515,10 @@ const MapWrapper = (props) => {
     }, []);
 
     useEffect(() => {
-        if (mapScope !== props.scope) {
+        if (scopeRef.current !== props.scope) {
             queueMapOperation('displayData', displayData);
             prepareMap();
-            setMapScope(props.scope);
+            scopeRef.current = props.scope;
         }
         else {
             displayData();
