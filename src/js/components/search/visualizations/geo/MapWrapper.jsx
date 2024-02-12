@@ -93,7 +93,6 @@ const mapboxSources = {
 
 const MapWrapper = (props) => {
     const mapRef = useRef();
-    // TODO: Change to a useState()?
     const scopeRef = useRef(props.scope);
     const layersRef = useRef({});
     const [mapReady, setMapReady] = useState(false);
@@ -379,8 +378,10 @@ const MapWrapper = (props) => {
     const removeChangeListeners = () => {
         // remove the render callbacks
         // TODO: Not having a map object is causing the app to crash when leaving the map tab
-        mapRef.current.map.current.off('moveend', renderCallback);
-        mapRef.current.map.current.off('resize', renderCallback);
+        if (mapRef.current) {
+            mapRef.current.map.current.off('moveend', renderCallback);
+            mapRef.current.map.current.off('resize', renderCallback);
+        }
     };
 
     const queueMapOperation = (name, operation) => {
