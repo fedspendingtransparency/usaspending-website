@@ -382,7 +382,8 @@ const GeoVisualizationSectionContainer = (props) => {
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
         };
-    });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (!props.noApplied) {
@@ -424,7 +425,7 @@ const GeoVisualizationSectionContainer = (props) => {
     useEffect(() => {
         prepareFetch(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mapLayer, renderHash, loadingTiles]);
+    }, [mapLayer, loadingTiles]);
 
     return (
         <GeoVisualizationSection
