@@ -3,14 +3,16 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, {useState, useRef, useEffect, useCallback} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
+import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
+import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
+import { isCancel } from "axios";
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
@@ -96,7 +98,9 @@ const MapWrapper = (props) => {
     const mapRef = useRef();
     const scopeRef = useRef(props.scope);
     const [mapLayers, setMapLayers] = useState({});
+    const [center, setCenter] = useState(props.center);
     const [mapReady, setMapReady] = useState(false);
+    const [singleLocationSelected, setSingleLocationSelected] = useState(props.singleLocationSelected);
     const [spendingScale, setSpendingScale] = useState({
         scale: null,
         segments: [],
@@ -160,13 +164,35 @@ const MapWrapper = (props) => {
         props.hideTooltip();
     };
 
+    const calculateCenterPoint = (location) => {
+        if (location) {
+            let locationRequest = performCountryGeocode(location);
+
+            locationRequest.promise
+                .then((res) => {
+                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892]);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(err);
+                        locationRequest = null;
+                    }
+                });
+        }
+        else {
+            this.setState({ center: [-95.569430, 38.852892] });
+        }
+    };
+
     const reCenterMap = () => {
         let value;
         let filterKey;
         let lat = "INTPTLAT";
         let long = "INTPTLON";
 
-        console.log(props.singleLocationSelected);
+        console.log(props.scope);
+        console.log(singleLocationSelected);
+
         if (props.singleLocationSelected) {
             if (props.scope === "congressionalDistrict") {
                 const district = Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'district_current') ? props.singleLocationSelected.district_current : props.singleLocationSelected.district;
@@ -179,6 +205,15 @@ const MapWrapper = (props) => {
                 filterKey = "COUNTYFP";
                 value = `${props.singleLocationSelected.county}`;
             }
+            else if (props.scope === "state") {
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[props.singleLocationSelected.state]));
+            }
+            else if (props.scope === "country") {
+                calculateCenterPoint(props.singleLocationSelected.label);
+            }
+            else {
+                console.log("No scope found for reCenterMap");
+            }
 
             const entities = mapRef.current.map.current.queryRenderedFeatures({
                 layers: [`base_${props.scope}`]
@@ -188,12 +223,12 @@ const MapWrapper = (props) => {
             console.log(entities);
             console.log(filterKey);
             console.log(lat);
-            console.log(long)
+            console.log(long);
 
             const found = entities.find((element) => element.properties[filterKey] === value);
             if (found) {
-                // console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
-                // this.setState({ center: [parseFloat(found.properties[long]), parseFloat(found.properties[lat])] });
+                console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
+                setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
             }
         }
     };
@@ -393,7 +428,10 @@ const MapWrapper = (props) => {
             layers: [`base_${scopeRef.current}`]
         });
 
-        if (scopeRef.current) {
+        console.log(props.scope);
+        console.log(scopeRef.current);
+        console.log(singleLocationSelected);
+        if (scopeRef.current && props.singleLocationSelected) {
             reCenterMap(scopeRef.current);
         }
 
@@ -586,7 +624,7 @@ const MapWrapper = (props) => {
             <MapBox
                 loadedMap={mapReadyPrep}
                 unloadedMap={mapRemoved}
-                center={props.center}
+                center={center}
                 mapType={props.scope}
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}

@@ -9,8 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash';
-import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
-import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -254,26 +252,6 @@ const GeoVisualizationSectionContainer = (props) => {
         setScope(newScope);
     };
 
-    const calculateCenterPoint = (location) => {
-        if (location) {
-            let locationRequest = performCountryGeocode(location);
-
-            locationRequest.promise
-                .then((res) => {
-                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892]);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        console.log(err);
-                        locationRequest = null;
-                    }
-                });
-        }
-        else {
-            this.setState({ center: [-95.569430, 38.852892] });
-        }
-    };
-
     const changeMapLayer = (layer) => {
         setMapLayer(layer);
         setRenderHash(`geo-${uniqueId()}`);
@@ -289,21 +267,19 @@ const GeoVisualizationSectionContainer = (props) => {
             const onlyObject = props.reduxFilters[selectedLocationByType].first().filter;
             if (onlyObject.district_current || onlyObject.district_original) {
                 changeMapLayer("congressionalDistrict");
-                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
                 setSingleLocationSelected(onlyObject);
             }
             else if (onlyObject.county) {
                 changeMapLayer("county");
-                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
                 setSingleLocationSelected(onlyObject);
             }
             else if (onlyObject.state) {
-                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
                 // do not change the map layer, it is already state
+                setSingleLocationSelected(onlyObject);
             }
             else if (onlyObject.country !== "USA") {
                 changeMapLayer("country");
-                calculateCenterPoint(onlyObject.country);
+                setSingleLocationSelected(onlyObject);
             }
             // defaults to state
         }
@@ -452,10 +428,8 @@ const GeoVisualizationSectionContainer = (props) => {
     }, [mapLayer, loadingTiles]);
 
     useEffect(() => {
-        if (center) {
-            console.log(center);
-        }
-    }, [center]);
+        console.log("geo vis", singleLocationSelected);
+    }, [singleLocationSelected]);
 
     return (
         <GeoVisualizationSection
