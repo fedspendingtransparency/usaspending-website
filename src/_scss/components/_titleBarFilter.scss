@@ -104,6 +104,7 @@
             }
 
             .filter__dropdown-chevron {
+                padding-top: rem(1);
                 width: rem(10);
             }
         }
@@ -151,13 +152,10 @@
             z-index: 50;
             display: block;
             position: absolute;
-            overflow-y: scroll;
+            overflow: hidden;
             transform: translate(0px, -12px);
             width: 100%;
-
-            @media(min-width: $large-screen) {
-                overflow-y: hidden;
-            }
+            line-height: rem(21);
 
             .filter__dropdown-list-item {
                 &:hover {
@@ -173,7 +171,7 @@
             }
 
             .filter__dropdown-list-item.active {
-                background-color: $gray-cool-5;
+                background-color: $gray-cool-1;
             }
         }
 
@@ -225,6 +223,13 @@
                 button {
                     font-size: $font-size-20;
                 }
+            }
+        }
+
+        // supplemental class only for fy picker to align text
+        ul.numeric-picker__dropdown {
+            li {
+                padding-left: rem(30);
             }
         }
     }

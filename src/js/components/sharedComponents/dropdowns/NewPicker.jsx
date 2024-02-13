@@ -16,6 +16,7 @@ const propTypes = {
     icon: PropTypes.node,
     selectedOption: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     className: PropTypes.string,
+    dropdownClassName: PropTypes.string,
     id: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.number]),
@@ -47,6 +48,7 @@ const NewPicker = ({
     id = '',
     options,
     selectedOption,
+    dropdownClassName = '',
     sortFn = defaultSort
 }) => {
     const pickerRef = useRef(null);
@@ -135,7 +137,7 @@ const NewPicker = ({
                         )}
                     </span>
                 </button>
-                <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'}`}>
+                <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'} ${dropdownClassName}`}>
                     {options?.sort(handleSort)
                         .map((option) => ({
                             ...option,

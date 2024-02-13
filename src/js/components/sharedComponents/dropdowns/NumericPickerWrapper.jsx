@@ -51,6 +51,7 @@ const NumericPickerWrapper = ({
                 label="Filter by:"
                 size={size}
                 className="numeric-picker__wrapper"
+                dropdownClassName="numeric-picker__dropdown"
                 leftIcon="calendar-alt"
                 selectedOption={options.length
                     ? options.find((obj) => obj.value === selectedValue || obj.value === parseInt(selectedValue, 10)).name || '--'
