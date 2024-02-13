@@ -52,7 +52,6 @@ export default class TimePeriod extends React.Component {
         super(props);
 
         this.state = {
-            windowWidth: 0,
             startDateUI: null,
             endDateUI: null,
             showError: false,
@@ -62,12 +61,10 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false
-            // newAwardFilterActiveFromFYOrDateRange: false
         };
 
         // bind functions
         this.handleDateChange = this.handleDateChange.bind(this);
-        this.saveSelected = this.saveSelected.bind(this);
         this.showError = this.showError.bind(this);
         this.hideError = this.hideError.bind(this);
         this.toggleFilters = this.toggleFilters.bind(this);
@@ -82,9 +79,6 @@ export default class TimePeriod extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('componentDidUpdate, prevProps', prevProps);
-        console.log('componentDidUpdate, this.props.naoActiveFromFyOrDateRange', this.props.naoActiveFromFyOrDateRange);
-        console.log('componentDidUpdate, this.props.subaward', this.props.subaward);
         if (!isEqual(prevProps, this.props)) {
             this.synchronizeDatePickers(this.props);
         }
@@ -97,41 +91,20 @@ export default class TimePeriod extends React.Component {
             }
         }
 
-        // todo - change name to determineIfNAOIsActive
-        this.determineNewAwardFilterState(prevProps, prevState);
-
-        if (this.props.subaward && prevProps.subaward !== this.props.subaward) {
-            console.log('in subaward true block');
-            this.props.updateNewAwardsOnlyActive(false);
-        }
-        else if (!this.props.subaward && prevProps.subaward !== this.props.subaward) {
-            // only set nao to active if it had been active before subawards was set to truet
-            // todo - we should be able to use prevProps.naoActive here, but can't, bc of multiple calls to didUpdate?
-            this.props.updateNewAwardsOnlyActive(this.props.naoActiveFromFyOrDateRange);
-        }
+        this.determineIfNAOIsActive(prevProps, prevState);
     }
 
-    // setNewAwardFilterActiveFromFYOrDateRange(bool) {
-    //     this.setState({
-    //         newAwardFilterActiveFromFYOrDateRange: bool
-    //     });
-    // }
-
-    determineNewAwardFilterState(prevProps, prevState) {
+    determineIfNAOIsActive(prevProps, prevState) {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
-            console.log('determineNewAwardFilterState, first block, this.props.filterTimePeriodFY.size', this.props.filterTimePeriodFY.size);
             this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY.size);
-            // this.setNewAwardFilterActiveFromFYOrDateRange(!!this.props.filterTimePeriodFY.size);
             this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY.size);
         }
         else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
             this.props.updateNewAwardsOnlyActive(true);
-            // this.setNewAwardFilterActiveFromFYOrDateRange(true);
             this.props.updateNaoActiveFromFyOrDateRange(true);
         }
         else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
             this.props.updateNewAwardsOnlyActive(false);
-            // this.setNewAwardFilterActiveFromFYOrDateRange(false);
             this.props.updateNaoActiveFromFyOrDateRange(false);
         }
     }
@@ -299,19 +272,6 @@ export default class TimePeriod extends React.Component {
         });
     }
 
-    // todo - delete this if not used
-    saveSelected(arrayFY, allSelected) {
-        console.log('saveSelected');
-        this.setState({
-            selectedFY: arrayFY,
-            allFY: allSelected
-        }, () => {
-            this.props.updateFilter({
-                fy: [...this.state.selectedFY]
-            });
-        });
-    }
-
     newAwardsClick(e) {
         this.props.updateNewAwardsOnlySelected(e.target.checked);
         if (this.hint) {
@@ -367,13 +327,13 @@ export default class TimePeriod extends React.Component {
                     htmlFor="new-awards-checkbox">
                     <input
                         type="checkbox"
-                        className={`new-awards-checkbox ${this.props.newAwardsOnlyActive ? '' : 'not-active'}`}
+                        className={`new-awards-checkbox ${this.props.subaward || !this.props.newAwardsOnlyActive ? 'not-active' : ''}`}
                         id="new-awards-checkbox"
                         value="new-awards-checkbox"
-                        disabled={!this.props.newAwardsOnlyActive}
+                        disabled={this.props.subaward || !this.props.newAwardsOnlyActive}
                         checked={this.props.newAwardsOnlySelected}
                         onChange={this.newAwardsClick} />
-                    <span className={`new-awards-label ${this.props.newAwardsOnlyActive ? '' : 'not-active'}`}>
+                    <span className={`new-awards-label ${this.props.subaward || !this.props.newAwardsOnlyActive ? 'not-active' : ''}`}>
                     Show New Awards Only
                     </span>
                 </label>
