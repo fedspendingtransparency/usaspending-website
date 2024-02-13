@@ -91,10 +91,10 @@ export default class TimePeriod extends React.Component {
             }
         }
 
-        this.determineIfNAOIsActive(prevProps, prevState);
+        this.determineIfNaoIsActive(prevProps, prevState);
     }
 
-    determineIfNAOIsActive(prevProps, prevState) {
+    determineIfNaoIsActive(prevProps, prevState) {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
             this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY.size);
             this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY.size);
