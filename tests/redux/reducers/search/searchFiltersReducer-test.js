@@ -129,15 +129,53 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY', () => {
-        it('should set the newAwardsOnly value to the provided action data', () => {
+    describe('UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_SELECTED', () => {
+        it('should set the filterNewAwardsOnlySelected value to the provided action data', () => {
             const action = {
-                type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY',
+                type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_SELECTED',
                 filterValue: true
             };
 
             const expected = {
-                newAwardsOnly: true
+                filterNewAwardsOnlySelected: true
+            };
+
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            Object.keys(expected).forEach((key) => {
+                expect(updatedState[key]).toEqual(expected[key]);
+            });
+        });
+    });
+
+    describe('UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_ACTIVE', () => {
+        it('should set the filterNewAwardsOnlyActive value to the provided action data', () => {
+            const action = {
+                type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_ACTIVE',
+                filterValue: true
+            };
+
+            const expected = {
+                filterNewAwardsOnlyActive: true
+            };
+
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            Object.keys(expected).forEach((key) => {
+                expect(updatedState[key]).toEqual(expected[key]);
+            });
+        });
+    });
+
+    describe('UPDATE_SEARCH_FILTER_NAO_FROM_FY_OR_DATE_RANGE', () => {
+        it('should set the filterNaoActiveFromFyOrDateRange value to the provided action data', () => {
+            const action = {
+                type: 'UPDATE_SEARCH_FILTER_NAO_FROM_FY_OR_DATE_RANGE',
+                filterValue: true
+            };
+
+            const expected = {
+                filterNaoActiveFromFyOrDateRange: true
             };
 
             const updatedState = searchFiltersReducer(undefined, action);
