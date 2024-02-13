@@ -104,7 +104,6 @@ const MapBox = forwardRef((props, ref) => {
     const mountMap = () => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
         map.current = new MapboxGL.Map({
-            id: 'mapbox-map',
             container: mapDiv.current,
             style: mapStyle,
             logoPosition: 'bottom-right',
@@ -182,7 +181,7 @@ const MapBox = forwardRef((props, ref) => {
             mountMap();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [windowWidth]);
+    }, [windowWidth, props.stateProfile, props.stateInfo?.code]);
 
     return (
         <div
