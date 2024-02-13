@@ -34,12 +34,16 @@ const propTypes = {
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
-    updateNewAwardsOnly: PropTypes.func,
+    updateNewAwardsOnlySelected: PropTypes.func,
+    updateNewAwardsOnlyActive: PropTypes.func,
+    updateNaoActiveFromFyOrDateRange: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
     subaward: PropTypes.bool,
     newAwardsOnlySelected: PropTypes.bool,
+    newAwardsOnlyActive: PropTypes.bool,
+    naoActiveFromFyOrDateRange: PropTypes.bool,
     federalAccountPage: PropTypes.bool
 };
 
@@ -48,6 +52,7 @@ export default class TimePeriod extends React.Component {
         super(props);
 
         this.state = {
+            windowWidth: 0,
             startDateUI: null,
             endDateUI: null,
             showError: false,
@@ -56,9 +61,8 @@ export default class TimePeriod extends React.Component {
             isActive: false,
             selectedFY: new Set(),
             allFY: false,
-            clearHint: false,
-            newAwardFilterActive: false,
-            newAwardFilterActiveFromFYOrDateRange: false
+            clearHint: false
+            // newAwardFilterActiveFromFYOrDateRange: false
         };
 
         // bind functions
@@ -70,7 +74,6 @@ export default class TimePeriod extends React.Component {
         this.validateDates = this.validateDates.bind(this);
         this.removeDateRange = this.removeDateRange.bind(this);
         this.clearHint = this.clearHint.bind(this);
-        this.setNewAwardFilterActive = this.setNewAwardFilterActive.bind(this);
         this.newAwardsClick = this.newAwardsClick.bind(this);
     }
 
@@ -79,6 +82,9 @@ export default class TimePeriod extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log('componentDidUpdate, prevProps', prevProps);
+        console.log('componentDidUpdate, this.props.naoActiveFromFyOrDateRange', this.props.naoActiveFromFyOrDateRange);
+        console.log('componentDidUpdate, this.props.subaward', this.props.subaward);
         if (!isEqual(prevProps, this.props)) {
             this.synchronizeDatePickers(this.props);
         }
@@ -90,40 +96,43 @@ export default class TimePeriod extends React.Component {
                 this.hint.showHint();
             }
         }
+
+        // todo - change name to determineIfNAOIsActive
         this.determineNewAwardFilterState(prevProps, prevState);
+
         if (this.props.subaward && prevProps.subaward !== this.props.subaward) {
-            this.setNewAwardFilterActive(false);
+            console.log('in subaward true block');
+            this.props.updateNewAwardsOnlyActive(false);
         }
         else if (!this.props.subaward && prevProps.subaward !== this.props.subaward) {
-            // only set to true if new awards only had been set to true before
-            this.setNewAwardFilterActive(this.state.newAwardFilterActiveFromFYOrDateRange);
+            // only set nao to active if it had been active before subawards was set to truet
+            // todo - we should be able to use prevProps.naoActive here, but can't, bc of multiple calls to didUpdate?
+            this.props.updateNewAwardsOnlyActive(this.props.naoActiveFromFyOrDateRange);
         }
     }
 
-    setNewAwardFilterActive(bool) {
-        this.setState({
-            newAwardFilterActive: bool
-        });
-    }
-
-    setNewAwardFilterActiveFromFYOrDateRange(bool) {
-        this.setState({
-            newAwardFilterActiveFromFYOrDateRange: bool
-        });
-    }
+    // setNewAwardFilterActiveFromFYOrDateRange(bool) {
+    //     this.setState({
+    //         newAwardFilterActiveFromFYOrDateRange: bool
+    //     });
+    // }
 
     determineNewAwardFilterState(prevProps, prevState) {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
-            this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
-            this.setNewAwardFilterActiveFromFYOrDateRange(!!this.props.filterTimePeriodFY.size);
+            console.log('determineNewAwardFilterState, first block, this.props.filterTimePeriodFY.size', this.props.filterTimePeriodFY.size);
+            this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY.size);
+            // this.setNewAwardFilterActiveFromFYOrDateRange(!!this.props.filterTimePeriodFY.size);
+            this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY.size);
         }
         else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
-            this.setNewAwardFilterActive(true);
-            this.setNewAwardFilterActiveFromFYOrDateRange(true);
+            this.props.updateNewAwardsOnlyActive(true);
+            // this.setNewAwardFilterActiveFromFYOrDateRange(true);
+            this.props.updateNaoActiveFromFyOrDateRange(true);
         }
         else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
-            this.setNewAwardFilterActive(false);
-            this.setNewAwardFilterActiveFromFYOrDateRange(false);
+            this.props.updateNewAwardsOnlyActive(false);
+            // this.setNewAwardFilterActiveFromFYOrDateRange(false);
+            this.props.updateNaoActiveFromFyOrDateRange(false);
         }
     }
 
@@ -290,7 +299,9 @@ export default class TimePeriod extends React.Component {
         });
     }
 
+    // todo - delete this if not used
     saveSelected(arrayFY, allSelected) {
+        console.log('saveSelected');
         this.setState({
             selectedFY: arrayFY,
             allFY: allSelected
@@ -302,7 +313,7 @@ export default class TimePeriod extends React.Component {
     }
 
     newAwardsClick(e) {
-        this.props.updateNewAwardsOnly(e.target.checked);
+        this.props.updateNewAwardsOnlySelected(e.target.checked);
         if (this.hint) {
             this.hint.showHint();
         }
@@ -356,13 +367,13 @@ export default class TimePeriod extends React.Component {
                     htmlFor="new-awards-checkbox">
                     <input
                         type="checkbox"
-                        className={`new-awards-checkbox ${this.state.newAwardFilterActive ? '' : 'not-active'}`}
+                        className={`new-awards-checkbox ${this.props.newAwardsOnlyActive ? '' : 'not-active'}`}
                         id="new-awards-checkbox"
                         value="new-awards-checkbox"
-                        disabled={!this.state.newAwardFilterActive}
+                        disabled={!this.props.newAwardsOnlyActive}
                         checked={this.props.newAwardsOnlySelected}
                         onChange={this.newAwardsClick} />
-                    <span className={`new-awards-label ${this.state.newAwardFilterActive ? '' : 'not-active'}`}>
+                    <span className={`new-awards-label ${this.props.newAwardsOnlyActive ? '' : 'not-active'}`}>
                     Show New Awards Only
                     </span>
                 </label>
