@@ -52,6 +52,7 @@ const NewPicker = ({
     const pickerRef = useRef(null);
     const buttonRef = useRef(null);
     const [expanded, setExpanded] = useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [isEnabled, setIsEnabled] = useState(enabled || false);
     const fontAwesomeIconId = "usa-dt-picker__button-icon--svg";
 
@@ -83,12 +84,13 @@ const NewPicker = ({
     };
 
     const handleSort = (a, b) => sortFn(a, b, selectedOption);
-    const enableButton = (e) => {
-        e.preventDefault();
-        if (!isEnabled) {
-            setIsEnabled(!isEnabled);
-        }
-    };
+    // may need this when going from disabled to enabled in the future
+    // const enableButton = (e) => {
+    //     e.preventDefault();
+    //     if (!isEnabled) {
+    //         setIsEnabled(!isEnabled);
+    //     }
+    // };
     const createOnClickFn = (cb) => (param) => {
         cb(param);
         setExpanded(false);

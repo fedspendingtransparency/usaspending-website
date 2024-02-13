@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import {
     ComingSoon,
     ErrorMessage,
-    FiscalYearPicker,
     ShareIcon
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
@@ -74,10 +73,6 @@ export const AgencyProfileV2 = ({
             subject: `USAspending.gov Agency Profile: ${name}`,
             body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
         });
-    };
-
-    const backgroundColor = {
-        backgroundColor: "#1a4480"
     };
 
     const sections = [
