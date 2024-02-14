@@ -147,22 +147,19 @@ const NewPicker = ({
                             ...option,
                             onClick: createOnClickFn(option.onClick)
                         }))
-                        .map((option) => {
-                            console.debug("option map: ", option);
-                            return (
-                                <li key={uniqueId()} className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
-                                    <button
-                                        className="filter__dropdown-item"
-                                        value={`${option.value || option.name}`}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            option.onClick(option.value);
-                                        }}>
-                                        {option.component ? option.component : option.name}
-                                    </button>
-                                </li>
-                            );
-                        })
+                        .map((option) => (
+                            <li key={uniqueId()} className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
+                                <button
+                                    className="filter__dropdown-item"
+                                    value={`${option.value || option.name}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        option.onClick(option.value);
+                                    }}>
+                                    {option.component ? option.component : option.name}
+                                </button>
+                            </li>
+                        ))
                     }
                 </ul>
             </div>
