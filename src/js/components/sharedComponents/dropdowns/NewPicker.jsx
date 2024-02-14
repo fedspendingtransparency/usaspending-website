@@ -80,7 +80,11 @@ const NewPicker = ({
 
     const toggleMenu = (e) => {
         e.preventDefault();
-        if (!expanded) {
+        setExpanded(!expanded);
+    };
+
+    const keyUp = (e) => {
+        if (e.key === "Escape" && expanded) {
             setExpanded(!expanded);
         }
     };
@@ -117,7 +121,8 @@ const NewPicker = ({
                     className={`filter__dropdown-button${variation} ${isEnabled ? 'enabled' : 'not-enabled'}`}
                     ref={buttonRef}
                     aria-label="Filter Dropdown Button"
-                    onClick={toggleMenu}>
+                    onClick={toggleMenu}
+                    onKeyUp={keyUp}>
                     <span className="filter__dropdown-left-icon">
                         <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />
                     </span>
