@@ -51,15 +51,15 @@ const GeoVisualizationSection = (props) => {
     const [expanded, setExpanded] = useState(null);
     const sectionHr = useRef(null);
     const prevProps = usePrevious(props);
-    const [center, setCenter] = useState(props.center);
 
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
-        const label = this.props.data.labels[geoId];
+        const label = props.data.labels[geoId];
+        console.log(props.data.labels, geoId)
         setShowHover(true);
         setSelectedItem({
-            label: label.label,
-            total: this.props.total,
+            label: label,
+            total: props.total,
             value: label.value,
             x: position.x,
             y: position.y
@@ -118,15 +118,13 @@ const GeoVisualizationSection = (props) => {
     });
 
     useEffect(() => {
-        console.log(props);
         handleUpdateTitle();
         handleUpdateBody();
     }, []);
 
     useEffect(() => {
-        setCenter(props.center);
-        console.log(props.center);
-    }, [props.center]);
+        setSingleLocationSelected(props.singleLocationSelected);
+    }, [props.singleLocationSelected]);
 
     useEffect(() => {
         if (!expanded || expanded === null) {
@@ -279,11 +277,10 @@ const GeoVisualizationSection = (props) => {
                 tooltip={GeoVisualizationTooltip}
                 availableLayers={availableLayers}
                 showLayerToggle
-                center={center}
+                center={props.center}
                 className={props.className}
                 mapLegendToggle={props.mapLegendToggle}
-                updateMapLegendToggle={props.updateMapLegendToggle}
-                singleLocationSelected={props.singleLocationSelected} >
+                updateMapLegendToggle={props.updateMapLegendToggle} >
                 {getMessage()}
             </MapWrapper>
             <Note message={noteMessage} />

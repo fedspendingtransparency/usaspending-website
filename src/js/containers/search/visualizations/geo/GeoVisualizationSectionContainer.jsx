@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash';
+import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
+import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -73,8 +75,8 @@ const GeoVisualizationSectionContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
-    const [center, setCenter] = useState(null);
     const [singleLocationSelected, setSingleLocationSelected] = useState(null);
+    const [center, setCenter] = useState([-95.569430, 38.852892]);
 
     let apiRequest = null;
     const mapListeners = [];
@@ -83,6 +85,7 @@ const GeoVisualizationSectionContainer = (props) => {
         visibleEntities: true,
         rawAPIData: true
     });
+    const USACenterPoint = [-95.569430, 38.852892];
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
@@ -260,30 +263,51 @@ const GeoVisualizationSectionContainer = (props) => {
         logMapLayerEvent(layer);
     };
 
+    const calculateCenterPoint = (location) => {
+        if (location) {
+            let locationRequest = performCountryGeocode(location);
+            locationRequest.promise
+                .then((res) => {
+                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : USACenterPoint);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(err);
+                        locationRequest = null;
+                    }
+                });
+        }
+        else {
+            setCenter({ center: USACenterPoint });
+        }
+    };
+
     const mapScopeLogic = (type) => {
         const selectedLocationByType = type === "pop" ? "selectedLocations" : "selectedRecipientLocations";
         // there is only 1 item, place of performance
         if (props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = props.reduxFilters[selectedLocationByType].first().filter;
+            setSingleLocationSelected(onlyObject);
             if (onlyObject.district_current || onlyObject.district_original) {
                 changeMapLayer("congressionalDistrict");
-                setSingleLocationSelected(onlyObject);
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
             }
             else if (onlyObject.county) {
                 changeMapLayer("county");
-                setSingleLocationSelected(onlyObject);
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
             }
             else if (onlyObject.state) {
                 // do not change the map layer, it is already state
-                setSingleLocationSelected(onlyObject);
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
             }
             else if (onlyObject.country !== "USA") {
                 changeMapLayer("country");
-                setSingleLocationSelected(onlyObject);
+                calculateCenterPoint(onlyObject.country);
             }
             // defaults to state
         }
         else if (props.reduxFilters[selectedLocationByType].size > 1) {
+            setSingleLocationSelected(-1);
             const onlyObject = props.reduxFilters[selectedLocationByType];
             let numStates = 0;
             let numCountries = 0;
@@ -427,10 +451,6 @@ const GeoVisualizationSectionContainer = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
 
-    useEffect(() => {
-        console.log("geo vis", singleLocationSelected);
-    }, [singleLocationSelected]);
-
     return (
         <GeoVisualizationSection
             scope={scope}
@@ -441,12 +461,12 @@ const GeoVisualizationSectionContainer = (props) => {
             data={data}
             loading={loading}
             error={error}
+            center={center}
             noResults={data.values.length === 0}
             mapLegendToggle={props.mapLegendToggle}
             updateMapLegendToggle={props.updateMapLegendToggle}
             subaward={props.subaward}
             className={props.className}
-            center={center}
             isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
             singleLocationSelected={singleLocationSelected} />
     );

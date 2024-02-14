@@ -33,7 +33,6 @@ const MapBox = forwardRef((props, ref) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
-    const [center, setCenter] = useState(props.center ? props.center : [-95, 37]);
 
     useImperativeHandle(ref, () => ({
         map
@@ -82,12 +81,12 @@ const MapBox = forwardRef((props, ref) => {
     };
 
 
-    const centerMap = useCallback((m) => {
-        m.current.jumpTo({
+    const centerMap = (m) => {
+        m?.current?.jumpTo({
             zoom: 4,
-            center
+            center: props.center
         });
-    });
+    };
 
     const resizeMap = () => {
         if (windowWidth < 768) {
@@ -108,7 +107,7 @@ const MapBox = forwardRef((props, ref) => {
             style: mapStyle,
             logoPosition: 'bottom-right',
             attributionControl: false,
-            center,
+            center: props.center,
             zoom: calculateMapZoom(),
             dragRotate: false // disable 3D view
         });
@@ -166,13 +165,10 @@ const MapBox = forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
-        if (props.center?.length > 0) {
-            setCenter(props.center);
+        if (props.center?.length > 0 && map?.current) {
+            centerMap(map);
         }
-        else {
-            setCenter([-95, 37]);
-        }
-    }, [props.center]);
+    }, [props.center, map.current]);
 
     useEffect(() => {
         if (map.current) {
@@ -181,7 +177,7 @@ const MapBox = forwardRef((props, ref) => {
             mountMap();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [windowWidth, props.stateProfile, props.stateInfo?.code]);
+    }, [windowWidth, props.center]);
 
     return (
         <div

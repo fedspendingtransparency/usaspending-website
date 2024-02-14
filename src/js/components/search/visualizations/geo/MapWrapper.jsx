@@ -6,8 +6,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
-import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
-import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 import { isCancel } from "axios";
 
 import * as MapHelper from 'helpers/mapHelper';
@@ -31,7 +29,7 @@ const propTypes = {
     changeMapLayer: PropTypes.func,
     showLayerToggle: PropTypes.bool,
     children: PropTypes.node,
-    center: PropTypes.array,
+    // center: PropTypes.array,
     stateProfile: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
@@ -41,6 +39,11 @@ const propTypes = {
 };
 
 const defaultProps = {
+    data: {
+        locations: [],
+        values: []
+    },
+    scope: 'state',
     availableLayers: ['state'],
     showLayerToggle: false,
     children: null
@@ -100,7 +103,6 @@ const MapWrapper = (props) => {
     const [mapLayers, setMapLayers] = useState({});
     const [center, setCenter] = useState(props.center);
     const [mapReady, setMapReady] = useState(false);
-    const [singleLocationSelected, setSingleLocationSelected] = useState(props.singleLocationSelected);
     const [spendingScale, setSpendingScale] = useState({
         scale: null,
         segments: [],
@@ -164,74 +166,54 @@ const MapWrapper = (props) => {
         props.hideTooltip();
     };
 
-    const calculateCenterPoint = (location) => {
-        if (location) {
-            let locationRequest = performCountryGeocode(location);
+    // TODO: In future sprint
+    // const setCenterFromMapTiles = (value, filterKey, lat, long) => {
+    //     const entities = mapRef.current.map.current.queryRenderedFeatures({
+    //         layers: [`base_${props.scope}`]
+    //     });
+    //
+    //     console.log("entities and scope", entities, props.scope);
+    //     const found = entities.find((element) => element.properties[filterKey] === value);
+    //     console.log("in set center from map tiles - not yet found", props.scope, filterKey, value, entities, found);
+    //     if (found) {
+    //         console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
+    //         setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
+    //     }
+    // };
 
-            locationRequest.promise
-                .then((res) => {
-                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : [-95.569430, 38.852892]);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        console.log(err);
-                        locationRequest = null;
-                    }
-                });
-        }
-        else {
-            this.setState({ center: [-95.569430, 38.852892] });
-        }
-    };
-
-    const reCenterMap = () => {
-        let value;
-        let filterKey;
-        let lat = "INTPTLAT";
-        let long = "INTPTLON";
-
-        console.log(props.scope);
-        console.log(singleLocationSelected);
-
-        if (props.singleLocationSelected) {
-            if (props.scope === "congressionalDistrict") {
-                const district = Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'district_current') ? props.singleLocationSelected.district_current : props.singleLocationSelected.district;
-                filterKey = "GEOID20";
-                lat += "20";
-                long += "20";
-                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
-            }
-            else if (props.scope === "county") {
-                filterKey = "COUNTYFP";
-                value = `${props.singleLocationSelected.county}`;
-            }
-            else if (props.scope === "state") {
-                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[props.singleLocationSelected.state]));
-            }
-            else if (props.scope === "country") {
-                calculateCenterPoint(props.singleLocationSelected.label);
-            }
-            else {
-                console.log("No scope found for reCenterMap");
-            }
-
-            const entities = mapRef.current.map.current.queryRenderedFeatures({
-                layers: [`base_${props.scope}`]
-            });
-
-            console.log(value);
-            console.log(entities);
-            console.log(filterKey);
-            console.log(lat);
-            console.log(long);
-
-            const found = entities.find((element) => element.properties[filterKey] === value);
-            if (found) {
-                console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
-                setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
-            }
-        }
-    };
+    // const reCenterMap = () => {
+    //     // let value;
+    //     // let filterKey;
+    //     // let lat = "INTPTLAT";
+    //     // let long = "INTPTLON";
+    //
+    //     if (props.singleLocationSelected) {
+    //         if (props.scope === "congressionalDistrict") {
+    //             setCenter(stateCenterFromFips(stateFIPSByAbbreviation[props.singleLocationSelected.state]));
+    //             // console.log("district", district, props.singleLocationSelected.state, stateFIPSByAbbreviation[props.singleLocationSelected.state]);
+    //             // filterKey = "GEOID20";
+    //             // lat += "20";
+    //             // long += "20";
+    //             // value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
+    //             // setCenterFromMapTiles(value, filterKey, lat, long);
+    //         }
+    //         else if (props.scope === "county") {
+    //             setCenter(stateCenterFromFips(stateFIPSByAbbreviation[props.singleLocationSelected.state]));
+    //             // filterKey = "COUNTYFP";
+    //             // value = `${props.singleLocationSelected.county}`;
+    //             // setCenterFromMapTiles(value, filterKey, lat, long);
+    //         }
+    //         else if (props.scope === "state") {
+    //             setCenter(stateCenterFromFips(stateFIPSByAbbreviation[props.singleLocationSelected.state]));
+    //         }
+    //         else if (props.scope === "country") {
+    //             calculateCenterPoint(props.singleLocationSelected.country);
+    //         }
+    //         else {
+    //             console.log("No scope found for reCenterMap");
+    //         }
+    //     }
+    // };
 
     const loadSource = (type) => {
         const baseLayer = `base_${type}`;
@@ -374,12 +356,12 @@ const MapWrapper = (props) => {
     const prepareChangeListeners = () => {
         // detect visible entities whenever the map moves
         const parentMap = mapRef.current.map.current;
-        renderCallback = () => {
+        renderCallback = (() => {
             if (parentMap.loaded()) {
                 parentMap.off('render', renderCallback);
                 MapBroadcaster.emit('mapMoved');
             }
-        };
+        });
 
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
@@ -428,13 +410,6 @@ const MapWrapper = (props) => {
             layers: [`base_${scopeRef.current}`]
         });
 
-        console.log(props.scope);
-        console.log(scopeRef.current);
-        console.log(singleLocationSelected);
-        if (scopeRef.current && props.singleLocationSelected) {
-            reCenterMap(scopeRef.current);
-        }
-
         const source = mapboxSources[scopeRef.current];
         const visibleEntities = entities.map((entity) => (
             entity.properties[source.filterKey]
@@ -477,10 +452,6 @@ const MapWrapper = (props) => {
         if (!mapReady) {
             // add to the map operation queue
             queueMapOperation('displayData', displayData);
-            return;
-        }
-
-        if (!props.scope) {
             return;
         }
 
@@ -601,21 +572,18 @@ const MapWrapper = (props) => {
     }, []);
 
     useEffect(() => {
-        if (scopeRef.current !== props.scope) {
-            queueMapOperation('displayData', displayData);
-            prepareMap();
-            scopeRef.current = props.scope;
-        }
-        else {
-            displayData();
-        }
+        queueMapOperation('displayData', displayData);
+        prepareMap();
+        scopeRef.current = props.scope;
+
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.renderHash]);
+    }, [props.renderHash, props.scope]);
 
     useEffect(() => {
         if (mapReady) {
             prepareMap();
         }
+
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [mapReady]);
 
@@ -624,7 +592,7 @@ const MapWrapper = (props) => {
             <MapBox
                 loadedMap={mapReadyPrep}
                 unloadedMap={mapRemoved}
-                center={center}
+                center={props.center}
                 mapType={props.scope}
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}
