@@ -109,7 +109,6 @@ const NewPicker = ({
         variation = '-lg';
     }
 
-    console.debug("selected option: ", selectedOption);
     return (
         <div className="filter__dropdown-container" ref={pickerRef}>
             {label !== '' && <span className={`filter__dropdown-label${variation} ${isEnabled ? 'enabled' : 'not-enabled'}`}>{label}</span>}
