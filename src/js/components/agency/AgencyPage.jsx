@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import {
     ComingSoon,
     ErrorMessage,
-    FiscalYearPicker,
     ShareIcon
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
@@ -28,6 +27,7 @@ import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
 import StatusOfFunds from './statusOfFunds/StatusOfFunds';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
+import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
 
 require('pages/agency/index.scss');
 
@@ -73,10 +73,6 @@ export const AgencyProfileV2 = ({
             subject: `USAspending.gov Agency Profile: ${name}`,
             body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
         });
-    };
-
-    const backgroundColor = {
-        backgroundColor: "#1a4480"
     };
 
     const sections = [
@@ -178,7 +174,7 @@ export const AgencyProfileV2 = ({
             jumpToSection={jumpToSection}
             activeSection={activeSection}
             toolBarComponents={[
-                <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
+                <NumericPickerWrapper size="sm" leftIcon="calendar-alt" enabled selectedValue={selectedFy} latestValue={latestFy} handleChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
