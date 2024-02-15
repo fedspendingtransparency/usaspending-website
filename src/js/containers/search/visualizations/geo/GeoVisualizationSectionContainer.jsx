@@ -76,6 +76,7 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
+    const [singleLocationSelected, setSingleLocationSelected] = useState({});
 
     let apiRequest = null;
     const mapListeners = [];
@@ -133,7 +134,6 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
     };
 
     const mapLoaded = () => {
-        console.log("mapLoaded");
         setLoadingTiles(false);
         useEffectRef.current.loadingTiles = false;
     };
@@ -161,7 +161,6 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
     };
 
     const fetchData = () => {
-        console.log("fetching data...");
         // build a new search operation from the Redux state, but create a transaction-based search
         // operation instead of an award-based one
         const operation = new SearchAwardsOperation();
@@ -258,7 +257,6 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
     };
 
     const changeMapLayer = (layer) => {
-        console.log("changeMapLayer", layer);
         setMapLayer(layer);
         setRenderHash(`geo-${uniqueId()}`);
         setLoadingTiles(true);
@@ -283,7 +281,7 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
                 });
         }
         else {
-            setCenter({ center: USACenterPoint });
+            setCenter(USACenterPoint);
         }
     };
 
@@ -292,6 +290,7 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
         // there is only 1 item, place of performance
         if (props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = props.reduxFilters[selectedLocationByType].first().filter;
+            setSingleLocationSelected(onlyObject);
             if (onlyObject.district_current || onlyObject.district_original) {
                 changeMapLayer("congressionalDistrict");
                 setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
@@ -388,7 +387,6 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
     };
 
     useEffect(() => {
-        console.log("componentDidMount");
         const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
         mapListeners.push(doneListener);
 
@@ -449,7 +447,6 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
     }, [scope]);
 
     useEffect(() => {
-        console.log("loadingTiles", loadingTiles);
         prepareFetch(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
@@ -470,7 +467,8 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
             updateMapLegendToggle={props.updateMapLegendToggle}
             subaward={props.subaward}
             className={props.className}
-            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
+            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+            singleLocationSelected={singleLocationSelected} />
     );
 });
 

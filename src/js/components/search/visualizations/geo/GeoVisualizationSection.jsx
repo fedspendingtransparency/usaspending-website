@@ -38,7 +38,8 @@ const propTypes = {
     updateMapLegendToggle: PropTypes.func,
     subaward: PropTypes.bool,
     className: PropTypes.string,
-    center: PropTypes.array
+    center: PropTypes.array,
+    singleLocationSelected: PropTypes.object
 };
 
 const availableLayers = ['country', 'state', 'county', 'congressionalDistrict'];
@@ -50,14 +51,14 @@ const GeoVisualizationSection = (props) => {
     const [tableTitle, setTableTitle] = useState("");
     const [tablePreview, setTablePreview] = useState("");
     const [expanded, setExpanded] = useState(null);
-    const [data, setData] = useState(props.data);
     const sectionHr = useRef(null);
     const prevProps = usePrevious(props);
+    const dataRef = useRef(props.data);
 
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
-        const label = props.data.labels[geoId];
-        console.log("data", props.data, data);
+        // TODO: This ref is necessary, need to figure out why the map components are losing reference to data
+        const label = dataRef.current.labels[geoId];
         setShowHover(true);
         setSelectedItem({
             label: label.label,
@@ -122,7 +123,10 @@ const GeoVisualizationSection = (props) => {
     useEffect(() => {
         handleUpdateTitle();
         handleUpdateBody();
-        setData(props.data);
+    }, [handleUpdateBody]);
+
+    useEffect(() => {
+        dataRef.current = props.data;
     }, [props.data]);
 
     useEffect(() => {
@@ -135,8 +139,8 @@ const GeoVisualizationSection = (props) => {
             handleUpdateTitle();
             handleUpdateBody();
         }
-
-    }, [expanded, props.subaward, prevProps?.subaward]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [expanded, prevProps?.subaward, props.subaward]);
 
     const applyLineClamp = (elem) => {
         elem.classList.add("line-clamp");
@@ -280,7 +284,8 @@ const GeoVisualizationSection = (props) => {
                 center={props.center}
                 className={props.className}
                 mapLegendToggle={props.mapLegendToggle}
-                updateMapLegendToggle={props.updateMapLegendToggle} >
+                updateMapLegendToggle={props.updateMapLegendToggle}
+                singleLocationSelected={props.singleLocationSelected} >
                 {getMessage()}
             </MapWrapper>
             <Note message={noteMessage} />

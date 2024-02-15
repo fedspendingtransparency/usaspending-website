@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback } from 'react';
+import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
@@ -17,7 +17,8 @@ const propTypes = {
     unloadedMap: PropTypes.func,
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
-    stateInfo: PropTypes.object
+    stateInfo: PropTypes.object,
+    singleLocationSelected: PropTypes.object
 };
 
 // Define map movement increment
@@ -165,10 +166,10 @@ const MapBox = forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
-        if (props.center?.length > 0 && map?.current) {
+        if (props.center?.length > 0 && map?.current && Object.keys(props.singleLocationSelected)?.length > 0) {
             centerMap(map);
         }
-    }, [props.center, map.current]);
+    }, [props.center, map.current, props.singleLocationSelected]);
 
     useEffect(() => {
         if (map.current) {

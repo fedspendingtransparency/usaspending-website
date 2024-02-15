@@ -153,8 +153,6 @@ const MapWrapper = (props) => {
         const source = mapboxSources[props.scope];
         // grab the filter ID from the GeoJSON feature properties
         const entityId = e.features[0].properties[source.filterKey];
-        console.log("map wrapper", source, entityId, source.filterKey, e);
-        console.log(props.data);
         props.showTooltip(entityId, {
             x: e.originalEvent.offsetX,
             y: e.originalEvent.offsetY
@@ -164,55 +162,6 @@ const MapWrapper = (props) => {
     const mouseExitLayer = () => {
         props.hideTooltip();
     };
-
-    // TODO: In future sprint
-    // const setCenterFromMapTiles = (value, filterKey, lat, long) => {
-    //     const entities = mapRef.current.map.current.queryRenderedFeatures({
-    //         layers: [`base_${props.scope}`]
-    //     });
-    //
-    //     console.log("entities and scope", entities, props.scope);
-    //     const found = entities.find((element) => element.properties[filterKey] === value);
-    //     console.log("in set center from map tiles - not yet found", props.scope, filterKey, value, entities, found);
-    //     if (found) {
-    //         console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
-    //         setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
-    //     }
-    // };
-
-    // const reCenterMap = () => {
-    //     // let value;
-    //     // let filterKey;
-    //     // let lat = "INTPTLAT";
-    //     // let long = "INTPTLON";
-    //
-    //     if (props.singleLocationSelected) {
-    //         if (props.scope === "congressionalDistrict") {
-    //             setCenter(stateCenterFromFips(stateFIPSByAbbreviation[props.singleLocationSelected.state]));
-    //             // console.log("district", district, props.singleLocationSelected.state, stateFIPSByAbbreviation[props.singleLocationSelected.state]);
-    //             // filterKey = "GEOID20";
-    //             // lat += "20";
-    //             // long += "20";
-    //             // value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
-    //             // setCenterFromMapTiles(value, filterKey, lat, long);
-    //         }
-    //         else if (props.scope === "county") {
-    //             setCenter(stateCenterFromFips(stateFIPSByAbbreviation[props.singleLocationSelected.state]));
-    //             // filterKey = "COUNTYFP";
-    //             // value = `${props.singleLocationSelected.county}`;
-    //             // setCenterFromMapTiles(value, filterKey, lat, long);
-    //         }
-    //         else if (props.scope === "state") {
-    //             setCenter(stateCenterFromFips(stateFIPSByAbbreviation[props.singleLocationSelected.state]));
-    //         }
-    //         else if (props.scope === "country") {
-    //             calculateCenterPoint(props.singleLocationSelected.country);
-    //         }
-    //         else {
-    //             console.log("No scope found for reCenterMap");
-    //         }
-    //     }
-    // };
 
     const loadSource = (type) => {
         const baseLayer = `base_${type}`;
@@ -597,7 +546,8 @@ const MapWrapper = (props) => {
                 mapType={props.scope}
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}
-                ref={mapRef} />
+                ref={mapRef}
+                singleLocationSelected={props.singleLocationSelected} />
             {toggle()}
             {legend()}
             {tooltip()}
