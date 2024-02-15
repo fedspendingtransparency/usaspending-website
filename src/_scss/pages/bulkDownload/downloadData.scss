@@ -1,7 +1,7 @@
 .download-center {
     @import "./archiveInfoBox";
     .archive-info {
-        margin-top: rem(30);
+        margin: rem(30) 0;
         @include media($medium-screen) {
             margin: rem(30) rem(20) rem(30) rem(30);
         }
@@ -10,7 +10,7 @@
         @include grid-column(16);
         margin-left: 0 !important;
         @include media($medium-screen) {
-            @include grid-column(9);
+            width: 100%;
         }
         margin-bottom: rem(30);
         .download-center__title {
@@ -39,15 +39,13 @@
 
     .download-info {
         @include grid-column(16);
+        margin-left: rem(10);
+        width: 94%;
         @include media($medium-screen) {
             @include grid-column(7);
             border-left: solid 1px #e1e1e1;
             padding: rem(15) rem(30) 0 rem(30);
-        }
-
-        @media(max-width: $medium-screen){
-            margin-left: 0;
-            width: 78%;
+            width: 94%;
         }
 
         h3.download-info__title {

@@ -23,7 +23,9 @@ const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    appliedFilters: PropTypes.object
+    appliedFilters: PropTypes.object,
+    newAwardsOnlySelected: PropTypes.bool,
+    newAwardsOnlyActive: PropTypes.bool
 };
 
 export class TimePeriodContainer extends React.Component {
@@ -151,6 +153,8 @@ export class TimePeriodContainer extends React.Component {
                 {...this.props}
                 dirtyFilters={this.dirtyFilters()}
                 newAwardsOnlySelected={this.props.newAwardsOnlySelected}
+                newAwardsOnlyActive={this.props.newAwardsOnlyActive}
+                naoActiveFromFyOrDateRange={this.props.naoActiveFromFyOrDateRange}
                 activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
@@ -167,7 +171,9 @@ export default connect(
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTimePeriodStart: state.filters.timePeriodStart,
         filterTimePeriodEnd: state.filters.timePeriodEnd,
-        newAwardsOnlySelected: state.filters.newAwardsOnly,
+        newAwardsOnlySelected: state.filters.filterNewAwardsOnlySelected,
+        newAwardsOnlyActive: state.filters.filterNewAwardsOnlyActive,
+        naoActiveFromFyOrDateRange: state.filters.filterNaoActiveFromFyOrDateRange,
         appliedFilters: state.appliedFilters.filters,
         subaward: state.searchView.subaward
     }),

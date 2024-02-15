@@ -54,7 +54,9 @@ export const initialState = {
     timePeriodFY: Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
-    newAwardsOnly: false,
+    filterNewAwardsOnlySelected: false,
+    filterNewAwardsOnlyActive: false,
+    filterNaoActiveFromFyOrDateRange: false,
     selectedLocations: OrderedMap(),
     locationDomesticForeign: 'all',
     selectedFundingAgencies: OrderedMap(),
@@ -98,10 +100,24 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // New Awards Only Filter
-        case 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY': {
+        // New Awards Only Filter, Selected
+        case 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_SELECTED': {
             return Object.assign({}, state, {
-                newAwardsOnly: action.filterValue
+                filterNewAwardsOnlySelected: action.filterValue
+            });
+        }
+
+        // New Awards Only Filter, Active
+        case 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_ACTIVE': {
+            return Object.assign({}, state, {
+                filterNewAwardsOnlyActive: action.filterValue
+            });
+        }
+
+        // New Awards Only Filter, Selected bc of conditions in fy or date range
+        case 'UPDATE_SEARCH_FILTER_NAO_FROM_FY_OR_DATE_RANGE': {
+            return Object.assign({}, state, {
+                filterNaoActiveFromFyOrDateRange: action.filterValue
             });
         }
 

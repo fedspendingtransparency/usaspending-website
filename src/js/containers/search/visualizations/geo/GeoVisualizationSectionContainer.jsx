@@ -3,12 +3,12 @@
  * Created by Kevin Li 2/13/17
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, isEqual, keyBy } from 'lodash';
+import { uniqueId, keyBy } from 'lodash';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -26,7 +26,6 @@ import { parseRows } from 'helpers/search/visualizations/geoHelper';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    resultsMeta: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
@@ -61,116 +60,81 @@ const logMapScopeEvent = (scope) => {
 };
 
 
-export class GeoVisualizationSectionContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const GeoVisualizationSectionContainer = (props) => {
+    const [scope, setScope] = useState('place_of_performance');
+    const [mapLayer, setMapLayer] = useState('state');
+    const [rawAPIData, setRawAPIData] = useState([]);
+    const [data, setData] = useState({
+        values: [],
+        locations: []
+    });
+    const [visibleEntities, setVisibleEntities] = useState([]);
+    const [renderHash, setRenderHash] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [loadingTiles, setLoadingTiles] = useState(true);
+    const [error, setError] = useState(false);
 
-        this.state = {
-            scope: 'place_of_performance',
-            mapLayer: 'state',
-            rawAPIData: [],
-            data: {
-                values: [],
-                locations: []
-            },
-            visibleEntities: [],
-            renderHash: `geo-${uniqueId()}`,
-            country_USA_data: null,
-            loading: true,
-            loadingTiles: true,
-            error: false
-        };
+    let apiRequest = null;
+    const mapListeners = [];
+    // this ref as been added to stop the related useEffect triggering on initial render
+    const useEffectRef = React.useRef({
+        visibleEntities: true,
+        rawAPIData: true
+    });
 
-        this.apiRequest = null;
-        this.mapListeners = [];
+    const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
-        this.changeScope = this.changeScope.bind(this);
-        this.changeMapLayer = this.changeMapLayer.bind(this);
-        this.receivedEntities = this.receivedEntities.bind(this);
-        this.mapLoaded = this.mapLoaded.bind(this);
-        this.prepareFetch = this.prepareFetch.bind(this);
-        this.mapScopeLogic = this.mapScopeLogic.bind(this);
-        this.updateMapScope = this.updateMapScope.bind(this);
-    }
 
-    componentDidMount() {
-        const doneListener = MapBroadcaster.on('mapMeasureDone', this.receivedEntities);
-        this.mapListeners.push(doneListener);
-        const measureListener = MapBroadcaster.on('mapReady', this.mapLoaded);
-        this.mapListeners.push(measureListener);
-        const movedListener = MapBroadcaster.on('mapMoved', this.prepareFetch);
-        this.mapListeners.push(movedListener);
+    /**
+     * valuesLocationsLabelsFromAPIData
+     * - creates locations, values, and labels for the map visualization from api data
+     * @returns {Object} - object with locations, values and labels properties
+     */
+    const valuesLocationsLabelsFromAPIData = () => {
+        const values = [];
+        const locations = [];
+        const labels = {};
 
-        this.updateMapScope();
-
-        // log the initial event
-        logMapScopeEvent(this.state.scope);
-        logMapLayerEvent(this.state.mapLayer);
-    }
-
-    componentDidUpdate(prevProps) {
-        let updateMap = false;
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
-            this.prepareFetch(true);
-            updateMap = true;
-        }
-        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
-            // subaward toggle changed, update the search object
-            this.prepareFetch(true);
-            updateMap = true;
-        }
-        else if (prevProps.mapLegendToggle !== this.props.mapLegendToggle) {
-            this.handleMapLegendToggleChange();
-        }
-
-        if (updateMap) {
-            this.updateMapScope();
-        }
-    }
-
-    componentWillUnmount() {
-    // remove any broadcast listeners
-        this.mapListeners.forEach((listenerRef) => {
-            MapBroadcaster.off(listenerRef.event, listenerRef.id);
+        rawAPIData.forEach((item) => {
+            // state must not be null or empty string
+            if (item.shape_code && item.shape_code !== '') {
+                locations.push(item.shape_code);
+                values.push(parseFloat(item[mapToggleDataKey()]));
+                labels[item.shape_code] = {
+                    label: item.display_name,
+                    value: parseFloat(item[mapToggleDataKey()])
+                };
+            }
         });
-    }
 
-    setParsedData() {
-        this.props.setAppliedFilterCompletion(true);
+        return { values, locations, labels };
+    };
 
-        this.setState({
-            data: this.valuesLocationsLabelsFromAPIData(),
-            renderHash: `geo-${uniqueId()}`,
-            loading: false,
-            error: false
-        });
-    }
+    const setParsedData = () => {
+        props.setAppliedFilterCompletion(true);
 
-    mapLoaded() {
-        this.setState({
-            loadingTiles: false
-        }, () => {
-            window.setTimeout(() => {
-                // SUPER BODGE: wait 300ms before measuring the map
-                // Mapbox source and render events appear to be firing the tiles are actually ready
-                // when served from cache
-                this.prepareFetch();
-            }, 300);
-        });
-    }
+        setData(valuesLocationsLabelsFromAPIData());
+        setRenderHash(`geo-${uniqueId()}`);
+        setLoading(false);
+        setError(false);
+    };
 
-    prepareFetch(forced = false) {
-        if (this.state.loadingTiles) {
+    const prepareFetch = (forced = false) => {
+        if (loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
 
         MapBroadcaster.emit('measureMap', forced);
-    }
+    };
 
-    compareEntities(entities) {
+    const mapLoaded = () => {
+        setLoadingTiles(false);
+    };
+
+    const compareEntities = (entities) => {
     // check if the inbound list of entities is different from the existing visible entities
-        const current = keyBy(this.state.visibleEntities);
+        const current = keyBy(visibleEntities);
         const inbound = keyBy(entities);
 
         for (const entity of entities) {
@@ -180,7 +144,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
         }
 
-        for (const entity of this.state.visibleEntities) {
+        for (const entity of visibleEntities) {
             if (!inbound[entity]) {
                 // old entity exited view
                 return true;
@@ -188,47 +152,29 @@ export class GeoVisualizationSectionContainer extends React.Component {
         }
 
         return false;
-    }
+    };
 
-    receivedEntities(entities, forced) {
-        if (!forced) {
-            // only check if the returned entities list has changed if this is not a forced update
-            const changed = this.compareEntities(entities);
-            if (!changed) {
-                // nothing changed
-                return;
-            }
-        }
-
-        this.setState({
-            visibleEntities: entities
-        }, () => {
-            this.fetchData();
-        });
-    }
-
-    fetchData() {
+    const fetchData = () => {
     // build a new search operation from the Redux state, but create a transaction-based search
     // operation instead of an award-based one
         const operation = new SearchAwardsOperation();
-        operation.fromState(this.props.reduxFilters);
+        operation.fromState(props.reduxFilters);
 
         // if no entities are visible, don't make an API request because nothing in the US is visible
-        if (this.state.visibleEntities.length === 0) {
-            this.setState({
-                loading: false,
-                error: false,
-                data: {
-                    values: [],
-                    locations: []
-                }
+        if (visibleEntities.length === 0) {
+            setLoading(false);
+            setError(false);
+            setData({
+                values: [],
+                locations: []
             });
+
             return;
         }
 
         // if subawards is true, newAwardsOnly cannot be true, so we remove
         // dateType for this request
-        if (this.props.subaward && operation.dateType) {
+        if (props.subaward && operation.dateType) {
             delete operation.dateType;
         }
 
@@ -236,122 +182,92 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         // generate the API parameters
         const apiParams = {
-            scope: this.state.scope,
-            geo_layer: apiScopes[this.state.mapLayer],
-            geo_layer_filters: this.state.visibleEntities,
+            scope,
+            geo_layer: apiScopes[mapLayer],
+            geo_layer_filters: visibleEntities,
             filters: searchParams,
-            subawards: this.props.subaward,
+            subawards: props.subaward,
             auditTrail: 'Map Visualization'
         };
 
-        if (this.apiRequest) {
-            this.apiRequest.cancel();
+        if (apiRequest) {
+            apiRequest.cancel();
         }
 
-        this.setState({
-            loading: true,
-            error: false
-        });
+        setLoading(true);
+        setError(false);
 
-
-        this.props.setAppliedFilterCompletion(false);
-        this.apiRequest = performSpendingByGeographySearch(apiParams);
-        this.apiRequest.promise
+        props.setAppliedFilterCompletion(false);
+        apiRequest = performSpendingByGeographySearch(apiParams);
+        apiRequest.promise
             .then((res) => {
-                this.apiRequest = null;
+                apiRequest = null;
                 const parsedData = parseRows(res.data.results, apiParams);
-                this.setState({ rawAPIData: parsedData }, this.setParsedData);
+                setRawAPIData(parsedData);
+                setParsedData();
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
-                    this.apiRequest = null;
+                    apiRequest = null;
 
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
+                    setLoading(false);
+                    setError(true);
 
-                    this.props.setAppliedFilterCompletion(true);
+                    props.setAppliedFilterCompletion(true);
                 }
             });
-    }
+    };
 
-    mapToggleDataKey = () => (this.props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
+    const receivedEntities = (entities, forced) => {
+        if (!forced) {
+            // only check if the returned entities list has changed if this is not a forced update
+            const changed = compareEntities(entities);
+            if (!changed) {
+                // nothing changed
+                return;
+            }
+        }
+        setVisibleEntities(entities);
+    };
+
     /**
      * handleMapLegendToggleChange
      * - updates data values property and label value properties to respective spending total
      * @returns {null}
      */
-    handleMapLegendToggleChange = () => {
-        this.setState({
-            data: Object.assign({}, this.valuesLocationsLabelsFromAPIData()),
-            renderHash: `geo-${uniqueId()}`
-        });
+    const handleMapLegendToggleChange = () => {
+        setData(Object.assign({}, valuesLocationsLabelsFromAPIData()));
+        setRenderHash(`geo-${uniqueId()}`);
     };
 
-    /**
-     * valuesLocationsLabelsFromAPIData
-     * - creates locations, values, and labels for the map visualization from api data
-     * @returns {Object} - object with locations, values and labels properties
-     */
-    valuesLocationsLabelsFromAPIData = () => {
-        const values = [];
-        const locations = [];
-        const labels = {};
-        this.state.rawAPIData.forEach((item) => {
-            // state must not be null or empty string
-            if (item.shape_code && item.shape_code !== '') {
-                locations.push(item.shape_code);
-                values.push(parseFloat(item[this.mapToggleDataKey()]));
-                labels[item.shape_code] = {
-                    label: item.display_name,
-                    value: parseFloat(item[this.mapToggleDataKey()])
-                };
-            }
-        });
-        return { values, locations, labels };
-    };
-
-    changeScope(scope) {
-        if (scope === this.state.scope) {
+    const changeScope = (newScope) => {
+        if (newScope === scope) {
             // scope has not changed
             return;
         }
 
-        this.setState({
-            scope
-        }, () => {
-            this.prepareFetch(true);
-            logMapScopeEvent(scope);
-        });
-    }
-
-    updateMapLegendToggle = (value) => {
-        this.props.updateMapLegendToggle(value);
+        setScope(newScope);
     };
 
-    changeMapLayer(layer) {
-        this.setState({
-            mapLayer: layer,
-            renderHash: `geo-${uniqueId()}`,
-            loadingTiles: true
-        }, () => {
-            this.prepareFetch(true);
-            logMapLayerEvent(layer);
-        });
-    }
+    const changeMapLayer = (layer) => {
+        setMapLayer(layer);
+        setRenderHash(`geo-${uniqueId()}`);
+        setLoadingTiles(true);
 
-    mapScopeLogic(type) {
+        logMapLayerEvent(layer);
+    };
+
+    const mapScopeLogic = (type) => {
         const selectedLocationByType = type === "pop" ? "selectedLocations" : "selectedRecipientLocations";
         // there is only 1 item, place of performance
-        if (this.props.reduxFilters[selectedLocationByType].size === 1) {
-            const onlyObject = this.props.reduxFilters[selectedLocationByType].first().filter;
+        if (props.reduxFilters[selectedLocationByType].size === 1) {
+            const onlyObject = props.reduxFilters[selectedLocationByType].first().filter;
             if (onlyObject.district_current || onlyObject.district_original) {
-                this.changeMapLayer("congressionalDistrict");
+                changeMapLayer("congressionalDistrict");
             }
             else if (onlyObject.county) {
-                this.changeMapLayer("county");
+                changeMapLayer("county");
             }
             else if (onlyObject.state) {
                 // do nothing
@@ -363,8 +279,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
             // defaults to state
         }
-        else if (this.props.reduxFilters[selectedLocationByType].size > 1) {
-            const onlyObject = this.props.reduxFilters[selectedLocationByType];
+        else if (props.reduxFilters[selectedLocationByType].size > 1) {
+            const onlyObject = props.reduxFilters[selectedLocationByType];
             let numStates = 0;
             let numCountries = 0;
             let numCounties = 0;
@@ -403,72 +319,144 @@ export class GeoVisualizationSectionContainer extends React.Component {
             if (numCountries === onlyObject.size) { // only countries
                 // TODO - Changing this line to state to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                this.changeMapLayer("state");
+                changeMapLayer("state");
             }
             else if (numStates === onlyObject.size) { // only states
-                this.changeMapLayer("state");
+                changeMapLayer("state");
             }
             else if (numCounties === onlyObject.size) { // only counties
-                this.changeMapLayer("county");
+                changeMapLayer("county");
             }
             else if (numCDs === onlyObject.size) { // only cds
-                this.changeMapLayer("congressionalDistrict");
+                changeMapLayer("congressionalDistrict");
             }
             else if ((numCDs + numCounties) === onlyObject.size ||
-                                       (numStates + numCDs) === onlyObject.size ||
-                                       (numStates + numCounties) === onlyObject.size) {
-                this.changeMapLayer("state");
+                (numStates + numCDs) === onlyObject.size ||
+                (numStates + numCounties) === onlyObject.size) {
+                changeMapLayer("state");
             }
             else if (international === true) {
                 // TODO - Changing this line to state to ensure the map always shows results
                 //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                this.changeMapLayer("state");
+                changeMapLayer("state");
             }
         }
-        else if (this.props.reduxFilters[selectedLocationByType].size === 0) {
-            this.changeMapLayer("state");
+        else if (props.reduxFilters[selectedLocationByType].size === 0) {
+            changeMapLayer("state");
         }
-    }
-    updateMapScope() {
-        if (this.props.reduxFilters.selectedLocations.size > 0) {
-            this.mapScopeLogic('pop');
+    };
+
+    const updateMapScope = () => {
+        if (props.reduxFilters.selectedLocations.size > 0) {
+            mapScopeLogic('pop');
         }
 
-        if (this.props.reduxFilters.selectedRecipientLocations.size > 0) {
-            this.mapScopeLogic('recipient');
+        if (props.reduxFilters.selectedRecipientLocations.size > 0) {
+            mapScopeLogic('recipient');
         }
 
-        if (this.props.reduxFilters.selectedLocations.size === 0 && this.props.reduxFilters.selectedRecipientLocations.size > 0) {
-            this.changeScope("recipient_location");
+        if (props.reduxFilters.selectedLocations.size === 0 && props.reduxFilters.selectedRecipientLocations.size > 0) {
+            changeScope("recipient_location");
         }
-    }
-    render() {
-        return (
-            <GeoVisualizationSection
-                {...this.state}
-                noResults={this.state.data.values.length === 0}
-                changeScope={this.changeScope}
-                changeMapLayer={this.changeMapLayer}
-                updateMapLegendToggle={this.updateMapLegendToggle}
-                mapLegendToggle={this.props.mapLegendToggle}
-                subaward={this.props.subaward}
-                isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
-                className={this.props.className} />
-        );
-    }
-}
+    };
+
+    useEffect(() => {
+        const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
+        mapListeners.push(doneListener);
+
+        const measureListener = MapBroadcaster.on('mapReady', mapLoaded);
+        mapListeners.push(measureListener);
+
+        const movedListener = MapBroadcaster.on('mapMoved', prepareFetch);
+        mapListeners.push(movedListener);
+
+        updateMapScope();
+
+        // log the initial event
+        logMapScopeEvent(scope);
+        logMapLayerEvent(mapLayer);
+
+        return () => {
+            // remove any broadcast listeners
+            mapListeners.forEach((listenerRef) => {
+                MapBroadcaster.off(listenerRef.event, listenerRef.id);
+            });
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (!props.noApplied) {
+            prepareFetch(true);
+            updateMapScope();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.reduxFilters, props.subaward]);
+
+    useEffect(() => {
+        handleMapLegendToggleChange();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.mapLegendToggle]);
+
+    useEffect(() => {
+        if (useEffectRef.current.visibleEntities) {
+            useEffectRef.current.visibleEntities = false;
+            return;
+        }
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [visibleEntities]);
+
+    useEffect(() => {
+        if (useEffectRef.current.rawAPIData) {
+            useEffectRef.current.rawAPIData = false;
+            return;
+        }
+        setParsedData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [rawAPIData]);
+
+    useEffect(() => {
+        prepareFetch(true);
+        logMapScopeEvent(scope);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [scope]);
+
+    useEffect(() => {
+        prepareFetch(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mapLayer, loadingTiles]);
+
+    return (
+        <GeoVisualizationSection
+            scope={scope}
+            mapLayer={mapLayer}
+            changeScope={changeScope}
+            changeMapLayer={changeMapLayer}
+            renderHash={renderHash}
+            data={data}
+            loading={loading}
+            error={error}
+            noResults={data.values.length === 0}
+            mapLegendToggle={props.mapLegendToggle}
+            updateMapLegendToggle={props.updateMapLegendToggle}
+            subaward={props.subaward}
+            className={props.className}
+            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
+    );
+};
 
 GeoVisualizationSectionContainer.propTypes = propTypes;
-export default connect(
-    (state) => ({
-        reduxFilters: state.appliedFilters.filters,
-        noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward,
-        mapLegendToggle: state.searchMapLegendToggle
-    }),
-    (dispatch) => ({
-        ...bindActionCreators(Object.assign({}, searchFilterActions,
-            { setAppliedFilterCompletion }, { updateMapLegendToggle }),
-        dispatch)
-    })
+
+export default connect((state) => ({
+    reduxFilters: state.appliedFilters.filters,
+    noApplied: state.appliedFilters._empty,
+    subaward: state.searchView.subaward,
+    mapLegendToggle: state.searchMapLegendToggle
+}),
+(dispatch) => ({
+    ...bindActionCreators(Object.assign({}, searchFilterActions,
+        { setAppliedFilterCompletion }, { updateMapLegendToggle }),
+    dispatch)
+})
 )(GeoVisualizationSectionContainer);

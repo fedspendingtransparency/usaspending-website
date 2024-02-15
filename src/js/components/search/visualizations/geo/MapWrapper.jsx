@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, { createRef, Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
 
@@ -91,117 +91,28 @@ const mapboxSources = {
     }
 };
 
-export default class MapWrapper extends Component {
-    constructor(props) {
-        super(props);
+const MapWrapper = (props) => {
+    const mapRef = useRef();
+    const scopeRef = useRef(props.scope);
+    const [mapLayers, setMapLayers] = useState({});
+    const [mapReady, setMapReady] = useState(false);
+    const [spendingScale, setSpendingScale] = useState({
+        scale: null,
+        segments: [],
+        units: {}
+    });
+    // const loadedLayers = {};
+    const broadcastReceivers = [];
+    let renderCallback = null;
+    let mapOperationQueue = {};
 
-        this.state = {
-            spendingScale: {
-                scale: null,
-                segments: [],
-                units: {}
-            },
-            mapReady: false
-        };
-
-        this.mapRef = createRef();
-        this.mapOperationQueue = {};
-        this.loadedLayers = {};
-        this.broadcastReceivers = [];
-        this.renderCallback = null;
-        this.className = "";
-        this.mapReady = this.mapReady.bind(this);
-        this.mapRemoved = this.mapRemoved.bind(this);
-
-        this.measureMap = this.measureMap.bind(this);
-    }
-
-    componentDidMount() {
-        this.displayData();
-        if (!this.props.stateProfile) {
-            this.prepareBroadcastReceivers();
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.renderHash !== this.props.renderHash) {
-            if (prevProps.scope !== this.props.scope) {
-                // the scope changed, we need to reload the layers
-                this.queueMapOperation('displayData', this.displayData);
-                this.prepareMap();
-            }
-            else {
-                // only the data changed
-                this.displayData();
-            }
-        }
-    }
-
-    componentWillUnmount() {
-        // remove any broadcast listeners
-        if (!this.props.stateProfile) {
-            this.removeChangeListeners();
-        }
-        this.broadcastReceivers.forEach((listenerRef) => {
-            MapBroadcaster.off(listenerRef.event, listenerRef.id);
-        });
-    }
-
-    mapReady() {
-        // map has mounted, load the state shapes
-        this.setState({
-            mapReady: true
-        }, () => {
-            this.prepareMap();
-        });
-    }
-
-    mapRemoved() {
+    const mapRemoved = () => {
         // map is about to be removed
-        this.setState({
-            mapReady: false
-        });
-    }
+        setMapReady(false);
+    };
 
-    prepareMap() {
-        this.prepareLayers()
-            .then(() => {
-                // we depend on the state shapes to process the state fills, so the operation
-                // queue must wait for the state shapes to load first
-                this.runMapOperationQueue();
-                if (!this.props.stateProfile) {
-                    this.prepareChangeListeners();
-                }
-
-                // notify any listeners that the map is ready
-                MapBroadcaster.emit('mapReady');
-            });
-    }
-
-    prepareBroadcastReceivers() {
-        const listenerRef = MapBroadcaster.on('measureMap', this.measureMap);
-        this.broadcastReceivers.push(listenerRef);
-    }
-
-    showSource(type) {
-        const layers = this.loadedLayers[type];
-        // check if we've already loaded the data layer
-        if (!layers) {
-            // we haven't loaded it yet, do that now
-            this.loadSource(type);
-            return;
-        }
-
-        // enable the base layer
-        this.mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'visible');
-        layers.highlights.forEach((highlight) => {
-            // iterate through all the highlight layers and enable them
-            this.mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'visible');
-        });
-    }
-
-    hideSource(type) {
-        const layers = this.loadedLayers[type];
+    const hideSource = (type) => {
+        const layers = mapLayers[type];
 
         if (!layers) {
             // we haven't loaded the layer yet, stop
@@ -209,32 +120,46 @@ export default class MapWrapper extends Component {
         }
 
         // hide the base layer
-        this.mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'none');
+        mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'none');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            this.mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'none');
+            mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'none');
         });
-    }
+    };
 
     /**
      * firstSymbolId
      * - finds the first symbol ( text to mapbox ) layer.
      * @returns {string} first symbol layer id.
      */
-    firstSymbolId = () => {
-        const layers = this.mapRef.current.map.current.getStyle().layers;
+    const firstSymbolId = () => {
+        const layers = mapRef.current.map.current.getStyle().layers;
         // Find the index of the first symbol layer in the map style
-        let firstSymbolId = null;
+        let symbolId = null;
         for (let i = 0; i < layers.length; i++) {
             if (layers[i].type === 'symbol') {
-                firstSymbolId = layers[i].id;
+                symbolId = layers[i].id;
                 break;
             }
         }
-        return firstSymbolId;
+        return symbolId;
     };
 
-    loadSource(type) {
+    const mouseOverLayer = (e) => {
+        const source = mapboxSources[props.scope];
+        // grab the filter ID from the GeoJSON feature properties
+        const entityId = e.features[0].properties[source.filterKey];
+        props.showTooltip(entityId, {
+            x: e.originalEvent.offsetX,
+            y: e.originalEvent.offsetY
+        });
+    };
+
+    const mouseExitLayer = () => {
+        props.hideTooltip();
+    };
+
+    const loadSource = (type) => {
         const baseLayer = `base_${type}`;
         const sourceRef = {
             base: baseLayer,
@@ -243,14 +168,14 @@ export default class MapWrapper extends Component {
 
         // load the data source
         const source = mapboxSources[type];
-        this.mapRef.current.map.current.addSource(type, {
+        mapRef.current.map.current.addSource(type, {
             type: 'vector',
             url: source.url
         });
 
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
-        this.mapRef.current.map.current.addLayer({
+        mapRef.current.map.current.addLayer({
             id: baseLayer,
             type: 'fill',
             source: type,
@@ -266,7 +191,7 @@ export default class MapWrapper extends Component {
         const colors = MapHelper.visualizationColors;
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
-            this.mapRef.current.map.current.addLayer({
+            mapRef.current.map.current.addLayer({
                 id: layerName,
                 type: 'fill',
                 source: type,
@@ -276,98 +201,165 @@ export default class MapWrapper extends Component {
                     'fill-color': color
                 },
                 filter: ['in', source.filterKey, '']
-            }, this.firstSymbolId());
+            }, firstSymbolId());
 
             // setup mouseover events
-            this.mapRef.current.map.current.on('mousemove', layerName, this.mouseOverLayer.bind(this));
-            this.mapRef.current.map.current.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
+            mapRef.current.map.current.on('mousemove', layerName, mouseOverLayer.bind(this));
+            mapRef.current.map.current.on('mouseleave', layerName, mouseExitLayer.bind(this));
 
             // save a reference to this layer
             sourceRef.highlights.push(layerName);
         });
 
-        this.loadedLayers[type] = sourceRef;
-    }
+        setMapLayers((prevLayers) => ({
+            ...prevLayers,
+            [type]: sourceRef
+        }));
+    };
 
-    prepareLayers() {
-        return new Promise((resolve, reject) => {
-            if (!this.state.mapReady) {
-                // something went wrong, the map isn't ready yet
-                reject();
-            }
+    const showSource = (type) => {
+        const layers = mapLayers[type];
+        // check if we've already loaded the data layer
+        if (!layers) {
+            // we haven't loaded it yet, do that now
+            loadSource(type);
+            return;
+        }
 
-            const source = mapboxSources[this.props.scope];
-            if (!source) {
-                reject();
-            }
-
-            // hide all the other layers
-            Object.keys(mapboxSources).forEach((type) => {
-                if (type !== this.props.scope) {
-                    this.hideSource(type);
-                }
-            });
-
-            this.showSource(this.props.scope);
-
-            // check if we need to zoom in to show the layer
-            if (source.minZoom) {
-                const currentZoom = this.mapRef.current.map.current.getZoom();
-                if (currentZoom < source.minZoom) {
-                    // we are zoomed too far out and won't be able to see the new map layer, zoom in
-                    // don't allow users to zoom further out than the min zoom
-                    this.mapRef.current.map.current.setMinZoom(source.minZoom);
-                }
-            }
-            else {
-                this.mapRef.current.map.current.setMinZoom(0);
-            }
-
-
-            const parentMap = this.mapRef.current.map.current;
-            function renderResolver() {
-                parentMap.off('render', renderResolver);
-                resolve();
-            }
-            function loadResolver(e) {
-                // Mapbox insists on emitting sourcedata events for many different source
-                // loading stages, so we need to wait for the source to be loaded AND for
-                // it to be affecting tiles (aka, it has moved onto the render stage)
-                if (e.isSourceLoaded && e.tile) {
-                    // source has finished loading and is rendered (so we can start filtering
-                    // and querying)
-                    parentMap.off('sourcedata', loadResolver);
-                    parentMap.on('render', renderResolver);
-                }
-            }
-
-            // if we're loading new data, we need to wait for the data to be ready
-            this.mapRef.current.map.current.on('sourcedata', loadResolver);
+        // enable the base layer
+        mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'visible');
+        layers.highlights.forEach((highlight) => {
+            // iterate through all the highlight layers and enable them
+            mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'visible');
         });
-    }
+    };
 
-    measureMap(forced = false) {
-        // determine which entities (state, counties, etc based on current scope) are in view
+    const prepareLayers = () => new Promise((resolve, reject) => {
+        if (!mapReady) {
+            // something went wrong, the map isn't ready yet
+            reject();
+        }
+
+        const source = mapboxSources[props.scope];
+        if (!source) {
+            reject();
+        }
+
+        // hide all the other layers
+        Object.keys(mapboxSources).forEach((type) => {
+            if (type !== props.scope) {
+                hideSource(type);
+            }
+        });
+
+        showSource(props.scope);
+
+        // check if we need to zoom in to show the layer
+        if (source.minZoom) {
+            const currentZoom = mapRef.current.map.current.getZoom();
+            if (currentZoom < source.minZoom) {
+                // we are zoomed too far out and won't be able to see the new map layer, zoom in
+                // don't allow users to zoom further out than the min zoom
+                mapRef.current.map.current.setMinZoom(source.minZoom);
+            }
+        }
+        else {
+            mapRef.current.map.current.setMinZoom(0);
+        }
+
+
+        const parentMap = mapRef.current.map.current;
+        function renderResolver() {
+            parentMap.off('render', renderResolver);
+            resolve();
+        }
+        function loadResolver(e) {
+            // Mapbox insists on emitting sourcedata events for many different source
+            // loading stages, so we need to wait for the source to be loaded AND for
+            // it to be affecting tiles (aka, it has moved onto the render stage)
+            if (e.isSourceLoaded && e.tile) {
+                // source has finished loading and is rendered (so we can start filtering
+                // and querying)
+                parentMap.off('sourcedata', loadResolver);
+                parentMap.on('render', renderResolver);
+            }
+        }
+
+        // if we're loading new data, we need to wait for the data to be ready
+        mapRef.current.map.current.on('sourcedata', loadResolver);
+    });
+
+    const runMapOperationQueue = () => {
+        Object.keys(mapOperationQueue).forEach((key) => {
+            const op = mapOperationQueue[key];
+            op.call(this);
+        });
+        mapOperationQueue = {};
+    };
+
+    const prepareChangeListeners = () => {
+        // detect visible entities whenever the map moves
+        const parentMap = mapRef.current.map.current;
+        renderCallback = () => {
+            if (parentMap.loaded()) {
+                parentMap.off('render', renderCallback);
+                MapBroadcaster.emit('mapMoved');
+            }
+        };
+
+        // we need to hold a reference to the callback in order to remove the listener when
+        // the component unmounts
+        renderCallback = () => {
+            mapRef.current.map.current.on('render', renderCallback);
+        };
+        mapRef.current.map.current.on('moveend', renderCallback);
+        // but also do it when the map resizes, since the view will be different
+        mapRef.current.map.current.on('resize', renderCallback);
+    };
+
+    const prepareMap = () => {
+        prepareLayers()
+            .then(() => {
+                // we depend on the state shapes to process the state fills, so the operation
+                // queue must wait for the state shapes to load first
+                runMapOperationQueue();
+                if (!props.stateProfile) {
+                    prepareChangeListeners();
+                }
+
+                // notify any listeners that the map is ready
+                MapBroadcaster.emit('mapReady');
+            });
+    };
+
+    const mapReadyPrep = () => {
+        // map has mounted, load the state shapes
+        setMapReady(true);
+    };
+
+    const measureMap = (forced = false) => {
+        // determine which entities (state, counties, etc. based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
-        const mapLoaded = this.mapRef.current.map.current.loaded();
+        const mapLoaded = mapRef.current.map.current.loaded();
         // wait for the map to load before continuing
         if (!mapLoaded) {
             window.requestAnimationFrame(() => {
-                this.measureMap();
+                measureMap();
             });
             return;
         }
 
-        const entities = this.mapRef.current.map.current.queryRenderedFeatures({
-            layers: [`base_${this.props.scope}`]
+        // TODO: investigate if we can useState instead of useRef for scopeRef
+        const entities = mapRef.current.map.current.queryRenderedFeatures({
+            layers: [`base_${scopeRef.current}`]
         });
 
-        const source = mapboxSources[this.props.scope];
+        const source = mapboxSources[scopeRef.current];
         const visibleEntities = entities.map((entity) => (
             entity.properties[source.filterKey]
         ));
 
-        if (this.props.scope === 'country') {
+        if (scopeRef.current === 'country') {
             // prepend USA to account for prohibited country codes
             const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
 
@@ -380,79 +372,44 @@ export default class MapWrapper extends Component {
         const uniqueEntities = uniq(visibleEntities).filter((n) => n);
 
         MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
-    }
+    };
 
-    prepareChangeListeners() {
-        // detect visible entities whenever the map moves
-        const parentMap = this.mapRef.current.map.current;
-        function renderCallback() {
-            if (parentMap.loaded()) {
-                parentMap.off('render', renderCallback);
-                MapBroadcaster.emit('mapMoved');
-            }
-        }
+    const prepareBroadcastReceivers = () => {
+        const listenerRef = MapBroadcaster.on('measureMap', measureMap);
+        broadcastReceivers.push(listenerRef);
+    };
 
-        // we need to hold a reference to the callback in order to remove the listener when
-        // the component unmounts
-        this.renderCallback = () => {
-            this.mapRef.current.map.current.on('render', renderCallback);
-        };
-        this.mapRef.current.map.current.on('moveend', this.renderCallback);
-        // but also do it when the map resizes, since the view will be different
-        this.mapRef.current.map.current.on('resize', this.renderCallback);
-    }
-
-    removeChangeListeners() {
+    const removeChangeListeners = () => {
         // remove the render callbacks
-        this.mapRef.current.map.current.off('moveend', this.renderCallback);
-        this.mapRef.current.map.current.off('resize', this.renderCallback);
-    }
+        if (mapRef.current) {
+            mapRef.current.map.current.off('moveend', renderCallback);
+            mapRef.current.map.current.off('resize', renderCallback);
+        }
+    };
 
-    mouseOverLayer(e) {
-        const source = mapboxSources[this.props.scope];
-        // grab the filter ID from the GeoJSON feature properties
-        const entityId = e.features[0].properties[source.filterKey];
-        this.props.showTooltip(entityId, {
-            x: e.originalEvent.offsetX,
-            y: e.originalEvent.offsetY
-        });
-    }
+    const queueMapOperation = (name, operation) => {
+        mapOperationQueue[name] = operation;
+    };
 
-    mouseExitLayer() {
-        this.props.hideTooltip();
-    }
-
-    runMapOperationQueue() {
-        Object.keys(this.mapOperationQueue).forEach((key) => {
-            const op = this.mapOperationQueue[key];
-            op.call(this);
-        });
-        this.mapOperationQueue = {};
-    }
-
-    queueMapOperation(name, operation) {
-        this.mapOperationQueue[name] = operation;
-    }
-
-    displayData() {
+    const displayData = () => {
         // don't do anything if the map has not yet loaded
-        if (!this.state.mapReady) {
+        if (!mapReady) {
             // add to the map operation queue
-            this.queueMapOperation('displayData', this.displayData);
+            queueMapOperation('displayData', displayData);
             return;
         }
 
-        const source = mapboxSources[this.props.scope];
+        const source = mapboxSources[props.scope];
 
         // calculate the range of data
-        const scale = MapHelper.calculateRange(this.props.data.values);
+        const scale = MapHelper.calculateRange(props.data.values);
         const colors = MapHelper.visualizationColors;
         // prepare a set of blank (false) filters
         const filterValues = colors.map(() => (
             []
         ));
-        this.props.data.locations.forEach((location, index) => {
-            let value = this.props.data.values[index];
+        props.data.locations.forEach((location, index) => {
+            let value = props.data.values[index];
             if (isNaN(value)) value = 0;
             // determine the group index
             const group = scale.scale(value);
@@ -462,37 +419,36 @@ export default class MapWrapper extends Component {
 
         // generate Mapbox filters from the values
         filterValues.forEach((valueSet, index) => {
-            const layerName = `highlight_${this.props.scope}_group_${index}`;
+            const layerName = `highlight_${props.scope}_group_${index}`;
             // by default set up the filter to not include anything
             let filter = ['in', source.filterKey, ''];
             if (valueSet.length > 0) {
                 // if there are locations that are displayable, include those in the filter
                 filter = ['in', source.filterKey].concat(valueSet);
             }
-            this.mapRef.current.map.current.setFilter(layerName, filter);
+            mapRef.current.map.current.setFilter(layerName, filter);
         });
 
-        this.setState({
-            spendingScale: scale
-        });
-    }
+        setSpendingScale(scale);
+    };
+
     /**
      * tooltipDescription
      * - description for tooltip based on page and toggle
      * @returns {string}
      */
-    tooltipDescription = () => {
-        const { stateProfile, mapLegendToggle } = this.props;
+    const tooltipDescription = () => {
+        const { stateProfile, mapLegendToggle } = props;
         // state page
         if (stateProfile) return 'Awarded Amount';
         // per capita toggle
         return (mapLegendToggle === 'totalSpending' ? 'Total Obligations' : 'Per Capita Spending');
     };
 
-    tooltip = () => {
+    const tooltip = () => {
         const {
             tooltip: TooltipComponent, selectedItem, showHover, scope
-        } = this.props;
+        } = props;
         if (scope === "country" && selectedItem.label === "United States") {
             selectedItem.label += " and Territories";
         }
@@ -500,21 +456,21 @@ export default class MapWrapper extends Component {
         if (showHover) {
             return (
                 <TooltipComponent
-                    description={this.tooltipDescription()}
+                    description={tooltipDescription()}
                     {...selectedItem} />
             );
         }
         return null;
     };
 
-    toggle = () => {
+    const toggle = () => {
         const {
             showLayerToggle,
             availableLayers,
             scope,
             changeMapLayer,
             className
-        } = this.props;
+        } = props;
         if (showLayerToggle && availableLayers.length > 1) {
             return (<MapLayerToggle
                 active={scope}
@@ -526,11 +482,10 @@ export default class MapWrapper extends Component {
         return null;
     };
 
-    legend = () => {
+    const legend = () => {
         const {
             stateProfile, updateMapLegendToggle, mapLegendToggle, scope
-        } = this.props;
-        const { spendingScale } = this.state;
+        } = props;
         if (stateProfile) return null; // no legend for state profile pages
         return (
             <MapLegend
@@ -543,29 +498,61 @@ export default class MapWrapper extends Component {
         );
     };
 
-    render() {
-        return (
-            <div
-                className="map-container"
-                ref={(div) => {
-                    this.wrapperDiv = div;
-                }}>
-                <MapBox
-                    loadedMap={this.mapReady}
-                    unloadedMap={this.mapRemoved}
-                    center={this.props.center}
-                    mapType={this.props.scope}
-                    stateInfo={this.props.stateInfo}
-                    stateProfile={this.props.stateProfile}
-                    ref={this.mapRef} />
-                {this.toggle()}
-                {this.legend()}
-                {this.tooltip()}
-                {this.props.children}
-            </div>
-        );
-    }
-}
+    useEffect(() => {
+        displayData();
+        if (!props.stateProfile) {
+            prepareBroadcastReceivers();
+        }
+        return () => {
+            // remove any broadcast listeners
+            if (!props.stateProfile) {
+                removeChangeListeners();
+            }
+            broadcastReceivers.forEach((listenerRef) => {
+                MapBroadcaster.off(listenerRef.event, listenerRef.id);
+            });
+        };
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
+
+    useEffect(() => {
+        if (scopeRef.current !== props.scope) {
+            queueMapOperation('displayData', displayData);
+            prepareMap();
+            scopeRef.current = props.scope;
+        }
+        else {
+            displayData();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props.renderHash]);
+
+    useEffect(() => {
+        if (mapReady) {
+            prepareMap();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [mapReady]);
+
+    return (
+        <div className="map-container">
+            <MapBox
+                loadedMap={mapReadyPrep}
+                unloadedMap={mapRemoved}
+                center={props.center}
+                mapType={props.scope}
+                stateInfo={props.stateInfo}
+                stateProfile={props.stateProfile}
+                ref={mapRef} />
+            {toggle()}
+            {legend()}
+            {tooltip()}
+            {props.children}
+        </div>
+    );
+};
 
 MapWrapper.propTypes = propTypes;
 MapWrapper.defaultProps = defaultProps;
+
+export default MapWrapper;

@@ -152,7 +152,7 @@ export default class BudgetFunctionFilter extends React.Component {
         }
 
         return (
-            <div className="download-filter">
+            <div className="download-filter width-96">
                 <h4 className="download-filter__title">
                     Budget Function
                 </h4>
