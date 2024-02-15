@@ -398,7 +398,9 @@ const MapWrapper = (props) => {
     const measureMap = (forced = false) => {
         // determine which entities (state, counties, etc. based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
+
         const mapLoaded = mapRef.current.map.current.loaded();
+        console.log("map", mapRef.current, mapLoaded)
         // wait for the map to load before continuing
         if (!mapLoaded) {
             window.requestAnimationFrame(() => {
@@ -429,6 +431,7 @@ const MapWrapper = (props) => {
         // remove the duplicates values and pass them to the parent, remove null values also
         const uniqueEntities = uniq(visibleEntities).filter((n) => n);
 
+        console.log("measure map", uniqueEntities, forced);
         MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
     };
 

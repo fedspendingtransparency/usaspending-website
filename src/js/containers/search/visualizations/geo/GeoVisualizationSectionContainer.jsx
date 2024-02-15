@@ -24,7 +24,6 @@ import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import { parseRows } from 'helpers/search/visualizations/geoHelper';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -77,6 +76,7 @@ const GeoVisualizationSectionContainer = (props) => {
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
+    const [reMeasureMap, setReMeasureMap] = useState(false);
 
     let apiRequest = null;
     const mapListeners = [];
@@ -125,7 +125,7 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const prepareFetch = (forced = false) => {
-        console.log("in prepareFetch");
+        console.log("in prepareFetch", forced, loadingTiles);
         if (loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
@@ -135,6 +135,7 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const mapLoaded = () => {
+        console.log("map loaded")
         setLoadingTiles(false);
     };
 
@@ -161,6 +162,7 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const fetchData = () => {
+        console.log("fetching data...");
     // build a new search operation from the Redux state, but create a transaction-based search
     // operation instead of an award-based one
         const operation = new SearchAwardsOperation();
@@ -225,6 +227,7 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const receivedEntities = (entities, forced) => {
+        console.log("receivedEntities", entities, forced);
         if (!forced) {
             // only check if the returned entities list has changed if this is not a forced update
             const changed = compareEntities(entities);
