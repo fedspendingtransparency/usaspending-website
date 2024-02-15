@@ -37,7 +37,8 @@ const propTypes = {
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     subaward: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    center: PropTypes.array
 };
 
 const availableLayers = ['country', 'state', 'county', 'congressionalDistrict'];
@@ -55,10 +56,10 @@ const GeoVisualizationSection = (props) => {
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
         const label = props.data.labels[geoId];
-        console.log(props.data.labels, geoId)
+        console.log(props.data.labels, geoId);
         setShowHover(true);
         setSelectedItem({
-            label: label,
+            label,
             total: props.total,
             value: label.value,
             x: position.x,
@@ -120,11 +121,7 @@ const GeoVisualizationSection = (props) => {
     useEffect(() => {
         handleUpdateTitle();
         handleUpdateBody();
-    }, []);
-
-    useEffect(() => {
-        setSingleLocationSelected(props.singleLocationSelected);
-    }, [props.singleLocationSelected]);
+    }, [handleUpdateBody]);
 
     useEffect(() => {
         if (!expanded || expanded === null) {
@@ -136,7 +133,7 @@ const GeoVisualizationSection = (props) => {
             handleUpdateTitle();
             handleUpdateBody();
         }
-    }, [expanded, props.subaward]);
+    }, [expanded, handleUpdateBody, prevProps?.subaward, props.subaward]);
 
     const applyLineClamp = (elem) => {
         elem.classList.add("line-clamp");
