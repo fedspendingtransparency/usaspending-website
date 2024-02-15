@@ -448,30 +448,39 @@ const ResultsTableContainer = (props) => {
 
     useEffect(throttle(() => {
         if (initialRender.current) {
+            console.debug("1.1");
             initialRender.current = false;
         }
         else if (!props.subaward) {
+            console.debug("1.2");
             performSearch();
         }
         else if (props.subaward) {
+            console.debug("1.3");
             performSearch(true);
         }
     }, 400), [tableType, sort]);
 
     useEffect(throttle(() => {
         if (initialRender.current === false) {
+            console.debug("2.1");
+
             if (props.subaward && !props.noApplied) {
+                console.debug("2.2");
                 // subaward toggle changed, update the search object
                 pickDefaultTab();
             }
             else if (SearchHelper.isSearchHashReady(location) && location.search) {
                 // hash is (a) defined and (b) new
                 pickDefaultTab();
+                console.debug("2.3");
             }
             else if (!props.subaward) {
+                console.debug("2.4");
                 pickDefaultTab();
             }
         }
+        console.debug("2.5");
         return () => {
             if (searchRequest) {
                 searchRequest.cancel();
@@ -487,16 +496,23 @@ const ResultsTableContainer = (props) => {
         if (isLoadingNextPage) {
             performSearch();
             setLoadNextPage(false);
+            console.debug("3.1");
         }
+        console.debug("3.2");
     }, 400), [isLoadingNextPage]);
 
     useEffect(() => {
-        loadColumns();
         if (SearchHelper.isSearchHashReady(location)) {
+            console.debug("search hash ready");
+            loadColumns();
             pickDefaultTab();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        console.debug(results);
+    }, [results]);
 
     if (!columns[tableType]) {
         return null;
