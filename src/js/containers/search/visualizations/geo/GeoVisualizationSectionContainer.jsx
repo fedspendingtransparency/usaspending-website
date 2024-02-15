@@ -61,7 +61,7 @@ const logMapScopeEvent = (scope) => {
 };
 
 
-const GeoVisualizationSectionContainer = (props) => {
+const GeoVisualizationSectionContainer = React.memo((props) => {
     const USACenterPoint = [-95.569430, 38.852892];
     const [scope, setScope] = useState('place_of_performance');
     const [mapLayer, setMapLayer] = useState('state');
@@ -76,14 +76,14 @@ const GeoVisualizationSectionContainer = (props) => {
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
-    const [reMeasureMap, setReMeasureMap] = useState(false);
 
     let apiRequest = null;
     const mapListeners = [];
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
         visibleEntities: false,
-        rawAPIData: false
+        rawAPIData: false,
+        loadingTiles: true
     });
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
@@ -98,7 +98,6 @@ const GeoVisualizationSectionContainer = (props) => {
         const values = [];
         const locations = [];
         const labels = {};
-        console.log(rawAPIData);
 
         rawAPIData.forEach((item) => {
             // state must not be null or empty string
@@ -125,8 +124,7 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const prepareFetch = (forced = false) => {
-        console.log("in prepareFetch", forced, loadingTiles);
-        if (loadingTiles) {
+        if (useEffectRef.current?.loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
@@ -135,8 +133,9 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const mapLoaded = () => {
-        console.log("map loaded")
+        console.log("mapLoaded");
         setLoadingTiles(false);
+        useEffectRef.current.loadingTiles = false;
     };
 
     const compareEntities = (entities) => {
@@ -163,8 +162,8 @@ const GeoVisualizationSectionContainer = (props) => {
 
     const fetchData = () => {
         console.log("fetching data...");
-    // build a new search operation from the Redux state, but create a transaction-based search
-    // operation instead of an award-based one
+        // build a new search operation from the Redux state, but create a transaction-based search
+        // operation instead of an award-based one
         const operation = new SearchAwardsOperation();
         operation.fromState(props.reduxFilters);
 
@@ -227,7 +226,6 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const receivedEntities = (entities, forced) => {
-        console.log("receivedEntities", entities, forced);
         if (!forced) {
             // only check if the returned entities list has changed if this is not a forced update
             const changed = compareEntities(entities);
@@ -260,9 +258,12 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const changeMapLayer = (layer) => {
+        console.log("changeMapLayer", layer);
         setMapLayer(layer);
         setRenderHash(`geo-${uniqueId()}`);
         setLoadingTiles(true);
+        useEffectRef.current.loadingTiles = true;
+
 
         logMapLayerEvent(layer);
     };
@@ -387,6 +388,7 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     useEffect(() => {
+        console.log("componentDidMount");
         const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
         mapListeners.push(doneListener);
 
@@ -412,7 +414,6 @@ const GeoVisualizationSectionContainer = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log("preparing fetch - why?", props.noApplied);
         if (!props.noApplied) {
             prepareFetch(true);
             updateMapScope();
@@ -448,6 +449,7 @@ const GeoVisualizationSectionContainer = (props) => {
     }, [scope]);
 
     useEffect(() => {
+        console.log("loadingTiles", loadingTiles);
         prepareFetch(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
@@ -470,7 +472,7 @@ const GeoVisualizationSectionContainer = (props) => {
             className={props.className}
             isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
     );
-};
+});
 
 GeoVisualizationSectionContainer.propTypes = propTypes;
 

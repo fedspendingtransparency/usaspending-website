@@ -353,14 +353,11 @@ const MapWrapper = (props) => {
     };
 
     const prepareChangeListeners = () => {
-        console.log("does this get called?");
         // detect visible entities whenever the map moves
         const parentMap = mapRef.current.map.current;
         const fnRenderCallback = () => {
-            console.log("issue!!!")
             if (parentMap.loaded()) {
-                parentMap.off('render', renderCallback);
-                console.log("map moved");
+                parentMap.off('render', fnRenderCallback);
                 MapBroadcaster.emit('mapMoved');
             }
         };
@@ -400,7 +397,6 @@ const MapWrapper = (props) => {
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
 
         const mapLoaded = mapRef.current.map.current.loaded();
-        console.log("map", mapRef.current, mapLoaded)
         // wait for the map to load before continuing
         if (!mapLoaded) {
             window.requestAnimationFrame(() => {
@@ -431,7 +427,6 @@ const MapWrapper = (props) => {
         // remove the duplicates values and pass them to the parent, remove null values also
         const uniqueEntities = uniq(visibleEntities).filter((n) => n);
 
-        console.log("measure map", uniqueEntities, forced);
         MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
     };
 
@@ -566,9 +561,7 @@ const MapWrapper = (props) => {
         }
         return () => {
             // remove any broadcast listeners
-            if (!props.stateProfile) {
-                removeChangeListeners();
-            }
+            removeChangeListeners();
             broadcastReceivers.forEach((listenerRef) => {
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
