@@ -6,7 +6,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
-import { isCancel } from "axios";
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -29,13 +28,12 @@ const propTypes = {
     changeMapLayer: PropTypes.func,
     showLayerToggle: PropTypes.bool,
     children: PropTypes.node,
-    // center: PropTypes.array,
+    center: PropTypes.array,
     stateProfile: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     className: PropTypes.string,
-    stateInfo: PropTypes.object,
-    singleLocationSelected: PropTypes.object
+    stateInfo: PropTypes.object
 };
 
 const defaultProps = {
@@ -101,7 +99,6 @@ const MapWrapper = (props) => {
     const mapRef = useRef();
     const scopeRef = useRef(props.scope);
     const [mapLayers, setMapLayers] = useState({});
-    const [center, setCenter] = useState(props.center);
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
         scale: null,
@@ -156,6 +153,8 @@ const MapWrapper = (props) => {
         const source = mapboxSources[props.scope];
         // grab the filter ID from the GeoJSON feature properties
         const entityId = e.features[0].properties[source.filterKey];
+        console.log("map wrapper", source, entityId, source.filterKey, e);
+        console.log(props.data);
         props.showTooltip(entityId, {
             x: e.originalEvent.offsetX,
             y: e.originalEvent.offsetY
@@ -356,12 +355,12 @@ const MapWrapper = (props) => {
     const prepareChangeListeners = () => {
         // detect visible entities whenever the map moves
         const parentMap = mapRef.current.map.current;
-        renderCallback = (() => {
+        renderCallback = () => {
             if (parentMap.loaded()) {
                 parentMap.off('render', renderCallback);
                 MapBroadcaster.emit('mapMoved');
             }
-        });
+        };
 
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
@@ -572,18 +571,21 @@ const MapWrapper = (props) => {
     }, []);
 
     useEffect(() => {
-        queueMapOperation('displayData', displayData);
-        prepareMap();
-        scopeRef.current = props.scope;
-
+        if (scopeRef.current !== props.scope) {
+            queueMapOperation('displayData', displayData);
+            prepareMap();
+            scopeRef.current = props.scope;
+        }
+        else {
+            displayData();
+        }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.renderHash, props.scope]);
+    }, [props.renderHash, props.data]);
 
     useEffect(() => {
         if (mapReady) {
             prepareMap();
         }
-
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [mapReady]);
 

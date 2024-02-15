@@ -63,6 +63,7 @@ const logMapScopeEvent = (scope) => {
 
 
 const GeoVisualizationSectionContainer = (props) => {
+    const USACenterPoint = [-95.569430, 38.852892];
     const [scope, setScope] = useState('place_of_performance');
     const [mapLayer, setMapLayer] = useState('state');
     const [rawAPIData, setRawAPIData] = useState([]);
@@ -75,17 +76,15 @@ const GeoVisualizationSectionContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
-    const [singleLocationSelected, setSingleLocationSelected] = useState(null);
-    const [center, setCenter] = useState([-95.569430, 38.852892]);
+    const [center, setCenter] = useState(USACenterPoint);
 
     let apiRequest = null;
     const mapListeners = [];
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
-        visibleEntities: true,
-        rawAPIData: true
+        visibleEntities: false,
+        rawAPIData: false
     });
-    const USACenterPoint = [-95.569430, 38.852892];
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
@@ -99,6 +98,7 @@ const GeoVisualizationSectionContainer = (props) => {
         const values = [];
         const locations = [];
         const labels = {};
+        console.log(rawAPIData);
 
         rawAPIData.forEach((item) => {
             // state must not be null or empty string
@@ -207,9 +207,8 @@ const GeoVisualizationSectionContainer = (props) => {
         apiRequest.promise
             .then((res) => {
                 apiRequest = null;
-                const parsedData = parseRows(res.data.results, apiParams);
-                setRawAPIData(parsedData);
-                setParsedData();
+                useEffectRef.current.rawAPIData = true;
+                setRawAPIData(res.data.results);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -233,6 +232,7 @@ const GeoVisualizationSectionContainer = (props) => {
                 return;
             }
         }
+        useEffectRef.current.visibleEntities = true;
         setVisibleEntities(entities);
     };
 
@@ -287,7 +287,6 @@ const GeoVisualizationSectionContainer = (props) => {
         // there is only 1 item, place of performance
         if (props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = props.reduxFilters[selectedLocationByType].first().filter;
-            setSingleLocationSelected(onlyObject);
             if (onlyObject.district_current || onlyObject.district_original) {
                 changeMapLayer("congressionalDistrict");
                 setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
@@ -307,7 +306,6 @@ const GeoVisualizationSectionContainer = (props) => {
             // defaults to state
         }
         else if (props.reduxFilters[selectedLocationByType].size > 1) {
-            setSingleLocationSelected(-1);
             const onlyObject = props.reduxFilters[selectedLocationByType];
             let numStates = 0;
             let numCountries = 0;
@@ -424,19 +422,17 @@ const GeoVisualizationSectionContainer = (props) => {
 
     useEffect(() => {
         if (useEffectRef.current.visibleEntities) {
-            useEffectRef.current.visibleEntities = false;
-            return;
+            fetchData();
         }
-        fetchData();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visibleEntities]);
 
     useEffect(() => {
         if (useEffectRef.current.rawAPIData) {
-            useEffectRef.current.rawAPIData = false;
-            return;
+            setParsedData();
         }
-        setParsedData();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rawAPIData]);
 
@@ -467,8 +463,7 @@ const GeoVisualizationSectionContainer = (props) => {
             updateMapLegendToggle={props.updateMapLegendToggle}
             subaward={props.subaward}
             className={props.className}
-            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-            singleLocationSelected={singleLocationSelected} />
+            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
     );
 };
 

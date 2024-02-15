@@ -50,16 +50,17 @@ const GeoVisualizationSection = (props) => {
     const [tableTitle, setTableTitle] = useState("");
     const [tablePreview, setTablePreview] = useState("");
     const [expanded, setExpanded] = useState(null);
+    const [data, setData] = useState(props.data);
     const sectionHr = useRef(null);
     const prevProps = usePrevious(props);
 
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
         const label = props.data.labels[geoId];
-        console.log(props.data.labels, geoId);
+        console.log("data", props.data, data);
         setShowHover(true);
         setSelectedItem({
-            label,
+            label: label.label,
             total: props.total,
             value: label.value,
             x: position.x,
@@ -121,7 +122,8 @@ const GeoVisualizationSection = (props) => {
     useEffect(() => {
         handleUpdateTitle();
         handleUpdateBody();
-    }, [handleUpdateBody]);
+        setData(props.data);
+    }, [props.data]);
 
     useEffect(() => {
         if (!expanded || expanded === null) {
@@ -133,7 +135,8 @@ const GeoVisualizationSection = (props) => {
             handleUpdateTitle();
             handleUpdateBody();
         }
-    }, [expanded, handleUpdateBody, prevProps?.subaward, props.subaward]);
+
+    }, [expanded, props.subaward, prevProps?.subaward]);
 
     const applyLineClamp = (elem) => {
         elem.classList.add("line-clamp");
