@@ -125,6 +125,7 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const prepareFetch = (forced = false) => {
+        console.log("in prepareFetch");
         if (loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
@@ -408,6 +409,7 @@ const GeoVisualizationSectionContainer = (props) => {
     }, []);
 
     useEffect(() => {
+        console.log("preparing fetch - why?", props.noApplied);
         if (!props.noApplied) {
             prepareFetch(true);
             updateMapScope();
