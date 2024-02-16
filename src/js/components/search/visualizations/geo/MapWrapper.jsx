@@ -304,9 +304,9 @@ const MapWrapper = (props) => {
     const prepareChangeListeners = () => {
         // detect visible entities whenever the map moves
         const parentMap = mapRef.current.map.current;
-        const fnRenderCallback = () => {
+        const mapMovedCallback = () => {
             if (parentMap.loaded()) {
-                parentMap.off('render', fnRenderCallback);
+                parentMap.off('render', mapMovedCallback);
                 MapBroadcaster.emit('mapMoved');
             }
         };
@@ -314,7 +314,7 @@ const MapWrapper = (props) => {
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
         renderCallback = () => {
-            mapRef.current.map.current.on('render', fnRenderCallback);
+            mapRef.current.map.current.on('render', mapMovedCallback);
         };
         mapRef.current.map.current.on('moveend', renderCallback);
         // but also do it when the map resizes, since the view will be different
