@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash';
+import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
+import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 
 import GeoVisualizationSection from
     'components/search/visualizations/geo/GeoVisualizationSection';
@@ -22,7 +24,6 @@ import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import { parseRows } from 'helpers/search/visualizations/geoHelper';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -60,7 +61,8 @@ const logMapScopeEvent = (scope) => {
 };
 
 
-const GeoVisualizationSectionContainer = (props) => {
+const GeoVisualizationSectionContainer = React.memo((props) => {
+    const USACenterPoint = [-95.569430, 38.852892];
     const [scope, setScope] = useState('place_of_performance');
     const [mapLayer, setMapLayer] = useState('state');
     const [rawAPIData, setRawAPIData] = useState([]);
@@ -73,13 +75,16 @@ const GeoVisualizationSectionContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
+    const [center, setCenter] = useState(USACenterPoint);
+    const [singleLocationSelected, setSingleLocationSelected] = useState({});
 
     let apiRequest = null;
     const mapListeners = [];
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
-        visibleEntities: true,
-        rawAPIData: true
+        visibleEntities: false,
+        rawAPIData: false,
+        loadingTiles: true
     });
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
@@ -120,7 +125,7 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const prepareFetch = (forced = false) => {
-        if (loadingTiles) {
+        if (useEffectRef.current?.loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
@@ -130,6 +135,7 @@ const GeoVisualizationSectionContainer = (props) => {
 
     const mapLoaded = () => {
         setLoadingTiles(false);
+        useEffectRef.current.loadingTiles = false;
     };
 
     const compareEntities = (entities) => {
@@ -155,8 +161,8 @@ const GeoVisualizationSectionContainer = (props) => {
     };
 
     const fetchData = () => {
-    // build a new search operation from the Redux state, but create a transaction-based search
-    // operation instead of an award-based one
+        // build a new search operation from the Redux state, but create a transaction-based search
+        // operation instead of an award-based one
         const operation = new SearchAwardsOperation();
         operation.fromState(props.reduxFilters);
 
@@ -202,9 +208,8 @@ const GeoVisualizationSectionContainer = (props) => {
         apiRequest.promise
             .then((res) => {
                 apiRequest = null;
-                const parsedData = parseRows(res.data.results, apiParams);
-                setRawAPIData(parsedData);
-                setParsedData();
+                useEffectRef.current.rawAPIData = true;
+                setRawAPIData(res.data.results);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -228,6 +233,7 @@ const GeoVisualizationSectionContainer = (props) => {
                 return;
             }
         }
+        useEffectRef.current.visibleEntities = true;
         setVisibleEntities(entities);
     };
 
@@ -254,8 +260,29 @@ const GeoVisualizationSectionContainer = (props) => {
         setMapLayer(layer);
         setRenderHash(`geo-${uniqueId()}`);
         setLoadingTiles(true);
+        useEffectRef.current.loadingTiles = true;
+
 
         logMapLayerEvent(layer);
+    };
+
+    const calculateCenterPoint = (location) => {
+        if (location) {
+            let locationRequest = performCountryGeocode(location);
+            locationRequest.promise
+                .then((res) => {
+                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : USACenterPoint);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(err);
+                        locationRequest = null;
+                    }
+                });
+        }
+        else {
+            setCenter(USACenterPoint);
+        }
     };
 
     const mapScopeLogic = (type) => {
@@ -263,19 +290,22 @@ const GeoVisualizationSectionContainer = (props) => {
         // there is only 1 item, place of performance
         if (props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = props.reduxFilters[selectedLocationByType].first().filter;
+            setSingleLocationSelected(onlyObject);
             if (onlyObject.district_current || onlyObject.district_original) {
                 changeMapLayer("congressionalDistrict");
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
             }
             else if (onlyObject.county) {
                 changeMapLayer("county");
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
             }
             else if (onlyObject.state) {
-                // do nothing
+                // do not change the map layer, it is already state
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
             }
             else if (onlyObject.country !== "USA") {
-                // TODO - Commenting out this line to ensure the map always shows results
-                //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                // this.changeMapLayer("country");
+                changeMapLayer("country");
+                calculateCenterPoint(onlyObject.country);
             }
             // defaults to state
         }
@@ -317,9 +347,7 @@ const GeoVisualizationSectionContainer = (props) => {
 
             // change map layers based on make up of items
             if (numCountries === onlyObject.size) { // only countries
-                // TODO - Changing this line to state to ensure the map always shows results
-                //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                changeMapLayer("state");
+                changeMapLayer("country");
             }
             else if (numStates === onlyObject.size) { // only states
                 changeMapLayer("state");
@@ -336,9 +364,7 @@ const GeoVisualizationSectionContainer = (props) => {
                 changeMapLayer("state");
             }
             else if (international === true) {
-                // TODO - Changing this line to state to ensure the map always shows results
-                //  before DEV-10520 is completed; For DEV-10520 change this back to country
-                changeMapLayer("state");
+                changeMapLayer("country");
             }
         }
         else if (props.reduxFilters[selectedLocationByType].size === 0) {
@@ -400,19 +426,17 @@ const GeoVisualizationSectionContainer = (props) => {
 
     useEffect(() => {
         if (useEffectRef.current.visibleEntities) {
-            useEffectRef.current.visibleEntities = false;
-            return;
+            fetchData();
         }
-        fetchData();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visibleEntities]);
 
     useEffect(() => {
         if (useEffectRef.current.rawAPIData) {
-            useEffectRef.current.rawAPIData = false;
-            return;
+            setParsedData();
         }
-        setParsedData();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rawAPIData]);
 
@@ -437,14 +461,16 @@ const GeoVisualizationSectionContainer = (props) => {
             data={data}
             loading={loading}
             error={error}
+            center={center}
             noResults={data.values.length === 0}
             mapLegendToggle={props.mapLegendToggle}
             updateMapLegendToggle={props.updateMapLegendToggle}
             subaward={props.subaward}
             className={props.className}
-            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
+            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+            singleLocationSelected={singleLocationSelected} />
     );
-};
+});
 
 GeoVisualizationSectionContainer.propTypes = propTypes;
 

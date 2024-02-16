@@ -42,7 +42,7 @@ describe('GeoVisualizationSectionContainer tests', () => {
     });
 
     it('runs getFetch(), and returns without making API request', () => {
-        const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: false } });
+        const useRefSpy = jest.spyOn(React, 'useRef').mockReturnValue({ current: { visibleEntities: true } });
 
         render(<GeoVisualizationSectionContainer {...mockProps} />);
 
