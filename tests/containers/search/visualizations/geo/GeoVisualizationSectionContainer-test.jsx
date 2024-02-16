@@ -46,7 +46,7 @@ describe('GeoVisualizationSectionContainer tests', () => {
 
         render(<GeoVisualizationSectionContainer {...mockProps} />);
 
-        const test = screen.getByText('"loading":false', { exact: false });
+        const test = screen.getByText('"noResults":true', { exact: false });
 
         expect(useRefSpy).toHaveBeenCalled();
         expect(test).toBeTruthy();
