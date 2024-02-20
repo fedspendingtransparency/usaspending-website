@@ -75,13 +75,17 @@ const mapboxSources = {
         label: 'county',
         url: 'mapbox://usaspending.29sdfmwu',
         layer: 'tl_2019_us_county',
-        filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
+        filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
     },
     congressionalDistrict: {
         label: 'congressional district',
         url: 'mapbox://usaspending.118-CD-tiles',
         layer: '118-CD',
-        filterKey: 'GEOID20' // the GEOID is state FIPS + district
+        filterKey: 'GEOID20', // the GEOID is state FIPS + district
+        lat: 'INTPTLAT20',
+        long: 'INTPTLON20'
     },
     zip: {
         label: 'ZIP Code Tabulation Area',
@@ -300,9 +304,9 @@ const MapWrapper = (props) => {
     const prepareChangeListeners = () => {
         // detect visible entities whenever the map moves
         const parentMap = mapRef.current.map.current;
-        renderCallback = () => {
+        const mapMovedCallback = () => {
             if (parentMap.loaded()) {
-                parentMap.off('render', renderCallback);
+                parentMap.off('render', mapMovedCallback);
                 MapBroadcaster.emit('mapMoved');
             }
         };
@@ -310,7 +314,7 @@ const MapWrapper = (props) => {
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
         renderCallback = () => {
-            mapRef.current.map.current.on('render', renderCallback);
+            mapRef.current.map.current.on('render', mapMovedCallback);
         };
         mapRef.current.map.current.on('moveend', renderCallback);
         // but also do it when the map resizes, since the view will be different
@@ -340,6 +344,7 @@ const MapWrapper = (props) => {
     const measureMap = (forced = false) => {
         // determine which entities (state, counties, etc. based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
+
         const mapLoaded = mapRef.current.map.current.loaded();
         // wait for the map to load before continuing
         if (!mapLoaded) {
@@ -505,9 +510,7 @@ const MapWrapper = (props) => {
         }
         return () => {
             // remove any broadcast listeners
-            if (!props.stateProfile) {
-                removeChangeListeners();
-            }
+            removeChangeListeners();
             broadcastReceivers.forEach((listenerRef) => {
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
@@ -525,7 +528,7 @@ const MapWrapper = (props) => {
             displayData();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.renderHash]);
+    }, [props.renderHash, props.data]);
 
     useEffect(() => {
         if (mapReady) {
@@ -543,7 +546,8 @@ const MapWrapper = (props) => {
                 mapType={props.scope}
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}
-                ref={mapRef} />
+                ref={mapRef}
+                singleLocationSelected={props.singleLocationSelected} />
             {toggle()}
             {legend()}
             {tooltip()}

@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/13/17
  */
 
-import React from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
@@ -20,6 +20,7 @@ import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 import MapMessage from './MapMessage';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../sharedComponents/ReadMore';
+import { usePrevious } from "../../../../helpers";
 
 const propTypes = {
     scope: PropTypes.string,
@@ -36,91 +37,61 @@ const propTypes = {
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     subaward: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    center: PropTypes.array,
+    singleLocationSelected: PropTypes.object
 };
 
 const availableLayers = ['country', 'state', 'county', 'congressionalDistrict'];
 
-export default class GeoVisualizationSection extends React.Component {
-    constructor(props) {
-        super(props);
+const GeoVisualizationSection = (props) => {
+    const [showHover, setShowHover] = useState(false);
+    const [selectedItem, setSelectedItem] = useState({});
+    const [tableBody, setTableBody] = useState("");
+    const [tableTitle, setTableTitle] = useState("");
+    const [tablePreview, setTablePreview] = useState("");
+    const [expanded, setExpanded] = useState(null);
+    const sectionHr = useRef(null);
+    const prevProps = usePrevious(props);
+    const dataRef = useRef(props.data);
 
-        this.state = {
-            showHover: false,
-            selectedItem: {},
-            tableBody: "",
-            tableTitle: "",
-            tablePreview: "",
-            expanded: null
-        };
-        this.className = "";
-        this.showTooltip = this.showTooltip.bind(this);
-        this.hideTooltip = this.hideTooltip.bind(this);
-        this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
-        this.handleUpdateBody = this.handleUpdateBody.bind(this);
-    }
-
-    componentDidMount() {
-        this.handleUpdateTitle();
-        this.handleUpdateBody();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!this.state.expanded || this.state.expanded === null) {
-            const elem = document.querySelector(".read-more__preview-lines");
-            elem?.classList.add("line-clamp");
-        }
-
-        if (this.props.subaward !== prevProps.subaward) {
-            this.handleUpdateTitle();
-            this.handleUpdateBody();
-        }
-    }
-
-    showTooltip(geoId, position) {
+    const showTooltip = (geoId, position) => {
         // convert state code to full string name
-        const label = this.props.data.labels[geoId];
-        this.setState({
-            showHover: true,
-            selectedItem: {
-                label: label.label,
-                total: this.props.total,
-                value: label.value,
-                x: position.x,
-                y: position.y
-            }
+        // TODO: This ref is necessary, need to figure out why the map components are losing reference to data
+        const label = dataRef.current.labels[geoId];
+        setShowHover(true);
+        setSelectedItem({
+            label: label.label,
+            total: props.total,
+            value: label.value,
+            x: position.x,
+            y: position.y
         });
-    }
+    };
 
-    hideTooltip() {
-        this.setState({
-            showHover: false,
-            selectedItem: {}
-        });
-    }
+    const hideTooltip = () => {
+        setShowHover(false);
+        setSelectedItem({});
+    };
 
-    handleUpdateTitle() {
+    const handleUpdateTitle = () => {
         const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
         const primeAwardTitle = "Spending by Geography";
         const subAwardTitle = "Sub-Award Spending by Geography";
         if (toggleValue.ariaPressed === "true") {
-            this.setState({
-                tableTitle: primeAwardTitle
-            });
+            setTableTitle(primeAwardTitle);
         }
         else {
-            this.setState({
-                tableTitle: subAwardTitle
-            });
+            setTableTitle(subAwardTitle);
         }
-    }
+    };
 
-    handleUpdateBody() {
+    const handleUpdateBody = useCallback(() => {
         const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
 
         const primeAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const primeAwardBody = <>
-            {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
+            {getAtdDefcText(props.isDefCodeInFilter?.length > 0)}
             <p className="award-search__body-text">
                 The data in the map represent <span className="award-search__glossary-term">federal action</span>{' '}<GlossaryLink term="federal-action-obligation" /> {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for non-loan prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Loan awards use the {<span className="award-search__glossary-term">subsidy cost</span>}{' '}{<GlossaryLink term="loan-subsidy-cost" />} rather than the obligated amount to sum up the value of the loan. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.
             </p>
@@ -129,7 +100,7 @@ export default class GeoVisualizationSection extends React.Component {
         const subAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const subAwardBody = (
             <>
-                {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
+                {getAtdDefcText(props.isDefCodeInFilter?.length > 0)}
                 <p className="award-search__body-text">
                     The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />}{' '}that meet the selected filter criteria. The results do not reflect sub-awards whose
                     {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}
@@ -140,19 +111,58 @@ export default class GeoVisualizationSection extends React.Component {
                 </p>
             </>);
         if (toggleValue.ariaPressed === "true") {
-            this.setState({
-                tableBody: primeAwardBody,
-                tablePreview: primeAwardPreview
-            });
+            setTableBody(primeAwardBody);
+            setTablePreview(primeAwardPreview);
         }
         else {
-            this.setState({
-                tableBody: subAwardBody,
-                tablePreview: subAwardPreview
-            });
+            setTableBody(subAwardBody);
+            setTablePreview(subAwardPreview);
         }
-    }
-    render() {
+    });
+
+    useEffect(() => {
+        handleUpdateTitle();
+        handleUpdateBody();
+    }, [handleUpdateBody]);
+
+    useEffect(() => {
+        dataRef.current = props.data;
+    }, [props.data]);
+
+    useEffect(() => {
+        if (!expanded || expanded === null) {
+            const elem = document.querySelector(".read-more__preview-lines");
+            elem?.classList.add("line-clamp");
+        }
+
+        if (props.subaward !== prevProps?.subaward) {
+            handleUpdateTitle();
+            handleUpdateBody();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [expanded, prevProps?.subaward, props.subaward]);
+
+    const applyLineClamp = (elem) => {
+        elem.classList.add("line-clamp");
+    };
+
+    const removeLineClamp = (elem) => {
+        elem.classList.remove("line-clamp");
+    };
+
+    const additionalFunctionality = () => {
+        const elem = document.querySelector(".read-more__preview-lines");
+        setExpanded(!expanded);
+        // doesn't seem correct
+        if (!expanded) {
+            removeLineClamp(elem);
+        }
+        else {
+            applyLineClamp(elem);
+        }
+    };
+
+    const getMessage = () => {
         if (!MapboxGL.supported()) {
             return (
                 <div className="results-table-message-container">
@@ -163,7 +173,7 @@ export default class GeoVisualizationSection extends React.Component {
 
         let message = null;
 
-        if (this.props.loading) {
+        if (props.loading) {
             message = (
                 <MapMessage>
                     <div className="map-loading">
@@ -175,7 +185,7 @@ export default class GeoVisualizationSection extends React.Component {
                 </MapMessage>
             );
         }
-        else if (this.props.error) {
+        else if (props.error) {
             message = (
                 <MapMessage>
                     <div className="map-no-results">
@@ -192,7 +202,7 @@ export default class GeoVisualizationSection extends React.Component {
                 </MapMessage>
             );
         }
-        else if (this.props.noResults) {
+        else if (props.noResults) {
             message = (
                 <MapMessage>
                     <div className="map-no-results">
@@ -204,99 +214,85 @@ export default class GeoVisualizationSection extends React.Component {
                 </MapMessage>
             );
         }
-        const applyLineClamp = (elem) => {
-            elem.classList.add("line-clamp");
-        };
 
-        const removeLineClamp = (elem) => {
-            elem.classList.remove("line-clamp");
-        };
+        return message;
+    };
 
-        const additionalFunctionality = (expanded) => {
-            const elem = document.querySelector(".read-more__preview-lines");
-            this.setState({ expanded: !expanded });
-            if (!expanded) {
-                removeLineClamp(elem);
-            }
-            else {
-                applyLineClamp(elem);
-            }
-        };
-        return (
-            <section
-                className="results-visualization-geo-section"
-                id="results-section-geo"
-                aria-label="Spending by Geography">
-                <h2 className="visualization-title">
-                    {this.state.tableTitle}
-                </h2>
-                <hr
-                    className="results-divider"
-                    ref={(hr) => {
-                        this.sectionHr = hr;
-                    }} />
+    return (
+        <section
+            className="results-visualization-geo-section"
+            id="results-section-geo"
+            aria-label="Spending by Geography">
+            <h2 className="visualization-title">
+                {tableTitle}
+            </h2>
+            <hr
+                className="results-divider"
+                ref={sectionHr} />
 
-                <div className="visualization-top">
-                    <div className="visualization-description">
-                        <p className="award-search__what-title">What's included in this view of the data?</p>
-                        <div className="content">
-                            <ReadMore
-                                openPrompt="read more"
-                                closePrompt="read less"
-                                openIcon=""
-                                closeIcon=""
-                                showPreview
-                                previewLines={this.state.tablePreview}
-                                additionalFunctionality={additionalFunctionality}>
-                                {this.state.tableBody}
-                            </ReadMore>
-                        </div>
-                    </div>
-
-                    <div className="visualization-period">
-                        <div className="content">
-                            <ul>
-                                <li>
-                                    <GeoVisualizationScopeButton
-                                        value="place_of_performance"
-                                        label="Place of Performance"
-                                        active={this.props.scope === 'place_of_performance'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <GeoVisualizationScopeButton
-                                        value="recipient_location"
-                                        label="Recipient Location"
-                                        active={this.props.scope === 'recipient_location'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                            </ul>
-                        </div>
+            <div className="visualization-top">
+                <div className="visualization-description">
+                    <p className="award-search__what-title">What's included in this view of the data?</p>
+                    <div className="content">
+                        <ReadMore
+                            openPrompt="read more"
+                            closePrompt="read less"
+                            openIcon=""
+                            closeIcon=""
+                            showPreview
+                            previewLines={tablePreview}
+                            additionalFunctionality={additionalFunctionality}>
+                            {tableBody}
+                        </ReadMore>
                     </div>
                 </div>
 
-                <MapWrapper
-                    data={this.props.data}
-                    renderHash={this.props.renderHash}
-                    scope={this.props.mapLayer}
-                    changeMapLayer={this.props.changeMapLayer}
-                    showHover={this.state.showHover}
-                    selectedItem={this.state.selectedItem}
-                    showTooltip={this.showTooltip}
-                    hideTooltip={this.hideTooltip}
-                    tooltip={GeoVisualizationTooltip}
-                    availableLayers={availableLayers}
-                    showLayerToggle
-                    center={[-95.569430, 38.852892]}
-                    className={this.props.className}
-                    mapLegendToggle={this.props.mapLegendToggle}
-                    updateMapLegendToggle={this.props.updateMapLegendToggle} >
-                    {message}
-                </MapWrapper>
-                <Note message={noteMessage} />
-            </section>
-        );
-    }
-}
+                <div className="visualization-period">
+                    <div className="content">
+                        <ul>
+                            <li>
+                                <GeoVisualizationScopeButton
+                                    value="place_of_performance"
+                                    label="Place of Performance"
+                                    active={props.scope === 'place_of_performance'}
+                                    changeScope={props.changeScope} />
+                            </li>
+                            <li>
+                                <GeoVisualizationScopeButton
+                                    value="recipient_location"
+                                    label="Recipient Location"
+                                    active={props.scope === 'recipient_location'}
+                                    changeScope={props.changeScope} />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <MapWrapper
+                data={props.data}
+                renderHash={props.renderHash}
+                scope={props.mapLayer}
+                changeMapLayer={props.changeMapLayer}
+                showHover={showHover}
+                selectedItem={selectedItem}
+                showTooltip={showTooltip}
+                hideTooltip={hideTooltip}
+                tooltip={GeoVisualizationTooltip}
+                availableLayers={availableLayers}
+                showLayerToggle
+                center={props.center}
+                className={props.className}
+                mapLegendToggle={props.mapLegendToggle}
+                updateMapLegendToggle={props.updateMapLegendToggle}
+                singleLocationSelected={props.singleLocationSelected} >
+                {getMessage()}
+            </MapWrapper>
+            <Note message={noteMessage} />
+        </section>
+    );
+};
 
 GeoVisualizationSection.propTypes = propTypes;
+export default GeoVisualizationSection;
+
