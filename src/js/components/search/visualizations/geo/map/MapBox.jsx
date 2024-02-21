@@ -175,7 +175,6 @@ const MapBox = forwardRef((props, ref) => {
         if (map.current) {
             resizeMap();
         } else {
-            console.log(props.stateInfo?.code)
             mountMap();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
