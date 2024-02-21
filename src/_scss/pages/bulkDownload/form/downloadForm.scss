@@ -4,6 +4,9 @@
         &:nth-of-type(1) {
             padding: 0;
         }
+        &.width-96 {
+            width: 96%
+        }
         h3.download-filter__title {
             @include h5;
             margin: 0;
@@ -67,6 +70,7 @@
         .download-filter__content {
             @include media($medium-screen) {
                 padding-left: rem(30);
+                width: 96%;
             }
             .radio {
                 input[type=radio] {

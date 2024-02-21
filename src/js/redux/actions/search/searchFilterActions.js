@@ -21,8 +21,18 @@ export const updateTimePeriod = (state) => ({
     end: state.endDate
 });
 
-export const updateNewAwardsOnly = (state) => ({
-    type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY',
+export const updateNewAwardsOnlySelected = (state) => ({
+    type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_SELECTED',
+    filterValue: state
+});
+
+export const updateNewAwardsOnlyActive = (state) => ({
+    type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_ACTIVE',
+    filterValue: state
+});
+
+export const updateNaoActiveFromFyOrDateRange = (state) => ({
+    type: 'UPDATE_SEARCH_FILTER_NAO_FROM_FY_OR_DATE_RANGE',
     filterValue: state
 });
 

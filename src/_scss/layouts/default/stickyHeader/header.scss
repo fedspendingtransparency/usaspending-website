@@ -1,18 +1,24 @@
 @use "sass:math";
+
 .usda-page-header {
     @include display(flex);
     min-height: rem(60);
     @import "../../../mixins/fullSectionWrap.scss";
+
     .usda-page-header__container {
+
         .usda-page-header__header,
         .usda-page-header__toolbar {
             border-bottom: none;
+
             @media (max-width: $medium-screen) {
                 .usda-fy-picker__container {
                     padding-left: 0;
                 }
+
                 padding-left: math.div($outer-gutter, 2);
             }
+
             @media(min-width:$medium-screen) {
                 .usda-share-icon {
                     span {
@@ -24,6 +30,7 @@
                     margin: 0
                 }
             }
+
             .download_static-file__container {
                 display: none;
 
@@ -39,21 +46,23 @@
                             flex-direction: column;
                             align-items: center;
                             color: $gray-cool-10;
+                            // to get it to line up
+                            line-height: 0.8;
                             svg {
                                 height: 24px;
                                 width: 24px;
-                                // this odd number is to make it line up with the Share icon
-                                margin-bottom: 3px;
+                                margin-bottom: 2px;
+                            }
+
+                            span {
+                                margin-top: rem(4);
                             }
                         }
                     }
                 }
-
-                @media(min-width:$x-large-screen) {
-                    margin-right: 14px
-                }
             }
         }
+
         @media(min-width: $medium-screen) {
             @include fullSectionWrap(0, 0);
         }

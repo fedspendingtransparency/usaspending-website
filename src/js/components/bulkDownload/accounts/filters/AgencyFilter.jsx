@@ -169,7 +169,7 @@ export default class AgencyFilter extends React.Component {
         }
 
         return (
-            <div className="download-filter">
+            <div className="download-filter width-96">
                 <h4 className="download-filter__title">
                     Agency
                 </h4>

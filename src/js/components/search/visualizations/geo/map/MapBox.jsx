@@ -17,7 +17,8 @@ const propTypes = {
     unloadedMap: PropTypes.func,
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
-    stateInfo: PropTypes.object
+    stateInfo: PropTypes.object,
+    singleLocationSelected: PropTypes.object
 };
 
 // Define map movement increment
@@ -82,7 +83,7 @@ const MapBox = forwardRef((props, ref) => {
 
 
     const centerMap = (m) => {
-        m.current.jumpTo({
+        m?.current?.jumpTo({
             zoom: 4,
             center: props.center
         });
@@ -165,13 +166,19 @@ const MapBox = forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
+        if (props.center?.length > 0 && map?.current && !props.stateProfile && Object.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props?.singleLocationSelected)?.length > 0) {
+            centerMap(map);
+        }
+    }, [props.center, map.current, props.singleLocationSelected]);
+
+    useEffect(() => {
         if (map.current) {
             resizeMap();
-        }
-        else if (props.stateInfo?.code !== '') {
+        } else {
             mountMap();
         }
-    }, [windowWidth, props.stateProfile, resizeMap, props.stateInfo?.code, mountMap]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [windowWidth, props.center]);
 
     return (
         <div

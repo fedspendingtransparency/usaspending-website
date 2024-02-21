@@ -8,7 +8,6 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { useQueryParams } from 'helpers/queryParams';
 import { find, throttle } from "lodash";
 import { useHistory } from "react-router-dom";
@@ -114,7 +113,11 @@ const About = () => {
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-        scrollToY(sectionTop - 5, 700);
+        window.scrollTo({
+            top: sectionTop - 5,
+            left: 0,
+            behavior: 'smooth'
+        });
     };
 
     useEffect(throttle(() => {
