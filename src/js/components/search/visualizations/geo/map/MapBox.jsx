@@ -166,7 +166,7 @@ const MapBox = forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
-        if (props.center?.length > 0 && map?.current && !props.stateProfile && Object.keys(props?.singleLocationSelected)?.length > 0) {
+        if (props.center?.length > 0 && map?.current && !props.stateProfile && Object.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props?.singleLocationSelected)?.length > 0) {
             centerMap(map);
         }
     }, [props.center, map.current, props.singleLocationSelected]);
