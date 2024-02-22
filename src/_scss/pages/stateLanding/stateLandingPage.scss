@@ -6,7 +6,10 @@
     @import "./_table";
 
     .state-landing__results {
-        overflow-x: scroll;
+        @media (max-width: $large-screen) {
+            overflow-x: scroll;
+        }
+
         .state-list {
             margin-top: rem(15);
         }

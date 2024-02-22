@@ -1,6 +1,9 @@
 .agency-landing-results-table {
     display: block;
-    overflow: scroll;   
+
+	@media (max-width: $large-screen) {
+		overflow-x: scroll;
+	}
 
     &.no-results {
         border: none;
