@@ -4,6 +4,7 @@
     @import 'layouts/default/stickyHeader/header';
     .main-content {
         @import '../../mixins/fullSectionWrap';
+        @include fullSectionWrap(0,0);
         @include display(flex);
         @include flex-wrap(wrap);
         @include flex-direction(column);
