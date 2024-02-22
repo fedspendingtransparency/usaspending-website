@@ -83,10 +83,13 @@ const MapBox = forwardRef((props, ref) => {
 
 
     const centerMap = (m) => {
-        m?.current?.jumpTo({
-            zoom: 4,
-            center: props.center
-        });
+        console.log("center map", props.center);
+        if (m?.current && typeof m.current?.jumpTo === "function") {
+            m.current.jumpTo({
+                zoom: 4,
+                center: props.center
+            });
+        }
     };
 
     const resizeMap = () => {
@@ -166,10 +169,11 @@ const MapBox = forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
-        if (props.center?.length > 0 && map?.current && !props.stateProfile && Object.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props?.singleLocationSelected)?.length > 0) {
+        if (props.center?.length > 0 && map?.current && !props.stateProfile && props?.singleLocationSelected && Object.keys(props?.singleLocationSelected)?.length > 0) {
             centerMap(map);
         }
-    }, [props.center, map.current, props.singleLocationSelected]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.center, props.singleLocationSelected]);
 
     useEffect(() => {
         if (map.current) {

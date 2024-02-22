@@ -14,6 +14,7 @@ import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper'
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 import MapLayerToggle from './MapLayerToggle';
+import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 
 const propTypes = {
     data: PropTypes.object,
@@ -105,7 +106,7 @@ const MapWrapper = (props) => {
         segments: [],
         units: {}
     });
-    // const loadedLayers = {};
+    const [center, setCenter] = useState(props.center);
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
@@ -396,6 +397,45 @@ const MapWrapper = (props) => {
         mapOperationQueue[name] = operation;
     };
 
+    const setCenterFromMapTiles = (value, filterKey, lat, long) => {
+        console.log(mapRef.current.map.current);
+        const entities = mapRef.current.map.current.queryRenderedFeatures({
+            layers: [`base_${props.scope}`]
+        });
+
+        console.log("entities and scope", entities, props.scope);
+        const found = entities.find((element) => element.properties[filterKey] === value);
+        console.log("in set center from map tiles - not yet found", props.scope, filterKey, value, entities, found);
+        if (found) {
+            console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
+            setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
+        }
+    };
+
+    const reCenterMap = () => {
+        if (mapReady && {}.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props.singleLocationSelected).length > 0 && (props.scope === "county" || props.scope === "congressionalDistrict")) {
+            let value;
+            let filterKey;
+            let lat = "INTPTLAT";
+            let long = "INTPTLON";
+            const district = props.singleLocationSelected.district_original || props.singleLocationSelected.district_current;
+
+            if (props.scope === "congressionalDistrict") {
+                console.log("district", district, props.singleLocationSelected.state, stateFIPSByAbbreviation[props.singleLocationSelected.state]);
+                filterKey = "GEOID20";
+                lat += "20";
+                long += "20";
+                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
+                setCenterFromMapTiles(value, filterKey, lat, long);
+            }
+            else if (props.scope === "county") {
+                filterKey = "COUNTYFP";
+                value = `${props.singleLocationSelected.county}`;
+                setCenterFromMapTiles(value, filterKey, lat, long);
+            }
+        }
+    };
+
     const displayData = () => {
         // don't do anything if the map has not yet loaded
         if (!mapReady) {
@@ -434,6 +474,7 @@ const MapWrapper = (props) => {
             mapRef.current.map.current.setFilter(layerName, filter);
         });
 
+        reCenterMap();
         setSpendingScale(scale);
     };
 
@@ -537,12 +578,16 @@ const MapWrapper = (props) => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [mapReady]);
 
+    useEffect(() => {
+        setCenter(props.center);
+    }, [props.center]);
+
     return (
         <div className="map-container">
             <MapBox
                 loadedMap={mapReadyPrep}
                 unloadedMap={mapRemoved}
-                center={props.center}
+                center={center}
                 mapType={props.scope}
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}
