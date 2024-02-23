@@ -405,10 +405,16 @@ const MapWrapper = (props) => {
 
         console.log("entities and scope", entities, props.scope);
         const found = entities.find((element) => element.properties[filterKey] === value);
-        console.log("in set center from map tiles - not yet found", props.scope, filterKey, value, entities, found);
         if (found) {
             console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
-            setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
+            const coords = [parseFloat(found.properties[long]), parseFloat(found.properties[lat])];
+            const isEqual = coords.every((v, index) => v === center[index]);
+            console.log(coords, center, coords.every((v, index) => v === center[index]));
+
+            if (!isEqual) {
+                setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
+                removeChangeListeners();
+            }
         }
     };
 

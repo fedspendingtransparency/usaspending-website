@@ -34,31 +34,51 @@ const MapBox = forwardRef((props, ref) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
+    const [zoom, setZoom] = useState(4);
 
     useImperativeHandle(ref, () => ({
         map
     }));
 
+
+    const isStateSelected = () => {
+        if (props.stateInfo?.code !== '' || (props.singleLocationSelected && Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'state'))) {
+            return true;
+        }
+        return false;
+    };
+
     const calculateMapZoom = () => {
-        if (props.stateProfile) {
-            if (props?.stateInfo?.code !== '') {
-                const state = statesBySqMile.find((s) => s.code === props.stateInfo.code);
+        let zoomLevel = 3.2;
+
+        if (isStateSelected()) {
+            const stateCode = props.stateInfo?.code || props.singleLocationSelected?.state;
+            let modifyZoom = 0;
+            if (stateCode !== '') {
+                if (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'county') || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'district') || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'district_current')) {
+                    modifyZoom = 2;
+                }
+
+                const state = statesBySqMile.find((s) => s.code === stateCode);
                 if (state?.size > 500000) {
-                    return 3.0;
+                    zoomLevel = 3.0 + modifyZoom;
                 }
                 else if (state?.size < 1000) {
-                    return 9.6;
+                    zoomLevel = 9.6 + modifyZoom;
                 }
                 else if (state?.size < 10000) {
-                    return 6.2;
+                    zoomLevel = 6.2 + modifyZoom;
                 }
                 else if (state?.size < 140000) {
-                    return 4.8;
+                    zoomLevel = 4.8 + modifyZoom;
                 }
             }
-            return 4.2;
+            zoomLevel = 4.2 + modifyZoom;
         }
-        return 3.2;
+
+        console.log(zoomLevel);
+
+        setZoom(zoomLevel);
     };
 
     const moveMap = (bearing) => {
@@ -81,15 +101,13 @@ const MapBox = forwardRef((props, ref) => {
         moveMap([0, delta]);
     };
 
-
     const centerMap = (m) => {
-        console.log("center map", props.center);
-        if (m?.current && typeof m.current?.jumpTo === "function") {
-            m.current.jumpTo({
-                zoom: 4,
+        // if (typeof m?.current?.jumpTo === "function") {
+            m?.current?.jumpTo({
+                zoom: zoom || 4,
                 center: props.center
             });
-        }
+        // }
     };
 
     const resizeMap = () => {
@@ -112,7 +130,7 @@ const MapBox = forwardRef((props, ref) => {
             logoPosition: 'bottom-right',
             attributionControl: false,
             center: props.center,
-            zoom: calculateMapZoom(),
+            zoom: zoom,
             dragRotate: false // disable 3D view
         });
 
@@ -168,8 +186,17 @@ const MapBox = forwardRef((props, ref) => {
         };
     }, []);
 
+    const isCenterable = () => {
+        if (props.stateProfile) {
+            return false;
+        }
+
+        const isSingleLocation = props.center?.length > 0 && Object.prototype.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props.singleLocationSelected)?.length > 0;
+        return isSingleLocation;
+    };
+
     useEffect(() => {
-        if (props.center?.length > 0 && map?.current && !props.stateProfile && props?.singleLocationSelected && Object.keys(props?.singleLocationSelected)?.length > 0) {
+        if (isCenterable()) {
             centerMap(map);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -178,11 +205,18 @@ const MapBox = forwardRef((props, ref) => {
     useEffect(() => {
         if (map.current) {
             resizeMap();
-        } else {
-            mountMap();
+        }
+        else {
+            calculateMapZoom();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth, props.center]);
+
+    useEffect(() => {
+        if (zoom && !map.current) {
+            mountMap();
+        }
+    }, [zoom]);
 
     return (
         <div
