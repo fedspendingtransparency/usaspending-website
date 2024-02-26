@@ -79,6 +79,7 @@ const MapBox = forwardRef((props, ref) => {
         console.log(zoomLevel);
 
         setZoom(zoomLevel);
+        return zoomLevel;
     };
 
     const moveMap = (bearing) => {
@@ -103,10 +104,10 @@ const MapBox = forwardRef((props, ref) => {
 
     const centerMap = (m) => {
         // if (typeof m?.current?.jumpTo === "function") {
-            m?.current?.jumpTo({
-                zoom: zoom || 4,
-                center: props.center
-            });
+        m?.current?.jumpTo({
+            zoom: zoom || 4,
+            center: props.center
+        });
         // }
     };
 
@@ -130,7 +131,7 @@ const MapBox = forwardRef((props, ref) => {
             logoPosition: 'bottom-right',
             attributionControl: false,
             center: props.center,
-            zoom: zoom,
+            zoom: calculateMapZoom(),
             dragRotate: false // disable 3D view
         });
 
@@ -186,7 +187,7 @@ const MapBox = forwardRef((props, ref) => {
         };
     }, []);
 
-    const isCenterable = () => {
+    const isReCenterable = () => {
         if (props.stateProfile) {
             return false;
         }
@@ -196,7 +197,7 @@ const MapBox = forwardRef((props, ref) => {
     };
 
     useEffect(() => {
-        if (isCenterable()) {
+        if (isReCenterable()) {
             centerMap(map);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -207,16 +208,10 @@ const MapBox = forwardRef((props, ref) => {
             resizeMap();
         }
         else {
-            calculateMapZoom();
+            mountMap();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth, props.center]);
-
-    useEffect(() => {
-        if (zoom && !map.current) {
-            mountMap();
-        }
-    }, [zoom]);
 
     return (
         <div
