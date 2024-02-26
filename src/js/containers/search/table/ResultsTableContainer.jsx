@@ -520,6 +520,11 @@ const ResultsTableContainer = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        performSearch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tableType]);
+
     if (!columns[tableType]) {
         return null;
     }
