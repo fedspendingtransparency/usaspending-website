@@ -1,7 +1,7 @@
 .results-table {
     display: block;
     @media (max-width: $large-screen) {
-        overflow-x: scroll;
+        overflow-x: auto;
     }
 
     .results-table__message {

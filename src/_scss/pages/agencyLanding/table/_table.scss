@@ -2,7 +2,7 @@
     display: block;
 
 	@media (max-width: $large-screen) {
-		overflow-x: scroll;
+		overflow-x: auto;
 	}
 
     &.no-results {
