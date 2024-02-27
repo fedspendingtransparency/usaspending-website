@@ -27,11 +27,6 @@
         padding: 0;
         margin: 0;
       }
-
-      //.usda-download-btn span,
-      //.usda-share-icon span,  usda-share-icon div {
-      //  margin-top: rem(5);
-      //}
     }
     .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
       .usda-download-btn {
@@ -50,42 +45,6 @@
   .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
     width: 86%;
   }
-
-  //.usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
-  //  background: unset;
-  //  border: unset;
-  //  &:hover {
-  //    background-color: $gray-cool-3;
-  //    text-decoration: none;
-  //  }
-  //}
-  //.usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item {
-  //  background: unset;
-  //  border: unset;
-  //  &:hover {
-  //    background-color: $gray-cool-3;
-  //    text-decoration: none;
-  //  }
-  //}
-  //.usda-page-header .usda-page-header__mobile-top .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
-  //  background: unset;
-  //  border: unset;
-  //  &:hover {
-  //    background-color: $gray-cool-3;
-  //    text-decoration: none;
-  //  }
-  //
-  //}
-
-  //.usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg, .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg, .usda-page-header .usda-page-header__mobile-top .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg {
-  //  margin-right: 0;
-  //  color: $gray-cool-60;
-  //}
-
-  //.usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item span, .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item span {
-  //  margin-left: 16px;
-  //  color: $gray-cool-60;
-  //}
 
   .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
     min-width: 148px;
@@ -131,14 +90,6 @@
       }
     }
   }
-
-  //.copy-confirmation {
-  //  background-color: $color-white;
-  //
-  //  svg {
-  //    color: $green-cool-50;
-  //  }
-  //}
 
   .usda__flex-row {
     @include display(flex);
