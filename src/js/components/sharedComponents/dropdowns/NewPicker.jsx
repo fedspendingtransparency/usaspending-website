@@ -11,7 +11,7 @@ import { uniqueId } from 'lodash';
 const propTypes = {
     size: PropTypes.oneOf(['sm', 'md', 'lg', 'small', 'medium', 'large']),
     label: PropTypes.string,
-    leftIcon: PropTypes.string,
+    leftIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     sortFn: PropTypes.func,
     icon: PropTypes.node,
     selectedOption: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),

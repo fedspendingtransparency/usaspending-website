@@ -11,14 +11,31 @@
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
-    .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
-        .usda-download-btn {
+    // this is literally only to fix the bar temporarily, these changes need to go in dtui
+    .usda-page-header__toolbar {
+        padding: 0;
+        align-items: center !important;
+        display: flex !important;
+        .usda-share-icon {
+            margin: 0 0 0 rem(40);
+            display: flex !important;
+            align-items: center !important;
             span {
-                margin-top: rem(4);
-                line-height: 0.9;
+                margin-top: rem(2) !important;
+            }
+        }
+        .tooltip-wrapper {
+            z-index: 10;
+        }
+        .usda-download-btn {
+            margin: 0 0 0 rem(32) !important;
+            transform: translateY(-5px);
+            span {
+                margin-top: rem(2);
             }
         }
     }
+    // end temp styles
 
     #main-content {
         background-color: $color-gray-lightest;
