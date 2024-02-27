@@ -118,9 +118,9 @@
             margin-left: 0;
           }
 
-          .usda-share-icon {
-            margin-left: 0;
-          }
+          //.usda-share-icon {
+          //  margin-left: 0;
+          //}
 
           .usda-share-icon {
             div.copy-confirmation {
@@ -140,40 +140,40 @@
                 color: $blue-cool-80v;
               }
 
-              .usa-dt-picker__list {
-                min-width: 15rem;
-                margin-top: 0px;
-                padding-top: 8px;
-                overflow: hidden;
-                padding-bottom: 8px;
-
-                .usa-dt-picker__list-item {
-                  border-top: none;
-                }
-
-                svg {
-                  color: $gray-cool-60;
-                }
-
-                span {
-                  color: $gray-cool-60;
-                  font-weight: $font-semibold;
-                  font-size: rem(16);
-                  margin-left: 16px;
-                  line-height: 24px;
-                }
-
-                .usa-dt-picker__item {
-                  padding-left: 16px;
-                  padding-right: unset;
-                  padding-top: 8px;
-                  padding-bottom: 8px;
-
-                  &:hover {
-                    background-color: $gray-cool-3;
-                  }
-                }
-              }
+              //.usa-dt-picker__list {
+              //  min-width: 15rem;
+              //  margin-top: 0px;
+              //  padding-top: 8px;
+              //  overflow: hidden;
+              //  padding-bottom: 8px;
+              //
+              //  .usa-dt-picker__list-item {
+              //    border-top: none;
+              //  }
+              //
+              //  svg {
+              //    color: $gray-cool-60;
+              //  }
+              //
+              //  span {
+              //    color: $gray-cool-60;
+              //    font-weight: $font-semibold;
+              //    font-size: rem(16);
+              //    margin-left: 16px;
+              //    line-height: 24px;
+              //  }
+              //
+              //  .usa-dt-picker__item {
+              //    padding-left: 16px;
+              //    padding-right: unset;
+              //    padding-top: 8px;
+              //    padding-bottom: 8px;
+              //
+              //    &:hover {
+              //      background-color: $gray-cool-3;
+              //    }
+              //  }
+              //}
             }
           }
         }

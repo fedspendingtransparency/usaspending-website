@@ -49,13 +49,13 @@
             overflow: hidden;
         }
 
-        .usda-share-icon .copy-confirmation {
-            background-color: $color-white;
-
-            svg {
-                color: $green-cool-50;
-            }
-        }
+        //.usda-share-icon .copy-confirmation {
+        //    background-color: $color-white;
+        //
+        //    svg {
+        //        color: $green-cool-50;
+        //    }
+        //}
 
         .atd-sidebar {
             background-color: $cyan-60v;
@@ -245,73 +245,73 @@
         margin-top: 16px;
         margin-right: 24px;
         .usda-share-icon {
-            margin-right: 0;
+            //margin-right: 0;
 
-            span {
-                display: none;
-            }
+            //span {
+            //    display: none;
+            //}
 
-            span.copy-confirmation {
-                display: flex;
-
-            }
+            //span.copy-confirmation {
+            //    display: flex;
+            //
+            //}
 
             .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
-                padding-bottom: 0px;
+                padding-bottom: 0;
             }
 
-            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
-                background-color: white;
+            //.usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
+            //    background-color: white;
+            //
+            //    span {
+            //        display: unset;
+            //    }
+            //}
 
-                span {
-                    display: unset;
-                }
-            }
-
-            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-                width: 148px;
-                margin-top: 4px;
-                padding-top: 8px;
-                padding-bottom: 8px;
-                overflow: hidden;
-                .usa-dt-picker__list-item {
-                    border-top: none;
-                    margin-bottom: 2px;
-                }
-
-                .usa-dt-picker__list-item:focus {
-                    border-top: unset;
-                }
-
-                svg {
-                    color: $gray-cool-60;
-                    width: 16px;
-                    height: 16px;
-                    margin-top: 4px;
-                }
-
-                span {
-                    color: $gray-cool-60;
-                    font-weight: $font-semibold;
-                    font-size: 16px;
-                    line-height: 24px;
-                    margin-left: 16px;
-                }
-
-                .usa-dt-picker__item {
-                    padding-left: 16px;
-                    padding-right: unset;
-                    padding-top: 8px;
-                    padding-bottom: 8px;
-                    width: 100%;
-                    display: flex;
-                    left: 0;
-
-                    &:hover {
-                        background-color: $gray-cool-3;
-                    }
-                }
-            }
+            //.usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+            //    width: 148px;
+            //    margin-top: 4px;
+            //    padding-top: 8px;
+            //    padding-bottom: 8px;
+            //    overflow: hidden;
+            //    .usa-dt-picker__list-item {
+            //        border-top: none;
+            //        margin-bottom: 2px;
+            //    }
+            //
+            //    .usa-dt-picker__list-item:focus {
+            //        border-top: unset;
+            //    }
+            //
+            //    svg {
+            //        color: $gray-cool-60;
+            //        width: 16px;
+            //        height: 16px;
+            //        margin-top: 4px;
+            //    }
+            //
+            //    span {
+            //        color: $gray-cool-60;
+            //        font-weight: $font-semibold;
+            //        font-size: 16px;
+            //        line-height: 24px;
+            //        margin-left: 16px;
+            //    }
+            //
+            //    .usa-dt-picker__item {
+            //        padding-left: 16px;
+            //        padding-right: unset;
+            //        padding-top: 8px;
+            //        padding-bottom: 8px;
+            //        width: 100%;
+            //        display: flex;
+            //        left: 0;
+            //
+            //        &:hover {
+            //            background-color: $gray-cool-3;
+            //        }
+            //    }
+            //}
         }
     }
 }

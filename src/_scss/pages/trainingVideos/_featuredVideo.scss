@@ -117,52 +117,52 @@
       margin-left: 0;
     }
 
-    .usda-share-icon {
-      margin: 0;
-    }
+    //.usda-share-icon {
+    //  margin: 0;
+    //}
 
     .usa-dt-picker {
       float: right;
     }
 
-    .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container {
-      .usa-dt-picker__button svg:hover {
-        color: $gray-cool-5;
-      }
-
-      .usa-dt-picker__list {
-        min-width: 15rem;
-        margin-top: 20px;
-        padding-top: 8px;
-        overflow: hidden;
-        padding-bottom: 8px;
-
-        .usa-dt-picker__list-item {
-          border-top: none;
-        }
-
-        svg {
-          color: $gray-cool-60;
-        }
-
-        span {
-          color: $gray-cool-60;
-          font-weight: $font-semibold;
-          font-size: rem(16);
-          margin-left: 16px;
-        }
-
-        .usa-dt-picker__item {
-          padding-left: 16px;
-          padding-right: unset;
-          padding-top: 8px;
-          padding-bottom: 8px;
-
-          &:hover {
-            background-color: $gray-cool-3;
-          }
-        }
-      }
-    }
+    //.usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container {
+    //  .usa-dt-picker__button svg:hover {
+    //    color: $gray-cool-5;
+    //  }
+    //
+    //  .usa-dt-picker__list {
+    //    min-width: 15rem;
+    //    margin-top: 20px;
+    //    padding-top: 8px;
+    //    overflow: hidden;
+    //    padding-bottom: 8px;
+    //
+    //    .usa-dt-picker__list-item {
+    //      border-top: none;
+    //    }
+    //
+    //    svg {
+    //      color: $gray-cool-60;
+    //    }
+    //
+    //    span {
+    //      color: $gray-cool-60;
+    //      font-weight: $font-semibold;
+    //      font-size: rem(16);
+    //      margin-left: 16px;
+    //    }
+    //
+    //    .usa-dt-picker__item {
+    //      padding-left: 16px;
+    //      padding-right: unset;
+    //      padding-top: 8px;
+    //      padding-bottom: 8px;
+    //
+    //      &:hover {
+    //        background-color: $gray-cool-3;
+    //      }
+    //    }
+    //  }
+    //}
   }
 }
