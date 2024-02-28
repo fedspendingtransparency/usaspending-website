@@ -121,7 +121,7 @@
         @include flex-grow(1);
         @include flex-wrap(wrap);
         max-width: rem(1600);
-        margin: auto;
+        margin: 0 auto;
 
         ul {
             padding: 0;
@@ -143,15 +143,15 @@
             }
 
             @media(min-width: $medium-screen) {
-                margin: rem(20);
+                margin: 0;
             }
 
             @media(min-width: $large-screen) {
-                margin: rem(20) rem(40);
+                margin: 0 rem(40);
             }
 
             @media(min-width: $x-large-screen) {
-                margin: rem(20) auto;
+                margin: 0 auto;
             }
 
             @import './overview/pageTitle';

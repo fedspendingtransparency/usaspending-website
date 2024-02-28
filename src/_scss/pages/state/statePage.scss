@@ -27,7 +27,7 @@
 
     .main-content {
         @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+        @include fullSectionWrap(0,0);
         padding:  0;
 
         @import "./_positioning";
