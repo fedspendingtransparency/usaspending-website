@@ -24,6 +24,7 @@
 
                 @media(min-width:$medium-screen) {
                     display: flex;
+                    height: rem(43);
 
                     a {
                         font-size: $font-size-14;

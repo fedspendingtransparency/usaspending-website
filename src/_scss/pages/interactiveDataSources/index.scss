@@ -21,21 +21,6 @@
   .main-content,
   .footer-container {
     width: 100%;
-
-    .usda-page-header__toolbar {
-      .usda-download-btn .usda-button {
-        padding: 0;
-        margin: 0;
-      }
-    }
-    .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
-      .usda-download-btn {
-          span {
-              margin-top: rem(4);
-              line-height: 0.9;
-          }
-      }
-  }
   }
 
   .usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item {
