@@ -142,7 +142,8 @@ const SearchPage = ({
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
-                    onShareOptionClick={handleShare} />,
+                    onShareOptionClick={handleShare}
+                    classNames="margin-right" />,
                 <DownloadIconButton
                     tooltipComponent={(!downloadAvailable && hash)
                         ? <NoDownloadHover />
