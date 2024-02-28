@@ -1,7 +1,9 @@
+
 .usa-da-search-page {
     @import "all";
     @import "layouts/tabbedSearch/tabbedSearch";
     @import "layouts/default/stickyHeader/header";
+    @import 'components/tooltips/_customTooltipContent';
     @import "../../components/atdButton";
 
     @import "./searchSidebar";
@@ -10,6 +12,11 @@
     @import "./mobile/mobileFilterButton";
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
+
+
+    .recharts-bar-rectangle path {
+        background-image: url(https://pbs.twimg.com/profile_images/533268603294842881/AbRcbnVt_reasonably_small.jpeg);
+    }
 
     .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
         .usda-download-btn {
