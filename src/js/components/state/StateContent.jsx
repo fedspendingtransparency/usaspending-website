@@ -10,6 +10,9 @@ import TopFiveSection from './topFive/TopFiveSection';
 import StateOverview from './overview/StateOverview';
 import StateFooter from './StateFooter';
 
+
+require('_dtui-SectionHeader.scss');
+
 const propTypes = {
     stateProfile: PropTypes.object
 };

@@ -20,8 +20,10 @@
         }
 
         hr.results-divider {
-            margin-bottom: rem(15);
-            margin-top: rem(5);
+			width: 100%;
+			height: rem(2);
+			background: #494440;
+			border: none;
         }
 
         .state-section__row {
@@ -55,7 +57,7 @@
 					.tooltip-wrapper {
 						@include display(inline-block);
 						float: left;
-	
+
 						.state-overview-tooltip {
 							@include display(inline-block);
 							width: 100%;
