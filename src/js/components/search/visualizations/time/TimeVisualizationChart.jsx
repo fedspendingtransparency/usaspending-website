@@ -5,7 +5,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { TooltipComponent } from 'data-transparency-ui';
 
 import PropTypes from "prop-types";
-import {calculateUnitForSingleValue, formatMoneyWithUnitsShortLabel} from "../../../../helpers/moneyFormatter";
+import { calculateUnitForSingleValue, formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
 
 // const propTypes = {
@@ -43,21 +43,25 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 // <svg x={x} y={y - padding} width={width} viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-const timeJumpIcon = (x, y, width, padding) => (<g width={width}>
-    <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2" />
-    <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2" />
-</g>);
+const timeJumpIcon = (x, y, width, padding, height) => {
+    const translateY = height || y;
+    return(<g transform={`translate(${x + padding},${translateY + padding}) scale(3)`}>
+        <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2"/>
+        <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2"/>
+    </g>);
+}
 
 const CustomShape = ({
     active, payload, index, x, y, width, height
 }) => {
+    console.log(payload, index, x, y, width, height);
     if (index === 0) {
-        return timeJumpIcon(0, 0, width, 30);
+        return timeJumpIcon(x, y, width, 30, height);
     }
     return (
-        <svg>
+        <g>
             <rect x={x} y={y} width={width} height={height} fill="#8884d8" />
-        </svg>
+        </g>
     );
 };
 
@@ -70,7 +74,7 @@ const CustomXTick = (props) => {
     const offset = 120;
     console.log("custom tick", x, y, payload, width, index);
     if (index === 0) {
-        return timeJumpIcon(offset, offset, width, width);
+        return timeJumpIcon(x - width, y, width, 0);
     }
     return (
         <g transform={`translate(${x},${y + 20})`} width={width}>
@@ -90,7 +94,7 @@ const CustomYTick = (props) => {
     console.log("custom tick", x, y, payload, width, index);
 
     return (
-        <g transform={`translate(${x},${y + 20})`} width={width}>
+        <g transform={`translate(${x},${y + 20})`}>
             <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="35px">
                 {MoneyFormatter.formatMoneyWithUnitsShortLabel(payload.value)}
             </text>
