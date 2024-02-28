@@ -162,13 +162,7 @@ const VisualizationWrapper = (props) => {
         </div>
     );
 };
-/*
-                <div className="visualization-tabs__toggle">
-                    <SubawardToggle
-                        subaward={props.subaward}
-                        setSearchViewSubaward={props.setSearchViewSubaward} />
-                </div>
-*/
+
 VisualizationWrapper.propTypes = propTypes;
 
 export default VisualizationWrapper;
