@@ -6,11 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SectionHeader } from "data-transparency-ui";
 
 import TimeVisualizationPeriodButton from 'components/search/visualizations/time/TimeVisualizationPeriodButton';
 import RecipientTimeVisualization from './RecipientTimeVisualization';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SectionHeader } from "../../../../../../data-transparency-ui";
 
 const propTypes = {
     data: PropTypes.object,

@@ -7,19 +7,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 import { isCancel } from 'axios';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { TooltipWrapper, SectionHeader } from 'data-transparency-ui';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
+
 import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 import { REQUEST_VERSION } from "../../GlobalConstants";
 import FeatureFlag from "../sharedComponents/FeatureFlag";
 import { CondensedCDTooltip } from '../../components/award/shared/InfoTooltipContent';
-import { SectionHeader } from "../../../../../data-transparency-ui";
 
 const propTypes = {
     recipient: PropTypes.object,
