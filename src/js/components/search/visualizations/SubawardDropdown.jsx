@@ -59,6 +59,7 @@ const SubawardDropdown = ({
 
     // eslint-disable-next-line no-param-reassign
     options = renderOptions();
+    const sortFn = () => options;
     return (
         <div className="subaward-dropdown__container">
             <NewPicker
@@ -74,7 +75,8 @@ const SubawardDropdown = ({
                 selectedOption={options.length
                     ? options.find((obj) => obj.value === selected).name
                     : `${selected}`
-                } />
+                }
+                sortFn={sortFn} />
         </div>
     );
 };
