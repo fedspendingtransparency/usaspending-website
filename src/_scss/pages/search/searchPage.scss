@@ -29,13 +29,16 @@
         }
         .usda-download-btn {
             margin: 0 0 0 rem(32) !important;
-            transform: translateY(-5px);
+            transform: translateY(-4.5px);
             span {
                 margin-top: rem(2);
             }
         }
     }
     // end temp styles
+    .subaward-dropdown__list {
+        min-width: max-content;
+    }
 
     #main-content {
         background-color: $color-gray-lightest;

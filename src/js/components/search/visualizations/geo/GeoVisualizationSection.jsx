@@ -75,19 +75,19 @@ const GeoVisualizationSection = (props) => {
     };
 
     const handleUpdateTitle = () => {
-        const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
         const primeAwardTitle = "Spending by Geography";
         const subAwardTitle = "Sub-Award Spending by Geography";
-        if (toggleValue.ariaPressed === "true") {
-            setTableTitle(primeAwardTitle);
+        const dropdownValue = document.querySelector(".filter__dropdown-button-text");
+        if (dropdownValue === "Subawards") {
+            setTableTitle(subAwardTitle);
         }
         else {
-            setTableTitle(subAwardTitle);
+            setTableTitle(primeAwardTitle);
         }
     };
 
     const handleUpdateBody = useCallback(() => {
-        const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
+        const dropdownValue = document.querySelector(".filter__dropdown-button-text");
 
         const primeAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const primeAwardBody = <>
@@ -110,13 +110,13 @@ const GeoVisualizationSection = (props) => {
                     Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
                 </p>
             </>);
-        if (toggleValue.ariaPressed === "true") {
-            setTableBody(primeAwardBody);
-            setTablePreview(primeAwardPreview);
-        }
-        else {
+        if (dropdownValue === "Subawards") {
             setTableBody(subAwardBody);
             setTablePreview(subAwardPreview);
+        }
+        else {
+            setTableBody(primeAwardBody);
+            setTablePreview(primeAwardPreview);
         }
     });
 

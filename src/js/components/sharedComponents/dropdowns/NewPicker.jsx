@@ -15,8 +15,10 @@ const propTypes = {
     sortFn: PropTypes.func,
     icon: PropTypes.node,
     selectedOption: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    className: PropTypes.string,
-    dropdownClassName: PropTypes.string,
+    classname: PropTypes.string,
+    dropdownClassname: PropTypes.string,
+    buttonClassname: PropTypes.string,
+    minTextWidth: PropTypes.string,
     id: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.number]),
@@ -48,7 +50,10 @@ const NewPicker = ({
     id = '',
     options,
     selectedOption,
-    dropdownClassName = '',
+    dropdownClassname = '',
+    buttonClassname = '',
+    minTextWidth = '',
+    classname = '',
     sortFn = defaultSort
 }) => {
     const pickerRef = useRef(null);
@@ -112,13 +117,12 @@ const NewPicker = ({
     else if (size === 'lg' || size === 'large') {
         variation = '-lg';
     }
-
     return (
-        <div className="filter__dropdown-container" ref={pickerRef}>
+        <div className={`filter__dropdown-container ${classname}`} ref={pickerRef}>
             {label !== '' && <span className={`filter__dropdown-label${variation} ${isEnabled ? 'enabled' : 'not-enabled'}`}>{label}</span>}
             <div className="filter__dropdown-button-list-container">
                 <button
-                    className={`filter__dropdown-button${variation} ${isEnabled ? 'enabled' : 'not-enabled'}`}
+                    className={`filter__dropdown-button${variation} ${isEnabled ? 'enabled' : 'not-enabled'} ${buttonClassname}`}
                     ref={buttonRef}
                     aria-label="Filter Dropdown Button"
                     onClick={toggleMenu}
@@ -128,7 +132,7 @@ const NewPicker = ({
                     </span>
                     {children ?
                         <>{children}</> :
-                        <span className="filter__dropdown-button-text">
+                        <span className={`filter__dropdown-button-text ${minTextWidth}`}>
                             {selectedOption}
                         </span>
                     }
@@ -141,7 +145,7 @@ const NewPicker = ({
                         )}
                     </span>
                 </button>
-                <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'} ${dropdownClassName}`}>
+                <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'} ${dropdownClassname}`}>
                     {options?.sort(handleSort)
                         .map((option) => ({
                             ...option,

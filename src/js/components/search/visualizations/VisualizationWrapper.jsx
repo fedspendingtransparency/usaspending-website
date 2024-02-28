@@ -150,11 +150,6 @@ const VisualizationWrapper = (props) => {
                     role="tablist">
                     {tabs}
                 </div>
-                <div className="visualization-tabs__toggle">
-                    <SubawardToggle
-                        subaward={props.subaward}
-                        setSearchViewSubaward={props.setSearchViewSubaward} />
-                </div>
             </div>
             <div className="visualization-content-wrapper">
                 <div
@@ -167,7 +162,13 @@ const VisualizationWrapper = (props) => {
         </div>
     );
 };
-
+/*
+                <div className="visualization-tabs__toggle">
+                    <SubawardToggle
+                        subaward={props.subaward}
+                        setSearchViewSubaward={props.setSearchViewSubaward} />
+                </div>
+*/
 VisualizationWrapper.propTypes = propTypes;
 
 export default VisualizationWrapper;
