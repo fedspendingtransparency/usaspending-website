@@ -9,6 +9,8 @@ import { throttle } from 'lodash';
 
 import TimeVisualizationPeriodButton from 'components/search/visualizations/time/TimeVisualizationPeriodButton';
 import RecipientTimeVisualization from './RecipientTimeVisualization';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SectionHeader } from "../../../../../../data-transparency-ui";
 
 const propTypes = {
     data: PropTypes.object,
@@ -56,7 +58,11 @@ export default class RecipientTimeVisualizationSection extends React.Component {
             <section
                 id="recipient-transactions-over-time"
                 className="recipient-section transactions-over-time">
-                <h3 className="recipient-section__title">Transactions Over Time</h3>
+                <SectionHeader
+                    icon={<FontAwesomeIcon icon="chart-bar" size="2x" />}
+                    title="Transactions Over Time"
+                    titleTooltip={{ component: false }}
+                    descTooltip={{ component: false }} />
                 <hr
                     className="results-divider"
                     ref={(hr) => {

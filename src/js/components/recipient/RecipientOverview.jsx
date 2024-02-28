@@ -19,6 +19,7 @@ import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 import { REQUEST_VERSION } from "../../GlobalConstants";
 import FeatureFlag from "../sharedComponents/FeatureFlag";
 import { CondensedCDTooltip } from '../../components/award/shared/InfoTooltipContent';
+import { SectionHeader } from "../../../../../data-transparency-ui";
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -90,7 +91,8 @@ const RecipientOverview = (props) => {
                 <div>{recipient.location.congressionalDistrict}</div>
             </td>
         );
-    } else if (recipient.location.streetAddress && recipient.location.regionalAddress) {
+    }
+    else if (recipient.location.streetAddress && recipient.location.regionalAddress) {
         address = (
             <td>
                 <div>{recipient.location.streetAddress}</div>
@@ -171,6 +173,11 @@ const RecipientOverview = (props) => {
                 {recipient.name}
                 {viewAlternateNames}
             </h2>
+            <SectionHeader
+                icon={<FontAwesomeIcon icon="building" size="2x" />}
+                title="Overview"
+                titleTooltip={{ component: false }}
+                descTooltip={{ component: false }} />
             <hr className="results-divider" />
             <div className="recipient-overview__content">
                 {parent}

@@ -9,6 +9,8 @@ import RecipientTimeVisualizationSectionContainer from 'containers/recipient/Rec
 import TopFiveSection from './topFive/TopFiveSection';
 import RecipientOverview from './RecipientOverview';
 
+require('_dtui-SectionHeader.scss');
+
 const propTypes = {
     recipient: PropTypes.object,
     pickedFy: PropTypes.func,
