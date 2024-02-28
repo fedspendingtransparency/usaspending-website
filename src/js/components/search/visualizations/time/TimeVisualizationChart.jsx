@@ -1,8 +1,11 @@
 import React from 'react';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Legend, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 import { TooltipComponent } from 'data-transparency-ui';
 
 import PropTypes from "prop-types";
+import {calculateUnitForSingleValue, formatMoneyWithUnitsShortLabel} from "../../../../helpers/moneyFormatter";
 
 
 // const propTypes = {
@@ -19,19 +22,6 @@ import PropTypes from "prop-types";
 //     activeLabel: PropTypes.object,
 //     visualizationPeriod: PropTypes.string
 // };
-const CustomTick = (props) => {
-    const {
-        x, y, payload, link
-    } = props;
-    return (
-        <g transform={`translate(${x},${y})`} width="40px">
-            <a href={`${link[payload.index].link}`}>
-                <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="35px">
-                    {payload.value}
-                </text>
-            </a>
-        </g>);
-};
 
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -51,18 +41,18 @@ const CustomTooltip = ({ active, payload, label }) => {
 
     return null;
 };
+// <svg x={x} y={y - padding} width={width} viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 
+const timeJumpIcon = (x, y, width, padding) => (<g width={width}>
+    <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2" />
+    <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2" />
+</g>);
 
 const CustomShape = ({
     active, payload, index, x, y, width, height
 }) => {
     if (index === 0) {
-        console.log(index, active, payload);
-        return (
-            <svg xmlns="http://www.w3.org/2000/svg" x={x} y={y - 30} width={width} viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2"/>
-                <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2"/>
-            </svg>);
+        return timeJumpIcon(0, 0, width, 30);
     }
     return (
         <svg>
@@ -70,6 +60,43 @@ const CustomShape = ({
         </svg>
     );
 };
+
+const CustomXTick = (props) => {
+    const {
+        x, y, payload, index
+    } = props;
+
+    const width = 30;
+    const offset = 120;
+    console.log("custom tick", x, y, payload, width, index);
+    if (index === 0) {
+        return timeJumpIcon(offset, offset, width, width);
+    }
+    return (
+        <g transform={`translate(${x},${y + 20})`} width={width}>
+            <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="35px">
+                {payload.value}
+            </text>
+        </g>);
+};
+
+const CustomYTick = (props) => {
+    const {
+        x, y, payload, index
+    } = props;
+
+    const width = 30;
+    const offset = 120;
+    console.log("custom tick", x, y, payload, width, index);
+
+    return (
+        <g transform={`translate(${x},${y + 20})`} width={width}>
+            <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="35px">
+                {MoneyFormatter.formatMoneyWithUnitsShortLabel(payload.value)}
+            </text>
+        </g>);
+};
+
 
 const TimeVisualizationChart = (props) => {
     // would be better to have an array of objects here
@@ -82,8 +109,6 @@ const TimeVisualizationChart = (props) => {
             value: props.ySeries[i][0]
         });
     }
-
-    const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
 
     return <>
         <p>hello world</p>
@@ -98,10 +123,9 @@ const TimeVisualizationChart = (props) => {
                 left: 20,
                 bottom: 5
             }}>
-            <XAxis dataKey="label" />
-            <YAxis dataKey="value" />
+            <XAxis dataKey="label" tick={<CustomXTick />} />
+            <YAxis dataKey="value" tick={<CustomYTick />} />
             {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
-            <Legend />
             <Bar dataKey="value" activeBar={<Rectangle fill="#F4C251" />} shape={<CustomShape />} />
         </BarChart>
     </>;
