@@ -107,14 +107,6 @@
         }
     }
 
-    // todo - replace this block with something that will align the new picker
-    // added this so that there isn't a weird section above the blue bar
-    //div.usda-page-header__toolbar {
-    //    @media(min-width: $medium-screen) {
-            //padding: 0;
-        //}
-    //}
-
     .main-content {
         @include display(flex);
         width: 100%;
