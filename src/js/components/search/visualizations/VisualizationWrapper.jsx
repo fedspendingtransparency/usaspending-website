@@ -164,5 +164,4 @@ const VisualizationWrapper = (props) => {
 };
 
 VisualizationWrapper.propTypes = propTypes;
-
 export default VisualizationWrapper;
