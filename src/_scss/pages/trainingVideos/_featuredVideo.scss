@@ -88,15 +88,6 @@
   .training-video-feature__column-share-icon {
     height: rem(24);
     width: rem(24);
-  //
-  //  @media(max-width: $medium-screen) {
-  //    float: right;
-  //  }
-  //
-  //  span {
-  //    display: none;
-  //  }
-  //
 
     .usda-share-icon {
       height: rem(24);
@@ -111,11 +102,8 @@
         .usa-dt-picker__dropdown-container {
           height: rem(24);
             width: rem(24);
-          //
-          //  span {
-          //    display: inherit;
-          //  }
-          button {
+
+          .usa-dt-picker__button {
             height: rem(24);
             width: rem(24);
             margin: 0;
@@ -123,22 +111,6 @@
           }
         }
       }
-
-      //
-      //  .usa-dt-picker__button {
-      //    padding: 0;
-      //    margin-right: 0;
-      //    padding-right: rem(3);
-      //
-      //  }
-      //
-      //  button {
-      //    margin-left: 0;
-      //  }
-      //
-      //  .usa-dt-picker {
-      //    float: right;
-      //  }
     }
   }
 }
