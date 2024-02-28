@@ -19,6 +19,7 @@
                 padding-left: math.div($outer-gutter, 2);
             }
 
+            // this block only applies to the download icon on the interactive data sources page
             .download_static-file__container {
                 display: none;
 

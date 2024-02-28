@@ -23,59 +23,6 @@
     width: 100%;
   }
 
-  .usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item {
-    padding-left: 16px;
-  }
-
-  .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-    width: 86%;
-  }
-
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-    min-width: 148px;
-    margin-top: 4px;
-    padding-top: 4px;
-    padding-bottom: 0;
-    overflow: hidden;
-
-    .usa-dt-picker__list-item {
-      border-top: none;
-      margin-bottom: 2px;
-    }
-
-    .usa-dt-picker__list-item:focus {
-      border-top: unset;
-    }
-
-    svg {
-      color: $gray-cool-60;
-      width: 16px;
-      height: 16px;
-    }
-
-    span {
-      color: $gray-cool-60;
-      font-weight: $font-semibold;
-      font-size: rem(16);
-      margin-left: 16px;
-    }
-
-    .usa-dt-picker__item {
-      padding-left: 16px;
-      padding-right: 16px;
-      padding-top: 8px;
-      padding-bottom: 8px;
-      width: 100%;
-      display: flex;
-      left: 0;
-
-      &:hover {
-        background-color: $gray-cool-3;
-        text-decoration: none;
-      }
-    }
-  }
-
   .usda__flex-row {
     @include display(flex);
     @include flex-wrap(wrap);
@@ -83,10 +30,6 @@
 
     .usda__flex-col {
       @include flex(1 1 auto);
-
-      .body__content {
-        width: 100%; // Fixes an IE Flexbox bug
-      }
     }
   }
 
