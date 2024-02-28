@@ -33,7 +33,7 @@ const TrainingVideosHeading = () => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
     return (
         <section className="training-videos__hero">
             <FlexGridRow className="grid-content">
@@ -61,7 +61,9 @@ const TrainingVideosHeading = () => {
                                     url={getBaseUrl(slug)}
                                     onShareOptionClick={onShareClick}
                                     colors={{ backgroundColor: "#ccecf2", color: "#2378c3" }}
-                                    dropdownDirection={isMobile ? 'right' : 'left'} />
+                                    dropdownDirection={isMobile ? 'right' : 'left'}
+                                    classNames="no-margin-left"
+                                    noShareText />
                             </div>
                         </div>
                     </div>
