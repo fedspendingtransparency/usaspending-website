@@ -1,11 +1,10 @@
 import React from 'react';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Legend, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import { TooltipComponent } from 'data-transparency-ui';
 
 import PropTypes from "prop-types";
-import { calculateUnitForSingleValue, formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
+import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
 
 // const propTypes = {
@@ -41,15 +40,16 @@ const CustomTooltip = ({ active, payload, label }) => {
 
     return null;
 };
-// <svg x={x} y={y - padding} width={width} viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 
 const timeJumpIcon = (x, y, width, padding, height) => {
     const translateY = height || y;
-    return(<g transform={`translate(${x + padding},${translateY + padding}) scale(3)`}>
-        <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2"/>
-        <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2"/>
-    </g>);
-}
+    return (
+        <g transform={`translate(${x + padding},${translateY + padding}) scale(3)`}>
+            <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2" />
+            <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2" />
+        </g>
+    );
+};
 
 const CustomShape = ({
     active, payload, index, x, y, width, height
@@ -71,13 +71,12 @@ const CustomXTick = (props) => {
     } = props;
 
     const width = 30;
-    const offset = 120;
     console.log("custom tick", x, y, payload, width, index);
     if (index === 0) {
         return timeJumpIcon(x - width, y, width, 0);
     }
     return (
-        <g transform={`translate(${x},${y + 20})`} width={width}>
+        <g transform={`translate(${x},${y + width})`}>
             <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="35px">
                 {payload.value}
             </text>
@@ -90,13 +89,12 @@ const CustomYTick = (props) => {
     } = props;
 
     const width = 30;
-    const offset = 120;
     console.log("custom tick", x, y, payload, width, index);
 
     return (
-        <g transform={`translate(${x},${y + 20})`}>
+        <g transform={`translate(${x},${y + width})`}>
             <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="35px">
-                {MoneyFormatter.formatMoneyWithUnitsShortLabel(payload.value)}
+                {formatMoneyWithUnitsShortLabel(payload.value)}
             </text>
         </g>);
 };
@@ -115,8 +113,6 @@ const TimeVisualizationChart = (props) => {
     }
 
     return <>
-        <p>hello world</p>
-        {/* {chart3}*/}
         <BarChart
             width={500}
             height={300}
@@ -130,7 +126,7 @@ const TimeVisualizationChart = (props) => {
             <XAxis dataKey="label" tick={<CustomXTick />} />
             <YAxis dataKey="value" tick={<CustomYTick />} />
             {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
-            <Bar dataKey="value" activeBar={<Rectangle fill="#F4C251" />} shape={<CustomShape />} />
+            <Bar dataKey="value" activeBar={<Rectangle fill="#F4C251" />} isAnimationActive={false} shape={<CustomShape />} />
         </BarChart>
     </>;
 };
