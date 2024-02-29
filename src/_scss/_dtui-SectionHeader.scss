@@ -1,3 +1,5 @@
+@import "all";
+
 .usda-section-title__sectionHeader {
   flex-wrap: nowrap;
   display: flex;
@@ -7,10 +9,8 @@
 
   .usda-section-title__title-icon {
     align-self: flex-end;
-    //width: rem(32);
-    width: 32px;
-    //@include for-phone-only {
-    @media (max-width: 768px) {
+    width: rem(32);
+    @media (max-width: $tablet-screen) {
       align-self: center;
     }
   }
@@ -23,19 +23,15 @@
     flex-wrap: wrap;
 
     &.usda-section-title__header {
-      //margin-left: rem(8);
-      margin-left: 8px;
+      margin-left: rem(8);
     }
 
     strong.usda-section-title__overline {
-      //font-size: rem(12);
-      font-size: 12px;
+      font-size: rem(12);
       flex-wrap: wrap;
-      //font-weight: $font-semibold;
-      font-weight: 600;
+      font-weight: $font-semibold;
       text-transform: uppercase;
-      //color: $color-base;
-      color: #555;
+      color: $color-base;
     }
 
     .usda-section-title__title {
@@ -44,23 +40,17 @@
 
       h3, h1 {
         margin: 0;
-        //font-size: rem(20);
-        font-size: 20px;
-        //color: $color-base;
-        color: #555;
-        //font-weight: $font-semibold;
-        font-weight: 600;
-        //line-height: rem(20);
-        line-height: 20px;
+        font-size: rem(20);
+        color: $color-base;
+        font-weight: $font-semibold;
+        line-height: rem(20);
       }
 
       .tooltip-wrapper {
         display: block;
-        //font-size: rem(20);
-        font-size: 20px;
+        font-size: rem(20);
         align-self: flex-start;
-        //@include for-phone-only {
-        @media (max-width: 768px) {
+        @media (max-width: $tablet-screen) {
           &:not(.has-overline) {
             align-self: center;
           }
