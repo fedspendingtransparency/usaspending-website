@@ -19,6 +19,44 @@
             }
         }
     }
+    // this is literally only to fix the bar temporarily, these changes need to go in dtui
+        .usda-page-header__toolbar {
+            @media(min-width: 1200px) {
+                padding: 0;
+                align-items: center !important;
+                display: flex !important;
+            }
+    
+            .usda-share-icon {
+                @media(min-width: 1200px) {
+                    margin: 0 0 0 rem(40);
+                    display: flex !important;
+                    align-items: center !important;
+    
+                    span {
+                        margin-top: rem(2) !important;
+                    }
+                }
+            }
+    
+            .tooltip-wrapper {
+                @media(min-width: 1200px) {
+                    z-index: 10;
+                }
+            }
+    
+            .usda-download-btn {
+                @media(min-width: 1200px) {
+                    margin: 0 0 0 rem(32) !important;
+                    transform: translateY(-5px);
+                    span {
+                        margin-top: rem(2);
+                    }
+                }
+            }
+        }
+    // end temp styles
+
 
     .subaward-dropdown__list {
         min-width: max-content;
