@@ -82,7 +82,9 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                             tabIndex={0}
                                             onShareOptionClick={onShareClick}
                                             colors={{ backgroundColor: "#1b2b85", color: "#DFE1E2" }}
-                                            dropdownDirection={isMobile ? 'left' : 'right'} />
+                                            dropdownDirection={isMobile ? 'left' : 'right'}
+                                            classNames="no-margin-left"
+                                            noShareText />
                                     </div>
                                 </div>
                             </div>
