@@ -10,6 +10,10 @@
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
+    .subaward-dropdown__list {
+        min-width: max-content;
+    }
+
     #main-content {
         background-color: $color-gray-lightest;
         padding-bottom: rem(32);

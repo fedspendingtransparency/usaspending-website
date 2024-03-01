@@ -23,7 +23,6 @@
   @include flex(0 0 auto);
   @include align-self(center);
   margin-bottom: rem(20);
-  @import './_subawardToggle';
   @media(min-width: $medium-screen) {
     display: none;
   }
@@ -38,7 +37,6 @@
   display: none;
   @include flex(0 0 auto);
   @include align-self(center);
-  @import './_subawardToggle';
   @media(min-width: $tablet-screen) {
     display: flex;
   }
