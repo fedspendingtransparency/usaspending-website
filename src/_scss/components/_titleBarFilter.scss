@@ -2,12 +2,8 @@
     display: flex;
     width: auto;
     align-items: center;
-
-    transform: translateY(2px);
-    @media(min-width: $large-screen) {
-    // need to translate down to offset padding 
-        transform: translateY(4px);
-    }
+    height: rem(48);
+    
     span[class^='filter__dropdown-label'] {
         font-weight: $font-semibold;
         line-height: 1.5;
@@ -155,7 +151,7 @@
 
         ul[class^='filter__dropdown-list'] {
             @include unstyled-list;
-            z-index: 50;
+            z-index: 99;
             display: block;
             position: absolute;
             overflow: hidden;
@@ -166,7 +162,6 @@
             .filter__dropdown-list-item {
                 &:hover {
                     background-color: $gray-cool-3;
-                    cursor: pointer;
                 }
 
                 .filter__dropdown-item {
@@ -178,6 +173,7 @@
 
             .filter__dropdown-list-item.active {
                 background-color: $gray-cool-5;
+
             }
         }
 
