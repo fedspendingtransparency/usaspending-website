@@ -3,10 +3,11 @@
 .usda-page-header {
     @include display(flex);
     min-height: rem(60);
+
     @import "../../../mixins/fullSectionWrap.scss";
+    @import "../../../components/numericPickerWrapper";
 
     .usda-page-header__container {
-
         .usda-page-header__header,
         .usda-page-header__toolbar {
             border-bottom: none;
@@ -19,23 +20,13 @@
                 padding-left: math.div($outer-gutter, 2);
             }
 
-            @media(min-width:$medium-screen) {
-                .usda-share-icon {
-                    span {
-                        margin-top: rem(4);
-                        line-height: 0.9;
-                    }
-                }
-                .usda-download-btn {
-                    margin: 0
-                }
-            }
-
+            // this block only applies to the download icon on the interactive data sources page
             .download_static-file__container {
                 display: none;
 
                 @media(min-width:$medium-screen) {
                     display: flex;
+                    height: rem(43);
 
                     a {
                         font-size: $font-size-14;
