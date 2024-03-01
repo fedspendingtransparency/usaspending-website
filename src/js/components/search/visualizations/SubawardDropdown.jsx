@@ -16,16 +16,11 @@ const propTypes = {
     enabled: PropTypes.bool,
     subaward: PropTypes.bool,
     setSearchViewSubaward: PropTypes.func,
-    options: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    })),
     selectedValue: PropTypes.string
 };
 
 const SubawardDropdown = ({
     selectedValue = 'prime',
-    options = [],
     setSearchViewSubaward
 }) => {
     const [selected, setSelected] = useState(selectedValue);
@@ -43,7 +38,7 @@ const SubawardDropdown = ({
         }
     };
 
-    const renderOptions = () =>
+    const options =
         [
             {
                 name: 'Prime Awards and Transactions',
@@ -57,8 +52,6 @@ const SubawardDropdown = ({
             }
         ];
 
-    // eslint-disable-next-line no-param-reassign
-    options = renderOptions();
     const sortFn = () => options;
     return (
         <div className="subaward-dropdown__container">
@@ -67,7 +60,7 @@ const SubawardDropdown = ({
                 leftIcon={faFunnelDollar}
                 size="sm"
                 label="Filter by:"
-                options={renderOptions()}
+                options={options}
                 classname="subaward-dropdown__wrapper"
                 minTextWidth="subaward-dropdown__textMinWidth"
                 dropdownClassname="subaward-dropdown__list"
