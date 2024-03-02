@@ -44,7 +44,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 const timeJumpIcon = (x, y, width, padding, height) => {
     const translateY = height || y;
     return (
-        <g transform={`translate(${x + padding},${translateY + padding}) scale(3)`}>
+        <g transform={`translate(${x},${translateY - padding}) scale(3)`}>
             <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2" />
             <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2" />
         </g>
@@ -55,7 +55,7 @@ const CustomShape = ({
     active, payload, index, x, y, width, height
 }) => {
     console.log(payload, index, x, y, width, height);
-    if (index === 0) {
+    if (payload.value === 'jump') {
         return timeJumpIcon(x, y, width, 30, height);
     }
     return (
@@ -72,7 +72,7 @@ const CustomXTick = (props) => {
 
     const width = 30;
     console.log("custom tick", x, y, payload, width, index);
-    if (index === 0) {
+    if (payload.value === "jump") {
         return timeJumpIcon(x - width, y, width, 0);
     }
     return (
@@ -105,11 +105,23 @@ const TimeVisualizationChart = (props) => {
     const dataStuff = [];
     console.log(props);
 
+    let label;
+    let value;
     for (let i = 0; i < props.xSeries.length; i++) {
-        dataStuff.push({
-            label: props.xSeries[i][0],
-            value: props.ySeries[i][0]
-        });
+        if (props.ySeries[i][0] !== 0) {
+            label = props.xSeries[i][0];
+            value = props.ySeries[i][0];
+        } else if (dataStuff[dataStuff.length - 1].value !== "jump") {
+            label = "jump";
+            value = "jump";
+        }
+
+        if (!(dataStuff[dataStuff.length - 1]?.value === "jump" && label === "jump")) {
+            dataStuff.push({
+                label,
+                value
+            });
+        }
     }
 
     return <>
