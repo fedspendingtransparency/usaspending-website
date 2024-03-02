@@ -44,7 +44,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 const timeJumpIcon = (x, y, width, padding, height) => {
     const translateY = height || y;
     return (
-        <g transform={`translate(${x},${translateY - padding}) scale(3)`}>
+        <g transform={`translate(${x + padding / 2},${translateY - padding}) scale(2)`}>
             <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2" />
             <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2" />
         </g>
@@ -52,32 +52,28 @@ const timeJumpIcon = (x, y, width, padding, height) => {
 };
 
 const CustomShape = ({
-    active, payload, index, x, y, width, height
+    payload, x, y, width, height
 }) => {
-    console.log(payload, index, x, y, width, height);
     if (payload.value === 'jump') {
         return timeJumpIcon(x, y, width, 30, height);
     }
     return (
         <g>
-            <rect x={x} y={y} width={width} height={height} fill="#8884d8" />
+            <rect x={x} y={y} width={width} height={height} fill="#07648D" />
         </g>
     );
 };
 
 const CustomXTick = (props) => {
-    const {
-        x, y, payload, index
-    } = props;
+    const {x, y, payload} = props;
 
     const width = 30;
-    console.log("custom tick", x, y, payload, width, index);
     if (payload.value === "jump") {
-        return timeJumpIcon(x - width, y, width, 0);
+        return timeJumpIcon(x - width / 2, y, width, 0);
     }
     return (
-        <g transform={`translate(${x},${y + width})`}>
-            <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="35px">
+        <g transform={`translate(${x},${y})`}>
+            <text x={0} y={0} dx={12} dy={12} textAnchor="end" fill="#5C5C5C" fontSize={12} width="35px">
                 {payload.value}
             </text>
         </g>);
@@ -92,8 +88,8 @@ const CustomYTick = (props) => {
     console.log("custom tick", x, y, payload, width, index);
 
     return (
-        <g transform={`translate(${x},${y + width})`}>
-            <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="35px">
+        <g transform={`translate(${x},${y})`}>
+            <text x={0} y={0} dy={0} textAnchor="end" fill="#5C5C5C" fontSize={12} width="50px">
                 {formatMoneyWithUnitsShortLabel(payload.value)}
             </text>
         </g>);
@@ -111,7 +107,8 @@ const TimeVisualizationChart = (props) => {
         if (props.ySeries[i][0] !== 0) {
             label = props.xSeries[i][0];
             value = props.ySeries[i][0];
-        } else if (dataStuff[dataStuff.length - 1].value !== "jump") {
+        }
+        else if (dataStuff[dataStuff.length - 1].value !== "jump") {
             label = "jump";
             value = "jump";
         }
@@ -124,23 +121,25 @@ const TimeVisualizationChart = (props) => {
         }
     }
 
-    return <>
-        <BarChart
-            width={500}
-            height={300}
-            data={dataStuff}
-            margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5
-            }}>
-            <XAxis dataKey="label" tick={<CustomXTick />} />
-            <YAxis dataKey="value" tick={<CustomYTick />} />
-            {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
-            <Bar dataKey="value" activeBar={<Rectangle fill="#F4C251" />} isAnimationActive={false} shape={<CustomShape />} />
-        </BarChart>
-    </>;
+    return (<div style={{ height: "500px" }}>
+        <ResponsiveContainer>
+            <BarChart
+                width="500px"
+                height="300px"
+                data={dataStuff}
+                margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5
+                }}>
+                <XAxis dataKey="label" tick={<CustomXTick />} />
+                <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
+                <Bar dataKey="value" activeBar={<Rectangle fill="#F4C251" />} isAnimationActive={false} shape={<CustomShape />} />
+            </BarChart>
+        </ResponsiveContainer>
+    </div>);
 };
 
 export default TimeVisualizationChart;
