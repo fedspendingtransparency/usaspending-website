@@ -1,50 +1,31 @@
 import React from 'react';
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Legend, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-
-import { TooltipComponent } from 'data-transparency-ui';
-
-import PropTypes from "prop-types";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
-
-// const propTypes = {
-//     groups: PropTypes.array,
-//     width: PropTypes.number,
-//     height: PropTypes.number,
-//     xSeries: PropTypes.array,
-//     rawLabels: PropTypes.array,
-//     ySeries: PropTypes.array,
-//     showTooltip: PropTypes.func,
-//     enableHighlight: PropTypes.bool,
-//     padding: PropTypes.object,
-//     legend: PropTypes.array,
-//     activeLabel: PropTypes.object,
-//     visualizationPeriod: PropTypes.string
+// const CustomTooltip = ({ active, payload, label }) => {
+//     if (active && payload && payload.length) {
+//         return (
+//             <div className="award-summary-tooltip" style={{ border: "1px solid black" }}>
+//                 <h1 className="tooltip__title">{label}</h1>
+//                 <div className="tooltip__text">
+//                     <div className="custom-tooltip">
+//                         <p className="label">{`${payload[0].value}`}</p>
+//                     </div>
+//                 </div>
+//             </div>
+//
+//
+//         );
+//     }
+//
+//     return null;
 // };
 
-const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-        return (
-            <div className="award-summary-tooltip" style={{ border: "1px solid black" }}>
-                <h1 className="tooltip__title">{label}</h1>
-                <div className="tooltip__text">
-                    <div className="custom-tooltip">
-                        <p className="label">{`${payload[0].value}`}</p>
-                    </div>
-                </div>
-            </div>
-
-
-        );
-    }
-
-    return null;
-};
-
-const timeJumpIcon = (x, y, width, padding, height) => {
-    const translateY = height || y;
+const timeJumpIcon = (x, y) => {
+    const translateX = x - 6;
     return (
-        <g transform={`translate(${x + padding / 2},${translateY - padding}) scale(2)`}>
+        <g transform={`translate(${translateX},${y})`}>
             <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2" />
             <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2" />
         </g>
@@ -55,7 +36,8 @@ const CustomShape = ({
     payload, x, y, width, height
 }) => {
     if (payload.value === 'jump') {
-        return timeJumpIcon(x, y, width, 30, height);
+        const jumpHeight = 30;
+        return (<rect x={x + (width / 4)} y={y - jumpHeight} width={width / 2} height={jumpHeight} fill="url(#diagonalHatch)" />);
     }
     return (
         <g>
@@ -65,11 +47,12 @@ const CustomShape = ({
 };
 
 const CustomXTick = (props) => {
-    const {x, y, payload} = props;
+    const {
+        x, y, payload, width
+    } = props;
 
-    const width = 30;
     if (payload.value === "jump") {
-        return timeJumpIcon(x - width / 2, y, width, 0);
+        return timeJumpIcon(x, y, width);
     }
     return (
         <g transform={`translate(${x},${y})`}>
@@ -81,11 +64,8 @@ const CustomXTick = (props) => {
 
 const CustomYTick = (props) => {
     const {
-        x, y, payload, index
+        x, y, payload
     } = props;
-
-    const width = 30;
-    console.log("custom tick", x, y, payload, width, index);
 
     return (
         <g transform={`translate(${x},${y})`}>
@@ -99,7 +79,6 @@ const CustomYTick = (props) => {
 const TimeVisualizationChart = (props) => {
     // would be better to have an array of objects here
     const dataStuff = [];
-    console.log(props);
 
     let label;
     let value;
@@ -121,25 +100,31 @@ const TimeVisualizationChart = (props) => {
         }
     }
 
-    return (<div style={{ height: "500px" }}>
-        <ResponsiveContainer>
-            <BarChart
-                width="500px"
-                height="300px"
-                data={dataStuff}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5
-                }}>
-                <XAxis dataKey="label" tick={<CustomXTick />} />
-                <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
-                <Bar dataKey="value" activeBar={<Rectangle fill="#F4C251" />} isAnimationActive={false} shape={<CustomShape />} />
-            </BarChart>
-        </ResponsiveContainer>
-    </div>);
+    return (
+        <div style={{ height: "500px" }}>
+            <ResponsiveContainer>
+                <BarChart
+                    width="500px"
+                    height="300px"
+                    data={dataStuff}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5
+                    }}>
+                    <XAxis dataKey="label" tick={<CustomXTick />} />
+                    <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                    {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
+                    <defs>
+                        <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="4" height="4">
+                            <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" style={{ stroke: "#DFE1E2", strokeWidth: "1" }} />
+                        </pattern>
+                    </defs>
+                    <Bar dataKey="value" isAnimationActive={false} shape={<CustomShape />} />
+                </BarChart>
+            </ResponsiveContainer>
+        </div>);
 };
 
 export default TimeVisualizationChart;
