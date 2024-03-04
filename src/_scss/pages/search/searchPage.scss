@@ -10,6 +10,13 @@
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
+    // to make the ShareIcon right-aligned with the hamburger menu
+    @media(max-width: $medium-screen) {
+        .usda-page-header .usda-page-header__mobile-top .usda-share-icon {
+            margin-right: rem(10);
+        }
+    }
+
     .subaward-dropdown__list {
         min-width: max-content;
     }
@@ -36,6 +43,5 @@
                 }
             }
         }
-
     }
 }
