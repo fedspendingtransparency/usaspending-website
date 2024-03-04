@@ -9,10 +9,12 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import { isCancel } from 'axios';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
 import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
+import { SectionHeader } from "data-transparency-ui";
 import DetailsTooltip from './DetailsTooltip';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
@@ -159,6 +161,11 @@ export default class StateOverview extends React.PureComponent {
                     </div>
                     <h2 className="state-overview__title">{this.props.stateProfile.name}</h2>
                 </div>
+                <SectionHeader
+                    icon={<FontAwesomeIcon icon="map-marker-alt" size="2x" />}
+                    title="Overview"
+                    titleTooltip={{ component: false }}
+                    descTooltip={{ component: false }} />
                 <hr className="results-divider" />
                 <div className="state-overview__content">
                     <div className="state-overview__note">

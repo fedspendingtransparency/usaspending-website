@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { LoadingMessage, SectionTitle } from 'data-transparency-ui';
+import { LoadingMessage, SectionWrapper } from 'data-transparency-ui';
 
 const dayjs = require('dayjs');
 
@@ -34,14 +34,14 @@ const AgencySection = ({
     }
 
     return (
-        <SectionTitle
+        <SectionWrapper
             id={`agency-v2-${section.section}`}
             icon={<FontAwesomeIcon size="2x" icon={icon} />}
             title={section.label}
             isCollapsible >
             {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
             {isLoading ? <LoadingMessage /> : children}
-        </SectionTitle>);
+        </SectionWrapper>);
 };
 
 AgencySection.propTypes = propTypes;

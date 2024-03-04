@@ -10,6 +10,7 @@ import TopFiveSection from './topFive/TopFiveSection';
 import StateOverview from './overview/StateOverview';
 import StateFooter from './StateFooter';
 
+
 const propTypes = {
     stateProfile: PropTypes.object
 };
