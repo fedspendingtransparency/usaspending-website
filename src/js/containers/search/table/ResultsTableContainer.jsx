@@ -383,7 +383,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, 150);
+    }, 170);
 
     const loadNextPage = () => {
     // check if request is already in-flight
