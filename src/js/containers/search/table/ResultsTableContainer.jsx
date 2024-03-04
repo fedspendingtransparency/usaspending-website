@@ -380,7 +380,6 @@ const ResultsTableContainer = (props) => {
                     setInFlight(false);
                     setError(true);
                     props.setAppliedFilterCompletion(true);
-
                     console.log(err);
                 }
             });
@@ -448,42 +447,29 @@ const ResultsTableContainer = (props) => {
 
     useEffect(throttle(() => {
         if (initialRender.current) {
-            console.debug("1.1");
             initialRender.current = false;
         }
         else if (!props.subaward) {
             performSearch();
-            console.debug("1.2");
         }
         else if (props.subaward) {
             performSearch(true);
-            console.debug("1.3");
-        }
-        else {
-            console.debug("1.4");
         }
     }, 400), [tableType, sort]);
 
     useEffect(throttle(() => {
         if (initialRender.current === false) {
-            console.debug("2.1");
             if (props.subaward && !props.noApplied) {
                 // subaward toggle changed, update the search object
-                console.debug("2.2");
                 pickDefaultTab();
             }
             else if (SearchHelper.isSearchHashReady(location) && location.search) {
                 // hash is (a) defined and (b) new
                 pickDefaultTab();
-                console.debug("2.3");
             }
             else if (!props.subaward) {
                 pickDefaultTab();
-                console.debug("2.4");
             }
-        }
-        else {
-            console.debug("2.5");
         }
         return () => {
             if (searchRequest) {
@@ -497,25 +483,16 @@ const ResultsTableContainer = (props) => {
     }, 400), [props.noApplied, props.subaward]);
 
     useEffect(throttle(() => {
-        console.debug("3.1");
         if (isLoadingNextPage) {
             performSearch();
             setLoadNextPage(false);
-            console.debug("3.2");
-        }
-        else {
-            console.debug("3.3");
         }
     }, 400), [isLoadingNextPage]);
 
     useEffect(throttle(() => {
-        console.debug("4.1");
         loadColumns();
         if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
-            console.debug("4.2");
-        } else {
-            console.debug("4.3");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), []);
