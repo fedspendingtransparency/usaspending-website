@@ -508,7 +508,7 @@ const ResultsTableContainer = (props) => {
         }
     }, 400), [isLoadingNextPage]);
 
-    useEffect(() => {
+    useEffect(throttle(() => {
         console.debug("4.1");
         loadColumns();
         if (SearchHelper.isSearchHashReady(location)) {
@@ -518,12 +518,12 @@ const ResultsTableContainer = (props) => {
             console.debug("4.3");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, 400), []);
 
-    useEffect(() => {
+    useEffect(throttle(() => {
         performSearch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tableType]);
+    }, 400), [tableType]);
 
     if (!columns[tableType]) {
         return null;
