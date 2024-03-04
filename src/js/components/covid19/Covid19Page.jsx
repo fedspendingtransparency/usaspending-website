@@ -11,6 +11,7 @@ import { find, throttle } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import Covid19Section from 'components/covid19/Covid19Section';
@@ -70,6 +71,7 @@ const Covid19Page = ({ loading }) => {
     const history = useHistory();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
@@ -139,6 +141,7 @@ const Covid19Page = ({ loading }) => {
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
@@ -155,7 +158,8 @@ const Covid19Page = ({ loading }) => {
                 <ShareIcon
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare}
-                    classNames="margin-right" />,
+                    noShareText={isMobile}
+                    classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadButtonContainer />
             ]}
             sections={covid19Sections}
