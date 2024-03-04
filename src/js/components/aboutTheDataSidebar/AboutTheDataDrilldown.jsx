@@ -81,7 +81,8 @@ const AboutTheDataDrilldown = ({
                             onShareClick();
                         }
                     }}
-                    colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }} />
+                    colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }}
+                    noShareText />
             </div>
             <div className="atd__drilldown">
                 <div className="atd__overline">{ section }</div>
