@@ -232,7 +232,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, 500);
+    }, 250);
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -345,7 +345,7 @@ const ResultsTableContainer = (props) => {
         updateFilters();
     };
 
-    const pickDefaultTab = () => {
+    const pickDefaultTab = throttle(() => {
         // get the award counts for the current filter set
         if (tabCountRequest) {
             tabCountRequest.cancel();
@@ -383,7 +383,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    };
+    }, 150);
 
     const loadNextPage = () => {
     // check if request is already in-flight
