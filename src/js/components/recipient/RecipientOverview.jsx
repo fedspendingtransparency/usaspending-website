@@ -7,12 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 import { isCancel } from 'axios';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { TooltipWrapper, SectionHeader } from 'data-transparency-ui';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
+
 import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
@@ -90,7 +91,8 @@ const RecipientOverview = (props) => {
                 <div>{recipient.location.congressionalDistrict}</div>
             </td>
         );
-    } else if (recipient.location.streetAddress && recipient.location.regionalAddress) {
+    }
+    else if (recipient.location.streetAddress && recipient.location.regionalAddress) {
         address = (
             <td>
                 <div>{recipient.location.streetAddress}</div>
@@ -171,6 +173,11 @@ const RecipientOverview = (props) => {
                 {recipient.name}
                 {viewAlternateNames}
             </h2>
+            <SectionHeader
+                icon={<FontAwesomeIcon icon="building" size="2x" />}
+                title="Overview"
+                titleTooltip={{ component: false }}
+                descTooltip={{ component: false }} />
             <hr className="results-divider" />
             <div className="recipient-overview__content">
                 {parent}
