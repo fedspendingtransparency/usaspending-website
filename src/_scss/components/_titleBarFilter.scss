@@ -185,13 +185,18 @@
         .filter__dropdown-list-sm {
             border-radius: 3px;
             li {
-                padding-top: rem(5.5);
-                padding-bottom: rem(5.5);
+                // need this height to make the line height and padding values work
+                // will add for md and lg when we have a practical example
+                height: rem(32);
                 padding-left: rem(30);
                 padding-right: 1.5 * $global-padding;
-
+                // will have to adjust padding top and bottom and add line height and margin
+                // to button when we have a real world example for md and lg
                 button {
                     font-size: $font-size-14;
+                    line-height: rem(21);
+                    // need important to overwrite button unstyled styling
+                    margin: rem(5.5) 0 !important;
                 }
             }
         }
