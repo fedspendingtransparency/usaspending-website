@@ -6,13 +6,9 @@
 	#main-content {
 		@import '../../mixins/fullSectionWrap';
 		@import '../../components/pageLoading';
-		@include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+		@include fullSectionWrap(0,0);
 
 		background-color: $color-white;
-		box-shadow: $container-shadow;
-		border-top: 1px solid $color-gray-border;
-		border-right: 1px solid $color-gray-border;
-		border-bottom: 1px solid $color-gray-border;
 		padding: rem(30) rem(20);
 
 		.data-dictionary {

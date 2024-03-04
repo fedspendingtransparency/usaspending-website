@@ -44,7 +44,10 @@
     }
 
     .recipient-landing__results {
-        overflow-x: scroll;
+        @media (max-width: $large-screen) {
+            overflow-x: auto;
+        }
+
         .recipient-list {
             margin-top: rem(15);
         }

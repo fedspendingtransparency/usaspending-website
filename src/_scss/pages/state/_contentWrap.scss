@@ -1,10 +1,6 @@
 .state-content {
     background-color: $color-white;
-    box-shadow: $container-shadow;
     color: $color-base;
-    border-top: 1px solid $color-gray-border;
-    border-right: 1px solid $color-gray-border;
-    border-bottom: 1px solid $color-gray-border;
 
     .state-section {
         padding: rem(30);

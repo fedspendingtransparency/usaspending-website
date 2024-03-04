@@ -178,7 +178,8 @@ export default class Award extends React.Component {
                 toolBarComponents={[
                     <ShareIcon
                         url={getBaseUrl(slug)}
-                        onShareOptionClick={this.onShareClick} />,
+                        onShareOptionClick={this.onShareClick}
+                        classNames="margin-right" />,
                     <DownloadIconButton
                         isEnabled={!this.props.noAward}
                         downloadInFlight={this.props.isDownloadPending}

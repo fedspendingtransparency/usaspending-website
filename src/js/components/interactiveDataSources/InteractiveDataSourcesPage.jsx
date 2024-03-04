@@ -208,7 +208,10 @@ const InteractiveDataSourcesPage = () => {
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
             toolBarComponents={[
-                <ShareIcon url={getBaseUrl('data-sources')} onShareOptionClick={handleShare} />,
+                <ShareIcon
+                    url={getBaseUrl('data-sources')}
+                    onShareOptionClick={handleShare}
+                    classNames="margin-right" />,
                 <DownloadStaticFile
                     path="/data/data-sources-download.pdf" />
             ]}
