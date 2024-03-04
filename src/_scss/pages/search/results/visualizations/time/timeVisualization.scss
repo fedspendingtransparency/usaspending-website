@@ -2,6 +2,9 @@
     @import "./chart/barChart";
     @import "./_topSection";
 
+    display: flex;
+    flex-direction: column;
+
     h2.visualization-title {
         @include h3;
         margin: 0;
@@ -59,3 +62,12 @@
         min-height: rem(304);
     }
 }
+
+.recharts-time-visualization-container {
+    height: 500px;
+
+    .recharts-cartesian-axis-line {
+        stroke: $gray-cool-10;
+    }
+}
+

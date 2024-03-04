@@ -3,7 +3,7 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
-//TODO - Add tooltips before this feature is released
+// TODO - Add tooltips before this feature is released
 // const CustomTooltip = ({ active, payload, label }) => {
 //     if (active && payload && payload.length) {
 //         return (
@@ -25,8 +25,9 @@ import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatt
 
 const timeJumpIcon = (x, y) => {
     const translateX = x - 6;
+    const translateY = y + 3;
     return (
-        <g transform={`translate(${translateX},${y + 3})`}>
+        <g transform={`translate(${translateX},${translateY})`}>
             <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#5C5C5C" />
             <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#5C5C5C" />
         </g>
@@ -56,7 +57,7 @@ const CustomXTick = (props) => {
     }
     return (
         <g transform={`translate(${x},${y})`}>
-            <text x={0} y={0} dx={12} dy={12} textAnchor="end" fill="#5C5C5C" fontSize={12} width="35px">
+            <text x={0} y={0} dx={12} dy={12} textAnchor="end" fill="#5C5C5C" fontSize={12} width="40px">
                 {payload.value}
             </text>
         </g>);
@@ -69,7 +70,7 @@ const CustomYTick = (props) => {
 
     return (
         <g transform={`translate(${x},${y})`}>
-            <text x={0} y={0} dy={0} textAnchor="end" fill="#5C5C5C" fontSize={12} width="50px">
+            <text x={0} y={0} dy={0} textAnchor="end" fill="#5C5C5C" fontSize={12} width="48px">
                 {formatMoneyWithUnitsShortLabel(payload.value)}
             </text>
         </g>);
@@ -77,8 +78,7 @@ const CustomYTick = (props) => {
 
 
 const TimeVisualizationChart = (props) => {
-    // would be better to have an array of objects here
-    const dataStuff = [];
+    const transformedData = [];
 
     let label;
     let value;
@@ -87,13 +87,13 @@ const TimeVisualizationChart = (props) => {
             label = props.xSeries[i][0];
             value = props.ySeries[i][0];
         }
-        else if (dataStuff[dataStuff.length - 1].value !== "jump") {
+        else if (transformedData[transformedData.length - 1].value !== "jump") {
             label = "jump";
             value = "jump";
         }
 
-        if (!(dataStuff[dataStuff.length - 1]?.value === "jump" && label === "jump")) {
-            dataStuff.push({
+        if (!(transformedData[transformedData.length - 1]?.value === "jump" && label === "jump")) {
+            transformedData.push({
                 label,
                 value
             });
@@ -101,12 +101,10 @@ const TimeVisualizationChart = (props) => {
     }
 
     return (
-        <div style={{ height: "500px" }}>
+        <div className="recharts-time-visualization-container">
             <ResponsiveContainer>
                 <BarChart
-                    width="500px"
-                    height="300px"
-                    data={dataStuff}
+                    data={transformedData}
                     margin={{
                         top: 5,
                         right: 30,
