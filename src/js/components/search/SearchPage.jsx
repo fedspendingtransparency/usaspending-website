@@ -19,6 +19,8 @@ import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
+import SubawardDropdown from "./visualizations/SubawardDropdown";
+import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 
 const propTypes = {
     download: PropTypes.object,
@@ -139,11 +141,14 @@ const SearchPage = ({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
+                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
-                    onShareOptionClick={handleShare} />,
+                    onShareOptionClick={handleShare}
+                    classNames="margin-right" />,
                 <DownloadIconButton
+                    tooltipPosition="left"
                     tooltipComponent={(!downloadAvailable && hash)
                         ? <NoDownloadHover />
                         : null

@@ -7,7 +7,7 @@
     $color-blue-background: #F5FBFC;
     .main-content {
         @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-mrg * 4), ($global-mrg * 4));
+        @include fullSectionWrap(0, ($global-mrg * 4));
         padding:  0;
         @import "./overview/overview";
         @import "./results/searchResults";

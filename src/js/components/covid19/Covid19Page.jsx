@@ -154,7 +154,8 @@ const Covid19Page = ({ loading }) => {
             toolBarComponents={[
                 <ShareIcon
                     url={getBaseUrl(slug)}
-                    onShareOptionClick={handleShare} />,
+                    onShareOptionClick={handleShare}
+                    classNames="margin-right" />,
                 <DownloadButtonContainer />
             ]}
             sections={covid19Sections}

@@ -1,6 +1,9 @@
 .results-table {
     display: block;
-    overflow: scroll;
+    @media (max-width: $large-screen) {
+        overflow-x: auto;
+    }
+
     .results-table__message {
         margin: rem(90) auto;
         font-size: rem(36);
