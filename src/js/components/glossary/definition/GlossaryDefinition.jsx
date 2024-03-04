@@ -140,7 +140,8 @@ export default class GlossaryDefinition extends React.Component {
                         tabIndex={0}
                         onShareOptionClick={onShareClick}
                         colors={{ backgroundColor: "#215493", color: "#e2e2e2" }}
-                        dropDownDirection="left" />
+                        dropDownDirection="left"
+                        noShareText />
                 </div>
                 <ItemDefinition
                     {...this.props.glossary.term.toJS()}

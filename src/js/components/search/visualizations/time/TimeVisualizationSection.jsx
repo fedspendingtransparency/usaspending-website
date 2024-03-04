@@ -113,24 +113,23 @@ export default class TimeVisualizationSection extends React.Component {
     }
 
     handleUpdateTitle() {
-        const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
         const primeAwardTitle = "Spending by Time";
         const subAwardTitle = "Sub-Award Spending Over Time";
-        if (toggleValue.ariaPressed === "true") {
+        const dropdownValue = document.querySelector(".filter__dropdown-button-text");
+        if (dropdownValue === "Subawards") {
             this.setState({
-                tableTitle: primeAwardTitle
+                tableTitle: subAwardTitle
             });
         }
         else {
             this.setState({
-                tableTitle: subAwardTitle
+                tableTitle: primeAwardTitle
             });
         }
     }
 
     handleUpdateBody() {
-        const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
-
+        const dropdownValue = document.querySelector(".filter__dropdown-button-text");
         const primeAwardPreview = "Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.";
         const primeAwardBody = <>
             {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
@@ -149,16 +148,16 @@ export default class TimeVisualizationSection extends React.Component {
                     Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
                 </p>
             </>);
-        if (toggleValue.ariaPressed === "true") {
+        if (dropdownValue === "Subawards") {
             this.setState({
-                tableBody: primeAwardBody,
-                tablePreview: primeAwardPreview
+                tableBody: subAwardBody,
+                tablePreview: subAwardPreview
             });
         }
         else {
             this.setState({
-                tableBody: subAwardBody,
-                tablePreview: subAwardPreview
+                tableBody: primeAwardBody,
+                tablePreview: primeAwardPreview
             });
         }
     }
