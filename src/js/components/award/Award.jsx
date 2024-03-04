@@ -193,8 +193,6 @@ export default class Award extends React.Component {
             ? 'Indefinite Delivery Vehicle'
             : `${startCase(overview?.category)} Summary`;
 
-        console.log('this.state.isMobile', this.state.isMobile);
-
         return (
             <PageWrapper
                 pageName="Award Profile"
