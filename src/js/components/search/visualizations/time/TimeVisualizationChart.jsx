@@ -3,6 +3,7 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
+//TODO - Add tooltips before this feature is released
 // const CustomTooltip = ({ active, payload, label }) => {
 //     if (active && payload && payload.length) {
 //         return (
@@ -25,9 +26,9 @@ import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatt
 const timeJumpIcon = (x, y) => {
     const translateX = x - 6;
     return (
-        <g transform={`translate(${translateX},${y})`}>
-            <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#DFE1E2" />
-            <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#DFE1E2" />
+        <g transform={`translate(${translateX},${y + 3})`}>
+            <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#5C5C5C" />
+            <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#5C5C5C" />
         </g>
     );
 };
@@ -36,8 +37,7 @@ const CustomShape = ({
     payload, x, y, width, height
 }) => {
     if (payload.value === 'jump') {
-        const jumpHeight = 30;
-        return (<rect x={x + (width / 4)} y={y - jumpHeight} width={width / 2} height={jumpHeight} fill="url(#diagonalHatch)" />);
+        return null;
     }
     return (
         <g>
@@ -116,12 +116,7 @@ const TimeVisualizationChart = (props) => {
                     <XAxis dataKey="label" tick={<CustomXTick />} />
                     <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
                     {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
-                    <defs>
-                        <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="4" height="4">
-                            <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" style={{ stroke: "#DFE1E2", strokeWidth: "1" }} />
-                        </pattern>
-                    </defs>
-                    <Bar dataKey="value" isAnimationActive={false} shape={<CustomShape />} />
+                    <Bar dataKey="value" shape={<CustomShape />} />
                 </BarChart>
             </ResponsiveContainer>
         </div>);
