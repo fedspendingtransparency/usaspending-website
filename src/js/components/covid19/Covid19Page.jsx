@@ -158,7 +158,6 @@ const Covid19Page = ({ loading }) => {
                 <ShareIcon
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare}
-                    noShareText={isMobile}
                     classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadButtonContainer />
             ]}

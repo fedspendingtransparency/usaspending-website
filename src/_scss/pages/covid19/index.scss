@@ -22,13 +22,6 @@
     width: 100%;
   }
 
-  // to make the ShareIcon right-aligned with the hamburger menu
-  @media(max-width: $medium-screen) {
-    .usda-page-header .usda-page-header__mobile-top .usda-share-icon {
-      margin-right: rem(10);
-    }
-  }
-
   .main-content {
     @include display(flex);
     @include flex-grow(1);

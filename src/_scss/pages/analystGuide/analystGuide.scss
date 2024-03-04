@@ -39,6 +39,12 @@
         margin-right: -12px;
       }
 
+      .usda-share-icon {
+        span {
+          display: flex;
+        }
+      }
+
       .usda-share-icon .copy-confirmation {
         background-color: $color-white;
         @media(max-width:$medium-screen) {
@@ -56,7 +62,7 @@
       .usda-share-icon .usa-dt-picker {
         margin-bottom: 0;
       }
-      
+
       .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
         min-width: 15rem;
         margin-top:20px;
@@ -86,7 +92,7 @@
           }
         }
       }
-  
+
       .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
         margin: 0 0.5rem;
       }
@@ -97,7 +103,7 @@
         }
       }
     }
-  
+
     .analyst-guide__download-wrapper {
       display:inline-block;
       color: $color-primary;
@@ -109,7 +115,7 @@
         color: $color-primary-darker;
       }
 
-  
+
       .analyst-guide__download-button {
         @include button-link;
         padding: 0px 20px 0px 20px;
@@ -136,7 +142,7 @@
       }
     }
   }
-  
+
   .analyst-guide__topTitle {
     font-weight: $font-semibold;
     font-stretch: normal;

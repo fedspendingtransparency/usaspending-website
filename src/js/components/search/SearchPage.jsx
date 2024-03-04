@@ -146,7 +146,6 @@ const SearchPage = ({
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
                     onShareOptionClick={handleShare}
-                    noShareText={isMobile}
                     classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadIconButton
                     tooltipPosition="left"

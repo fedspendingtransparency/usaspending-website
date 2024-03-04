@@ -6,7 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon, DownloadIconButton } from 'data-transparency-ui';
-import { find, startCase } from 'lodash';
+import { find, startCase, throttle } from 'lodash';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -64,14 +65,26 @@ export default class Award extends React.Component {
         super(props);
 
         this.state = {
+            windowWidth: 0,
             sectionPositions: [],
             window: {
                 height: 0
-            }
+            },
+            isMobile: false
         };
 
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.jumpToSection = this.jumpToSection.bind(this);
         this.renderContent = this.renderContent.bind(this);
+    }
+
+    componentDidMount() {
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
     }
 
     onShareClick = (name) => {
@@ -110,6 +123,17 @@ export default class Award extends React.Component {
             left: 0,
             behavior: 'smooth'
         });
+    }
+
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            this.setState({
+                windowWidth,
+                isMobile: windowWidth < mediumScreen
+            });
+        }
     }
 
     renderContent(overview, awardId) {
@@ -168,6 +192,9 @@ export default class Award extends React.Component {
         const title = (overview?.category === 'idv')
             ? 'Indefinite Delivery Vehicle'
             : `${startCase(overview?.category)} Summary`;
+
+        console.log('this.state.isMobile', this.state.isMobile);
+
         return (
             <PageWrapper
                 pageName="Award Profile"
@@ -179,7 +206,7 @@ export default class Award extends React.Component {
                     <ShareIcon
                         url={getBaseUrl(slug)}
                         onShareOptionClick={this.onShareClick}
-                        classNames="margin-right" />,
+                        classNames={!this.state.isMobile ? "margin-right" : ""} />,
                     <DownloadIconButton
                         isEnabled={!this.props.noAward}
                         downloadInFlight={this.props.isDownloadPending}
