@@ -2,8 +2,12 @@
     display: flex;
     width: auto;
     align-items: center;
-    height: rem(48);
-    
+    height: rem(60);
+
+    @media(min-width: $medium-screen) {
+        height: rem(48);
+    }
+
     span[class^='filter__dropdown-label'] {
         font-weight: $font-semibold;
         line-height: 1.5;
@@ -206,7 +210,7 @@
             li {
                 padding-top: rem(8);
                 padding-bottom: rem(8);
-                // may have to adjust left padding to align text but better to have 
+                // may have to adjust left padding to align text but better to have
                 // an example first
                 padding-left: 2 * $global-padding;
                 padding-right: 2 * $global-padding;
@@ -223,7 +227,7 @@
             li {
                 padding-top: rem(13);
                 padding-bottom: rem(13);
-                // may have to adjust left padding to align text but better to have 
+                // may have to adjust left padding to align text but better to have
                 // an example first
                 padding-left: 3 * $global-padding;
                 padding-right: 3 * $global-padding;
