@@ -37,98 +37,98 @@ const InteractiveDataSourcesPage = () => {
         {
             section: 'intro-section',
             label: 'Introduction',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: false,
             component: <IntroSection />
         },
         {
             section: 'history-section',
             label: 'History of the DATA Act',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: false,
             component: <AboutSection />
         },
         {
             section: 'federal-spending-overview',
             label: 'Federal Spending Overview',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <FederalSpendingOverview title="Federal Spending Overview" subtitle="How do federal dollars move from Congress to the American people?" />
         },
         {
             section: 'data-available',
             label: 'Data Available on USAspending.gov',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <DataAvailable title="Data Available on USAspending.gov" subtitle="What kinds of data does USAspending.gov have?" />
         },
         {
             section: 'data-types',
             label: 'Data Types',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <DataTypes title="Data Types" subtitle="How can I understand all the data types on USAspending.gov?" />
         },
         {
             section: 'data-source-systems',
             label: 'Source Systems',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <DataSourceSystems title="Source Systems" subtitle="What government data systems flow into USAspending.gov?" />
         },
         {
             section: 'account-data',
             label: 'Account Data',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <AccountData title="Account Data" subtitle="What are the sources for account data on USAspending.gov?" />
         },
         {
             section: 'award-data',
             label: 'Award Data',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <AwardData title="Award Data" subtitle="What are the sources for award data on USAspending.gov?" />
         },
         {
             section: 'additional-data',
             label: 'Additional Data',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <AdditionalData title="Additional Data" subtitle="What are the sources for additional data on USAspending.gov?" />
         },
         {
             section: 'data-submission-extraction',
             label: 'Data Submission and Extraction',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <DataSubmissionExtraction title="Data Submission and Extraction" subtitle="What data are submitted to, versus extracted by, USAspending.gov?" />
         },
         {
             section: 'frequency',
             label: 'Frequency of Data Updates',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <Frequency title="Frequency of Data Updates" subtitle="How often are data updated on USAspending.gov?" />
         },
         {
             section: 'data-validation',
             label: 'Data Validation',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <DataValidation title="Data Validation" subtitle="How does the DATA Act Broker validate data before they are publicly available?" />
         },
         {
             section: 'data-access',
             label: 'Features on USAspending.gov',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <DataFeatures title="Features on USAspending.gov" subtitle="Where can I find data on USAspending.gov from these sources?" />
         },
         {
             section: 'data-use-cases',
             label: 'Use Cases',
-            showSectionTitle: false,
+            showSectionWrapper: false,
             scroller: true,
             component: <DataUseCases title="Use Cases" subtitle="What can I do with the data on USAspending.gov?" />
         }
