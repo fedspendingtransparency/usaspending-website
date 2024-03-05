@@ -6,9 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SectionHeader } from 'data-transparency-ui';
 
 import TimeVisualizationPeriodButton from 'components/search/visualizations/time/TimeVisualizationPeriodButton';
-
 import StateTimeVisualization from './StateTimeVisualization';
 
 const propTypes = {
@@ -57,7 +58,11 @@ export default class StateTimeVisualizationSection extends React.Component {
             <section
                 id="state-transactions-over-time"
                 className="state-section transactions-over-time">
-                <h3 className="state-section__title">Transactions Over Time</h3>
+                <SectionHeader
+                    icon={<FontAwesomeIcon icon="chart-bar" size="2x" />}
+                    title="Transactions Over Time"
+                    titleTooltip={{ component: false }}
+                    descTooltip={{ component: false }} />
                 <hr
                     className="results-divider"
                     ref={(hr) => {
