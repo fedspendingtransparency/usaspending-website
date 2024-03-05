@@ -205,7 +205,8 @@ const MapBox = forwardRef((props, ref) => {
         if (isReCenterable() && isCountyOrDistrict()) {
             map?.current?.zoomTo(7);
         }
-    }, [isCountyOrDistrict, isReCenterable, zoom]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [zoom]);
 
     useEffect(() => {
         if (map.current) {
