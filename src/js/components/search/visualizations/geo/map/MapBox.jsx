@@ -53,30 +53,23 @@ const MapBox = forwardRef((props, ref) => {
 
         if (isStateSelected()) {
             const stateCode = props.stateInfo?.code || props.singleLocationSelected?.state;
-            let modifyZoom = 0;
             if (stateCode !== '') {
-                if (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'county') || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'district') || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'district_current')) {
-                    modifyZoom = 2;
-                }
-
                 const state = statesBySqMile.find((s) => s.code === stateCode);
                 if (state?.size > 500000) {
-                    zoomLevel = 3.0 + modifyZoom;
+                    zoomLevel = 3.0;
                 }
                 else if (state?.size < 1000) {
-                    zoomLevel = 9.6 + modifyZoom;
+                    zoomLevel = 9.6;
                 }
                 else if (state?.size < 10000) {
-                    zoomLevel = 6.2 + modifyZoom;
+                    zoomLevel = 6.2;
                 }
                 else if (state?.size < 140000) {
-                    zoomLevel = 4.8 + modifyZoom;
+                    zoomLevel = 4.8;
                 }
             }
-            zoomLevel = 4.2 + modifyZoom;
+            zoomLevel = 4.2;
         }
-
-        console.log(zoomLevel);
 
         setZoom(zoomLevel);
         return zoomLevel;
@@ -103,12 +96,10 @@ const MapBox = forwardRef((props, ref) => {
     };
 
     const centerMap = (m) => {
-        // if (typeof m?.current?.jumpTo === "function") {
         m?.current?.jumpTo({
             zoom: zoom || 4,
             center: props.center
         });
-        // }
     };
 
     const resizeMap = () => {
@@ -196,12 +187,23 @@ const MapBox = forwardRef((props, ref) => {
         return isSingleLocation;
     };
 
+    const isCountyOrDistrict = () => {
+        return Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original"));
+    };
+
     useEffect(() => {
         if (isReCenterable()) {
             centerMap(map);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.center, props.singleLocationSelected]);
+
+    useEffect(() => {
+        if (isReCenterable() && isCountyOrDistrict()) {
+            console.log("Zooming to 7");
+            map?.current?.zoomTo(7);
+        }
+    }, [zoom]);
 
     useEffect(() => {
         if (map.current) {
@@ -211,7 +213,7 @@ const MapBox = forwardRef((props, ref) => {
             mountMap();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [windowWidth, props.center]);
+    }, [windowWidth]);
 
     return (
         <div

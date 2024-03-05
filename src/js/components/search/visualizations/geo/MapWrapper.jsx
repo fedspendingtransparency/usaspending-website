@@ -398,18 +398,14 @@ const MapWrapper = (props) => {
     };
 
     const setCenterFromMapTiles = (value, filterKey, lat, long) => {
-        console.log(mapRef.current.map.current);
         const entities = mapRef.current.map.current.queryRenderedFeatures({
             layers: [`base_${props.scope}`]
         });
 
-        console.log("entities and scope", entities, props.scope);
         const found = entities.find((element) => element.properties[filterKey] === value);
         if (found) {
-            console.log("found", [parseFloat(found.properties[long]), parseFloat(found.properties[lat])], found);
             const coords = [parseFloat(found.properties[long]), parseFloat(found.properties[lat])];
             const isEqual = coords.every((v, index) => v === center[index]);
-            console.log(coords, center, coords.every((v, index) => v === center[index]));
 
             if (!isEqual) {
                 setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
@@ -427,7 +423,6 @@ const MapWrapper = (props) => {
             const district = props.singleLocationSelected.district_original || props.singleLocationSelected.district_current;
 
             if (props.scope === "congressionalDistrict") {
-                console.log("district", district, props.singleLocationSelected.state, stateFIPSByAbbreviation[props.singleLocationSelected.state]);
                 filterKey = "GEOID20";
                 lat += "20";
                 long += "20";
