@@ -34,7 +34,7 @@ const MapBox = forwardRef((props, ref) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
-    const [zoom, setZoom] = useState(4);
+    const [zoom, setZoom] = useState(3.2);
 
     useImperativeHandle(ref, () => ({
         map
@@ -48,7 +48,7 @@ const MapBox = forwardRef((props, ref) => {
         return false;
     };
 
-    const isCountyOrDistrict = useCallback(() => Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original")));
+    const isCountyOrDistrict = useCallback(() => props.singleLocationSelected && Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original")));
 
     const calculateMapZoom = () => {
         let zoomLevel = 3.2;
@@ -74,8 +74,8 @@ const MapBox = forwardRef((props, ref) => {
                 else if (state?.size < 140000) {
                     zoomLevel = 4.8 + increaseZoom;
                 }
+                zoomLevel = 3.2 + increaseZoom;
             }
-            zoomLevel = 4.2 + increaseZoom;
         }
 
         setZoom(zoomLevel);
@@ -104,7 +104,7 @@ const MapBox = forwardRef((props, ref) => {
 
     const centerMap = (m) => {
         m?.current?.jumpTo({
-            zoom: zoom || 4,
+            zoom: zoom || 3.2,
             center: props.center
         });
     };
@@ -202,9 +202,9 @@ const MapBox = forwardRef((props, ref) => {
     }, [props.center, props.singleLocationSelected]);
 
     useEffect(() => {
-        if (isReCenterable() && isCountyOrDistrict()) {
-            map?.current?.zoomTo(7);
-        }
+        // if (isReCenterable() && isCountyOrDistrict()) {
+        //     map?.current?.zoomTo(7);
+        // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [zoom]);
 

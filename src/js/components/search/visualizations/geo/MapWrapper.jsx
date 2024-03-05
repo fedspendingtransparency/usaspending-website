@@ -315,11 +315,11 @@ const MapWrapper = (props) => {
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
         renderCallback = () => {
-            mapRef.current.map.current.on('render', mapMovedCallback);
+            mapRef?.current?.map?.current?.on('render', mapMovedCallback);
         };
-        mapRef.current.map.current.on('moveend', renderCallback);
+        mapRef?.current?.map?.current?.on('moveend', renderCallback);
         // but also do it when the map resizes, since the view will be different
-        mapRef.current.map.current.on('resize', renderCallback);
+        mapRef?.current?.map?.current?.on('resize', renderCallback);
     };
 
     const prepareMap = () => {
