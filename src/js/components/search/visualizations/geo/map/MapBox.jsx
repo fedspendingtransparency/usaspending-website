@@ -202,9 +202,9 @@ const MapBox = forwardRef((props, ref) => {
     }, [props.center, props.singleLocationSelected]);
 
     useEffect(() => {
-        // if (isReCenterable() && isCountyOrDistrict()) {
-        //     map?.current?.zoomTo(7);
-        // }
+        if (isReCenterable() && isCountyOrDistrict()) {
+            map?.current?.zoomTo(7);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [zoom]);
 
