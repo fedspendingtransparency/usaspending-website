@@ -4,11 +4,13 @@
  */
 
 import React from 'react';
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ResponsiveBar } from 'recharts';
 import PropTypes from 'prop-types';
 
 import HorizontalChart from './chart/HorizontalChart';
 import RankVisualizationTooltip from './RankVisualizationTooltip';
 import ChartMessage from './RankVisualizationChartMessage';
+
 
 const defaultProps = {
     labelSeries: [],
@@ -70,7 +72,10 @@ export default class RankVisualization extends React.Component {
 
     render() {
         let chart = (<ChartMessage message="No data to display" />);
-        let legend = null;
+        // const legend = null;
+
+        let chart3;
+
         if (this.props.loading) {
             chart = (<ChartMessage message="Loading data..." />);
         }
@@ -87,6 +92,22 @@ export default class RankVisualization extends React.Component {
             const itemHeight = 35;
             // Height is number of results * item height + 30px padding
             const height = (this.props.dataSeries.length * itemHeight) + 30;
+
+            // would be better to have an array of objects here
+            const dataStuff = [];
+            if (this.props.dataSeries.length === this.props.labelSeries.length) {
+                for (let i = 0; i < this.props.dataSeries.length; i++) {
+                    dataStuff.push({
+                        value: this.props.dataSeries[i],
+                        label: this.props.labelSeries[i],
+                        desc: this.props.descriptions[i],
+                        link: this.props.linkSeries[i]
+                    });
+                }
+            }
+
+            console.log('this.props', this.props);
+
             chart = (
                 <HorizontalChart
                     {...this.props}
@@ -95,30 +116,64 @@ export default class RankVisualization extends React.Component {
                     selectItem={this.selectItem}
                     deselectItem={this.deselectItem} />
             );
-            legend = (
-                <div className="visualization-legend">
-                    <div className="visualization-legend__circle" />
-                    <div className="visualization-legend__label">
-                        Amount Obligated
-                    </div>
+
+            console.log('dataStuff', dataStuff);
+
+            chart3 = (
+                <div className="recharts-time-visualization-container">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart
+                            // width={800}
+                            // height={600}
+                            data={dataStuff}
+                            // barCategoryGap={20}
+                            margin={{
+                                top: 10,
+                                right: 10,
+                                left: 50,
+                                bottom: 10
+                            }}>
+                            {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                            <XAxis dataKey="value" type="number" />
+                            <YAxis type="category" dataKey="label" fontSize="12px" />
+                            {/* todo - tooltips in next ticket */}
+                            {/* <Tooltip /> */}
+                            <Bar dataKey="value" fill="#8884d8" />
+                        </BarChart>
+                    </ResponsiveContainer>
                 </div>
             );
+            // legend = (
+            //     <div className="visualization-legend">
+            //         <div className="visualization-legend__circle" />
+            //         <div className="visualization-legend__label">
+            //             Amount Obligated
+            //         </div>
+            //     </div>
+            // );
         }
 
-        let tooltip = null;
-        if (this.state.showTooltip) {
-            tooltip = (<RankVisualizationTooltip
-                {...this.state.selectedItem}
-                {...this.props.meta} />);
-        }
+        // let tooltip = null;
+        // if (this.state.showTooltip) {
+        //     tooltip = (<RankVisualizationTooltip
+        //         {...this.state.selectedItem}
+        //         {...this.props.meta} />);
+        // }
 
         return (
+        // <section
+        //     className="results-visualization-rank-container"
+        //     aria-label="Spending by Category">
+        //     {/* {chart} */}
+        //     {chart2}
+        //     {/* {legend} */}
+        //     {tooltip}
+        // </section>
+
             <section
                 className="results-visualization-rank-container"
                 aria-label="Spending by Category">
-                {chart}
-                {legend}
-                {tooltip}
+                {chart3}
             </section>
         );
     }
