@@ -480,7 +480,7 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [props.noApplied, props.subaward]);
+    }, 400), [props]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
