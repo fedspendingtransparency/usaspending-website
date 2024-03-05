@@ -100,6 +100,10 @@ const TimeVisualizationChart = (props) => {
         }
     }
 
+    if (transformedData[transformedData.length - 1]?.value === "jump") {
+        transformedData.pop();
+    }
+    
     return (
         <div className="recharts-time-visualization-container">
             <ResponsiveContainer>
