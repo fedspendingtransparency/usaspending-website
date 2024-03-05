@@ -103,7 +103,7 @@ const TimeVisualizationChart = (props) => {
     if (transformedData[transformedData.length - 1]?.value === "jump") {
         transformedData.pop();
     }
-    
+
     return (
         <div className="recharts-time-visualization-container">
             <ResponsiveContainer>
@@ -117,6 +117,7 @@ const TimeVisualizationChart = (props) => {
                     }}>
                     <XAxis dataKey="label" tick={<CustomXTick />} />
                     <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                    {/* TODO - Add tooltips before this feature is released */}
                     {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
                     <Bar dataKey="value" shape={<CustomShape />} />
                 </BarChart>
