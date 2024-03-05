@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef } from 'react';
+import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
@@ -48,9 +48,7 @@ const MapBox = forwardRef((props, ref) => {
         return false;
     };
 
-    const isCountyOrDistrict = () => {
-        return Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original"));
-    };
+    const isCountyOrDistrict = useCallback(() => Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original")));
 
     const calculateMapZoom = () => {
         let zoomLevel = 3.2;
@@ -187,14 +185,14 @@ const MapBox = forwardRef((props, ref) => {
         };
     }, []);
 
-    const isReCenterable = () => {
+    const isReCenterable = useCallback(() => {
         if (props.stateProfile) {
             return false;
         }
 
         const isSingleLocation = props.center?.length > 0 && Object.prototype.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props.singleLocationSelected)?.length > 0;
         return isSingleLocation;
-    };
+    });
 
     useEffect(() => {
         if (isReCenterable()) {
@@ -207,7 +205,7 @@ const MapBox = forwardRef((props, ref) => {
         if (isReCenterable() && isCountyOrDistrict()) {
             map?.current?.zoomTo(7);
         }
-    }, [zoom]);
+    }, [isCountyOrDistrict, isReCenterable, zoom]);
 
     useEffect(() => {
         if (map.current) {
