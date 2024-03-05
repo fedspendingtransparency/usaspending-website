@@ -435,8 +435,8 @@ const MapWrapper = (props) => {
                 setCenterFromMapTiles(value, filterKey, lat, long);
             }
             else if (props.scope === "county") {
-                filterKey = "COUNTYFP";
-                value = `${props.singleLocationSelected.county}`;
+                filterKey = "GEOID";
+                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${props.singleLocationSelected.county}`;
                 setCenterFromMapTiles(value, filterKey, lat, long);
             }
         }
