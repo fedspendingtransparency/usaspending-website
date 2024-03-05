@@ -65,7 +65,6 @@
       }
 
       .training-videos__column-two-container {
-
         .training-videos__column-two-title {
           margin-bottom: $global-margin;
           line-height: 1.5;
@@ -94,6 +93,19 @@
         }
 
         .training-video__column-share-icon {
+          // hacky fix to move the copy confirmation msg closer to the dropdown
+          // hopefully will be fixed with ticket 10711
+          .usda-share-icon {
+            div.copy-confirmation {
+                transform: translateX(-150px) !important;
+              @media(min-width: $tablet-screen) {
+                transform: translateX(-200px) !important;
+              }
+              @media(min-width: $m-large-screen) {
+                transform: translateX(-300px) !important;
+              }
+            }
+          }
           .usda-share-icon {
             .usa-dt-picker .usa-dt-picker__dropdown-container {
               .usa-dt-picker__button {
