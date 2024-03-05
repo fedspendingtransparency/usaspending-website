@@ -345,7 +345,7 @@ const ResultsTableContainer = (props) => {
         updateFilters();
     };
 
-    const pickDefaultTab = throttle(() => {
+    const pickDefaultTab = () => {
         // get the award counts for the current filter set
         if (tabCountRequest) {
             tabCountRequest.cancel();
@@ -383,7 +383,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, 170);
+    };
 
     const loadNextPage = () => {
     // check if request is already in-flight
