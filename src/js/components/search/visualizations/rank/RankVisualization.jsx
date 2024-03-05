@@ -72,7 +72,7 @@ export default class RankVisualization extends React.Component {
 
     render() {
         let chart = (<ChartMessage message="No data to display" />);
-        // const legend = null;
+        let legend = null;
 
         let chart3;
 
@@ -138,43 +138,52 @@ export default class RankVisualization extends React.Component {
                             <YAxis type="category" dataKey="label" fontSize="12px" />
                             {/* todo - tooltips in next ticket */}
                             {/* <Tooltip /> */}
-                            <Bar dataKey="value" fill="#8884d8" />
+                            <Bar dataKey="value" fill="#8884d8" activeBar={<Rectangle fill="gold" stroke="purple" />} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
             );
-            // legend = (
-            //     <div className="visualization-legend">
-            //         <div className="visualization-legend__circle" />
-            //         <div className="visualization-legend__label">
-            //             Amount Obligated
-            //         </div>
-            //     </div>
-            // );
+            legend = (
+                <div className="visualization-legend">
+                    <div className="visualization-legend__circle" />
+                    <div className="visualization-legend__label">
+                        Amount Obligated
+                    </div>
+                </div>
+            );
         }
 
-        // let tooltip = null;
-        // if (this.state.showTooltip) {
-        //     tooltip = (<RankVisualizationTooltip
-        //         {...this.state.selectedItem}
-        //         {...this.props.meta} />);
-        // }
+        let tooltip = null;
+        if (this.state.showTooltip) {
+            tooltip = (<RankVisualizationTooltip
+                {...this.state.selectedItem}
+                {...this.props.meta} />);
+        }
 
         return (
-        // <section
-        //     className="results-visualization-rank-container"
-        //     aria-label="Spending by Category">
-        //     {/* {chart} */}
-        //     {chart2}
-        //     {/* {legend} */}
-        //     {tooltip}
-        // </section>
+            <>
+                <section
+                    className="results-visualization-rank-container"
+                    aria-label="Spending by Category">
+                    {chart}
+                    {legend}
+                    {tooltip}
+                </section>
 
-            <section
-                className="results-visualization-rank-container"
-                aria-label="Spending by Category">
-                {chart3}
-            </section>
+                {/* // <section */}
+                {/* //     className="results-visualization-rank-container" */}
+                {/* //     aria-label="Spending by Category"> */}
+                {/* //     {chart3} */}
+                {/* // </section> */}
+
+                {/* this block is from nick's branch, he didn't put the new chart in the section tag bc he left the old chart there */}
+                <div
+                    // style={{ height: "900px", width: "800px" }}
+                    className="recharts-time-visualization-container"
+                    aria-label="Spending by Category NIVO">
+                    {chart3}
+                </div>
+            </>
         );
     }
 }

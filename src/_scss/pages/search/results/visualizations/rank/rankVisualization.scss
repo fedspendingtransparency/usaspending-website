@@ -4,13 +4,14 @@
     .results-divider {
         float: none;
     }
+
+    .recharts-time-visualization-container {
+        height: rem(400);
+    }
+
     .results-visualization-rank-container {
         position: relative;
         @import "./chart/rankChart";
-
-        .recharts-time-visualization-container {
-            height: rem(400);
-        }
 
         .visualization-tooltip {
             @import "components/visualizations/tooltip/_tooltip";
