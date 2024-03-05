@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { find, throttle } from 'lodash';
 import { ComingSoon, ShareIcon } from 'data-transparency-ui';
@@ -32,6 +33,7 @@ const InteractiveDataSourcesPage = () => {
     const query = useQueryParams();
     const history = useHistory();
     const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const sections = [
         {
@@ -133,6 +135,7 @@ const InteractiveDataSourcesPage = () => {
             component: <DataUseCases title="Use Cases" subtitle="What can I do with the data on USAspending.gov?" />
         }
     ];
+
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
@@ -160,6 +163,7 @@ const InteractiveDataSourcesPage = () => {
             behavior: 'smooth'
         });
     };
+
     useEffect(() => {
         if (query.section) {
             jumpToSection(query.section);
@@ -181,11 +185,13 @@ const InteractiveDataSourcesPage = () => {
             isMounted = false;
         };
     }, 100), [history, query.section]);
+
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
@@ -197,9 +203,11 @@ const InteractiveDataSourcesPage = () => {
         subject: "USAspending Data Sources",
         body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
     };
+
     const handleShare = (name) => {
         handleShareOptionClick(name, `data-sources`, emailData);
     };
+
     return (
         <PageWrapper
             pageName="interactive-data-sources"
@@ -211,7 +219,7 @@ const InteractiveDataSourcesPage = () => {
                 <ShareIcon
                     url={getBaseUrl('data-sources')}
                     onShareOptionClick={handleShare}
-                    classNames="margin-right" />,
+                    classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadStaticFile
                     path="/data/data-sources-download.pdf" />
             ]}
