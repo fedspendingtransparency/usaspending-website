@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+// import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import PropTypes from 'prop-types';
 
 import HorizontalChart from './chart/HorizontalChart';
@@ -93,32 +93,32 @@ export default class RankVisualization extends React.Component {
             // Height is number of results * item height + 30px padding
             const height = (this.props.dataSeries.length * itemHeight) + 30;
 
-            // these two functions are from the 10249 pr
-            const dataStuff = [];
-            if (this.props.dataSeries.length === this.props.labelSeries.length) {
-                for (let i = 0; i < this.props.dataSeries.length; i++) {
-                    dataStuff.push({
-                        value: this.props.dataSeries[i],
-                        label: this.props.labelSeries[i],
-                        desc: this.props.descriptions[i],
-                        link: this.props.linkSeries[i]
-                    });
-                }
-            }
-
-            const CustomTick = (props) => {
-                const {
-                    x, y, stroke, payload, link
-                } = props;
-                return (
-                    <g transform={`translate(${x},${y})`} >
-                        <a href={`${link[payload.index].link}`}>
-                            <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} >
-                                {payload.value}
-                            </text>
-                        </a>
-                    </g>);
-            };
+            // these two functions are to be used with the new chart
+            // const dataStuff = [];
+            // if (this.props.dataSeries.length === this.props.labelSeries.length) {
+            //     for (let i = 0; i < this.props.dataSeries.length; i++) {
+            //         dataStuff.push({
+            //             value: this.props.dataSeries[i],
+            //             label: this.props.labelSeries[i],
+            //             desc: this.props.descriptions[i],
+            //             link: this.props.linkSeries[i]
+            //         });
+            //     }
+            // }
+            //
+            // const CustomTick = (props) => {
+            //     const {
+            //         x, y, stroke, payload, link
+            //     } = props;
+            //     return (
+            //         <g transform={`translate(${x},${y})`} >
+            //             <a href={`${link[payload.index].link}`}>
+            //                 <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} >
+            //                     {payload.value}
+            //                 </text>
+            //             </a>
+            //         </g>);
+            // };
 
             chart = (
                 <HorizontalChart
@@ -129,29 +129,31 @@ export default class RankVisualization extends React.Component {
                     deselectItem={this.deselectItem} />
             );
 
-            chart3 = (
-                <div className="recharts-time-visualization-container">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart
-                            data={dataStuff}
-                            layout="vertical"
-                            barCategoryGap={10}
-                            margin={{
-                                top: 10,
-                                right: 10,
-                                left: 200,
-                                bottom: 10
-                            }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis type="number" />
-                            <YAxis type="category" dataKey="label" tick={<CustomTick link={dataStuff} />} fontSize="12px" link="link" />
-                            {/* todo - tooltips in next ticket */}
-                            {/* <Tooltip /> */}
-                            <Bar dataKey="value" fill="#8884d8" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
-            );
+            // new chart
+            // chart3 = (
+            //     <div className="recharts-time-visualization-container">
+            //         <ResponsiveContainer width="100%" height="100%">
+            //             <BarChart
+            //                 data={dataStuff}
+            //                 layout="vertical"
+            //                 barCategoryGap={10}
+            //                 margin={{
+            //                     top: 10,
+            //                     right: 10,
+            //                     left: 200,
+            //                     bottom: 10
+            //                 }}>
+            //                 <CartesianGrid strokeDasharray="3 3" />
+            //                 <XAxis type="number" />
+            //                 <YAxis type="category" dataKey="label" tick={<CustomTick link={dataStuff} />} fontSize="12px" link="link" />
+            //                 {/* todo - tooltips in next ticket */}
+            //                 {/* <Tooltip /> */}
+            //                 <Bar dataKey="value" fill="#8884d8" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+            //             </BarChart>
+            //         </ResponsiveContainer>
+            //     </div>
+            // );
+
             legend = (
                 <div className="visualization-legend">
                     <div className="visualization-legend__circle" />
@@ -170,27 +172,18 @@ export default class RankVisualization extends React.Component {
         }
 
         return (
-            <>
-                <section
-                    className="results-visualization-rank-container"
-                    aria-label="Spending by Category">
-                    {chart}
-                    {legend}
-                    {tooltip}
-                </section>
-
-                {/* // <section */}
-                {/* //     className="results-visualization-rank-container" */}
-                {/* //     aria-label="Spending by Category"> */}
-                {/* //     {chart3} */}
-                {/* // </section> */}
-
-                <div
-                    className="recharts-time-visualization-container"
-                    aria-label="Spending by Category ReChart">
-                    {chart3}
-                </div>
-            </>
+            <section
+                className="results-visualization-rank-container"
+                aria-label="Spending by Category">
+                {chart}
+                {/* <div */}
+                {/*     className="recharts-time-visualization-container" */}
+                {/*     aria-label="Spending by Category ReChart"> */}
+                {/*     {chart3} */}
+                {/* </div> */}
+                {legend}
+                {tooltip}
+            </section>
         );
     }
 }
