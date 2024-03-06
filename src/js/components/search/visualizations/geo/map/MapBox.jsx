@@ -48,7 +48,7 @@ const MapBox = forwardRef((props, ref) => {
         return false;
     };
 
-    const isCountyOrDistrict = useCallback(() => props.singleLocationSelected && Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original")));
+    const isCountyOrDistrict = useCallback(() => props.singleLocationSelected && Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "state") && props.singleLocationSelected.state !== "AK") && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original")));
 
     const calculateMapZoom = () => {
         let zoomLevel = 3.2;
@@ -58,7 +58,7 @@ const MapBox = forwardRef((props, ref) => {
             const stateCode = props.stateInfo?.code || props.singleLocationSelected?.state;
             if (stateCode !== '') {
                 if (isCountyOrDistrict()) {
-                    increaseZoom = 2;
+                    increaseZoom = 3;
                 }
 
                 const state = statesBySqMile.find((s) => s.code === stateCode);
@@ -74,7 +74,7 @@ const MapBox = forwardRef((props, ref) => {
                 else if (state?.size < 140000) {
                     zoomLevel = 4.8 + increaseZoom;
                 }
-                zoomLevel = 3.2 + increaseZoom;
+                zoomLevel = 4.2 + increaseZoom;
             }
         }
 
@@ -203,7 +203,10 @@ const MapBox = forwardRef((props, ref) => {
 
     useEffect(() => {
         if (isReCenterable() && isCountyOrDistrict()) {
-            map?.current?.zoomTo(7);
+            if (zoom < 5) {
+                setZoom(zoom + 1);
+                map?.current?.zoomTo(zoom + 1);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [zoom]);
