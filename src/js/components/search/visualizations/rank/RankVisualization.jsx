@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ResponsiveBar } from 'recharts';
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import PropTypes from 'prop-types';
 
 import HorizontalChart from './chart/HorizontalChart';
@@ -111,9 +111,9 @@ export default class RankVisualization extends React.Component {
                     x, y, stroke, payload, link
                 } = props;
                 return (
-                    <g transform={`translate(${x},${y})`} width="80px">
+                    <g transform={`translate(${x},${y})`} >
                         <a href={`${link[payload.index].link}`}>
-                            <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="75px">
+                            <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} >
                                 {payload.value}
                             </text>
                         </a>
@@ -135,13 +135,14 @@ export default class RankVisualization extends React.Component {
                         <BarChart
                             data={dataStuff}
                             layout="vertical"
-                            // barCategoryGap={20}
+                            barCategoryGap={10}
                             margin={{
                                 top: 10,
                                 right: 10,
-                                left: 80,
+                                left: 200,
                                 bottom: 10
                             }}>
+                            <CartesianGrid strokeDasharray="3 3" />
                             <XAxis type="number" />
                             <YAxis type="category" dataKey="label" tick={<CustomTick link={dataStuff} />} fontSize="12px" link="link" />
                             {/* todo - tooltips in next ticket */}
