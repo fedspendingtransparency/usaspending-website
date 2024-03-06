@@ -14,6 +14,7 @@ import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper'
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 import MapLayerToggle from './MapLayerToggle';
+import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 
 const propTypes = {
     data: PropTypes.object,
@@ -105,7 +106,7 @@ const MapWrapper = (props) => {
         segments: [],
         units: {}
     });
-    // const loadedLayers = {};
+    const [center, setCenter] = useState(props.center);
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
@@ -314,11 +315,11 @@ const MapWrapper = (props) => {
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
         renderCallback = () => {
-            mapRef.current.map.current.on('render', mapMovedCallback);
+            mapRef?.current?.map?.current?.on('render', mapMovedCallback);
         };
-        mapRef.current.map.current.on('moveend', renderCallback);
+        mapRef?.current?.map?.current?.on('moveend', renderCallback);
         // but also do it when the map resizes, since the view will be different
-        mapRef.current.map.current.on('resize', renderCallback);
+        mapRef?.current?.map?.current?.on('resize', renderCallback);
     };
 
     const prepareMap = () => {
@@ -396,6 +397,46 @@ const MapWrapper = (props) => {
         mapOperationQueue[name] = operation;
     };
 
+    const setCenterFromMapTiles = (value, filterKey, lat, long) => {
+        const entities = mapRef.current.map.current.queryRenderedFeatures({
+            layers: [`base_${props.scope}`]
+        });
+
+        const found = entities.find((element) => element.properties[filterKey] === value);
+        if (found) {
+            const coords = [parseFloat(found.properties[long]), parseFloat(found.properties[lat])];
+            const isEqual = coords.every((v, index) => v === center[index]);
+
+            if (!isEqual) {
+                setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
+                removeChangeListeners();
+            }
+        }
+    };
+
+    const reCenterMap = () => {
+        if (mapReady && {}.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props.singleLocationSelected).length > 0 && (props.scope === "county" || props.scope === "congressionalDistrict")) {
+            let value;
+            let filterKey;
+            let lat = "INTPTLAT";
+            let long = "INTPTLON";
+            const district = props.singleLocationSelected.district_original || props.singleLocationSelected.district_current;
+
+            if (props.scope === "congressionalDistrict") {
+                filterKey = "GEOID20";
+                lat += "20";
+                long += "20";
+                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
+                setCenterFromMapTiles(value, filterKey, lat, long);
+            }
+            else if (props.scope === "county") {
+                filterKey = "GEOID";
+                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${props.singleLocationSelected.county}`;
+                setCenterFromMapTiles(value, filterKey, lat, long);
+            }
+        }
+    };
+
     const displayData = () => {
         // don't do anything if the map has not yet loaded
         if (!mapReady) {
@@ -434,6 +475,7 @@ const MapWrapper = (props) => {
             mapRef.current.map.current.setFilter(layerName, filter);
         });
 
+        reCenterMap();
         setSpendingScale(scale);
     };
 
@@ -537,12 +579,16 @@ const MapWrapper = (props) => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [mapReady]);
 
+    useEffect(() => {
+        setCenter(props.center);
+    }, [props.center]);
+
     return (
         <div className="map-container">
             <MapBox
                 loadedMap={mapReadyPrep}
                 unloadedMap={mapRemoved}
-                center={props.center}
+                center={center}
                 mapType={props.scope}
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}
