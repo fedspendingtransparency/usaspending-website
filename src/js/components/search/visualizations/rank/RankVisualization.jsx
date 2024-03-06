@@ -11,7 +11,6 @@ import HorizontalChart from './chart/HorizontalChart';
 import RankVisualizationTooltip from './RankVisualizationTooltip';
 import ChartMessage from './RankVisualizationChartMessage';
 
-
 const defaultProps = {
     labelSeries: [],
     dataSeries: [],
@@ -74,7 +73,7 @@ export default class RankVisualization extends React.Component {
         let chart = (<ChartMessage message="No data to display" />);
         let legend = null;
 
-        let chart3;
+        // let chart3;
 
         if (this.props.loading) {
             chart = (<ChartMessage message="Loading data..." />);
