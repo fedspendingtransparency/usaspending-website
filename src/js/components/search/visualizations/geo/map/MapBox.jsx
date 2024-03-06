@@ -52,29 +52,24 @@ const MapBox = forwardRef((props, ref) => {
 
     const calculateMapZoom = () => {
         let zoomLevel = 3.2;
-        let increaseZoom = 0;
 
         if (isStateSelected()) {
             const stateCode = props.stateInfo?.code || props.singleLocationSelected?.state;
             if (stateCode !== '') {
-                if (isCountyOrDistrict()) {
-                    increaseZoom = 3;
-                }
-
                 const state = statesBySqMile.find((s) => s.code === stateCode);
                 if (state?.size > 500000) {
-                    zoomLevel = 3.0 + increaseZoom;
+                    zoomLevel = 3.0;
                 }
                 else if (state?.size < 1000) {
-                    zoomLevel = 9.6 + increaseZoom;
+                    zoomLevel = 9.6;
                 }
                 else if (state?.size < 10000) {
-                    zoomLevel = 6.2 + increaseZoom;
+                    zoomLevel = 6.2;
                 }
                 else if (state?.size < 140000) {
-                    zoomLevel = 4.8 + increaseZoom;
+                    zoomLevel = 4.8;
                 }
-                zoomLevel = 4.2 + increaseZoom;
+                zoomLevel = 4.2;
             }
         }
 
