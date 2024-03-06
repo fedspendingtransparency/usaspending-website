@@ -87,12 +87,12 @@ const TimeVisualizationChart = (props) => {
             label = props.xSeries[i][0];
             value = props.ySeries[i][0];
         }
-        else if (transformedData[transformedData.length - 1].value !== "jump") {
+        else if (transformedData[transformedData?.length - 1]?.value !== "jump") {
             label = "jump";
             value = "jump";
         }
 
-        if (!(transformedData[transformedData.length - 1]?.value === "jump" && label === "jump")) {
+        if (!(transformedData[transformedData?.length - 1]?.value === "jump" && label === "jump")) {
             transformedData.push({
                 label,
                 value
@@ -100,7 +100,7 @@ const TimeVisualizationChart = (props) => {
         }
     }
 
-    if (transformedData[transformedData.length - 1]?.value === "jump") {
+    if (transformedData[transformedData?.length - 1]?.value === "jump") {
         transformedData.pop();
     }
 
