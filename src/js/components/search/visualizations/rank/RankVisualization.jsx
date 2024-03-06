@@ -93,7 +93,7 @@ export default class RankVisualization extends React.Component {
             // Height is number of results * item height + 30px padding
             const height = (this.props.dataSeries.length * itemHeight) + 30;
 
-            // would be better to have an array of objects here
+            // these two functions are from the 10249 pr
             const dataStuff = [];
             if (this.props.dataSeries.length === this.props.labelSeries.length) {
                 for (let i = 0; i < this.props.dataSeries.length; i++) {
@@ -106,7 +106,19 @@ export default class RankVisualization extends React.Component {
                 }
             }
 
-            console.log('this.props', this.props);
+            const CustomTick = (props) => {
+                const {
+                    x, y, stroke, payload, link
+                } = props;
+                return (
+                    <g transform={`translate(${x},${y})`} width="80px">
+                        <a href={`${link[payload.index].link}`}>
+                            <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} width="75px">
+                                {payload.value}
+                            </text>
+                        </a>
+                    </g>);
+            };
 
             chart = (
                 <HorizontalChart
@@ -117,25 +129,21 @@ export default class RankVisualization extends React.Component {
                     deselectItem={this.deselectItem} />
             );
 
-            console.log('dataStuff', dataStuff);
-
             chart3 = (
                 <div className="recharts-time-visualization-container">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart
-                            // width={800}
-                            // height={600}
                             data={dataStuff}
+                            layout="vertical"
                             // barCategoryGap={20}
                             margin={{
                                 top: 10,
                                 right: 10,
-                                left: 50,
+                                left: 80,
                                 bottom: 10
                             }}>
-                            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                            <XAxis dataKey="value" type="number" />
-                            <YAxis type="category" dataKey="label" fontSize="12px" />
+                            <XAxis type="number" />
+                            <YAxis type="category" dataKey="label" tick={<CustomTick link={dataStuff} />} fontSize="12px" link="link" />
                             {/* todo - tooltips in next ticket */}
                             {/* <Tooltip /> */}
                             <Bar dataKey="value" fill="#8884d8" activeBar={<Rectangle fill="gold" stroke="purple" />} />
@@ -176,11 +184,9 @@ export default class RankVisualization extends React.Component {
                 {/* //     {chart3} */}
                 {/* // </section> */}
 
-                {/* this block is from nick's branch, he didn't put the new chart in the section tag bc he left the old chart there */}
                 <div
-                    // style={{ height: "900px", width: "800px" }}
                     className="recharts-time-visualization-container"
-                    aria-label="Spending by Category NIVO">
+                    aria-label="Spending by Category ReChart">
                     {chart3}
                 </div>
             </>
