@@ -5,7 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import GlobalConstants from 'GlobalConstants';
 
+import SpendingByCategoriesChart from './spendingByCategoriesChart/SpendingByCategoriesChart';
 import HorizontalChart from './chart/HorizontalChart';
 import RankVisualizationTooltip from './RankVisualizationTooltip';
 import ChartMessage from './RankVisualizationChartMessage';
@@ -71,6 +73,7 @@ export default class RankVisualization extends React.Component {
     render() {
         let chart = (<ChartMessage message="No data to display" />);
         let legend = null;
+
         if (this.props.loading) {
             chart = (<ChartMessage message="Loading data..." />);
         }
@@ -87,6 +90,7 @@ export default class RankVisualization extends React.Component {
             const itemHeight = 35;
             // Height is number of results * item height + 30px padding
             const height = (this.props.dataSeries.length * itemHeight) + 30;
+
             chart = (
                 <HorizontalChart
                     {...this.props}
@@ -95,6 +99,7 @@ export default class RankVisualization extends React.Component {
                     selectItem={this.selectItem}
                     deselectItem={this.deselectItem} />
             );
+
             legend = (
                 <div className="visualization-legend">
                     <div className="visualization-legend__circle" />
@@ -116,7 +121,13 @@ export default class RankVisualization extends React.Component {
             <section
                 className="results-visualization-rank-container"
                 aria-label="Spending by Category">
-                {chart}
+                {GlobalConstants.QAT ?
+                    <SpendingByCategoriesChart {...this.props} />
+                    :
+                    <>
+                        { chart }
+                    </>
+                }
                 {legend}
                 {tooltip}
             </section>
