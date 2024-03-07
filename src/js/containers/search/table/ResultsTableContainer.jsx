@@ -232,7 +232,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, 500);
+    }, 250);
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -380,7 +380,6 @@ const ResultsTableContainer = (props) => {
                     setInFlight(false);
                     setError(true);
                     props.setAppliedFilterCompletion(true);
-
                     console.log(err);
                 }
             });
@@ -490,13 +489,18 @@ const ResultsTableContainer = (props) => {
         }
     }, 400), [isLoadingNextPage]);
 
-    useEffect(() => {
+    useEffect(throttle(() => {
         loadColumns();
         if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, 400), []);
+
+    useEffect(throttle(() => {
+        performSearch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, 400), [tableType]);
 
     if (!columns[tableType]) {
         return null;

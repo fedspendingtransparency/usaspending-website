@@ -17,22 +17,6 @@
     .main-content,
     .footer-container {
         width: 100%;
-
-        .usda-page-header__toolbar {
-            .usda-download-btn .usda-button {
-                padding: 0;
-                margin: 0;
-            }
-
-            .usda-download-btn span,
-            .usda-share-icon span {
-                margin-top: rem(5);
-            }
-
-            @media(min-width: $medium-screen) {
-                padding: 0;
-            }
-        }
     }
 
     .accordion-container {
@@ -109,18 +93,6 @@
         display: none;
     }
 
-    .usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item {
-        padding-left: 25px;
-    }
-
-    .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-        width: 100%
-    }
-
-    .usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg {
-        margin-right: 0;
-    }
-
     .usda__flex-row {
         @include display(flex);
         @include flex-wrap(wrap);
@@ -130,24 +102,18 @@
             @include flex(1 1 auto);
 
             .body__content {
-                width: 100%; // Fixes an IE Flexbox bug
+                width: 100%; // this makes the charts in the summary section resize properly
             }
         }
     }
 
-    // added this so that there isn't a weird section above the blue bar
-    div.usda-page-header__toolbar {
-        @media(min-width: $medium-screen) {
-            padding: 0;
-        }
-    }
     .main-content {
         @include display(flex);
         width: 100%;
         @include flex-grow(1);
         @include flex-wrap(wrap);
         max-width: rem(1600);
-        margin: auto;
+        margin: 0 auto;
 
         ul {
             padding: 0;
@@ -169,15 +135,15 @@
             }
 
             @media(min-width: $medium-screen) {
-                margin: rem(20);
+                margin: 0;
             }
 
             @media(min-width: $large-screen) {
-                margin: rem(20) rem(40);
+                margin: 0 rem(40);
             }
 
             @media(min-width: $x-large-screen) {
-                margin: rem(20) auto;
+                margin: 0 auto;
             }
 
             @import './overview/pageTitle';

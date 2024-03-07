@@ -4,9 +4,17 @@
     .results-divider {
         float: none;
     }
+
+
     .results-visualization-rank-container {
         position: relative;
         @import "./chart/rankChart";
+
+        // new chart requires height on its parent div
+        .recharts-time-visualization-container {
+            height: rem(400);
+        }
+
         .visualization-tooltip {
             @import "components/visualizations/tooltip/_tooltip";
         }

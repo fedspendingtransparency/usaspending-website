@@ -65,7 +65,6 @@
       }
 
       .training-videos__column-two-container {
-
         .training-videos__column-two-title {
           margin-bottom: $global-margin;
           line-height: 1.5;
@@ -93,43 +92,24 @@
           color: $gray-60;
         }
 
-        .training-videos__column-two-share-icon {
-          width: rem(17.5);
-          height: rem(20);
-          color: $blue-50;
-        }
-
         .training-video__column-share-icon {
-          height: rem(24);
-          width: rem(24);
-          display: left;
-
-          span {
-            display: none;
-          }
-
-          .usa-dt-picker__dropdown-container {
-            span {
-              display: inherit;
-            }
-          }
-
-          button {
-            margin-left: 0;
-          }
-
-          .usda-share-icon {
-            margin-left: 0;
-          }
-
+          // hacky fix to move the copy confirmation msg closer to the dropdown
+          // hopefully will be fixed with ticket 10711
           .usda-share-icon {
             div.copy-confirmation {
-              @media(max-width:$medium-screen) {
-                transform:translateX(150px);
+                transform: translateX(-150px) !important;
+              @media(min-width: $tablet-screen) {
+                transform: translateX(-200px) !important;
+              }
+              @media(min-width: $m-large-screen) {
+                transform: translateX(-300px) !important;
               }
             }
+          }
+          .usda-share-icon {
             .usa-dt-picker .usa-dt-picker__dropdown-container {
               .usa-dt-picker__button {
+                margin: 0 rem(34) 0 0;
                 padding-bottom: 4px;
               }
               .usa-dt-picker__button svg:hover {
@@ -138,41 +118,6 @@
 
               .usa-dt-picker__button svg:active {
                 color: $blue-cool-80v;
-              }
-
-              .usa-dt-picker__list {
-                min-width: 15rem;
-                margin-top: 0px;
-                padding-top: 8px;
-                overflow: hidden;
-                padding-bottom: 8px;
-
-                .usa-dt-picker__list-item {
-                  border-top: none;
-                }
-
-                svg {
-                  color: $gray-cool-60;
-                }
-
-                span {
-                  color: $gray-cool-60;
-                  font-weight: $font-semibold;
-                  font-size: rem(16);
-                  margin-left: 16px;
-                  line-height: 24px;
-                }
-
-                .usa-dt-picker__item {
-                  padding-left: 16px;
-                  padding-right: unset;
-                  padding-top: 8px;
-                  padding-bottom: 8px;
-
-                  &:hover {
-                    background-color: $gray-cool-3;
-                  }
-                }
               }
             }
           }

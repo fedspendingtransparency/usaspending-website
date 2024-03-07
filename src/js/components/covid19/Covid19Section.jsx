@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { snakeCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SectionTitle } from 'data-transparency-ui';
+import { SectionWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     section: PropTypes.string,
@@ -39,7 +39,7 @@ const Covid19Section = ({
         );
     }
     return (
-        <SectionTitle
+        <SectionWrapper
             id={`covid19-${snakeCase(section)}`}
             classNames={`body__section ${snakeCase(section)}`}
             icon={icon ? <FontAwesomeIcon size="2x" icon={icon} /> : null}
@@ -48,7 +48,7 @@ const Covid19Section = ({
             overLine={section?.overLine}
             description={headerText}>
             {children}
-        </SectionTitle>
+        </SectionWrapper>
     );
 };
 

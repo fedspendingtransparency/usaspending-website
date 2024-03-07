@@ -2,6 +2,12 @@
     display: flex;
     width: auto;
     align-items: center;
+    height: rem(60);
+
+    @media(min-width: $medium-screen) {
+        height: rem(48);
+    }
+
     span[class^='filter__dropdown-label'] {
         font-weight: $font-semibold;
         line-height: 1.5;
@@ -149,7 +155,7 @@
 
         ul[class^='filter__dropdown-list'] {
             @include unstyled-list;
-            z-index: 50;
+            z-index: 99;
             display: block;
             position: absolute;
             overflow: hidden;
@@ -160,7 +166,6 @@
             .filter__dropdown-list-item {
                 &:hover {
                     background-color: $gray-cool-3;
-                    cursor: pointer;
                 }
 
                 .filter__dropdown-item {
@@ -172,6 +177,7 @@
 
             .filter__dropdown-list-item.active {
                 background-color: $gray-cool-5;
+
             }
         }
 
@@ -182,26 +188,30 @@
 
         .filter__dropdown-list-sm {
             border-radius: 3px;
-
             li {
-                padding-top: rem(5.5);
-                padding-bottom: rem(5.5);
-                padding-left: 1.5 * $global-padding;
+                // need this height to make the line height and padding values work
+                // will add for md and lg when we have a practical example
+                height: rem(32);
+                padding-left: rem(30);
                 padding-right: 1.5 * $global-padding;
-
+                // will have to adjust padding top and bottom and add line height and margin
+                // to button when we have a real world example for md and lg
                 button {
                     font-size: $font-size-14;
+                    line-height: rem(21);
+                    // need important to overwrite button unstyled styling
+                    margin: rem(5.5) 0 !important;
                 }
             }
         }
 
         .filter__dropdown-list-md {
-
             border-radius: 4px;
-
             li {
                 padding-top: rem(8);
                 padding-bottom: rem(8);
+                // may have to adjust left padding to align text but better to have
+                // an example first
                 padding-left: 2 * $global-padding;
                 padding-right: 2 * $global-padding;
 
@@ -217,6 +227,8 @@
             li {
                 padding-top: rem(13);
                 padding-bottom: rem(13);
+                // may have to adjust left padding to align text but better to have
+                // an example first
                 padding-left: 3 * $global-padding;
                 padding-right: 3 * $global-padding;
 

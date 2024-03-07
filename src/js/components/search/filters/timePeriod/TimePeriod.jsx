@@ -72,6 +72,7 @@ export default class TimePeriod extends React.Component {
         this.removeDateRange = this.removeDateRange.bind(this);
         this.clearHint = this.clearHint.bind(this);
         this.newAwardsClick = this.newAwardsClick.bind(this);
+        this.determineIfNaoIsActive = this.determineIfNaoIsActive.bind(this);
     }
 
     componentDidMount() {
@@ -175,7 +176,6 @@ export default class TimePeriod extends React.Component {
         }
     }
 
-
     toggleFilters(e) {
         this.clearHint(true);
         this.props.changeTab(e.target.value);
@@ -247,7 +247,6 @@ export default class TimePeriod extends React.Component {
             });
         }
     }
-
     removeDateRange() {
         this.clearHint(true);
         this.props.updateFilter({
