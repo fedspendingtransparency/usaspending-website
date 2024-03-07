@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
 import { flowRight } from 'lodash';
+import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from "propTypes";
 
@@ -92,6 +93,7 @@ export class AccountTimePeriodContainer extends React.Component {
             // checkbox from the Federal Accounts page
             <TimePeriod
                 {...this.props}
+                {...searchFilterActions}
                 latestFy={this.props.latestPeriod.year}
                 activeTab={this.props.filterTimePeriodType}
                 timePeriods={this.state.timePeriods}
