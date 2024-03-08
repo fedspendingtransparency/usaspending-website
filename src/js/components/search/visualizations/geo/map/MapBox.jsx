@@ -55,7 +55,7 @@ const MapBox = forwardRef((props, ref) => {
 
         if (isStateSelected()) {
             const stateCode = props.stateInfo?.code || props.singleLocationSelected?.state;
-            if (stateCode !== '') {
+            if (stateCode && stateCode !== '') {
                 const state = statesBySqMile.find((s) => s.code === stateCode);
                 if (state?.size > 500000) {
                     zoomLevel = 3.0;
