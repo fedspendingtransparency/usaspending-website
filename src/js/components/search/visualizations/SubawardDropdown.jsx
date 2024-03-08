@@ -12,7 +12,7 @@ import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 
 const propTypes = {
     size: PropTypes.string,
-    leftIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    leftIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.object]),
     enabled: PropTypes.bool,
     subaward: PropTypes.bool,
     setSearchViewSubaward: PropTypes.func,

@@ -5,7 +5,7 @@ import { allFiscalYears } from '../../../helpers/fiscalYearHelper';
 
 const propTypes = {
     size: PropTypes.string,
-    leftIcon: PropTypes.string,
+    leftIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     enabled: PropTypes.bool,
     backgroundColor: PropTypes.string,
     selectedValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

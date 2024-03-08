@@ -80,6 +80,7 @@ export default class TimePeriod extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.debug("in time period did update: ", prevProps, prevState);
         if (!isEqual(prevProps, this.props)) {
             this.synchronizeDatePickers(this.props);
         }
@@ -187,6 +188,7 @@ export default class TimePeriod extends React.Component {
     // picked one date, or if they have picked an invalid range
     // additional logic is required to keep these values in sync with Redux
         let value = dayjs(date);
+        console.debug("value: ", value);
         if (!date) {
             value = null;
         }
@@ -283,7 +285,7 @@ export default class TimePeriod extends React.Component {
         let showFilter = null;
         let activeClassFY = null;
         let activeClassDR = null;
-
+        console.debug("TIME PERIOD STUFF: ", this.props, this.state);
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
                 header={this.state.header}

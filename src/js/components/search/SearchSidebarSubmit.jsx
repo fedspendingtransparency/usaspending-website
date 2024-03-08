@@ -17,6 +17,7 @@ const propTypes = {
 const SearchSidebarSubmit = (props) => {
     let disabled = false;
     let title = 'Click to submit your search.';
+    console.debug("submit button: ", props);
     if (props.stagedFiltersAreEmpty) {
         title = 'Add or update a filter to submit.';
         disabled = true;
@@ -25,7 +26,9 @@ const SearchSidebarSubmit = (props) => {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
-
+    else if (props.filtersChanged) {
+        disabled = null;
+    }
     return (
         <div
             className="sidebar-submit"

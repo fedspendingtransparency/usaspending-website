@@ -126,7 +126,7 @@ export class TimePeriodContainer extends React.Component {
             const activeField = activeFields[index];
             const appliedValue = this.props.appliedFilters[appliedField];
             const activeValue = this.props[activeField];
-
+            console.debug("dirty: ", activeField, appliedValue, activeValue);
             // do not set time filter to dirty when 1 checkbox is unchecked
             if ((activeValue && activeValue.size === 0) && (appliedValue && appliedValue.size >= 1)) {
                 return true;
@@ -148,6 +148,7 @@ export class TimePeriodContainer extends React.Component {
     }
 
     render() {
+        console.debug("TIME PERIOD CONTAINER STUFF: ", this.props, this.state);
         return (
             <TimePeriod
                 {...this.props}
