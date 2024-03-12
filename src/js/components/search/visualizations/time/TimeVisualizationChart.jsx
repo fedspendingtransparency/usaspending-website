@@ -38,7 +38,11 @@ const CustomShape = ({
     payload, x, y, width, height
 }) => {
     if (payload.value === 'jump') {
-        return null;
+        return (
+            <g>
+                <line x1={x + (width / 2)} x2={x + (width / 2) + 1} y1="466" y2="0" stroke="#dfe1e2" strokeDasharray="5 3" />
+            </g>
+        )
     }
     return (
         <g>
