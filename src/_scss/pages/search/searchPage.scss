@@ -2,7 +2,6 @@
     @import "all";
     @import "layouts/tabbedSearch/tabbedSearch";
     @import "layouts/default/stickyHeader/header";
-    @import "../../components/atdButton";
 
     @import "./searchSidebar";
     @import "./_pagePositioning";
@@ -11,13 +10,8 @@
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
-    .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
-        .usda-download-btn {
-            span {
-                margin-top: rem(4);
-                line-height: 0.9;
-            }
-        }
+    .subaward-dropdown__list {
+        min-width: max-content;
     }
 
     #main-content {
@@ -42,6 +36,5 @@
                 }
             }
         }
-
     }
 }

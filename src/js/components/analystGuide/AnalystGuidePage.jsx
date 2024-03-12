@@ -51,7 +51,7 @@ const AnalystGuidePage = () => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     return (
         <PageWrapper
@@ -71,7 +71,8 @@ const AnalystGuidePage = () => {
                                     url={getBaseUrl(slug)}
                                     onShareOptionClick={onShareClick}
                                     colors={{ backgroundColor: "white", color: "#0071bc" }}
-                                    dropdownDirection={isMobile ? 'right' : 'left'} />
+                                    dropdownDirection={isMobile ? 'right' : 'left'}
+                                    classNames="margin-right" />
                             </div>
                             <div className="analyst-guide__download-wrapper">
                                 <a

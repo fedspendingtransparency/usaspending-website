@@ -18,13 +18,9 @@ import GeoVisualizationSectionContainer from
     'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
 import RankVisualizationWrapperContainer from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
-
 import { tabOptions } from 'dataMapping/search/searchViewTabs';
-
 import NoFiltersScreen from './screens/NoFiltersScreen';
-
 import VisualizationTabItem from './VisualizationTabItem';
-import SubawardToggle from './SubawardToggle';
 import Button from "../../sharedComponents/buttons/Button";
 
 const propTypes = {
@@ -139,9 +135,6 @@ const VisualizationWrapper = (props) => {
                     backgroundColor="light"
                     imageAlignment="right"
                     image={<FontAwesomeIcon icon="window-restore" />} />
-                <SubawardToggle
-                    subaward={props.subaward}
-                    setSearchViewSubaward={props.setSearchViewSubaward} />
             </div>
             <div className="visualization-tabs">
                 <div
@@ -149,11 +142,6 @@ const VisualizationWrapper = (props) => {
                     aria-label="Visualization types"
                     role="tablist">
                     {tabs}
-                </div>
-                <div className="visualization-tabs__toggle">
-                    <SubawardToggle
-                        subaward={props.subaward}
-                        setSearchViewSubaward={props.setSearchViewSubaward} />
                 </div>
             </div>
             <div className="visualization-content-wrapper">
@@ -169,5 +157,4 @@ const VisualizationWrapper = (props) => {
 };
 
 VisualizationWrapper.propTypes = propTypes;
-
 export default VisualizationWrapper;

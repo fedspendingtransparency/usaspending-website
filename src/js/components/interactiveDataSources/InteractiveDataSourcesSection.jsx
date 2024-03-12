@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SectionTitle } from 'data-transparency-ui';
+import { SectionWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     section: PropTypes.shape({
         section: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
-        showSectionTitle: PropTypes.bool
+        showSectionWrapper: PropTypes.bool
     }),
     icon: PropTypes.string,
     children: PropTypes.element
@@ -17,14 +17,14 @@ const InteractiveDataSourcesSection = ({
     children
 }) => (
     <>
-        {section.showSectionTitle
+        {section.showSectionWrapper
             ?
-            <SectionTitle
+            <SectionWrapper
                 // isCollapsible // Currently disable for `Scroller`
                 id={`interactive-data-sources-${section.section}`}
                 title={section.label}>
                 {children}
-            </SectionTitle>
+            </SectionWrapper>
             :
             <section
                 id={`interactive-data-sources-${section.section}`}>

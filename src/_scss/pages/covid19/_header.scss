@@ -1,12 +1,7 @@
 .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
     @media(max-width: $medium-screen) {
         border-bottom: rem(1) solid $color-gray-lighter;
-    }
-    .usda-download-btn {
-        span {
-            margin-top: rem(4);
-            line-height: 0.9;
-        }
+        height: rem(1);
     }
     .public-law-picker__container {
         @include display(flex);
@@ -40,85 +35,6 @@
                 fill: $color-gray-lighter;
                 @media(max-width: $medium-screen) {
                     fill: $color-base;
-                }
-            }
-        }
-        .usa-dt-picker__dropdown-container {
-            align-self: center;
-
-            span {
-                height: auto;
-            }
-            .usa-dt-picker__button .usa-dt-picker__button-text {
-                font-size: rem(18);
-                color: $color-white;
-                @media(max-width: $medium-screen) {
-                    color: $color-base;
-                }
-            }
-
-            // button label:
-            .usa-dt-picker__button {
-                align-items: center;
-
-                span {
-                    color: $color-gray-lighter;
-                    font-weight: $font-semibold;
-                }
-                .usa-dt-picker__button-icon svg {
-                    margin-right: rem(5);
-                    color: $color-gray-lighter;
-
-                    @media(max-width: $medium-screen) {
-                        color: $color-base;
-                    }
-                }
-            }
-            .usa-dt-picker__list {
-                width: 140%;
-                margin-top: 6px;
-                overflow-y: hidden;
-                box-shadow: 0 2px 6px 0 rgba(78,78,78,0.5);
-
-                .usa-dt-picker__list-item .usa-dt-picker__item {
-                    padding: rem(16) rem(20);
-
-                    &:hover {
-                        background-color: $color-gray-lightest;
-                        p {
-                            color: $color-primary;
-                        }
-                    }
-                    p:first-of-type {
-                        padding: 0;
-                        font-weight: $font-semibold;
-                    }
-                    p:nth-of-type(2) {
-                        padding-top: rem(5);
-                    }
-                    p {
-                        font-size: rem(15);
-                        margin: 0;
-                        .usda-glossary-link svg {
-                            margin-left: 5px;
-                            color: $color-gray-light;
-                        }
-                    }
-                }
-                li.usa-dt-picker__list-item {
-                    border-bottom: solid thin $color-gray-lightest;
-
-                    p {
-                        font-size: rem(14);
-                    }
-                }
-            }
-
-            @media(max-width: $medium-screen) {
-                width: max-content;
-
-                .usa-dt-picker__list {
-                    width: auto;
                 }
             }
         }

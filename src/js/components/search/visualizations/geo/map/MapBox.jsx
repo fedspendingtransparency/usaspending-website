@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef } from 'react';
+import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
@@ -34,31 +34,50 @@ const MapBox = forwardRef((props, ref) => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showNavButtons, setShowNavButtons] = useState(false);
+    const [zoom, setZoom] = useState(3.2);
 
     useImperativeHandle(ref, () => ({
         map
     }));
 
+
+    const isStateSelected = () => {
+        if (props.stateInfo?.code !== '' || (props.singleLocationSelected && Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'state'))) {
+            return true;
+        }
+        return false;
+    };
+
+    const isCountyOrDistrict = useCallback(() => props.singleLocationSelected && Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "state") && props.singleLocationSelected.state !== "AK") && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original")));
+
     const calculateMapZoom = () => {
-        if (props.stateProfile) {
-            if (props?.stateInfo?.code !== '') {
-                const state = statesBySqMile.find((s) => s.code === props.stateInfo.code);
+        let zoomLevel = 3.2;
+
+        if (isStateSelected()) {
+            const stateCode = props.stateInfo?.code || props.singleLocationSelected?.state;
+
+            if (stateCode && stateCode !== '') {
+                const state = statesBySqMile.find((s) => s.code === stateCode);
                 if (state?.size > 500000) {
-                    return 3.0;
+                    zoomLevel = 3.0;
                 }
                 else if (state?.size < 1000) {
-                    return 9.6;
+                    zoomLevel = 9.6;
                 }
                 else if (state?.size < 10000) {
-                    return 6.2;
+                    zoomLevel = 6.2;
                 }
                 else if (state?.size < 140000) {
-                    return 4.8;
+                    zoomLevel = 4.8;
                 }
+                zoomLevel = 4.2;
             }
-            return 4.2;
+
+            zoomLevel += isCountyOrDistrict() ? 1 : 0;
         }
-        return 3.2;
+
+        setZoom(zoomLevel);
+        return zoomLevel;
     };
 
     const moveMap = (bearing) => {
@@ -81,10 +100,9 @@ const MapBox = forwardRef((props, ref) => {
         moveMap([0, delta]);
     };
 
-
     const centerMap = (m) => {
         m?.current?.jumpTo({
-            zoom: 4,
+            zoom: zoom || 3.2,
             center: props.center
         });
     };
@@ -165,20 +183,43 @@ const MapBox = forwardRef((props, ref) => {
         };
     }, []);
 
+    const isReCenterable = useCallback(() => {
+        if (props.stateProfile) {
+            return false;
+        }
+
+        const isSingleLocation = props.center?.length > 0 && Object.prototype.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props.singleLocationSelected)?.length > 0;
+        return isSingleLocation;
+    });
+
     useEffect(() => {
-        if (props.center?.length > 0 && map?.current && !props.stateProfile && Object.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props?.singleLocationSelected)?.length > 0) {
+        if (isReCenterable()) {
+            if (props.singleLocationSelected?.country !== "USA") {
+                centerMap(map);
+            }
+            else {
+                calculateMapZoom();
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.center, props.singleLocationSelected]);
+
+    useEffect(() => {
+        if (map.current) {
             centerMap(map);
         }
-    }, [props.center, map.current, props.singleLocationSelected]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [zoom]);
 
     useEffect(() => {
         if (map.current) {
             resizeMap();
-        } else {
+        }
+        else {
             mountMap();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [windowWidth, props.center]);
+    }, [windowWidth]);
 
     return (
         <div
