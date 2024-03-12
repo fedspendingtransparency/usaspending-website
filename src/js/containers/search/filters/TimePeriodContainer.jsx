@@ -140,15 +140,15 @@ export class TimePeriodContainer extends React.Component {
 
             return true;
         });
-
+        console.debug("no changes: ", noChanges);
         if (!noChanges) {
+            console.debug("dirty time filter?");
             return Symbol('dirty time filter');
         }
         return null;
     }
 
     render() {
-        console.debug("TIME PERIOD CONTAINER STUFF: ", this.props, this.state);
         return (
             <TimePeriod
                 {...this.props}

@@ -83,15 +83,20 @@ const VisualizationWrapper = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const tabs = tabOptions.map((tab) => (
-        <VisualizationTabItem
-            {...tab}
-            key={tab.code}
-            id={tab.code}
-            active={props.type === tab.code}
-            clickedTab={clickedTab}
-            disabled={!props.requestsComplete} />
-    ));
+    const tabs = tabOptions.map((tab) =>
+    {
+        console.debug("TABS: ", props.type, tab);
+        return (
+            <VisualizationTabItem
+                {...tab}
+                key={tab.code}
+                id={tab.code}
+                active={props.type === tab.code}
+                clickedTab={clickedTab}
+                disabled={props.requestsComplete === false} />
+        );
+    }
+    );
 
     let content = <NoFiltersScreen />;
     if (!props.noFiltersApplied) {
