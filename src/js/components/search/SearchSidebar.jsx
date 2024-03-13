@@ -3,7 +3,7 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
@@ -40,6 +40,7 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
+import RoundedToggle from "../sharedComponents/RoundedToggle";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -169,6 +170,8 @@ const defaultProps = {
 const SearchSidebar = ({
     filters
 }) => {
+    const [toggle, setToggle] = useState(false);
+
     const indexOfUnreleased = staticFilters.options.findIndex((option) => (
         Object.keys(option).includes('isReleased') &&
         !option.isReleased
@@ -197,6 +200,17 @@ const SearchSidebar = ({
         return "right";
     };
 
+    const onToggle = () => {
+        setToggle(!toggle);
+        console.log('fire');
+    };
+    const onKeyToggle = (event) => {
+        if (event.key === 'Enter') {
+            setToggle(!toggle);
+            console.log('fire');
+        }
+    };
+
     return (
         <div
             className="search-sidebar"
@@ -215,6 +229,11 @@ const SearchSidebar = ({
             </div>
 
             <div className="sidebar-top-submit">
+                <RoundedToggle
+                    toggle={toggle}
+                    onKeyToggle={onKeyToggle}
+                    onToggle={onToggle}
+                    label="Use previous Advanced Search" />
                 <SearchSidebarSubmitContainer />
             </div>
             <FilterSidebar

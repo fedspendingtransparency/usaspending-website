@@ -3,9 +3,8 @@
  * Created by Kevin Li 12/19/17
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import RoundedToggle from "../sharedComponents/RoundedToggle";
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -16,8 +15,6 @@ const propTypes = {
 };
 
 const SearchSidebarSubmit = (props) => {
-    const [toggle, setToggle] = useState(false);
-
     let disabled = false;
     let title = 'Click to submit your search.';
     if (props.stagedFiltersAreEmpty) {
@@ -29,29 +26,11 @@ const SearchSidebarSubmit = (props) => {
         disabled = true;
     }
 
-    const onToggle = () => {
-        setToggle(!toggle);
-        console.log('fire');
-    };
-    const onKeyToggle = (event) => {
-        if (event.key === 'Enter') {
-            setToggle(!toggle);
-            console.log('fire');
-        }
-    };
-
     return (
         <div
             className="sidebar-submit"
             role="region"
             aria-label="Submit search">
-            <div>
-                <RoundedToggle
-                    toggle={toggle}
-                    onKeyToggle={onKeyToggle}
-                    onToggle={onToggle}
-                    label="Use previous Advanced Search" />
-            </div>
             <button
                 className="submit-button"
                 title={title}
