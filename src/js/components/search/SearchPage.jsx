@@ -21,6 +21,7 @@ import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
+import TempSearchPage from "../tempSearchPage/TempSearchPage";
 
 const propTypes = {
     download: PropTypes.object,
@@ -196,7 +197,7 @@ const SearchPage = ({
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
-                    {toggleTempSearchPage ? <div>hellow</div> :
+                    {toggleTempSearchPage ?
                         <SearchResults
                             filters={filters}
                             isMobile={isMobile}
@@ -205,7 +206,7 @@ const SearchPage = ({
                             updateFilterCount={updateFilterCount}
                             toggleMobileFilters={toggleMobileFilters}
                             requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} />}
+                            noFiltersApplied={noFiltersApplied} /> : <TempSearchPage />}
                 </div>
                 <FullDownloadModalContainer
                     download={download}
