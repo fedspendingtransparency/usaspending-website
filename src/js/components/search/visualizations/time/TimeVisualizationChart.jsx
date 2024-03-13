@@ -35,10 +35,11 @@ const timeJumpIcon = (x, y) => {
 };
 
 const CustomShape = (props) => {
-
-    const { payload, x, y, width, height } = props;
+    const {
+        payload, x, y, width, height
+    } = props;
     const maxWidth = width > 120 ? 120 : width;
-    const translateX = x + (width / 2) - (maxWidth / 2);
+    const translateX = x + ((width / 2) - (maxWidth / 2));
 
     if (payload.value === 'jump') {
         return (
