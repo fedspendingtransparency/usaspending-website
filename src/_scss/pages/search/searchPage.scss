@@ -10,6 +10,8 @@
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
+    @import "../../components/roundedtoggle";
+
     .subaward-dropdown__list {
         min-width: max-content;
     }
