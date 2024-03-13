@@ -4,6 +4,10 @@
     @media (max-width: $tablet-screen) {
         display: flex;
     }
+
+    .mapboxgl-ctrl {
+        margin-right: rem(8);
+    }
     .mapbox-item {
         display: block;
         height: 100%;
