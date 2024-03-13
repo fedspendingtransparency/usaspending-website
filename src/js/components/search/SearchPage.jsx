@@ -196,15 +196,16 @@ const SearchPage = ({
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
-                    <SearchResults
-                        filters={filters}
-                        isMobile={isMobile}
-                        filterCount={filterCount}
-                        showMobileFilters={showMobileFilters}
-                        updateFilterCount={updateFilterCount}
-                        toggleMobileFilters={toggleMobileFilters}
-                        requestsComplete={requestsComplete}
-                        noFiltersApplied={noFiltersApplied} />
+                    {toggleTempSearchPage ? <div>hellow</div> :
+                        <SearchResults
+                            filters={filters}
+                            isMobile={isMobile}
+                            filterCount={filterCount}
+                            showMobileFilters={showMobileFilters}
+                            updateFilterCount={updateFilterCount}
+                            toggleMobileFilters={toggleMobileFilters}
+                            requestsComplete={requestsComplete}
+                            noFiltersApplied={noFiltersApplied} />}
                 </div>
                 <FullDownloadModalContainer
                     download={download}

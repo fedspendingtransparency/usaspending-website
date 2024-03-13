@@ -204,12 +204,10 @@ const SearchSidebar = ({
 
     const onToggle = () => {
         setToggleTempSearchPage(!toggleTempSearchPage);
-        console.log('fire');
     };
     const onKeyToggle = (event) => {
         if (event.key === 'Enter') {
             setToggleTempSearchPage(!toggleTempSearchPage);
-            console.log('fire');
         }
     };
 
