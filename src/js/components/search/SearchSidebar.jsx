@@ -3,7 +3,7 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
@@ -160,7 +160,9 @@ const staticFilters = {
 };
 
 const propTypes = {
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    toggleTempSearchPage: PropTypes.bool,
+    setToggleTempSearchPage: PropTypes.func
 };
 
 const defaultProps = {
@@ -168,10 +170,10 @@ const defaultProps = {
 };
 
 const SearchSidebar = ({
-    filters
+    filters,
+    toggleTempSearchPage,
+    setToggleTempSearchPage
 }) => {
-    const [toggle, setToggle] = useState(false);
-
     const indexOfUnreleased = staticFilters.options.findIndex((option) => (
         Object.keys(option).includes('isReleased') &&
         !option.isReleased
@@ -201,12 +203,12 @@ const SearchSidebar = ({
     };
 
     const onToggle = () => {
-        setToggle(!toggle);
+        setToggleTempSearchPage(!toggleTempSearchPage);
         console.log('fire');
     };
     const onKeyToggle = (event) => {
         if (event.key === 'Enter') {
-            setToggle(!toggle);
+            setToggleTempSearchPage(!toggleTempSearchPage);
             console.log('fire');
         }
     };
@@ -230,7 +232,7 @@ const SearchSidebar = ({
 
             <div className="sidebar-top-submit">
                 <RoundedToggle
-                    toggle={toggle}
+                    toggle={toggleTempSearchPage}
                     onKeyToggle={onKeyToggle}
                     onToggle={onToggle}
                     label="Use previous Advanced Search" />

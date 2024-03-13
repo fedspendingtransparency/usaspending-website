@@ -53,6 +53,7 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [toggleTempSearchPage, setToggleTempSearchPage] = useState(false);
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -100,7 +101,9 @@ const SearchPage = ({
     let fullSidebar = (
         <SearchSidebar
             filters={filters}
-            hash={hash} />
+            hash={hash}
+            toggleTempSearchPage={toggleTempSearchPage}
+            setToggleTempSearchPage={setToggleTempSearchPage} />
     );
     if (isMobile) {
         fullSidebar = null;
