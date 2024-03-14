@@ -112,12 +112,6 @@ export default class MapLegend extends React.Component {
     render() {
         return (
             <div className="map-legend">
-                <MapLegendHeader
-                    mapLegendToggleData={this.props.mapLegendToggleData}
-                    mapLegendToggle={this.props.mapLegendToggle}
-                    updateToggle={this.updateToggle}
-                    resetToggle={this.resetToggle}
-                    mapType={this.props.scope} />
                 <ul className="map-legend-body">
                     {this.state.items}
                 </ul>
@@ -125,6 +119,13 @@ export default class MapLegend extends React.Component {
         );
     }
 }
-
+/*
+<MapLegendHeader
+                    mapLegendToggleData={this.props.mapLegendToggleData}
+                    mapLegendToggle={this.props.mapLegendToggle}
+                    updateToggle={this.updateToggle}
+                    resetToggle={this.resetToggle}
+                    mapType={this.props.scope} />
+                    */
 MapLegend.propTypes = propTypes;
 MapLegend.defaultProps = defaultProps;

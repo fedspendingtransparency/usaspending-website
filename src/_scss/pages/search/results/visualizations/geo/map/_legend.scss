@@ -1,12 +1,7 @@
 .map-legend {
   border-radius: 4px;
   background-color: $color-white;
-  bottom: rem(50);
-
-  @include media($tablet-screen) {
-    bottom: rem(15);
-  }
-
+  bottom: rem(8);
   right: rem(8);
   position: absolute;
   z-index: 2;
@@ -63,7 +58,7 @@
     padding: $global-padding*2;
 
     li {
-      margin-bottom: rem(10);
+      margin-bottom: rem(5);
 
       &:last-child {
         margin-bottom: 0px;
