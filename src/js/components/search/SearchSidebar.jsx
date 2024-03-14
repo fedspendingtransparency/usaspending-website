@@ -229,11 +229,13 @@ const SearchSidebar = ({
             </div>
 
             <div className="sidebar-top-submit">
-                <RoundedToggle
-                    toggle={toggleTempSearchPage}
-                    onKeyToggle={onKeyToggle}
-                    onToggle={onToggle}
-                    label="Use previous Advanced Search" />
+                <div className="temp-search-page">
+                    <RoundedToggle
+                        toggle={toggleTempSearchPage}
+                        onKeyToggle={onKeyToggle}
+                        onToggle={onToggle}
+                        label="Use previous Advanced Search" />
+                </div>
                 <SearchSidebarSubmitContainer />
             </div>
             <FilterSidebar
