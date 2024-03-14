@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
-import MapLegendHeader from './MapLegendHeader';
+// import MapLegendHeader from './MapLegendHeader';
 import MapLegendItem from './MapLegendItem';
 
 const propTypes = {
