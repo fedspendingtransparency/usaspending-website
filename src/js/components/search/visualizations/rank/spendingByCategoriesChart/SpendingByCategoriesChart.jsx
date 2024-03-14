@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const CustomTick = (props) => {
     const {
@@ -43,7 +43,12 @@ const SpendingByCategoriesChart = (props) => {
                         bottom: 10
                     }}>
                     <XAxis type="number" hide />
-                    <YAxis type="category" dataKey="label" tick={<CustomTick link={dataStuff} />} fontSize="12px" link="link" />
+                    <YAxis
+                        type="category"
+                        dataKey="label"
+                        height={42}
+                        tickLine={false}
+                        tick={<CustomTick link={dataStuff} />} />
                     <Bar dataKey="value" fill="#07648d" activeBar={false} />
                 </BarChart>
             </ResponsiveContainer>
