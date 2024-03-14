@@ -41,6 +41,7 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
 import RoundedToggle from "../sharedComponents/RoundedToggle";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -229,13 +230,15 @@ const SearchSidebar = ({
             </div>
 
             <div className="sidebar-top-submit">
-                <div className="temp-search-page">
-                    <RoundedToggle
-                        toggle={toggleTempSearchPage}
-                        onKeyToggle={onKeyToggle}
-                        onToggle={onToggle}
-                        label="Use previous Advanced Search" />
-                </div>
+                <FeatureFlag>
+                    <div className="temp-search-page">
+                        <RoundedToggle
+                            toggle={toggleTempSearchPage}
+                            onKeyToggle={onKeyToggle}
+                            onToggle={onToggle}
+                            label="Use previous Advanced Search" />
+                    </div>
+                </FeatureFlag>
                 <SearchSidebarSubmitContainer />
             </div>
             <FilterSidebar

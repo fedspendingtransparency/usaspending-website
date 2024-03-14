@@ -14,6 +14,8 @@ import { AddFilter } from 'components/sharedComponents/icons/Icons';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import GlobalConstants from "GlobalConstants";
+
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
@@ -22,6 +24,7 @@ import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import TempSearchPage from "../tempSearchPage/TempSearchPage";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const propTypes = {
     download: PropTypes.object,
@@ -54,7 +57,10 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+
+    // TODO: Remove this state once new Advance Search is done and toggle no longer needed
     const [toggleTempSearchPage, setToggleTempSearchPage] = useState(false);
+    const isPROD = GlobalConstants.PROD;
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -197,7 +203,19 @@ const SearchPage = ({
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
-                    {toggleTempSearchPage ?
+                    <FeatureFlag>
+                        {toggleTempSearchPage ?
+                            <SearchResults
+                                filters={filters}
+                                isMobile={isMobile}
+                                filterCount={filterCount}
+                                showMobileFilters={showMobileFilters}
+                                updateFilterCount={updateFilterCount}
+                                toggleMobileFilters={toggleMobileFilters}
+                                requestsComplete={requestsComplete}
+                                noFiltersApplied={noFiltersApplied} /> : <TempSearchPage />}
+                    </FeatureFlag>
+                    {isPROD ?
                         <SearchResults
                             filters={filters}
                             isMobile={isMobile}
@@ -206,7 +224,7 @@ const SearchPage = ({
                             updateFilterCount={updateFilterCount}
                             toggleMobileFilters={toggleMobileFilters}
                             requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} /> : <TempSearchPage />}
+                            noFiltersApplied={noFiltersApplied} /> : null}
                 </div>
                 <FullDownloadModalContainer
                     download={download}
