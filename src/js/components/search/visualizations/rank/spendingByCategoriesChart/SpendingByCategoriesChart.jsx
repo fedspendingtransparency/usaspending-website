@@ -34,6 +34,7 @@ const SpendingByCategoriesChart = (props) => {
                 <BarChart
                     data={dataStuff}
                     layout="vertical"
+                    barSize={21}
                     barCategoryGap={10}
                     margin={{
                         top: 10,
@@ -41,12 +42,9 @@ const SpendingByCategoriesChart = (props) => {
                         left: 200,
                         bottom: 10
                     }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis type="number" />
+                    <XAxis type="number" hide />
                     <YAxis type="category" dataKey="label" tick={<CustomTick link={dataStuff} />} fontSize="12px" link="link" />
-                    {/* todo - tooltips in next ticket */}
-                    {/* <Tooltip /> */}
-                    <Bar dataKey="value" fill="#8884d8" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+                    <Bar dataKey="value" fill="#07648d" activeBar={false} />
                 </BarChart>
             </ResponsiveContainer>
         </div>
