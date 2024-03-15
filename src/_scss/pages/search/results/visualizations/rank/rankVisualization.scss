@@ -11,8 +11,17 @@
         @import "./chart/rankChart";
 
         // new chart requires height on its parent div
-        .recharts-time-visualization-container {
-            height: rem(400);
+        .recharts-categories-visualization-container {
+            height: rem(500);
+
+            //.recharts-categories-label-container {
+            //        height: rem(42);
+            //    .text-class {
+            //        font-size: rem(14);
+            //        line-height: 1.5;
+            //        word-wrap: break-word;
+            //    }
+            //}
         }
 
         .visualization-tooltip {
