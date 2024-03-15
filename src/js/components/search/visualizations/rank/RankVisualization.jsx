@@ -6,11 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GlobalConstants from 'GlobalConstants';
-
+import { LoadingMessage, ErrorMessage, NoResultsMessage } from 'data-transparency-ui';
 import SpendingByCategoriesChart from './spendingByCategoriesChart/SpendingByCategoriesChart';
 import HorizontalChart from './chart/HorizontalChart';
 import RankVisualizationTooltip from './RankVisualizationTooltip';
-import ChartMessage from './RankVisualizationChartMessage';
 
 const defaultProps = {
     labelSeries: [],
@@ -71,19 +70,19 @@ export default class RankVisualization extends React.Component {
     }
 
     render() {
-        let chart = (<ChartMessage message="No data to display" />);
+        let chart = (<NoResultsMessage />);
         let legend = null;
 
         if (this.props.loading) {
-            chart = (<ChartMessage message="Loading data..." />);
+            chart = (<LoadingMessage />);
         }
         else if (this.props.error) {
-            chart = (<ChartMessage message="An error has occurred." />);
+            chart = (<ErrorMessage description="An error has occurred." />);
             if (this.props.industryCodeError) {
-                chart = (<ChartMessage message="Industry codes are unavailable for Sub-Awards." />);
+                chart = (<ErrorMessage description="Industry codes are unavailable for Sub-Awards." />);
             }
             else if (this.props.recipientError) {
-                chart = (<ChartMessage message="Paging to 10,000 records and above is not available for Spending by Recipient." />);
+                chart = (<ErrorMessage description="Paging to 10,000 records and above is not available for Spending by Recipient." />);
             }
         }
         else if (this.props.dataSeries.length > 0) {
