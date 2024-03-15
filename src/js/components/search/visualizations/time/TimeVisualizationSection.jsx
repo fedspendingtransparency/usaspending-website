@@ -23,7 +23,8 @@ const propTypes = {
     data: PropTypes.object,
     updateVisualizationPeriod: PropTypes.func,
     visualizationPeriod: PropTypes.string,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    loading: PropTypes.bool
 };
 
 export default class TimeVisualizationSection extends React.Component {

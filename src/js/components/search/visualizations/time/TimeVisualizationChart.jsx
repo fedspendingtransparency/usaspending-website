@@ -1,7 +1,18 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import PropTypes from "prop-types";
+import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
+
+const propTypes = {
+    data: PropTypes.object,
+    updateVisualizationPeriod: PropTypes.func,
+    visualizationPeriod: PropTypes.string,
+    subaward: PropTypes.bool,
+    loading: PropTypes.bool,
+    width: PropTypes.bool
+};
 
 // TODO - Add tooltips before this feature is released
 // const CustomTooltip = ({ active, payload, label }) => {
@@ -112,24 +123,40 @@ const TimeVisualizationChart = (props) => {
         transformedData.pop();
     }
 
+    const Message = () => {
+        if (props.loading) {
+            return <LoadingMessage />;
+        } else if (props.error) {
+            return <ErrorMessage />;
+        } else if (transformedData.length === 0) {
+            return <NoResultsMessage />;
+        }
+
+        return <></>;
+    }
+
     return (
         <div className="recharts-time-visualization-container">
-            <ResponsiveContainer>
-                <BarChart
-                    data={transformedData}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                    }}>
-                    <XAxis dataKey="label" tick={<CustomXTick />} />
-                    <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                    {/* TODO - Add tooltips before this feature is released */}
-                    {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
-                    <Bar dataKey="value" shape={<CustomShape />} />
-                </BarChart>
-            </ResponsiveContainer>
+            {props.loading || props.error || transformedData.length === 0 ?
+                <><Message /></>
+                :
+                <ResponsiveContainer>
+                    <BarChart
+                        data={transformedData}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5
+                        }}>
+                        <XAxis dataKey="label" tick={<CustomXTick />} />
+                        <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                        {/* TODO - Add tooltips before this feature is released */}
+                        {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
+                        <Bar dataKey="value" shape={<CustomShape />} />
+                    </BarChart>
+                </ResponsiveContainer>
+            }
         </div>);
 };
 
