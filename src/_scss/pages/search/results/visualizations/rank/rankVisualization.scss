@@ -39,12 +39,6 @@
             }
         }
     }
-    .results-visualization-message {
-        margin-top: rem(10);
-        font-size: $small-font-size;
-        color: $color-base;
-        text-align: center;
-    }
 
     @import '../../../../../components/visualizations/legend';
     .visualization-legend {
