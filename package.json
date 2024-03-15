@@ -125,6 +125,7 @@
     "webpack-merge": "^5.9.0"
   },
   "resolutions": {
+    "axios": "1.6.2",
     "browserify-sign": "4.2.2",
     "@babel/traverse": "7.23.2",
     "trim-newlines": "4.0.2",
@@ -149,7 +150,8 @@
     "icss-utils": "5.0.0",
     "**/icss-utils": "5.0.0",
     "@adobe/css-tools": "4.3.2",
-    "follow-redirects": "1.15.4"
+    "follow-redirects": "1.15.5",
+    "**/follow-redirects": "1.15.5"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
