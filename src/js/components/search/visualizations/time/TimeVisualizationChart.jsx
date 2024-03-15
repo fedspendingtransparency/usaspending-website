@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import PropTypes from "prop-types";
 import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";
@@ -11,6 +10,7 @@ const propTypes = {
     visualizationPeriod: PropTypes.string,
     subaward: PropTypes.bool,
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     width: PropTypes.bool
 };
 
@@ -133,7 +133,7 @@ const TimeVisualizationChart = (props) => {
         }
 
         return <></>;
-    }
+    };
 
     return (
         <div className="recharts-time-visualization-container">
@@ -160,4 +160,5 @@ const TimeVisualizationChart = (props) => {
         </div>);
 };
 
+TimeVisualizationChart.propTypes = propTypes;
 export default TimeVisualizationChart;
