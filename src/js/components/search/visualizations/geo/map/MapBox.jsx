@@ -55,7 +55,8 @@ const MapBox = forwardRef((props, ref) => {
 
         if (isStateSelected()) {
             const stateCode = props.stateInfo?.code || props.singleLocationSelected?.state;
-            if (stateCode !== '') {
+
+            if (stateCode && stateCode !== '') {
                 const state = statesBySqMile.find((s) => s.code === stateCode);
                 if (state?.size > 500000) {
                     zoomLevel = 3.0;
@@ -71,6 +72,8 @@ const MapBox = forwardRef((props, ref) => {
                 }
                 zoomLevel = 4.2;
             }
+
+            zoomLevel += isCountyOrDistrict() ? 1 : 0;
         }
 
         setZoom(zoomLevel);
@@ -121,7 +124,7 @@ const MapBox = forwardRef((props, ref) => {
         map.current = new MapboxGL.Map({
             container: mapDiv.current,
             style: mapStyle,
-            logoPosition: 'bottom-right',
+            logoPosition: 'bottom-left',
             attributionControl: false,
             center: props.center,
             zoom: calculateMapZoom(),
@@ -191,17 +194,19 @@ const MapBox = forwardRef((props, ref) => {
 
     useEffect(() => {
         if (isReCenterable()) {
-            centerMap(map);
+            if (props.singleLocationSelected?.country !== "USA") {
+                centerMap(map);
+            }
+            else {
+                calculateMapZoom();
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.center, props.singleLocationSelected]);
 
     useEffect(() => {
-        if (isReCenterable() && isCountyOrDistrict()) {
-            if (zoom < 5) {
-                setZoom(zoom + 1);
-                map?.current?.zoomTo(zoom + 1);
-            }
+        if (map.current) {
+            centerMap(map);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [zoom]);
