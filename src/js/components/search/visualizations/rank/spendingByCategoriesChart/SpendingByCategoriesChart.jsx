@@ -1,6 +1,21 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import PropTypes from "prop-types";
+
+const propTypes = {
+    dataSeries: PropTypes.array,
+    labelSeries: PropTypes.array,
+    descriptions: PropTypes.array,
+    linkSeries: PropTypes.array
+};
+
+const customTickPropTypes = {
+    x: PropTypes.number,
+    y: PropTypes.number,
+    payload: PropTypes.object,
+    link: PropTypes.array
+};
 
 const CustomTick = (props) => {
     const {
@@ -79,5 +94,6 @@ const SpendingByCategoriesChart = (props) => {
     );
 };
 
+SpendingByCategoriesChart.propTypes = propTypes;
+CustomTick.propTypes = customTickPropTypes;
 export default SpendingByCategoriesChart;
-
