@@ -1,5 +1,6 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
+import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const CustomTick = (props) => {
     const {
@@ -32,11 +33,13 @@ const SpendingByCategoriesChart = (props) => {
     const dataStuff = [];
     if (props.dataSeries?.length === props.labelSeries?.length) {
         for (let i = 0; i < props.dataSeries.length; i++) {
+            const formattedValue = formatMoneyWithUnitsShortLabel(props.dataSeries[i], 2);
             dataStuff.push({
                 value: props.dataSeries[i],
                 label: props.labelSeries[i],
                 desc: props.descriptions[i],
-                link: props.linkSeries[i]
+                link: props.linkSeries[i],
+                barLabel: formattedValue
             });
         }
     }
@@ -62,7 +65,9 @@ const SpendingByCategoriesChart = (props) => {
                         width={100}
                         tickLine={false}
                         tick={<CustomTick link={dataStuff} />} />
-                    <Bar dataKey="value" fill="#07648d" activeBar={false} />
+                    <Bar dataKey="value" fill="#07648d" activeBar={false} >
+                        <LabelList dataKey="barLabel" position="end" />
+                    </Bar>
                 </BarChart>
             </ResponsiveContainer>
         </div>
