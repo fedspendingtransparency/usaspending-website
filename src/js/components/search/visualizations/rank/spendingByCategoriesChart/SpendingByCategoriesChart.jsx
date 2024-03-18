@@ -66,7 +66,12 @@ const SpendingByCategoriesChart = (props) => {
                         tickLine={false}
                         tick={<CustomTick link={dataStuff} />} />
                     <Bar dataKey="value" fill="#07648d" activeBar={false} >
-                        <LabelList dataKey="barLabel" position="right" fill="#07648d" fontSize={14} />
+                        <LabelList
+                            dataKey="barLabel"
+                            position="right"
+                            fill="#07648d"
+                            fontSize={14}
+                            fontWeight={600} />
                     </Bar>
                 </BarChart>
             </ResponsiveContainer>
