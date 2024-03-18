@@ -1,88 +1,105 @@
 .map-legend {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    background-color: $color-white;
-    bottom: rem(50);
-    @include media($tablet-screen) {
-        bottom: rem(15);
-    }
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-    left: rem(15);
-    position: absolute;
-    z-index: 2;
-    .map-legend-header {
-      padding: 0.65rem $global-pad;
-      border-bottom: 2px solid $color-gray-lightest;
-      .map-legend-header__title {
-        display: flex;
-        align-items: center;
-        .map-legend-header__title-text {
-          margin: 0;
-          font-size: 1.4rem;
-          font-weight: $font-semibold;
-          padding-bottom: 0.6rem;
-        }
-        .tooltip-wrapper {
-          .tooltip-pointer {
-            left: -0.7rem;
-          }
-          .tooltip-pointer::after {
-            background-color: $color-white;;
-          }
-        }
+  border-radius: 4px;
+  background-color: $color-white;
+  bottom: rem(8);
+  right: rem(8);
+  position: absolute;
+  z-index: 2;
+  border: solid 1px $gray-cool-10;
+
+  .map-legend-header {
+    padding: $global-padding*2 $global-padding*2 0 $global-padding*2;
+    border-bottom: 2px solid $color-gray-lightest;
+
+    .map-legend-header__title {
+      display: flex;
+      align-items: center;
+
+      .map-legend-header__title-text {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: $font-semibold;
+        padding-bottom: 0.6rem;
       }
-      .map-legend-header__body {
-        .map-legend-header__body-toggle-button__container {
-            padding-bottom: 0.65rem;
-            label {
-              font-size: 1.42rem;
-              input {
-                margin-right: 1.1rem;
-              }
-            }
-            &:last-child {
-              padding-bottom: 0;
-            }
+
+      .tooltip-wrapper {
+        .tooltip-pointer {
+          left: -0.7rem;
+        }
+
+        .tooltip-pointer::after {
+          background-color: $color-white;
+          ;
         }
       }
     }
-    .map-legend-body {
-        @include unstyled-list;
-        padding: 0.65rem $global-pad;
-        li {
-            margin-bottom: rem(10);
-            &:last-child {
-                margin-bottom: 0px;
-            }
+
+    .map-legend-header__body {
+      .map-legend-header__body-toggle-button__container {
+        padding-bottom: 0.65rem;
+
+        label {
+          font-size: 1.42rem;
+
+          input {
+            margin-right: 1.1rem;
+          }
         }
-        .map-legend-item {
-            @include clearfix;
-            line-height: rem(18);
-            font-size: rem(14);
-            .color-swatch {
-                border: 1px solid rgba(173, 175, 180, 0.5);
-                float: left;
-                height: rem(15);
-                margin-top: rem(2);
-                width: rem(15);
-            }
-            .label {
-                color: $color-gray;
-                float: left;
-                margin-left: rem(5);
-            }
+
+        &:last-child {
+          padding-bottom: 0;
         }
+      }
     }
-    .map-legend-body-covid19 {
-      text-align: center;
-      @include unstyled-list;
-      padding: 0.65rem $global-pad;
-      .map-legend-gradient {
-        background: linear-gradient(rgba(1, 43, 58, 1), #FFF);
-        height: rem(100);
-        width: rem(20);
-        margin: rem(7) auto;
-        border: rem(0.1) solid lightslategray;
-      };
+  }
+
+  .map-legend-body {
+    @include unstyled-list;
+    padding: $global-padding*2;
+
+    li {
+      margin-bottom: rem(4);
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+
+    .map-legend-item {
+      @include clearfix;
+      line-height: rem(18);
+      font-size: rem(14);
+
+      .color-swatch {
+        border-radius: 4px;
+        float: left;
+        height: rem(12);
+        margin: 2px 6px 2px 0; 
+        width: rem(12);
+      }
+
+      .label {
+        color: $gray-90;
+        font-size: $font-size-12;
+        line-height: 1.33;
+        float: left;
+
+      }
+    }
+  }
+
+  .map-legend-body-covid19 {
+    text-align: center;
+    @include unstyled-list;
+    padding: 0.65rem $global-pad;
+
+    .map-legend-gradient {
+      background: linear-gradient(rgba(1, 43, 58, 1), #FFF);
+      height: rem(100);
+      width: rem(20);
+      margin: rem(7) auto;
+      border: rem(0.1) solid lightslategray;
+    }
+
+    ;
   }
 }

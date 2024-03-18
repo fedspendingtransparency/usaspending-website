@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
-import MapLegendHeader from './MapLegendHeader';
 import MapLegendItem from './MapLegendItem';
 
 const propTypes = {
@@ -112,12 +111,6 @@ export default class MapLegend extends React.Component {
     render() {
         return (
             <div className="map-legend">
-                <MapLegendHeader
-                    mapLegendToggleData={this.props.mapLegendToggleData}
-                    mapLegendToggle={this.props.mapLegendToggle}
-                    updateToggle={this.updateToggle}
-                    resetToggle={this.resetToggle}
-                    mapType={this.props.scope} />
                 <ul className="map-legend-body">
                     {this.state.items}
                 </ul>

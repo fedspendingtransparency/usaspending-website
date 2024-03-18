@@ -124,7 +124,7 @@ const MapBox = forwardRef((props, ref) => {
         map.current = new MapboxGL.Map({
             container: mapDiv.current,
             style: mapStyle,
-            logoPosition: 'bottom-right',
+            logoPosition: 'bottom-left',
             attributionControl: false,
             center: props.center,
             zoom: calculateMapZoom(),
