@@ -1,28 +1,19 @@
 .results-visualization-rank-section {
     @import "./_title";
     @import "./_topSection";
+
+    // this was added to make the new chart not expand outside the section container
+    // the intro text and the sub-agencies picker still re-orient the same way at > 768
+    display: flex;
+    flex-direction: column;
+
     .results-divider {
         float: none;
     }
 
-
     .results-visualization-rank-container {
         position: relative;
         @import "./chart/rankChart";
-
-        // new chart requires height on its parent div
-        .recharts-categories-visualization-container {
-            height: rem(500);
-
-            //.recharts-categories-label-container {
-            //        height: rem(42);
-            //    .text-class {
-            //        font-size: rem(14);
-            //        line-height: 1.5;
-            //        word-wrap: break-word;
-            //    }
-            //}
-        }
 
         .visualization-tooltip {
             @import "components/visualizations/tooltip/_tooltip";

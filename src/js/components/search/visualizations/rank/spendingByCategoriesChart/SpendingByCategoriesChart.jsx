@@ -1,7 +1,14 @@
-import React from 'react';
+/**
+ * SpendingByCategoriesChart.jsx
+ * Created by Brian Petway 03/12/2024
+ **/
+
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import PropTypes from "prop-types";
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { throttle } from "lodash";
 
 const propTypes = {
     dataSeries: PropTypes.array,
@@ -29,22 +36,30 @@ const CustomTick = (props) => {
         //         </text>
         //     </a>
         // </g>);
-        <g transform={`translate(${x},${y})`} style={{ height: "42px", wordWrap: "break-word" }} >
-            <a href={`${link[payload.index].link}`} >
+        <g transform={`translate(${x},${y})`} >
+            {/* <rect height={42}> */}
+            <a href={`${link[payload.index].link}`} style={{ wordWrap: "break-word" }} >
                 <text
                     x={0}
                     y={0}
                     dy={0}
                     textAnchor="end"
                     fontSize={14}
+                    width="100"
                     fill="#2378C3">
                     {payload.value}
                 </text>
             </a>
+            {/* </rect> */}
         </g>);
 };
 
 const SpendingByCategoriesChart = (props) => {
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+
+    const labelWidthVar = isMobile ? 50 : 100;
+
     const dataStuff = [];
     if (props.dataSeries?.length === props.labelSeries?.length) {
         for (let i = 0; i < props.dataSeries.length; i++) {
@@ -59,9 +74,21 @@ const SpendingByCategoriesChart = (props) => {
         }
     }
 
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     return (
-        <div className="recharts-categories-visualization-container">
-            <ResponsiveContainer width="100%" height="100%">
+        <>
+            <ResponsiveContainer width="100%" height={500}>
                 <BarChart
                     data={dataStuff}
                     layout="vertical"
@@ -69,7 +96,7 @@ const SpendingByCategoriesChart = (props) => {
                     margin={{
                         top: 10,
                         right: 10,
-                        left: 100,
+                        left: labelWidthVar,
                         bottom: 10
                     }}>
                     <XAxis type="number" hide />
@@ -77,7 +104,7 @@ const SpendingByCategoriesChart = (props) => {
                         type="category"
                         dataKey="label"
                         height={42}
-                        width={100}
+                        width={labelWidthVar}
                         tickLine={false}
                         tick={<CustomTick link={dataStuff} />} />
                     <Bar dataKey="value" fill="#07648d" activeBar={false} >
@@ -90,7 +117,7 @@ const SpendingByCategoriesChart = (props) => {
                     </Bar>
                 </BarChart>
             </ResponsiveContainer>
-        </div>
+        </>
     );
 };
 
