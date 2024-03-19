@@ -4,6 +4,11 @@
     @media (max-width: $tablet-screen) {
         display: flex;
     }
+
+    .mapboxgl-ctrl {
+        margin-right: rem(8);
+        margin-top: rem(8);
+    }
     .mapbox-item {
         display: block;
         height: 100%;
@@ -29,8 +34,8 @@
 
         .map-buttons {
             position: absolute;
-            float: right;
-            right: rem(5);
+            float: left;
+            left: rem(5);
             bottom: rem(40);
             z-index: 2;
             .first-row,
