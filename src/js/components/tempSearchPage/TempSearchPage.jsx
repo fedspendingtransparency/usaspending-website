@@ -6,6 +6,7 @@ import TempSpendingOverTime from "./TempSpendingOverTime";
 import TempMapSection from "./TempMapSection";
 import TempCategoriesSection from "./TempCategoriesSection";
 import TempPlaceholderComponent from "./TempPlaceholderComponent";
+import TempSearchSectionWrapper from "./TempSearchSectionWrapper";
 
 require("pages/search/searchPage.scss");
 
@@ -72,6 +73,7 @@ const TempSearchPage = () => {
                 classNames="usa-da-search-page"
                 title="Temp Search Page">
                 <main id="main-content" className="main-content">
+                    <TempSearchSectionWrapper />
                     <div id="search-page-component" className="award">
                         {!awardTableHasLoaded && <TempPlaceholderComponent />}
                         {(isVisible === 'award' || awardTableHasLoaded) &&
