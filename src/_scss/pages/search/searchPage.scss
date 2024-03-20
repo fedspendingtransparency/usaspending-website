@@ -10,6 +10,9 @@
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
+    @import "../../components/roundedtoggle";
+    @import "toggleTempSearchPage";
+
     .subaward-dropdown__list {
         min-width: max-content;
     }
