@@ -96,10 +96,13 @@ const TempSearchPage = () => {
                 classNames="usa-da-search-page"
                 title="Temp Search Page">
                 <main id="main-content" className="main-content">
-                    <TempSearchSectionWrapper
-                        {...dummyWrapperProps}
-                        viewType={viewType}
-                        setViewType={setViewType} />
+                    <div className="search-contents">
+                        <div className="full-search-sidebar temp-search__sidebar">sidebar placeholder</div>
+                        <TempSearchSectionWrapper
+                            {...dummyWrapperProps}
+                            viewType={viewType}
+                            setViewType={setViewType} />
+                    </div>
                     <div id="search-page-component" className="award">
                         {!awardTableHasLoaded && <TempPlaceholderComponent />}
                         {(isVisible === 'award' || awardTableHasLoaded) &&

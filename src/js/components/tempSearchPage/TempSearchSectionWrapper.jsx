@@ -48,7 +48,7 @@ const TempSearchSectionWrapper = ({
     }, [dropdownOptions]);
 
     return (
-        <div>
+        <div className="search-results-wrapper temp-search__section-wrapper">
             <div>{sectionTitle}</div>
             <NewPicker
                 leftIcon=""
