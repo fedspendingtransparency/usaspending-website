@@ -7,6 +7,7 @@
   .temp-search__section-wrapper {
     border: rem(1) solid $gray-cool-10;
     border-radius: rem(8);
+    background-color: $color-white;
 
     .temp-search__section-wrapper-header {
       margin: rem(24);
@@ -37,32 +38,32 @@
           }
         }
       }
-    }
 
-    @import "../_chartTableToggle";
+      @import "../_chartTableToggle";
 
-    .chart-table-toggle {
-      border: rem(1) solid $gray-cool-10;
-      height: fit-content;
+      .chart-table-toggle {
+        border: rem(1) solid $gray-cool-10;
+        height: fit-content;
 
-      .view-button {
-        border: none;
-        color: $blue-50;
-        padding: rem(8);
-
-        &.active {
-          background-color: $blue-5;
+        .view-button {
+          border: none;
           color: $blue-50;
+          padding: rem(8);
+
+          &.active {
+            background-color: $blue-5;
+            color: $blue-50;
+          }
         }
-      }
 
-      button {
-        height: rem(30);
-        width: rem(31);
-      }
+        button {
+          height: rem(30);
+          width: rem(31);
+        }
 
-      svg {
-        width: rem(16);
+        svg {
+          width: rem(16);
+        }
       }
     }
   }
