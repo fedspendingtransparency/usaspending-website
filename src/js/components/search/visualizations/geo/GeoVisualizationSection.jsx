@@ -69,7 +69,7 @@ const GeoVisualizationSection = (props) => {
     const addOnClickToFilters = () => Object.keys(filters).reduce((acc, filter) => {
         const filterWithOnClick = {
             ...filters[filter],
-            onClick: this[filtersOnClickHandler[filter]]
+            onClick: filtersOnClickHandler[filter]
         };
         acc[filter] = filterWithOnClick;
         return acc;
@@ -290,7 +290,7 @@ const GeoVisualizationSection = (props) => {
             </div>
 
             <MapWrapper
-                filters={addOnClickToFilters}
+                filters={addOnClickToFilters()}
                 activeFilters={activeFilters}
                 setActiveFilters={setActiveFilters}
                 awardTypeFilters={awardTypeTabs}

@@ -26,11 +26,6 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
             <MapFiltersHeader />
         </div>
         <div className="map__filters-body">
-            test
-        </div>
-    </div>
-);
-/*
             {
                 Object.keys(filters).map((filter) => (
                     <div key={uniqueId()} className="map__filters-filter__container">
@@ -65,6 +60,9 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                     </div>
                 ))
             }
-*/
+        </div>
+    </div>
+);
+
 MapFilters.propTypes = propTypes;
 export default MapFilters;
