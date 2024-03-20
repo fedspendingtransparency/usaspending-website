@@ -41,17 +41,17 @@ const Analytics = {
                 event_value: args.value || undefined,
                 event_nonInteraction: args.nonInteraction || undefined
             });
-        } else {
-            this._execute(
-                'send',
-                args.event || 'event',
-                `${this._prefix}${args.category}`,
-                args.action,
-                args.label || undefined,
-                args.value || undefined,
-                args.nonInteraction || undefined
-            );
         }
+
+        this._execute(
+            'send',
+            'event',
+            `${this._prefix}${args.category}`,
+            args.action,
+            args.label || undefined,
+            args.value || undefined,
+            args.nonInteraction || undefined
+        );
     },
     pageview(pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics) {
         if (kGlobalConstants.QAT) {
