@@ -13,7 +13,11 @@ import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import Note from 'components/sharedComponents/Note';
 import { noteMessage } from 'dataMapping/search/geoVisualizationSection';
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-
+import {
+    filters,
+    filtersOnClickHandler
+} from 'dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
@@ -51,9 +55,25 @@ const GeoVisualizationSection = (props) => {
     const [tableTitle, setTableTitle] = useState("");
     const [tablePreview, setTablePreview] = useState("");
     const [expanded, setExpanded] = useState(null);
+    const [activeFilters, setActiveFilters] = useState({
+        territory: 'state',
+        spendingType: 'obligation',
+        amountType: 'totalSpending',
+        recipientType: 'all',
+        awardType: 'all'
+    });
     const sectionHr = useRef(null);
     const prevProps = usePrevious(props);
     const dataRef = useRef(props.data);
+
+    const addOnClickToFilters = () => Object.keys(filters).reduce((acc, filter) => {
+        const filterWithOnClick = {
+            ...filters[filter],
+            onClick: this[filtersOnClickHandler[filter]]
+        };
+        acc[filter] = filterWithOnClick;
+        return acc;
+    }, {});
 
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
@@ -270,6 +290,10 @@ const GeoVisualizationSection = (props) => {
             </div>
 
             <MapWrapper
+                filters={addOnClickToFilters}
+                activeFilters={activeFilters}
+                setActiveFilters={setActiveFilters}
+                awardTypeFilters={awardTypeTabs}
                 data={props.data}
                 renderHash={props.renderHash}
                 scope={props.mapLayer}

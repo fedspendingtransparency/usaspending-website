@@ -5,7 +5,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { uniq } from 'lodash';
+import { uniq, cloneDeep } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -13,10 +13,16 @@ import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper'
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
-import MapLayerToggle from './MapLayerToggle';
+// import MapLayerToggle from './MapLayerToggle';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
+import MapFiltersToggle from "./MapFiltersToggle";
+import MapFilters from "./MapFilters";
 
 const propTypes = {
+    filters: PropTypes.object,
+    activeFilters: PropTypes.object,
+    setActiveFilters: PropTypes.func,
+    awardTypeFilters: PropTypes.object,
     data: PropTypes.object,
     scope: PropTypes.string,
     renderHash: PropTypes.string,
@@ -107,6 +113,7 @@ const MapWrapper = (props) => {
         units: {}
     });
     const [center, setCenter] = useState(props.center);
+    const [isFiltersOpen, setIsFiltersOpen] = useState(true);
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
@@ -510,24 +517,24 @@ const MapWrapper = (props) => {
         return null;
     };
 
-    const toggle = () => {
-        const {
-            showLayerToggle,
-            availableLayers,
-            scope,
-            changeMapLayer,
-            className
-        } = props;
-        if (showLayerToggle && availableLayers.length > 1) {
-            return (<MapLayerToggle
-                active={scope}
-                available={availableLayers}
-                sources={mapboxSources}
-                changeMapLayer={changeMapLayer}
-                className={className} />);
-        }
-        return null;
-    };
+    // const toggle = () => {
+    //     const {
+    //         showLayerToggle,
+    //         availableLayers,
+    //         scope,
+    //         changeMapLayer,
+    //         className
+    //     } = props;
+    //     if (showLayerToggle && availableLayers.length > 1) {
+    //         return (<MapLayerToggle
+    //             active={scope}
+    //             available={availableLayers}
+    //             sources={mapboxSources}
+    //             changeMapLayer={changeMapLayer}
+    //             className={className} />);
+    //     }
+    //     return null;
+    // };
 
     const legend = () => {
         const {
@@ -545,6 +552,24 @@ const MapWrapper = (props) => {
         );
     };
 
+    const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
+
+    const filters = () => {
+        const { activeFilters } = props;
+        const mapFilters = cloneDeep(props.filters);
+
+        if (!mapFilters || !activeFilters) return null;
+        const awardTypeFilters = props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        if (awardTypeFilters.includes(activeFilters.awardType)) {
+            mapFilters.spendingType.options.pop();
+        }
+        return (
+            <MapFilters
+                filters={mapFilters}
+                activeFilters={props.activeFilters}
+                isOpen={isFiltersOpen} />
+        );
+    };
     useEffect(() => {
         displayData();
         if (!props.stateProfile) {
@@ -594,7 +619,8 @@ const MapWrapper = (props) => {
                 stateProfile={props.stateProfile}
                 ref={mapRef}
                 singleLocationSelected={props.singleLocationSelected} />
-            {toggle()}
+            <MapFiltersToggle onClick={toggleFilters} isOpen={isFiltersOpen} />
+            {filters()}
             {legend()}
             {tooltip()}
             {props.children}
