@@ -9,12 +9,13 @@
     border-radius: rem(8);
 
     .temp-search__section-wrapper-header {
-      border: rem(1) solid orange;
       margin: rem(24);
       display: flex;
       justify-content: space-between;
 
       .filter__dropdown-container {
+        height: auto;
+
         [class*="filter__dropdown-label"] {
           color: $gray-cool-90;
         }
@@ -35,6 +36,33 @@
             color: $blue-50;
           }
         }
+      }
+    }
+
+    @import "../_chartTableToggle";
+
+    .chart-table-toggle {
+      border: rem(1) solid $gray-cool-10;
+      height: fit-content;
+
+      .view-button {
+        border: none;
+        color: $blue-50;
+        padding: rem(8);
+
+        &.active {
+          background-color: $blue-5;
+          color: $blue-50;
+        }
+      }
+
+      button {
+        height: rem(30);
+        width: rem(31);
+      }
+
+      svg {
+        width: rem(16);
       }
     }
   }
