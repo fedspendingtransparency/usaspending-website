@@ -61,11 +61,13 @@ const TempSearchSectionWrapper = ({
                     sortFn={sortFn} />
                 <ChartTableToggle activeType={viewType} changeView={changeView} />
             </div>
-            {viewType === 'chart' ? (
-                <div>chart: {children}</div>
-            ) : (
-                <div>table: {children}</div>
-            )}
+            <div className="temp-search__section-wrapper-content">
+                {viewType === 'chart' ? (
+                    <div>chart: {children}</div>
+                ) : (
+                    <div>table: {children}</div>
+                )}
+            </div>
             <Accordion
                 setOpen={setOpen}
                 closedIcon="chevron-down"
