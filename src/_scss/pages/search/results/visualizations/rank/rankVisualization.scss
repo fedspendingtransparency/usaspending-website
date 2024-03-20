@@ -15,6 +15,13 @@
         position: relative;
         @import "./chart/rankChart";
 
+        //.new-class {
+        //    tspan {
+        //    color: greenyellow;
+        //
+        //    }
+        //}
+
         .visualization-tooltip {
             @import "components/visualizations/tooltip/_tooltip";
         }
