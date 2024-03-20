@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Set } from 'immutable';
@@ -46,7 +45,6 @@ const propTypes = {
     newAwardsOnlyActive: PropTypes.bool,
     naoActiveFromFyOrDateRange: PropTypes.bool,
     federalAccountPage: PropTypes.bool
-    // latestFy: PropTypes.string
 };
 
 export default class TimePeriod extends React.Component {
@@ -62,8 +60,7 @@ export default class TimePeriod extends React.Component {
             isActive: false,
             selectedFY: new Set(),
             allFY: false,
-            clearHint: false,
-            currentFiscalYear: currentFiscalYear()
+            clearHint: false
         };
 
         // bind functions
@@ -293,15 +290,7 @@ export default class TimePeriod extends React.Component {
                 message={this.state.errorMessage} />);
         }
 
-        if (this.props.federalAccountPage) {
-            showFilter = (<AllFiscalYears
-                updateFilter={this.props.updateFilter}
-                timePeriods={this.props.timePeriods}
-                selectedFY={new Set([this.state.currentFiscalYear.toString()])} />);
-            activeClassFY = '';
-            activeClassDR = 'inactive';
-        }
-        else if (!this.props.federalAccountPage && this.props.activeTab === 'fy') {
+        if (this.props.activeTab === 'fy') {
             showFilter = (<AllFiscalYears
                 updateFilter={this.props.updateFilter}
                 timePeriods={this.props.timePeriods}

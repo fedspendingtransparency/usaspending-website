@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
@@ -49,8 +50,12 @@ export class AccountTimePeriodContainer extends React.Component {
 
     componentDidMount() {
         if (this.props.latestPeriod.year) {
+            // it seems this block never happens;
+            // on page load the didUpdate block is what calls generateTimePeriods
             this.generateTimePeriods();
         }
+        // update filter to set current fy as default on page load
+        this.updateFilter({ fy: new Set([currentFiscalYear().toString()]) });
     }
 
     componentDidUpdate(prevProps) {
@@ -74,7 +79,7 @@ export class AccountTimePeriodContainer extends React.Component {
     }
 
     updateFilter(params) {
-    // set the state to a clone of the filter subobject merged with the param object
+        // set the state to a clone of the filter subobject merged with the param object
         const currentFilters = {
             dateType: this.props.filterTimePeriodType,
             fy: this.props.filterTimePeriodFY,
