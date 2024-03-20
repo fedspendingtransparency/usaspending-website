@@ -7,43 +7,24 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import NewPicker from "../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../sharedComponents/accordion/Accordion";
+import ChartTableToggle from "../sharedComponents/buttons/ChartTableToggle";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
     dropdownOptions: PropTypes.array,
     selectedDropdownOption: PropTypes.number,
-    isVisualization: PropTypes.bool,
+    viewType: PropTypes.string,
+    setViewType: PropTypes.func,
     children: PropTypes.string || PropTypes.element,
     dsmContent: PropTypes.string
-};
-
-const defaultProps = {
-    sectionTitle: 'Section Title',
-    dropdownOptions: [
-        {
-            name: 'Option 0',
-            value: 0
-        },
-        {
-            name: 'Option 1',
-            value: 1
-        },
-        {
-            name: 'Option 2',
-            value: 2
-        }
-    ],
-    selectedDropdownOption: 0,
-    isVisualization: true,
-    children: 'children',
-    dsmContent: 'dsmContent'
 };
 
 const TempSearchSectionWrapper = ({
     sectionTitle,
     dropdownOptions,
     selectedDropdownOption,
-    isVisualization,
+    viewType,
+    setViewType,
     children,
     dsmContent
 }) => {
@@ -53,7 +34,12 @@ const TempSearchSectionWrapper = ({
     const onClick = (e) => {
         setSelectedDropdown(e);
     };
+
     const sortFn = () => dropdownOptions;
+
+    const changeView = (label) => {
+        setViewType(label);
+    };
 
     useEffect(() => {
         dropdownOptions.forEach((opt) => {
@@ -72,8 +58,12 @@ const TempSearchSectionWrapper = ({
                     ? dropdownOptions.find((obj) => obj.value === selectedDropdown).name
                     : `${selectedDropdown}`}
                 sortFn={sortFn} />
-            <div>{isVisualization}</div>
-            <div>{children}</div>
+            <ChartTableToggle activeType={viewType} changeView={changeView} />
+            {viewType === 'chart' ? (
+                <div>chart: {children}</div>
+            ) : (
+                <div>table: {children}</div>
+            )}
             <Accordion
                 setOpen={setOpen}
                 closedIcon="chevron-down"
@@ -85,6 +75,5 @@ const TempSearchSectionWrapper = ({
 };
 
 TempSearchSectionWrapper.propTypes = propTypes;
-TempSearchSectionWrapper.defaultProps = defaultProps;
 
 export default TempSearchSectionWrapper;

@@ -17,6 +17,7 @@ const TempSearchPage = () => {
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
+    const [viewType, setViewType] = useState('chart');
 
     const observerOptions = {
         threshold: 0.1
@@ -42,6 +43,28 @@ const TempSearchPage = () => {
                 }
             }
         });
+    };
+
+    const dummyWrapperProps = {
+        sectionTitle: 'Section Title',
+        dropdownOptions: [
+            {
+                name: 'Option 0',
+                value: 0
+            },
+            {
+                name: 'Option 1',
+                value: 1
+            },
+            {
+                name: 'Option 2',
+                value: 2
+            }
+        ],
+        selectedDropdownOption: 0,
+        isVisualization: true,
+        children: 'children',
+        dsmContent: 'dsmContent'
     };
 
     // eslint-disable-next-line consistent-return
@@ -73,7 +96,10 @@ const TempSearchPage = () => {
                 classNames="usa-da-search-page"
                 title="Temp Search Page">
                 <main id="main-content" className="main-content">
-                    <TempSearchSectionWrapper />
+                    <TempSearchSectionWrapper
+                        {...dummyWrapperProps}
+                        viewType={viewType}
+                        setViewType={setViewType} />
                     <div id="search-page-component" className="award">
                         {!awardTableHasLoaded && <TempPlaceholderComponent />}
                         {(isVisible === 'award' || awardTableHasLoaded) &&
