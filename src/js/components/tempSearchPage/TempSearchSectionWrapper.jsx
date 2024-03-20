@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import NewPicker from "../sharedComponents/dropdowns/NewPicker";
+import Accordion from "../sharedComponents/accordion/Accordion";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -35,7 +36,7 @@ const defaultProps = {
     selectedDropdownOption: 0,
     isVisualization: true,
     children: 'children',
-    dsmContent: 'content'
+    dsmContent: 'dsmContent'
 };
 
 const TempSearchSectionWrapper = ({
@@ -47,6 +48,7 @@ const TempSearchSectionWrapper = ({
     dsmContent
 }) => {
     const [selectedDropdown, setSelectedDropdown] = useState(selectedDropdownOption);
+    const [open, setOpen] = useState(false);
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -72,7 +74,12 @@ const TempSearchSectionWrapper = ({
                 sortFn={sortFn} />
             <div>{isVisualization}</div>
             <div>{children}</div>
-            <div>{dsmContent}</div>
+            <Accordion
+                setOpen={setOpen}
+                closedIcon="chevron-down"
+                openIcon="chevron-up"
+                title="Data sources and methodology" />
+            {open && <div>{dsmContent}</div>}
         </div>
     );
 };
