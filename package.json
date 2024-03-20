@@ -125,6 +125,7 @@
     "webpack-merge": "^5.9.0"
   },
   "resolutions": {
+    "axios": "1.6.2",
     "browserify-sign": "4.2.2",
     "@babel/traverse": "7.23.2",
     "trim-newlines": "4.0.2",
