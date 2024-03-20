@@ -49,16 +49,18 @@ const TempSearchSectionWrapper = ({
 
     return (
         <div className="search-results-wrapper temp-search__section-wrapper">
-            <div>{sectionTitle}</div>
-            <NewPicker
-                leftIcon=""
-                size="sm"
-                options={dropdownOptions}
-                selectedOption={dropdownOptions.length
-                    ? dropdownOptions.find((obj) => obj.value === selectedDropdown).name
-                    : `${selectedDropdown}`}
-                sortFn={sortFn} />
-            <ChartTableToggle activeType={viewType} changeView={changeView} />
+            <div className="temp-search__section-wrapper-header">
+                <NewPicker
+                    leftIcon=""
+                    size="md"
+                    label={sectionTitle}
+                    options={dropdownOptions}
+                    selectedOption={dropdownOptions.length
+                        ? dropdownOptions.find((obj) => obj.value === selectedDropdown).name
+                        : `${selectedDropdown}`}
+                    sortFn={sortFn} />
+                <ChartTableToggle activeType={viewType} changeView={changeView} />
+            </div>
             {viewType === 'chart' ? (
                 <div>chart: {children}</div>
             ) : (

@@ -1,9 +1,18 @@
 .search-contents {
   .temp-search__sidebar {
     border: rem(2) solid purple;
+    margin: rem(24);
   }
 
   .temp-search__section-wrapper {
-    border: rem(2) solid orange;
+    border: rem(1) solid $gray-cool-10;
+    border-radius: rem(8);
+
+    .temp-search__section-wrapper-header {
+      border: rem(1) solid orange;
+      margin: rem(24);
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
