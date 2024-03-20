@@ -3,7 +3,7 @@
  * Created by Josue Aguilar 3/19/2024
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import NewPicker from "../sharedComponents/dropdowns/NewPicker";
 
@@ -16,27 +16,20 @@ const propTypes = {
     dsmContent: PropTypes.string
 };
 
-const onClick = () => {
-    console.log('dropdown');
-};
-
 const defaultProps = {
     sectionTitle: 'Section Title',
     dropdownOptions: [
         {
             name: 'Option 0',
-            value: 0,
-            onClick
+            value: 0
         },
         {
             name: 'Option 1',
-            value: 1,
-            onClick
+            value: 1
         },
         {
             name: 'Option 2',
-            value: 2,
-            onClick
+            value: 2
         }
     ],
     selectedDropdownOption: 0,
@@ -55,7 +48,16 @@ const TempSearchSectionWrapper = ({
 }) => {
     const [selectedDropdown, setSelectedDropdown] = useState(selectedDropdownOption);
 
+    const onClick = (e) => {
+        setSelectedDropdown(e);
+    };
     const sortFn = () => dropdownOptions;
+
+    useEffect(() => {
+        dropdownOptions.forEach((opt) => {
+            opt.onClick = onClick;
+        });
+    }, [dropdownOptions]);
 
     return (
         <div>
