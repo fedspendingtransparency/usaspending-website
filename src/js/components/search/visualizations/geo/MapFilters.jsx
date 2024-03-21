@@ -20,43 +20,32 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
-const MapFilters = ({ filters, activeFilters, isOpen }) => (
-    <div className={isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
-        <div className="map__filters-header">
-            <MapFiltersHeader />
-        </div>
-        <div className="map__filters-body">
-            {
-                Object.keys(filters).map((filter) => {
-                    console.debug("FILTER: ", filter);
-                    return (
-                        (filters[filter].label === 'AREA TYPE' || filters[filter].label === 'AMOUNT TYPE') &&
+const MapFilters = ({ filters, activeFilters, isOpen }) => {
+    console.debug("keys:", filters, Object.keys(filters).length);
+    return (
+        <div className={isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
+            <div className="map__filters-header">
+                <MapFiltersHeader />
+            </div>
+            <div className="map__filters-body">
+                {
+                    Object.keys(filters).map((filter) => {
+                        console.debug("FILTER: ", filter);
+                        return (
+                            (filters[filter].label === 'AREA TYPE' || filters[filter].label === 'AMOUNT TYPE') &&
                     // need above bc the covid filters contain 3 filters but the mocks only have the area and amount type filters
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-wrapper">
                             <span className="map__filters-label">{filters[filter].label}</span>
-                            {filters[filter].label === 'AREA TYPE' ?
-                                <TooltipWrapper
-                                    icon="info"
-                                    tooltipPosition="right"
-                                    tooltipComponent={<CondensedCDTooltip title="Area Type: Congressional Districts" />} />
-                                :
-                                null}
-                            {filters[filter].label === 'AMOUNT TYPE' ?
-                                <TooltipWrapper
-                                    className="spending_types-tt"
-                                    icon="info"
-                                    tooltipPosition="right"
-                                    tooltipComponent={<SpendingByRecipientMapTT />} /> :
-                                null}
                         </div>
                     </div>
-                    );
-                })
-            }
+                        );
+                    })
+                }
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 MapFilters.propTypes = propTypes;
 export default MapFilters;
