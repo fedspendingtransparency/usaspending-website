@@ -103,6 +103,26 @@
           }
         }
       }
+
+      .content {
+        padding: 0;
+        width: 83.3%;
+        margin: auto;
+        border: none;
+
+        h4 {
+          margin: rem(24) 0 rem(8) 0;
+          font-size: 16px;
+          font-weight: $font-semibold;
+          color: $gray-90;
+          line-height: rem(24);
+        }
+
+        p {
+          margin: 0;
+          color: $gray-60
+        }
+      }
     }
   }
 }

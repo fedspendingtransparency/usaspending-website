@@ -5,7 +5,7 @@ import TempAwardTable from "./TempAwardTable";
 import TempSpendingOverTime from "./TempSpendingOverTime";
 import TempMapSection from "./TempMapSection";
 import TempCategoriesSection from "./TempCategoriesSection";
-import { TempPlaceholderComponent, TempPlaceHolderChart, TempPlaceHolderTable } from "./TempPlaceholderComponents";
+import { TempPlaceholderComponent, TempPlaceholderChart, TempPlaceholderTable, TempPlaceholderDsmContent } from "./TempPlaceholderComponents";
 import TempSearchSectionWrapper from "./TempSearchSectionWrapper";
 
 require("pages/search/searchPage.scss");
@@ -75,9 +75,9 @@ const TempSearchPage = () => {
         ],
         selectedDropdownOption: 0,
         isVisualization: true,
-        chart: <TempPlaceHolderChart />,
-        table: <TempPlaceHolderTable />,
-        dsmContent: 'dsmContent'
+        chart: <TempPlaceholderChart />,
+        table: <TempPlaceholderTable />,
+        dsmContent: <TempPlaceholderDsmContent />
     };
 
     // eslint-disable-next-line consistent-return

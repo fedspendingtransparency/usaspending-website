@@ -15,9 +15,9 @@ const propTypes = {
     selectedDropdownOption: PropTypes.number,
     viewType: PropTypes.string,
     setViewType: PropTypes.func,
-    chart: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.object]),
-    table: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.object]),
-    dsmContent: PropTypes.string
+    chart: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    table: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    dsmContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
 };
 
 const TempSearchSectionWrapper = ({
@@ -31,6 +31,7 @@ const TempSearchSectionWrapper = ({
     dsmContent
 }) => {
     const [selectedDropdown, setSelectedDropdown] = useState(selectedDropdownOption);
+    const [open, setOpen] = useState(false);
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -62,14 +63,17 @@ const TempSearchSectionWrapper = ({
                     sortFn={sortFn} />
                 <ChartTableToggle activeType={viewType} changeView={changeView} />
             </div>
-            <div className="temp-search__section-wrapper-content">
-                {viewType === 'chart' ? (chart) : (table)}
-            </div>
+            {!open && (
+                <div className="temp-search__section-wrapper-content">
+                    {viewType === 'chart' ? (chart) : (table)}
+                </div>
+            )}
             <Accordion
+                setOpen={setOpen}
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
                 title="Data sources and methodology" >
-                {dsmContent}
+                {open && (<div className="temp-search__section-wrapper-dsm">{dsmContent}</div>)}
             </Accordion>
         </div>
     );
