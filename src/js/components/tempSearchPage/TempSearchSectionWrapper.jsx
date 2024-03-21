@@ -15,7 +15,8 @@ const propTypes = {
     selectedDropdownOption: PropTypes.number,
     viewType: PropTypes.string,
     setViewType: PropTypes.func,
-    children: PropTypes.string || PropTypes.element,
+    chart: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.object]),
+    table: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.object]),
     dsmContent: PropTypes.string
 };
 
@@ -25,7 +26,8 @@ const TempSearchSectionWrapper = ({
     selectedDropdownOption,
     viewType,
     setViewType,
-    children,
+    chart,
+    table,
     dsmContent
 }) => {
     const [selectedDropdown, setSelectedDropdown] = useState(selectedDropdownOption);
@@ -62,11 +64,7 @@ const TempSearchSectionWrapper = ({
                 <ChartTableToggle activeType={viewType} changeView={changeView} />
             </div>
             <div className="temp-search__section-wrapper-content">
-                {viewType === 'chart' ? (
-                    <div>chart: {children}</div>
-                ) : (
-                    <div>table: {children}</div>
-                )}
+                {viewType === 'chart' ? (chart) : (table)}
             </div>
             <Accordion
                 setOpen={setOpen}

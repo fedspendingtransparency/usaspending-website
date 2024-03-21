@@ -5,7 +5,7 @@ import TempAwardTable from "./TempAwardTable";
 import TempSpendingOverTime from "./TempSpendingOverTime";
 import TempMapSection from "./TempMapSection";
 import TempCategoriesSection from "./TempCategoriesSection";
-import TempPlaceholderComponent from "./TempPlaceholderComponent";
+import { TempPlaceholderComponent, TempPlaceHolderChart, TempPlaceHolderTable } from "./TempPlaceholderComponents";
 import TempSearchSectionWrapper from "./TempSearchSectionWrapper";
 
 require("pages/search/searchPage.scss");
@@ -63,7 +63,8 @@ const TempSearchPage = () => {
         ],
         selectedDropdownOption: 0,
         isVisualization: true,
-        children: 'children',
+        chart: <TempPlaceHolderChart />,
+        table: <TempPlaceHolderTable />,
         dsmContent: 'dsmContent'
     };
 
