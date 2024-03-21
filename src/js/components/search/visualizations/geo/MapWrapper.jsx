@@ -22,7 +22,7 @@ const propTypes = {
     filters: PropTypes.object,
     activeFilters: PropTypes.object,
     setActiveFilters: PropTypes.func,
-    awardTypeFilters: PropTypes.object,
+    awardTypeFilters: PropTypes.array,
     data: PropTypes.object,
     scope: PropTypes.string,
     renderHash: PropTypes.string,
@@ -571,6 +571,7 @@ const MapWrapper = (props) => {
         );
     };
     useEffect(() => {
+        console.debug("A");
         displayData();
         if (!props.stateProfile) {
             prepareBroadcastReceivers();
@@ -586,6 +587,8 @@ const MapWrapper = (props) => {
     }, []);
 
     useEffect(() => {
+        console.debug("B");
+
         if (scopeRef.current !== props.scope) {
             queueMapOperation('displayData', displayData);
             prepareMap();
@@ -598,6 +601,8 @@ const MapWrapper = (props) => {
     }, [props.renderHash, props.data]);
 
     useEffect(() => {
+        console.debug("C");
+
         if (mapReady) {
             prepareMap();
         }
@@ -605,6 +610,8 @@ const MapWrapper = (props) => {
     }, [mapReady]);
 
     useEffect(() => {
+        console.debug("D");
+
         setCenter(props.center);
     }, [props.center]);
 

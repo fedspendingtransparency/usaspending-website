@@ -27,8 +27,10 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
         </div>
         <div className="map__filters-body">
             {
-                Object.keys(filters).map((filter) => (
-                    (filters[filter].label === 'AREA TYPE' || filters[filter].label === 'AMOUNT TYPE') &&
+                Object.keys(filters).map((filter) => {
+                    console.debug("FILTER: ", filter);
+                    return (
+                        (filters[filter].label === 'AREA TYPE' || filters[filter].label === 'AMOUNT TYPE') &&
                     // need above bc the covid filters contain 3 filters but the mocks only have the area and amount type filters
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-wrapper">
@@ -49,7 +51,8 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                                 null}
                         </div>
                     </div>
-                ))
+                    );
+                })
             }
         </div>
     </div>
