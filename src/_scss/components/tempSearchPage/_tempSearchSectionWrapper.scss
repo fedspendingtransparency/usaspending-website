@@ -1,4 +1,6 @@
 .search-contents {
+    padding-top: rem(24);
+
   .temp-search__sidebar {
     border: rem(2) solid purple;
     margin: rem(24);
@@ -17,34 +19,58 @@
       .filter__dropdown-container {
         height: auto;
 
+        @media(max-width: $medium-screen) {
+          display: grid;
+          width: 75%;
+
+          [class*="filter__dropdown-label"] {
+            margin-bottom: rem(8);
+          }
+        }
+
         [class*="filter__dropdown-label"] {
           color: $gray-cool-90;
         }
 
-        [class*="filter__dropdown-button"] {
-          margin: 0;
-          border-color: $gray-cool-10;
-
-          .filter__dropdown-button-text {
-            margin-right: rem(8);
-            font-size: rem(16);
-            line-height: rem(24);
-            color: $gray-cool-60;
-            opacity: 1;
+        .filter__dropdown-button-list-container {
+          @media(max-width: $medium-screen) {
+            max-width: 75%;
           }
 
-          .filter__dropdown-chevron svg {
-            color: $blue-50;
-          }
-        }
+          [class*="filter__dropdown-button"] {
+            max-width: 100%;
+            margin: 0;
+            border-color: $gray-cool-10;
+            text-align: start;
 
-        ul[class^='filter__dropdown-list'] {
-          background-color: $color-white;
-          border: rem(2) solid $gray-cool-10;
-          border-radius: rem(4);
-          box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
-          transform: translate(0px, 0px);
-          width: max-content;
+            @media(max-width: $tablet-screen) {
+              width: rem(200)
+            }
+
+            .filter__dropdown-button-text {
+              margin-right: rem(8);
+              font-size: rem(16);
+              line-height: rem(24);
+              color: $gray-cool-60;
+              opacity: 1;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            .filter__dropdown-chevron svg {
+              color: $blue-50;
+            }
+          }
+
+          ul[class^='filter__dropdown-list'] {
+            background-color: $color-white;
+            border: rem(2) solid $gray-cool-10;
+            border-radius: rem(4);
+            box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+            transform: translate(0px, 0px);
+            width: max-content;
+          }
         }
       }
 
