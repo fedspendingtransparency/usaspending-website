@@ -279,10 +279,10 @@ export default class TimePeriod extends React.Component {
     }
 
     render() {
-        let errorDetails = null;
-        let showFilter = null;
-        let activeClassFY = null;
-        let activeClassDR = null;
+        let errorDetails;
+        let showFilter;
+        let activeClassFY;
+        let activeClassDR;
 
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
