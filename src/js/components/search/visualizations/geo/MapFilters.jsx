@@ -46,17 +46,6 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                                     tooltipComponent={<SpendingByRecipientMapTT />} /> :
                                 null}
                         </div>
-                        <NewPicker
-                            sortFn={handleSort}
-                            selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
-                            options={
-                                filters[filter].options.map((option) => ({
-                                    name: option.label,
-                                    value: option.value,
-                                    onClick: filters[filter].onClick,
-                                    sortOrder: mapFilterSortOrderByValue[option.value]
-                                }))
-                            } />
                     </div>
                 ))
             }
