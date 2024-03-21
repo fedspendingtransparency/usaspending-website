@@ -143,7 +143,8 @@ const GeoVisualizationSection = (props) => {
     useEffect(() => {
         handleUpdateTitle();
         handleUpdateBody();
-    }, [handleUpdateBody]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         dataRef.current = props.data;
