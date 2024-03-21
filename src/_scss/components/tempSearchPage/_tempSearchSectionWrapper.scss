@@ -70,6 +70,10 @@
             box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
             transform: translate(0px, 0px);
             width: max-content;
+
+            @media(max-width: $tablet-screen) {
+              width: 100%;
+            }
           }
         }
       }
