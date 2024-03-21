@@ -136,6 +136,10 @@
         margin: auto;
         border: none;
 
+        @media(max-width: $medium-screen) {
+          width: 100%;
+        }
+
         h4 {
           margin: rem(24) 0 rem(8) 0;
           font-size: 16px;
