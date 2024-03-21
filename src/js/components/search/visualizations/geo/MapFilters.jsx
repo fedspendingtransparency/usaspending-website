@@ -28,9 +28,11 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
         <div className="map__filters-body">
             {
                 Object.keys(filters).map((filter) => (
+                    (filters[filter].label === 'AREA TYPE' || filters[filter].label === 'AMOUNT TYPE') &&
+                    // need above bc the covid filters contain 3 filters but the mocks only have the area and amount type filters
                     <div key={uniqueId()} className="map__filters-filter__container">
-                        <div className="map__filters-label">
-                            {filters[filter].label}
+                        <div className="map__filters-wrapper">
+                            <span className="map__filters-label">{filters[filter].label}</span>
                             {filters[filter].label === 'AREA TYPE' ?
                                 <TooltipWrapper
                                     icon="info"
