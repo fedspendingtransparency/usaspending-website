@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import PropTypes from "prop-types";
 import { LoadingMessage, NoResultsMessage, ErrorMessage, TooltipWrapper, TooltipComponent } from "data-transparency-ui";
@@ -30,22 +30,32 @@ const TooltipContent = ({ data }) => {
     );
 };
 // TODO - Add tooltips before this feature is released
-const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-        const data = {
-            name: label,
-            value: formatMoneyWithUnitsShortLabel(payload[0].value)
-        };
+// const CustomTooltip = ({ active, payload, label }) => {
+//     if (active && payload && payload.length) {
+//         const data = {
+//             name: label,
+//             value: formatMoneyWithUnitsShortLabel(payload[0].value)
+//         };
+//
+//         return (
+//             <div
+//                 className="tooltip"
+//                 role="tooltip">
+//                 <div className="tooltip__interior">
+//                     <div className="tooltip-pointer" />
+//                     <div className="tooltip__content">
+//                         <div className="tooltip__message">
+//                             <p>hello</p>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         );
+//     }
+//
+//     return null;
+// };
 
-        return (
-            <TooltipWrapper
-                className="tooltip-wrapper"
-                tooltipComponent={<p>blah</p>} />
-        );
-    }
-
-    return null;
-};
 
 const timeJumpIcon = (x, y) => {
     const translateX = x - 6;
@@ -111,9 +121,10 @@ const CustomYTick = (props) => {
 
 const TimeVisualizationChart = (props) => {
     const transformedData = [];
-
+    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     let label;
     let value;
+
     for (let i = 0; i < props.xSeries.length; i++) {
         if (props.ySeries[i][0] !== 0) {
             label = props.xSeries[i][0];
@@ -136,6 +147,11 @@ const TimeVisualizationChart = (props) => {
         transformedData.pop();
     }
 
+    const showTooltip = (args) => {
+        console.log(args);
+        setIsTooltipVisible(true);
+    };
+
     const Message = () => {
         if (props.loading) {
             return <LoadingMessage />;
@@ -152,6 +168,17 @@ const TimeVisualizationChart = (props) => {
 
     return (
         <>
+            <TooltipWrapper
+                className="obligations-by-award-type"
+                tooltipPosition="bottom"
+                tooltipComponent={(
+                    <div>hello</div>)}
+                controlledProps={{
+                    isControlled: true,
+                    isVisible: isTooltipVisible,
+                    showTooltip: () => {},
+                    closeTooltip: () => {}
+                }} />
             <div className="recharts-time-visualization-container">
                 {props.loading || props.error || transformedData.length === 0 ?
                     <><Message /></>
@@ -167,8 +194,7 @@ const TimeVisualizationChart = (props) => {
                             }}>
                             <XAxis dataKey="label" tick={<CustomXTick />} />
                             <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                            <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />
-                            <Bar dataKey="value" shape={<CustomShape />} />
+                            <Bar dataKey="value" shape={<CustomShape />} onMouseOver={showTooltip} />
                         </BarChart>
                     </ResponsiveContainer>
                 }

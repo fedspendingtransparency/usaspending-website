@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from "data-transparency-ui";
+import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button, TooltipWrapper, TooltipComponent } from "data-transparency-ui";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 
@@ -23,6 +23,9 @@ const tempPage = () => {
                         <div>4</div>
                         <div>5</div>
                         <div>6</div>
+                        <div className="tooltip-pointer">
+                            <p>hello</p>
+                        </div>
                     </div>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
