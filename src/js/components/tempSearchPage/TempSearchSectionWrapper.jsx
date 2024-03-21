@@ -31,7 +31,6 @@ const TempSearchSectionWrapper = ({
     dsmContent
 }) => {
     const [selectedDropdown, setSelectedDropdown] = useState(selectedDropdownOption);
-    const [open, setOpen] = useState(false);
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -67,11 +66,11 @@ const TempSearchSectionWrapper = ({
                 {viewType === 'chart' ? (chart) : (table)}
             </div>
             <Accordion
-                setOpen={setOpen}
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
-                title="Data sources and methodology" />
-            {open && <div>{dsmContent}</div>}
+                title="Data sources and methodology" >
+                {dsmContent}
+            </Accordion>
         </div>
     );
 };

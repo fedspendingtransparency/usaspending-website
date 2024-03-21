@@ -77,8 +77,32 @@
     }
 
     .temp-search__section-wrapper-content {
-      margin-right: rem(24);
-      margin-left: rem(24);
+      margin: 0 rem(24) rem(24) rem(24)
+    }
+
+    .accordion-container {
+      margin: rem(24);
+      padding-top: rem(16);
+      border-top: rem(1) solid $gray-cool-10;
+
+      .accordion .heading {
+        border: none;
+        padding: 0;
+        font-size: rem(12);
+        line-height: rem(18);
+        color: $blue-50;
+        justify-content: start;
+
+        .toggle {
+          padding: 0;
+          margin-left: rem(8);
+
+          svg {
+            color: $blue-50;
+            width: rem(10);
+          }
+        }
+      }
     }
   }
 }
