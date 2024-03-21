@@ -46,19 +46,31 @@ const TempSearchPage = () => {
     };
 
     const dummyWrapperProps = {
-        sectionTitle: 'Section Title',
+        sectionTitle: 'Results by Category',
         dropdownOptions: [
             {
-                name: 'Option 0',
+                name: 'Awarding Agency',
                 value: 0
             },
             {
-                name: 'Option 1',
+                name: 'Awarding Subagency',
                 value: 1
             },
             {
-                name: 'Option 2',
+                name: 'Recipient',
                 value: 2
+            },
+            {
+                name: 'North American Industry Classification System (NAICS)',
+                value: 3
+            },
+            {
+                name: 'Product and Service Code (PSC)',
+                value: 4
+            },
+            {
+                name: 'Assistance Listing',
+                value: 5
             }
         ],
         selectedDropdownOption: 0,

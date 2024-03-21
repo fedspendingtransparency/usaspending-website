@@ -37,6 +37,15 @@
             color: $blue-50;
           }
         }
+
+        ul[class^='filter__dropdown-list'] {
+          background-color: $color-white;
+          border: rem(2) solid $gray-cool-10;
+          border-radius: rem(4);
+          box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+          transform: translate(0px, 0px);
+          width: max-content;
+        }
       }
 
       @import "../_chartTableToggle";
@@ -48,7 +57,7 @@
         .view-button {
           border: none;
           color: $blue-50;
-          padding: rem(8);
+          padding: rem(6) rem(8);
 
           &.active {
             background-color: $blue-5;
