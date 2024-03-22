@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, Text } from 'recharts';
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import PropTypes from "prop-types";
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { smTabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 const propTypes = {
@@ -17,55 +17,19 @@ const propTypes = {
     linkSeries: PropTypes.array
 };
 
-const customTickPropTypes = {
-    x: PropTypes.number,
-    y: PropTypes.number,
-    payload: PropTypes.object,
-    link: PropTypes.array
-};
-
-const CustomTick = (props) => {
-    const {
-        x, y, payload, link
-    } = props;
-    return (
-    // <g transform={`translate(${x},${y})`} >
-    //     <a href={`${link[payload.index].link}`}>
-    //         <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} >
-    //             {payload.value}
-    //         </text>
-    //     </a>
-    // </g>);
-
-        <g transform={`translate(${x},${y})`} >
-            <a href={`${link[payload.index].link}`} style={{ wordWrap: "break-word" }} >
-                <Text
-                    x={0}
-                    y={0}
-                    dy={0}
-                    textAnchor="end"
-                    fontSize={14}
-                    height={42}
-                    width={100}
-                    fill="#2378C3">
-                    {payload.value}
-                </Text>
-            </a>
-        </g>);
-
-
-    // <foreignObject transform={`translate(${x},${y})`}>
-    //     <div className="new-class">
-    //         Label
-    //     </div>
-    // </foreignObject>);
+const tickFormatter = (value, isMobile) => {
+    const limit = isMobile ? 14 : 48; // put your maximum character
+    if (value.length < limit) return value;
+    const newValue = value.replace("Department", "Dept");
+    if (newValue.length <= limit) return newValue;
+    return `${newValue.substring(0, limit)}...`;
 };
 
 const SpendingByCategoriesChart = (props) => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < smTabletScreen);
 
-    const labelWidthVar = isMobile ? 50 : 100;
+    const labelWidthVar = isMobile ? 50 : 175;
 
     const dataStuff = [];
     if (props.dataSeries?.length === props.labelSeries?.length) {
@@ -81,12 +45,34 @@ const SpendingByCategoriesChart = (props) => {
         }
     }
 
+    const CustomTick = (args) => {
+        const {
+            x, y, payload, link
+        } = args;
+
+        return (
+            <g transform={`translate(${x},${y + 8})`}>
+                <a href={`${link[payload.index].link}`} style={{ paddingTop: "8px", wordWrap: "break-word" }}>
+                    <Text
+                        x={0}
+                        y={0}
+                        textAnchor="end"
+                        fontSize={isMobile ? 11 : 14}
+                        height={42}
+                        width={isMobile ? labelWidthVar : labelWidthVar + 16}
+                        fill="#2378C3">
+                        {tickFormatter(payload.value, isMobile)}
+                    </Text>
+                </a>
+            </g>);
+    };
+
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
-                setIsMobile(newWidth < tabletScreen);
+                setIsMobile(newWidth < smTabletScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
@@ -103,7 +89,7 @@ const SpendingByCategoriesChart = (props) => {
                     margin={{
                         top: 10,
                         right: 10,
-                        left: labelWidthVar,
+                        left: 8,
                         bottom: 10
                     }}>
                     <XAxis type="number" hide />
@@ -115,12 +101,12 @@ const SpendingByCategoriesChart = (props) => {
                         tickLine={false}
                         // label={<CustomTick link={dataStuff} />} />
                         tick={<CustomTick link={dataStuff} />} />
-                    <Bar dataKey="value" fill="#07648d" activeBar={false} >
+                    <Bar dataKey="value" fill="#07648d" activeBar={false}>
                         <LabelList
                             dataKey="barLabel"
                             position="right"
                             fill="#07648d"
-                            fontSize={14}
+                            fontSize={isMobile ? 11 : 14}
                             fontWeight={600} />
                     </Bar>
                 </BarChart>
@@ -130,5 +116,4 @@ const SpendingByCategoriesChart = (props) => {
 };
 
 SpendingByCategoriesChart.propTypes = propTypes;
-CustomTick.propTypes = customTickPropTypes;
 export default SpendingByCategoriesChart;
