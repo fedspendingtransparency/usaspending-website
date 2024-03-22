@@ -52,13 +52,10 @@ const SpendingByCategoriesChart = (props) => {
 
         return (
             <g transform={`translate(${x},${y + 8})`}>
-                <a href={`${link[payload.index].link}`} style={{ paddingTop: "8px", wordWrap: "break-word" }}>
+                <a href={`${link[payload.index].link}`}>
                     <Text
-                        x={0}
-                        y={0}
                         textAnchor="end"
                         fontSize={isMobile ? 11 : 14}
-                        height={42}
                         width={isMobile ? labelWidthVar : labelWidthVar + 16}
                         fill="#2378C3">
                         {tickFormatter(payload.value, isMobile)}
@@ -96,10 +93,8 @@ const SpendingByCategoriesChart = (props) => {
                     <YAxis
                         type="category"
                         dataKey="label"
-                        height={42}
                         width={labelWidthVar}
                         tickLine={false}
-                        // label={<CustomTick link={dataStuff} />} />
                         tick={<CustomTick link={dataStuff} />} />
                     <Bar dataKey="value" fill="#07648d" activeBar={false}>
                         <LabelList
