@@ -31,7 +31,7 @@ const TempSearchSectionWrapper = ({
     dsmContent
 }) => {
     const [selectedDropdown, setSelectedDropdown] = useState(selectedDropdownOption);
-    const [open, setOpen] = useState(false);
+    const [openAccordion, setOpenAccordion] = useState(false);
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -63,17 +63,19 @@ const TempSearchSectionWrapper = ({
                     sortFn={sortFn} />
                 <ChartTableToggle activeType={viewType} changeView={changeView} />
             </div>
-            {!open && (
+            {!openAccordion && (
                 <div className="temp-search__section-wrapper-content">
                     {viewType === 'chart' ? (chart) : (table)}
                 </div>
             )}
             <Accordion
-                setOpen={setOpen}
+                setOpen={setOpenAccordion}
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
                 title="Data sources and methodology" >
-                {open && (<div className="temp-search__section-wrapper-dsm">{dsmContent}</div>)}
+                {openAccordion && (
+                    <div className="temp-search__section-wrapper-dsm">{dsmContent}</div>
+                )}
             </Accordion>
         </div>
     );
