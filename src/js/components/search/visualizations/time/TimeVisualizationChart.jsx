@@ -5,12 +5,16 @@ import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatt
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
-            <div className="tooltip__item">
-                <div
-                    className="tooltip__circle"
-                    style={{ backgroundColor: '#BBDFC7' }} />
-                <div className="tooltip__text-label">{label}</div>
-                <div className="tooltip__text-amount">{`${payload[0].value}`}</div>
+            <div className="custom-tooltip">
+                <div className="tooltip__title">
+                    {label}
+                </div>
+                <div className="tooltip__text">
+                    <div className="tooltip__item">
+                        <div className="tooltip__text-label">Total Obligations</div>
+                        <div className="tooltip__text-amount">{formatMoneyWithUnitsShortLabel(payload[0].value)}</div>
+                    </div>
+                </div>
             </div>
         );
     }

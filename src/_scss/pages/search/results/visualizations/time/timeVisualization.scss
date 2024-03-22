@@ -64,10 +64,53 @@
 }
 
 .recharts-time-visualization-container {
-    height: 500px;
+    height: 350px;
 
     .recharts-cartesian-axis-line {
         stroke: $gray-cool-10;
+    }
+}
+
+.recharts-tooltip-wrapper {
+    .custom-tooltip {
+        background-color: $color-white;
+
+        .tooltip__title {
+            font-size: rem(16);
+            font-weight: $font-semibold;
+            color: $gray-90;
+        }
+
+        .tooltip__text {
+            padding-left: 2rem;
+            margin-top: -2rem;
+
+            hr {
+                background: $color-gray-lighter;
+                height: 1px;
+            }
+
+            .tooltip__text-note {
+                font-size: rem(14);
+                font-style: italic;
+                text-align: center;
+                color: $color-base;
+            }
+
+            .tooltip__text-amount {
+                margin-left: auto;
+                font-weight: $font-semibold;
+            }
+
+            .tooltip__item {
+                display: flex;
+                margin-bottom: 0.8rem;
+
+                .tooltip__text {
+                    font-size: rem(14);
+                }
+            }
+        }
     }
 }
 
