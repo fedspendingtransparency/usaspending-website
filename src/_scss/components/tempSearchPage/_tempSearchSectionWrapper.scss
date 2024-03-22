@@ -2,14 +2,16 @@
     padding-top: rem(24);
 
   .temp-search__sidebar {
-    border: rem(2) solid purple;
+    border: rem(1) solid purple;
     margin: rem(24);
+    margin-bottom: 0;
   }
 
   .temp-search__section-wrapper {
     border: rem(1) solid $gray-cool-10;
     border-radius: rem(8);
     background-color: $color-white;
+    margin-top: rem(24);
 
     .temp-search__section-wrapper-header {
       margin: rem(24);
