@@ -18,6 +18,7 @@ const TempSearchPage = () => {
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [viewType, setViewType] = useState('chart');
+    const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const observerOptions = {
         threshold: 0.1
@@ -45,35 +46,45 @@ const TempSearchPage = () => {
         });
     };
 
+    const onClick = (e) => {
+        setSelectedDropdown(e);
+    };
+
     const dummyWrapperProps = {
         sectionTitle: 'Results by Category',
         dropdownOptions: [
             {
                 name: 'Awarding Agency',
-                value: 0
+                value: '0',
+                onClick
             },
             {
                 name: 'Awarding Subagency',
-                value: 1
+                value: '1',
+                onClick
             },
             {
                 name: 'Recipient',
-                value: 2
+                value: '2',
+                onClick
             },
             {
                 name: 'North American Industry Classification System (NAICS)',
-                value: 3
+                value: '3',
+                onClick
             },
             {
                 name: 'Product and Service Code (PSC)',
-                value: 4
+                value: '4',
+                onClick
             },
             {
                 name: 'Assistance Listing',
-                value: 5
+                value: '5',
+                onClick
             }
         ],
-        selectedDropdownOption: 0,
+        selectedDropdownOption: selectedDropdown,
         isVisualization: true,
         chart: <TempPlaceholderChart />,
         table: <TempPlaceholderTable />,
