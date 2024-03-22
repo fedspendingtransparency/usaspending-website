@@ -71,7 +71,6 @@ export default class RankVisualization extends React.Component {
 
     render() {
         let chart = (<NoResultsMessage />);
-        let legend = null;
 
         if (this.props.loading) {
             chart = (<LoadingMessage />);
@@ -102,15 +101,6 @@ export default class RankVisualization extends React.Component {
                         deselectItem={this.deselectItem} />
                 </>
             );
-
-            legend = (
-                <div className="visualization-legend">
-                    <div className="visualization-legend__circle" />
-                    <div className="visualization-legend__label">
-                        Amount Obligated
-                    </div>
-                </div>
-            );
         }
 
         let tooltip = null;
@@ -125,7 +115,6 @@ export default class RankVisualization extends React.Component {
                 className="results-visualization-rank-container"
                 aria-label="Spending by Category">
                 {chart}
-                {legend}
                 {tooltip}
             </section>
         );
