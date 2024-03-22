@@ -114,30 +114,6 @@
           transition: 2s;
 
           .map__filters-wrapper {
-            display: flex;
-            align-items: center;
-            @import "../../../../../components/tooltips/customTooltipContent";
-
-            svg {
-              width: 12px;
-              height: 12px;
-            }
-
-            .tooltip-wrapper {
-              white-space: normal;
-              display: inline;
-
-              .tooltip-pointer {
-                left: -0.8rem;
-                z-index: 2;
-                color: $color-gray-lightest;
-              }
-
-              .tooltip-pointer::after {
-                background-color: $color-gray-lightest;
-              }
-            }
-
             .map__filters-label {
               font-size: $font-size-12;
               letter-spacing: 0;
@@ -148,63 +124,34 @@
               margin-top: $global-margin * 2;
               align-items: baseline;
             }
-          }
 
-          .usa-dt-picker {
-            .usa-dt-picker__dropdown-container {
-              .usa-dt-picker__button {
-                padding: 0.5rem 0 0 0;
-
-                &.hover {
-                  border: none;
-                }
-
-                &:focus {
-                  outline: none;
-                  box-shadow: none;
-                }
-
-                .usa-dt-picker__button-text {
-                  @include flex(0 0 auto);
-                  margin-right: 0.3rem;
-                  font-size: 1.4rem;
-                  letter-spacing: 0;
-                  line-height: 1.8rem;
-                  font-weight: $font-semibold;
+            .map__filters-button {
+              height: auto;
+              button[class^='filter__dropdown-button'] {
+                border: solid 2px $gray-cool-10;
+                white-space: nowrap;
+                margin-top: $global-margin * 0.5;
+                margin-bottom: $global-margin;
+                .filter__dropdown-button-text {
                   color: $gray-cool-60;
                 }
 
-                .usa-dt-picker__button-icon {
-                  padding-bottom: 0.25rem;
-                  width: 20px;
-
+                .filter__dropdown-chevron {
                   svg {
-                    color: $color-primary;
-                    height: 1.25rem;
-                    width: 1.25rem;
+                    color: $blue-50;
                   }
                 }
 
-                .usa-dt-picker__list {
-                  z-index: 3;
-                  overflow: hidden;
+                &:last-of-type {
+                  margin-bottom: 0;
                 }
               }
 
-              .usa-dt-picker__list {
-                z-index: 3;
-                overflow: hidden;
-                // some styles need to go here to hide the scroll bar in ie
-                -ms-overflow-style: none;
+              .map__filters-dropdown {
+                width: max-content;
 
-                .usa-dt-picker__list-item {
-                  border-top: none;
-
-                  .usa-dt-picker__item {
-                    font-size: 1.4rem;
-                    letter-spacing: 0;
-                    line-height: 1.8rem;
-                  }
+                li.filter__dropdown-list-item {
+                  padding-left: rem(12);
                 }
               }
             }
