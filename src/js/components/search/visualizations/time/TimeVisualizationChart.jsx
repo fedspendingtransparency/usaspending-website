@@ -1,9 +1,10 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
 const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
+    if (active && payload && payload.length && payload[0].value !== "jump") {
         return (
             <div className="custom-tooltip">
                 <div className="tooltip__title">
@@ -37,11 +38,12 @@ const CustomShape = (props) => {
     } = props;
     const maxWidth = width > 120 ? 120 : width;
     const translateX = x + ((width / 2) - (maxWidth / 2));
+    const lineHeight = 315;
 
     if (payload.value === 'jump') {
         return (
             <g>
-                <line x1={x + (width / 2)} x2={x + (width / 2) + 1} y1="463" y2="6" stroke="#dfe1e2" strokeDasharray="5 3" />
+                <line x1={x + (width / 2)} x2={x + (width / 2) + 1} y1={lineHeight} y2="6" stroke="#dfe1e2" strokeDasharray="5 3" />
             </g>
         );
     }
@@ -109,23 +111,41 @@ const TimeVisualizationChart = (props) => {
         transformedData.pop();
     }
 
+    const Message = () => {
+        if (props.loading) {
+            return <LoadingMessage />;
+        }
+        else if (props.error) {
+            return <ErrorMessage />;
+        }
+        else if (transformedData.length === 0) {
+            return <NoResultsMessage />;
+        }
+
+        return <></>;
+    };
+
     return (
         <div className="recharts-time-visualization-container">
-            <ResponsiveContainer>
-                <BarChart
-                    data={transformedData}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                    }}>
-                    <XAxis dataKey="label" tick={<CustomXTick />} />
-                    <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                     <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />
-                    <Bar dataKey="value" shape={<CustomShape />} />
-                </BarChart>
-            </ResponsiveContainer>
+            {props.loading || props.error || transformedData.length === 0 ?
+                <><Message /></>
+                :
+                <ResponsiveContainer>
+                    <BarChart
+                        height={350}
+                        data={transformedData}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5
+                        }}>
+                        <XAxis dataKey="label" tick={<CustomXTick />} />
+                        <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                        <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} isAnimationActive={false} />
+                        <Bar dataKey="value" shape={<CustomShape />} />
+                    </BarChart>
+                </ResponsiveContainer>}
         </div>);
 };
 
