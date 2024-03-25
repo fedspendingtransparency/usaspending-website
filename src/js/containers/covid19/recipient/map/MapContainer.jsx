@@ -375,7 +375,7 @@ export class MapContainer extends React.Component {
 
     render() {
         let message = null;
-
+        console.debug("testing: ", this.addOnClickToFilters());
         if (!MapboxGL.supported()) {
             return (
                 <div className="results-table-message-container">

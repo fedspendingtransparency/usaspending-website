@@ -14,7 +14,7 @@ import Note from 'components/sharedComponents/Note';
 import { noteMessage } from 'dataMapping/search/geoVisualizationSection';
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 import {
-    filters,
+    advancedSearchFilters,
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
@@ -49,6 +49,7 @@ const propTypes = {
 const availableLayers = ['country', 'state', 'county', 'congressionalDistrict'];
 
 const GeoVisualizationSection = (props) => {
+    console.debug("PRAHPS: ", props);
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
     const [tableBody, setTableBody] = useState("");
@@ -56,7 +57,7 @@ const GeoVisualizationSection = (props) => {
     const [tablePreview, setTablePreview] = useState("");
     const [expanded, setExpanded] = useState(null);
     const [activeFilters, setActiveFilters] = useState({
-        territory: 'state',
+        territory: props.mapLayer,
         spendingType: 'obligation',
         amountType: 'totalSpending',
         recipientType: 'all',
@@ -66,15 +67,22 @@ const GeoVisualizationSection = (props) => {
     const prevProps = usePrevious(props);
     const dataRef = useRef(props.data);
 
-    const addOnClickToFilters = () => Object.keys(filters).reduce((acc, filter) => {
+    const updateAmountTypeFilter = (value) => {
+        setActiveFilters({ ...activeFilters, amountType: value });
+    };
+
+    const updateTerritoryFilter = (value) => {
+        props.changeMapLayer(value);
+        setActiveFilters({ ...activeFilters, territory: value });
+    };
+    const addOnClickToFilters = () => Object.keys(advancedSearchFilters).reduce((acc, filter) => {
         const filterWithOnClick = {
-            ...filters[filter],
-            onClick: filtersOnClickHandler[filter]
+            ...advancedSearchFilters[filter],
+            onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
         };
         acc[filter] = filterWithOnClick;
         return acc;
     }, {});
-
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
         // TODO: This ref is necessary, need to figure out why the map components are losing reference to data
@@ -162,6 +170,10 @@ const GeoVisualizationSection = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [expanded, prevProps?.subaward, props.subaward]);
+
+    useEffect(() => {
+        updateTerritoryFilter(props.mapLayer);
+    }, [props.mapLayer]);
 
     const applyLineClamp = (elem) => {
         elem.classList.add("line-clamp");

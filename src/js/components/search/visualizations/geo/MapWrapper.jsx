@@ -563,6 +563,8 @@ const MapWrapper = (props) => {
         if (awardTypeFilters.includes(activeFilters.awardType)) {
             mapFilters.spendingType.options.pop();
         }
+
+        console.debug("when filters generated: ", activeFilters, mapFilters, awardTypeFilters);
         return (
             <MapFilters
                 filters={mapFilters}
