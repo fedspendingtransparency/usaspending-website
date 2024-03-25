@@ -15,7 +15,7 @@ import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 // import MapLayerToggle from './MapLayerToggle';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
-import MapFiltersToggle from "./MapFiltersToggle";
+import MapFiltersToggle from "../../../covid19/recipient/map/MapFiltersToggle";
 import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
 
 const propTypes = {
