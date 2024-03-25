@@ -23,7 +23,7 @@
       padding: rem(10) rem(4);
       display: flex;
       align-items: center;
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 4px 4px 0;
 
       &.closed {
         left: 0;
@@ -81,29 +81,10 @@
         .map__filters-header__title {
           @include display(flex);
           font-size: 1.4rem;
-          font-weight: $font-semibold;
           letter-spacing: 0;
           line-height: 1.8rem;
-
-          .map__filters-header__title {
-            @include display(flex);
-            align-items: center;
-
-            .tooltip-wrapper {
-              .tooltip-spacer {
-                z-index: 15;
-              }
-
-              .tooltip-pointer {
-                left: -0.7rem;
-              }
-
-              .tooltip-pointer::after {
-                background-color: $color-white;
-                ;
-              }
-            }
-          }
+          color: #1b1b1b;
+          font-weight: $font-normal;
         }
       }
 
