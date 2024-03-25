@@ -129,11 +129,12 @@
 
         .toggle {
           padding: 0;
-          margin-left: rem(8);
+          margin: auto 0 rem(3) rem(8);
 
           svg {
             color: $blue-50;
             width: rem(10);
+            vertical-align: top;
           }
         }
       }
