@@ -10,10 +10,8 @@ const CustomTooltip = ({ active, payload, label }) => {
                     {label}
                 </div>
                 <div className="tooltip__text">
-                    <div className="tooltip__item">
-                        <div className="tooltip__text-label">Total Obligations</div>
-                        <div className="tooltip__text-amount">{formatMoneyWithUnitsShortLabel(payload[0].value)}</div>
-                    </div>
+                    <div className="tooltip__text-label">Total Obligations</div>
+                    <div className="tooltip__text-amount">{formatMoneyWithUnitsShortLabel(payload[0].value)}</div>
                 </div>
             </div>
         );

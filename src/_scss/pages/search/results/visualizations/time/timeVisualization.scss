@@ -72,43 +72,39 @@
 }
 
 .recharts-tooltip-wrapper {
+    background-color: $color-white;
+    border: 1px solid #aeb0b5;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+
     .custom-tooltip {
-        background-color: $color-white;
+        margin: 16px 16px 12px;
+        display: flex;
+        flex-direction: column;
 
         .tooltip__title {
             font-size: rem(16);
+            font-weight: 600;
+            line-height: 20px;
             font-weight: $font-semibold;
             color: $gray-90;
         }
 
         .tooltip__text {
-            padding-left: 2rem;
-            margin-top: -2rem;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: row;
 
-            hr {
-                background: $color-gray-lighter;
-                height: 1px;
-            }
-
-            .tooltip__text-note {
+            .tooltip__text-label {
+                flex: 1;
                 font-size: rem(14);
-                font-style: italic;
-                text-align: center;
+                text-align: left;
                 color: $color-base;
             }
 
             .tooltip__text-amount {
-                margin-left: auto;
+                margin-left: 25%;
                 font-weight: $font-semibold;
-            }
-
-            .tooltip__item {
-                display: flex;
-                margin-bottom: 0.8rem;
-
-                .tooltip__text {
-                    font-size: rem(14);
-                }
+                text-align: right;
             }
         }
     }
