@@ -1,5 +1,5 @@
 /**
- * MapFilters.jsx
+ * AdvancedSearchMapFilters.jsx
  * Created by Nick Torres 3/20/2024
  */
 
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 import { mapFilterSortOrderByValue } from 'dataMapping/covid19/covid19';
 import { handleSort } from 'helpers/covid19Helper';
-import MapFiltersHeader from './MapFiltersHeader';
+import MapFiltersTitle from './MapFiltersTitle';
 import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
 
 const propTypes = {
@@ -17,10 +17,10 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
-const MapFilters = ({ filters, activeFilters, isOpen }) => (
+const AdvancedSearchMapFilters = ({ filters, activeFilters, isOpen }) => (
     <div className={isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
         <div className="map__filters-header">
-            <MapFiltersHeader />
+            <MapFiltersTitle />
         </div>
         <div className="map__filters-body">
             {
@@ -51,5 +51,5 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
     </div>
 );
 
-MapFilters.propTypes = propTypes;
-export default MapFilters;
+AdvancedSearchMapFilters.propTypes = propTypes;
+export default AdvancedSearchMapFilters;

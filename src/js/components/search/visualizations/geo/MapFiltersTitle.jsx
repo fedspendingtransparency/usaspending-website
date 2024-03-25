@@ -1,6 +1,11 @@
+/**
+ * MapFiltersTitle.jsx
+ * Created by Nick Torres 3/20/2024
+ */
+
 import React from 'react';
 
-const MapLegendHeader = () => (
+const MapFiltersTitle = () => (
     <div className="map__filters-header__title">
         <div className="map-filters-header__title-text">
             Show on Map
@@ -8,4 +13,4 @@ const MapLegendHeader = () => (
     </div>
 );
 
-export default MapLegendHeader;
+export default MapFiltersTitle;

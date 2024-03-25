@@ -16,7 +16,7 @@ import MapLegend from './MapLegend';
 // import MapLayerToggle from './MapLayerToggle';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 import MapFiltersToggle from "./MapFiltersToggle";
-import MapFilters from "./MapFilters";
+import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -546,7 +546,7 @@ const MapWrapper = (props) => {
         }
 
         return (
-            <MapFilters
+            <AdvancedSearchMapFilters
                 filters={mapFilters}
                 activeFilters={props.activeFilters}
                 isOpen={isFiltersOpen} />
