@@ -78,6 +78,10 @@
             @media(max-width: $tablet-screen) {
               width: 100%;
             }
+
+            .filter__dropdown-list-item.active:hover {
+              background-color: $gray-cool-10;
+            }
           }
         }
       }
