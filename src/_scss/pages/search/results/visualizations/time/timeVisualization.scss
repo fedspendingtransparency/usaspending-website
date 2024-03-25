@@ -63,11 +63,23 @@
     }
 }
 
+// Styles for recharts implementation of spending over time chart
+// TODO: Delete the above after releasing the Recharts implementation
 .recharts-time-visualization-container {
     height: 350px;
 
     .recharts-cartesian-axis-line {
         stroke: $gray-cool-10;
+    }
+
+    .recharts-bars {
+        fill: #1b2b85;
+        opacity: 1;
+    }
+
+    g:hover .recharts-bars:not(:hover) {
+        fill: #1b2b85;
+        opacity: 0.5;
     }
 }
 

@@ -49,7 +49,7 @@ const CustomShape = (props) => {
     }
     return (
         <g>
-            <rect x={translateX} y={y} width={maxWidth} height={height} fill="#07648D" />
+            <rect x={translateX} y={y} width={maxWidth} height={height} className="recharts-bars" />
         </g>
     );
 };
