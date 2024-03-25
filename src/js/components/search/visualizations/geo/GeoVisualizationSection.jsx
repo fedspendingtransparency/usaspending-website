@@ -49,7 +49,6 @@ const propTypes = {
 const availableLayers = ['country', 'state', 'county', 'congressionalDistrict'];
 
 const GeoVisualizationSection = (props) => {
-    console.debug("PRAHPS: ", props);
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
     const [tableBody, setTableBody] = useState("");

@@ -517,25 +517,6 @@ const MapWrapper = (props) => {
         return null;
     };
 
-    // const toggle = () => {
-    //     const {
-    //         showLayerToggle,
-    //         availableLayers,
-    //         scope,
-    //         changeMapLayer,
-    //         className
-    //     } = props;
-    //     if (showLayerToggle && availableLayers.length > 1) {
-    //         return (<MapLayerToggle
-    //             active={scope}
-    //             available={availableLayers}
-    //             sources={mapboxSources}
-    //             changeMapLayer={changeMapLayer}
-    //             className={className} />);
-    //     }
-    //     return null;
-    // };
-
     const legend = () => {
         const {
             stateProfile, updateMapLegendToggle, mapLegendToggle, scope
@@ -564,7 +545,6 @@ const MapWrapper = (props) => {
             mapFilters.spendingType.options.pop();
         }
 
-        console.debug("when filters generated: ", activeFilters, mapFilters, awardTypeFilters);
         return (
             <MapFilters
                 filters={mapFilters}
