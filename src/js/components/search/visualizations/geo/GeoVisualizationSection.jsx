@@ -69,6 +69,7 @@ const GeoVisualizationSection = (props) => {
 
     const updateAmountTypeFilter = (value) => {
         setActiveFilters({ ...activeFilters, amountType: value });
+        props.updateMapLegendToggle(value);
     };
 
     const updateTerritoryFilter = (value) => {
