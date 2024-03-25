@@ -148,6 +148,8 @@
         width: 83.3%;
         margin: auto;
         border: none;
+        overflow-x: auto;
+        overflow-y: scroll;
 
         @media(max-width: $medium-screen) {
           width: 100%;

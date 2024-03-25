@@ -28,7 +28,7 @@ export const TempPlaceholderTable = () => (
     <div style={{
         backgroundColor: 'lightgoldenrodyellow',
         color: 'goldenrod',
-        height: '480px',
+        height: '500px',
         textAlign: 'center',
         fontSize: '24px'
     }}>

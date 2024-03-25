@@ -38,6 +38,9 @@ const TempSearchSectionWrapper = ({
         setViewType(label);
     };
 
+    // Measures content height to set height for dsm content
+    const content = document.querySelector('.temp-search__section-wrapper-content')?.clientHeight;
+
     return (
         <div className="search-results-wrapper temp-search__section-wrapper">
             <div className="temp-search__section-wrapper-header">
@@ -63,7 +66,11 @@ const TempSearchSectionWrapper = ({
                 openIcon="chevron-up"
                 title="Data sources and methodology" >
                 {openAccordion && (
-                    <div className="temp-search__section-wrapper-dsm">{dsmContent}</div>
+                    <div
+                        className="temp-search__section-wrapper-dsm"
+                        style={{ height: `${content}px` }}>
+                        {dsmContent}
+                    </div>
                 )}
             </Accordion>
         </div>
