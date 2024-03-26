@@ -59,15 +59,13 @@
       &.closed {
         opacity: 0;
         display: none;
-        transition: opacity 1s;
-        transition: display 1s;
+        transition: opacity 1s, display 1s;
       }
 
       &.open {
         opacity: 1;
         display: block;
-        transition: opacity 1s;
-        transition: display 1s;
+        transition: opacity 1s, display 1s;
       }
 
       .map__filters-header {
