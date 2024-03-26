@@ -34,15 +34,23 @@ const timeJumpIcon = (x, y) => {
     );
 };
 
-const CustomShape = ({
-    payload, x, y, width, height
-}) => {
+const CustomShape = (props) => {
+    const {
+        payload, x, y, width, height
+    } = props;
+    const maxWidth = width > 120 ? 120 : width;
+    const translateX = x + ((width / 2) - (maxWidth / 2));
+
     if (payload.value === 'jump') {
-        return null;
+        return (
+            <g>
+                <line x1={x + (width / 2)} x2={x + (width / 2) + 1} y1="463" y2="6" stroke="#dfe1e2" strokeDasharray="5 3" />
+            </g>
+        );
     }
     return (
         <g>
-            <rect x={x} y={y} width={width} height={height} fill="#07648D" />
+            <rect x={translateX} y={y} width={maxWidth} height={height} fill="#07648D" />
         </g>
     );
 };
