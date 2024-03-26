@@ -109,6 +109,42 @@ export const filters = {
     // }
 };
 
+export const advancedSearchFilters = {
+    territory: {
+        label: 'AREA TYPE',
+        options: [
+            {
+                value: 'country',
+                label: 'Countries'
+            },
+            {
+                value: 'state',
+                label: 'States & Territories'
+            },
+            {
+                value: 'county',
+                label: 'Counties'
+            },
+            {
+                value: 'congressionalDistrict',
+                label: 'Congressional Districts'
+            }
+        ]
+    },
+    amountType: {
+        label: 'AMOUNT TYPE',
+        options: [
+            {
+                value: 'totalSpending',
+                label: 'Total Spending'
+            },
+            {
+                value: 'perCapita',
+                label: 'Per Capita Spending'
+            }
+        ]
+    }
+};
 export const filtersOnClickHandler = {
     territory: 'updateTerritoryFilter',
     spendingType: 'updateSpendingTypeFilter',
