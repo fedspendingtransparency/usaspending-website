@@ -128,9 +128,10 @@ const NewPicker = ({
                     onClick={toggleMenu}
                     onKeyUp={keyUp}>
                     {leftIcon &&
-                    <span className="filter__dropdown-left-icon">
-                        <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />
-                    </span>}
+                        <span className="filter__dropdown-left-icon">
+                            <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />
+                        </span>
+                    }
                     {children ?
                         <>{children}</> :
                         <span className={`filter__dropdown-button-text ${minTextWidth}`}>
