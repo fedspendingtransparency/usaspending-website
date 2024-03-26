@@ -71,15 +71,6 @@
     .recharts-cartesian-axis-line {
         stroke: $gray-cool-10;
     }
-
-    .recharts-bars {
-        fill: $indigo-cool-80v;
-        opacity: 1;
-    }
-
-    g:hover g.recharts-bars:not(:hover) {
-        opacity: 0.5;
-    }
 }
 
 .recharts-tooltip-wrapper {
