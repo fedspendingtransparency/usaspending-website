@@ -4,18 +4,16 @@ import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparenc
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
 const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length && payload[0].value !== "jump") {
-        return (
-            <div className="custom-tooltip">
-                <div className="tooltip__title">
-                    {label}
-                </div>
-                <div className="tooltip__text">
-                    <div className="tooltip__text-label">Total Obligations</div>
-                    <div className="tooltip__text-amount">{formatMoneyWithUnitsShortLabel(payload[0].value)}</div>
-                </div>
+    if (active && payload && payload.length && payload[0].label !== "jump") {
+        return <div className="custom-tooltip">
+            <div className="tooltip__title">
+                {label}
             </div>
-        );
+            <div className="tooltip__text">
+                <div className="tooltip__text-label">Obligations</div>
+                <div className="tooltip__text-amount">{formatMoneyWithUnitsShortLabel(payload[0].value)}</div>
+            </div>
+        </div>;
     }
 
     return null;

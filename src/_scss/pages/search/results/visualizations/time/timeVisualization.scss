@@ -73,30 +73,29 @@
     }
 
     .recharts-bars {
-        fill: #1b2b85;
+        fill: $indigo-cool-80v;
         opacity: 1;
     }
 
-    g:hover .recharts-bars:not(:hover) {
-        fill: #1b2b85;
+    g:hover g.recharts-bars:not(:hover) {
         opacity: 0.5;
     }
 }
 
 .recharts-tooltip-wrapper {
     background-color: $color-white;
-    border: 1px solid #aeb0b5;
+    border: 1px solid $color-gray-light;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 
     .custom-tooltip {
         margin: 16px 16px 12px;
         display: flex;
         flex-direction: column;
+        width: 166px;
 
         .tooltip__title {
             font-size: rem(16);
-            font-weight: 600;
-            line-height: 20px;
+            line-height: rem(20);
             font-weight: $font-semibold;
             color: $gray-90;
         }
@@ -114,7 +113,6 @@
             }
 
             .tooltip__text-amount {
-                margin-left: 25%;
                 font-weight: $font-semibold;
                 text-align: right;
             }
