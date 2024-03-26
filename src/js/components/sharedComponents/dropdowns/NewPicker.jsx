@@ -127,9 +127,11 @@ const NewPicker = ({
                     aria-label="Filter Dropdown Button"
                     onClick={toggleMenu}
                     onKeyUp={keyUp}>
-                    <span className="filter__dropdown-left-icon">
-                        <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />
-                    </span>
+                    {leftIcon &&
+                        <span className="filter__dropdown-left-icon">
+                            <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />
+                        </span>
+                    }
                     {children ?
                         <>{children}</> :
                         <span className={`filter__dropdown-button-text ${minTextWidth}`}>

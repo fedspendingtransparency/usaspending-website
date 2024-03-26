@@ -5,7 +5,8 @@ import TempAwardTable from "./TempAwardTable";
 import TempSpendingOverTime from "./TempSpendingOverTime";
 import TempMapSection from "./TempMapSection";
 import TempCategoriesSection from "./TempCategoriesSection";
-import TempPlaceholderComponent from "./TempPlaceholderComponent";
+import { TempPlaceholderComponent, TempPlaceholderChart, TempPlaceholderTable, TempPlaceholderDsmContent } from "./TempPlaceholderComponents";
+import TempSearchSectionWrapper from "./TempSearchSectionWrapper";
 
 require("pages/search/searchPage.scss");
 
@@ -16,6 +17,8 @@ const TempSearchPage = () => {
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
+    const [viewType, setViewType] = useState('chart');
+    const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const observerOptions = {
         threshold: 0.1
@@ -41,6 +44,51 @@ const TempSearchPage = () => {
                 }
             }
         });
+    };
+
+    const onClick = (e) => {
+        setSelectedDropdown(e);
+    };
+
+    const dummyWrapperProps = {
+        sectionTitle: 'Results by Category',
+        dropdownOptions: [
+            {
+                name: 'Awarding Agency',
+                value: '0',
+                onClick
+            },
+            {
+                name: 'Awarding Subagency',
+                value: '1',
+                onClick
+            },
+            {
+                name: 'Recipient',
+                value: '2',
+                onClick
+            },
+            {
+                name: 'North American Industry Classification System (NAICS)',
+                value: '3',
+                onClick
+            },
+            {
+                name: 'Product and Service Code (PSC)',
+                value: '4',
+                onClick
+            },
+            {
+                name: 'Assistance Listing',
+                value: '5',
+                onClick
+            }
+        ],
+        selectedDropdownOption: selectedDropdown,
+        isVisualization: true,
+        chart: <TempPlaceholderChart />,
+        table: <TempPlaceholderTable />,
+        dsmContent: <TempPlaceholderDsmContent />
     };
 
     // eslint-disable-next-line consistent-return
@@ -72,6 +120,13 @@ const TempSearchPage = () => {
                 classNames="usa-da-search-page"
                 title="Temp Search Page">
                 <main id="main-content" className="main-content">
+                    <div className="search-contents">
+                        <div className="full-search-sidebar temp-search__sidebar">sidebar placeholder</div>
+                        <TempSearchSectionWrapper
+                            {...dummyWrapperProps}
+                            viewType={viewType}
+                            setViewType={setViewType} />
+                    </div>
                     <div id="search-page-component" className="award">
                         {!awardTableHasLoaded && <TempPlaceholderComponent />}
                         {(isVisible === 'award' || awardTableHasLoaded) &&
