@@ -117,7 +117,7 @@ const TimeVisualizationChart = (props) => {
             value = null;
         }
 
-        if (!(transformedData[transformedData?.length - 1]?.value === "jump" && label === "jump")) {
+        if (!(transformedData[transformedData?.length - 1]?.value === null && label === "jump")) {
             transformedData.push({
                 label,
                 value
@@ -125,7 +125,7 @@ const TimeVisualizationChart = (props) => {
         }
     }
 
-    if (transformedData[transformedData?.length - 1]?.value === "jump") {
+    if (transformedData[transformedData?.length - 1]?.label === "jump") {
         transformedData.pop();
     }
 
@@ -152,7 +152,6 @@ const TimeVisualizationChart = (props) => {
                     <BarChart
                         height={350}
                         data={transformedData}
-                        title="Line chart showing UV values for pages"
                         accessibilityLayer
                         margin={{
                             top: 5,
