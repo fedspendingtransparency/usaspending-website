@@ -7,7 +7,7 @@ const timeJumpIcon = (x, y) => {
     const translateX = x - 6;
     const translateY = y + 3;
     return (
-        <g tabIndex="0" transform={`translate(${translateX},${translateY})`}>
+        <g transform={`translate(${translateX},${translateY})`}>
             <line x1="1.06699" y1="8.49805" x2="5.54067" y2="0.749398" stroke="#5C5C5C" />
             <line x1="5.09335" y1="9.39258" x2="9.56704" y2="1.64393" stroke="#5C5C5C" />
         </g>
@@ -37,8 +37,7 @@ const CustomShape = (props) => {
         );
     }
     return (
-        // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-        <rect tabIndex="0" x={translateX} y={y} width={maxWidth} height={height} fill={fill} fillOpacity={fillOpacity} className="recharts-bars" />
+        <rect x={translateX} y={y} width={maxWidth} height={height} fill={fill} fillOpacity={fillOpacity} className="recharts-bars" />
     );
 };
 
@@ -52,7 +51,7 @@ const CustomXTick = (props) => {
     }
     return (
         <g transform={`translate(${x},${y})`}>
-            <text x={0} y={0} dx={12} dy={12} tabIndex="0" textAnchor="end" fill="#5C5C5C" fontSize={12} width="40px">
+            <text x={0} y={0} dx={12} dy={12} textAnchor="end" fill="#5C5C5C" fontSize={12} width="40px">
                 {payload.value}
             </text>
         </g>);
@@ -65,7 +64,7 @@ const CustomYTick = (props) => {
 
     return (
         <g transform={`translate(${x},${y})`}>
-            <text x={0} y={0} dy={0} tabIndex="0" textAnchor="end" fill="#5C5C5C" fontSize={12} width="48px">
+            <text x={0} y={0} dy={0} textAnchor="end" fill="#5C5C5C" fontSize={12} width="48px">
                 {formatMoneyWithUnitsShortLabel(payload.value)}
             </text>
         </g>);
@@ -88,7 +87,7 @@ const TimeVisualizationChart = (props) => {
         if (active && payload && payload.length && payload[0].label !== "jump") {
             setFocusBar(label);
             return (
-                <div className="custom-tooltip">
+                <div className="custom-tooltip" role="status" aria-live="assertive">
                     <div className="tooltip__title">
                         {label}
                     </div>
@@ -153,6 +152,8 @@ const TimeVisualizationChart = (props) => {
                     <BarChart
                         height={350}
                         data={transformedData}
+                        title="Line chart showing UV values for pages"
+                        accessibilityLayer
                         margin={{
                             top: 5,
                             right: 30,
