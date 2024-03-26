@@ -147,7 +147,9 @@
   }
 
   @import "./map/map";
-
+  .visualization-tooltip {
+    @import "components/visualizations/tooltip/_tooltip";
+  }
   //HIDE THE MAPBOX COMPASS CONTROLS
   & .mapboxgl-ctrl-compass {
     display: none !important;
