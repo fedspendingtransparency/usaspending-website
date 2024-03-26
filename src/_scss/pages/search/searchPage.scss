@@ -9,6 +9,8 @@
     @import "./mobile/mobileFilterButton";
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
+    @import "../../components/tooltips/customTooltipContent";
+    @import "../../components/tooltips/index";
 
     @import "../../components/roundedtoggle";
     @import "../../components/tempSearchPage/tempSearchSectionWrapper";
