@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine } from 'recharts';
 import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
@@ -37,7 +37,7 @@ const CustomShape = (props) => {
         );
     }
     return (
-        <rect x={translateX} y={y} width={maxWidth} height={height} fill={fill} fillOpacity={fillOpacity} className="recharts-bars" />
+        <rect x={translateX} y={height < 0 ? Math.abs(height) + 6 : y} width={maxWidth} height={Math.abs(height)} fill={fill} fillOpacity={fillOpacity} className="recharts-bars" />
     );
 };
 
@@ -162,6 +162,7 @@ const TimeVisualizationChart = (props) => {
                         <XAxis dataKey="label" tick={<CustomXTick />} />
                         <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
                         <Tooltip cursor={{ fill: '#fff' }} filterNull content={<CustomTooltip />} isAnimationActive={false} />
+                        <ReferenceLine y={0} stroke="#dfe1e2" strokeWidth={1} />
                         <Bar dataKey="value" shape={<CustomShape focusBar={focusBar} />} activeBar={<CustomShape isActive focusBar={focusBar} />} onMouseEnter={onMouseMove} onMouseOut={onMouseLeave} onMouseLeave={onMouseLeave} />
                     </BarChart>
                 </ResponsiveContainer>}
