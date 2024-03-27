@@ -162,7 +162,7 @@ const TimeVisualizationChart = (props) => {
                         <XAxis dataKey="label" tick={<CustomXTick />} />
                         <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
                         <Tooltip cursor={{ fill: '#fff' }} filterNull content={<CustomTooltip />} isAnimationActive={false} />
-                        <ReferenceLine y={0} stroke="#dfe1e2" strokeWidth={1} />
+                        <ReferenceLine y={0} stroke="#dfe1e2" />
                         <Bar dataKey="value" shape={<CustomShape focusBar={focusBar} />} activeBar={<CustomShape isActive focusBar={focusBar} />} onMouseEnter={onMouseMove} onMouseOut={onMouseLeave} onMouseLeave={onMouseLeave} />
                     </BarChart>
                 </ResponsiveContainer>}
