@@ -1,0 +1,55 @@
+// this file can be deleted once the new advance search has been implemented
+// and the toggle between new and old search ui is no longer needed
+
+.temp-search-page {
+  display: grid;
+
+  .rounded-toggle__wrapper {
+    margin: rem(16) rem(24) rem(8) rem(24);
+    line-height: rem(21);
+    height: fit-content;
+    padding: rem(16);
+    border: rem(1) solid $gray-cool-10;
+    border-radius: rem(4);
+    box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+    justify-self: center;
+
+    @media(max-width: $medium-screen) {
+      margin-top: rem(24);
+    }
+
+    @media(max-width: $tablet-screen) {
+      margin-top: rem(16)
+    }
+
+    .rounded-toggle__slider:before {
+      border-color: $gray-cool-10;
+    }
+
+    .rounded-toggle__label {
+      margin-right: rem(16);
+      color: $gray-90;
+    }
+
+    .rounded-toggle__round {
+      background-color: $gray-cool-20;
+    }
+
+    .rounded-toggle__switch {
+      width: rem(36);
+      min-width: rem(36);
+      align-self: center;
+    }
+
+    input:checked + .rounded-toggle__slider {
+      background-color: #00a91c !important;
+    }
+
+    input:checked + .rounded-toggle__slider:before {
+      border-color: #00a91c !important;
+      -webkit-transform: translateX(16px);
+      -ms-transform: translateX(16px);
+      transform: translateX(16px);
+    }
+  }
+}

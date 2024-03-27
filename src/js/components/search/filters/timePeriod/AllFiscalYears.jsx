@@ -22,6 +22,7 @@ export default class AllFiscalYears extends React.Component {
         this.saveAllYears = this.saveAllYears.bind(this);
         this.saveSelectedYear = this.saveSelectedYear.bind(this);
     }
+
     saveSelectedYear(year) {
         let newYears;
 

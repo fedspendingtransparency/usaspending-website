@@ -13,7 +13,11 @@ import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import Note from 'components/sharedComponents/Note';
 import { noteMessage } from 'dataMapping/search/geoVisualizationSection';
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-
+import {
+    advancedSearchFilters,
+    filtersOnClickHandler
+} from 'dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
@@ -51,10 +55,34 @@ const GeoVisualizationSection = (props) => {
     const [tableTitle, setTableTitle] = useState("");
     const [tablePreview, setTablePreview] = useState("");
     const [expanded, setExpanded] = useState(null);
+    const [activeFilters, setActiveFilters] = useState({
+        territory: props.mapLayer,
+        spendingType: 'obligation',
+        amountType: 'totalSpending',
+        recipientType: 'all',
+        awardType: 'all'
+    });
     const sectionHr = useRef(null);
     const prevProps = usePrevious(props);
     const dataRef = useRef(props.data);
 
+    const updateAmountTypeFilter = (value) => {
+        setActiveFilters({ ...activeFilters, amountType: value });
+        props.updateMapLegendToggle(value);
+    };
+
+    const updateTerritoryFilter = (value) => {
+        props.changeMapLayer(value);
+        setActiveFilters({ ...activeFilters, territory: value });
+    };
+    const addOnClickToFilters = () => Object.keys(advancedSearchFilters).reduce((acc, filter) => {
+        const filterWithOnClick = {
+            ...advancedSearchFilters[filter],
+            onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
+        };
+        acc[filter] = filterWithOnClick;
+        return acc;
+    }, {});
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
         // TODO: This ref is necessary, need to figure out why the map components are losing reference to data
@@ -123,7 +151,8 @@ const GeoVisualizationSection = (props) => {
     useEffect(() => {
         handleUpdateTitle();
         handleUpdateBody();
-    }, [handleUpdateBody]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         dataRef.current = props.data;
@@ -141,6 +170,10 @@ const GeoVisualizationSection = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [expanded, prevProps?.subaward, props.subaward]);
+
+    useEffect(() => {
+        updateTerritoryFilter(props.mapLayer);
+    }, [props.mapLayer]);
 
     const applyLineClamp = (elem) => {
         elem.classList.add("line-clamp");
@@ -270,6 +303,10 @@ const GeoVisualizationSection = (props) => {
             </div>
 
             <MapWrapper
+                filters={addOnClickToFilters()}
+                activeFilters={activeFilters}
+                setActiveFilters={setActiveFilters}
+                awardTypeFilters={awardTypeTabs}
                 data={props.data}
                 renderHash={props.renderHash}
                 scope={props.mapLayer}

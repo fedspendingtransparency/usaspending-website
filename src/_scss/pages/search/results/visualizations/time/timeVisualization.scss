@@ -63,11 +63,51 @@
     }
 }
 
+// Styles for recharts implementation of spending over time chart
+// TODO: Delete the above after releasing the Recharts implementation
 .recharts-time-visualization-container {
-    height: 500px;
+    height: 350px;
 
     .recharts-cartesian-axis-line {
         stroke: $gray-cool-10;
+    }
+}
+
+.recharts-tooltip-wrapper {
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+
+    .custom-tooltip {
+        margin: 16px 16px 12px;
+        display: flex;
+        flex-direction: column;
+        width: 166px;
+
+        .tooltip__title {
+            font-size: rem(16);
+            line-height: rem(20);
+            font-weight: $font-semibold;
+            color: $gray-90;
+        }
+
+        .tooltip__text {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: row;
+
+            .tooltip__text-label {
+                flex: 1;
+                font-size: rem(14);
+                text-align: left;
+                color: $color-base;
+            }
+
+            .tooltip__text-amount {
+                font-weight: $font-semibold;
+                text-align: right;
+            }
+        }
     }
 }
 
