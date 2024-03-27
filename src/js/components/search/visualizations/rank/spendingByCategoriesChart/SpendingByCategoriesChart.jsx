@@ -93,6 +93,7 @@ const SpendingByCategoriesChart = (props) => {
                     <YAxis
                         type="category"
                         dataKey="label"
+                        stroke="#dfe1e2"
                         width={labelWidthVar}
                         tickLine={false}
                         tick={<CustomTick link={dataStuff} />} />
