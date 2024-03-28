@@ -156,7 +156,6 @@
     "**/express": "4.19.2",
     "webpack-dev-middleware": "5.3.4",
     "**/webpack-dev-middleware": "5.3.4"
-
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
