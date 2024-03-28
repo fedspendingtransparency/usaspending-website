@@ -7,6 +7,7 @@
 // these values should match scss/core/variables.scss
 
 export const smallScreen = 320;
+export const smTabletScreen = 576;
 export const tabletScreen = 768;
 export const mediumScreen = 992;
 export const largeScreen = 1200;

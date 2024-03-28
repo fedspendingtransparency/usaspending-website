@@ -6,11 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GlobalConstants from 'GlobalConstants';
-
+import { LoadingMessage, ErrorMessage, NoResultsMessage } from 'data-transparency-ui';
 import SpendingByCategoriesChart from './spendingByCategoriesChart/SpendingByCategoriesChart';
 import HorizontalChart from './chart/HorizontalChart';
 import RankVisualizationTooltip from './RankVisualizationTooltip';
-import ChartMessage from './RankVisualizationChartMessage';
 
 const defaultProps = {
     labelSeries: [],
@@ -71,19 +70,18 @@ export default class RankVisualization extends React.Component {
     }
 
     render() {
-        let chart = (<ChartMessage message="No data to display" />);
-        let legend = null;
+        let chart = (<NoResultsMessage />);
 
         if (this.props.loading) {
-            chart = (<ChartMessage message="Loading data..." />);
+            chart = (<LoadingMessage />);
         }
         else if (this.props.error) {
-            chart = (<ChartMessage message="An error has occurred." />);
+            chart = (<ErrorMessage description="An error has occurred." />);
             if (this.props.industryCodeError) {
-                chart = (<ChartMessage message="Industry codes are unavailable for Sub-Awards." />);
+                chart = (<ErrorMessage description="Industry codes are unavailable for Sub-Awards." />);
             }
             else if (this.props.recipientError) {
-                chart = (<ChartMessage message="Paging to 10,000 records and above is not available for Spending by Recipient." />);
+                chart = (<ErrorMessage description="Paging to 10,000 records and above is not available for Spending by Recipient." />);
             }
         }
         else if (this.props.dataSeries.length > 0) {
@@ -91,22 +89,17 @@ export default class RankVisualization extends React.Component {
             // Height is number of results * item height + 30px padding
             const height = (this.props.dataSeries.length * itemHeight) + 30;
 
-            chart = (
-                <HorizontalChart
-                    {...this.props}
-                    itemHeight={itemHeight}
-                    height={height}
-                    selectItem={this.selectItem}
-                    deselectItem={this.deselectItem} />
-            );
-
-            legend = (
-                <div className="visualization-legend">
-                    <div className="visualization-legend__circle" />
-                    <div className="visualization-legend__label">
-                        Amount Obligated
-                    </div>
-                </div>
+            chart = (GlobalConstants.QAT ?
+                <SpendingByCategoriesChart {...this.props} />
+                :
+                <>
+                    <HorizontalChart
+                        {...this.props}
+                        itemHeight={itemHeight}
+                        height={height}
+                        selectItem={this.selectItem}
+                        deselectItem={this.deselectItem} />
+                </>
             );
         }
 
@@ -121,14 +114,7 @@ export default class RankVisualization extends React.Component {
             <section
                 className="results-visualization-rank-container"
                 aria-label="Spending by Category">
-                {GlobalConstants.QAT ?
-                    <SpendingByCategoriesChart {...this.props} />
-                    :
-                    <>
-                        { chart }
-                    </>
-                }
-                {legend}
+                {chart}
                 {tooltip}
             </section>
         );
