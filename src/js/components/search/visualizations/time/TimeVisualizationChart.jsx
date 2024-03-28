@@ -37,7 +37,7 @@ const CustomShape = (props) => {
         );
     }
     return (
-        <rect x={translateX} y={height < 0 ? Math.abs(height) + 6 : y} width={maxWidth} height={Math.abs(height)} fill={fill} fillOpacity={fillOpacity} className="recharts-bars" />
+        <rect x={translateX} y={height < 0 ? y - Math.abs(height) : y} width={maxWidth} height={Math.abs(height)} fill={fill} fillOpacity={fillOpacity} className="recharts-bars" />
     );
 };
 
