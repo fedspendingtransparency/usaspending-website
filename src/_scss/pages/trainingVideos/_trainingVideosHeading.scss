@@ -93,25 +93,21 @@
         }
 
         .training-video__column-share-icon {
-          // hacky fix to move the copy confirmation msg closer to the dropdown
-          // hopefully will be fixed with ticket 10711
-          .usda-share-icon {
-            div.copy-confirmation {
-                transform: translateX(-150px) !important;
-              @media(min-width: $tablet-screen) {
-                transform: translateX(-200px) !important;
-              }
-              @media(min-width: $m-large-screen) {
-                transform: translateX(-300px) !important;
-              }
-            }
+          width: rem(38);
+
+          // this is to place the msg on top of the 'copy link' item in dropdown
+          .usda-share-icon .copy-confirmation {
+            top: rem(40);
+            right: rem(16);
           }
+
           .usda-share-icon {
             .usa-dt-picker .usa-dt-picker__dropdown-container {
               .usa-dt-picker__button {
                 margin: 0 rem(34) 0 0;
                 padding-bottom: 4px;
               }
+
               .usa-dt-picker__button svg:hover {
                 color: $blue-70v;
               }

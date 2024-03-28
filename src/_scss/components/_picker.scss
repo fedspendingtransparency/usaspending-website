@@ -29,22 +29,3 @@
         }
     }
 }
-
-.copy-confirmation {
-    @include display(flex);
-    @include justify-content(flex-start);
-    @include align-items(center);
-    position: absolute;
-    height: rem(39);
-    width: rem(140);
-    background: $color-gray-lightest;
-    border: rem(1) solid $color-gray-lightest;
-    border-radius: rem(3);
-    color: $color-gray;
-    margin-right: rem(15);
-    top: rem(36);
-    right: rem(-7);
-    svg {
-        margin: 0 rem(10);
-    }
-}
