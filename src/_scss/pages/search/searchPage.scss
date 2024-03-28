@@ -9,6 +9,8 @@
     @import "./mobile/mobileFilterButton";
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
+    @import "../../components/tooltips/customTooltipContent";
+    @import "../../components/tooltips/index";
 
     @import "../../components/roundedtoggle";
     @import "../../components/tempSearchPage/tempSearchSectionWrapper";
@@ -16,9 +18,11 @@
 
     .subaward-dropdown__list {
         min-width: max-content;
+        transform: translateY(-12px);
     }
 
     #main-content {
+        width: 100%;
         background-color: $color-gray-lightest;
         padding-bottom: rem(32);
         @import "components/aboutTheDataSidebar/aboutTheData";

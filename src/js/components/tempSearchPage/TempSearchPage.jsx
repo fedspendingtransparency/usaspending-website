@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PageWrapper from "../sharedComponents/PageWrapper";
 import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
 import TempAwardTable from "./TempAwardTable";
 import TempSpendingOverTime from "./TempSpendingOverTime";
@@ -115,47 +114,39 @@ const TempSearchPage = () => {
 
     return (
         <PageFeatureFlag>
-            <PageWrapper
-                pageName="Temp Search Page"
-                classNames="usa-da-search-page"
-                title="Temp Search Page">
-                <main id="main-content" className="main-content">
-                    <div className="search-contents">
-                        <div className="full-search-sidebar temp-search__sidebar">sidebar placeholder</div>
-                        <TempSearchSectionWrapper
-                            {...dummyWrapperProps}
-                            viewType={viewType}
-                            setViewType={setViewType} />
-                    </div>
-                    <div id="search-page-component" className="award">
-                        {!awardTableHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'award' || awardTableHasLoaded) &&
+            <main id="main-content" className="main-content">
+                <TempSearchSectionWrapper
+                    {...dummyWrapperProps}
+                    viewType={viewType}
+                    setViewType={setViewType} />
+                <div id="search-page-component" className="award">
+                    {!awardTableHasLoaded && <TempPlaceholderComponent />}
+                    {(isVisible === 'award' || awardTableHasLoaded) &&
                             <TempAwardTable />
-                        }
-                    </div>
+                    }
+                </div>
 
-                    <div id="search-page-component" className="spending">
-                        {!spendingHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'spending' || spendingHasLoaded) &&
+                <div id="search-page-component" className="spending">
+                    {!spendingHasLoaded && <TempPlaceholderComponent />}
+                    {(isVisible === 'spending' || spendingHasLoaded) &&
                             <TempSpendingOverTime />
-                        }
-                    </div>
+                    }
+                </div>
 
-                    <div id="search-page-component" className="map">
-                        {!mapHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'map' || mapHasLoaded) &&
+                <div id="search-page-component" className="map">
+                    {!mapHasLoaded && <TempPlaceholderComponent />}
+                    {(isVisible === 'map' || mapHasLoaded) &&
                             <TempMapSection />
-                        }
-                    </div>
+                    }
+                </div>
 
-                    <div id="search-page-component" className="categories">
-                        {!categoriesHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'categories' || categoriesHasLoaded) &&
+                <div id="search-page-component" className="categories">
+                    {!categoriesHasLoaded && <TempPlaceholderComponent />}
+                    {(isVisible === 'categories' || categoriesHasLoaded) &&
                             <TempCategoriesSection />
-                        }
-                    </div>
-                </main>
-            </PageWrapper>
+                    }
+                </div>
+            </main>
         </PageFeatureFlag>
     );
 };

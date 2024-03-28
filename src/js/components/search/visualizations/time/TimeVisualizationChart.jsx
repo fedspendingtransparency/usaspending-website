@@ -1,27 +1,7 @@
-import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import React, { useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine } from 'recharts';
+import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
-
-// TODO - Add tooltips before this feature is released
-// const CustomTooltip = ({ active, payload, label }) => {
-//     if (active && payload && payload.length) {
-//         return (
-//             <div className="award-summary-tooltip" style={{ border: "1px solid black" }}>
-//                 <h1 className="tooltip__title">{label}</h1>
-//                 <div className="tooltip__text">
-//                     <div className="custom-tooltip">
-//                         <p className="label">{`${payload[0].value}`}</p>
-//                     </div>
-//                 </div>
-//             </div>
-//
-//
-//         );
-//     }
-//
-//     return null;
-// };
 
 const timeJumpIcon = (x, y) => {
     const translateX = x - 6;
@@ -36,31 +16,37 @@ const timeJumpIcon = (x, y) => {
 
 const CustomShape = (props) => {
     const {
-        payload, x, y, width, height
+        x, y, width, height, focusBar, label
     } = props;
+
+    const fill = "#1B2B85";
+    let fillOpacity = "1";
+    if (focusBar && !props?.isActive && label !== "jump") {
+        fillOpacity = "0.5";
+    }
+
     const maxWidth = width > 120 ? 120 : width;
     const translateX = x + ((width / 2) - (maxWidth / 2));
+    const lineHeight = 315;
 
-    if (payload.value === 'jump') {
+    if (label === 'jump') {
         return (
             <g>
-                <line x1={x + (width / 2)} x2={x + (width / 2) + 1} y1="463" y2="6" stroke="#dfe1e2" strokeDasharray="5 3" />
+                <line x1={x + (width / 2)} x2={x + (width / 2) + 1} y1={lineHeight} y2="6" stroke="#dfe1e2" strokeDasharray="5 3" />
             </g>
         );
     }
     return (
-        <g>
-            <rect x={translateX} y={y} width={maxWidth} height={height} fill="#07648D" />
-        </g>
+        <rect x={translateX} y={height < 0 ? y - Math.abs(height) : y} width={maxWidth} height={Math.abs(height)} fill={fill} fillOpacity={fillOpacity} className="recharts-bars" />
     );
 };
 
 const CustomXTick = (props) => {
     const {
-        x, y, payload, width
+        x, y, payload, width, label
     } = props;
 
-    if (payload.value === "jump") {
+    if (payload?.value === "jump" || label === "jump") {
         return timeJumpIcon(x, y, width);
     }
     return (
@@ -87,6 +73,37 @@ const CustomYTick = (props) => {
 
 const TimeVisualizationChart = (props) => {
     const transformedData = [];
+    const [focusBar, setFocusBar] = useState(null);
+
+    const onMouseLeave = () => {
+        if (focusBar) {
+            setFocusBar(null);
+        }
+    };
+
+    const CustomTooltip = (args) => {
+        const { active, payload, label } = args;
+
+        if (active && payload && payload.length && payload[0].label !== "jump") {
+            setFocusBar(label);
+            return (
+                <div className="custom-tooltip" role="status" aria-live="assertive">
+                    <div className="tooltip__title">
+                        {label}
+                    </div>
+                    <div className="tooltip__text">
+                        <div className="tooltip__text-label">Obligations</div>
+                        <div className="tooltip__text-amount">{formatMoneyWithUnitsShortLabel(payload[0].value)}</div>
+                    </div>
+                </div>);
+        }
+
+        onMouseLeave();
+        return null;
+    };
+    const onMouseMove = (state) => {
+        setFocusBar(state.label);
+    };
 
     let label;
     let value;
@@ -97,10 +114,10 @@ const TimeVisualizationChart = (props) => {
         }
         else if (transformedData[transformedData?.length - 1]?.value !== "jump") {
             label = "jump";
-            value = "jump";
+            value = null;
         }
 
-        if (!(transformedData[transformedData?.length - 1]?.value === "jump" && label === "jump")) {
+        if (!(transformedData[transformedData?.length - 1]?.value === null && label === "jump")) {
             transformedData.push({
                 label,
                 value
@@ -108,28 +125,47 @@ const TimeVisualizationChart = (props) => {
         }
     }
 
-    if (transformedData[transformedData?.length - 1]?.value === "jump") {
+    if (transformedData[transformedData?.length - 1]?.label === "jump") {
         transformedData.pop();
     }
 
+    const Message = () => {
+        if (props.loading) {
+            return <LoadingMessage />;
+        }
+        else if (props.error) {
+            return <ErrorMessage />;
+        }
+        else if (transformedData.length === 0) {
+            return <NoResultsMessage />;
+        }
+
+        return <></>;
+    };
+
     return (
         <div className="recharts-time-visualization-container">
-            <ResponsiveContainer>
-                <BarChart
-                    data={transformedData}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                    }}>
-                    <XAxis dataKey="label" tick={<CustomXTick />} />
-                    <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                    {/* TODO - Add tooltips before this feature is released */}
-                    {/* <Tooltip cursor={{ fill: '#fff' }} content={<CustomTooltip />} />*/}
-                    <Bar dataKey="value" shape={<CustomShape />} />
-                </BarChart>
-            </ResponsiveContainer>
+            {props.loading || props.error || transformedData.length === 0 ?
+                <><Message /></>
+                :
+                <ResponsiveContainer>
+                    <BarChart
+                        height={350}
+                        data={transformedData}
+                        accessibilityLayer
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5
+                        }}>
+                        <XAxis dataKey="label" tick={<CustomXTick />} />
+                        <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                        <Tooltip cursor={{ fill: '#fff' }} filterNull content={<CustomTooltip />} isAnimationActive={false} />
+                        <ReferenceLine y={0} stroke="#dfe1e2" />
+                        <Bar dataKey="value" shape={<CustomShape focusBar={focusBar} />} activeBar={<CustomShape isActive focusBar={focusBar} />} onMouseEnter={onMouseMove} onMouseOut={onMouseLeave} onMouseLeave={onMouseLeave} />
+                    </BarChart>
+                </ResponsiveContainer>}
         </div>);
 };
 
