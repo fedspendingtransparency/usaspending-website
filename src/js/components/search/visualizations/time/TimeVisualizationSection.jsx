@@ -248,14 +248,9 @@ export default class TimeVisualizationSection extends React.Component {
                         </div>
                     </div>
                 </div>
-                {GlobalConstants.QAT ?
-                    <TimeVisualizationChart
-                        {...this.props.data}
-                        width={this.state.visualizationWidth} />
-                    :
-                    <TimeVisualization
-                        {...this.props.data}
-                        width={this.state.visualizationWidth} />}
+                <TimeVisualizationChart
+                    {...this.props.data}
+                    width={this.state.visualizationWidth} />
             </section>
         );
     }
