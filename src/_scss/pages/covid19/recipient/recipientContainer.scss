@@ -66,16 +66,16 @@
         }
 
         @import "pages/search/results/visualizations/geo/map/map";
-
+        // styles the legend on the covid page
         .map-container {
           .map-legend {
-            bottom: 4rem;
-            left: 1.5rem;
+            bottom: rem(8);
+            right: rem(8);
             z-index: 1;
 
             @include media($tablet-screen) {
-              bottom: 6rem;
-              right: 1rem;
+              bottom: rem(8);
+              right: rem(8);
               left: auto;
             }
           }

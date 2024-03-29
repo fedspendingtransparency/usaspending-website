@@ -159,7 +159,6 @@
             display: block;
             position: absolute;
             overflow: hidden;
-            transform: translate(0px, -12px);
             width: 100%;
             line-height: rem(21);
 
@@ -177,7 +176,10 @@
 
             .filter__dropdown-list-item.active {
                 background-color: $gray-cool-5;
+            }
 
+            .filter__dropdown-list-item.active:hover {
+                background-color: $gray-cool-10;
             }
         }
 

@@ -23,6 +23,9 @@ const tempPage = () => {
                         <div>4</div>
                         <div>5</div>
                         <div>6</div>
+                        <div className="tooltip-pointer">
+                            <p>hello</p>
+                        </div>
                     </div>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
