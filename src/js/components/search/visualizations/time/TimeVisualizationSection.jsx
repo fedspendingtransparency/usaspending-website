@@ -11,9 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-import GlobalConstants from 'GlobalConstants';
 
-import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../sharedComponents/ReadMore';
@@ -248,9 +246,9 @@ export default class TimeVisualizationSection extends React.Component {
                         </div>
                     </div>
                 </div>
-                <TimeVisualizationChart
-                    {...this.props.data}
-                    width={this.state.visualizationWidth} />
+                    <TimeVisualizationChart
+                        {...this.props.data}
+                        width={this.state.visualizationWidth} />
             </section>
         );
     }
