@@ -5,26 +5,37 @@
     padding: rem(30);
     margin-bottom: rem(40);
 
-    .account-overview__title {
-        margin: 0;
+    .usda-section-title__sectionHeader:first-of-type {
+        margin-top: 0;
+    }
+
+    .usda-section-title__header {
+        margin-left: 0;
         font-size: $h3-font-size;
     }
+
     hr.results-divider {
         margin-top: rem(9);
         margin-bottom: rem(10);
+        margin-left: 0;
     }
+
     .account-overview__content {
         margin-bottom: ($global-mrg * 2);
+        margin-left: $global-margin;
         font-size: $small-font-size;
+
         .account-overview__heading {
             padding: rem(28) 0 rem(5);
             font-weight: $font-semibold;
             font-size: rem(19);
         }
+
         @include media($medium-screen) {
             width: 50%;
         }
     }
+
     .sankey-wrapper {
         text-align: center;
         color: $color-base;
@@ -32,16 +43,20 @@
         margin-top: ($global-mrg * 4);
         margin-bottom: ($global-mrg * 4);
         @import './sankey/sankey';
+
         .sankey-disclosures {
             text-align: left;
             margin-top: rem(20);
+
             .disclosure-title {
                 font-weight: $font-semibold;
             }
+
             ul.disclosure-list {
                 margin: 0;
                 padding: 0;
                 list-style-type: none;
+
                 li {
                     b {
                         font-weight: $font-semibold;

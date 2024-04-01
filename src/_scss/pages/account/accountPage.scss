@@ -11,5 +11,31 @@
         padding:  0;
         @import "./overview/overview";
         @import "./results/searchResults";
+
+        // overwrite for the federal account page
+        .search-results {
+            .usda-section-title__sectionHeader:first-of-type {
+                margin-top: 0;
+            }
+        
+            .usda-section-title__header {
+                margin-left: 0;
+                font-size: $h2-font-size;
+            }
+        
+            hr.results-divider {
+                margin-top: rem(9) !important;
+                margin-bottom: rem(10) !important;
+                margin-left: 0;
+            }
+
+            .visualization-title {
+                margin-left:0;
+                font-size: rem(20);
+                font-weight: $font-semibold;
+                margin-bottom: 0;
+                line-height: 1.2;
+            }
+        }
     }
 }
