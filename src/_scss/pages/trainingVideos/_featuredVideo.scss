@@ -89,6 +89,11 @@
     height: rem(24);
     width: rem(24);
 
+    // this is to place the msg on top of the 'copy link' item in dropdown
+    .usda-share-icon .copy-confirmation {
+      left: rem(4);
+    }
+
     .usda-share-icon {
       height: rem(24);
       width: rem(24);
