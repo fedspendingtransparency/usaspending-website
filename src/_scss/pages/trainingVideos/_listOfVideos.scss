@@ -39,17 +39,24 @@
       }
 
     }
-    .video-card__headline{
+    .video-card__headline {
       &:hover{
         text-decoration: underline;
         cursor: pointer;
       }
     }
-    .list-of-videos__inline{
+    .list-of-videos__inline {
       display:inline-flex;
       width: 100%;
     }
-    .list-of-videos__column-share-icon{
+    .list-of-videos__column-share-icon {
+
+      // this to to place the msg on top of the 'copy link' item in dropdown
+      .usda-share-icon .copy-confirmation {
+        top: rem(48);
+        left: rem(20);
+      }
+
       .svg-inline--fa{
         &:hover{
           color: $blue-70v;

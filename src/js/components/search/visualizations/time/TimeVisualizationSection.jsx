@@ -11,9 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-import GlobalConstants from 'GlobalConstants';
 
-import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../sharedComponents/ReadMore';
@@ -23,7 +21,8 @@ const propTypes = {
     data: PropTypes.object,
     updateVisualizationPeriod: PropTypes.func,
     visualizationPeriod: PropTypes.string,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    loading: PropTypes.bool
 };
 
 export default class TimeVisualizationSection extends React.Component {
@@ -247,14 +246,9 @@ export default class TimeVisualizationSection extends React.Component {
                         </div>
                     </div>
                 </div>
-                {GlobalConstants.QAT ?
-                    <TimeVisualizationChart
-                        {...this.props.data}
-                        width={this.state.visualizationWidth} />
-                    :
-                    <TimeVisualization
-                        {...this.props.data}
-                        width={this.state.visualizationWidth} />}
+                <TimeVisualizationChart
+                    {...this.props.data}
+                    width={this.state.visualizationWidth} />
             </section>
         );
     }

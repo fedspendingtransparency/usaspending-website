@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import PageWrapper from "../sharedComponents/PageWrapper";
 import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
 import TempAwardTable from "./TempAwardTable";
 import TempSpendingOverTime from "./TempSpendingOverTime";
 import TempMapSection from "./TempMapSection";
 import TempCategoriesSection from "./TempCategoriesSection";
-import TempPlaceholderComponent from "./TempPlaceholderComponent";
+import { TempPlaceholderComponent, TempPlaceholderChart, TempPlaceholderTable, TempPlaceholderDsmContent } from "./TempPlaceholderComponents";
+import TempSearchSectionWrapper from "./TempSearchSectionWrapper";
 
 require("pages/search/searchPage.scss");
 
@@ -16,6 +16,8 @@ const TempSearchPage = () => {
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
+    const [viewType, setViewType] = useState('chart');
+    const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const observerOptions = {
         threshold: 0.1
@@ -43,6 +45,51 @@ const TempSearchPage = () => {
         });
     };
 
+    const onClick = (e) => {
+        setSelectedDropdown(e);
+    };
+
+    const dummyWrapperProps = {
+        sectionTitle: 'Results by Category',
+        dropdownOptions: [
+            {
+                name: 'Awarding Agency',
+                value: '0',
+                onClick
+            },
+            {
+                name: 'Awarding Subagency',
+                value: '1',
+                onClick
+            },
+            {
+                name: 'Recipient',
+                value: '2',
+                onClick
+            },
+            {
+                name: 'North American Industry Classification System (NAICS)',
+                value: '3',
+                onClick
+            },
+            {
+                name: 'Product and Service Code (PSC)',
+                value: '4',
+                onClick
+            },
+            {
+                name: 'Assistance Listing',
+                value: '5',
+                onClick
+            }
+        ],
+        selectedDropdownOption: selectedDropdown,
+        isVisualization: true,
+        chart: <TempPlaceholderChart />,
+        table: <TempPlaceholderTable />,
+        dsmContent: <TempPlaceholderDsmContent />
+    };
+
     // eslint-disable-next-line consistent-return
     useEffect(() => {
         setObserverSupported('IntersectionObserver' in window);
@@ -67,40 +114,39 @@ const TempSearchPage = () => {
 
     return (
         <PageFeatureFlag>
-            <PageWrapper
-                pageName="Temp Search Page"
-                classNames="usa-da-search-page"
-                title="Temp Search Page">
-                <main id="main-content" className="main-content">
-                    <div id="search-page-component" className="award">
-                        {!awardTableHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'award' || awardTableHasLoaded) &&
+            <main id="main-content" className="main-content">
+                <TempSearchSectionWrapper
+                    {...dummyWrapperProps}
+                    viewType={viewType}
+                    setViewType={setViewType} />
+                <div id="search-page-component" className="award">
+                    {!awardTableHasLoaded && <TempPlaceholderComponent />}
+                    {(isVisible === 'award' || awardTableHasLoaded) &&
                             <TempAwardTable />
-                        }
-                    </div>
+                    }
+                </div>
 
-                    <div id="search-page-component" className="spending">
-                        {!spendingHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'spending' || spendingHasLoaded) &&
+                <div id="search-page-component" className="spending">
+                    {!spendingHasLoaded && <TempPlaceholderComponent />}
+                    {(isVisible === 'spending' || spendingHasLoaded) &&
                             <TempSpendingOverTime />
-                        }
-                    </div>
+                    }
+                </div>
 
-                    <div id="search-page-component" className="map">
-                        {!mapHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'map' || mapHasLoaded) &&
+                <div id="search-page-component" className="map">
+                    {!mapHasLoaded && <TempPlaceholderComponent />}
+                    {(isVisible === 'map' || mapHasLoaded) &&
                             <TempMapSection />
-                        }
-                    </div>
+                    }
+                </div>
 
-                    <div id="search-page-component" className="categories">
-                        {!categoriesHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'categories' || categoriesHasLoaded) &&
+                <div id="search-page-component" className="categories">
+                    {!categoriesHasLoaded && <TempPlaceholderComponent />}
+                    {(isVisible === 'categories' || categoriesHasLoaded) &&
                             <TempCategoriesSection />
-                        }
-                    </div>
-                </main>
-            </PageWrapper>
+                    }
+                </div>
+            </main>
         </PageFeatureFlag>
     );
 };
