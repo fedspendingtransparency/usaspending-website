@@ -154,7 +154,20 @@ const NewPicker = ({
                             onClick: createOnClickFn(option.onClick)
                         }))
                         .map((option) => (
-                            <li key={uniqueId()} className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
+                            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+                            <li
+                                key={uniqueId()}
+                                className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    option.onClick(option.value);
+                                }}
+                                onKeyUp={(e) => {
+                                    e.preventDefault();
+                                    if (e.key === "Enter") {
+                                        option.onClick(option.value);
+                                    }
+                                }}>
                                 <button
                                     className="filter__dropdown-item"
                                     value={`${option.value || option.name}`}

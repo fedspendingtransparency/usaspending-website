@@ -165,6 +165,7 @@
             .filter__dropdown-list-item {
                 &:hover {
                     background-color: $gray-cool-3;
+                    cursor: pointer;
                 }
 
                 .filter__dropdown-item {
