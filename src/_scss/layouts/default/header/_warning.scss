@@ -37,7 +37,7 @@
         .info-banner__alert-text {
             @include flex(1 1 auto);
             @include align-self(center);
-            margin-left: 1rem;
+            //margin-left: 1rem;
             font-size: $small-font-size;
             line-height: rem(21);
             color: $theme-color-body;
