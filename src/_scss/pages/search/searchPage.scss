@@ -16,9 +16,6 @@
     @import "../../components/tempSearchPage/tempSearchSectionWrapper";
     @import "toggleTempSearchPage";
 
-    // todo - remove when we remove info banner
-    @import '../../layouts/default/header/warning';
-
     .subaward-dropdown__list {
         min-width: max-content;
         transform: translateY(-12px);
