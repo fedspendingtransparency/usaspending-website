@@ -23,6 +23,7 @@ import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import TempSearchPage from "../tempSearchPage/TempSearchPage";
+import InfoBanner from "../sharedComponents/header/InfoBanner";
 
 const propTypes = {
     download: PropTypes.object,
@@ -141,6 +142,8 @@ const SearchPage = ({
         setStateHash(hash);
     }, [hash]);
 
+    const bannerContent = "We are currently experiencing issues on Advanced Search and are working to address these issues. We apologize for the inconvenience.";
+
     return (
         <PageWrapper
             pageName="Advanced Search"
@@ -165,7 +168,9 @@ const SearchPage = ({
                     onClick={showDownloadModal} />
             ]}
             filters={appliedFilters}>
+
             <div id="main-content">
+                <InfoBanner content={bannerContent} />
                 <div className="search-contents">
                     <div className="full-search-sidebar">
                         { fullSidebar }
