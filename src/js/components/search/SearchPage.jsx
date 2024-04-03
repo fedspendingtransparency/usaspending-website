@@ -23,6 +23,7 @@ import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import TempSearchPage from "../tempSearchPage/TempSearchPage";
+import InfoBanner from "../sharedComponents/header/InfoBanner";
 
 const propTypes = {
     download: PropTypes.object,
@@ -141,82 +142,89 @@ const SearchPage = ({
         setStateHash(hash);
     }, [hash]);
 
+    const bannerContent = "We are currently experiencing issues on Advanced Search and are working to address these issues. We apologize for the inconvenience.";
+
     return (
-        <PageWrapper
-            pageName="Advanced Search"
-            classNames="usa-da-search-page"
-            title="Advanced Search"
-            metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
-            toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
-                <ShareIcon
-                    isEnabled
-                    url={getBaseUrl(getSlugWithHash())}
-                    onShareOptionClick={handleShare}
-                    classNames={!isMobile ? "margin-right" : ""} />,
-                <DownloadIconButton
-                    tooltipPosition="left"
-                    tooltipComponent={(!downloadAvailable && hash)
-                        ? <NoDownloadHover />
-                        : null
-                    }
-                    isEnabled={downloadAvailable}
-                    downloadInFlight={downloadInFlight}
-                    onClick={showDownloadModal} />
-            ]}
-            filters={appliedFilters}>
-            <div id="main-content">
-                <div className="search-contents">
-                    <div className="full-search-sidebar">
-                        { fullSidebar }
-                        {isMobile === false ?
-                            <KeywordSearchLink />
-                            : '' }
-                    </div>
-                    <div className="mobile-filter-button-wrapper">
-                        <button
-                            className="mobile-filter-button"
-                            onClick={toggleMobileFilters}>
-                            <div className="mobile-filter-button-content">
-                                <div className={`mobile-filter-button-count ${showCountBadge}`}>
-                                    {filterCount}
+        <>
+            <InfoBanner content={bannerContent} />
+            <PageWrapper
+                pageName="Advanced Search"
+                classNames="usa-da-search-page"
+                title="Advanced Search"
+                metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
+                toolBarComponents={[
+                    <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                    <ShareIcon
+                        isEnabled
+                        url={getBaseUrl(getSlugWithHash())}
+                        onShareOptionClick={handleShare}
+                        classNames={!isMobile ? "margin-right" : ""} />,
+                    <DownloadIconButton
+                        tooltipPosition="left"
+                        tooltipComponent={(!downloadAvailable && hash)
+                            ? <NoDownloadHover />
+                            : null
+                        }
+                        isEnabled={downloadAvailable}
+                        downloadInFlight={downloadInFlight}
+                        onClick={showDownloadModal} />
+                ]}
+                filters={appliedFilters}>
+
+                <div id="main-content">
+                    <div className="search-contents">
+                        <div className="full-search-sidebar">
+                            { fullSidebar }
+                            {isMobile === false ?
+                                <KeywordSearchLink />
+                                : '' }
+                        </div>
+                        <div className="mobile-filter-button-wrapper">
+                            <button
+                                className="mobile-filter-button"
+                                onClick={toggleMobileFilters}>
+                                <div className="mobile-filter-button-content">
+                                    <div className={`mobile-filter-button-count ${showCountBadge}`}>
+                                        {filterCount}
+                                    </div>
+                                    <div className="mobile-filter-button-icon">
+                                        <AddFilter alt="Toggle filters" />
+                                    </div>
+                                    <div className="mobile-filter-button-label">
+                                        {pluralizeFilterLabel(filterCount)}
+                                    </div>
                                 </div>
-                                <div className="mobile-filter-button-icon">
-                                    <AddFilter alt="Toggle filters" />
-                                </div>
-                                <div className="mobile-filter-button-label">
-                                    {pluralizeFilterLabel(filterCount)}
-                                </div>
-                            </div>
-                        </button>
+                            </button>
+                        </div>
+                        <div className="mobile-search-sidebar">
+                            <MobileFilters
+                                filters={filters}
+                                filterCount={filterCount}
+                                showMobileFilters={showMobileFilters}
+                                toggleMobileFilters={toggleMobileFilters} />
+                        </div>
+                        <Helmet>
+                            <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
+                        </Helmet>
+                        {toggleTempSearchPage ?
+                            <SearchResults
+                                filters={filters}
+                                isMobile={isMobile}
+                                filterCount={filterCount}
+                                showMobileFilters={showMobileFilters}
+                                updateFilterCount={updateFilterCount}
+                                toggleMobileFilters={toggleMobileFilters}
+                                requestsComplete={requestsComplete}
+                                noFiltersApplied={noFiltersApplied} /> : <TempSearchPage />}
                     </div>
-                    <div className="mobile-search-sidebar">
-                        <MobileFilters
-                            filters={filters}
-                            filterCount={filterCount}
-                            showMobileFilters={showMobileFilters}
-                            toggleMobileFilters={toggleMobileFilters} />
-                    </div>
-                    <Helmet>
-                        <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
-                    </Helmet>
-                    {toggleTempSearchPage ?
-                        <SearchResults
-                            filters={filters}
-                            isMobile={isMobile}
-                            filterCount={filterCount}
-                            showMobileFilters={showMobileFilters}
-                            updateFilterCount={updateFilterCount}
-                            toggleMobileFilters={toggleMobileFilters}
-                            requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} /> : <TempSearchPage />}
+                    <FullDownloadModalContainer
+                        download={download}
+                        mounted={showFullDownload}
+                        hideModal={hideDownloadModal} />
                 </div>
-                <FullDownloadModalContainer
-                    download={download}
-                    mounted={showFullDownload}
-                    hideModal={hideDownloadModal} />
-            </div>
-        </PageWrapper>
+            </PageWrapper>
+        </>
+
     );
 };
 
