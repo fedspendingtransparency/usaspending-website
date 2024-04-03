@@ -3,21 +3,27 @@
     @import "mixins/fullSectionWrap";
     background: $color-primary-alt-lightest;
     width: 100%;
-    border-top: 5px solid $color-primary-alt-light;
+    //border-top: 5px solid $color-primary-alt-light;
     .info-banner__content {
         @include display(flex);
         @include align-items(flex-start);
-        @media(max-width: $tablet-screen) {
-            margin: rem(16) rem(16) rem(16) rem(20);
-        }
+        align-content: center;
+        //@media(min-width: $tablet-screen) {
+            //margin: rem(16) rem(16) rem(16) rem(20);
+            margin: 0 rem(16);
+        //}
         @media(min-width: $tablet-screen) {
-            margin: rem(16) rem(16) rem(16) rem(20);
+            //margin: rem(16) rem(16) rem(16) rem(20);
+            margin: 0 rem(32);
+            height: rem(40);
         }
         @media(min-width: $large-screen) {
-            margin: rem(16) rem(36) rem(16) rem(40);
+            //margin: rem(16) rem(36) rem(16) rem(40);
+            margin: 0 rem(36) ;
         }
         @media(min-width: $x-large-screen) {
-            margin: rem(16) auto;
+            //margin: rem(16) auto;
+            margin: 0 auto;
             max-width: rem(1600);
         }
 
@@ -72,6 +78,8 @@
         .info-banner__close-button {
             @include flex(0 0 auto);
             @include button-unstyled;
+            height: 100%;
+            align-content: center;
             padding: rem(5) 0;
             color: $gray-cool-90;
         }
