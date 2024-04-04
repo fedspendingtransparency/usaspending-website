@@ -23,7 +23,6 @@ import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import TempSearchPage from "../tempSearchPage/TempSearchPage";
-import InfoBanner from "../sharedComponents/header/InfoBanner";
 
 const propTypes = {
     download: PropTypes.object,
