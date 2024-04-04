@@ -27,9 +27,13 @@
         padding: rem(32);
         @import "components/aboutTheDataSidebar/aboutTheData";
 
+        @media (max-width: $tablet-screen) {
+            padding: rem(16)
+        }
+
         .search-contents {
             max-width: $homepage-max-width;
-            margin: 0;
+            margin: auto;
             padding: 0;
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -44,12 +48,20 @@
                 }
             }
 
+            .mobile-search-sidebar {
+                grid-column: 1 / span 12;
+            }
+
             .search-results-wrapper {
                 width: 100%;
                 grid-column: 4 / span 9;
                 margin: 0;
                 @import "./results/searchResults";
                 @import "./topFilterBar/topFilterBar";
+
+                @media (max-width: $medium-screen) {
+                    grid-column: 1 / span 12;
+                }
 
                 .tablet-search__modal {
                     display:none;
