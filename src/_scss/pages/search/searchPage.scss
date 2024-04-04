@@ -24,11 +24,11 @@
     #main-content {
         width: 100%;
         background-color: $color-gray-lightest;
-        padding: rem(32);
+        padding: rem(40) rem(32) rem(32) rem(32);
         @import "components/aboutTheDataSidebar/aboutTheData";
 
         @media (max-width: $tablet-screen) {
-            padding: rem(16)
+            padding: rem(40) rem(16) rem(16) rem(16);
         }
 
         .search-contents {

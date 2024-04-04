@@ -8,10 +8,6 @@
         @include button-unstyled;
         width: rem(175);
 
-        @media (max-width: $tablet-screen) {
-            margin-top: rem(16);
-        }
-
         color: $color-white;
         background-color: $color-primary;
         &:hover, &:active {
