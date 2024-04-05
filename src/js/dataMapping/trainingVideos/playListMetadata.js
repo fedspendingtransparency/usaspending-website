@@ -13,6 +13,70 @@ const metaData = {
     items: [
         {
             kind: "youtube#video",
+            etag: "YXupmPwvcVhmSxd5cVpD35cZZ-k",
+            id: "c-bqfpWSSrI",
+            snippet: {
+                publishedAt: "2024-03-06T15:50:25Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "TESTIMONIAL: Your Data, Your Story: Michael LeJeune on How Procurement Consultants Use USAspending",
+                description: "USAspending.gov is excited to launch our first video in our customer testimonial campaign, \"Your Data, Your Story.\" Learn how Americans use USAspending to make data-driven decisions related to their personal and professional goals, and how you can get started with USAspending!\n\nMichael LeJeune, an RSM Federal Partner Federal Access Program Manager, describes \"USAspending as a one-stop shop for all of your market intelligence information.\" Listen to Michael describe how he helps business owners navigate the government market, primarily looking at who buys what they sell and building a strategy around that.\n\nCHAPTERS:\n0:43 Tell us about yourself.\n1:05 Why is federal spending data important to you?\n1:27 What features on USAspending.gov provide the most value to you?\n2:56 What have you made using data from USAspending.gov?\n3:19 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n  •  Visit USAspending.gov: https://www.usaspending.gov/\n  •  Sign up for our email list to receive updates and release notes by sending an email to:\n      join-usaspending@lists.fiscal.treasury.gov\n  •  Ask questions about the tools, features, and data on USAspending.gov by sending an email to:\n      usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you!\n\n#YourDataYourStory #USAspending #GovernmentSpending",
+                thumbnails: {
+                    default: {
+                        url: "https://i.ytimg.com/vi/c-bqfpWSSrI/default.jpg",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i.ytimg.com/vi/c-bqfpWSSrI/mqdefault.jpg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i.ytimg.com/vi/c-bqfpWSSrI/hqdefault.jpg",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i.ytimg.com/vi/c-bqfpWSSrI/sddefault.jpg",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i.ytimg.com/vi/c-bqfpWSSrI/maxresdefault.jpg",
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                channelTitle: "USAspending",
+                tags: [
+                    "federal government spending",
+                    "financial data",
+                    "testimonial",
+                    "customer testimonial",
+                    "USA spending",
+                    "government spending data"
+                ],
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                localized: {
+                    title: "Your Data, Your Story: Michael LeJeune on How Procurement Consultants Use USAspending",
+                    description: "USAspending.gov is excited to launch our first video in our customer testimonial campaign, \"Your Data, Your Story.\" Learn how Americans use USAspending to make data-driven decisions related to their personal and professional goals, and how you can get started with USAspending!\n\nMichael LeJeune, an RSM Federal Partner Federal Access Program Manager, describes \"USAspending as a one-stop shop for all of your market intelligence information.\" Listen to Michael describe how he helps business owners navigate the government market, primarily looking at who buys what they sell and building a strategy around that.\n\nCHAPTERS:\n0:43 Tell us about yourself.\n1:05 Why is federal spending data important to you?\n1:27 What features on USAspending.gov provide the most value to you?\n2:56 What have you made using data from USAspending.gov?\n3:19 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n  •  Visit USAspending.gov: https://www.usaspending.gov/\n  •  Sign up for our email list to receive updates and release notes by sending an email to:\n      join-usaspending@lists.fiscal.treasury.gov\n  •  Ask questions about the tools, features, and data on USAspending.gov by sending an email to:\n      usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you!\n\n#YourDataYourStory #USAspending #GovernmentSpending"
+                },
+                defaultAudioLanguage: "en"
+            },
+            contentDetails: {
+                duration: "PT4M11S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular",
+                hasCustomThumbnail: true
+            }
+        },
+        {
+            kind: "youtube#video",
             etag: "DhXW8xzOOxLGkQ-CZ6DG2ee9GnY",
             id: "5gMp2kyzEoo",
             snippet: {
