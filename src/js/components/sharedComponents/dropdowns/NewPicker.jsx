@@ -154,9 +154,9 @@ const NewPicker = ({
                             onClick: createOnClickFn(option.onClick)
                         }))
                         .map((option) => (
+                            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
                             <li
                                 key={uniqueId()}
-                                role="button"
                                 className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}
                                 onClick={(e) => {
                                     e.preventDefault();
