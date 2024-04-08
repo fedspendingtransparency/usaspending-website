@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
-import BarChart from 'components/search/visualizations/time/chart/BarChart';
+import ChartMessage from 'components/sharedComponents/timeChart/TimeVisualizationChartMessage';
+import BarChart from 'components/sharedComponents/timeChart/chart/BarChart';
 import TimeTooltip from './StateTimeVisualizationTooltip';
 
 const defaultProps = {
