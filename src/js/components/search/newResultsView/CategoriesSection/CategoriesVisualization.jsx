@@ -1,9 +1,9 @@
 import React from "react";
-import fetchData from './fetchSpendingByCategoriesData';
+import fetchData from '../fetchSpendingByCategoriesData';
 
 const resource = fetchData();
 
-const CategoriesSection = React.memo(() => {
+const CategoriesVisualization = React.memo(() => {
     if (resource) {
         console.log('categories section api call');
     }
@@ -40,4 +40,4 @@ const CategoriesSection = React.memo(() => {
     );
 });
 
-export default CategoriesSection;
+export default CategoriesVisualization;

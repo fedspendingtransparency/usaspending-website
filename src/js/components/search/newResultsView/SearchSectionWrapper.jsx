@@ -45,16 +45,22 @@ const SearchSectionWrapper = ({
     return (
         <div className="search-results-wrapper temp-search__section-wrapper">
             <div className="temp-search__section-wrapper-header">
-                <NewPicker
-                    leftIcon=""
-                    size="md"
-                    label={sectionTitle}
-                    options={dropdownOptions}
-                    selectedOption={dropdownOptions.length
-                        ? dropdownOptions.find((obj) => obj.value === selectedDropdownOption).name
-                        : `${selectedDropdownOption}`}
-                    sortFn={sortFn} />
-                <ChartTableToggle activeType={viewType} changeView={changeView} />
+                {selectedDropdownOption ?
+                    <>
+                        <NewPicker
+                            leftIcon=""
+                            size="md"
+                            label={sectionTitle}
+                            options={dropdownOptions}
+                            selectedOption={dropdownOptions.length
+                                ? dropdownOptions.find((obj) => obj.value === selectedDropdownOption).name
+                                : `${selectedDropdownOption}`}
+                            sortFn={sortFn} />
+                        <ChartTableToggle activeType={viewType} changeView={changeView} />
+                    </>
+                    :
+                    sectionTitle
+                }
             </div>
             {!openAccordion && (
                 <div className="temp-search__section-wrapper-content">

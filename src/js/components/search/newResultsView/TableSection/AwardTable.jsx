@@ -1,6 +1,6 @@
 import React from "react";
-import fetchAwardsTableData from './fetchAwardsTableData';
-import fetchAwardTableCount from './fetchAwardTableCount';
+import fetchAwardsTableData from '../fetchAwardsTableData';
+import fetchAwardTableCount from '../fetchAwardTableCount';
 
 const resource = fetchAwardsTableData();
 const countAPICall = fetchAwardTableCount();

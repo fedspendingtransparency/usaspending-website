@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
-import AwardTable from "./AwardTable";
+import AwardTable from "./TableSection/AwardTable";
 import SpendingOverTime from "./SpendingOverTime";
 import MapSection from "./MapSection";
-import CategoriesSection from "./CategoriesSection";
+import CategoriesVisualization from "./CategoriesSection/CategoriesVisualization";
 import { TempPlaceholderComponent, TempPlaceholderChart, TempPlaceholderTable, TempPlaceholderDsmContent } from "./TempPlaceholderComponents";
 import SearchSectionWrapper from "./SearchSectionWrapper";
+import TableSection from "./TableSection/TableSection";
+import CategoriesSection from "./CategoriesSection/CategoriesSection";
 
 require("pages/search/searchPage.scss");
 
@@ -17,7 +19,6 @@ const ResultsView = () => {
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [viewType, setViewType] = useState('chart');
-    const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const observerOptions = {
         threshold: 0.1
@@ -45,50 +46,6 @@ const ResultsView = () => {
         });
     };
 
-    const onClick = (e) => {
-        setSelectedDropdown(e);
-    };
-
-    const dummyWrapperProps = {
-        sectionTitle: 'Results by Category',
-        dropdownOptions: [
-            {
-                name: 'Awarding Agency',
-                value: '0',
-                onClick
-            },
-            {
-                name: 'Awarding Subagency',
-                value: '1',
-                onClick
-            },
-            {
-                name: 'Recipient',
-                value: '2',
-                onClick
-            },
-            {
-                name: 'North American Industry Classification System (NAICS)',
-                value: '3',
-                onClick
-            },
-            {
-                name: 'Product and Service Code (PSC)',
-                value: '4',
-                onClick
-            },
-            {
-                name: 'Assistance Listing',
-                value: '5',
-                onClick
-            }
-        ],
-        selectedDropdownOption: selectedDropdown,
-        isVisualization: true,
-        chart: <TempPlaceholderChart />,
-        table: <TempPlaceholderTable />,
-        dsmContent: <TempPlaceholderDsmContent />
-    };
 
     // eslint-disable-next-line consistent-return
     useEffect(() => {
@@ -115,17 +72,11 @@ const ResultsView = () => {
     return (
         <PageFeatureFlag>
             <main id="main-content" className="main-content">
-                <SearchSectionWrapper
-                    {...dummyWrapperProps}
-                    viewType={viewType}
-                    setViewType={setViewType}>
-                    <div id="search-page-component" className="award">
-                        {!awardTableHasLoaded && <TempPlaceholderComponent />}
-                        {(isVisible === 'award' || awardTableHasLoaded) &&
-                                <AwardTable />
-                        }
-                    </div>
-                </SearchSectionWrapper>
+                <TableSection
+                    awardTableHasLoaded={awardTableHasLoaded} />
+
+                <CategoriesSection
+                    categoriesHasLoaded={categoriesHasLoaded} />
 
                 <div id="search-page-component" className="spending">
                     {!spendingHasLoaded && <TempPlaceholderComponent />}
@@ -138,13 +89,6 @@ const ResultsView = () => {
                     {!mapHasLoaded && <TempPlaceholderComponent />}
                     {(isVisible === 'map' || mapHasLoaded) &&
                             <MapSection />
-                    }
-                </div>
-
-                <div id="search-page-component" className="categories">
-                    {!categoriesHasLoaded && <TempPlaceholderComponent />}
-                    {(isVisible === 'categories' || categoriesHasLoaded) &&
-                            <CategoriesSection />
                     }
                 </div>
             </main>
