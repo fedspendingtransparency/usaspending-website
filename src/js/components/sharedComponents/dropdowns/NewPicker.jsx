@@ -154,27 +154,25 @@ const NewPicker = ({
                             onClick: createOnClickFn(option.onClick)
                         }))
                         .map((option) => (
-                            <li
-                                key={uniqueId()}
-                                className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
-                                <a
-                                    style={{ display: "block", width: "100%" }}
-                                    tabIndex={0}
-                                    role="link"
-                                    onClick={(e) => {
-                                        e.preventDefault();
+                            <button
+                                tabIndex={0}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    option.onClick(option.value);
+                                }}
+                                onKeyUp={(e) => {
+                                    e.preventDefault();
+                                    if (e.key === "Enter") {
                                         option.onClick(option.value);
-                                    }}
-                                    onKeyUp={(e) => {
-                                        e.preventDefault();
-                                        if (e.key === "Enter") {
-                                            option.onClick(option.value);
-                                        }
-                                    }}
-                                    className="filter__dropdown-item">
+                                    }
+                                }}
+                                className="filter__dropdown-item">
+                                <li
+                                    key={uniqueId()}
+                                    className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
                                     {option.component ? option.component : option.name}
-                                </a>
-                            </li>
+                                </li>
+                            </button>
                         ))
                     }
                 </ul>
