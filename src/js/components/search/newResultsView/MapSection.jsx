@@ -1,21 +1,21 @@
 import React from "react";
-import fetchData from './fetchSpendingByCategoriesData';
+import fetchData from './fetchSpendingByGeographyData';
 
 const resource = fetchData();
 
-const TempCategoriesSection = React.memo(() => {
+const MapSection = React.memo(() => {
     if (resource) {
-        console.log('categories section api call');
+        console.log('map section api call');
     }
     const content = resource.read();
     const message = content.messages[0];
-    const agencyName = content.results[0].name;
+    const displayName = content.results[0].display_name;
 
     return (
         <section
-            className="temp-component-four"
+            className="temp-component-three"
             style={{
-                border: '2px solid gold',
+                border: '2px solid blue',
                 height: '800px',
                 margin: '40px 40px',
                 textAlign: 'center',
@@ -23,7 +23,7 @@ const TempCategoriesSection = React.memo(() => {
                 paddingTop: '40px'
             }}>
             <div>
-                Categories Section
+                Map Section
             </div>
             <br />
             <div>
@@ -31,13 +31,13 @@ const TempCategoriesSection = React.memo(() => {
             </div>
             <br />
             <div>
-                Agency Name of first result:
+                Display Name of first result:
             </div>
             <div>
-                {agencyName}
+                {displayName}
             </div>
         </section>
     );
 });
 
-export default TempCategoriesSection;
+export default MapSection;

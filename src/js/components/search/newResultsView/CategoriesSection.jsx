@@ -1,21 +1,21 @@
 import React from "react";
-import fetchSpendingOverTimeData from './fetchSpendingOverTimeData';
+import fetchData from './fetchSpendingByCategoriesData';
 
-const resource = fetchSpendingOverTimeData();
+const resource = fetchData();
 
-const TempSpendingOverTime = React.memo(() => {
+const CategoriesSection = React.memo(() => {
     if (resource) {
-        console.log('spending over time api call');
+        console.log('categories section api call');
     }
     const content = resource.read();
     const message = content.messages[0];
-    const aggregatedAmount = content.results[0].aggregated_amount;
+    const agencyName = content.results[0].name;
 
     return (
         <section
-            className="temp-component-two"
+            className="temp-component-four"
             style={{
-                border: '2px solid green',
+                border: '2px solid gold',
                 height: '800px',
                 margin: '40px 40px',
                 textAlign: 'center',
@@ -23,7 +23,7 @@ const TempSpendingOverTime = React.memo(() => {
                 paddingTop: '40px'
             }}>
             <div>
-                Spending Over Time Section
+                Categories Section
             </div>
             <br />
             <div>
@@ -31,13 +31,13 @@ const TempSpendingOverTime = React.memo(() => {
             </div>
             <br />
             <div>
-                Aggregated Amount for this chart
+                Agency Name of first result:
             </div>
             <div>
-                {aggregatedAmount}
+                {agencyName}
             </div>
         </section>
     );
 });
 
-export default TempSpendingOverTime;
+export default CategoriesSection;

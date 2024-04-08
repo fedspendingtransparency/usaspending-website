@@ -1,13 +1,13 @@
 /**
- * TempSearchSectionWrapper.jsx
+ * SearchSectionWrapper.jsx
  * Created by Josue Aguilar 3/19/2024
  */
 
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
-import NewPicker from "../sharedComponents/dropdowns/NewPicker";
-import Accordion from "../sharedComponents/accordion/Accordion";
-import ChartTableToggle from "../sharedComponents/buttons/ChartTableToggle";
+import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
+import Accordion from "../../sharedComponents/accordion/Accordion";
+import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -20,7 +20,7 @@ const propTypes = {
     dsmContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
 };
 
-const TempSearchSectionWrapper = ({
+const SearchSectionWrapper = ({
     sectionTitle,
     dropdownOptions,
     selectedDropdownOption,
@@ -28,7 +28,8 @@ const TempSearchSectionWrapper = ({
     setViewType,
     chart,
     table,
-    dsmContent
+    dsmContent,
+    children
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
 
@@ -57,7 +58,8 @@ const TempSearchSectionWrapper = ({
             </div>
             {!openAccordion && (
                 <div className="temp-search__section-wrapper-content">
-                    {viewType === 'chart' ? (chart) : (table)}
+                    {children}
+                    {/*{viewType === 'chart' ? (chart) : (table)}*/}
                 </div>
             )}
             <Accordion
@@ -77,6 +79,6 @@ const TempSearchSectionWrapper = ({
     );
 };
 
-TempSearchSectionWrapper.propTypes = propTypes;
+SearchSectionWrapper.propTypes = propTypes;
 
-export default TempSearchSectionWrapper;
+export default SearchSectionWrapper;

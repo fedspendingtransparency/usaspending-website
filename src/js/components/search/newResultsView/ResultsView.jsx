@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import PageFeatureFlag from "../sharedComponents/PageFeatureFlag";
-import TempAwardTable from "./TempAwardTable";
-import TempSpendingOverTime from "./TempSpendingOverTime";
-import TempMapSection from "./TempMapSection";
-import TempCategoriesSection from "./TempCategoriesSection";
+import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
+import AwardTable from "./AwardTable";
+import SpendingOverTime from "./SpendingOverTime";
+import MapSection from "./MapSection";
+import CategoriesSection from "./CategoriesSection";
 import { TempPlaceholderComponent, TempPlaceholderChart, TempPlaceholderTable, TempPlaceholderDsmContent } from "./TempPlaceholderComponents";
-import TempSearchSectionWrapper from "./TempSearchSectionWrapper";
+import SearchSectionWrapper from "./SearchSectionWrapper";
 
 require("pages/search/searchPage.scss");
 
-const TempSearchPage = () => {
+const ResultsView = () => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [isVisible, setIsVisible] = useState('');
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
@@ -115,35 +115,36 @@ const TempSearchPage = () => {
     return (
         <PageFeatureFlag>
             <main id="main-content" className="main-content">
-                <TempSearchSectionWrapper
+                <SearchSectionWrapper
                     {...dummyWrapperProps}
                     viewType={viewType}
-                    setViewType={setViewType} />
-                <div id="search-page-component" className="award">
-                    {!awardTableHasLoaded && <TempPlaceholderComponent />}
-                    {(isVisible === 'award' || awardTableHasLoaded) &&
-                            <TempAwardTable />
-                    }
-                </div>
+                    setViewType={setViewType}>
+                    <div id="search-page-component" className="award">
+                        {!awardTableHasLoaded && <TempPlaceholderComponent />}
+                        {(isVisible === 'award' || awardTableHasLoaded) &&
+                                <AwardTable />
+                        }
+                    </div>
+                </SearchSectionWrapper>
 
                 <div id="search-page-component" className="spending">
                     {!spendingHasLoaded && <TempPlaceholderComponent />}
                     {(isVisible === 'spending' || spendingHasLoaded) &&
-                            <TempSpendingOverTime />
+                            <SpendingOverTime />
                     }
                 </div>
 
                 <div id="search-page-component" className="map">
                     {!mapHasLoaded && <TempPlaceholderComponent />}
                     {(isVisible === 'map' || mapHasLoaded) &&
-                            <TempMapSection />
+                            <MapSection />
                     }
                 </div>
 
                 <div id="search-page-component" className="categories">
                     {!categoriesHasLoaded && <TempPlaceholderComponent />}
                     {(isVisible === 'categories' || categoriesHasLoaded) &&
-                            <TempCategoriesSection />
+                            <CategoriesSection />
                     }
                 </div>
             </main>
@@ -151,4 +152,4 @@ const TempSearchPage = () => {
     );
 };
 
-export default TempSearchPage;
+export default ResultsView;

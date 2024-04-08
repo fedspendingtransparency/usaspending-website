@@ -22,7 +22,7 @@ import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
-import TempSearchPage from "../tempSearchPage/TempSearchPage";
+import ResultsView from "./newResultsView/ResultsView";
 
 const propTypes = {
     download: PropTypes.object,
@@ -209,7 +209,7 @@ const SearchPage = ({
                             updateFilterCount={updateFilterCount}
                             toggleMobileFilters={toggleMobileFilters}
                             requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} /> : <TempSearchPage />}
+                            noFiltersApplied={noFiltersApplied} /> : <ResultsView />}
                 </div>
                 <FullDownloadModalContainer
                     download={download}
