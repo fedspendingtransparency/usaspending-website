@@ -7,28 +7,48 @@
 
     .usda-section-title__sectionHeader:first-of-type {
         margin-top: 0;
+        .usda-section-title__header {
+            .usda-section-title__title {
+                h3 {
+                    font-size: rem(36);
+                    font-weight: $font-semibold;
+                    line-height: rem(45);
+                    margin-bottom: $global-margin * 6;
+                }
+            }
+        }
     }
 
-    .usda-section-title__header {
-        margin-left: 0;
-        font-size: $h3-font-size;
+    .usda-section-title__sectionHeader {
+        .usda-section-title__header {
+            margin-left: 0;
+            .usda-section-title__title {
+                h3 {
+                    font-size: rem(18);
+                }
+            }
+        }
     }
+
+
 
     hr.results-divider {
-        margin-top: rem(9);
-        margin-bottom: rem(10);
-        margin-left: 0;
+        margin: rem(9) 0 rem(10) 0;
+        border-bottom: 1px solid $color-gray-light;
     }
 
     .account-overview__content {
-        margin-bottom: ($global-mrg * 2);
-        margin-left: $global-margin;
+        margin: 0 auto ($global-mrg * 2) auto;
         font-size: $small-font-size;
 
         .account-overview__heading {
             padding: rem(28) 0 rem(5);
             font-weight: $font-semibold;
             font-size: rem(19);
+        }
+
+        .account-overview__heading:first-of-type {
+            padding-top: 0;
         }
 
         @include media($medium-screen) {
@@ -40,8 +60,8 @@
         text-align: center;
         color: $color-base;
         font-size: $small-font-size;
-        margin-top: ($global-mrg * 4);
-        margin-bottom: ($global-mrg * 4);
+        margin-top: ($global-margin * 5);
+        margin-bottom: ($global-margin * 5);
         @import './sankey/sankey';
 
         .sankey-disclosures {

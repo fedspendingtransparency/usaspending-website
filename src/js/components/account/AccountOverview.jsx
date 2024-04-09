@@ -165,12 +165,6 @@ ${authority} has been obligated.`;
                     title={this.props.account.title}
                     titleTooltip={{ component: false }}
                     descTooltip={{ component: false }} />
-                <hr className="results-divider" />
-                <div className="account-overview__content">
-                    <div className="account-overview__heading">Fiscal Year Summary</div>
-                    <p>{this.state.summary.flow}</p>
-                    <p>{this.state.summary.toDate}</p>
-                </div>
                 <SectionHeader
                     title={this.props.currentFiscalYear ? `FY ${this.props.currentFiscalYear} Snapshot` : 'FY'}
                     titleTooltip={{ component: false }}
@@ -180,6 +174,10 @@ ${authority} has been obligated.`;
                     ref={(div) => {
                         this.sankeyHr = div;
                     }} />
+                <div className="account-overview__content">
+                    <p>{this.state.summary.flow}</p>
+                    <p>{this.state.summary.toDate}</p>
+                </div>
                 <div className="sankey-wrapper">
                     <SankeyVisualization
                         fyAvailable={this.state.fyAvailable}
