@@ -591,7 +591,7 @@ const MapWrapper = (props) => {
         } else {
             setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
         }
-    }, [props.activeFilters]);
+    }, [props.activeFilters.territory]);
     return (
         <div className="map-container">
             <MapBox

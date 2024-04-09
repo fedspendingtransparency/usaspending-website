@@ -54,6 +54,7 @@
         button[class^='filter__dropdown-button'].not-enabled {
             border: solid 2px rgba(251, 252, 253, 0.25); // $gray-cool-1 rgb value
             pointer-events: none;
+            cursor:not-allowed;
             .filter__dropdown-left-icon {
                 svg {
                     color: $gray-cool-10;
@@ -76,7 +77,8 @@
 
         button[class^='filter__dropdown-button'].enabled {
             border: solid 2px rgba(251, 252, 253, 0.5); // $gray-cool-1 rgb value
-
+            pointer-events: all;
+            cursor: pointer;
             .filter__dropdown-left-icon {
                 svg {
                     color: $gray-cool-10;
