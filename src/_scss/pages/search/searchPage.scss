@@ -19,6 +19,24 @@
     .subaward-dropdown__list {
         min-width: max-content;
         transform: translateY(-12px);
+        li {
+            button {
+                padding-left: rem(30) !important;
+            }
+        }
+    }
+
+    div.subaward-dropdown__container {
+        .subaward-dropdown__list {
+            min-width: max-content;
+            transform: translateY(-12px);
+            li {
+                button {
+                    padding-left: rem(30) !important;
+                    padding-right: 1.5 * $global-padding !important;
+                }
+            }
+        }
     }
 
     #main-content {
