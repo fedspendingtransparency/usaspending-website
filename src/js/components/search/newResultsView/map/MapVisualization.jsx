@@ -1,9 +1,9 @@
 import React from "react";
-import fetchData from './fetchSpendingByGeographyData';
+import fetchData from '../fetchSpendingByGeographyData';
 
 const resource = fetchData();
 
-const MapSection = React.memo(() => {
+const MapVisualization = React.memo(() => {
     if (resource) {
         console.log('map section api call');
     }
@@ -40,4 +40,4 @@ const MapSection = React.memo(() => {
     );
 });
 
-export default MapSection;
+export default MapVisualization;

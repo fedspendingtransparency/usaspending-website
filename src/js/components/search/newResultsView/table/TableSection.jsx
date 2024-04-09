@@ -1,20 +1,22 @@
 /**
- * TableSection.jsx
+ * table.jsx
  */
 
 
 import React from "react";
 import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
-    TempPlaceholderComponent,
-    TempPlaceholderDsmContent,
+    DsmContent,
+    TempPlaceholderComponent
 } from "../TempPlaceholderComponents";
 import AwardTable from "./AwardTable";
 
 const TableSection = ({ awardTableHasLoaded }) => {
     const dummyWrapperProps = {
         sectionTitle: 'Prime Award Results',
-        dsmContent: <TempPlaceholderDsmContent />
+        dsmContent: <DsmContent
+            heading={"Prime Award Results:  What's included in this view of the data?"}
+            description="Use the map below to break down spending by state, county, or congressional district." />
     };
 
     return (

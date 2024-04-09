@@ -1,5 +1,5 @@
 import React from "react";
-import fetchSpendingOverTimeData from './fetchSpendingOverTimeData';
+import fetchSpendingOverTimeData from '../fetchSpendingOverTimeData';
 
 const resource = fetchSpendingOverTimeData();
 

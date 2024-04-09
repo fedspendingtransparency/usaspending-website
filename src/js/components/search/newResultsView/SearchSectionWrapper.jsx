@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
+import SectionDataTable from "./sectionDataTable";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -24,14 +25,13 @@ const SearchSectionWrapper = ({
     sectionTitle,
     dropdownOptions,
     selectedDropdownOption,
-    viewType,
-    setViewType,
-    chart,
-    table,
-    dsmContent,
-    children
+    children,
+    dsmContent
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
+    const [viewType, setViewType] = useState('chart');
+
+    console.log(selectedDropdownOption);
 
     const sortFn = () => dropdownOptions;
 
@@ -64,8 +64,7 @@ const SearchSectionWrapper = ({
             </div>
             {!openAccordion && (
                 <div className="temp-search__section-wrapper-content">
-                    {children}
-                    {/*{viewType === 'chart' ? (chart) : (table)}*/}
+                    {viewType === 'chart' ? children : <SectionDataTable />}
                 </div>
             )}
             <Accordion
@@ -77,7 +76,9 @@ const SearchSectionWrapper = ({
                     <div
                         className="temp-search__section-wrapper-dsm"
                         style={{ height: `${content}px` }}>
-                        {dsmContent}
+                        {dropdownOptions && selectedDropdownOption &&
+                            dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}
+                        { dsmContent || '' }
                     </div>
                 )}
             </Accordion>

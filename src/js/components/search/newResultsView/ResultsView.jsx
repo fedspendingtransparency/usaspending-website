@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
-import AwardTable from "./TableSection/AwardTable";
-import SpendingOverTime from "./SpendingOverTime";
-import MapSection from "./MapSection";
-import CategoriesVisualization from "./CategoriesSection/CategoriesVisualization";
+import AwardTable from "./table/AwardTable";
+import SpendingOverTime from "./time/SpendingOverTime";
+import MapVisualization from "./map/MapVisualization";
+import CategoriesVisualization from "./categories/CategoriesVisualization";
 import { TempPlaceholderComponent, TempPlaceholderChart, TempPlaceholderTable, TempPlaceholderDsmContent } from "./TempPlaceholderComponents";
 import SearchSectionWrapper from "./SearchSectionWrapper";
-import TableSection from "./TableSection/TableSection";
-import CategoriesSection from "./CategoriesSection/CategoriesSection";
+import TableSection from "./table/TableSection";
+import CategoriesSection from "./categories/CategoriesSection";
+import TimeSection from "./time/TimeSection";
+import MapSection from "./map/MapSection";
 
 require("pages/search/searchPage.scss");
 
@@ -32,15 +34,19 @@ const ResultsView = () => {
                 setIsVisible(section);
                 if (section === 'award') {
                     setAwardTableHasLoaded(true);
+                    console.log("award");
                 }
                 else if (section === 'spending') {
                     setSpendingHasLoaded(true);
+                    console.log("spending");
                 }
                 else if (section === 'map') {
                     setMapHasLoaded(true);
+                    console.log("map");
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
+                    console.log("categories");
                 }
             }
         });
@@ -72,25 +78,17 @@ const ResultsView = () => {
     return (
         <PageFeatureFlag>
             <main id="main-content" className="main-content">
-                <TableSection
-                    awardTableHasLoaded={awardTableHasLoaded} />
+                <MapSection
+                    mapHasLoaded={mapHasLoaded} />
 
                 <CategoriesSection
                     categoriesHasLoaded={categoriesHasLoaded} />
 
-                <div id="search-page-component" className="spending">
-                    {!spendingHasLoaded && <TempPlaceholderComponent />}
-                    {(isVisible === 'spending' || spendingHasLoaded) &&
-                            <SpendingOverTime />
-                    }
-                </div>
+                <TimeSection
+                    spendingHasLoaded={spendingHasLoaded} />
 
-                <div id="search-page-component" className="map">
-                    {!mapHasLoaded && <TempPlaceholderComponent />}
-                    {(isVisible === 'map' || mapHasLoaded) &&
-                            <MapSection />
-                    }
-                </div>
+                <TableSection
+                    awardTableHasLoaded={awardTableHasLoaded} />
             </main>
         </PageFeatureFlag>
     );
