@@ -133,6 +133,7 @@ export const advancedSearchFilters = {
     },
     amountType: {
         label: 'AMOUNT TYPE',
+        enabled: true,
         options: [
             {
                 value: 'totalSpending',
