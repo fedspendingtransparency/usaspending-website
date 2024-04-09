@@ -24,11 +24,11 @@
     #main-content {
         width: 100%;
         background-color: $color-gray-lightest;
-        padding: rem(40) rem(32) rem(32) rem(32);
+        padding: rem(40) rem(16) rem(16) rem(16);
         @import "components/aboutTheDataSidebar/aboutTheData";
 
-        @media (max-width: $tablet-screen) {
-            padding: rem(40) rem(16) rem(16) rem(16);
+        @media (min-width: $tablet-screen) {
+            padding: rem(40) rem(32) rem(32) rem(32);
         }
 
         .search-contents {
@@ -49,10 +49,6 @@
                 width: 100%;
                 margin: 0;
                 padding-left: rem(8);
-
-                @media (max-width: $medium-screen) {
-                    padding: 0;
-                }
 
                 .tablet-search__modal {
                     display:none;
