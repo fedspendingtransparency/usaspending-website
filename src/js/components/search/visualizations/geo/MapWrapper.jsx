@@ -113,6 +113,7 @@ const MapWrapper = (props) => {
     });
     const [center, setCenter] = useState(props.center);
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
+    const [mapFilters, setMapFilters] = useState(cloneDeep(props.filters));
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
@@ -536,13 +537,7 @@ const MapWrapper = (props) => {
 
     const filters = () => {
         const { activeFilters } = props;
-        const mapFilters = cloneDeep(props.filters);
-
         if (!mapFilters || !activeFilters) return null;
-        const awardTypeFilters = props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
-        if (awardTypeFilters.includes(activeFilters.awardType)) {
-            mapFilters.spendingType.options.pop();
-        }
 
         return (
             <AdvancedSearchMapFilters
@@ -589,6 +584,14 @@ const MapWrapper = (props) => {
         setCenter(props.center);
     }, [props.center]);
 
+    useEffect(() => {
+        console.debug("props: ", props.activeFilters, mapFilters);
+        if (props.activeFilters.territory === 'country') {
+            setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
+        } else {
+            setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
+        }
+    }, [props.activeFilters]);
     return (
         <div className="map-container">
             <MapBox

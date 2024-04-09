@@ -112,6 +112,7 @@ export const filters = {
 export const advancedSearchFilters = {
     territory: {
         label: 'AREA TYPE',
+        enabled: true,
         options: [
             {
                 value: 'country',
