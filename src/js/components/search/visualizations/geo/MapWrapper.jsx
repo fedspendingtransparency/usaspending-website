@@ -111,7 +111,6 @@ const MapWrapper = (props) => {
     });
     const [center, setCenter] = useState(props.center);
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
-    const [mapFilters, setMapFilters] = useState(cloneDeep(props.filters));
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
@@ -533,18 +532,32 @@ const MapWrapper = (props) => {
 
     const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
 
-    const filters = throttle(() => {
+    const filters = () => {
         const { activeFilters } = props;
+        let mapFilters = cloneDeep(props.filters);
 
         if (!mapFilters || !activeFilters) return null;
+        const awardTypeFilters = props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        if (awardTypeFilters.includes(activeFilters.awardType)) {
+            mapFilters.spendingType.options.pop();
+        }
 
+        if (props.activeFilters.territory === 'country') {
+            mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
+        } else {
+            mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
+        }
         return (
             <AdvancedSearchMapFilters
                 filters={mapFilters}
                 activeFilters={props.activeFilters}
                 isOpen={isFiltersOpen} />
         );
-    }, 500);
+    };
+
+    useEffect(() => {
+
+    }, [props.activeFilters.territory]);
     useEffect(() => {
         displayData();
         if (!props.stateProfile) {
@@ -583,18 +596,6 @@ const MapWrapper = (props) => {
         setCenter(props.center);
     }, [props.center]);
 
-    // useEffect(() => {
-    //     console.debug("props: ", props.activeFilters, props.filters, mapFilters);
-    //     if (props.activeFilters.territory === 'country') {
-    //         setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
-    //     } else {
-    //         setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
-    //     }
-    // }, [props.activeFilters.territory]);
-
-    // useEffect(() => {
-    //     setMapFilters(Object.assign({}, { territory: { ...mapFilters.territory }, amountType: { ...mapFilters.amountType } }));
-    // }, [props.activeFilters.amountType]);
     return (
         <div className="map-container">
             <MapBox
