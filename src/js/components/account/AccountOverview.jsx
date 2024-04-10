@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import { SectionHeader } from "data-transparency-ui";
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
@@ -160,19 +161,23 @@ ${authority} has been obligated.`;
     render() {
         return (
             <div className="account-overview">
-                <h2 className="account-overview__title">{this.props.account.title}</h2>
-                <hr className="results-divider" />
-                <div className="account-overview__content">
-                    <div className="account-overview__heading">Fiscal Year Summary</div>
-                    <p>{this.state.summary.flow}</p>
-                    <p>{this.state.summary.toDate}</p>
-                </div>
-                <h3>FY {this.props.currentFiscalYear ? `${this.props.currentFiscalYear} Snapshot` : ''}</h3>
+                <SectionHeader
+                    title={this.props.account.title}
+                    titleTooltip={{ component: false }}
+                    descTooltip={{ component: false }} />
+                <SectionHeader
+                    title={this.props.currentFiscalYear ? `FY ${this.props.currentFiscalYear} Snapshot` : 'FY'}
+                    titleTooltip={{ component: false }}
+                    descTooltip={{ component: false }} />
                 <hr
                     className="results-divider"
                     ref={(div) => {
                         this.sankeyHr = div;
                     }} />
+                <div className="account-overview__content">
+                    <p>{this.state.summary.flow}</p>
+                    <p>{this.state.summary.toDate}</p>
+                </div>
                 <div className="sankey-wrapper">
                     <SankeyVisualization
                         fyAvailable={this.state.fyAvailable}
