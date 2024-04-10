@@ -5,12 +5,10 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { uniq, cloneDeep } from 'lodash';
-
+import { uniq, cloneDeep, throttle } from 'lodash';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
@@ -113,7 +111,7 @@ const MapWrapper = (props) => {
     });
     const [center, setCenter] = useState(props.center);
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
-    const [mapFilters, setMapFilters] = useState(cloneDeep(props.filters));
+    const [mapFilters, setMapFilters] = useState(props.filters);
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
@@ -535,8 +533,9 @@ const MapWrapper = (props) => {
 
     const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
 
-    const filters = () => {
+    const filters = throttle(() => {
         const { activeFilters } = props;
+
         if (!mapFilters || !activeFilters) return null;
 
         return (
@@ -545,7 +544,7 @@ const MapWrapper = (props) => {
                 activeFilters={props.activeFilters}
                 isOpen={isFiltersOpen} />
         );
-    };
+    }, 500);
     useEffect(() => {
         displayData();
         if (!props.stateProfile) {
@@ -584,14 +583,18 @@ const MapWrapper = (props) => {
         setCenter(props.center);
     }, [props.center]);
 
-    useEffect(() => {
-        console.debug("props: ", props.activeFilters, mapFilters);
-        if (props.activeFilters.territory === 'country') {
-            setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
-        } else {
-            setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
-        }
-    }, [props.activeFilters.territory]);
+    // useEffect(() => {
+    //     console.debug("props: ", props.activeFilters, props.filters, mapFilters);
+    //     if (props.activeFilters.territory === 'country') {
+    //         setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
+    //     } else {
+    //         setMapFilters({ territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
+    //     }
+    // }, [props.activeFilters.territory]);
+
+    // useEffect(() => {
+    //     setMapFilters(Object.assign({}, { territory: { ...mapFilters.territory }, amountType: { ...mapFilters.amountType } }));
+    // }, [props.activeFilters.amountType]);
     return (
         <div className="map-container">
             <MapBox
