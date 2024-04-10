@@ -42,25 +42,45 @@
     #main-content {
         width: 100%;
         background-color: $color-gray-lightest;
-        padding-bottom: rem(32);
+        padding: rem(40) rem(16) rem(16) rem(16);
         @import "components/aboutTheDataSidebar/aboutTheData";
-    }
 
-    .search-results-wrapper {
-        width: 100%;
-        @import "./results/searchResults";
-        @import "./topFilterBar/topFilterBar";
+        @media (min-width: $tablet-screen) {
+            padding: rem(40) rem(32) rem(32) rem(32);
+        }
 
-        .tablet-search__modal {
-            display:none;
-            @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
-                display: unset;
-                .button-type__text-right-icon-light {
-                    margin: 16px 0 0 0;
-                    height: auto;
-                    padding: 0;
+        .search-contents {
+            max-width: $homepage-max-width;
+            margin: auto;
+            padding: 0;
+
+            .full-search-sidebar {
+                padding-right: rem(8);
+                .search-sidebar {
+                    margin: 0;
+                }
+            }
+
+            .search-results-wrapper {
+                @import "./results/searchResults";
+                @import "./topFilterBar/topFilterBar";
+                width: 100%;
+                margin: 0;
+                padding-left: rem(8);
+
+                .tablet-search__modal {
+                    display:none;
+                    @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
+                        display: unset;
+                        .button-type__text-right-icon-light {
+                            margin: 16px 0 0 0;
+                            height: auto;
+                            padding: 0;
+                        }
+                    }
                 }
             }
         }
     }
+
 }

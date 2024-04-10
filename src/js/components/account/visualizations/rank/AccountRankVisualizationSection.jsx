@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle, min } from 'lodash';
-
+import { SectionHeader } from "data-transparency-ui";
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import RankVisualization from 'components/search/visualizations/rank/RankVisualization';
@@ -82,7 +82,10 @@ export default class AccountRankVisualizationSection extends React.Component {
             <div
                 className="results-visualization-rank-section"
                 id="results-section-rank">
-                <h3>Spending by Category</h3>
+                <SectionHeader
+                    title="Spending by Category"
+                    titleTooltip={{ component: false }}
+                    descTooltip={{ component: false }} />
                 <hr
                     className="results-divider"
                     ref={(hr) => {
