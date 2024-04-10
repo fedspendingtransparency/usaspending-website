@@ -111,7 +111,7 @@ const MapWrapper = (props) => {
     });
     const [center, setCenter] = useState(props.center);
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
-    const [mapFilters, setMapFilters] = useState(props.filters);
+    const [mapFilters, setMapFilters] = useState(cloneDeep(props.filters));
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
