@@ -535,7 +535,7 @@ const MapWrapper = (props) => {
     const filters = () => {
         const { activeFilters } = props;
         let mapFilters = cloneDeep(props.filters);
-
+        let active = cloneDeep(props.activeFilters);
         if (!mapFilters || !activeFilters) return null;
         const awardTypeFilters = props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
         if (awardTypeFilters.includes(activeFilters.awardType)) {
@@ -544,13 +544,14 @@ const MapWrapper = (props) => {
 
         if (props.activeFilters.territory === 'country') {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
+            active = Object.assign({}, { ...active, amountType: 'totalSpending' });
         } else {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
         }
         return (
             <AdvancedSearchMapFilters
                 filters={mapFilters}
-                activeFilters={props.activeFilters}
+                activeFilters={active}
                 isOpen={isFiltersOpen} />
         );
     };
