@@ -29,7 +29,7 @@ const AdvancedSearchMapFilters = ({ filters, activeFilters, isOpen }) => (
                         <div className="map__filters-wrapper">
                             <span className="map__filters-label">{filters[filter].label}</span>
                             <NewPicker
-                                enabled
+                                enabled={filters[filter].enabled}
                                 size="sm"
                                 classname="map__filters-button"
                                 dropdownClassname="map__filters-dropdown"
