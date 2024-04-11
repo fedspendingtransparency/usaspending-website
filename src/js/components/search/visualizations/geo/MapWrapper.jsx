@@ -542,12 +542,13 @@ const MapWrapper = (props) => {
             mapFilters.spendingType.options.pop();
         }
 
-        if (props.activeFilters.territory === 'country') {
+        if (props.activeFilters?.territory === 'country') {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
         } else {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
         }
+
         return (
             <AdvancedSearchMapFilters
                 filters={mapFilters}
@@ -556,9 +557,6 @@ const MapWrapper = (props) => {
         );
     };
 
-    useEffect(() => {
-
-    }, [props.activeFilters.territory]);
     useEffect(() => {
         displayData();
         if (!props.stateProfile) {
