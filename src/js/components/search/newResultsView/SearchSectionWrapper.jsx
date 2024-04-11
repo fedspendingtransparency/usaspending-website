@@ -18,7 +18,10 @@ const propTypes = {
     setViewType: PropTypes.func,
     chart: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     table: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    dsmContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+    dsmContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    isLoading: PropTypes.bool,
+    isError: PropTypes.bool,
+    hasNoData: PropTypes.bool
 };
 
 const SearchSectionWrapper = ({
@@ -26,7 +29,10 @@ const SearchSectionWrapper = ({
     dropdownOptions,
     selectedDropdownOption,
     children,
-    dsmContent
+    dsmContent,
+    isLoading,
+    hasNoData,
+    isError
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -41,6 +47,20 @@ const SearchSectionWrapper = ({
 
     // Measures content height to set height for dsm content
     const content = document.querySelector('.temp-search__section-wrapper-content')?.clientHeight;
+
+    const message = () => {
+        if (isError) {
+            return "An error occurred while loading data.";
+        }
+        else if (isLoading) {
+            return "Loading...";
+        }
+        else if (hasNoData) {
+            return "No data available.";
+        }
+
+        return null;
+    };
 
     return (
         <div className="search-results-wrapper temp-search__section-wrapper">
@@ -62,11 +82,14 @@ const SearchSectionWrapper = ({
                     sectionTitle
                 }
             </div>
-            {!openAccordion && (
-                <div className="temp-search__section-wrapper-content">
-                    {viewType === 'chart' ? children : <SectionDataTable />}
-                </div>
-            )}
+            {isError || isLoading || hasNoData ?
+                message()
+                :
+                !openAccordion && (
+                    <div className="temp-search__section-wrapper-content">
+                        {viewType === 'chart' ? children : <SectionDataTable />}
+                    </div>
+                )}
             <Accordion
                 setOpen={setOpenAccordion}
                 closedIcon="chevron-down"

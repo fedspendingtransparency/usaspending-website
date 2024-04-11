@@ -6,9 +6,7 @@
 import React, { useState } from "react";
 import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
-    TempPlaceholderChart,
-    TempPlaceholderComponent,
-    DsmContent, TempPlaceholderTable
+    DsmContent
 } from "../TempPlaceholderComponents";
 import MapVisualization from "./MapVisualization";
 
@@ -40,20 +38,15 @@ const MapSection = ({ mapHasLoaded }) => {
             }
         ],
         selectedDropdownOption: selectedDropdown,
-        isVisualization: true,
-        chart: <TempPlaceholderChart />,
-        table: <TempPlaceholderTable />
+        isVisualization: true
     };
 
     return (
         <SearchSectionWrapper
-            {...dummyWrapperProps}>
+            {...dummyWrapperProps}
+            isLoading={!mapHasLoaded}>
             <div id="search-page-component" className="map">
-                {!mapHasLoaded ?
-                    <TempPlaceholderComponent />
-                    :
-                    <MapVisualization />
-                }
+                <MapVisualization />
             </div>
         </SearchSectionWrapper>
     );

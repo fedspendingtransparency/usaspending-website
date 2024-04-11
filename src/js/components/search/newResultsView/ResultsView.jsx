@@ -20,7 +20,6 @@ const ResultsView = () => {
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
-    const [viewType, setViewType] = useState('chart');
 
     const observerOptions = {
         threshold: 0.1

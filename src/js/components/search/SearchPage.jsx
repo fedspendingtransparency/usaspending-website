@@ -209,7 +209,17 @@ const SearchPage = ({
                             updateFilterCount={updateFilterCount}
                             toggleMobileFilters={toggleMobileFilters}
                             requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} /> : <ResultsView />}
+                            noFiltersApplied={noFiltersApplied} />
+                        :
+                        <ResultsView
+                            filters={filters}
+                            isMobile={isMobile}
+                            filterCount={filterCount}
+                            showMobileFilters={showMobileFilters}
+                            updateFilterCount={updateFilterCount}
+                            toggleMobileFilters={toggleMobileFilters}
+                            requestsComplete={requestsComplete}
+                            noFiltersApplied={noFiltersApplied} />}
                 </div>
                 <FullDownloadModalContainer
                     download={download}

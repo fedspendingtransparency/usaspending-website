@@ -6,10 +6,7 @@
 import React, { useState } from "react";
 import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
-    DsmContent,
-    TempPlaceholderChart,
-    TempPlaceholderComponent,
-    TempPlaceholderTable
+    DsmContent
 } from "../TempPlaceholderComponents";
 import CategoriesVisualization from "./CategoriesVisualization";
 
@@ -73,21 +70,16 @@ const CategoriesSection = ({ categoriesHasLoaded }) => {
             }
         ],
         selectedDropdownOption: selectedDropdown,
-        isVisualization: true,
-        chart: <TempPlaceholderChart />,
-        table: <TempPlaceholderTable />
-    };
+        isVisualization: true
 
+    };
 
     return (
         <SearchSectionWrapper
-            {...dummyWrapperProps}>
+            {...dummyWrapperProps}
+            isLoading={!categoriesHasLoaded}>
             <div id="search-page-component" className="categories">
-                {!categoriesHasLoaded ?
-                    <TempPlaceholderComponent />
-                    :
-                    <CategoriesVisualization />
-                }
+                <CategoriesVisualization />
             </div>
         </SearchSectionWrapper>
     );
