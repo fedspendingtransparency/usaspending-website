@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { DownloadIconButton, ShareIcon } from 'data-transparency-ui';
+import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -166,13 +166,13 @@ const SearchPage = ({
             ]}
             filters={appliedFilters}>
             <div id="main-content">
-                <div className="search-contents">
-                    <div className="full-search-sidebar">
+                <FlexGridRow className="search-contents" >
+                    <FlexGridCol className="full-search-sidebar" width={3}>
                         { fullSidebar }
                         {isMobile === false ?
                             <KeywordSearchLink />
                             : '' }
-                    </div>
+                    </FlexGridCol>
                     <div className="mobile-filter-button-wrapper">
                         <button
                             className="mobile-filter-button"
@@ -190,41 +190,43 @@ const SearchPage = ({
                             </div>
                         </button>
                     </div>
-                    <div className="mobile-search-sidebar">
+                    <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
                             filterCount={filterCount}
                             showMobileFilters={showMobileFilters}
                             toggleMobileFilters={toggleMobileFilters} />
-                    </div>
+                    </FlexGridCol>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
-                    {toggleTempSearchPage ?
-                        <SearchResults
-                            filters={filters}
-                            isMobile={isMobile}
-                            filterCount={filterCount}
-                            showMobileFilters={showMobileFilters}
-                            updateFilterCount={updateFilterCount}
-                            toggleMobileFilters={toggleMobileFilters}
-                            requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} />
-                        :
-                        <ResultsView
-                            filters={filters}
-                            isMobile={isMobile}
-                            filterCount={filterCount}
-                            showMobileFilters={showMobileFilters}
-                            updateFilterCount={updateFilterCount}
-                            toggleMobileFilters={toggleMobileFilters}
-                            requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} />}
-                </div>
+                    <FlexGridCol desktop={9} tablet={12} mobile={12}>
+                        {toggleTempSearchPage ?
+                            <SearchResults
+                                filters={filters}
+                                isMobile={isMobile}
+                                filterCount={filterCount}
+                                showMobileFilters={showMobileFilters}
+                                updateFilterCount={updateFilterCount}
+                                toggleMobileFilters={toggleMobileFilters}
+                                requestsComplete={requestsComplete}
+                                noFiltersApplied={noFiltersApplied} />
+                            :
+                            <ResultsView
+                                filters={filters}
+                                isMobile={isMobile}
+                                filterCount={filterCount}
+                                showMobileFilters={showMobileFilters}
+                                updateFilterCount={updateFilterCount}
+                                toggleMobileFilters={toggleMobileFilters}
+                                requestsComplete={requestsComplete}
+                                noFiltersApplied={noFiltersApplied} />}
+                    </FlexGridCol>
+                </FlexGridRow>
                 <FullDownloadModalContainer
-                    download={download}
-                    mounted={showFullDownload}
-                    hideModal={hideDownloadModal} />
+                download={download}
+                mounted={showFullDownload}
+                hideModal={hideDownloadModal} />
             </div>
         </PageWrapper>
     );

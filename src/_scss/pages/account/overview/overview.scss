@@ -5,43 +5,78 @@
     padding: rem(30);
     margin-bottom: rem(40);
 
-    .account-overview__title {
-        margin: 0;
-        font-size: $h3-font-size;
+    .usda-section-title__sectionHeader:first-of-type {
+        margin-top: 0;
+        .usda-section-title__header {
+            .usda-section-title__title {
+                h3 {
+                    font-size: rem(36);
+                    font-weight: $font-semibold;
+                    line-height: rem(45);
+                    margin-bottom: $global-margin * 2;
+                }
+            }
+        }
     }
+
+    .usda-section-title__sectionHeader {
+        .usda-section-title__header {
+            margin-left: 0;
+            .usda-section-title__title {
+                h3 {
+                    font-size: rem(18);
+                }
+            }
+        }
+    }
+
+
+
     hr.results-divider {
-        margin-top: rem(9);
-        margin-bottom: rem(10);
+        margin: rem(9) 0 rem(10) 0;
+        border-bottom: 1px solid $color-gray-light;
     }
+
     .account-overview__content {
-        margin-bottom: ($global-mrg * 2);
+        margin: 0 auto ($global-mrg * 2) auto;
         font-size: $small-font-size;
+
         .account-overview__heading {
             padding: rem(28) 0 rem(5);
             font-weight: $font-semibold;
             font-size: rem(19);
         }
+
+        .account-overview__heading:first-of-type {
+            padding-top: 0;
+        }
+
         @include media($medium-screen) {
             width: 50%;
         }
     }
+
     .sankey-wrapper {
         text-align: center;
         color: $color-base;
         font-size: $small-font-size;
-        margin-top: ($global-mrg * 4);
-        margin-bottom: ($global-mrg * 4);
+        margin-top: ($global-margin * 5);
+        margin-bottom: ($global-margin * 5);
         @import './sankey/sankey';
+
         .sankey-disclosures {
             text-align: left;
             margin-top: rem(20);
+
             .disclosure-title {
                 font-weight: $font-semibold;
             }
+
             ul.disclosure-list {
                 margin: 0;
                 padding: 0;
                 list-style-type: none;
+
                 li {
                     b {
                         font-weight: $font-semibold;

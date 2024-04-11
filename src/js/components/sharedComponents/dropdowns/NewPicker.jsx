@@ -154,14 +154,23 @@ const NewPicker = ({
                             onClick: createOnClickFn(option.onClick)
                         }))
                         .map((option) => (
-                            <li key={uniqueId()} className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
+                            <li
+                                key={uniqueId()}
+                                className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
                                 <button
-                                    className="filter__dropdown-item"
-                                    value={`${option.value || option.name}`}
+                                    style={{ display: "block", width: "100%" }}
+                                    tabIndex={0}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         option.onClick(option.value);
-                                    }}>
+                                    }}
+                                    onKeyUp={(e) => {
+                                        e.preventDefault();
+                                        if (e.key === "Enter") {
+                                            option.onClick(option.value);
+                                        }
+                                    }}
+                                    className="filter__dropdown-item">
                                     {option.component ? option.component : option.name}
                                 </button>
                             </li>
