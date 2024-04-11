@@ -30,7 +30,7 @@ import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import setHasResults from "../../../redux/actions/search/searchViewActions";
+import * as titleBarFilterActions from "../../../redux/actions/search/titleBarFilterActions";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -222,9 +222,9 @@ const ResultsTableContainer = (props) => {
                 setResults(newState.results);
 
                 if (newState.results.length > 0) {
-                    setHasResults({ hasResults: true });
+                    titleBarFilterActions.setHasResults({ hasResults: true });
                 } else {
-                    setHasResults({ hasResults: false });
+                    titleBarFilterActions.setHasResults({ hasResults: false });
                 }
 
                 setPage(newState.page);
@@ -539,7 +539,8 @@ export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward
+        subaward: state.searchView.subaward,
+        hasResults: state.titleBarFilter.hasResults
     }),
     (dispatch) => bindActionCreators(
         // access multiple redux actions
@@ -547,7 +548,7 @@ export default connect(
             {},
             searchActions,
             appliedFilterActions,
-            setHasResults,
+            { titleBarFilterActions },
             { subAwardIdClicked }
         ),
         dispatch
