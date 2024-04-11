@@ -4,7 +4,7 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
@@ -55,6 +55,7 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const hasResults = useSelector((state) => state.titleBarFilter.hasResults);
 
     // TODO: Remove this state once new Advance Search is done and toggle no longer needed
     const [toggleTempSearchPage, setToggleTempSearchPage] = useState(true);
@@ -148,7 +149,7 @@ const SearchPage = ({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown size="sm" label="Filter by:" enabled={hasResults} setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
@@ -224,8 +225,4 @@ const SearchPage = ({
 
 SearchPage.propTypes = propTypes;
 
-export default connect(
-    (state) => ({
-        hasResults: state.searchView.hasResults
-    })
-)(SearchPage);
+export default SearchPage;
