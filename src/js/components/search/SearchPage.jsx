@@ -4,6 +4,7 @@
  **/
 
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
@@ -35,7 +36,6 @@ const propTypes = {
     hash: PropTypes.string
 };
 
-// comment here
 const slug = 'search/';
 const emailSubject = 'Award Search results on USAspending.gov';
 
@@ -223,4 +223,9 @@ const SearchPage = ({
 };
 
 SearchPage.propTypes = propTypes;
-export default SearchPage;
+
+export default connect(
+    (state) => ({
+        hasResults: state.searchView.hasResults
+    })
+)(SearchPage);
