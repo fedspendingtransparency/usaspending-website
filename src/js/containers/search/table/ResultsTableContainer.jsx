@@ -30,6 +30,7 @@ import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
+import setHasResults from "../../../redux/actions/search/searchViewActions";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -219,6 +220,13 @@ const ResultsTableContainer = (props) => {
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
                 setResults(newState.results);
+
+                if (newState.results.length > 0) {
+                    setHasResults({ hasResults: true });
+                } else {
+                    setHasResults({ hasResults: false });
+                }
+
                 setPage(newState.page);
                 setLastPage(newState.lastPage);
 
@@ -539,6 +547,7 @@ export default connect(
             {},
             searchActions,
             appliedFilterActions,
+            setHasResults,
             { subAwardIdClicked }
         ),
         dispatch

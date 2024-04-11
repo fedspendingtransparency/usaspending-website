@@ -5,7 +5,8 @@
 
 export const initialState = {
     type: 'table',
-    subaward: false
+    subaward: false,
+    hasResults: false
 };
 
 const searchViewReducer = (state = initialState, action) => {
@@ -18,6 +19,11 @@ const searchViewReducer = (state = initialState, action) => {
         case 'SET_SEARCH_VIEW_SUBAWARD':
             return Object.assign({}, state, {
                 subaward: action.value
+            });
+
+        case 'SET_HAS_RESULTS':
+            return Object.assign({}, state, {
+                hasResults: action.value
             });
 
         default:

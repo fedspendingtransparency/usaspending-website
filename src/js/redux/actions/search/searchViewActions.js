@@ -12,3 +12,8 @@ export const setSearchViewType = (state) => ({
     type: 'SET_SEARCH_VIEW_TYPE',
     value: state
 });
+
+export const setHasResults = (state) => ({
+    type: 'SET_HAS_RESULTS',
+    value: state
+});
