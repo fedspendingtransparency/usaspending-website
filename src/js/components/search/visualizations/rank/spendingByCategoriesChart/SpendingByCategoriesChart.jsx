@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, Text } from 'recharts';
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import PropTypes from "prop-types";
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { tabletScreen, smTabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 const propTypes = {
@@ -18,7 +18,7 @@ const propTypes = {
 };
 
 const tickFormatter = (value, isMobile) => {
-    const limit = isMobile ? 35 : 48; // put your maximum character
+    const limit = isMobile ? 30 : 48; // put your maximum character
     if (value.length < limit) return value;
     const newValue = value.replace("Department", "Dept");
     if (newValue.length <= limit) return newValue;
@@ -28,8 +28,9 @@ const tickFormatter = (value, isMobile) => {
 const SpendingByCategoriesChart = (props) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [isSmMobile, setIsSmMobile] = useState(window.innerWidth < smTabletScreen);
 
-    const labelWidthVar = isMobile ? 300 : 175;
+    const labelWidthVar = isMobile ? 400 : 175;
 
     const dataStuff = [];
     if (props.dataSeries?.length === props.labelSeries?.length) {
@@ -50,7 +51,7 @@ const SpendingByCategoriesChart = (props) => {
             x, y, payload, link
         } = args;
 
-        const translateY = isMobile ? y - 16 : y + 8;
+        const translateY = isMobile ? y - 17 : y + 8;
 
         return (
             <g transform={`translate(${x - 8},${translateY})`}>
@@ -60,7 +61,7 @@ const SpendingByCategoriesChart = (props) => {
                         fontSize={14}
                         width={isMobile ? labelWidthVar : labelWidthVar + 16}
                         fill="#2378C3">
-                        {tickFormatter(payload.value, isMobile)}
+                        {tickFormatter(payload.value, isSmMobile)}
                     </Text>
                 </a>
             </g>);
@@ -72,6 +73,7 @@ const SpendingByCategoriesChart = (props) => {
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < tabletScreen);
+                setIsSmMobile(newWidth < smTabletScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
