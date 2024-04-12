@@ -11,7 +11,7 @@ const titleFilterBarReducer = (state = initialState, action) => {
     console.debug("ACTION: ", action);
     switch (action.type) {
         case 'SET_HAS_RESULTS': {
-            return Object.assign({}, {
+            return Object.assign({}, state, {
                 hasResults: action.value
             });
         }
