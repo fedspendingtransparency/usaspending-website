@@ -95,7 +95,7 @@ const ResultsTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
-
+    console.debug("results length: ", results.length);
     const initialRender = useRef(true);
 
     const performSearch = throttle((newSearch = false) => {
@@ -222,8 +222,10 @@ const ResultsTableContainer = (props) => {
                 setResults(newState.results);
 
                 if (newState.results.length > 0) {
+                    console.debug("length > 0");
                     titleBarFilterActions.setHasResults({ hasResults: true });
                 } else {
+                    console.debug("length === 0");
                     titleBarFilterActions.setHasResults({ hasResults: false });
                 }
 

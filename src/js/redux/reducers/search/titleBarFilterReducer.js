@@ -10,7 +10,7 @@ export const initialState = {
 const titleFilterBarReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_HAS_RESULTS':
-            return Object.assign({}, state, {
+            return Object.assign({}, {
                 hasResults: action.value
             });
 
