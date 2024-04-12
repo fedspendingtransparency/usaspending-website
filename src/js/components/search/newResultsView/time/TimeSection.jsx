@@ -50,11 +50,11 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
 
     return (
         <div id="search-page-component" className="spending">
-            <TimeVisualizationSectionContainer
+            {spendingHasLoaded && <TimeVisualizationSectionContainer
                 wrapperProps={wrapperProps}
                 subaward={subaward}
                 spendingHasLoaded={spendingHasLoaded}
-                visualizationPeriod={visualizationPeriod} />
+                visualizationPeriod={visualizationPeriod} />}
         </div>
     );
 };

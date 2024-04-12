@@ -9,15 +9,19 @@ import {
     DsmContent
 } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
+import GeoVisualizationSectionContainer
+    from "../../../../containers/search/newResultsFilter/GeoVisualizationSectionContainer";
+import TimeVisualizationSectionContainer
+    from "../../../../containers/search/newResultsFilter/TimeVisualizationSectionContainer";
 
-const MapSection = ({ mapHasLoaded }) => {
+const MapSection = ({ mapHasLoaded, subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const onClick = (e) => {
         setSelectedDropdown(e);
     };
 
-    const dummyWrapperProps = {
+    const wrapperProps = {
         sectionTitle: 'Results by Geography',
         dropdownOptions: [
             {
@@ -26,7 +30,7 @@ const MapSection = ({ mapHasLoaded }) => {
                 onClick,
                 dsmContent: <DsmContent
                     heading={"Place of Performance:  What's included in this view of the data?"}
-                    description={"Use the map below to break down spending by state, county, or congressional district."} />
+                    description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
                 name: 'Recipient Location',
@@ -34,20 +38,18 @@ const MapSection = ({ mapHasLoaded }) => {
                 onClick,
                 dsmContent: <DsmContent
                     heading={"Recipient Location:  What's included in this view of the data?"}
-                    description={"Use the map below to break down spending by state, county, or congressional district."} />
+                    description="Use the map below to break down spending by state, county, or congressional district." />
             }
         ],
-        selectedDropdownOption: selectedDropdown,
-        isVisualization: true
+        selectedDropdownOption: selectedDropdown
     };
 
     return (
-        <SearchSectionWrapper
-            {...dummyWrapperProps}>
-            <div id="search-page-component" className="map">
-                <MapVisualization />
-            </div>
-        </SearchSectionWrapper>
+        <GeoVisualizationSectionContainer
+            wrapperProps={wrapperProps}
+            subaward={subaward}
+            spendingHasLoaded={mapHasLoaded}
+            selectedDropdown={selectedDropdown} />
     );
 };
 

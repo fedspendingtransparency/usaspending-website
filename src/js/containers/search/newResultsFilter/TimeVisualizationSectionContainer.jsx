@@ -132,6 +132,7 @@ const TimeVisualizationSectionContainer = (props) => {
             .then((res) => {
                 parseData(res.data, visualizationPeriod);
                 apiRequest = null;
+                console.log("fetched time data");
             })
             .catch((err) => {
                 if (isCancel(err)) {
