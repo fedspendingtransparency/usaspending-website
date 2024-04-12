@@ -8,8 +8,6 @@ const initialState = {
 };
 
 const titleFilterBarReducer = (state = initialState, action) => {
-    console.log('action', action);
-    console.log('state', state);
     switch (action.type) {
         case 'SET_HAS_RESULTS':
             return Object.assign({}, state, {

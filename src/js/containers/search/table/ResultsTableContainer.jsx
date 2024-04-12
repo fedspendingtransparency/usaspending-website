@@ -96,7 +96,6 @@ const ResultsTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
-    console.debug("results length: ", results.length);
     const initialRender = useRef(true);
 
     const performSearch = throttle((newSearch = false) => {
