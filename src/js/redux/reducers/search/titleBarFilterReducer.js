@@ -3,18 +3,18 @@
  * Created by Nick Torres 4/11/24
  */
 
-export const initialState = {
+const initialState = {
     hasResults: false
 };
 
 const titleFilterBarReducer = (state = initialState, action) => {
-    console.debug("ACTION: ", action);
+    console.log('action', action);
+    console.log('state', state);
     switch (action.type) {
-        case 'SET_HAS_RESULTS': {
+        case 'SET_HAS_RESULTS':
             return Object.assign({}, state, {
                 hasResults: action.value
             });
-        }
         default:
             return state;
     }
