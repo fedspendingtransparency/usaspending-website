@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
-import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-
 import { areFiltersEqual } from 'helpers/searchHelper';
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
+import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
+import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
+import * as titleBarFilterActions from "../../redux/actions/search/titleBarFilterActions";
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,
@@ -108,6 +108,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
         this.props.clearStagedFilters();
         this.props.resetAppliedFilters();
         this.props.resetMapLegendToggle();
+        titleBarFilterActions.setHasResults({ hasResults: false });
     }
 
     render() {
@@ -127,10 +128,16 @@ export default connect(
         requestsComplete: state.appliedFilters._complete,
         isEmpty: state.appliedFilters._empty,
         stagedFilters: state.filters,
-        appliedFilters: state.appliedFilters.filters
+        appliedFilters: state.appliedFilters.filters,
+        hasResults: state.tielBarFilter.hasResults
     }),
     (dispatch) => ({
-        ...bindActionCreators(combinedActions, dispatch)
+        ...bindActionCreators(Object.assign(
+            {},
+            combinedActions,
+            { titleBarFilterActions }
+        ),
+        dispatch)
     })
 )(SearchSidebarSubmitContainer);
 
