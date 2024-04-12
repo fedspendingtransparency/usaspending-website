@@ -6,11 +6,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash';
-
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
@@ -536,21 +534,29 @@ const MapWrapper = (props) => {
 
     const filters = () => {
         const { activeFilters } = props;
-        const mapFilters = cloneDeep(props.filters);
-
+        let mapFilters = cloneDeep(props.filters);
+        let active = cloneDeep(props.activeFilters);
         if (!mapFilters || !activeFilters) return null;
         const awardTypeFilters = props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
         if (awardTypeFilters.includes(activeFilters.awardType)) {
             mapFilters.spendingType.options.pop();
         }
 
+        if (props.activeFilters?.territory === 'country') {
+            mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
+            active = Object.assign({}, { ...active, amountType: 'totalSpending' });
+        } else {
+            mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
+        }
+
         return (
             <AdvancedSearchMapFilters
                 filters={mapFilters}
-                activeFilters={props.activeFilters}
+                activeFilters={active}
                 isOpen={isFiltersOpen} />
         );
     };
+
     useEffect(() => {
         displayData();
         if (!props.stateProfile) {
