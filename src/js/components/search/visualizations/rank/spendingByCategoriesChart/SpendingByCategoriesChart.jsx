@@ -110,7 +110,7 @@ const SpendingByCategoriesChart = (props) => {
                     barSize={21}
                     margin={{
                         top: 10,
-                        right: 20,
+                        right: 60,
                         left: 8,
                         bottom: 10
                     }}>
