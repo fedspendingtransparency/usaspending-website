@@ -135,7 +135,7 @@ export default connect(
         ...bindActionCreators(Object.assign(
             {},
             combinedActions,
-            { titleBarFilterActions }
+            titleBarFilterActions
         ),
         dispatch)
     })

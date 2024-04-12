@@ -550,7 +550,7 @@ export default connect(
             {},
             searchActions,
             appliedFilterActions,
-            { titleBarFilterActions },
+            titleBarFilterActions,
             { subAwardIdClicked }
         ),
         dispatch
