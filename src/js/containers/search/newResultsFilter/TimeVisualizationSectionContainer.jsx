@@ -87,8 +87,6 @@ const TimeVisualizationSectionContainer = (props) => {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            console.log(item.time_period);
-
             tempGroups.push(generateTimeLabel(group, item.time_period));
             tempRawLabels.push(generateTimeRaw(group, item.time_period));
             tempXSeries.push([generateTimeLabel(group, item.time_period)]);
@@ -135,6 +133,7 @@ const TimeVisualizationSectionContainer = (props) => {
                 parseData(res.data, visualizationPeriod);
                 console.log("time data fetched");
                 apiRequest = null;
+                props.dataStatus(false, false, false);
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -150,7 +149,7 @@ const TimeVisualizationSectionContainer = (props) => {
 
     const fetchData = () => {
         props.setAppliedFilterCompletion(false);
-        setParsedData({ ...parseData, loading: true, error: false });
+        // setParsedData({ ...parseData, loading: true, error: false });
 
         // Cancel API request if it exists
         if (apiRequest) {
@@ -162,6 +161,7 @@ const TimeVisualizationSectionContainer = (props) => {
     };
 
     useEffect(() => {
+        console.log("fetching")
         if (!props.noApplied) {
             fetchData();
         }
@@ -169,15 +169,19 @@ const TimeVisualizationSectionContainer = (props) => {
     }, [props.reduxFilters, props.subaward, visualizationPeriod]);
 
     useEffect(() => {
+        console.log("fetching 2")
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visualizationPeriod]);
 
     useEffect(() => {
+        console.log(parsedData);
         if (parsedData.loading !== true && parsedData.error !== true) {
             props.setAppliedFilterCompletion(true);
             props.dataStatus(parsedData.loading, parsedData.error, parsedData?.rawlabels?.length === 0);
         }
+
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData]);
 

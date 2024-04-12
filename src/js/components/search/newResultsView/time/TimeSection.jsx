@@ -56,6 +56,7 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
     };
 
     const updateDataStatus = (isLoading, isError, hasNoData) => {
+        console.log("updateDataStatus", isLoading, isError, hasNoData);
         setDataStatus({
             isLoading,
             isError,
