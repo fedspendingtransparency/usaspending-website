@@ -129,7 +129,7 @@ export default connect(
         isEmpty: state.appliedFilters._empty,
         stagedFilters: state.filters,
         appliedFilters: state.appliedFilters.filters,
-        hasResults: state.tielBarFilter.hasResults
+        hasResults: state.titleBarFilter.hasResults
     }),
     (dispatch) => ({
         ...bindActionCreators(Object.assign(
