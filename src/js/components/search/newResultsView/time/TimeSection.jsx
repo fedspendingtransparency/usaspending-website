@@ -3,8 +3,7 @@
  */
 
 
-import React, { useState, useEffect } from "react";
-import SearchSectionWrapper from "../SearchSectionWrapper";
+import React, { useState } from "react";
 import {
     DsmWrapper
 } from "../DsmWrapper";
@@ -14,17 +13,11 @@ import TimeVisualizationSectionContainer
 const TimeSection = ({ spendingHasLoaded, subaward }) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('month');
 
-    const [dataStatus, setDataStatus] = useState({
-        isLoading: false,
-        isError: false,
-        hasNoData: false
-    });
-
     const onClick = (e) => {
         setVisualizationPeriod(e);
     };
 
-    const dummyWrapperProps = {
+    const wrapperProps = {
         sectionTitle: 'Results Over Time',
         dropdownOptions: [
             {
@@ -55,30 +48,14 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
         selectedDropdownOption: visualizationPeriod
     };
 
-    const updateDataStatus = (isLoading, isError, hasNoData) => {
-        console.log("updateDataStatus", isLoading, isError, hasNoData);
-        setDataStatus({
-            isLoading,
-            isError,
-            hasNoData
-        });
-    };
-
     return (
-        <SearchSectionWrapper
-            {...dummyWrapperProps}
-            isLoading={dataStatus.isLoading}
-            isError={dataStatus.isError}
-            hasNoData={dataStatus.hasNoData}>
-            <div id="search-page-component" className="spending">
-                {spendingHasLoaded &&
-                    <TimeVisualizationSectionContainer
-                        dataStatus={updateDataStatus}
-                        subaward={subaward}
-                        visualizationPeriod={visualizationPeriod} />
-                }
-            </div>
-        </SearchSectionWrapper>
+        <div id="search-page-component" className="spending">
+            <TimeVisualizationSectionContainer
+                wrapperProps={wrapperProps}
+                subaward={subaward}
+                spendingHasLoaded={spendingHasLoaded}
+                visualizationPeriod={visualizationPeriod} />
+        </div>
     );
 };
 

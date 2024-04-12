@@ -38,9 +38,6 @@ const SearchSectionWrapper = ({
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
 
-    console.log(selectedDropdownOption);
-    console.log(dropdownOptions);
-
     const sortFn = () => dropdownOptions;
 
     const changeView = (label) => {

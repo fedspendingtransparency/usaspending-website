@@ -16,6 +16,7 @@ import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
+import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -26,7 +27,6 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    dataStatus: PropTypes.object,
     visualizationPeriod: PropTypes.string
 };
 
@@ -131,9 +131,7 @@ const TimeVisualizationSectionContainer = (props) => {
         apiRequest.promise
             .then((res) => {
                 parseData(res.data, visualizationPeriod);
-                console.log("time data fetched");
                 apiRequest = null;
-                props.dataStatus(false, false, false);
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -149,7 +147,7 @@ const TimeVisualizationSectionContainer = (props) => {
 
     const fetchData = () => {
         props.setAppliedFilterCompletion(false);
-        // setParsedData({ ...parseData, loading: true, error: false });
+        setParsedData({ ...parseData, loading: true, error: false });
 
         // Cancel API request if it exists
         if (apiRequest) {
@@ -161,7 +159,6 @@ const TimeVisualizationSectionContainer = (props) => {
     };
 
     useEffect(() => {
-        console.log("fetching")
         if (!props.noApplied) {
             fetchData();
         }
@@ -169,16 +166,13 @@ const TimeVisualizationSectionContainer = (props) => {
     }, [props.reduxFilters, props.subaward, visualizationPeriod]);
 
     useEffect(() => {
-        console.log("fetching 2")
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visualizationPeriod]);
 
     useEffect(() => {
-        console.log(parsedData);
         if (parsedData.loading !== true && parsedData.error !== true) {
             props.setAppliedFilterCompletion(true);
-            props.dataStatus(parsedData.loading, parsedData.error, parsedData?.rawlabels?.length === 0);
         }
 
 
@@ -187,17 +181,23 @@ const TimeVisualizationSectionContainer = (props) => {
 
 
     useEffect(() => {
-        console.log("container", props.visualizationPeriod);
         if (props.visualizationPeriod !== visualizationPeriod) {
             setVisualizationPeriod(props.visualizationPeriod);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.visualizationPeriod]);
 
     return (
-        <TimeVisualizationChart
-            {...parsedData}
-            visualizationPeriod={visualizationPeriod}
-            subaward={props.subaward} />
+        <SearchSectionWrapper
+            {...props.wrapperProps}
+            isLoading={parsedData?.loading}
+            isError={parsedData?.error}
+            hasNoData={parsedData?.rawlabels?.length === 0}>
+            <TimeVisualizationChart
+                {...parsedData}
+                visualizationPeriod={visualizationPeriod}
+                subaward={props.subaward} />
+        </SearchSectionWrapper>
     );
 };
 
