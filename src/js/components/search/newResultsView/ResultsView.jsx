@@ -13,7 +13,7 @@ import MapSection from "./map/MapSection";
 
 require("pages/search/searchPage.scss");
 
-const ResultsView = () => {
+const ResultsView = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [isVisible, setIsVisible] = useState('');
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
@@ -81,12 +81,15 @@ const ResultsView = () => {
                     mapHasLoaded={mapHasLoaded} />
 
                 <CategoriesSection
+                    subaward={props.subaward}
                     categoriesHasLoaded={categoriesHasLoaded} />
 
                 <TimeSection
+                    subaward={props.subaward}
                     spendingHasLoaded={spendingHasLoaded} />
 
                 <TableSection
+                    subaward={props.subaward}
                     awardTableHasLoaded={awardTableHasLoaded} />
             </main>
         </PageFeatureFlag>

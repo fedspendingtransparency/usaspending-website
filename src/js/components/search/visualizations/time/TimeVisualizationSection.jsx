@@ -38,6 +38,7 @@ export default class TimeVisualizationSection extends React.Component {
             expanded: null
         };
 
+        console.log(props);
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
         this.handleUpdateBody = this.handleUpdateBody.bind(this);
@@ -72,15 +73,15 @@ export default class TimeVisualizationSection extends React.Component {
         headers.month = 'fiscal_year,month,total_obligations\n';
         const data = this.props.data;
 
-        return headers[data.visualizationPeriod].concat(
+        return headers[this.props.visualizationPeriod].concat(
             data.rawLabels.map((label, i) => {
-                if (data.visualizationPeriod === 'fiscal_year') {
+                if (this.props.visualizationPeriod === 'fiscal_year') {
                     return `${label.year},${data.ySeries[i][0]}`;
                 }
                 if (!label.period) { // API still updating data
                     return null;
                 }
-                if (data.visualizationPeriod === 'quarter') {
+                if (this.props.visualizationPeriod === 'quarter') {
                     return `${label.year},${label.period[1]},${data.ySeries[i][0]}`;
                 }
                 const month = fullMonthFromAbbr(label.period);
@@ -92,9 +93,9 @@ export default class TimeVisualizationSection extends React.Component {
 
     downloadTooltip = () => (
         <>
-            <div className="tooltip__title">Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}</div>
+            <div className="tooltip__title">Download data by {capitalize(this.props.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.visualizationPeriod)}</div>
             <div className="tooltip__text">
-                Download a CSV of award spending data that matches your search criteria, broken down by {this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod}. For complete download results, click on the &quot;Download&quot; button on the top right of this page.
+                Download a CSV of award spending data that matches your search criteria, broken down by {this.props.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.visualizationPeriod}. For complete download results, click on the &quot;Download&quot; button on the top right of this page.
             </div>
         </>
     );
@@ -170,7 +171,7 @@ export default class TimeVisualizationSection extends React.Component {
             download="spending-over-time.csv" >
             <FontAwesomeIcon icon="download" size="lg" />
             <span className="text">
-                Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
+                Download data by {capitalize(this.props.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.visualizationPeriod)}
             </span>
         </a>
     );
@@ -221,21 +222,21 @@ export default class TimeVisualizationSection extends React.Component {
                                     <TimeVisualizationPeriodButton
                                         value="fiscal_year"
                                         label="Years"
-                                        active={this.props.data.visualizationPeriod === 'fiscal_year'}
+                                        active={this.props.visualizationPeriod === 'fiscal_year'}
                                         changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                                 <li>
                                     <TimeVisualizationPeriodButton
                                         value="quarter"
                                         label="Quarters"
-                                        active={this.props.data.visualizationPeriod === 'quarter'}
+                                        active={this.props.visualizationPeriod === 'quarter'}
                                         changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                                 <li>
                                     <TimeVisualizationPeriodButton
                                         value="month"
                                         label="Months"
-                                        active={this.props.data.visualizationPeriod === 'month'}
+                                        active={this.props.visualizationPeriod === 'month'}
                                         changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                             </ul>
@@ -247,6 +248,7 @@ export default class TimeVisualizationSection extends React.Component {
                     </div>
                 </div>
                 <TimeVisualizationChart
+                    visualizationPeriod={this.props.visualizationPeriod}
                     {...this.props.data}
                     width={this.state.visualizationWidth} />
             </section>

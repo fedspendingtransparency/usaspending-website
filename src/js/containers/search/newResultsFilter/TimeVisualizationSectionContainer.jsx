@@ -8,9 +8,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import TimeVisualizationSection from
-        'components/search/visualizations/time/TimeVisualizationSection';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
@@ -18,6 +15,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -182,12 +180,11 @@ const TimeVisualizationSectionContainer = (props) => {
     };
 
     return (
-        <TimeVisualizationSection
-            data={{...parsedData}}
-            updateVisualizationPeriod={updateVisualizationPeriod}
+        <TimeVisualizationChart
+            {...parsedData}
             visualizationPeriod={visualizationPeriod}
-            subaward={props.subaward}
-            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
+            updateVisualizationPeriod={updateVisualizationPeriod}
+            subaward={props.subaward} />
     );
 };
 

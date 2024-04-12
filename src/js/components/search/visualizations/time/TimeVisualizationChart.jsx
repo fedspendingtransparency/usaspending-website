@@ -72,6 +72,7 @@ const CustomYTick = (props) => {
 
 
 const TimeVisualizationChart = (props) => {
+    console.log(props);
     const transformedData = [];
     const [focusBar, setFocusBar] = useState(null);
 
@@ -107,7 +108,7 @@ const TimeVisualizationChart = (props) => {
 
     let label;
     let value;
-    for (let i = 0; i < props.xSeries.length; i++) {
+    for (let i = 0; i < props.xSeries?.length; i++) {
         if (props.ySeries[i][0] !== 0) {
             label = props.xSeries[i][0];
             value = props.ySeries[i][0];

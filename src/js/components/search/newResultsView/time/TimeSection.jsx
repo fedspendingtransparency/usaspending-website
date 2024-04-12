@@ -11,9 +11,10 @@ import {
     TempPlaceholderComponent,
     TempPlaceholderTable
 } from "../TempPlaceholderComponents";
-import SpendingOverTime from "./SpendingOverTime";
+import TimeVisualizationSectionContainer
+    from "../../../../containers/search/newResultsFilter/TimeVisualizationSectionContainer";
 
-const TimeSection = ({ spendingHasLoaded }) => {
+const TimeSection = ({ spendingHasLoaded, subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const onClick = (e) => {
@@ -57,13 +58,10 @@ const TimeSection = ({ spendingHasLoaded }) => {
 
     return (
         <SearchSectionWrapper
-            {...dummyWrapperProps}>
-            <div id="search-page-component" className="spending">
-                {!spendingHasLoaded ?
-                    <TempPlaceholderComponent />
-                    :
-                    <SpendingOverTime />
-                }
+            {...dummyWrapperProps}
+            height={350}>
+            <div id="search-page-component" className="spending" style={{ height: 350 }} >
+                <TimeVisualizationSectionContainer subaward={subaward} visualizationPeriod={dummyWrapperProps?.dropdownOptions[selectedDropdown]?.name} />
             </div>
         </SearchSectionWrapper>
     );

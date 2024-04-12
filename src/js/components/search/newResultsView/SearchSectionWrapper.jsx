@@ -32,7 +32,8 @@ const SearchSectionWrapper = ({
     dsmContent,
     isLoading,
     hasNoData,
-    isError
+    isError,
+    height
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -86,7 +87,7 @@ const SearchSectionWrapper = ({
                 message()
                 :
                 !openAccordion && (
-                    <div className="temp-search__section-wrapper-content">
+                    <div className="temp-search__section-wrapper-content" style={{ height }}>
                         {viewType === 'chart' ? children : <SectionDataTable />}
                     </div>
                 )}
