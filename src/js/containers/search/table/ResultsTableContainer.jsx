@@ -223,11 +223,9 @@ const ResultsTableContainer = (props) => {
                 setResults(newState.results);
 
                 if (newState.results.length > 0) {
-                    console.debug("length > 0");
                     props.setHasResults(true);
                 }
                 else {
-                    console.debug("length === 0");
                     props.setHasResults(false);
                 }
 

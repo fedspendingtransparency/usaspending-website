@@ -13,7 +13,7 @@ import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
 import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-import * as titleBarFilterActions from "../../redux/actions/search/titleBarFilterActions";
+import { setHasResults } from "../../redux/actions/search/titleBarFilterActions";
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,
@@ -36,7 +36,8 @@ const propTypes = {
     resetNaicsTree: PropTypes.func,
     resetMapLegendToggle: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
-    resetAppliedFilters: PropTypes.func
+    resetAppliedFilters: PropTypes.func,
+    setHasResults: PropTypes.func
 };
 
 export class SearchSidebarSubmitContainer extends React.Component {
@@ -108,7 +109,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
         this.props.clearStagedFilters();
         this.props.resetAppliedFilters();
         this.props.resetMapLegendToggle();
-        titleBarFilterActions.setHasResults({ hasResults: false });
+        this.props.setHasResults(false);
     }
 
     render() {
@@ -135,7 +136,7 @@ export default connect(
         ...bindActionCreators(Object.assign(
             {},
             combinedActions,
-            titleBarFilterActions
+            { setHasResults }
         ),
         dispatch)
     })

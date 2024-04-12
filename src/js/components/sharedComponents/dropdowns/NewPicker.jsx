@@ -83,6 +83,10 @@ const NewPicker = ({
         };
     }, [expanded, id]);
 
+    useEffect(() => {
+        setIsEnabled(enabled);
+    }, [enabled]);
+
     const toggleMenu = (e) => {
         e.preventDefault();
         setExpanded(!expanded);
