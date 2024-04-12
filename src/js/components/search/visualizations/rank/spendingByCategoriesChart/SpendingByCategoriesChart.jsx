@@ -67,6 +67,27 @@ const SpendingByCategoriesChart = (props) => {
             </g>);
     };
 
+    const CustomEndLabels = (args) => {
+        const {
+            x, y, value, width
+        } = args;
+
+        const translateX = isSmMobile ? 2 : 8;
+
+        return (
+            <g transform={`translate(${x + width + translateX}, ${y + 14})`}>
+                <Text
+                    textAnchor="left"
+                    fontSize={14}
+                    fontWeight={600}
+                    fill="#07648D"
+                    width={20}>
+                    {value}
+                </Text>
+            </g>
+        );
+    };
+
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
@@ -105,10 +126,7 @@ const SpendingByCategoriesChart = (props) => {
                     <Bar dataKey="value" fill="#07648d" activeBar={false}>
                         <LabelList
                             dataKey="barLabel"
-                            position="right"
-                            fill="#07648d"
-                            fontSize={14}
-                            fontWeight={600} />
+                            content={CustomEndLabels} />
                     </Bar>
                 </BarChart>
             </ResponsiveContainer>
