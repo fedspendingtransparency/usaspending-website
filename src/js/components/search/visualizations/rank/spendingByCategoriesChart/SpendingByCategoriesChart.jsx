@@ -51,7 +51,7 @@ const SpendingByCategoriesChart = (props) => {
             x, y, payload, link
         } = args;
 
-        const translateY = isMobile ? y - 17 : y + 8;
+        const translateY = isMobile ? y - 20 : y + 8;
 
         return (
             <g transform={`translate(${x - 8},${translateY})`}>
@@ -103,7 +103,7 @@ const SpendingByCategoriesChart = (props) => {
 
     return (
         <>
-            <ResponsiveContainer width="100%" height={500}>
+            <ResponsiveContainer width="100%" height={isMobile ? 650 : 500}>
                 <BarChart
                     data={dataStuff}
                     layout="vertical"
