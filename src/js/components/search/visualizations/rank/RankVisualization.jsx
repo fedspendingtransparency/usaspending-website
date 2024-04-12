@@ -5,10 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from 'GlobalConstants';
 import { LoadingMessage, ErrorMessage, NoResultsMessage } from 'data-transparency-ui';
 import SpendingByCategoriesChart from './spendingByCategoriesChart/SpendingByCategoriesChart';
-import HorizontalChart from './chart/HorizontalChart';
 import RankVisualizationTooltip from './RankVisualizationTooltip';
 
 const defaultProps = {
@@ -85,22 +83,7 @@ export default class RankVisualization extends React.Component {
             }
         }
         else if (this.props.dataSeries.length > 0) {
-            const itemHeight = 35;
-            // Height is number of results * item height + 30px padding
-            const height = (this.props.dataSeries.length * itemHeight) + 30;
-
-            chart = (GlobalConstants.QAT ?
-                <SpendingByCategoriesChart {...this.props} />
-                :
-                <>
-                    <HorizontalChart
-                        {...this.props}
-                        itemHeight={itemHeight}
-                        height={height}
-                        selectItem={this.selectItem}
-                        deselectItem={this.deselectItem} />
-                </>
-            );
+            chart = (<SpendingByCategoriesChart {...this.props} />);
         }
 
         let tooltip = null;
