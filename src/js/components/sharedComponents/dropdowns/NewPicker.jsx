@@ -83,6 +83,10 @@ const NewPicker = ({
         };
     }, [expanded, id]);
 
+    useEffect(() => {
+        setIsEnabled(enabled);
+    }, [enabled]);
+
     const toggleMenu = (e) => {
         e.preventDefault();
         setExpanded(!expanded);
@@ -119,7 +123,7 @@ const NewPicker = ({
     }
     return (
         <div className={`filter__dropdown-container ${classname}`} ref={pickerRef}>
-            {label !== '' && <span className={`filter__dropdown-label${variation} ${isEnabled ? 'enabled' : 'not-enabled'}`}>{label}</span>}
+            {label !== '' && <span className={`filter__dropdown-label${variation}`}>{label}</span>}
             <div className="filter__dropdown-button-list-container">
                 <button
                     className={`filter__dropdown-button${variation} ${isEnabled ? 'enabled' : 'not-enabled'} ${buttonClassname}`}
