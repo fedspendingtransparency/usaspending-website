@@ -43,8 +43,7 @@ const MapSection = ({ mapHasLoaded }) => {
 
     return (
         <SearchSectionWrapper
-            {...dummyWrapperProps}
-            isLoading={!mapHasLoaded}>
+            {...dummyWrapperProps}>
             <div id="search-page-component" className="map">
                 <MapVisualization />
             </div>

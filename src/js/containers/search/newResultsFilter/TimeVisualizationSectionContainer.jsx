@@ -25,7 +25,8 @@ const propTypes = {
     reduxFilters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    dataStatus: PropTypes.object
 };
 
 const TimeVisualizationSectionContainer = (props) => {
@@ -129,6 +130,7 @@ const TimeVisualizationSectionContainer = (props) => {
         apiRequest.promise
             .then((res) => {
                 parseData(res.data, visualizationPeriod);
+                console.log("time data fetched");
                 apiRequest = null;
             })
             .catch((err) => {
@@ -171,6 +173,7 @@ const TimeVisualizationSectionContainer = (props) => {
     useEffect(() => {
         if (parsedData.loading !== true && parsedData.error !== true) {
             props.setAppliedFilterCompletion(true);
+            props.dataStatus(false, false, parsedData?.rawlabels?.length === 0);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData]);

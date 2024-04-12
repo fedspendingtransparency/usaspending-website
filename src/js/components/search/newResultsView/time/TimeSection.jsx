@@ -16,6 +16,11 @@ import TimeVisualizationSectionContainer
 
 const TimeSection = ({ spendingHasLoaded, subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');
+    const [dataStatus, setDataStatus] = useState({
+        isLoading: false,
+        isError: false,
+        hasNoData: false
+    });
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -55,13 +60,26 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
         table: <TempPlaceholderTable />
     };
 
+    const updateDataStatus = (isLoading, isError, hasNoData) => {
+        setDataStatus({
+            isLoading,
+            isError,
+            hasNoData
+        });
+    };
 
     return (
         <SearchSectionWrapper
             {...dummyWrapperProps}
-            height={350}>
-            <div id="search-page-component" className="spending" style={{ height: 350 }} >
-                <TimeVisualizationSectionContainer subaward={subaward} visualizationPeriod={dummyWrapperProps?.dropdownOptions[selectedDropdown]?.name} />
+            isLoading={dataStatus.isLoading}
+            isError={dataStatus.isError}
+            hasNoData={dataStatus.hasNoData}>
+            <div id="search-page-component" className="spending">
+                {!spendingHasLoaded ?
+                    <TempPlaceholderComponent />
+                    :
+                    <TimeVisualizationSectionContainer dataStatus={updateDataStatus} subaward={subaward} visualizationPeriod={dummyWrapperProps?.dropdownOptions[selectedDropdown]?.name} />
+                }
             </div>
         </SearchSectionWrapper>
     );

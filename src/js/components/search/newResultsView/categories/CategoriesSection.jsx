@@ -76,8 +76,7 @@ const CategoriesSection = ({ categoriesHasLoaded }) => {
 
     return (
         <SearchSectionWrapper
-            {...dummyWrapperProps}
-            isLoading={!categoriesHasLoaded}>
+            {...dummyWrapperProps}>
             <div id="search-page-component" className="categories">
                 <CategoriesVisualization />
             </div>

@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
+import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
@@ -32,8 +33,7 @@ const SearchSectionWrapper = ({
     dsmContent,
     isLoading,
     hasNoData,
-    isError,
-    height
+    isError
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -49,18 +49,18 @@ const SearchSectionWrapper = ({
     // Measures content height to set height for dsm content
     const content = document.querySelector('.temp-search__section-wrapper-content')?.clientHeight;
 
-    const message = () => {
-        if (isError) {
-            return "An error occurred while loading data.";
+    const Message = () => {
+        if (isLoading) {
+            return <LoadingMessage />;
         }
-        else if (isLoading) {
-            return "Loading...";
+        else if (isError) {
+            return <ErrorMessage />;
         }
         else if (hasNoData) {
-            return "No data available.";
+            return <NoResultsMessage />;
         }
 
-        return null;
+        return <></>;
     };
 
     return (
@@ -84,10 +84,10 @@ const SearchSectionWrapper = ({
                 }
             </div>
             {isError || isLoading || hasNoData ?
-                message()
+                <Message />
                 :
                 !openAccordion && (
-                    <div className="temp-search__section-wrapper-content" style={{ height }}>
+                    <div className="temp-search__section-wrapper-content">
                         {viewType === 'chart' ? children : <SectionDataTable />}
                     </div>
                 )}
