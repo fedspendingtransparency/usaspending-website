@@ -26,11 +26,12 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    dataStatus: PropTypes.object
+    dataStatus: PropTypes.object,
+    visualizationPeriod: PropTypes.string
 };
 
 const TimeVisualizationSectionContainer = (props) => {
-    const [visualizationPeriod, setVisualizationPeriod] = useState('fiscal_year');
+    const [visualizationPeriod, setVisualizationPeriod] = useState(props.visualizationPeriod);
     const [parsedData, setParsedData] = useState({
         loading: true,
         error: false,
@@ -86,6 +87,8 @@ const TimeVisualizationSectionContainer = (props) => {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
+            console.log(item.time_period);
+
             tempGroups.push(generateTimeLabel(group, item.time_period));
             tempRawLabels.push(generateTimeRaw(group, item.time_period));
             tempXSeries.push([generateTimeLabel(group, item.time_period)]);
@@ -173,20 +176,23 @@ const TimeVisualizationSectionContainer = (props) => {
     useEffect(() => {
         if (parsedData.loading !== true && parsedData.error !== true) {
             props.setAppliedFilterCompletion(true);
-            props.dataStatus(false, false, parsedData?.rawlabels?.length === 0);
+            props.dataStatus(parsedData.loading, parsedData.error, parsedData?.rawlabels?.length === 0);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData]);
 
-    const updateVisualizationPeriod = (tempVisualizationPeriod) => {
-        setVisualizationPeriod(tempVisualizationPeriod);
-    };
+
+    useEffect(() => {
+        console.log("container", props.visualizationPeriod);
+        if (props.visualizationPeriod !== visualizationPeriod) {
+            setVisualizationPeriod(props.visualizationPeriod);
+        }
+    }, [props.visualizationPeriod]);
 
     return (
         <TimeVisualizationChart
             {...parsedData}
             visualizationPeriod={visualizationPeriod}
-            updateVisualizationPeriod={updateVisualizationPeriod}
             subaward={props.subaward} />
     );
 };

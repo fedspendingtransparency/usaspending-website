@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
     DsmContent
-} from "../TempPlaceholderComponents";
+} from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
 
 const MapSection = ({ mapHasLoaded }) => {

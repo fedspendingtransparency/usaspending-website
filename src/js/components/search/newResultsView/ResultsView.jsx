@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
-import AwardTable from "./table/AwardTable";
-import SpendingOverTime from "./time/SpendingOverTime";
-import MapVisualization from "./map/MapVisualization";
-import CategoriesVisualization from "./categories/CategoriesVisualization";
-import { TempPlaceholderComponent, TempPlaceholderChart, TempPlaceholderTable, TempPlaceholderDsmContent } from "./TempPlaceholderComponents";
-import SearchSectionWrapper from "./SearchSectionWrapper";
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
@@ -78,6 +72,7 @@ const ResultsView = (props) => {
         <PageFeatureFlag>
             <main id="main-content" className="main-content">
                 <MapSection
+                    subaward={props.subaward}
                     mapHasLoaded={mapHasLoaded} />
 
                 <CategoriesSection

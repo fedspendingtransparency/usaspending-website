@@ -3,19 +3,17 @@
  */
 
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
-    DsmContent,
-    TempPlaceholderChart,
-    TempPlaceholderComponent,
-    TempPlaceholderTable
-} from "../TempPlaceholderComponents";
+    DsmWrapper
+} from "../DsmWrapper";
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsFilter/TimeVisualizationSectionContainer";
 
 const TimeSection = ({ spendingHasLoaded, subaward }) => {
-    const [selectedDropdown, setSelectedDropdown] = useState('0');
+    const [visualizationPeriod, setVisualizationPeriod] = useState('month');
+
     const [dataStatus, setDataStatus] = useState({
         isLoading: false,
         isError: false,
@@ -23,7 +21,7 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
     });
 
     const onClick = (e) => {
-        setSelectedDropdown(e);
+        setVisualizationPeriod(e);
     };
 
     const dummyWrapperProps = {
@@ -31,33 +29,30 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
         dropdownOptions: [
             {
                 name: 'Months',
-                value: '0',
+                value: 'month',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Months:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
                 name: 'Quarters',
-                value: '1',
+                value: 'quarter',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Quarters:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
                 name: 'Years',
-                value: '2',
+                value: 'fiscal_year',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Years:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             }
         ],
-        selectedDropdownOption: selectedDropdown,
-        isVisualization: true,
-        chart: <TempPlaceholderChart />,
-        table: <TempPlaceholderTable />
+        selectedDropdownOption: visualizationPeriod
     };
 
     const updateDataStatus = (isLoading, isError, hasNoData) => {
@@ -75,10 +70,11 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
             isError={dataStatus.isError}
             hasNoData={dataStatus.hasNoData}>
             <div id="search-page-component" className="spending">
-                {!spendingHasLoaded ?
-                    <TempPlaceholderComponent />
-                    :
-                    <TimeVisualizationSectionContainer dataStatus={updateDataStatus} subaward={subaward} visualizationPeriod={dummyWrapperProps?.dropdownOptions[selectedDropdown]?.name} />
+                {spendingHasLoaded &&
+                    <TimeVisualizationSectionContainer
+                        dataStatus={updateDataStatus}
+                        subaward={subaward}
+                        visualizationPeriod={visualizationPeriod} />
                 }
             </div>
         </SearchSectionWrapper>

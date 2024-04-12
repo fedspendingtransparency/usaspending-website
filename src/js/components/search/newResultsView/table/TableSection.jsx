@@ -8,7 +8,7 @@ import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
     DsmContent,
     TempPlaceholderComponent
-} from "../TempPlaceholderComponents";
+} from "../DsmWrapper";
 import AwardTable from "./AwardTable";
 
 const TableSection = ({ awardTableHasLoaded }) => {

@@ -39,6 +39,7 @@ const SearchSectionWrapper = ({
     const [viewType, setViewType] = useState('chart');
 
     console.log(selectedDropdownOption);
+    console.log(dropdownOptions);
 
     const sortFn = () => dropdownOptions;
 
@@ -73,8 +74,9 @@ const SearchSectionWrapper = ({
                             size="md"
                             label={sectionTitle}
                             options={dropdownOptions}
-                            selectedOption={dropdownOptions.length
-                                ? dropdownOptions.find((obj) => obj.value === selectedDropdownOption).name
+                            enabled="true"
+                            selectedOption={dropdownOptions?.length
+                                ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
                                 : `${selectedDropdownOption}`}
                             sortFn={sortFn} />
                         <ChartTableToggle activeType={viewType} changeView={changeView} />
