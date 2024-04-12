@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Table } from 'data-transparency-ui';
 import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 
@@ -14,6 +14,7 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
+import FeatureFlag from "../../sharedComponents/FeatureFlag";
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -203,23 +204,29 @@ export default class ResultsTable extends React.Component {
         const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
 
         return (
-            <div className={`award-results-table${noResultsClass}`}>
-                <IBTable
-                    rowHeight={rowHeight}
-                    rowCount={this.props.results.length}
-                    headerHeight={headerHeight}
-                    contentWidth={calculatedValues.width}
-                    bodyWidth={this.props.visibleWidth}
-                    bodyHeight={variableBodyHeight}
-                    columns={calculatedValues.columns}
-                    headerCellRender={this.headerCellRender}
-                    bodyCellRender={this.bodyCellRender}
-                    onReachedBottom={this.props.loadNextPage}
-                    topScroller
-                    ref={(table) => {
-                        this.tableComponent = table;
-                    }} />
-            </div>
+            <>
+                <div className={`award-results-table${noResultsClass}`}>
+                    <IBTable
+                        rowHeight={rowHeight}
+                        rowCount={this.props.results.length}
+                        headerHeight={headerHeight}
+                        contentWidth={calculatedValues.width}
+                        bodyWidth={this.props.visibleWidth}
+                        bodyHeight={variableBodyHeight}
+                        columns={calculatedValues.columns}
+                        headerCellRender={this.headerCellRender}
+                        bodyCellRender={this.bodyCellRender}
+                        onReachedBottom={this.props.loadNextPage}
+                        topScroller
+                        ref={(table) => {
+                            this.tableComponent = table;
+                        }} />
+                </div>
+                <FeatureFlag>
+                    <Table
+                        columns={calculatedValues.columns} />
+                </FeatureFlag>
+            </>
         );
     }
 }
