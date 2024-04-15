@@ -206,11 +206,24 @@ export default class ResultsTable extends React.Component {
 
     prepareDTUIRows() {
         const arrayOfObjects = this.props.results;
-        console.debug(arrayOfObjects);
         const values = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(
-                obj['Award ID']
+                obj['Award ID'],
+                obj['Recipient Name'],
+                obj['Start Date'],
+                obj['End Date'],
+                obj['Award Amount'],
+                obj['Total Outlays'],
+                obj.Description,
+                obj.def_codes,
+                obj['COVID-19 Obligations'],
+                obj['COVID-19 Outlays'],
+                obj['Infrastructure Obligations'],
+                obj['Infrastructure Outlays'],
+                obj['Awarding Agency'],
+                obj['Awarding Sub Agency'],
+                obj['Contract Award Type']
             );
 
             return value;
@@ -228,7 +241,6 @@ export default class ResultsTable extends React.Component {
         const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
         const cols = this.prepareDTUITable();
         const rows = this.prepareDTUIRows();
-        console.debug("ROWS: ", rows);
         return (
             <>
                 <div className={`award-results-table${noResultsClass}`}>
