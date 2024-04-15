@@ -5,14 +5,16 @@
     .landing-page__overview {
         text-align: center;
         h2.landing-page__title {
-            @include h3;
             font-weight: 600;
             margin: 0;
+            font-size: rem(20);
+            line-height: rem(25);
         }
         .landing-page__description {
             font-size: $small-font-size;
             color: $color-base;
             padding: rem(15) 0 rem(30);
+
             @include media($medium-screen) {
                 margin: auto;
                 width: 50%;
