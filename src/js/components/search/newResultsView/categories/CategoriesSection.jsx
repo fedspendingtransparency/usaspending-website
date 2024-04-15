@@ -4,20 +4,20 @@
 
 
 import React, { useState } from "react";
-import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
     DsmContent
 } from "../DsmWrapper";
-import CategoriesVisualization from "./CategoriesVisualization";
+import RankVisualizationWrapperContainer
+    from "../../../../containers/search/newResultsView/RankVisualizationWrapperContainer";
 
-const CategoriesSection = ({ categoriesHasLoaded }) => {
+const CategoriesSection = ({ categoriesHasLoaded, subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const onClick = (e) => {
         setSelectedDropdown(e);
     };
 
-    const dummyWrapperProps = {
+    const wrapperProps = {
         sectionTitle: 'Results by Category',
         dropdownOptions: [
             {
@@ -69,18 +69,17 @@ const CategoriesSection = ({ categoriesHasLoaded }) => {
                     description="Use the map below to break down spending by state, county, or congressional district." />
             }
         ],
-        selectedDropdownOption: selectedDropdown,
-        isVisualization: true
+        selectedDropdownOption: selectedDropdown
 
     };
 
     return (
-        <SearchSectionWrapper
-            {...dummyWrapperProps}>
-            <div id="search-page-component" className="categories">
-                <CategoriesVisualization />
-            </div>
-        </SearchSectionWrapper>
+        <div id="search-page-component" className="categories">
+            {categoriesHasLoaded && <RankVisualizationWrapperContainer
+                wrapperProps={wrapperProps}
+                subaward={subaward}
+                categoriesHasLoaded={categoriesHasLoaded} />}
+        </div>
     );
 };
 

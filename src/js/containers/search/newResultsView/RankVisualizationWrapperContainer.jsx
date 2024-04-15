@@ -15,15 +15,12 @@ import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterAc
 
 import * as SearchHelper from 'helpers/searchHelper';
 
-import SpendingByAgencySection from 'components/search/visualizations/rank/sections/SpendingByAgencySection';
-import SpendingByRecipientSection from 'components/search/visualizations/rank/sections/SpendingByRecipientSection';
-import SpendingByCFDASection from 'components/search/visualizations/rank/sections/SpendingByCFDASection';
-import SpendingByIndustryCodeSection from 'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
-
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
+import RankVisualization from "../../../components/search/visualizations/rank/RankVisualization";
+import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -242,70 +239,6 @@ const RankVisualizationWrapperContainer = (props) => {
             });
     };
 
-    const generateVisualization = () => {
-        switch (spendingBy) {
-            case 'awardingAgency':
-                return (
-                    <SpendingByAgencySection
-                        {...childProps}
-                        changeScope={changeScope}
-                        nextPage={nextPage}
-                        previousPage={previousPage}
-                        subaward={props.subaward}
-                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                        togglePicker={togglePicker}
-                        showPicker={showPicker} />
-                );
-            case 'recipient':
-                return (
-                    <SpendingByRecipientSection
-                        {...childProps}
-                        changeScope={changeScope}
-                        nextPage={nextPage}
-                        previousPage={previousPage}
-                        recipientError={recipientError}
-                        subaward={props.subaward}
-                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                        togglePicker={togglePicker} />
-                );
-            case 'cfda':
-                return (
-                    <SpendingByCFDASection
-                        {...childProps}
-                        changeScope={changeScope}
-                        nextPage={nextPage}
-                        previousPage={previousPage}
-                        subaward={props.subaward}
-                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                        togglePicker={togglePicker} />
-                );
-            case 'industryCode':
-                return (
-                    <SpendingByIndustryCodeSection
-                        {...childProps}
-                        changeScope={changeScope}
-                        nextPage={nextPage}
-                        previousPage={previousPage}
-                        industryCodeError={props.subaward}
-                        subaward={props.subaward}
-                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                        togglePicker={togglePicker} />
-                );
-            default:
-                return (
-                    <SpendingByAgencySection
-                        {...childProps}
-                        changeScope={changeScope}
-                        nextPage={nextPage}
-                        previousPage={previousPage}
-                        agencyType="awarding"
-                        subaward={props.subaward}
-                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                        togglePicker={togglePicker} />
-                );
-        }
-    };
-
     useEffect(() => {
         // fetch data when scope or page changes
         fetchData();
@@ -335,8 +268,6 @@ const RankVisualizationWrapperContainer = (props) => {
     }, [props.reduxFilters, props.subaward]);
 
 
-    const visualization = generateVisualization();
-
     const fieldTypes = [
         'awardingAgency',
         'recipient',
@@ -350,7 +281,22 @@ const RankVisualizationWrapperContainer = (props) => {
         <div
             className="results-visualization-rank-section"
             id="results-section-rank">
-            { visualization }
+            <SearchSectionWrapper
+                {...props.wrapperProps}
+                isLoading={childProps?.loading}
+                isError={childProps?.error}
+                hasNoData={childProps?.labelSeries?.length === 0}>
+                    <RankVisualization
+                    {...childProps}
+                    changeScope={changeScope}
+                    nextPage={nextPage}
+                    previousPage={previousPage}
+                    industryCodeError={props.subaward}
+                    subaward={props.subaward}
+                    isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                    togglePicker={togglePicker}
+                    width="1000px" />
+            </SearchSectionWrapper>
         </div>
     );
 };

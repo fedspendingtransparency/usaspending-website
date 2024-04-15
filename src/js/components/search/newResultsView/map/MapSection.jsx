@@ -10,9 +10,9 @@ import {
 } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
 import GeoVisualizationSectionContainer
-    from "../../../../containers/search/newResultsFilter/GeoVisualizationSectionContainer";
+    from "../../../../containers/search/newResultsView/GeoVisualizationSectionContainer";
 import TimeVisualizationSectionContainer
-    from "../../../../containers/search/newResultsFilter/TimeVisualizationSectionContainer";
+    from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
 
 const MapSection = ({ mapHasLoaded, subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');

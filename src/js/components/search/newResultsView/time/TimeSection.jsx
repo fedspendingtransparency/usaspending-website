@@ -8,7 +8,7 @@ import {
     DsmWrapper
 } from "../DsmWrapper";
 import TimeVisualizationSectionContainer
-    from "../../../../containers/search/newResultsFilter/TimeVisualizationSectionContainer";
+    from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
 
 const TimeSection = ({ spendingHasLoaded, subaward }) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('month');
