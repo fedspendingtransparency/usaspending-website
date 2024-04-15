@@ -230,8 +230,8 @@ export default class ResultsTable extends React.Component {
         });
         return values;
     }
-
     render() {
+        console.debug("props:", this.props);
         const calculatedValues = this.prepareTable();
         let noResultsClass = '';
         if (this.props.results.length === 0) {
@@ -261,10 +261,12 @@ export default class ResultsTable extends React.Component {
                         }} />
                 </div>
                 <FeatureFlag>
-                    <Table
-                        stickyFirstColumn
-                        columns={cols}
-                        rows={rows} />
+                    <div style={{ width: "auto", overflowX: "scroll" }}>
+                        <Table
+                            stickyFirstColumn
+                            columns={cols}
+                            rows={rows} />
+                    </div>
                 </FeatureFlag>
             </>
         );
