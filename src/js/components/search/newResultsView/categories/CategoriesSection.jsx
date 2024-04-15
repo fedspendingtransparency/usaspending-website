@@ -5,13 +5,13 @@
 
 import React, { useState } from "react";
 import {
-    DsmContent
+    DsmWrapper
 } from "../DsmWrapper";
 import RankVisualizationWrapperContainer
     from "../../../../containers/search/newResultsView/RankVisualizationWrapperContainer";
 
 const CategoriesSection = ({ categoriesHasLoaded, subaward }) => {
-    const [selectedDropdown, setSelectedDropdown] = useState('0');
+    const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -22,49 +22,49 @@ const CategoriesSection = ({ categoriesHasLoaded, subaward }) => {
         dropdownOptions: [
             {
                 name: 'Awarding Agency',
-                value: '0',
+                value: 'awarding_agency',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Awarding Agency:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
                 name: 'Awarding Subagency',
-                value: '1',
+                value: 'awarding_subagency',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Awarding Subagency:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
                 name: 'Recipient',
-                value: '2',
+                value: 'recipient',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Recipient:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
                 name: 'North American Industry Classification System (NAICS)',
-                value: '3',
+                value: 'naics',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"North American Industry Classification System (NAICS):  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
                 name: 'Product and Service Code (PSC)',
-                value: '4',
+                value: 'psc',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Product and Service Code (PSC):  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
                 name: 'Assistance Listing',
-                value: '5',
+                value: 'cfda',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Assistance Listing:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             }
@@ -78,7 +78,8 @@ const CategoriesSection = ({ categoriesHasLoaded, subaward }) => {
             {categoriesHasLoaded && <RankVisualizationWrapperContainer
                 wrapperProps={wrapperProps}
                 subaward={subaward}
-                categoriesHasLoaded={categoriesHasLoaded} />}
+                categoriesHasLoaded={categoriesHasLoaded}
+                selectedDropdown={selectedDropdown} />}
         </div>
     );
 };

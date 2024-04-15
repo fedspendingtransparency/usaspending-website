@@ -12,30 +12,6 @@ export const TempPlaceholderComponent = () => (
     </div>
 );
 
-export const TempPlaceholderChart = () => (
-    <div style={{
-        backgroundColor: '#fee3ff',
-        color: '#e72eff',
-        height: '480px',
-        textAlign: 'center',
-        fontSize: '24px'
-    }}>
-        PLACEHOLDER CHART
-    </div>
-);
-
-export const TempPlaceholderTable = () => (
-    <div style={{
-        backgroundColor: 'lightgoldenrodyellow',
-        color: 'goldenrod',
-        height: '500px',
-        textAlign: 'center',
-        fontSize: '24px'
-    }}>
-        PLACEHOLDER TABLE
-    </div>
-);
-
 export const DsmWrapper = ({ heading, description }) => (
     <>
         <h4>{heading}</h4>

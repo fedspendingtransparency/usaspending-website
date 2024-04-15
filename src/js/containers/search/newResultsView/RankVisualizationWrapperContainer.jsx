@@ -19,8 +19,9 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
-import RankVisualization from "../../../components/search/visualizations/rank/RankVisualization";
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import SpendingByCategoriesChart
+    from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -32,7 +33,8 @@ const propTypes = {
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
     agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    wrapperProps: PropTypes.object
 };
 
 const RankVisualizationWrapperContainer = (props) => {
@@ -45,7 +47,7 @@ const RankVisualizationWrapperContainer = (props) => {
     const [descriptions, setDescriptions] = useState([]);
     const [linkSeries, setLinkSeries] = useState([]);
     const [page, setPage] = useState(1);
-    const [scope, setScope] = useState('awarding_agency');
+    const [scope, setScope] = useState(props.selectedDropdown);
     const [next, setNext] = useState('');
     const [previous, setPrevious] = useState('');
     const [hasNextPage, setHasNextPage] = useState(false);
@@ -77,11 +79,12 @@ const RankVisualizationWrapperContainer = (props) => {
         setHasNextPage(false);
     };
 
-    const setPickerState = (value) => {
-        setShowPicker(value);
-    };
+    // const setPickerState = (value) => {
+    //     setShowPicker(value);
+    // };
 
     const togglePicker = () => {
+        console.log(showPicker);
         setShowPicker((prevState) => !prevState);
     };
 
@@ -261,6 +264,12 @@ const RankVisualizationWrapperContainer = (props) => {
     }, [scope]);
 
     useEffect(() => {
+        console.log(props.selectedDropdown);
+        setScope(props.selectedDropdown);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props.selectedDropdown]);
+
+    useEffect(() => {
         if (!props.noApplied) {
             newSearch();
         }
@@ -286,7 +295,7 @@ const RankVisualizationWrapperContainer = (props) => {
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}>
-                    <RankVisualization
+                <SpendingByCategoriesChart
                     {...childProps}
                     changeScope={changeScope}
                     nextPage={nextPage}

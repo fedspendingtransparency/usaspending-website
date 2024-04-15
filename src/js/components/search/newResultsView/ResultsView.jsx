@@ -71,9 +71,9 @@ const ResultsView = (props) => {
     return (
         <PageFeatureFlag>
             <main id="main-content" className="main-content">
-                <MapSection
-                    subaward={props.subaward}
-                    mapHasLoaded={mapHasLoaded} />
+                {/*<MapSection*/}
+                {/*    subaward={props.subaward}*/}
+                {/*    mapHasLoaded={mapHasLoaded} />*/}
 
                 <CategoriesSection
                     subaward={props.subaward}

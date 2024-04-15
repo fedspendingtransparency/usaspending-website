@@ -6,13 +6,14 @@
 import React, { useState } from "react";
 import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
-    DsmContent
+    DsmContent, TempPlaceholderComponent
 } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
 import GeoVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/GeoVisualizationSectionContainer";
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
+import AwardTable from "../table/AwardTable";
 
 const MapSection = ({ mapHasLoaded, subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');
@@ -45,11 +46,16 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
     };
 
     return (
-        <GeoVisualizationSectionContainer
-            wrapperProps={wrapperProps}
-            subaward={subaward}
-            spendingHasLoaded={mapHasLoaded}
-            selectedDropdown={selectedDropdown} />
+        <SearchSectionWrapper
+            {...wrapperProps}>
+            <div id="search-page-component" className="award">
+                {!mapHasLoaded ?
+                    <TempPlaceholderComponent />
+                    :
+                    <MapVisualization />
+                }
+            </div>
+        </SearchSectionWrapper>
     );
 };
 
