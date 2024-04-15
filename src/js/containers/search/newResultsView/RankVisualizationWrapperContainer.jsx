@@ -79,15 +79,6 @@ const RankVisualizationWrapperContainer = (props) => {
         setHasNextPage(false);
     };
 
-    // const setPickerState = (value) => {
-    //     setShowPicker(value);
-    // };
-
-    const togglePicker = () => {
-        console.log(showPicker);
-        setShowPicker((prevState) => !prevState);
-    };
-
     const changeScope = (newScope) => {
         setScope(newScope);
         setPage(1);
@@ -264,7 +255,6 @@ const RankVisualizationWrapperContainer = (props) => {
     }, [scope]);
 
     useEffect(() => {
-        console.log(props.selectedDropdown);
         setScope(props.selectedDropdown);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.selectedDropdown]);
@@ -275,16 +265,6 @@ const RankVisualizationWrapperContainer = (props) => {
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.reduxFilters, props.subaward]);
-
-
-    const fieldTypes = [
-        'awardingAgency',
-        'recipient',
-        'cfda'
-    ];
-    if (!props.subaward) {
-        fieldTypes.push('industryCode');
-    }
 
     return (
         <div
@@ -303,7 +283,6 @@ const RankVisualizationWrapperContainer = (props) => {
                     industryCodeError={props.subaward}
                     subaward={props.subaward}
                     isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                    togglePicker={togglePicker}
                     width="1000px" />
             </SearchSectionWrapper>
         </div>
