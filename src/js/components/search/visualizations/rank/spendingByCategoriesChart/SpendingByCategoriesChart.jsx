@@ -103,7 +103,7 @@ const SpendingByCategoriesChart = (props) => {
 
     return (
         <>
-            <ResponsiveContainer width="100%" height={isMobile ? 650 : 500}>
+            <ResponsiveContainer width="100%" height={isMobile ? 650 : 600}>
                 <BarChart
                     data={dataStuff}
                     layout="vertical"
