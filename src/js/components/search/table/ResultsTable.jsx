@@ -209,21 +209,21 @@ export default class ResultsTable extends React.Component {
         const values = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(
-                obj['Award ID'],
-                obj['Recipient Name'],
-                obj['Start Date'],
-                obj['End Date'],
-                obj['Award Amount'],
-                obj['Total Outlays'],
-                obj.Description,
-                obj.def_codes,
-                obj['COVID-19 Obligations'],
-                obj['COVID-19 Outlays'],
-                obj['Infrastructure Obligations'],
-                obj['Infrastructure Outlays'],
-                obj['Awarding Agency'],
-                obj['Awarding Sub Agency'],
-                obj['Contract Award Type']
+                <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
+                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                obj['Start Date'] || '--',
+                obj['End Date'] || '--',
+                obj['Award Amount'] || '--',
+                obj['Total Outlays'] || '--',
+                obj.Description || '--',
+                obj.def_codes || '--',
+                obj['COVID-19 Obligations'] || '--',
+                obj['COVID-19 Outlays'] || '--',
+                obj['Infrastructure Obligations'] || '--',
+                obj['Infrastructure Outlays'] || '--',
+                <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                obj['Awarding Sub Agency'] || '--',
+                obj['Contract Award Type'] || '--'
             );
 
             return value;
