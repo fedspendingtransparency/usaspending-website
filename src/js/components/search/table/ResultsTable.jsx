@@ -193,16 +193,42 @@ export default class ResultsTable extends React.Component {
         };
     }
 
+    prepareDTUITable() {
+        const columnOrder = this.props.columns.visibleOrder;
+        const columns = columnOrder.map((columnTitle) => {
+            const column = this.props.columns.data[columnTitle];
+
+            return column;
+        });
+
+        return columns;
+    }
+
+    prepareDTUIRows() {
+        const arrayOfObjects = this.props.results;
+        console.debug(arrayOfObjects);
+        const values = arrayOfObjects.map((obj) => {
+            const value = [];
+            value.push(
+                obj['Award ID']
+            );
+
+            return value;
+        });
+        return values;
+    }
+
     render() {
         const calculatedValues = this.prepareTable();
-
         let noResultsClass = '';
         if (this.props.results.length === 0) {
             // remove duplicated bottom border
             noResultsClass = ' no-results';
         }
         const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
-
+        const cols = this.prepareDTUITable();
+        const rows = this.prepareDTUIRows();
+        console.debug("ROWS: ", rows);
         return (
             <>
                 <div className={`award-results-table${noResultsClass}`}>
@@ -224,7 +250,9 @@ export default class ResultsTable extends React.Component {
                 </div>
                 <FeatureFlag>
                     <Table
-                        columns={calculatedValues.columns} />
+                        stickyFirstColumn
+                        columns={cols}
+                        rows={rows} />
                 </FeatureFlag>
             </>
         );
