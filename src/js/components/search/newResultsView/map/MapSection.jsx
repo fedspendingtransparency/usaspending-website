@@ -6,16 +6,11 @@
 import React, { useState } from "react";
 import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
-    DsmContent, TempPlaceholderComponent
+    DsmWrapper, TempPlaceholderComponent
 } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
-import GeoVisualizationSectionContainer
-    from "../../../../containers/search/newResultsView/GeoVisualizationSectionContainer";
-import TimeVisualizationSectionContainer
-    from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
-import AwardTable from "../table/AwardTable";
 
-const MapSection = ({ mapHasLoaded, subaward }) => {
+const MapSection = ({ mapHasLoaded }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const onClick = (e) => {
@@ -29,7 +24,7 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
                 name: 'Place of Performance',
                 value: '0',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Place of Performance:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
@@ -37,7 +32,7 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
                 name: 'Recipient Location',
                 value: '1',
                 onClick,
-                dsmContent: <DsmContent
+                dsmContent: <DsmWrapper
                     heading={"Recipient Location:  What's included in this view of the data?"}
                     description="Use the map below to break down spending by state, county, or congressional district." />
             }
@@ -48,7 +43,7 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
     return (
         <SearchSectionWrapper
             {...wrapperProps}>
-            <div id="search-page-component" className="award">
+            <div id="search-page-component" className="map">
                 {!mapHasLoaded ?
                     <TempPlaceholderComponent />
                     :

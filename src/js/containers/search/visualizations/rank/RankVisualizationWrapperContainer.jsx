@@ -15,6 +15,7 @@ import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterAc
 
 import * as SearchHelper from 'helpers/searchHelper';
 
+import RankVisualizationTitle from 'components/search/visualizations/rank/RankVisualizationTitle';
 import SpendingByAgencySection from 'components/search/visualizations/rank/sections/SpendingByAgencySection';
 import SpendingByRecipientSection from 'components/search/visualizations/rank/sections/SpendingByRecipientSection';
 import SpendingByCFDASection from 'components/search/visualizations/rank/sections/SpendingByCFDASection';
@@ -350,6 +351,14 @@ const RankVisualizationWrapperContainer = (props) => {
         <div
             className="results-visualization-rank-section"
             id="results-section-rank">
+            <RankVisualizationTitle
+                fieldTypes={fieldTypes}
+                changeSpendingBy={changeSpendingBy}
+                currentSpendingBy={spendingBy}
+                subaward={props.subaward}
+                showPicker={showPicker}
+                togglePicker={togglePicker}
+                setPickerState={setPickerState} />
             { visualization }
         </div>
     );

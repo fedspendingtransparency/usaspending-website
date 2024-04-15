@@ -71,7 +71,6 @@ const CustomYTick = (props) => {
 
 
 const TimeVisualizationChart = (props) => {
-    console.log(props);
     const transformedData = [];
     const [focusBar, setFocusBar] = useState(null);
 
