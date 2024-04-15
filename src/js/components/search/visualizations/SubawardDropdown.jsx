@@ -21,7 +21,8 @@ const propTypes = {
 
 const SubawardDropdown = ({
     selectedValue = 'prime',
-    setSearchViewSubaward
+    setSearchViewSubaward,
+    enabled = 'false'
 }) => {
     const [selected, setSelected] = useState(selectedValue);
     const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const SubawardDropdown = ({
     return (
         <div className="subaward-dropdown__container">
             <NewPicker
-                enabled
+                enabled={enabled}
                 leftIcon={faFunnelDollar}
                 size="sm"
                 label="Filter by:"

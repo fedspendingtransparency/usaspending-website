@@ -13,15 +13,10 @@
         line-height: 1.5;
     }
 
-    span[class^=' filter__dropdown-label'].not-enabled {
-        color: $gray-cool-10;
-        opacity: 0.5;
-        pointer-events: none;
-    }
-
     span[class^=' filter__dropdown-label'].enabled {
         color: $gray-cool-10;
         opacity: 1;
+        pointer-events: all;
     }
 
     .filter__dropdown-label-sm {

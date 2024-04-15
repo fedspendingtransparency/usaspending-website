@@ -29,11 +29,13 @@ import aboutTheDataReducer from './aboutTheData';
 import googleAnalyticsReducer from './googleAnalytics/googleAnalyticsReducer';
 import aboutTheDataSidebarReducer from './aboutTheDataSidebar/aboutTheDataReducer';
 import slideoutReducer from './slideouts/slideoutReducer';
+import titleBarFilterReducer from './search/titleBarFilterReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
     appliedFilters: appliedFiltersReducer,
     searchView: searchViewReducer,
+    titleBarFilter: titleBarFilterReducer,
     download: downloadReducer,
     award: awardReducer,
     account: accountReducer,
