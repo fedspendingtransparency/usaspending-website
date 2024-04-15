@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'data-transparency-ui';
+import { Table, Pagination } from 'data-transparency-ui';
 import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 
@@ -33,14 +33,24 @@ export default class ResultsTable extends React.Component {
         sort: PropTypes.object,
         updateSort: PropTypes.func,
         awardIdClick: PropTypes.func,
-        subAwardIdClick: PropTypes.func
+        subAwardIdClick: PropTypes.func,
+        page: PropTypes.number,
+        setPage: PropTypes.func,
+        total: PropTypes.number
     };
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            currentRows: [],
+            cols: this.prepareDTUIColumns()
+        };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
+        this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
+        this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
+        this.prepareTable = this.prepareTable.bind(this);
     }
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
@@ -193,11 +203,10 @@ export default class ResultsTable extends React.Component {
         };
     }
 
-    prepareDTUITable() {
+    prepareDTUIColumns() {
         const columnOrder = this.props.columns.visibleOrder;
         const columns = columnOrder.map((columnTitle) => {
             const column = this.props.columns.data[columnTitle];
-
             return column;
         });
 
@@ -205,7 +214,12 @@ export default class ResultsTable extends React.Component {
     }
 
     prepareDTUIRows() {
-        const arrayOfObjects = this.props.results;
+        // limit = 10
+        // page = 1, need 0-9
+        // page = 2, need 10 - 19 etc
+        // (page * limit) - 1 end
+        // (page - 1) * limit start
+        const arrayOfObjects = this.props.limitedResults;
         const values = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(
@@ -230,8 +244,9 @@ export default class ResultsTable extends React.Component {
         });
         return values;
     }
+
     render() {
-        console.debug("props:", this.props);
+        console.debug("PROPS: ", this.props.page, this.state.total);
         const calculatedValues = this.prepareTable();
         let noResultsClass = '';
         if (this.props.results.length === 0) {
@@ -239,8 +254,10 @@ export default class ResultsTable extends React.Component {
             noResultsClass = ' no-results';
         }
         const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
-        const cols = this.prepareDTUITable();
-        const rows = this.prepareDTUIRows();
+
+        const cols = this.prepareDTUIColumns();
+        const limitedRows = this.prepareDTUIRows();
+        console.debug(this.total);
         return (
             <>
                 <div className={`award-results-table${noResultsClass}`}>
@@ -261,12 +278,18 @@ export default class ResultsTable extends React.Component {
                         }} />
                 </div>
                 <FeatureFlag>
-                    <div style={{ width: "auto", overflowX: "scroll" }}>
-                        <Table
-                            stickyFirstColumn
-                            columns={cols}
-                            rows={rows} />
-                    </div>
+                    <>
+                        <div style={{ width: "auto", overflowX: "scroll" }}>
+                            <Table
+                                stickyFirstColumn
+                                columns={cols}
+                                rows={limitedRows} />
+                        </div>
+                        <Pagination
+                            currentPage={this.props.page}
+                            changePage={this.props.loadNextPage}
+                            totalItems={this.props.total} />
+                    </>
                 </FeatureFlag>
             </>
         );

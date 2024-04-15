@@ -10,14 +10,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, intersection, throttle } from 'lodash';
-
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
-
 import { awardTypeGroups, subawardTypeGroups } from 'dataMapping/search/awardType';
-
 import {
     defaultColumns,
     defaultSort,
@@ -25,9 +22,7 @@ import {
 } from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
-
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
-
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { setHasResults } from "../../../redux/actions/search/titleBarFilterActions";
@@ -94,6 +89,8 @@ const ResultsTableContainer = (props) => {
     const [inFlight, setInFlight] = useState(true);
     const [error, setError] = useState(false);
     const [results, setResults] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [limitedResults, setLimitedResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
     const initialRender = useRef(true);
@@ -213,6 +210,10 @@ const ResultsTableContainer = (props) => {
                     newState.results = results.concat(parsedResults);
                 }
 
+                if (newSearch) {
+                    setTotal(newState.results.length);
+                }
+
                 // request is done
                 searchRequest = null;
                 newState.page = res.data.page_metadata.page;
@@ -220,6 +221,7 @@ const ResultsTableContainer = (props) => {
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
                 setResults(newState.results);
+                setLimitedResults(newState.results.slice((page - 1) * 10, (page * 10)));
 
                 if (newState.results.length > 0) {
                     props.setHasResults(true);
@@ -530,7 +532,12 @@ const ResultsTableContainer = (props) => {
             loadNextPage={loadNextPage}
             subaward={props.subaward}
             awardIdClick={awardIdClick}
-            subAwardIdClick={subAwardIdClick} />
+            subAwardIdClick={subAwardIdClick}
+            page={page}
+            setPage={setPage}
+            limitedResults={limitedResults}
+            total={total}
+ />
     );
 };
 
