@@ -45,7 +45,7 @@ const SearchSectionWrapper = ({
     };
 
     // Measures content height to set height for dsm content
-    const content = document.querySelector('.temp-search__section-wrapper-content')?.clientHeight;
+    const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
 
     const Message = () => {
         if (isLoading) {
@@ -70,8 +70,8 @@ const SearchSectionWrapper = ({
     };
 
     return (
-        <div className="temp-search__section-wrapper">
-            <div className="temp-search__section-wrapper-header">
+        <div className="search__section-wrapper">
+            <div className="search__section-wrapper-header">
                 {selectedDropdownOption ?
                     <>
                         <NewPicker
@@ -91,7 +91,7 @@ const SearchSectionWrapper = ({
                 }
             </div>
             {!openAccordion &&
-                <div className="temp-search__section-wrapper-content">
+                <div className="search__section-wrapper-content">
                     {isError || isLoading || hasNoData ?
                         <Message />
                         :
@@ -105,7 +105,7 @@ const SearchSectionWrapper = ({
                 title="Data sources and methodology" >
                 {openAccordion && (
                     <div
-                        className="temp-search__section-wrapper-dsm"
+                        className="search__section-wrapper-dsm"
                         style={{ height: `${content}px` }}>
                         {dropdownOptions && selectedDropdownOption &&
                             dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}

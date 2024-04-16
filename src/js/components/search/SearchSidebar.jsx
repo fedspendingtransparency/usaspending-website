@@ -231,7 +231,7 @@ const SearchSidebar = ({
 
             <div className="sidebar-top-submit">
                 <FeatureFlag>
-                    <div className="temp-search-page">
+                    <div className="search-page">
                         <RoundedToggle
                             toggle={toggleTempSearchPage}
                             onKeyToggle={onKeyToggle}

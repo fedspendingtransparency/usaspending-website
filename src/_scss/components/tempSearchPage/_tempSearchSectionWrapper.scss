@@ -1,13 +1,13 @@
 .search-contents {
     padding-top: rem(24);
 
-  .temp-search__sidebar {
+  .search__sidebar {
     border: rem(1) solid purple;
     margin: rem(24);
     margin-bottom: 0;
   }
 
-  .temp-search__section-wrapper {
+  .search__section-wrapper {
     padding: rem(24);
     margin-bottom: rem(16);
 
@@ -15,7 +15,7 @@
     border-radius: rem(8);
     background-color: $color-white;
 
-    .temp-search__section-wrapper-header {
+    .search__section-wrapper-header {
       display: flex;
       justify-content: space-between;
 
@@ -115,7 +115,7 @@
       }
     }
 
-    .temp-search__section-wrapper-content {
+    .search__section-wrapper-content {
       margin-top: rem(27);
     }
 
