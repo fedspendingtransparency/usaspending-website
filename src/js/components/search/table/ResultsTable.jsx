@@ -266,6 +266,10 @@ export default class ResultsTable extends React.Component {
         return values;
     }
 
+    changePage() {
+        
+    }
+
     render() {
         console.debug("PROPS: ", this.props.page, this.state.total);
         const calculatedValues = this.prepareTable();
@@ -278,7 +282,6 @@ export default class ResultsTable extends React.Component {
 
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
-        console.debug(this.total);
         return (
             <>
                 <div className={`award-results-table${noResultsClass}`}>
@@ -313,7 +316,7 @@ export default class ResultsTable extends React.Component {
                             currentPage={this.props.page}
                             changePage={this.props.loadNextPage}
                             limitSelector
-                            totalItems={this.props.total} />
+                            totalItems={this.props.resultsCount} />
                     </>
                 </FeatureFlag>
             </>

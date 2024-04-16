@@ -538,7 +538,8 @@ const ResultsTableContainer = (props) => {
             limitedResults={limitedResults}
             total={total}
             resultsLimit={resultLimit}
-            setResultLimit={setResultLimit} />
+            setResultLimit={setResultLimit}
+            resultsCount={counts[tableType]} />
     );
 };
 
