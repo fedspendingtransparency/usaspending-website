@@ -251,14 +251,14 @@ export default class ResultsTable extends React.Component {
         values = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(
-                <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Sub-Award ID']}</a> || '--',
-                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Sub-Awardee Name']}</a> || '--',
-                obj['Action Date'] || '--',
+                <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Sub-Award ID']}</a> || '--',
+                obj['Sub-Awardee Name'] || '--',
+                obj['Sub-Award Date'] || '--',
                 obj['Sub-Award Amount'] || '--',
-                <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                obj['Awarding Agency'] || '--',
                 obj['Awarding Sub Agency'] || '--',
-                obj['Prime Award ID'] || '--',
-                obj['Prime Recipient Name'] || '--'
+                <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Prime Award ID']}</a> || '--',
+                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--'
             );
 
             return value;
