@@ -17,7 +17,7 @@ const RoundedToggle = ({
 }) => (
     <div className="rounded-toggle__wrapper">
         <p className="rounded-toggle__label">{label}</p>
-        <label className="rounded-toggle__switch" htmlFor="outlays-toggle">
+        <label className="rounded-toggle__switch" htmlFor="outlays-toggle" aria-label="toggle to view outlays">
             {toggle && <input type="checkbox" id="outlays-toggle" onKeyDown={onKeyToggle} onClick={onToggle} defaultChecked tabIndex="0" />}
             {!toggle && <input type="checkbox" id="outlays-toggle" onKeyDown={onKeyToggle} onClick={onToggle} tabIndex="0" />}
             <span className="rounded-toggle__slider rounded-toggle__round" />
