@@ -8,9 +8,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
-
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
-
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
@@ -51,6 +49,7 @@ export default class ResultsTable extends React.Component {
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
+        this.changeRowLimit = this.changeRowLimit.bind(this);
     }
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
@@ -220,7 +219,7 @@ export default class ResultsTable extends React.Component {
         // page = 2, need 10 - 19 etc
         // (page * limit) - 1 end
         // (page - 1) * limit start
-        const arrayOfObjects = this.props.limitedResults;
+        const arrayOfObjects = this.props.results;
         let values = null;
         if (!this.props.subaward) {
             values = arrayOfObjects.map((obj) => {
@@ -266,12 +265,11 @@ export default class ResultsTable extends React.Component {
         return values;
     }
 
-    changePage() {
-        
+    changeRowLimit(e) {
+        this.props.setResultLimit(e);
     }
 
     render() {
-        console.debug("PROPS: ", this.props.page, this.state.total);
         const calculatedValues = this.prepareTable();
         let noResultsClass = '';
         if (this.props.results.length === 0) {
@@ -284,7 +282,7 @@ export default class ResultsTable extends React.Component {
         const limitedRows = this.prepareDTUIRows();
         return (
             <>
-                <div className={`award-results-table${noResultsClass}`}>
+                {/* <div className={`award-results-table${noResultsClass}`}>
                     <IBTable
                         rowHeight={rowHeight}
                         rowCount={this.props.results.length}
@@ -300,7 +298,7 @@ export default class ResultsTable extends React.Component {
                         ref={(table) => {
                             this.tableComponent = table;
                         }} />
-                </div>
+                </div> */}
                 <FeatureFlag>
                     <>
                         <div style={{ width: "auto", overflowX: "scroll" }}>
@@ -313,9 +311,10 @@ export default class ResultsTable extends React.Component {
                         </div>
                         <Pagination
                             resultsText
+                            limitSelector
                             currentPage={this.props.page}
                             changePage={this.props.loadNextPage}
-                            limitSelector
+                            changeLimit={this.changeRowLimit}
                             totalItems={this.props.resultsCount} />
                     </>
                 </FeatureFlag>

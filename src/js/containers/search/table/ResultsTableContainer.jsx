@@ -491,7 +491,7 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [props]);
+    }, 400), [props, resultLimit]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
@@ -511,7 +511,7 @@ const ResultsTableContainer = (props) => {
     useEffect(throttle(() => {
         performSearch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [tableType]);
+    }, 400), [tableType, resultLimit]);
 
     if (!columns[tableType]) {
         return null;
