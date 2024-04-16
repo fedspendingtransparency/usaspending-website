@@ -304,7 +304,9 @@ export default class ResultsTable extends React.Component {
                             <Table
                                 stickyFirstColumn
                                 columns={cols}
-                                rows={limitedRows} />
+                                rows={limitedRows}
+                                currentSort={this.props.sort}
+                                updateSort={this.props.updateSort} />
                         </div>
                         <Pagination
                             resultsText
