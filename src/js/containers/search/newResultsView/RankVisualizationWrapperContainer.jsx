@@ -52,7 +52,6 @@ const RankVisualizationWrapperContainer = (props) => {
     const [previous, setPrevious] = useState('');
     const [hasNextPage, setHasNextPage] = useState(false);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
-    const [showPicker, setShowPicker] = useState(false);
     const history = useHistory();
     let apiRequest;
 
@@ -70,13 +69,7 @@ const RankVisualizationWrapperContainer = (props) => {
         previous,
         hasNextPage,
         hasPreviousPage,
-        recipientError,
-        showPicker
-    };
-
-    const newSearch = () => {
-        setPage(1);
-        setHasNextPage(false);
+        recipientError
     };
 
     const changeScope = (newScope) => {
@@ -233,11 +226,17 @@ const RankVisualizationWrapperContainer = (props) => {
             });
     };
 
+    const newSearch = () => {
+        setPage(1);
+        setHasNextPage(false);
+        fetchData();
+    };
+
     useEffect(() => {
         // fetch data when scope or page changes
         fetchData();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [page, scope, props.subaward]);
+    }, [page]);
 
     useEffect(() => {
         props.setAppliedFilterCompletion(true);
@@ -264,7 +263,7 @@ const RankVisualizationWrapperContainer = (props) => {
             newSearch();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.reduxFilters, props.subaward]);
+    }, [props.reduxFilters, scope, props.subaward]);
 
     return (
         <div

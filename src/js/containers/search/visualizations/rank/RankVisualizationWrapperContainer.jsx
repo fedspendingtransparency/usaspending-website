@@ -76,11 +76,6 @@ const RankVisualizationWrapperContainer = (props) => {
         showPicker
     };
 
-    const newSearch = () => {
-        setPage(1);
-        setHasNextPage(false);
-    };
-
     const setPickerState = (value) => {
         setShowPicker(value);
     };
@@ -307,11 +302,17 @@ const RankVisualizationWrapperContainer = (props) => {
         }
     };
 
+    const newSearch = () => {
+        setPage(1);
+        setHasNextPage(false);
+        fetchData();
+    };
+
     useEffect(() => {
         // fetch data when scope or page changes
         fetchData();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [page, scope, props.subaward]);
+    }, [page]);
 
     useEffect(() => {
         props.setAppliedFilterCompletion(true);
@@ -324,16 +325,11 @@ const RankVisualizationWrapperContainer = (props) => {
     }, []);
 
     useEffect(() => {
-        newSearch();
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [scope]);
-
-    useEffect(() => {
         if (!props.noApplied) {
             newSearch();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.reduxFilters, props.subaward]);
+    }, [props.reduxFilters, scope, props.subaward]);
 
 
     const visualization = generateVisualization();

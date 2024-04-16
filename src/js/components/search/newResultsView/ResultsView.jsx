@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
@@ -9,7 +10,7 @@ require("pages/search/searchPage.scss");
 
 const ResultsView = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
-    const [isVisible, setIsVisible] = useState('');
+    // const [isVisible, setIsVisible] = useState('');
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
@@ -24,7 +25,7 @@ const ResultsView = (props) => {
             const section = entry.target.className;
 
             if (entry.isIntersecting) {
-                setIsVisible(section);
+                // setIsVisible(section);
                 if (section === 'award') {
                     setAwardTableHasLoaded(true);
                     console.log("award");
@@ -68,25 +69,33 @@ const ResultsView = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [observerSupported]);
 
+    let mobileFilters = '';
+    if (props.showMobileFilters && props.isMobile) {
+        mobileFilters = 'behind-filters';
+    }
+
     return (
         <PageFeatureFlag>
-            <main id="main-content" className="main-content">
-                <MapSection
-                    subaward={props.subaward}
-                    mapHasLoaded={mapHasLoaded} />
+            <div className="search-results-wrapper">
+                <TopFilterBarContainer {...props} />
+                <div className={`search-results ${mobileFilters}`}>
+                    <MapSection
+                        subaward={props.subaward}
+                        mapHasLoaded={mapHasLoaded} />
 
-                <CategoriesSection
-                    subaward={props.subaward}
-                    categoriesHasLoaded={categoriesHasLoaded} />
+                    <CategoriesSection
+                        subaward={props.subaward}
+                        categoriesHasLoaded={categoriesHasLoaded} />
 
-                <TimeSection
-                    subaward={props.subaward}
-                    spendingHasLoaded={spendingHasLoaded} />
+                    <TimeSection
+                        subaward={props.subaward}
+                        spendingHasLoaded={spendingHasLoaded} />
 
-                <TableSection
-                    subaward={props.subaward}
-                    awardTableHasLoaded={awardTableHasLoaded} />
-            </main>
+                    <TableSection
+                        subaward={props.subaward}
+                        awardTableHasLoaded={awardTableHasLoaded} />
+                </div>
+            </div>
         </PageFeatureFlag>
     );
 };

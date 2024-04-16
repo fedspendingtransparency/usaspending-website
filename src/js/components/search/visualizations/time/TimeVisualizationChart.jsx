@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine } from 'recharts';
+import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
 
 const timeJumpIcon = (x, y) => {
@@ -128,26 +129,43 @@ const TimeVisualizationChart = (props) => {
         transformedData.pop();
     }
 
+    const Message = () => {
+        if (props.loading) {
+            return <LoadingMessage />;
+        }
+        else if (props.error) {
+            return <ErrorMessage />;
+        }
+        else if (transformedData.length === 0) {
+            return <NoResultsMessage />;
+        }
+
+        return <></>;
+    };
+
     return (
         <div className="recharts-time-visualization-container">
-            <ResponsiveContainer>
-                <BarChart
-                    height={350}
-                    data={transformedData}
-                    accessibilityLayer
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5
-                    }}>
-                    <XAxis dataKey="label" tick={<CustomXTick />} />
-                    <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                    <Tooltip cursor={{ fill: '#fff' }} filterNull content={<CustomTooltip />} isAnimationActive={false} />
-                    <ReferenceLine y={0} stroke="#dfe1e2" />
-                    <Bar dataKey="value" shape={<CustomShape focusBar={focusBar} />} activeBar={<CustomShape isActive focusBar={focusBar} />} onMouseEnter={onMouseMove} onMouseOut={onMouseLeave} onMouseLeave={onMouseLeave} />
-                </BarChart>
-            </ResponsiveContainer>
+            {props.loading || props.error || transformedData.length === 0 ?
+                <><Message /></>
+                :
+                <ResponsiveContainer>
+                    <BarChart
+                        height={350}
+                        data={transformedData}
+                        accessibilityLayer
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5
+                        }}>
+                        <XAxis dataKey="label" tick={<CustomXTick />} />
+                        <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                        <Tooltip cursor={{ fill: '#fff' }} filterNull content={<CustomTooltip />} isAnimationActive={false} />
+                        <ReferenceLine y={0} stroke="#dfe1e2" />
+                        <Bar dataKey="value" shape={<CustomShape focusBar={focusBar} />} activeBar={<CustomShape isActive focusBar={focusBar} />} onMouseEnter={onMouseMove} onMouseOut={onMouseLeave} onMouseLeave={onMouseLeave} />
+                    </BarChart>
+                </ResponsiveContainer>}
         </div>);
 };
 

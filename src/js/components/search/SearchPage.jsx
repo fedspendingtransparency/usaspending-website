@@ -225,9 +225,9 @@ const SearchPage = ({
                     </FlexGridCol>
                 </FlexGridRow>
                 <FullDownloadModalContainer
-                download={download}
-                mounted={showFullDownload}
-                hideModal={hideDownloadModal} />
+                    download={download}
+                    mounted={showFullDownload}
+                    hideModal={hideDownloadModal} />
             </div>
         </PageWrapper>
     );

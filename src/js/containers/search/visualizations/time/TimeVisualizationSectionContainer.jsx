@@ -1,21 +1,24 @@
 /**
  * TimeVisualizationSectionContainer.jsx
+ * Created by Kevin Li 1/12/17
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
 import { isCancel } from 'axios';
 
 import TimeVisualizationSection from
-        'components/search/visualizations/time/TimeVisualizationSection';
+    'components/search/visualizations/time/TimeVisualizationSection';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
+import Analytics from 'helpers/analytics/Analytics';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 
@@ -30,20 +33,118 @@ const propTypes = {
     subaward: PropTypes.bool
 };
 
-const TimeVisualizationSectionContainer = (props) => {
-    const [visualizationPeriod, setVisualizationPeriod] = useState('fiscal_year');
-    const [parsedData, setParsedData] = useState({
-        loading: true,
-        error: false,
-        groups: [],
-        xSeries: [],
-        ySeries: [],
-        rawLabels: []
+const logPeriodEvent = (period) => {
+    Analytics.event({
+        event: 'search_time_period_event',
+        category: 'Advanced Search - Time - Period',
+        action: period,
+        gtm: true
     });
+};
 
-    let apiRequest = null;
+export class TimeVisualizationSectionContainer extends React.Component {
+    constructor(props) {
+        super(props);
 
-    const generateTimeLabel = (group, timePeriod) => {
+        this.state = {
+            visualizationPeriod: 'fiscal_year',
+            loading: true,
+            error: false,
+            groups: [],
+            xSeries: [],
+            ySeries: []
+        };
+
+        this.apiRequest = null;
+        this.updateVisualizationPeriod = this.updateVisualizationPeriod.bind(this);
+    }
+
+    componentDidMount() {
+        this.fetchData();
+        logPeriodEvent(this.state.visualizationPeriod);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
+            this.fetchData();
+        }
+        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
+            // subaward toggle changed, update the search object
+            this.fetchData();
+        }
+    }
+
+    updateVisualizationPeriod(visualizationPeriod) {
+        this.setState({
+            visualizationPeriod
+        }, () => {
+            this.fetchData();
+            logPeriodEvent(visualizationPeriod);
+        });
+    }
+
+    fetchData() {
+        this.props.setAppliedFilterCompletion(false);
+        this.setState({
+            loading: true,
+            error: false
+        });
+
+        // Cancel API request if it exists
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
+        // Fetch data from the Awards v2 endpoint
+        this.fetchAwards('Spending Over Time Visualization');
+    }
+
+    fetchAwards(auditTrail = null) {
+        const operation = new SearchAwardsOperation();
+        operation.fromState(this.props.reduxFilters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request
+        if (this.props.subaward && operation.dateType) {
+            delete operation.dateType;
+        }
+
+        const searchParams = operation.toParams();
+
+        // Generate the API parameters
+        const apiParams = {
+            group: this.state.visualizationPeriod,
+            filters: searchParams,
+            subawards: this.props.subaward
+        };
+
+        if (auditTrail) {
+            apiParams.auditTrail = auditTrail;
+        }
+
+        this.apiRequest = SearchHelper.performSpendingOverTimeSearch(apiParams);
+
+        this.apiRequest.promise
+            .then((res) => {
+                this.parseData(res.data, this.state.visualizationPeriod);
+                this.apiRequest = null;
+            })
+            .catch((err) => {
+                if (isCancel(err)) {
+                    return;
+                }
+
+                this.props.setAppliedFilterCompletion(true);
+                this.apiRequest = null;
+                console.log(err);
+                this.setState({
+                    loading: false,
+                    error: true
+                });
+            });
+    }
+
+    generateTimeLabel(group, timePeriod) {
         if (group === 'fiscal_year') {
             return timePeriod.fiscal_year;
         }
@@ -55,9 +156,9 @@ const TimeVisualizationSectionContainer = (props) => {
         const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
 
         return `${month} ${year}`;
-    };
+    }
 
-    const generateTimeRaw = (group, timePeriod) => {
+    generateTimeRaw(group, timePeriod) {
         if (group === 'fiscal_year') {
             return {
                 period: null,
@@ -78,118 +179,45 @@ const TimeVisualizationSectionContainer = (props) => {
             period: `${month}`,
             year: `${year}`
         };
-    };
-    const parseData = (data, group) => {
-        const tempGroups = [];
-        const tempXSeries = [];
-        const tempYSeries = [];
-        const tempRawLabels = [];
+    }
+
+    parseData(data, group) {
+        const groups = [];
+        const xSeries = [];
+        const ySeries = [];
+        const rawLabels = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            tempGroups.push(generateTimeLabel(group, item.time_period));
-            tempRawLabels.push(generateTimeRaw(group, item.time_period));
-            tempXSeries.push([generateTimeLabel(group, item.time_period)]);
-            tempYSeries.push([parseFloat(item.aggregated_amount)]);
+            groups.push(this.generateTimeLabel(group, item.time_period));
+            rawLabels.push(this.generateTimeRaw(group, item.time_period));
+            xSeries.push([this.generateTimeLabel(group, item.time_period)]);
+            ySeries.push([parseFloat(item.aggregated_amount)]);
         });
 
-        setParsedData({
-            groups: tempGroups,
-            xSeries: tempXSeries,
-            ySeries: tempYSeries,
-            rawLabels: tempRawLabels,
+        this.setState({
+            groups,
+            xSeries,
+            ySeries,
+            rawLabels,
             loading: false,
             error: false
+        }, () => {
+            this.props.setAppliedFilterCompletion(true);
         });
-    };
+    }
 
-    const fetchAwards = (auditTrail = null) => {
-        const operation = new SearchAwardsOperation();
-        operation.fromState(props.reduxFilters);
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove
-        // dateType for this request
-        if (props.subaward && operation.dateType) {
-            delete operation.dateType;
-        }
-
-        const searchParams = operation.toParams();
-
-        // Generate the API parameters
-        const apiParams = {
-            group: visualizationPeriod,
-            filters: searchParams,
-            subawards: props.subaward
-        };
-
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
-
-        apiRequest = SearchHelper.performSpendingOverTimeSearch(apiParams);
-
-        apiRequest.promise
-            .then((res) => {
-                parseData(res.data, visualizationPeriod);
-                apiRequest = null;
-            })
-            .catch((err) => {
-                if (isCancel(err)) {
-                    return;
-                }
-
-                props.setAppliedFilterCompletion(true);
-                apiRequest = null;
-                console.log(err);
-                setParsedData({ ...parseData, loading: false, error: true });
-            });
-    };
-
-    const fetchData = () => {
-        props.setAppliedFilterCompletion(false);
-        setParsedData({ ...parseData, loading: true, error: false });
-
-        // Cancel API request if it exists
-        if (apiRequest) {
-            apiRequest.cancel();
-        }
-
-        // Fetch data from the Awards v2 endpoint
-        fetchAwards('Spending Over Time Visualization');
-    };
-
-    useEffect(() => {
-        if (!props.noApplied) {
-            fetchData();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward, visualizationPeriod]);
-
-    useEffect(() => {
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [visualizationPeriod]);
-
-    useEffect(() => {
-        if (parsedData.loading !== true && parsedData.error !== true) {
-            props.setAppliedFilterCompletion(true);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [parsedData]);
-
-    const updateVisualizationPeriod = (tempVisualizationPeriod) => {
-        setVisualizationPeriod(tempVisualizationPeriod);
-    };
-
-    return (
-        <TimeVisualizationSection
-            data={{...parsedData}}
-            updateVisualizationPeriod={updateVisualizationPeriod}
-            visualizationPeriod={visualizationPeriod}
-            subaward={props.subaward}
-            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts} />
-    );
-};
+    render() {
+        return (
+            <TimeVisualizationSection
+                data={this.state}
+                updateVisualizationPeriod={this.updateVisualizationPeriod}
+                visualizationPeriod={this.state.visualizationPeriod}
+                subaward={this.props.subaward}
+                isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
+        );
+    }
+}
 
 TimeVisualizationSectionContainer.propTypes = propTypes;
 

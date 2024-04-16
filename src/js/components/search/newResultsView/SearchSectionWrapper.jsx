@@ -61,8 +61,16 @@ const SearchSectionWrapper = ({
         return <></>;
     };
 
+    const Content = () => {
+        if (viewType === 'table') {
+            return <SectionDataTable />;
+        }
+
+        return children;
+    };
+
     return (
-        <div className="search-results-wrapper temp-search__section-wrapper">
+        <div className="temp-search__section-wrapper">
             <div className="temp-search__section-wrapper-header">
                 {selectedDropdownOption ?
                     <>
@@ -82,14 +90,14 @@ const SearchSectionWrapper = ({
                     sectionTitle
                 }
             </div>
-            {isError || isLoading || hasNoData ?
-                <Message />
-                :
-                !openAccordion && (
-                    <div className="temp-search__section-wrapper-content">
-                        {viewType === 'chart' ? children : <SectionDataTable />}
-                    </div>
-                )}
+            {!openAccordion &&
+                <div className="temp-search__section-wrapper-content">
+                    {isError || isLoading || hasNoData ?
+                        <Message />
+                        :
+                        <Content />
+                    }
+                </div>}
             <Accordion
                 setOpen={setOpenAccordion}
                 closedIcon="chevron-down"

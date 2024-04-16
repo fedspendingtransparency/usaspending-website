@@ -38,7 +38,6 @@ export default class TimeVisualizationSection extends React.Component {
             expanded: null
         };
 
-        console.log(props);
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
         this.handleUpdateBody = this.handleUpdateBody.bind(this);

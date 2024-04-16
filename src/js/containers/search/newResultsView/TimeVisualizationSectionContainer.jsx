@@ -132,7 +132,6 @@ const TimeVisualizationSectionContainer = (props) => {
             .then((res) => {
                 parseData(res.data, visualizationPeriod);
                 apiRequest = null;
-                console.log("fetched time data");
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -193,7 +192,7 @@ const TimeVisualizationSectionContainer = (props) => {
             {...props.wrapperProps}
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
-            hasNoData={parsedData?.rawlabels?.length === 0}>
+            hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}>
             <TimeVisualizationChart
                 {...parsedData}
                 visualizationPeriod={visualizationPeriod}

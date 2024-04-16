@@ -8,13 +8,14 @@
   }
 
   .temp-search__section-wrapper {
+    padding: rem(24);
+    margin-bottom: rem(16);
+
     border: rem(1) solid $gray-cool-10;
     border-radius: rem(8);
     background-color: $color-white;
-    margin-top: rem(32);
 
     .temp-search__section-wrapper-header {
-      margin: rem(24);
       display: flex;
       justify-content: space-between;
 
@@ -115,11 +116,10 @@
     }
 
     .temp-search__section-wrapper-content {
-      margin: 0 rem(24) rem(24) rem(24)
+      margin-top: rem(27);
     }
 
     .accordion-container {
-      margin: rem(24);
       padding-top: rem(16);
       border-top: rem(1) solid $gray-cool-10;
 
