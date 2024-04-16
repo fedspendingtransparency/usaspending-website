@@ -312,6 +312,7 @@ export default class ResultsTable extends React.Component {
                             resultsText
                             currentPage={this.props.page}
                             changePage={this.props.loadNextPage}
+                            limitSelector
                             totalItems={this.props.total} />
                     </>
                 </FeatureFlag>

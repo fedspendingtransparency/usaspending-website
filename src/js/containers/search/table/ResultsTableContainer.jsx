@@ -91,6 +91,7 @@ const ResultsTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [total, setTotal] = useState(0);
     const [limitedResults, setLimitedResults] = useState([]);
+    const [resultLimit, setResultLimit] = useState(10);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
     const initialRender = useRef(true);
@@ -144,7 +145,6 @@ const ResultsTableContainer = (props) => {
             // the page number
             pageNumber = 1;
         }
-        const resultLimit = 60;
 
         const requestFields = [];
 
@@ -537,7 +537,8 @@ const ResultsTableContainer = (props) => {
             setPage={setPage}
             limitedResults={limitedResults}
             total={total}
- />
+            resultsLimit={resultLimit}
+            setResultLimit={setResultLimit} />
     );
 };
 
