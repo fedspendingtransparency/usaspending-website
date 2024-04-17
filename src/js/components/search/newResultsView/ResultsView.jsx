@@ -1,3 +1,7 @@
+/**
+ * ResultsView.jsx
+ **/
+
 import React, { useEffect, useState } from "react";
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";

@@ -1,7 +1,7 @@
 /**
- * categories.jsx
- */
-
+ * CategoriesSection.jsx
+ * Created by Andrea Blackwell 04/14/2024
+ **/
 
 import React, { useState } from "react";
 import {

@@ -1,7 +1,7 @@
 /**
- * table.jsx
- */
-
+ * MapSection.jsx
+ * Created by Andrea Blackwell 04/14/2024
+ **/
 
 import React, { useState } from "react";
 import SearchSectionWrapper from "../SearchSectionWrapper";
