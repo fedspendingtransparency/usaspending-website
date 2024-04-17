@@ -4,11 +4,18 @@
  **/
 
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+
 import SearchSectionWrapper from "../SearchSectionWrapper";
 import {
     DsmWrapper, TempPlaceholderComponent
 } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
+
+const propTypes = {
+    mapHasLoaded: PropTypes.bool,
+    subaward: PropTypes.bool
+};
 
 const MapSection = ({ mapHasLoaded }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');
@@ -54,4 +61,5 @@ const MapSection = ({ mapHasLoaded }) => {
     );
 };
 
+MapSection.propTypes = propTypes;
 export default MapSection;

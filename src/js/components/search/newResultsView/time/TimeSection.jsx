@@ -5,11 +5,18 @@
 
 
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+
 import {
     DsmWrapper
 } from "../DsmWrapper";
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
+
+const propTypes = {
+    spendingHasLoaded: PropTypes.bool,
+    subaward: PropTypes.bool
+};
 
 const TimeSection = ({ spendingHasLoaded, subaward }) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('month');
@@ -60,4 +67,5 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
     );
 };
 
+TimeSection.propTypes = propTypes;
 export default TimeSection;

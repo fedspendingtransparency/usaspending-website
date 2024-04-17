@@ -4,11 +4,18 @@
  **/
 
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+
 import {
     DsmWrapper
 } from "../DsmWrapper";
 import RankVisualizationWrapperContainer
     from "../../../../containers/search/newResultsView/RankVisualizationWrapperContainer";
+
+const propTypes = {
+    categoriesHasLoaded: PropTypes.bool,
+    subaward: PropTypes.bool
+};
 
 const CategoriesSection = ({ categoriesHasLoaded, subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
@@ -84,4 +91,5 @@ const CategoriesSection = ({ categoriesHasLoaded, subaward }) => {
     );
 };
 
+CategoriesSection.propTypes = propTypes;
 export default CategoriesSection;

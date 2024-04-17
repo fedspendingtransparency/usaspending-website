@@ -3,6 +3,8 @@
  **/
 
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 import TableSection from "./table/TableSection";
@@ -11,6 +13,12 @@ import TimeSection from "./time/TimeSection";
 import MapSection from "./map/MapSection";
 
 require("pages/search/searchPage.scss");
+
+const propTypes = {
+    subaward: PropTypes.bool,
+    showMobileFilters: PropTypes.bool,
+    isMobile: PropTypes.bool
+};
 
 const ResultsView = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
@@ -104,4 +112,5 @@ const ResultsView = (props) => {
     );
 };
 
+ResultsView.propTypes = propTypes;
 export default ResultsView;
