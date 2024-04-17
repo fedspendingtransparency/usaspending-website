@@ -1,21 +1,21 @@
 import React from "react";
-import fetchSpendingOverTimeData from './fetchSpendingOverTimeData';
+import fetchData from '../fetchSpendingByGeographyData';
 
-const resource = fetchSpendingOverTimeData();
+const resource = fetchData();
 
-const TempSpendingOverTime = React.memo(() => {
+const MapVisualization = React.memo(() => {
     if (resource) {
-        console.log('spending over time api call');
+        console.log('map section api call');
     }
     const content = resource.read();
     const message = content.messages[0];
-    const aggregatedAmount = content.results[0].aggregated_amount;
+    const displayName = content.results[0].display_name;
 
     return (
         <section
-            className="temp-component-two"
+            className="temp-component-three"
             style={{
-                border: '2px solid green',
+                border: '2px solid blue',
                 height: '800px',
                 margin: '40px 40px',
                 textAlign: 'center',
@@ -23,7 +23,7 @@ const TempSpendingOverTime = React.memo(() => {
                 paddingTop: '40px'
             }}>
             <div>
-                Spending Over Time Section
+                Map Section
             </div>
             <br />
             <div>
@@ -31,13 +31,13 @@ const TempSpendingOverTime = React.memo(() => {
             </div>
             <br />
             <div>
-                Aggregated Amount for this chart
+                Display Name of first result:
             </div>
             <div>
-                {aggregatedAmount}
+                {displayName}
             </div>
         </section>
     );
 });
 
-export default TempSpendingOverTime;
+export default MapVisualization;

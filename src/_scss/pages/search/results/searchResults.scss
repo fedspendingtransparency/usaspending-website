@@ -11,8 +11,10 @@
         @import "./_typography";
         @import "../../../elements/_divider";
         @import "./table/resultsTable";
-        @import "./visualizations/visualizations";
         @import "./screens/screens";
         @import './tables';
     }
 }
+
+@import "./visualizations/visualizations";
+
