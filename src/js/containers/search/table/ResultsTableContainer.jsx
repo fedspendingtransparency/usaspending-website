@@ -386,7 +386,6 @@ const ResultsTableContainer = (props) => {
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
-                    props.setAppliedFilterCompletion(true);
                     console.log(err);
                 }
             });
