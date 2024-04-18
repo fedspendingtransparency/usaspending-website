@@ -9,7 +9,7 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
+import BarChartLegend from 'components/sharedComponents/timeChart/chart/BarChartLegend';
 
 import { buildYRange } from './calculations';
 

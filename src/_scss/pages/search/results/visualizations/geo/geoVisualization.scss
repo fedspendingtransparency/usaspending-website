@@ -128,10 +128,12 @@
 
               .map__filters-dropdown {
                 width: max-content;
-
-                li.filter__dropdown-list-item {
-                  padding-left: rem(12);
-                }
+                li {
+                  button {
+                      padding-left: 1.5 * $global-padding !important;
+                      padding-right: 1.5 * $global-padding !important;
+                  }
+              }
               }
             }
           }

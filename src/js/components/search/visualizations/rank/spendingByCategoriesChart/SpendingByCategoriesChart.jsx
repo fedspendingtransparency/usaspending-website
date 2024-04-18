@@ -1,57 +1,138 @@
-import React from 'react';
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+/**
+ * SpendingByCategoriesChart.jsx
+ * Created by Brian Petway 03/12/2024
+ **/
 
-const CustomTick = (props) => {
-    const {
-        x, y, payload, link
-    } = props;
-    return (
-        <g transform={`translate(${x},${y})`} >
-            <a href={`${link[payload.index].link}`}>
-                <text x={0} y={0} dy={0} textAnchor="end" fill="#666" fontSize={12} >
-                    {payload.value}
-                </text>
-            </a>
-        </g>);
+import React, { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, Text } from 'recharts';
+import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import PropTypes from "prop-types";
+import { tabletScreen, smTabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { throttle } from "lodash";
+
+const propTypes = {
+    dataSeries: PropTypes.array,
+    labelSeries: PropTypes.array,
+    descriptions: PropTypes.array,
+    linkSeries: PropTypes.array
+};
+
+const tickFormatter = (value, isMobile) => {
+    const limit = isMobile ? 30 : 48; // put your maximum character
+    if (value.length < limit) return value;
+    const newValue = value.replace("Department", "Dept");
+    if (newValue.length <= limit) return newValue;
+    return `${newValue.substring(0, limit)}...`;
 };
 
 const SpendingByCategoriesChart = (props) => {
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [isSmMobile, setIsSmMobile] = useState(window.innerWidth < smTabletScreen);
+
+    const labelWidthVar = isMobile ? 400 : 175;
+
     const dataStuff = [];
     if (props.dataSeries?.length === props.labelSeries?.length) {
         for (let i = 0; i < props.dataSeries.length; i++) {
+            const formattedValue = formatMoneyWithUnitsShortLabel(props.dataSeries[i], 2);
             dataStuff.push({
                 value: props.dataSeries[i],
                 label: props.labelSeries[i],
                 desc: props.descriptions[i],
-                link: props.linkSeries[i]
+                link: props.linkSeries[i],
+                barLabel: formattedValue
             });
         }
     }
 
+    const CustomTick = (args) => {
+        const {
+            x, y, payload, link
+        } = args;
+
+        const translateY = isMobile ? y - 20 : y + 8;
+
+        return (
+            <g transform={`translate(${x - 8},${translateY})`}>
+                <a href={`${link[payload.index].link}`}>
+                    <Text
+                        textAnchor={isMobile ? "start" : "end"}
+                        fontSize={14}
+                        width={isMobile ? labelWidthVar : labelWidthVar + 16}
+                        fill="#2378C3">
+                        {tickFormatter(payload.value, isSmMobile)}
+                    </Text>
+                </a>
+            </g>);
+    };
+
+    const CustomEndLabels = (args) => {
+        const {
+            x, y, value, width
+        } = args;
+
+        const translateX = isSmMobile ? 2 : 8;
+
+        return (
+            <g transform={`translate(${x + width + translateX}, ${y + 14})`}>
+                <Text
+                    textAnchor="left"
+                    fontSize={14}
+                    fontWeight={600}
+                    fill="#07648D"
+                    width={20}>
+                    {value}
+                </Text>
+            </g>
+        );
+    };
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+                setIsSmMobile(newWidth < smTabletScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     return (
-        <div className="recharts-time-visualization-container">
-            <ResponsiveContainer width="100%" height="100%">
+        <>
+            <ResponsiveContainer width="100%" height={isMobile ? 650 : 600}>
                 <BarChart
                     data={dataStuff}
                     layout="vertical"
-                    barCategoryGap={10}
+                    barSize={21}
                     margin={{
                         top: 10,
-                        right: 10,
-                        left: 200,
+                        right: 60,
+                        left: 8,
                         bottom: 10
                     }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis type="number" />
-                    <YAxis type="category" dataKey="label" tick={<CustomTick link={dataStuff} />} fontSize="12px" link="link" />
-                    {/* todo - tooltips in next ticket */}
-                    {/* <Tooltip /> */}
-                    <Bar dataKey="value" fill="#8884d8" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+                    <XAxis type="number" hide />
+                    <YAxis
+                        type="category"
+                        dataKey="label"
+                        stroke="#dfe1e2"
+                        mirror={isMobile}
+                        width={labelWidthVar}
+                        tickLine={false}
+                        tick={<CustomTick link={dataStuff} />} />
+                    <Bar dataKey="value" fill="#07648d" activeBar={false}>
+                        <LabelList
+                            dataKey="barLabel"
+                            content={CustomEndLabels} />
+                    </Bar>
                 </BarChart>
             </ResponsiveContainer>
-        </div>
+        </>
     );
 };
 
+SpendingByCategoriesChart.propTypes = propTypes;
 export default SpendingByCategoriesChart;
-

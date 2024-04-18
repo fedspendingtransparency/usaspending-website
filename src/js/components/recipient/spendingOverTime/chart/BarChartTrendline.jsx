@@ -10,8 +10,8 @@ import { isEqual, flattenDeep, min, max, mean, forEach, sum } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import BarXAxis from 'components/search/visualizations/time/chart/BarXAxis';
-import BarYAxis from 'components/search/visualizations/time/chart/BarYAxis';
+import BarXAxis from 'components/sharedComponents/timeChart/chart/BarXAxis';
+import BarYAxis from 'components/sharedComponents/timeChart/chart/BarYAxis';
 import BarChartTrendlineLegend from './BarChartTrendlineLegend';
 import BarTrendlineAxis from './BarTrendlineAxis';
 import PointItem from './PointItem';
