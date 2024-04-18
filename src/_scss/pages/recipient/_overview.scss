@@ -10,17 +10,17 @@
         @include flex(0 0 auto);
         @include align-items(center);
         @include button-unstyled;
-        color: $color-primary;
+        color: $blue-50;
         padding: rem(5);
         svg {
             height: rem(15);
             width: rem(15);
-            fill: $color-primary;
+            fill: $blue-50;
         }
         &:hover {
-            color: $color-primary-darker;
+            color: $blue-70v;
             svg {
-                fill: $color-primary-darker;
+                fill: $blue-70v;
             }
         }
     }
