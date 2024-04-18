@@ -20,7 +20,7 @@
         background-color: $color-primary;
 
         &:hover {
-            background-color: $color-primary-darker;            
+            background-color: $color-primary-darker;
         }
 
         &[disabled] {
@@ -40,7 +40,7 @@
 
         text-align: center;
 
-        color: $color-primary;
+        color: $blue-50;
         font-size: $smallest-font-size;
 
         margin-top: rem(8);
