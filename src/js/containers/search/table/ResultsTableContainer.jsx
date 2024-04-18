@@ -360,7 +360,7 @@ const ResultsTableContainer = (props) => {
             tabCountRequest.cancel();
         }
 
-        props.setAppliedFilterCompletion(false);
+        // props.setAppliedFilterCompletion(false);
 
         setInFlight(true);
         setError(false);

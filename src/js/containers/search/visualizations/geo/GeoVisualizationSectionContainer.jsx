@@ -80,6 +80,7 @@ const GeoVisualizationSectionContainer = React.memo((props) => {
 
     let apiRequest = null;
     const mapListeners = [];
+
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
         visibleEntities: false,

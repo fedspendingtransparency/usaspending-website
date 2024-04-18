@@ -347,6 +347,7 @@ const MapWrapper = (props) => {
     };
 
     const measureMap = (forced = false) => {
+        // console.log('in measureMap');
         // determine which entities (state, counties, etc. based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
 
@@ -363,6 +364,8 @@ const MapWrapper = (props) => {
         const entities = mapRef.current.map.current.queryRenderedFeatures({
             layers: [`base_${scopeRef.current}`]
         });
+
+        // console.log('measureMap entities', entities);
 
         const source = mapboxSources[scopeRef.current];
         const visibleEntities = entities.map((entity) => (
@@ -545,7 +548,8 @@ const MapWrapper = (props) => {
         if (props.activeFilters?.territory === 'country') {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
-        } else {
+        }
+        else {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
         }
 
