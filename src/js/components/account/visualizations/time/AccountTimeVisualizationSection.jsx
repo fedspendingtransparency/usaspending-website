@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-
+import { SectionHeader } from "data-transparency-ui";
 import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
 import TimeVisualization from './TimeVisualization';
@@ -57,7 +57,10 @@ export default class AccountTimeVisualizationSection extends React.Component {
             <div
                 className="results-visualization-time-section"
                 id="results-section-time">
-                <h3>Spending Over Time</h3>
+                <SectionHeader
+                    title="Spending Over Time"
+                    titleTooltip={{ component: false }}
+                    descTooltip={{ component: false }} />
                 <hr
                     className="results-divider"
                     ref={(hr) => {

@@ -30,13 +30,15 @@ import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
+import { setHasResults } from "../../../redux/actions/search/titleBarFilterActions";
 
 const propTypes = {
     filters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func
+    subAwardIdClicked: PropTypes.func,
+    setHasResults: PropTypes.func
 };
 export const tableTypes = [
     {
@@ -94,7 +96,6 @@ const ResultsTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
-
     const initialRender = useRef(true);
 
     const performSearch = throttle((newSearch = false) => {
@@ -219,6 +220,14 @@ const ResultsTableContainer = (props) => {
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
                 setResults(newState.results);
+
+                if (newState.results.length > 0) {
+                    props.setHasResults(true);
+                }
+                else {
+                    props.setHasResults(false);
+                }
+
                 setPage(newState.page);
                 setLastPage(newState.lastPage);
 
@@ -351,8 +360,6 @@ const ResultsTableContainer = (props) => {
             tabCountRequest.cancel();
         }
 
-        props.setAppliedFilterCompletion(false);
-
         setInFlight(true);
         setError(false);
 
@@ -379,7 +386,6 @@ const ResultsTableContainer = (props) => {
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
-                    props.setAppliedFilterCompletion(true);
                     console.log(err);
                 }
             });
@@ -531,7 +537,8 @@ export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward
+        subaward: state.searchView.subaward,
+        hasResults: state.titleBarFilter.hasResults
     }),
     (dispatch) => bindActionCreators(
         // access multiple redux actions
@@ -539,6 +546,7 @@ export default connect(
             {},
             searchActions,
             appliedFilterActions,
+            { setHasResults },
             { subAwardIdClicked }
         ),
         dispatch

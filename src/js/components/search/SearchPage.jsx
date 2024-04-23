@@ -4,9 +4,10 @@
  **/
 
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { DownloadIconButton, ShareIcon } from 'data-transparency-ui';
+import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -22,7 +23,7 @@ import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
-import TempSearchPage from "../tempSearchPage/TempSearchPage";
+import ResultsView from "./newResultsView/ResultsView";
 
 const propTypes = {
     download: PropTypes.object,
@@ -54,6 +55,7 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const hasResults = useSelector((state) => state.titleBarFilter.hasResults);
 
     // TODO: Remove this state once new Advance Search is done and toggle no longer needed
     const [toggleTempSearchPage, setToggleTempSearchPage] = useState(true);
@@ -147,7 +149,7 @@ const SearchPage = ({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown size="sm" label="Filter by:" enabled={hasResults} setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
@@ -166,13 +168,13 @@ const SearchPage = ({
             filters={appliedFilters}>
 
             <div id="main-content">
-                <div className="search-contents">
-                    <div className="full-search-sidebar">
+                <FlexGridRow className="search-contents" >
+                    <FlexGridCol className="full-search-sidebar" width={3}>
                         { fullSidebar }
                         {isMobile === false ?
                             <KeywordSearchLink />
                             : '' }
-                    </div>
+                    </FlexGridCol>
                     <div className="mobile-filter-button-wrapper">
                         <button
                             className="mobile-filter-button"
@@ -190,27 +192,39 @@ const SearchPage = ({
                             </div>
                         </button>
                     </div>
-                    <div className="mobile-search-sidebar">
+                    <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
                             filterCount={filterCount}
                             showMobileFilters={showMobileFilters}
                             toggleMobileFilters={toggleMobileFilters} />
-                    </div>
+                    </FlexGridCol>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
-                    {toggleTempSearchPage ?
-                        <SearchResults
-                            filters={filters}
-                            isMobile={isMobile}
-                            filterCount={filterCount}
-                            showMobileFilters={showMobileFilters}
-                            updateFilterCount={updateFilterCount}
-                            toggleMobileFilters={toggleMobileFilters}
-                            requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} /> : <TempSearchPage />}
-                </div>
+                    <FlexGridCol desktop={9} tablet={12} mobile={12}>
+                        {toggleTempSearchPage ?
+                            <SearchResults
+                                filters={filters}
+                                isMobile={isMobile}
+                                filterCount={filterCount}
+                                showMobileFilters={showMobileFilters}
+                                updateFilterCount={updateFilterCount}
+                                toggleMobileFilters={toggleMobileFilters}
+                                requestsComplete={requestsComplete}
+                                noFiltersApplied={noFiltersApplied} />
+                            :
+                            <ResultsView
+                                filters={filters}
+                                isMobile={isMobile}
+                                filterCount={filterCount}
+                                showMobileFilters={showMobileFilters}
+                                updateFilterCount={updateFilterCount}
+                                toggleMobileFilters={toggleMobileFilters}
+                                requestsComplete={requestsComplete}
+                                noFiltersApplied={noFiltersApplied} />}
+                    </FlexGridCol>
+                </FlexGridRow>
                 <FullDownloadModalContainer
                     download={download}
                     mounted={showFullDownload}
@@ -221,4 +235,5 @@ const SearchPage = ({
 };
 
 SearchPage.propTypes = propTypes;
+
 export default SearchPage;

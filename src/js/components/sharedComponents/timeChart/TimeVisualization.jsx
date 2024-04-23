@@ -10,9 +10,9 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import BarChart from './chart/BarChart';
 import Tooltip from './TimeVisualizationTooltip';
-import ChartLoadingMessage from '../ChartLoadingMessage';
-import ChartNoResults from '../ChartNoResults';
-import ChartError from '../ChartError';
+import ChartLoadingMessage from '../../search/visualizations/ChartLoadingMessage';
+import ChartNoResults from '../../search/visualizations/ChartNoResults';
+import ChartError from '../../search/visualizations/ChartError';
 
 const defaultProps = {
     groups: [],

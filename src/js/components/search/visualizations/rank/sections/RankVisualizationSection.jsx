@@ -80,7 +80,7 @@ export default class RankVisualizationSection extends React.Component {
         }
 
         return (
-            <div>
+            <>
                 <hr
                     className="results-divider"
                     ref={(hr) => {
@@ -126,7 +126,7 @@ export default class RankVisualizationSection extends React.Component {
                         </div>
                     </button>
                 </div>
-            </div>
+            </>
         );
     }
 }
