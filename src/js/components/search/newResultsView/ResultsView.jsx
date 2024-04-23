@@ -11,6 +11,7 @@ import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
 import MapSection from "./map/MapSection";
+import NewSearchScreen from "./NewSearchScreen";
 
 require("pages/search/searchPage.scss");
 
@@ -91,21 +92,11 @@ const ResultsView = (props) => {
             <div className="search-results-wrapper">
                 <TopFilterBarContainer {...props} />
                 <div className={`search-results ${mobileFilters}`}>
-                    <MapSection
-                        subaward={props.subaward}
-                        mapHasLoaded={mapHasLoaded} />
-
-                    <CategoriesSection
-                        subaward={props.subaward}
-                        categoriesHasLoaded={categoriesHasLoaded} />
-
-                    <TimeSection
-                        subaward={props.subaward}
-                        spendingHasLoaded={spendingHasLoaded} />
-
-                    <TableSection
-                        subaward={props.subaward}
-                        awardTableHasLoaded={awardTableHasLoaded} />
+                    {props.noFiltersApplied ? <NewSearchScreen /> : <>
+                        <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
+                        <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} />
+                        <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
+                        <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} /> </>}
                 </div>
             </div>
         </PageFeatureFlag>
