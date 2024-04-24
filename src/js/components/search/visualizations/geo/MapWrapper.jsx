@@ -545,7 +545,8 @@ const MapWrapper = (props) => {
         if (props.activeFilters?.territory === 'country') {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
-        } else {
+        }
+        else {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
         }
 
