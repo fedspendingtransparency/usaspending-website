@@ -95,6 +95,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
         }
         else {
             this.props.applyStagedFilters(this.props.stagedFilters);
+            this.props.setAppliedFilterCompletion(true);
         }
         this.setState({
             filtersChanged: false
