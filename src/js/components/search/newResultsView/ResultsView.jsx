@@ -87,16 +87,22 @@ const ResultsView = (props) => {
         mobileFilters = 'behind-filters';
     }
 
+    let content = <NewSearchScreen />;
+    if (!props.noFiltersApplied) {
+        content = (<>
+            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
+            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} />
+            <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
+            <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
+        </>);
+    }
+
     return (
         <PageFeatureFlag>
             <div className="search-results-wrapper">
                 <TopFilterBarContainer {...props} />
                 <div className={`search-results ${mobileFilters}`}>
-                    {props.noFiltersApplied ? <NewSearchScreen /> : <>
-                        <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
-                        <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} />
-                        <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
-                        <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} /> </>}
+                    {content}
                 </div>
             </div>
         </PageFeatureFlag>
