@@ -221,8 +221,10 @@ const ResultsTableContainer = (props) => {
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
                 setResults(newState.results);
-                setLimitedResults(newState.results.slice((page - 1) * 10, (page * 10)));
 
+                if (resultLimit) {
+                    setLimitedResults(newState.results.slice((page - 1) * resultLimit, (page * resultLimit)));
+                }
                 if (newState.results.length > 0) {
                     props.setHasResults(true);
                 }
@@ -488,7 +490,7 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [props, resultLimit]);
+    }, 400), [props]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
@@ -508,7 +510,7 @@ const ResultsTableContainer = (props) => {
     useEffect(throttle(() => {
         performSearch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [tableType, resultLimit]);
+    }, 400), [tableType, resultLimit, page]);
 
     if (!columns[tableType]) {
         return null;

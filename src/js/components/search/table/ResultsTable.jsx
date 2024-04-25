@@ -8,16 +8,15 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
-import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
-import FeatureFlag from "../../sharedComponents/FeatureFlag";
 
-const rowHeight = 40;
+// saving in case we need these
+// const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
-const tableHeight = 29.5 * rowHeight;
+// const tableHeight = 29.5 * rowHeight;
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
 export default class ResultsTable extends React.Component {
@@ -34,6 +33,7 @@ export default class ResultsTable extends React.Component {
         subAwardIdClick: PropTypes.func,
         page: PropTypes.number,
         setPage: PropTypes.func,
+        setResultLimit: PropTypes.func,
         total: PropTypes.number
     };
 
@@ -49,7 +49,6 @@ export default class ResultsTable extends React.Component {
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
-        this.changeRowLimit = this.changeRowLimit.bind(this);
     }
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
@@ -213,13 +212,12 @@ export default class ResultsTable extends React.Component {
     }
 
     prepareDTUIRows() {
-        console.debug("this.props: ", this.props);
         // limit = 10
         // page = 1, need 0-9
         // page = 2, need 10 - 19 etc
         // (page * limit) - 1 end
         // (page - 1) * limit start
-        const arrayOfObjects = this.props.results;
+        const arrayOfObjects = this.props.limitedResults;
         let values = null;
         if (!this.props.subaward) {
             values = arrayOfObjects.map((obj) => {
@@ -265,59 +263,31 @@ export default class ResultsTable extends React.Component {
         return values;
     }
 
-    changeRowLimit(e) {
-        this.props.setResultLimit(e);
-    }
-
     render() {
-        const calculatedValues = this.prepareTable();
-        let noResultsClass = '';
         if (this.props.results.length === 0) {
-            // remove duplicated bottom border
-            noResultsClass = ' no-results';
+            // replace with no results component not a class
         }
-        const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
 
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
         return (
             <>
-                {/* <div className={`award-results-table${noResultsClass}`}>
-                    <IBTable
-                        rowHeight={rowHeight}
-                        rowCount={this.props.results.length}
-                        headerHeight={headerHeight}
-                        contentWidth={calculatedValues.width}
-                        bodyWidth={this.props.visibleWidth}
-                        bodyHeight={variableBodyHeight}
-                        columns={calculatedValues.columns}
-                        headerCellRender={this.headerCellRender}
-                        bodyCellRender={this.bodyCellRender}
-                        onReachedBottom={this.props.loadNextPage}
-                        topScroller
-                        ref={(table) => {
-                            this.tableComponent = table;
-                        }} />
-                </div> */}
-                <FeatureFlag>
-                    <>
-                        <div style={{ width: "auto", overflowX: "scroll" }}>
-                            <Table
-                                stickyFirstColumn
-                                columns={cols}
-                                rows={limitedRows}
-                                currentSort={this.props.sort}
-                                updateSort={this.props.updateSort} />
-                        </div>
-                        <Pagination
-                            resultsText
-                            limitSelector
-                            currentPage={this.props.page}
-                            changePage={this.props.loadNextPage}
-                            changeLimit={this.changeRowLimit}
-                            totalItems={this.props.resultsCount} />
-                    </>
-                </FeatureFlag>
+                <div style={{ width: "auto", overflowX: "scroll" }}>
+                    <Table
+                        stickyFirstColumn
+                        columns={cols}
+                        rows={limitedRows}
+                        currentSort={this.props.sort}
+                        updateSort={this.props.updateSort} />
+                </div>
+                <Pagination
+                    resultsText
+                    limitSelector
+                    currentPage={this.props.page}
+                    pageSize={this.props.resultsLimit}
+                    changePage={this.props.setPage}
+                    changeLimit={this.props.setResultLimit}
+                    totalItems={this.props.resultsCount} />
             </>
         );
     }
