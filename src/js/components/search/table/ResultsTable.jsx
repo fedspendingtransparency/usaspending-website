@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
@@ -221,20 +222,21 @@ export default class ResultsTable extends React.Component {
         let values = null;
         if (!this.props.subaward) {
             values = arrayOfObjects.map((obj) => {
+                console.debug(obj['Total Outlays']);
                 const value = [];
                 value.push(
                     <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
                     <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
                     obj['Start Date'] || '--',
                     obj['End Date'] || '--',
-                    obj['Award Amount'] || '--',
-                    obj['Total Outlays'] || '--',
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                     obj.Description || '--',
                     obj.def_codes || '--',
-                    obj['COVID-19 Obligations'] || '--',
-                    obj['COVID-19 Outlays'] || '--',
-                    obj['Infrastructure Obligations'] || '--',
-                    obj['Infrastructure Outlays'] || '--',
+                    MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                    MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
                     <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
                     obj['Awarding Sub Agency'] || '--',
                     obj['Contract Award Type'] || '--'
@@ -264,6 +266,7 @@ export default class ResultsTable extends React.Component {
     }
 
     render() {
+        console.debug("props: ", this.props);
         if (this.props.results.length === 0) {
             // replace with no results component not a class
         }
@@ -272,7 +275,7 @@ export default class ResultsTable extends React.Component {
         const limitedRows = this.prepareDTUIRows();
         return (
             <>
-                <div style={{ width: "auto", overflowX: "scroll" }}>
+                <div style={{ width: "auto", overflowX: "scroll", marginTop: "-1px" }}>
                     <Table
                         stickyFirstColumn
                         columns={cols}
