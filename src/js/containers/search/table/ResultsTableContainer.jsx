@@ -362,8 +362,6 @@ const ResultsTableContainer = (props) => {
             tabCountRequest.cancel();
         }
 
-        props.setAppliedFilterCompletion(false);
-
         setInFlight(true);
         setError(false);
 
@@ -390,7 +388,6 @@ const ResultsTableContainer = (props) => {
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
-                    props.setAppliedFilterCompletion(true);
                     console.log(err);
                 }
             });
