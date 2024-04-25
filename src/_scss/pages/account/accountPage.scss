@@ -13,6 +13,25 @@
         @import "./overview/overview";
         @import "./results/searchResults";
 
+
+        .filter-results {
+            .search-sidebar {
+                .sidebar-header {
+                    display: flex;
+                    align-items: center;
+                }
+
+                span.filter-icon {
+                    svg {
+                        margin-top: 0;
+                    }
+                }
+                h6 {
+                    margin-top: 0;
+                    margin-bottom: 2px;
+                }
+            }
+        }
         // overwrite for the federal account page
         .search-results {
             .usda-section-title__sectionHeader:first-of-type {
