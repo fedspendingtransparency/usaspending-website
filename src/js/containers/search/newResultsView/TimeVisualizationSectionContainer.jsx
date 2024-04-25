@@ -145,10 +145,35 @@ const TimeVisualizationSectionContainer = (props) => {
             });
     };
 
+    const transformData = () => {
+        const transformedData = [];
+        let label;
+        let value;
+        for (let i = 0; i < props.xSeries?.length; i++) {
+            if (props.ySeries[i][0] !== 0) {
+                label = props.xSeries[i][0];
+                value = props.ySeries[i][0];
+            }
+            else if (transformedData[transformedData?.length - 1]?.value !== "jump") {
+                label = "jump";
+                value = null;
+            }
+
+            if (!(transformedData[transformedData?.length - 1]?.value === null && label === "jump")) {
+                transformedData.push({
+                    label,
+                    value
+                });
+            }
+        }
+
+        if (transformedData[transformedData?.length - 1]?.label === "jump") {
+            transformedData.pop();
+        }
+    }
     const fetchData = () => {
         props.setAppliedFilterCompletion(false);
         setParsedData({ ...parseData, loading: true, error: false });
-
         // Cancel API request if it exists
         if (apiRequest) {
             apiRequest.cancel();
@@ -190,6 +215,7 @@ const TimeVisualizationSectionContainer = (props) => {
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
+            data={parsedData}
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}>
