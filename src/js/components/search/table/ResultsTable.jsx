@@ -275,8 +275,9 @@ export default class ResultsTable extends React.Component {
         const limitedRows = this.prepareDTUIRows();
         return (
             <>
-                <div style={{ width: "auto", overflowX: "scroll", marginTop: "-1px" }}>
+                <div className="advanced-search__table-wrapper">
                     <Table
+                        classNames="advanced-search__table"
                         stickyFirstColumn
                         columns={cols}
                         rows={limitedRows}

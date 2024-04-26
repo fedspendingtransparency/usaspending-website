@@ -19,6 +19,15 @@
     .results-table-width-master {
         width: 100%;
     }
+
+    .advanced-search__table-wrapper {
+        width: auto;
+        overflow-x: scroll;
+        .advanced-search__table {
+            margin-top: -1px;
+        }
+    }
+
     .results-table-message {
         margin-top: 1rem;
         font-size: $small-font-size;
