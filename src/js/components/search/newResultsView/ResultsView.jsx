@@ -4,8 +4,11 @@
 
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
+import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
+import { performSpendingByAwardTabCountSearch } from "helpers/searchHelper";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
@@ -31,6 +34,27 @@ const ResultsView = (props) => {
 
     const observerOptions = {
         threshold: 0.1
+    };
+
+    const filters = useSelector((state) => state.appliedFilters.filters);
+    const subaward = useSelector((state) => state.searchView.subaward);
+
+    const checkForData = () => {
+        const searchParamsTemp = new SearchAwardsOperation();
+        searchParamsTemp.fromState(filters);
+
+        const countRequest = performSpendingByAwardTabCountSearch({
+            filters: searchParamsTemp.toParams(),
+            subawards: subaward
+        });
+
+        countRequest.promise
+            .then((res) => {
+                console.log("data: ", res.data);
+            })
+            .catch((err) => {
+                console.log("err: ", err);
+            });
     };
 
     const callbackFunction = (entries) => {
@@ -82,6 +106,10 @@ const ResultsView = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [observerSupported]);
 
+    useEffect(() => {
+        checkForData();
+    }, [checkForData, filters, subaward]);
+
     let mobileFilters = '';
     if (props.showMobileFilters && props.isMobile) {
         mobileFilters = 'behind-filters';
@@ -102,6 +130,8 @@ const ResultsView = (props) => {
             <div className="search-results-wrapper">
                 <TopFilterBarContainer {...props} />
                 <div className={`search-results ${mobileFilters}`}>
+                    {console.log("filters: ", filters)}
+                    {console.log("subaward: ", subaward)}
                     {content}
                 </div>
             </div>
