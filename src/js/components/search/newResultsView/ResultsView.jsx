@@ -15,6 +15,7 @@ import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
 import MapSection from "./map/MapSection";
 import NewSearchScreen from "./NewSearchScreen";
+import NoDataScreen from "./NoDataScreen";
 
 require("pages/search/searchPage.scss");
 
@@ -31,6 +32,7 @@ const ResultsView = (props) => {
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
+    const [hasResults, setHasResults] = useState(false);
 
     const observerOptions = {
         threshold: 0.1
@@ -50,7 +52,12 @@ const ResultsView = (props) => {
 
         countRequest.promise
             .then((res) => {
-                console.log("data: ", res.data);
+                const {
+                    contracts, direct_payments, grants, idvs, loans, other
+                } = res.data.results;
+                const resCount = contracts + direct_payments + grants + idvs + loans + other;
+
+                resCount > 0 ? setHasResults(true) : setHasResults(false);
             })
             .catch((err) => {
                 console.log("err: ", err);
@@ -116,7 +123,7 @@ const ResultsView = (props) => {
     }
 
     let content = <NewSearchScreen />;
-    if (!props.noFiltersApplied) {
+    if (!props.noFiltersApplied && hasResults) {
         content = (<>
             <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
             <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} />
@@ -124,14 +131,15 @@ const ResultsView = (props) => {
             <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
         </>);
     }
+    else if (!props.noFiltersApplied && !hasResults) {
+        content = <NoDataScreen />;
+    }
 
     return (
         <PageFeatureFlag>
             <div className="search-results-wrapper">
                 <TopFilterBarContainer {...props} />
                 <div className={`search-results ${mobileFilters}`}>
-                    {console.log("filters: ", filters)}
-                    {console.log("subaward: ", subaward)}
                     {content}
                 </div>
             </div>

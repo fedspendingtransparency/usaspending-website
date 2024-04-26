@@ -6,7 +6,7 @@
 import React from 'react';
 
 const NewSearchScreen = () => (
-    <div>Hellow</div>
+    <div>Start new search</div>
 );
 
 export default NewSearchScreen;
