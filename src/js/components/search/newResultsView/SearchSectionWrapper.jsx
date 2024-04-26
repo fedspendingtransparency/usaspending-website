@@ -33,7 +33,9 @@ const SearchSectionWrapper = ({
     dsmContent,
     isLoading,
     hasNoData,
-    isError
+    isError,
+    columns,
+    rows
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -62,8 +64,12 @@ const SearchSectionWrapper = ({
     };
 
     const Content = () => {
+        console.log('search wrapper', columns);
+        console.log('search wrapper', rows);
         if (viewType === 'table') {
-            return <SectionDataTable />;
+            return (<SectionDataTable
+                columns={columns}
+                rows={rows} />);
         }
 
         return children;

@@ -17,6 +17,7 @@ import * as MonthHelper from 'helpers/monthHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import {formatMoneyWithPrecision} from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -40,8 +41,59 @@ const TimeVisualizationSectionContainer = (props) => {
         ySeries: [],
         rawLabels: []
     });
+    const [transformedVizData, setTransformedVizData] = useState([]);
+    const [tableRows, setTableRows] = useState([]);
 
     let apiRequest = null;
+
+    const columns = {
+        month: [
+            {
+                title: 'months',
+                displayName: ["Months"],
+                right: false
+            },
+            {
+                title: "fy",
+                displayName: ["Fiscal Year"],
+                right: false
+            },
+            {
+                title: "obligations",
+                displayName: ["Obligations"],
+                right: true
+            }
+        ],
+        quarter: [
+            {
+                title: 'quarters',
+                displayName: ["Quarters"],
+                right: false
+            },
+            {
+                title: "fy",
+                displayName: ["Fiscal Year"],
+                right: false
+            },
+            {
+                title: "obligations",
+                displayName: ["Obligations"],
+                right: true
+            }
+        ],
+        fiscal_year: [
+            {
+                title: "fy",
+                displayName: ["Fiscal Year"],
+                right: false
+            },
+            {
+                title: "obligations",
+                displayName: ["Obligations"],
+                right: true
+            }
+        ]
+    };
 
     const generateTimeLabel = (group, timePeriod) => {
         if (group === 'fiscal_year') {
@@ -145,14 +197,28 @@ const TimeVisualizationSectionContainer = (props) => {
             });
     };
 
+    const generateTableRows = () => {
+        const rows = [];
+        for (let i = 0; i < parsedData.rawLabels?.length; i++) {
+            const row = [];
+            if (parsedData.rawLabels[i].period) {
+                row.push(parsedData.rawLabels[i].period);
+            }
+            row.push(parsedData.rawLabels[i].year);
+            row.push(formatMoneyWithPrecision(parsedData.ySeries[i]));
+            rows.push(row);
+        }
+        setTableRows(rows);
+    };
+
     const transformData = () => {
         const transformedData = [];
         let label;
         let value;
-        for (let i = 0; i < props.xSeries?.length; i++) {
-            if (props.ySeries[i][0] !== 0) {
-                label = props.xSeries[i][0];
-                value = props.ySeries[i][0];
+        for (let i = 0; i < parsedData.xSeries?.length; i++) {
+            if (parsedData.ySeries[i][0] !== 0) {
+                label = parsedData.xSeries[i][0];
+                value = parsedData.ySeries[i][0];
             }
             else if (transformedData[transformedData?.length - 1]?.value !== "jump") {
                 label = "jump";
@@ -170,7 +236,11 @@ const TimeVisualizationSectionContainer = (props) => {
         if (transformedData[transformedData?.length - 1]?.label === "jump") {
             transformedData.pop();
         }
-    }
+
+        setTransformedVizData(transformedData);
+        generateTableRows();
+    };
+
     const fetchData = () => {
         props.setAppliedFilterCompletion(false);
         setParsedData({ ...parseData, loading: true, error: false });
@@ -192,6 +262,7 @@ const TimeVisualizationSectionContainer = (props) => {
 
     useEffect(() => {
         fetchData();
+        console.log(visualizationPeriod);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visualizationPeriod]);
 
@@ -200,7 +271,7 @@ const TimeVisualizationSectionContainer = (props) => {
             props.setAppliedFilterCompletion(true);
         }
 
-
+        transformData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData]);
 
@@ -216,11 +287,13 @@ const TimeVisualizationSectionContainer = (props) => {
         <SearchSectionWrapper
             {...props.wrapperProps}
             data={parsedData}
+            columns={columns[visualizationPeriod]}
+            rows={tableRows}
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}>
             <TimeVisualizationChart
-                {...parsedData}
+                transformedData={transformedVizData}
                 visualizationPeriod={visualizationPeriod}
                 subaward={props.subaward} />
         </SearchSectionWrapper>

@@ -72,7 +72,7 @@ const CustomYTick = (props) => {
 
 
 const TimeVisualizationChart = (props) => {
-    const transformedData = [];
+    const { transformedData } = props;
     const [focusBar, setFocusBar] = useState(null);
 
     const onMouseLeave = () => {
