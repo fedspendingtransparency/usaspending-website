@@ -25,6 +25,17 @@
                 }
             }
         }
+
+        .usda-table__cell {
+            p {
+                margin-bottom: 0;
+            }
+            .read-more-button {
+                @include button-link;
+                text-transform: lowercase;
+            }
+        }
+
     }
 
     .ibt-table-container {
