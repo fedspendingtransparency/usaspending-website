@@ -318,7 +318,6 @@ const ResultsTableContainer = (props) => {
             };
         }
         setTableType(tab);
-        console.debug("newState: ", newState);
         if (newState.sort) {
             setSort(Object.assign(newState.sort));
         }
@@ -412,7 +411,6 @@ const ResultsTableContainer = (props) => {
     };
 
     const updateSort = (field, direction) => {
-        console.debug("in update sort: ", field, direction);
         if (field === 'Action Date') {
             setSort(Object.assign({
                 field: 'Sub-Award Date',
