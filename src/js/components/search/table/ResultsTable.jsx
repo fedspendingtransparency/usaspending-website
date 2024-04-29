@@ -12,6 +12,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
+import ReadMore from '../../../components/sharedComponents/ReadMore';
 
 // saving in case we need these
 // const rowHeight = 40;
@@ -236,7 +237,9 @@ export default class ResultsTable extends React.Component {
                     obj['End Date'] || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
-                    obj.Description || '--',
+                    <ReadMore
+                        text={obj.Description || '--'}
+                        limit={40} />,
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
