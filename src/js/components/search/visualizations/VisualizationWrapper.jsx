@@ -39,7 +39,6 @@ const VisualizationWrapper = (props) => {
     const history = useHistory();
     let _queuedAnalyticEvent = null;
 
-    console.debug("VIZ WRAPPER: ", props);
     const logVisualizationTab = useCallback((tab) => {
         if (props.noFiltersApplied) {
             // no filters are applied yet, don't log an analytic event
