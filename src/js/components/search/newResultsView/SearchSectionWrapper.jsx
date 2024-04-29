@@ -15,14 +15,13 @@ const propTypes = {
     sectionTitle: PropTypes.string,
     dropdownOptions: PropTypes.array,
     selectedDropdownOption: PropTypes.string,
-    viewType: PropTypes.string,
-    setViewType: PropTypes.func,
-    chart: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    table: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     dsmContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,
-    hasNoData: PropTypes.bool
+    hasNoData: PropTypes.bool,
+    fetchData: PropTypes.func,
+    columns: PropTypes.array,
+    rows: PropTypes.array
 };
 
 const SearchSectionWrapper = ({
@@ -35,7 +34,8 @@ const SearchSectionWrapper = ({
     hasNoData,
     isError,
     columns,
-    rows
+    rows,
+    fetchData
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -64,10 +64,9 @@ const SearchSectionWrapper = ({
     };
 
     const Content = () => {
-        console.log('search wrapper', columns);
-        console.log('search wrapper', rows);
         if (viewType === 'table') {
             return (<SectionDataTable
+                fetchData={fetchData}
                 columns={columns}
                 rows={rows} />);
         }

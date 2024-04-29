@@ -17,7 +17,7 @@ import * as MonthHelper from 'helpers/monthHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
-import {formatMoneyWithPrecision} from "../../../helpers/moneyFormatter";
+import { formatMoneyWithPrecision } from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -45,6 +45,18 @@ const TimeVisualizationSectionContainer = (props) => {
     const [tableRows, setTableRows] = useState([]);
 
     let apiRequest = null;
+    const fy = [
+        {
+            title: "fy",
+            displayName: ["Fiscal Year"],
+            right: false
+        },
+        {
+            title: "obligations",
+            displayName: ["Obligations"],
+            right: true
+        }
+    ];
 
     const columns = {
         month: [
@@ -53,16 +65,7 @@ const TimeVisualizationSectionContainer = (props) => {
                 displayName: ["Months"],
                 right: false
             },
-            {
-                title: "fy",
-                displayName: ["Fiscal Year"],
-                right: false
-            },
-            {
-                title: "obligations",
-                displayName: ["Obligations"],
-                right: true
-            }
+            ...fy
         ],
         quarter: [
             {
@@ -70,29 +73,9 @@ const TimeVisualizationSectionContainer = (props) => {
                 displayName: ["Quarters"],
                 right: false
             },
-            {
-                title: "fy",
-                displayName: ["Fiscal Year"],
-                right: false
-            },
-            {
-                title: "obligations",
-                displayName: ["Obligations"],
-                right: true
-            }
+            ...fy
         ],
-        fiscal_year: [
-            {
-                title: "fy",
-                displayName: ["Fiscal Year"],
-                right: false
-            },
-            {
-                title: "obligations",
-                displayName: ["Obligations"],
-                right: true
-            }
-        ]
+        fiscal_year: fy
     };
 
     const generateTimeLabel = (group, timePeriod) => {
@@ -205,7 +188,7 @@ const TimeVisualizationSectionContainer = (props) => {
                 row.push(parsedData.rawLabels[i].period);
             }
             row.push(parsedData.rawLabels[i].year);
-            row.push(formatMoneyWithPrecision(parsedData.ySeries[i]));
+            row.push(parsedData.ySeries[i][0]);
             rows.push(row);
         }
         setTableRows(rows);

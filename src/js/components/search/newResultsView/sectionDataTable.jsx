@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import { Table } from "data-transparency-ui";
+/**
+ * SectionDataTable.jsx
+ *  Created by Andrea Blackwell 04/29/2024
+ *  */
+
+import React, { useState, useEffect } from 'react';
+import { Pagination, Table } from "data-transparency-ui";
+import { calculatePageRange } from "helpers/paginationHelper";
 
 
 const SectionDataTable = (props) => {
     const [sortDirection, setSortDirection] = useState('asc');
     const [activeField, setActiveField] = useState('obligations');
+    const [rows, setRows] = useState(props.rows ? props.rows : [[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
 
     const columns = props.columns ? props.columns : [
         {
@@ -23,27 +32,64 @@ const SectionDataTable = (props) => {
         }
     ];
 
-    const rows = props.rows ? props.rows : [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-
-    const updateSort = (field, direction) => {
-        setSortDirection(() => {
-            if (direction === 'asc') {
-                return 'desc';
+    const sortBy = (field, direction) => {
+        const updatedTable = [];
+        for (let i = 0; i < rows?.length; i++) {
+            const updatedRow = {};
+            for (let j = 0; j < rows[i].length; j++) {
+                updatedRow[columns[j].title] = rows[i][j];
             }
-            return 'asc';
-        });
+            updatedTable.push(updatedRow);
+        }
 
-        setActiveField(field);
+        if (direction === 'desc') {
+            updatedTable.sort((a, b) => a[field] - b[field]);
+        } else {
+            updatedTable.sort((a, b) => b[field] - a[field]);
+        }
 
-        // make an api call to get sorted data
+        const sortedTable = [];
+        for (let i = 0; i < updatedTable?.length; i++) {
+            const updatedRow = [];
+            for (let j = 0; j < Object.keys(updatedTable[i])?.length; j++) {
+                updatedRow.push(updatedTable[i][Object.keys(updatedTable[i])[j]]);
+            }
+            sortedTable.push(updatedRow);
+        }
+
+        setRows(sortedTable);
     };
 
+    const changePage = (page) => {
+        console.log("change page!", page);
+    };
+
+    const updateSort = (field) => {
+        const direction = sortDirection === 'asc' ? 'desc' : 'asc';
+        setSortDirection(direction);
+        setActiveField(field);
+        sortBy(field, direction);
+        // make an api call to get sorted data or use the internal sort function
+    };
+
+    useEffect(() => {
+        console.log(sortDirection);
+    }, [sortDirection]);
+
     return (
-        <Table
-            currentSort={{ direction: sortDirection, field: activeField }}
-            updateSort={updateSort}
-            columns={columns}
-            rows={rows} />
+        <>
+            <Table
+                currentSort={{ direction: sortDirection, field: activeField }}
+                updateSort={updateSort}
+                columns={columns}
+                rows={rows} />
+            <Pagination
+                resultsText
+                totalItems={rows.length}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                changePage={changePage} />
+        </>
     );
 };
 
