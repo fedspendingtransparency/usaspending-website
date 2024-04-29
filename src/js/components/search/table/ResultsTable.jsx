@@ -258,7 +258,7 @@ export default class ResultsTable extends React.Component {
                 <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Sub-Award ID']}</a> || '--',
                 obj['Sub-Awardee Name'] || '--',
                 obj['Sub-Award Date'] || '--',
-                obj['Sub-Award Amount'] || '--',
+                MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
                 obj['Awarding Agency'] || '--',
                 obj['Awarding Sub Agency'] || '--',
                 <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Prime Award ID']}</a> || '--',
