@@ -57,7 +57,12 @@ const ResultsView = (props) => {
                 } = res.data.results;
                 const resCount = contracts + direct_payments + grants + idvs + loans + other;
 
-                resCount > 0 ? setHasResults(true) : setHasResults(false);
+                if (resCount > 0) {
+                    setHasResults(true);
+                }
+                else {
+                    setHasResults(false);
+                }
             })
             .catch((err) => {
                 console.log("err: ", err);
