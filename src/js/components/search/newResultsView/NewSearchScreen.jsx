@@ -4,12 +4,15 @@
  */
 
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../sharedComponents/buttons/Button";
 import { updateTimePeriod } from "../../../redux/actions/search/searchFilterActions";
+import { applyStagedFilters, setAppliedFilterCompletion } from "../../../redux/actions/search/appliedFilterActions";
 
 const NewSearchScreen = () => {
     const dispatch = useDispatch();
+    const filters = useSelector((state) => state.filters);
+
     const lastYear = new Date().getFullYear() - 1;
     const timePeriodFilter = {
         dateType: "fy",
@@ -17,7 +20,12 @@ const NewSearchScreen = () => {
         start: null,
         end: null
     };
-    const handleOnClick = () => dispatch(updateTimePeriod(timePeriodFilter));
+    const handleOnClick = () => {
+        dispatch(setAppliedFilterCompletion(false));
+        dispatch(updateTimePeriod(timePeriodFilter));
+        dispatch(applyStagedFilters(filters));
+        dispatch(setAppliedFilterCompletion(true));
+    };
 
     return (
         <div className="new-search-container">
