@@ -90,7 +90,6 @@ const ResultsTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [results, setResults] = useState([]);
     const [total, setTotal] = useState(0);
-    const [limitedResults, setLimitedResults] = useState([]);
     const [resultLimit, setResultLimit] = useState(10);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
@@ -202,13 +201,8 @@ const ResultsTableContainer = (props) => {
                 }));
 
                 // don't clear records if we're appending (not the first page)
-                if (pageNumber <= 1 || newSearch) {
-                    newState.tableInstance = `${uniqueId()}`;
-                    newState.results = parsedResults;
-                }
-                else {
-                    newState.results = results.concat(parsedResults);
-                }
+                newState.tableInstance = `${uniqueId()}`;
+                newState.results = parsedResults;
 
                 if (newSearch) {
                     setTotal(newState.results.length);
@@ -222,9 +216,6 @@ const ResultsTableContainer = (props) => {
                 setTableInstance(newState.tableInstance);
                 setResults(newState.results);
 
-                if (resultLimit) {
-                    setLimitedResults(newState.results.slice((page - 1) * resultLimit, (page * resultLimit)));
-                }
                 if (newState.results.length > 0) {
                     props.setHasResults(true);
                 }
@@ -534,7 +525,6 @@ const ResultsTableContainer = (props) => {
             subAwardIdClick={subAwardIdClick}
             page={page}
             setPage={setPage}
-            limitedResults={limitedResults}
             total={total}
             resultsLimit={resultLimit}
             setResultLimit={setResultLimit}

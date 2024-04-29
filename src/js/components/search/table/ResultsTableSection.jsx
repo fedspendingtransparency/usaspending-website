@@ -30,7 +30,6 @@ const propTypes = {
     subAwardIdClick: PropTypes.func,
     page: PropTypes.number,
     setPage: PropTypes.func,
-    limitedResults: PropTypes.array,
     total: PropTypes.number
 };
 

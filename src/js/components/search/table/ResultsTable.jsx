@@ -224,7 +224,8 @@ export default class ResultsTable extends React.Component {
         // page = 2, need 10 - 19 etc
         // (page * limit) - 1 end
         // (page - 1) * limit start
-        const arrayOfObjects = this.props.limitedResults;
+        const arrayOfObjects = this.props.results;
+
         let values = null;
         if (!this.props.subaward) {
             values = arrayOfObjects.map((obj) => {
@@ -277,7 +278,7 @@ export default class ResultsTable extends React.Component {
 
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
-
+        console.debug("stuff: ", this.props, cols, limitedRows);
         return (
             <>
                 <div className="advanced-search__table-wrapper">
