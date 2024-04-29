@@ -204,11 +204,17 @@ export default class ResultsTable extends React.Component {
 
     prepareDTUIColumns() {
         const columnOrder = this.props.columns.visibleOrder;
-        const columns = columnOrder.map((columnTitle) => {
+        const orderedColumns = columnOrder.map((columnTitle) => {
             const column = this.props.columns.data[columnTitle];
             return column;
         });
 
+        // the columns passed in don't have the right properties, if we
+        // don't do this sort won't work
+        const columns = orderedColumns.map((col) => ({
+            title: col.columnName,
+            displayName: col.displayName
+        }));
         return columns;
     }
 
@@ -222,7 +228,6 @@ export default class ResultsTable extends React.Component {
         let values = null;
         if (!this.props.subaward) {
             values = arrayOfObjects.map((obj) => {
-                console.debug(obj['Total Outlays']);
                 const value = [];
                 value.push(
                     <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
@@ -266,13 +271,13 @@ export default class ResultsTable extends React.Component {
     }
 
     render() {
-        console.debug("props: ", this.props);
         if (this.props.results.length === 0) {
             // replace with no results component not a class
         }
 
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
+
         return (
             <>
                 <div className="advanced-search__table-wrapper">
