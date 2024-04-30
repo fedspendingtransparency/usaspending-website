@@ -281,7 +281,6 @@ export default class ResultsTable extends React.Component {
 
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
-        console.debug("stuff: ", this.props, cols, limitedRows);
         return (
             <>
                 <div className="advanced-search__table-wrapper">
