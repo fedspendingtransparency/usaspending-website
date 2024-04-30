@@ -127,7 +127,12 @@ const ResultsView = (props) => {
         mobileFilters = 'behind-filters';
     }
 
-    let content = <NewSearchScreen />;
+    let content = (
+        <NewSearchScreen
+            observerSupported={observerSupported}
+            setObserverSupported={setObserverSupported} />
+    );
+
     if (!props.noFiltersApplied && hasResults) {
         content = (<>
             <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />

@@ -7,9 +7,13 @@ import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../sharedComponents/buttons/Button";
 import { updateTimePeriod } from "../../../redux/actions/search/searchFilterActions";
-import { applyStagedFilters, setAppliedFilterCompletion } from "../../../redux/actions/search/appliedFilterActions";
+import {
+    applyStagedFilters,
+    setAppliedFilterCompletion,
+    setAppliedFilterEmptiness
+} from "../../../redux/actions/search/appliedFilterActions";
 
-const NewSearchScreen = () => {
+const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
     const dispatch = useDispatch();
     const filters = useSelector((state) => state.filters);
 
@@ -21,10 +25,13 @@ const NewSearchScreen = () => {
         end: null
     };
     const handleOnClick = () => {
-        dispatch(setAppliedFilterCompletion(false));
         dispatch(updateTimePeriod(timePeriodFilter));
+        dispatch(setAppliedFilterCompletion(false));
         dispatch(applyStagedFilters(filters));
         dispatch(setAppliedFilterCompletion(true));
+        dispatch(setAppliedFilterEmptiness(false));
+
+        setObserverSupported(!observerSupported);
     };
 
     return (
