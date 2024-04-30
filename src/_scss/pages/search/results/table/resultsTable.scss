@@ -33,6 +33,11 @@
             .read-more-button {
                 @include button-link;
                 text-transform: lowercase;
+                color: $blue-50;
+                &:hover {
+                    text-decoration: none;
+                    color: $blue-70v;
+                }
             }
         }
 
