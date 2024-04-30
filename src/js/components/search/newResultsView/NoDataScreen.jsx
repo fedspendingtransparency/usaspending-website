@@ -6,7 +6,12 @@
 import React from 'react';
 
 const NoDataScreen = () => (
-    <div>No data available</div>
+    <div className="new-search-container">
+        <img
+            className="no-results-icon"
+            src="graphics/No-results.svg"
+            alt="alt-text" />
+        <p>No results found. Please adjust your search filters and try again.</p>
+    </div>
 );
-
 export default NoDataScreen;
