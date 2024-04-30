@@ -11,9 +11,12 @@ import { calculatePageRange } from "helpers/paginationHelper";
 const SectionDataTable = (props) => {
     const [sortDirection, setSortDirection] = useState('asc');
     const [activeField, setActiveField] = useState('obligations');
-    const [rows, setRows] = useState(props.rows ? props.rows : [[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+    const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
+    const [formattedTable, setFormattedTable] = useState([]);
+
+    const maxRows = props.rows ? props.rows : [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 
     const columns = props.columns ? props.columns : [
         {
@@ -62,15 +65,29 @@ const SectionDataTable = (props) => {
 
     const changePage = (page) => {
         console.log("change page!", page);
+        setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));
     };
 
     const updateSort = (field) => {
         const direction = sortDirection === 'asc' ? 'desc' : 'asc';
         setSortDirection(direction);
         setActiveField(field);
+        setCurrentPage(1);
         sortBy(field, direction);
         // make an api call to get sorted data or use the internal sort function
     };
+
+    useEffect(() => {
+        if (pageSize) {
+            console.log(maxRows);
+            console.log(props.manualSort);
+
+            let tempRows = maxRows.slice(0, pageSize);
+            if (props.manualSort) {
+                setRows(maxRows.slice(0, pageSize));
+            }
+        }
+    }, [pageSize]);
 
     useEffect(() => {
         console.log(sortDirection);
@@ -79,13 +96,14 @@ const SectionDataTable = (props) => {
     return (
         <>
             <Table
+                classNames="search-results"
                 currentSort={{ direction: sortDirection, field: activeField }}
                 updateSort={updateSort}
                 columns={columns}
                 rows={rows} />
             <Pagination
                 resultsText
-                totalItems={rows.length}
+                totalItems={maxRows.length}
                 pageSize={pageSize}
                 currentPage={currentPage}
                 changePage={changePage} />

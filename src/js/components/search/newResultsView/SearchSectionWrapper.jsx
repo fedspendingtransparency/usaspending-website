@@ -68,7 +68,8 @@ const SearchSectionWrapper = ({
             return (<SectionDataTable
                 fetchData={fetchData}
                 columns={columns}
-                rows={rows} />);
+                rows={rows}
+                manualSort />);
         }
 
         return children;

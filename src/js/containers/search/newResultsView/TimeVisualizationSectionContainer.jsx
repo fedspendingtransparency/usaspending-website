@@ -274,7 +274,8 @@ const TimeVisualizationSectionContainer = (props) => {
             rows={tableRows}
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
-            hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}>
+            hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
+            manualSort>
             <TimeVisualizationChart
                 transformedData={transformedVizData}
                 visualizationPeriod={visualizationPeriod}
