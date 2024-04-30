@@ -9,8 +9,7 @@ import Button from "../../sharedComponents/buttons/Button";
 import { updateTimePeriod } from "../../../redux/actions/search/searchFilterActions";
 import {
     applyStagedFilters,
-    setAppliedFilterCompletion,
-    setAppliedFilterEmptiness
+    setAppliedFilterCompletion
 } from "../../../redux/actions/search/appliedFilterActions";
 
 const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
@@ -25,12 +24,13 @@ const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
         end: null
     };
     const handleOnClick = () => {
+        // replicating applyStagedFilters() in SearchSidebarSubmitContainer lines 91:107
         dispatch(updateTimePeriod(timePeriodFilter));
         dispatch(setAppliedFilterCompletion(false));
         dispatch(applyStagedFilters(filters));
         dispatch(setAppliedFilterCompletion(true));
-        dispatch(setAppliedFilterEmptiness(false));
 
+        // placed here to show all components
         setObserverSupported(!observerSupported);
     };
 
