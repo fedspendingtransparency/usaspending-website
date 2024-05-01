@@ -29,8 +29,7 @@ const Header = () => {
     };
 
     const isBannerActive = () => {
-        if (GlobalConstants.BANNER.isActive) {
-            console.log("HERE", location);
+        if (GlobalConstants?.BANNER?.isActive) {
             if (GlobalConstants.BANNER.page && GlobalConstants.BANNER.page !== "") {
                 return location.pathname === GlobalConstants.BANNER.page;
             }
@@ -57,7 +56,7 @@ const Header = () => {
                         icon={<FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />}
                         borderTopColor="#f9c642"
                         backgroundColor="#fff1d2"
-                        title={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.title : ""}
+                        title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
                         content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
                 <NavbarWrapper />
             </header>
