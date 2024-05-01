@@ -7,7 +7,6 @@
     .info-banner__content {
         @include display(flex);
         @include align-items(flex-start);
-        align-content: center;
         @media(max-width: $tablet-screen) {
             margin: rem(16) rem(16) rem(16) rem(20);
         }

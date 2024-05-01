@@ -166,7 +166,6 @@ const SearchPage = ({
                     onClick={showDownloadModal} />
             ]}
             filters={appliedFilters}>
-
             <div id="main-content">
                 <FlexGridRow className="search-contents" >
                     <FlexGridCol className="full-search-sidebar" width={3}>
