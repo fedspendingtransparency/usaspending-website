@@ -79,12 +79,8 @@ const SectionDataTable = (props) => {
 
     useEffect(() => {
         if (pageSize) {
-            console.log(maxRows);
-            console.log(props.manualSort);
-
-            let tempRows = maxRows.slice(0, pageSize);
             if (props.manualSort) {
-                setRows(maxRows.slice(0, pageSize));
+                setRows(maxRows.slice(currentPage - 1, pageSize));
             }
         }
     }, [pageSize]);
