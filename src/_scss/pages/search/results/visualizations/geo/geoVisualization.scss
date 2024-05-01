@@ -148,7 +148,8 @@
 
   @import "./map/map";
   .visualization-tooltip {
-    @import "components/visualizations/tooltip/_tooltip";
+    @import "components/visualizations/tooltip/_newTooltip";
+    background-color: red ;
   }
   //HIDE THE MAPBOX COMPASS CONTROLS
   & .mapboxgl-ctrl-compass {
