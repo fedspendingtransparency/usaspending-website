@@ -33,12 +33,12 @@ const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
 
 
     const handleOnClick = () => {
-        // replicating applyStagedFilters() in SearchSidebarSubmitContainer lines 91:107
         dispatch(updateTimePeriod(timePeriodFilter));
         dispatch(setAppliedFilterCompletion(false));
         dispatch(applyStagedFilters(updatedFilter));
         dispatch(setAppliedFilterCompletion(true));
-        // placed here to show all components
+
+        // placed here to show all components after search complete
         setObserverSupported(!observerSupported);
     };
 
