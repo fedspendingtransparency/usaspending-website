@@ -52,10 +52,12 @@ const ResultsView = (props) => {
 
         countRequest.promise
             .then((res) => {
+                /* eslint-disable camelcase */
                 const {
                     contracts, direct_payments, grants, idvs, loans, other
                 } = res.data.results;
                 const resCount = contracts + direct_payments + grants + idvs + loans + other;
+                /* eslint-enable camelcase */
 
                 if (resCount > 0) {
                     setHasResults(true);
