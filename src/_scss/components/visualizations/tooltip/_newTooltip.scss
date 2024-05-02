@@ -8,33 +8,24 @@
   position: absolute;
   z-index: 3;
 
-  // TODO: ?
-  @include media($tablet-screen) {
-    max-width: auto;
-  }
-
   border: 1px solid $color-gray-light;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);
   background-color: $color-white;
   padding: rem(16);
 
-  // TODO: ?
   @import "./_arrow";
 
   .tooltip-title {
     color: $gray-90;
     font-size: $font-size-16;
     font-weight: $font-semibold;
-
-    // TODO: ?
-    padding-bottom: rem(16);
-    z-index: 9;
+    line-height: 1.25;
   }
 
   .tooltip-body {
     @include display(flex);
     @include justify-content(space-between);
-    padding: 0;
+    padding: rem(16) 0 0 0;
 
     &.center {
       width: 100%;
@@ -44,33 +35,18 @@
   .tooltip-value, .tooltip-label {
     color: $color-base;
     text-align: center;
-  }+
-
-  .tooltip-value {
-    font-size: $font-size-24;
-    font-weight: $font-normal;
-    line-height: 1;
-    padding: 0 0 rem(10) 0;
-  }
-
-  .tooltip-description {
     font-size: $font-size-14;
-    font-weight: $font-normal;
-    line-height: rem(23);
-    padding: rem(5) 0 0 0;
-    text-align: center;
+    line-height: 1.25;
+    font-weight: $font-semibold;
   }
+
   .tooltip-label {
     font-weight: $font-normal;
-    padding: rem(10) rem(0) rem(0) rem(0);
   }
 
-  .tooltip-footer {
-    background-color: $color-gold-lightest;
-    font-size: $font-size-14;
-    margin: 0 5%;
-    padding: rem(16) rem(15) rem(14);
-    text-align: center;
-    width: 90%;
+  .tooltip-pointer {
+    &:after {
+      display: none;
+    }
   }
 }

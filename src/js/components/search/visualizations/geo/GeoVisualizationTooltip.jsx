@@ -6,7 +6,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const propTypes = {
     label: PropTypes.string,
@@ -78,7 +78,7 @@ const GeoVisualizationTooltip = (props) => {
                             {props.description}
                         </div>}
                     <div className="tooltip-value">
-                        {MoneyFormatter.formatMoney(props.value)}
+                        {formatMoneyWithUnitsShortLabel(props.value)}
                     </div>
                 </div>
             </div>
