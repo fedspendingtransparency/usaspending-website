@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
 import Button from "../../sharedComponents/buttons/Button";
 import { updateTimePeriod } from "../../../redux/actions/search/searchFilterActions";
 import {
@@ -14,22 +15,29 @@ import {
 
 const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
     const dispatch = useDispatch();
-    const filters = useSelector((state) => state.filters);
+    const lastYear = new Set([(fiscalYearHelper.currentFiscalYear() - 1).toString()]);
 
-    const lastYear = new Date().getFullYear() - 1;
     const timePeriodFilter = {
         dateType: "fy",
-        fy: new Set([lastYear]),
+        fy: lastYear,
         start: null,
         end: null
     };
+
+    const filter = useSelector((state) => state.filters);
+
+    const updatedFilter = {
+        ...filter,
+        timePeriod: timePeriodFilter
+    };
+
+
     const handleOnClick = () => {
         // replicating applyStagedFilters() in SearchSidebarSubmitContainer lines 91:107
         dispatch(updateTimePeriod(timePeriodFilter));
         dispatch(setAppliedFilterCompletion(false));
-        dispatch(applyStagedFilters(filters));
+        dispatch(applyStagedFilters(updatedFilter));
         dispatch(setAppliedFilterCompletion(true));
-
         // placed here to show all components
         setObserverSupported(!observerSupported);
     };

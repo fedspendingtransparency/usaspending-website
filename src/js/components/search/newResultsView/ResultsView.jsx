@@ -120,7 +120,8 @@ const ResultsView = (props) => {
 
     useEffect(() => {
         checkForData();
-    }, [checkForData, filters, subaward]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filters, subaward]);
 
     let mobileFilters = '';
     if (props.showMobileFilters && props.isMobile) {
