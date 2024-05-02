@@ -9,7 +9,7 @@ import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparenc
 import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
-import SectionDataTable from "./sectionDataTable";
+import SectionDataTable from "./SectionDataTable";
 
 const propTypes = {
     sectionTitle: PropTypes.string,

@@ -30,10 +30,7 @@ const SpendingByCategoriesChart = (props) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [isSmMobile, setIsSmMobile] = useState(window.innerWidth < smTabletScreen);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
     const labelWidthVar = isMobile ? 400 : 175;
-    const [rows, setRows] = useState([]);
 
     const dataStuff = [];
     if (props.dataSeries?.length === props.labelSeries?.length) {
@@ -48,15 +45,6 @@ const SpendingByCategoriesChart = (props) => {
             });
         }
     }
-
-    useEffect(() => {
-        setRows(dataStuff.slice(0, pageSize));
-    }, [dataStuff]);
-
-    const changePage = (page) => {
-        console.log("change page!", page);
-        setRows(dataStuff.slice((page - 1) * pageSize, page * pageSize));
-    };
 
     const CustomTick = (args) => {
         const {
@@ -142,18 +130,6 @@ const SpendingByCategoriesChart = (props) => {
                     </Bar>
                 </BarChart>
             </ResponsiveContainer>
-            {/*currentPage={currentPage}*/}
-            {/*changePage={changeCurrentPage}*/}
-            {/*changeLimit={changePageSize}*/}
-            {/*resultsText*/}
-            {/*pageSize={10}*/}
-            {/*totalItems={totalItems}*/}
-            <Pagination
-                resultsText
-                totalItems={dataStuff.length}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                changePage={changePage} />
         </>
     );
 };
