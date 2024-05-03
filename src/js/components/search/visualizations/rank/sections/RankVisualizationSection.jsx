@@ -1,5 +1,5 @@
 /**
-  * CategorySectionWrapper.jsx
+  * CategoriesSectionWrapper.jsx
   * Created by Kevin Li 12/13/16
   **/
 

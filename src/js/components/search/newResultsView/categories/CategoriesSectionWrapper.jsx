@@ -1,5 +1,5 @@
 /**
-  * CategorySectionWrapper.jsx
+  * CategoriesSectionWrapper.jsx
   * Created by Andrea Blackwell 05/03/2024
   **/
 
@@ -18,7 +18,7 @@ const propTypes = {
     recipientError: PropTypes.bool
 };
 
-const CategorySectionWrapper = (props) => {
+const CategoriesSectionWrapper = (props) => {
     const clickPrevious = () => {
         props.previousPage();
     };
@@ -77,6 +77,6 @@ const CategorySectionWrapper = (props) => {
     );
 };
 
-CategorySectionWrapper.propTypes = propTypes;
+CategoriesSectionWrapper.propTypes = propTypes;
 
-export default CategorySectionWrapper;
+export default CategoriesSectionWrapper;

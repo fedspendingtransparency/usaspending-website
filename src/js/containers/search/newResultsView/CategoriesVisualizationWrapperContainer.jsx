@@ -22,7 +22,7 @@ import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCateg
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import SpendingByCategoriesChart
     from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
-import CategorySectionWrapper from "../../../components/search/newResultsView/categories/CategorySectionWrapper";
+import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -165,7 +165,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setScope(defaultScopes[tempSpendingBy]);
     };
 
-    // TODO:  Need to refactor
+    // TODO:  Need to refactor for 10948
     const parseRank = () => {
         if (history) {
             const params = history.location.search.split("&");
@@ -194,7 +194,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setPage(prevPage);
     };
 
-    // TODO:  Need to refactor the logic for the scope
     const parseData = (data) => {
         const tempLabelSeries = [];
         const tempDataSeries = [];
@@ -370,7 +369,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 hasNoData={childProps?.labelSeries?.length === 0}
                 columns={columns[scope]}
                 rows={tableRows}>
-                <CategorySectionWrapper
+                <CategoriesSectionWrapper
                     {...childProps}
                     changeScope={changeScope}
                     nextPage={nextPage}
@@ -386,7 +385,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                         subaward={props.subaward}
                         isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
                         width="1000px" />
-                </CategorySectionWrapper>
+                </CategoriesSectionWrapper>
             </SearchSectionWrapper>
         </div>
     );

@@ -55,15 +55,26 @@ const SpendingByCategoriesChart = (props) => {
 
         return (
             <g transform={`translate(${x - 8},${translateY})`}>
-                <a href={`${link[payload.index].link}`}>
+                {link[payload.index].link ?
+                    <a href={`${link[payload.index].link}`}>
+                        <Text
+                            textAnchor={isMobile ? "start" : "end"}
+                            fontSize={14}
+                            width={isMobile ? labelWidthVar : labelWidthVar + 16}
+                            fill="#2378C3">
+                            {tickFormatter(payload.value, isSmMobile)}
+                        </Text>
+                    </a>
+                    :
                     <Text
                         textAnchor={isMobile ? "start" : "end"}
                         fontSize={14}
                         width={isMobile ? labelWidthVar : labelWidthVar + 16}
-                        fill="#2378C3">
+                        fill="#5c5c5c">
                         {tickFormatter(payload.value, isSmMobile)}
                     </Text>
-                </a>
+                }
+
             </g>);
     };
 
