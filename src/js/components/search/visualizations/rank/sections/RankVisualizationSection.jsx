@@ -1,5 +1,5 @@
 /**
-  * RankVisualizationSection.jsx
+  * CategorySectionWrapper.jsx
   * Created by Kevin Li 12/13/16
   **/
 

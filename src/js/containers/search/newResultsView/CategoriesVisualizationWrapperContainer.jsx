@@ -1,5 +1,5 @@
 /**
- * RankVisualizationWrapperContainer.jsx
+ * CategoriesVisualizationWrapperContainer.jsx (previously RankVisualizationWrapperContainer.jsx)
  * Created by michaelbray on 4/3/17.
  */
 
@@ -22,6 +22,7 @@ import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCateg
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import SpendingByCategoriesChart
     from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
+import CategorySectionWrapper from "../../../components/search/newResultsView/categories/CategorySectionWrapper";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -37,7 +38,7 @@ const propTypes = {
     wrapperProps: PropTypes.object
 };
 
-const RankVisualizationWrapperContainer = (props) => {
+const CategoriesVisualizationWrapperContainer = (props) => {
     const [spendingBy, setSpendingBy] = useState('awardingAgency');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -193,7 +194,7 @@ const RankVisualizationWrapperContainer = (props) => {
         setPage(prevPage);
     };
 
-    //TODO:  Need to refactor the logic for the scope
+    // TODO:  Need to refactor the logic for the scope
     const parseData = (data) => {
         const tempLabelSeries = [];
         const tempDataSeries = [];
@@ -369,21 +370,29 @@ const RankVisualizationWrapperContainer = (props) => {
                 hasNoData={childProps?.labelSeries?.length === 0}
                 columns={columns[scope]}
                 rows={tableRows}>
-                <SpendingByCategoriesChart
+                <CategorySectionWrapper
                     {...childProps}
                     changeScope={changeScope}
                     nextPage={nextPage}
                     previousPage={previousPage}
-                    industryCodeError={props.subaward}
                     subaward={props.subaward}
-                    isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                    width="1000px" />
+                    isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}>
+                    <SpendingByCategoriesChart
+                        {...childProps}
+                        changeScope={changeScope}
+                        nextPage={nextPage}
+                        previousPage={previousPage}
+                        industryCodeError={props.subaward}
+                        subaward={props.subaward}
+                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                        width="1000px" />
+                </CategorySectionWrapper>
             </SearchSectionWrapper>
         </div>
     );
 };
 
-RankVisualizationWrapperContainer.propTypes = propTypes;
+CategoriesVisualizationWrapperContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -392,4 +401,4 @@ export default connect(
         subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
-)(RankVisualizationWrapperContainer);
+)(CategoriesVisualizationWrapperContainer);
