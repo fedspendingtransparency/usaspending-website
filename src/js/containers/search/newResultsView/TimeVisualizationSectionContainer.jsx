@@ -17,7 +17,6 @@ import * as MonthHelper from 'helpers/monthHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
-import { formatMoneyWithPrecision } from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion

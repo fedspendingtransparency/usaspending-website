@@ -9,7 +9,6 @@ import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import PropTypes from "prop-types";
 import { tabletScreen, smTabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
-import { Pagination } from "data-transparency-ui";
 
 const propTypes = {
     dataSeries: PropTypes.array,
