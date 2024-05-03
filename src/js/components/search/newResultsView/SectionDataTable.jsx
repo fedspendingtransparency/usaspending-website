@@ -14,7 +14,6 @@ const SectionDataTable = (props) => {
     const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const [formattedTable, setFormattedTable] = useState([]);
 
     const maxRows = props.rows ? props.rows : [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 
@@ -47,7 +46,8 @@ const SectionDataTable = (props) => {
 
         if (direction === 'desc') {
             updatedTable.sort((a, b) => a[field] - b[field]);
-        } else {
+        }
+        else {
             updatedTable.sort((a, b) => b[field] - a[field]);
         }
 
@@ -64,7 +64,6 @@ const SectionDataTable = (props) => {
     };
 
     const changePage = (page) => {
-        console.log("change page!", page);
         setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));
     };
 
@@ -83,11 +82,7 @@ const SectionDataTable = (props) => {
                 setRows(maxRows.slice(currentPage - 1, pageSize));
             }
         }
-    }, [pageSize]);
-
-    useEffect(() => {
-        console.log(sortDirection);
-    }, [sortDirection]);
+    }, [currentPage, maxRows, pageSize, props.manualSort]);
 
     return (
         <>

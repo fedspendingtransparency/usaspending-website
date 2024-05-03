@@ -23,6 +23,7 @@ import SearchSectionWrapper from "../../../components/search/newResultsView/Sear
 import SpendingByCategoriesChart
     from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
+import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -367,8 +368,15 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
-                columns={columns[scope]}
-                rows={tableRows}>
+                table={<CategoriesTable
+                    {...childProps}
+                    nextPage={nextPage}
+                    previousPage={previousPage}
+                    hasNextPage={hasNextPage}
+                    hasPreviousPage={hasPreviousPage}
+                    recipientError={recipientError}
+                    columns={columns[scope]}
+                    rows={tableRows} />}>
                 <CategoriesSectionWrapper
                     {...childProps}
                     changeScope={changeScope}

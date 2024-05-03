@@ -35,7 +35,7 @@ const SearchSectionWrapper = ({
     isError,
     columns,
     rows,
-    fetchData
+    table
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -65,8 +65,11 @@ const SearchSectionWrapper = ({
 
     const Content = () => {
         if (viewType === 'table') {
+            if (table) {
+                return table;
+            }
+
             return (<SectionDataTable
-                fetchData={fetchData}
                 columns={columns}
                 rows={rows}
                 manualSort />);

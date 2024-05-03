@@ -1,10 +1,11 @@
 /**
-  * CategoriesSectionWrapper.jsx
-  * Created by Andrea Blackwell 05/03/2024
-  **/
+ * CategoriesTable.jsx
+ * Created by Andrea Blackwell 05/03/2024
+ **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Table } from "data-transparency-ui";
 import CategoriesPagination from "./CategoriesPagination";
 
 const propTypes = {
@@ -18,9 +19,12 @@ const propTypes = {
     recipientError: PropTypes.bool
 };
 
-const CategoriesSectionWrapper = (props) => (
+const CategoriesTable = (props) => (
     <>
-        {props.children}
+        <Table
+            classNames="search-results"
+            columns={props.columns}
+            rows={props.rows} />
         <CategoriesPagination
             nextPage={props.nextPage}
             previousPage={props.previousPage}
@@ -32,5 +36,5 @@ const CategoriesSectionWrapper = (props) => (
     </>
 );
 
-CategoriesSectionWrapper.propTypes = propTypes;
-export default CategoriesSectionWrapper;
+CategoriesTable.propTypes = propTypes;
+export default CategoriesTable;
