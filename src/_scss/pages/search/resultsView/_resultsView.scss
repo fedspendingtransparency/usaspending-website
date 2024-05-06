@@ -1,3 +1,19 @@
+.search__section-wrapper-content {
+  margin-bottom: rem(24);
+
+  .usda-table.search-results {
+    margin-bottom: rem(16);
+  }
+
+  .recharts-wrapper {
+    margin-bottom: rem(16);
+  }
+
+  .visualization-pager {
+    margin-bottom: 0 !important;
+  }
+}
+
 .search-contents {
     padding-top: rem(24);
 
@@ -87,7 +103,7 @@
         }
       }
 
-      @import "../_chartTableToggle";
+      @import "../../../components/chartTableToggle";
 
       .chart-table-toggle {
         border: rem(1) solid $gray-cool-10;
