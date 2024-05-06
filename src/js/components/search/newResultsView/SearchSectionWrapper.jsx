@@ -118,5 +118,4 @@ const SearchSectionWrapper = ({
 };
 
 SearchSectionWrapper.propTypes = propTypes;
-
 export default SearchSectionWrapper;
