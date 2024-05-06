@@ -13,7 +13,9 @@ const SectionDataTable = (props) => {
     const [activeField, setActiveField] = useState('obligations');
     const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    // const [pageSize, setPageSize] = useState(10);
+
+    const pageSize = 10;
 
     const maxRows = props.rows ? props.rows : [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 
