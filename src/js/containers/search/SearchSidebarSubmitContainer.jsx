@@ -90,6 +90,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
 
     applyStagedFilters() {
         this.props.setAppliedFilterCompletion(false);
+
         if (areFiltersEqual(this.props.stagedFilters)) {
             this.resetFilters();
         }
