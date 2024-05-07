@@ -22,11 +22,10 @@ import {
 } from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
-import ResultsTableSection from 'components/search/table/ResultsTableSection';
+import ResultsTableSection from 'components/search/newResultsView/table/ResultsTableSection';
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { setHasResults } from "../../../redux/actions/search/titleBarFilterActions";
-import { DsmWrapper } from "../../../components/search/newResultsView/DsmWrapper";
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 
 const propTypes = {
@@ -88,7 +87,7 @@ const ResultsTableContainer = (props) => {
         field: 'Award Amount',
         direction: 'desc'
     });
-    const [inFlight, setInFlight] = useState(true);
+    const [inFlight, setInFlight] = useState(false);
     const [error, setError] = useState(false);
     const [results, setResults] = useState([]);
     const [total, setTotal] = useState(0);
@@ -97,21 +96,13 @@ const ResultsTableContainer = (props) => {
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
     const initialRender = useRef(true);
 
-    // todo - remove dummy from variable name when this object is finalized
-    const dummyWrapperProps = {
-        sectionTitle: 'Prime Award Results',
-        dsmContent: <DsmWrapper
-            heading={"Prime Award Results:  What's included in this view of the data?"}
-            description="Use the map below to break down spending by state, county, or congressional district." />
-    };
-
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
             searchRequest.cancel();
         }
 
-        props.setAppliedFilterCompletion(false);
+        // props.setAppliedFilterCompletion(false);
         const tableTypeTemp = tableType;
 
         // get searchParams from state
@@ -457,6 +448,7 @@ const ResultsTableContainer = (props) => {
     }));
 
     useEffect(throttle(() => {
+        console.log("ResultsTableContainer useEffect initialRender");
         if (initialRender.current) {
             initialRender.current = false;
         }
@@ -469,6 +461,7 @@ const ResultsTableContainer = (props) => {
     }, 400), [tableType, sort]);
 
     useEffect(throttle(() => {
+        console.log("ResultsTableContainer useEffect updateFilters");
         if (initialRender.current === false) {
             if (props.subaward && !props.noApplied) {
                 // subaward toggle changed, update the search object
@@ -491,9 +484,10 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [props]);
+    }, 400), []);
 
     useEffect(throttle(() => {
+        console.log("ResultsTableContainer useEffect isLoadingNextPage");
         if (isLoadingNextPage) {
             performSearch();
             setLoadNextPage(false);
@@ -501,6 +495,7 @@ const ResultsTableContainer = (props) => {
     }, 400), [isLoadingNextPage]);
 
     useEffect(throttle(() => {
+        console.log("ResultsTableContainer useEffect loadColumns");
         loadColumns();
         if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
@@ -509,6 +504,7 @@ const ResultsTableContainer = (props) => {
     }, 400), []);
 
     useEffect(throttle(() => {
+        console.log("ResultsTableContainer useEffect performSearch");
         performSearch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), [tableType, resultLimit, page]);
@@ -519,7 +515,10 @@ const ResultsTableContainer = (props) => {
 
     return (
         <SearchSectionWrapper
-            {...dummyWrapperProps}>
+            isError={error}
+            isLoading={inFlight}
+            noData={!inFlight && !error && results.length === 0}
+            {...props.wrapperProps}>
             <ResultsTableSection
                 error={error}
                 inFlight={inFlight}
