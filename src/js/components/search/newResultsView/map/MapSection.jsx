@@ -7,9 +7,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import SearchSectionWrapper from "../SearchSectionWrapper";
-import {
-    DsmWrapper, TempPlaceholderComponent
-} from "../DsmWrapper";
+import { DsmWrapper } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
 
 const propTypes = {
@@ -17,7 +15,7 @@ const propTypes = {
     subaward: PropTypes.bool
 };
 
-const MapSection = ({ mapHasLoaded }) => {
+const MapSection = ({ mapHasLoaded, subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('0');
 
     const onClick = (e) => {
@@ -51,11 +49,7 @@ const MapSection = ({ mapHasLoaded }) => {
         <SearchSectionWrapper
             {...wrapperProps}>
             <div id="search-page-component" className="map">
-                {!mapHasLoaded ?
-                    <TempPlaceholderComponent />
-                    :
-                    <MapVisualization />
-                }
+                {mapHasLoaded && <MapVisualization subaward={subaward} />}
             </div>
         </SearchSectionWrapper>
     );
