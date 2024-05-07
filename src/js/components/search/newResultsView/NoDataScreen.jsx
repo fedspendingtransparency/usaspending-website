@@ -10,7 +10,7 @@ const NoDataScreen = () => (
         <img
             className="no-results-icon"
             src="graphics/No-results.svg"
-            alt="alt-text" />
+            alt="No results found. Please adjust your search filters and try again." />
         <p>No results found. Please adjust your search filters and try again.</p>
     </div>
 );

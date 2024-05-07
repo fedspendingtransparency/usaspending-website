@@ -47,7 +47,7 @@ const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
             <img
                 className="new-search-icon"
                 src="graphics/award-search-default-empty-state.svg"
-                alt="alt-text" />
+                alt="Start your search by adding filters" />
             <p>Start your search by adding filters</p>
             <Button
                 buttonSize="md"
