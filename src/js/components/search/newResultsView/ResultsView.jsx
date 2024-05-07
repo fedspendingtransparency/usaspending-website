@@ -74,7 +74,7 @@ const ResultsView = (props) => {
     const callbackFunction = (entries) => {
         entries.forEach((entry) => {
             const section = entry.target.className;
-
+            console.log(section);
             if (entry.isIntersecting) {
                 // setIsVisible(section);
                 if (section === 'award') {
