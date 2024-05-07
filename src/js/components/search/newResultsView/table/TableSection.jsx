@@ -10,9 +10,12 @@ const propTypes = {
     awardTableHasLoaded: PropTypes.bool
 };
 
-const TableSection = ({ awardTableHasLoaded }) => (
+const TableSection = ({ awardTableHasLoaded, subaward }) => (
     <div id="search-page-component" className="award">
-        {awardTableHasLoaded && <ResultsTableContainer />}
+        {awardTableHasLoaded && <ResultsTableContainer
+            subaward={subaward}
+            awardTableHasLoaded={awardTableHasLoaded}
+        />}
     </div>
 );
 
