@@ -79,7 +79,7 @@ const SearchSectionWrapper = ({
                             size="md"
                             label={sectionTitle}
                             options={dropdownOptions}
-                            enabled="true"
+                            enabled
                             selectedOption={dropdownOptions?.length
                                 ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
                                 : `${selectedDropdownOption}`}
@@ -103,7 +103,7 @@ const SearchSectionWrapper = ({
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
                 title="Data sources and methodology" >
-                {openAccordion && (
+                {openAccordion ? (
                     <div
                         className="search__section-wrapper-dsm"
                         style={{ height: `${content}px` }}>
@@ -111,7 +111,7 @@ const SearchSectionWrapper = ({
                             dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}
                         { dsmContent || '' }
                     </div>
-                )}
+                ) : (<></>)}
             </Accordion>
         </div>
     );
