@@ -213,7 +213,6 @@ const TimeVisualizationSectionContainer = (props) => {
 
     useEffect(() => {
         fetchData();
-        console.log(visualizationPeriod);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visualizationPeriod]);
 

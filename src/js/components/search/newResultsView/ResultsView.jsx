@@ -96,12 +96,14 @@ const ResultsView = (props) => {
         });
     };
 
+    useEffect(() => {
+        setObserverSupported('IntersectionObserver' in window);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // eslint-disable-next-line consistent-return
     useEffect(() => {
-        setObserverSupported('IntersectionObserver' in window);
-
-        if (observerSupported) {
+        if (observerSupported && hasResults) {
             const target = '#search-page-component';
             const targets = document.querySelectorAll(target);
 
@@ -117,7 +119,7 @@ const ResultsView = (props) => {
             return () => observer.disconnect();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [observerSupported]);
+    }, [observerSupported, hasResults]);
 
     useEffect(() => {
         checkForData();
