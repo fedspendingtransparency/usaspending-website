@@ -82,7 +82,7 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <section style={{ margin: '80px' }}>
+                    <section style={{ margin: '80px', backgroundColor: 'white' }}>
                         <div style={{
                             width: '800px', overflowX: 'scroll', borderRadius: '8px', border: 'solid 1px #dfe1e2'
                         }}>
@@ -96,9 +96,6 @@ const tempPage = () => {
                         <div>4</div>
                         <div>5</div>
                         <div>6</div>
-                        <div className="tooltip-pointer">
-                            <p>hello</p>
-                        </div>
                     </div>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>

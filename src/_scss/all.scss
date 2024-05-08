@@ -21,7 +21,7 @@ $output-bourbon-deprecation-warnings: false !default;
 @import 'elements/inputs';
 @import 'elements/labels';
 @import 'elements/list';
-//@import 'elements/table';
+@import 'elements/table';
 @import 'elements/typography';
 @import 'elements/accordion';
 
