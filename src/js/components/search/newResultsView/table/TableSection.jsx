@@ -8,7 +8,8 @@ import ResultsTableContainer from "../../../../containers/search/newResultsView/
 import { DsmWrapper } from "../DsmWrapper";
 
 const propTypes = {
-    awardTableHasLoaded: PropTypes.bool
+    awardTableHasLoaded: PropTypes.bool,
+    subaward: PropTypes.bool
 };
 
 const TableSection = ({ awardTableHasLoaded, subaward }) => {
