@@ -5,8 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Pagination, Table } from "data-transparency-ui";
-// import { calculatePageRange } from "helpers/paginationHelper";
-
 
 const SectionDataTable = (props) => {
     const [sortDirection, setSortDirection] = useState('asc');
