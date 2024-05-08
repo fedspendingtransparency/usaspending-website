@@ -117,6 +117,14 @@
 
     .search__section-wrapper-content {
       margin-top: rem(27);
+
+      .advanced-search__table-wrapper {
+        overflow-y: auto;
+      }
+
+      table.advanced-search__table {
+        margin-top: rem(2);
+      }
     }
 
     .accordion-container {
