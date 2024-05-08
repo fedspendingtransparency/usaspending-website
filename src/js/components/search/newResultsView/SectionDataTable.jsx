@@ -82,7 +82,8 @@ const SectionDataTable = (props) => {
                 setRows(maxRows.slice(currentPage - 1, pageSize));
             }
         }
-    }, [currentPage, maxRows, pageSize, props.manualSort]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
     return (
         <>
