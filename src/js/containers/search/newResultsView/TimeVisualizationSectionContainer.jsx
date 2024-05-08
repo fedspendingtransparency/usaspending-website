@@ -40,7 +40,6 @@ const TimeVisualizationSectionContainer = (props) => {
         ySeries: [],
         rawLabels: []
     });
-    const [transformedVizData, setTransformedVizData] = useState([]);
     const [tableRows, setTableRows] = useState([]);
 
     let apiRequest = null;

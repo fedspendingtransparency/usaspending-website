@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine } from 'recharts';
 import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";
 import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
@@ -157,7 +157,6 @@ const TimeVisualizationChart = (props) => {
                         margin={{
                             top: 5,
                             right: 30,
-                            // left: 20,
                             bottom: 5
                         }}>
                         <XAxis dataKey="label" tick={<CustomXTick />} />
