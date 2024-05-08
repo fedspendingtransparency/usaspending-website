@@ -193,36 +193,6 @@ const TimeVisualizationSectionContainer = (props) => {
         setTableRows(rows);
     };
 
-    const transformData = () => {
-        const transformedData = [];
-        let label;
-        let value;
-        for (let i = 0; i < parsedData.xSeries?.length; i++) {
-            if (parsedData.ySeries[i][0] !== 0) {
-                label = parsedData.xSeries[i][0];
-                value = parsedData.ySeries[i][0];
-            }
-            else if (transformedData[transformedData?.length - 1]?.value !== "jump") {
-                label = "jump";
-                value = null;
-            }
-
-            if (!(transformedData[transformedData?.length - 1]?.value === null && label === "jump")) {
-                transformedData.push({
-                    label,
-                    value
-                });
-            }
-        }
-
-        if (transformedData[transformedData?.length - 1]?.label === "jump") {
-            transformedData.pop();
-        }
-
-        setTransformedVizData(transformedData);
-        generateTableRows();
-    };
-
     const fetchData = () => {
         props.setAppliedFilterCompletion(false);
         setParsedData({ ...parseData, loading: true, error: false });
@@ -253,7 +223,7 @@ const TimeVisualizationSectionContainer = (props) => {
             props.setAppliedFilterCompletion(true);
         }
 
-        transformData();
+        generateTableRows();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData]);
 
@@ -276,7 +246,7 @@ const TimeVisualizationSectionContainer = (props) => {
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
             manualSort>
             <TimeVisualizationChart
-                transformedData={transformedVizData}
+                {...parsedData}
                 visualizationPeriod={visualizationPeriod}
                 subaward={props.subaward} />
         </SearchSectionWrapper>
