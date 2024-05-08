@@ -1,5 +1,5 @@
 /**
- * RankVisualizationWrapperContainer.jsx
+ * CategoriesVisualizationWrapperContainer.jsx
  * Created by michaelbray on 4/3/17.
  */
 

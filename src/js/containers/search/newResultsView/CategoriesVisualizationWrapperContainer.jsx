@@ -1,5 +1,5 @@
 /**
- * RankVisualizationWrapperContainer.jsx
+ * CategoriesVisualizationWrapperContainer.jsx (previously RankVisualizationWrapperContainer.jsx)
  * Created by michaelbray on 4/3/17.
  */
 
@@ -22,6 +22,8 @@ import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCateg
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import SpendingByCategoriesChart
     from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
+import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
+import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -37,7 +39,7 @@ const propTypes = {
     wrapperProps: PropTypes.object
 };
 
-const RankVisualizationWrapperContainer = (props) => {
+const CategoriesVisualizationWrapperContainer = (props) => {
     const [spendingBy, setSpendingBy] = useState('awardingAgency');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -52,6 +54,7 @@ const RankVisualizationWrapperContainer = (props) => {
     const [previous, setPrevious] = useState('');
     const [hasNextPage, setHasNextPage] = useState(false);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
+    const [tableRows, setTableRows] = useState([]);
     const history = useHistory();
     let apiRequest;
 
@@ -72,6 +75,86 @@ const RankVisualizationWrapperContainer = (props) => {
         recipientError
     };
 
+    const columns = {
+        recipient: [
+            {
+                title: 'name',
+                displayName: ["Recipient Name"],
+                right: false
+            },
+            {
+                title: 'recipient_id',
+                displayName: ["Recipient UEI"],
+                right: false
+            },
+            {
+                title: 'obligations',
+                displayName: ["Obligations"],
+                right: false
+            }
+        ],
+        awarding_agency: [
+            {
+                title: 'awarding_agency',
+                displayName: ["Awarding Agency"],
+                right: false
+            },
+            {
+                title: 'obligations',
+                displayName: ["Obligations"],
+                right: false
+            }
+        ],
+        awarding_subagency: [
+            {
+                title: 'awarding_subagency',
+                displayName: ["Awarding Subagency"],
+                right: false
+            },
+            {
+                title: 'obligations',
+                displayName: ["Obligations"],
+                right: false
+            }
+        ],
+        cfda: [
+            {
+                title: 'cfda',
+                displayName: ["Assistance Listing"],
+                right: false
+            },
+            {
+                title: 'obligations',
+                displayName: ["Obligations"],
+                right: false
+            }
+        ],
+        naics: [
+            {
+                title: 'naics',
+                displayName: ["North American Industry Classification System (NAICS)"],
+                right: false
+            },
+            {
+                title: 'obligations',
+                displayName: ["Obligations"],
+                right: false
+            }
+        ],
+        psc: [
+            {
+                title: 'psc',
+                displayName: ["Product and Service Code (PSC)"],
+                right: false
+            },
+            {
+                title: 'obligations',
+                displayName: ["Obligations"],
+                right: false
+            }
+        ]
+    };
+
     const changeScope = (newScope) => {
         setScope(newScope);
         setPage(1);
@@ -83,6 +166,7 @@ const RankVisualizationWrapperContainer = (props) => {
         setScope(defaultScopes[tempSpendingBy]);
     };
 
+    // TODO:  Need to refactor for 10948
     const parseRank = () => {
         if (history) {
             const params = history.location.search.split("&");
@@ -116,9 +200,10 @@ const RankVisualizationWrapperContainer = (props) => {
         const tempDataSeries = [];
         const tempDescriptions = [];
         const tempLinkSeries = [];
-
+        const tableData = [];
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
+            const tableDataRow = [];
             const result = Object.create(BaseSpendingByCategoryResult);
             result.populate(item);
 
@@ -154,9 +239,17 @@ const RankVisualizationWrapperContainer = (props) => {
                 tempLinkSeries.push(awardingLink);
             }
 
+            tableDataRow.push(result.name);
+            if (scope === 'recipient') {
+                tableDataRow.push(result.recipientId);
+            }
+            tableDataRow.push(result._amount);
+
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
+            tableData.push(tableDataRow);
         });
+
 
         // set the state with the new values
         setLabelSeries(tempLabelSeries);
@@ -169,6 +262,7 @@ const RankVisualizationWrapperContainer = (props) => {
         setHasPreviousPage(data.page_metadata.hasPrevious);
         setLoading(false);
         setError(false);
+        setTableRows(tableData);
     };
 
     const fetchData = () => {
@@ -273,22 +367,39 @@ const RankVisualizationWrapperContainer = (props) => {
                 {...props.wrapperProps}
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
-                hasNoData={childProps?.labelSeries?.length === 0}>
-                <SpendingByCategoriesChart
+                hasNoData={childProps?.labelSeries?.length === 0}
+                table={<CategoriesTable
+                    {...childProps}
+                    nextPage={nextPage}
+                    previousPage={previousPage}
+                    hasNextPage={hasNextPage}
+                    hasPreviousPage={hasPreviousPage}
+                    recipientError={recipientError}
+                    columns={columns[scope]}
+                    rows={tableRows} />}>
+                <CategoriesSectionWrapper
                     {...childProps}
                     changeScope={changeScope}
                     nextPage={nextPage}
                     previousPage={previousPage}
-                    industryCodeError={props.subaward}
                     subaward={props.subaward}
-                    isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                    width="1000px" />
+                    isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}>
+                    <SpendingByCategoriesChart
+                        {...childProps}
+                        changeScope={changeScope}
+                        nextPage={nextPage}
+                        previousPage={previousPage}
+                        industryCodeError={props.subaward}
+                        subaward={props.subaward}
+                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                        width="1000px" />
+                </CategoriesSectionWrapper>
             </SearchSectionWrapper>
         </div>
     );
 };
 
-RankVisualizationWrapperContainer.propTypes = propTypes;
+CategoriesVisualizationWrapperContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -297,4 +408,4 @@ export default connect(
         subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
-)(RankVisualizationWrapperContainer);
+)(CategoriesVisualizationWrapperContainer);
