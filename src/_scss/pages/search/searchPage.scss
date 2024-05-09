@@ -13,8 +13,8 @@
     @import "../../components/tooltips/index";
 
     @import "../../components/roundedtoggle";
-    @import "../../components/tempSearchPage/tempSearchSectionWrapper";
-    @import "toggleTempSearchPage";
+    @import "resultsView/resultsView";
+    @import "resultsView/toggleTempSearchPage";
 
     .subaward-dropdown__list {
         min-width: max-content;
