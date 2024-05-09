@@ -90,6 +90,10 @@
                         button {
                             margin: 0 auto;
                         }
+
+                        .new-search__no-results-text, .new-search__start-text {
+                            color: $gray-60;
+                        }
                     }
                 }
 

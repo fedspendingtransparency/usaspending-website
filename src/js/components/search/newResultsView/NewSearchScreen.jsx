@@ -48,7 +48,7 @@ const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
                 className="new-search-icon"
                 src="graphics/award-search-default-empty-state.svg"
                 alt="Start your search by adding filters" />
-            <p>Start your search by adding filters</p>
+            <p className="new-search__start-text">Start your search by adding filters</p>
             <Button
                 buttonSize="md"
                 copy="See spending from last year"
