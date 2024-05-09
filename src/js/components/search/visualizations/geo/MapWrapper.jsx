@@ -493,7 +493,7 @@ const MapWrapper = (props) => {
         // state page
         if (stateProfile) return 'Awarded Amount';
         // per capita toggle
-        return (mapLegendToggle === 'totalSpending' ? 'Total Obligations' : 'Per Capita Spending');
+        return (mapLegendToggle === 'totalSpending' ? 'Obligations' : 'Per Capita');
     };
 
     const tooltip = () => {

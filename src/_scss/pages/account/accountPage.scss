@@ -5,24 +5,44 @@
 
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
+
     .main-content {
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(0, ($global-mrg * 4));
-        padding:  0;
+        padding: 0;
         @import "./overview/overview";
         @import "./results/searchResults";
 
+
+        .filter-results {
+            .search-sidebar {
+                .sidebar-header {
+                    display: flex;
+                    align-items: center;
+                }
+
+                span.filter-icon {
+                    svg {
+                        margin-top: 0;
+                    }
+                }
+                h6 {
+                    margin-top: 0;
+                    margin-bottom: 2px;
+                }
+            }
+        }
         // overwrite for the federal account page
         .search-results {
             .usda-section-title__sectionHeader:first-of-type {
                 margin-top: 0;
             }
-        
+
             .usda-section-title__header {
                 margin-left: 0;
                 font-size: $h2-font-size;
             }
-        
+
             hr.results-divider {
                 margin-top: rem(9) !important;
                 margin-bottom: rem(10) !important;
@@ -32,11 +52,27 @@
             }
 
             .visualization-title {
-                margin-left:0;
+                margin-left: 0;
                 font-size: rem(20);
                 font-weight: $font-semibold;
                 margin-bottom: 0;
                 line-height: 1.2;
+            }
+
+            .search-results-table-section {
+                .usda-glossary-link {
+                    color: $color-gray-light;
+                }
+                .readMoreUpdated__button {
+                    background-color: transparent;
+                    color: #0074be;
+                    padding: 0;
+                    margin-top: 0;
+                    margin-bottom: 10px;
+                    margin-left: 2px;
+                    margin-right: 0;
+                    line-height: 1.5;
+                }
             }
         }
     }

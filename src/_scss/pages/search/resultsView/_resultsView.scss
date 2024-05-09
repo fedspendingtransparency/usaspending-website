@@ -87,7 +87,7 @@
         }
       }
 
-      @import "../_chartTableToggle";
+      @import "../../../components/chartTableToggle";
 
       .chart-table-toggle {
         border: rem(1) solid $gray-cool-10;
@@ -116,7 +116,22 @@
     }
 
     .search__section-wrapper-content {
-      margin-top: rem(27);
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+
+      .usda-table.search-results {
+        margin-bottom: rem(16);
+      }
+
+      .visualization-pager-container {
+        margin-top: rem(16);
+      }
+
+      // TODO: Remove importants after the tabbed results view is removed from the code
+      .visualization-pager {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
     }
 
     .accordion-container {
