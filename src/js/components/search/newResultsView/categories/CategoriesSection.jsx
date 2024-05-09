@@ -10,7 +10,7 @@ import {
     DsmWrapper
 } from "../DsmWrapper";
 import RankVisualizationWrapperContainer
-    from "../../../../containers/search/newResultsView/RankVisualizationWrapperContainer";
+    from "../../../../containers/search/newResultsView/CategoriesVisualizationWrapperContainer";
 
 const propTypes = {
     categoriesHasLoaded: PropTypes.bool,
