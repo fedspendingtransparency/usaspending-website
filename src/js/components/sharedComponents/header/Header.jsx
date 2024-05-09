@@ -13,7 +13,6 @@ import InfoBanner from './InfoBanner';
 const Header = () => {
     const location = useLocation();
 
-    console.log(location.pathname);
     const skippedNav = (e) => {
     // don't update the URL due to potential React Router conflicts
         e.preventDefault();
