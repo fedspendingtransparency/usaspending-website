@@ -40,8 +40,41 @@ const TimeVisualizationSectionContainer = (props) => {
         ySeries: [],
         rawLabels: []
     });
+    const [tableRows, setTableRows] = useState([]);
 
     let apiRequest = null;
+    const fy = [
+        {
+            title: "fy",
+            displayName: ["Fiscal Year"],
+            right: false
+        },
+        {
+            title: "obligations",
+            displayName: ["Obligations"],
+            right: true
+        }
+    ];
+
+    const columns = {
+        month: [
+            {
+                title: 'months',
+                displayName: ["Month"],
+                right: false
+            },
+            ...fy
+        ],
+        quarter: [
+            {
+                title: 'quarters',
+                displayName: ["Quarter"],
+                right: false
+            },
+            ...fy
+        ],
+        fiscal_year: fy
+    };
 
     const generateTimeLabel = (group, timePeriod) => {
         if (group === 'fiscal_year') {
@@ -145,10 +178,23 @@ const TimeVisualizationSectionContainer = (props) => {
             });
     };
 
+    const generateTableRows = () => {
+        const rows = [];
+        for (let i = 0; i < parsedData.rawLabels?.length; i++) {
+            const row = [];
+            if (parsedData.rawLabels[i].period) {
+                row.push(parsedData.rawLabels[i].period);
+            }
+            row.push(parsedData.rawLabels[i].year);
+            row.push(parsedData.ySeries[i][0]);
+            rows.push(row);
+        }
+        setTableRows(rows);
+    };
+
     const fetchData = () => {
         props.setAppliedFilterCompletion(false);
         setParsedData({ ...parseData, loading: true, error: false });
-
         // Cancel API request if it exists
         if (apiRequest) {
             apiRequest.cancel();
@@ -175,7 +221,7 @@ const TimeVisualizationSectionContainer = (props) => {
             props.setAppliedFilterCompletion(true);
         }
 
-
+        generateTableRows();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData]);
 
@@ -190,9 +236,13 @@ const TimeVisualizationSectionContainer = (props) => {
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
+            data={parsedData}
+            columns={columns[visualizationPeriod]}
+            rows={tableRows}
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
-            hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}>
+            hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
+            manualSort>
             <TimeVisualizationChart
                 {...parsedData}
                 visualizationPeriod={visualizationPeriod}

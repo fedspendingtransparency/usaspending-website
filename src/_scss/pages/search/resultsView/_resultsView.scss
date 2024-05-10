@@ -87,7 +87,7 @@
         }
       }
 
-      @import "../_chartTableToggle";
+      @import "../../../components/chartTableToggle";
 
       .chart-table-toggle {
         border: rem(1) solid $gray-cool-10;
@@ -117,14 +117,6 @@
 
     .search__section-wrapper-content {
       margin-top: rem(27);
-
-      .advanced-search__table-wrapper {
-        overflow-y: auto;
-      }
-
-      table.advanced-search__table {
-        margin-top: rem(2);
-      }
     }
 
     .accordion-container {

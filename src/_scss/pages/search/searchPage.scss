@@ -13,8 +13,8 @@
     @import "../../components/tooltips/index";
 
     @import "../../components/roundedtoggle";
-    @import "../../components/tempSearchPage/tempSearchSectionWrapper";
-    @import "toggleTempSearchPage";
+    @import "resultsView/resultsView";
+    @import "resultsView/toggleTempSearchPage";
 
     .subaward-dropdown__list {
         min-width: max-content;
@@ -67,6 +67,31 @@
                 width: 100%;
                 margin: 0;
                 padding-left: rem(8);
+
+                .search-results {
+                    .new-search-container {
+                        text-align: center;
+
+                        .new-search-icon {
+                            height: rem(280);
+                            margin-top: rem(16);
+                        }
+
+                        .no-results-icon {
+                            height: rem(280);
+                            margin-top: rem(32);
+                        }
+
+                        p {
+                            font-size: rem(14);
+                            margin: rem(24) 0;
+                        }
+
+                        button {
+                            margin: 0 auto;
+                        }
+                    }
+                }
 
                 .tablet-search__modal {
                     display:none;
