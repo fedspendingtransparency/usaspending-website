@@ -64,7 +64,6 @@ const SectionDataTable = (props) => {
     };
 
     const changePage = (page) => {
-        console.log(maxRows);
         if (props.manualSort) {
             setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));
             setCurrentPage(page);
