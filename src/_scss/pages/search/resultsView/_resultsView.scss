@@ -116,7 +116,30 @@
     }
 
     .search__section-wrapper-content {
-      margin-top: rem(27);
+      margin-top: rem(24);
+      margin-bottom: rem(24);
+
+      .advanced-search__table-wrapper {
+        overflow-y: auto;
+      }
+
+      table.advanced-search__table {
+        margin-top: rem(2);
+      }
+
+      .usda-table.search-results {
+        margin-bottom: rem(16);
+      }
+
+      .visualization-pager-container {
+        margin-top: rem(16);
+      }
+
+      // TODO: Remove importants after the tabbed results view is removed from the code
+      .visualization-pager {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
     }
 
     .accordion-container {
