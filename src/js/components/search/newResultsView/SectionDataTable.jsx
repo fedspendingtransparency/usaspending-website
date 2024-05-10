@@ -64,7 +64,11 @@ const SectionDataTable = (props) => {
     };
 
     const changePage = (page) => {
-        setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));
+        console.log(maxRows);
+        if (props.manualSort) {
+            setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));
+            setCurrentPage(page);
+        }
     };
 
     const updateSort = (field) => {
@@ -83,7 +87,7 @@ const SectionDataTable = (props) => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPage]);
+    }, []);
 
     return (
         <>
