@@ -8,7 +8,6 @@ import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
 import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
@@ -18,6 +17,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import SearchSectionWrapper from "../SearchSectionWrapper";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -26,7 +26,10 @@ const propTypes = {
     subaward: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    scope: PropTypes.string,
+    setScope: PropTypes.func,
+    wrapperProps: PropTypes.object
 };
 
 const apiScopes = {
@@ -57,7 +60,7 @@ const logMapScopeEvent = (scope) => {
 
 const MapVisualization = React.memo((props) => {
     const USACenterPoint = [-95.569430, 38.852892];
-    const [scope, setScope] = useState('place_of_performance');
+
     const [mapLayer, setMapLayer] = useState('state');
     const [rawAPIData, setRawAPIData] = useState([]);
     const [data, setData] = useState({
@@ -183,7 +186,7 @@ const MapVisualization = React.memo((props) => {
 
         // generate the API parameters
         const apiParams = {
-            scope,
+            scope: props.scope,
             geo_layer: apiScopes[mapLayer],
             geo_layer_filters: visibleEntities,
             filters: searchParams,
@@ -228,6 +231,7 @@ const MapVisualization = React.memo((props) => {
                 return;
             }
         }
+
         useEffectRef.current.visibleEntities = true;
         setVisibleEntities(entities);
     };
@@ -243,12 +247,12 @@ const MapVisualization = React.memo((props) => {
     };
 
     const changeScope = (newScope) => {
-        if (newScope === scope) {
+        if (newScope === props.scope) {
             // scope has not changed
             return;
         }
 
-        setScope(newScope);
+        props.setScope(newScope);
     };
 
     const changeMapLayer = (layer) => {
@@ -394,7 +398,7 @@ const MapVisualization = React.memo((props) => {
         updateMapScope();
 
         // log the initial event
-        logMapScopeEvent(scope);
+        logMapScopeEvent(props.scope);
         logMapLayerEvent(mapLayer);
 
         return () => {
@@ -437,33 +441,40 @@ const MapVisualization = React.memo((props) => {
 
     useEffect(() => {
         prepareFetch(true);
-        logMapScopeEvent(scope);
+        logMapScopeEvent(props.scope);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [scope]);
+    }, [props.scope]);
 
+    // TODO: BAD
     useEffect(() => {
         prepareFetch(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
 
     return (
-        <GeoVisualizationSection
-            scope={scope}
-            mapLayer={mapLayer}
-            changeScope={changeScope}
-            changeMapLayer={changeMapLayer}
-            renderHash={renderHash}
-            data={data}
-            loading={loading}
-            error={error}
-            center={center}
-            noResults={data.values.length === 0}
-            mapLegendToggle={props.mapLegendToggle}
-            updateMapLegendToggle={props.updateMapLegendToggle}
-            subaward={props.subaward}
-            className={props.className}
-            isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-            singleLocationSelected={singleLocationSelected} />
+        <SearchSectionWrapper
+            {...props.wrapperProps}
+            isLoading={false}
+            isError={false}
+            hasNoData={false} >
+            <GeoVisualizationSection
+                scope={props.scope}
+                mapLayer={mapLayer}
+                changeScope={changeScope}
+                changeMapLayer={changeMapLayer}
+                renderHash={renderHash}
+                data={data}
+                loading={loading}
+                error={error}
+                center={center}
+                noResults={data.values.length === 0}
+                mapLegendToggle={props.mapLegendToggle}
+                updateMapLegendToggle={props.updateMapLegendToggle}
+                subaward={props.subaward}
+                className={props.className}
+                isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                singleLocationSelected={singleLocationSelected} />
+        </SearchSectionWrapper>
     );
 });
 

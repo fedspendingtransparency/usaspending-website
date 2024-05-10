@@ -79,7 +79,7 @@ const SearchSectionWrapper = ({
                             size="md"
                             label={sectionTitle}
                             options={dropdownOptions}
-                            enabled="true"
+                            enabled
                             selectedOption={dropdownOptions?.length
                                 ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
                                 : `${selectedDropdownOption}`}

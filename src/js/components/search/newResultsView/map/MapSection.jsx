@@ -6,7 +6,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import SearchSectionWrapper from "../SearchSectionWrapper";
 import { DsmWrapper } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
 
@@ -16,7 +15,7 @@ const propTypes = {
 };
 
 const MapSection = ({ mapHasLoaded, subaward }) => {
-    const [selectedDropdown, setSelectedDropdown] = useState('0');
+    const [selectedDropdown, setSelectedDropdown] = useState('place_of_performance');
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -27,7 +26,7 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
         dropdownOptions: [
             {
                 name: 'Place of Performance',
-                value: '0',
+                value: 'place_of_performance',
                 onClick,
                 dsmContent: <DsmWrapper
                     heading={"Place of Performance:  What's included in this view of the data?"}
@@ -35,7 +34,7 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
             },
             {
                 name: 'Recipient Location',
-                value: '1',
+                value: 'recipient_location',
                 onClick,
                 dsmContent: <DsmWrapper
                     heading={"Recipient Location:  What's included in this view of the data?"}
@@ -46,12 +45,13 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
     };
 
     return (
-        <SearchSectionWrapper
-            {...wrapperProps}>
-            <div id="search-page-component" className="map">
-                {mapHasLoaded && <MapVisualization subaward={subaward} />}
-            </div>
-        </SearchSectionWrapper>
+        <div id="search-page-component" className="map">
+            {mapHasLoaded && <MapVisualization
+                subaward={subaward}
+                scope={selectedDropdown}
+                setScope={setSelectedDropdown}
+                wrapperProps={wrapperProps} />}
+        </div>
     );
 };
 

@@ -92,7 +92,7 @@ const ResultsView = (props) => {
                 <TopFilterBarContainer {...props} />
                 <div className={`search-results ${mobileFilters}`}>
                     <MapSection
-                        subaward={props.subaward}
+                        subaward={false}
                         mapHasLoaded={mapHasLoaded} />
 
                     <CategoriesSection
