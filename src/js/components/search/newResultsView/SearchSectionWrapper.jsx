@@ -9,20 +9,19 @@ import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparenc
 import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
-import SectionDataTable from "./sectionDataTable";
+import SectionDataTable from "./SectionDataTable";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
     dropdownOptions: PropTypes.array,
     selectedDropdownOption: PropTypes.string,
-    viewType: PropTypes.string,
-    setViewType: PropTypes.func,
-    chart: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    table: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     dsmContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,
-    hasNoData: PropTypes.bool
+    hasNoData: PropTypes.bool,
+    fetchData: PropTypes.func,
+    columns: PropTypes.array,
+    rows: PropTypes.array
 };
 
 const SearchSectionWrapper = ({
@@ -33,7 +32,10 @@ const SearchSectionWrapper = ({
     dsmContent,
     isLoading,
     hasNoData,
-    isError
+    isError,
+    columns,
+    rows,
+    table
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -63,7 +65,14 @@ const SearchSectionWrapper = ({
 
     const Content = () => {
         if (viewType === 'table') {
-            return <SectionDataTable />;
+            if (table) {
+                return table;
+            }
+
+            return (<SectionDataTable
+                columns={columns}
+                rows={rows}
+                manualSort />);
         }
 
         return children;
@@ -103,7 +112,7 @@ const SearchSectionWrapper = ({
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
                 title="Data sources and methodology" >
-                {openAccordion && (
+                {openAccordion ? (
                     <div
                         className="search__section-wrapper-dsm"
                         style={{ height: `${content}px` }}>
@@ -111,7 +120,7 @@ const SearchSectionWrapper = ({
                             dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}
                         { dsmContent || '' }
                     </div>
-                )}
+                ) : (<></>)}
             </Accordion>
         </div>
     );
