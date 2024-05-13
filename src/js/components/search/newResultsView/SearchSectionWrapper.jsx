@@ -64,18 +64,14 @@ const SearchSectionWrapper = ({
     };
 
     const Content = () => {
-        if (viewType === 'table') {
-            if (table) {
-                return table;
-            }
-
-            return (<SectionDataTable
-                columns={columns}
-                rows={rows}
-                manualSort />);
+        if (table) {
+            return table;
         }
 
-        return children;
+        return (<SectionDataTable
+            columns={columns}
+            rows={rows}
+            manualSort />);
     };
 
     return (
@@ -104,7 +100,7 @@ const SearchSectionWrapper = ({
                     {isError || isLoading || hasNoData ?
                         <Message />
                         :
-                        <Content />
+                        viewType === "table" ? <Content /> : children
                     }
                 </div>}
             <Accordion

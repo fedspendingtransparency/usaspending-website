@@ -445,7 +445,6 @@ const MapVisualization = React.memo((props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.scope]);
 
-    // TODO: BAD
     useEffect(() => {
         prepareFetch(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
