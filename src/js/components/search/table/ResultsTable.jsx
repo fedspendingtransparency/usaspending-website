@@ -282,7 +282,7 @@ export default class ResultsTable extends React.Component {
             <>
                 <div className="advanced-search__table-wrapper">
                     <Table
-                        classNames="advanced-search__table"
+                        classNames="search-results-dtui-table"
                         stickyFirstColumn
                         columns={cols}
                         rows={limitedRows}

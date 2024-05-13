@@ -22,7 +22,7 @@ const propTypes = {
 const CategoriesTable = (props) => (
     <>
         <Table
-            classNames="search-results"
+            classNames="search-results-dtui-table"
             columns={props.columns}
             rows={props.rows} />
         <CategoriesPagination

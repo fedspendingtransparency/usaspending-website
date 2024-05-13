@@ -88,7 +88,7 @@ const SectionDataTable = (props) => {
     return (
         <>
             <Table
-                classNames="search-results"
+                classNames="search-results-dtui-table"
                 currentSort={{ direction: sortDirection, field: activeField }}
                 updateSort={updateSort}
                 columns={columns}
