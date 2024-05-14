@@ -472,7 +472,8 @@ const MapVisualization = React.memo((props) => {
                 subaward={props.subaward}
                 className={props.className}
                 isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                singleLocationSelected={singleLocationSelected} />
+                singleLocationSelected={singleLocationSelected}
+                newAdvancedSearch />
         </SearchSectionWrapper>
     );
 });
