@@ -29,6 +29,10 @@
                 cursor: pointer;
             }
         }
+
+        .category-spending__not-link {
+            color: $gray-60;
+        }
     }
 
     @import '../../../../../components/visualizations/legend';
