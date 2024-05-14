@@ -4,7 +4,15 @@ table {
     min-width: 100%;
 
     &.search-results-dtui-table {
-        margin: 0;
+        margin-top: rem(16);
+        margin-bottom: 0;
+
+        border-top: solid rem(1) $gray-cool-10;
+        border-left: solid rem(1) $gray-cool-10;
+        //border-right: solid rem(1) $gray-cool-10;
+
+        //border: solid 1px #dfe1e2;
+        border-radius: rem(8);
 
         td {
             background-color: unset;
