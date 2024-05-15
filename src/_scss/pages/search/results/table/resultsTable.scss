@@ -17,7 +17,7 @@
             margin-top: $global-margin * 2;
             .usa-dt-pagination__wrapper {
                 .pager {
-                    li.pager__item:nth-last-child(2) {
+                    .hideLast {
                         .pager__button {
                             display:none;
                         }

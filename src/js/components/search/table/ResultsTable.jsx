@@ -295,6 +295,7 @@ export default class ResultsTable extends React.Component {
                 <Pagination
                     resultsText
                     limitSelector
+                    hideLast={this.props.resultsCount >= 50000}
                     currentPage={this.props.page}
                     pageSize={this.props.resultsLimit}
                     changePage={this.props.setPage}
