@@ -17,6 +17,12 @@
             margin-top: $global-margin * 2;
             .usa-dt-pagination__wrapper {
                 .pager {
+                    li.pager__item:nth-last-child(2) {
+                        .pager__button {
+                            display:none;
+                        }
+                    }
+
                     li.pager__item:last-of-type {
                         .pager__button {
                             margin-right: 0;
