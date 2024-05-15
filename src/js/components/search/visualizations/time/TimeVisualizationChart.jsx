@@ -72,8 +72,32 @@ const CustomYTick = (props) => {
 
 
 const TimeVisualizationChart = (props) => {
-    const transformedData = [];
     const [focusBar, setFocusBar] = useState(null);
+    const transformedData = [];
+
+    let label;
+    let value;
+    for (let i = 0; i < props?.xSeries?.length; i++) {
+        if (props?.ySeries[i][0] !== 0) {
+            label = props?.xSeries[i][0];
+            value = props?.ySeries[i][0];
+        }
+        else if (transformedData[transformedData?.length - 1]?.value !== "jump") {
+            label = "jump";
+            value = null;
+        }
+
+        if (!(transformedData[transformedData?.length - 1]?.value === null && label === "jump")) {
+            transformedData.push({
+                label,
+                value
+            });
+        }
+    }
+
+    if (transformedData[transformedData?.length - 1]?.label === "jump") {
+        transformedData.pop();
+    }
 
     const onMouseLeave = () => {
         if (focusBar) {
@@ -82,6 +106,7 @@ const TimeVisualizationChart = (props) => {
     };
 
     const CustomTooltip = (args) => {
+        // eslint-disable-next-line no-shadow
         const { active, payload, label } = args;
 
         if (active && payload && payload.length && payload[0].label !== "jump") {
@@ -105,30 +130,6 @@ const TimeVisualizationChart = (props) => {
         setFocusBar(state.label);
     };
 
-    let label;
-    let value;
-    for (let i = 0; i < props.xSeries?.length; i++) {
-        if (props.ySeries[i][0] !== 0) {
-            label = props.xSeries[i][0];
-            value = props.ySeries[i][0];
-        }
-        else if (transformedData[transformedData?.length - 1]?.value !== "jump") {
-            label = "jump";
-            value = null;
-        }
-
-        if (!(transformedData[transformedData?.length - 1]?.value === null && label === "jump")) {
-            transformedData.push({
-                label,
-                value
-            });
-        }
-    }
-
-    if (transformedData[transformedData?.length - 1]?.label === "jump") {
-        transformedData.pop();
-    }
-
     const Message = () => {
         if (props.loading) {
             return <LoadingMessage />;
@@ -145,7 +146,7 @@ const TimeVisualizationChart = (props) => {
 
     return (
         <div className="recharts-time-visualization-container">
-            {props.loading || props.error || transformedData.length === 0 ?
+            {props?.loading || props?.error || transformedData?.length === 0 ?
                 <><Message /></>
                 :
                 <ResponsiveContainer>
@@ -156,7 +157,6 @@ const TimeVisualizationChart = (props) => {
                         margin={{
                             top: 5,
                             right: 30,
-                            left: 20,
                             bottom: 5
                         }}>
                         <XAxis dataKey="label" tick={<CustomXTick />} />

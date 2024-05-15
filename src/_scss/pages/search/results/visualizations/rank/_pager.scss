@@ -6,11 +6,12 @@
         display: inline-block;
         @include button-unstyled;
         padding: rem(10);
-        margin-top: rem(20);
+        margin-top: rem(12);
         color: $color-gray;
         font-size: rem(12);
         border: rem(1) solid #D5D6D8;
         margin-left: rem(20);
+        margin-bottom: rem(20);
         &:first-child {
             margin-left: 0;
         }

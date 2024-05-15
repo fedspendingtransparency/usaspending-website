@@ -6,7 +6,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const propTypes = {
     label: PropTypes.string,
@@ -73,14 +73,12 @@ const GeoVisualizationTooltip = (props) => {
                     {props.label}
                 </div>
                 <div className="tooltip-body">
-                    <div className="tooltip-left">
-                        <div className="tooltip-value">
-                            {MoneyFormatter.formatMoney(props.value)}
-                        </div>
-                        {props.description &&
-                                <div className="tooltip-label">
-                                    {props.description}
-                                </div>}
+                    {props.description &&
+                        <div className="tooltip-label">
+                            {props.description}
+                        </div>}
+                    <div className="tooltip-value">
+                        {formatMoneyWithUnitsShortLabel(props.value)}
                     </div>
                 </div>
             </div>

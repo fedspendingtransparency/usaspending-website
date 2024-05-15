@@ -3,12 +3,20 @@ table {
     margin: 2em 0;
     min-width: 100%;
 
+    &.search-results {
+        margin: 0;
+
+        td {
+            background-color: unset;
+        }
+    }
+
     thead {
         th {
             background-color: $color-gray-lightest;
         }
     }
-    
+
     th {
         text-align: left;
     }
