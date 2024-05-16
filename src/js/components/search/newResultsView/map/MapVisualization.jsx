@@ -399,6 +399,24 @@ const MapVisualization = React.memo((props) => {
         }
     };
 
+    const columns = [
+        {
+            title: "state_territory",
+            displayName: ["State or Territory"],
+            right: false
+        },
+        {
+            title: "obligations",
+            displayName: ["Obligations"],
+            right: true
+        },
+        {
+            title: "per_capita",
+            displayName: ["Per Capita"],
+            right: true
+        }
+    ];
+
     useEffect(() => {
         const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
         mapListeners.push(doneListener);
@@ -473,7 +491,9 @@ const MapVisualization = React.memo((props) => {
             {...props.wrapperProps}
             isLoading={false}
             isError={false}
-            hasNoData={false} >
+            hasNoData={false}
+            rows={tableRows}
+            columns={columns} >
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
