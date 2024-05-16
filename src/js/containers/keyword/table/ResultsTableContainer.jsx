@@ -94,6 +94,7 @@ export default class ResultsTableContainer extends React.Component {
     }
 
     pickDefaultTab() {
+        console.log("here");
     // get the transaction counts for the current filters
         if (this.tabCountRequest) {
             this.tabCountRequest.cancel();
@@ -158,6 +159,7 @@ export default class ResultsTableContainer extends React.Component {
     }
 
     performSearch(newSearch = false) {
+        console.log("perform search");
         if (this.searchRequest) {
             // a request is currently in-flight, cancel it
             this.searchRequest.cancel();
@@ -191,6 +193,8 @@ export default class ResultsTableContainer extends React.Component {
             sort: this.state.sort.field,
             order: this.state.sort.direction
         };
+
+        console.log("getting filter params here", params);
 
         this.searchRequest = KeywordHelper.performKeywordSearch(params);
         return this.searchRequest.promise
