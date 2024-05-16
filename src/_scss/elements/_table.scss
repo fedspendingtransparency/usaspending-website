@@ -3,20 +3,24 @@ table {
     margin: 2em 0;
     min-width: 100%;
 
-    &.search-results-dtui-table {
+    &.table-for-new-search-page {
         margin-top: rem(16);
         margin-bottom: 0;
 
-        border-top: solid rem(1) $gray-cool-10;
-        border-left: solid rem(1) $gray-cool-10;
-        //border-right: solid rem(1) $gray-cool-10;
-
-        //border: solid 1px #dfe1e2;
-        border-radius: rem(8);
-
+        // this is necessary to make the usda-table__row class hover work correctly
         td {
             background-color: unset;
         }
+
+        //&.award-results-table-dtui {
+        //    tbody.usda-table__body {
+        //        .usda-table__row {
+        //            border-left: 0;
+        //            border-right: 0;
+        //            border-bottom: solid rem(1) $gray-cool-10;
+        //        }
+        //    }
+        //}
     }
 
     thead {
