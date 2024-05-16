@@ -399,12 +399,7 @@ const MapVisualization = React.memo((props) => {
         }
     };
 
-    const columns = [
-        {
-            title: "state_territory",
-            displayName: ["State or Territory"],
-            right: false
-        },
+    const standardColumns = [
         {
             title: "obligations",
             displayName: ["Obligations"],
@@ -416,6 +411,41 @@ const MapVisualization = React.memo((props) => {
             right: true
         }
     ];
+
+    const columns = {
+        state: [
+            {
+                title: "state_territory",
+                displayName: ["State or Territory"],
+                right: false
+            },
+            ...standardColumns
+        ],
+        country: [
+            {
+                title: "country",
+                displayName: ["Country"],
+                right: false
+            },
+            ...standardColumns
+        ],
+        county: [
+            {
+                title: 'county',
+                displayName: ["County"],
+                right: false
+            },
+            ...standardColumns
+        ],
+        congressionalDistrict: [
+            {
+                title: "congressionalDistrict",
+                displayName: ["Congressional District"],
+                right: false
+            },
+            ...standardColumns
+        ]
+    };
 
     useEffect(() => {
         const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
@@ -493,7 +523,7 @@ const MapVisualization = React.memo((props) => {
             isError={false}
             hasNoData={false}
             rows={tableRows}
-            columns={columns} >
+            columns={columns[mapLayer]} >
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
