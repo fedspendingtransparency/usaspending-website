@@ -97,10 +97,10 @@ const SearchSectionWrapper = ({
             </div>
             {!openAccordion &&
                 <div className="search__section-wrapper-content">
-                    {isError || isLoading || hasNoData ?
-                        <Message />
-                        :
-                        viewType === "table" ? <Content /> : children
+                    {
+                        // eslint-disable-next-line no-nested-ternary
+                        isError || isLoading || hasNoData ?
+                            <Message /> : viewType === "table" ? <Content /> : children
                     }
                 </div>}
             <Accordion
