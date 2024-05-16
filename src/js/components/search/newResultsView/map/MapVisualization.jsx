@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
-import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
+import { stateFIPSByAbbreviation, stateNameFromFips } from 'dataMapping/state/stateNames';
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
@@ -119,7 +119,7 @@ const MapVisualization = React.memo((props) => {
                     row.push(stateNameFromCode(item.display_name.substring(0, 2)));
                 }
                 else if (countyCheck) {
-                    row.push('state/territory placeholder');
+                    row.push(stateNameFromFips(item.shape_code.substring(0, 2)));
                 }
                 row.push(item.aggregated_amount);
                 row.push(item.per_capita);
@@ -129,6 +129,7 @@ const MapVisualization = React.memo((props) => {
         });
 
         setTableRows(rows);
+        console.log("rawAPIData: ", rawAPIData);
 
         return { values, locations, labels };
     };
