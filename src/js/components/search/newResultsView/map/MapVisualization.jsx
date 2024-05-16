@@ -74,6 +74,7 @@ const MapVisualization = React.memo((props) => {
     const [error, setError] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
     const [singleLocationSelected, setSingleLocationSelected] = useState({});
+    const [tableRows, setTableRows] = useState([]);
 
     let apiRequest = null;
     const mapListeners = [];
@@ -97,6 +98,7 @@ const MapVisualization = React.memo((props) => {
         const values = [];
         const locations = [];
         const labels = {};
+        const rows = [];
 
         rawAPIData.forEach((item) => {
             // state must not be null or empty string
@@ -107,8 +109,20 @@ const MapVisualization = React.memo((props) => {
                     label: item.display_name,
                     value: parseFloat(item[mapToggleDataKey()])
                 };
+
+                // for new search table
+                const row = [];
+
+                row.push(item.shape_code);
+                row.push(item.aggregated_amount);
+                row.push(item.per_capita);
+
+                rows.push(row);
             }
         });
+
+        console.log("rawAPIData: ", rawAPIData);
+        setTableRows(rows);
 
         return { values, locations, labels };
     };
@@ -449,6 +463,10 @@ const MapVisualization = React.memo((props) => {
         prepareFetch(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
+
+    useEffect(() => {
+        console.log("tableRows: ", tableRows);
+    }, [tableRows]);
 
     return (
         <SearchSectionWrapper
