@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash';
-import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
+import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
@@ -88,7 +88,6 @@ const MapVisualization = React.memo((props) => {
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
-
     /**
      * valuesLocationsLabelsFromAPIData
      * - creates locations, values, and labels for the map visualization from api data
@@ -112,8 +111,13 @@ const MapVisualization = React.memo((props) => {
 
                 // for new search table
                 const row = [];
+                const congressionalDistrictCheck = item.display_name.substring(2, 3);
 
-                row.push(item.shape_code);
+                row.push(item.display_name);
+                if (congressionalDistrictCheck === "-") {
+                    console.log("stateNameFromCode: ", stateNameFromCode(item.display_name.substring(0, 2)));
+                    row.push(stateNameFromCode(item.display_name.substring(0, 2)));
+                }
                 row.push(item.aggregated_amount);
                 row.push(item.per_capita);
 
@@ -441,6 +445,11 @@ const MapVisualization = React.memo((props) => {
             {
                 title: "congressionalDistrict",
                 displayName: ["Congressional District"],
+                right: false
+            },
+            {
+                title: "state_territory",
+                displayName: ["State or Territory"],
                 right: false
             },
             ...standardColumns
