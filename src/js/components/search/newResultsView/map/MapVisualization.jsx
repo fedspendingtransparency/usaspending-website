@@ -112,11 +112,14 @@ const MapVisualization = React.memo((props) => {
                 // for new search table
                 const row = [];
                 const congressionalDistrictCheck = item.display_name.substring(2, 3);
+                const countyCheck = parseInt(item.shape_code, 10);
 
                 row.push(item.display_name);
                 if (congressionalDistrictCheck === "-") {
-                    console.log("stateNameFromCode: ", stateNameFromCode(item.display_name.substring(0, 2)));
                     row.push(stateNameFromCode(item.display_name.substring(0, 2)));
+                }
+                else if (countyCheck) {
+                    row.push('state/territory placeholder');
                 }
                 row.push(item.aggregated_amount);
                 row.push(item.per_capita);
@@ -125,7 +128,6 @@ const MapVisualization = React.memo((props) => {
             }
         });
 
-        console.log("rawAPIData: ", rawAPIData);
         setTableRows(rows);
 
         return { values, locations, labels };
@@ -439,6 +441,11 @@ const MapVisualization = React.memo((props) => {
                 displayName: ["County"],
                 right: false
             },
+            {
+                title: "state_territory",
+                displayName: ["State or Territory"],
+                right: false
+            },
             ...standardColumns
         ],
         congressionalDistrict: [
@@ -520,10 +527,6 @@ const MapVisualization = React.memo((props) => {
         prepareFetch(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
-
-    useEffect(() => {
-        console.log("tableRows: ", tableRows);
-    }, [tableRows]);
 
     return (
         <SearchSectionWrapper
