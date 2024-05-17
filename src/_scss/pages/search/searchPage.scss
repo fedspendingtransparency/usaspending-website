@@ -89,6 +89,8 @@
 
                         button {
                             margin: 0 auto;
+                            // hiding as part of dev-10994, remove later
+                            display: none;
                         }
 
                         .new-search__no-results-text, .new-search__start-text {

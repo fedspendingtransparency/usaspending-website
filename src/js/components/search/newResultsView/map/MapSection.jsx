@@ -6,10 +6,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import SearchSectionWrapper from "../SearchSectionWrapper";
-import {
-    DsmWrapper, TempPlaceholderComponent
-} from "../DsmWrapper";
+import { DsmWrapper } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
 
 const propTypes = {
@@ -17,8 +14,8 @@ const propTypes = {
     subaward: PropTypes.bool
 };
 
-const MapSection = ({ mapHasLoaded }) => {
-    const [selectedDropdown, setSelectedDropdown] = useState('0');
+const MapSection = ({ mapHasLoaded, subaward }) => {
+    const [selectedDropdown, setSelectedDropdown] = useState('place_of_performance');
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -29,7 +26,7 @@ const MapSection = ({ mapHasLoaded }) => {
         dropdownOptions: [
             {
                 name: 'Place of Performance',
-                value: '0',
+                value: 'place_of_performance',
                 onClick,
                 dsmContent: <DsmWrapper
                     heading={"Place of Performance:  What's included in this view of the data?"}
@@ -37,7 +34,7 @@ const MapSection = ({ mapHasLoaded }) => {
             },
             {
                 name: 'Recipient Location',
-                value: '1',
+                value: 'recipient_location',
                 onClick,
                 dsmContent: <DsmWrapper
                     heading={"Recipient Location:  What's included in this view of the data?"}
@@ -48,16 +45,13 @@ const MapSection = ({ mapHasLoaded }) => {
     };
 
     return (
-        <SearchSectionWrapper
-            {...wrapperProps}>
-            <div id="search-page-component" className="map">
-                {!mapHasLoaded ?
-                    <TempPlaceholderComponent />
-                    :
-                    <MapVisualization />
-                }
-            </div>
-        </SearchSectionWrapper>
+        <div id="search-page-component" className="map">
+            {mapHasLoaded && <MapVisualization
+                subaward={subaward}
+                scope={selectedDropdown}
+                setScope={setSelectedDropdown}
+                wrapperProps={wrapperProps} />}
+        </div>
     );
 };
 
