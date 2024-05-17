@@ -129,7 +129,6 @@ const MapVisualization = React.memo((props) => {
         });
 
         setTableRows(rows);
-        console.log("rawAPIData: ", rawAPIData);
 
         return { values, locations, labels };
     };
