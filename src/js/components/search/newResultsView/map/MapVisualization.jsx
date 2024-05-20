@@ -413,7 +413,7 @@ const MapVisualization = React.memo((props) => {
         },
         {
             title: "per_capita",
-            displayName: ["Per Capita"],
+            displayName: ["Per Capita Obligations"],
             right: true
         }
     ];
