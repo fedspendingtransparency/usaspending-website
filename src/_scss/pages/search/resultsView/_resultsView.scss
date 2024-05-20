@@ -19,7 +19,7 @@
       display: flex;
       justify-content: space-between;
 
-      .filter__dropdown-container {
+      .advanced-search-dropdown__wrapper {
         height: auto;
 
         @media(max-width: $medium-screen) {
@@ -75,9 +75,11 @@
             box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
             transform: translate(0px, 0px);
             width: max-content;
+            min-width: 100%;
 
-            @media(max-width: $tablet-screen) {
-              width: 100%;
+            .filter__dropdown-list-item {
+              padding-left: $global-margin * 2;
+              padding-right: $global-margin * 2;
             }
 
             .filter__dropdown-list-item.active:hover {
