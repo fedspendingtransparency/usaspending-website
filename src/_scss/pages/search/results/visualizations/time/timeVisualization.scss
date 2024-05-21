@@ -86,7 +86,7 @@
 
         .tooltip__title {
             font-size: rem(16);
-            line-height: rem(20);
+            line-height: 1.25;
             font-weight: $font-semibold;
             color: $gray-90;
         }
@@ -100,12 +100,16 @@
                 flex: 1;
                 font-size: rem(14);
                 text-align: left;
+                line-height:1.5;
                 color: $color-base;
             }
 
             .tooltip__text-amount {
-                font-weight: $font-semibold;
+                font-weight: $font-bold;
                 text-align: right;
+                line-height: 1.5;
+                font-size: $font-size-14;
+                color: $color-base;
             }
         }
     }
