@@ -286,7 +286,7 @@ export default class ResultsTable extends React.Component {
                         stickyFirstColumn
                         columns={cols}
                         rows={limitedRows}
-                        rowHeight={58}
+                        rowHeight={45}
                         headerRowHeight={58}
                         currentSort={this.props.sort}
                         updateSort={this.props.updateSort} />
