@@ -71,11 +71,13 @@ const SectionDataTable = (props) => {
     };
 
     const updateSort = (field) => {
+        console.log("here here, sortDirection");
+        console.log("hello");
         const direction = sortDirection === 'asc' ? 'desc' : 'asc';
-        setSortDirection(direction);
-        setActiveField(field);
-        setCurrentPage(1);
-        sortBy(field, direction);
+        // props.sortBy(field, direction);
+        // setSortDirection(direction);
+        // setActiveField(field);
+        // setCurrentPage(1);
         // make an api call to get sorted data or use the internal sort function
     };
 

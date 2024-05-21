@@ -188,6 +188,8 @@ const TimeVisualizationSectionContainer = (props) => {
         //     sortedTable.push(updatedRow);
         // }
 
+        console.log("here", updatedTable);
+
         createTableRows(updatedTable);
     };
 

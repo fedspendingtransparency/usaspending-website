@@ -21,7 +21,8 @@ const propTypes = {
     hasNoData: PropTypes.bool,
     fetchData: PropTypes.func,
     columns: PropTypes.array,
-    rows: PropTypes.array
+    rows: PropTypes.array,
+    sortBy: PropTypes.func
 };
 
 const SearchSectionWrapper = ({
@@ -35,7 +36,8 @@ const SearchSectionWrapper = ({
     isError,
     columns,
     rows,
-    table
+    table,
+    sortBy
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -71,6 +73,7 @@ const SearchSectionWrapper = ({
         return (<SectionDataTable
             columns={columns}
             rows={rows}
+            sortBy={sortBy}
             manualSort />);
     };
 
