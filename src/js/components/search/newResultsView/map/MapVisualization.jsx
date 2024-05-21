@@ -455,7 +455,8 @@ const MapVisualization = React.memo((props) => {
             {...props.wrapperProps}
             isLoading={false}
             isError={false}
-            hasNoData={false} >
+            hasNoData={false}
+            sectionName="geography" >
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
