@@ -18,13 +18,17 @@
     .search__section-wrapper-header {
       display: flex;
       justify-content: space-between;
+      position: relative;
+      top: 0;
+      left: 0;
 
       .advanced-search-dropdown__wrapper {
         height: auto;
+        max-width: 100%;
 
         @media(max-width: $medium-screen) {
           display: grid;
-          width: 75%;
+          //width: 75%;
 
           [class*="filter__dropdown-label"] {
             margin-bottom: rem(8);
@@ -36,9 +40,6 @@
         }
 
         .filter__dropdown-button-list-container {
-          @media(max-width: $medium-screen) {
-            max-width: 75%;
-          }
 
           [class*="filter__dropdown-button"] {
             max-width: 100%;
@@ -46,8 +47,8 @@
             border-color: $gray-cool-10;
             text-align: start;
 
-            @media(max-width: $tablet-screen) {
-              width: rem(200)
+            @media(max-width: 575px) {
+              max-width: rem(250);
             }
 
             .filter__dropdown-button-text {
@@ -77,6 +78,10 @@
             width: max-content;
             min-width: 100%;
 
+            @media(max-width: 575px) {
+              width: rem(250);
+            }
+
             .filter__dropdown-list-item {
               padding-left: $global-margin * 2;
               padding-right: $global-margin * 2;
@@ -91,9 +96,11 @@
 
       @import "../../../components/chartTableToggle";
 
-      .chart-table-toggle {
+      .test.chart-table-toggle {
         border: rem(1) solid $gray-cool-10;
         height: fit-content;
+        position: absolute;
+        right: 0;
 
         .view-button {
           border: none;

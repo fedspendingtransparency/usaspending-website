@@ -90,7 +90,7 @@ const SearchSectionWrapper = ({
                                 : `${selectedDropdownOption}`}
                             sortFn={sortFn}
                             classname="advanced-search-dropdown__wrapper" />
-                        <ChartTableToggle activeType={viewType} changeView={changeView} />
+                        <ChartTableToggle activeType={viewType} changeView={changeView} classname="test" />
                     </>
                     :
                     sectionTitle
