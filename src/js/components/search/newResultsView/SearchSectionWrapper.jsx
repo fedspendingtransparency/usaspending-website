@@ -89,8 +89,9 @@ const SearchSectionWrapper = ({
                                 ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
                                 : `${selectedDropdownOption}`}
                             sortFn={sortFn}
-                            classname="advanced-search-dropdown__wrapper" />
-                        <ChartTableToggle activeType={viewType} changeView={changeView} classname="test" />
+                            classname="advanced-search-dropdown__wrapper"
+                            buttonClassname="advanced-search-dropdown__button" />
+                        <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
                     </>
                     :
                     sectionTitle
