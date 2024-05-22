@@ -94,8 +94,7 @@ export default class ResultsTableContainer extends React.Component {
     }
 
     pickDefaultTab() {
-        console.log("here");
-    // get the transaction counts for the current filters
+        // get the transaction counts for the current filters
         if (this.tabCountRequest) {
             this.tabCountRequest.cancel();
         }
