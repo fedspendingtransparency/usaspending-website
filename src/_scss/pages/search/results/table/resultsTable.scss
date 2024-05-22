@@ -3,7 +3,6 @@
     position: relative;
     overflow-x: hidden;
     @import "_tableTypes";
-    @import "_tableStyle";
     @import "_resultsDropdownPickerWrapper";
     @import "./_tableMessages";
 
@@ -25,10 +24,6 @@
                 }
             }
         }
-    }
-
-    .ibt-table-container {
-        border: 1px solid $color-gray-light;
     }
 
     .results-table-width-master {
