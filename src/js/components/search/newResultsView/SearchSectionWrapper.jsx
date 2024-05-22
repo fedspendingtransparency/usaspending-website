@@ -37,7 +37,9 @@ const SearchSectionWrapper = ({
     columns,
     rows,
     table,
-    sortBy
+    sortBy,
+    sortDirection,
+    activeField
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -74,6 +76,8 @@ const SearchSectionWrapper = ({
             columns={columns}
             rows={rows}
             sortBy={sortBy}
+            activeField={activeField}
+            sortDirection={sortDirection}
             manualSort />);
     };
 

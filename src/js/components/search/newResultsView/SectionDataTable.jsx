@@ -7,8 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Pagination, Table } from "data-transparency-ui";
 
 const SectionDataTable = (props) => {
-    const [sortDirection, setSortDirection] = useState('asc');
-    const [activeField, setActiveField] = useState('aggregated_amount');
+    const { sortDirection, activeField } = props;
     const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     // const [pageSize, setPageSize] = useState(10);
@@ -42,12 +41,8 @@ const SectionDataTable = (props) => {
     };
 
     const updateSort = (field, direction) => {
-        console.log(field);
-        setSortDirection(direction);
-        setActiveField(field);
         setCurrentPage(1);
         props.sortBy(field, direction);
-        // make an api call to get sorted data or use the internal sort function
     };
 
     useEffect(() => {

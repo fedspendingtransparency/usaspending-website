@@ -34,6 +34,8 @@ const propTypes = {
 
 const TimeVisualizationSectionContainer = (props) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState(props.visualizationPeriod);
+    const [sortDirection, setSortDirection] = useState('asc');
+    const [activeField, setActiveField] = useState('aggregated_amount');
     const [parsedData, setParsedData] = useState({
         loading: true,
         error: false,
@@ -167,14 +169,16 @@ const TimeVisualizationSectionContainer = (props) => {
 
     const sortBy = (field, direction) => {
         const updatedTable = [...tableData];
-        if (direction === 'desc') {
+        if (direction === 'asc') {
             updatedTable.sort((a, b) => a[field] - b[field]);
         }
 
-        if (direction === 'asc') {
+        if (direction === 'desc') {
             updatedTable.sort((a, b) => b[field] - a[field]);
         }
 
+        setSortDirection(direction);
+        setActiveField(field);
         createTableRows(updatedTable);
     };
 
@@ -215,7 +219,6 @@ const TimeVisualizationSectionContainer = (props) => {
                     return row;
                 });
                 setTableData(tempTableData);
-                createTableRows(tempTableData);
                 apiRequest = null;
             })
             .catch((err) => {
@@ -241,6 +244,11 @@ const TimeVisualizationSectionContainer = (props) => {
         // Fetch data from the Awards v2 endpoint
         fetchAwards('Spending Over Time Visualization');
     };
+
+    useEffect(() => {
+        sortBy("aggregated_amount", "desc");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tableData]);
 
     useEffect(() => {
         if (!props.noApplied) {
@@ -276,6 +284,8 @@ const TimeVisualizationSectionContainer = (props) => {
             tableData={parsedData}
             data={parsedData}
             sortBy={sortBy}
+            sortDirection={sortDirection}
+            activeField={activeField}
             columns={columns[visualizationPeriod]}
             rows={tableRows}
             isLoading={parsedData?.loading}
