@@ -286,6 +286,7 @@ export default class ResultsTable extends React.Component {
                         stickyFirstColumn
                         columns={cols}
                         rows={limitedRows}
+                        subAward={this.props.subaward}
                         currentSort={this.props.sort}
                         updateSort={this.props.updateSort} />
                 </div>
