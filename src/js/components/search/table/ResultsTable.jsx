@@ -210,7 +210,8 @@ export default class ResultsTable extends React.Component {
         // don't do this sort won't work
         const columns = orderedColumns.map((col) => ({
             title: col.columnName,
-            displayName: col.displayName
+            displayName: col.displayName,
+            columnWidth: col.width
         }));
         return columns;
     }
