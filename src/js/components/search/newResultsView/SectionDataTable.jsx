@@ -91,7 +91,7 @@ const SectionDataTable = (props) => {
     return (
         <>
             <Table
-                classNames="search-results"
+                classNames="table-for-new-search-page"
                 currentSort={{ direction: sortDirection, field: activeField }}
                 updateSort={updateSort}
                 columns={columns}
