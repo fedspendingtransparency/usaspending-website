@@ -285,7 +285,7 @@ export default class ResultsTable extends React.Component {
             <>
                 <div className="advanced-search__table-wrapper">
                     <Table
-                        classNames="table-for-new-search-page"
+                        classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn
                         columns={cols}
                         rows={limitedRows}
