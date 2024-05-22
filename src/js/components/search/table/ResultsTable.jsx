@@ -13,11 +13,7 @@ import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 
-// saving in case we need these
-// const rowHeight = 40;
-// setting the table height to a partial row prevents double bottom borders and also clearly
-// indicates when there's more data
-// const tableHeight = 29.5 * rowHeight;
+
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
 export default class ResultsTable extends React.Component {
