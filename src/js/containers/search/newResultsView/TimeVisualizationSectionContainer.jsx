@@ -62,7 +62,7 @@ const TimeVisualizationSectionContainer = (props) => {
     const columns = {
         month: [
             {
-                title: 'months',
+                title: 'month',
                 displayName: ["Month"],
                 right: false
             },
@@ -70,7 +70,7 @@ const TimeVisualizationSectionContainer = (props) => {
         ],
         quarter: [
             {
-                title: 'quarters',
+                title: 'quarter',
                 displayName: ["Quarter"],
                 right: false
             },
@@ -147,11 +147,14 @@ const TimeVisualizationSectionContainer = (props) => {
                 if (row[key] !== false && !key.includes("raw")) {
                     if (key === "month") {
                         rowArray.push(MonthHelper.convertNumToShortMonth(row[key]));
-                    } else if (key === "quarter") {
+                    }
+                    else if (key === "quarter") {
                         rowArray.push(`Q${row[key]}`);
-                    } else if (key.includes("amount")) {
+                    }
+                    else if (key.includes("amount")) {
                         rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
-                    } else {
+                    }
+                    else {
                         rowArray.push(row[key]);
                     }
                 }
@@ -164,31 +167,13 @@ const TimeVisualizationSectionContainer = (props) => {
 
     const sortBy = (field, direction) => {
         const updatedTable = [...tableData];
-        // for (let i = 0; i < rows?.length; i++) {
-        //     const updatedRow = {};
-        //     for (let j = 0; j < rows[i].length; j++) {
-        //         updatedRow[columns[j].title] = rows[i][j];
-        //     }
-        //     updatedTable.push(updatedRow);
-        // }
-
         if (direction === 'desc') {
             updatedTable.sort((a, b) => a[field] - b[field]);
         }
-        else {
+
+        if (direction === 'asc') {
             updatedTable.sort((a, b) => b[field] - a[field]);
         }
-
-        // const sortedTable = [];
-        // for (let i = 0; i < updatedTable?.length; i++) {
-        //     const updatedRow = [];
-        //     for (let j = 0; j < Object.keys(updatedTable[i])?.length; j++) {
-        //         updatedRow.push(updatedTable[i][Object.keys(updatedTable[i])[j]]);
-        //     }
-        //     sortedTable.push(updatedRow);
-        // }
-
-        console.log("here", updatedTable);
 
         createTableRows(updatedTable);
     };

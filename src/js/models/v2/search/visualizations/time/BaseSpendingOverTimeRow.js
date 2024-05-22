@@ -3,8 +3,6 @@
  * Created by Andrea Blackwell 05/15/2024
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-
 const BaseSpendingOverTimeRow = {
     populate(data) {
         this.month = Object.prototype.hasOwnProperty.call(data.time_period, 'month') ? data.time_period.month : false;
