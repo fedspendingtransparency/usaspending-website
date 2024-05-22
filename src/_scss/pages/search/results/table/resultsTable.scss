@@ -3,7 +3,6 @@
     position: relative;
     overflow-x: hidden;
     @import "_tableTypes";
-    @import "_tableStyle";
     @import "_resultsDropdownPickerWrapper";
     @import "./_tableMessages";
 
@@ -27,10 +26,6 @@
         }
     }
 
-    .ibt-table-container {
-        border: 1px solid $color-gray-light;
-    }
-
     .results-table-width-master {
         width: 100%;
     }
@@ -39,7 +34,7 @@
         width: auto;
         overflow-x: scroll;
 
-        .advanced-search__table {
+        .usda-table {
             margin-top: -1px;
             margin-bottom: 0;
         }
