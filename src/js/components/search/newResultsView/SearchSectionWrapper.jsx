@@ -91,7 +91,7 @@ const SearchSectionWrapper = ({
                         sortFn={sortFn}
                         classname="advanced-search-dropdown__wrapper"
                         buttonClassname="advanced-search-dropdown__button"
-                        width={wrapperWidth} />
+                        parentWidth={wrapperWidth} />
                     <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
                 </>
                 :
