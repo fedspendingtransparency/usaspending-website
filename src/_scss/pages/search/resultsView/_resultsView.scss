@@ -119,6 +119,14 @@
       margin-top: rem(24);
       margin-bottom: rem(24);
 
+      .advanced-search__table-wrapper {
+        overflow-y: auto;
+      }
+
+      table.advanced-search__table {
+        margin-top: rem(2);
+      }
+
       .usda-table.search-results {
         margin-bottom: rem(16);
       }
