@@ -5,20 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Table, Pagination } from 'data-transparency-ui';
 import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
-
-import IBTable from 'components/sharedComponents/IBTable/IBTable';
-
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 
-const rowHeight = 40;
-// setting the table height to a partial row prevents double bottom borders and also clearly
-// indicates when there's more data
-const tableHeight = 29.5 * rowHeight;
+
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
 export default class ResultsTable extends React.Component {
@@ -32,14 +27,25 @@ export default class ResultsTable extends React.Component {
         sort: PropTypes.object,
         updateSort: PropTypes.func,
         awardIdClick: PropTypes.func,
-        subAwardIdClick: PropTypes.func
+        subAwardIdClick: PropTypes.func,
+        page: PropTypes.number,
+        setPage: PropTypes.func,
+        setResultLimit: PropTypes.func,
+        total: PropTypes.number
     };
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            currentRows: [],
+            cols: this.prepareDTUIColumns()
+        };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
+        this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
+        this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
+        this.prepareTable = this.prepareTable.bind(this);
     }
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
@@ -192,34 +198,102 @@ export default class ResultsTable extends React.Component {
         };
     }
 
-    render() {
-        const calculatedValues = this.prepareTable();
+    prepareDTUIColumns() {
+        const columnOrder = this.props.columns.visibleOrder;
+        const orderedColumns = columnOrder.map((columnTitle) => {
+            const column = this.props.columns.data[columnTitle];
+            return column;
+        });
 
-        let noResultsClass = '';
-        if (this.props.results.length === 0) {
-            // remove duplicated bottom border
-            noResultsClass = ' no-results';
+        // the columns passed in don't have the right properties, if we
+        // don't do this sort won't work
+        const columns = orderedColumns.map((col) => ({
+            title: col.columnName,
+            displayName: col.displayName
+        }));
+        return columns;
+    }
+
+    prepareDTUIRows() {
+        // limit = 10
+        // page = 1, need 0-9
+        // page = 2, need 10 - 19 etc
+        // (page * limit) - 1 end
+        // (page - 1) * limit start
+        const arrayOfObjects = this.props.results;
+
+        let values = null;
+        if (!this.props.subaward) {
+            values = arrayOfObjects.map((obj) => {
+                const value = [];
+                value.push(
+                    <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
+                    <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                    obj['Start Date'] || '--',
+                    obj['End Date'] || '--',
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
+                    obj.Description || '--',
+                    obj.def_codes || '--',
+                    MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                    MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                    <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                    obj['Awarding Sub Agency'] || '--',
+                    obj['Contract Award Type'] || '--'
+                );
+
+                return value;
+            });
+            return values;
         }
-        const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
 
+        values = arrayOfObjects.map((obj) => {
+            const value = [];
+            value.push(
+                <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Sub-Award ID']}</a> || '--',
+                obj['Sub-Awardee Name'] || '--',
+                obj['Sub-Award Date'] || '--',
+                MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
+                obj['Awarding Agency'] || '--',
+                obj['Awarding Sub Agency'] || '--',
+                <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Prime Award ID']}</a> || '--',
+                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--'
+            );
+
+            return value;
+        });
+        return values;
+    }
+
+    render() {
+        if (this.props.results.length === 0) {
+            // replace with no results component not a class
+        }
+
+        const cols = this.prepareDTUIColumns();
+        const limitedRows = this.prepareDTUIRows();
         return (
-            <div className={`award-results-table${noResultsClass}`}>
-                <IBTable
-                    rowHeight={rowHeight}
-                    rowCount={this.props.results.length}
-                    headerHeight={headerHeight}
-                    contentWidth={calculatedValues.width}
-                    bodyWidth={this.props.visibleWidth}
-                    bodyHeight={variableBodyHeight}
-                    columns={calculatedValues.columns}
-                    headerCellRender={this.headerCellRender}
-                    bodyCellRender={this.bodyCellRender}
-                    onReachedBottom={this.props.loadNextPage}
-                    topScroller
-                    ref={(table) => {
-                        this.tableComponent = table;
-                    }} />
-            </div>
+            <>
+                <div className="advanced-search__table-wrapper">
+                    <Table
+                        classNames="table-for-new-search-page award-results-table-dtui"
+                        stickyFirstColumn
+                        columns={cols}
+                        rows={limitedRows}
+                        currentSort={this.props.sort}
+                        updateSort={this.props.updateSort} />
+                </div>
+                <Pagination
+                    resultsText
+                    limitSelector
+                    currentPage={this.props.page}
+                    pageSize={this.props.resultsLimit}
+                    changePage={this.props.setPage}
+                    changeLimit={this.props.setResultLimit}
+                    totalItems={this.props.resultsCount} />
+            </>
         );
     }
 }

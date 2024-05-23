@@ -10,9 +10,8 @@
         padding: rem(30);
         @import "./_typography";
         @import "../../../elements/_divider";
-        //@import "./table/resultsTable";
+        @import "./table/resultsTable";
         @import "./screens/screens";
-        //@import './tables';
     }
 }
 
