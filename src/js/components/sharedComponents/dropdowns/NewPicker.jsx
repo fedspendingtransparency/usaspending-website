@@ -28,7 +28,8 @@ const propTypes = {
     })),
     children: PropTypes.node,
     backgroundColor: PropTypes.string,
-    enabled: PropTypes.bool
+    enabled: PropTypes.bool,
+    width: PropTypes.number
 };
 
 const defaultSort = (a, b, selectedOption) => {
@@ -54,7 +55,8 @@ const NewPicker = ({
     buttonClassname = '',
     minTextWidth = '',
     classname = '',
-    sortFn = defaultSort
+    sortFn = defaultSort,
+    width
 }) => {
     const pickerRef = useRef(null);
     const buttonRef = useRef(null);
@@ -130,7 +132,8 @@ const NewPicker = ({
                     ref={buttonRef}
                     aria-label="Filter Dropdown Button"
                     onClick={toggleMenu}
-                    onKeyUp={keyUp}>
+                    onKeyUp={keyUp}
+                    style={{ maxWidth: `${width}px` }} >
                     {leftIcon &&
                         <span className="filter__dropdown-left-icon">
                             <FontAwesomeIcon icon={leftIcon} alt="page title bar button icon" />

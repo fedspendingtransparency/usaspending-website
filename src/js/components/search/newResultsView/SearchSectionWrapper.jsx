@@ -48,6 +48,7 @@ const SearchSectionWrapper = ({
 
     // Measures content height to set height for dsm content
     const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
+    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const Message = () => {
         if (isLoading) {
@@ -89,7 +90,8 @@ const SearchSectionWrapper = ({
                             : `${selectedDropdownOption}`}
                         sortFn={sortFn}
                         classname="advanced-search-dropdown__wrapper"
-                        buttonClassname="advanced-search-dropdown__button" />
+                        buttonClassname="advanced-search-dropdown__button"
+                        width={wrapperWidth} />
                     <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
                 </>
                 :

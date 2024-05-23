@@ -26,6 +26,9 @@
       font-weight: $font-semibold;
       line-height: 1.5;
       margin: auto 0;
+      @media(max-width: $medium-screen) {
+        flex: 100%;
+      }
     }
 
     .advanced-search-dropdown__wrapper {
@@ -34,7 +37,6 @@
       padding-left: rem(8);
 
       @media(max-width: $medium-screen) {
-        flex: 100%;
         padding-left: 0;
         padding-top: rem(8);
       }
