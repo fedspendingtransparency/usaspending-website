@@ -166,12 +166,12 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setScope(defaultScopes[tempSpendingBy]);
     };
 
-    // TODO:  Need to refactor for 10948
     const parseRank = () => {
         if (history) {
             const params = history.location.search.split("&");
             params.shift();
-            if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
+            console.debug("params: ", params);
+            if (params.length === 2 && params[0].substring(0, 8) === "section=") {
                 if (params[1].substring(0, 9) === "rankType=") {
                     const rankVal = params[1].substring(9);
                     changeSpendingBy("industryCode");
