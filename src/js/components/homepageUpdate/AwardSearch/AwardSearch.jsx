@@ -57,7 +57,7 @@ const AwardSearch = () => {
     }, [windowWidth]);
 
 
-    const getSelectedTab = (tab, rankType) => {
+    const getSelectedSection = (section, rankType) => {
         const filterValue = {
             filters: {
                 ...defaultFilters,
@@ -78,10 +78,10 @@ const AwardSearch = () => {
             version: REQUEST_VERSION
         };
 
-        if (tab === "map") {
+        if (section === "map") {
             filterValue.filters.timePeriodFY = [(FiscalYearHelper.currentFiscalYear()).toString()];
         }
-        else if (tab === "time") {
+        else if (section === "time") {
             filterValue.filters.timePeriodFY =
                 [(FiscalYearHelper.currentFiscalYear()).toString(),
                     (FiscalYearHelper.currentFiscalYear() - 1).toString(),
@@ -89,10 +89,10 @@ const AwardSearch = () => {
                     (FiscalYearHelper.currentFiscalYear() - 3).toString(),
                     (FiscalYearHelper.currentFiscalYear() - 4).toString()];
         }
-        else if (tab === "rank" && rankType === "naics") {
+        else if (section === "rank" && rankType === "naics") {
             filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         }
-        else if (tab === "rank" && rankType === "psc") {
+        else if (section === "rank" && rankType === "psc") {
             filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         }
 
@@ -101,10 +101,10 @@ const AwardSearch = () => {
             .then((results) => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
-                    window.open(`/search?hash=${hashData.hash}&tab=${tab}&rankType=${rankType}`, "_self");
+                    window.open(`/search?hash=${hashData.hash}&section=${section}&rankType=${rankType}`, "_self");
                 }
                 else {
-                    window.open(`/search?hash=${hashData.hash}&tab=${tab}`, "_self");
+                    window.open(`/search?hash=${hashData.hash}&section=${section}`, "_self");
                 }
                 // operation has resolved
                 tempHash = null;
@@ -132,7 +132,7 @@ const AwardSearch = () => {
         label: `carousel ${buttonName}`
     });
     const handleGoToAdvancedSearch = (buttonName, rankType) => {
-        getSelectedTab(buttonName, rankType);
+        getSelectedSection(buttonName, rankType);
         trackClick(buttonName);
     };
 
@@ -196,7 +196,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("map");
+                                                        handleGoToAdvancedSearch("geography");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -307,7 +307,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("map");
+                                                        handleGoToAdvancedSearch("geography");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>

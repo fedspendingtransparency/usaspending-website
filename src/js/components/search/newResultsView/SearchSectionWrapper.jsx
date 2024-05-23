@@ -12,8 +12,6 @@ import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
-// import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
-// import { getStickyBreakPointForSidebar } from '../../../helpers/stickyHeaderHelper';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -45,7 +43,6 @@ const SearchSectionWrapper = ({
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
-    // const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const query = useQueryParams();
 
     const history = useHistory();
