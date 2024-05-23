@@ -76,27 +76,25 @@ const SearchSectionWrapper = ({
 
     return (
         <div className="search__section-wrapper">
-            <div className="search__section-wrapper-header">
-                {selectedDropdownOption ?
-                    <>
-                        <NewPicker
-                            leftIcon=""
-                            size="md"
-                            label={sectionTitle}
-                            options={dropdownOptions}
-                            enabled
-                            selectedOption={dropdownOptions?.length
-                                ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
-                                : `${selectedDropdownOption}`}
-                            sortFn={sortFn}
-                            classname="advanced-search-dropdown__wrapper"
-                            buttonClassname="advanced-search-dropdown__button" />
-                        <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
-                    </>
-                    :
-                    sectionTitle
-                }
-            </div>
+            {selectedDropdownOption ?
+                <>
+                    <span className="filter__dropdown-label">{sectionTitle}</span>
+                    <NewPicker
+                        leftIcon=""
+                        size="md"
+                        options={dropdownOptions}
+                        enabled
+                        selectedOption={dropdownOptions?.length
+                            ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
+                            : `${selectedDropdownOption}`}
+                        sortFn={sortFn}
+                        classname="advanced-search-dropdown__wrapper"
+                        buttonClassname="advanced-search-dropdown__button" />
+                    <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
+                </>
+                :
+                sectionTitle
+            }
             {!openAccordion &&
                 <div className="search__section-wrapper-content">
                     {

@@ -15,111 +15,113 @@
     border-radius: rem(8);
     background-color: $color-white;
 
-    .search__section-wrapper-header {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      top: 0;
-      left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    top: 0;
+    left: 0;
 
-      .advanced-search-dropdown__wrapper {
-        height: auto;
-        max-width: 100%;
+    .filter__dropdown-label {
+      color: $gray-cool-90;
+      font-weight: $font-semibold;
+      line-height: 1.5;
+      margin: auto 0;
+    }
 
-        @media(max-width: $medium-screen) {
-          display: grid;
+    .advanced-search-dropdown__wrapper {
+      height: auto;
+      max-width: 100%;
+      padding-left: rem(8);
 
-          [class*="filter__dropdown-label"] {
-            margin-bottom: rem(8);
+      @media(max-width: $medium-screen) {
+        flex: 100%;
+        padding-left: 0;
+        padding-top: rem(8);
+      }
+
+      .filter__dropdown-button-list-container {
+        .advanced-search-dropdown__button {
+          max-width: 100%;
+          position: relative;
+        }
+
+        [class*="filter__dropdown-button"] {
+          margin: 0;
+          border-color: $gray-cool-10;
+          text-align: start;
+
+          .filter__dropdown-button-text {
+            margin-right: rem(8);
+            font-size: rem(16);
+            line-height: rem(24);
+            color: $gray-cool-60;
+            opacity: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .filter__dropdown-chevron svg {
+            color: $blue-50;
+            opacity: 1;
+            vertical-align: middle;
           }
         }
 
-        [class*="filter__dropdown-label"] {
-          color: $gray-cool-90;
-        }
+        ul[class^='filter__dropdown-list'] {
+          background-color: $color-white;
+          border: rem(2) solid $gray-cool-10;
+          border-radius: rem(4);
+          box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+          transform: translate(0px, 0px);
+          width: max-content;
+          min-width: 100%;
 
-        .filter__dropdown-button-list-container {
-          .advanced-search-dropdown__button {
-            max-width: 100%;
-            position: relative;
+          .filter__dropdown-list-item {
+            padding-left: $global-margin * 2;
+            padding-right: $global-margin * 2;
           }
 
-          [class*="filter__dropdown-button"] {
-            margin: 0;
-            border-color: $gray-cool-10;
-            text-align: start;
-
-            .filter__dropdown-button-text {
-              margin-right: rem(8);
-              font-size: rem(16);
-              line-height: rem(24);
-              color: $gray-cool-60;
-              opacity: 1;
-              white-space: nowrap;
-              overflow-x: hidden;
-            }
-
-            .filter__dropdown-chevron svg {
-              color: $blue-50;
-              opacity: 1;
-              vertical-align: middle;
-            }
-          }
-
-          ul[class^='filter__dropdown-list'] {
-            background-color: $color-white;
-            border: rem(2) solid $gray-cool-10;
-            border-radius: rem(4);
-            box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
-            transform: translate(0px, 0px);
-            width: max-content;
-            min-width: 100%;
-
-            .filter__dropdown-list-item {
-              padding-left: $global-margin * 2;
-              padding-right: $global-margin * 2;
-            }
-
-            .filter__dropdown-list-item.active:hover {
-              background-color: $gray-cool-10;
-            }
+          .filter__dropdown-list-item.active:hover {
+            background-color: $gray-cool-10;
           }
         }
       }
+    }
 
-      @import "../../../components/chartTableToggle";
+    @import "../../../components/chartTableToggle";
 
-      .search__chart-table-toggle.chart-table-toggle {
-        border: rem(1) solid $gray-cool-10;
-        height: fit-content;
-        position: absolute;
-        right: 0;
+    .search__chart-table-toggle.chart-table-toggle {
+      border: rem(1) solid $gray-cool-10;
+      height: fit-content;
+      position: absolute;
+      right: rem(24);
 
-        .view-button {
-          border: none;
+      .view-button {
+        border: none;
+        color: $blue-50;
+        padding: rem(6) rem(8);
+
+        &.active {
+          background-color: $blue-5;
           color: $blue-50;
-          padding: rem(6) rem(8);
-
-          &.active {
-            background-color: $blue-5;
-            color: $blue-50;
-          }
         }
+      }
 
-        button {
-          height: rem(30);
-          width: rem(31);
-        }
+      button {
+        height: rem(30);
+        width: rem(31);
+      }
 
-        svg {
-          width: rem(16);
-        }
+      svg {
+        width: rem(16);
       }
     }
 
     .search__section-wrapper-content {
       margin-top: rem(24);
       margin-bottom: rem(24);
+      flex: 100%;
 
       .usda-table.search-results {
         margin-bottom: rem(16);
@@ -139,6 +141,7 @@
     .accordion-container {
       padding-top: rem(16);
       border-top: rem(1) solid $gray-cool-10;
+      flex: 100%;
 
       .accordion .heading {
         border: none;
