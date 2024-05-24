@@ -3,7 +3,6 @@
     position: relative;
     overflow-x: hidden;
     @import "_tableTypes";
-    @import "_tableStyle";
     @import "_resultsDropdownPickerWrapper";
     @import "./_tableMessages";
 
@@ -17,6 +16,12 @@
             margin-top: $global-margin * 2;
             .usa-dt-pagination__wrapper {
                 .pager {
+                    .hideLast {
+                        .pager__button {
+                            display:none;
+                        }
+                    }
+
                     li.pager__item:last-of-type {
                         .pager__button {
                             margin-right: 0;
@@ -25,10 +30,22 @@
                 }
             }
         }
-    }
 
-    .ibt-table-container {
-        border: 1px solid $color-gray-light;
+        .usda-table__cell {
+            p {
+                margin-bottom: 0;
+            }
+            .read-more-button {
+                @include button-link;
+                text-transform: lowercase;
+                color: $blue-50;
+                &:hover {
+                    text-decoration: none;
+                    color: $blue-70v;
+                }
+            }
+        }
+
     }
 
     .results-table-width-master {
@@ -38,11 +55,6 @@
     .advanced-search__table-wrapper {
         width: auto;
         overflow-x: scroll;
-
-        .advanced-search__table {
-            margin-top: -1px;
-            margin-bottom: 0;
-        }
     }
 
     .results-table-message {

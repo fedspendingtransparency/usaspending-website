@@ -69,7 +69,7 @@ const SpendingByCategoriesChart = (props) => {
                         textAnchor={isMobile ? "start" : "end"}
                         fontSize={14}
                         width={isMobile ? labelWidthVar : labelWidthVar + 16}
-                        fill="#5c5c5c">
+                        color="#5c5c5c">
                         {tickFormatter(payload.value, isSmMobile)}
                     </Text>
                 }

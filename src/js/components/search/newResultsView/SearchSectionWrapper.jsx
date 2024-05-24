@@ -64,18 +64,14 @@ const SearchSectionWrapper = ({
     };
 
     const Content = () => {
-        if (viewType === 'table') {
-            if (table) {
-                return table;
-            }
-
-            return (<SectionDataTable
-                columns={columns}
-                rows={rows}
-                manualSort />);
+        if (table) {
+            return table;
         }
 
-        return children;
+        return (<SectionDataTable
+            columns={columns}
+            rows={rows}
+            manualSort />);
     };
 
     return (
@@ -101,10 +97,10 @@ const SearchSectionWrapper = ({
             </div>
             {!openAccordion &&
                 <div className="search__section-wrapper-content">
-                    {isError || isLoading || hasNoData ?
-                        <Message />
-                        :
-                        <Content />
+                    {
+                        // eslint-disable-next-line no-nested-ternary
+                        isError || isLoading || hasNoData ?
+                            <Message /> : viewType === "table" ? <Content /> : children
                     }
                 </div>}
             <Accordion
