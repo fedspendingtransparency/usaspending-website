@@ -12,8 +12,6 @@ import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
-// import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
-// import { getStickyBreakPointForSidebar } from '../../../helpers/stickyHeaderHelper';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -55,7 +53,7 @@ const SearchSectionWrapper = ({
         setViewType(label);
     };
     const jumpToSection = (section = '') => {
-        const sections = ['geography', 'rank', 'time'];
+        const sections = ['map', 'time', 'categories'];
         // we've been provided a section to jump to
         // check if it's a valid section
         const matchedSection = sections.find((sec) => sec === section);
