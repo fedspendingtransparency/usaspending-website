@@ -162,8 +162,7 @@ const ReadMore = ({
     if (!expanded && text && text.length > limit) {
         return (
             <div>
-                <p>{`${text.substring(0, limit)}...`}</p>
-                {readMore()}
+                <p>{`${text.substring(0, limit)}...`}{' '}{readMore()}</p>
             </div>
         );
     }
