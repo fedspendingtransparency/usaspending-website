@@ -21,6 +21,8 @@ import * as MonthHelper from 'helpers/monthHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import BaseSpendingOverTimeRow from "../../../models/v2/search/visualizations/time/BaseSpendingOverTimeRow";
+import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -36,6 +38,8 @@ const propTypes = {
 
 const TimeVisualizationSectionContainer = (props) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState(props.visualizationPeriod);
+    const [sortDirection, setSortDirection] = useState('asc');
+    const [activeField, setActiveField] = useState('aggregated_amount');
     const [parsedData, setParsedData] = useState({
         loading: true,
         error: false,
@@ -45,16 +49,17 @@ const TimeVisualizationSectionContainer = (props) => {
         rawLabels: []
     });
     const [tableRows, setTableRows] = useState([]);
+    const [tableData, setTableData] = useState([]);
 
     let apiRequest = null;
     const fy = [
         {
-            title: "fy",
+            title: "fiscal_year",
             displayName: ["Fiscal Year"],
             right: false
         },
         {
-            title: "obligations",
+            title: "aggregated_amount",
             displayName: ["Obligations"],
             right: true
         }
@@ -63,7 +68,7 @@ const TimeVisualizationSectionContainer = (props) => {
     const columns = {
         month: [
             {
-                title: 'months',
+                title: 'month',
                 displayName: ["Month"],
                 right: false
             },
@@ -71,7 +76,7 @@ const TimeVisualizationSectionContainer = (props) => {
         ],
         quarter: [
             {
-                title: 'quarters',
+                title: 'quarter',
                 displayName: ["Quarter"],
                 right: false
             },
@@ -140,6 +145,47 @@ const TimeVisualizationSectionContainer = (props) => {
         });
     };
 
+    const createTableRows = (rows) => {
+        const rowsArray = [];
+        rows.forEach((row) => {
+            const rowArray = [];
+            Object.keys(row).forEach((key) => {
+                if (row[key] !== false && !key.includes("raw")) {
+                    if (key === "month") {
+                        rowArray.push(MonthHelper.convertNumToShortMonth(row[key]));
+                    }
+                    else if (key === "quarter") {
+                        rowArray.push(`Q${row[key]}`);
+                    }
+                    else if (key.includes("amount")) {
+                        rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
+                    }
+                    else {
+                        rowArray.push(row[key]);
+                    }
+                }
+            });
+            rowsArray.push(rowArray);
+        });
+
+        setTableRows(rowsArray);
+    };
+
+    const sortBy = (field, direction) => {
+        const updatedTable = [...tableData];
+        if (direction === 'asc') {
+            updatedTable.sort((a, b) => a[field] - b[field]);
+        }
+
+        if (direction === 'desc') {
+            updatedTable.sort((a, b) => b[field] - a[field]);
+        }
+
+        setSortDirection(direction);
+        setActiveField(field);
+        createTableRows(updatedTable);
+    };
+
     const fetchAwards = (auditTrail = null) => {
         const operation = new SearchAwardsOperation();
         operation.fromState(props.reduxFilters);
@@ -167,7 +213,16 @@ const TimeVisualizationSectionContainer = (props) => {
 
         apiRequest.promise
             .then((res) => {
-                parseData(res.data, visualizationPeriod);
+                const data = res.data;
+                parseData(data, visualizationPeriod);
+                const tempTableData = [];
+                data.results.map((d) => {
+                    const row = Object.create(BaseSpendingOverTimeRow);
+                    row.populate(d);
+                    tempTableData.push(row);
+                    return row;
+                });
+                setTableData(tempTableData);
                 apiRequest = null;
             })
             .catch((err) => {
@@ -180,20 +235,6 @@ const TimeVisualizationSectionContainer = (props) => {
                 console.log(err);
                 setParsedData({ ...parseData, loading: false, error: true });
             });
-    };
-
-    const generateTableRows = () => {
-        const rows = [];
-        for (let i = 0; i < parsedData.rawLabels?.length; i++) {
-            const row = [];
-            if (parsedData.rawLabels[i].period) {
-                row.push(parsedData.rawLabels[i].period);
-            }
-            row.push(parsedData.rawLabels[i].year);
-            row.push(parsedData.ySeries[i][0]);
-            rows.push(row);
-        }
-        setTableRows(rows);
     };
 
     const fetchData = () => {
@@ -256,6 +297,11 @@ const TimeVisualizationSectionContainer = (props) => {
     );
 
     useEffect(() => {
+        sortBy("aggregated_amount", "desc");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tableData]);
+
+    useEffect(() => {
         if (!props.noApplied) {
             fetchData();
         }
@@ -272,7 +318,6 @@ const TimeVisualizationSectionContainer = (props) => {
             props.setAppliedFilterCompletion(true);
         }
 
-        generateTableRows();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData]);
 
@@ -287,7 +332,11 @@ const TimeVisualizationSectionContainer = (props) => {
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
+            tableData={parsedData}
             data={parsedData}
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+            activeField={activeField}
             columns={columns[visualizationPeriod]}
             rows={tableRows}
             isLoading={parsedData?.loading}
