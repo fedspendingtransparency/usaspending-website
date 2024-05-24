@@ -12,6 +12,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
+import ReadMore from '../../../components/sharedComponents/ReadMore';
 
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
@@ -209,7 +210,8 @@ export default class ResultsTable extends React.Component {
         // don't do this sort won't work
         const columns = orderedColumns.map((col) => ({
             title: col.columnName,
-            displayName: col.displayName
+            displayName: col.displayName,
+            columnWidth: col.width
         }));
         return columns;
     }
@@ -233,7 +235,9 @@ export default class ResultsTable extends React.Component {
                     obj['End Date'] || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
-                    obj.Description || '--',
+                    <ReadMore
+                        text={obj.Description || '--'}
+                        limit={40} />,
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -290,6 +294,7 @@ export default class ResultsTable extends React.Component {
                 <Pagination
                     resultsText
                     limitSelector
+                    hideLast={this.props.resultsCount >= 50000}
                     currentPage={this.props.page}
                     pageSize={this.props.resultsLimit}
                     changePage={this.props.setPage}
