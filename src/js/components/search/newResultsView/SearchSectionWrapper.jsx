@@ -53,7 +53,7 @@ const SearchSectionWrapper = ({
         setViewType(label);
     };
     const jumpToSection = (section = '') => {
-        const sections = ['map', 'time', 'categories'];
+        const sections = ['map', 'time', 'categories', 'awards'];
         // we've been provided a section to jump to
         // check if it's a valid section
         const matchedSection = sections.find((sec) => sec === section);
