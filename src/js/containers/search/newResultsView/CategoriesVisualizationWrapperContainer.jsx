@@ -168,7 +168,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             const params = history.location.search.split("&");
             params.shift();
             console.debug("PARAMS 2: ", params);
-
             if (params.length === 2 && params[0].substring(0, 8) === "section=") {
                 if (params[1].substring(0, 5) === "type=") {
                     const rankVal = params[1].substring(5);
@@ -336,12 +335,12 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     }, [labelSeries, dataSeries, descriptions, linkSeries, loading, error, next, previous, hasNextPage, hasPreviousPage]);
 
     useEffect(() => {
-        console.debug("executing...");
         parseRank();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
     useEffect(() => {
+        console.debug("Happening");
         newSearch();
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [scope]);
