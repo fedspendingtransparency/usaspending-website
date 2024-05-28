@@ -3,9 +3,11 @@ table {
     margin: 2em 0;
     min-width: 100%;
 
-    &.search-results {
-        margin: 0;
+    &.table-for-new-search-page {
+        margin-top: rem(16);
+        margin-bottom: 0;
 
+        // this is necessary to make the usda-table__row class hover work correctly
         td {
             background-color: unset;
         }
