@@ -82,6 +82,10 @@
           .filter__dropdown-list-item {
             padding-left: $global-margin * 2;
             padding-right: $global-margin * 2;
+
+            button {
+              line-height: 1.5;
+            }
           }
 
           .filter__dropdown-list-item.active:hover {
