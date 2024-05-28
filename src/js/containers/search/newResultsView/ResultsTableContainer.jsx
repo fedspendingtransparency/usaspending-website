@@ -518,7 +518,8 @@ const ResultsTableContainer = (props) => {
             isError={error}
             isLoading={inFlight}
             noData={!inFlight && !error && results.length === 0}
-            {...props.wrapperProps}>
+            {...props.wrapperProps}
+            sectionName="awards">
             <ResultsTableSection
                 error={error}
                 inFlight={inFlight}
