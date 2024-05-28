@@ -134,7 +134,7 @@
       .download {
         display: flex;
         justify-content: end;
-        margin-bottom: rem(8);
+        margin-bottom: rem(12);
         font-size: rem(12);
         line-height: 1.5;
         color: #2378c3;
@@ -143,12 +143,18 @@
           margin-left: 4px;
         }
 
+        svg.fa-download {
+          width: 18px;
+          height: 18px;
+        }
+
         .tooltip__hover-wrapper {
           display: flex;
 
           svg {
             width: 18px;
             height: 18px;
+            margin: 0 0 0 8px;
           }
         }
       }
