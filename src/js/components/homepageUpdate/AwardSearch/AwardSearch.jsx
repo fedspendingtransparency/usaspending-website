@@ -34,6 +34,8 @@ const AwardSearch = () => {
     const psc = <div>From medical supplies to aircraft equipment, use <div className="award-search__glossary">Product or Service Codes (PSCs)</div> {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />} to see what&apos;s being purchased</div>;
 
     const isQAT = GlobalConstants.QAT;
+    const mapQAT = isQAT ? "geography" : "map";
+    const categoryQAT = isQAT ? "categories" : "rank";
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -201,7 +203,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("geography");
+                                                        handleGoToAdvancedSearch(mapQAT);
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -241,7 +243,7 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     disabled={activeCardIndex !== 2}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("rank", "naics");
+                                                        handleGoToAdvancedSearch(categoryQAT, "naics");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -261,7 +263,7 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     disabled={activeCardIndex !== 3}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("rank", "psc");
+                                                        handleGoToAdvancedSearch(categoryQAT, "psc");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -312,7 +314,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("geography");
+                                                        handleGoToAdvancedSearch(mapQAT);
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
