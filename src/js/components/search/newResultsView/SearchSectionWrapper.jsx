@@ -137,7 +137,6 @@ const SearchSectionWrapper = ({
                     <NewPicker
                         leftIcon=""
                         size="md"
-                        label={sectionTitle}
                         options={dropdownOptions}
                         enabled
                         selectedOption={dropdownOptions?.length
