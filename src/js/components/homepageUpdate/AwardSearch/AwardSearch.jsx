@@ -14,7 +14,7 @@ import { initialState as defaultFilters } from 'redux/reducers/search/searchFilt
 import { throttle } from 'lodash';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
-import { REQUEST_VERSION } from "../../../GlobalConstants";
+import GlobalConstants, { REQUEST_VERSION } from "../../../GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 /* eslint-disable */
@@ -32,6 +32,9 @@ const AwardSearch = () => {
     const fiscalYear = <div>See spending data over time using our Time Period filters, like <div className="award-search__glossary">Fiscal Year</div> {<GlossaryLink term="fiscal-year-fy" hidden={activeCardIndex !== 1} />}</div>;
     const naics = <div>Use the <div className="award-search__glossary">North American Industry Classification System (NAICS)</div> {<GlossaryLink term="naics" hidden={activeCardIndex !== 2} />} filter to find spending by industry</div>;
     const psc = <div>From medical supplies to aircraft equipment, use <div className="award-search__glossary">Product or Service Codes (PSCs)</div> {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />} to see what&apos;s being purchased</div>;
+
+    const isQAT = GlobalConstants.QAT;
+
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
@@ -78,7 +81,7 @@ const AwardSearch = () => {
             version: REQUEST_VERSION
         };
 
-        if (section === "map") {
+        if (section === "map" || section === "geography") {
             filterValue.filters.timePeriodFY = [(FiscalYearHelper.currentFiscalYear()).toString()];
         }
         else if (section === "time") {
@@ -101,10 +104,12 @@ const AwardSearch = () => {
             .then((results) => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
-                    window.open(`/search?hash=${hashData.hash}&section=${section}&rankType=${rankType}`, "_self");
+                    // eslint-disable-next-line no-unused-expressions
+                    isQAT ? window.open(`/search?hash=${hashData.hash}&section=${section}&rankType=${rankType}`, "_self") : window.open(`/search?hash=${hashData.hash}&tab=${section}&rankType=${rankType}`, "_self");
                 }
                 else {
-                    window.open(`/search?hash=${hashData.hash}&section=${section}`, "_self");
+                    // eslint-disable-next-line no-unused-expressions
+                    isQAT ? window.open(`/search?hash=${hashData.hash}&section=${section}`, "_self") : window.open(`/search?hash=${hashData.hash}&tab=${section}`, "_self");
                 }
                 // operation has resolved
                 tempHash = null;
