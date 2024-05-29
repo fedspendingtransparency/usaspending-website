@@ -107,7 +107,7 @@ const AwardSearch = () => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
                     // eslint-disable-next-line no-unused-expressions
-                    isQAT ? window.open(`/search?hash=${hashData.hash}&section=${section}&rankType=${rankType}`, "_self") : window.open(`/search?hash=${hashData.hash}&tab=${section}&rankType=${rankType}`, "_self");
+                    isQAT ? window.open(`/search?hash=${hashData.hash}&section=${section}&type=${rankType}`, "_self") : window.open(`/search?hash=${hashData.hash}&tab=${section}&rankType=${rankType}`, "_self");
                 }
                 else {
                     // eslint-disable-next-line no-unused-expressions
