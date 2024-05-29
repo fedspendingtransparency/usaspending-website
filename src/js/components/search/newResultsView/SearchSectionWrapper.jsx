@@ -152,7 +152,7 @@ const SearchSectionWrapper = ({
                 sectionTitle
             }
             {!openAccordion &&
-                <div className="search__section-wrapper-content">
+                <div className="search__section-wrapper-content new-results-view">
                     {
                         // eslint-disable-next-line no-nested-ternary
                         isError || isLoading || hasNoData ?

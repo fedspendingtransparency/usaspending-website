@@ -154,7 +154,7 @@ const ReadMore = ({
     if (expanded && (text && text.length > limit)) {
         return (
             <>
-                <p>{text}</p>
+                <p className="read-more__preview-lines">{text}</p>
                 <div>{readLess()}</div>
             </>
         );
@@ -162,14 +162,14 @@ const ReadMore = ({
     if (!expanded && text && text.length > limit) {
         return (
             <div>
-                <p>{`${text.substring(0, limit)}...`}{' '}{readMore()}</p>
+                <p className="read-more__preview-lines">{`${text.substring(0, limit)}...`}{' '}{readMore()}</p>
             </div>
         );
     }
     if (text && text.length <= limit) {
         return (
             <div>
-                <p>{text}</p>
+                <p className="read-more__preview-lines">{text}</p>
             </div>
         );
     }
