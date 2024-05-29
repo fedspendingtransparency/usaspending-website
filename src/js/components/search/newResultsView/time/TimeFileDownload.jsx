@@ -1,7 +1,7 @@
 /**
-  * TimeSectionWrapper.jsx
-  * Created by Andrea Blackwell 05/24/2024
-  **/
+ * TimeFileDownload.jsx
+ * Created by Andrea Blackwell 05/29/2024
+ **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -9,20 +9,13 @@ import { capitalize } from "lodash";
 import { TooltipWrapper } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
-import TimeVisualizationChart from "../../visualizations/time/TimeVisualizationChart";
 
 const propTypes = {
-    nextPage: PropTypes.func,
-    previousPage: PropTypes.func,
-    loading: PropTypes.bool,
-    error: PropTypes.bool,
-    hasNextPage: PropTypes.bool,
-    hasPreviousPage: PropTypes.bool,
-    children: PropTypes.node,
-    recipientError: PropTypes.bool
+    parsedData: PropTypes.object,
+    visualizationPeriod: PropTypes.string
 };
 
-const TimeSectionWrapper = ({ parsedData, visualizationPeriod, subaward }) => {
+const TimeFileDownload = ({ parsedData, visualizationPeriod }) => {
     const getDownloadData = () => {
         const headers = [];
         headers.fiscal_year = 'fiscal_year,total_obligations\n';
@@ -70,22 +63,17 @@ const TimeSectionWrapper = ({ parsedData, visualizationPeriod, subaward }) => {
     );
 
     return (
-        <>
-            <div className="download">
-                {!parsedData?.loading && renderDownloadLink()}
-                {!parsedData?.loading && <TooltipWrapper
-                    className="tooltip-wrapper"
-                    icon="info"
-                    tooltipPosition="left"
-                    tooltipComponent={downloadTooltip()} />}
-            </div>
-            <TimeVisualizationChart
-                {...parsedData}
-                visualizationPeriod={visualizationPeriod}
-                subaward={subaward} />
-        </>
+        <div className="download">
+            {!parsedData?.loading && renderDownloadLink()}
+            {!parsedData?.loading && <TooltipWrapper
+                className="tooltip-wrapper"
+                icon="info"
+                tooltipPosition="left"
+                tooltipComponent={downloadTooltip()} />}
+        </div>
     );
 };
 
-TimeSectionWrapper.propTypes = propTypes;
-export default TimeSectionWrapper;
+TimeFileDownload.propTypes = propTypes;
+export default TimeFileDownload;
+

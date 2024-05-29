@@ -18,7 +18,8 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import BaseSpendingOverTimeRow from "../../../models/v2/search/visualizations/time/BaseSpendingOverTimeRow";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
-import TimeSectionWrapper from "../../../components/search/newResultsView/time/TimeSectionWrapper";
+import TimeFileDownload from "../../../components/search/newResultsView/time/TimeFileDownload";
+import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -292,9 +293,10 @@ const TimeVisualizationSectionContainer = (props) => {
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
+            downloadComponent={<TimeFileDownload parsedData={parseData} visualizationPeriod={visualizationPeriod} />}
             manualSort>
-            <TimeSectionWrapper
-                parsedData={parsedData}
+            <TimeVisualizationChart
+                {...parsedData}
                 visualizationPeriod={visualizationPeriod}
                 subaward={props.subaward} />
         </SearchSectionWrapper>

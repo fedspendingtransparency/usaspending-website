@@ -25,7 +25,10 @@ const propTypes = {
     fetchData: PropTypes.func,
     columns: PropTypes.array,
     rows: PropTypes.array,
-    sortBy: PropTypes.func
+    sortBy: PropTypes.func,
+    sortDirection: PropTypes.string,
+    activeField: PropTypes.string,
+    downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
 };
 
 const SearchSectionWrapper = ({
@@ -43,7 +46,8 @@ const SearchSectionWrapper = ({
     table,
     sortBy,
     sortDirection,
-    activeField
+    activeField,
+    downloadComponent
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -154,7 +158,15 @@ const SearchSectionWrapper = ({
                     {
                         // eslint-disable-next-line no-nested-ternary
                         isError || isLoading || hasNoData ?
-                            <Message /> : viewType === "table" ? <Content /> : children
+                            <Message />
+                            :
+                            <>
+                                {downloadComponent}
+                                {viewType === "table" ?
+                                    <Content />
+                                    :
+                                    children}
+                            </>
                     }
                 </div>}
             <Accordion
