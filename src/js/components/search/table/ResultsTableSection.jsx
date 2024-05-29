@@ -27,7 +27,10 @@ const propTypes = {
     reorderColumns: PropTypes.func,
     subaward: PropTypes.bool,
     awardIdClick: PropTypes.func,
-    subAwardIdClick: PropTypes.func
+    subAwardIdClick: PropTypes.func,
+    page: PropTypes.number,
+    setPage: PropTypes.func,
+    total: PropTypes.number
 };
 
 export default class ResultsTableSection extends React.Component {

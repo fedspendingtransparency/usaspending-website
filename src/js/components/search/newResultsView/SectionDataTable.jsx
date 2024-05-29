@@ -7,8 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Pagination, Table } from "data-transparency-ui";
 
 const SectionDataTable = (props) => {
-    const [sortDirection, setSortDirection] = useState('asc');
-    const [activeField, setActiveField] = useState('obligations');
+    const { sortDirection, activeField } = props;
     const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     // const [pageSize, setPageSize] = useState(10);
@@ -34,35 +33,6 @@ const SectionDataTable = (props) => {
         }
     ];
 
-    const sortBy = (field, direction) => {
-        const updatedTable = [];
-        for (let i = 0; i < rows?.length; i++) {
-            const updatedRow = {};
-            for (let j = 0; j < rows[i].length; j++) {
-                updatedRow[columns[j].title] = rows[i][j];
-            }
-            updatedTable.push(updatedRow);
-        }
-
-        if (direction === 'desc') {
-            updatedTable.sort((a, b) => a[field] - b[field]);
-        }
-        else {
-            updatedTable.sort((a, b) => b[field] - a[field]);
-        }
-
-        const sortedTable = [];
-        for (let i = 0; i < updatedTable?.length; i++) {
-            const updatedRow = [];
-            for (let j = 0; j < Object.keys(updatedTable[i])?.length; j++) {
-                updatedRow.push(updatedTable[i][Object.keys(updatedTable[i])[j]]);
-            }
-            sortedTable.push(updatedRow);
-        }
-
-        setRows(sortedTable);
-    };
-
     const changePage = (page) => {
         if (props.manualSort) {
             setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));
@@ -70,13 +40,9 @@ const SectionDataTable = (props) => {
         }
     };
 
-    const updateSort = (field) => {
-        const direction = sortDirection === 'asc' ? 'desc' : 'asc';
-        setSortDirection(direction);
-        setActiveField(field);
+    const updateSort = (field, direction) => {
         setCurrentPage(1);
-        sortBy(field, direction);
-        // make an api call to get sorted data or use the internal sort function
+        props.sortBy(field, direction);
     };
 
     useEffect(() => {
@@ -91,7 +57,7 @@ const SectionDataTable = (props) => {
     return (
         <>
             <Table
-                classNames="search-results"
+                classNames="table-for-new-search-page"
                 currentSort={{ direction: sortDirection, field: activeField }}
                 updateSort={updateSort}
                 columns={columns}
