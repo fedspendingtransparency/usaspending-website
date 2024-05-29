@@ -164,11 +164,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setHasNextPage(false);
     };
 
-    const changeSpendingBy = (tempSpendingBy) => {
-        setSpendingBy(tempSpendingBy);
-        setScope(defaultScopes[tempSpendingBy]);
-    };
-
     const parseRank = () => {
         if (history) {
             const params = history.location.search.split("&");
