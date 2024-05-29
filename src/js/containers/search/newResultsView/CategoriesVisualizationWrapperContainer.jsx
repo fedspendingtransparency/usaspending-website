@@ -24,6 +24,7 @@ import SpendingByCategoriesChart
     from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
 import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
+import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -250,7 +251,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             if (scope === 'recipient') {
                 tableDataRow.push(result.recipientId);
             }
-            tableDataRow.push(result._amount);
+            tableDataRow.push(MoneyFormatter.formatMoneyWithPrecision(result._amount, 0));
 
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
