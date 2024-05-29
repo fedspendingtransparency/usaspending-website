@@ -448,7 +448,6 @@ const ResultsTableContainer = (props) => {
     }));
 
     useEffect(throttle(() => {
-        console.log("ResultsTableContainer useEffect initialRender");
         if (initialRender.current) {
             initialRender.current = false;
         }
@@ -461,7 +460,6 @@ const ResultsTableContainer = (props) => {
     }, 400), [tableType, sort]);
 
     useEffect(throttle(() => {
-        console.log("ResultsTableContainer useEffect updateFilters");
         if (initialRender.current === false) {
             if (props.subaward && !props.noApplied) {
                 // subaward toggle changed, update the search object
@@ -487,7 +485,6 @@ const ResultsTableContainer = (props) => {
     }, 400), []);
 
     useEffect(throttle(() => {
-        console.log("ResultsTableContainer useEffect isLoadingNextPage");
         if (isLoadingNextPage) {
             performSearch();
             setLoadNextPage(false);
@@ -495,7 +492,6 @@ const ResultsTableContainer = (props) => {
     }, 400), [isLoadingNextPage]);
 
     useEffect(throttle(() => {
-        console.log("ResultsTableContainer useEffect loadColumns");
         loadColumns();
         if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
@@ -504,7 +500,6 @@ const ResultsTableContainer = (props) => {
     }, 400), []);
 
     useEffect(throttle(() => {
-        console.log("ResultsTableContainer useEffect performSearch");
         performSearch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), [tableType, resultLimit, page]);

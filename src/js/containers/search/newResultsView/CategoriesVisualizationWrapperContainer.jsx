@@ -36,7 +36,8 @@ const propTypes = {
     subaward: PropTypes.bool,
     agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.bool,
-    wrapperProps: PropTypes.object
+    wrapperProps: PropTypes.object,
+    setSelectedDropdown: PropTypes.func
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
@@ -157,7 +158,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     };
 
     const changeScope = (newScope) => {
-        console.debug("in change scope");
         setScope(newScope);
         setPage(1);
         setHasNextPage(false);
@@ -167,13 +167,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         if (history) {
             const params = history.location.search.split("&");
             params.shift();
-            console.debug("PARAMS 2: ", params);
             if (params.length === 2 && params[0].substring(0, 8) === "section=") {
                 if (params[1].substring(0, 5) === "type=") {
                     const rankVal = params[1].substring(5);
                     if (rankVal === "naics" || rankVal === "psc") {
-                        console.debug("making it here: ", rankVal);
-                        changeScope(rankVal);
+                        props.setSelectedDropdown(rankVal);
                     }
                 }
             }
@@ -340,7 +338,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     }, []);
 
     useEffect(() => {
-        console.debug("Happening");
         newSearch();
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [scope]);
