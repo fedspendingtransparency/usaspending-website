@@ -18,12 +18,13 @@ import * as SearchHelper from 'helpers/searchHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
-import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
+import { categoryNames } from 'dataMapping/search/spendingByCategory';
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import SpendingByCategoriesChart
     from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
 import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
+import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -36,10 +37,12 @@ const propTypes = {
     subaward: PropTypes.bool,
     agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.bool,
-    wrapperProps: PropTypes.object
+    wrapperProps: PropTypes.object,
+    setSelectedDropdown: PropTypes.func
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
+    // eslint-disable-next-line no-unused-vars
     const [spendingBy, setSpendingBy] = useState('awardingAgency');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -170,12 +173,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         if (history) {
             const params = history.location.search.split("&");
             params.shift();
-            if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
-                if (params[1].substring(0, 9) === "rankType=") {
-                    const rankVal = params[1].substring(9);
-                    changeSpendingBy("industryCode");
+            if (params.length === 2 && params[0].substring(0, 8) === "section=") {
+                if (params[1].substring(0, 5) === "type=") {
+                    const rankVal = params[1].substring(5);
                     if (rankVal === "naics" || rankVal === "psc") {
-                        changeScope(rankVal);
+                        props.setSelectedDropdown(rankVal);
                     }
                 }
             }
@@ -249,7 +251,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             if (scope === 'recipient') {
                 tableDataRow.push(result.recipientId);
             }
-            tableDataRow.push(result._amount);
+            tableDataRow.push(MoneyFormatter.formatMoneyWithPrecision(result._amount, 0));
 
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
@@ -371,6 +373,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             id="results-section-rank">
             <SearchSectionWrapper
                 {...props.wrapperProps}
+                sectionName="categories"
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
