@@ -236,6 +236,7 @@ const TimeVisualizationSectionContainer = (props) => {
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
+            sectionName="time"
             data={parsedData}
             columns={columns[visualizationPeriod]}
             rows={tableRows}
