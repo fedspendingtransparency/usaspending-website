@@ -24,6 +24,7 @@ import SpendingByCategoriesChart
     from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
 import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
+import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -218,27 +219,34 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             tempLabelSeries.push(result.name);
             tempDataSeries.push(result._amount);
 
-            if (scope === 'recipient' && !props.subaward) {
+            if (scope === 'recipient' && !props.subaward && result?.recipientId) {
                 const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
                 tempLinkSeries.push(recipientLink);
-            }
 
-            if (scope === 'awarding_agency' && !props.subaward) {
+                if (recipientLink !== '') {
+                    tableDataRow.push(<a href={recipientLink}>{result.name}</a>);
+                }
+            }
+            else if (scope === 'awarding_agency' && !props.subaward) {
                 const awardingLink = `agency/${result._agencySlug}`;
                 tempLinkSeries.push(awardingLink);
+                tableDataRow.push(<a href={awardingLink}>{result.name}</a>);
             }
             else if (scope === 'awarding_agency' && props.subaward && props.agencyIds) {
                 // this properly pulls in the slug from withAgencySlugs, as it is not provided though the API request for subawards
                 const agencyIdentifier = !props.error ? props.agencyIds[item.id] : '';
                 const awardingLink = `agency/${agencyIdentifier}`;
                 tempLinkSeries.push(awardingLink);
+                tableDataRow.push(<a href={awardingLink}>{result.name}</a>);
+            }
+            else {
+                tableDataRow.push(result.name);
             }
 
-            tableDataRow.push(result.name);
             if (scope === 'recipient') {
                 tableDataRow.push(result.recipientId);
             }
-            tableDataRow.push(result._amount);
+            tableDataRow.push(MoneyFormatter.formatMoneyWithPrecision(result._amount, 0));
 
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
