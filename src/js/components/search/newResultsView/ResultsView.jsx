@@ -5,7 +5,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
 import { performSpendingByAwardTabCountSearch } from "helpers/searchHelper";
@@ -33,6 +32,7 @@ const ResultsView = (props) => {
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [hasResults, setHasResults] = useState(false);
+    const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
 
     const observerOptions = {
         threshold: 0.1
@@ -140,7 +140,7 @@ const ResultsView = (props) => {
     if (!props.noFiltersApplied && hasResults) {
         content = (<>
             <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
-            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} />
+            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
             <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
             <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
         </>);

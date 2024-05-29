@@ -3,25 +3,25 @@
  * Created by Andrea Blackwell 04/14/2024
  **/
 
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import {
     DsmWrapper
 } from "../DsmWrapper";
-import RankVisualizationWrapperContainer
+import CategoriesVisualizationWrapperContainer
     from "../../../../containers/search/newResultsView/CategoriesVisualizationWrapperContainer";
 
 const propTypes = {
     categoriesHasLoaded: PropTypes.bool,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    setSelectedDropdown: PropTypes.func,
+    selectedDropdown: PropTypes.string
 };
 
-const CategoriesSection = ({ categoriesHasLoaded, subaward }) => {
-    const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
-
+const CategoriesSection = (props) => {
     const onClick = (e) => {
-        setSelectedDropdown(e);
+        props.setSelectedDropdown(e);
     };
 
     const wrapperProps = {
@@ -76,17 +76,17 @@ const CategoriesSection = ({ categoriesHasLoaded, subaward }) => {
                     description="Use the map below to break down spending by state, county, or congressional district." />
             }
         ],
-        selectedDropdownOption: selectedDropdown
+        selectedDropdownOption: props.selectedDropdown
 
     };
-
     return (
         <div id="search-page-component" className="categories">
-            {categoriesHasLoaded && <RankVisualizationWrapperContainer
+            {props.categoriesHasLoaded && <CategoriesVisualizationWrapperContainer
                 wrapperProps={wrapperProps}
-                subaward={subaward}
-                categoriesHasLoaded={categoriesHasLoaded}
-                selectedDropdown={selectedDropdown} />}
+                subaward={props.subaward}
+                categoriesHasLoaded={props.categoriesHasLoaded}
+                selectedDropdown={props.selectedDropdown}
+                setSelectedDropdown={props.setSelectedDropdown} />}
         </div>
     );
 };
