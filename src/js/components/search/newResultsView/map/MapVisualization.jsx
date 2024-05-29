@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash';
-import { stateCenterFromFips, performCountryGeocode } from 'helpers/mapHelper';
-import { stateFIPSByAbbreviation } from 'dataMapping/state/stateNames';
+import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
+import { stateFIPSByAbbreviation, stateNameFromFips } from 'dataMapping/state/stateNames';
 
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
@@ -74,6 +74,7 @@ const MapVisualization = React.memo((props) => {
     const [error, setError] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
     const [singleLocationSelected, setSingleLocationSelected] = useState({});
+    const [tableRows, setTableRows] = useState([]);
 
     let apiRequest = null;
     const mapListeners = [];
@@ -87,7 +88,6 @@ const MapVisualization = React.memo((props) => {
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
-
     /**
      * valuesLocationsLabelsFromAPIData
      * - creates locations, values, and labels for the map visualization from api data
@@ -97,6 +97,7 @@ const MapVisualization = React.memo((props) => {
         const values = [];
         const locations = [];
         const labels = {};
+        const rows = [];
 
         rawAPIData.forEach((item) => {
             // state must not be null or empty string
@@ -107,8 +108,27 @@ const MapVisualization = React.memo((props) => {
                     label: item.display_name,
                     value: parseFloat(item[mapToggleDataKey()])
                 };
+
+                // for new search table
+                const row = [];
+                const congressionalDistrictCheck = item.display_name.substring(2, 3);
+                const countyCheck = parseInt(item.shape_code, 10);
+
+                row.push(item.display_name);
+                if (congressionalDistrictCheck === "-") {
+                    row.push(stateNameFromCode(item.display_name.substring(0, 2)));
+                }
+                else if (countyCheck) {
+                    row.push(stateNameFromFips(item.shape_code.substring(0, 2)));
+                }
+                row.push(item.aggregated_amount);
+                row.push(item.per_capita);
+
+                rows.push(row);
             }
         });
+
+        setTableRows(rows);
 
         return { values, locations, labels };
     };
@@ -385,6 +405,64 @@ const MapVisualization = React.memo((props) => {
         }
     };
 
+    const standardColumns = [
+        {
+            title: "obligations",
+            displayName: ["Obligations"],
+            right: true
+        },
+        {
+            title: "per_capita",
+            displayName: ["Per Capita Obligations"],
+            right: true
+        }
+    ];
+
+    const columns = {
+        state: [
+            {
+                title: "state_territory",
+                displayName: ["State or Territory"],
+                right: false
+            },
+            ...standardColumns
+        ],
+        country: [
+            {
+                title: "country",
+                displayName: ["Country"],
+                right: false
+            },
+            ...standardColumns
+        ],
+        county: [
+            {
+                title: 'county',
+                displayName: ["County"],
+                right: false
+            },
+            {
+                title: "state_territory",
+                displayName: ["State or Territory"],
+                right: false
+            },
+            ...standardColumns
+        ],
+        congressionalDistrict: [
+            {
+                title: "congressionalDistrict",
+                displayName: ["Congressional District"],
+                right: false
+            },
+            {
+                title: "state_territory",
+                displayName: ["State or Territory"],
+                right: false
+            },
+            ...standardColumns
+        ]
+    };
+
     useEffect(() => {
         const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
         mapListeners.push(doneListener);
@@ -456,6 +534,8 @@ const MapVisualization = React.memo((props) => {
             isLoading={false}
             isError={false}
             hasNoData={false}
+            rows={tableRows}
+            columns={columns[mapLayer]}
             sectionName="map" >
             <GeoVisualizationSection
                 scope={props.scope}
