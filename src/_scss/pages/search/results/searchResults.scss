@@ -1,6 +1,7 @@
 .search-results {
     @import "./_tabs";
 
+    // this class only applies to the old search results page
     .visualization-content {
         box-shadow: $container-shadow;
         border: 1px solid $color-gray-lighter;
@@ -12,9 +13,18 @@
         @import "../../../elements/_divider";
         @import "./table/resultsTable";
         @import "./screens/screens";
-        @import './tables';
+    }
+
+    // this was missing in the css hierarchy in the new results page
+    .new-results-view {
+        z-index: 1;
+        //background-color: $color-white;
+        //padding: rem(30);
+        @import "./_typography";
+        //@import "../../../elements/_divider";
+        @import "./table/resultsTable";
+        @import "./screens/screens";
     }
 }
 
 @import "./visualizations/visualizations";
-

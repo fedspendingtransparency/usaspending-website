@@ -1,18 +1,19 @@
 /**
- * table.jsx
+ * TableSection.jsx
  */
 
-
 import React from "react";
-import SearchSectionWrapper from "../SearchSectionWrapper";
-import {
-    DsmWrapper,
-    TempPlaceholderComponent
-} from "../DsmWrapper";
-import AwardTable from "./AwardTable";
+import PropTypes from "prop-types";
+import ResultsTableContainer from "../../../../containers/search/newResultsView/ResultsTableContainer";
+import { DsmWrapper } from "../DsmWrapper";
 
-const TableSection = ({ awardTableHasLoaded }) => {
-    const dummyWrapperProps = {
+const propTypes = {
+    awardTableHasLoaded: PropTypes.bool,
+    subaward: PropTypes.bool
+};
+
+const TableSection = ({ awardTableHasLoaded, subaward }) => {
+    const wrapperProps = {
         sectionTitle: 'Prime Award Results',
         dsmContent: <DsmWrapper
             heading={"Prime Award Results:  What's included in this view of the data?"}
@@ -20,17 +21,14 @@ const TableSection = ({ awardTableHasLoaded }) => {
     };
 
     return (
-        <SearchSectionWrapper
-            {...dummyWrapperProps}>
-            <div id="search-page-component" className="award">
-                {!awardTableHasLoaded ?
-                    <TempPlaceholderComponent />
-                    :
-                    <AwardTable />
-                }
-            </div>
-        </SearchSectionWrapper>
+        <div id="search-page-component" className="award">
+            {awardTableHasLoaded && <ResultsTableContainer
+                wrapperProps={wrapperProps}
+                subaward={subaward}
+                awardTableHasLoaded={awardTableHasLoaded} />}
+        </div>
     );
 };
 
+TableSection.propTypes = propTypes;
 export default TableSection;

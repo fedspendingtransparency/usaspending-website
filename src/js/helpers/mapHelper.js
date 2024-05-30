@@ -360,12 +360,12 @@ const stateCenters = {
 /* eslint-enable quote-props */
 
 export const visualizationColors = [
-    '#d0e9ef',
-    '#a7c2ca',
-    '#7f9ba7',
-    '#597785',
-    '#335565',
-    '#083546'
+    '#c7efe2',
+    '#92d9bb',
+    '#5abf95',
+    '#34a37e',
+    '#2e8367',
+    '#286846'
 ];
 
 export const stateNameFromCode = (code) => {
