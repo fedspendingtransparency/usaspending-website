@@ -47,7 +47,6 @@ const SearchSectionWrapper = ({
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
-    // const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const query = useQueryParams();
 
     const history = useHistory();
