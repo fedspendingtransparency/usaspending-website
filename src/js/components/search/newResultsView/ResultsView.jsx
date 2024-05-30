@@ -78,19 +78,15 @@ const ResultsView = (props) => {
                 // setIsVisible(section);
                 if (section === 'award') {
                     setAwardTableHasLoaded(true);
-                    console.log("award");
                 }
                 else if (section === 'spending') {
                     setSpendingHasLoaded(true);
-                    console.log("spending");
                 }
                 else if (section === 'map') {
                     setMapHasLoaded(true);
-                    console.log("map");
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
-                    console.log("categories");
                 }
             }
         });
@@ -136,13 +132,13 @@ const ResultsView = (props) => {
             observerSupported={observerSupported}
             setObserverSupported={setObserverSupported} />
     );
-
+    console.debug("PROPS: ", props, subaward, hasResults);
     if (!props.noFiltersApplied && hasResults) {
         content = (<>
-            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
-            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
-            <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
-            <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
+            <MapSection subaward={subaward} mapHasLoaded={mapHasLoaded} />
+            <CategoriesSection subaward={subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
+            <TimeSection subaward={subaward} spendingHasLoaded={spendingHasLoaded} />
+            <TableSection subaward={subaward} awardTableHasLoaded={awardTableHasLoaded} />
         </>);
     }
     else if (!props.noFiltersApplied && !hasResults) {
