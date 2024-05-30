@@ -19,14 +19,12 @@ import NoDataScreen from "./NoDataScreen";
 require("pages/search/searchPage.scss");
 
 const propTypes = {
-    subaward: PropTypes.bool,
     showMobileFilters: PropTypes.bool,
     isMobile: PropTypes.bool
 };
 
 const ResultsView = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
-    // const [isVisible, setIsVisible] = useState('');
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
@@ -44,12 +42,10 @@ const ResultsView = (props) => {
     const checkForData = () => {
         const searchParamsTemp = new SearchAwardsOperation();
         searchParamsTemp.fromState(filters);
-
         const countRequest = performSpendingByAwardTabCountSearch({
             filters: searchParamsTemp.toParams(),
             subawards: subaward
         });
-
         countRequest.promise
             .then((res) => {
                 /* eslint-disable camelcase */
@@ -132,7 +128,6 @@ const ResultsView = (props) => {
             observerSupported={observerSupported}
             setObserverSupported={setObserverSupported} />
     );
-    console.debug("PROPS: ", props, subaward, hasResults);
     if (!props.noFiltersApplied && hasResults) {
         content = (<>
             <MapSection subaward={subaward} mapHasLoaded={mapHasLoaded} />
