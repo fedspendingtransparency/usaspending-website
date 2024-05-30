@@ -103,6 +103,7 @@ const SearchSectionWrapper = ({
     }, []);
     // Measures content height to set height for dsm content
     const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
+    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const Message = () => {
         if (isLoading) {
@@ -133,25 +134,26 @@ const SearchSectionWrapper = ({
     };
     return (
         <div className="search__section-wrapper" id={(sectionName !== null || sectionName !== undefined) ? `results-section-${sectionName}` : ''}>
-            <div className="search__section-wrapper-header">
-                {selectedDropdownOption ?
-                    <>
-                        <NewPicker
-                            leftIcon=""
-                            size="md"
-                            label={sectionTitle}
-                            options={dropdownOptions}
-                            enabled
-                            selectedOption={dropdownOptions?.length
-                                ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
-                                : `${selectedDropdownOption}`}
-                            sortFn={sortFn} />
-                        <ChartTableToggle activeType={viewType} changeView={changeView} />
-                    </>
-                    :
-                    sectionTitle
-                }
-            </div>
+            {selectedDropdownOption ?
+                <div className="search__section-wrapper-header">
+                    <span className="filter__dropdown-label">{sectionTitle}</span>
+                    <NewPicker
+                        leftIcon=""
+                        size="md"
+                        options={dropdownOptions}
+                        enabled
+                        selectedOption={dropdownOptions?.length
+                            ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
+                            : `${selectedDropdownOption}`}
+                        sortFn={sortFn}
+                        classname="advanced-search-dropdown__wrapper"
+                        buttonClassname="advanced-search-dropdown__button"
+                        parentWidth={wrapperWidth} />
+                    <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
+                </div>
+                :
+                sectionTitle
+            }
             {!openAccordion &&
                 <div className="search__section-wrapper-content new-results-view">
                     {
