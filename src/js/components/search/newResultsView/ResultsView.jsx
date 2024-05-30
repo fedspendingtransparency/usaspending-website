@@ -50,9 +50,13 @@ const ResultsView = (props) => {
             .then((res) => {
                 /* eslint-disable camelcase */
                 const {
-                    contracts, direct_payments, grants, idvs, loans, other
+                    contracts, direct_payments, grants, idvs, loans, other, subgrants, subcontracts
                 } = res.data.results;
-                const resCount = contracts + direct_payments + grants + idvs + loans + other;
+                let resCount = contracts + direct_payments + grants + idvs + loans + other;
+
+                if (subaward) {
+                    resCount = subgrants + subcontracts;
+                }
                 /* eslint-enable camelcase */
 
                 if (resCount > 0) {
