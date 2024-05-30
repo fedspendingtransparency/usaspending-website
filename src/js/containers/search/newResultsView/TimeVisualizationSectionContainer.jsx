@@ -293,7 +293,7 @@ const TimeVisualizationSectionContainer = (props) => {
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
-            downloadComponent={<TimeFileDownload parsedData={parseData} visualizationPeriod={visualizationPeriod} />}
+            downloadComponent={<TimeFileDownload parsedData={parsedData} visualizationPeriod={visualizationPeriod} />}
             manualSort>
             <TimeVisualizationChart
                 {...parsedData}
