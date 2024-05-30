@@ -288,6 +288,7 @@ export default class ResultsTable extends React.Component {
                         rows={limitedRows}
                         rowHeight={58}
                         headerRowHeight={45}
+                        subAward={this.props.subaward}
                         currentSort={this.props.sort}
                         updateSort={this.props.updateSort} />
                 </div>

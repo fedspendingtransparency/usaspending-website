@@ -10,7 +10,6 @@ const SectionDataTable = (props) => {
     const { sortDirection, activeField } = props;
     const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    // const [pageSize, setPageSize] = useState(10);
 
     const pageSize = 10;
 

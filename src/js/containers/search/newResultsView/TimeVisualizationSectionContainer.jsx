@@ -15,10 +15,11 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import BaseSpendingOverTimeRow from "../../../models/v2/search/visualizations/time/BaseSpendingOverTimeRow";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
+import TimeFileDownload from "../../../components/search/newResultsView/time/TimeFileDownload";
+import TimeVisualizationChart from "../../../components/search/visualizations/time/TimeVisualizationChart";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -292,6 +293,7 @@ const TimeVisualizationSectionContainer = (props) => {
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
+            downloadComponent={<TimeFileDownload parsedData={parsedData} visualizationPeriod={visualizationPeriod} />}
             manualSort>
             <TimeVisualizationChart
                 {...parsedData}
