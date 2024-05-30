@@ -131,7 +131,7 @@ const SearchSectionWrapper = ({
     return (
         <div className="search__section-wrapper" id={(sectionName !== null || sectionName !== undefined) ? `results-section-${sectionName}` : ''}>
             {selectedDropdownOption ?
-                <>
+                <div className="search__section-wrapper-header">
                     <span className="filter__dropdown-label">{sectionTitle}</span>
                     <NewPicker
                         leftIcon=""
@@ -146,7 +146,7 @@ const SearchSectionWrapper = ({
                         buttonClassname="advanced-search-dropdown__button"
                         parentWidth={wrapperWidth} />
                     <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
-                </>
+                </div>
                 :
                 sectionTitle
             }
