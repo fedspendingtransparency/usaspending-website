@@ -665,7 +665,7 @@ const TopFilterBarContainer = (props) => {
         }
 
         // prepare the agency filters
-        const selectedFundingAgencyFilters = prepareAgencies(props, 'funding');
+        const selectedFundingAgencyFilters = prepareAgencies('funding');
         if (selectedFundingAgencyFilters) {
             filters.push(selectedFundingAgencyFilters);
         }
