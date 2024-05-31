@@ -16,7 +16,6 @@ import SectionsContent from "./SectionsContent";
 require("pages/search/searchPage.scss");
 
 const propTypes = {
-    subaward: PropTypes.bool,
     showMobileFilters: PropTypes.bool,
     isMobile: PropTypes.bool
 };
@@ -26,23 +25,26 @@ const ResultsView = (props) => {
     const [resultContent, setResultContent] = useState(null);
 
     const filters = useSelector((state) => state.appliedFilters.filters);
+    const subaward = useSelector((state) => state.searchView.subaward);
 
     const checkForData = () => {
         const searchParamsTemp = new SearchAwardsOperation();
         searchParamsTemp.fromState(filters);
-
         const countRequest = performSpendingByAwardTabCountSearch({
             filters: searchParamsTemp.toParams(),
-            subawards: props.subaward
+            subawards: subaward
         });
-
         countRequest.promise
             .then((res) => {
                 /* eslint-disable camelcase */
                 const {
-                    contracts, direct_payments, grants, idvs, loans, other
+                    contracts, direct_payments, grants, idvs, loans, other, subgrants, subcontracts
                 } = res.data.results;
-                const resCount = contracts + direct_payments + grants + idvs + loans + other;
+                let resCount = contracts + direct_payments + grants + idvs + loans + other;
+
+                if (subaward) {
+                    resCount = subgrants + subcontracts;
+                }
                 /* eslint-enable camelcase */
 
                 if (resCount > 0) {
@@ -60,7 +62,7 @@ const ResultsView = (props) => {
     useEffect(() => {
         checkForData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filters, props.subaward]);
+    }, [filters, subaward]);
 
     let mobileFilters = '';
     if (props.showMobileFilters && props.isMobile) {
@@ -73,7 +75,7 @@ const ResultsView = (props) => {
         );
 
         if (!props.noFiltersApplied && hasResults) {
-            content = <SectionsContent subaward={props.subaward} />;
+            content = <SectionsContent subaward={subaward} />;
         }
         else if (!props.noFiltersApplied && !hasResults) {
             content = <NoDataScreen />;
