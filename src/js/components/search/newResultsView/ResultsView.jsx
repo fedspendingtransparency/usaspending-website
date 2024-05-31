@@ -1,5 +1,6 @@
 /**
  * ResultsView.jsx
+ * Created by Andrea Blackwell
  **/
 
 import React, { useEffect, useState } from "react";
@@ -70,19 +71,23 @@ const ResultsView = (props) => {
     }
 
     useEffect(() => {
-        let content = (
-            <NewSearchScreen />
-        );
+        let content = null;
 
-        if (!props.noFiltersApplied && hasResults) {
-            content = <SectionsContent subaward={subaward} />;
+        if (props.noFiltersApplied) {
+            content = <NewSearchScreen />;
         }
-        else if (!props.noFiltersApplied && !hasResults) {
-            content = <NoDataScreen />;
+
+        if (!props.noFiltersApplied) {
+            if (hasResults) {
+                content = <SectionsContent subaward={subaward} />;
+            }
+            else {
+                content = <NoDataScreen />;
+            }
         }
+
         setResultContent(content);
-
-    }, [props.noFiltersApplied && hasResults]);
+    }, [props.noFiltersApplied, hasResults, subaward]);
 
     return (
         <PageFeatureFlag>

@@ -14,6 +14,7 @@ import { AddFilter } from 'components/sharedComponents/icons/Icons';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import GlobalConstants from "GlobalConstants";
 
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
@@ -57,6 +58,7 @@ const SearchPage = ({
 
     // TODO: Remove this state once new Advance Search is done and toggle no longer needed
     const [toggleTempSearchPage, setToggleTempSearchPage] = useState(false);
+    const [newResultsViewAvailable, setNewResultsViewAvailable] = useState(false);
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -137,6 +139,15 @@ const SearchPage = ({
     }, [windowWidth]);
 
     useEffect(() => {
+        if (GlobalConstants.QAT) {
+            setNewResultsViewAvailable(true);
+        }
+        else {
+            setNewResultsViewAvailable(false);
+        }
+    }, []);
+
+    useEffect(() => {
         setStateHash(hash);
     }, [hash]);
 
@@ -200,8 +211,8 @@ const SearchPage = ({
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
                     <FlexGridCol desktop={9} tablet={12} mobile={12}>
-                        {toggleTempSearchPage ?
-                            <SearchResults
+                        {newResultsViewAvailable && !toggleTempSearchPage ?
+                            <ResultsView
                                 filters={filters}
                                 isMobile={isMobile}
                                 filterCount={filterCount}
@@ -211,7 +222,7 @@ const SearchPage = ({
                                 requestsComplete={requestsComplete}
                                 noFiltersApplied={noFiltersApplied} />
                             :
-                            <ResultsView
+                            <SearchResults
                                 filters={filters}
                                 isMobile={isMobile}
                                 filterCount={filterCount}
@@ -219,7 +230,8 @@ const SearchPage = ({
                                 updateFilterCount={updateFilterCount}
                                 toggleMobileFilters={toggleMobileFilters}
                                 requestsComplete={requestsComplete}
-                                noFiltersApplied={noFiltersApplied} />}
+                                noFiltersApplied={noFiltersApplied} />
+                        }
                     </FlexGridCol>
                 </FlexGridRow>
                 <FullDownloadModalContainer

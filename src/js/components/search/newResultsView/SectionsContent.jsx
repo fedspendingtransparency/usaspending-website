@@ -1,20 +1,14 @@
 /**
  * SectionsContent.jsx
+ * Created by Brian Petway
  **/
 
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
-import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
-import { performSpendingByAwardTabCountSearch } from "helpers/searchHelper";
-import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
 import MapSection from "./map/MapSection";
-import NewSearchScreen from "./NewSearchScreen";
-import NoDataScreen from "./NoDataScreen";
 
 require("pages/search/searchPage.scss");
 
@@ -34,11 +28,11 @@ const SectionsContent = (props) => {
         threshold: 0.1
     };
 
+    // TODO:  Keep console logs here while debugging; Remove console logs before deploying new results view to prod
     const callbackFunction = (entries) => {
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
-                // setIsVisible(section);
                 if (section === 'award') {
                     setAwardTableHasLoaded(true);
                     console.log("award");
