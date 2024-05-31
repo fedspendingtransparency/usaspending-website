@@ -56,7 +56,7 @@ const SearchPage = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     // TODO: Remove this state once new Advance Search is done and toggle no longer needed
-    const [toggleTempSearchPage, setToggleTempSearchPage] = useState(true);
+    const [toggleTempSearchPage, setToggleTempSearchPage] = useState(false);
 
     const getSlugWithHash = () => {
         if (hash) {
