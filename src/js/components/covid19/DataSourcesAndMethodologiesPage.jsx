@@ -140,7 +140,7 @@ export default () => {
     });
 
     const handleCloseBanner = () => {
-        Cookies.set('usaspending_data_disclaimer', 'hide', { expires: 7 });
+        Cookies.set('usaspending_data_disclaimer', 'hide', { secure: true, httpOnly: true, expires: 7 });
         setDataDisclaimerBanner('hide');
     };
 
