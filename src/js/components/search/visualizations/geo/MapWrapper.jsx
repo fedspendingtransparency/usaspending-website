@@ -9,6 +9,8 @@ import { uniq, cloneDeep } from 'lodash';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
+import GlobalConstants from 'GlobalConstants';
+
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
@@ -598,7 +600,7 @@ const MapWrapper = (props) => {
 
     return (
         <div className="map-container">
-            <MapBox
+            {GlobalConstants.MAPBOX_TOKEN && <MapBox
                 loadedMap={mapReadyPrep}
                 unloadedMap={mapRemoved}
                 center={center}
@@ -606,7 +608,7 @@ const MapWrapper = (props) => {
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}
                 ref={mapRef}
-                singleLocationSelected={props.singleLocationSelected} />
+                singleLocationSelected={props.singleLocationSelected} />}
             <MapFiltersToggle onClick={toggleFilters} isOpen={isFiltersOpen} />
             {filters()}
             {legend()}
