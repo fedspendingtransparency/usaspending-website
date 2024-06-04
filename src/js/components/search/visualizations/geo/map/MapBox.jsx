@@ -9,7 +9,6 @@ import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import statesBySqMile from "dataMapping/state/statesBySqMile";
-
 import kGlobalConstants from 'GlobalConstants';
 
 const propTypes = {

@@ -7,6 +7,7 @@ import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash';
 import { scaleQuantile, scaleLinear } from 'd3-scale';
+import GlobalConstants from 'GlobalConstants';
 
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { mapboxSources } from 'dataMapping/covid19/recipient/map/map';
@@ -505,11 +506,11 @@ export default class MapWrapper extends React.Component {
                 ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                <MapBox
+                {GlobalConstants.MAPBOX_TOKEN && <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
-                    ref={this.mapRef} />
+                    ref={this.mapRef} />}
                 <MapFiltersToggle onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
                 {this.filters()}
                 {this.legend()}

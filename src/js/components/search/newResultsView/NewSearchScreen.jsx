@@ -13,7 +13,7 @@ import {
     setAppliedFilterCompletion
 } from "../../../redux/actions/search/appliedFilterActions";
 
-const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
+const NewSearchScreen = () => {
     const dispatch = useDispatch();
     const lastYear = new Set([(fiscalYearHelper.currentFiscalYear() - 1).toString()]);
 
@@ -37,9 +37,6 @@ const NewSearchScreen = ({ observerSupported, setObserverSupported }) => {
         dispatch(setAppliedFilterCompletion(false));
         dispatch(applyStagedFilters(updatedFilter));
         dispatch(setAppliedFilterCompletion(true));
-
-        // placed here to show all components after search complete
-        setObserverSupported(!observerSupported);
     };
 
     return (
