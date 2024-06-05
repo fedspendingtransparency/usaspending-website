@@ -13,8 +13,8 @@ import AccountTimeVisualizationContainer from
     'containers/account/visualizations/AccountTimeVisualizationContainer';
 import AccountRankVisualizationContainer from
     'containers/account/visualizations/AccountRankVisualizationContainer';
-import AccountAwardsContainer from 'containers/account/awards/AccountAwardsContainer';
 import Note, { dodNote } from 'components/sharedComponents/Note';
+import AccountAwardsContainer from 'containers/account/awards/AccountAwardsContainer';
 
 const propTypes = {
     showNote: PropTypes.bool
