@@ -17,6 +17,11 @@
         border: 1px solid $color-gray-light;
     }
 
+    .advanced-search__table-wrapper {
+        width: auto;
+        overflow-x: scroll;
+    }
+    
     .results-table-width-master {
         width: 100%;
     }
