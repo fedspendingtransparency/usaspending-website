@@ -3,38 +3,79 @@
     position: relative;
     overflow-x: hidden;
     @import "_tableTypes";
-    @import "_tableStyle";
     @import "_resultsDropdownPickerWrapper";
     @import "./_tableMessages";
+
     .results-table-content {
         position: relative;
         margin-top: rem(2);
         min-height: rem(200);
         @include transition(opacity 0.25s ease-in);
+
+        .usa-dt-pagination {
+            margin-top: $global-margin * 2;
+            .usa-dt-pagination__wrapper {
+                .pager {
+                    .hideLast {
+                        .pager__button {
+                            display:none;
+                        }
+                    }
+
+                    li.pager__item:last-of-type {
+                        .pager__button {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .usda-table__cell {
+            p {
+                margin-bottom: 0;
+            }
+            .read-more-button {
+                @include button-link;
+                text-transform: lowercase;
+                color: $blue-50;
+                &:hover {
+                    text-decoration: none;
+                    color: $blue-70v;
+                }
+            }
+        }
+
     }
 
-    .ibt-table-container {
-        border: 1px solid $color-gray-light;
-    }
     .results-table-width-master {
         width: 100%;
     }
+
+    .advanced-search__table-wrapper {
+        width: auto;
+        overflow-x: scroll;
+    }
+
     .results-table-message {
         margin-top: 1rem;
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;
     }
+
     .table-section-header {
         @include display(flex);
         @include flex-direction(row);
         @include align-items(center);
         @include justify-content(center);
+
         h2 {
             @include h3;
             margin: 0;
             @include flex(1 1 auto);
         }
+
         button.action-modal {
             @include flex(0 0 auto);
             @include transition(all 0.25s $ease-in-out-sine);
@@ -45,6 +86,7 @@
             margin: 0;
             position: relative;
             cursor: pointer;
+
             & svg {
                 position: absolute;
                 top: -3px;
@@ -52,12 +94,14 @@
                 width: rem(33);
                 fill: $color-gray-light;
             }
+
             &:hover,
             &:active {
                 @include transition(all 0.25s $ease-in-out-sine);
                 background-color: $color-gray-lightest;
                 border: 1px solid #D5D6D8;
                 cursor: pointer;
+
                 & svg {
                     cursor: pointer;
                     @include transition(all 0.25s $ease-in-out-sine);
@@ -91,7 +135,11 @@
 
     .usda-glossary-link {
         color: $color-gray-light;
-        &:hover, &:active, &:focus, &:visited {
+
+        &:hover,
+        &:active,
+        &:focus,
+        &:visited {
             color: $color-gray-medium;
         }
     }

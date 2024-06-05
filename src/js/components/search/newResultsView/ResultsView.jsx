@@ -5,7 +5,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
 import { performSpendingByAwardTabCountSearch } from "helpers/searchHelper";
@@ -20,19 +19,18 @@ import NoDataScreen from "./NoDataScreen";
 require("pages/search/searchPage.scss");
 
 const propTypes = {
-    subaward: PropTypes.bool,
     showMobileFilters: PropTypes.bool,
     isMobile: PropTypes.bool
 };
 
 const ResultsView = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
-    // const [isVisible, setIsVisible] = useState('');
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [hasResults, setHasResults] = useState(false);
+    const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
 
     const observerOptions = {
         threshold: 0.1
@@ -44,19 +42,21 @@ const ResultsView = (props) => {
     const checkForData = () => {
         const searchParamsTemp = new SearchAwardsOperation();
         searchParamsTemp.fromState(filters);
-
         const countRequest = performSpendingByAwardTabCountSearch({
             filters: searchParamsTemp.toParams(),
             subawards: subaward
         });
-
         countRequest.promise
             .then((res) => {
                 /* eslint-disable camelcase */
                 const {
-                    contracts, direct_payments, grants, idvs, loans, other
+                    contracts, direct_payments, grants, idvs, loans, other, subgrants, subcontracts
                 } = res.data.results;
-                const resCount = contracts + direct_payments + grants + idvs + loans + other;
+                let resCount = contracts + direct_payments + grants + idvs + loans + other;
+
+                if (subaward) {
+                    resCount = subgrants + subcontracts;
+                }
                 /* eslint-enable camelcase */
 
                 if (resCount > 0) {
@@ -78,19 +78,15 @@ const ResultsView = (props) => {
                 // setIsVisible(section);
                 if (section === 'award') {
                     setAwardTableHasLoaded(true);
-                    console.log("award");
                 }
                 else if (section === 'spending') {
                     setSpendingHasLoaded(true);
-                    console.log("spending");
                 }
                 else if (section === 'map') {
                     setMapHasLoaded(true);
-                    console.log("map");
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
-                    console.log("categories");
                 }
             }
         });
@@ -136,13 +132,12 @@ const ResultsView = (props) => {
             observerSupported={observerSupported}
             setObserverSupported={setObserverSupported} />
     );
-
     if (!props.noFiltersApplied && hasResults) {
         content = (<>
-            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
-            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} />
-            <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
-            <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
+            <MapSection subaward={subaward} mapHasLoaded={mapHasLoaded} />
+            <CategoriesSection subaward={subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
+            <TimeSection subaward={subaward} spendingHasLoaded={spendingHasLoaded} />
+            <TableSection subaward={subaward} awardTableHasLoaded={awardTableHasLoaded} />
         </>);
     }
     else if (!props.noFiltersApplied && !hasResults) {

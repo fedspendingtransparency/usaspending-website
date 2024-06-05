@@ -86,7 +86,7 @@ const tempPage = () => {
                         <div style={{
                             width: '800px', overflowX: 'scroll', borderRadius: '8px', border: 'solid 1px #dfe1e2'
                         }}>
-                            <Table columns={columns} rows={rows} classNames="search-results" stickyFirstColumn />
+                            <Table columns={columns} rows={rows} classNames="search-results-dtui-table" stickyFirstColumn />
                         </div>
                     </section>
                     <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px' }}>

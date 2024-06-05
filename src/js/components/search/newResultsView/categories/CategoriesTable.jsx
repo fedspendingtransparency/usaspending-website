@@ -22,7 +22,7 @@ const propTypes = {
 const CategoriesTable = (props) => (
     <>
         <Table
-            classNames="search-results"
+            classNames="table-for-new-search-page"
             columns={props.columns}
             rows={props.rows} />
         <CategoriesPagination

@@ -9,14 +9,16 @@ import ViewTypeButton from "./ViewTypeButton";
 
 const propTypes = {
     activeType: PropTypes.string,
-    changeView: PropTypes.func
+    changeView: PropTypes.func,
+    classname: PropTypes.string
 };
 
 const ChartTableToggle = ({
     activeType,
-    changeView
+    changeView,
+    classname
 }) => (
-    <div className="chart-table-toggle" >
+    <div className={`chart-table-toggle ${classname || ""}`} >
         <ViewTypeButton
             value="chart"
             label="chart"
