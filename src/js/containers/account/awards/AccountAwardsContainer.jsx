@@ -21,7 +21,8 @@ import { tableTypes, subTypes } from 'containers/search/table/ResultsTableContai
 
 const propTypes = {
     account: PropTypes.object,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    subaward: PropTypes.bool
 };
 
 const AccountAwardsContainer = (props) => {
