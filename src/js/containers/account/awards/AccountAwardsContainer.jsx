@@ -214,10 +214,6 @@ const AccountAwardsContainer = (props) => {
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    this.setState({
-                        inFlight: false,
-                        error: true
-                    });
                     setInFlight(false);
                     setError(true);
                     tabCountRequest = null;
