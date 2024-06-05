@@ -2,19 +2,49 @@
     transition: opacity 0.25s ease;
     position: relative;
     @import "pages/search/results/table/_tableTypes";
-    @import "pages/search/results/table/_tableStyle";
     @import "pages/search/results/table/_resultsDropdownPickerWrapper";
     @import "pages/search/results/table/_tableMessages";
 
     .results-table-content {
-      position: relative;
-      margin-top: rem(15);
-      min-height: rem(200);
-      @include transition(opacity 0.25s ease-in);
-    }
+        position: relative;
+        margin-top: rem(2);
+        min-height: rem(200);
+        @include transition(opacity 0.25s ease-in);
 
-    .ibt-table-container {
-        border: 1px solid $color-gray-light;
+        .usa-dt-pagination {
+            margin-top: $global-margin * 2;
+            .usa-dt-pagination__wrapper {
+                .pager {
+                    .hideLast {
+                        .pager__button {
+                            display:none;
+                        }
+                    }
+
+                    li.pager__item:last-of-type {
+                        .pager__button {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .usda-table__cell {
+            p {
+                margin-bottom: 0;
+            }
+            .read-more-button {
+                @include button-link;
+                text-transform: lowercase;
+                color: $blue-50;
+                &:hover {
+                    text-decoration: none;
+                    color: $blue-70v;
+                }
+            }
+        }
+
     }
 
     .advanced-search__table-wrapper {
@@ -32,7 +62,18 @@
         color: $color-base;
         text-align: center;
     }
+    .read-more__preview-lines {
+        margin-bottom: 0;
+        margin-top: 0;
+        font-size: rem(14);
+    }
 
+    .line-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
     .read-more-button {
         background-color: transparent;
         color: #0074be;
