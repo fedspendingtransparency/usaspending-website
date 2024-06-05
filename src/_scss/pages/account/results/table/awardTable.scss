@@ -21,7 +21,7 @@
         width: auto;
         overflow-x: scroll;
     }
-    
+
     .results-table-width-master {
         width: 100%;
     }
@@ -31,5 +31,17 @@
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;
+    }
+
+    .read-more-button {
+        background-color: transparent;
+        color: #0074be;
+        padding: 0;
+        margin-top: 4px;
+        margin-bottom: 20px;
+        margin-left: 2px;
+        margin-right: 0;
+        line-height: 1.5;
+        text-transform: lowercase;
     }
 }
