@@ -303,6 +303,11 @@ const AccountAwardsContainer = (props) => {
         }
     }, [isLoadingNextPage]);
 
+    useEffect(() => {
+        performSearch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tableType, resultLimit, page]);
+
     if (Object.keys(columns).length === 0) {
         return null;
     }
