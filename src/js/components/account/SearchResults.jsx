@@ -14,7 +14,7 @@ import AccountTimeVisualizationContainer from
 import AccountRankVisualizationContainer from
     'containers/account/visualizations/AccountRankVisualizationContainer';
 import Note, { dodNote } from 'components/sharedComponents/Note';
-import ResultsTableContainer from "../../containers/search/table/ResultsTableContainer";
+import AccountAwardsContainer from 'containers/account/awards/AccountAwardsContainer';
 
 const propTypes = {
     showNote: PropTypes.bool
@@ -28,7 +28,7 @@ export default class SearchResults extends React.Component {
                 <div className="search-results">
                     <AccountTimeVisualizationContainer />
                     <AccountRankVisualizationContainer />
-                    <ResultsTableContainer />
+                    <AccountAwardsContainer />
                     {this.props.showNote && <Note message={dodNote} />}
                 </div>
             </div>
