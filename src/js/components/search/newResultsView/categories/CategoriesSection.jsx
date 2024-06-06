@@ -6,10 +6,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { DsmWrapper } from "../DsmWrapper";
 import CategoriesVisualizationWrapperContainer
     from "../../../../containers/search/newResultsView/CategoriesVisualizationWrapperContainer";
-import { DsmCategoriesByAgency, DsmCategoriesByRecipient } from "./CategoriesDsm";
+import CategoriesDsm from "./CategoriesDsm";
 
 const propTypes = {
     categoriesHasLoaded: PropTypes.bool,
@@ -30,45 +29,37 @@ const CategoriesSection = (props) => {
                 name: 'Awarding Agency',
                 value: 'awarding_agency',
                 onClick,
-                dsmContent: <DsmCategoriesByAgency subaward={props.subaward} />
+                dsmContent: <CategoriesDsm subaward={props.subaward} />
             },
             {
                 name: 'Awarding Subagency',
                 value: 'awarding_subagency',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Awarding Subagency:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <CategoriesDsm subaward={props.subaward} />
             },
             {
                 name: 'Recipient',
                 value: 'recipient',
                 onClick,
-                dsmContent: <DsmCategoriesByRecipient subaward={props.subaward} />
+                dsmContent: <CategoriesDsm subaward={props.subaward} />
             },
             {
                 name: 'North American Industry Classification System (NAICS)',
                 value: 'naics',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"North American Industry Classification System (NAICS):  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <CategoriesDsm subaward={props.subaward} />
             },
             {
                 name: 'Product and Service Code (PSC)',
                 value: 'psc',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Product and Service Code (PSC):  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <CategoriesDsm subaward={props.subaward} />
             },
             {
                 name: 'Assistance Listing',
                 value: 'cfda',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Assistance Listing:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <CategoriesDsm subaward={props.subaward} />
             }
         ],
         selectedDropdownOption: props.selectedDropdown
