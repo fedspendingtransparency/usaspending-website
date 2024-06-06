@@ -7,7 +7,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {
-    DsmCategoriesAgency,
+    DsmCategoriesByAgency, DsmCategoriesByRecipient,
     DsmWrapper
 } from "../DsmWrapper";
 import CategoriesVisualizationWrapperContainer
@@ -32,7 +32,7 @@ const CategoriesSection = (props) => {
                 name: 'Awarding Agency',
                 value: 'awarding_agency',
                 onClick,
-                dsmContent: <DsmCategoriesAgency subaward={props.subaward} />
+                dsmContent: <DsmCategoriesByAgency subaward={props.subaward} />
             },
             {
                 name: 'Awarding Subagency',
@@ -46,9 +46,7 @@ const CategoriesSection = (props) => {
                 name: 'Recipient',
                 value: 'recipient',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Recipient:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <DsmCategoriesByRecipient subaward={props.subaward} />
             },
             {
                 name: 'North American Industry Classification System (NAICS)',
