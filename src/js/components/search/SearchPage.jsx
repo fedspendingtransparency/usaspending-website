@@ -65,6 +65,7 @@ const SearchPage = ({
     const [newResultsViewAvailable, setNewResultsViewAvailable] = useState(false);
 
     const dispatch = useDispatch();
+    const isQAT = GlobalConstants.QAT;
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -145,13 +146,13 @@ const SearchPage = ({
     }, [windowWidth]);
 
     useEffect(() => {
-        if (GlobalConstants.QAT) {
+        if (isQAT) {
             setNewResultsViewAvailable(true);
         }
         else {
             setNewResultsViewAvailable(false);
         }
-    }, []);
+    }, [isQAT]);
 
     useEffect(() => {
         setStateHash(hash);
@@ -206,26 +207,27 @@ const SearchPage = ({
                             </div>
                         </button>
                     </div>
-                    <div className="visualization-tabs__toggle-mobile">
-                        <Button
-                            onClick={(e) => {
-                                e.persist();
-                                dispatch(showModal(window.location.href, 'filter'));
-                            }}
-                            onKeyUp={(e) => {
-                                e.persist();
-                                if (e.key === 'Enter') {
+                    { isQAT ?
+                        <div className="visualization-tabs__toggle-mobile">
+                            <Button
+                                onClick={(e) => {
+                                    e.persist();
                                     dispatch(showModal(window.location.href, 'filter'));
-                                }
-                            }}
-                            copy="Learn how active filters work"
-                            buttonTitle="filter modal"
-                            buttonSize="sm"
-                            buttonType="text"
-                            backgroundColor="light"
-                            imageAlignment="right"
-                            image={<FontAwesomeIcon icon="window-restore" />} />
-                    </div>
+                                }}
+                                onKeyUp={(e) => {
+                                    e.persist();
+                                    if (e.key === 'Enter') {
+                                        dispatch(showModal(window.location.href, 'filter'));
+                                    }
+                                }}
+                                copy="Learn how active filters work"
+                                buttonTitle="filter modal"
+                                buttonSize="sm"
+                                buttonType="text"
+                                backgroundColor="light"
+                                imageAlignment="right"
+                                image={<FontAwesomeIcon icon="window-restore" />} />
+                        </div> : <></> }
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}

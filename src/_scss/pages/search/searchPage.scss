@@ -39,6 +39,18 @@
         }
     }
 
+    .visualization-tabs__toggle-mobile {
+        margin: rem(20) 0;
+        @media(min-width: $medium-screen) {
+            display: none;
+        }
+
+        .button-type__text-right-icon-light {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
     #main-content {
         width: 100%;
         background-color: $color-gray-lightest;
@@ -113,5 +125,5 @@
             }
         }
     }
-
 }
+

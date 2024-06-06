@@ -19,6 +19,8 @@ import GeoVisualizationSectionContainer from
 import RankVisualizationWrapperContainer from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 import { tabOptions } from 'dataMapping/search/searchViewTabs';
+import GlobalConstants from "GlobalConstants";
+
 import NoFiltersScreen from './screens/NoFiltersScreen';
 import VisualizationTabItem from './VisualizationTabItem';
 import Button from "../../sharedComponents/buttons/Button";
@@ -38,6 +40,7 @@ const VisualizationWrapper = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
     let _queuedAnalyticEvent = null;
+    const isQAT = GlobalConstants.QAT;
 
     const logVisualizationTab = useCallback((tab) => {
         if (props.noFiltersApplied) {
@@ -117,26 +120,27 @@ const VisualizationWrapper = (props) => {
     return (
         <div
             className="search-visualizations">
-            <div className="visualization-tabs__toggle-mobile">
-                <Button
-                    onClick={(e) => {
-                        e.persist();
-                        dispatch(showModal(window.location.href, 'filter'));
-                    }}
-                    onKeyUp={(e) => {
-                        e.persist();
-                        if (e.key === 'Enter') {
+            { !isQAT ?
+                <div className="visualization-tabs__toggle-mobile">
+                    <Button
+                        onClick={(e) => {
+                            e.persist();
                             dispatch(showModal(window.location.href, 'filter'));
-                        }
-                    }}
-                    copy="Learn how active filters work"
-                    buttonTitle="filter modal"
-                    buttonSize="sm"
-                    buttonType="text"
-                    backgroundColor="light"
-                    imageAlignment="right"
-                    image={<FontAwesomeIcon icon="window-restore" />} />
-            </div>
+                        }}
+                        onKeyUp={(e) => {
+                            e.persist();
+                            if (e.key === 'Enter') {
+                                dispatch(showModal(window.location.href, 'filter'));
+                            }
+                        }}
+                        copy="Learn how active filters work"
+                        buttonTitle="filter modal"
+                        buttonSize="sm"
+                        buttonType="text"
+                        backgroundColor="light"
+                        imageAlignment="right"
+                        image={<FontAwesomeIcon icon="window-restore" />} />
+                </div> : <></> }
             <div className="visualization-tabs">
                 <div
                     className="visualization-tabs__list"
