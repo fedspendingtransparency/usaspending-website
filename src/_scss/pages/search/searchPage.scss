@@ -67,7 +67,7 @@
             padding: 0;
 
             .full-search-sidebar {
-                padding-right: rem(8);
+                padding-right: rem(16);
                 .search-sidebar {
                     margin: 0;
                 }
@@ -78,7 +78,6 @@
                 @import "./topFilterBar/topFilterBar";
                 width: 100%;
                 margin: 0;
-                padding-left: rem(8);
 
                 .search-results {
                     .new-search-container {
