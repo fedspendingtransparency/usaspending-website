@@ -225,7 +225,37 @@ export default class ResultsTable extends React.Component {
         const arrayOfObjects = this.props.results;
 
         let values = null;
+        // check for not subaward && loans
         if (!this.props.subaward) {
+            console.debug(this.props);
+
+            if (this.props.currentType === "loans") {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
+                        <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                        obj['Issued Date'] || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Subsidy Cost'], 2, "--"),
+                        <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                        <ReadMore
+                            text={obj.Description || '--'}
+                            limit={40} />,
+                        obj.def_codes || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                        obj['Awarding Sub Agency'] || '--'
+                    );
+
+                    return value;
+                });
+                return values;
+            }
+
+            // not loans
             values = arrayOfObjects.map((obj) => {
                 const value = [];
                 value.push(
@@ -253,6 +283,7 @@ export default class ResultsTable extends React.Component {
             return values;
         }
 
+        // subaward
         values = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(

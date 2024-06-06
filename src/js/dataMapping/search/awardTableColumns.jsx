@@ -252,7 +252,7 @@ const defaultContract = [
     { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth }
 ];
 const defaultGrant = [
-    { title: 'Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newDefaultWidth
@@ -267,7 +267,7 @@ const defaultGrant = [
     { title: 'Award Type', customWidth: newDefaultWidth }
 ];
 const defaultDirectPayment = [
-    { title: 'Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newDefaultWidth
@@ -282,7 +282,7 @@ const defaultDirectPayment = [
     { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth }
 ];
 const defaultLoan = [
-    { title: 'Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     { title: 'Issued Date', customWidth: newDefaultWidth },
     { title: 'Loan Value', displayName: 'Face Value of Loan', customWidth: newDefaultWidth },
@@ -296,7 +296,7 @@ const defaultLoan = [
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 }
 ];
 const defaultOther = [
-    { title: 'Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newDefaultWidth
@@ -311,7 +311,7 @@ const defaultOther = [
     { title: 'Award Type', customWidth: newDefaultWidth }
 ];
 const defaultIdvColumns = [
-    { title: 'Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newDefaultWidth
