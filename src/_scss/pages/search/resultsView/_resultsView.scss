@@ -237,3 +237,18 @@
 .usda-message_no-results, .usda-message_error, .usda-message_loading {
   padding: rem(200) 0;
 }
+
+// TODO: REMOVE BELOW ONCE NEW SEARCH GOES TO PROD
+.recharts-time-visualization-container {
+  .usda-message_no-results {
+    padding: rem(142.5) 0;
+  }
+
+ .usda-message_error {
+   padding: rem(120.1) 0;
+ }
+
+ .usda-message_loading {
+   padding: rem(127.5) 0;
+ }
+}
