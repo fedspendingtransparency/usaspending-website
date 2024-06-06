@@ -6,12 +6,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-    DsmCategoriesByAgency, DsmCategoriesByRecipient,
-    DsmWrapper
-} from "../DsmWrapper";
+import { DsmWrapper } from "../DsmWrapper";
 import CategoriesVisualizationWrapperContainer
     from "../../../../containers/search/newResultsView/CategoriesVisualizationWrapperContainer";
+import { DsmCategoriesByAgency, DsmCategoriesByRecipient } from "./CategoriesDsm";
 
 const propTypes = {
     categoriesHasLoaded: PropTypes.bool,
