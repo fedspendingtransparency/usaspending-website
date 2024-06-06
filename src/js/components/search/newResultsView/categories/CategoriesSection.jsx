@@ -7,6 +7,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {
+    DsmCategoriesAgency,
     DsmWrapper
 } from "../DsmWrapper";
 import CategoriesVisualizationWrapperContainer
@@ -31,9 +32,7 @@ const CategoriesSection = (props) => {
                 name: 'Awarding Agency',
                 value: 'awarding_agency',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Awarding Agency:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <DsmCategoriesAgency subaward={props.subaward} />
             },
             {
                 name: 'Awarding Subagency',

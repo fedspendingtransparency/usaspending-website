@@ -226,7 +226,7 @@
         }
 
         p {
-          margin: 0;
+          margin: 0 0 rem(8) 0;
           color: $gray-60
         }
       }
@@ -236,6 +236,21 @@
 
 .usda-message_no-results, .usda-message_error, .usda-message_loading {
   padding: rem(200) 0;
+}
+
+.award-search__glossary-term {
+  font-weight: $font-semibold;
+}
+
+.usda-glossary-link {
+  color: $gray-60;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $color-gray-medium;
+  }
 }
 
 // TODO: REMOVE BELOW ONCE NEW SEARCH GOES TO PROD
