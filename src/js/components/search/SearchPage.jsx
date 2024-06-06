@@ -208,7 +208,9 @@ const SearchPage = ({
                         </button>
                     </div>
                     { isQAT ?
-                        <div className="visualization-tabs__toggle-mobile">
+                        <div
+                            className="visualization-tabs__toggle-mobile"
+                            style={toggleTempSearchPage ? { marginBottom: "0" } : {}}>
                             <Button
                                 onClick={(e) => {
                                     e.persist();
