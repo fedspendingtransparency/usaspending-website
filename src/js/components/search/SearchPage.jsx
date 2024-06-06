@@ -207,29 +207,28 @@ const SearchPage = ({
                             </div>
                         </button>
                     </div>
-                    { isQAT ?
-                        <div
-                            className="visualization-tabs__toggle-mobile"
-                            style={toggleTempSearchPage ? { marginBottom: "0" } : {}}>
-                            <Button
-                                onClick={(e) => {
-                                    e.persist();
+                    <div
+                        className="visualization-tabs__toggle-mobile"
+                        style={toggleTempSearchPage ? { marginBottom: "0" } : {}}>
+                        <Button
+                            onClick={(e) => {
+                                e.persist();
+                                dispatch(showModal(window.location.href, 'filter'));
+                            }}
+                            onKeyUp={(e) => {
+                                e.persist();
+                                if (e.key === 'Enter') {
                                     dispatch(showModal(window.location.href, 'filter'));
-                                }}
-                                onKeyUp={(e) => {
-                                    e.persist();
-                                    if (e.key === 'Enter') {
-                                        dispatch(showModal(window.location.href, 'filter'));
-                                    }
-                                }}
-                                copy="Learn how active filters work"
-                                buttonTitle="filter modal"
-                                buttonSize="sm"
-                                buttonType="text"
-                                backgroundColor="light"
-                                imageAlignment="right"
-                                image={<FontAwesomeIcon icon="window-restore" />} />
-                        </div> : <></> }
+                                }
+                            }}
+                            copy="Learn how active filters work"
+                            buttonTitle="filter modal"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="window-restore" />} />
+                    </div>
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
