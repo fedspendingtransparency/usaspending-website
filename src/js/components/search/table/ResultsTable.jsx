@@ -289,12 +289,12 @@ export default class ResultsTable extends React.Component {
             value.push(
                 <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Sub-Award ID']}</a> || '--',
                 obj['Sub-Awardee Name'] || '--',
-                obj['Sub-Award Date'] || '--',
                 MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
-                obj['Awarding Agency'] || '--',
-                obj['Awarding Sub Agency'] || '--',
+                obj['Sub-Award Date'] || '--',
                 <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Prime Award ID']}</a> || '--',
-                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--'
+                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--',
+                obj['Awarding Agency'] || '--',
+                obj['Awarding Sub Agency'] || '--'
             );
 
             return value;

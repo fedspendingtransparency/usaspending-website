@@ -373,14 +373,14 @@ tabsWithAdditionalCols.forEach((tab) => {
     tab.splice(11, 0, infrastructureOutlaysCol);
 });
 const defaultSub = [
-    { title: 'Sub-Award ID', customWidth: newDefaultWidth },
-    { title: 'Sub-Awardee Name', customWidth: newCustomWidth1 },
-    { title: 'Action Date', customWidth: newDefaultWidth },
-    { title: 'Sub-Award Amount', customWidth: newDefaultWidth },
-    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
-    { title: 'Awarding Sub Agency', customWidth: newCustomWidth1 },
+    { title: 'Sub-Award ID', displayName: "Subaward ID", customWidth: newDefaultWidth },
+    { title: 'Sub-Awardee Name', displayName: "Subrecipient Name", customWidth: newCustomWidth1 },
+    { title: 'Sub-Award Amount', displayName: "Subaward Obligations", customWidth: newDefaultWidth },
+    { title: 'Action Date', displayName: "Subaward Action Date", customWidth: newDefaultWidth },
     { title: 'Prime Award ID', customWidth: newDefaultWidth },
-    { title: 'Prime Recipient Name', customWidth: newCustomWidth2 }
+    { title: 'Prime Recipient Name', displayName: "Prime Award Recipient Name", customWidth: newCustomWidth2 },
+    { title: 'Awarding Agency', displayName: "Prime Award Awarding Agency", customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: "Prime Award Awarding Subagency", customWidth: newCustomWidth1 }
 ];
 
 
