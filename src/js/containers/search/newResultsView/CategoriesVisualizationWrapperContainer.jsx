@@ -214,12 +214,15 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             tempLabelSeries.push(result.name);
             tempDataSeries.push(result._amount);
 
-            if (scope === 'recipient' && !props.subaward && result?.recipientId) {
+            if (scope === 'recipient' && !props.subaward) {
                 const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
                 tempLinkSeries.push(recipientLink);
 
-                if (recipientLink !== '') {
+                if (recipientLink !== "") {
                     tableDataRow.push(<a href={recipientLink}>{result.name}</a>);
+                }
+                else {
+                    tableDataRow.push(result.name);
                 }
             }
             else if (scope === 'awarding_agency' && !props.subaward) {
