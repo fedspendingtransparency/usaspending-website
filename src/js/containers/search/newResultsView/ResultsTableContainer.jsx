@@ -25,7 +25,6 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 import ResultsTableSection from 'components/search/newResultsView/table/ResultsTableSection';
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import { setHasResults } from "../../../redux/actions/search/titleBarFilterActions";
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 
 const propTypes = {
@@ -33,8 +32,7 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func,
-    setHasResults: PropTypes.func
+    subAwardIdClicked: PropTypes.func
 };
 export const tableTypes = [
     {
@@ -102,7 +100,6 @@ const ResultsTableContainer = (props) => {
             searchRequest.cancel();
         }
 
-        // props.setAppliedFilterCompletion(false);
         const tableTypeTemp = tableType;
 
         // get searchParams from state
@@ -216,14 +213,6 @@ const ResultsTableContainer = (props) => {
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
                 setResults(newState.results);
-
-                if (newState.results.length > 0) {
-                    props.setHasResults(true);
-                }
-                else {
-                    props.setHasResults(false);
-                }
-
                 setPage(newState.page);
                 setLastPage(newState.lastPage);
 
@@ -482,7 +471,7 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), []);
+    }, 400), [props]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
@@ -546,8 +535,7 @@ export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward,
-        hasResults: state.titleBarFilter.hasResults
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(
         // access multiple redux actions
@@ -555,7 +543,6 @@ export default connect(
             {},
             searchActions,
             appliedFilterActions,
-            { setHasResults },
             { subAwardIdClicked }
         ),
         dispatch
