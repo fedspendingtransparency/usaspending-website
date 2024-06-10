@@ -211,7 +211,8 @@ export default class ResultsTable extends React.Component {
         const columns = orderedColumns.map((col) => ({
             title: col.columnName,
             displayName: col.displayName,
-            columnWidth: col.width
+            columnWidth: col.width,
+            right: col.right || false
         }));
         return columns;
     }
