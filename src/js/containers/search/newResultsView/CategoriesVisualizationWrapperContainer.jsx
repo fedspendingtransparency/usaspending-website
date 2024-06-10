@@ -88,7 +88,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         awarding_agency: [
@@ -100,7 +100,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         awarding_subagency: [
@@ -112,7 +112,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         cfda: [
@@ -124,7 +124,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         naics: [
@@ -136,7 +136,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         psc: [
@@ -148,7 +148,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ]
     };
