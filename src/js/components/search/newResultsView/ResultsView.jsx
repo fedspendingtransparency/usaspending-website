@@ -18,12 +18,14 @@ require("pages/search/searchPage.scss");
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
-    isMobile: PropTypes.bool
+    isMobile: PropTypes.bool,
+    noFiltersApplied: PropTypes.bool
 };
 
 const ResultsView = (props) => {
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
+    const [waitForCheckForData, setWaitForCheckForData] = useState(true);
 
     const filters = useSelector((state) => state.appliedFilters.filters);
     const subaward = useSelector((state) => state.searchView.subaward);
@@ -54,6 +56,8 @@ const ResultsView = (props) => {
                 else {
                     setHasResults(false);
                 }
+
+                setWaitForCheckForData(false);
             })
             .catch((err) => {
                 console.log("err: ", err);
@@ -73,11 +77,11 @@ const ResultsView = (props) => {
     useEffect(() => {
         let content = null;
 
-        if (props.noFiltersApplied) {
+        if (props.noFiltersApplied && !waitForCheckForData) {
             content = <NewSearchScreen />;
         }
 
-        if (!props.noFiltersApplied) {
+        if (!props.noFiltersApplied && !waitForCheckForData) {
             if (hasResults) {
                 content = <SectionsContent subaward={subaward} />;
             }
@@ -87,7 +91,7 @@ const ResultsView = (props) => {
         }
 
         setResultContent(content);
-    }, [props.noFiltersApplied, hasResults, subaward]);
+    }, [props.noFiltersApplied, hasResults, subaward, waitForCheckForData]);
 
     return (
         <PageFeatureFlag>
