@@ -17,7 +17,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import SearchSectionWrapper from "../SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -58,7 +58,7 @@ const logMapScopeEvent = (scope) => {
 };
 
 
-const MapVisualization = React.memo((props) => {
+const MapSectionContainer = React.memo((props) => {
     const USACenterPoint = [-95.569430, 38.852892];
 
     const [mapLayer, setMapLayer] = useState('state');
@@ -559,7 +559,7 @@ const MapVisualization = React.memo((props) => {
     );
 });
 
-MapVisualization.propTypes = propTypes;
+MapSectionContainer.propTypes = propTypes;
 
 export default connect((state) => ({
     reduxFilters: state.appliedFilters.filters,
@@ -572,4 +572,4 @@ export default connect((state) => ({
         { setAppliedFilterCompletion }, { updateMapLegendToggle }),
     dispatch)
 })
-)(MapVisualization);
+)(MapSectionContainer);

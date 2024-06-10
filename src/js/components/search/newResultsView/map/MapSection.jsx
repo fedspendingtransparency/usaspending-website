@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { DsmWrapper } from "../DsmWrapper";
-import MapVisualization from "./MapVisualization";
+import MapVisualization from "../../../../containers/search/newResultsView/MapSectionContainer";
 
 const propTypes = {
     mapHasLoaded: PropTypes.bool,
