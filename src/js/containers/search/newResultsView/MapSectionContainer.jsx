@@ -18,6 +18,7 @@ import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -474,6 +475,23 @@ const MapSectionContainer = React.memo((props) => {
         ]
     };
 
+    const createTableRows = (rows) => {
+        const rowsArray = [];
+        rows.forEach((row) => {
+            const rowArray = [];
+            Object.keys(row).forEach((key) => {
+                if (key === 'obligations' || key === 'perCapita') {
+                    rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
+                }
+                else {
+                    rowArray.push(row[key]);
+                }
+            });
+            rowsArray.push(rowArray);
+        });
+        setTableRows(rowsArray);
+    };
+
     const sortBy = (field, direction) => {
         const updatedTable = [...tableData];
         if (direction === 'asc') {
@@ -483,11 +501,9 @@ const MapSectionContainer = React.memo((props) => {
             updatedTable.sort((a, b) => b[field] - a[field]);
         }
 
-        console.log('updatedTable: ', updatedTable);
-
         setSortDirection(direction);
         setActiveField(field);
-        setTableRows(updatedTable);
+        createTableRows(updatedTable);
     };
 
     useEffect(() => {

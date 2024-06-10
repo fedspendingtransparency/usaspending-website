@@ -165,7 +165,6 @@ const TimeVisualizationSectionContainer = (props) => {
             rowsArray.push(rowArray);
         });
 
-        console.log('rowsArray: ', rowsArray);
         setTableRows(rowsArray);
     };
 
