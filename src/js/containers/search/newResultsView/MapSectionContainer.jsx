@@ -74,7 +74,10 @@ const MapSectionContainer = React.memo((props) => {
     const [error, setError] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
     const [singleLocationSelected, setSingleLocationSelected] = useState({});
+    const [tableData, setTableData] = useState([]);
     const [tableRows, setTableRows] = useState([]);
+    const [sortDirection, setSortDirection] = useState('asc');
+    const [activeField, setActiveField] = useState('aggregated_amount');
 
     let apiRequest = null;
     const mapListeners = [];
@@ -111,24 +114,32 @@ const MapSectionContainer = React.memo((props) => {
 
                 // for new search table
                 const row = [];
-                const congressionalDistrictCheck = item.display_name.substring(2, 3);
+                const stateCheck = item.shape_code.length < 3;
+                const congressionalDistrictCheck = item.display_name.substring(2, 3) === "-";
                 const countyCheck = parseInt(item.shape_code, 10);
 
-                row.push(item.display_name);
-                if (congressionalDistrictCheck === "-") {
-                    row.push(stateNameFromCode(item.display_name.substring(0, 2)));
+                if (stateCheck) {
+                    row.stateTerritory = item.display_name;
+                }
+                else if (congressionalDistrictCheck) {
+                    row.congressionalDistrict = item.display_name;
+                    row.stateTerritory = stateNameFromCode(item.display_name.substring(0, 2));
                 }
                 else if (countyCheck) {
-                    row.push(stateNameFromFips(item.shape_code.substring(0, 2)));
+                    row.county = item.display_name;
+                    row.stateTerritory = stateNameFromFips(item.shape_code.substring(0, 2));
                 }
-                row.push(item.aggregated_amount);
-                row.push(item.per_capita);
+                else {
+                    row.country = item.display_name;
+                }
+                row.obligations = item.aggregated_amount;
+                row.perCapita = item.per_capita;
 
                 rows.push(row);
             }
         });
 
-        setTableRows(rows);
+        setTableData(rows);
 
         return { values, locations, labels };
     };
@@ -412,7 +423,7 @@ const MapSectionContainer = React.memo((props) => {
             right: true
         },
         {
-            title: "per_capita",
+            title: "perCapita",
             displayName: ["Per Capita Obligations"],
             right: true
         }
@@ -421,7 +432,7 @@ const MapSectionContainer = React.memo((props) => {
     const columns = {
         state: [
             {
-                title: "state_territory",
+                title: "stateTerritory",
                 displayName: ["State or Territory"],
                 right: false
             },
@@ -442,7 +453,7 @@ const MapSectionContainer = React.memo((props) => {
                 right: false
             },
             {
-                title: "state_territory",
+                title: "stateTerritory",
                 displayName: ["State or Territory"],
                 right: false
             },
@@ -455,12 +466,28 @@ const MapSectionContainer = React.memo((props) => {
                 right: false
             },
             {
-                title: "state_territory",
+                title: "stateTerritory",
                 displayName: ["State or Territory"],
                 right: false
             },
             ...standardColumns
         ]
+    };
+
+    const sortBy = (field, direction) => {
+        const updatedTable = [...tableData];
+        if (direction === 'asc') {
+            updatedTable.sort((a, b) => a[field] - b[field]);
+        }
+        else if (direction === 'desc') {
+            updatedTable.sort((a, b) => b[field] - a[field]);
+        }
+
+        console.log('updatedTable: ', updatedTable);
+
+        setSortDirection(direction);
+        setActiveField(field);
+        setTableRows(updatedTable);
     };
 
     useEffect(() => {
@@ -528,6 +555,11 @@ const MapSectionContainer = React.memo((props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
 
+    useEffect(() => {
+        sortBy("aggregated_amount", "desc");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tableData]);
+
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
@@ -536,7 +568,10 @@ const MapSectionContainer = React.memo((props) => {
             hasNoData={false}
             rows={tableRows}
             columns={columns[mapLayer]}
-            sectionName="map" >
+            sectionName="map"
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+            activeField={activeField} >
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
