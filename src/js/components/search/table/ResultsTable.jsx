@@ -224,7 +224,6 @@ export default class ResultsTable extends React.Component {
         // (page * limit) - 1 end
         // (page - 1) * limit start
         const arrayOfObjects = this.props.results;
-
         let values = null;
         // check for not subaward && loans
         if (!this.props.subaward) {
@@ -234,8 +233,8 @@ export default class ResultsTable extends React.Component {
                     value.push(
                         <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
                         <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['Subsidy Cost'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
                         <ReadMore
                             text={obj.Description || '--'}
                             limit={40} />,
