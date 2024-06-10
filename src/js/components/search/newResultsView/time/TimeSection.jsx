@@ -12,6 +12,7 @@ import {
 } from "../DsmWrapper";
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
+import PlaceholderComponent from "../PlaceholderComponent";
 
 const propTypes = {
     spendingHasLoaded: PropTypes.bool,
@@ -58,11 +59,15 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
 
     return (
         <div id="search-page-component" className="spending">
-            {spendingHasLoaded && <TimeVisualizationSectionContainer
-                wrapperProps={wrapperProps}
-                subaward={subaward}
-                spendingHasLoaded={spendingHasLoaded}
-                visualizationPeriod={visualizationPeriod} />}
+            {spendingHasLoaded ?
+                <TimeVisualizationSectionContainer
+                    wrapperProps={wrapperProps}
+                    subaward={subaward}
+                    spendingHasLoaded={spendingHasLoaded}
+                    visualizationPeriod={visualizationPeriod} />
+                :
+                <PlaceholderComponent />
+            }
         </div>
     );
 };

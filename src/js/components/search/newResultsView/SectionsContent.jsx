@@ -3,7 +3,7 @@
  * Created by Brian Petway
  **/
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
@@ -20,34 +20,42 @@ const SectionsContent = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
-    const [mapHasLoaded, setMapHasLoaded] = useState(false);
+    // const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
 
+
     const observerOptions = {
         threshold: 0.1
+        // rootMargin: '-20px'
     };
 
     // TODO:  Keep console logs here while debugging; Remove console logs before deploying new results view to prod
-    const callbackFunction = (entries) => {
+    const callbackFunction = (entries, observer) => {
+        console.log('entries', entries);
+
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
                 if (section === 'award') {
                     setAwardTableHasLoaded(true);
                     console.log("award");
+                    observer.unobserve(entry.target);
                 }
                 else if (section === 'spending') {
                     setSpendingHasLoaded(true);
                     console.log("spending");
+                    observer.unobserve(entry.target);
                 }
-                else if (section === 'map') {
-                    setMapHasLoaded(true);
-                    console.log("map");
-                }
+                // else if (section === 'map') {
+                //     setMapHasLoaded(true);
+                //     console.log("map");
+                //     observer.unobserve(entry.target);
+                // }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
                     console.log("categories");
+                    observer.unobserve(entry.target);
                 }
             }
         });
@@ -80,7 +88,7 @@ const SectionsContent = (props) => {
 
     return (
         <>
-            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
+            <MapSection subaward={props.subaward} />
             <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
             <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
             <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />

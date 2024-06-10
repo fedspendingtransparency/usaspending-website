@@ -18,7 +18,8 @@ require("pages/search/searchPage.scss");
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
-    isMobile: PropTypes.bool
+    isMobile: PropTypes.bool,
+    noFiltersApplied: PropTypes.bool
 };
 
 const ResultsView = (props) => {
