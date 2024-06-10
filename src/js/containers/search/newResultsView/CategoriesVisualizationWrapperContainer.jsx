@@ -86,11 +86,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 right: false
             },
             {
-                title: 'recipient_id',
-                displayName: ["Recipient UEI"],
-                right: false
-            },
-            {
                 title: 'obligations',
                 displayName: ["Obligations"],
                 right: false
@@ -243,9 +238,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 tableDataRow.push(result.name);
             }
 
-            if (scope === 'recipient') {
-                tableDataRow.push(result.recipientId);
-            }
             tableDataRow.push(MoneyFormatter.formatMoneyWithPrecision(result._amount, 0));
 
             const description = `Spending by ${result.name}: ${result.amount}`;
