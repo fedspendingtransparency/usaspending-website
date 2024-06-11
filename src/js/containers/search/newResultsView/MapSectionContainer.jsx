@@ -493,12 +493,29 @@ const MapSectionContainer = React.memo((props) => {
     };
 
     const sortBy = (field, direction) => {
+        console.log('tableData: ', tableData);
         const updatedTable = [...tableData];
         if (direction === 'asc') {
-            updatedTable.sort((a, b) => a[field] - b[field]);
+            updatedTable.sort((a, b) => {
+                if (a[field] < b[field]) {
+                    return -1;
+                }
+                if (a[field] > b[field]) {
+                    return 1;
+                }
+                return 0;
+            });
         }
         else if (direction === 'desc') {
-            updatedTable.sort((a, b) => b[field] - a[field]);
+            updatedTable.sort((a, b) => {
+                if (a[field] < b[field]) {
+                    return 1;
+                }
+                if (a[field] > b[field]) {
+                    return -1;
+                }
+                return 0;
+            });
         }
 
         setSortDirection(direction);
