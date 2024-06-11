@@ -3,7 +3,7 @@
  * Created by Brian Petway
  **/
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
@@ -22,7 +22,6 @@ const SectionsContent = (props) => {
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
-
 
     const observerOptions = {
         threshold: 0.1

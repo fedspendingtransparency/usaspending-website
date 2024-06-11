@@ -1,5 +1,5 @@
 /**
- * MapSection.jsx
+ * PlaceholderComponent.jsx
  * Created by Brian Petway 06/10/2024
  **/
 
