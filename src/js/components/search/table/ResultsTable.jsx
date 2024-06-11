@@ -238,7 +238,7 @@ export default class ResultsTable extends React.Component {
                         <ReadMore
                             text={obj.Description || '--'}
                             limit={40} />,
-                        obj['Contract Award Type'] || '--',
+                        obj['Contract Award Type'] || obj['Award Type'] || '--',
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -265,7 +265,7 @@ export default class ResultsTable extends React.Component {
                     <ReadMore
                         text={obj.Description || '--'}
                         limit={40} />,
-                    obj['Contract Award Type'] || '--',
+                    obj['Contract Award Type'] || obj['Award Type'] || '--',
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),

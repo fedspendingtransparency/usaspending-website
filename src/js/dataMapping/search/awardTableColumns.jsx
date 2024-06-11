@@ -109,7 +109,8 @@ const loanColumns = [
     'Awarding Agency',
     'Awarding Sub Agency',
     'Funding Agency',
-    'Funding Sub Agency'
+    'Funding Sub Agency',
+    'Award Type'
 ];
 const directPaymentColumns = [
     'Award ID',
@@ -264,7 +265,7 @@ const defaultGrant = [
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
     },
-    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     {
@@ -283,7 +284,7 @@ const defaultDirectPayment = [
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
     },
-    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     {
@@ -327,7 +328,7 @@ const defaultLoan = [
     {
         title: 'Loan Value', right: true, displayName: 'Face Value of Loan', customWidth: newDefaultWidth
     },
-    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     { title: 'Issued Date', customWidth: newDefaultWidth }
