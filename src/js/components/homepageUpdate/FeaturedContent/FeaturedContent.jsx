@@ -6,7 +6,16 @@
 import React from 'react';
 import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Analytics from 'helpers/analytics/Analytics';
 import ExternalLink from "../../sharedComponents/ExternalLink";
+
+
+const trackFeaturedSavingsBondLink = () => Analytics.event({
+    event: 'homepage_featured_content_links',
+    category: 'Homepage',
+    action: 'Link',
+    label: 'fiscal data savings bond featured content'
+});
 
 const FeaturedContent = () => (
     <section className="featured-content__section">
@@ -33,7 +42,7 @@ const FeaturedContent = () => (
                 </ExternalLink>
             </FlexGridCol>
             <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                <ExternalLink isCard url="https://fiscaldata.treasury.gov/treasury-savings-bonds/">
+                <a href="https://fiscaldata.treasury.gov/treasury-savings-bonds/" target="_blank" rel="noopener noreferrer" onClick={trackFeaturedSavingsBondLink} className="featured-content__section--link" >
                     <CardContainer variant="outline" size="md">
                         <CardHero fill="#864381" variant="expanded" img="img/homepage-featured-content/homepage-feature-FDG@2x.webp" />
                         <CardBody
@@ -45,7 +54,7 @@ const FeaturedContent = () => (
                             }>
                         </CardBody>
                     </CardContainer>
-                </ExternalLink>
+                </a>
             </FlexGridCol>
         </div>
     </section>);
