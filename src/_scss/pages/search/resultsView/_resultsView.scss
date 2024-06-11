@@ -8,7 +8,7 @@
   }
 
   .search__placeholder {
-    height: 800px;
+    height: rem(800);
     border: rem(1) solid $gray-cool-10;
     border-radius: rem(8);
     color: $color-gray-lightest;
