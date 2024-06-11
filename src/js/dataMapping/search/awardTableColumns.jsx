@@ -321,7 +321,7 @@ const defaultLoan = [
         title: 'Subsidy Cost',
         displayName: 'Loan Subsidy Cost',
         subtitle: '(Total Obligations To Date)',
-        customWidth: newCustomWidth1,
+        customWidth: newDefaultWidth,
         right: true
     },
     {
@@ -413,7 +413,7 @@ const defaultSub = [
     },
     { title: 'Action Date', displayName: "Subaward Action Date", customWidth: newDefaultWidth },
     { title: 'Prime Award ID', customWidth: newDefaultWidth },
-    { title: 'Prime Recipient Name', displayName: "Prime Award Recipient Name", customWidth: newCustomWidth2 },
+    { title: 'Prime Recipient Name', displayName: "Prime Award Recipient Name", customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', displayName: "Prime Award Awarding Agency", customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: "Prime Award Awarding Subagency", customWidth: newCustomWidth1 }
 ];
