@@ -7,19 +7,6 @@
     margin-bottom: 0;
   }
 
-  .map {
-    td.usda-table__cell.usda-table__cell_right {
-      text-align: left;
-    }
-
-    th.table-header {
-      .table-header__content.table-header__content_right {
-        justify-content: flex-start;
-        -webkit-justify-content: flex-start;
-      }
-    }
-  }
-
   .search__section-wrapper {
     padding: rem(24);
     margin-bottom: rem(16);
