@@ -20,20 +20,16 @@ const SectionsContent = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
     const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
-    // const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
 
 
     const observerOptions = {
         threshold: 0.1
-        // rootMargin: '-20px'
     };
 
     // TODO:  Keep console logs here while debugging; Remove console logs before deploying new results view to prod
     const callbackFunction = (entries, observer) => {
-        console.log('entries', entries);
-
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
@@ -47,11 +43,6 @@ const SectionsContent = (props) => {
                     console.log("spending");
                     observer.unobserve(entry.target);
                 }
-                // else if (section === 'map') {
-                //     setMapHasLoaded(true);
-                //     console.log("map");
-                //     observer.unobserve(entry.target);
-                // }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
                     console.log("categories");

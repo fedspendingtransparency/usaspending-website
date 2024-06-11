@@ -9,6 +9,9 @@
 
   .search__placeholder {
     height: 800px;
+    border: rem(1) solid $gray-cool-10;
+    border-radius: rem(8);
+    color: $color-gray-lightest;
   }
 
   .search__section-wrapper {
