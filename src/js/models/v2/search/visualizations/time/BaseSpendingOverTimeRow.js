@@ -9,6 +9,29 @@ const BaseSpendingOverTimeRow = {
         this.quarter = Object.prototype.hasOwnProperty.call(data.time_period, 'quarter') ? data.time_period.quarter : false;
         this.fiscal_year = data.time_period?.fiscal_year;
         this.aggregated_amount = data.aggregated_amount;
+    },
+    get monthYear() {
+        // this date needs to be fiscal year
+        const date = new Date(`${this.month}/01/${this.fiscal_year}`);
+        return date;
+    },
+    get quarterYear() {
+        // this date needs to be fiscal year
+        let quarterStart = '01';
+
+        if (this.quarter === 1) {
+            quarterStart = `10`;
+        } else if (this.quarter === 2) {
+            quarterStart = `01`;
+        } else if (this.quarter === 3) {
+            quarterStart = `04`;
+        } else if (this.quarter === 4) {
+            quarterStart = `07`;
+        }
+
+
+        const date = new Date(`${quarterStart}/01/${this.fiscal_year}`);
+        return date;
     }
 };
 

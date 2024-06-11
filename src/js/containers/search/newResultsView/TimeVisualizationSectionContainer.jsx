@@ -216,6 +216,8 @@ const TimeVisualizationSectionContainer = (props) => {
                 data.results.map((d) => {
                     const row = Object.create(BaseSpendingOverTimeRow);
                     row.populate(d);
+                    console.log("in container", row.monthYear);
+                    console.log("in container 2", row.quarterYear);
                     tempTableData.push(row);
                     return row;
                 });
