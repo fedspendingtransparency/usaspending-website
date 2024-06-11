@@ -6,22 +6,24 @@
 import React from 'react';
 import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Analytics from 'helpers/analytics/Analytics';
+// import Analytics from 'helpers/analytics/Analytics';
+import ExternalLink from "../../sharedComponents/ExternalLink";
 
-const FeaturedContent = () => {
-    const trackFeaturedYourDataLink = () => Analytics.event({
-        event: 'homepage_featured_content_links',
-        category: 'Homepage',
-        action: 'Link',
-        label: 'your data featured content'
-    });
-    const trackFeaturedResourcesLink = () => Analytics.event({
-        event: 'homepage_featured_content_links',
-        category: 'Homepage',
-        action: 'Link',
-        label: 'fdg featured content'
-    });
-    return (<>
+const FeaturedContent = () =>
+    // TODO: new tags will have to be added for these in ga4
+    // const trackFeaturedYourDataLink = () => Analytics.event({
+    //     event: 'homepage_featured_content_links',
+    //     category: 'Homepage',
+    //     action: 'Link',
+    //     label: 'your data featured content'
+    // });
+    // const trackFeaturedResourcesLink = () => Analytics.event({
+    //     event: 'homepage_featured_content_links',
+    //     category: 'Homepage',
+    //     action: 'Link',
+    //     label: 'fdg featured content'
+    // });
+    (<>
         <section className="featured-content__section">
             <div className="featured-content__heading">
                 <div className="featured-content__heading--background">
@@ -31,7 +33,7 @@ const FeaturedContent = () => {
             </div>
             <div className="featured-content__section--flex-row">
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <a className="featured-content__section--link" href="https://www.youtube.com/watch?v=c-bqfpWSSrI" target="_blank" rel="noopener noreferrer" onClick={trackFeaturedYourDataLink}>
+                    <ExternalLink isCard url="https://www.youtube.com/watch?v=c-bqfpWSSrI">
                         <CardContainer variant="outline" size="md">
                             <CardHero fill="#59B9DE" variant="expanded" img="img/homepage-featured-content/homepage-feature-Your-Data-Your-Story@2x.webp" />
                             <CardBody
@@ -43,10 +45,10 @@ const FeaturedContent = () => {
                                 }>
                             </CardBody>
                         </CardContainer>
-                    </a>
+                    </ExternalLink>
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <a href="https://fiscaldata.treasury.gov/treasury-savings-bonds/" target="_blank" rel="noopener noreferrer" onClick={trackFeaturedResourcesLink} className="featured-content__section--link" >
+                    <ExternalLink isCard url="https://fiscaldata.treasury.gov/treasury-savings-bonds/">
                         <CardContainer variant="outline" size="md">
                             <CardHero fill="#864381" variant="expanded" img="img/homepage-featured-content/homepage-feature-FDG@2x.webp" />
                             <CardBody
@@ -58,12 +60,10 @@ const FeaturedContent = () => {
                                 }>
                             </CardBody>
                         </CardContainer>
-                    </a>
+                    </ExternalLink>
                 </FlexGridCol>
             </div>
         </section>
     </>
     );
-};
-
 export default FeaturedContent;
