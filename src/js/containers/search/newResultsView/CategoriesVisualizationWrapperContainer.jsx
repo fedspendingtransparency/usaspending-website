@@ -88,7 +88,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         awarding_agency: [
@@ -100,7 +100,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         awarding_subagency: [
@@ -112,7 +112,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         cfda: [
@@ -124,7 +124,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         naics: [
@@ -136,7 +136,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ],
         psc: [
@@ -148,7 +148,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             {
                 title: 'obligations',
                 displayName: ["Obligations"],
-                right: false
+                right: true
             }
         ]
     };
@@ -214,12 +214,15 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             tempLabelSeries.push(result.name);
             tempDataSeries.push(result._amount);
 
-            if (scope === 'recipient' && !props.subaward && result?.recipientId) {
+            if (scope === 'recipient' && !props.subaward) {
                 const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
                 tempLinkSeries.push(recipientLink);
 
-                if (recipientLink !== '') {
+                if (recipientLink !== "") {
                     tableDataRow.push(<a href={recipientLink}>{result.name}</a>);
+                }
+                else {
+                    tableDataRow.push(result.name);
                 }
             }
             else if (scope === 'awarding_agency' && !props.subaward) {

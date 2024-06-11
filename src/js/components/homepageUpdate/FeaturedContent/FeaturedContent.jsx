@@ -6,65 +6,56 @@
 import React from 'react';
 import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 import Analytics from 'helpers/analytics/Analytics';
+import ExternalLink from "../../sharedComponents/ExternalLink";
 
-const FeaturedContent = () => {
-    const trackFeaturedCovidLink = () => Analytics.event({
-        event: 'homepage_featured_content_links',
-        category: 'Homepage',
-        action: 'Link',
-        label: 'covid-19 featured content'
-    });
-    const trackFeaturedResourcesLink = () => Analytics.event({
-        event: 'homepage_featured_content_links',
-        category: 'Homepage',
-        action: 'Link',
-        label: 'resources featured content'
-    });
-    return (<>
-        <section className="featured-content__section">
-            <div className="featured-content__heading">
-                <div className="featured-content__heading--background">
-                    <FontAwesomeIcon className="featured-content__heading--icon" icon="bullhorn" />
-                </div>
-                <span>Featured Content</span>
-            </div>
-            <div className="featured-content__section--flex-row">
-                <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <Link className="featured-content__section--link" to="disaster/covid-19" onClick={trackFeaturedCovidLink}>
-                        <CardContainer variant="outline" size="md">
-                            <CardHero fill="#3333a3" variant="expanded" img="img/homepage-featured-content/homepage-feature-covid-19.webp" />
-                            <CardBody
-                                overline="COVID-19 Spending"
-                                headline={
-                                    <div>
-                                        Track federal spending in response to the COVID-19 pandemic
-                                    </div>
-                                }>
-                            </CardBody>
-                        </CardContainer>
-                    </Link>
-                </FlexGridCol>
-                <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <Link to="/training-videos" onClick={trackFeaturedResourcesLink} className="featured-content__section--link" >
-                        <CardContainer variant="outline" size="md">
-                            <CardHero fill="#009ec1" variant="expanded" img="img/homepage-featured-content/homepage-featured-youtube.webp" />
-                            <CardBody
-                                overline="Resources"
-                                headline={
-                                    <div>
-                                        Learn how to use USAspending.gov with our tutorial videos
-                                    </div>
-                                }>
-                            </CardBody>
-                        </CardContainer>
-                    </Link>
-                </FlexGridCol>
-            </div>
-        </section>
-    </>
-    );
-};
 
+const trackFeaturedSavingsBondLink = () => Analytics.event({
+    event: 'homepage_featured_content_links',
+    category: 'Homepage',
+    action: 'Link',
+    label: 'fiscal data savings bond featured content'
+});
+
+const FeaturedContent = () => (
+    <section className="featured-content__section">
+        <div className="featured-content__heading">
+            <div className="featured-content__heading--background">
+                <FontAwesomeIcon className="featured-content__heading--icon" icon="bullhorn" />
+            </div>
+            <span>Featured Content</span>
+        </div>
+        <div className="featured-content__section--flex-row">
+            <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
+                <ExternalLink isCard url="https://www.youtube.com/watch?v=c-bqfpWSSrI">
+                    <CardContainer variant="outline" size="md">
+                        <CardHero fill="#59B9DE" variant="expanded" img="img/homepage-featured-content/homepage-feature-Your-Data-Your-Story@2x.webp" />
+                        <CardBody
+                            overline="YOUR DATA, YOUR STORY"
+                            headline={
+                                <div>
+                                        Learn how Americans use USAspending in the “Your Data, Your Story” video series
+                                </div>
+                            }>
+                        </CardBody>
+                    </CardContainer>
+                </ExternalLink>
+            </FlexGridCol>
+            <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
+                <a href="https://fiscaldata.treasury.gov/treasury-savings-bonds/" target="_blank" rel="noopener noreferrer" onClick={trackFeaturedSavingsBondLink} className="featured-content__section--link" >
+                    <CardContainer variant="outline" size="md">
+                        <CardHero fill="#864381" variant="expanded" img="img/homepage-featured-content/homepage-feature-FDG@2x.webp" />
+                        <CardBody
+                            overline="PARTNER SITES"
+                            headline={
+                                <div>
+                                        Explore U.S. Treasury Savings Bonds on Fiscal Data
+                                </div>
+                            }>
+                        </CardBody>
+                    </CardContainer>
+                </a>
+            </FlexGridCol>
+        </div>
+    </section>);
 export default FeaturedContent;

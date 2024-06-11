@@ -126,6 +126,8 @@
   },
   "resolutions": {
     "axios": "1.6.2",
+    "braces": "3.0.3",
+    "**/braces": "3.0.3",
     "browserify-sign": "4.2.2",
     "@babel/traverse": "7.23.2",
     "trim-newlines": "4.0.2",
