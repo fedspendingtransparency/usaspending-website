@@ -40,13 +40,19 @@ export default class ResultsTable extends React.Component {
 
         this.state = {
             currentRows: [],
-            cols: this.prepareDTUIColumns()
+            cols: this.prepareDTUIColumns(),
+            windowHeight: 0
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
+        this.measureHeight = this.measureHeight.bind(this);
+    }
+    componentDidMount() {
+        this.measureHeight();
+        window.addEventListener('resize', this.measureHeight);
     }
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
@@ -55,8 +61,21 @@ export default class ResultsTable extends React.Component {
                 this.tableComponent.reloadTable();
             }
         }
+        else if (prevProps.x !== this.props.x || prevProps.y !== this.props.y) {
+            this.redoHeight();
+        }
     }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.measureHeight);
+    }
+    measureHeight() {
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight
+            || document.body.clientHeight;
 
+        this.setState({
+            windowHeight
+        });
+    }
     headerCellRender(columnIndex) {
         const columnId = this.props.columns.visibleOrder[columnIndex];
         const column = this.props.columns.data[columnId];
