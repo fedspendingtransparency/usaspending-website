@@ -240,7 +240,7 @@ const defaultContract = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
-        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newCustomWidth1
+        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
     },
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
@@ -259,7 +259,7 @@ const defaultGrant = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
-        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newCustomWidth1
+        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
     },
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
@@ -278,7 +278,7 @@ const defaultDirectPayment = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
-        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newCustomWidth1
+        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
     },
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
@@ -297,7 +297,7 @@ const defaultOther = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
-        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newCustomWidth1
+        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
     },
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
@@ -337,7 +337,7 @@ const defaultIdvColumns = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
-        title: 'Award Amount', right: true, displayName: 'Total Obligations to Date', customWidth: newCustomWidth1
+        title: 'Award Amount', right: true, displayName: 'Total Obligations to Date', customWidth: newDefaultWidth
     },
     {
         title: 'Total Outlays', right: true, displayName: 'Total Outlays to Date', customWidth: newDefaultWidth
