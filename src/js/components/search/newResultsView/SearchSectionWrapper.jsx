@@ -83,7 +83,7 @@ const SearchSectionWrapper = ({
         // NOTE: might need to adjust for mobile
         const rect = sectionDom.getBoundingClientRect();
         window.scrollTo({
-            top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 140 : rect.top - 140,
+            top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 900 : rect.top - 140,
             behavior: 'smooth'
         });
     };
