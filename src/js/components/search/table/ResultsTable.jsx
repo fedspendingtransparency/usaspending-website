@@ -228,7 +228,8 @@ export default class ResultsTable extends React.Component {
         const columns = orderedColumns.map((col) => ({
             title: col.columnName,
             displayName: col.displayName,
-            columnWidth: col.width
+            columnWidth: col.width,
+            right: col.right || false
         }));
         return columns;
     }
@@ -240,21 +241,76 @@ export default class ResultsTable extends React.Component {
         // (page * limit) - 1 end
         // (page - 1) * limit start
         const arrayOfObjects = this.props.results;
-
         let values = null;
+        // check for not subaward && loans
         if (!this.props.subaward) {
+            if (this.props.currentType === "loans") {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
+                        <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Subsidy Cost'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
+                        <ReadMore
+                            text={obj.Description || '--'}
+                            limit={40} />,
+                        obj['Contract Award Type'] || obj['Award Type'] || '--',
+                        obj.def_codes || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                        <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Issued Date'] || '--'
+                    );
+
+                    return value;
+                });
+                return values;
+            } else if (this.props.currentType === "direct_payments") {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
+                        <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
+                        <ReadMore
+                            text={obj.Description || '--'}
+                            limit={40} />,
+                        <ReadMore
+                            text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
+                            limit={65} />,
+                        obj.def_codes || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                        <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Start Date'] || '--',
+                        obj['End Date'] || '--'
+                    );
+
+                    return value;
+                });
+                return values;
+            }
+
+            // not loans or direct payments
             values = arrayOfObjects.map((obj) => {
                 const value = [];
                 value.push(
                     <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
                     <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
-                    obj['Start Date'] || '--',
-                    obj['End Date'] || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                     <ReadMore
                         text={obj.Description || '--'}
                         limit={40} />,
+                    obj['Contract Award Type'] || obj['Award Type'] || '--',
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -262,7 +318,8 @@ export default class ResultsTable extends React.Component {
                     MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
                     <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
                     obj['Awarding Sub Agency'] || '--',
-                    obj['Contract Award Type'] || '--'
+                    obj['Start Date'] || '--',
+                    obj['End Date'] || '--'
                 );
 
                 return value;
@@ -270,17 +327,18 @@ export default class ResultsTable extends React.Component {
             return values;
         }
 
+        // subaward
         values = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(
                 <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Sub-Award ID']}</a> || '--',
                 obj['Sub-Awardee Name'] || '--',
-                obj['Sub-Award Date'] || '--',
                 MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
-                obj['Awarding Agency'] || '--',
-                obj['Awarding Sub Agency'] || '--',
+                obj['Sub-Award Date'] || '--',
                 <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Prime Award ID']}</a> || '--',
-                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--'
+                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--',
+                obj['Awarding Agency'] || '--',
+                obj['Awarding Sub Agency'] || '--'
             );
 
             return value;

@@ -242,7 +242,8 @@ const ResultsTableContainer = (props) => {
             subtitle: col.subtitle || '',
             width,
             background: col.background || '',
-            defaultDirection: direction
+            defaultDirection: direction,
+            right: col.right || false
         };
     };
 
