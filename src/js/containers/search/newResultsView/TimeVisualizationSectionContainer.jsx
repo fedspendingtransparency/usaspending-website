@@ -53,7 +53,7 @@ const TimeVisualizationSectionContainer = (props) => {
     const columns = {
         month: [
             {
-                title: 'month',
+                title: 'month_year',
                 displayName: ["Month"],
                 right: false
             },
@@ -65,7 +65,7 @@ const TimeVisualizationSectionContainer = (props) => {
         ],
         quarter: [
             {
-                title: 'quarter',
+                title: 'quarter_year',
                 displayName: ["Fiscal Quarter"],
                 right: false
             },

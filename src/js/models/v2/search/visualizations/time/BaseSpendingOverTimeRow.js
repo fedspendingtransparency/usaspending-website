@@ -10,14 +10,14 @@ const BaseSpendingOverTimeRow = {
         this.fiscal_year = data.time_period?.fiscal_year;
         this.aggregated_amount = data.aggregated_amount;
     },
-    get monthYear() {
+    get month_year() {
         // this date needs to be fiscal year
         const date = new Date(`${this.month}/01/${this.fiscal_year}`);
         return date;
     },
-    get quarterYear() {
+    get quarter_year() {
         // this date needs to be fiscal year
-        let quarterStart = '01';
+        let quarter_start = '01';
 
         if (this.quarter === 1) {
             quarterStart = `10`;
@@ -30,7 +30,7 @@ const BaseSpendingOverTimeRow = {
         }
 
 
-        const date = new Date(`${quarterStart}/01/${this.fiscal_year}`);
+        const date = new Date(`${quarter_start}/01/${this.fiscal_year}`);
         return date;
     }
 };
