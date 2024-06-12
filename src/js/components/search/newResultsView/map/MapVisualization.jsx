@@ -535,8 +535,7 @@ const MapVisualization = React.memo((props) => {
             isError={false}
             hasNoData={false}
             rows={tableRows}
-            columns={columns[mapLayer]}
-            sectionName="map" >
+            columns={columns[mapLayer]}>
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}

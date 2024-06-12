@@ -15,7 +15,6 @@ import SectionDataTable from "./SectionDataTable";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
-    sectionName: PropTypes.string,
     dropdownOptions: PropTypes.array,
     selectedDropdownOption: PropTypes.string,
     dsmContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
@@ -33,7 +32,6 @@ const propTypes = {
 
 const SearchSectionWrapper = ({
     sectionTitle,
-    sectionName,
     dropdownOptions,
     selectedDropdownOption,
     children,
@@ -69,7 +67,7 @@ const SearchSectionWrapper = ({
             return;
         }
         // find the section in dom
-        const sectionDom = document.querySelector(`#results-section-${matchedSection}`);
+        const sectionDom = document.querySelector(`.${matchedSection}`);
         if (!sectionDom) {
             return;
         }
@@ -85,7 +83,7 @@ const SearchSectionWrapper = ({
         // NOTE: might need to adjust for mobile
         const rect = sectionDom.getBoundingClientRect();
         window.scrollTo({
-            top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 140 : rect.top - 140,
+            top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 900 : rect.top - 140,
             behavior: 'smooth'
         });
     };
@@ -101,6 +99,7 @@ const SearchSectionWrapper = ({
         parseSection();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     // Measures content height to set height for dsm content
     const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
@@ -133,7 +132,7 @@ const SearchSectionWrapper = ({
             manualSort />);
     };
     return (
-        <div className="search__section-wrapper" id={(sectionName !== null || sectionName !== undefined) ? `results-section-${sectionName}` : ''}>
+        <div className="search__section-wrapper">
             {selectedDropdownOption ?
                 <div className="search__section-wrapper-header">
                     <span className="filter__dropdown-label">{sectionTitle}</span>

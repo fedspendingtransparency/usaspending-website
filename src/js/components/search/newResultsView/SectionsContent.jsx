@@ -19,8 +19,7 @@ const propTypes = {
 const SectionsContent = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
-    const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
-    const [mapHasLoaded, setMapHasLoaded] = useState(false);
+    const [timeHasLoaded, setTimeHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
 
@@ -28,26 +27,18 @@ const SectionsContent = (props) => {
         threshold: 0.1
     };
 
-    // TODO:  Keep console logs here while debugging; Remove console logs before deploying new results view to prod
     const callbackFunction = (entries) => {
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
-                if (section === 'award') {
+                if (section === 'awards') {
                     setAwardTableHasLoaded(true);
-                    console.log("award");
                 }
-                else if (section === 'spending') {
-                    setSpendingHasLoaded(true);
-                    console.log("spending");
-                }
-                else if (section === 'map') {
-                    setMapHasLoaded(true);
-                    console.log("map");
+                else if (section === 'time') {
+                    setTimeHasLoaded(true);
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
-                    console.log("categories");
                 }
             }
         });
@@ -80,9 +71,9 @@ const SectionsContent = (props) => {
 
     return (
         <>
-            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
+            <MapSection subaward={props.subaward} />
             <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
-            <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
+            <TimeSection subaward={props.subaward} timeHasLoaded={timeHasLoaded} />
             <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
         </>
     );

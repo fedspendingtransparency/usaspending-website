@@ -32,7 +32,8 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func
+    subAwardIdClicked: PropTypes.func,
+    wrapperProps: PropTypes.object
 };
 export const tableTypes = [
     {
@@ -503,8 +504,7 @@ const ResultsTableContainer = (props) => {
             isError={error}
             isLoading={inFlight}
             noData={!inFlight && !error && results.length === 0}
-            {...props.wrapperProps}
-            sectionName="awards">
+            {...props.wrapperProps}>
             <ResultsTableSection
                 error={error}
                 inFlight={inFlight}
