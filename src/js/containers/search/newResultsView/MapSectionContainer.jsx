@@ -493,7 +493,6 @@ const MapSectionContainer = React.memo((props) => {
     };
 
     const sortBy = (field, direction) => {
-        console.log('tableData: ', tableData);
         const updatedTable = [...tableData];
         if (direction === 'asc') {
             updatedTable.sort((a, b) => {
@@ -589,7 +588,7 @@ const MapSectionContainer = React.memo((props) => {
     }, [mapLayer, loadingTiles]);
 
     useEffect(() => {
-        sortBy("aggregated_amount", "desc");
+        sortBy("obligations", "desc");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tableData]);
 
