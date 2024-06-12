@@ -15,11 +15,11 @@ import TimeVisualizationSectionContainer
 import PlaceholderComponent from "../PlaceholderComponent";
 
 const propTypes = {
-    spendingHasLoaded: PropTypes.bool,
+    timeHasLoaded: PropTypes.bool,
     subaward: PropTypes.bool
 };
 
-const TimeSection = ({ spendingHasLoaded, subaward }) => {
+const TimeSection = ({ timeHasLoaded, subaward }) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('month');
 
     const onClick = (e) => {
@@ -58,15 +58,14 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
     };
 
     return (
-        <div id="search-page-component" className="spending">
-            {spendingHasLoaded ?
+        <div id="search-page-component" className="time">
+            {timeHasLoaded ?
                 <TimeVisualizationSectionContainer
                     wrapperProps={wrapperProps}
                     subaward={subaward}
-                    spendingHasLoaded={spendingHasLoaded}
                     visualizationPeriod={visualizationPeriod} />
                 :
-                <PlaceholderComponent />
+                <PlaceholderComponent className="time" />
             }
         </div>
     );

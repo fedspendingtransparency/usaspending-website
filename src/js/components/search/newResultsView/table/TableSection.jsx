@@ -22,14 +22,14 @@ const TableSection = ({ awardTableHasLoaded, subaward }) => {
     };
 
     return (
-        <div id="search-page-component" className="award">
+        <div id="search-page-component" className="awards">
             {awardTableHasLoaded ?
                 <ResultsTableContainer
                     wrapperProps={wrapperProps}
                     subaward={subaward}
                     awardTableHasLoaded={awardTableHasLoaded} />
                 :
-                <PlaceholderComponent />
+                <PlaceholderComponent className="awards" />
             }
         </div>
     );

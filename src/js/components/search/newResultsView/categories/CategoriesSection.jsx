@@ -90,7 +90,7 @@ const CategoriesSection = (props) => {
                     selectedDropdown={props.selectedDropdown}
                     setSelectedDropdown={props.setSelectedDropdown} />
                 :
-                <PlaceholderComponent />
+                <PlaceholderComponent className="categories" />
             }
         </div>
     );

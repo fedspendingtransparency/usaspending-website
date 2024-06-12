@@ -19,7 +19,7 @@ const propTypes = {
 const SectionsContent = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
-    const [spendingHasLoaded, setSpendingHasLoaded] = useState(false);
+    const [timeHasLoaded, setTimeHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
 
@@ -32,13 +32,13 @@ const SectionsContent = (props) => {
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
-                if (section === 'award') {
+                if (section === 'awards') {
                     setAwardTableHasLoaded(true);
-                    console.log("award");
+                    console.log("awards");
                 }
-                else if (section === 'spending') {
-                    setSpendingHasLoaded(true);
-                    console.log("spending");
+                else if (section === 'time') {
+                    setTimeHasLoaded(true);
+                    console.log("time");
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
@@ -77,7 +77,7 @@ const SectionsContent = (props) => {
         <>
             <MapSection subaward={props.subaward} />
             <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
-            <TimeSection subaward={props.subaward} spendingHasLoaded={spendingHasLoaded} />
+            <TimeSection subaward={props.subaward} timeHasLoaded={timeHasLoaded} />
             <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
         </>
     );

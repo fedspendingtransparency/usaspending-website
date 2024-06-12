@@ -44,7 +44,7 @@ const MapSection = ({ subaward }) => {
     };
 
     return (
-        <div id="search-page-component">
+        <div id="search-page-component" className="map">
             <MapVisualization
                 subaward={subaward}
                 scope={selectedDropdown}
