@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 05/15/2024
  */
 
-import { convertMonthToFY, convertPeriodToDate } from 'helpers/monthHelper';
+import { convertPeriodToDate } from 'helpers/monthHelper';
 
 const BaseSpendingOverTimeRow = {
     populate(data) {
