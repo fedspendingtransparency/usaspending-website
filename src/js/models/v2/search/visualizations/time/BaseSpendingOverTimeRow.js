@@ -3,6 +3,8 @@
  * Created by Andrea Blackwell 05/15/2024
  */
 
+import { convertMonthToFY, convertPeriodToDate } from 'helpers/monthHelper';
+
 const BaseSpendingOverTimeRow = {
     populate(data) {
         this.month = Object.prototype.hasOwnProperty.call(data.time_period, 'month') ? data.time_period.month : false;
@@ -16,21 +18,7 @@ const BaseSpendingOverTimeRow = {
         return date;
     },
     get quarter_year() {
-        // this date needs to be fiscal year
-        let quarter_start = '01';
-
-        if (this.quarter === 1) {
-            quarterStart = `10`;
-        } else if (this.quarter === 2) {
-            quarterStart = `01`;
-        } else if (this.quarter === 3) {
-            quarterStart = `04`;
-        } else if (this.quarter === 4) {
-            quarterStart = `07`;
-        }
-
-
-        const date = new Date(`${quarter_start}/01/${this.fiscal_year}`);
+        const date = new Date(`${convertPeriodToDate(this.quarter, this.fiscal_year)}`);
         return date;
     }
 };

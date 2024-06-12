@@ -160,12 +160,12 @@ const TimeVisualizationSectionContainer = (props) => {
                         rowArray.push(`${MonthHelper.convertNumToShortMonth(row[key])} ${MonthHelper.convertMonthToFY(row[key], row.fiscal_year)}`);
                     }
                     else if (key === "quarter") {
-                        rowArray.push(`Q${row[key]} ${MonthHelper.convertMonthToFY(row[key], row.fiscal_year)}`);
+                        rowArray.push(`Q${row[key]} ${row.fiscal_year}`);
                     }
                     else if (key.includes("amount")) {
                         rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
                     }
-                    else if (key === "fiscal_year" && selectedTimeFrame === "year") {
+                    else if (key === "fiscal_year" && selectedTimeFrame === "fiscal_year") {
                         rowArray.push(row[key]);
                     }
                 }
@@ -177,7 +177,6 @@ const TimeVisualizationSectionContainer = (props) => {
     };
 
     const sortBy = (field, direction) => {
-        console.log(field);
         const updatedTable = [...tableData];
         if (direction === 'asc') {
             updatedTable.sort((a, b) => a[field] - b[field]);
