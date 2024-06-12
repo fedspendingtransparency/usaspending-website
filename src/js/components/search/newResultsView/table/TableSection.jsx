@@ -6,6 +6,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ResultsTableContainer from "../../../../containers/search/newResultsView/ResultsTableContainer";
 import { DsmWrapper } from "../DsmWrapper";
+import PlaceholderComponent from "../PlaceholderComponent";
 
 const propTypes = {
     awardTableHasLoaded: PropTypes.bool,
@@ -21,11 +22,15 @@ const TableSection = ({ awardTableHasLoaded, subaward }) => {
     };
 
     return (
-        <div id="search-page-component" className="award">
-            {awardTableHasLoaded && <ResultsTableContainer
-                wrapperProps={wrapperProps}
-                subaward={subaward}
-                awardTableHasLoaded={awardTableHasLoaded} />}
+        <div id="search-page-component" className="awards">
+            {awardTableHasLoaded ?
+                <ResultsTableContainer
+                    wrapperProps={wrapperProps}
+                    subaward={subaward}
+                    awardTableHasLoaded={awardTableHasLoaded} />
+                :
+                <PlaceholderComponent className="awards" />
+            }
         </div>
     );
 };

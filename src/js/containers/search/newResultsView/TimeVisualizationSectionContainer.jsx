@@ -283,7 +283,6 @@ const TimeVisualizationSectionContainer = (props) => {
         <SearchSectionWrapper
             {...props.wrapperProps}
             tableData={parsedData}
-            sectionName="time"
             data={parsedData}
             sortBy={sortBy}
             sortDirection={sortDirection}

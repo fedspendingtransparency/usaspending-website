@@ -363,7 +363,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             id="results-section-rank">
             <SearchSectionWrapper
                 {...props.wrapperProps}
-                sectionName="categories"
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
