@@ -8,6 +8,12 @@
     .mapboxgl-ctrl {
         margin-right: rem(8);
         margin-top: rem(8);
+
+        // map color change not working need colored svgs
+        // .mapboxgl-ctrl-zoom-in {
+        //     fill: $theme-color-1;
+        // }
+
     }
     .mapbox-item {
         display: block;
