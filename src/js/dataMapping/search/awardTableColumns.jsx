@@ -238,7 +238,7 @@ const covidColor = '#6E338E';
 const infrastructureColor = '#2D6878';
 
 const defaultContract = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
@@ -246,7 +246,7 @@ const defaultContract = [
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
     },
-    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     {
@@ -257,7 +257,7 @@ const defaultContract = [
     }
 ];
 const defaultGrant = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
@@ -265,7 +265,7 @@ const defaultGrant = [
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
     },
-    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     {
@@ -276,7 +276,7 @@ const defaultGrant = [
     }
 ];
 const defaultDirectPayment = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
@@ -284,7 +284,7 @@ const defaultDirectPayment = [
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
     },
-    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     {
@@ -295,7 +295,7 @@ const defaultDirectPayment = [
     }
 ];
 const defaultOther = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
@@ -303,7 +303,7 @@ const defaultOther = [
     {
         title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
     },
-    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     {
@@ -316,7 +316,7 @@ const defaultOther = [
 
 // different than the others
 const defaultLoan = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Subsidy Cost',
@@ -328,14 +328,14 @@ const defaultLoan = [
     {
         title: 'Loan Value', right: true, displayName: 'Face Value of Loan', customWidth: newDefaultWidth
     },
-    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     { title: 'Issued Date', customWidth: newDefaultWidth }
 
 ];
 const defaultIdvColumns = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount', right: true, displayName: 'Total Obligations to Date', customWidth: newDefaultWidth
@@ -343,7 +343,7 @@ const defaultIdvColumns = [
     {
         title: 'Total Outlays', right: true, displayName: 'Total Outlays to Date', customWidth: newDefaultWidth
     },
-    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     {
@@ -407,13 +407,13 @@ tabsWithAdditionalCols.forEach((tab) => {
 });
 
 const defaultSub = [
-    { title: 'Sub-Award ID', displayName: "Subaward ID", customWidth: newDefaultWidth },
+    { title: 'Sub-Award ID', displayName: "Subaward ID", customWidth: newCustomWidth1 },
     { title: 'Sub-Awardee Name', displayName: "Subrecipient Name", customWidth: newCustomWidth1 },
     {
         title: 'Sub-Award Amount', right: true, displayName: "Subaward Obligations", customWidth: newDefaultWidth
     },
     { title: 'Action Date', displayName: "Subaward Action Date", customWidth: newDefaultWidth },
-    { title: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Prime Recipient Name', displayName: "Prime Award Recipient Name", customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', displayName: "Prime Award Awarding Agency", customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: "Prime Award Awarding Subagency", customWidth: newCustomWidth1 }

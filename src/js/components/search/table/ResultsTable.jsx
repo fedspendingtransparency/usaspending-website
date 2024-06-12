@@ -252,9 +252,37 @@ export default class ResultsTable extends React.Component {
                     return value;
                 });
                 return values;
+            } else if (this.props.currentType === "direct_payments") {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
+                        <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
+                        <ReadMore
+                            text={obj.Description || '--'}
+                            limit={40} />,
+                        <ReadMore
+                            text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
+                            limit={65} />,
+                        obj.def_codes || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                        <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Start Date'] || '--',
+                        obj['End Date'] || '--'
+                    );
+
+                    return value;
+                });
+                return values;
             }
 
-            // not loans
+            // not loans or direct payments
             values = arrayOfObjects.map((obj) => {
                 const value = [];
                 value.push(
