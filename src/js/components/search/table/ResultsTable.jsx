@@ -353,9 +353,14 @@ export default class ResultsTable extends React.Component {
 
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
+        // for table height take the height of the viewport
+        // subtract the sticky header part on the top of the page
+        // tab height for the tables
+        // 16 pixel space between the tabs
+        // pagination on the bottom so you can actually see the pages
         return (
             <>
-                <div className="advanced-search__table-wrapper" id="advanced-search__table-wrapper" style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 } : null}>
+                <div className="advanced-search__table-wrapper" id="advanced-search__table-wrapper" style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn
