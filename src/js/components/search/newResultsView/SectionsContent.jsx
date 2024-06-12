@@ -28,24 +28,21 @@ const SectionsContent = (props) => {
     };
 
     // TODO:  Keep console logs here while debugging; Remove console logs before deploying new results view to prod
-    const callbackFunction = (entries, observer) => {
+    const callbackFunction = (entries) => {
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
                 if (section === 'award') {
                     setAwardTableHasLoaded(true);
                     console.log("award");
-                    observer.unobserve(entry.target);
                 }
                 else if (section === 'spending') {
                     setSpendingHasLoaded(true);
                     console.log("spending");
-                    observer.unobserve(entry.target);
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
                     console.log("categories");
-                    observer.unobserve(entry.target);
                 }
             }
         });
