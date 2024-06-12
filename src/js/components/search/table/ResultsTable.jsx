@@ -41,7 +41,8 @@ export default class ResultsTable extends React.Component {
         this.state = {
             currentRows: [],
             cols: this.prepareDTUIColumns(),
-            windowHeight: 0
+            windowHeight: 0,
+            tableHeight: 0
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
@@ -61,19 +62,16 @@ export default class ResultsTable extends React.Component {
                 this.tableComponent.reloadTable();
             }
         }
-        else if (prevProps.x !== this.props.x || prevProps.y !== this.props.y) {
-            this.redoHeight();
-        }
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.measureHeight);
     }
     measureHeight() {
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight
-            || document.body.clientHeight;
-
+        const tableHeight = document.getElementById("advanced-search__table-wrapper").offsetHeight;
+        
+        console.debug("table height: ", tableHeight);
         this.setState({
-            windowHeight
+            tableHeight
         });
     }
     headerCellRender(columnIndex) {
@@ -299,7 +297,7 @@ export default class ResultsTable extends React.Component {
         const limitedRows = this.prepareDTUIRows();
         return (
             <>
-                <div className="advanced-search__table-wrapper">
+                <div className="advanced-search__table-wrapper" id="advanced-search__table-wrapper">
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn
