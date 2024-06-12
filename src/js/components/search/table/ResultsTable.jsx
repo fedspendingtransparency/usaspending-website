@@ -13,6 +13,7 @@ import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
+import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
 
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
@@ -68,10 +69,9 @@ export default class ResultsTable extends React.Component {
     }
     measureHeight() {
         const tableHeight = document.getElementById("advanced-search__table-wrapper").offsetHeight;
-        
-        console.debug("table height: ", tableHeight);
         this.setState({
-            tableHeight
+            tableHeight,
+            windowHeight: window.innerHeight
         });
     }
     headerCellRender(columnIndex) {
@@ -355,7 +355,7 @@ export default class ResultsTable extends React.Component {
         const limitedRows = this.prepareDTUIRows();
         return (
             <>
-                <div className="advanced-search__table-wrapper" id="advanced-search__table-wrapper">
+                <div className="advanced-search__table-wrapper" id="advanced-search__table-wrapper" style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn
