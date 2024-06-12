@@ -27,22 +27,18 @@ const SectionsContent = (props) => {
         threshold: 0.1
     };
 
-    // TODO:  Keep console logs here while debugging; Remove console logs before deploying new results view to prod
     const callbackFunction = (entries) => {
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
                 if (section === 'awards') {
                     setAwardTableHasLoaded(true);
-                    console.log("awards");
                 }
                 else if (section === 'time') {
                     setTimeHasLoaded(true);
-                    console.log("time");
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
-                    console.log("categories");
                 }
             }
         });
