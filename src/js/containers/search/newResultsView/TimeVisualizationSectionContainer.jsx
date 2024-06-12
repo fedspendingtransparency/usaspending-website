@@ -49,18 +49,6 @@ const TimeVisualizationSectionContainer = (props) => {
     const [tableData, setTableData] = useState([]);
 
     let apiRequest = null;
-    const fy = [
-        {
-            title: "fiscal_year",
-            displayName: ["Fiscal Year"],
-            right: false
-        },
-        {
-            title: "aggregated_amount",
-            displayName: ["Obligations"],
-            right: true
-        }
-    ];
 
     const columns = {
         month: [
@@ -69,17 +57,36 @@ const TimeVisualizationSectionContainer = (props) => {
                 displayName: ["Month"],
                 right: false
             },
-            ...fy
+            {
+                title: "aggregated_amount",
+                displayName: ["Obligations"],
+                right: true
+            }
         ],
         quarter: [
             {
                 title: 'quarter',
-                displayName: ["Quarter"],
+                displayName: ["Fiscal Quarter"],
                 right: false
             },
-            ...fy
+            {
+                title: "aggregated_amount",
+                displayName: ["Obligations"],
+                right: true
+            }
         ],
-        fiscal_year: fy
+        fiscal_year: [
+            {
+                title: "fiscal_year",
+                displayName: ["Fiscal Year"],
+                right: false
+            },
+            {
+                title: "aggregated_amount",
+                displayName: ["Obligations"],
+                right: true
+            }
+        ]
     };
 
     const generateTimeLabel = (group, timePeriod) => {
@@ -144,20 +151,21 @@ const TimeVisualizationSectionContainer = (props) => {
 
     const createTableRows = (rows) => {
         const rowsArray = [];
+        const selectedTimeFrame = props.wrapperProps.selectedDropdownOption;
         rows.forEach((row) => {
             const rowArray = [];
             Object.keys(row).forEach((key) => {
                 if (row[key] !== false && !key.includes("raw")) {
                     if (key === "month") {
-                        rowArray.push(MonthHelper.convertNumToShortMonth(row[key]));
+                        rowArray.push(`${MonthHelper.convertNumToShortMonth(row[key])} ${MonthHelper.convertMonthToFY(row[key], row.fiscal_year)}`);
                     }
                     else if (key === "quarter") {
-                        rowArray.push(`Q${row[key]}`);
+                        rowArray.push(`Q${row[key]} ${MonthHelper.convertMonthToFY(row[key], row.fiscal_year)}`);
                     }
                     else if (key.includes("amount")) {
                         rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
                     }
-                    else {
+                    else if (key === "fiscal_year" && selectedTimeFrame === "year") {
                         rowArray.push(row[key]);
                     }
                 }
@@ -169,6 +177,7 @@ const TimeVisualizationSectionContainer = (props) => {
     };
 
     const sortBy = (field, direction) => {
+        console.log(field);
         const updatedTable = [...tableData];
         if (direction === 'asc') {
             updatedTable.sort((a, b) => a[field] - b[field]);
@@ -216,8 +225,6 @@ const TimeVisualizationSectionContainer = (props) => {
                 data.results.map((d) => {
                     const row = Object.create(BaseSpendingOverTimeRow);
                     row.populate(d);
-                    console.log("in container", row.monthYear);
-                    console.log("in container 2", row.quarterYear);
                     tempTableData.push(row);
                     return row;
                 });
