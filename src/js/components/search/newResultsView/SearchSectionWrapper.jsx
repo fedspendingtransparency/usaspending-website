@@ -67,7 +67,6 @@ const SearchSectionWrapper = ({
             return;
         }
         // find the section in dom
-        // const sectionDom = document.querySelector(`#results-section-${matchedSection}`);
         const sectionDom = document.querySelector(`.${matchedSection}`);
         if (!sectionDom) {
             return;
