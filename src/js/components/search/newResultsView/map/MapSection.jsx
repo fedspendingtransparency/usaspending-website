@@ -10,11 +10,10 @@ import { DsmWrapper } from "../DsmWrapper";
 import MapVisualization from "./MapVisualization";
 
 const propTypes = {
-    mapHasLoaded: PropTypes.bool,
     subaward: PropTypes.bool
 };
 
-const MapSection = ({ mapHasLoaded, subaward }) => {
+const MapSection = ({ subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('place_of_performance');
 
     const onClick = (e) => {
@@ -46,11 +45,11 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
 
     return (
         <div id="search-page-component" className="map">
-            {mapHasLoaded && <MapVisualization
+            <MapVisualization
                 subaward={subaward}
                 scope={selectedDropdown}
                 setScope={setSelectedDropdown}
-                wrapperProps={wrapperProps} />}
+                wrapperProps={wrapperProps} />
         </div>
     );
 };

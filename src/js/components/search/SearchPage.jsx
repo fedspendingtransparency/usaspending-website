@@ -15,6 +15,9 @@ import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import GlobalConstants from "GlobalConstants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
+import { showModal } from 'redux/actions/modal/modalActions';
 
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
@@ -24,6 +27,7 @@ import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
+import Button from "../sharedComponents/buttons/Button";
 
 const propTypes = {
     download: PropTypes.object,
@@ -59,6 +63,9 @@ const SearchPage = ({
     // TODO: Remove this state once new Advance Search is done and toggle no longer needed
     const [toggleTempSearchPage, setToggleTempSearchPage] = useState(false);
     const [newResultsViewAvailable, setNewResultsViewAvailable] = useState(false);
+
+    const dispatch = useDispatch();
+    const isQAT = GlobalConstants.QAT;
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -139,13 +146,13 @@ const SearchPage = ({
     }, [windowWidth]);
 
     useEffect(() => {
-        if (GlobalConstants.QAT) {
+        if (isQAT) {
             setNewResultsViewAvailable(true);
         }
         else {
             setNewResultsViewAvailable(false);
         }
-    }, []);
+    }, [isQAT]);
 
     useEffect(() => {
         setStateHash(hash);
@@ -176,12 +183,12 @@ const SearchPage = ({
             ]}
             filters={appliedFilters}>
             <div id="main-content">
-                <FlexGridRow className="search-contents" >
+                <FlexGridRow className="search-contents">
                     <FlexGridCol className="full-search-sidebar" width={3}>
-                        { fullSidebar }
+                        {fullSidebar}
                         {isMobile === false ?
                             <KeywordSearchLink />
-                            : '' }
+                            : ''}
                     </FlexGridCol>
                     <div className="mobile-filter-button-wrapper">
                         <button
@@ -199,6 +206,28 @@ const SearchPage = ({
                                 </div>
                             </div>
                         </button>
+                    </div>
+                    <div
+                        className="visualization-tabs__toggle-mobile"
+                        style={toggleTempSearchPage ? { marginBottom: "0" } : {}}>
+                        <Button
+                            onClick={(e) => {
+                                e.persist();
+                                dispatch(showModal(window.location.href, 'filter'));
+                            }}
+                            onKeyUp={(e) => {
+                                e.persist();
+                                if (e.key === 'Enter') {
+                                    dispatch(showModal(window.location.href, 'filter'));
+                                }
+                            }}
+                            copy="Learn how active filters work"
+                            buttonTitle="filter modal"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="window-restore" />} />
                     </div>
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters

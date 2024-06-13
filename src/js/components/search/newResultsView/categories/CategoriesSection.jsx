@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 
 import CategoriesVisualizationWrapperContainer
     from "../../../../containers/search/newResultsView/CategoriesVisualizationWrapperContainer";
+import PlaceholderComponent from "../PlaceholderComponent";
 import CategoriesDsm from "./CategoriesDsm";
 
 const propTypes = {
@@ -67,12 +68,16 @@ const CategoriesSection = (props) => {
     };
     return (
         <div id="search-page-component" className="categories">
-            {props.categoriesHasLoaded && <CategoriesVisualizationWrapperContainer
-                wrapperProps={wrapperProps}
-                subaward={props.subaward}
-                categoriesHasLoaded={props.categoriesHasLoaded}
-                selectedDropdown={props.selectedDropdown}
-                setSelectedDropdown={props.setSelectedDropdown} />}
+            {props.categoriesHasLoaded ?
+                <CategoriesVisualizationWrapperContainer
+                    wrapperProps={wrapperProps}
+                    subaward={props.subaward}
+                    categoriesHasLoaded={props.categoriesHasLoaded}
+                    selectedDropdown={props.selectedDropdown}
+                    setSelectedDropdown={props.setSelectedDropdown} />
+                :
+                <PlaceholderComponent className="categories" />
+            }
         </div>
     );
 };
