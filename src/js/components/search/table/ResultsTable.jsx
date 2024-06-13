@@ -40,14 +40,17 @@ export default class ResultsTable extends React.Component {
 
         this.state = {
             currentRows: [],
-            cols: this.prepareDTUIColumns()
+            cols: this.prepareDTUIColumns(),
+            activateRightFade: false
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
+        this.checkToAddRightFade = this.checkToAddRightFade.bind(this);
     }
+
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
             // table type has changed, reset the scroll
@@ -252,7 +255,8 @@ export default class ResultsTable extends React.Component {
                     return value;
                 });
                 return values;
-            } else if (this.props.currentType === "direct_payments") {
+            }
+            else if (this.props.currentType === "direct_payments") {
                 values = arrayOfObjects.map((obj) => {
                     const value = [];
                     value.push(
@@ -329,19 +333,29 @@ export default class ResultsTable extends React.Component {
         return values;
     }
 
-    render() {
-        if (this.props.results.length === 0) {
-            // replace with no results component not a class
+    checkToAddRightFade(isScrolledLeft, isScrolledRight) {
+        if (!isScrolledLeft) {
+            this.setState({
+                activateRightFade: true
+            });
         }
+        if (isScrolledRight) {
+            this.setState({
+                activateRightFade: false
+            });
+        }
+    }
 
+    render() {
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
         return (
             <>
-                <div className="advanced-search__table-wrapper">
+                <div className={`advanced-search__table-wrapper  ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn
+                        checkToAddRightFade={this.checkToAddRightFade}
                         columns={cols}
                         rows={limitedRows}
                         rowHeight={58}

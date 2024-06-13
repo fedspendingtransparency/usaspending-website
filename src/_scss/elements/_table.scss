@@ -16,7 +16,7 @@ table {
             tbody.usda-table__body {
                 .usda-table__row {
                     td.usda-table__cell:last-of-type {
-                        // this is the right border on the Table, since the fade effect is not in yet
+                        // this is the right border on the dtui Table
                         border-right: rem(1) solid $gray-cool-10;
                     }
                 }
