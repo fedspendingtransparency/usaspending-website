@@ -11,6 +11,10 @@ const TimeDsm = ({ subaward }) => {
     return (
         <>
             <h4>What's included in this view of the data?</h4>
+            <p style={{ marginBottom: '8px' }}>
+                Spot trends in spending over your chosen time period.
+                Break down your results by years, quarters, or months.
+            </p>
             {subaward ?
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
@@ -34,7 +38,7 @@ const TimeDsm = ({ subaward }) => {
                 </> :
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
-                    <p>The data in the chart below represent
+                    <p>The data in the chart represent
                         <span className="award-search__glossary-term"> federal action
                         </span>{' '}<GlossaryLink
                             term="federal-action-obligation" />
@@ -50,25 +54,6 @@ const TimeDsm = ({ subaward }) => {
                     </p>
                 </>
             }
-            <h4>Awarding Agency and Awarding Subagency</h4>
-            <p>
-                View a list of the top Agencies from highest to lowest.
-                View your results by Awarding Agency or Sub Agency.
-            </p>
-            <h4>Recipient</h4>
-            <p>
-                View a list of the top Recipients from highest to lowest.
-                View your results by Parent Recipient or Recipient.
-            </p>
-            <h4>North American Industry Classification System (NAICS) and Product or Service Code (PSC)</h4>
-            <p>
-                View a list of the top Industry Codes from highest to lowest.
-                View your results by NAICS Code or PSC Code.
-            </p>
-            <h4>Assistance Listing</h4>
-            <p>
-                View a list of the top CFDA Programs from highest to lowest.
-            </p>
         </>
     );
 };

@@ -34,7 +34,7 @@ const CategoriesDsm = ({ subaward }) => {
                 </> :
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
-                    <p>The data in the chart below represent
+                    <p>The data in the chart represent
                         <span className="award-search__glossary-term"> federal action
                         </span>{' '}<GlossaryLink
                             term="federal-action-obligation" />
