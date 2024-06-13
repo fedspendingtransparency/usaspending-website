@@ -13,6 +13,7 @@ import {
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
+import TimeDsm from "./TimeDsm";
 
 const propTypes = {
     timeHasLoaded: PropTypes.bool,
@@ -33,9 +34,7 @@ const TimeSection = ({ timeHasLoaded, subaward }) => {
                 name: 'Months',
                 value: 'month',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Months:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <TimeDsm subaward={subaward} />
             },
             {
                 name: 'Quarters',
