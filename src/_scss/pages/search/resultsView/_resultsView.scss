@@ -29,6 +29,7 @@
       position: relative;
       top: 0;
       left: 0;
+      margin-bottom: rem(24);
 
       .filter__dropdown-label {
         color: $gray-cool-90;
@@ -135,7 +136,6 @@
     }
 
     .search__section-wrapper-content {
-      margin-top: rem(24);
       margin-bottom: rem(24);
 
       .advanced-search__table-wrapper {

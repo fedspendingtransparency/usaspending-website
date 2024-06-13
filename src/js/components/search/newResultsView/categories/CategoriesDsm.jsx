@@ -14,7 +14,7 @@ const CategoriesDsm = ({ subaward }) => {
             {subaward ?
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
-                    <p className="award-search__body-text">The data below represent
+                    <p className="award-search__body-text">The data represent
                         {<span className="award-search__glossary-term"> sub-awards</span>}{' '}
                         {<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not
                         reflect sub-awards whose
