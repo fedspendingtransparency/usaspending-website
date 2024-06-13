@@ -7,9 +7,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import {
-    DsmWrapper
-} from "../DsmWrapper";
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
@@ -40,17 +37,13 @@ const TimeSection = ({ timeHasLoaded, subaward }) => {
                 name: 'Quarters',
                 value: 'quarter',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Quarters:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <TimeDsm subaward={subaward} />
             },
             {
                 name: 'Years',
                 value: 'fiscal_year',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Years:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <TimeDsm subaward={subaward} />
             }
         ],
         selectedDropdownOption: visualizationPeriod
