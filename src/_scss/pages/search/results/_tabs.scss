@@ -19,20 +19,6 @@
     @include align-items(flex-end);
 }
 
-.visualization-tabs__toggle-mobile {
-  @include flex(0 0 auto);
-  @include align-self(center);
-  margin-bottom: rem(20);
-  @media(min-width: $medium-screen) {
-    display: none;
-  }
-
-  .button-type__text-right-icon-light {
-    margin: 0 0 20px 0;
-    padding: 0;
-  }
-}
-
 .visualization-tabs__toggle {
   display: none;
   @include flex(0 0 auto);
