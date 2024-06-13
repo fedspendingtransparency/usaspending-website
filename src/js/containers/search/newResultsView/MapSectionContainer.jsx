@@ -79,7 +79,10 @@ const MapSectionContainer = React.memo((props) => {
     const [tableRows, setTableRows] = useState([]);
     const [sortDirection, setSortDirection] = useState('asc');
     const [activeField, setActiveField] = useState('aggregated_amount');
+    const [wrapperLoading, setWrapperLoading] = useState(false);
+    const [wrapperError, setWrapperError] = useState(false);
 
+    const [mapViewType, setMapViewType] = useState('chart');
     let apiRequest = null;
     const mapListeners = [];
 
@@ -548,12 +551,16 @@ const MapSectionContainer = React.memo((props) => {
     }, []);
 
     useEffect(() => {
-        if (!props.noApplied) {
+        if (!props.noApplied && mapViewType === 'chart') {
             prepareFetch(true);
             updateMapScope();
         }
+        else if (!props.noApplied && mapViewType === 'table') {
+            fetchData();
+            console.log();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward]);
+    }, [props.reduxFilters, props.subaward, mapViewType]);
 
     useEffect(() => {
         handleMapLegendToggleChange();
@@ -592,18 +599,32 @@ const MapSectionContainer = React.memo((props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tableData]);
 
+    useEffect(() => {
+        if (mapViewType === 'chart') {
+            setWrapperLoading(false);
+            setWrapperError(false);
+        }
+        else if (mapViewType === 'table') {
+            setWrapperLoading(true);
+            setWrapperError(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mapViewType, loading, error]);
+
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
-            isLoading={false}
-            isError={false}
+            isLoading={wrapperLoading ? loading : false}
+            isError={wrapperError ? error : false}
             hasNoData={false}
             rows={tableRows}
             columns={columns[mapLayer]}
             sectionName="map"
             sortBy={sortBy}
             sortDirection={sortDirection}
-            activeField={activeField} >
+            activeField={activeField}
+            mapViewType={mapViewType}
+            setMapViewType={setMapViewType} >
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
