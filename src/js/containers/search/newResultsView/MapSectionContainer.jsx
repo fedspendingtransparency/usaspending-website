@@ -73,14 +73,18 @@ const MapSectionContainer = React.memo((props) => {
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
+    const [noData, setNoData] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
     const [singleLocationSelected, setSingleLocationSelected] = useState({});
     const [tableData, setTableData] = useState([]);
     const [tableRows, setTableRows] = useState([]);
     const [sortDirection, setSortDirection] = useState('asc');
     const [activeField, setActiveField] = useState('aggregated_amount');
-    const [wrapperLoading, setWrapperLoading] = useState(false);
-    const [wrapperError, setWrapperError] = useState(false);
+    const [wrapperScreens, setWrapperScreens] = useState({
+        wrapperLoading: false,
+        wrapperError: false,
+        wrapperNoData: false
+    });
 
     const [mapViewType, setMapViewType] = useState('chart');
     let apiRequest = null;
@@ -207,6 +211,7 @@ const MapSectionContainer = React.memo((props) => {
                 values: [],
                 locations: []
             });
+            setNoData(true);
 
             return;
         }
@@ -601,22 +606,28 @@ const MapSectionContainer = React.memo((props) => {
 
     useEffect(() => {
         if (mapViewType === 'chart') {
-            setWrapperLoading(false);
-            setWrapperError(false);
+            setWrapperScreens({
+                wrapperLoading: false,
+                wrapperError: false,
+                wrapperNoData: false
+            });
         }
         else if (mapViewType === 'table') {
-            setWrapperLoading(true);
-            setWrapperError(true);
+            setWrapperScreens({
+                wrapperLoading: true,
+                wrapperError: true,
+                wrapperNoData: true
+            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mapViewType, loading, error]);
+    }, [mapViewType]);
 
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
-            isLoading={wrapperLoading ? loading : false}
-            isError={wrapperError ? error : false}
-            hasNoData={false}
+            isLoading={wrapperScreens.wrapperLoading ? loading : false}
+            isError={wrapperScreens.wrapperError ? error : false}
+            hasNoData={wrapperScreens.wrapperNoData ? noData : false}
             rows={tableRows}
             columns={columns[mapLayer]}
             sectionName="map"
