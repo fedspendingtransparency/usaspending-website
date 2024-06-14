@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { capitalize } from "lodash";
+import { words, upperFirst } from "lodash";
 import { TooltipWrapper } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
@@ -42,22 +42,31 @@ const TimeFileDownload = ({ parsedData, visualizationPeriod }) => {
 
     const downloadBlob = () => new Blob([getDownloadData()], { type: 'text/csv;charset=utf-8;' });
 
+    const getPeriod = () => {
+        if (visualizationPeriod === 'fiscal_year') {
+            return 'year';
+        }
+        else if (visualizationPeriod === 'quarter') {
+            return 'fiscal quarter';
+        }
+        return 'month';
+    };
     const renderDownloadLink = () => (
         <a
             href={URL.createObjectURL(downloadBlob())}
             download="spending-over-time.csv" >
             <FontAwesomeIcon icon="download" size="lg" />
             <span className="text">
-                Download data by {capitalize(visualizationPeriod === 'fiscal_year' ? 'year' : visualizationPeriod)}
+                Download data by {words(getPeriod()).map(upperFirst).join(' ')}
             </span>
         </a>
     );
 
     const downloadTooltip = () => (
         <>
-            <div className="tooltip__title">Download data by {capitalize(visualizationPeriod === 'fiscal_year' ? 'year' : visualizationPeriod)}</div>
+            <div className="tooltip__title">Download data by {words(getPeriod()).map(upperFirst).join(' ')}</div>
             <div className="tooltip__text">
-                Download a CSV of award spending data that matches your search criteria, broken down by {visualizationPeriod === 'fiscal_year' ? 'year' : visualizationPeriod}. For complete download results, click on the &quot;Download&quot; button on the top right of this page.
+                Download a CSV of award spending data that matches your search criteria, broken down by {getPeriod()}. For complete download results, click on the &quot;Download&quot; button on the top right of this page.
             </div>
         </>
     );

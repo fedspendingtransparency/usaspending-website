@@ -29,7 +29,7 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
         sectionTitle: 'Results Over Time',
         dropdownOptions: [
             {
-                name: 'Months',
+                name: 'By Month',
                 value: 'month',
                 onClick,
                 dsmContent: <DsmWrapper
@@ -37,7 +37,7 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
-                name: 'Quarters',
+                name: 'By Fiscal Quarter',
                 value: 'quarter',
                 onClick,
                 dsmContent: <DsmWrapper
@@ -45,7 +45,7 @@ const TimeSection = ({ spendingHasLoaded, subaward }) => {
                     description="Use the map below to break down spending by state, county, or congressional district." />
             },
             {
-                name: 'Years',
+                name: 'By Year',
                 value: 'fiscal_year',
                 onClick,
                 dsmContent: <DsmWrapper
