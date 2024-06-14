@@ -349,7 +349,7 @@ const defaultIdvColumns = [
     {
         title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
     },
-    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: newDefaultWidth }
+    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: newCustomWidth1 }
 
 
 ];
