@@ -7,6 +7,14 @@
     margin-bottom: 0;
   }
 
+  .search__placeholder {
+    height: rem(800);
+    border: rem(1) solid $gray-cool-10;
+    border-radius: rem(8);
+    color: $color-white;
+    background-color: $color-white;
+  }
+
   .search__section-wrapper {
     padding: rem(24);
     margin-bottom: rem(16);
