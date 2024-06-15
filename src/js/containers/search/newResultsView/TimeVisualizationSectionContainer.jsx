@@ -47,6 +47,7 @@ const TimeVisualizationSectionContainer = (props) => {
     });
     const [tableRows, setTableRows] = useState([]);
     const [tableData, setTableData] = useState([]);
+    const [downloadData, setDownloadDataRows] = useState([]);
 
     let apiRequest = null;
 
@@ -174,6 +175,31 @@ const TimeVisualizationSectionContainer = (props) => {
         });
 
         setTableRows(rowsArray);
+
+        const downloadDataRows = [];
+
+        rows.forEach((row) => {
+            const downloadDataRow = [];
+            Object.keys(row).forEach((key) => {
+                if (row[key] !== false && !key.includes("raw")) {
+                    if (key === "month") {
+                        downloadDataRow.push(`${MonthHelper.convertNumToShortMonth(row[key])} ${MonthHelper.convertMonthToFY(row[key], row.fiscal_year)}`);
+                    }
+                    else if (key === "quarter") {
+                        downloadDataRow.push(`Q${row[key]} ${row.fiscal_year}`);
+                    }
+                    else if (key.includes("amount")) {
+                        downloadDataRow.push(row[key]);
+                    }
+                    else if (key === "fiscal_year" && selectedTimeFrame === "fiscal_year") {
+                        downloadDataRow.push(row[key]);
+                    }
+                }
+            });
+            downloadDataRows.push(downloadDataRow);
+        });
+
+        setDownloadDataRows(downloadDataRows);
     };
 
     const sortBy = (field, direction) => {
@@ -290,7 +316,6 @@ const TimeVisualizationSectionContainer = (props) => {
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
-            tableData={parsedData}
             data={parsedData}
             sortBy={sortBy}
             sortDirection={sortDirection}
@@ -300,7 +325,7 @@ const TimeVisualizationSectionContainer = (props) => {
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
-            downloadComponent={<TimeFileDownload parsedData={parsedData} visualizationPeriod={visualizationPeriod} />}
+            downloadComponent={<TimeFileDownload downloadData={downloadData} visualizationPeriod={visualizationPeriod} />}
             manualSort>
             <TimeVisualizationChart
                 {...parsedData}

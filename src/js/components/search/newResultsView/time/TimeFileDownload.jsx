@@ -8,36 +8,19 @@ import PropTypes from 'prop-types';
 import { words, upperFirst } from "lodash";
 import { TooltipWrapper } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fullMonthFromAbbr } from 'helpers/monthHelper';
 
 const propTypes = {
-    parsedData: PropTypes.object,
+    parsedData: PropTypes.arrayOf(PropTypes.string),
     visualizationPeriod: PropTypes.string
 };
 
-const TimeFileDownload = ({ parsedData, visualizationPeriod }) => {
+const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
     const getDownloadData = () => {
         const headers = [];
         headers.fiscal_year = 'fiscal_year,total_obligations\n';
-        headers.quarter = 'fiscal_year,fiscal_quarter,total_obligations\n';
-        headers.month = 'fiscal_year,month,total_obligations\n';
-
-        return headers[visualizationPeriod].concat(
-            parsedData?.rawLabels?.map((label, i) => {
-                if (visualizationPeriod === 'fiscal_year') {
-                    return `${label.year},${parsedData.ySeries[i][0]}`;
-                }
-                if (!label.period) { // API still updating data
-                    return null;
-                }
-                if (visualizationPeriod === 'quarter') {
-                    return `${label.year},${label.period[1]},${parsedData.ySeries[i][0]}`;
-                }
-                const month = fullMonthFromAbbr(label.period);
-                return `${['Oct', 'Nov', 'Dec'].indexOf(label.period) > -1 ? parseInt(label.year, 10) + 1 : label.year},${month},${parsedData.ySeries[i][0]}`;
-            })
-                .join('\n')
-        );
+        headers.quarter = 'fiscal_quarter,total_obligations\n';
+        headers.month = 'month,total_obligations\n';
+        return headers[visualizationPeriod].concat(downloadData.join('\n'));
     };
 
     const downloadBlob = () => new Blob([getDownloadData()], { type: 'text/csv;charset=utf-8;' });
@@ -54,7 +37,7 @@ const TimeFileDownload = ({ parsedData, visualizationPeriod }) => {
     const renderDownloadLink = () => (
         <a
             href={URL.createObjectURL(downloadBlob())}
-            download="spending-over-time.csv" >
+            download={`results-over-time-by-${visualizationPeriod}-${Date.now()}.csv`} >
             <FontAwesomeIcon icon="download" size="lg" />
             <span className="text">
                 Download data by {words(getPeriod()).map(upperFirst).join(' ')}
@@ -73,8 +56,8 @@ const TimeFileDownload = ({ parsedData, visualizationPeriod }) => {
 
     return (
         <div className="download">
-            {!parsedData?.loading && renderDownloadLink()}
-            {!parsedData?.loading && <TooltipWrapper
+            {downloadData && renderDownloadLink()}
+            {downloadData && <TooltipWrapper
                 className="tooltip-wrapper"
                 icon="info"
                 tooltipPosition="left"
