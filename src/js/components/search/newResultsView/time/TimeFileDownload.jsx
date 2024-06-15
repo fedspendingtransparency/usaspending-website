@@ -10,7 +10,7 @@ import { TooltipWrapper } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
-    parsedData: PropTypes.arrayOf(PropTypes.string),
+    downloadData: PropTypes.arrayOf(PropTypes.string),
     visualizationPeriod: PropTypes.string
 };
 
