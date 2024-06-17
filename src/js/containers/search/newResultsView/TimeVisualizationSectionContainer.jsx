@@ -47,39 +47,47 @@ const TimeVisualizationSectionContainer = (props) => {
     });
     const [tableRows, setTableRows] = useState([]);
     const [tableData, setTableData] = useState([]);
+    const [downloadData, setDownloadDataRows] = useState([]);
 
     let apiRequest = null;
-    const fy = [
-        {
-            title: "fiscal_year",
-            displayName: ["Fiscal Year"],
-            right: false
-        },
-        {
-            title: "aggregated_amount",
-            displayName: ["Obligations"],
-            right: true
-        }
-    ];
 
     const columns = {
         month: [
             {
-                title: 'month',
+                title: 'month_year',
                 displayName: ["Month"],
                 right: false
             },
-            ...fy
+            {
+                title: "aggregated_amount",
+                displayName: ["Obligations"],
+                right: true
+            }
         ],
         quarter: [
             {
-                title: 'quarter',
-                displayName: ["Quarter"],
+                title: 'quarter_year',
+                displayName: ["Fiscal Quarter"],
                 right: false
             },
-            ...fy
+            {
+                title: "aggregated_amount",
+                displayName: ["Obligations"],
+                right: true
+            }
         ],
-        fiscal_year: fy
+        fiscal_year: [
+            {
+                title: "fiscal_year",
+                displayName: ["Fiscal Year"],
+                right: false
+            },
+            {
+                title: "aggregated_amount",
+                displayName: ["Obligations"],
+                right: true
+            }
+        ]
     };
 
     const generateTimeLabel = (group, timePeriod) => {
@@ -144,20 +152,21 @@ const TimeVisualizationSectionContainer = (props) => {
 
     const createTableRows = (rows) => {
         const rowsArray = [];
+        const selectedTimeFrame = props.wrapperProps.selectedDropdownOption;
         rows.forEach((row) => {
             const rowArray = [];
             Object.keys(row).forEach((key) => {
                 if (row[key] !== false && !key.includes("raw")) {
                     if (key === "month") {
-                        rowArray.push(MonthHelper.convertNumToShortMonth(row[key]));
+                        rowArray.push(`${MonthHelper.convertNumToShortMonth(row[key])} ${MonthHelper.convertMonthToFY(row[key], row.fiscal_year)}`);
                     }
                     else if (key === "quarter") {
-                        rowArray.push(`Q${row[key]}`);
+                        rowArray.push(`Q${row[key]} ${row.fiscal_year}`);
                     }
                     else if (key.includes("amount")) {
                         rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
                     }
-                    else {
+                    else if (key === "fiscal_year" && selectedTimeFrame === "fiscal_year") {
                         rowArray.push(row[key]);
                     }
                 }
@@ -166,6 +175,31 @@ const TimeVisualizationSectionContainer = (props) => {
         });
 
         setTableRows(rowsArray);
+
+        const downloadDataRows = [];
+
+        rows.forEach((row) => {
+            const downloadDataRow = [];
+            Object.keys(row).forEach((key) => {
+                if (row[key] !== false && !key.includes("raw")) {
+                    if (key === "month") {
+                        downloadDataRow.push(`${MonthHelper.convertNumToShortMonth(row[key])} ${MonthHelper.convertMonthToFY(row[key], row.fiscal_year)}`);
+                    }
+                    else if (key === "quarter") {
+                        downloadDataRow.push(`Q${row[key]} ${row.fiscal_year}`);
+                    }
+                    else if (key.includes("amount")) {
+                        downloadDataRow.push(row[key]);
+                    }
+                    else if (key === "fiscal_year" && selectedTimeFrame === "fiscal_year") {
+                        downloadDataRow.push(row[key]);
+                    }
+                }
+            });
+            downloadDataRows.push(downloadDataRow);
+        });
+
+        setDownloadDataRows(downloadDataRows);
     };
 
     const sortBy = (field, direction) => {
@@ -282,7 +316,6 @@ const TimeVisualizationSectionContainer = (props) => {
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
-            tableData={parsedData}
             data={parsedData}
             sortBy={sortBy}
             sortDirection={sortDirection}
@@ -292,7 +325,7 @@ const TimeVisualizationSectionContainer = (props) => {
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
-            downloadComponent={<TimeFileDownload parsedData={parsedData} visualizationPeriod={visualizationPeriod} />}
+            downloadComponent={<TimeFileDownload downloadData={downloadData} visualizationPeriod={visualizationPeriod} />}
             manualSort>
             <TimeVisualizationChart
                 {...parsedData}
