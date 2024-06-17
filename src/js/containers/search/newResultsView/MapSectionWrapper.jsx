@@ -562,10 +562,9 @@ const MapSectionWrapper = React.memo((props) => {
         }
         else if (!props.noApplied && mapViewType === 'table') {
             fetchData();
-            console.log();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward, mapViewType]);
+    }, [props.reduxFilters, props.subaward, mapViewType, props.wrapperProps.selectedDropdownOption]);
 
     useEffect(() => {
         handleMapLegendToggleChange();
