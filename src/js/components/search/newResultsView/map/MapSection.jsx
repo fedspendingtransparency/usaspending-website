@@ -6,7 +6,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import MapVisualization from "./MapVisualization";
+import MapSectionWrapper from "../../../../containers/search/newResultsView/MapSectionWrapper";
 import MapDsm from "./MapDsm";
 
 const propTypes = {
@@ -41,7 +41,7 @@ const MapSection = ({ subaward }) => {
 
     return (
         <div id="search-page-component" className="map">
-            <MapVisualization
+            <MapSectionWrapper
                 subaward={subaward}
                 scope={selectedDropdown}
                 setScope={setSelectedDropdown}
