@@ -13,6 +13,7 @@ import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
+import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
 
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
@@ -40,13 +41,20 @@ export default class ResultsTable extends React.Component {
 
         this.state = {
             currentRows: [],
-            cols: this.prepareDTUIColumns()
+            cols: this.prepareDTUIColumns(),
+            windowHeight: 0,
+            tableHeight: 0
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
+        this.measureHeight = this.measureHeight.bind(this);
+    }
+    componentDidMount() {
+        this.measureHeight();
+        window.addEventListener('resize', this.measureHeight);
     }
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
@@ -56,7 +64,16 @@ export default class ResultsTable extends React.Component {
             }
         }
     }
-
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.measureHeight);
+    }
+    measureHeight() {
+        const tableHeight = document.getElementById("advanced-search__table-wrapper").offsetHeight;
+        this.setState({
+            tableHeight,
+            windowHeight: window.innerHeight
+        });
+    }
     headerCellRender(columnIndex) {
         const columnId = this.props.columns.visibleOrder[columnIndex];
         const column = this.props.columns.data[columnId];
@@ -336,9 +353,14 @@ export default class ResultsTable extends React.Component {
 
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
+        // for table height take the height of the viewport
+        // subtract the sticky header part on the top of the page
+        // tab height for the tables
+        // 16 pixel space between the tabs
+        // pagination on the bottom so you can actually see the pages
         return (
             <>
-                <div className="advanced-search__table-wrapper">
+                <div className="advanced-search__table-wrapper" id="advanced-search__table-wrapper" style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn

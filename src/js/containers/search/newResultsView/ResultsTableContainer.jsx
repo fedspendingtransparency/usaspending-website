@@ -304,6 +304,7 @@ const ResultsTableContainer = (props) => {
         if (newState.sort) {
             setSort(Object.assign(newState.sort));
         }
+        setPage(1);
         Analytics.event({
             event: 'search_table_tab',
             category: 'Advanced Search - Table Tab',
