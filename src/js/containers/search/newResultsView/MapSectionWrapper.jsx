@@ -17,7 +17,8 @@ import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import SearchSectionWrapper from "../SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -58,7 +59,7 @@ const logMapScopeEvent = (scope) => {
 };
 
 
-const MapVisualization = React.memo((props) => {
+const MapSectionWrapper = React.memo((props) => {
     const USACenterPoint = [-95.569430, 38.852892];
 
     const [mapLayer, setMapLayer] = useState('state');
@@ -72,10 +73,20 @@ const MapVisualization = React.memo((props) => {
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
+    const [noData, setNoData] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
     const [singleLocationSelected, setSingleLocationSelected] = useState({});
+    const [tableData, setTableData] = useState([]);
     const [tableRows, setTableRows] = useState([]);
+    const [sortDirection, setSortDirection] = useState('asc');
+    const [activeField, setActiveField] = useState('aggregated_amount');
+    const [wrapperScreens, setWrapperScreens] = useState({
+        wrapperLoading: false,
+        wrapperError: false,
+        wrapperNoData: false
+    });
 
+    const [mapViewType, setMapViewType] = useState('chart');
     let apiRequest = null;
     const mapListeners = [];
 
@@ -111,24 +122,32 @@ const MapVisualization = React.memo((props) => {
 
                 // for new search table
                 const row = [];
-                const congressionalDistrictCheck = item.display_name.substring(2, 3);
+                const stateCheck = item.shape_code.length < 3;
+                const congressionalDistrictCheck = item.display_name.substring(2, 3) === "-";
                 const countyCheck = parseInt(item.shape_code, 10);
 
-                row.push(item.display_name);
-                if (congressionalDistrictCheck === "-") {
-                    row.push(stateNameFromCode(item.display_name.substring(0, 2)));
+                if (stateCheck) {
+                    row.state_territory = item.display_name;
+                }
+                else if (congressionalDistrictCheck) {
+                    row.d_district = item.display_name;
+                    row.state_territory = stateNameFromCode(item.display_name.substring(0, 2));
                 }
                 else if (countyCheck) {
-                    row.push(stateNameFromFips(item.shape_code.substring(0, 2)));
+                    row.county = item.display_name;
+                    row.state_territory = stateNameFromFips(item.shape_code.substring(0, 2));
                 }
-                row.push(item.aggregated_amount);
-                row.push(item.per_capita);
+                else {
+                    row.country = item.display_name;
+                }
+                row.obligations = item.aggregated_amount;
+                row.per_capita = item.per_capita;
 
                 rows.push(row);
             }
         });
 
-        setTableRows(rows);
+        setTableData(rows);
 
         return { values, locations, labels };
     };
@@ -192,6 +211,7 @@ const MapVisualization = React.memo((props) => {
                 values: [],
                 locations: []
             });
+            setNoData(true);
 
             return;
         }
@@ -450,7 +470,7 @@ const MapVisualization = React.memo((props) => {
         ],
         congressionalDistrict: [
             {
-                title: "congressionalDistrict",
+                title: "congressional_district",
                 displayName: ["Congressional District"],
                 right: false
             },
@@ -461,6 +481,53 @@ const MapVisualization = React.memo((props) => {
             },
             ...standardColumns
         ]
+    };
+
+    const createTableRows = (rows) => {
+        const rowsArray = [];
+        rows.forEach((row) => {
+            const rowArray = [];
+            Object.keys(row).forEach((key) => {
+                if (key === 'obligations' || key === 'per_capita') {
+                    rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
+                }
+                else {
+                    rowArray.push(row[key]);
+                }
+            });
+            rowsArray.push(rowArray);
+        });
+        setTableRows(rowsArray);
+    };
+
+    const sortBy = (field, direction) => {
+        const updatedTable = [...tableData];
+        if (direction === 'asc') {
+            updatedTable.sort((a, b) => {
+                if (a[field] < b[field]) {
+                    return -1;
+                }
+                if (a[field] > b[field]) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
+        else if (direction === 'desc') {
+            updatedTable.sort((a, b) => {
+                if (a[field] < b[field]) {
+                    return 1;
+                }
+                if (a[field] > b[field]) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+
+        setSortDirection(direction);
+        setActiveField(field);
+        createTableRows(updatedTable);
     };
 
     useEffect(() => {
@@ -489,12 +556,15 @@ const MapVisualization = React.memo((props) => {
     }, []);
 
     useEffect(() => {
-        if (!props.noApplied) {
+        if (!props.noApplied && mapViewType === 'chart') {
             prepareFetch(true);
             updateMapScope();
         }
+        else if (!props.noApplied && mapViewType === 'table') {
+            fetchData();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward]);
+    }, [props.reduxFilters, props.subaward, mapViewType, props.wrapperProps.selectedDropdownOption]);
 
     useEffect(() => {
         handleMapLegendToggleChange();
@@ -528,14 +598,43 @@ const MapVisualization = React.memo((props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
 
+    useEffect(() => {
+        sortBy("obligations", "desc");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tableData]);
+
+    useEffect(() => {
+        if (mapViewType === 'chart') {
+            setWrapperScreens({
+                wrapperLoading: false,
+                wrapperError: false,
+                wrapperNoData: false
+            });
+        }
+        else if (mapViewType === 'table') {
+            setWrapperScreens({
+                wrapperLoading: true,
+                wrapperError: true,
+                wrapperNoData: true
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mapViewType]);
+
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
-            isLoading={false}
-            isError={false}
-            hasNoData={false}
+            isLoading={wrapperScreens.wrapperLoading ? loading : false}
+            isError={wrapperScreens.wrapperError ? error : false}
+            hasNoData={wrapperScreens.wrapperNoData ? noData : false}
             rows={tableRows}
-            columns={columns[mapLayer]}>
+            columns={columns[mapLayer]}
+            sectionName="map"
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+            activeField={activeField}
+            mapViewType={mapViewType}
+            setMapViewType={setMapViewType} >
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
@@ -558,7 +657,7 @@ const MapVisualization = React.memo((props) => {
     );
 });
 
-MapVisualization.propTypes = propTypes;
+MapSectionWrapper.propTypes = propTypes;
 
 export default connect((state) => ({
     reduxFilters: state.appliedFilters.filters,
@@ -571,4 +670,4 @@ export default connect((state) => ({
         { setAppliedFilterCompletion }, { updateMapLegendToggle }),
     dispatch)
 })
-)(MapVisualization);
+)(MapSectionWrapper);
