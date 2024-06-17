@@ -377,7 +377,10 @@ export default class ResultsTable extends React.Component {
         // pagination on the bottom so you can actually see the pages
         return (
             <>
-                <div className={`advanced-search__table-wrapper  ${this.state.activateRightFade ? 'activate-right-fade' : ''} `} id="advanced-search__table-wrapper" style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
+                <div
+                    className={`advanced-search__table-wrapper ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}
+                    id="advanced-search__table-wrapper"
+                    style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn
