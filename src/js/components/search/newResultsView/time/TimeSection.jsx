@@ -28,19 +28,19 @@ const TimeSection = ({ timeHasLoaded, subaward }) => {
         sectionTitle: 'Results Over Time',
         dropdownOptions: [
             {
-                name: 'Months',
+                name: 'By Month',
                 value: 'month',
                 onClick,
                 dsmContent: <TimeDsm subaward={subaward} />
             },
             {
-                name: 'Quarters',
+                name: 'By Fiscal Quarter',
                 value: 'quarter',
                 onClick,
                 dsmContent: <TimeDsm subaward={subaward} />
             },
             {
-                name: 'Years',
+                name: 'By Year',
                 value: 'fiscal_year',
                 onClick,
                 dsmContent: <TimeDsm subaward={subaward} />
