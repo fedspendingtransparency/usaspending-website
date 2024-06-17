@@ -27,7 +27,9 @@ const propTypes = {
     sortBy: PropTypes.func,
     sortDirection: PropTypes.string,
     activeField: PropTypes.string,
-    downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+    downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
 };
 
 const SearchSectionWrapper = ({
@@ -45,7 +47,9 @@ const SearchSectionWrapper = ({
     sortBy,
     sortDirection,
     activeField,
-    downloadComponent
+    downloadComponent,
+    mapViewType = false,
+    setMapViewType = false
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -56,6 +60,11 @@ const SearchSectionWrapper = ({
 
     const changeView = (label) => {
         setViewType(label);
+
+        // for map view loading screen
+        if (mapViewType) {
+            setMapViewType(label);
+        }
     };
     const jumpToSection = (section = '') => {
         const sections = ['map', 'time', 'categories', 'awards'];
