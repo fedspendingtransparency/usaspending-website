@@ -360,7 +360,7 @@ export default class ResultsTable extends React.Component {
                 activateRightFade: true
             });
         }
-        if (isScrolledRight) {
+        if (isScrolledRight || isScrolledLeft) {
             this.setState({
                 activateRightFade: false
             });
