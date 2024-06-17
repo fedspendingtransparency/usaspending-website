@@ -59,7 +59,7 @@ const logMapScopeEvent = (scope) => {
 };
 
 
-const MapSectionContainer = React.memo((props) => {
+const MapSectionWrapper = React.memo((props) => {
     const USACenterPoint = [-95.569430, 38.852892];
 
     const [mapLayer, setMapLayer] = useState('state');
@@ -127,21 +127,21 @@ const MapSectionContainer = React.memo((props) => {
                 const countyCheck = parseInt(item.shape_code, 10);
 
                 if (stateCheck) {
-                    row.stateTerritory = item.display_name;
+                    row.state_territory = item.display_name;
                 }
                 else if (congressionalDistrictCheck) {
-                    row.congressionalDistrict = item.display_name;
-                    row.stateTerritory = stateNameFromCode(item.display_name.substring(0, 2));
+                    row.d_district = item.display_name;
+                    row.state_territory = stateNameFromCode(item.display_name.substring(0, 2));
                 }
                 else if (countyCheck) {
                     row.county = item.display_name;
-                    row.stateTerritory = stateNameFromFips(item.shape_code.substring(0, 2));
+                    row.state_territory = stateNameFromFips(item.shape_code.substring(0, 2));
                 }
                 else {
                     row.country = item.display_name;
                 }
                 row.obligations = item.aggregated_amount;
-                row.perCapita = item.per_capita;
+                row.per_capita = item.per_capita;
 
                 rows.push(row);
             }
@@ -432,7 +432,7 @@ const MapSectionContainer = React.memo((props) => {
             right: true
         },
         {
-            title: "perCapita",
+            title: "per_capita",
             displayName: ["Per Capita Obligations"],
             right: true
         }
@@ -441,7 +441,7 @@ const MapSectionContainer = React.memo((props) => {
     const columns = {
         state: [
             {
-                title: "stateTerritory",
+                title: "state_territory",
                 displayName: ["State or Territory"],
                 right: false
             },
@@ -462,7 +462,7 @@ const MapSectionContainer = React.memo((props) => {
                 right: false
             },
             {
-                title: "stateTerritory",
+                title: "state_territory",
                 displayName: ["State or Territory"],
                 right: false
             },
@@ -470,12 +470,12 @@ const MapSectionContainer = React.memo((props) => {
         ],
         congressionalDistrict: [
             {
-                title: "congressionalDistrict",
+                title: "congressional_district",
                 displayName: ["Congressional District"],
                 right: false
             },
             {
-                title: "stateTerritory",
+                title: "state_territory",
                 displayName: ["State or Territory"],
                 right: false
             },
@@ -488,7 +488,7 @@ const MapSectionContainer = React.memo((props) => {
         rows.forEach((row) => {
             const rowArray = [];
             Object.keys(row).forEach((key) => {
-                if (key === 'obligations' || key === 'perCapita') {
+                if (key === 'obligations' || key === 'per_capita') {
                     rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
                 }
                 else {
@@ -658,7 +658,7 @@ const MapSectionContainer = React.memo((props) => {
     );
 });
 
-MapSectionContainer.propTypes = propTypes;
+MapSectionWrapper.propTypes = propTypes;
 
 export default connect((state) => ({
     reduxFilters: state.appliedFilters.filters,
@@ -671,4 +671,4 @@ export default connect((state) => ({
         { setAppliedFilterCompletion }, { updateMapLegendToggle }),
     dispatch)
 })
-)(MapSectionContainer);
+)(MapSectionWrapper);
