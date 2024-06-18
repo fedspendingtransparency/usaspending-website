@@ -229,12 +229,12 @@
           margin: rem(24) 0 rem(8) 0;
           font-weight: $font-semibold;
           color: $gray-90;
-          font-size: 14px;
+          font-size: rem(14);
           line-height: 1.5;
         }
 
         p {
-          font-size: 14px;
+          font-size: rem(14);
           line-height: 1.5;
           margin: 0;
           color: $gray-60
