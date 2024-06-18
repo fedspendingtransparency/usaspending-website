@@ -338,10 +338,10 @@ const defaultIdvColumns = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
-        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
+        title: 'Award Amount', right: true, displayName: 'Total Obligations to Date', customWidth: newDefaultWidth
     },
     {
-        title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
+        title: 'Total Outlays', right: true, displayName: 'Total Outlays to Date', customWidth: newDefaultWidth
     },
     { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
