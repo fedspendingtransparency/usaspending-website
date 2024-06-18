@@ -320,7 +320,7 @@ const defaultLoan = [
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Subsidy Cost',
-        displayName: 'Loan Subsidy Cost',
+        displayName: 'Original Subsidy Cost',
         subtitle: '(Total Obligations To Date)',
         customWidth: newDefaultWidth,
         right: true
