@@ -230,7 +230,6 @@ const SearchPage = ({
                             toggleMobileFilters={toggleMobileFilters}
                             requestsComplete={requestsComplete}
                             noFiltersApplied={noFiltersApplied} />
-                        }
                     </FlexGridCol>
                 </FlexGridRow>
                 <FullDownloadModalContainer
