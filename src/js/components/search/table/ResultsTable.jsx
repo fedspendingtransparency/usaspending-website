@@ -44,7 +44,7 @@ export default class ResultsTable extends React.Component {
             cols: this.prepareDTUIColumns(),
             windowHeight: 0,
             tableHeight: 0,
-            activateRightFade: false
+            activateRightFade: true
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
@@ -360,7 +360,7 @@ export default class ResultsTable extends React.Component {
                 activateRightFade: true
             });
         }
-        if (isScrolledRight || isScrolledLeft) {
+        if (isScrolledRight) {
             this.setState({
                 activateRightFade: false
             });
