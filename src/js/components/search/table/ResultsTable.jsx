@@ -43,7 +43,8 @@ export default class ResultsTable extends React.Component {
             currentRows: [],
             cols: this.prepareDTUIColumns(),
             windowHeight: 0,
-            tableHeight: 0
+            tableHeight: 0,
+            activateRightFade: true
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
@@ -51,11 +52,14 @@ export default class ResultsTable extends React.Component {
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
         this.measureHeight = this.measureHeight.bind(this);
+        this.checkToAddRightFade = this.checkToAddRightFade.bind(this);
     }
+
     componentDidMount() {
         this.measureHeight();
         window.addEventListener('resize', this.measureHeight);
     }
+
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
             // table type has changed, reset the scroll
@@ -64,9 +68,11 @@ export default class ResultsTable extends React.Component {
             }
         }
     }
+
     componentWillUnmount() {
         window.removeEventListener('resize', this.measureHeight);
     }
+
     measureHeight() {
         const tableHeight = document.getElementById("advanced-search__table-wrapper").offsetHeight;
         this.setState({
@@ -74,6 +80,7 @@ export default class ResultsTable extends React.Component {
             windowHeight: window.innerHeight
         });
     }
+
     headerCellRender(columnIndex) {
         const columnId = this.props.columns.visibleOrder[columnIndex];
         const column = this.props.columns.data[columnId];
@@ -269,7 +276,8 @@ export default class ResultsTable extends React.Component {
                     return value;
                 });
                 return values;
-            } else if (this.props.currentType === "direct_payments") {
+            }
+            else if (this.props.currentType === "direct_payments") {
                 values = arrayOfObjects.map((obj) => {
                     const value = [];
                     value.push(
@@ -346,11 +354,20 @@ export default class ResultsTable extends React.Component {
         return values;
     }
 
-    render() {
-        if (this.props.results.length === 0) {
-            // replace with no results component not a class
+    checkToAddRightFade(isScrolledLeft, isScrolledRight) {
+        if (!isScrolledLeft) {
+            this.setState({
+                activateRightFade: true
+            });
         }
+        if (isScrolledRight) {
+            this.setState({
+                activateRightFade: false
+            });
+        }
+    }
 
+    render() {
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
         // for table height take the height of the viewport
@@ -360,10 +377,14 @@ export default class ResultsTable extends React.Component {
         // pagination on the bottom so you can actually see the pages
         return (
             <>
-                <div className="advanced-search__table-wrapper" id="advanced-search__table-wrapper" style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
+                <div
+                    className={`advanced-search__table-wrapper ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}
+                    id="advanced-search__table-wrapper"
+                    style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn
+                        checkToAddRightFade={this.checkToAddRightFade}
                         columns={cols}
                         rows={limitedRows}
                         rowHeight={58}

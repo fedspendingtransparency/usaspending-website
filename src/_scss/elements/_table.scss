@@ -3,27 +3,6 @@ table {
     margin: 2em 0;
     min-width: 100%;
 
-    &.table-for-new-search-page {
-        margin-top: 0;
-        margin-bottom: 0;
-
-        td {
-            // this is necessary to make the usda-table__row class hover work correctly
-            background-color: unset;
-        }
-
-        &.award-results-table-dtui {
-            tbody.usda-table__body {
-                .usda-table__row {
-                    td.usda-table__cell:last-of-type {
-                        // this is the right border on the Table, since the fade effect is not in yet
-                        border-right: rem(1) solid $gray-cool-10;
-                    }
-                }
-            }
-        }
-    }
-
     thead {
         th {
             background-color: $color-gray-lightest;
