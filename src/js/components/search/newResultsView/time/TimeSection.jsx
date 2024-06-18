@@ -7,12 +7,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import {
-    DsmWrapper
-} from "../DsmWrapper";
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
+import TimeDsm from "./TimeDsm";
 
 const propTypes = {
     timeHasLoaded: PropTypes.bool,
@@ -33,25 +31,19 @@ const TimeSection = ({ timeHasLoaded, subaward }) => {
                 name: 'By Month',
                 value: 'month',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Months:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <TimeDsm subaward={subaward} />
             },
             {
                 name: 'By Fiscal Quarter',
                 value: 'quarter',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Quarters:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <TimeDsm subaward={subaward} />
             },
             {
                 name: 'By Year',
                 value: 'fiscal_year',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Years:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <TimeDsm subaward={subaward} />
             }
         ],
         selectedDropdownOption: visualizationPeriod
