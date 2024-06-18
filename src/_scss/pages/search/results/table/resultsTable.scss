@@ -13,7 +13,7 @@
         @include transition(opacity 0.25s ease-in);
 
         .usa-dt-pagination {
-            margin-top: $global-margin * 2;
+            margin-top: $global-margin;
             .usa-dt-pagination__wrapper {
                 .pager {
                     .hideLast {
