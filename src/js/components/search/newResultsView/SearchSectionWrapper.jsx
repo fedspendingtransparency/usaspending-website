@@ -51,12 +51,11 @@ const SearchSectionWrapper = ({
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
-    const [screen, setScreen] = useState(false);
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const query = useQueryParams();
 
     // Measures content height to set height for dsm content
-    // const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
+    // const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const history = useHistory();
@@ -189,7 +188,7 @@ const SearchSectionWrapper = ({
                 {openAccordion ? (
                     <div
                         className="search__section-wrapper-dsm"
-                        style={{ height: `${contentHeight}px` }}>
+                        style={{ height: `${contentHeight - 16}px` }}>
                         {dropdownOptions && selectedDropdownOption &&
                             dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}
                         { dsmContent || '' }
