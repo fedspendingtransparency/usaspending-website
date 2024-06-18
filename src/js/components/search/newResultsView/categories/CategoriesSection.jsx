@@ -63,7 +63,8 @@ const CategoriesSection = (props) => {
                 dsmContent: <CategoriesDsm subaward={props.subaward} />
             }
         ],
-        selectedDropdownOption: props.selectedDropdown
+        selectedDropdownOption: props.selectedDropdown,
+        sectionName: 'categories'
 
     };
     return (

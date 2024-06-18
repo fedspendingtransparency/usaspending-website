@@ -27,7 +27,8 @@ const propTypes = {
     sortBy: PropTypes.func,
     sortDirection: PropTypes.string,
     activeField: PropTypes.string,
-    downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+    downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    section: PropTypes.string
 };
 
 const SearchSectionWrapper = ({
@@ -45,11 +46,18 @@ const SearchSectionWrapper = ({
     sortBy,
     sortDirection,
     activeField,
-    downloadComponent
+    downloadComponent,
+    sectionName
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
+    const [screen, setScreen] = useState(false);
+    const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const query = useQueryParams();
+
+    // Measures content height to set height for dsm content
+    // const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
+    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const history = useHistory();
     const sortFn = () => dropdownOptions;
@@ -100,9 +108,10 @@ const SearchSectionWrapper = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // Measures content height to set height for dsm content
-    const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
-    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
+    useEffect(() => {
+        console.log(`content height ${sectionName}: `, document.querySelector('.search__section-wrapper-content')?.clientHeight);
+        setContentHeight(document.querySelector(`.search__${sectionName}`)?.clientHeight);
+    }, [sectionName, viewType]);
 
     const Message = () => {
         if (isLoading) {
@@ -131,6 +140,7 @@ const SearchSectionWrapper = ({
             sortDirection={sortDirection}
             manualSort />);
     };
+
     return (
         <div className="search__section-wrapper">
             {selectedDropdownOption ?
@@ -156,7 +166,7 @@ const SearchSectionWrapper = ({
                 </div>
             }
             {!openAccordion &&
-                <div className="search__section-wrapper-content new-results-view">
+                <div className={`search__section-wrapper-content new-results-view search__${sectionName}`}>
                     {
                         // eslint-disable-next-line no-nested-ternary
                         isError || isLoading || hasNoData ?
@@ -179,7 +189,7 @@ const SearchSectionWrapper = ({
                 {openAccordion ? (
                     <div
                         className="search__section-wrapper-dsm"
-                        style={{ height: `${content}px` }}>
+                        style={{ height: `${contentHeight}px` }}>
                         {dropdownOptions && selectedDropdownOption &&
                             dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}
                         { dsmContent || '' }

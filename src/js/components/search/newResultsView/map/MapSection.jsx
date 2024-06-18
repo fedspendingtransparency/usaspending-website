@@ -36,7 +36,8 @@ const MapSection = ({ subaward }) => {
                 dsmContent: <MapDsm subaward={subaward} />
             }
         ],
-        selectedDropdownOption: selectedDropdown
+        selectedDropdownOption: selectedDropdown,
+        sectionName: 'map'
     };
 
     return (

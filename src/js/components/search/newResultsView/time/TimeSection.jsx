@@ -46,7 +46,8 @@ const TimeSection = ({ timeHasLoaded, subaward }) => {
                 dsmContent: <TimeDsm subaward={subaward} />
             }
         ],
-        selectedDropdownOption: visualizationPeriod
+        selectedDropdownOption: visualizationPeriod,
+        sectionName: 'time'
     };
 
     return (
