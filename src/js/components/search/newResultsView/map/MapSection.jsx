@@ -6,8 +6,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { DsmWrapper } from "../DsmWrapper";
-import MapVisualization from "./MapVisualization";
+import MapSectionWrapper from "../../../../containers/search/newResultsView/MapSectionWrapper";
+import MapDsm from "./MapDsm";
 
 const propTypes = {
     subaward: PropTypes.bool
@@ -27,17 +27,13 @@ const MapSection = ({ subaward }) => {
                 name: 'Place of Performance',
                 value: 'place_of_performance',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Place of Performance:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <MapDsm subaward={subaward} />
             },
             {
                 name: 'Recipient Location',
                 value: 'recipient_location',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Recipient Location:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <MapDsm subaward={subaward} />
             }
         ],
         selectedDropdownOption: selectedDropdown
@@ -45,7 +41,7 @@ const MapSection = ({ subaward }) => {
 
     return (
         <div id="search-page-component" className="map">
-            <MapVisualization
+            <MapSectionWrapper
                 subaward={subaward}
                 scope={selectedDropdown}
                 setScope={setSelectedDropdown}

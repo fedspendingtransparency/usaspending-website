@@ -5,8 +5,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ResultsTableContainer from "../../../../containers/search/newResultsView/ResultsTableContainer";
-import { DsmWrapper } from "../DsmWrapper";
+
 import PlaceholderComponent from "../PlaceholderComponent";
+import TableDsm from "./TableDsm";
 
 const propTypes = {
     awardTableHasLoaded: PropTypes.bool,
@@ -16,9 +17,7 @@ const propTypes = {
 const TableSection = ({ awardTableHasLoaded, subaward }) => {
     const wrapperProps = {
         sectionTitle: 'Prime Award Results',
-        dsmContent: <DsmWrapper
-            heading={"Prime Award Results:  What's included in this view of the data?"}
-            description="Use the map below to break down spending by state, county, or congressional district." />
+        dsmContent: <TableDsm subaward={subaward} />
     };
 
     return (
