@@ -6,8 +6,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import MapVisualization from "./MapVisualization";
 import MapDsm from "./MapDsm";
+import MapVisualization from "../../../../containers/search/newResultsView/MapSectionWrapper";
 
 const propTypes = {
     subaward: PropTypes.bool
