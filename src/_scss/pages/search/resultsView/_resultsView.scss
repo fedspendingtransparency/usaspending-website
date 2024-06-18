@@ -22,7 +22,15 @@
     border: rem(1) solid $gray-cool-10;
     border-radius: rem(8);
     background-color: $color-white;
-
+    .filter__dropdown-label {
+      color: $gray-90;
+      font-weight: $font-semibold;
+      line-height: 1.5;
+      margin: auto 0;
+      @media(max-width: $medium-screen) {
+        flex: 100%;
+      }
+    }
     .search__section-wrapper-header {
       display: flex;
       flex-wrap: wrap;
