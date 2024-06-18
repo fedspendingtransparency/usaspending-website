@@ -55,7 +55,7 @@ const SearchSectionWrapper = ({
     const query = useQueryParams();
 
     // Measures content height to set height for dsm content
-    // const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
+    const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const history = useHistory();
@@ -108,9 +108,8 @@ const SearchSectionWrapper = ({
     }, []);
 
     useEffect(() => {
-        console.log(`content height ${sectionName}: `, document.querySelector(`.search__${sectionName}`)?.clientHeight);
-        setContentHeight(document.querySelector(`.search__${sectionName}`)?.clientHeight);
-    }, [sectionName, viewType, isLoading, isError]);
+        setContentHeight(content);
+    }, [content, sectionName]);
 
     const Message = () => {
         if (isLoading) {
