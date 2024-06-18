@@ -28,6 +28,7 @@ const propTypes = {
     sortDirection: PropTypes.string,
     activeField: PropTypes.string,
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    section: PropTypes.string,
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
 };
@@ -48,12 +49,18 @@ const SearchSectionWrapper = ({
     sortDirection,
     activeField,
     downloadComponent,
+    sectionName,
     mapViewType = false,
     setMapViewType = false
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
+    const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const query = useQueryParams();
+
+    // Measures content height to set height for dsm content
+    const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
+    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const history = useHistory();
     const sortFn = () => dropdownOptions;
@@ -109,9 +116,9 @@ const SearchSectionWrapper = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // Measures content height to set height for dsm content
-    const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
-    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
+    useEffect(() => {
+        setContentHeight(content);
+    }, [content, sectionName]);
 
     const Message = () => {
         if (isLoading) {
@@ -140,6 +147,7 @@ const SearchSectionWrapper = ({
             sortDirection={sortDirection}
             manualSort />);
     };
+
     return (
         <div className="search__section-wrapper">
             {selectedDropdownOption ?
@@ -165,7 +173,7 @@ const SearchSectionWrapper = ({
                 </div>
             }
             {!openAccordion &&
-                <div className="search__section-wrapper-content new-results-view">
+                <div className={`search__section-wrapper-content new-results-view search__${sectionName}`}>
                     {
                         // eslint-disable-next-line no-nested-ternary
                         isError || isLoading || hasNoData ?
@@ -188,7 +196,7 @@ const SearchSectionWrapper = ({
                 {openAccordion ? (
                     <div
                         className="search__section-wrapper-dsm"
-                        style={{ height: `${content}px` }}>
+                        style={{ height: `${contentHeight - 16}px` }}>
                         {dropdownOptions && selectedDropdownOption &&
                             dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}
                         { dsmContent || '' }
