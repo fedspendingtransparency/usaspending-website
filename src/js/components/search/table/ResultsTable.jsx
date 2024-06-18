@@ -319,7 +319,7 @@ export default class ResultsTable extends React.Component {
                     <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
                     obj['Awarding Sub Agency'] || '--',
                     obj['Start Date'] || '--',
-                    obj['End Date'] || '--'
+                    obj['End Date'] || obj['Last Date to Order'] || '--'
                 );
 
                 return value;
