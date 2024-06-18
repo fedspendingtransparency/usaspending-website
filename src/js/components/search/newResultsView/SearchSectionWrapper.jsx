@@ -160,7 +160,9 @@ const SearchSectionWrapper = ({
                     <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
                 </div>
                 :
-                <span className="filter__dropdown-label">{sectionTitle}</span>
+                <div className="search__section-wrapper-header">
+                    <span className="filter__dropdown-label">{sectionTitle}</span>
+                </div>
             }
             {!openAccordion &&
                 <div className="search__section-wrapper-content new-results-view">

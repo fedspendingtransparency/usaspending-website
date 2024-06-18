@@ -22,21 +22,14 @@
     border: rem(1) solid $gray-cool-10;
     border-radius: rem(8);
     background-color: $color-white;
-    .filter__dropdown-label {
-      color: $gray-90;
-      font-weight: $font-semibold;
-      line-height: 1.5;
-      margin: auto 0;
-      @media(max-width: $medium-screen) {
-        flex: 100%;
-      }
-    }
+
     .search__section-wrapper-header {
       display: flex;
       flex-wrap: wrap;
       position: relative;
       top: 0;
       left: 0;
+      margin-bottom: rem(24);
 
       .filter__dropdown-label {
         color: $gray-90;
@@ -143,7 +136,6 @@
     }
 
     .search__section-wrapper-content {
-      margin-top: rem(24);
       margin-bottom: rem(24);
 
       .advanced-search__table-wrapper {
@@ -235,15 +227,21 @@
 
         h4 {
           margin: rem(24) 0 rem(8) 0;
-          font-size: 16px;
           font-weight: $font-semibold;
           color: $gray-90;
-          line-height: rem(24);
+          font-size: rem(14);
+          line-height: 1.5;
         }
 
         p {
+          font-size: rem(14);
+          line-height: 1.5;
           margin: 0;
           color: $gray-60
+        }
+
+        .award-search__body-text {
+          margin-bottom: rem(8);
         }
       }
     }
@@ -252,6 +250,21 @@
 
 .usda-message_no-results, .usda-message_error, .usda-message_loading {
   padding: rem(200) 0;
+}
+
+.award-search__glossary-term {
+  font-weight: $font-semibold;
+}
+
+.usda-glossary-link {
+  color: $gray-60;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $color-gray-medium;
+  }
 }
 
 // TODO: REMOVE BELOW ONCE NEW SEARCH GOES TO PROD
