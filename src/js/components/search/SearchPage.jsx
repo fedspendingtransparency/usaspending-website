@@ -14,13 +14,11 @@ import { AddFilter } from 'components/sharedComponents/icons/Icons';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import GlobalConstants from "GlobalConstants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { showModal } from 'redux/actions/modal/modalActions';
 
 import SearchSidebar from './SearchSidebar';
-import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
@@ -60,12 +58,7 @@ const SearchPage = ({
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
-    // TODO: Remove this state once new Advance Search is done and toggle no longer needed
-    const [toggleTempSearchPage, setToggleTempSearchPage] = useState(false);
-    const [newResultsViewAvailable, setNewResultsViewAvailable] = useState(false);
-
     const dispatch = useDispatch();
-    const isQAT = GlobalConstants.QAT;
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -113,9 +106,7 @@ const SearchPage = ({
     let fullSidebar = (
         <SearchSidebar
             filters={filters}
-            hash={hash}
-            toggleTempSearchPage={toggleTempSearchPage}
-            setToggleTempSearchPage={setToggleTempSearchPage} />
+            hash={hash} />
     );
     if (isMobile) {
         fullSidebar = null;
@@ -144,15 +135,6 @@ const SearchPage = ({
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
-
-    useEffect(() => {
-        if (isQAT) {
-            setNewResultsViewAvailable(true);
-        }
-        else {
-            setNewResultsViewAvailable(false);
-        }
-    }, [isQAT]);
 
     useEffect(() => {
         setStateHash(hash);
@@ -208,8 +190,7 @@ const SearchPage = ({
                         </button>
                     </div>
                     <div
-                        className="visualization-tabs__toggle-mobile"
-                        style={toggleTempSearchPage ? { marginBottom: "0" } : {}}>
+                        className="visualization-tabs__toggle-mobile">
                         <Button
                             onClick={(e) => {
                                 e.persist();
@@ -240,27 +221,15 @@ const SearchPage = ({
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
                     <FlexGridCol desktop={9} tablet={12} mobile={12}>
-                        {newResultsViewAvailable && !toggleTempSearchPage ?
-                            <ResultsView
-                                filters={filters}
-                                isMobile={isMobile}
-                                filterCount={filterCount}
-                                showMobileFilters={showMobileFilters}
-                                updateFilterCount={updateFilterCount}
-                                toggleMobileFilters={toggleMobileFilters}
-                                requestsComplete={requestsComplete}
-                                noFiltersApplied={noFiltersApplied} />
-                            :
-                            <SearchResults
-                                filters={filters}
-                                isMobile={isMobile}
-                                filterCount={filterCount}
-                                showMobileFilters={showMobileFilters}
-                                updateFilterCount={updateFilterCount}
-                                toggleMobileFilters={toggleMobileFilters}
-                                requestsComplete={requestsComplete}
-                                noFiltersApplied={noFiltersApplied} />
-                        }
+                        <ResultsView
+                            filters={filters}
+                            isMobile={isMobile}
+                            filterCount={filterCount}
+                            showMobileFilters={showMobileFilters}
+                            updateFilterCount={updateFilterCount}
+                            toggleMobileFilters={toggleMobileFilters}
+                            requestsComplete={requestsComplete}
+                            noFiltersApplied={noFiltersApplied} />
                     </FlexGridCol>
                 </FlexGridRow>
                 <FullDownloadModalContainer

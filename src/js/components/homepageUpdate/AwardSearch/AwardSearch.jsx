@@ -14,7 +14,7 @@ import { initialState as defaultFilters } from 'redux/reducers/search/searchFilt
 import { throttle } from 'lodash';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
-import GlobalConstants, { REQUEST_VERSION } from "../../../GlobalConstants";
+import { REQUEST_VERSION } from "../../../GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 /* eslint-disable */
@@ -32,10 +32,6 @@ const AwardSearch = () => {
     const fiscalYear = <div>See spending data over time using our Time Period filters, like <div className="award-search__glossary">Fiscal Year</div> {<GlossaryLink term="fiscal-year-fy" hidden={activeCardIndex !== 1} />}</div>;
     const naics = <div>Use the <div className="award-search__glossary">North American Industry Classification System (NAICS)</div> {<GlossaryLink term="naics" hidden={activeCardIndex !== 2} />} filter to find spending by industry</div>;
     const psc = <div>From medical supplies to aircraft equipment, use <div className="award-search__glossary">Product or Service Codes (PSCs)</div> {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />} to see what&apos;s being purchased</div>;
-
-    const isQAT = GlobalConstants.QAT;
-    const mapQAT = isQAT ? "geography" : "map";
-    const categoryQAT = isQAT ? "categories" : "rank";
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -107,11 +103,11 @@ const AwardSearch = () => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
                     // eslint-disable-next-line no-unused-expressions
-                    isQAT ? window.open(`/search?hash=${hashData.hash}&section=${section}&type=${rankType}`, "_self") : window.open(`/search?hash=${hashData.hash}&tab=${section}&rankType=${rankType}`, "_self");
+                    window.open(`/search?hash=${hashData.hash}&section=${section}&type=${rankType}`, "_self");
                 }
                 else {
                     // eslint-disable-next-line no-unused-expressions
-                    isQAT ? window.open(`/search?hash=${hashData.hash}&section=${section}`, "_self") : window.open(`/search?hash=${hashData.hash}&tab=${section}`, "_self");
+                    window.open(`/search?hash=${hashData.hash}&section=${section}`, "_self");
                 }
                 // operation has resolved
                 tempHash = null;
@@ -203,7 +199,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch(mapQAT);
+                                                        handleGoToAdvancedSearch("geography");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -243,7 +239,7 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     disabled={activeCardIndex !== 2}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch(categoryQAT, "naics");
+                                                        handleGoToAdvancedSearch("categories", "naics");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -263,7 +259,7 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     disabled={activeCardIndex !== 3}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch(categoryQAT, "psc");
+                                                        handleGoToAdvancedSearch("categories", "psc");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -314,7 +310,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch(mapQAT);
+                                                        handleGoToAdvancedSearch("geography");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
