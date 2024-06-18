@@ -40,8 +40,6 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
-import RoundedToggle from "../sharedComponents/RoundedToggle";
-import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -161,9 +159,7 @@ const staticFilters = {
 };
 
 const propTypes = {
-    filters: PropTypes.object,
-    toggleTempSearchPage: PropTypes.bool,
-    setToggleTempSearchPage: PropTypes.func
+    filters: PropTypes.object
 };
 
 const defaultProps = {
@@ -171,9 +167,7 @@ const defaultProps = {
 };
 
 const SearchSidebar = ({
-    filters,
-    toggleTempSearchPage,
-    setToggleTempSearchPage
+    filters
 }) => {
     const indexOfUnreleased = staticFilters.options.findIndex((option) => (
         Object.keys(option).includes('isReleased') &&
@@ -203,15 +197,6 @@ const SearchSidebar = ({
         return "right";
     };
 
-    const onToggle = () => {
-        setToggleTempSearchPage(!toggleTempSearchPage);
-    };
-    const onKeyToggle = (event) => {
-        if (event.key === 'Enter') {
-            setToggleTempSearchPage(!toggleTempSearchPage);
-        }
-    };
-
     return (
         <div
             className="search-sidebar"
@@ -230,15 +215,6 @@ const SearchSidebar = ({
             </div>
 
             <div className="sidebar-top-submit">
-                <FeatureFlag>
-                    <div className="search-page">
-                        <RoundedToggle
-                            toggle={toggleTempSearchPage}
-                            onKeyToggle={onKeyToggle}
-                            onToggle={onToggle}
-                            label="Use previous Advanced Search" />
-                    </div>
-                </FeatureFlag>
                 <SearchSidebarSubmitContainer />
             </div>
             <FilterSidebar
