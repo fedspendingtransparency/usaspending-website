@@ -56,7 +56,7 @@ const MapDsm = ({ subaward }) => {
                             </span>}{' '}{<GlossaryLink
                             term="loan-subsidy-cost" />} rather than the obligated amount to sum up the value of the loan.
                         Prime award transactions with the same unique award ID are grouped under a single prime award
-                        summary. Prime award summaries can be viewed in the Table tab.
+                        summary.
                     </p>
                 </>
             }
