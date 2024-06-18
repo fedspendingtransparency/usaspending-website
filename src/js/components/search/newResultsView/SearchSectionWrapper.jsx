@@ -109,9 +109,9 @@ const SearchSectionWrapper = ({
     }, []);
 
     useEffect(() => {
-        console.log(`content height ${sectionName}: `, document.querySelector('.search__section-wrapper-content')?.clientHeight);
+        console.log(`content height ${sectionName}: `, document.querySelector(`.search__${sectionName}`)?.clientHeight);
         setContentHeight(document.querySelector(`.search__${sectionName}`)?.clientHeight);
-    }, [sectionName, viewType]);
+    }, [sectionName, viewType, isLoading, isError]);
 
     const Message = () => {
         if (isLoading) {
