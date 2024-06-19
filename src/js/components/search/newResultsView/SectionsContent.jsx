@@ -9,6 +9,7 @@ import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
 import MapSection from "./map/MapSection";
+import Analytics from "../../../helpers/analytics/Analytics";
 
 require("pages/search/searchPage.scss");
 
@@ -27,18 +28,35 @@ const SectionsContent = (props) => {
         threshold: 0.1
     };
 
+    const logVisualizationViewEvent = (activeLabel) => {
+        window.setTimeout(() => {
+            Analytics.event({
+                event: 'search_visualization_type',
+                category: 'Advanced Search - Visualization Type',
+                action: activeLabel,
+                gtm: true
+            });
+        }, 15 * 1000);
+    };
+
     const callbackFunction = (entries) => {
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
                 if (section === 'awards') {
                     setAwardTableHasLoaded(true);
+                    logVisualizationViewEvent("awards");
                 }
                 else if (section === 'time') {
                     setTimeHasLoaded(true);
+                    logVisualizationViewEvent("time");
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
+                    logVisualizationViewEvent("categories");
+                }
+                else if (section === "map") {
+                    logVisualizationViewEvent("map");
                 }
             }
         });
