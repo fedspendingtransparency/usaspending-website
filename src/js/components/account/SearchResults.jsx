@@ -5,10 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import AccountTopFilterBarContainer from
     'containers/account/topFilterBar/AccountTopFilterBarContainer';
-
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import AccountTimeVisualizationContainer from
     'containers/account/visualizations/AccountTimeVisualizationContainer';
 import AccountRankVisualizationContainer from
@@ -27,7 +26,9 @@ export default class SearchResults extends React.Component {
                 <AccountTopFilterBarContainer {...this.props} />
                 <div className="search-results">
                     <AccountTimeVisualizationContainer />
-                    <AccountRankVisualizationContainer />
+                    <div style={window.innerWidth < tabletScreen ? { height: "950px" } : null}>
+                        <AccountRankVisualizationContainer />
+                    </div>
                     <AccountAwardsContainer />
                     {this.props.showNote && <Note message={dodNote} />}
                 </div>
