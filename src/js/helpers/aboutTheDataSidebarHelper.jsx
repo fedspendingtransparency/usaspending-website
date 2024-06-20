@@ -34,14 +34,27 @@ export const getDrilldownEntrySectionAndId = (schema, slug) => {
 
 export const escapeRegExp = (stringToGoIntoTheRegex) => stringToGoIntoTheRegex.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 
-export const getAtdDefcText = (isDefCodeInFilter) => {
-    if (isDefCodeInFilter) {
+export const getAtdDefcText = (isDefCodeInFilter, newSearch = false) => {
+    if (isDefCodeInFilter && newSearch) {
+        // added 8px bottom margin for styling
         return (
-            <p>Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were
-            filtered by the earliest relevant public law that funded awards in your search.&nbsp;
-            <AboutTheDataLink
-                slug="start-date-for-defc-tracking">Read more about this date filter.
-            </AboutTheDataLink>
+            <p className="award-search__body-text">
+                Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were
+                filtered by the earliest relevant public law that funded awards in your search.&nbsp;
+                <AboutTheDataLink
+                    slug="start-date-for-defc-tracking">Read more about this date filter.
+                </AboutTheDataLink>
+            </p>
+        );
+    }
+    else if (isDefCodeInFilter && !newSearch) {
+        return (
+            <p>
+                Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were
+                filtered by the earliest relevant public law that funded awards in your search.&nbsp;
+                <AboutTheDataLink
+                    slug="start-date-for-defc-tracking">Read more about this date filter.
+                </AboutTheDataLink>
             </p>
         );
     }

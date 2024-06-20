@@ -13,6 +13,7 @@ import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
+import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
 
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
@@ -40,14 +41,25 @@ export default class ResultsTable extends React.Component {
 
         this.state = {
             currentRows: [],
-            cols: this.prepareDTUIColumns()
+            cols: this.prepareDTUIColumns(),
+            windowHeight: 0,
+            tableHeight: 0,
+            activateRightFade: true
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
+        this.measureHeight = this.measureHeight.bind(this);
+        this.checkToAddRightFade = this.checkToAddRightFade.bind(this);
     }
+
+    componentDidMount() {
+        this.measureHeight();
+        window.addEventListener('resize', this.measureHeight);
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.tableInstance !== this.props.tableInstance) {
             // table type has changed, reset the scroll
@@ -55,6 +67,18 @@ export default class ResultsTable extends React.Component {
                 this.tableComponent.reloadTable();
             }
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.measureHeight);
+    }
+
+    measureHeight() {
+        const tableHeight = document.getElementById("advanced-search__table-wrapper").offsetHeight;
+        this.setState({
+            tableHeight,
+            windowHeight: window.innerHeight
+        });
     }
 
     headerCellRender(columnIndex) {
@@ -211,7 +235,8 @@ export default class ResultsTable extends React.Component {
         const columns = orderedColumns.map((col) => ({
             title: col.columnName,
             displayName: col.displayName,
-            columnWidth: col.width
+            columnWidth: col.width,
+            right: col.right || false
         }));
         return columns;
     }
@@ -223,21 +248,77 @@ export default class ResultsTable extends React.Component {
         // (page * limit) - 1 end
         // (page - 1) * limit start
         const arrayOfObjects = this.props.results;
-
         let values = null;
+        // check for not subaward && loans
         if (!this.props.subaward) {
+            if (this.props.currentType === "loans") {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
+                        <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Subsidy Cost'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
+                        <ReadMore
+                            text={obj.Description || '--'}
+                            limit={40} />,
+                        obj['Contract Award Type'] || obj['Award Type'] || '--',
+                        obj.def_codes || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                        <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Issued Date'] || '--'
+                    );
+
+                    return value;
+                });
+                return values;
+            }
+            else if (this.props.currentType === "direct_payments") {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
+                        <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
+                        <ReadMore
+                            text={obj.Description || '--'}
+                            limit={40} />,
+                        <ReadMore
+                            text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
+                            limit={65} />,
+                        obj.def_codes || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                        <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Start Date'] || '--',
+                        obj['End Date'] || '--'
+                    );
+
+                    return value;
+                });
+                return values;
+            }
+
+            // not loans or direct payments
             values = arrayOfObjects.map((obj) => {
                 const value = [];
                 value.push(
                     <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
                     <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
-                    obj['Start Date'] || '--',
-                    obj['End Date'] || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                     <ReadMore
                         text={obj.Description || '--'}
                         limit={40} />,
+                    obj['Contract Award Type'] || obj['Award Type'] || '--',
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -245,7 +326,8 @@ export default class ResultsTable extends React.Component {
                     MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
                     <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
                     obj['Awarding Sub Agency'] || '--',
-                    obj['Contract Award Type'] || '--'
+                    obj['Start Date'] || '--',
+                    obj['End Date'] || obj['Last Date to Order'] || '--'
                 );
 
                 return value;
@@ -253,17 +335,18 @@ export default class ResultsTable extends React.Component {
             return values;
         }
 
+        // subaward
         values = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(
                 <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Sub-Award ID']}</a> || '--',
                 obj['Sub-Awardee Name'] || '--',
-                obj['Sub-Award Date'] || '--',
                 MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
-                obj['Awarding Agency'] || '--',
-                obj['Awarding Sub Agency'] || '--',
+                obj['Sub-Award Date'] || '--',
                 <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Prime Award ID']}</a> || '--',
-                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--'
+                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--',
+                obj['Awarding Agency'] || '--',
+                obj['Awarding Sub Agency'] || '--'
             );
 
             return value;
@@ -271,19 +354,37 @@ export default class ResultsTable extends React.Component {
         return values;
     }
 
-    render() {
-        if (this.props.results.length === 0) {
-            // replace with no results component not a class
+    checkToAddRightFade(isScrolledLeft, isScrolledRight) {
+        if (!isScrolledLeft) {
+            this.setState({
+                activateRightFade: true
+            });
         }
+        if (isScrolledRight) {
+            this.setState({
+                activateRightFade: false
+            });
+        }
+    }
 
+    render() {
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
+        // for table height take the height of the viewport
+        // subtract the sticky header part on the top of the page
+        // tab height for the tables
+        // 16 pixel space between the tabs
+        // pagination on the bottom so you can actually see the pages
         return (
             <>
-                <div className="advanced-search__table-wrapper">
+                <div
+                    className={`advanced-search__table-wrapper ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}
+                    id="advanced-search__table-wrapper"
+                    style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn
+                        checkToAddRightFade={this.checkToAddRightFade}
                         columns={cols}
                         rows={limitedRows}
                         rowHeight={58}

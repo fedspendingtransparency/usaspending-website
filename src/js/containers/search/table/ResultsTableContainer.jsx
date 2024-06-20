@@ -242,7 +242,8 @@ const ResultsTableContainer = (props) => {
             subtitle: col.subtitle || '',
             width,
             background: col.background || '',
-            defaultDirection: direction
+            defaultDirection: direction,
+            right: col.right || false
         };
     };
 
@@ -302,6 +303,7 @@ const ResultsTableContainer = (props) => {
         if (newState.sort) {
             setSort(Object.assign(newState.sort));
         }
+        setPage(1);
         Analytics.event({
             event: 'search_table_tab',
             category: 'Advanced Search - Table Tab',

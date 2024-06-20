@@ -8,12 +8,12 @@
 
     .results-table-content {
         position: relative;
-        margin-top: rem(2);
+        margin-top: rem(16);
         min-height: rem(200);
         @include transition(opacity 0.25s ease-in);
 
         .usa-dt-pagination {
-            margin-top: $global-margin * 2;
+            margin-top: $global-margin;
             .usa-dt-pagination__wrapper {
                 .pager {
                     .hideLast {
@@ -55,6 +55,10 @@
     .advanced-search__table-wrapper {
         width: auto;
         overflow-x: scroll;
+
+        &.activate-right-fade {
+            mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
+        }
     }
 
     .results-table-message {

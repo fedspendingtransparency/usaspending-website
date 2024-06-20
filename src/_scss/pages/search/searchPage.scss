@@ -12,9 +12,7 @@
     @import "../../components/tooltips/customTooltipContent";
     @import "../../components/tooltips/index";
 
-    @import "../../components/roundedtoggle";
     @import "resultsView/resultsView";
-    @import "resultsView/toggleTempSearchPage";
 
     .subaward-dropdown__list {
         min-width: max-content;
@@ -39,9 +37,20 @@
         }
     }
 
+    .visualization-tabs__toggle-mobile {
+        margin: rem(20) 0;
+        @media(min-width: $medium-screen) {
+            display: none;
+        }
+
+        .button-type__text-right-icon-light {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
     #main-content {
         width: 100%;
-        background-color: $color-gray-lightest;
         padding: rem(40) rem(16) rem(16) rem(16);
         @import "components/aboutTheDataSidebar/aboutTheData";
 
@@ -55,7 +64,7 @@
             padding: 0;
 
             .full-search-sidebar {
-                padding-right: rem(8);
+                padding-right: rem(16);
                 .search-sidebar {
                     margin: 0;
                 }
@@ -66,7 +75,6 @@
                 @import "./topFilterBar/topFilterBar";
                 width: 100%;
                 margin: 0;
-                padding-left: rem(8);
 
                 .search-results {
                     .new-search-container {
@@ -113,5 +121,5 @@
             }
         }
     }
-
 }
+

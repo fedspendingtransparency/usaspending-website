@@ -6,15 +6,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { DsmWrapper } from "../DsmWrapper";
-import MapVisualization from "./MapVisualization";
+import MapSectionWrapper from "../../../../containers/search/newResultsView/MapSectionWrapper";
+import MapDsm from "./MapDsm";
 
 const propTypes = {
-    mapHasLoaded: PropTypes.bool,
     subaward: PropTypes.bool
 };
 
-const MapSection = ({ mapHasLoaded, subaward }) => {
+const MapSection = ({ subaward }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('place_of_performance');
 
     const onClick = (e) => {
@@ -28,29 +27,26 @@ const MapSection = ({ mapHasLoaded, subaward }) => {
                 name: 'Place of Performance',
                 value: 'place_of_performance',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Place of Performance:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <MapDsm subaward={subaward} />
             },
             {
                 name: 'Recipient Location',
                 value: 'recipient_location',
                 onClick,
-                dsmContent: <DsmWrapper
-                    heading={"Recipient Location:  What's included in this view of the data?"}
-                    description="Use the map below to break down spending by state, county, or congressional district." />
+                dsmContent: <MapDsm subaward={subaward} />
             }
         ],
-        selectedDropdownOption: selectedDropdown
+        selectedDropdownOption: selectedDropdown,
+        sectionName: 'map'
     };
 
     return (
         <div id="search-page-component" className="map">
-            {mapHasLoaded && <MapVisualization
+            <MapSectionWrapper
                 subaward={subaward}
                 scope={selectedDropdown}
                 setScope={setSelectedDropdown}
-                wrapperProps={wrapperProps} />}
+                wrapperProps={wrapperProps} />
         </div>
     );
 };

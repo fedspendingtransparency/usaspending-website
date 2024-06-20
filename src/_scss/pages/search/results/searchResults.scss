@@ -17,11 +17,7 @@
 
     // this was missing in the css hierarchy in the new results page
     .new-results-view {
-        z-index: 1;
-        //background-color: $color-white;
-        //padding: rem(30);
         @import "./_typography";
-        //@import "../../../elements/_divider";
         @import "./table/resultsTable";
         @import "./screens/screens";
     }
