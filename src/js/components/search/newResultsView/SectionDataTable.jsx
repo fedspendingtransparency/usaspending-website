@@ -10,27 +10,11 @@ const SectionDataTable = (props) => {
     const { sortDirection, activeField } = props;
     const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [activateRightFade, setActivateRightFade] = useState(false);
 
     const pageSize = 10;
-
-    const maxRows = props.rows ? props.rows : [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-
-    const columns = props.columns ? props.columns : [
-        {
-            title: 'type',
-            displayName: 'Award Types'
-        },
-        {
-            title: 'obligations',
-            displayName: ["Award", <br />, "Obligations"],
-            right: true
-        },
-        {
-            title: 'percent',
-            displayName: ["% of", <br />, "Total"],
-            right: true
-        }
-    ];
+    const maxRows = props.rows;
+    const columns = props.columns;
 
     const changePage = (page) => {
         if (props.manualSort) {
@@ -44,6 +28,15 @@ const SectionDataTable = (props) => {
         props.sortBy(field, direction);
     };
 
+    const checkToAddRightFade = (isScrolledLeft, isScrolledRight) => {
+        if (!isScrolledLeft) {
+            setActivateRightFade(true);
+        }
+        if (isScrolledRight) {
+            setActivateRightFade(false);
+        }
+    };
+
     useEffect(() => {
         if (pageSize) {
             if (props.manualSort) {
@@ -55,12 +48,16 @@ const SectionDataTable = (props) => {
 
     return (
         <>
-            <Table
-                classNames="table-for-new-search-page"
-                currentSort={{ direction: sortDirection, field: activeField }}
-                updateSort={updateSort}
-                columns={columns}
-                rows={rows} />
+            <div className={`advanced-search__table-wrapper ${activateRightFade ? 'activate-right-fade' : ''}`} >
+                <Table
+                    classNames="table-for-new-search-page"
+                    currentSort={{ direction: sortDirection, field: activeField }}
+                    updateSort={updateSort}
+                    columns={columns}
+                    stickyFirstColumn
+                    checkToAddRightFade={checkToAddRightFade}
+                    rows={rows} />
+            </div>
             <Pagination
                 resultsText
                 totalItems={maxRows.length}
