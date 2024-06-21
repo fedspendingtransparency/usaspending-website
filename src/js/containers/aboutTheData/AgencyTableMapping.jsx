@@ -132,8 +132,7 @@ export const agenciesTableColumns = {
         {
             title: 'missing_tas_accounts_count',
             displayName: 'Number of TASs Missing from Account Balance Data',
-            icon: <Tooltip title="Number of TASs Missing from Account Balance Data" position="left" />,
-            right: true
+            icon: <Tooltip title="Number of TASs Missing from Account Balance Data" position="left" />
         },
         {
             title: 'obligation_difference',
@@ -150,13 +149,12 @@ export const agenciesTableColumns = {
         {
             title: 'unlinked_assistance_award_count',
             displayName: 'Number of Unlinked Assistance Awards',
-            icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" className="wide wide_left" />,
-            right: true
+            icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" className="wide wide_left" />
         },
         {
             title: 'assurance_statements',
             displayName: 'Agency Comments',
-            icon: <Tooltip title="Agency Comments" position="left" />
+            icon: <Tooltip title="Agency Comments" position="left" className="wide wide_left" />
         }
     ]
 };
