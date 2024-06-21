@@ -24,6 +24,16 @@
                 .table-header__sort {
                     display: none;
                 }
+                .tooltip-spacer {
+                    transform: translate(-4px, 2px);
+                    text-transform: none;
+                    .tooltip__content{
+                        left: rem(-100);
+                        @media(min-width: 992px) {
+                            left: rem(-200);
+                        }
+                    }
+                }
             }
         }
     }
