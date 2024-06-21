@@ -320,6 +320,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         if (Object.keys(assistanceTotals).length) {
             setResults(addUnlinkedData(results, resultTotal, assistanceTotals));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [assistanceTotals, resultTotal]);
 
     useEffect(() => {
@@ -330,18 +331,22 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         else {
             changeCurrentPage(1);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSize, defcParams, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading, error]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [document]);
 
     if (loading) {
@@ -381,7 +386,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             </TransitionGroup>
             }
             {!loading && !error && results.length > 0 &&
-            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
+            <div ref={tableRef} className={`table-wrapper spending-by-cfda ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parseRows(results)}

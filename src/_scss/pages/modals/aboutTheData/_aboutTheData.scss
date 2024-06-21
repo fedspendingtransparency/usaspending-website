@@ -48,6 +48,17 @@
       }
       .usda-table {
         margin: 3rem 0;
+
+        // this was added after the dtui table styles were changed for the new search page
+        th {
+          // we need to get rid of the black borders that will appear
+          border: 0;
+          // and replace them with this gray border
+          border: solid 1px $color-gray-border;
+          // and this modal has never had border on the td, you can see that below
+          // it uses border none
+        }
+
         .usda-table__head {
           .table-header {
             .table-header__content {
