@@ -53,6 +53,16 @@
 }
 
 .table-container .usda-table {
+
+    // this was added after the dtui table styles were changed for the new search page
+    th, td {
+        // we need to get rid of the black borders that will appear
+        border: 0;
+        // and replace them with this gray border
+        // it now appears to be 2px rather than 1, but this is how it has always been
+        border: solid 1px $color-gray-border;
+    }
+
   thead th:last-of-type {
       // Hide sorting for the Agency Comments column
       .table-header__sort {
