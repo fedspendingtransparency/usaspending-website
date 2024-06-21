@@ -320,7 +320,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         if (Object.keys(assistanceTotals).length) {
             setResults(addUnlinkedData(results, resultTotal, assistanceTotals));
         }
-    }, [addUnlinkedData, assistanceTotals, resultTotal, results]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [assistanceTotals, resultTotal]);
 
     useEffect(() => {
     // Reset to the first page
@@ -330,19 +331,23 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, defcParams, sort, order, activeTab, query, currentPage, fetchSpendingByCfdaCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageSize, defcParams, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
-    }, [currentPage, fetchSpendingByCfdaCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error, scrollIntoView]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading, error]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [document]);
 
     if (loading) {
         if (tableRef.current) {
