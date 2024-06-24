@@ -28,11 +28,11 @@
         }
 
         .usda-table__cell.stickyColumn {
-            background-color: white;
+            background-color: $color-white;
         }
 
         .stickyColumn {
-            border-right: solid 1px #dfe1e2;
+            border-right: solid 1px $gray-cool-10;
             -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
             box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
         }
