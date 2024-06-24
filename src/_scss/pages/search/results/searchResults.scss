@@ -21,6 +21,23 @@
         @import "./table/resultsTable";
         @import "./screens/screens";
     }
+
+    .table-for-new-search-page {
+        &.activate-right-fade {
+            mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
+        }
+
+        .usda-table__cell.stickyColumn {
+            background-color: white;
+        }
+
+        .stickyColumn {
+            border-right: solid 1px #dfe1e2;
+            -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+        }
+    }
+
 }
 
 @import "./visualizations/visualizations";

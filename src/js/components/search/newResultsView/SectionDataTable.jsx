@@ -50,7 +50,7 @@ const SectionDataTable = (props) => {
         <>
             <div className={`advanced-search__table-wrapper ${activateRightFade ? 'activate-right-fade' : ''}`} >
                 <Table
-                    classNames="table-for-new-search-page"
+                    classNames="table-for-new-search-page award-results-table-dtui"
                     currentSort={{ direction: sortDirection, field: activeField }}
                     updateSort={updateSort}
                     columns={columns}
