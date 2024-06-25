@@ -1,6 +1,25 @@
 .table-wrapper {
     overflow-x: auto;
 
+    .usda-table {
+        // this was added after the dtui table styles were changed for the new search page
+        th, td {
+            // we need to get rid of the black borders that will appear
+            border: 0;
+            // and replace them with this gray border
+            border: solid 1px $color-gray-border;
+        }
+
+        tr {
+            td:last-of-type {
+                border: 0;
+
+                border-right: solid 1px $color-gray-border;
+                border-bottom: solid 1px $color-gray-border;
+            }
+        }
+    }
+
     .table-header {
         position: -webkit-sticky; /* Safari */
         position: sticky;
@@ -20,9 +39,17 @@
         text-decoration: underline;
     }
 
-    .usda-table__row {
-        .usda-table__cell:last-of-type {
-            @include grid-column(1 of 12);
+    // this is necessary for the formatting for only the last table on the page,
+    // in the assistance listing section, but grid-column messes up the last cel
+    // in a row in the other two tables, so it gets a special class
+    &.spending-by-cfda {
+        .usda-table__row {
+            .usda-table__cell:last-of-type {
+                @include grid-column(1 of 12);
+            }
+            .usda-table__cell:last-of-type {
+                margin-left: 0;
+            }
         }
     }
 }
