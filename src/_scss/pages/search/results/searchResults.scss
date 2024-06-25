@@ -17,14 +17,27 @@
 
     // this was missing in the css hierarchy in the new results page
     .new-results-view {
-        z-index: 1;
-        //background-color: $color-white;
-        //padding: rem(30);
         @import "./_typography";
-        //@import "../../../elements/_divider";
         @import "./table/resultsTable";
         @import "./screens/screens";
     }
+
+    .table-for-new-search-page {
+        &.activate-right-fade {
+            mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
+        }
+
+        .usda-table__cell.stickyColumn {
+            background-color: $color-white;
+        }
+
+        .stickyColumn {
+            border-right: solid 1px $gray-cool-10;
+            -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+        }
+    }
+
 }
 
 @import "./visualizations/visualizations";

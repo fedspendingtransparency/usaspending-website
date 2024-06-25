@@ -15,7 +15,6 @@ import SectionDataTable from "./SectionDataTable";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
-    sectionName: PropTypes.string,
     dropdownOptions: PropTypes.array,
     selectedDropdownOption: PropTypes.string,
     dsmContent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
@@ -28,12 +27,14 @@ const propTypes = {
     sortBy: PropTypes.func,
     sortDirection: PropTypes.string,
     activeField: PropTypes.string,
-    downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+    downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    section: PropTypes.string,
+    mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
 };
 
 const SearchSectionWrapper = ({
     sectionTitle,
-    sectionName,
     dropdownOptions,
     selectedDropdownOption,
     children,
@@ -47,17 +48,30 @@ const SearchSectionWrapper = ({
     sortBy,
     sortDirection,
     activeField,
-    downloadComponent
+    downloadComponent,
+    sectionName,
+    mapViewType = false,
+    setMapViewType = false
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
+    const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const query = useQueryParams();
+
+    // Measures content height to set height for dsm content
+    const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
+    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const history = useHistory();
     const sortFn = () => dropdownOptions;
 
     const changeView = (label) => {
         setViewType(label);
+
+        // for map view loading screen
+        if (mapViewType) {
+            setMapViewType(label);
+        }
     };
     const jumpToSection = (section = '') => {
         const sections = ['map', 'time', 'categories', 'awards'];
@@ -69,7 +83,7 @@ const SearchSectionWrapper = ({
             return;
         }
         // find the section in dom
-        const sectionDom = document.querySelector(`#results-section-${matchedSection}`);
+        const sectionDom = document.querySelector(`.${matchedSection}`);
         if (!sectionDom) {
             return;
         }
@@ -85,7 +99,7 @@ const SearchSectionWrapper = ({
         // NOTE: might need to adjust for mobile
         const rect = sectionDom.getBoundingClientRect();
         window.scrollTo({
-            top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 140 : rect.top - 140,
+            top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 900 : rect.top - 140,
             behavior: 'smooth'
         });
     };
@@ -101,9 +115,10 @@ const SearchSectionWrapper = ({
         parseSection();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    // Measures content height to set height for dsm content
-    const content = document.querySelector('.search__section-wrapper-content')?.clientHeight;
-    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
+
+    useEffect(() => {
+        setContentHeight(content);
+    }, [content, sectionName]);
 
     const Message = () => {
         if (isLoading) {
@@ -132,8 +147,9 @@ const SearchSectionWrapper = ({
             sortDirection={sortDirection}
             manualSort />);
     };
+
     return (
-        <div className="search__section-wrapper" id={(sectionName !== null || sectionName !== undefined) ? `results-section-${sectionName}` : ''}>
+        <div className="search__section-wrapper">
             {selectedDropdownOption ?
                 <div className="search__section-wrapper-header">
                     <span className="filter__dropdown-label">{sectionTitle}</span>
@@ -152,10 +168,12 @@ const SearchSectionWrapper = ({
                     <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
                 </div>
                 :
-                sectionTitle
+                <div className="search__section-wrapper-header">
+                    <span className="filter__dropdown-label">{sectionTitle}</span>
+                </div>
             }
             {!openAccordion &&
-                <div className="search__section-wrapper-content new-results-view">
+                <div className={`search__section-wrapper-content new-results-view search__${sectionName}`}>
                     {
                         // eslint-disable-next-line no-nested-ternary
                         isError || isLoading || hasNoData ?
@@ -178,7 +196,7 @@ const SearchSectionWrapper = ({
                 {openAccordion ? (
                     <div
                         className="search__section-wrapper-dsm"
-                        style={{ height: `${content}px` }}>
+                        style={{ height: `${contentHeight - 16}px` }}>
                         {dropdownOptions && selectedDropdownOption &&
                             dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}
                         { dsmContent || '' }
