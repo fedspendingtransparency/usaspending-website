@@ -7,6 +7,14 @@
     margin-bottom: 0;
   }
 
+  .search__placeholder {
+    height: rem(800);
+    border: rem(1) solid $gray-cool-10;
+    border-radius: rem(8);
+    color: $color-white;
+    background-color: $color-white;
+  }
+
   .search__section-wrapper {
     padding: rem(24);
     margin-bottom: rem(16);
@@ -17,44 +25,48 @@
 
     .search__section-wrapper-header {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
+      top: 0;
+      left: 0;
+      margin-bottom: rem(24);
 
-      .filter__dropdown-container {
+      .filter__dropdown-label {
+        color: $gray-90;
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        margin: auto 0;
+        @media(max-width: $medium-screen) {
+          flex: 100%;
+        }
+      }
+
+      .advanced-search-dropdown__wrapper {
         height: auto;
+        max-width: 100%;
+        padding-left: rem(8);
 
         @media(max-width: $medium-screen) {
-          display: grid;
-          width: 75%;
-
-          [class*="filter__dropdown-label"] {
-            margin-bottom: rem(8);
-          }
-        }
-
-        [class*="filter__dropdown-label"] {
-          color: $gray-cool-90;
+          padding-left: 0;
+          padding-top: rem(8);
         }
 
         .filter__dropdown-button-list-container {
-          @media(max-width: $medium-screen) {
-            max-width: 75%;
+          .advanced-search-dropdown__button {
+            max-width: 100%;
+            position: relative;
           }
 
           [class*="filter__dropdown-button"] {
-            max-width: 100%;
             margin: 0;
             border-color: $gray-cool-10;
             text-align: start;
-
-            @media(max-width: $tablet-screen) {
-              width: rem(200)
-            }
 
             .filter__dropdown-button-text {
               margin-right: rem(8);
               font-size: rem(16);
               line-height: rem(24);
-              color: $gray-cool-60;
+              color: $gray-60;
               opacity: 1;
               white-space: nowrap;
               overflow: hidden;
@@ -75,9 +87,15 @@
             box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
             transform: translate(0px, 0px);
             width: max-content;
+            min-width: 100%;
 
-            @media(max-width: $tablet-screen) {
-              width: 100%;
+            .filter__dropdown-list-item {
+              padding-left: $global-margin * 2;
+              padding-right: $global-margin * 2;
+
+              button {
+                line-height: 1.5;
+              }
             }
 
             .filter__dropdown-list-item.active:hover {
@@ -87,11 +105,13 @@
         }
       }
 
-      @import "../_chartTableToggle";
+      @import "../../../components/chartTableToggle";
 
-      .chart-table-toggle {
+      .search__chart-table-toggle.chart-table-toggle {
         border: rem(1) solid $gray-cool-10;
         height: fit-content;
+        position: absolute;
+        right: 0;
 
         .view-button {
           border: none;
@@ -116,7 +136,57 @@
     }
 
     .search__section-wrapper-content {
-      margin-top: rem(27);
+      margin-bottom: rem(24);
+
+      .advanced-search__table-wrapper {
+        overflow-y: auto;
+      }
+
+      table.advanced-search__table {
+        margin-top: rem(2);
+      }
+
+      .usda-table.search-results {
+        margin-bottom: rem(16);
+      }
+
+      .download {
+        display: flex;
+        justify-content: end;
+        margin-bottom: rem(8);
+        font-size: rem(12);
+        line-height: 1.5;
+        color: #2378c3;
+
+        span.text {
+          margin-left: 4px;
+        }
+
+        svg.fa-download {
+          width: 18px;
+          height: 18px;
+        }
+
+        .tooltip__hover-wrapper {
+          display: flex;
+
+          svg {
+            width: 18px;
+            height: 18px;
+            margin: 0 0 0 8px;
+          }
+        }
+      }
+
+      .visualization-pager-container {
+        margin-top: rem(16);
+      }
+
+      // TODO: Remove importants after the tabbed results view is removed from the code
+      .visualization-pager {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
     }
 
     .accordion-container {
@@ -157,17 +227,57 @@
 
         h4 {
           margin: rem(24) 0 rem(8) 0;
-          font-size: 16px;
           font-weight: $font-semibold;
           color: $gray-90;
-          line-height: rem(24);
+          font-size: rem(14);
+          line-height: 1.5;
         }
 
         p {
+          font-size: rem(14);
+          line-height: 1.5;
           margin: 0;
           color: $gray-60
+        }
+
+        .award-search__body-text {
+          margin-bottom: rem(8);
         }
       }
     }
   }
+}
+
+.usda-message_no-results, .usda-message_error, .usda-message_loading {
+  padding: rem(200) 0;
+}
+
+.award-search__glossary-term {
+  font-weight: $font-semibold;
+}
+
+.usda-glossary-link {
+  color: $gray-60;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $color-gray-medium;
+  }
+}
+
+// TODO: REMOVE BELOW ONCE NEW SEARCH GOES TO PROD
+.recharts-time-visualization-container {
+  .usda-message_no-results {
+    padding: rem(142.5) 0;
+  }
+
+ .usda-message_error {
+   padding: rem(120.1) 0;
+ }
+
+ .usda-message_loading {
+   padding: rem(127.5) 0;
+ }
 }

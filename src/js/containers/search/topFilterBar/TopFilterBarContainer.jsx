@@ -41,7 +41,7 @@ const TopFilterBarContainer = (props) => {
         const filter = {
             values: []
         };
-        if (props.filters.defCodes?.toObject()?.require.length > 0) {
+        if (props.filters?.defCodes?.toObject()?.require.length > 0) {
             selected = true;
             filter.values = [
                 ...filter.values,
@@ -66,7 +66,7 @@ const TopFilterBarContainer = (props) => {
     const prepareTimeFilter = () => {
         let selected = false;
         const filter = {};
-        if (props.filters.timePeriodType === 'fy') {
+        if (props.filters?.timePeriodType === 'fy') {
             // check to see if any FYs are selected
             if (props.filters.timePeriodFY?.size > 0) {
                 // years are selected
@@ -78,7 +78,7 @@ const TopFilterBarContainer = (props) => {
                 filter.values = orderBy(props.filters.timePeriodFY.toArray(), [], ['desc']);
             }
         }
-        else if (props.filters.timePeriodType === 'dr') {
+        else if (props.filters?.timePeriodType === 'dr') {
             // check to see if any date ranges are selected
             if (props.filters.timePeriodStart || props.filters.timePeriodEnd) {
                 // start and end dates are provided
@@ -118,7 +118,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.newAwardsOnly) {
+        if (props.filters?.newAwardsOnly) {
             selected = true;
             filter.values = true;
         }
@@ -141,7 +141,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.keyword && props.filters.keyword?.size > 0) {
+        if (props.filters?.keyword && props.filters.keyword?.size > 0) {
             selected = true;
             filter.values = props.filters.keyword?.toArray();
         }
@@ -162,7 +162,7 @@ const TopFilterBarContainer = (props) => {
         let selected = false;
         const filter = {};
 
-        if (props.filters.awardType?.count() > 0) {
+        if (props.filters?.awardType?.count() > 0) {
             // award types exist
             selected = true;
             filter.code = 'awardType';
@@ -187,14 +187,14 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.selectedLocations?.count() > 0) {
+        if (props.filters?.selectedLocations?.count() > 0) {
             // locations have been selected
             selected = true;
             filter.values = props.filters.selectedLocations.toArray();
             filter.scope = props.filters.locationDomesticForeign;
         }
         // add an extra property to handle location scope
-        if (props.filters.locationDomesticForeign && props.filters.locationDomesticForeign !== 'all') {
+        if (props.filters?.locationDomesticForeign && props.filters.locationDomesticForeign !== 'all') {
             // we are handling this in its own if block to handle a case where no locations
             // have been selected, but the scope is not 'all'
             selected = true;
@@ -219,14 +219,14 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.treasuryAccounts && props.filters.treasuryAccounts?.count() > 0) {
+        if (props.filters?.treasuryAccounts && props.filters.treasuryAccounts?.count() > 0) {
             // treasury account components have been selected
             selected = true;
             const identifiers = Object.keys(props.filters.treasuryAccounts?.toObject());
             filter.values = identifiers;
         }
 
-        if (props.filters.tasCodes?.require.length > 0) {
+        if (props.filters?.tasCodes?.require.length > 0) {
             selected = true;
             filter.values = [
                 ...filter.values,
@@ -257,7 +257,7 @@ const TopFilterBarContainer = (props) => {
         };
 
         if (type === 'funding') {
-            if (props.filters.selectedFundingAgencies?.count() > 0) {
+            if (props.filters?.selectedFundingAgencies?.count() > 0) {
                 // Funding Agencies have been selected
                 selected = true;
                 filter.values = props.filters.selectedFundingAgencies.toArray();
@@ -269,7 +269,7 @@ const TopFilterBarContainer = (props) => {
                 return filter;
             }
         }
-        else if (props.filters.selectedAwardingAgencies?.count() > 0) {
+        else if (props.filters?.selectedAwardingAgencies?.count() > 0) {
             // Awarding Agencies have been selected
             selected = true;
             filter.values = props.filters.selectedAwardingAgencies.toArray();
@@ -294,7 +294,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.selectedRecipients?.count() > 0) {
+        if (props.filters?.selectedRecipients?.count() > 0) {
             // Recipients have been selected
             selected = true;
             filter.values = props.filters.selectedRecipients.toArray();
@@ -319,7 +319,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.selectedRecipientLocations?.count() > 0) {
+        if (props.filters?.selectedRecipientLocations?.count() > 0) {
             // locations have been selected
             selected = true;
             filter.values = props.filters.selectedRecipientLocations.toArray();
@@ -327,7 +327,7 @@ const TopFilterBarContainer = (props) => {
         }
 
         // add an extra property to handle location scope
-        if (props.filters.recipientDomesticForeign && props.filters.recipientDomesticForeign !== 'all') {
+        if (props.filters?.recipientDomesticForeign && props.filters.recipientDomesticForeign !== 'all') {
             // we are handling this in its own if block to handle a case where no locations
             // have been selected, but the scope is not 'all'
             selected = true;
@@ -354,7 +354,7 @@ const TopFilterBarContainer = (props) => {
         let selected = false;
         const filter = {};
 
-        if (props.filters.recipientType?.count() > 0) {
+        if (props.filters?.recipientType?.count() > 0) {
             // award types exist
             selected = true;
             filter.code = 'recipientType';
@@ -379,7 +379,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.selectedAwardIDs?.count() > 0) {
+        if (props.filters?.selectedAwardIDs?.count() > 0) {
             // Award IDs have been selected
             selected = true;
             filter.values = props.filters.selectedAwardIDs.toArray();
@@ -403,7 +403,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.awardAmounts?.count() > 0) {
+        if (props.filters?.awardAmounts?.count() > 0) {
             // Award Amounts have been selected
             selected = true;
             filter.values = props.filters.awardAmounts?.toObject();
@@ -423,7 +423,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.pricingType?.count() > 0) {
+        if (props.filters?.pricingType?.count() > 0) {
             // Award Amounts have been selected
             selected = true;
             filter.values = props.filters.pricingType?.toObject();
@@ -443,7 +443,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.setAside?.count() > 0) {
+        if (props.filters?.setAside?.count() > 0) {
             // Award Amounts have been selected
             selected = true;
             filter.values = props.filters.setAside?.toObject();
@@ -463,7 +463,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.extentCompeted?.count() > 0) {
+        if (props.filters?.extentCompeted?.count() > 0) {
             // Award Amounts have been selected
             selected = true;
             filter.values = props.filters.extentCompeted?.toObject();
@@ -486,7 +486,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.selectedCFDA?.count() > 0) {
+        if (props.filters?.selectedCFDA?.count() > 0) {
             // CFDA have been selected
             selected = true;
             filter.values = props.filters.selectedCFDA.toArray();
@@ -506,7 +506,7 @@ const TopFilterBarContainer = (props) => {
      * that can be parsed by the top filter bar
      */
     const prepareNAICS = () => {
-        if (props.filters.naicsCodes?.require.length > 0) {
+        if (props.filters?.naicsCodes?.require.length > 0) {
             return {
                 code: 'selectedNAICS',
                 name: 'NAICS',
@@ -531,7 +531,7 @@ const TopFilterBarContainer = (props) => {
             values: []
         };
 
-        if (props.filters.pscCodes?.require.length > 0) {
+        if (props.filters?.pscCodes?.require.length > 0) {
             selected = true;
             filter.values = [
                 ...filter.values,
@@ -665,7 +665,7 @@ const TopFilterBarContainer = (props) => {
         }
 
         // prepare the agency filters
-        const selectedFundingAgencyFilters = prepareAgencies(props, 'funding');
+        const selectedFundingAgencyFilters = prepareAgencies('funding');
         if (selectedFundingAgencyFilters) {
             filters.push(selectedFundingAgencyFilters);
         }

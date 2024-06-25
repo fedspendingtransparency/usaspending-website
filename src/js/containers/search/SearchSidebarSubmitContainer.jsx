@@ -13,7 +13,6 @@ import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
 import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-import { setHasResults } from "../../redux/actions/search/titleBarFilterActions";
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,
@@ -36,8 +35,7 @@ const propTypes = {
     resetNaicsTree: PropTypes.func,
     resetMapLegendToggle: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
-    resetAppliedFilters: PropTypes.func,
-    setHasResults: PropTypes.func
+    resetAppliedFilters: PropTypes.func
 };
 
 export class SearchSidebarSubmitContainer extends React.Component {
@@ -90,11 +88,13 @@ export class SearchSidebarSubmitContainer extends React.Component {
 
     applyStagedFilters() {
         this.props.setAppliedFilterCompletion(false);
+
         if (areFiltersEqual(this.props.stagedFilters)) {
             this.resetFilters();
         }
         else {
             this.props.applyStagedFilters(this.props.stagedFilters);
+            this.props.setAppliedFilterCompletion(true);
         }
         this.setState({
             filtersChanged: false
@@ -109,7 +109,6 @@ export class SearchSidebarSubmitContainer extends React.Component {
         this.props.clearStagedFilters();
         this.props.resetAppliedFilters();
         this.props.resetMapLegendToggle();
-        this.props.setHasResults(false);
     }
 
     render() {
@@ -129,14 +128,12 @@ export default connect(
         requestsComplete: state.appliedFilters._complete,
         isEmpty: state.appliedFilters._empty,
         stagedFilters: state.filters,
-        appliedFilters: state.appliedFilters.filters,
-        hasResults: state.titleBarFilter.hasResults
+        appliedFilters: state.appliedFilters.filters
     }),
     (dispatch) => ({
         ...bindActionCreators(Object.assign(
             {},
-            combinedActions,
-            { setHasResults }
+            combinedActions
         ),
         dispatch)
     })

@@ -8,9 +8,6 @@ import PropTypes from 'prop-types';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { useHistory } from "react-router-dom";
-import { showModal } from 'redux/actions/modal/modalActions';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from 'react-redux';
 import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TimeVisualizationSectionContainer from
     'containers/search/visualizations/time/TimeVisualizationSectionContainer';
@@ -19,9 +16,9 @@ import GeoVisualizationSectionContainer from
 import RankVisualizationWrapperContainer from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 import { tabOptions } from 'dataMapping/search/searchViewTabs';
+
 import NoFiltersScreen from './screens/NoFiltersScreen';
 import VisualizationTabItem from './VisualizationTabItem';
-import Button from "../../sharedComponents/buttons/Button";
 
 const propTypes = {
     isMobile: PropTypes.bool,
@@ -35,9 +32,9 @@ const propTypes = {
 
 const VisualizationWrapper = (props) => {
     const [_mounted, setMounted] = useState(false);
-    const dispatch = useDispatch();
     const history = useHistory();
     let _queuedAnalyticEvent = null;
+
     const logVisualizationTab = useCallback((tab) => {
         if (props.noFiltersApplied) {
             // no filters are applied yet, don't log an analytic event
@@ -116,26 +113,6 @@ const VisualizationWrapper = (props) => {
     return (
         <div
             className="search-visualizations">
-            <div className="visualization-tabs__toggle-mobile">
-                <Button
-                    onClick={(e) => {
-                        e.persist();
-                        dispatch(showModal(window.location.href, 'filter'));
-                    }}
-                    onKeyUp={(e) => {
-                        e.persist();
-                        if (e.key === 'Enter') {
-                            dispatch(showModal(window.location.href, 'filter'));
-                        }
-                    }}
-                    copy="Learn how active filters work"
-                    buttonTitle="filter modal"
-                    buttonSize="sm"
-                    buttonType="text"
-                    backgroundColor="light"
-                    imageAlignment="right"
-                    image={<FontAwesomeIcon icon="window-restore" />} />
-            </div>
             <div className="visualization-tabs">
                 <div
                     className="visualization-tabs__list"

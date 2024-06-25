@@ -87,7 +87,6 @@ const contractColumns = [
     'Prime Award ID',
     'Prime Recipient Name'
 ];
-
 const grantColumns = [
     'Award ID',
     'Recipient Name',
@@ -101,7 +100,6 @@ const grantColumns = [
     'Funding Agency',
     'Funding Sub Agency'
 ];
-
 const loanColumns = [
     'Award ID',
     'Recipient Name',
@@ -111,9 +109,9 @@ const loanColumns = [
     'Awarding Agency',
     'Awarding Sub Agency',
     'Funding Agency',
-    'Funding Sub Agency'
+    'Funding Sub Agency',
+    'Award Type'
 ];
-
 const directPaymentColumns = [
     'Award ID',
     'Recipient Name',
@@ -127,7 +125,6 @@ const directPaymentColumns = [
     'Funding Agency',
     'Funding Sub Agency'
 ];
-
 const otherColumns = [
     'Award ID',
     'Recipient Name',
@@ -141,7 +138,6 @@ const otherColumns = [
     'Funding Agency',
     'Funding Sub Agency'
 ];
-
 const idvColumns = [
     'Award ID',
     'Recipient Name',
@@ -223,7 +219,6 @@ const idvColumns = [
     'Prime Award ID',
     'Prime Recipient Name'
 ];
-
 const subawardColumns = [
     'Subaward ID',
     'Subaward Type',
@@ -236,152 +231,194 @@ const subawardColumns = [
     'Prime Recipient Name'
 ];
 
-const amountWidth = 190;
-const descWidth = 380;
-const datesWidth = 210;
+const newDefaultWidth = 200;
+const newCustomWidth1 = 300;
+const newCustomWidth2 = 400;
 const covidColor = '#6E338E';
 const infrastructureColor = '#2D6878';
 
 const defaultContract = [
-    { title: 'Award ID' },
-    { title: 'Recipient Name' },
-    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
-    { title: 'Awarding Agency' },
-    { title: 'Awarding Sub Agency' },
-    { title: 'Contract Award Type' }
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Recipient Name', customWidth: newCustomWidth1 },
+    {
+        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
+    },
+    {
+        title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
+    },
+    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
+    {
+        title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    },
+    {
+        title: 'End Date', displayName: 'Period of Performance End', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    }
 ];
-
 const defaultGrant = [
-    { title: 'Award ID' },
-    { title: 'Recipient Name' },
-    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
-    { title: 'Awarding Agency' },
-    { title: 'Awarding Sub Agency' },
-    { title: 'Award Type' }
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Recipient Name', customWidth: newCustomWidth1 },
+    {
+        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
+    },
+    {
+        title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
+    },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
+    {
+        title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    },
+    {
+        title: 'End Date', displayName: 'Period of Performance End', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    }
 ];
-
 const defaultDirectPayment = [
-    { title: 'Award ID' },
-    { title: 'Recipient Name' },
-    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
-    { title: 'Awarding Agency' },
-    { title: 'Awarding Sub Agency' },
-    { title: 'Award Type' }
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Recipient Name', customWidth: newCustomWidth1 },
+    {
+        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
+    },
+    {
+        title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
+    },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
+    {
+        title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    },
+    {
+        title: 'End Date', displayName: 'Period of Performance End', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    }
+];
+const defaultOther = [
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Recipient Name', customWidth: newCustomWidth1 },
+    {
+        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
+    },
+    {
+        title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
+    },
+    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
+    {
+        title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    },
+    {
+        title: 'End Date', displayName: 'Period of Performance End', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    }
 ];
 
+// different than the others
 const defaultLoan = [
-    { title: 'Award ID' },
-    { title: 'Recipient Name' },
-    { title: 'Issued Date' },
-    { title: 'Loan Value', displayName: 'Face Value of Loan' },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Subsidy Cost',
-        displayName: 'Loan Subsidy Cost',
+        displayName: 'Original Subsidy Cost',
         subtitle: '(Total Obligations To Date)',
-        customWidth: 240
+        customWidth: newDefaultWidth,
+        right: true
     },
-    { title: 'Awarding Agency' },
-    { title: 'Awarding Sub Agency' }
+    {
+        title: 'Loan Value', right: true, displayName: 'Face Value of Loan', customWidth: newDefaultWidth
+    },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
+    { title: 'Issued Date', customWidth: newDefaultWidth }
+
 ];
-
-
-const defaultOther = [
-    { title: 'Award ID' },
-    { title: 'Recipient Name' },
-    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
-    { title: 'Awarding Agency' },
-    { title: 'Awarding Sub Agency' },
-    { title: 'Award Type' }
-];
-
 const defaultIdvColumns = [
-    { title: 'Award ID' },
-    { title: 'Recipient Name' },
-    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: 170 },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
-    { title: 'Awarding Agency' },
-    { title: 'Awarding Sub Agency' },
-    { title: 'Contract Award Type' }
-];
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Recipient Name', customWidth: newCustomWidth1 },
+    {
+        title: 'Award Amount', right: true, displayName: 'Total Obligations to Date', customWidth: newDefaultWidth
+    },
+    {
+        title: 'Total Outlays', right: true, displayName: 'Total Outlays to Date', customWidth: newDefaultWidth
+    },
+    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
+    {
+        title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+    },
+    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: newCustomWidth1 }
 
+
+];
 const infrastructureObligationsCol = {
     title: 'Infrastructure Obligations',
     background: infrastructureColor,
-    customWidth: amountWidth
+    customWidth: newCustomWidth1,
+    right: true
 };
-
 const infrastructureOutlaysCol = {
     title: 'Infrastructure Outlays',
     background: infrastructureColor,
-    customWidth: amountWidth
+    customWidth: newDefaultWidth,
+    right: true
 };
-
 const covidObligationsCol = {
     title: 'COVID-19 Obligations',
     background: covidColor,
-    customWidth: amountWidth
+    customWidth: newDefaultWidth,
+    right: true
 };
-
 const covidOutlaysCol = {
     title: 'COVID-19 Outlays',
     background: covidColor,
-    customWidth: amountWidth
+    customWidth: newDefaultWidth,
+    right: true
 };
-
 const covidDefCCol = {
     title: 'def_codes',
-    displayName: 'DEFC'
+    displayName: 'Disaster Emergency Fund Codes (DEFCs)',
+    customWidth: newCustomWidth1
 };
-
 const descriptionCol = {
     title: 'Description',
-    displayName: 'Base Transaction Description',
-    customWidth: descWidth
+    displayName: 'Award Description',
+    customWidth: newCustomWidth2
 };
-
 const tabsWithAdditionalCols = [
     defaultContract,
     defaultGrant,
-    defaultDirectPayment,
     defaultLoan,
+    defaultDirectPayment,
     defaultOther,
     defaultIdvColumns
 ];
 
 // Insert COVID columns
 tabsWithAdditionalCols.forEach((tab) => {
-    tab.splice(6, 0, descriptionCol);
-    tab.splice(7, 0, covidDefCCol);
-    tab.splice(8, 0, covidObligationsCol);
-    tab.splice(9, 0, covidOutlaysCol);
-    tab.splice(10, 0, infrastructureObligationsCol);
-    tab.splice(11, 0, infrastructureOutlaysCol);
+    tab.splice(4, 0, descriptionCol);
+    tab.splice(6, 0, covidDefCCol);
+    tab.splice(7, 0, covidObligationsCol);
+    tab.splice(8, 0, covidOutlaysCol);
+    tab.splice(9, 0, infrastructureObligationsCol);
+    tab.splice(10, 0, infrastructureOutlaysCol);
 });
 
 const defaultSub = [
-    { title: 'Sub-Award ID' },
-    { title: 'Sub-Awardee Name' },
-    { title: 'Action Date' },
-    { title: 'Sub-Award Amount' },
-    { title: 'Awarding Agency' },
-    { title: 'Awarding Sub Agency' },
-    { title: 'Prime Award ID' },
-    { title: 'Prime Recipient Name' }
+    { title: 'Sub-Award ID', displayName: "Subaward ID", customWidth: newCustomWidth1 },
+    { title: 'Sub-Awardee Name', displayName: "Subrecipient Name", customWidth: newCustomWidth1 },
+    {
+        title: 'Sub-Award Amount', right: true, displayName: "Subaward Obligations", customWidth: newDefaultWidth
+    },
+    { title: 'Action Date', displayName: "Subaward Action Date", customWidth: newDefaultWidth },
+    { title: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Prime Recipient Name', displayName: "Prime Award Recipient Name", customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', displayName: "Prime Award Awarding Agency", customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: "Prime Award Awarding Subagency", customWidth: newCustomWidth1 }
 ];
+
 
 export const availableColumns = (type) => {
     const columns = {
@@ -397,7 +434,6 @@ export const availableColumns = (type) => {
 
     return columns[type];
 };
-
 export const defaultColumns = (type) => {
     const columns = {
         contracts: defaultContract,
@@ -412,13 +448,12 @@ export const defaultColumns = (type) => {
 
     return columns[type];
 };
-
 export const defaultSort = (type) => {
     const columns = {
         contracts: 'Award Amount',
         grants: 'Award Amount',
         direct_payments: 'Award Amount',
-        loans: 'Loan Value',
+        loans: 'Subsidy Cost',
         other: 'Award Amount',
         idvs: 'Award Amount',
         subcontracts: 'Sub-Award Amount',
@@ -427,7 +462,6 @@ export const defaultSort = (type) => {
 
     return columns[type];
 };
-
 export const apiFieldByTableColumnName = {
     DEFC: 'def_codes',
     Description: 'Description'

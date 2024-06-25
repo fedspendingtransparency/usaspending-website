@@ -178,3 +178,10 @@ export const fipsIdByStateName = {
     "puerto rico": "72",
     "us virgin islands": "78"
 };
+
+export const stateNameFromFips = (fips) => {
+    if ({}.hasOwnProperty.call(stateNameByFipsId, fips)) {
+        return stateNameByFipsId[fips];
+    }
+    return [];
+};

@@ -12,9 +12,7 @@
     @import "../../components/tooltips/customTooltipContent";
     @import "../../components/tooltips/index";
 
-    @import "../../components/roundedtoggle";
-    @import "../../components/tempSearchPage/tempSearchSectionWrapper";
-    @import "toggleTempSearchPage";
+    @import "resultsView/resultsView";
 
     .subaward-dropdown__list {
         min-width: max-content;
@@ -39,9 +37,20 @@
         }
     }
 
+    .visualization-tabs__toggle-mobile {
+        margin: rem(20) 0;
+        @media(min-width: $medium-screen) {
+            display: none;
+        }
+
+        .button-type__text-right-icon-light {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
     #main-content {
         width: 100%;
-        background-color: $color-gray-lightest;
         padding: rem(40) rem(16) rem(16) rem(16);
         @import "components/aboutTheDataSidebar/aboutTheData";
 
@@ -55,7 +64,7 @@
             padding: 0;
 
             .full-search-sidebar {
-                padding-right: rem(8);
+                padding-right: rem(16);
                 .search-sidebar {
                     margin: 0;
                 }
@@ -66,7 +75,37 @@
                 @import "./topFilterBar/topFilterBar";
                 width: 100%;
                 margin: 0;
-                padding-left: rem(8);
+
+                .search-results {
+                    .new-search-container {
+                        text-align: center;
+
+                        .new-search-icon {
+                            height: rem(280);
+                            margin-top: rem(16);
+                        }
+
+                        .no-results-icon {
+                            height: rem(280);
+                            margin-top: rem(32);
+                        }
+
+                        p {
+                            font-size: rem(14);
+                            margin: rem(24) 0;
+                        }
+
+                        button {
+                            margin: 0 auto;
+                            // hiding as part of dev-10994, remove later
+                            display: none;
+                        }
+
+                        .new-search__no-results-text, .new-search__start-text {
+                            color: $gray-60;
+                        }
+                    }
+                }
 
                 .tablet-search__modal {
                     display:none;
@@ -82,5 +121,5 @@
             }
         }
     }
-
 }
+

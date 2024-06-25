@@ -9,6 +9,8 @@ import { uniq, cloneDeep } from 'lodash';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
+import GlobalConstants from 'GlobalConstants';
+
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
@@ -493,7 +495,7 @@ const MapWrapper = (props) => {
         // state page
         if (stateProfile) return 'Awarded Amount';
         // per capita toggle
-        return (mapLegendToggle === 'totalSpending' ? 'Total Obligations' : 'Per Capita Spending');
+        return (mapLegendToggle === 'totalSpending' ? 'Obligations' : 'Per Capita');
     };
 
     const tooltip = () => {
@@ -545,7 +547,8 @@ const MapWrapper = (props) => {
         if (props.activeFilters?.territory === 'country') {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
-        } else {
+        }
+        else {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
         }
 
@@ -597,7 +600,7 @@ const MapWrapper = (props) => {
 
     return (
         <div className="map-container">
-            <MapBox
+            {GlobalConstants.MAPBOX_TOKEN && <MapBox
                 loadedMap={mapReadyPrep}
                 unloadedMap={mapRemoved}
                 center={center}
@@ -605,7 +608,7 @@ const MapWrapper = (props) => {
                 stateInfo={props.stateInfo}
                 stateProfile={props.stateProfile}
                 ref={mapRef}
-                singleLocationSelected={props.singleLocationSelected} />
+                singleLocationSelected={props.singleLocationSelected} />}
             <MapFiltersToggle onClick={toggleFilters} isOpen={isFiltersOpen} />
             {filters()}
             {legend()}

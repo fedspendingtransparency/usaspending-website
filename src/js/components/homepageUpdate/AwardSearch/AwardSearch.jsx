@@ -32,6 +32,7 @@ const AwardSearch = () => {
     const fiscalYear = <div>See spending data over time using our Time Period filters, like <div className="award-search__glossary">Fiscal Year</div> {<GlossaryLink term="fiscal-year-fy" hidden={activeCardIndex !== 1} />}</div>;
     const naics = <div>Use the <div className="award-search__glossary">North American Industry Classification System (NAICS)</div> {<GlossaryLink term="naics" hidden={activeCardIndex !== 2} />} filter to find spending by industry</div>;
     const psc = <div>From medical supplies to aircraft equipment, use <div className="award-search__glossary">Product or Service Codes (PSCs)</div> {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />} to see what&apos;s being purchased</div>;
+
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
@@ -57,7 +58,7 @@ const AwardSearch = () => {
     }, [windowWidth]);
 
 
-    const getSelectedTab = (tab, rankType) => {
+    const getSelectedSection = (section, rankType) => {
         const filterValue = {
             filters: {
                 ...defaultFilters,
@@ -78,10 +79,10 @@ const AwardSearch = () => {
             version: REQUEST_VERSION
         };
 
-        if (tab === "map") {
+        if (section === "map" || section === "geography") {
             filterValue.filters.timePeriodFY = [(FiscalYearHelper.currentFiscalYear()).toString()];
         }
-        else if (tab === "time") {
+        else if (section === "time") {
             filterValue.filters.timePeriodFY =
                 [(FiscalYearHelper.currentFiscalYear()).toString(),
                     (FiscalYearHelper.currentFiscalYear() - 1).toString(),
@@ -89,10 +90,10 @@ const AwardSearch = () => {
                     (FiscalYearHelper.currentFiscalYear() - 3).toString(),
                     (FiscalYearHelper.currentFiscalYear() - 4).toString()];
         }
-        else if (tab === "rank" && rankType === "naics") {
+        else if (section === "rank" && rankType === "naics") {
             filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         }
-        else if (tab === "rank" && rankType === "psc") {
+        else if (section === "rank" && rankType === "psc") {
             filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         }
 
@@ -101,10 +102,12 @@ const AwardSearch = () => {
             .then((results) => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
-                    window.open(`/search?hash=${hashData.hash}&tab=${tab}&rankType=${rankType}`, "_self");
+                    // eslint-disable-next-line no-unused-expressions
+                    window.open(`/search?hash=${hashData.hash}&section=${section}&type=${rankType}`, "_self");
                 }
                 else {
-                    window.open(`/search?hash=${hashData.hash}&tab=${tab}`, "_self");
+                    // eslint-disable-next-line no-unused-expressions
+                    window.open(`/search?hash=${hashData.hash}&section=${section}`, "_self");
                 }
                 // operation has resolved
                 tempHash = null;
@@ -132,7 +135,7 @@ const AwardSearch = () => {
         label: `carousel ${buttonName}`
     });
     const handleGoToAdvancedSearch = (buttonName, rankType) => {
-        getSelectedTab(buttonName, rankType);
+        getSelectedSection(buttonName, rankType);
         trackClick(buttonName);
     };
 
@@ -196,7 +199,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("map");
+                                                        handleGoToAdvancedSearch("geography");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -236,7 +239,7 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     disabled={activeCardIndex !== 2}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("rank", "naics");
+                                                        handleGoToAdvancedSearch("categories", "naics");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -256,7 +259,7 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     disabled={activeCardIndex !== 3}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("rank", "psc");
+                                                        handleGoToAdvancedSearch("categories", "psc");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -307,7 +310,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("map");
+                                                        handleGoToAdvancedSearch("geography");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>

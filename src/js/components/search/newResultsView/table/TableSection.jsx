@@ -1,36 +1,39 @@
 /**
- * table.jsx
+ * TableSection.jsx
  */
 
-
 import React from "react";
-import SearchSectionWrapper from "../SearchSectionWrapper";
-import {
-    DsmWrapper,
-    TempPlaceholderComponent
-} from "../DsmWrapper";
-import AwardTable from "./AwardTable";
+import PropTypes from "prop-types";
+import ResultsTableContainer from "../../../../containers/search/newResultsView/ResultsTableContainer";
 
-const TableSection = ({ awardTableHasLoaded }) => {
-    const dummyWrapperProps = {
+import PlaceholderComponent from "../PlaceholderComponent";
+import TableDsm from "./TableDsm";
+
+const propTypes = {
+    awardTableHasLoaded: PropTypes.bool,
+    subaward: PropTypes.bool
+};
+
+const TableSection = ({ awardTableHasLoaded, subaward }) => {
+    const wrapperProps = {
         sectionTitle: 'Prime Award Results',
-        dsmContent: <DsmWrapper
-            heading={"Prime Award Results:  What's included in this view of the data?"}
-            description="Use the map below to break down spending by state, county, or congressional district." />
+        dsmContent: <TableDsm subaward={subaward} />,
+        sectionName: 'table'
     };
 
     return (
-        <SearchSectionWrapper
-            {...dummyWrapperProps}>
-            <div id="search-page-component" className="award">
-                {!awardTableHasLoaded ?
-                    <TempPlaceholderComponent />
-                    :
-                    <AwardTable />
-                }
-            </div>
-        </SearchSectionWrapper>
+        <div id="search-page-component" className="awards">
+            {awardTableHasLoaded ?
+                <ResultsTableContainer
+                    wrapperProps={wrapperProps}
+                    subaward={subaward}
+                    awardTableHasLoaded={awardTableHasLoaded} />
+                :
+                <PlaceholderComponent className="awards" />
+            }
+        </div>
     );
 };
 
+TableSection.propTypes = propTypes;
 export default TableSection;

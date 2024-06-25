@@ -1,21 +1,94 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from "data-transparency-ui";
+import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button, Table } from "data-transparency-ui";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 
-require("pages/homepageUpdate/homepageUpdate.scss");
+require("pages/search/searchPage.scss");
 
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
+
+    const columns =
+        [
+            {
+                title: 'award',
+                displayName: 'Prime Award ID',
+                columnWidth: 200
+            },
+            {
+                title: 'amount',
+                displayName: 'Amount',
+                columnWidth: 200
+            },
+            {
+                title: 'percent',
+                displayName: '% of Total Amount',
+                right: true,
+                columnWidth: 400
+            },
+            {
+                title: 'test',
+                displayName: 'test',
+                columnWidth: 200
+            },
+            {
+                title: 'mock1',
+                displayName: 'Mock Data 1',
+                columnWidth: 200
+            },
+            {
+                title: 'mock2',
+                displayName: 'Mock Data 2',
+                columnWidth: 200
+            },
+            {
+                title: 'mock2',
+                displayName: 'Mock Data 2',
+                columnWidth: 200
+            },
+            {
+                title: 'mock2',
+                displayName: 'Mock Data 2',
+                columnWidth: 200
+            },
+            {
+                title: 'mock2',
+                displayName: 'Mock Data 2',
+                columnWidth: 200
+            },
+            {
+                title: 'mock2',
+                displayName: 'Mock Data 2',
+                columnWidth: 200
+            },
+            {
+                title: 'mock2',
+                displayName: 'Mock Data 2',
+                columnWidth: 200
+            }
+        ];
+    const rows = [
+        [<a href="/">Link</a>, 'first row', '25%', <a href="/">LinkLongLongLongLongLong</a>, 'mock1', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2LongerData'],
+        [<React.Fragment><strong>jsx</strong> content</React.Fragment>, 'second row', 'mock data longlonglonglonglonglong longlonglonglonglonglong', 'test', 'mock1', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2LongerData'],
+        [<a href="/">Link</a>, 'third row', 'test', <a href="/">Link</a>, 'mock1', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2LongerData'],
+        [<a href="/">Link</a>, 'fourth row', 'test', <a href="/">Link</a>, 'mock1', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2LongerData']
+    ];
 
     return (
         <PageFeatureFlag>
             <PageWrapper
                 pageName="Test Page"
-                classNames="usa-da-home-page"
+                classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <section style={{ margin: '80px', backgroundColor: 'white' }}>
+                        <div style={{
+                            width: '800px', overflowX: 'scroll', borderRadius: '8px', border: 'solid 1px #dfe1e2'
+                        }}>
+                            <Table columns={columns} rows={rows} classNames="search-results-dtui-table" stickyFirstColumn />
+                        </div>
+                    </section>
                     <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px' }}>
                         <div>1</div>
                         <div>2</div>
@@ -23,9 +96,6 @@ const tempPage = () => {
                         <div>4</div>
                         <div>5</div>
                         <div>6</div>
-                        <div className="tooltip-pointer">
-                            <p>hello</p>
-                        </div>
                     </div>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>

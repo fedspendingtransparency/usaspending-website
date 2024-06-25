@@ -4,7 +4,6 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
@@ -15,15 +14,18 @@ import { AddFilter } from 'components/sharedComponents/icons/Icons';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
+import { showModal } from 'redux/actions/modal/modalActions';
 
 import SearchSidebar from './SearchSidebar';
-import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./visualizations/SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
+import Button from "../sharedComponents/buttons/Button";
 
 const propTypes = {
     download: PropTypes.object,
@@ -55,10 +57,8 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const hasResults = useSelector((state) => state.titleBarFilter.hasResults);
 
-    // TODO: Remove this state once new Advance Search is done and toggle no longer needed
-    const [toggleTempSearchPage, setToggleTempSearchPage] = useState(true);
+    const dispatch = useDispatch();
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -106,9 +106,7 @@ const SearchPage = ({
     let fullSidebar = (
         <SearchSidebar
             filters={filters}
-            hash={hash}
-            toggleTempSearchPage={toggleTempSearchPage}
-            setToggleTempSearchPage={setToggleTempSearchPage} />
+            hash={hash} />
     );
     if (isMobile) {
         fullSidebar = null;
@@ -149,7 +147,7 @@ const SearchPage = ({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled={hasResults} setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
@@ -167,12 +165,12 @@ const SearchPage = ({
             ]}
             filters={appliedFilters}>
             <div id="main-content">
-                <FlexGridRow className="search-contents" >
+                <FlexGridRow className="search-contents">
                     <FlexGridCol className="full-search-sidebar" width={3}>
-                        { fullSidebar }
+                        {fullSidebar}
                         {isMobile === false ?
                             <KeywordSearchLink />
-                            : '' }
+                            : ''}
                     </FlexGridCol>
                     <div className="mobile-filter-button-wrapper">
                         <button
@@ -191,6 +189,27 @@ const SearchPage = ({
                             </div>
                         </button>
                     </div>
+                    <div
+                        className="visualization-tabs__toggle-mobile">
+                        <Button
+                            onClick={(e) => {
+                                e.persist();
+                                dispatch(showModal(window.location.href, 'filter'));
+                            }}
+                            onKeyUp={(e) => {
+                                e.persist();
+                                if (e.key === 'Enter') {
+                                    dispatch(showModal(window.location.href, 'filter'));
+                                }
+                            }}
+                            copy="Learn how active filters work"
+                            buttonTitle="filter modal"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="window-restore" />} />
+                    </div>
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
@@ -202,26 +221,15 @@ const SearchPage = ({
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
                     <FlexGridCol desktop={9} tablet={12} mobile={12}>
-                        {toggleTempSearchPage ?
-                            <SearchResults
-                                filters={filters}
-                                isMobile={isMobile}
-                                filterCount={filterCount}
-                                showMobileFilters={showMobileFilters}
-                                updateFilterCount={updateFilterCount}
-                                toggleMobileFilters={toggleMobileFilters}
-                                requestsComplete={requestsComplete}
-                                noFiltersApplied={noFiltersApplied} />
-                            :
-                            <ResultsView
-                                filters={filters}
-                                isMobile={isMobile}
-                                filterCount={filterCount}
-                                showMobileFilters={showMobileFilters}
-                                updateFilterCount={updateFilterCount}
-                                toggleMobileFilters={toggleMobileFilters}
-                                requestsComplete={requestsComplete}
-                                noFiltersApplied={noFiltersApplied} />}
+                        <ResultsView
+                            filters={filters}
+                            isMobile={isMobile}
+                            filterCount={filterCount}
+                            showMobileFilters={showMobileFilters}
+                            updateFilterCount={updateFilterCount}
+                            toggleMobileFilters={toggleMobileFilters}
+                            requestsComplete={requestsComplete}
+                            noFiltersApplied={noFiltersApplied} />
                     </FlexGridCol>
                 </FlexGridRow>
                 <FullDownloadModalContainer

@@ -10,14 +10,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, intersection, throttle } from 'lodash';
-
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
-
 import { awardTypeGroups, subawardTypeGroups } from 'dataMapping/search/awardType';
-
 import {
     defaultColumns,
     defaultSort,
@@ -25,20 +22,16 @@ import {
 } from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
-
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
-
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import { setHasResults } from "../../../redux/actions/search/titleBarFilterActions";
 
 const propTypes = {
     filters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func,
-    setHasResults: PropTypes.func
+    subAwardIdClicked: PropTypes.func
 };
 export const tableTypes = [
     {
@@ -94,6 +87,8 @@ const ResultsTableContainer = (props) => {
     const [inFlight, setInFlight] = useState(true);
     const [error, setError] = useState(false);
     const [results, setResults] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [resultLimit, setResultLimit] = useState(10);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
     const initialRender = useRef(true);
@@ -147,7 +142,6 @@ const ResultsTableContainer = (props) => {
             // the page number
             pageNumber = 1;
         }
-        const resultLimit = 60;
 
         const requestFields = [];
 
@@ -205,12 +199,11 @@ const ResultsTableContainer = (props) => {
                 }));
 
                 // don't clear records if we're appending (not the first page)
-                if (pageNumber <= 1 || newSearch) {
-                    newState.tableInstance = `${uniqueId()}`;
-                    newState.results = parsedResults;
-                }
-                else {
-                    newState.results = results.concat(parsedResults);
+                newState.tableInstance = `${uniqueId()}`;
+                newState.results = parsedResults;
+
+                if (newSearch) {
+                    setTotal(newState.results.length);
                 }
 
                 // request is done
@@ -220,14 +213,6 @@ const ResultsTableContainer = (props) => {
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
                 setResults(newState.results);
-
-                if (newState.results.length > 0) {
-                    props.setHasResults(true);
-                }
-                else {
-                    props.setHasResults(false);
-                }
-
                 setPage(newState.page);
                 setLastPage(newState.lastPage);
 
@@ -257,7 +242,8 @@ const ResultsTableContainer = (props) => {
             subtitle: col.subtitle || '',
             width,
             background: col.background || '',
-            defaultDirection: direction
+            defaultDirection: direction,
+            right: col.right || false
         };
     };
 
@@ -315,8 +301,9 @@ const ResultsTableContainer = (props) => {
         }
         setTableType(tab);
         if (newState.sort) {
-            setSort(Object.assign(sort, newState.sort));
+            setSort(Object.assign(newState.sort));
         }
+        setPage(1);
         Analytics.event({
             event: 'search_table_tab',
             category: 'Advanced Search - Table Tab',
@@ -360,8 +347,6 @@ const ResultsTableContainer = (props) => {
             tabCountRequest.cancel();
         }
 
-        props.setAppliedFilterCompletion(false);
-
         setInFlight(true);
         setError(false);
 
@@ -388,7 +373,6 @@ const ResultsTableContainer = (props) => {
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
-                    props.setAppliedFilterCompletion(true);
                     console.log(err);
                 }
             });
@@ -411,14 +395,14 @@ const ResultsTableContainer = (props) => {
 
     const updateSort = (field, direction) => {
         if (field === 'Action Date') {
-            setSort(Object.assign(sort, {
+            setSort(Object.assign({
                 field: 'Sub-Award Date',
                 direction
             }));
             performSearch(true);
         }
         else {
-            setSort(Object.assign(sort, {
+            setSort(Object.assign({
                 field,
                 direction
             }));
@@ -509,7 +493,7 @@ const ResultsTableContainer = (props) => {
     useEffect(throttle(() => {
         performSearch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [tableType]);
+    }, 400), [tableType, resultLimit, page]);
 
     if (!columns[tableType]) {
         return null;
@@ -530,7 +514,13 @@ const ResultsTableContainer = (props) => {
             loadNextPage={loadNextPage}
             subaward={props.subaward}
             awardIdClick={awardIdClick}
-            subAwardIdClick={subAwardIdClick} />
+            subAwardIdClick={subAwardIdClick}
+            page={page}
+            setPage={setPage}
+            total={total}
+            resultsLimit={resultLimit}
+            setResultLimit={setResultLimit}
+            resultsCount={counts[tableType]} />
     );
 };
 
@@ -540,8 +530,7 @@ export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward,
-        hasResults: state.titleBarFilter.hasResults
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(
         // access multiple redux actions
@@ -549,7 +538,6 @@ export default connect(
             {},
             searchActions,
             appliedFilterActions,
-            { setHasResults },
             { subAwardIdClicked }
         ),
         dispatch
