@@ -22,19 +22,29 @@
         @import "./screens/screens";
     }
 
-    .table-for-new-search-page {
-        &.activate-right-fade {
-            mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
-        }
+    // temp fix for the box shadow on stickyColumn for awards table
+    table.usda-table {
+        &.table-for-new-search-page {
+            &.award-results-table-dtui {
 
-        .usda-table__cell.stickyColumn {
-            background-color: $color-white;
-        }
+                tbody.usda-table__body {
+                    td.usda-table__cell.stickyColumn {
+                        &.add-box-shadow {
+                            border-right: solid 1px $gray-cool-10;
+                            // same as $shadow-sm, but only on right side
+                            box-shadow: 4px 0 8px -2px rgba(0, 0, 0, 0.1);
+                        }
+                    }
+                }
 
-        .stickyColumn {
-            border-right: solid 1px $gray-cool-10;
-            -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+                th.table-header.stickyColumn {
+                    &.add-box-shadow {
+                        border-right: solid 1px $gray-cool-10;
+                        // same as $shadow-sm, but only on right side
+                        box-shadow: 4px 0 8px -2px rgba(0, 0, 0, 0.1);
+                    }
+                }
+            }
         }
     }
 
