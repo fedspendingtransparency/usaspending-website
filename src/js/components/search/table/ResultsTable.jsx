@@ -261,7 +261,7 @@ export default class ResultsTable extends React.Component {
                         MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
                         <ReadMore
                             text={obj.Description || '--'}
-                            limit={40} />,
+                            limit={90} />,
                         obj['Contract Award Type'] || obj['Award Type'] || '--',
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
@@ -287,10 +287,10 @@ export default class ResultsTable extends React.Component {
                         MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                         <ReadMore
                             text={obj.Description || '--'}
-                            limit={40} />,
+                            limit={90} />,
                         <ReadMore
                             text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
-                            limit={65} />,
+                            limit={90} />,
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -317,7 +317,7 @@ export default class ResultsTable extends React.Component {
                     MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                     <ReadMore
                         text={obj.Description || '--'}
-                        limit={40} />,
+                        limit={90} />,
                     obj['Contract Award Type'] || obj['Award Type'] || '--',
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
