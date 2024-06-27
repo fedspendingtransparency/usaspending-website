@@ -19,10 +19,10 @@ const propTypes = {
 
 const tickFormatter = (value, isMobile) => {
     const limit = isMobile ? 30 : 47; // put your maximum character
-    if (value.length < limit) return value;
+    if (value.length < limit) return { text: value, isOneLine: (value.length < 27) };
     const newValue = value.replace("Department", "Dept");
-    if (newValue.length <= limit) return newValue;
-    return `${newValue.substring(0, limit)}...`;
+    if (newValue.length <= limit) return { text: newValue, isOneLine: false };
+    return { text: `${newValue.substring(0, limit)}...`, isOneLine: false };
 };
 
 const SpendingByCategoriesChart = (props) => {
@@ -49,11 +49,18 @@ const SpendingByCategoriesChart = (props) => {
         const {
             x, y, payload, link
         } = args;
-
-        const translateY = isMobile ? y - 20 : y + 12;
-
+        const formattedText = tickFormatter(payload.value, isSmMobile);
+        const translateY = () => {
+            if (isMobile) {
+                return y - 20;
+            }
+            if (formattedText.isOneLine) {
+                return y + 4;
+            }
+            return y + 12;
+        };
         return (
-            <g transform={`translate(${x - 8},${translateY})`}>
+            <g transform={`translate(${x - 8},${translateY()})`}>
                 {link[payload.index].link ?
                     <a href={`${link[payload.index].link}`}>
                         <Text
@@ -62,7 +69,7 @@ const SpendingByCategoriesChart = (props) => {
                             width={isMobile ? labelWidthVar : labelWidthVar + 16}
                             fill="#2378C3"
                             lineHeight={17.5}>
-                            {tickFormatter(payload.value, isSmMobile)}
+                            {formattedText.text}
                         </Text>
                     </a>
                     :
@@ -72,7 +79,7 @@ const SpendingByCategoriesChart = (props) => {
                         width={isMobile ? labelWidthVar : labelWidthVar + 16}
                         fill="#5c5c5c"
                         lineHeight={17.5}>
-                        {tickFormatter(payload.value, isSmMobile)}
+                        {formattedText.text}
                     </Text>
                 }
 
