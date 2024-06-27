@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { Pagination, Table } from "data-transparency-ui";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import {throttle} from "lodash";
+import { throttle } from "lodash";
 
 const SectionDataTable = (props) => {
     const { sortDirection, activeField } = props;

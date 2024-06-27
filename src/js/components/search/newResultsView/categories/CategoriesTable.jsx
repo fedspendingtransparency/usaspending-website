@@ -3,11 +3,11 @@
  * Created by Andrea Blackwell 05/03/2024
  **/
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from "data-transparency-ui";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import {throttle} from "lodash";
+import { throttle } from "lodash";
 import CategoriesPagination from "./CategoriesPagination";
 
 const propTypes = {
@@ -53,7 +53,7 @@ const CategoriesTable = (props) => {
                 error={props.error}
                 hasNextPage={props.hasNextPage}
                 hasPreviousPage={props.hasPreviousPage}
-                recipientError={props.recipientError}/>
+                recipientError={props.recipientError} />
         </>
     );
 };
