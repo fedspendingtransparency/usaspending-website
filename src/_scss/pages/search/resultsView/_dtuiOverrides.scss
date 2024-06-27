@@ -1,0 +1,21 @@
+// DTUI Table component overrides
+.usa-dt-table__stacked {
+  @media (max-width: $tablet-screen) {
+    .usda-table__cell {
+      border: unset !important;
+    }
+
+    .usda-table__row-item {
+      border: 1px solid $color-gray-lighter;
+      border-top: 2px solid $color-gray-lighter;
+
+      &.usda-table__row_odd td.usda-table__cell {
+        background-color: $color-gray-lightest !important;
+      }
+    }
+  }
+}
+
+.usa-dt-table__stacked-picker {
+  display: none;
+}

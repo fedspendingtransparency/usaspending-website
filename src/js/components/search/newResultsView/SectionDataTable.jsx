@@ -5,32 +5,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { Pagination, Table } from "data-transparency-ui";
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import {throttle} from "lodash";
 
 const SectionDataTable = (props) => {
     const { sortDirection, activeField } = props;
     const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const pageSize = 10;
-
-    const maxRows = props.rows ? props.rows : [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-
-    const columns = props.columns ? props.columns : [
-        {
-            title: 'type',
-            displayName: 'Award Types'
-        },
-        {
-            title: 'obligations',
-            displayName: ["Award", <br />, "Obligations"],
-            right: true
-        },
-        {
-            title: 'percent',
-            displayName: ["% of", <br />, "Total"],
-            right: true
-        }
-    ];
+    const maxRows = props.rows;
+    const columns = props.columns;
 
     const changePage = (page) => {
         if (props.manualSort) {
@@ -45,6 +32,19 @@ const SectionDataTable = (props) => {
     };
 
     useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+                console.log(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
         if (pageSize) {
             if (props.manualSort) {
                 setRows(maxRows.slice(currentPage - 1, pageSize));
@@ -56,10 +56,12 @@ const SectionDataTable = (props) => {
     return (
         <>
             <Table
-                classNames="table-for-new-search-page"
+                classNames="table-for-new-search-page award-results-table-dtui"
                 currentSort={{ direction: sortDirection, field: activeField }}
                 updateSort={updateSort}
                 columns={columns}
+                isMobile={isMobile}
+                isStacked
                 rows={rows} />
             <Pagination
                 resultsText
