@@ -18,7 +18,7 @@ const propTypes = {
 };
 
 const tickFormatter = (value, isMobile) => {
-    const limit = isMobile ? 30 : 48; // put your maximum character
+    const limit = isMobile ? 30 : 47; // put your maximum character
     if (value.length < limit) return value;
     const newValue = value.replace("Department", "Dept");
     if (newValue.length <= limit) return newValue;
@@ -50,7 +50,7 @@ const SpendingByCategoriesChart = (props) => {
             x, y, payload, link
         } = args;
 
-        const translateY = isMobile ? y - 20 : y + 8;
+        const translateY = isMobile ? y - 20 : y + 12;
 
         return (
             <g transform={`translate(${x - 8},${translateY})`}>
