@@ -31,7 +31,6 @@ const CategoriesTable = (props) => {
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
-                console.log(newWidth < mediumScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
