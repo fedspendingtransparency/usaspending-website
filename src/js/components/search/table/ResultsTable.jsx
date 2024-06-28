@@ -290,7 +290,7 @@ export default class ResultsTable extends React.Component {
                             limit={90} />,
                         <ReadMore
                             text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
-                            limit={90} />,
+                            limit={65} />,
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
