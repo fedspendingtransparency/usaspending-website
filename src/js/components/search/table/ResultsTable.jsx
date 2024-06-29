@@ -33,7 +33,8 @@ export default class ResultsTable extends React.Component {
         page: PropTypes.number,
         setPage: PropTypes.func,
         setResultLimit: PropTypes.func,
-        total: PropTypes.number
+        total: PropTypes.number,
+        isMobile: PropTypes.bool
     };
 
     constructor(props) {
