@@ -1,6 +1,7 @@
 .status-of-funds {
     @import './introSection';
     @import './drilldownSidebar';
+    @import './dtuiOverrides';
     @import './visualizationSection';
     @import '../visualizations/statusOfFundsChart';
     @import '../../../components/roundedtoggle';
