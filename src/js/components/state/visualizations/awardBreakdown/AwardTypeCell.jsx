@@ -33,6 +33,8 @@ export default class AwardTypeCell extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log('props', props);
+
         this.state = {
             label: '',
             didProcess: false

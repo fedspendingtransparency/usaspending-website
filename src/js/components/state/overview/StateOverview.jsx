@@ -18,6 +18,8 @@ import { SectionHeader } from "data-transparency-ui";
 import DetailsTooltip from './DetailsTooltip';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
+import RoundedToggle from "../../sharedComponents/RoundedToggle";
+import Accordion from "../../sharedComponents/accordion/Accordion";
 
 const propTypes = {
     stateProfile: PropTypes.object
@@ -30,11 +32,15 @@ export default class StateOverview extends React.PureComponent {
         this.state = {
             hideFlag: true,
             flag: '',
-            showInfoTooltip: false
+            showInfoTooltip: false,
+            setOpen: false,
+            toggle: false
         };
 
         this.showTooltip = this.showTooltip.bind(this);
         this.closeTooltip = this.closeTooltip.bind(this);
+        this.onToggle = this.onToggle.bind(this);
+        this.onKeyToggle = this.onKeyToggle.bind(this);
     }
 
     componentDidMount() {
@@ -46,6 +52,24 @@ export default class StateOverview extends React.PureComponent {
             this.prepareOverview(this.props);
         }
     }
+
+    onToggle = () => {
+        // setOnToggle(!toggle);
+
+        this.setState({
+            toggle: !this.state.toggle
+        });
+    };
+
+    onKeyToggle = (event) => {
+        if (event.key === 'Enter') {
+            // setOnToggle(!toggle);
+
+            this.setState({
+                toggle: !this.state.toggle
+            });
+        }
+    };
 
     prepareOverview(props) {
         let flag = null;
@@ -234,9 +258,17 @@ export default class StateOverview extends React.PureComponent {
                     </div>
                     <div className="state-section__row">
                         <div className="state-section__viz award-breakdown">
-                            <h3 className="state-overview__heading">
+                            <div className="award-breakdown__heading-row">
+                                <h3 className="state-overview__heading">
                                 Award Breakdown
-                            </h3>
+                                </h3>
+                                <div className="state-overview__heading-right-side">
+                                    <RoundedToggle toggle={this.state.toggle} onKeyToggle={this.onKeyToggle} onToggle={this.onToggle} label="View Outlays" />
+                                    <div className="state-overview__line-div" />
+                                    <Accordion setOpen={this.state.setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+                                </div>
+                            </div>
+
                             <AwardBreakdownContainer />
                         </div>
                         <div className="state-section__viz geo">
