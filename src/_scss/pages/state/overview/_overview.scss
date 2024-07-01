@@ -72,7 +72,7 @@
 
                     @import '../../../components/roundedtoggle';
 
-                    // annoying tweaks to level out the text in the row
+                    // overrides to level out the text in the row
                     .rounded-toggle__wrapper {
                         margin-top: rem(2);
                     }
@@ -96,6 +96,9 @@
                     // this large chunk of css for the accordion is copied from agency/index.scss because this 'what is this?' accordion is very different from all other accordions
                     // it's only used in two places right now, but if we use it in a third place we should probably make it a separate WhatIsThisAccordion component
                     .accordion-container {
+                        @media(max-width: $tablet-screen) {
+                            margin-bottom: rem(4);
+                        }
                         @media(min-width: $tablet-screen) {
                             margin-left: rem(10);
                         }
@@ -168,6 +171,49 @@
                     .accordion-container .open .content {
                         display: none;
                     }
+                }
+            }
+
+            // this block copied from statusOfFunds/visualizationSection, for the styles in the accordion
+            // but margins needed to change for this instance
+            .state-overview__what-content {
+                border-left: 4px solid $color-primary-alt-light;
+                border-top: 1px solid $color-primary-alt-light;
+                border-right: 1px solid $color-primary-alt-light;
+                border-bottom: 1px solid $color-primary-alt-light;
+                background-color: #e0f3f8;
+                padding: 24px 16px;
+
+                .state-overview__info-icon {
+                    height: 20px;
+                    width: 20px;
+                    color: #00bfe7;
+                }
+
+                .state-overview__what-heading {
+                    font-size: rem(16);
+                    font-weight: $font-semibold;
+                    display: inline-block;
+                    margin: 0;
+                    margin-left: 18px;
+                    color: $gray-90;
+                }
+
+                .state-overview__what-second-heading {
+                    font-size: rem(16);
+                    font-weight: $font-semibold;
+                    display: inline-block;
+                    color: $gray-90;
+                    margin: 24px 16px 0 40px;
+                }
+
+                .state-overview__what-text {
+                    margin-left: 40px;
+                    font-size: rem(14);
+                    color: $color-base;
+                    margin-bottom: 0;
+                    margin-right: 16px;
+                    margin-top: 8px;
                 }
             }
         }
