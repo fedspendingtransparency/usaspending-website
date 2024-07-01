@@ -53,7 +53,6 @@ export default class StateOverview extends React.PureComponent {
         if (prevProps.stateProfile.id !== this.props.stateProfile.id) {
             this.prepareOverview(this.props);
         }
-        console.log('this.state.toggle', this.state.toggle);
     }
 
     onToggle = () => {

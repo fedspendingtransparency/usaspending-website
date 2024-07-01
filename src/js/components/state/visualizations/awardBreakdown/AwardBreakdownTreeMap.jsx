@@ -127,7 +127,6 @@ export default class AwardBreakdownTreeMap extends React.Component {
 
     buildVirtualCell(data, i) {
         let cellColor = this.props.toggleState ? TreemapHelper.stateTreemapColorsWithToggle[i] : TreemapHelper.stateTreemapColorsNoToggle[i];
-        // let textColor = this.props.toggleState ? TreemapHelper.stateTreemapColorsWithToggle[i] : labelColorFromBackground(TreemapHelper.stateTreemapColorsNoToggle[i]);
         let textColor = TreemapHelper.stateTooltipStyles.defaultStyle.textColor;
         let textClass = '';
 
