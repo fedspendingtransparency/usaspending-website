@@ -6,6 +6,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs } from 'data-transparency-ui';
+import { throttle } from "lodash";
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
 
 const propTypes = {
@@ -29,6 +31,8 @@ const propTypes = {
 
 const ResultsTableSection = (props) => {
     const [tableWidth, setTableWidth] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const setTableWidthFn = () => {
         const table = document.querySelector('.results-table-content');
         if (table) {
@@ -36,9 +40,18 @@ const ResultsTableSection = (props) => {
         }
     };
 
+    const handleResize = throttle(() => {
+        const newWidth = window.innerWidth;
+        if (windowWidth !== newWidth) {
+            setWindowWidth(newWidth);
+            setIsMobile(newWidth < mediumScreen);
+        }
+    }, 50);
+
     useEffect(() => {
         // set the initial table width
         setTableWidthFn();
+        handleResize();
         // watch the window for size changes
         window.addEventListener('resize', setTableWidthFn);
         return () => {
@@ -58,7 +71,8 @@ const ResultsTableSection = (props) => {
                     {...props}
                     visibleWidth={tableWidth}
                     awardIdClick={props.awardIdClick}
-                    subAwardIdClick={props.subAwardIdClick} />
+                    subAwardIdClick={props.subAwardIdClick}
+                    isMobile={isMobile} />
             </div>
         </div>
     );
