@@ -274,6 +274,16 @@
         }
     }
     .status-of-funds__visualization-table-container {
+        .usda-table {
+            // this was added after the dtui table styles were changed for the new search page
+            th, td {
+                // we need to get rid of the black borders that will appear
+                border: 0;
+                // and replace them with this gray border
+                border: solid 1px $color-gray-border;
+            }
+        }
+
         .usda-table__cell {
             word-break: normal;
         }

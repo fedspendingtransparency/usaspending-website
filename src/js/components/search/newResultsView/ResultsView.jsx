@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
 import { performSpendingByAwardTabCountSearch } from "helpers/searchHelper";
-import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
@@ -94,14 +93,12 @@ const ResultsView = (props) => {
     }, [props.noFiltersApplied, hasResults, subaward, waitForCheckForData]);
 
     return (
-        <PageFeatureFlag>
-            <div className="search-results-wrapper">
-                <TopFilterBarContainer {...props} />
-                <div className={`search-results ${mobileFilters}`}>
-                    {resultContent}
-                </div>
+        <div className="search-results-wrapper">
+            <TopFilterBarContainer {...props} />
+            <div className={`search-results ${mobileFilters}`}>
+                {resultContent}
             </div>
-        </PageFeatureFlag>
+        </div>
     );
 };
 
