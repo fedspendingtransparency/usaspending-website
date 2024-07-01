@@ -93,6 +93,7 @@ const SearchPage = ({
      * Shows the full download modal
      */
     const showDownloadModal = () => {
+        console.debug("filters: ", appliedFilters);
         setShowFullDownload(true);
     };
 
