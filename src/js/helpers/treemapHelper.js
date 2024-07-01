@@ -53,12 +53,26 @@ export const tooltipStyles = {
     }
 };
 
-export const stateTreemapColors = [
-    "#053547",
-    "#325566",
-    "#587786",
-    "#7E9BA8",
-    "#A6C2CB"
+export const stateTreemapColorsNoToggle = [
+    // "#053547", // direct payments
+    // "#325566", // grants
+    // "#587786", // contracts
+    // "#7E9BA8", // other financial assistance
+    // "#A6C2CB" // loans
+
+    "#0e4f5c", // direct payments, $cyan-70v
+    "#00687d", // grants, $cyan-60v
+    "#0081a1", // contracts, $cyan-50v
+    "#009ec1", // other, $cyan-40v
+    "#00BDE3" // loans, $cyan-30v
+];
+
+export const stateTreemapColorsWithToggle = [
+    "#0f6460", // direct payments, $mint-cool-60v
+    "#008480", // grants, $mint-cool-50v
+    "#00a398", // contracts, $mint-cool-40v
+    "#1dc2ae", // other, $mint-cool-30v
+    "#29e1cb" // loans, $mint-cool-20v
 ];
 
 export const stateTooltipStyles = {

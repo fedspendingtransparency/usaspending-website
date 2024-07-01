@@ -53,11 +53,10 @@ export default class StateOverview extends React.PureComponent {
         if (prevProps.stateProfile.id !== this.props.stateProfile.id) {
             this.prepareOverview(this.props);
         }
+        console.log('this.state.toggle', this.state.toggle);
     }
 
     onToggle = () => {
-        // setOnToggle(!toggle);
-
         this.setState({
             toggle: !this.state.toggle
         });
@@ -290,7 +289,7 @@ export default class StateOverview extends React.PureComponent {
                                     Award Breakdown
                                 </h3>
                             )}
-                            <AwardBreakdownContainer />
+                            <AwardBreakdownContainer toggleState={this.state.toggle} />
                         </div>
                         <div className="state-section__viz geo">
                             <h3 className="state-overview__heading">

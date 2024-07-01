@@ -14,10 +14,12 @@ import { labelColorFromBackground } from 'helpers/colorHelper';
 
 import AwardTypeCell from './AwardTypeCell';
 import AwardTypeTooltip from './AwardTypeTooltip';
+import { stateTreemapColorsNoToggle, stateTreemapColorsWithToggle } from "../../../../helpers/treemapHelper";
 
 const propTypes = {
     awardBreakdown: PropTypes.array,
-    totalAmount: PropTypes.number
+    totalAmount: PropTypes.number,
+    toggleState: PropTypes.bool
 };
 
 export default class AwardBreakdownTreeMap extends React.Component {
@@ -124,8 +126,9 @@ export default class AwardBreakdownTreeMap extends React.Component {
     }
 
     buildVirtualCell(data, i) {
-        let cellColor = TreemapHelper.stateTreemapColors[i];
-        let textColor = labelColorFromBackground(TreemapHelper.stateTreemapColors[i]);
+        let cellColor = this.props.toggleState ? TreemapHelper.stateTreemapColorsWithToggle[i] : TreemapHelper.stateTreemapColorsNoToggle[i];
+        // let textColor = this.props.toggleState ? TreemapHelper.stateTreemapColorsWithToggle[i] : labelColorFromBackground(TreemapHelper.stateTreemapColorsNoToggle[i]);
+        let textColor = TreemapHelper.stateTooltipStyles.defaultStyle.textColor;
         let textClass = '';
 
         // Set highlighted state for hovered award type
