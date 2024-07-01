@@ -26,7 +26,7 @@ export default class SearchResults extends React.Component {
                 <AccountTopFilterBarContainer {...this.props} />
                 <div className="search-results">
                     <AccountTimeVisualizationContainer />
-                    <div style={window.innerWidth < tabletScreen ? { height: "950px" } : null}>
+                    <div style={window.innerWidth < tabletScreen ? { height: "1000px" } : null}>
                         <AccountRankVisualizationContainer />
                     </div>
                     <AccountAwardsContainer />
