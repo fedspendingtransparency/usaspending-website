@@ -5,12 +5,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { Pagination, Table } from "data-transparency-ui";
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { throttle } from "lodash";
 
 const SectionDataTable = (props) => {
     const { sortDirection, activeField } = props;
     const [rows, setRows] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [activateRightFade, setActivateRightFade] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const pageSize = 10;
     const maxRows = props.rows;
@@ -28,14 +31,17 @@ const SectionDataTable = (props) => {
         props.sortBy(field, direction);
     };
 
-    const checkToAddRightFade = (isScrolledLeft, isScrolledRight) => {
-        if (!isScrolledLeft) {
-            setActivateRightFade(true);
-        }
-        if (isScrolledRight) {
-            setActivateRightFade(false);
-        }
-    };
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         if (pageSize) {
@@ -48,16 +54,14 @@ const SectionDataTable = (props) => {
 
     return (
         <>
-            <div className={`advanced-search__table-wrapper ${activateRightFade ? 'activate-right-fade' : ''}`} >
-                <Table
-                    classNames="table-for-new-search-page award-results-table-dtui"
-                    currentSort={{ direction: sortDirection, field: activeField }}
-                    updateSort={updateSort}
-                    columns={columns}
-                    stickyFirstColumn
-                    checkToAddRightFade={checkToAddRightFade}
-                    rows={rows} />
-            </div>
+            <Table
+                classNames="table-for-new-search-page award-results-table-dtui"
+                currentSort={{ direction: sortDirection, field: activeField }}
+                updateSort={updateSort}
+                columns={columns}
+                isMobile={isMobile}
+                isStacked
+                rows={rows} />
             <Pagination
                 resultsText
                 totalItems={maxRows.length}
