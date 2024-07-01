@@ -22,7 +22,6 @@ const propTypes = {
 
 export class FullDownloadModalContainer extends React.Component {
     render() {
-        console.debug("DOWNLOAD PROPS: ", this.props);
         return (
             <FullDownloadModal
                 setDownloadCollapsed={this.props.setDownloadCollapsed}
