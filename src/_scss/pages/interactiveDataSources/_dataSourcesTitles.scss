@@ -29,6 +29,9 @@
             transform: translate(24px,280px);
         }
         @media(min-width: 1200px) {
+            @media(max-height: 892px) {
+                transform: translate(80px,200px);
+            }
             transform: translate(80px,296px);
         }
         @media(min-width: 1400px) {
