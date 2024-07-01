@@ -3,9 +3,11 @@
  * Created by Andrea Blackwell 05/03/2024
  **/
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from "data-transparency-ui";
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { throttle } from "lodash";
 import CategoriesPagination from "./CategoriesPagination";
 
 const propTypes = {
@@ -20,26 +22,29 @@ const propTypes = {
 };
 
 const CategoriesTable = (props) => {
-    const [activateRightFade, setActivateRightFade] = useState(false);
-    const checkToAddRightFade = (isScrolledLeft, isScrolledRight) => {
-        if (!isScrolledLeft) {
-            setActivateRightFade(true);
-        }
-        if (isScrolledRight) {
-            setActivateRightFade(false);
-        }
-    };
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
         <>
-            <div className={`advanced-search__table-wrapper ${activateRightFade ? 'activate-right-fade' : ''}`} >
-                <Table
-                    classNames="table-for-new-search-page award-results-table-dtui"
-                    columns={props.columns}
-                    rows={props.rows}
-                    stickyFirstColumn
-                    checkToAddRightFade={checkToAddRightFade} />
-            </div>
+            <Table
+                classNames="table-for-new-search-page"
+                columns={props.columns}
+                rows={props.rows}
+                isStacked
+                isMobile={isMobile} />
             <CategoriesPagination
                 nextPage={props.nextPage}
                 previousPage={props.previousPage}
