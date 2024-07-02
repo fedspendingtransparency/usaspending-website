@@ -11,10 +11,10 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { awardTypeLabels } from 'dataMapping/state/awardTypes';
 import { labelColorFromBackground } from 'helpers/colorHelper';
+// import { stateTreemapColorsNoToggle, stateTreemapColorsWithToggle } from "../../../../helpers/treemapHelper";
 
 import AwardTypeCell from './AwardTypeCell';
 import AwardTypeTooltip from './AwardTypeTooltip';
-import { stateTreemapColorsNoToggle, stateTreemapColorsWithToggle } from "../../../../helpers/treemapHelper";
 
 const propTypes = {
     awardBreakdown: PropTypes.array,
