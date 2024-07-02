@@ -55,6 +55,13 @@
         width: auto;
         overflow-x: scroll;
 
+        // this is to prevent the border of cells under the sticky column from
+        // showing in the top left corner as you scroll right
+        // still shows in bottom left corner though, probably because of the
+        // horizontal scroll bar
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+
         &.activate-right-fade {
             mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
         }
