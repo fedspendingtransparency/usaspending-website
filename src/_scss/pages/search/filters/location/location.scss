@@ -55,7 +55,7 @@
             .location-filter__atd-link {
                 align-items: center;
                 display: flex;
-                color: $blue-50;
+                color: $theme-color-1;
                 justify-content: center;
                 margin: 0;
                 &:hover {
@@ -95,7 +95,7 @@
             .location-label__with-tt {
                 display: flex;
                 align-items: center;
-                color: $color-gray; 
+                color: $color-gray;
                 &.disabled {
                     opacity: 0.4;
                 }

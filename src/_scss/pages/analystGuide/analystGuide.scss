@@ -222,7 +222,7 @@
     word-break: break-word;
     .analyst-guide__external-link {
       @include button-unstyled;
-      color: $blue-50;
+      color: $theme-color-1;
       font-size: inherit;
       cursor: pointer;
       width: fit-content;
@@ -235,7 +235,7 @@
   .analyst-guide__sectionJump {
     @include button-unstyled;
     font-size: rem(16);
-    color: $blue-50;
+    color: $theme-color-1;
     &:hover {
       background-color: white;
       color: $blue-70v;

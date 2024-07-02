@@ -31,7 +31,7 @@
 }
 
 .button__lg {
-    border: solid 1px $blue-50;
+    border: solid 1px $theme-color-1;
     height: 100%;
     border-radius: 6px;
     font-size: rem(20);
@@ -58,7 +58,7 @@
 }
 .button-type__primary-light,
 .button-type__primary-left-icon-light {
-    background-color: $blue-50;
+    background-color: $theme-color-1;
     line-height: 1.5;
     color: $gray-cool-1;
     &:hover {
@@ -70,7 +70,7 @@
     }
 
     &:disabled {
-        background-color: $blue-50;
+        background-color: $theme-color-1;
         opacity: 0.5;
     }
 
@@ -82,9 +82,9 @@
 .button-type__secondary-light,
 .button-type__secondary-left-icon-light {
     border-radius: 6px;
-    border: solid 1px $blue-50;
+    border: solid 1px $theme-color-1;
     background-color: transparent;
-    color: $blue-50;
+    color: $theme-color-1;
     line-height: 1.5;
     &:hover {
         color: $blue-70v;
@@ -99,8 +99,8 @@
     }
 
     &:disabled {
-        color: $blue-50;
-        border: solid 1px $blue-50;
+        color: $theme-color-1;
+        border: solid 1px $theme-color-1;
         background-color: transparent;
         opacity: 0.5;
     }
@@ -147,7 +147,7 @@
     border-radius: 6px;
     border: solid 1px $gray-cool-10;
     background-color: transparent;
-    color: $blue-50;
+    color: $theme-color-1;
     line-height: 1.5;
     &:hover {
         color: $color-primary-darker;
@@ -177,7 +177,7 @@
 .button-type__intext-light {
     background-color: transparent;
     border-radius: none;
-    color: $blue-50;
+    color: $theme-color-1;
     font-weight: $font-normal;
     line-height: 1.5;
     &:hover {
@@ -192,7 +192,7 @@
 
     &:disabled {
         background-color: transparent;
-        color: $blue-50;
+        color: $theme-color-1;
         opacity: 0.5;
     }
 
@@ -205,7 +205,7 @@
 .button-type__text-left-icon-light {
     background-color: transparent;
     border-radius: none;
-    color: $blue-50;
+    color: $theme-color-1;
     line-height: 1.5;
     &:hover {
         color: $blue-70v;
@@ -219,7 +219,7 @@
 
     &:disabled {
         background-color: transparent;
-        color: $blue-50;
+        color: $theme-color-1;
         opacity: 0.5;
     }
 
@@ -236,7 +236,7 @@
 .button-type__text-right-icon-light {
     background-color: transparent;
     border-radius: none;
-    color: $blue-50;
+    color: $theme-color-1;
     line-height: 1.5;
     &:hover {
         color: $blue-70v;
@@ -250,7 +250,7 @@
 
     &:disabled {
         background-color: transparent;
-        color: $blue-50;
+        color: $theme-color-1;
         opacity: 0.5;
     }
 
@@ -343,7 +343,7 @@
 
 .button-type__stacked-icon-light {
     height: unset;
-    color: $blue-50;
+    color: $theme-color-1;
     display: block;
     background-color: transparent;
     &:hover {
@@ -357,7 +357,7 @@
     }
 
     &:disabled {
-        color: $blue-50;
+        color: $theme-color-1;
         background-color: transparent;
         opacity: 0.5;
     }
@@ -450,7 +450,7 @@
     }
 }
 .button-type__icon-light {
-    color: $blue-50;
+    color: $theme-color-1;
     background-color: transparent;
 
     &:hover {
@@ -464,7 +464,7 @@
     }
 
     &:disabled {
-        color: $blue-50;
+        color: $theme-color-1;
         background-color: transparent;
         opacity: 0.5;
     }

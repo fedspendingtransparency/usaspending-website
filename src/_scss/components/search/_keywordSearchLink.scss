@@ -16,7 +16,7 @@
         .advanced-search__keyword-search-icon {
             width: rem(16);
             height: rem(16);
-            color: $blue-50;
+            color: $theme-color-1;
             margin-right: $global-margin;
         }
     }
@@ -39,12 +39,12 @@
             font-style: normal;
             line-height: 1.5;
             letter-spacing: normal;
-            color: $blue-50;
+            color: $theme-color-1;
 
             &:hover {
                 color: $blue-70v;
             }
-        
+
             &:active {
                 color: $blue-cool-80v;
             }

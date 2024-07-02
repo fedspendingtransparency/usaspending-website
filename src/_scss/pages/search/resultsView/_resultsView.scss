@@ -74,7 +74,7 @@
             }
 
             .filter__dropdown-chevron svg {
-              color: $blue-50;
+              color: $theme-color-1;
               opacity: 1;
               vertical-align: middle;
             }
@@ -115,12 +115,12 @@
 
         .view-button {
           border: none;
-          color: $blue-50;
+          color: $theme-color-1;
           padding: rem(6) rem(8);
 
           &.active {
             background-color: $blue-5;
-            color: $blue-50;
+            color: $theme-color-1;
           }
         }
 
@@ -198,7 +198,7 @@
         padding: 0;
         font-size: rem(12);
         line-height: rem(18);
-        color: $blue-50;
+        color: $theme-color-1;
         justify-content: start;
 
         .toggle {
@@ -206,7 +206,7 @@
           margin: auto 0 rem(3) rem(8);
 
           svg {
-            color: $blue-50;
+            color: $theme-color-1;
             width: rem(10);
             vertical-align: top;
           }

@@ -10,12 +10,12 @@
         @include flex(0 0 auto);
         @include align-items(center);
         @include button-unstyled;
-        color: $blue-50;
+        color: $theme-color-1;
         padding: rem(5);
         svg {
             height: rem(15);
             width: rem(15);
-            fill: $blue-50;
+            fill: $theme-color-1;
         }
         &:hover {
             color: $blue-70v;

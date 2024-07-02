@@ -85,7 +85,7 @@
 					@include flex(0 0 auto);
 					@include align-items(center);
 					@include button-unstyled;
-					color: $blue-50;
+					color: $theme-color-1;
 					margin-top: rem(16);
 					font-size: rem(14);
 					width: fit-content;
