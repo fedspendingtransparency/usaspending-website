@@ -90,9 +90,9 @@
 					font-size: rem(14);
 					width: fit-content;
 					&:hover {
-						color: $blue-70v;
+						color: $theme-color-1-dark;
 						svg {
-							fill: $blue-70v;
+							fill: $theme-color-1-dark;
 						}
 					}
 				}

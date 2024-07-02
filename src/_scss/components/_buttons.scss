@@ -62,7 +62,7 @@
     line-height: 1.5;
     color: $gray-cool-1;
     &:hover {
-        background-color: $blue-70v;
+        background-color: $theme-color-1-dark;
     }
 
     &:active {
@@ -87,8 +87,8 @@
     color: $theme-color-1;
     line-height: 1.5;
     &:hover {
-        color: $blue-70v;
-        border: solid 1px $blue-70v;
+        color: $theme-color-1-dark;
+        border: solid 1px $theme-color-1-dark;
         background-color: transparent;
     }
 
@@ -181,7 +181,7 @@
     font-weight: $font-normal;
     line-height: 1.5;
     &:hover {
-        color: $blue-70v;
+        color: $theme-color-1-dark;
         background-color: transparent;
     }
 
@@ -208,7 +208,7 @@
     color: $theme-color-1;
     line-height: 1.5;
     &:hover {
-        color: $blue-70v;
+        color: $theme-color-1-dark;
         background-color: transparent;
     }
 
@@ -239,7 +239,7 @@
     color: $theme-color-1;
     line-height: 1.5;
     &:hover {
-        color: $blue-70v;
+        color: $theme-color-1-dark;
         background-color: transparent;
     }
 
@@ -347,7 +347,7 @@
     display: block;
     background-color: transparent;
     &:hover {
-        color: $blue-70v;
+        color: $theme-color-1-dark;
         background-color: transparent;
     }
 
@@ -454,7 +454,7 @@
     background-color: transparent;
 
     &:hover {
-        color: $blue-70v;
+        color: $theme-color-1-dark;
         background-color: transparent;
     }
 

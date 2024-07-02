@@ -227,7 +227,7 @@
       cursor: pointer;
       width: fit-content;
       &:hover {
-        color: $blue-70v;
+        color: $theme-color-1-dark;
       }
     }
   }
@@ -238,7 +238,7 @@
     color: $theme-color-1;
     &:hover {
       background-color: white;
-      color: $blue-70v;
+      color: $theme-color-1-dark;
     }
   }
 }

@@ -207,7 +207,7 @@ button,
     width: fit-content;
     display: inline-block;
     &:hover {
-        color: $blue-70v;
+        color: $theme-color-1-dark;
         text-decoration: underline;
     }
 }
@@ -219,6 +219,6 @@ button,
     cursor: pointer;
     width: fit-content;
     &:hover {
-        color: $blue-70v;
+        color: $theme-color-1-dark;
     }
 }
