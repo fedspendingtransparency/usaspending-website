@@ -1,5 +1,4 @@
 .visualization-description {
-    @include grid-column(16);
     margin-left: 0;
     @include media($tablet-screen) {
         @include grid-column(9);
