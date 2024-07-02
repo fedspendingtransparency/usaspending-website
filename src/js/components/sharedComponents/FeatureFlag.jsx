@@ -7,7 +7,6 @@
 import React from 'react';
 import GlobalConstants from "GlobalConstants";
 
-
 const FeatureFlag = ({ children }) => {
     const isQAT = GlobalConstants.QAT;
     return (isQAT ? <>{children}</>

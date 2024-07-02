@@ -16,7 +16,8 @@ import AwardBreakdownTable from 'components/state/visualizations/awardBreakdown/
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
 
 const propTypes = {
-    stateProfile: PropTypes.object
+    stateProfile: PropTypes.object,
+    toggleState: PropTypes.bool
 };
 
 export class AwardBreakdownContainer extends React.Component {
@@ -133,7 +134,8 @@ export class AwardBreakdownContainer extends React.Component {
                 <AwardBreakdownTreeMap
                     activeFY={this.props.stateProfile.fy}
                     awardBreakdown={this.state.awardBreakdown}
-                    totalAmount={this.state.totalAmount} />
+                    totalAmount={this.state.totalAmount}
+                    toggleState={this.props.toggleState} />
                 <AwardBreakdownTable
                     awardBreakdown={this.state.rows}
                     hasNegatives={this.state.hasNegatives} />
