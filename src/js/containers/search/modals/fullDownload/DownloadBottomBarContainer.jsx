@@ -121,6 +121,7 @@ export class DownloadBottomBarContainer extends React.Component {
                     expectedFile: this.props.setDownloadExpectedFile(res.data.file_name),
                     expectedUrl: this.props.setDownloadExpectedUrl(res.data.file_url)
                 }, () => {
+                    console.debug("callback: ", res.data);
                     this.checkStatus();
                 });
             })
@@ -150,6 +151,10 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     checkStatus() {
+        if (this.statusRequest) {
+            this.statusRequest.cancel();
+        }
+        console.debug("download bottom bar container: ", this.props.download.expectedFile, this.props);
         let expectedFile = '';
         let downloadType = '';
         if (this.props.download.expectedFile !== '') {
@@ -161,9 +166,6 @@ export class DownloadBottomBarContainer extends React.Component {
         }
 
         if (expectedFile !== '') {
-            if (this.statusRequest) {
-                this.statusRequest.cancel();
-            }
             this.statusRequest = DownloadHelper.requestDownloadStatus({
                 file_name: expectedFile,
                 type: downloadType
@@ -190,6 +192,7 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     parseStatus(data) {
+        console.debug("data: ", data);
         if (data.status === 'finished') {
             // download is ready
             this.downloadFile(data.file_url);
@@ -257,7 +260,11 @@ export class DownloadBottomBarContainer extends React.Component {
         window.removeEventListener('beforeunload', this.windowWillClose);
         this.props.resetDownload();
         this.setState({
-            visible: false
+            visible: false,
+            showError: false,
+            showSuccess: false,
+            expectedFile: '',
+            expectedUrl: ''
         });
     }
 
