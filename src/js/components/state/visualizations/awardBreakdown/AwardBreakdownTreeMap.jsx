@@ -126,8 +126,14 @@ export default class AwardBreakdownTreeMap extends React.Component {
     }
 
     buildVirtualCell(data, i) {
-        let cellColor = this.props.toggleState ? TreemapHelper.stateTreemapColorsWithToggle[i] : TreemapHelper.stateTreemapColorsNoToggle[i];
-        let textColor = TreemapHelper.stateTooltipStyles.defaultStyle.textColor;
+        let cellColor = TreemapHelper.stateTreemapColors[i];
+        let textColor = labelColorFromBackground(TreemapHelper.stateTreemapColors[i]);
+
+        // todo - use these two lines, along with the new arrays to return colors in treemapHelper,
+        //  when finishing the toggle functionality; the two lines above will not be used
+        // let cellColor = this.props.toggleState ? TreemapHelper.stateTreemapColorsWithToggle[i] : TreemapHelper.stateTreemapColorsNoToggle[i];
+        // let textColor = TreemapHelper.stateTooltipStyles.defaultStyle.textColor;
+
         let textClass = '';
 
         // Set highlighted state for hovered award type
