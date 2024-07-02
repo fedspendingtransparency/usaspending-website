@@ -5,8 +5,6 @@
 
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { throttle } from "lodash";
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
@@ -26,8 +24,6 @@ const SectionsContent = (props) => {
     const [timeHasLoaded, setTimeHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const [windowWidth, setWindowWidth] = useState(0);
 
     const observerOptions = {
         threshold: 0.1
@@ -91,20 +87,6 @@ const SectionsContent = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [observerSupported]);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        console.log('isMobile: ', isMobile);
-
-        return () => window.removeEventListener('resize', handleResize);
-    }, [isMobile, windowWidth]);
 
     return (
         <>
