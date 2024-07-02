@@ -87,7 +87,7 @@ export class DownloadBottomBarContainer extends React.Component {
             showSuccess: false,
             title: 'We\'re preparing your download(s)...',
             description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
-        }, this.checkStatus);
+        });
     }
 
     requestDownload(filters, columns, type) {
@@ -121,7 +121,6 @@ export class DownloadBottomBarContainer extends React.Component {
                     expectedFile: this.props.setDownloadExpectedFile(res.data.file_name),
                     expectedUrl: this.props.setDownloadExpectedUrl(res.data.file_url)
                 }, () => {
-                    console.debug("callback: ", res.data);
                     this.checkStatus();
                 });
             })
@@ -154,7 +153,6 @@ export class DownloadBottomBarContainer extends React.Component {
         if (this.statusRequest) {
             this.statusRequest.cancel();
         }
-        console.debug("download bottom bar container: ", this.props.download.expectedFile, this.props);
         let expectedFile = '';
         let downloadType = '';
         if (this.props.download.expectedFile !== '') {
@@ -192,7 +190,6 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     parseStatus(data) {
-        console.debug("data: ", data);
         if (data.status === 'finished') {
             // download is ready
             this.downloadFile(data.file_url);
