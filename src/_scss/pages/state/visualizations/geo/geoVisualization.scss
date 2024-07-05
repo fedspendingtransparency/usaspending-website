@@ -4,7 +4,7 @@
         height: rem(378);
         width: 100%;
     }
-    @import "pages/search/results/visualizations/geo/map/map";
+    @import "../../../../pages/search/results/visualizations/geo/map/map.scss";
     .visualization-tooltip {
         @import "components/visualizations/tooltip/_tooltip";
     }
