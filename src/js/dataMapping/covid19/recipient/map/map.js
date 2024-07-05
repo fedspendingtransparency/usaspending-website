@@ -147,6 +147,26 @@ export const advancedSearchFilters = {
         ]
     }
 };
+
+export const stateFilters = {
+    territory: {
+        label: 'AREA TYPE',
+        enabled: true,
+        options: [
+            {
+                value: 'county',
+                label: 'Counties'
+            },
+            {
+                value: 'congressionalDistrict',
+                label: 'Congressional Districts'
+            }
+        ]
+    }
+};
+export const stateOnClickHandler = {
+    territory: 'updateTerritoryFilter'
+};
 export const filtersOnClickHandler = {
     territory: 'updateTerritoryFilter',
     spendingType: 'updateSpendingTypeFilter',

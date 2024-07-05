@@ -5,6 +5,7 @@
         width: 100%;
     }
     @import "../../../../pages/search/results/visualizations/geo/map/map.scss";
+    @import "../../../../pages/search/results/visualizations/geo/geoVisualization.scss";
     .visualization-tooltip {
         @import "components/visualizations/tooltip/_tooltip";
     }
