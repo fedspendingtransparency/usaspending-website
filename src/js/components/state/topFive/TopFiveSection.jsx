@@ -55,6 +55,7 @@ export default class TopFiveSection extends React.Component {
     }
 
     render() {
+        console.log("tab types", this.state.active);
         const content = topCategories[this.state.active].map((category) => (
             <TopFiveContainer
                 key={category}

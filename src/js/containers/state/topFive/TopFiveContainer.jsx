@@ -82,6 +82,7 @@ export class TopFiveContainer extends React.Component {
             filters.time_period = [timePeriod];
         }
 
+        // Tab selection
         if (this.props.type !== 'all' && awardTypeGroups[this.props.type]) {
             filters.award_type_codes = awardTypeGroups[this.props.type];
         }
@@ -112,6 +113,7 @@ export class TopFiveContainer extends React.Component {
             error: false
         });
 
+        // generate a link with these dataParams
         this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
         this.request.promise
             .then((res) => {
@@ -147,6 +149,11 @@ export class TopFiveContainer extends React.Component {
             else if (type === 'county' || type === 'district') {
                 result.nameTemplate = (code, name) => (name);
             }
+
+            // append the filter here
+            // for the filter need - the state code (props.code), table category (props.category), time period(?), and tab selection (props.type)
+            console.log("filters", this.props.fy, this.dataParams());
+
 
             return result;
         });

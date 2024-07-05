@@ -80,6 +80,9 @@ const TopFive = (props) => {
                         <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             % of Total
                         </th>
+                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                            View in Award Search
+                        </th>
                     </tr>
                 </thead>
                 <tbody
