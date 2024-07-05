@@ -3,14 +3,18 @@
  * Created by Lizzie Salita 5/14/18
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
+import {
+    advancedSearchFilters,
+    filtersOnClickHandler
+} from 'dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-
 import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
@@ -36,6 +40,38 @@ const availableLayers = ['country', 'state', 'county', 'congressionalDistrict'];
 const GeoVisualizationSection = (props) => {
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
+    const [activeFilters, setActiveFilters] = useState({
+        territory: props.mapLayer,
+        spendingType: 'obligation',
+        amountType: 'totalSpending',
+        recipientType: 'all',
+        awardType: 'all'
+    });
+
+    const updateTerritoryFilter = (value) => {
+        props.changeMapLayer(value);
+        setActiveFilters({ ...activeFilters, territory: value });
+    };
+
+    useEffect(() => {
+        updateTerritoryFilter(props.mapLayer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.mapLayer]);
+
+    const updateAmountTypeFilter = (value) => {
+        setActiveFilters({ ...activeFilters, amountType: value });
+        props.updateMapLegendToggle(value);
+    };
+
+    // this will need to be updated as more filters are added
+    const addOnClickToFilters = () => Object.keys(advancedSearchFilters).reduce((acc, filter) => {
+        const filterWithOnClick = {
+            ...advancedSearchFilters[filter],
+            onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
+        };
+        acc[filter] = filterWithOnClick;
+        return acc;
+    }, {});
 
     const showTooltip = (geoId, position) => {
     // convert state code to full string name
@@ -116,6 +152,10 @@ const GeoVisualizationSection = (props) => {
     return (
         <div className="geo__map-section">
             <MapWrapper
+                awardTypeFilters={awardTypeTabs}
+                filters={addOnClickToFilters()}
+                activeFilters={activeFilters}
+                setActiveFilters={setActiveFilters}
                 className={props.className}
                 data={props.data}
                 renderHash={props.renderHash}
