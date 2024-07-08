@@ -162,6 +162,20 @@ export const stateFilters = {
                 label: 'Congressional Districts'
             }
         ]
+    },
+    amountType: {
+        label: 'AMOUNT TYPE',
+        enabled: false,
+        options: [
+            {
+                value: 'totalSpending',
+                label: 'Total Spending'
+            },
+            {
+                value: 'perCapita',
+                label: 'Per Capita Spending'
+            }
+        ]
     }
 };
 export const stateOnClickHandler = {
