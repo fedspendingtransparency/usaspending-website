@@ -7,7 +7,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import {
-    advancedSearchFilters,
     stateFilters,
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
@@ -171,7 +170,8 @@ const GeoVisualizationSection = (props) => {
                 showLayerToggle
                 center={center}
                 stateInfo={props.stateInfo}
-                stateProfile>
+                stateProfile
+                amountTypeEnabled={false}>
                 {message}
             </MapWrapper>
         </div>
