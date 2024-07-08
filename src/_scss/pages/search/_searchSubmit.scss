@@ -13,34 +13,10 @@
     .submit-button {
         display: block;
         width: 100%;
-
-        transition: opacity 0.15s;
-        opacity: 1;
-
-        background-color: $color-primary;
-
-        &:hover {
-            background-color: $color-primary-darker;
-        }
-
-        &[disabled] {
-            opacity: 0.5;
-            cursor: not-allowed;
-            &:hover {
-                background-color: $color-primary;
-            }
-        }
     }
     .reset-button {
         display: block;
-        @include button-unstyled;
-
-        transition: opacity 0.15s;
-        opacity: 1;
-
-        text-align: center;
-
-        color: $theme-color-1;
+        width: 100%;
         font-size: $smallest-font-size;
 
         margin-top: rem(8);
