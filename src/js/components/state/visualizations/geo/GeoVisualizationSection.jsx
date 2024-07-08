@@ -35,7 +35,7 @@ const propTypes = {
     stateInfo: PropTypes.object
 };
 
-const availableLayers = ['country', 'state', 'county', 'congressionalDistrict'];
+const availableLayers = ['county', 'congressionalDistrict'];
 
 const GeoVisualizationSection = (props) => {
     const [showHover, setShowHover] = useState(false);
