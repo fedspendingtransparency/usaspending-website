@@ -556,7 +556,7 @@ const MapWrapper = (props) => {
         else {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
         }
-        console.debug(mapFilters, active);
+
         return (
             <AdvancedSearchMapFilters
                 filters={mapFilters}
