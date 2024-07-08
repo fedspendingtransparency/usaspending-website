@@ -1,5 +1,4 @@
 .specific-award-amount {
-    @import "../_singleSubmit";
     @import "../location/_warning";
 
     .award-amount-warning {
@@ -8,14 +7,7 @@
     .warning-tooltip {
       margin-top: rem(-20);
     }
-    hr.specific-award-amount-divider {
-        border: none;
-        border-bottom: 1px solid $color-gray-lighter;
-        position: relative;
-        margin-bottom: $global-mrg;
-        width: 100%;
-        display: block;
-    }
+
     .award-amount-item-wrapper label {
         margin-top: 0;
         margin-bottom: 0;
@@ -46,7 +38,8 @@
         }
 
         .award-amount-submit {
-            @include singleSubmit;
+            // @include singleSubmit;
+            height: rem(32);
         }
 
         @media only screen and (min-width:1342px) {
@@ -54,10 +47,11 @@
             @include justify-content(space-between);
             @include align-items(center);
             input {
-                margin-right: 0.5rem;
-                width: 25%;
-                padding: 1.1rem 0.8rem;
-                height: 4.0rem;
+                margin-right: rem(4);
+                width: 118.5px;
+                padding-top: 7px;
+                padding-bottom: 7px;
+                height: rem(32);
             }
             .award-amount-submit {
                 margin-right: 0;
@@ -65,10 +59,11 @@
         }
         @media only screen and (max-width:1341px) {
             input {
-                margin-right: 0.5rem;
-                width: 40%;
-                padding: 1.1rem 0.8rem;
-                height: 4.0rem;
+                margin-right: rem(4);
+                width: 118.5px;
+                padding-top: 7px;
+                padding-bottom: 7px;                
+                height: rem(32);
             }
             .specific-award-min {
                 margin-right: 0.65rem;
