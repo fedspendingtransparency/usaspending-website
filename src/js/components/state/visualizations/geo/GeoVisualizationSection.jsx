@@ -7,8 +7,9 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import {
+    advancedSearchFilters,
     stateFilters,
-    stateOnClickHandler
+    filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
 
@@ -67,7 +68,7 @@ const GeoVisualizationSection = (props) => {
     const addOnClickToFilters = () => Object.keys(stateFilters).reduce((acc, filter) => {
         const filterWithOnClick = {
             ...stateFilters[filter],
-            onClick: stateOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
+            onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
         };
         acc[filter] = filterWithOnClick;
         return acc;
@@ -169,7 +170,6 @@ const GeoVisualizationSection = (props) => {
                 availableLayers={availableLayers}
                 showLayerToggle
                 center={center}
-
                 stateInfo={props.stateInfo}
                 stateProfile>
                 {message}
