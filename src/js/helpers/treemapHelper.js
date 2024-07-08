@@ -54,30 +54,30 @@ export const tooltipStyles = {
 };
 
 export const stateTreemapColors = [
-    "#053547", // direct payments
-    "#325566", // grants
-    "#587786", // contracts
-    "#7E9BA8", // other financial assistance
-    "#A6C2CB" // loans
+    "#053547", // largest amount
+    "#325566",
+    "#587786",
+    "#7E9BA8",
+    "#A6C2CB" // smallest amount
 ];
 
 // todo - use these two arrays with the commented out lines in AwardBreakdownTreeMap.jsx
 //  to finish the toggle, using the new colors;
 //  the old array above will not be needed
 // export const stateTreemapColorsNoToggle = [
-//     "#0e4f5c", // direct payments, $cyan-70v
-//     "#00687d", // grants, $cyan-60v
-//     "#0081a1", // contracts, $cyan-50v
-//     "#009ec1", // other, $cyan-40v
-//     "#00BDE3" // loans, $cyan-30v
+//     "#0e4f5c", // largest amount
+//     "#00687d",
+//     "#0081a1",
+//     "#009ec1",
+//     "#00BDE3" // smallest amount
 // ];
 //
 // export const stateTreemapColorsWithToggle = [
-//     "#0f6460", // direct payments, $mint-cool-60v
-//     "#008480", // grants, $mint-cool-50v
-//     "#00a398", // contracts, $mint-cool-40v
-//     "#1dc2ae", // other, $mint-cool-30v
-//     "#29e1cb" // loans, $mint-cool-20v
+//     "#0f6460", // largest amount, $mint-cool-60v
+//     "#008480", // $mint-cool-50v
+//     "#00a398", // $mint-cool-40v
+//     "#1dc2ae", // $mint-cool-30v
+//     "#29e1cb" // smallest amount, $mint-cool-20v
 // ];
 
 export const stateTooltipStyles = {
