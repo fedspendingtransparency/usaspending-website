@@ -5,6 +5,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch, connect } from 'react-redux';
 import { uniq, cloneDeep } from 'lodash';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -16,6 +17,7 @@ import MapLegend from './MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 import MapFiltersToggle from "../../../covid19/recipient/map/MapFiltersToggle";
 import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
+import { setMapHasLoaded } from "../../../../redux/actions/search/searchViewActions";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -39,7 +41,8 @@ const propTypes = {
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     className: PropTypes.string,
-    stateInfo: PropTypes.object
+    stateInfo: PropTypes.object,
+    onMapLoaded: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -346,6 +349,8 @@ const MapWrapper = (props) => {
     const mapReadyPrep = () => {
         // map has mounted, load the state shapes
         setMapReady(true);
+        // and set the redux property used for jumpTo function in searchSectionWrapper
+        props.onMapLoaded(true);
     };
 
     const measureMap = (forced = false) => {
@@ -621,4 +626,10 @@ const MapWrapper = (props) => {
 MapWrapper.propTypes = propTypes;
 MapWrapper.defaultProps = defaultProps;
 
-export default MapWrapper;
+export default connect((state) => ({
+    isMapLoaded: state.searchView.mapHasLoaded
+}),
+(dispatch) => ({
+    onMapLoaded: (bool) => dispatch(setMapHasLoaded(bool))
+})
+)(MapWrapper);

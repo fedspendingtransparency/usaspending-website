@@ -12,6 +12,7 @@ import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
+import { useSelector } from "react-redux";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -30,7 +31,10 @@ const propTypes = {
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     section: PropTypes.string,
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
+    setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+    children: PropTypes.element,
+    table: PropTypes.bool,
+    sectionName: PropTypes.string
 };
 
 const SearchSectionWrapper = ({
@@ -66,6 +70,8 @@ const SearchSectionWrapper = ({
     const history = useHistory();
     const sortFn = () => dropdownOptions;
 
+    const { mapHasLoaded } = useSelector((state) => state.searchView);
+
     const changeView = (label) => {
         setViewType(label);
 
@@ -74,6 +80,7 @@ const SearchSectionWrapper = ({
             setMapViewType(label);
         }
     };
+
     const jumpToSection = (section = '') => {
         const sections = ['map', 'time', 'categories', 'awards'];
         // we've been provided a section to jump to
@@ -99,11 +106,23 @@ const SearchSectionWrapper = ({
 
         // NOTE: might need to adjust for mobile
         const rect = sectionDom.getBoundingClientRect();
+        let rectTopNumber = 0;
+        if (matchedSection === 'categories') {
+            rectTopNumber = 600;
+        }
+        else if (matchedSection === 'time') {
+            rectTopNumber = 1100;
+        }
+        else if (matchedSection === 'awards') {
+            rectTopNumber = 1800;
+        }
         window.scrollTo({
-            top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 900 : rect.top - 140,
+            // top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 900 : rect.top - 140,
+            top: rect.top + rectTopNumber,
             behavior: 'smooth'
         });
     };
+
     const parseSection = () => {
         const params = history.location.search.split("&");
         params.shift();
@@ -113,9 +132,18 @@ const SearchSectionWrapper = ({
     };
 
     useEffect(() => {
-        parseSection();
+        setTimeout(() => {
+            parseSection();
+        }, 500);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            parseSection();
+        }, 200);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sectionName, mapHasLoaded]);
 
     useEffect(() => {
         setContentHeight(content);
