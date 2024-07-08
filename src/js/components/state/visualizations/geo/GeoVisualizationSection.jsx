@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/14/18
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import {
@@ -47,6 +47,7 @@ const GeoVisualizationSection = (props) => {
         recipientType: 'all',
         awardType: 'all'
     });
+    const dataRef = useRef(props.data);
 
     const updateTerritoryFilter = (value) => {
         props.changeMapLayer(value);
@@ -57,6 +58,10 @@ const GeoVisualizationSection = (props) => {
         updateTerritoryFilter(props.mapLayer);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.mapLayer]);
+
+    useEffect(() => {
+        dataRef.current = props.data;
+    }, [props.data]);
 
     const updateAmountTypeFilter = (value) => {
         setActiveFilters({ ...activeFilters, amountType: value });
@@ -74,21 +79,22 @@ const GeoVisualizationSection = (props) => {
     }, {});
 
     const showTooltip = (geoId, position) => {
-    // convert state code to full string name
-        const label = props.data.labels[geoId];
+        // convert state code to full string name
+        // TODO: This ref is necessary, need to figure out why the map components are losing reference to data
+        const label = dataRef.current.labels[geoId];
         setShowHover(true);
-        setSelectedItem(Object.assign(selectedItem, {
+        setSelectedItem({
             label: label.label,
             total: props.total,
             value: label.value,
             x: position.x,
             y: position.y
-        }));
+        });
     };
 
     const hideTooltip = () => {
         setShowHover(false);
-        setSelectedItem(Object.assign(selectedItem, {}));
+        setSelectedItem({});
     };
 
     let message = null;
