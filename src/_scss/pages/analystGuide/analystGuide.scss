@@ -222,12 +222,12 @@
     word-break: break-word;
     .analyst-guide__external-link {
       @include button-unstyled;
-      color: $color-primary;
+      color: $theme-color-1;
       font-size: inherit;
       cursor: pointer;
       width: fit-content;
       &:hover {
-        color: $color-primary;
+        color: $theme-color-1-dark;
       }
     }
   }
@@ -235,10 +235,10 @@
   .analyst-guide__sectionJump {
     @include button-unstyled;
     font-size: rem(16);
-    color: $color-primary;
+    color: $theme-color-1;
     &:hover {
       background-color: white;
-      color: $color-primary-darker;
+      color: $theme-color-1-dark;
     }
   }
 }

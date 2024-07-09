@@ -37,10 +37,10 @@
             .read-more-button {
                 @include button-link;
                 text-transform: lowercase;
-                color: $blue-50;
+                color: $theme-color-1;
                 &:hover {
                     text-decoration: none;
-                    color: $blue-70v;
+                    color: $theme-color-1-dark;
                 }
             }
         }
@@ -169,7 +169,7 @@
 
     .readMoreUpdated__button {
         background-color: transparent;
-        color: #0074be;
+        color: $theme-color-1;
         padding: 0;
         margin-top: 4px;
         margin-bottom: 20px;
