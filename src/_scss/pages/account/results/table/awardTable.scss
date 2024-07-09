@@ -47,9 +47,19 @@
 
     }
 
+    // this block affects the table on the federal accounts pages
+    // because searchResults.scss is imported into accountPage.scss
+    // and this file is imported into searchResults.scss
     .advanced-search__table-wrapper {
         width: auto;
         overflow-x: scroll;
+
+        // this is to prevent the border of cells under the sticky column from
+        // showing in the top left corner as you scroll right
+        // still shows in bottom left corner though, probably because of the
+        // horizontal scroll bar
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
     }
 
     .results-table-width-master {
