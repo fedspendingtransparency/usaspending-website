@@ -13,6 +13,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from 'components/state/topFive/TopFive';
+import { REQUEST_VERSION } from "../../../GlobalConstants";
+import { generateUrlHash } from "../../../helpers/searchHelper";
 
 export class TopFiveContainer extends React.Component {
     static propTypes = {
@@ -51,6 +53,7 @@ export class TopFiveContainer extends React.Component {
         }
     }
 
+    // eslint-disable-next-line react/sort-comp
     dataParams() {
         let timePeriod = null;
         if (this.props.fy === 'latest') {
@@ -94,6 +97,70 @@ export class TopFiveContainer extends React.Component {
             page: 1
         };
     }
+
+    getSelectedSection(item) {
+        const params = this.dataParams();
+
+        let categoryFilter;
+
+        if (params.category === 'awarding_agency') {
+            categoryFilter = { agencies: [type: "awarding", tier: "toptier", name: item] };
+            
+        } else if (params.category === 'awarding_subagency') {
+            categoryFilter = { recipient_search_text: item };
+
+        } else if (params.category === 'recipient') {
+            categoryFilter = { recipient_search_text: item };
+
+        } else if (params.category === 'county') {
+            categoryFilter = { recipient_search_text: item };
+
+        } else if (params.category === 'district') {
+            categoryFilter = { recipient_search_text: item };
+
+        } else if (params.category === 'cfda') {
+            categoryFilter = { program_numbers: [item] };
+
+        } else if (params.category === 'psc') {
+            categoryFilter = { psc_codes: item };
+
+        } else if (params.category === 'naics') {
+            categoryFilter = { naics_codes: [item] };
+
+        }
+
+        const filterValue = {
+            filters: {
+                ...params.filters
+            },
+            version: REQUEST_VERSION
+        };
+
+        let tempHash = generateUrlHash(filterValue);
+        tempHash.promise
+            .then((results) => {
+                const hashData = results.data;
+                const searchUrl = `/search?hash=${hashData.hash}`;
+                console.log("search url", searchUrl);
+                return searchUrl;
+            })
+            .catch((error) => {
+                console.log(error);
+                if (isCancel(error)) {
+                    // Got cancelled
+                }
+                else if (error.response) {
+                    // Errored out but got response, toggle noAward flag
+                    this.hash = null;
+                }
+                else {
+                    // Request failed
+                    tempHash = null;
+                    console.log(error);
+                }
+            });
+        return '';
+    };
 
     loadCategory() {
         if (!this.props.code) {
@@ -150,6 +217,7 @@ export class TopFiveContainer extends React.Component {
                 result.nameTemplate = (code, name) => (name);
             }
 
+            console.log("url", this.getSelectedSection());
             // append the filter here
             // for the filter need - the state code (props.code), table category (props.category), time period(?), and tab selection (props.type)
             console.log("filters", this.props.fy, this.dataParams());
