@@ -133,6 +133,10 @@
                                 }
                             }
                         }
+                        .map__filters-dropdown {
+                            min-width: 100%;
+                            max-width: 500px;
+                        }
                     }
 
                     .map__filters-filter__container:last-of-type {
