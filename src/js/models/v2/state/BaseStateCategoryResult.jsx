@@ -21,6 +21,7 @@ const BaseStateCategoryResult = {
         this._code = data.code || '';
         this._slug = data.agency_slug;
         this._amount = data.amount || 0;
+        this.url = '';
 
         this._nameTemplate = defaultNameTemplate;
     },

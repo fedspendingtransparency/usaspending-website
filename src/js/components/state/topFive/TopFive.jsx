@@ -20,7 +20,7 @@ const propTypes = {
 };
 
 const TopFive = (props) => {
-    const rows = props.results.map((result, index) => (
+    const rows = props?.results?.map((result, index) => (
         <TopFiveRow
             key={index}
             data={result}

@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/15/18
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -16,55 +16,29 @@ import TopFive from 'components/state/topFive/TopFive';
 import { REQUEST_VERSION } from "../../../GlobalConstants";
 import { generateUrlHash } from "../../../helpers/searchHelper";
 
-export class TopFiveContainer extends React.Component {
-    static propTypes = {
-        code: PropTypes.string,
-        total: PropTypes.number,
-        category: PropTypes.string,
-        fy: PropTypes.string,
-        type: PropTypes.string
-    };
+const propTypes = {
+    code: PropTypes.string,
+    total: PropTypes.number,
+    category: PropTypes.string,
+    fy: PropTypes.string,
+    type: PropTypes.string
+};
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: true,
-            error: false,
-            results: []
-        };
-
-        this.request = null;
-    }
-
-    componentDidMount() {
-        this.loadCategory();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.code !== this.props.code) {
-            this.loadCategory();
-        }
-        else if (prevProps.fy !== this.props.fy) {
-            this.loadCategory();
-        }
-        else if (prevProps.type !== this.props.type) {
-            this.loadCategory();
-        }
-    }
+const TopFiveContainer = (props) => {
+    const [categoryState, setCategoryState] = useState({ loading: true, error: false, results: [] });
 
     // eslint-disable-next-line react/sort-comp
-    dataParams() {
+    const dataParams = () => {
         let timePeriod = null;
-        if (this.props.fy === 'latest') {
+        if (props.fy === 'latest') {
             const trailing = getTrailingTwelveMonths();
             timePeriod = {
                 start_date: trailing[0],
                 end_date: trailing[1]
             };
         }
-        else if (this.props.fy !== 'all' && this.props.fy) {
-            const range = convertFYToDateRange(parseInt(this.props.fy, 10));
+        else if (props.fy !== 'all' && props.fy) {
+            const range = convertFYToDateRange(parseInt(props.fy, 10));
             timePeriod = {
                 start_date: range[0],
                 end_date: range[1]
@@ -76,7 +50,7 @@ export class TopFiveContainer extends React.Component {
             place_of_performance_locations: [
                 {
                     country: 'USA',
-                    state: this.props.code
+                    state: props.code
                 }
             ]
         };
@@ -86,47 +60,46 @@ export class TopFiveContainer extends React.Component {
         }
 
         // Tab selection
-        if (this.props.type !== 'all' && awardTypeGroups[this.props.type]) {
-            filters.award_type_codes = awardTypeGroups[this.props.type];
+        if (props.type !== 'all' && awardTypeGroups[props.type]) {
+            filters.award_type_codes = awardTypeGroups[props.type];
         }
 
         return {
             filters,
-            category: this.props.category,
+            category: props.category,
             limit: 5,
             page: 1
         };
-    }
+    };
 
-    getSelectedSection(item) {
-        const params = this.dataParams();
+    const getSelectedSection = (resultObj, name) => {
+        const params = dataParams();
 
         let categoryFilter;
 
         if (params.category === 'awarding_agency') {
-            categoryFilter = { agencies: [type: "awarding", tier: "toptier", name: item] };
-            
-        } else if (params.category === 'awarding_subagency') {
-            categoryFilter = { recipient_search_text: item };
-
-        } else if (params.category === 'recipient') {
-            categoryFilter = { recipient_search_text: item };
-
-        } else if (params.category === 'county') {
-            categoryFilter = { recipient_search_text: item };
-
-        } else if (params.category === 'district') {
-            categoryFilter = { recipient_search_text: item };
-
-        } else if (params.category === 'cfda') {
-            categoryFilter = { program_numbers: [item] };
-
-        } else if (params.category === 'psc') {
-            categoryFilter = { psc_codes: item };
-
-        } else if (params.category === 'naics') {
-            categoryFilter = { naics_codes: [item] };
-
+            categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name }] };
+        }
+        else if (params.category === 'awarding_subagency') {
+            categoryFilter = { recipient_search_text: name };
+        }
+        else if (params.category === 'recipient') {
+            categoryFilter = { recipient_search_text: name };
+        }
+        else if (params.category === 'county') {
+            // categoryFilter = { recipient_search_text: item };
+        }
+        else if (params.category === 'district') {
+            // categoryFilter = { recipient_search_text: item };
+        }
+        else if (params.category === 'cfda') {
+            categoryFilter = { program_numbers: [name] };
+        }
+        else if (params.category === 'psc') {
+            // categoryFilter = { psc_codes: [item] };
+        }
+        else if (params.category === 'naics') {
+            categoryFilter = { naics_codes: [name] };
         }
 
         const filterValue = {
@@ -136,6 +109,7 @@ export class TopFiveContainer extends React.Component {
             version: REQUEST_VERSION
         };
 
+        console.log("filter value", filterValue);
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
@@ -151,7 +125,7 @@ export class TopFiveContainer extends React.Component {
                 }
                 else if (error.response) {
                     // Errored out but got response, toggle noAward flag
-                    this.hash = null;
+                    tempHash = null;
                 }
                 else {
                     // Request failed
@@ -162,43 +136,10 @@ export class TopFiveContainer extends React.Component {
         return '';
     };
 
-    loadCategory() {
-        if (!this.props.code) {
-            this.setState({
-                loading: false,
-                error: true
-            });
-            return;
-        }
 
-        if (this.request) {
-            this.request.cancel();
-        }
-
-        this.setState({
-            loading: true,
-            error: false
-        });
-
-        // generate a link with these dataParams
-        this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
-        this.request.promise
-            .then((res) => {
-                this.parseResults(res.data.results, res.data.category);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
-                }
-            });
-    }
-
-    parseResults(data, type) {
-        const parsed = data.map((item, index) => {
+    const parseResults = (data, type) => {
+        const resultsUrls = [];
+        const parsed = data?.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
             result.populate(item, index + 1);
 
@@ -209,6 +150,9 @@ export class TopFiveContainer extends React.Component {
                     }
                     return name;
                 };
+
+                resultsUrls.push({ [result.nameTemplate]: "blah" });
+                console.log("results url", getSelectedSection(result.nameTemplate));
             }
             else if (type === 'recipient') {
                 result.nameTemplate = (code, name) => name;
@@ -217,31 +161,63 @@ export class TopFiveContainer extends React.Component {
                 result.nameTemplate = (code, name) => (name);
             }
 
-            console.log("url", this.getSelectedSection());
             // append the filter here
             // for the filter need - the state code (props.code), table category (props.category), time period(?), and tab selection (props.type)
-            console.log("filters", this.props.fy, this.dataParams());
+            // console.log("filters", props.fy, dataParams());
 
 
             return result;
         });
-        this.setState({
-            loading: false,
-            error: false,
-            results: parsed
-        });
-    }
 
-    render() {
-        return (
-            <TopFive
-                category={this.props.category}
-                total={this.props.total}
-                {...this.state} />
-        );
-    }
-}
+        console.log("parsed", parsed, resultsUrls);
 
+        setCategoryState({ loading: false, error: false, results: parsed });
+    };
+
+    const loadCategory = () => {
+        let request;
+
+        if (!props.code) {
+            setCategoryState({ loading: false, error: true });
+        }
+
+        if (request) {
+            request.cancel();
+        }
+
+        setCategoryState({ loading: true, error: false });
+
+
+        // generate a link with these dataParams
+        request = SearchHelper.performSpendingByCategorySearch(dataParams());
+        request.promise
+            .then((res) => {
+                console.log("category data", res.data);
+                parseResults(res.data.results, res.data.category);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    setCategoryState({ loading: false, error: true });
+                }
+            });
+    };
+
+
+    useEffect(() => {
+        loadCategory();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.code, props.fy, props.type]);
+
+    return (
+        <TopFive
+            category={props.category}
+            total={props.total}
+            {...categoryState} />
+    );
+};
+
+TopFiveContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
