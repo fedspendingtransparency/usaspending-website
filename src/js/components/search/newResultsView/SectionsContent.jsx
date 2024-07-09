@@ -5,6 +5,7 @@
 
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
