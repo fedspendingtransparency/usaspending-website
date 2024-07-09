@@ -35,12 +35,12 @@ const CategoriesTable = (props) => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     return (
         <>
             <Table
-                classNames="table-for-new-search-page"
+                classNames="table-for-new-search-page award-results-table-dtui"
                 columns={props.columns}
                 rows={props.rows}
                 isStacked
