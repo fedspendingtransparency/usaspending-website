@@ -2,6 +2,7 @@
  * RoundedToggle.jsx
  * created by Nick Torres 5/5/2022
  */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 

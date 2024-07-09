@@ -43,6 +43,7 @@ const propTypes = {
     className: PropTypes.string,
     stateInfo: PropTypes.object,
     onMapLoaded: PropTypes.func.isRequired
+    amountTypeEnabled: PropTypes.bool
 };
 
 const defaultProps = {
@@ -53,7 +54,8 @@ const defaultProps = {
     scope: 'state',
     availableLayers: ['state'],
     showLayerToggle: false,
-    children: null
+    children: null,
+    amountTypeEnabled: true
 };
 
 const mapLegendToggleData = [
@@ -544,14 +546,17 @@ const MapWrapper = (props) => {
         let mapFilters = cloneDeep(props.filters);
         let active = cloneDeep(props.activeFilters);
         if (!mapFilters || !activeFilters) return null;
-        const awardTypeFilters = props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
-        if (awardTypeFilters.includes(activeFilters.awardType)) {
+        const awardTypeFilters = props.awardTypeFilters?.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        if (awardTypeFilters?.includes(activeFilters.awardType)) {
             mapFilters.spendingType.options.pop();
         }
 
         if (props.activeFilters?.territory === 'country') {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
+        }
+        else if (props.amountTypeEnabled === false) {
+            mapFilters = Object.assign({}, { territory: mapFilters.territory });
         }
         else {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });

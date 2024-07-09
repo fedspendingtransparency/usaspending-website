@@ -18,6 +18,10 @@
                 border-bottom: solid 1px $color-gray-border;
             }
         }
+
+        // and we need to add back top and bottom margins
+        margin-top: $global-margin;
+        margin-bottom: $global-margin;
     }
 
     .table-header {
@@ -40,7 +44,7 @@
     }
 
     // this is necessary for the formatting for only the last table on the page,
-    // in the assistance listing section, but grid-column messes up the last cel
+    // in the assistance listing section, but grid-column messes up the last cell
     // in a row in the other two tables, so it gets a special class
     &.spending-by-cfda {
         .usda-table__row {
