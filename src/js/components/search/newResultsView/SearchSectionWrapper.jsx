@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
@@ -12,7 +13,6 @@ import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
-import { useSelector } from "react-redux";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -117,7 +117,6 @@ const SearchSectionWrapper = ({
             rectTopNumber = 1800;
         }
         window.scrollTo({
-            // top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 900 : rect.top - 140,
             top: rect.top + rectTopNumber,
             behavior: 'smooth'
         });
@@ -130,13 +129,6 @@ const SearchSectionWrapper = ({
             jumpToSection(params[0].substring(8));
         }
     };
-
-    useEffect(() => {
-        setTimeout(() => {
-            parseSection();
-        }, 500);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         setTimeout(() => {
