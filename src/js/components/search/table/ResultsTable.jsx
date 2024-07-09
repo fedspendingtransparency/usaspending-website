@@ -72,6 +72,8 @@ export default class ResultsTable extends React.Component {
                 this.tableComponent.reloadTable();
             }
         }
+
+        this.handleWindowResize();
     }
 
     componentWillUnmount() {
@@ -97,8 +99,6 @@ export default class ResultsTable extends React.Component {
                 isMobile: windowWidth < tabletScreen
             });
         }
-
-        console.log('fire');
     }
 
     headerCellRender(columnIndex) {
