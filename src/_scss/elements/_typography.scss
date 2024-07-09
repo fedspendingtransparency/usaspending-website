@@ -13,22 +13,30 @@ p {
 }
 
 a {
-    color: $color-primary;
+    color: $theme-color-1;
     text-decoration: none;
 
-    &:hover,
+    &:hover {
+        color: $theme-color-1-dark
+    }
+
     &:active {
-        color: $color-primary-darker;
+        color: $theme-color-dark-blue-bg;
         text-decoration: underline;
     }
 
     &:visited {
-        color: $color-visited;
+        color: $violet-70v;
     }
 
     &:focus {
         box-shadow: $focus-shadow;
         outline: 0;
+    }
+
+    &:disabled {
+        color: $theme-color-1;
+        opacity: 50%;
     }
 }
 

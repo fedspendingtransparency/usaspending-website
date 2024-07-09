@@ -118,7 +118,7 @@
         .mobile-dropdown__parent-icon {
             @include flex(0 0 auto);
             display: contents;
-            color: $blue-50;
+            color: $theme-color-1;
             margin-left: auto;
             width: rem(20);
             height: rem(20);
@@ -127,7 +127,7 @@
             svg {
                 width: rem(6);
                 height: rem(9.8);
-                fill: $blue-50;
+                fill: $theme-color-1;
             }
         }
     }

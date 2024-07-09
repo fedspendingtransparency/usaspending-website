@@ -19,7 +19,7 @@ const propTypes = {
 
 const tickFormatter = (value, isMobile) => {
     const limit = isMobile ? 34 : 36; // put your maximum character
-    if (value.length < limit) return { text: value, isOneLine: (value.length < 27) };
+    if (value.length < limit) return { text: value, isOneLine: (value === value.toUpperCase() ? value.length < 24 : value.length < 27) };
     const newValue = value.replace("Department", "Dept");
     if (newValue.length <= limit) return { text: newValue, isOneLine: false };
     return { text: `${newValue.substring(0, limit)}...`, isOneLine: false };

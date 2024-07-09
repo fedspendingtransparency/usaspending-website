@@ -202,23 +202,23 @@ button,
 
 @mixin button-link {
     @include button-unstyled;
-    color: $color-primary;
+    color: $theme-color-1;
     cursor: pointer;
     width: fit-content;
     display: inline-block;
     &:hover {
-        color: $color-primary-darker;
+        color: $theme-color-1-dark;
         text-decoration: underline;
     }
 }
 
 .usa-button-link {
     @include button-unstyled;
-    color: $color-primary;
+    color: $theme-color-1;
     margin-top: rem(3);
     cursor: pointer;
     width: fit-content;
     &:hover {
-        color: $color-primary;
+        color: $theme-color-1-dark;
     }
 }
