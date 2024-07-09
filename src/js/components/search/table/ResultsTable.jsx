@@ -14,8 +14,6 @@ import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
-import { tabletScreen } from "../../../dataMapping/shared/mobileBreakpoints";
-
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
@@ -34,7 +32,8 @@ export default class ResultsTable extends React.Component {
         page: PropTypes.number,
         setPage: PropTypes.func,
         setResultLimit: PropTypes.func,
-        total: PropTypes.number
+        total: PropTypes.number,
+        isMobile: PropTypes.bool
     };
 
     constructor(props) {
@@ -46,7 +45,6 @@ export default class ResultsTable extends React.Component {
             windowHeight: 0,
             tableHeight: 0,
             activateRightFade: true,
-            isMobile: false,
             windowWidth: 0
         };
         this.headerCellRender = this.headerCellRender.bind(this);
@@ -55,14 +53,12 @@ export default class ResultsTable extends React.Component {
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
         this.measureHeight = this.measureHeight.bind(this);
-        this.handleWindowResize = this.handleWindowResize.bind(this);
         this.checkToAddRightFade = this.checkToAddRightFade.bind(this);
     }
 
     componentDidMount() {
         this.measureHeight();
         window.addEventListener('resize', this.measureHeight);
-        window.addEventListener('resize', this.handleWindowResize);
     }
 
     componentDidUpdate(prevProps) {
@@ -72,13 +68,10 @@ export default class ResultsTable extends React.Component {
                 this.tableComponent.reloadTable();
             }
         }
-
-        this.handleWindowResize();
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.measureHeight);
-        window.removeEventListener('resize', this.handleWindowResize);
     }
 
     measureHeight() {
@@ -87,18 +80,6 @@ export default class ResultsTable extends React.Component {
             tableHeight,
             windowHeight: window.innerHeight
         });
-    }
-
-    handleWindowResize() {
-        // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
-            // width changed, update the visualization width
-            this.setState({
-                windowWidth,
-                isMobile: windowWidth < tabletScreen
-            });
-        }
     }
 
     headerCellRender(columnIndex) {
@@ -394,7 +375,7 @@ export default class ResultsTable extends React.Component {
         // subtract the sticky header part on the top of the page
         // tab height for the tables
         // 16 pixel space between the tabs
-        // pagination on the bottom so you can actually see the pages
+        // pagination on the bottom, so you can actually see the pages
         return (
             <>
                 <div
@@ -403,16 +384,16 @@ export default class ResultsTable extends React.Component {
                     style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
-                        stickyFirstColumn={!this.state.isMobile}
+                        stickyFirstColumn={!this.props.isMobile}
                         checkToAddRightFade={this.checkToAddRightFade}
                         columns={cols}
                         rows={limitedRows}
-                        rowHeight={this.state.isMobile ? null : 58}
+                        rowHeight={this.props.isMobile ? null : 58}
                         headerRowHeight={45}
                         subAward={this.props.subaward}
                         currentSort={this.props.sort}
                         updateSort={this.props.updateSort}
-                        isMobile={this.state.isMobile}
+                        isMobile={this.props.isMobile}
                         isStacked />
                 </div>
                 <Pagination
