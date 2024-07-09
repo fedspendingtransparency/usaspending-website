@@ -42,7 +42,7 @@ const propTypes = {
     updateMapLegendToggle: PropTypes.func,
     className: PropTypes.string,
     stateInfo: PropTypes.object,
-    onMapLoaded: PropTypes.func.isRequired
+    onMapLoaded: PropTypes.func.isRequired,
     amountTypeEnabled: PropTypes.bool
 };
 
