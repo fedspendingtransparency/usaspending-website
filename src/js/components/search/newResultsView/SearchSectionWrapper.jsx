@@ -104,20 +104,19 @@ const SearchSectionWrapper = ({
             });
         }
 
-        // NOTE: might need to adjust for mobile
-        const rect = sectionDom.getBoundingClientRect();
-        let rectTopNumber = 0;
+        let rectTopOffset = 0;
         if (matchedSection === 'categories') {
-            rectTopNumber = 600;
+            rectTopOffset = 820;
         }
         else if (matchedSection === 'time') {
-            rectTopNumber = 1100;
+            rectTopOffset = 1680;
         }
         else if (matchedSection === 'awards') {
-            rectTopNumber = 1800;
+            rectTopOffset = 2240;
         }
+
         window.scrollTo({
-            top: rect.top + rectTopNumber,
+            top: rectTopOffset,
             behavior: 'smooth'
         });
     };
@@ -131,9 +130,9 @@ const SearchSectionWrapper = ({
     };
 
     useEffect(() => {
-        setTimeout(() => {
+        if (mapHasLoaded) {
             parseSection();
-        }, 200);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sectionName, mapHasLoaded]);
 
