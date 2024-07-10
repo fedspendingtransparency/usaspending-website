@@ -4,78 +4,100 @@
     .award-amount-warning {
         position: relative;
     }
+
     .warning-tooltip {
-      margin-top: rem(-20);
+        margin-top: rem(-20);
     }
 
     .award-amount-item-wrapper label {
         margin-top: 0;
         margin-bottom: 0;
     }
+
     .specific-award-amount-wrapper {
-        @include usa-label;
         font-size: $small-font-size;
         line-height: $small-font-size;
         padding: 0;
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
+        display: flex;
+        align-items: flex-end !important;
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            margin: 0; 
+            margin: 0;
         }
+
         input[type=number] {
-          -moz-appearance:textfield;
+            -moz-appearance: textfield;
         }
+
         span {
             padding-right: 0.5rem;
         }
 
+        .specific-award-amount-column {
+            .award-amount-label {
+                display: block;
+                font-size: $font-size-10;
+                font-weight: $font-semibold;
+                line-height: 1.5;
+                color: $gray-60;
+                margin-bottom: rem(4);
+            }
+        }
+
         input {
             @include placeholder {
-                color: $color-placeholder;
+                color: $gray-60;
             }
+
+            line-height: 1.5;
+            border-radius: 3px;
+            border: solid 1px $gray-cool-10 !important;
+            padding: 7px 8px;
+            margin-right: rem(4);
         }
 
         .award-amount-submit {
             // @include singleSubmit;
             height: rem(32);
+            margin: 0;
         }
 
         @media only screen and (min-width:1342px) {
             @include display(flex);
             @include justify-content(space-between);
             @include align-items(center);
+
             input {
                 margin-right: rem(4);
-                width: 118.5px;
-                padding-top: 7px;
-                padding-bottom: 7px;
+                min-width: 118.5px;
+                width: auto;
                 height: rem(32);
             }
+
             .award-amount-submit {
                 margin-right: 0;
             }
         }
+
         @media only screen and (max-width:1341px) {
             input {
                 margin-right: rem(4);
-                width: 118.5px;
-                padding-top: 7px;
-                padding-bottom: 7px;                
+                min-width: 118.5px;
+                max-width: 325.5px;
+                width: auto;
                 height: rem(32);
             }
+
             .specific-award-min {
-                margin-right: 0.65rem;
+                margin-right: rem(4);
             }
+
             .specific-award-max {
-                margin-left: 0.15rem;
-                margin-right: 0;
-            }
-            .award-amount-submit {
-                margin-top: rem(5);
-                margin-right: auto;
-                margin-left: auto;
+                margin-left: 0;
+                margin-right: rem(4);
             }
         }
     }

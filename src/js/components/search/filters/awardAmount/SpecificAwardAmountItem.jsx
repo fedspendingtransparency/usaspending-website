@@ -89,20 +89,26 @@ export default class SpecificAwardAmountItem extends React.Component {
                     </div>
                 }
                 <div className="specific-award-amount-wrapper">
-                    <input
-                        type="number"
-                        placeholder="No minimum"
-                        step="none"
-                        className="specific-award-min"
-                        value={min}
-                        onChange={this.minChange} />
-                    <input
-                        type="number"
-                        placeholder="No maximum"
-                        step="none"
-                        className="specific-award-max"
-                        value={max}
-                        onChange={this.maxChange} />
+                    <div className="specific-award-amount-column">
+                        <span className="award-amount-label">MINIMUM AMOUNT</span>
+                        <input
+                            type="number"
+                            placeholder="No minimum"
+                            step="none"
+                            className="specific-award-min"
+                            value={min}
+                            onChange={this.minChange} />
+                    </div>
+                    <div className="specific-award-amount-column">
+                        <span className="award-amount-label">MAXIMUM AMOUNT</span>
+                        <input
+                            type="number"
+                            placeholder="No maximum"
+                            step="none"
+                            className="specific-award-max"
+                            value={max}
+                            onChange={this.maxChange} />
+                    </div>
                     <Button additionalClassnames="award-amount-submit" copy="Add" buttonTitle="Filter by custom award amount range" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={this.searchSpecificRange} />
                 </div>
             </div>
