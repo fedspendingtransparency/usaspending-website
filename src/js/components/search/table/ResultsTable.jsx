@@ -68,6 +68,19 @@ export default class ResultsTable extends React.Component {
                 this.tableComponent.reloadTable();
             }
         }
+
+        if (prevProps.isMobile !== this.props.isMobile) {
+            if (this.props.isMobile) {
+                this.setState({
+                    activateRightFade: false
+                });
+            }
+            else {
+                (this.setState({
+                    activateRightFade: true
+                }));
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -356,12 +369,12 @@ export default class ResultsTable extends React.Component {
     }
 
     checkToAddRightFade(isScrolledLeft, isScrolledRight) {
-        if (!isScrolledLeft) {
+        if (!isScrolledLeft && !this.props.isMobile) {
             this.setState({
                 activateRightFade: true
             });
         }
-        if (isScrolledRight) {
+        if (isScrolledRight || this.props.isMobile) {
             this.setState({
                 activateRightFade: false
             });
