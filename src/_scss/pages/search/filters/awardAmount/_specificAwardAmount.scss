@@ -37,6 +37,8 @@
         }
 
         .specific-award-amount-column {
+            margin-right: rem(4);
+            width: 100%;
             .award-amount-label {
                 display: block;
                 font-size: $font-size-10;
@@ -56,7 +58,6 @@
             border-radius: 3px;
             border: solid 1px $gray-cool-10 !important;
             padding: 7px 8px;
-            margin-right: rem(4);
         }
 
         .award-amount-submit {
@@ -71,9 +72,7 @@
             @include align-items(center);
 
             input {
-                margin-right: rem(4);
-                min-width: 118.5px;
-                width: auto;
+                width: 100%;
                 height: rem(32);
             }
 
@@ -84,19 +83,8 @@
 
         @media only screen and (max-width:1341px) {
             input {
-                margin-right: rem(4);
-                min-width: 118.5px;
-                width: auto;
+                width: 100%;
                 height: rem(32);
-            }
-
-            .specific-award-min {
-                margin-right: rem(4);
-            }
-
-            .specific-award-max {
-                margin-left: 0;
-                margin-right: rem(4);
             }
         }
     }
