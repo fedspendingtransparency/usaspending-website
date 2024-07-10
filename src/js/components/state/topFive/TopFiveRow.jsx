@@ -40,8 +40,14 @@ const TopFiveRow = (props) => {
             <td
                 className="category-table__table-cell category-table__table-cell_centered"
                 title="view in search">
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <a onClick={(e) => props.getSelectedLink(e, props.data.name)}>View in Search</a>
+                <a
+                    role="button"
+                    tabIndex={0}
+                    aria-label="View Awards"
+                    onKeyDown={(e) => { if (e.key === "Enter") props.getSelectedLink(e, props.data.name); }}
+                    onClick={(e) => props.getSelectedLink(e, props.data.name)}>
+                    View Awards
+                </a>
             </td>
         </tr>
     );

@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
@@ -77,47 +77,68 @@ const TopFiveContainer = (props) => {
         console.log("in get selected link", name);
         const params = dataParams();
 
-        let categoryFilter;
-
-        if (params.category === 'awarding_agency') {
-            categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name }] };
-        }
-        else if (params.category === 'awarding_subagency') {
-            categoryFilter = { recipient_search_text: name };
-        }
-        else if (params.category === 'recipient') {
-            categoryFilter = { recipient_search_text: name };
-        }
-        else if (params.category === 'county') {
-            // categoryFilter = { recipient_search_text: item };
-        }
-        else if (params.category === 'district') {
-            // categoryFilter = { recipient_search_text: item };
-        }
-        else if (params.category === 'cfda') {
-            categoryFilter = { program_numbers: [name] };
-        }
-        else if (params.category === 'psc') {
-            // categoryFilter = { psc_codes: [item] };
-        }
-        else if (params.category === 'naics') {
-            categoryFilter = { naics_codes: [name] };
-        }
-
         const filterValue = {
             filters: {
-                ...params.filters,
-                ...categoryFilter
+                ...defaultFilters,
+                selectedLocations: {
+                    USA: {
+                        filter: {
+                            country: "USA"
+                        },
+                        display: {
+                            title: "UNITED STATES",
+                            entity: "Country",
+                            standalone: "UNITED STATES"
+                        },
+                        identifier: "USA"
+                    }
+                }
             },
             version: REQUEST_VERSION
         };
+
+        // let categoryFilter;
+        // categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
+
+        // if (params.category === 'awarding_agency') {
+        //     categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
+        // }
+        // else if (params.category === 'awarding_subagency') {
+        //     categoryFilter = { recipient_search_text: name };
+        // }
+        // else if (params.category === 'recipient') {
+        //     categoryFilter = { recipient_search_text: name };
+        // }
+        // else if (params.category === 'county') {
+        //     // categoryFilter = { recipient_search_text: item };
+        // }
+        // else if (params.category === 'district') {
+        //     // categoryFilter = { recipient_search_text: item };
+        // }
+        // else if (params.category === 'cfda') {
+        //     categoryFilter = { program_numbers: [name] };
+        // }
+        // else if (params.category === 'psc') {
+        //     // categoryFilter = { psc_codes: [item] };
+        // }
+        // else if (params.category === 'naics') {
+        //     categoryFilter = { naics_codes: [name] };
+        // }
+
+        // const filterValue = {
+        //     filters: {
+        //         ...params.filters,
+        //         ...categoryFilter
+        //     },
+        //     version: REQUEST_VERSION
+        // };
 
         console.log("filter value", filterValue);
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
                 const hashData = results.data;
-                window.open(`/search?hash=${hashData.hash}`, "_self");
+                window.open(`/search?hash=${hashData.hash}`, '_blank').focus();
             })
             .catch((error) => {
                 console.log(error);
