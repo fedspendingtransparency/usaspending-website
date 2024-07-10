@@ -92,7 +92,7 @@
     .swiper-wrapper {
       @media (min-width: 1400px) {
         justify-self: right;
-        width:unset;
+        width: unset;
       }
 
       @media(min-width:320px) {
@@ -156,9 +156,6 @@
     }
 
     .award-search__col2 {
-      .card-container {
-        border-radius: 16px;
-      }
 
       @media (min-width: 1400px) {
         display: inline;
@@ -166,105 +163,84 @@
       }
 
       .award-search__slide {
-        width: 486px !important;
-        height: 462px !important;
+        width: rem(288) !important;
+        height: rem(462) !important;
 
-        @media (max-width:767px) {
-          width: 288px !important;
-          height: 480px;
+        .card-container {
+          border-radius: rem(16);
+          height: 100%;
         }
 
-        .award-search__card1 {
-          height: 448px;
-
-          @media(min-width:768px) {
-            height: 462px;
-            width: 486px;
-          }
+        @media (min-width: $tablet-screen) {
+          width: rem(486) !important;
+          height: rem(482) !important;
         }
 
         .award-search__card2 {
-          height: 448px;
-          @media(max-width:500px) {
+          @media (max-width:500px) {
             .text {
-              height: 96px;
+              height: rem(96);
             }
           }
 
-          @media(max-width:768px) {
+          @media (max-width: $tablet-screen) {
             .text {
-              height: 98px;
+              height: rem(98);
             }
           }
-          @media(min-width:768px) {
-            height: 462px;
-            width: 486px;
 
+          @media (min-width: $tablet-screen) {
             .text {
               height: auto;
             }
           }
         }
 
-        .award-search__card3 {
-          height: 448px;
-
-          @media(min-width:768px) {
-            height: 462px;
-            width: 486px;
-          }
-        }
-
         .award-search__card4 {
-          height: 448px;
-
           .card__body {
             .text {
-              margin-bottom: 4px;
-              @media(min-width:450px) and (max-width:768px) {
-                margin-bottom:0;
+              margin-bottom: rem(4);
+              @media (min-width:450px) and (max-width: $tablet-screen) {
+                margin-bottom: 0;
               }
-              @media(min-width:768px) {
-                margin-bottom: 32px;
+              @media (min-width: $tablet-screen) {
+                margin-bottom: $global-margin * 4;
               }
             }
           }
 
-          @media(min-width:768px) {
-            height: 462px;
-            width: 486px;
-          }
-
           .award-search__image {
-            @media(max-width:768px) {
-              margin-bottom: 8px;
+            @media (max-width: $tablet-screen) {
+              margin-bottom: $global-margin;
             }
 
           }
         }
 
         .card__body {
-          padding: 40px 40px 32px 40px;
+          height: 100%;
+          padding: rem(24) rem(32);
+
+          @media (min-width: $tablet-screen) {
+            height: unset;
+            padding: rem(40) rem(40) rem(32) rem(40);
+          }
 
           .headline {
-            margin-bottom: 8px;
+            margin-bottom: $global-margin;
           }
 
           .text {
-            margin-bottom: 32px;
+            margin-bottom: $global-margin * 4;
           }
 
           .card__button {
             margin-bottom: 0;
 
-
-            .card__button--primary {
-              white-space: normal;
-              text-align: center;
-              padding: 10px 24px;
-              margin: 0;
-              width: 100%;
+            button {
+              margin-right: 0;
             }
+
             .button-type__primary-light{
               width: 100%;
               justify-content: center;
