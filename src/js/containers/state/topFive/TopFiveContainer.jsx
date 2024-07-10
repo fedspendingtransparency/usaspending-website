@@ -72,7 +72,9 @@ const TopFiveContainer = (props) => {
         };
     };
 
-    const getSelectedSection = (resultObj, name) => {
+    const getSelectedLink = (e, name) => {
+        e.preventDefault();
+        console.log("in get selected link", name);
         const params = dataParams();
 
         let categoryFilter;
@@ -104,7 +106,8 @@ const TopFiveContainer = (props) => {
 
         const filterValue = {
             filters: {
-                ...params.filters
+                ...params.filters,
+                ...categoryFilter
             },
             version: REQUEST_VERSION
         };
@@ -114,9 +117,7 @@ const TopFiveContainer = (props) => {
         tempHash.promise
             .then((results) => {
                 const hashData = results.data;
-                const searchUrl = `/search?hash=${hashData.hash}`;
-                console.log("search url", searchUrl);
-                return searchUrl;
+                window.open(`/search?hash=${hashData.hash}`, "_self");
             })
             .catch((error) => {
                 console.log(error);
@@ -133,12 +134,10 @@ const TopFiveContainer = (props) => {
                     console.log(error);
                 }
             });
-        return '';
     };
 
 
     const parseResults = (data, type) => {
-        const resultsUrls = [];
         const parsed = data?.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
             result.populate(item, index + 1);
@@ -150,9 +149,6 @@ const TopFiveContainer = (props) => {
                     }
                     return name;
                 };
-
-                resultsUrls.push({ [result.nameTemplate]: "blah" });
-                console.log("results url", getSelectedSection(result.nameTemplate));
             }
             else if (type === 'recipient') {
                 result.nameTemplate = (code, name) => name;
@@ -161,15 +157,8 @@ const TopFiveContainer = (props) => {
                 result.nameTemplate = (code, name) => (name);
             }
 
-            // append the filter here
-            // for the filter need - the state code (props.code), table category (props.category), time period(?), and tab selection (props.type)
-            // console.log("filters", props.fy, dataParams());
-
-
             return result;
         });
-
-        console.log("parsed", parsed, resultsUrls);
 
         setCategoryState({ loading: false, error: false, results: parsed });
     };
@@ -192,7 +181,6 @@ const TopFiveContainer = (props) => {
         request = SearchHelper.performSpendingByCategorySearch(dataParams());
         request.promise
             .then((res) => {
-                console.log("category data", res.data);
                 parseResults(res.data.results, res.data.category);
             })
             .catch((err) => {
@@ -204,6 +192,12 @@ const TopFiveContainer = (props) => {
     };
 
 
+    // useEffect(() => {
+    //     console.log("here!", categoryState);
+    //     getSelectedLink("test");
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [categoryState.results]);
+
     useEffect(() => {
         loadCategory();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -212,6 +206,7 @@ const TopFiveContainer = (props) => {
     return (
         <TopFive
             category={props.category}
+            getSelectedLink={getSelectedLink}
             total={props.total}
             {...categoryState} />
     );
