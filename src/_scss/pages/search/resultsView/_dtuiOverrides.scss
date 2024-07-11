@@ -27,12 +27,6 @@
 
 .results-visualization-rank-section {
   .usa-dt-table__stacked {
-    @media (max-width: $tablet-screen - 1) {
-      .usda-table__row-item .usda-table__cell:first-child .usda-table__cell-heading-container {
-        padding-left: rem(16);
-      }
-    }
-
     @media (min-width: $tablet-screen) {
       .usda-table__cell-heading-container {
         display: none;
