@@ -15,7 +15,6 @@ import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
 
-
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
 export default class ResultsTable extends React.Component {
@@ -45,7 +44,8 @@ export default class ResultsTable extends React.Component {
             cols: this.prepareDTUIColumns(),
             windowHeight: 0,
             tableHeight: 0,
-            activateRightFade: true
+            activateRightFade: true,
+            windowWidth: 0
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
@@ -375,7 +375,7 @@ export default class ResultsTable extends React.Component {
         // subtract the sticky header part on the top of the page
         // tab height for the tables
         // 16 pixel space between the tabs
-        // pagination on the bottom so you can actually see the pages
+        // pagination on the bottom, so you can actually see the pages
         return (
             <>
                 <div
@@ -384,15 +384,17 @@ export default class ResultsTable extends React.Component {
                     style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
-                        stickyFirstColumn
+                        stickyFirstColumn={!this.props.isMobile}
                         checkToAddRightFade={this.checkToAddRightFade}
                         columns={cols}
                         rows={limitedRows}
-                        rowHeight={58}
+                        rowHeight={this.props.isMobile ? null : 58}
                         headerRowHeight={45}
                         subAward={this.props.subaward}
                         currentSort={this.props.sort}
-                        updateSort={this.props.updateSort} />
+                        updateSort={this.props.updateSort}
+                        isMobile={this.props.isMobile}
+                        isStacked />
                 </div>
                 <Pagination
                     resultsText
