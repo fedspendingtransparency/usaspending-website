@@ -13,7 +13,7 @@
         @include media($medium-screen) {
             display: block;
             padding-right: rem(30);
-            width: 354px;
+            width: 25%;
         }
 
         @import "../../components/search/keywordSearchLink";
