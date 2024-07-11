@@ -54,6 +54,7 @@ export default class ResultsTable extends React.Component {
         this.prepareTable = this.prepareTable.bind(this);
         this.measureHeight = this.measureHeight.bind(this);
         this.checkToAddRightFade = this.checkToAddRightFade.bind(this);
+        this.isMobileFade = this.isMobileFade(this);
     }
 
     componentDidMount() {
@@ -70,21 +71,25 @@ export default class ResultsTable extends React.Component {
         }
 
         if (prevProps.isMobile !== this.props.isMobile) {
-            if (this.props.isMobile) {
-                this.setState({
-                    activateRightFade: false
-                });
-            }
-            else {
-                (this.setState({
-                    activateRightFade: true
-                }));
-            }
+            this.isMobileFade();
         }
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.measureHeight);
+    }
+
+    isMobileFade() {
+        if (this.props.isMobile) {
+            this.setState({
+                activateRightFade: false
+            });
+        }
+        else {
+            (this.setState({
+                activateRightFade: true
+            }));
+        }
     }
 
     measureHeight() {
