@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
@@ -30,7 +31,10 @@ const propTypes = {
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     section: PropTypes.string,
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
+    setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+    children: PropTypes.element,
+    table: PropTypes.bool,
+    sectionName: PropTypes.string
 };
 
 const SearchSectionWrapper = ({
@@ -66,6 +70,8 @@ const SearchSectionWrapper = ({
     const history = useHistory();
     const sortFn = () => dropdownOptions;
 
+    const { mapHasLoaded } = useSelector((state) => state.searchView);
+
     const changeView = (label) => {
         setViewType(label);
 
@@ -74,6 +80,7 @@ const SearchSectionWrapper = ({
             setMapViewType(label);
         }
     };
+
     const jumpToSection = (section = '') => {
         const sections = ['map', 'time', 'categories', 'awards'];
         // we've been provided a section to jump to
@@ -97,13 +104,23 @@ const SearchSectionWrapper = ({
             });
         }
 
-        // NOTE: might need to adjust for mobile
-        const rect = sectionDom.getBoundingClientRect();
+        let rectTopOffset = 0;
+        if (matchedSection === 'categories') {
+            rectTopOffset = 820;
+        }
+        else if (matchedSection === 'time') {
+            rectTopOffset = 1680;
+        }
+        else if (matchedSection === 'awards') {
+            rectTopOffset = 2240;
+        }
+
         window.scrollTo({
-            top: matchedSection === 'time' || matchedSection === 'awards' ? rect.top + 900 : rect.top - 140,
+            top: rectTopOffset,
             behavior: 'smooth'
         });
     };
+
     const parseSection = () => {
         const params = history.location.search.split("&");
         params.shift();
@@ -113,9 +130,11 @@ const SearchSectionWrapper = ({
     };
 
     useEffect(() => {
-        parseSection();
+        if (mapHasLoaded) {
+            parseSection();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [sectionName, mapHasLoaded]);
 
     useEffect(() => {
         setContentHeight(content);
