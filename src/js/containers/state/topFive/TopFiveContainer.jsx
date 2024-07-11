@@ -77,41 +77,37 @@ const TopFiveContainer = (props) => {
         console.log("in get selected link", name);
         const params = dataParams();
 
-        const filterValue = {
-            filters: {
-                ...defaultFilters,
+        let categoryFilter;
+        // categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
+
+        if (params.category === 'awarding_agency') {
+        //     categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
+        }
+        // else if (params.category === 'awarding_subagency') {
+        //     categoryFilter = { recipient_search_text: name };
+        // }
+        else if (params.category === 'recipient') {
+            categoryFilter = { selectedRecipients: [name] };
+        }
+        else if (params.category === 'county') {
+            categoryFilter = {
                 selectedLocations: {
                     USA: {
                         filter: {
-                            country: "USA"
+                            country: "USA",
+                            state: props.state,
+                            county: name
                         },
                         display: {
                             title: "UNITED STATES",
-                            entity: "Country",
+                            entity: "County",
                             standalone: "UNITED STATES"
                         },
                         identifier: "USA"
                     }
                 }
-            },
-            version: REQUEST_VERSION
-        };
-
-        // let categoryFilter;
-        // categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
-
-        // if (params.category === 'awarding_agency') {
-        //     categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
-        // }
-        // else if (params.category === 'awarding_subagency') {
-        //     categoryFilter = { recipient_search_text: name };
-        // }
-        // else if (params.category === 'recipient') {
-        //     categoryFilter = { recipient_search_text: name };
-        // }
-        // else if (params.category === 'county') {
-        //     // categoryFilter = { recipient_search_text: item };
-        // }
+            };
+        }
         // else if (params.category === 'district') {
         //     // categoryFilter = { recipient_search_text: item };
         // }
@@ -125,13 +121,13 @@ const TopFiveContainer = (props) => {
         //     categoryFilter = { naics_codes: [name] };
         // }
 
-        // const filterValue = {
-        //     filters: {
-        //         ...params.filters,
-        //         ...categoryFilter
-        //     },
-        //     version: REQUEST_VERSION
-        // };
+        const filterValue = {
+            filters: {
+                ...defaultFilters,
+                ...categoryFilter
+            },
+            version: REQUEST_VERSION
+        };
 
         console.log("filter value", filterValue);
         let tempHash = generateUrlHash(filterValue);
