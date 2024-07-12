@@ -4,6 +4,7 @@
     @import 'components/pageLoading';
     @import 'layouts/default/stickyHeader/header';
     @import 'mixins/profilePage';
+    @import './dtuiOverrides';
 
     @include display(flex);
     @include justify-content(flex-start);
