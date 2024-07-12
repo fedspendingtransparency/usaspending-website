@@ -1,0 +1,24 @@
+.table-wrapper {
+  .usda-table {
+    // this was added after the dtui table styles were changed for the new search page
+    th, td {
+      // we need to get rid of the black borders that will appear
+      border: 0;
+      // and replace them with this gray border
+      border: solid 1px $color-gray-border;
+    }
+
+    tr {
+      td:last-of-type {
+        border: 0;
+
+        border-right: solid 1px $color-gray-border;
+        border-bottom: solid 1px $color-gray-border;
+      }
+    }
+
+    // and we need to add back top and bottom margins
+    margin-top: $global-margin;
+    margin-bottom: $global-margin;
+  }
+}
