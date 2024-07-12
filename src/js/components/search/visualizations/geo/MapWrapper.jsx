@@ -540,7 +540,11 @@ const MapWrapper = (props) => {
     };
 
     const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
-
+    const onKeyDown = (e) => {
+        if (e.key === "Enter") {
+            setIsFiltersOpen(!isFiltersOpen);
+        }
+    };
     const filters = () => {
         const { activeFilters } = props;
         let mapFilters = cloneDeep(props.filters);
@@ -619,7 +623,7 @@ const MapWrapper = (props) => {
                 stateProfile={props.stateProfile}
                 ref={mapRef}
                 singleLocationSelected={props.singleLocationSelected} />}
-            <MapFiltersToggle onClick={toggleFilters} isOpen={isFiltersOpen} />
+            <MapFiltersToggle onKeyDown={onKeyDown} onClick={toggleFilters} isOpen={isFiltersOpen} />
             {filters()}
             {legend()}
             {tooltip()}
