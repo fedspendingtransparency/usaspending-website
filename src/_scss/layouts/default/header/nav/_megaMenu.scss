@@ -44,7 +44,7 @@
         margin-left: $global-margin * .5;
       }
 
-      color: $blue-50;
+      color: $theme-color-1;
     }
   }
 
@@ -246,7 +246,7 @@
           padding-right: $global-padding * 2;
           transform: translateX(-16px) !important;
           width: rem(272) !important;
-        } 
+        }
 
         li:first-of-type {
           margin-top: $global-margin;
@@ -275,7 +275,7 @@
           &:hover {
             background: $gray-cool-5 !important;
           }
-        } 
+        }
 
         .list__extra-padding:nth-child(even) {
           margin-left: rem(66);

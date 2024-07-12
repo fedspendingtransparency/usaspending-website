@@ -67,7 +67,10 @@
                     }
                     &.wide_left {
                         .tooltip-spacer {
-                            left: -408px !important;
+                            left: -200px !important;
+                        }
+                        .tooltip-pointer {
+                            left: 423px !important;
                         }
                     }
                     &.wide_right {
