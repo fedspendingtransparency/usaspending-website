@@ -85,14 +85,14 @@
 					@include flex(0 0 auto);
 					@include align-items(center);
 					@include button-unstyled;
-					color: $color-primary;
+					color: $theme-color-1;
 					margin-top: rem(16);
 					font-size: rem(14);
 					width: fit-content;
 					&:hover {
-						color: $color-primary-darker;
+						color: $theme-color-1-dark;
 						svg {
-							fill: $color-primary-darker;
+							fill: $theme-color-1-dark;
 						}
 					}
 				}

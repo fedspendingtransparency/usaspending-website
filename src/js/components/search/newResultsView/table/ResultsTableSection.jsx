@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs } from 'data-transparency-ui';
 import { throttle } from "lodash";
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
 
 const propTypes = {
@@ -32,7 +32,7 @@ const propTypes = {
 const ResultsTableSection = (props) => {
     const [tableWidth, setTableWidth] = useState(0);
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const setTableWidthFn = () => {
         const table = document.querySelector('.results-table-content');
         if (table) {
@@ -44,7 +44,7 @@ const ResultsTableSection = (props) => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
-            setIsMobile(newWidth < mediumScreen);
+            setIsMobile(newWidth < (tabletScreen - 1));
         }
     }, 50);
 
@@ -58,7 +58,7 @@ const ResultsTableSection = (props) => {
             // stop watching for size changes
             window.removeEventListener('resize', setTableWidthFn);
         };
-    }, []);
+    }, [handleResize]);
 
     return (
         <div className="search-results-table-section" id="results-section-table">

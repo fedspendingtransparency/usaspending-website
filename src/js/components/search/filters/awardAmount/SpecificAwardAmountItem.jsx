@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import IndividualSubmit from 'components/search/filters/IndividualSubmit';
-import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
+import { Button } from 'data-transparency-ui';
 import EntityWarning from '../location/EntityWarning';
 
 const propTypes = {
@@ -72,7 +71,6 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     render() {
-        const onKeyDownHandler = createOnKeyDownHandler(this.searchSpecificRange);
         const {
             min,
             max,
@@ -84,7 +82,6 @@ export default class SpecificAwardAmountItem extends React.Component {
         if (showWarning) disabled = true;
         return (
             <div className="specific-award-amount">
-                <hr className="specific-award-amount-divider" />
                 {
                     showWarning &&
                     <div className="award-amount-warning">
@@ -92,28 +89,27 @@ export default class SpecificAwardAmountItem extends React.Component {
                     </div>
                 }
                 <div className="specific-award-amount-wrapper">
-                    <span>$</span>
-                    <input
-                        type="number"
-                        placeholder="Min"
-                        step="none"
-                        className="specific-award-min"
-                        value={min}
-                        onChange={this.minChange} />
-                    <span>to</span>
-                    <input
-                        type="number"
-                        placeholder="Max"
-                        step="none"
-                        className="specific-award-max"
-                        value={max}
-                        onChange={this.maxChange} />
-                    <IndividualSubmit
-                        disabled={disabled}
-                        className="award-amount-submit"
-                        onClick={this.searchSpecificRange}
-                        label="Filter by custom award amount range"
-                        onKeyDown={onKeyDownHandler} />
+                    <div className="specific-award-amount-column">
+                        <span className="award-amount-label">MINIMUM AMOUNT</span>
+                        <input
+                            type="number"
+                            placeholder="No minimum"
+                            step="none"
+                            className="specific-award-min"
+                            value={min}
+                            onChange={this.minChange} />
+                    </div>
+                    <div className="specific-award-amount-column">
+                        <span className="award-amount-label">MAXIMUM AMOUNT</span>
+                        <input
+                            type="number"
+                            placeholder="No maximum"
+                            step="none"
+                            className="specific-award-max"
+                            value={max}
+                            onChange={this.maxChange} />
+                    </div>
+                    <Button additionalClassnames="award-amount-submit" copy="Add" buttonTitle="Filter by custom award amount range" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={this.searchSpecificRange} />
                 </div>
             </div>
         );
