@@ -106,6 +106,11 @@ export default class MapWrapper extends React.Component {
         });
     }
 
+    onKeyDown = (e) => {
+        if (e.key === "Enter") {
+            this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
+        }
+    };
     getColors = (numQuantiles) => {
         const colors = [];
         for (let i = 0; i < numQuantiles; i++) {
@@ -511,7 +516,7 @@ export default class MapWrapper extends React.Component {
                     unloadedMap={this.mapRemoved}
                     center={this.props.center}
                     ref={this.mapRef} />}
-                <MapFiltersToggle onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
+                <MapFiltersToggle onKeyDown={this.onKeyDown} onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
                 {this.filters()}
                 {this.legend()}
                 {this.tooltip()}
