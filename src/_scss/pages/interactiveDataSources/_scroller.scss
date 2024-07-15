@@ -4,6 +4,11 @@ $top: 60px;
   display: block;
   position: relative;
   width: 100%;
+
+  @media (((min-width: 768px) and (max-width: 1200px)) and ((min-height:500px) and (max-height:900px))) {
+    width: 75%;
+    transform: translateY(225px);
+  }
 }
 
 .scroller-backdrop  {
