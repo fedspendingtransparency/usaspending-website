@@ -72,7 +72,7 @@
                     .cell-content {
                         .go-deeper-link {
                             @include button-unstyled;
-                            color: $color-primary;
+                            color: $blue-50;
                             font-size: $font-size-16;
                             line-height: $base-line-height;
                         }
