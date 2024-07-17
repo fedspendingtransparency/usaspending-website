@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 
 const propTypes = {
     title: PropTypes.string,
@@ -54,6 +55,15 @@ const MobileDropdownItem = ({
         const route = e.target.name;
         clickedHeaderLink(route);
         hideMobileNav();
+    };
+
+    const isRedirectNeeded = (item) => {
+        console.log(item);
+        return item.externalLink && !item.url.includes('.gov')
+    }
+
+    const displayRedirectModal = (url) => {
+        dispatch(showModal(url, 'redirect'));
     };
 
     return (
@@ -202,7 +212,8 @@ const MobileDropdownItem = ({
                     <ul>
                         {section3Items.map((item, i) => (
                             <li className="mobile-dropdown__section-downloads" key={i}>
-                                <a href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
+                                <a href={isRedirectNeeded(item) ? null : item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
+                                    className="mobile-dropdown__section-link" onClick={(e) => isRedirectNeeded(item) ? displayRedirectModal(item.url) : null}>
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}
                                         <span className="mobile-dropdown__section-description">
