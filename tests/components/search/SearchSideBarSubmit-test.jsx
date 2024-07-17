@@ -13,5 +13,5 @@ it('should be disabled given no filters are staged', () => {
         requestsComplete={false}
         applyStagedFilters={() => {}}
         resetFilters={() => {}} />);
-    expect(screen.getByText('Submit Search')).toHaveProperty('disabled', true);
+    expect(screen.getByText('Submit')).toHaveProperty('disabled', true);
 });

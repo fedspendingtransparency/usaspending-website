@@ -34,9 +34,9 @@ const AdvancedSearchMapFilters = ({ filters, activeFilters, isOpen }) => (
                                 classname="map__filters-button"
                                 dropdownClassname="map__filters-dropdown"
                                 sortFn={handleSort}
-                                selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
+                                selectedOption={filters[filter].options?.find((option) => option.value === activeFilters[filter]).label}
                                 options={
-                                    filters[filter].options.map((option) => ({
+                                    filters[filter].options?.map((option) => ({
                                         name: option.label,
                                         value: option.value,
                                         onClick: filters[filter].onClick,

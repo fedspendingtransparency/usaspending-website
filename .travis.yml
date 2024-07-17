@@ -4,6 +4,7 @@ node_js:
   - 18
 # Need a C++ compiler
 addons:
+  chrome: stable
 cache:
   directories:
     - node_modules

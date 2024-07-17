@@ -5,6 +5,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { uniq, cloneDeep } from 'lodash';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -16,6 +17,7 @@ import MapLegend from './MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 import MapFiltersToggle from "../../../covid19/recipient/map/MapFiltersToggle";
 import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
+import { setMapHasLoaded } from "../../../../redux/actions/search/searchViewActions";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -39,7 +41,9 @@ const propTypes = {
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     className: PropTypes.string,
-    stateInfo: PropTypes.object
+    stateInfo: PropTypes.object,
+    onMapLoaded: PropTypes.func.isRequired,
+    amountTypeEnabled: PropTypes.bool
 };
 
 const defaultProps = {
@@ -50,7 +54,8 @@ const defaultProps = {
     scope: 'state',
     availableLayers: ['state'],
     showLayerToggle: false,
-    children: null
+    children: null,
+    amountTypeEnabled: true
 };
 
 const mapLegendToggleData = [
@@ -346,6 +351,8 @@ const MapWrapper = (props) => {
     const mapReadyPrep = () => {
         // map has mounted, load the state shapes
         setMapReady(true);
+        // and set the redux property used for jumpTo function in searchSectionWrapper
+        props.onMapLoaded(true);
     };
 
     const measureMap = (forced = false) => {
@@ -533,20 +540,27 @@ const MapWrapper = (props) => {
     };
 
     const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
-
+    const onKeyDown = (e) => {
+        if (e.key === "Enter") {
+            setIsFiltersOpen(!isFiltersOpen);
+        }
+    };
     const filters = () => {
         const { activeFilters } = props;
         let mapFilters = cloneDeep(props.filters);
         let active = cloneDeep(props.activeFilters);
         if (!mapFilters || !activeFilters) return null;
-        const awardTypeFilters = props.awardTypeFilters.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
-        if (awardTypeFilters.includes(activeFilters.awardType)) {
+        const awardTypeFilters = props.awardTypeFilters?.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        if (awardTypeFilters?.includes(activeFilters.awardType)) {
             mapFilters.spendingType.options.pop();
         }
 
         if (props.activeFilters?.territory === 'country') {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
+        }
+        else if (props.amountTypeEnabled === false) {
+            mapFilters = Object.assign({}, { territory: mapFilters.territory });
         }
         else {
             mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
@@ -609,7 +623,7 @@ const MapWrapper = (props) => {
                 stateProfile={props.stateProfile}
                 ref={mapRef}
                 singleLocationSelected={props.singleLocationSelected} />}
-            <MapFiltersToggle onClick={toggleFilters} isOpen={isFiltersOpen} />
+            <MapFiltersToggle onKeyDown={onKeyDown} onClick={toggleFilters} isOpen={isFiltersOpen} />
             {filters()}
             {legend()}
             {tooltip()}
@@ -621,4 +635,10 @@ const MapWrapper = (props) => {
 MapWrapper.propTypes = propTypes;
 MapWrapper.defaultProps = defaultProps;
 
-export default MapWrapper;
+export default connect((state) => ({
+    isMapLoaded: state.searchView.mapHasLoaded
+}),
+(dispatch) => ({
+    onMapLoaded: (bool) => dispatch(setMapHasLoaded(bool))
+})
+)(MapWrapper);
