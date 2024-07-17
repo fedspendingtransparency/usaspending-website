@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from 'react-redux';
+import { isRedirectNeeded, displayRedirectModal } from '../../../../helpers/url';
 import { FlexGridRow } from 'data-transparency-ui';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,14 +19,6 @@ const ItemContent = React.memo(({
     direction
 }) => {
     const dispatch = useDispatch();
-
-    const displayRedirectModal = (url) => {
-        dispatch(showModal(url, 'redirect'));
-    };
-
-    const isRedirectNeeded = (item) => {
-        return item.externalLink && !item.url.includes('.gov')
-    }
 
     const openATD = (e) => {
         dispatch(aboutTheDataActions.showAboutTheData());
@@ -197,7 +190,7 @@ const ItemContent = React.memo(({
                                                                     closeDropdown();
                                                                 }
                                                             }}
-                                                            onClick={(e) => isRedirectNeeded(item) ? displayRedirectModal(item.url) : null}
+                                                            onClick={(e) => isRedirectNeeded(item) ? displayRedirectModal(item.url, dispatch) : null}
                                                             target={item.shouldOpenNewTab ? "_blank" : null}
                                                             rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
                                                             {item.icon && item.icon !== '' && item.icon !== null ?
