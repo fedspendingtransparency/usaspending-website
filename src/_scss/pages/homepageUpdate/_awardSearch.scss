@@ -10,6 +10,7 @@
       display:flex;
     }
   }
+
   .grid-content {
     margin-top: 0;
     margin-bottom: 96px;
@@ -19,8 +20,10 @@
     @media (min-width: 1400px) {
       align-items: center;
     }
+
     .award-search__col1 {
       align-items: center;
+
       @media (max-width:1400px) {
         width: 100%;
       }
@@ -213,7 +216,6 @@
             @media (max-width: $tablet-screen) {
               margin-bottom: $global-margin;
             }
-
           }
         }
 
