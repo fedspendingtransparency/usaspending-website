@@ -8,6 +8,7 @@ import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutThe
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import FadeContents from "./FadeContents";
+import { showModal } from 'redux/actions/modal/modalActions';
 
 const ItemContent = React.memo(({
     navbarConfig,
@@ -17,6 +18,14 @@ const ItemContent = React.memo(({
     direction
 }) => {
     const dispatch = useDispatch();
+
+    const displayRedirectModal = (url) => {
+        dispatch(showModal(url, 'redirect'));
+    };
+
+    const isRedirectNeeded = (item) => {
+        return item.externalLink && !item.url.includes('.gov')
+    }
 
     const openATD = (e) => {
         dispatch(aboutTheDataActions.showAboutTheData());
@@ -182,12 +191,13 @@ const ItemContent = React.memo(({
                                                     <FlexGridRow width={6} desktop={6}>
                                                         <a
                                                             className="dropdown--item__link"
-                                                            href={item.url}
+                                                            href={isRedirectNeeded(item) ? null: item.url}
                                                             onKeyDown={(e) => {
                                                                 if (item.label === 'Release Notes' && e.key === 'Tab') {
                                                                     closeDropdown();
                                                                 }
                                                             }}
+                                                            onClick={(e) => isRedirectNeeded(item) ? displayRedirectModal(item.url) : null}
                                                             target={item.shouldOpenNewTab ? "_blank" : null}
                                                             rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
                                                             {item.icon && item.icon !== '' && item.icon !== null ?
