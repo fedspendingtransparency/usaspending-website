@@ -15,7 +15,6 @@ import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
 
-
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
 export default class ResultsTable extends React.Component {
@@ -45,7 +44,8 @@ export default class ResultsTable extends React.Component {
             cols: this.prepareDTUIColumns(),
             windowHeight: 0,
             tableHeight: 0,
-            activateRightFade: true
+            activateRightFade: !props.isMobile,
+            windowWidth: 0
         };
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
@@ -66,6 +66,21 @@ export default class ResultsTable extends React.Component {
             // table type has changed, reset the scroll
             if (this.tableComponent) {
                 this.tableComponent.reloadTable();
+            }
+        }
+
+        if (prevProps.isMobile !== this.props.isMobile) {
+            if (this.props.isMobile) {
+                // eslint-disable-next-line react/no-did-update-set-state
+                this.setState({
+                    activateRightFade: false
+                });
+            }
+            else {
+                // eslint-disable-next-line react/no-did-update-set-state
+                (this.setState({
+                    activateRightFade: true
+                }));
             }
         }
     }
@@ -262,7 +277,7 @@ export default class ResultsTable extends React.Component {
                         MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
                         <ReadMore
                             text={obj.Description || '--'}
-                            limit={40} />,
+                            limit={90} />,
                         obj['Contract Award Type'] || obj['Award Type'] || '--',
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
@@ -288,7 +303,7 @@ export default class ResultsTable extends React.Component {
                         MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                         <ReadMore
                             text={obj.Description || '--'}
-                            limit={40} />,
+                            limit={90} />,
                         <ReadMore
                             text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
                             limit={65} />,
@@ -318,7 +333,7 @@ export default class ResultsTable extends React.Component {
                     MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                     <ReadMore
                         text={obj.Description || '--'}
-                        limit={40} />,
+                        limit={90} />,
                     obj['Contract Award Type'] || obj['Award Type'] || '--',
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
@@ -356,12 +371,12 @@ export default class ResultsTable extends React.Component {
     }
 
     checkToAddRightFade(isScrolledLeft, isScrolledRight) {
-        if (!isScrolledLeft) {
+        if (!isScrolledLeft && !this.props.isMobile) {
             this.setState({
                 activateRightFade: true
             });
         }
-        if (isScrolledRight) {
+        if (isScrolledRight || this.props.isMobile) {
             this.setState({
                 activateRightFade: false
             });
@@ -375,7 +390,7 @@ export default class ResultsTable extends React.Component {
         // subtract the sticky header part on the top of the page
         // tab height for the tables
         // 16 pixel space between the tabs
-        // pagination on the bottom so you can actually see the pages
+        // pagination on the bottom, so you can actually see the pages
         return (
             <>
                 <div
@@ -384,15 +399,17 @@ export default class ResultsTable extends React.Component {
                     style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
-                        stickyFirstColumn
+                        stickyFirstColumn={!this.props.isMobile}
                         checkToAddRightFade={this.checkToAddRightFade}
                         columns={cols}
                         rows={limitedRows}
-                        rowHeight={58}
+                        rowHeight={this.props.isMobile ? null : 58}
                         headerRowHeight={45}
                         subAward={this.props.subaward}
                         currentSort={this.props.sort}
-                        updateSort={this.props.updateSort} />
+                        updateSort={this.props.updateSort}
+                        isMobile={this.props.isMobile}
+                        isStacked />
                 </div>
                 <Pagination
                     resultsText

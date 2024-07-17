@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'data-transparency-ui';
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -30,22 +31,9 @@ const SearchSidebarSubmit = (props) => {
         <div
             className="sidebar-submit"
             role="region"
-            aria-label="Submit search">
-            <button
-                className="submit-button"
-                title={title}
-                aria-label={title}
-                disabled={disabled}
-                onClick={props.applyStagedFilters}>
-                Submit Search
-            </button>
-            <button
-                className="reset-button"
-                aria-label="Reset search"
-                disabled={!props.requestsComplete}
-                onClick={props.resetFilters}>
-                Reset search
-            </button>
+            aria-label="Submit">
+            <Button additionalClassnames="submit-button" copy="Submit" buttonTitle={title} buttonSize="md" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={props.applyStagedFilters} />
+            <Button additionalClassnames="reset-button" copy="Reset filters" buttonTitle="Reset filters" buttonSize="md" buttonType="text" backgroundColor="light" disabled={!props.requestsComplete} onClick={props.resetFilters} />
         </div>
     );
 };

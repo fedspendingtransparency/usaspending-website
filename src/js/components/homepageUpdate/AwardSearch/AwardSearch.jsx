@@ -57,7 +57,6 @@ const AwardSearch = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
 
-
     const getSelectedSection = (section, rankType) => {
         const filterValue = {
             filters: {
@@ -79,7 +78,7 @@ const AwardSearch = () => {
             version: REQUEST_VERSION
         };
 
-        if (section === "map" || section === "geography") {
+        if (section === "map") {
             filterValue.filters.timePeriodFY = [(FiscalYearHelper.currentFiscalYear()).toString()];
         }
         else if (section === "time") {
@@ -90,10 +89,10 @@ const AwardSearch = () => {
                     (FiscalYearHelper.currentFiscalYear() - 3).toString(),
                     (FiscalYearHelper.currentFiscalYear() - 4).toString()];
         }
-        else if (section === "rank" && rankType === "naics") {
+        else if (section === "categories" && rankType === "naics") {
             filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         }
-        else if (section === "rank" && rankType === "psc") {
+        else if (section === "categories" && rankType === "psc") {
             filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         }
 
@@ -128,12 +127,14 @@ const AwardSearch = () => {
                 }
             });
     };
+
     const trackClick = (buttonName) => Analytics.event({
         event: 'homepage_search_award_data_section',
         category: 'Homepage',
         action: 'Link',
         label: `carousel ${buttonName}`
     });
+
     const handleGoToAdvancedSearch = (buttonName, rankType) => {
         getSelectedSection(buttonName, rankType);
         trackClick(buttonName);
@@ -199,7 +200,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("geography");
+                                                        handleGoToAdvancedSearch("map");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -310,7 +311,7 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("geography");
+                                                        handleGoToAdvancedSearch("map");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -348,7 +349,7 @@ const AwardSearch = () => {
                                                     variant="primary"
                                                     disabled={activeCardIndex !== 2}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("rank", "naics");
+                                                        handleGoToAdvancedSearch("categories", "naics");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>
@@ -367,7 +368,7 @@ const AwardSearch = () => {
                                                     variant="primary"
                                                     disabled={activeCardIndex !== 3}
                                                     action={() => {
-                                                        handleGoToAdvancedSearch("rank", "psc");
+                                                        handleGoToAdvancedSearch("categories", "psc");
                                                     }} />
                                             </CardBody>
                                         </CardContainer>

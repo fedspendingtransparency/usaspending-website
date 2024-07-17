@@ -13,7 +13,6 @@
         @include transition(opacity 0.25s ease-in);
 
         .usa-dt-pagination {
-            margin-top: $global-margin;
             .usa-dt-pagination__wrapper {
                 .pager {
                     .hideLast {
@@ -38,10 +37,10 @@
             .read-more-button {
                 @include button-link;
                 text-transform: lowercase;
-                color: $blue-50;
+                color: $theme-color-1;
                 &:hover {
                     text-decoration: none;
-                    color: $blue-70v;
+                    color: $theme-color-1-dark;
                 }
             }
         }
@@ -55,6 +54,13 @@
     .advanced-search__table-wrapper {
         width: auto;
         overflow-x: scroll;
+
+        // this is to prevent the border of cells under the sticky column from
+        // showing in the top left corner as you scroll right
+        // still shows in bottom left corner though, probably because of the
+        // horizontal scroll bar
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
 
         &.activate-right-fade {
             mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
@@ -163,7 +169,7 @@
 
     .readMoreUpdated__button {
         background-color: transparent;
-        color: #0074be;
+        color: $theme-color-1;
         padding: 0;
         margin-top: 4px;
         margin-bottom: 20px;
