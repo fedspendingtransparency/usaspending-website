@@ -87,15 +87,6 @@ export default class SpecificAwardAmountItem extends React.Component {
         if (showWarning) disabled = true;
         return (
             <div className="specific-award-amount">
-                {
-                    showWarning &&
-                    <div className="award-amount-warning">
-                        <span>Invalid search</span>
-                        <ul>
-                            <li>${warningMessage}</li>
-                        </ul>
-                    </div>
-                }
                 <div className="specific-award-amount-wrapper">
                     <div className="specific-award-amount-column">
                         <span className="award-amount-label">MINIMUM AMOUNT</span>
@@ -119,6 +110,15 @@ export default class SpecificAwardAmountItem extends React.Component {
                     </div>
                     <Button additionalClassnames="award-amount-submit" copy="Add" buttonTitle="Filter by custom award amount range" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={this.searchSpecificRange} />
                 </div>
+                {
+                    showWarning &&
+                    <div className="award-amount-warning">
+                        <span className="award-amount__invalid">Invalid search</span>
+                        <ul>
+                            <li>{warningMessage}</li>
+                        </ul>
+                    </div>
+                }
             </div>
         );
     }
