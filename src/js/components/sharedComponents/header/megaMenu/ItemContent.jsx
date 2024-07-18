@@ -9,7 +9,6 @@ import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutThe
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import FadeContents from "./FadeContents";
-import { showModal } from 'redux/actions/modal/modalActions';
 
 const ItemContent = React.memo(({
     navbarConfig,
