@@ -7,6 +7,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+import Analytics from 'helpers/analytics/Analytics';
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
@@ -22,6 +23,10 @@ const TimeSection = ({ timeHasLoaded, subaward }) => {
 
     const onClick = (e) => {
         setVisualizationPeriod(e);
+        Analytics.event({
+            category: 'Section Time',
+            action: `View ${e}`
+        });
     };
 
     const wrapperProps = {
