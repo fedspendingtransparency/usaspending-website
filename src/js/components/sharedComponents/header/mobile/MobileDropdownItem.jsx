@@ -9,9 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Analytics from 'helpers/analytics/Analytics';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { isRedirectNeeded, displayRedirectModal } from '../../../../helpers/url';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
+import { isRedirectNeeded, displayRedirectModal } from '../../../../helpers/url';
 
 const propTypes = {
     title: PropTypes.string,
@@ -203,8 +203,12 @@ const MobileDropdownItem = ({
                     <ul>
                         {section3Items.map((item, i) => (
                             <li className="mobile-dropdown__section-downloads" key={i}>
-                                <a href={isRedirectNeeded(item) ? null : item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
-                                    className="mobile-dropdown__section-link" onClick={(e) => isRedirectNeeded(item) ? displayRedirectModal(item.url, dispatch) : null}>
+                                <a
+                                    href={isRedirectNeeded(item) ? null : item.url}
+                                    target={item.shouldOpenNewTab ? "_blank" : null}
+                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
+                                    className="mobile-dropdown__section-link"
+                                    onClick={() => (isRedirectNeeded(item) ? displayRedirectModal(item.url, dispatch) : null)}>
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}
                                         <span className="mobile-dropdown__section-description">

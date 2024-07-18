@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from 'react-redux';
-import { isRedirectNeeded, displayRedirectModal } from '../../../../helpers/url';
 import { FlexGridRow } from 'data-transparency-ui';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +8,7 @@ import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutThe
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import FadeContents from "./FadeContents";
+import { isRedirectNeeded, displayRedirectModal } from '../../../../helpers/url';
 
 const ItemContent = React.memo(({
     navbarConfig,
@@ -183,13 +183,13 @@ const ItemContent = React.memo(({
                                                     <FlexGridRow width={6} desktop={6}>
                                                         <a
                                                             className="dropdown--item__link"
-                                                            href={isRedirectNeeded(item) ? null: item.url}
+                                                            href={isRedirectNeeded(item) ? null : item.url}
                                                             onKeyDown={(e) => {
                                                                 if (item.label === 'Release Notes' && e.key === 'Tab') {
                                                                     closeDropdown();
                                                                 }
                                                             }}
-                                                            onClick={(e) => isRedirectNeeded(item) ? displayRedirectModal(item.url, dispatch) : null}
+                                                            onClick={() => (isRedirectNeeded(item) ? displayRedirectModal(item.url, dispatch) : null)}
                                                             target={item.shouldOpenNewTab ? "_blank" : null}
                                                             rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
                                                             {item.icon && item.icon !== '' && item.icon !== null ?

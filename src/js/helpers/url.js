@@ -1,9 +1,7 @@
-import { showModal } from '../redux/actions/modal/modalActions'
+import { showModal } from '../redux/actions/modal/modalActions';
 
 export const displayRedirectModal = (url, dispatch) => {
     dispatch(showModal(url, 'redirect'));
 };
 
-export const isRedirectNeeded = (item) => {
-    return item.externalLink && !item.url.includes('.gov')
-}
+export const isRedirectNeeded = (item) => item.externalLink && !item.url.includes('.gov');
