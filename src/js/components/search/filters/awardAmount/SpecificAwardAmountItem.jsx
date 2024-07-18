@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
-import EntityWarning from '../location/EntityWarning';
 
 const propTypes = {
     searchSpecificRange: PropTypes.func
@@ -53,7 +52,8 @@ export default class SpecificAwardAmountItem extends React.Component {
         const min = this.state.min;
         const max = this.state.max;
         let showWarning = false;
-        const warningMessage = 'Please choose a min less than or equal to the max';
+        const maxWarningMessage = 'Maximum amount should be larger than or equal to the minimum amount';
+        const minWarningMessage = 'Minimum amount should be smaller than or equal to the maximum amount';
         const minIsNull = (!min && min !== '0');
         const maxIsNull = (!max && max !== '0');
         if (minIsNull || maxIsNull) {
@@ -66,7 +66,12 @@ export default class SpecificAwardAmountItem extends React.Component {
             if (numberMin > numberMax) showWarning = true;
         }
         if (showWarning !== this.state.showWarning) {
-            this.setState({ showWarning, warningMessage });
+            const numberMin = Number(min);
+            const numberMax = Number(max);
+            if (numberMin > numberMax) {
+                this.setState({ showWarning, warningMessage: minWarningMessage });
+            }
+            this.setState({ showWarning, warningMessage: maxWarningMessage });
         }
     }
 
@@ -85,7 +90,10 @@ export default class SpecificAwardAmountItem extends React.Component {
                 {
                     showWarning &&
                     <div className="award-amount-warning">
-                        <EntityWarning message={warningMessage} />
+                        <span>Invalid search</span>
+                        <ul>
+                            <li>${warningMessage}</li>
+                        </ul>
                     </div>
                 }
                 <div className="specific-award-amount-wrapper">
