@@ -197,7 +197,6 @@ const AwardSearch = () => {
                                                     text="View spending by state"
                                                     variant="primary"
                                                     textAlignment="center"
-                                                    backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
                                                         handleGoToAdvancedSearch("map");
