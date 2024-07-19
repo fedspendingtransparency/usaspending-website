@@ -57,14 +57,6 @@ export default function MapLegend(props) {
         setItems(itemsCopy);
     };
 
-    const updateToggle = (e) => {
-        props.updateMapLegendToggle(e.target.value);
-    };
-
-    const resetToggle = () => {
-        props.updateMapLegendToggle('totalSpending');
-    };
-
     useEffect(() => {
         prepareItems();
         // eslint-disable-next-line react-hooks/exhaustive-deps
