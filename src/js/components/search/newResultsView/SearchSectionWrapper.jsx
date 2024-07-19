@@ -140,6 +140,13 @@ const SearchSectionWrapper = ({
         setContentHeight(content);
     }, [content, sectionName]);
 
+    useEffect(() => {
+        console.log(`Section ${sectionName}: ${selectedDropdownOption}`);
+        console.log(`Viewed ${selectedDropdownOption} ${viewType}`);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [viewType]);
+
     const Message = () => {
         if (isLoading) {
             return <LoadingMessage />;
