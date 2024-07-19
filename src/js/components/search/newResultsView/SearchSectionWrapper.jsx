@@ -3,11 +3,12 @@
  * Created by Josue Aguilar 3/19/2024
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
@@ -60,6 +61,7 @@ const SearchSectionWrapper = ({
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
+    const gaRef = useRef(false);
 
     const query = useQueryParams();
 
@@ -141,8 +143,15 @@ const SearchSectionWrapper = ({
     }, [content, sectionName]);
 
     useEffect(() => {
-        console.log(`Section ${sectionName}: ${selectedDropdownOption}`);
-        console.log(`Viewed ${selectedDropdownOption} ${viewType}`);
+        if (gaRef.current) {
+            Analytics.event({
+                category: `Section ${sectionName}: ${selectedDropdownOption}`,
+                action: `Viewed ${selectedDropdownOption} ${viewType}`
+            });
+        }
+        else {
+            gaRef.current = true;
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [viewType]);
