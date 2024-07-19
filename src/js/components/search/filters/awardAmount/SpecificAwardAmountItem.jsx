@@ -77,20 +77,25 @@ export default class SpecificAwardAmountItem extends React.Component {
             if (numberMin < numberMax) showWarning = false;
             if (numberMin > numberMax) showWarning = true;
         }
+        // if (showWarning !== this.state.showWarning) {
+        //     const numberMin = Number(min);
+        //     const numberMax = Number(max);
+        //     if (numberMin > numberMax) {
+        //         if (document.activeElement.id === 'award-amount_max') {
+        //             console.debug("1");
+        //             this.setState({ showWarning, warningMessage: maxWarningMessage });
+        //         }
+        //         else if (document.activeElement.id === 'award-amount_min') {
+        //             console.debug("2");
+        //             this.setState({ showWarning, warningMessage: minWarningMessage });
+        //         }
+        //     }
+        // }
+
         if (showWarning !== this.state.showWarning) {
-            const numberMin = Number(min);
-            const numberMax = Number(max);
-            if (numberMin > numberMax) {
-                if (document.activeElement.id === 'award-amount_max') {
-                    console.debug("1");
-                    this.setState({ showWarning, warningMessage: maxWarningMessage });
-                }
-                else if (document.activeElement.id === 'award-amount_min') {
-                    console.debug("2");
-                    this.setState({ showWarning, warningMessage: minWarningMessage });
-                }
-            }
+            this.setState({ showWarning });
         }
+        // figure out how to change the error message when focus changes
     }
 
     render() {
