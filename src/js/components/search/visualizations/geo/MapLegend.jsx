@@ -3,62 +3,21 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
 import MapLegendItem from './MapLegendItem';
 
-const propTypes = {
-    mapLegendToggleData: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string,
-        value: PropTypes.string
-    })),
-    mapLegendToggle: PropTypes.string,
-    updateMapLegendToggle: PropTypes.func,
-    units: PropTypes.shape({
-        unit: PropTypes.number,
-        precision: PropTypes.number,
-        unitLabel: PropTypes.string
-    }),
-    segments: PropTypes.arrayOf(PropTypes.number)
-};
+export default function MapLegend(props) {
+    const [items, setItems] = useState([]);
 
-const defaultProps = {
-    units: {
-        unit: 1,
-        precision: 0,
-        unitLabel: ''
-    }
-};
-
-export default class MapLegend extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            items: []
-        };
-    }
-
-    componentDidMount() {
-        this.prepareItems();
-    }
-
-    componentDidUpdate(prevProps) {
-        const { segments, mapLegendToggle } = this.props;
-        const areSegmentsDifferent = !isEqual(prevProps.segments, segments);
-        const isMapLegendToggleDifferent = prevProps.mapLegendToggle !== mapLegendToggle;
-        if (areSegmentsDifferent || isMapLegendToggleDifferent) this.prepareItems();
-    }
-
-    prepareItems() {
+    const prepareItems = () => {
         const {
             segments,
             units
-        } = this.props;
-        const items = segments.map((segment, i, array) => {
+        } = props;
+        const itemsCopy = segments.map((segment, i, array) => {
             let label = '';
 
             const color = MapHelper.visualizationColors[i];
@@ -95,29 +54,58 @@ export default class MapLegend extends React.Component {
                 color={color} />);
         });
 
-        this.setState({
-            items
-        });
-    }
-
-    updateToggle = (e) => {
-        this.props.updateMapLegendToggle(e.target.value);
+        setItems(itemsCopy);
     };
 
-    resetToggle = () => {
-        this.props.updateMapLegendToggle('totalSpending');
+    const updateToggle = (e) => {
+        props.updateMapLegendToggle(e.target.value);
     };
 
-    render() {
-        return (
-            <div className="map-legend">
-                <ul className="map-legend-body">
-                    {this.state.items}
-                </ul>
-            </div>
-        );
-    }
+    const resetToggle = () => {
+        props.updateMapLegendToggle('totalSpending');
+    };
+
+    useEffect(() => {
+        prepareItems();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        prepareItems();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.segments, props.mapLegendToggle]);
+
+    return (
+        <div className="map-legend">
+            <ul className="map-legend-body">
+                {items}
+            </ul>
+        </div>
+    );
 }
+
+const propTypes = {
+    mapLegendToggleData: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+        value: PropTypes.string
+    })),
+    mapLegendToggle: PropTypes.string,
+    updateMapLegendToggle: PropTypes.func,
+    units: PropTypes.shape({
+        unit: PropTypes.number,
+        precision: PropTypes.number,
+        unitLabel: PropTypes.string
+    }),
+    segments: PropTypes.arrayOf(PropTypes.number)
+};
+
+const defaultProps = {
+    units: {
+        unit: 1,
+        precision: 0,
+        unitLabel: ''
+    }
+};
 
 MapLegend.propTypes = propTypes;
 MapLegend.defaultProps = defaultProps;
