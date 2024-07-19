@@ -3,6 +3,13 @@ table {
     margin: 2em 0;
     min-width: 100%;
 
+    &.table-for-new-search-page {
+        td {
+            // this is necessary to make the usda-table__row class hover work correctly
+            background-color: unset;
+        }
+    }
+
     thead {
         th {
             background-color: $color-gray-lightest;
