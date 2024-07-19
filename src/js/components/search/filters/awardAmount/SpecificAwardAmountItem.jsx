@@ -25,6 +25,17 @@ export default class SpecificAwardAmountItem extends React.Component {
         this.searchSpecificRange = this.searchSpecificRange.bind(this);
         this.minChange = this.minChange.bind(this);
         this.maxChange = this.maxChange.bind(this);
+        this.verifyNumberLogic = this.verifyNumberLogic.bind(this);
+    }
+
+    componentDidMount() {
+        document.getElementById("award-amount_min").addEventListener("click", this.verifyNumberLogic);
+        document.getElementById("award-amount_max").addEventListener("click", this.verifyNumberLogic);
+    }
+
+    componentWillUnmount() {
+        document.getElementById("award-amount_min").removeEventListener("click", this.verifyNumberLogic);
+        document.getElementById("award-amount_max").removeEventListener("click", this.verifyNumberLogic);
     }
 
     minChange(e) {
@@ -43,7 +54,8 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     verifyNumberLogic() {
-        if (this.state.max === '') {
+        console.debug("element in focus: ", document.activeElement.id);
+        if (this.state && this.state.max === '' && this.state.min === '') {
             if (this.state.showWarning) {
                 this.setState({ showWarning: false, warningMessage: '' });
             }
@@ -69,9 +81,15 @@ export default class SpecificAwardAmountItem extends React.Component {
             const numberMin = Number(min);
             const numberMax = Number(max);
             if (numberMin > numberMax) {
-                this.setState({ showWarning, warningMessage: minWarningMessage });
+                if (document.activeElement.id === 'award-amount_max') {
+                    console.debug("1");
+                    this.setState({ showWarning, warningMessage: maxWarningMessage });
+                }
+                else if (document.activeElement.id === 'award-amount_min') {
+                    console.debug("2");
+                    this.setState({ showWarning, warningMessage: minWarningMessage });
+                }
             }
-            this.setState({ showWarning, warningMessage: maxWarningMessage });
         }
     }
 
@@ -96,7 +114,8 @@ export default class SpecificAwardAmountItem extends React.Component {
                             step="none"
                             className="specific-award-min"
                             value={min}
-                            onChange={this.minChange} />
+                            onChange={this.minChange}
+                            id="award-amount_min" />
                     </div>
                     <div className="specific-award-amount-column">
                         <span className="award-amount-label">MAXIMUM AMOUNT</span>
@@ -106,7 +125,8 @@ export default class SpecificAwardAmountItem extends React.Component {
                             step="none"
                             className="specific-award-max"
                             value={max}
-                            onChange={this.maxChange} />
+                            onChange={this.maxChange}
+                            id="award-amount_max" />
                     </div>
                     <Button additionalClassnames="award-amount-submit" copy="Add" buttonTitle="Filter by custom award amount range" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={this.searchSpecificRange} />
                 </div>
