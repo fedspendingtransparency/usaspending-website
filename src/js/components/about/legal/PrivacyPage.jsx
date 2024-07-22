@@ -12,7 +12,7 @@ const PrivacyPage = () => (
         title="Privacy Policy">
         <p>
             USASpending.gov is committed to protecting the privacy and security of its users.
-            Our online privacy policy is outlined below.  If you have questions about this policy,
+            Our online privacy policy is outlined below. If you have questions about this policy,
             please <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">contact us</a>.
         </p>
         <h3 className="about-subtitle">
@@ -139,6 +139,22 @@ const PrivacyPage = () => (
         <p>
             As practices change, this policy may change, as well. Changes to the policy shall not
             apply retroactively.
+        </p>
+        <h3 className="about-subtitle">
+            Making A Privacy Request:
+        </h3>
+        <p>
+            For information and instructions on how to make a request for notification of or access to records go to the
+            link below:
+        </p>
+        <p>
+            <a
+                className="about-section-content do-wrap"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://home.treasury.gov/footer/privacy-act/how-to-write-a-privacy-act-request">
+                How to Write a Privacy Act Request
+            </a>
         </p>
         <p>
             <strong>NOTE:</strong> View or print the{' '}
