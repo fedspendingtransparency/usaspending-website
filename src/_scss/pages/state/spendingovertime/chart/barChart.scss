@@ -1,6 +1,6 @@
 svg.bar-graph {
-    @import "./_axis";
-    @import "./_bar";
+    @import "axis";
+    @import "bar";
     .chart-legend-item {
         .key-label {
             font-size: rem(12);
