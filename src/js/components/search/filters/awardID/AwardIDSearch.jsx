@@ -3,10 +3,11 @@
  * Created by michaelbray on 3/2/17.
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import PropTypes from 'prop-types';
+import { usePrevious } from '../../../../helpers';
 import SelectedAwardIDs from './SelectedAwardIDs';
 
 const propTypes = {
@@ -15,73 +16,70 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol
 };
 
-export default class AwardIDSearch extends React.Component {
-    constructor(props) {
-        super(props);
+const AwardIDSearch = (props) => {
+    const { toggleAwardID, selectedAwardIDs, dirtyFilters } = props;
 
-        this.state = {
-            awardID: ''
-        };
+    const [awardID, setAwardID] = useState('');
+    const [hint, setHint] = useState(null);
+    const prevDirtyFilters = usePrevious(dirtyFilters);
 
-        this.changedInput = this.changedInput.bind(this);
-        this.applyAwardID = this.applyAwardID.bind(this);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
-            if (this.hint) {
-                this.hint.showHint();
+    useEffect(() => {
+        if (dirtyFilters && prevDirtyFilters !== dirtyFilters) {
+            if (hint) {
+                hint.showHint();
             }
         }
-    }
+    }, [dirtyFilters, prevDirtyFilters, hint]);
 
-    changedInput(e) {
-        this.setState({ awardID: e.target.value });
-    }
+    const inputChangeHandler = (e) => {
+        setAwardID(e.target.value);
+    };
 
-    applyAwardID(e) {
+    const applyAwardID = (e) => {
         e.preventDefault();
-        this.props.toggleAwardID(this.state.awardID.toUpperCase());
-        this.setState({
-            awardID: ''
-        });
-    }
+        toggleAwardID(awardID.toUpperCase());
+        setAwardID('');
+    };
 
-    render() {
-        let selectedAwardIDs = null;
-        if (this.props.selectedAwardIDs.size > 0) {
-            selectedAwardIDs = (<SelectedAwardIDs
-                selectedAwardIDs={this.props.selectedAwardIDs}
-                toggleAwardID={this.props.toggleAwardID} />);
+    const renderSelectedAwardIDs = () => {
+        if (selectedAwardIDs.size > 0) {
+            return (
+                <SelectedAwardIDs
+                    selectedAwardIDs={selectedAwardIDs}
+                    toggleAwardID={toggleAwardID} />);
         }
+        return null;
+    };
 
-        return (
-            <div className="award-id-filter">
-                <div className="filter-item-wrap">
-                    <form
-                        className="award-id-filter-item-wrap"
-                        onSubmit={this.applyAwardID}>
-                        <input
-                            id="search"
-                            type="text"
-                            className="award-id-input"
-                            placeholder="PIID, FAIN, or URI"
-                            value={this.state.awardID}
-                            onChange={this.changedInput} />
-                        <IndividualSubmit
-                            className="award-id-submit"
-                            onClick={this.applyAwardID}
-                            label="Filter by award ID" />
-                    </form>
-                    {selectedAwardIDs}
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
-                </div>
+    return (
+        <div className="award-id-filter">
+            <div className="filter-item-wrap">
+                <form
+                    className="award-id-filter-item-wrap"
+                    onSubmit={applyAwardID}>
+                    <input
+                        id="search"
+                        type="text"
+                        className="award-id-input"
+                        placeholder="PIID, FAIN, or URI"
+                        value={awardID}
+                        onChange={inputChangeHandler} />
+                    <IndividualSubmit
+                        className="award-id-submit"
+                        onClick={applyAwardID}
+                        label="Filter by award ID" />
+                </form>
+
+                {renderSelectedAwardIDs()}
+
+                <SubmitHint
+                    ref={(component) => {
+                        setHint(component);
+                    }} />
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 AwardIDSearch.propTypes = propTypes;
+export default AwardIDSearch;
