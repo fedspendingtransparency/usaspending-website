@@ -155,7 +155,6 @@ const SpendingByCategoriesChart = (props) => {
                             dataKey="barLabel"
                             content={CustomEndLabels} />
                     </Bar>
-                    {console.log(props)}
                 </BarChart>
             </ResponsiveContainer>
         </>
