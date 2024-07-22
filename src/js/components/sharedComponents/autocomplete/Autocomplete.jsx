@@ -2,9 +2,9 @@
  * Created by michaelbray on 1/27/17.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, find, uniqueId } from 'lodash';
+import { find, uniqueId } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Warning from './Warning';
@@ -48,30 +48,9 @@ const Autocomplete = (props) => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [showWarning, setShowWarning] = useState(false);
     const [autocompleteId, setAutocompleteId] = useState(`autocomplete-${uniqueId()}`);
-    const [statusId, setStatusId] = useState(`autocomplete-status-${uniqueId()}`);
     const [staged, setStaged] = useState(false);
 
-    const dataDictionary = {};
-
-    // componentDidMount() {
-    //     setupAutocomplete();
-    // }
-    //
-    // componentDidUpdate(prevProps) {
-    //     if (!isEqual(prevProps.values, props.values)) {
-    //         open();
-    //     }
-    //     if (props.noResults !== prevProps.noResults) {
-    //         toggleWarning();
-    //     }
-    //     if (!isEqual(prevProps.dirtyFilters, props.dirtyFilters)) {
-    //         clearInternalState();
-    //     }
-    // }
-    //
-    // componentWillUnmount() {
-    //     props.clearAutocompleteSuggestions();
-    // }
+    const autocompleteInputRef = useRef();
 
     const checkValidity = (input) => {
         // Hide any old warnings
@@ -87,7 +66,7 @@ const Autocomplete = (props) => {
     const clearInternalState = () => {
         setValue('');
         // TODO: FIGURE OUT WHAT autocompleteInput IS
-        // autocompleteInput.value = '';
+        autocompleteInputRef.current.value = '';
     };
 
     const isValidSelection = (selection) => find(props.values, selection);
@@ -106,7 +85,7 @@ const Autocomplete = (props) => {
         props.onSelect(selectedItem, isValid);
 
         if (props.retainValue && isValid) {
-            autocompleteInput.value = selectedItem.code;
+            autocompleteInputRef.current.value = selectedItem.code;
         }
 
         else {
@@ -164,8 +143,7 @@ const Autocomplete = (props) => {
 
     const setupAutocomplete = () => {
         // TODO: FIGURE OUT WHAT autocompleteInput IS
-        // const target = autocompleteInput;
-        const target = {};
+        const target = autocompleteInputRef.current;
 
         target.addEventListener('blur', () => {
             close();
@@ -239,12 +217,33 @@ const Autocomplete = (props) => {
         }
     }
 
-    const loadingIndicator = props.inFlight ?
-        (
-            <div className="usa-da-typeahead__loading-icon">
-                <FontAwesomeIcon icon="spinner" spin />
-            </div>
-        ) : null;
+    const loadingIndicator = props.inFlight ? (
+        <div className="usa-da-typeahead__loading-icon">
+            <FontAwesomeIcon icon="spinner" spin />
+        </div>
+    ) : null;
+
+    useEffect(() => {
+        setupAutocomplete();
+
+        return () => {
+            props.clearAutocompleteSuggestions();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        open();
+    }, [props.values]);
+
+    useEffect(() => {
+        toggleWarning();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.noResults]);
+
+    useEffect(() => {
+        clearInternalState();
+    }, [props.dirtyFilters]);
 
     return (
         <div
@@ -258,9 +257,7 @@ const Autocomplete = (props) => {
                 <div className="usa-da-typeahead__input">
                     <input
                         className="autocomplete"
-                        ref={(t) => {
-                            autocompleteInput = t;
-                        }}
+                        ref={autocompleteInputRef}
                         type="text"
                         placeholder={props.placeholder}
                         onChange={onChange.bind(this)}
