@@ -6,14 +6,14 @@
         border-bottom: none;
     }
     .award-result-generic-cell {
-        @import "../../search/results/table/cells/genericCell";
+        @import "cells/genericCell";
         @include genericCell();
     }
     .ibt-header-cell {
         vertical-align: top;
     }
     .award-result-header-cell {
-        @import "../../search/results/table/cells/genericHeader";
+        @import "cells/genericHeader";
         @include genericHeader();
         &.last-column {
             border-right: none;
