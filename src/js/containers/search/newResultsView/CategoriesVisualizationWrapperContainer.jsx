@@ -190,7 +190,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const onClickHandler = (linkName) => {
         Analytics.event({
             category: `Section ${props.wrapperProps.sectionName}: ${props.wrapperProps.selectedDropdownOption}`,
-            action: `Clicked: ${linkName}`
+            action: `Clicked ${linkName}`
         });
     };
 

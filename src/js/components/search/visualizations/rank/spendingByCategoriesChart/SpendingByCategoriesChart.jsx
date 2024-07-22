@@ -5,8 +5,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, Text } from 'recharts';
-import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import PropTypes from "prop-types";
+import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import Analytics from 'helpers/analytics/Analytics';
 import { tabletScreen, smTabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
@@ -45,6 +46,13 @@ const SpendingByCategoriesChart = (props) => {
         }
     }
 
+    const onClickHandler = (linkName) => {
+        Analytics.event({
+            category: `Section categories: ${props.scope}`,
+            action: `Clicked ${linkName}`
+        });
+    };
+
     const CustomTick = (args) => {
         const {
             x, y, payload, link
@@ -62,7 +70,7 @@ const SpendingByCategoriesChart = (props) => {
         return (
             <g transform={`translate(${x - 8},${translateY()})`}>
                 {link[payload.index].link ?
-                    <a href={`${link[payload.index].link}`}>
+                    <a href={`${link[payload.index].link}`} onClick={() => onClickHandler(payload.value)}>
                         <Text
                             textAnchor={isMobile ? "start" : "end"}
                             fontSize={14}
@@ -147,6 +155,7 @@ const SpendingByCategoriesChart = (props) => {
                             dataKey="barLabel"
                             content={CustomEndLabels} />
                     </Bar>
+                    {console.log(props)}
                 </BarChart>
             </ResponsiveContainer>
         </>
