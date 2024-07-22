@@ -54,7 +54,6 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     verifyNumberLogic() {
-        console.debug("element in focus: ", document.activeElement.id);
         if (this.state && this.state.max === '' && this.state.min === '') {
             if (this.state.showWarning) {
                 this.setState({ showWarning: false, warningMessage: '' });
@@ -68,34 +67,27 @@ export default class SpecificAwardAmountItem extends React.Component {
         const minWarningMessage = 'Minimum amount should be smaller than or equal to the maximum amount';
         const minIsNull = (!min && min !== '0');
         const maxIsNull = (!max && max !== '0');
+        const numberMin = Number(min);
+        const numberMax = Number(max);
+
         if (minIsNull || maxIsNull) {
             showWarning = false;
         }
         else {
-            const numberMin = Number(min);
-            const numberMax = Number(max);
             if (numberMin < numberMax) showWarning = false;
             if (numberMin > numberMax) showWarning = true;
         }
-        // if (showWarning !== this.state.showWarning) {
-        //     const numberMin = Number(min);
-        //     const numberMax = Number(max);
-        //     if (numberMin > numberMax) {
-        //         if (document.activeElement.id === 'award-amount_max') {
-        //             console.debug("1");
-        //             this.setState({ showWarning, warningMessage: maxWarningMessage });
-        //         }
-        //         else if (document.activeElement.id === 'award-amount_min') {
-        //             console.debug("2");
-        //             this.setState({ showWarning, warningMessage: minWarningMessage });
-        //         }
-        //     }
-        // }
 
         if (showWarning !== this.state.showWarning) {
             this.setState({ showWarning });
         }
+
         // figure out how to change the error message when focus changes
+        if ((numberMin > numberMax) && document.activeElement.id === 'award-amount_max') {
+            this.setState({ showWarning, warningMessage: maxWarningMessage });
+        } else if ((numberMin > numberMax) && document.activeElement.id === 'award-amount_min') {
+            this.setState({ showWarning, warningMessage: minWarningMessage });
+        }
     }
 
     render() {
