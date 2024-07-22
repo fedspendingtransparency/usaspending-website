@@ -13,6 +13,7 @@ import { max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
+import Analytics from 'helpers/analytics/Analytics';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
@@ -186,6 +187,13 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setPage(prevPage);
     };
 
+    const onClickHandler = (linkName) => {
+        Analytics.event({
+            category: `Section ${props.wrapperProps.sectionName}: ${props.wrapperProps.selectedDropdownOption}`,
+            action: `Clicked: ${linkName}`
+        });
+    };
+
     const parseData = (data) => {
         const tempLabelSeries = [];
         const tempDataSeries = [];
@@ -219,7 +227,15 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 tempLinkSeries.push(recipientLink);
 
                 if (recipientLink !== "") {
-                    tableDataRow.push(<a href={recipientLink}>{result.name}</a>);
+                    tableDataRow.push(
+                        <a
+                            href={recipientLink}
+                            onClick={() => {
+                                onClickHandler(result.name);
+                            }}>
+                            {result.name}
+                        </a>
+                    );
                 }
                 else {
                     tableDataRow.push(result.name);
@@ -228,14 +244,28 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             else if (scope === 'awarding_agency' && !props.subaward) {
                 const awardingLink = `agency/${result._agencySlug}`;
                 tempLinkSeries.push(awardingLink);
-                tableDataRow.push(<a href={awardingLink}>{result.name}</a>);
+                tableDataRow.push(
+                    <a
+                        href={awardingLink}
+                        onClick={() => {
+                            onClickHandler(result.name);
+                        }} >
+                        {result.name}
+                    </a>);
             }
             else if (scope === 'awarding_agency' && props.subaward && props.agencyIds) {
                 // this properly pulls in the slug from withAgencySlugs, as it is not provided though the API request for subawards
                 const agencyIdentifier = !props.error ? props.agencyIds[item.id] : '';
                 const awardingLink = `agency/${agencyIdentifier}`;
                 tempLinkSeries.push(awardingLink);
-                tableDataRow.push(<a href={awardingLink}>{result.name}</a>);
+                tableDataRow.push(
+                    <a
+                        href={awardingLink}
+                        onClick={() => {
+                            onClickHandler(result.name);
+                        }} >
+                        {result.name}
+                    </a>);
             }
             else {
                 tableDataRow.push(result.name);
