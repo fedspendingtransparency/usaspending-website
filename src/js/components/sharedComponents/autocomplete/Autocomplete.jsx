@@ -65,7 +65,6 @@ const Autocomplete = (props) => {
 
     const clearInternalState = () => {
         setValue('');
-        // TODO: FIGURE OUT WHAT autocompleteInput IS
         autocompleteInputRef.current.value = '';
     };
 
@@ -142,7 +141,6 @@ const Autocomplete = (props) => {
     };
 
     const setupAutocomplete = () => {
-        // TODO: FIGURE OUT WHAT autocompleteInput IS
         const target = autocompleteInputRef.current;
 
         target.addEventListener('blur', () => {
@@ -255,6 +253,7 @@ const Autocomplete = (props) => {
             <div className="usa-da-typeahead">
                 <p>{props.label}</p>
                 <div className="usa-da-typeahead__input">
+                    <FontAwesomeIcon icon="search" />
                     <input
                         className="autocomplete"
                         ref={autocompleteInputRef}
