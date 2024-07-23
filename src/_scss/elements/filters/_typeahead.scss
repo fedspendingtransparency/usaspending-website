@@ -79,6 +79,10 @@
                 font-weight: $font-semibold;
             }
         }
+
+        .unselectable {
+            pointer-events: none;
+        }
     }
 
     .hide {

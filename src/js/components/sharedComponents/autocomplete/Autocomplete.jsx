@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import { find, uniqueId } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
 
 const propTypes = {
@@ -39,7 +38,7 @@ const defaultProps = {
     characterLimit: 524288, // default for HTML input elements
     retainValue: false,
     dirtyFilters: Symbol(''),
-    minCharsToSearch: 2
+    minCharsToSearch: 3
 };
 
 const Autocomplete = (props) => {
@@ -197,7 +196,14 @@ const Autocomplete = (props) => {
                 };
             }
 
-            return <Warning {...errorProps} />;
+            return (
+                <ul className="autocomplete" role="listbox">
+                    <li className="unselectable">
+                        <span>{errorProps.header}</span><br />
+                        {errorProps.description}
+                    </li>
+                </ul>
+            );
         }
 
         return null;
@@ -279,8 +285,8 @@ const Autocomplete = (props) => {
                     select={select.bind(this)}
                     maxSuggestions={props.maxSuggestions}
                     autocompleteId={autocompleteId} />
+                {generateWarning()}
             </div>
-            {generateWarning()}
         </div>
     );
 };
