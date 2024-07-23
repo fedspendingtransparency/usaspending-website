@@ -185,11 +185,10 @@ const ItemContent = React.memo(({
                                                             className="dropdown--item__link"
                                                             href={isRedirectNeeded(item) ? null : item.url}
                                                             onKeyDown={(e) => {
-                                                                if (item.label === 'Release Notes' && e.key === 'Tab') {
+                                                                if (item.label === 'Release Notes' && e.key === 'Tab' && e.shiftKey === false) {
                                                                     closeDropdown();
                                                                 }
                                                             }}
-                                                            onClick={() => (isRedirectNeeded(item) ? displayRedirectModal(item.url, dispatch) : null)}
                                                             target={item.shouldOpenNewTab ? "_blank" : null}
                                                             rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
                                                             {item.icon && item.icon !== '' && item.icon !== null ?
@@ -198,12 +197,18 @@ const ItemContent = React.memo(({
                                                                     style={{ width: "20px", height: "20px" }}
                                                                     icon={item.icon} /> : ''}
                                                             <div className="dropdown-item__link-desc">
-                                                                <div className="dropdown-item__link-label">
-                                                                    {item.label}
-                                                                    <span
-                                                                        className="dropdown-item__description">{item.description}
-                                                                    </span>
-                                                                </div>
+                                                                <button
+                                                                    type="button"
+                                                                    className="dropdown--item__link link-button"
+                                                                    onClick={() => (isRedirectNeeded(item) ? displayRedirectModal(item.url, dispatch) : null)}>
+
+                                                                    <div className="dropdown-item__link-label">
+                                                                        {item.label}
+                                                                        <span
+                                                                            className="dropdown-item__description">{item.description}
+                                                                        </span>
+                                                                    </div>
+                                                                </button>
                                                             </div>
                                                         </a>
                                                     </FlexGridRow>
