@@ -1,4 +1,4 @@
-@import 'pages/search/filters/timePeriod/_toggleButtons';
+@import '../timePeriod/toggleButtons';
 ul.toggle-buttons {
     padding-left: rem(15);
     margin-top: rem(10);
@@ -17,7 +17,7 @@ ul.toggle-buttons {
             font-size: rem(11);
             margin: 0 rem(5);
             width: auto;
-            display: inline-block;         
+            display: inline-block;
             @include media(1430px) {
                 padding: rem(8) rem(8);
                 font-size: rem(13);
