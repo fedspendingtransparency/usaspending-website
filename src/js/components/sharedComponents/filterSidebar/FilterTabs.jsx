@@ -14,8 +14,6 @@ const propTypes = {
 };
 
 const FilterTabs = ({ labels, active, switchTab }) => {
-    console.log('here');
-
     const tabs = labels.map((label) => (
         <FilterTab
             label={label.label}

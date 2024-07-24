@@ -1,0 +1,15 @@
+.filter-tabs__outer-container {
+  border-bottom: solid 2px $card-outline-color;
+
+  .filter-tabs__inner-container {
+    display: flex;
+    flex-flow: row nowrap;
+
+    .filter-tabs__label {
+      font-size: $font-size-12;
+      line-height: 1.5;
+      color: $theme-color-headline;
+      margin: 0 $global-margin rem(2) $global-margin;
+    }
+  }
+}
