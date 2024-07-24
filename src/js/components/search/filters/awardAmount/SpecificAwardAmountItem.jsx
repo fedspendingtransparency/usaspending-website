@@ -3,7 +3,7 @@
  * Created by michaelbray on 3/7/17.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
 
@@ -16,6 +16,8 @@ const SpecificAwardAmountItem = (props) => {
     const [max, setMax] = useState('');
     const [showWarning, setShowWarning] = useState(false);
     const [warningMessage, setWarningMessage] = useState('');
+    const maxInput = useRef(null);
+    const minInput = useRef(null);
 
     const minChange = (e) => {
         setMin(e.target.value);
@@ -68,25 +70,6 @@ const SpecificAwardAmountItem = (props) => {
     };
 
     useEffect(() => {
-        document.getElementById("award-amount_min").addEventListener("focus", verifyNumberLogic);
-        document.getElementById("award-amount_max").addEventListener("focus", verifyNumberLogic);
-
-        return () => {
-            document.getElementById("award-amount_min").removeEventListener("focus", verifyNumberLogic);
-            document.getElementById("award-amount_max").removeEventListener("focus", verifyNumberLogic);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        if (document.activeElement.id === 'award-amount_max' || document.activeElement.id === 'award-amount_min') {
-            console.debug(document.activeElement.id);
-            verifyNumberLogic();
-        }
-    }, [document.activeElement.id]);
-
-
-    useEffect(() => {
         verifyNumberLogic();
     }, [min, max]);
 
@@ -107,6 +90,8 @@ const SpecificAwardAmountItem = (props) => {
                         className="specific-award-min"
                         value={min}
                         onChange={minChange}
+                        ref={minInput}
+                        onFocus={verifyNumberLogic}
                         id="award-amount_min" />
                 </div>
                 <div className="specific-award-amount-column">
@@ -118,6 +103,8 @@ const SpecificAwardAmountItem = (props) => {
                         className="specific-award-max"
                         value={max}
                         onChange={maxChange}
+                        ref={maxInput}
+                        onFocus={verifyNumberLogic}
                         id="award-amount_max" />
                 </div>
                 <Button additionalClassnames="award-amount-submit" copy="Add" buttonTitle="Filter by custom award amount range" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={searchSpecificRange} />
