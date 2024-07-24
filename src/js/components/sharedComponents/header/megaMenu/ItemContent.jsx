@@ -181,7 +181,14 @@ const ItemContent = React.memo(({
                                                 <li
                                                     key={`third-section-link-${uniqueId(index)}`}
                                                     className={menuIndex > 2 ? 'list__extra-padding third__item-margin' : 'list__extra-padding'}>
-                                                    <FlexGridRow width={6} desktop={6}>
+                                                    <FlexGridRow
+                                                        width={6}
+                                                        desktop={6}
+                                                        onKeyDown={(e) => {
+                                                            if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
+                                                                closeDropdown();
+                                                            }
+                                                        }}>
                                                         { isRedirectNeeded(item) ?
                                                             <ExternalLink isCard={false} url={item.url}>
                                                                 {item.icon && item.icon !== '' && item.icon !== null ?
@@ -189,7 +196,7 @@ const ItemContent = React.memo(({
                                                                         role="presentation"
                                                                         style={{ width: "20px", height: "20px" }}
                                                                         icon={item.icon} /> : ''}
-                                                                <div className="dropdown-item__link-desc">
+                                                                <div className="dropdown-item__link-desc" >
                                                                     <div className="dropdown-item__link-label">
                                                                         {item.label}
                                                                         <span
@@ -202,7 +209,7 @@ const ItemContent = React.memo(({
                                                                 className="dropdown--item__link"
                                                                 href={item.url}
                                                                 onKeyDown={(e) => {
-                                                                    if (item.label === 'Release Notes' && e.key === 'Tab') {
+                                                                    if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
                                                                         closeDropdown();
                                                                     }
                                                                 }}
