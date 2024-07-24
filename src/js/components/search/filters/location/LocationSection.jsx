@@ -32,6 +32,7 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
     };
 
     const toggleTab = (e) => {
+        console.log('toggle fn', e);
         const type = e.target.value;
 
         setActiveTab(type);
@@ -77,10 +78,15 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
         }
     ];
 
+    console.log('activeTab', activeTab);
+
     return (
         <div className="location-filter search-filter">
 
-            <FilterTabs labels={tabLabels} switchTab={toggleTab} active={activeTab} />
+            <FilterTabs
+                labels={tabLabels}
+                switchTab={toggleTab}
+                active={activeTab} />
 
             {/* <ul */}
             {/*     className="toggle-buttons" */}

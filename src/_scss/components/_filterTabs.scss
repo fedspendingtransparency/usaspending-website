@@ -1,15 +1,27 @@
 .filter-tabs__outer-container {
   border-bottom: solid 2px $card-outline-color;
+  margin-top: $global-margin;
 
   .filter-tabs__inner-container {
     display: flex;
     flex-flow: row nowrap;
 
-    .filter-tabs__label {
+    .filter-tabs__tab {
       font-size: $font-size-12;
       line-height: 1.5;
       color: $theme-color-headline;
-      margin: 0 $global-margin rem(2) $global-margin;
+
+      &.active {
+        font-weight: $font-bold;
+      }
+
+      .filter-tabs__label {
+        margin: 0 $global-margin rem(2) $global-margin;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 }

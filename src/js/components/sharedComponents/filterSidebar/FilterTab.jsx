@@ -17,9 +17,9 @@ const FilterTab = ({ label, active, switchTab }) => {
 
     return (
         <>
-            <div className={`filter-tabs__tab-wrapper ${active ? 'active' : ''}`}>
+            <div className="filter-tabs__tab-wrapper">
                 <div
-                    className="filter-tabs__tab"
+                    className={`filter-tabs__tab ${active ? 'active' : ''}`}
                     role="tab"
                     onClick={switchTab}
                     onKeyDown={switchTab}
