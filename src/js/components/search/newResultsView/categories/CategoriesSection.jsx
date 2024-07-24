@@ -6,6 +6,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Analytics from 'helpers/analytics/Analytics';
 import CategoriesVisualizationWrapperContainer
     from "../../../../containers/search/newResultsView/CategoriesVisualizationWrapperContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
@@ -21,6 +22,10 @@ const propTypes = {
 const CategoriesSection = (props) => {
     const onClick = (e) => {
         props.setSelectedDropdown(e);
+        Analytics.event({
+            category: 'Section Categories',
+            action: `View ${e}`
+        });
     };
 
     const wrapperProps = {
