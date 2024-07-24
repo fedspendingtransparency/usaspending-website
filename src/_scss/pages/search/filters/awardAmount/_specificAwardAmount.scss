@@ -1,8 +1,23 @@
 .specific-award-amount {
-    @import "../location/_warning";
     margin-top: rem(15);
     .award-amount-warning {
+        margin-top: $global-margin;
+        line-height: 1.5;
         position: relative;
+        .award-amount__invalid {
+            font-size: $font-size-12;
+            font-weight: $font-semibold;
+            color: $color-secondary-vivid;
+        }
+        ul {
+            margin-top: rem(4);
+            li {
+                font-size: $font-size-10;
+                line-height: 1.5;
+                color: $color-secondary-vivid;
+                list-style-type: disc;
+            }
+        }
     }
 
     .warning-tooltip {
