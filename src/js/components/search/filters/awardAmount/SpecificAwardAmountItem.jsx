@@ -3,7 +3,7 @@
  * Created by michaelbray on 3/7/17.
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
 
@@ -11,58 +11,33 @@ const propTypes = {
     searchSpecificRange: PropTypes.func
 };
 
-export default class SpecificAwardAmountItem extends React.Component {
-    constructor(props) {
-        super(props);
+const SpecificAwardAmountItem = (props) => {
+    const [min, setMin] = useState('');
+    const [max, setMax] = useState('');
+    const [showWarning, setShowWarning] = useState(false);
+    const [warningMessage, setWarningMessage] = useState('');
 
-        this.state = {
-            min: '',
-            max: '',
-            showWarning: false,
-            warningMessage: ''
-        };
+    const minChange = (e) => {
+        setMin(e.target.value);
+    };
 
-        this.searchSpecificRange = this.searchSpecificRange.bind(this);
-        this.minChange = this.minChange.bind(this);
-        this.maxChange = this.maxChange.bind(this);
-        this.verifyNumberLogic = this.verifyNumberLogic.bind(this);
-    }
+    const maxChange = (e) => {
+        setMax(e.target.value);
+    };
 
-    componentDidMount() {
-        document.getElementById("award-amount_min").addEventListener("click", this.verifyNumberLogic);
-        document.getElementById("award-amount_max").addEventListener("click", this.verifyNumberLogic);
-    }
+    const searchSpecificRange = () => {
+        props.searchSpecificRange([min, max]);
+    };
 
-    componentWillUnmount() {
-        document.getElementById("award-amount_min").removeEventListener("click", this.verifyNumberLogic);
-        document.getElementById("award-amount_max").removeEventListener("click", this.verifyNumberLogic);
-    }
-
-    minChange(e) {
-        const min = e.target.value;
-        this.setState({ min }, this.verifyNumberLogic);
-    }
-
-    maxChange(e) {
-        const max = e.target.value;
-        this.setState({ max }, this.verifyNumberLogic);
-    }
-
-    searchSpecificRange() {
-        const { min, max } = this.state;
-        this.props.searchSpecificRange([min, max]);
-    }
-
-    verifyNumberLogic() {
-        if (this.state && this.state.max === '' && this.state.min === '') {
-            if (this.state.showWarning) {
-                this.setState({ showWarning: false, warningMessage: '' });
+    const verifyNumberLogic = () => {
+        if (max === '' && min === '') {
+            if (showWarning) {
+                setShowWarning(false);
+                setWarningMessage('');
             }
             return;
         }
-        const min = this.state.min;
-        const max = this.state.max;
-        let showWarning = false;
+        let tempShowWarning = false;
         const maxWarningMessage = 'Maximum amount should be larger than or equal to the minimum amount';
         const minWarningMessage = 'Minimum amount should be smaller than or equal to the maximum amount';
         const minIsNull = (!min && min !== '0');
@@ -71,74 +46,94 @@ export default class SpecificAwardAmountItem extends React.Component {
         const numberMax = Number(max);
 
         if (minIsNull || maxIsNull) {
-            showWarning = false;
+            tempShowWarning = false;
         }
         else {
-            if (numberMin < numberMax) showWarning = false;
-            if (numberMin > numberMax) showWarning = true;
+            if (numberMin < numberMax) tempShowWarning = false;
+            if (numberMin > numberMax) tempShowWarning = true;
         }
 
-        if (showWarning !== this.state.showWarning) {
-            this.setState({ showWarning });
+        if (showWarning !== tempShowWarning) {
+            setShowWarning(tempShowWarning);
         }
 
         // figure out how to change the error message when focus changes
         if ((numberMin > numberMax) && document.activeElement.id === 'award-amount_max') {
-            this.setState({ showWarning, warningMessage: maxWarningMessage });
+            setShowWarning(tempShowWarning);
+            setWarningMessage(maxWarningMessage);
         } else if ((numberMin > numberMax) && document.activeElement.id === 'award-amount_min') {
-            this.setState({ showWarning, warningMessage: minWarningMessage });
+            setShowWarning(showWarning);
+            setWarningMessage(minWarningMessage);
         }
+    };
+
+    useEffect(() => {
+        document.getElementById("award-amount_min").addEventListener("focus", verifyNumberLogic);
+        document.getElementById("award-amount_max").addEventListener("focus", verifyNumberLogic);
+
+        return () => {
+            document.getElementById("award-amount_min").removeEventListener("focus", verifyNumberLogic);
+            document.getElementById("award-amount_max").removeEventListener("focus", verifyNumberLogic);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (document.activeElement.id === 'award-amount_max' || document.activeElement.id === 'award-amount_min') {
+            console.debug(document.activeElement.id);
+            verifyNumberLogic();
+        }
+    }, [document.activeElement.id]);
+
+
+    useEffect(() => {
+        verifyNumberLogic();
+    }, [min, max]);
+
+    let disabled = (!min && min !== 0) && (!max && max !== 0);
+    if (showWarning) {
+        disabled = true;
     }
 
-    render() {
-        const {
-            min,
-            max,
-            showWarning,
-            warningMessage
-        } = this.state;
-        let disabled = (!min && min !== 0) &&
-        (!max && max !== 0);
-        if (showWarning) disabled = true;
-        return (
-            <div className="specific-award-amount">
-                <div className="specific-award-amount-wrapper">
-                    <div className="specific-award-amount-column">
-                        <span className="award-amount-label">MINIMUM AMOUNT</span>
-                        <input
-                            type="number"
-                            placeholder="No minimum"
-                            step="none"
-                            className="specific-award-min"
-                            value={min}
-                            onChange={this.minChange}
-                            id="award-amount_min" />
-                    </div>
-                    <div className="specific-award-amount-column">
-                        <span className="award-amount-label">MAXIMUM AMOUNT</span>
-                        <input
-                            type="number"
-                            placeholder="No maximum"
-                            step="none"
-                            className="specific-award-max"
-                            value={max}
-                            onChange={this.maxChange}
-                            id="award-amount_max" />
-                    </div>
-                    <Button additionalClassnames="award-amount-submit" copy="Add" buttonTitle="Filter by custom award amount range" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={this.searchSpecificRange} />
+    return (
+        <div className="specific-award-amount">
+            <div className="specific-award-amount-wrapper">
+                <div className="specific-award-amount-column">
+                    <span className="award-amount-label">MINIMUM AMOUNT</span>
+                    <input
+                        type="number"
+                        placeholder="No minimum"
+                        step="none"
+                        className="specific-award-min"
+                        value={min}
+                        onChange={minChange}
+                        id="award-amount_min" />
                 </div>
-                {
-                    showWarning &&
+                <div className="specific-award-amount-column">
+                    <span className="award-amount-label">MAXIMUM AMOUNT</span>
+                    <input
+                        type="number"
+                        placeholder="No maximum"
+                        step="none"
+                        className="specific-award-max"
+                        value={max}
+                        onChange={maxChange}
+                        id="award-amount_max" />
+                </div>
+                <Button additionalClassnames="award-amount-submit" copy="Add" buttonTitle="Filter by custom award amount range" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={searchSpecificRange} />
+            </div>
+            {
+                showWarning &&
                     <div className="award-amount-warning">
                         <span className="award-amount__invalid">Invalid search</span>
                         <ul>
                             <li>{warningMessage}</li>
                         </ul>
                     </div>
-                }
-            </div>
-        );
-    }
-}
+            }
+        </div>
+    );
+};
 
 SpecificAwardAmountItem.propTypes = propTypes;
+export default SpecificAwardAmountItem;
