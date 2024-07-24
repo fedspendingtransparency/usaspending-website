@@ -46,9 +46,9 @@ const Autocomplete = (props) => {
     const [shown, setShown] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [showWarning, setShowWarning] = useState(false);
-    const [autocompleteId, setAutocompleteId] = useState(`autocomplete-${uniqueId()}`);
     const [staged, setStaged] = useState(false);
 
+    const autocompleteIdRef = useRef(`autocomplete-${uniqueId()}`);
     const autocompleteInputRef = useRef();
 
     const checkValidity = (input) => {
@@ -213,7 +213,7 @@ const Autocomplete = (props) => {
     let status = '';
 
     if (shown && selectedIndex > -1) {
-        activeDescendant = `${autocompleteId}__option-${selectedIndex}`;
+        activeDescendant = `${autocompleteIdRef.current}__option-${selectedIndex}`;
         if (props.values.length > selectedIndex) {
             const selectedString = props.values[selectedIndex].title;
             const valueCount = Math.min(props.maxSuggestions, props.values.length);
@@ -253,7 +253,7 @@ const Autocomplete = (props) => {
         <div
             className="usa-da-typeahead-wrapper"
             role="combobox"
-            aria-controls={autocompleteId}
+            aria-controls={autocompleteIdRef.current}
             aria-expanded={shown}
             aria-haspopup="true">
             <div className="usa-da-typeahead">
@@ -267,7 +267,7 @@ const Autocomplete = (props) => {
                         placeholder={props.placeholder}
                         onChange={onChange.bind(this)}
                         tabIndex={0}
-                        aria-controls={autocompleteId}
+                        aria-controls={autocompleteIdRef.current}
                         aria-activedescendant={activeDescendant}
                         aria-autocomplete="list"
                         maxLength={props.characterLimit} />
@@ -284,7 +284,7 @@ const Autocomplete = (props) => {
                     selectedIndex={selectedIndex}
                     select={select.bind(this)}
                     maxSuggestions={props.maxSuggestions}
-                    autocompleteId={autocompleteId} />
+                    autocompleteId={autocompleteIdRef.current} />
                 {generateWarning()}
             </div>
         </div>
