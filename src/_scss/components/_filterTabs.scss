@@ -1,27 +1,31 @@
-.filter-tabs__outer-container {
-  border-bottom: solid 2px $card-outline-color;
+.filter-tabs__container {
   margin-top: $global-margin;
+  display: flex;
+  flex-flow: row nowrap;
 
-  .filter-tabs__inner-container {
-    display: flex;
-    flex-flow: row nowrap;
+  .filter-tabs__tab {
+    font-size: $font-size-12;
+    line-height: 1.5;
+    color: $theme-color-headline;
+    white-space: nowrap;
+    border-bottom: solid 2px $card-outline-color;
 
-    .filter-tabs__tab {
-      font-size: $font-size-12;
-      line-height: 1.5;
-      color: $theme-color-headline;
+    &.active {
+      font-weight: $font-bold;
+      border-bottom: solid 2px $theme-color-1;
+    }
 
-      &.active {
-        font-weight: $font-bold;
-      }
+    .filter-tabs__label {
+      margin: 0 $global-margin rem(2) $global-margin;
 
-      .filter-tabs__label {
-        margin: 0 $global-margin rem(2) $global-margin;
-
-        &:hover {
-          cursor: pointer;
-        }
+      &:hover {
+        cursor: pointer;
       }
     }
+  }
+
+  .filter-tabs__spacer {
+    width: 100%;
+    border-bottom: solid 2px $card-outline-color;
   }
 }

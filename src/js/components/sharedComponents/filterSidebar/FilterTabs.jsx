@@ -23,10 +23,9 @@ const FilterTabs = ({ labels, active, switchTab }) => {
     ));
 
     return (
-        <div className="filter-tabs__outer-container">
-            <div className="filter-tabs__inner-container">
-                {tabs}
-            </div>
+        <div className="filter-tabs__container">
+            {tabs}
+            <div className="filter-tabs__spacer" />
         </div>
     );
 };
