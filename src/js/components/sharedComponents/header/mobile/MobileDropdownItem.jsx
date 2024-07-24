@@ -11,7 +11,8 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
-import { isRedirectNeeded, displayRedirectModal } from '../../../../helpers/url';
+import isRedirectNeeded from '../../../../helpers/url';
+import ExternalLink from '../../ExternalLink';
 
 const propTypes = {
     title: PropTypes.string,
@@ -203,19 +204,26 @@ const MobileDropdownItem = ({
                     <ul>
                         {section3Items.map((item, i) => (
                             <li className="mobile-dropdown__section-downloads" key={i}>
-                                <a
-                                    href={isRedirectNeeded(item) ? null : item.url}
-                                    target={item.shouldOpenNewTab ? "_blank" : null}
-                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
-                                    className="mobile-dropdown__section-link"
-                                    onClick={() => (isRedirectNeeded(item) ? displayRedirectModal(item.url, dispatch) : null)}>
-                                    <div className="mobile-dropdown__section-label">
-                                        {item.label}
-                                        <span className="mobile-dropdown__section-description">
-                                            {item.description}
-                                        </span>
-                                    </div>
-                                </a>
+                                { isRedirectNeeded(item) ?
+                                    <ExternalLink isCard={false} url={item.url}>
+                                        <div className="mobile-dropdown__section-link">
+                                            <div className="mobile-dropdown__section-label">
+                                                {item.label}
+                                                <span className="mobile-dropdown__section-description">
+                                                    {item.description}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </ExternalLink> :
+                                    <a href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
+                                        <div className="mobile-dropdown__section-label">
+                                            {item.label}
+                                            <span className="mobile-dropdown__section-description">
+                                                {item.description}
+                                            </span>
+                                        </div>
+                                    </a>
+                                }
                             </li>
                         ))}
                     </ul>
