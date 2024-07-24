@@ -12,28 +12,24 @@ const propTypes = {
     switchTab: PropTypes.func.isRequired
 };
 
-const FilterTab = ({ label, active, switchTab }) => {
-    console.log('filterTab');
-
-    return (
-        <>
-            <div className="filter-tabs__tab-wrapper">
-                <div
-                    className={`filter-tabs__tab ${active ? 'active' : ''}`}
-                    role="tab"
-                    onClick={switchTab}
-                    onKeyDown={switchTab}
-                    title={`Show ${label.label}`}
-                    aria-label={`Show ${label.label}`}
-                    tabIndex={0}>
-                    <div className="filter-tabs__label">
-                        {label}
-                    </div>
+const FilterTab = ({ label, active, switchTab }) => (
+    <>
+        <div className="filter-tabs__tab-wrapper">
+            <div
+                className={`filter-tabs__tab ${active ? 'active' : ''}`}
+                role="tab"
+                onClick={switchTab}
+                onKeyDown={switchTab}
+                title={`Show ${label.label}`}
+                aria-label={`Show ${label.label}`}
+                tabIndex={0}>
+                <div className="filter-tabs__label">
+                    {label}
                 </div>
             </div>
-        </>
-    );
-};
+        </div>
+    </>
+);
 
 FilterTab.propTypes = propTypes;
 export default FilterTab;

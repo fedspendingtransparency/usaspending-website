@@ -21,6 +21,7 @@ const propTypes = {
 const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyFilters }) => {
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
+    const [filter, setFilter] = useState(<POPFilterContainer />);
 
     const openDefaultTab = () => {
         // check if the recipient or place of performance (default) tab should be enabled based
@@ -32,10 +33,9 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
     };
 
     const toggleTab = (e) => {
-        console.log('toggle fn', e);
-        const type = e.target.value;
-
-        setActiveTab(type);
+        if ((activeTab === 'recipient' && e.target.textContent !== 'Recipient Location') || (activeTab === 'pop' && e.target.textContent !== 'Place of Performance')) {
+            setActiveTab(activeTab === 'pop' ? 'recipient' : 'pop');
+        }
     };
 
     useEffect(() => {
@@ -52,20 +52,14 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dirtyFilters]);
 
-    // let activePop = '';
-    // if (activeTab !== 'pop') {
-    //     activePop = 'inactive';
-    // }
-    //
-    // let activeRecipient = '';
-    // if (activeTab !== 'recipient') {
-    //     activeRecipient = 'inactive';
-    // }
-
-    let filter = <POPFilterContainer />;
-    if (activeTab === 'recipient') {
-        filter = <RecipientFilterContainer />;
-    }
+    useEffect(() => {
+        if (activeTab === 'recipient') {
+            setFilter(<RecipientFilterContainer />);
+        }
+        else {
+            setFilter(<POPFilterContainer />);
+        }
+    }, [activeTab]);
 
     const tabLabels = [
         {
@@ -78,47 +72,12 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
         }
     ];
 
-    console.log('activeTab', activeTab);
-
     return (
         <div className="location-filter search-filter">
-
             <FilterTabs
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-
-            {/* <ul */}
-            {/*     className="toggle-buttons" */}
-            {/*     role="menu"> */}
-            {/*     <li> */}
-            {/*         <button */}
-            {/*             className={`tab-toggle ${activePop}`} */}
-            {/*             value="pop" */}
-            {/*             role="menuitemradio" */}
-            {/*             aria-checked={activeTab === 'pop'} */}
-            {/*             title="Place of Performance" */}
-            {/*             aria-label="Place of Performance" */}
-            {/*             onClick={toggleTab}> */}
-            {/*             Place of Performance */}
-            {/*         </button> */}
-            {/*     </li> */}
-            {/*     <li> */}
-            {/*         <button */}
-            {/*             className={`tab-toggle ${activeRecipient}`} */}
-            {/*             value="recipient" */}
-            {/*             role="menuitemradio" */}
-            {/*             aria-checked={activeTab === 'recipient'} */}
-            {/*             title="Recipient Location" */}
-            {/*             aria-label="Recipient Location" */}
-            {/*             onClick={toggleTab}> */}
-            {/*             Recipient Location */}
-            {/*         </button> */}
-            {/*     </li> */}
-            {/* </ul> */}
-            {/* <div className="toggle-border" /> */}
-
-
             {filter}
             <SubmitHint
                 ref={(component) => {
