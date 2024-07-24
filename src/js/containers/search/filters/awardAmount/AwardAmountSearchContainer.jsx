@@ -20,7 +20,7 @@ const propTypes = {
     updateGenericFilter: PropTypes.func
 };
 
-export const AwardAmountSearchContainer = (props) => {
+const AwardAmountSearchContainer = (props) => {
     const selectAwardRange = (awardAmountRange) => {
         props.updateAwardAmounts(awardAmountRange);
     };
