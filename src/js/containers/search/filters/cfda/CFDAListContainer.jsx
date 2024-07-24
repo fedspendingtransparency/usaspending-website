@@ -140,7 +140,6 @@ export default class CFDAListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectCFDA}
                 placeholder="e.g., 93.778 - Medical Assistance Program"
-                errorHeader="No results found"
                 errorMessage="We were unable to find that CFDA."
                 ref={(input) => {
                     this.cfdaList = input;

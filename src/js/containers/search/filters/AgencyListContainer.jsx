@@ -232,7 +232,6 @@ export default class AgencyListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
                 placeholder={`${this.props.agencyType} Agency`}
-                errorHeader="Unknown Agency"
                 errorMessage="We were unable to find that agency."
                 ref={(input) => {
                     this.agencyList = input;

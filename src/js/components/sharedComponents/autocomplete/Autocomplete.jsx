@@ -30,7 +30,7 @@ const propTypes = {
 const defaultProps = {
     values: [],
     placeholder: '',
-    errorHeader: '',
+    errorHeader: 'No results found',
     errorMessage: '',
     maxSuggestions: 1000,
     label: '',
