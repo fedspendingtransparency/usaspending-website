@@ -9,13 +9,13 @@ import { REQUEST_VERSION, QAT } from "GlobalConstants";
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import { isCancel } from 'axios';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
 import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
-import { SectionHeader } from "data-transparency-ui";
+import { SectionHeader, InformationBoxes } from "data-transparency-ui";
 import DetailsTooltip from './DetailsTooltip';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
@@ -179,6 +179,8 @@ export default class StateOverview extends React.PureComponent {
             );
         }
 
+        console.log("obligated amount:", this.props.stateProfile.totalAmount);
+
         return (
             <div
                 id="state-overview"
@@ -199,8 +201,8 @@ export default class StateOverview extends React.PureComponent {
                     <div className="state-overview__note">
                         <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
-                    <div className="state-section__row">
-                        <div className="state-section__viz totals-container">
+
+                    {/* <div className="state-section__viz totals-container">
                             <div className="state-section__viz totals">
                                 <h3 className="state-overview__heading">
                                 Total Awarded Amount
@@ -225,7 +227,38 @@ export default class StateOverview extends React.PureComponent {
                             <div className="state-section__viz loan">
                                 <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
                             </div>
+                        </div> */}
+
+                    <div className="state-section__row">
+                        <div className="state-section__viz totals-container">
+                            <InformationBoxes boxes={[
+                                {
+                                    title: "Obligated Amount",
+                                    type: 'obligatedAmount',
+                                    amount: this.props.stateProfile.totalAmount,
+                                    isMonetary: true,
+                                    isString: true,
+                                    subtitleBottom: `
+                                    from ${this.props.stateProfile.totalAwards} 
+                                    prime awards
+                                    `
+                                },
+                                {
+                                    title: 'Face Value of Loans',
+                                    type: 'faceValueOfLoans',
+                                    amount: this.props.stateProfile.totalFaceValueLoanAmount,
+                                    isMonetary: true,
+                                    isString: true,
+                                    subtitleBottom: `
+                                    from ${this.props.stateProfile.totalFaceValueLoanPrimeAwards} 
+                                    prime awards
+                                    `
+                                }
+                            ]} />
                         </div>
+                    </div>
+
+                    <div className="state-section__row">
                         <div className="state-section__viz details">
                             <h3 className="state-overview__heading">
                                 Details
