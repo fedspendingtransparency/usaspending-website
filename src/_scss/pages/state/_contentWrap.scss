@@ -29,7 +29,7 @@
 
         .state-section__row {
             width: 100%;
-            margin-bottom: rem(50);
+            margin-bottom: rem(32);
 			@include media($tablet-screen) {
 				@include display(flex);
 			}

@@ -1,6 +1,8 @@
 .transactions-over-time {
     @import "pages/search/results/visualizations/time/chart/barChart";
     @import "./_period";
+    
+    margin-top: -61px;
 
     .visualization-tooltip {
         @import "components/visualizations/tooltip/_tooltip";
