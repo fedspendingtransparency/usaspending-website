@@ -4,78 +4,57 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { is } from 'immutable';
-
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
+import { updateGenericFilter } from 'redux/actions/search/searchFilterActions';
 import AwardIDSearch from 'components/search/filters/awardID/AwardIDSearch';
 
-const propTypes = {
-    selectedAwardIDs: PropTypes.object,
-    appliedAwardIDs: PropTypes.object,
-    updateGenericFilter: PropTypes.func
-};
 
-export class AwardIDSearchContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        // Bind function
-        this.toggleAwardID = this.toggleAwardID.bind(this);
-    }
+const AwardIDSearchContainer = () => {
+    const dispatch = useDispatch();
+    const { selectedAwardIDs } = useSelector((state) => state.filters);
+    const { appliedAwardIDs } = useSelector((state) => state.appliedFilters.filters);
 
-    toggleAwardID(awardID) {
-        if (this.props.selectedAwardIDs.has(awardID)) {
-            this.removeAwardID(awardID);
+    const addAwardID = (id) => {
+        const awardId = selectedAwardIDs.set(id, id);
+
+        dispatch(updateGenericFilter({
+            type: 'selectedAwardIDs',
+            value: awardId
+        }));
+    };
+
+    const removeAwardID = (id) => {
+        const awardId = selectedAwardIDs.delete(id);
+        dispatch(updateGenericFilter({
+            type: 'selectedAwardIDs',
+            value: awardId
+        }));
+    };
+
+    const toggleAwardID = (awardID) => {
+        if (selectedAwardIDs.has(awardID)) {
+            removeAwardID(awardID);
         }
         else {
-            this.addAwardID(awardID);
+            addAwardID(awardID);
         }
-    }
+    };
 
-    addAwardID(id) {
-        const awardId = this.props.selectedAwardIDs.set(id, id);
-
-        this.props.updateGenericFilter({
-            type: 'selectedAwardIDs',
-            value: awardId
-        });
-    }
-
-    removeAwardID(id) {
-        const awardId = this.props.selectedAwardIDs.delete(id);
-        this.props.updateGenericFilter({
-            type: 'selectedAwardIDs',
-            value: awardId
-        });
-    }
-
-    dirtyFilters() {
-        if (is(this.props.selectedAwardIDs, this.props.appliedAwardIDs)) {
+    const dirtyFilters = () => {
+        if (is(selectedAwardIDs, appliedAwardIDs)) {
             return null;
         }
         return Symbol('dirty award ID');
-    }
+    };
 
-    render() {
-        return (
-            <AwardIDSearch
-                dirtyFilters={this.dirtyFilters()}
-                selectedAwardIDs={this.props.selectedAwardIDs}
-                toggleAwardID={this.toggleAwardID} />
-        );
-    }
-}
 
-AwardIDSearchContainer.propTypes = propTypes;
+    return (
+        <AwardIDSearch
+            dirtyFilters={dirtyFilters()}
+            selectedAwardIDs={selectedAwardIDs}
+            toggleAwardID={toggleAwardID} />
+    );
+};
 
-export default connect(
-    (state) => ({
-        selectedAwardIDs: state.filters.selectedAwardIDs,
-        appliedAwardIDs: state.appliedFilters.filters.selectedAwardIDs
-    }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(AwardIDSearchContainer);
-
+export default AwardIDSearchContainer;
