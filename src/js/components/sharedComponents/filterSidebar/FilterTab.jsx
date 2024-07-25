@@ -1,5 +1,5 @@
 /**
- * FilterTabs.jsx
+ * FilterTab.jsx
  * Created by Brian Petway 07/23/24
  */
 
