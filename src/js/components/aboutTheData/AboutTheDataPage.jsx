@@ -27,6 +27,7 @@ require('pages/aboutTheData/aboutTheData.scss');
 This page is called Agency Submission Statistics IRL
 https://www.usaspending.gov/submission-statistics?tab=submissions&fy=2024&period=2
  */
+
 const AboutTheDataPage = ({ history }) => {
     const { search } = useLocation();
     const params = useQueryParams();

@@ -22,7 +22,7 @@ import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/B
 import { categoryNames } from 'dataMapping/search/spendingByCategory';
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import SpendingByCategoriesChart
-    from "../../../components/search/visualizations/rank/spendingByCategoriesChart/SpendingByCategoriesChart";
+    from "../../../components/search/newResultsView/categories/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
 import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
