@@ -1,3 +1,8 @@
+/**
+ * TimeVisualizationChart.jsx
+ * Created by Andrea Blackwell 02/28/2024
+ **/
+
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine } from 'recharts';
 import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";

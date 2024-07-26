@@ -3,6 +3,12 @@
  * Created by Kevin Li 12/29/16
  */
 
+/**
+ * This component is not used on the new search results page,
+ * but it is still used on the State and Recipient pages,
+ * in the Transactions Over Time sections
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 

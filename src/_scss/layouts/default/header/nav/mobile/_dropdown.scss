@@ -17,6 +17,27 @@
     }
     .mobile-dropdown__section-downloads {
         padding-left: rem(8);
+
+        // button overrides for the external links
+        .usda-external-link {
+            background-color: white;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            flex-flow: column nowrap;
+
+            .mobile-dropdown__section-label {
+                display: flex !important;
+                flex-flow: column nowrap;
+                align-items: start;
+            }
+
+            svg {
+                color: $theme-color-1;
+                margin-top: rem(4);
+            }
+        }
     }
     .mobile-dropdown_parent-title{
         font-size: $font-size-16;
