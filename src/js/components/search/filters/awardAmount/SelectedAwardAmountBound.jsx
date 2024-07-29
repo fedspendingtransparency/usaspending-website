@@ -20,7 +20,7 @@ const SelectedAwardAmountBound = (props) => {
         removeFilterProp(name);
     };
 
-    const { label } = this.props;
+    const { label } = props;
     return (
         <button
             className="shown-filter-button"

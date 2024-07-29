@@ -3,7 +3,7 @@
  * Created by michaelbray on 3/7/17.
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { awardRanges } from 'dataMapping/search/awardAmount';
 import { reduce, each } from 'lodash';
@@ -27,7 +27,7 @@ const defaultProps = {
 };
 
 const AwardAmountSearch = (props) => {
-    const hint = useRef(null);
+    const [hint, setHint] = useState(null);
 
 
     const toggleSelection = (selection) => {
@@ -104,7 +104,9 @@ const AwardAmountSearch = (props) => {
                         searchSpecificRange={searchSpecificRange} />
                 </ul>
                 <SubmitHint
-                    ref={hint} />
+                    ref={(component) => {
+                        setHint(component);
+                    }} />
                 <div
                     className="selected-filters"
                     role="status">
