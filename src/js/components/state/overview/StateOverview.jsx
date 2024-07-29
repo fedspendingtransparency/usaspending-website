@@ -9,14 +9,13 @@ import { REQUEST_VERSION, QAT } from "GlobalConstants";
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import { isCancel } from 'axios';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
-import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
-import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
-import { SectionHeader, InformationBoxes } from "data-transparency-ui";
+import { SectionHeader } from "data-transparency-ui";
 import DetailsTooltip from './DetailsTooltip';
+import SummaryStats from './SummaryStats';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
@@ -179,8 +178,6 @@ export default class StateOverview extends React.PureComponent {
             );
         }
 
-        console.log("obligated amount:", this.props.stateProfile.totalAmount);
-
         return (
             <div
                 id="state-overview"
@@ -202,61 +199,20 @@ export default class StateOverview extends React.PureComponent {
                         <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
 
-                    {/* <div className="state-section__viz totals-container">
-                            <div className="state-section__viz totals">
-                                <h3 className="state-overview__heading">
-                                Total Awarded Amount
-                                </h3>
-                                <div className="totals__amount">
-                                    {this.props.stateProfile.totalAmount}
-                                </div>
-                                <div className="totals__awards">
-                                from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> prime awards
-                                </div>
-                                {(this.props.stateProfile.code) &&
-                                    <Link
-                                        className="state-section__award-button"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        to="/search"
-                                        onClick={handleGoToAdvancedSearch}>
-                                        View awards to this state
-                                    </Link>
-                                }
-                            </div>
-                            <div className="state-section__viz loan">
-                                <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
-                            </div>
-                        </div> */}
-
                     <div className="state-section__row">
-                        <div className="state-section__viz totals-container">
-                            <InformationBoxes boxes={[
-                                {
-                                    title: "Obligated Amount",
-                                    type: 'obligatedAmount',
-                                    amount: this.props.stateProfile.totalAmount,
-                                    isMonetary: true,
-                                    isString: true,
-                                    subtitleBottom: `
-                                    from ${this.props.stateProfile.totalAwards} 
-                                    prime awards
-                                    `
-                                },
-                                {
-                                    title: 'Face Value of Loans',
-                                    type: 'faceValueOfLoans',
-                                    amount: this.props.stateProfile.totalFaceValueLoanAmount,
-                                    isMonetary: true,
-                                    isString: true,
-                                    subtitleBottom: `
-                                    from ${this.props.stateProfile.totalFaceValueLoanPrimeAwards} 
-                                    prime awards
-                                    `
-                                }
-                            ]} />
-                        </div>
+                        <SummaryStats stateProfile={this.props.stateProfile} />
                     </div>
+
+                    {(this.props.stateProfile.code) &&
+                        <Link
+                            className="state-section__award-button"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            to="/search"
+                            onClick={handleGoToAdvancedSearch}>
+                            View awards to this state
+                        </Link>
+                    }
 
                     <div className="state-section__row">
                         <div className="state-section__viz details">
