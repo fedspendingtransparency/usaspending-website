@@ -9,9 +9,9 @@ import { throttle, min } from 'lodash';
 import { SectionHeader } from "data-transparency-ui";
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import RankVisualization from 'components/search/visualizations/rank/RankVisualization';
+import RankVisualization from './RankVisualization';
 import RankVisualizationScopeButton from
-    'components/search/visualizations/rank/RankVisualizationScopeButton';
+    './RankVisualizationScopeButton';
 
 const propTypes = {
     categoryScope: PropTypes.string,

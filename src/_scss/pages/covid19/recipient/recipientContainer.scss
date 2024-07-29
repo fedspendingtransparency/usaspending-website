@@ -12,7 +12,6 @@
 
         .results-visualization-geo-section {
           position: relative;
-          @import "pages/search/results/visualizations/geo/_topSection";
 
           .map-container {
             margin-top: rem(20);
@@ -53,7 +52,6 @@
 
       .results-visualization-geo-section {
         position: relative;
-        @import "pages/search/results/visualizations/geo/_topSection";
 
         h2.visualization-title {
           @include h3;
