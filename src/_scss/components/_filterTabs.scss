@@ -16,10 +16,11 @@
     }
 
     .filter-tabs__label {
-      margin: 0 $global-margin rem(2) $global-margin;
+      margin: 0 $global-margin $global-margin * .5 $global-margin;
 
       &:hover {
         cursor: pointer;
+        font-weight: $font-semibold;
       }
     }
   }
