@@ -62,9 +62,9 @@ const AwardAmountSearch = (props) => {
         }, []);
     };
 
-    const removeFilter = (name) => {
-        const { removeFilterProp } = props;
-        removeFilterProp(name);
+    const removeFilterFn = (name) => {
+        const { removeFilter } = props;
+        removeFilter(name);
     };
 
     const stagedFilters = () => {
@@ -79,7 +79,7 @@ const AwardAmountSearch = (props) => {
         const label = formatAwardAmountRange(stagedFilter);
         return (
             <SelectedAwardAmountBound
-                removeFilter={removeFilter}
+                removeFilter={removeFilterFn}
                 name={name}
                 label={label} />
         );

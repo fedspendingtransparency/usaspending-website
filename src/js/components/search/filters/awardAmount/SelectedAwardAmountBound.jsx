@@ -15,9 +15,9 @@ const propTypes = {
 };
 
 const SelectedAwardAmountBound = (props) => {
-    const removeFilter = () => {
-        const { removeFilterProp, name } = props;
-        removeFilterProp(name);
+    const removeFilterFn = () => {
+        const { removeFilter, name } = props;
+        removeFilter(name);
     };
 
     const { label } = props;
@@ -25,7 +25,7 @@ const SelectedAwardAmountBound = (props) => {
         <button
             className="shown-filter-button"
             value={label}
-            onClick={removeFilter}
+            onClick={removeFilterFn}
             title="Click to remove."
             aria-label={`Applied filter: ${label}`}>
             {label}
