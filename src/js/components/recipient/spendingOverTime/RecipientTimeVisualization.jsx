@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
-import ChartLoadingMessage from 'components/search/visualizations/ChartLoadingMessage';
-import ChartNoResults from 'components/search/visualizations/ChartNoResults';
-import ChartError from 'components/search/visualizations/ChartError';
+import ChartLoadingMessage from 'components/sharedComponents/ChartLoadingMessage';
+import ChartNoResults from 'components/sharedComponents/ChartNoResults';
+import ChartError from 'components/sharedComponents/ChartError';
 import BarChartTrendline from './chart/BarChartTrendline';
 import PointTooltip from './PointTooltip';
 
@@ -23,6 +23,7 @@ const defaultProps = {
     width: 0,
     height: 280
 };
+
 /**
  * groups - an array of X-axis labels. Each group can have multiple bars/data points
  * that are grouped together
@@ -33,8 +34,7 @@ const defaultProps = {
  *
  * zSeries - an array of values with trendline data for each group
  */
-/* eslint-disable react/no-unused-prop-types */
-// allow unused prop types. they are passed to child components, but documented here
+
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
@@ -43,7 +43,6 @@ const propTypes = {
     error: PropTypes.bool,
     visualizationPeriod: PropTypes.string
 };
-/* eslint-enable react/no-unused-prop-types */
 
 export default class RecipientTimeVisualization extends React.Component {
     constructor(props) {

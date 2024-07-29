@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/13/17
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -17,7 +17,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import { defaultColumns, defaultSort } from 'dataMapping/search/awardTableColumns';
 import AccountAwardSearchOperation from 'models/v1/account/queries/AccountAwardSearchOperation';
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
-import { tableTypes, subTypes } from 'containers/search/table/ResultsTableContainer';
+import { tableTypes, subTypes } from 'containers/search/newResultsView/ResultsTableContainer';
 
 const propTypes = {
     account: PropTypes.object,
@@ -47,7 +47,7 @@ const AccountAwardsContainer = (props) => {
     // eslint-disable-next-line no-unused-vars
     const [searchParams, setSearchParams] = useState(new AccountAwardSearchOperation());
 
-    const performSearch = (newSearch = false) => {
+    const performSearch = useCallback((newSearch = false) => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
             searchRequest.cancel();
@@ -126,7 +126,8 @@ const AccountAwardsContainer = (props) => {
                     console.log(err);
                 }
             });
-    };
+    });
+
     const updateFilters = () => {
         // the searchParams state var is now only used in the
         // block using intersection in performSearch
@@ -137,6 +138,7 @@ const AccountAwardsContainer = (props) => {
         setPage(1);
         performSearch(true);
     };
+
     const switchTab = (tab) => {
         const newState = {
             tableType: tab
@@ -163,6 +165,7 @@ const AccountAwardsContainer = (props) => {
             setSort(Object.assign(newState.sort));
         }
     };
+
     const parseTabCounts = (data) => {
         const awardCounts = data.results;
         let firstAvailable = '';
@@ -191,6 +194,7 @@ const AccountAwardsContainer = (props) => {
         switchTab(firstAvailable);
         updateFilters();
     };
+
     const pickDefaultTab = () => {
         // get the award counts for the current filter set
         if (tabCountRequest) {
@@ -240,6 +244,7 @@ const AccountAwardsContainer = (props) => {
             defaultDirection: direction
         };
     };
+
     const loadColumns = () => {
         // in the future, this will be an API call, but for now, read the local data file
         // load every possible table column up front, so we don't need to deal with this when
@@ -298,6 +303,7 @@ const AccountAwardsContainer = (props) => {
             performSearch();
             setLoadNextPage(false);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoadingNextPage]);
 
     useEffect(() => {
@@ -308,11 +314,13 @@ const AccountAwardsContainer = (props) => {
     if (Object.keys(columns).length === 0) {
         return null;
     }
+
     const tabsWithCounts = tableTypes.map((type) => ({
         ...type,
         count: counts[type.internal],
         disabled: inFlight || counts[type.internal] === 0
     }));
+
     return (
         <ResultsTableSection
             error={error}
