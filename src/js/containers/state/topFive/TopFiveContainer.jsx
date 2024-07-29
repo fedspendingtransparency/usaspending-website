@@ -166,9 +166,13 @@ const TopFiveContainer = (props) => {
             }
         };
 
-        // const awardTypeFilter = {
-        //
-        // }
+        let awardTypeFilter;
+
+        if (params.filters.award_type_codes?.length > 0) {
+            awardTypeFilter = {
+                awardType: params.filters.award_type_codes
+            };
+        }
 
         const timePeriodFilter = {
             timePeriodStart: params.filters.time_period[0].start_date,
@@ -181,7 +185,8 @@ const TopFiveContainer = (props) => {
                 ...defaultFilters,
                 ...categoryFilter,
                 ...locationFilter,
-                ...timePeriodFilter
+                ...timePeriodFilter,
+                ...awardTypeFilter
             },
             version: REQUEST_VERSION
         };
