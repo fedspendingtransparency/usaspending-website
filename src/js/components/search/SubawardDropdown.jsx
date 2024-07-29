@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { faFunnelDollar } from "@fortawesome/free-solid-svg-icons";
 import Analytics from 'helpers/analytics/Analytics';
-import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
+import NewPicker from "../sharedComponents/dropdowns/NewPicker";
 
 const propTypes = {
     size: PropTypes.string,

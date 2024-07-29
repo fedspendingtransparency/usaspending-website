@@ -98,6 +98,21 @@
 
       .dropdown-section__alternate-top {
         display: flex;
+
+        // button overrides for the external links
+        .usda-external-link {
+          background-color: $gray-cool-2;
+          margin: 0;
+          padding: 0;
+
+          display: flex;
+          flex-flow: column nowrap;
+
+          &:hover {
+            background: $gray-cool-5;
+          }
+        }
+
         .dropdown-item__description {
           display: flex;
           margin: $global-margin * .5 0 0 0;

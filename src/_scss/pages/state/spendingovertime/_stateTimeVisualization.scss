@@ -1,5 +1,5 @@
 .transactions-over-time {
-    @import "pages/search/results/visualizations/time/chart/barChart";
+    @import "chart/barChart";
     @import "./_period";
 
     .visualization-tooltip {
