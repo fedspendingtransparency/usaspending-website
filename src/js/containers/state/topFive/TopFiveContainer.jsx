@@ -15,6 +15,7 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from 'components/state/topFive/TopFive';
 import { REQUEST_VERSION } from "../../../GlobalConstants";
 import { generateUrlHash } from "../../../helpers/searchHelper";
+import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
 
 const propTypes = {
     code: PropTypes.string,
@@ -74,10 +75,13 @@ const TopFiveContainer = (props) => {
 
     const getSelectedLink = (e, data) => {
         e.preventDefault();
-        console.log("in get selected link", e, data);
         const params = dataParams();
+        const location = params.filters.place_of_performance_locations[0];
+
+        console.log("in get selected link", e, data, params, location.state, location.country, props.code);
 
         let categoryFilter;
+        let locationFilter;
         // categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
 
         if (params.category === 'awarding_agency') {
@@ -127,7 +131,6 @@ const TopFiveContainer = (props) => {
         //     // categoryFilter = { psc_codes: [item] };
         // }
         else if (params.category === 'naics') {
-
             categoryFilter = {
                 naicsCodes: {
                     require: [data._code],
@@ -140,15 +143,45 @@ const TopFiveContainer = (props) => {
                         }
                     ]
                 }
-            }
+            };
         }
 
-        console.log("filter value", categoryFilter, params.category);
+        const fips = stateFIPSByAbbreviation[location.state];
+        const stateName = stateNameByFipsId[fips];
+
+        locationFilter = {
+            selectedLocations: {
+                [`${location.country}_${location.state}`]: {
+                    identifier: `${location.country}_${location.state}`,
+                    filter: {
+                        country: location.country,
+                        state: location.state
+                    },
+                    display: {
+                        entity: "State",
+                        standalone: stateName,
+                        title: stateName
+                    }
+                }
+            }
+        };
+
+        // const awardTypeFilter = {
+        //
+        // }
+
+        const timePeriodFilter = {
+            timePeriodStart: params.filters.time_period[0].start_date,
+            timePeriodEnd: params.filters.time_period[0].end_date,
+            timePeriodType: 'dr'
+        };
 
         const filterValue = {
             filters: {
                 ...defaultFilters,
-                ...categoryFilter
+                ...categoryFilter,
+                ...locationFilter,
+                ...timePeriodFilter
             },
             version: REQUEST_VERSION
         };
