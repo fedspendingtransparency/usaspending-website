@@ -128,8 +128,10 @@ const toggleTabs = [
 const HomepageExploreToggle = () => {
     const [activeTab, setActiveTab] = useState('explore');
 
-    const changeActiveTab = () => {
-        setActiveTab(activeTab === 'explore' ? 'access' : 'explore');
+    const changeActiveTab = (internal) => {
+        if ((activeTab === 'explore' && internal !== 'explore') || (activeTab === 'access' && internal !== 'access')) {
+            setActiveTab(activeTab === 'explore' ? 'access' : 'explore');
+        }
     };
 
     return (
