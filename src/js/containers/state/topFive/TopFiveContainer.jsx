@@ -72,9 +72,9 @@ const TopFiveContainer = (props) => {
         };
     };
 
-    const getSelectedLink = (e, name) => {
+    const getSelectedLink = (e, data) => {
         e.preventDefault();
-        console.log("in get selected link", name);
+        console.log("in get selected link", e, data);
         const params = dataParams();
 
         let categoryFilter;
@@ -87,39 +87,63 @@ const TopFiveContainer = (props) => {
         //     categoryFilter = { recipient_search_text: name };
         // }
         else if (params.category === 'recipient') {
-            categoryFilter = { selectedRecipients: [name] };
+            categoryFilter = { selectedRecipients: [data._name] };
         }
-        else if (params.category === 'county') {
-            categoryFilter = {
-                selectedLocations: {
-                    USA: {
-                        filter: {
-                            country: "USA",
-                            state: props.state,
-                            county: name
-                        },
-                        display: {
-                            title: "UNITED STATES",
-                            entity: "County",
-                            standalone: "UNITED STATES"
-                        },
-                        identifier: "USA"
-                    }
-                }
-            };
-        }
+        // else if (params.category === 'county') {
+        //     categoryFilter = {
+        //         selectedLocations: {
+        //             "USA_AL_001": {
+        //                 "identifier": "USA_AL_001",
+        //                 "filter": {
+        //                     "country": "USA",
+        //                     "state": "AL",
+        //                     "county": "001"
+        //                 },
+        //                 "display": {
+        //                     "entity": "County",
+        //                     "standalone": "Autauga County, AL",
+        //                     "title": "Autauga County"
+        //                 }
+        //             }
+        //         };
+        //     }
+        // }
         // else if (params.category === 'district') {
         //     // categoryFilter = { recipient_search_text: item };
         // }
-        // else if (params.category === 'cfda') {
-        //     categoryFilter = { program_numbers: [name] };
-        // }
+        else if (params.category === 'cfda') {
+            categoryFilter = {
+                selectedCFDA:
+                    {
+                        [data._code]: {
+                            program_number: data._code,
+                            program_title: data._name,
+                            identifier: data._code
+                        }
+                    }
+            };
+        }
         // else if (params.category === 'psc') {
         //     // categoryFilter = { psc_codes: [item] };
         // }
-        // else if (params.category === 'naics') {
-        //     categoryFilter = { naics_codes: [name] };
-        // }
+        else if (params.category === 'naics') {
+
+            categoryFilter = {
+                naicsCodes: {
+                    require: [data._code],
+                    exclude: [],
+                    counts: [
+                        {
+                            label: data._name,
+                            value: data._code,
+                            count: 1
+                        }
+                    ]
+                }
+            }
+        }
+
+        console.log("filter value", categoryFilter, params.category);
 
         const filterValue = {
             filters: {
