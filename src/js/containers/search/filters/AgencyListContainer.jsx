@@ -119,7 +119,7 @@ export default class AgencyListContainer extends React.Component {
             }
 
             const agencySearchParams = {
-                search_text: this.state.agencySearchString,
+                search_text: input,
                 limit: 20
             };
 
