@@ -50,6 +50,10 @@
             -moz-appearance: textfield;
         }
 
+        input[type=number].specific-amount-warning:focus-visible {
+            outline: 1px solid $color-secondary-vivid !important;
+        }
+
         span {
             padding-right: 0.5rem;
         }

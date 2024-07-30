@@ -87,7 +87,7 @@ const SpecificAwardAmountItem = (props) => {
                         type="number"
                         placeholder="No minimum"
                         step="none"
-                        className="specific-award-min"
+                        className={showWarning ? 'specific-amount-warning specific-award-min' : 'specific-award-min'}
                         value={min}
                         onChange={minChange}
                         ref={minInput}
@@ -100,7 +100,7 @@ const SpecificAwardAmountItem = (props) => {
                         type="number"
                         placeholder="No maximum"
                         step="none"
-                        className="specific-award-max"
+                        className={showWarning ? 'specific-amount-warning specific-award-max' : 'specific-award-max'}
                         value={max}
                         onChange={maxChange}
                         ref={maxInput}
