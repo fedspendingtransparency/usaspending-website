@@ -3,7 +3,6 @@
     @import "./_topSection";
     .results-visualization-rank-container {
         position: relative;
-        @import "./chart/rankChart";
         .visualization-tooltip {
             @import "components/visualizations/tooltip/_tooltip";
         }

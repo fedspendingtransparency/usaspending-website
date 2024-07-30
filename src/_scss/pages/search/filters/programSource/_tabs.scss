@@ -1,0 +1,36 @@
+@import '../timePeriod/toggleButtons';
+ul.toggle-buttons {
+    padding-left: rem(15);
+    margin-top: rem(10);
+    @include media($large-screen) {
+        padding-left: rem(30);
+    }
+
+    li {
+        margin-left: rem(-2);
+        @include media($large-screen) {
+            margin-left: 0;
+        }
+
+        .tab-toggle {
+            padding: 0 rem(2);
+            font-size: rem(11);
+            margin: 0 rem(5);
+            width: auto;
+            display: inline-block;
+            @include media(1430px) {
+                padding: rem(8) rem(8);
+                font-size: rem(13);
+            }
+        }
+    }
+}
+
+.toggle-border {
+    border-top: 1px solid $color-gray-lighter;
+    padding: 0;
+    margin-top: -1px;
+    z-index: 1;
+    width: 100%;
+    height: rem(1);
+}

@@ -1,0 +1,43 @@
+.award-results-table {
+    // implement the library style
+    @import '../../../lib/ibTable/ibTable';
+    display: block;
+    &.no-results {
+        border-bottom: none;
+    }
+    .award-result-generic-cell {
+        @import "cells/genericCell";
+        @include genericCell();
+    }
+    .ibt-header-cell {
+        vertical-align: top;
+    }
+    .award-result-header-cell {
+        @import "cells/genericHeader";
+        @include genericHeader();
+        &.last-column {
+            border-right: none;
+        }
+
+        .cell-content {
+            .header-sort {
+                padding: rem(16) rem(20);
+                .header-label {
+                    line-height: rem(18);
+                }
+                .header-icons {
+                    vertical-align: top;
+                    padding-top: rem(4);
+                }
+            }
+        }
+    }
+    // gray out even rows
+    .row-even {
+        background-color: #f7f7f7;
+    }
+    // override the header style for a bottom border
+    .ibt-header {
+        border-bottom: 1px solid #ADAFB4;
+    }
+}

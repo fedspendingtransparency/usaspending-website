@@ -1,0 +1,14 @@
+@mixin genericCell() {
+    border-bottom: 1px solid $color-gray-lighter;
+    border-right: 1px solid $color-gray-lighter;
+
+    .cell-content {
+        padding: rem(12) rem(16);
+        font-size: rem(12);
+        color: $color-base;
+        box-sizing: border-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
