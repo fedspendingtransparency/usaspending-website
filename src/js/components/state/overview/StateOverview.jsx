@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/2/18
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { REQUEST_VERSION, QAT } from "GlobalConstants";
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
@@ -161,7 +161,7 @@ export default class StateOverview extends React.PureComponent {
                 });
         };
         const handleGoToAdvancedSearch = (e) => {
-            e.preventDefault();
+            e?.preventDefault();
             getSelectedHash(this.props.stateProfile);
         };
         if ((this.props.stateProfile.population !== "--") && this.props.stateProfile.populationSourceYear) {
@@ -171,8 +171,14 @@ export default class StateOverview extends React.PureComponent {
             incomeSourceYear = `(${this.props.stateProfile.incomeSourceYear} est.)`;
         }
 
-        let tooltip = null;
+        let tooltip = (
+            <DetailsTooltip
+                showInfoTooltip={this.state.showInfoTooltip}
+                closeTooltip={this.closeTooltip}
+                icon={document.getElementById('details__info_icon')} />
+        );
         if (this.state.showInfoTooltip) {
+            console.log('show tooltip');
             tooltip = (
                 <DetailsTooltip
                     showInfoTooltip={this.state.showInfoTooltip}
@@ -229,7 +235,7 @@ export default class StateOverview extends React.PureComponent {
                         </div>
                         {/* <div className="state-section__viz details">
                             <h3 className="state-overview__heading">
-                                Details
+                                Details {tooltip}
                                 <span className="details__info_icon_holder">
                                     <button
                                         id="details__info_icon"
@@ -242,7 +248,6 @@ export default class StateOverview extends React.PureComponent {
                                     </button>
                                 </span>
                             </h3>
-                            {tooltip}
                             <table className="details__table">
                                 <tbody>
                                     <tr>
@@ -296,88 +301,65 @@ export default class StateOverview extends React.PureComponent {
                             </FlexGridCol>
                             <FlexGridCol width={4} desktop={4} tablet={12} mobile={12}l>
                                 <div className="state-section__viz details state-overview__heading">
-                                    <CardContainer variant="elevated" size="md" height={this.detailsHeight}>
+                                    <CardContainer variant="elevated" size="md">
                                         <CardHero fill="#005ea2" />
                                         <CardBody
                                             headline={
-                                                <div className="state-overview__heading">
-                                                    Details
-                                                    <span className="details__info_icon_holder">
-                                                        <button
-                                                            id="details__info_icon"
-                                                            className="details__info_icon"
-                                                            onFocus={this.showTooltip}
-                                                            onBlur={this.closeTooltip}
-                                                            onMouseEnter={this.showTooltip}
-                                                            onClick={this.showTooltip}>
-                                                            <InfoCircle />
-                                                        </button>
-                                                    </span>
-                                                    {tooltip}
+                                                <div className="state-section__viz details">
+                                                    <h3 className="state-overview__heading">
+                                                        Details
+                                                        <span className="details__info_icon_holder">
+                                                            <button
+                                                                id="details__info_icon"
+                                                                className="details__info_icon"
+                                                                onFocus={this.showTooltip}
+                                                                onBlur={this.closeTooltip}
+                                                                onMouseEnter={this.showTooltip}
+                                                                onClick={this.showTooltip}>
+                                                                <InfoCircle />
+                                                            </button>
+                                                        </span>
+                                                        {tooltip}
+                                                    </h3>
                                                 </div>
                                             }
                                             text={
-                                                <div className="state-overview__heading">
-                                                    <div className="subhead">Count</div>
-                                                    <div>{this.props.stateProfile.population} {populationSourceYear}</div>
-                                                    <div>Obligations Per Capita:</div>
-                                                    <div>{this.props.stateProfile.awardAmountPerCapita}</div>
-                                                    <div>Median Household Income:</div>
-                                                    <div>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</div>
-                                                </div>
+                                                <table className="details__table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Population</th>
+                                                            <td>{this.props.stateProfile.population} {populationSourceYear}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Awarded Amount Per Capita</th>
+                                                            <td>{this.props.stateProfile.awardAmountPerCapita}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Median Household Income</th>
+                                                            <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             }>
                                             <CardButton
+                                                onlyPerformAction
+                                                text={<div>View awards to this state <FontAwesomeIcon icon="arrow-right" /></div>}
                                                 variant="secondary"
-                                                backgroundColor="light"
-                                                buttonSize="sm"
                                                 textAlignment="center"
-                                                text="View awards to this state"
-                                                govLink={false}
-                                                link="/search"
-                                                action={handleGoToAdvancedSearch}>
-                                            </CardButton>
+                                                action={() => {
+                                                    handleGoToAdvancedSearch();
+                                                }} />
                                         </CardBody>
                                     </CardContainer>
-                                    {/* <h3 className="state-overview__heading">
-                                        Details
-                                        <span className="details__info_icon_holder">
-                                            <button
-                                                id="details__info_icon"
-                                                className="details__info_icon"
-                                                onFocus={this.showTooltip}
-                                                onBlur={this.closeTooltip}
-                                                onMouseEnter={this.showTooltip}
-                                                onClick={this.showTooltip}>
-                                                <InfoCircle />
-                                            </button>
-                                        </span>
-                                    </h3>
-                                    {tooltip}
-                                    <table className="details__table">
-                                        <tbody>
-                                            <tr>
-                                                <th>Population</th>
-                                                <td>{this.props.stateProfile.population} {populationSourceYear}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Awarded Amount Per Capita</th>
-                                                <td>{this.props.stateProfile.awardAmountPerCapita}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Median Household Income</th>
-                                                <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table> */}
                                 </div>
                             </FlexGridCol>
                         </FlexGridRow>
-                        {/* <div className="state-section__viz geo">
+                        <div className="state-section__viz geo">
                             <h3 className="state-overview__heading">
                                 Primary Place of Performance
                             </h3>
                             <GeoVisualizationSectionContainer className="state-profile__map-toggle" />
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
