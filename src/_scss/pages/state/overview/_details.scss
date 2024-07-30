@@ -1,6 +1,13 @@
 .details {
     @import './detailsTooltip';
 
+    svg {
+        height: 14px;
+    }
+
+    margin-left: 7px;
+    margin-top: 10px;
+
     .details__table {
         margin-top: rem(10);
         margin-bottom: rem(15);

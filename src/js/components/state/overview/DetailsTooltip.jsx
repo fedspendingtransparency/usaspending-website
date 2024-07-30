@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 const tooltipWidth = 300;
-const margin = 15;
+const margin = 150;
 const tooltipPadding = 6;
 
 export default class DetailsTooltip extends React.Component {
