@@ -24,7 +24,8 @@ const propTypes = {
     retainValue: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
     minCharsToSearch: PropTypes.number,
-    inFlight: PropTypes.bool
+    inFlight: PropTypes.bool,
+    icon: PropTypes.bool
 };
 
 const defaultProps = {
@@ -38,7 +39,8 @@ const defaultProps = {
     characterLimit: 524288, // default for HTML input elements
     retainValue: false,
     dirtyFilters: Symbol(''),
-    minCharsToSearch: 3
+    minCharsToSearch: 3,
+    icon: false
 };
 
 const Autocomplete = (props) => {
@@ -259,9 +261,9 @@ const Autocomplete = (props) => {
             <div className="usa-da-typeahead">
                 <p>{props.label}</p>
                 <div className="usa-da-typeahead__input">
-                    <FontAwesomeIcon icon="search" />
+                    {props.icon && <FontAwesomeIcon icon="search" />}
                     <input
-                        className="autocomplete"
+                        className={`autocomplete${props.icon ? ' icon' : ''}`}
                         ref={autocompleteInputRef}
                         type="text"
                         placeholder={props.placeholder}
