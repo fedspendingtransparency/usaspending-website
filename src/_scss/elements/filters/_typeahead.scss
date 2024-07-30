@@ -18,15 +18,23 @@
     }
 
     input {
-        font-size: $smallest-font-size;
         line-height: 1.5;
         height: rem(32);
         margin: 0 auto;
-        padding: rem(8);
         width: 100%;
         border-color: $gray-cool-10;
         border-radius: rem(3);
         color: $gray-60;
+    }
+
+    .autocomplete-md {
+        font-size: $small-font-size;
+        padding: rem(6) rem(12);
+    }
+
+    .autocomplete-sm {
+        font-size: $smallest-font-size;
+        padding: rem(8);
     }
 
     .icon {
