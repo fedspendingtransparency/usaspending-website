@@ -34,6 +34,14 @@
 				@include display(flex);
 			}
 
+			&.award-row {
+				margin-bottom: 33px
+			}
+
+			&.geo-row {
+				padding-bottom: 2px
+			}
+
 			.totals-container {
 				@include media($tablet-screen) {
 					@include flex(1 1 50%);

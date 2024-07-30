@@ -260,7 +260,7 @@ export default class StateOverview extends React.PureComponent {
                             </table>
                         </div>
                     </div>
-                    <div className="state-section__row">
+                    <div className="state-section__row award-row">
                         <div className="state-section__viz award-breakdown">
                             {QAT ? (
                                 <>
@@ -291,7 +291,7 @@ export default class StateOverview extends React.PureComponent {
                             <AwardBreakdownContainer toggleState={this.state.toggle} />
                         </div>
                     </div>
-                    <div className="state-section__row">
+                    <div className="state-section__row geo-row">
                         <div className="state-section__viz geo">
                             <h3 className="state-overview__heading">
                                 Primary Place of Performance
