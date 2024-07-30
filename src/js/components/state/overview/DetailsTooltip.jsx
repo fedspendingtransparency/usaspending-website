@@ -5,64 +5,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     closeTooltip: PropTypes.func,
-    showInfoTooltip: PropTypes.bool,
-    icon: PropTypes.HTMLElement
+    showInfoTooltip: PropTypes.bool
 };
-
-const tooltipWidth = 300;
-const margin = 150;
-const tooltipPadding = 6;
 
 export default class DetailsTooltip extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            windowWidth: 0,
-            iconTop: 0,
-            iconLeft: 0
-        };
-
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.handleWindowScroll = throttle(this.handleWindowScroll.bind(this), 50);
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
-    }
-
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-        window.addEventListener('scroll', this.handleWindowScroll);
-        document.addEventListener('mousedown', this.handleClickOutside);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-        window.removeEventListener('scroll', this.handleWindowScroll);
-        document.removeEventListener('mousedown', this.handleClickOutside);
-    }
-
-    getPosition() {
-        const icon = this.props.icon || document.getElementById('details__info_icon');
-        const iconTop = (icon.getBoundingClientRect().top - tooltipPadding) + window.scrollY;
-
-        let iconLeft = icon.getBoundingClientRect().left - tooltipPadding;
-
-        console.log(iconLeft);
-        console.log(iconTop);
-
-        const windowWidth = window.innerWidth;
-        if ((iconLeft + tooltipWidth) > windowWidth) {
-            iconLeft = windowWidth - tooltipWidth - margin;
-        }
-
-        return { iconTop, iconLeft };
     }
 
     setWrapperRef(node) {
@@ -75,41 +30,16 @@ export default class DetailsTooltip extends React.Component {
         }
     }
 
-    handleWindowResize() {
-    // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
-            // width changed, update the position
-            const position = this.getPosition();
-
-            this.setState({
-                windowWidth,
-                iconTop: position.iconTop,
-                iconLeft: position.iconLeft
-            });
-        }
-    }
-
-    handleWindowScroll() {
-        const position = this.getPosition();
-
-        this.setState({
-            iconTop: position.iconTop,
-            iconLeft: position.iconLeft
-        });
-    }
-
     render() {
         return (
-
             <div
                 ref={this.setWrapperRef}
                 onBlur={this.props.closeTooltip}
                 onMouseLeave={this.props.closeTooltip}
                 className="state-overview-tooltip"
                 style={{
-                    top: this.state.iconTop,
-                    left: this.state.iconLeft
+                    top: 58,
+                    left: 107
                 }}>
                 <div className="state-overview-tooltip__info_icon">
                     <Icons.InfoCircle />

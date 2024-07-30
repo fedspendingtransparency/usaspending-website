@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/2/18
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { REQUEST_VERSION, QAT } from "GlobalConstants";
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
@@ -171,14 +171,8 @@ export default class StateOverview extends React.PureComponent {
             incomeSourceYear = `(${this.props.stateProfile.incomeSourceYear} est.)`;
         }
 
-        let tooltip = (
-            <DetailsTooltip
-                showInfoTooltip={this.state.showInfoTooltip}
-                closeTooltip={this.closeTooltip}
-                icon={document.getElementById('details__info_icon')} />
-        );
+        let tooltip = null;
         if (this.state.showInfoTooltip) {
-            console.log('show tooltip');
             tooltip = (
                 <DetailsTooltip
                     showInfoTooltip={this.state.showInfoTooltip}
@@ -319,8 +313,8 @@ export default class StateOverview extends React.PureComponent {
                                                                 <InfoCircle />
                                                             </button>
                                                         </span>
-                                                        {tooltip}
                                                     </h3>
+                                                    {tooltip}
                                                 </div>
                                             }
                                             text={
