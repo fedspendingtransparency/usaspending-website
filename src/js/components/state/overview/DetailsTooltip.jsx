@@ -11,7 +11,8 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     closeTooltip: PropTypes.func,
-    showInfoTooltip: PropTypes.bool
+    showInfoTooltip: PropTypes.bool,
+    icon: PropTypes.HTMLElement
 };
 
 const tooltipWidth = 300;
@@ -48,10 +49,13 @@ export default class DetailsTooltip extends React.Component {
     }
 
     getPosition() {
-        const icon = document.getElementById('details__info_icon');
+        const icon = this.props.icon || document.getElementById('details__info_icon');
         const iconTop = (icon.getBoundingClientRect().top - tooltipPadding) + window.scrollY;
 
         let iconLeft = icon.getBoundingClientRect().left - tooltipPadding;
+
+        console.log(iconLeft);
+        console.log(iconTop);
 
         const windowWidth = window.innerWidth;
         if ((iconLeft + tooltipWidth) > windowWidth) {

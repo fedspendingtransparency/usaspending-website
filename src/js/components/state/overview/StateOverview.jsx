@@ -171,7 +171,12 @@ export default class StateOverview extends React.PureComponent {
             incomeSourceYear = `(${this.props.stateProfile.incomeSourceYear} est.)`;
         }
 
-        let tooltip = null;
+        let tooltip = (
+            <DetailsTooltip
+                showInfoTooltip={this.state.showInfoTooltip}
+                closeTooltip={this.closeTooltip}
+                icon={document.getElementById('details__info_icon')} />
+        );
         if (this.state.showInfoTooltip) {
             console.log('show tooltip');
             tooltip = (
@@ -228,9 +233,9 @@ export default class StateOverview extends React.PureComponent {
                                 <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
                             </div>
                         </div>
-                        <div className="state-section__viz details">
+                        {/* <div className="state-section__viz details">
                             <h3 className="state-overview__heading">
-                                Details
+                                Details {tooltip}
                                 <span className="details__info_icon_holder">
                                     <button
                                         id="details__info_icon"
@@ -243,7 +248,6 @@ export default class StateOverview extends React.PureComponent {
                                     </button>
                                 </span>
                             </h3>
-                            {tooltip}
                             <table className="details__table">
                                 <tbody>
                                     <tr>
@@ -260,7 +264,7 @@ export default class StateOverview extends React.PureComponent {
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> */}
                     </div>
                     <div>
                         <FlexGridRow>
@@ -315,6 +319,7 @@ export default class StateOverview extends React.PureComponent {
                                                                 <InfoCircle />
                                                             </button>
                                                         </span>
+                                                        {tooltip}
                                                     </h3>
                                                 </div>
                                             }
