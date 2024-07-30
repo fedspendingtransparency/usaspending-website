@@ -42,7 +42,7 @@ const TopFiveSection = () => {
 
     const switchTab = (tab) => {
         setActive(tab);
-    }
+    };
 
     const content = topCategories[active].map((category) => (
         <TopFiveContainer
@@ -73,6 +73,6 @@ const TopFiveSection = () => {
             </div>
         </div>
     );
-}
+};
 
 export default TopFiveSection;
