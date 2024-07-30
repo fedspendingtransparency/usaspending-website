@@ -13,9 +13,12 @@ import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from 'components/state/topFive/TopFive';
+import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
+
 import { REQUEST_VERSION } from "../../../GlobalConstants";
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
+// eslint-disable-next-line import/extensions
 
 const propTypes = {
     code: PropTypes.string,
@@ -27,8 +30,10 @@ const propTypes = {
 
 const TopFiveContainer = (props) => {
     const [categoryState, setCategoryState] = useState({ loading: true, error: false, results: [] });
+    const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
+    const [linkData, setLinkData] = useState();
 
-    // eslint-disable-next-line react/sort-comp
+
     const dataParams = () => {
         let timePeriod = null;
         if (props.fy === 'latest') {
@@ -75,79 +80,17 @@ const TopFiveContainer = (props) => {
 
     const getSelectedLink = (e, data) => {
         e.preventDefault();
+        setLinkData(data);
+    };
+
+    const createLink = () => {
         const params = dataParams();
         const location = params.filters.place_of_performance_locations[0];
-
-        console.log("in get selected link", e, data, params, location.state, location.country, props.code);
+        const fips = stateFIPSByAbbreviation[location.state];
+        const stateName = stateNameByFipsId[fips];
 
         let categoryFilter;
         let locationFilter;
-        // categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
-
-        if (params.category === 'awarding_agency') {
-        //     categoryFilter = { agencies: [{ type: "awarding", tier: "toptier", name: "Department of the Treasury" }] };
-        }
-        // else if (params.category === 'awarding_subagency') {
-        //     categoryFilter = { recipient_search_text: name };
-        // }
-        else if (params.category === 'recipient') {
-            categoryFilter = { selectedRecipients: [data._name] };
-        }
-        // else if (params.category === 'county') {
-        //     categoryFilter = {
-        //         selectedLocations: {
-        //             "USA_AL_001": {
-        //                 "identifier": "USA_AL_001",
-        //                 "filter": {
-        //                     "country": "USA",
-        //                     "state": "AL",
-        //                     "county": "001"
-        //                 },
-        //                 "display": {
-        //                     "entity": "County",
-        //                     "standalone": "Autauga County, AL",
-        //                     "title": "Autauga County"
-        //                 }
-        //             }
-        //         };
-        //     }
-        // }
-        // else if (params.category === 'district') {
-        //     // categoryFilter = { recipient_search_text: item };
-        // }
-        else if (params.category === 'cfda') {
-            categoryFilter = {
-                selectedCFDA:
-                    {
-                        [data._code]: {
-                            program_number: data._code,
-                            program_title: data._name,
-                            identifier: data._code
-                        }
-                    }
-            };
-        }
-        // else if (params.category === 'psc') {
-        //     // categoryFilter = { psc_codes: [item] };
-        // }
-        else if (params.category === 'naics') {
-            categoryFilter = {
-                naicsCodes: {
-                    require: [data._code],
-                    exclude: [],
-                    counts: [
-                        {
-                            label: data._name,
-                            value: data._code,
-                            count: 1
-                        }
-                    ]
-                }
-            };
-        }
-
-        const fips = stateFIPSByAbbreviation[location.state];
-        const stateName = stateNameByFipsId[fips];
 
         locationFilter = {
             selectedLocations: {
@@ -165,6 +108,134 @@ const TopFiveContainer = (props) => {
                 }
             }
         };
+
+        if (params.category === 'awarding_agency') {
+            categoryFilter = {
+                selectedAwardingAgencies: {
+                    [`${linkData.id}_toptier`]: {
+                        id: linkData.id,
+                        toptier_flag: true,
+                        toptier_agency: {
+                            toptier_code: agencySlugs[linkData.slug],
+                            abbreviation: linkData._code,
+                            name: linkData._name
+                        },
+                        subtier_agency: {
+                            abbreviation: linkData._code,
+                            name: linkData._name
+                        },
+                        agencyType: "toptier"
+                    }
+                }
+            };
+        }
+        else if (params.category === 'awarding_subagency') {
+            // TODO awaiting backend changes in DEV-10991
+
+            // categoryFilter = {
+            //     selectedAwardingAgencies: {
+            //         [`${linkData.id}_subtier`]: {
+            //             id: linkData.id,
+            //             toptier_flag: false,
+            //             toptier_agency: {
+            //                 toptier_code: agencySlugs[linkData.slug],
+            //                 abbreviation: linkData._code,
+            //                 name: linkData._name
+            //             },
+            //             subtier_agency: {
+            //                 abbreviation: linkData._code,
+            //                 name: linkData._name
+            //             },
+            //             agencyType: "subtier"
+            //         }
+            //     }
+            // };
+
+            // {
+            //     "1188_subtier": {
+            //     "id": 1188,
+            //         "toptier_flag": false,
+            //         "toptier_agency": {
+            //         "toptier_code": "097",
+            //             "abbreviation": "DOD",
+            //             "name": "Department of Defense"
+            //     },
+            //     "subtier_agency": {
+            //         "abbreviation": "USA",
+            //             "name": "Department of the Army"
+            //     },
+            //     "agencyType": "subtier"
+            // }
+            // }
+        }
+        else if (params.category === 'recipient') {
+            categoryFilter = { selectedRecipients: [linkData._name] };
+        }
+        else if (params.category === 'county') {
+            locationFilter = {
+                selectedLocations: {
+                    [`${location.country}_${location.state}_${linkData._code}`]: {
+                        identifier: `${location.country}_${location.state}_${linkData._code}`,
+                        filter: {
+                            country: location.country,
+                            state: location.state,
+                            county: linkData._code
+                        },
+                        display: {
+                            entity: "County",
+                            standalone: `${linkData._name}, ${location.state}`,
+                            title: linkData._name
+                        }
+                    }
+                }
+            };
+        }
+        else if (params.category === 'district') {
+            locationFilter = {
+                selectedLocations: {
+                    [`${location.country}_${location.state}_${linkData._code}`]: {
+                        identifier: `${location.country}_${location.state}_${linkData._code}`,
+                        filter: {
+                            country: location.country,
+                            state: location.state,
+                            district_current: linkData._code
+                        },
+                        display: {
+                            entity: "Current congressional district",
+                            standalone: `${linkData._name}, ${location.state}`,
+                            title: linkData._name
+                        }
+                    }
+                }
+            };
+        }
+        else if (params.category === 'cfda') {
+            categoryFilter = {
+                selectedCFDA:
+                    {
+                        [linkData._code]: {
+                            program_number: linkData._code,
+                            program_title: linkData._name,
+                            identifier: linkData._code
+                        }
+                    }
+            };
+        }
+        else if (params.category === 'naics') {
+            categoryFilter = {
+                naicsCodes: {
+                    require: [linkData._code],
+                    exclude: [],
+                    counts: [
+                        {
+                            label: linkData._name,
+                            value: linkData._code,
+                            count: 1
+                        }
+                    ]
+                }
+            };
+        }
 
         let awardTypeFilter;
 
@@ -191,7 +262,6 @@ const TopFiveContainer = (props) => {
             version: REQUEST_VERSION
         };
 
-        console.log("filter value", filterValue);
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
@@ -215,6 +285,11 @@ const TopFiveContainer = (props) => {
             });
     };
 
+    useEffect(() => {
+        if (agencySlugs && linkData) {
+            createLink();
+        }
+    }, [agencySlugs, linkData, slugsLoading, slugsError, createLink]);
 
     const parseResults = (data, type) => {
         const parsed = data?.map((item, index) => {
@@ -269,13 +344,6 @@ const TopFiveContainer = (props) => {
                 }
             });
     };
-
-
-    // useEffect(() => {
-    //     console.log("here!", categoryState);
-    //     getSelectedLink("test");
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [categoryState.results]);
 
     useEffect(() => {
         loadCategory();

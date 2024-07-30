@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import FeatureFlag from "../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     data: PropTypes.object,
@@ -37,18 +38,20 @@ const TopFiveRow = (props) => {
                 title={percent}>
                 {percent}
             </td>
-            <td
-                className="category-table__table-cell category-table__table-cell_centered"
-                title="view in search">
-                <a
-                    role="button"
-                    tabIndex={0}
-                    aria-label="View Awards"
-                    onKeyDown={(e) => { if (e.key === "Enter") props.getSelectedLink(e, props.data.name); }}
-                    onClick={(e) => props.getSelectedLink(e, props.data)}>
-                    View Awards
-                </a>
-            </td>
+            <FeatureFlag>
+                <td
+                    className="category-table__table-cell category-table__table-cell_centered"
+                    title="view in search">
+                    <a
+                        role="button"
+                        tabIndex={0}
+                        aria-label="View Awards"
+                        onKeyDown={(e) => { if (e.key === "Enter") props.getSelectedLink(e, props.data.name); }}
+                        onClick={(e) => props.getSelectedLink(e, props.data)}>
+                        View Awards
+                    </a>
+                </td>
+            </FeatureFlag>
         </tr>
     );
 };

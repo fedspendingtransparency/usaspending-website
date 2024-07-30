@@ -10,6 +10,7 @@ import { categoryTitles } from 'dataMapping/state/topCategories';
 import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
 
 import TopFiveRow from './TopFiveRow';
+import FeatureFlag from "../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     category: PropTypes.string,
@@ -82,9 +83,11 @@ const TopFive = (props) => {
                         <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             % of Total
                         </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
-                            View in Award Search
-                        </th>
+                        <FeatureFlag>
+                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                                View in Award Search
+                            </th>
+                        </FeatureFlag>
                     </tr>
                 </thead>
                 <tbody

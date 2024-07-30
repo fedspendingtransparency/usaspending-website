@@ -471,6 +471,8 @@ export default class LocationPickerContainer extends React.Component {
                 return toReturn;
             }, { identifier: '', display: { entity: '', title: '', standalone: '' }, filter: {} });
 
+        console.log(this.cleanBadLocationData(locationObject));
+
         return this.cleanBadLocationData(locationObject);
     }
 
