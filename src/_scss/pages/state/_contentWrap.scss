@@ -35,12 +35,12 @@
 			}
 
 			&.award-row {
-				margin-bottom: 33px;
+				margin-bottom: rem(32);
 			}
 
 			&.geo-row {
-				padding-bottom: 2px;
-				margin-bottom: 0px;
+				padding-bottom: 0;
+				margin-bottom: rem(2);
 			}
 
 			.totals-container {
