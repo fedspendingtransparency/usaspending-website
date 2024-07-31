@@ -216,35 +216,6 @@ export default class StateOverview extends React.PureComponent {
                             View awards to this state
                         </Link>
                     }
-
-                    <div className="state-section__row">
-                        <div className="state-section__viz totals-container">
-                            <div className="state-section__viz totals">
-                                <h3 className="state-overview__heading">
-                                Total Awarded Amount
-                                </h3>
-                                <div className="totals__amount">
-                                    {this.props.stateProfile.totalAmount}
-                                </div>
-                                <div className="totals__awards">
-                                from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> prime awards
-                                </div>
-                                {(this.props.stateProfile.code) &&
-                                    <Link
-                                        className="state-section__award-button"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        to="/search"
-                                        onClick={handleGoToAdvancedSearch}>
-                                        View awards to this state
-                                    </Link>
-                                }
-                            </div>
-                            <div className="state-section__viz loan">
-                                <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
-                            </div>
-                        </div>
-                    </div>
                     <div>
                         <FlexGridRow>
                             <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
