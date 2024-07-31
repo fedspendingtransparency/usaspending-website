@@ -20,46 +20,37 @@ const propTypes = {
     updateGenericFilter: PropTypes.func
 };
 
-export class AwardAmountSearchContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const AwardAmountSearchContainer = (props) => {
+    const selectAwardRange = (awardAmountRange) => {
+        props.updateAwardAmounts(awardAmountRange);
+    };
 
-        // Bind functions
-        this.selectAwardRange = this.selectAwardRange.bind(this);
-        this.removeFilter = this.removeFilter.bind(this);
-    }
-
-    selectAwardRange(awardAmountRange) {
-        this.props.updateAwardAmounts(awardAmountRange);
-    }
-
-    dirtyFilters() {
-        if (is(this.props.awardAmounts, this.props.appliedAmounts)) {
+    const dirtyFilters = () => {
+        if (is(props.awardAmounts, props.appliedAmounts)) {
             return null;
         }
         return Symbol('dirty amount');
-    }
+    };
 
-    removeFilter(key) {
-        const newValue = this.props.awardAmounts.delete(key);
-        this.props.updateGenericFilter({
+    const removeFilter = (key) => {
+        const newValue = props.awardAmounts.delete(key);
+        props.updateGenericFilter({
             type: 'awardAmounts',
             value: newValue
         });
-    }
+    };
 
-    render() {
-        return (
-            <div className="award-amount-filter">
-                <AwardAmountSearch
-                    removeFilter={this.removeFilter}
-                    dirtyFilters={this.dirtyFilters()}
-                    awardAmounts={this.props.awardAmounts}
-                    selectAwardRange={this.selectAwardRange} />
-            </div>
-        );
-    }
-}
+
+    return (
+        <div className="award-amount-filter">
+            <AwardAmountSearch
+                removeFilter={removeFilter}
+                dirtyFilters={dirtyFilters()}
+                awardAmounts={props.awardAmounts}
+                selectAwardRange={selectAwardRange} />
+        </div>
+    );
+};
 
 AwardAmountSearchContainer.propTypes = propTypes;
 
