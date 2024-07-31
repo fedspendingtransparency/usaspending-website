@@ -13,13 +13,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
-<<<<<<< HEAD
 import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
 import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
 import { CardContainer, SectionHeader, CardBody, CardButton, CardHero, FlexGridRow, FlexGridCol } from "data-transparency-ui";
-=======
-import { SectionHeader } from "data-transparency-ui";
->>>>>>> qat
 import DetailsTooltip from './DetailsTooltip';
 import SummaryStats from './SummaryStats';
 import { generateUrlHash } from "../../../helpers/searchHelper";
