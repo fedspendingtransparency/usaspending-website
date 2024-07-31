@@ -8,6 +8,8 @@ import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutThe
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import FadeContents from "./FadeContents";
+import isRedirectNeeded from '../../../../helpers/url';
+import ExternalLink from "../../ExternalLink";
 
 const ItemContent = React.memo(({
     navbarConfig,
@@ -179,31 +181,55 @@ const ItemContent = React.memo(({
                                                 <li
                                                     key={`third-section-link-${uniqueId(index)}`}
                                                     className={menuIndex > 2 ? 'list__extra-padding third__item-margin' : 'list__extra-padding'}>
-                                                    <FlexGridRow width={6} desktop={6}>
-                                                        <a
-                                                            className="dropdown--item__link"
-                                                            href={item.url}
-                                                            onKeyDown={(e) => {
-                                                                if (item.label === 'Release Notes' && e.key === 'Tab') {
-                                                                    closeDropdown();
-                                                                }
-                                                            }}
-                                                            target={item.shouldOpenNewTab ? "_blank" : null}
-                                                            rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
-                                                            {item.icon && item.icon !== '' && item.icon !== null ?
-                                                                <FontAwesomeIcon
-                                                                    role="presentation"
-                                                                    style={{ width: "20px", height: "20px" }}
-                                                                    icon={item.icon} /> : ''}
-                                                            <div className="dropdown-item__link-desc">
-                                                                <div className="dropdown-item__link-label">
-                                                                    {item.label}
-                                                                    <span
-                                                                        className="dropdown-item__description">{item.description}
-                                                                    </span>
+                                                    <FlexGridRow
+                                                        width={6}
+                                                        desktop={6}
+                                                        onKeyDown={(e) => {
+                                                            if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
+                                                                closeDropdown();
+                                                            }
+                                                        }}>
+                                                        { isRedirectNeeded(item) ?
+                                                            <ExternalLink isCard={false} url={item.url}>
+                                                                {item.icon && item.icon !== '' && item.icon !== null ?
+                                                                    <FontAwesomeIcon
+                                                                        role="presentation"
+                                                                        style={{ width: "20px", height: "20px" }}
+                                                                        icon={item.icon} /> : ''}
+                                                                <div className="dropdown-item__link-desc" >
+                                                                    <div className="dropdown-item__link-label">
+                                                                        {item.label}
+                                                                        <span
+                                                                            className="dropdown-item__description">{item.description}
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </a>
+                                                            </ExternalLink> :
+                                                            <a
+                                                                className="dropdown--item__link"
+                                                                href={item.url}
+                                                                onKeyDown={(e) => {
+                                                                    if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
+                                                                        closeDropdown();
+                                                                    }
+                                                                }}
+                                                                target={item.shouldOpenNewTab ? "_blank" : null}
+                                                                rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
+                                                                {item.icon && item.icon !== '' && item.icon !== null ?
+                                                                    <FontAwesomeIcon
+                                                                        role="presentation"
+                                                                        style={{ width: "20px", height: "20px" }}
+                                                                        icon={item.icon} /> : ''}
+                                                                <div className="dropdown-item__link-desc">
+                                                                    <div className="dropdown-item__link-label">
+                                                                        {item.label}
+                                                                        <span
+                                                                            className="dropdown-item__description">{item.description}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        }
                                                     </FlexGridRow>
                                                 </li>
                                             </>)}

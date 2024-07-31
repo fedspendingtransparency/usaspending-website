@@ -9,7 +9,7 @@ import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader } from "data-transparency-ui";
 
-import TimeVisualizationPeriodButton from 'components/search/visualizations/time/TimeVisualizationPeriodButton';
+import TimeVisualizationPeriodButton from 'components/search/newResultsView/time/TimeVisualizationPeriodButton';
 import RecipientTimeVisualization from './RecipientTimeVisualization';
 
 const propTypes = {

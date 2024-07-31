@@ -9,6 +9,7 @@ import { Table, Pagination } from 'data-transparency-ui';
 import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import Analytics from 'helpers/analytics/Analytics';
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
@@ -54,6 +55,7 @@ export default class ResultsTable extends React.Component {
         this.prepareTable = this.prepareTable.bind(this);
         this.measureHeight = this.measureHeight.bind(this);
         this.checkToAddRightFade = this.checkToAddRightFade.bind(this);
+        this.clickHandler = this.clickHandler.bind(this);
     }
 
     componentDidMount() {
@@ -257,6 +259,13 @@ export default class ResultsTable extends React.Component {
         return columns;
     }
 
+    clickHandler(linkName) {
+        Analytics.event({
+            category: 'Section table',
+            action: `Clicked ${linkName}`
+        });
+    }
+
     prepareDTUIRows() {
         // limit = 10
         // page = 1, need 0-9
@@ -271,8 +280,22 @@ export default class ResultsTable extends React.Component {
                 values = arrayOfObjects.map((obj) => {
                     const value = [];
                     value.push(
-                        <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
-                        <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/award/${obj.generated_internal_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Award ID']);
+                            }}>{obj['Award ID']}
+                        </a> || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/recipient/${obj.recipient_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Recipient Name']);
+                            }}>{obj['Recipient Name']}
+                        </a> || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['Subsidy Cost'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
                         <ReadMore
@@ -284,7 +307,14 @@ export default class ResultsTable extends React.Component {
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
-                        <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/agency/${obj.agency_slug}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Awarding Agency']);
+                            }}>{obj['Awarding Agency']}
+                        </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
                         obj['Issued Date'] || '--'
                     );
@@ -297,8 +327,22 @@ export default class ResultsTable extends React.Component {
                 values = arrayOfObjects.map((obj) => {
                     const value = [];
                     value.push(
-                        <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
-                        <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/award/${obj.generated_internal_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Award ID']);
+                            }}>{obj['Award ID']}
+                        </a> || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/recipient/${obj.recipient_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Recipient Name']);
+                            }}>{obj['Recipient Name']}
+                        </a> || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                         <ReadMore
@@ -312,7 +356,17 @@ export default class ResultsTable extends React.Component {
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
-                        <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/agency/${obj.agency_slug}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Awarding Agency']);
+                            }}>{obj['Awarding Agency']}
+                        </a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Awarding Sub Agency'] || '--',
                         obj['Awarding Sub Agency'] || '--',
                         obj['Start Date'] || '--',
                         obj['End Date'] || '--'
@@ -327,8 +381,22 @@ export default class ResultsTable extends React.Component {
             values = arrayOfObjects.map((obj) => {
                 const value = [];
                 value.push(
-                    <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.generated_internal_id}`}>{obj['Award ID']}</a> || '--',
-                    <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.recipient_id}`}>{obj['Recipient Name']}</a> || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/award/${obj.generated_internal_id}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Award ID']);
+                        }}>{obj['Award ID']}
+                    </a> || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/recipient/${obj.recipient_id}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Recipient Name']);
+                        }}>{obj['Recipient Name']}
+                    </a> || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
                     <ReadMore
@@ -340,7 +408,14 @@ export default class ResultsTable extends React.Component {
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
-                    <a target="_blank" rel="noopener noreferrer" href={`/agency/${obj.agency_slug}`}>{obj['Awarding Agency']}</a> || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/agency/${obj.agency_slug}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Awarding Agency']);
+                        }}>{obj['Awarding Agency']}
+                    </a> || '--',
                     obj['Awarding Sub Agency'] || '--',
                     obj['Start Date'] || '--',
                     obj['End Date'] || obj['Last Date to Order'] || '--'
@@ -355,12 +430,33 @@ export default class ResultsTable extends React.Component {
         values = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(
-                <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Sub-Award ID']}</a> || '--',
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`/award/${obj.prime_award_generated_internal_id}`}
+                    onClick={() => {
+                        this.clickHandler(obj['Sub-Award ID']);
+                    }}>{obj['Sub-Award ID']}
+                </a> || '--',
                 obj['Sub-Awardee Name'] || '--',
                 MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
                 obj['Sub-Award Date'] || '--',
-                <a target="_blank" rel="noopener noreferrer" href={`/award/${obj.prime_award_generated_internal_id}`}>{obj['Prime Award ID']}</a> || '--',
-                <a target="_blank" rel="noopener noreferrer" href={`/recipient/${obj.prime_award_recipient_id}`}>{obj['Prime Recipient Name']}</a> || '--',
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`/award/${obj.prime_award_generated_internal_id}`}
+                    onClick={() => {
+                        this.clickHandler(obj['Prime Award ID']);
+                    }}>{obj['Prime Award ID']}
+                </a> || '--',
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`/recipient/${obj.prime_award_recipient_id}`}
+                    onClick={() => {
+                        this.clickHandler(obj['Prime Recipient Name']);
+                    }}>{obj['Prime Recipient Name']}
+                </a> || '--',
                 obj['Awarding Agency'] || '--',
                 obj['Awarding Sub Agency'] || '--'
             );

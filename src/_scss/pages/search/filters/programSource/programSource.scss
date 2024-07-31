@@ -1,5 +1,5 @@
 .program-source-filter {
-    @import "../location/tabs";
+    @import "tabs";
     @import "../singleSubmit";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";

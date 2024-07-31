@@ -22,7 +22,7 @@ import SearchSidebar from './SearchSidebar';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
-import SubawardDropdown from "./visualizations/SubawardDropdown";
+import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
 import Button from "../sharedComponents/buttons/Button";

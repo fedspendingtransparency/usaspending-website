@@ -3,7 +3,7 @@
  * Created by michaelbray on 3/7/17.
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { awardRanges } from 'dataMapping/search/awardAmount';
 import { reduce, each } from 'lodash';
@@ -26,41 +26,28 @@ const defaultProps = {
     awardAmountRanges: awardRanges
 };
 
-export default class AwardAmountSearch extends React.Component {
-    constructor(props) {
-        super(props);
+const AwardAmountSearch = (props) => {
+    const [hint, setHint] = useState(null);
 
-        this.toggleSelection = this.toggleSelection.bind(this);
-        this.searchSpecificRange = this.searchSpecificRange.bind(this);
-        this.removeFilter = this.removeFilter.bind(this);
-    }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
-            if (this.hint) {
-                this.hint.showHint();
-            }
-        }
-    }
+    const toggleSelection = (selection) => {
+        props.selectAwardRange(selection);
+    };
 
-    toggleSelection(selection) {
-        this.props.selectAwardRange(selection);
-    }
-
-    searchSpecificRange(selections) {
+    const searchSpecificRange = (selections) => {
         const min = selections[0];
         const max = selections[1];
-        this.props.selectAwardRange({ value: [min, max] });
-    }
+        props.selectAwardRange({ value: [min, max] });
+    };
 
-    awardAmountCheckboxes() {
-        const { awardAmountRanges, awardAmounts } = this.props;
+    const awardAmountCheckboxes = () => {
+        const { awardAmountRanges, awardAmounts } = props;
         return reduce(awardAmountRanges, (result, value, key) => {
             const name = formatAwardAmountRange(
                 value, 0);
             result.push(
                 (<PrimaryCheckboxType
-                    {...this.props}
+                    {...props}
                     key={key}
                     id={`award-${key}`}
                     name={name}
@@ -69,14 +56,19 @@ export default class AwardAmountSearch extends React.Component {
                     code={value}
                     filterType="Award Amount"
                     selectedCheckboxes={awardAmounts}
-                    toggleCheckboxType={this.toggleSelection} />)
+                    toggleCheckboxType={toggleSelection} />)
             );
             return result;
         }, []);
-    }
+    };
 
-    stagedFilters() {
-        const filterObject = this.props.awardAmounts.toObject();
+    const removeFilterFn = (name) => {
+        const { removeFilter } = props;
+        removeFilter(name);
+    };
+
+    const stagedFilters = () => {
+        const filterObject = props.awardAmounts.toObject();
         let stagedFilter;
         let name;
         each(filterObject, (val, key) => {
@@ -87,44 +79,44 @@ export default class AwardAmountSearch extends React.Component {
         const label = formatAwardAmountRange(stagedFilter);
         return (
             <SelectedAwardAmountBound
-                removeFilter={this.removeFilter}
+                removeFilter={removeFilterFn}
                 name={name}
                 label={label} />
         );
-    }
+    };
 
-    removeFilter(name) {
-        const { removeFilter } = this.props;
-        removeFilter(name);
-    }
+    useEffect(() => {
+        if (props.dirtyFilters && hint) {
+            hint.showHint();
+        }
+    }, [props.dirtyFilters]);
 
-    render() {
-        const stagedFilters = this.stagedFilters();
-        const awardAmountRangeItems = this.awardAmountCheckboxes();
+    const stagedFiltersResult = stagedFilters();
+    const awardAmountRangeItems = awardAmountCheckboxes();
 
-        return (
-            <div className="search-filter checkbox-type-filter">
-                <div className="filter-item-wrap">
-                    <ul className="award-amounts checkbox-types">
-                        {awardAmountRangeItems}
-                        <SpecificAwardAmountItem
-                            {...this.props}
-                            searchSpecificRange={this.searchSpecificRange} />
-                    </ul>
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
-                    <div
-                        className="selected-filters"
-                        role="status">
-                        {stagedFilters}
-                    </div>
+    return (
+        <div className="search-filter checkbox-type-filter">
+            <div className="filter-item-wrap">
+                <ul className="award-amounts checkbox-types">
+                    {awardAmountRangeItems}
+                    <SpecificAwardAmountItem
+                        {...props}
+                        searchSpecificRange={searchSpecificRange} />
+                </ul>
+                <SubmitHint
+                    ref={(component) => {
+                        setHint(component);
+                    }} />
+                <div
+                    className="selected-filters"
+                    role="status">
+                    {stagedFiltersResult}
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 AwardAmountSearch.propTypes = propTypes;
 AwardAmountSearch.defaultProps = defaultProps;
+export default AwardAmountSearch;

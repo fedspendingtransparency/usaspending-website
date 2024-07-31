@@ -44,6 +44,12 @@
 			}
 
 			.totals-container {
+				.usa-dt-information-boxes {
+					border-bottom: none;
+					padding-top: 0;
+					padding-bottom: 0;
+				}
+
 				@include media($tablet-screen) {
 					@include flex(1 1 50%);
 					@include flex-direction(column);
