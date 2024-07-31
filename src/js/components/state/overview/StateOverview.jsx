@@ -263,9 +263,10 @@ export default class StateOverview extends React.PureComponent {
                             </FlexGridCol>
                             <FlexGridCol width={4} desktop={4} tablet={12} mobile={12}l>
                                 <div className="state-section__viz details state-overview__heading">
-                                    <CardContainer variant="elevated" size="md">
+                                    <CardContainer variant="outline" size="md">
                                         <CardHero fill="#005ea2" />
                                         <CardBody
+                                            customClassName="details-card-body"
                                             headline={
                                                 <div className="state-section__viz">
                                                     <h3 className="state-overview__heading">
@@ -296,6 +297,7 @@ export default class StateOverview extends React.PureComponent {
                                                 </div>
                                             }>
                                             <CardButton
+                                                customClassName="details-button"
                                                 onlyPerformAction
                                                 text={<div>View awards to this state <FontAwesomeIcon icon="arrow-right" /></div>}
                                                 variant="secondary"

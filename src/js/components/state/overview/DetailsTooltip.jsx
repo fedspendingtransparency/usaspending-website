@@ -38,7 +38,7 @@ export default class DetailsTooltip extends React.Component {
                 onMouseLeave={this.props.closeTooltip}
                 className="state-overview-tooltip"
                 style={{
-                    top: 49,
+                    top: 81,
                     left: 100
                 }}>
                 <div className="state-overview-tooltip__info_icon">
