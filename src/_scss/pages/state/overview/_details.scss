@@ -2,19 +2,19 @@
     @import './detailsTooltip';
 
     svg {
-        height: 14px;
+        height: rem(14);
     }
 
-    margin-left: 7px;
-    margin-top: 36px;
+    margin-left: rem(7);
+    margin-top: rem(36);
 
     .details-info {
         .details-header {
-            width: 351px;
-            height: 20px;
+            width: rem(351);
+            height: rem(20);
             flex-grow: 0;
-            margin: 0 0 2px;
-            font-size: rem(1.3);
+            margin: 0 0 rem(2);
+            font-size: rem(13);
             font-weight: $font-semibold;
             font-stretch: normal;
             font-style: normal;
@@ -26,8 +26,8 @@
         
         .details-text {
             flex-grow: 0;
-            margin: 2px 0 16px;
-            font-size: rem(1.8);
+            margin: rem(2) 0 rem(16);
+            font-size: rem(18);
             font-weight: 300;
             font-stretch: normal;
             font-style: normal;
