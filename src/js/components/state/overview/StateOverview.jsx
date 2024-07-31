@@ -227,38 +227,6 @@ export default class StateOverview extends React.PureComponent {
                                 <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
                             </div>
                         </div>
-                        {/* <div className="state-section__viz details">
-                            <h3 className="state-overview__heading">
-                                Details {tooltip}
-                                <span className="details__info_icon_holder">
-                                    <button
-                                        id="details__info_icon"
-                                        className="details__info_icon"
-                                        onFocus={this.showTooltip}
-                                        onBlur={this.closeTooltip}
-                                        onMouseEnter={this.showTooltip}
-                                        onClick={this.showTooltip}>
-                                        <InfoCircle />
-                                    </button>
-                                </span>
-                            </h3>
-                            <table className="details__table">
-                                <tbody>
-                                    <tr>
-                                        <th>Population</th>
-                                        <td>{this.props.stateProfile.population} {populationSourceYear}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Awarded Amount Per Capita</th>
-                                        <td>{this.props.stateProfile.awardAmountPerCapita}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Median Household Income</th>
-                                        <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> */}
                     </div>
                     <div>
                         <FlexGridRow>
@@ -299,7 +267,7 @@ export default class StateOverview extends React.PureComponent {
                                         <CardHero fill="#005ea2" />
                                         <CardBody
                                             headline={
-                                                <div className="state-section__viz details">
+                                                <div className="state-section__viz">
                                                     <h3 className="state-overview__heading">
                                                         Details
                                                         <span className="details__info_icon_holder">
@@ -318,22 +286,14 @@ export default class StateOverview extends React.PureComponent {
                                                 </div>
                                             }
                                             text={
-                                                <table className="details__table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>Population</th>
-                                                            <td>{this.props.stateProfile.population} {populationSourceYear}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Awarded Amount Per Capita</th>
-                                                            <td>{this.props.stateProfile.awardAmountPerCapita}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Median Household Income</th>
-                                                            <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                <div className="details-info">
+                                                    <div className="details-header">Count</div>
+                                                    <div className="details-text">{this.props.stateProfile.population} {populationSourceYear}</div>
+                                                    <div className="details-header">Obligations Per Capita</div>
+                                                    <div className="details-text">{this.props.stateProfile.awardAmountPerCapita}</div>
+                                                    <div className="details-header">Median Household Income</div>
+                                                    <div className="details-text">{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</div>
+                                                </div>
                                             }>
                                             <CardButton
                                                 onlyPerformAction

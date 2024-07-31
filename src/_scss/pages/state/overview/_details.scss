@@ -8,72 +8,33 @@
     margin-left: 7px;
     margin-top: 10px;
 
-    .details__table {
-        margin-top: rem(10);
-        margin-bottom: rem(15);
-
-        tbody {
-            tr {
-                &:nth-child(odd) {
-
-                    td,
-                    th {
-                        background-color: $color-gray-lightest;
-                    }
-                }
-
-                td {
-                    border: 0;
-                    font-weight: $font-light;
-                    padding: rem(8) rem(15);
-                }
-
-                th {
-                    font-weight: $font-normal;
-                    border: 0;
-                    padding: rem(8) rem(15);
-                    vertical-align: top;
-
-                    .recipient-congressional-district-tooltip {
-                        @include display(inline-block);
-                        width: 100%;
-                    }
-                }
-
-                th.details__table-cd-row {
-                    display: flex;
-                    line-height: 1.5;
-                    align-content: center;
-                    
-                    .details__table-cd-text {
-                        white-space: nowrap;
-                        @media(max-width: $medium-screen) {
-                            white-space: normal;
-                        }
-                    }
-
-                    .tooltip-wrapper {
-                        @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
-                            svg {
-                                margin-left: 0;
-                            }
-                        }
-                        @media(min-width: $large-screen) {
-                            padding: 0;
-                            margin: 0;
-                        }
-                        .tooltip-spacer {
-                            transform: translateX(-24px) !important;
-                            @media(min-width: 596px) {
-                            transform: translateX(-160px) !important;
-                            }
-                            @media(min-width: $tablet-screen) {
-                                transform: translate(-172px, 8px) !important;
-                            }
-                        }
-                    }
-                }
-            }
+    .details-info {
+        .details-header {
+            width: 351px;
+            height: 20px;
+            flex-grow: 0;
+            margin: 0 0 2px;
+            font-size: 13px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: normal;
+            text-align: left;
+            color: #555;
+        }
+        
+        .details-text {
+            flex-grow: 0;
+            margin: 2px 0 16px;
+            font-size: 18px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: normal;
+            text-align: left;
+            color: #555;
         }
     }
 }
