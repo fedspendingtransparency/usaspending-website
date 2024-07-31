@@ -58,7 +58,7 @@ export default class CFDAListContainer extends React.Component {
         });
 
         // Only search if input is 2 or more characters
-        if (input.length >= 2) {
+        if (input.length >= 3) {
             this.setState({
                 cfdaSearchString: input
             });
@@ -140,7 +140,6 @@ export default class CFDAListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectCFDA}
                 placeholder="e.g., 93.778 - Medical Assistance Program"
-                errorHeader="Unknown CFDA"
                 errorMessage="We were unable to find that CFDA."
                 ref={(input) => {
                     this.cfdaList = input;
