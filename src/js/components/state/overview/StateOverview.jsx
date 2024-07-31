@@ -13,10 +13,15 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
+<<<<<<< HEAD
 import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
 import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
 import { CardContainer, SectionHeader, CardBody, CardButton, CardHero, FlexGridRow, FlexGridCol } from "data-transparency-ui";
+=======
+import { SectionHeader } from "data-transparency-ui";
+>>>>>>> qat
 import DetailsTooltip from './DetailsTooltip';
+import SummaryStats from './SummaryStats';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
@@ -200,6 +205,22 @@ export default class StateOverview extends React.PureComponent {
                     <div className="state-overview__note">
                         <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
+
+                    <div className="state-section__row">
+                        <SummaryStats stateProfile={this.props.stateProfile} />
+                    </div>
+
+                    {(this.props.stateProfile.code) &&
+                        <Link
+                            className="state-section__award-button"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            to="/search"
+                            onClick={handleGoToAdvancedSearch}>
+                            View awards to this state
+                        </Link>
+                    }
+
                     <div className="state-section__row">
                         <div className="state-section__viz totals-container">
                             <div className="state-section__viz totals">
