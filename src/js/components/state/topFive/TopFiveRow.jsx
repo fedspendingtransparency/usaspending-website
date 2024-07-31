@@ -45,7 +45,7 @@ const TopFiveRow = (props) => {
                     <a
                         role="button"
                         tabIndex={0}
-                        aria-label="View Awards"
+                        aria-label="View awards"
                         onKeyDown={(e) => { if (e.key === "Enter") props.getSelectedLink(e, props.data.name); }}
                         onClick={(e) => props.getSelectedLink(e, props.data)}>
                         View Awards
