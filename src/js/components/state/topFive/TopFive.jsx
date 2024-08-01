@@ -18,7 +18,7 @@ const propTypes = {
     total: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    getSelectedLink: PropTypes.func
+    dataParams: PropTypes.object
 };
 
 const TopFive = (props) => {
@@ -27,7 +27,7 @@ const TopFive = (props) => {
             key={index}
             data={result}
             total={props.total}
-            getSelectedLink={props.getSelectedLink} />
+            dataParams={props.dataParams} />
     ));
 
     const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';

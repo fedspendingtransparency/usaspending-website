@@ -132,6 +132,10 @@
       &:last-child {
         width: 20%;
       }
+
+      &.view_awards a {
+        cursor: pointer;
+      }
     }
 
     .category-table__table-row {

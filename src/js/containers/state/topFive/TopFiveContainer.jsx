@@ -7,18 +7,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from 'components/state/topFive/TopFive';
-import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
-
-import { REQUEST_VERSION } from "../../../GlobalConstants";
-import { generateUrlHash } from "../../../helpers/searchHelper";
-import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
-// eslint-disable-next-line import/extensions
 
 const propTypes = {
     code: PropTypes.string,
@@ -30,9 +23,6 @@ const propTypes = {
 
 const TopFiveContainer = (props) => {
     const [categoryState, setCategoryState] = useState({ loading: true, error: false, results: [] });
-    const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
-    const [linkData, setLinkData] = useState();
-
 
     const dataParams = () => {
         let timePeriod = null;
@@ -77,219 +67,6 @@ const TopFiveContainer = (props) => {
             page: 1
         };
     };
-
-    const getSelectedLink = (e, data) => {
-        e.preventDefault();
-        setLinkData(data);
-    };
-
-    const createLink = () => {
-        const params = dataParams();
-        const location = params.filters.place_of_performance_locations[0];
-        const fips = stateFIPSByAbbreviation[location.state];
-        const stateName = stateNameByFipsId[fips];
-
-        let categoryFilter;
-        let locationFilter;
-
-        locationFilter = {
-            selectedLocations: {
-                [`${location.country}_${location.state}`]: {
-                    identifier: `${location.country}_${location.state}`,
-                    filter: {
-                        country: location.country,
-                        state: location.state
-                    },
-                    display: {
-                        entity: "State",
-                        standalone: stateName,
-                        title: stateName
-                    }
-                }
-            }
-        };
-
-        if (params.category === 'awarding_agency') {
-            categoryFilter = {
-                selectedAwardingAgencies: {
-                    [`${linkData.id}_toptier`]: {
-                        id: linkData.id,
-                        toptier_flag: true,
-                        toptier_agency: {
-                            toptier_code: agencySlugs[linkData.slug],
-                            abbreviation: linkData._code,
-                            name: linkData._name
-                        },
-                        subtier_agency: {
-                            abbreviation: linkData._code,
-                            name: linkData._name
-                        },
-                        agencyType: "toptier"
-                    }
-                }
-            };
-        }
-        else if (params.category === 'awarding_subagency') {
-            // TODO awaiting backend changes in DEV-10991
-
-            // categoryFilter = {
-            //     selectedAwardingAgencies: {
-            //         [`${linkData.id}_subtier`]: {
-            //             id: linkData.id,
-            //             toptier_flag: false,
-            //             toptier_agency: {
-            //                 toptier_code: agencySlugs[linkData.slug],
-            //                 abbreviation: linkData._code,
-            //                 name: linkData._name
-            //             },
-            //             subtier_agency: {
-            //                 abbreviation: linkData._code,
-            //                 name: linkData._name
-            //             },
-            //             agencyType: "subtier"
-            //         }
-            //     }
-            // };
-
-            // {
-            //     "1188_subtier": {
-            //     "id": 1188,
-            //         "toptier_flag": false,
-            //         "toptier_agency": {
-            //         "toptier_code": "097",
-            //             "abbreviation": "DOD",
-            //             "name": "Department of Defense"
-            //     },
-            //     "subtier_agency": {
-            //         "abbreviation": "USA",
-            //             "name": "Department of the Army"
-            //     },
-            //     "agencyType": "subtier"
-            // }
-            // }
-        }
-        else if (params.category === 'recipient') {
-            categoryFilter = { selectedRecipients: [linkData._name] };
-        }
-        else if (params.category === 'county') {
-            locationFilter = {
-                selectedLocations: {
-                    [`${location.country}_${location.state}_${linkData._code}`]: {
-                        identifier: `${location.country}_${location.state}_${linkData._code}`,
-                        filter: {
-                            country: location.country,
-                            state: location.state,
-                            county: linkData._code
-                        },
-                        display: {
-                            entity: "County",
-                            standalone: `${linkData._name}, ${location.state}`,
-                            title: linkData._name
-                        }
-                    }
-                }
-            };
-        }
-        else if (params.category === 'district') {
-            locationFilter = {
-                selectedLocations: {
-                    [`${location.country}_${location.state}_${linkData._code}`]: {
-                        identifier: `${location.country}_${location.state}_${linkData._code}`,
-                        filter: {
-                            country: location.country,
-                            state: location.state,
-                            district_current: linkData._code
-                        },
-                        display: {
-                            entity: "Current congressional district",
-                            standalone: `${linkData._name}, ${location.state}`,
-                            title: linkData._name
-                        }
-                    }
-                }
-            };
-        }
-        else if (params.category === 'cfda') {
-            categoryFilter = {
-                selectedCFDA:
-                    {
-                        [linkData._code]: {
-                            program_number: linkData._code,
-                            program_title: linkData._name,
-                            identifier: linkData._code
-                        }
-                    }
-            };
-        }
-        else if (params.category === 'naics') {
-            categoryFilter = {
-                naicsCodes: {
-                    require: [linkData._code],
-                    exclude: [],
-                    counts: [
-                        {
-                            label: linkData._name,
-                            value: linkData._code,
-                            count: 1
-                        }
-                    ]
-                }
-            };
-        }
-
-        let awardTypeFilter;
-
-        if (params.filters.award_type_codes?.length > 0) {
-            awardTypeFilter = {
-                awardType: params.filters.award_type_codes
-            };
-        }
-
-        const timePeriodFilter = {
-            timePeriodStart: params.filters.time_period[0].start_date,
-            timePeriodEnd: params.filters.time_period[0].end_date,
-            timePeriodType: 'dr'
-        };
-
-        const filterValue = {
-            filters: {
-                ...defaultFilters,
-                ...categoryFilter,
-                ...locationFilter,
-                ...timePeriodFilter,
-                ...awardTypeFilter
-            },
-            version: REQUEST_VERSION
-        };
-
-        let tempHash = generateUrlHash(filterValue);
-        tempHash.promise
-            .then((results) => {
-                const hashData = results.data;
-                window.open(`/search?hash=${hashData.hash}`, '_blank').focus();
-            })
-            .catch((error) => {
-                console.log(error);
-                if (isCancel(error)) {
-                    // Got cancelled
-                }
-                else if (error.response) {
-                    // Errored out but got response, toggle noAward flag
-                    tempHash = null;
-                }
-                else {
-                    // Request failed
-                    tempHash = null;
-                    console.log(error);
-                }
-            });
-    };
-
-    useEffect(() => {
-        if (agencySlugs && linkData) {
-            createLink();
-        }
-    }, [agencySlugs, linkData, slugsLoading, slugsError, createLink]);
 
     const parseResults = (data, type) => {
         const parsed = data?.map((item, index) => {
@@ -353,7 +130,7 @@ const TopFiveContainer = (props) => {
     return (
         <TopFive
             category={props.category}
-            getSelectedLink={getSelectedLink}
+            dataParams={dataParams()}
             total={props.total}
             {...categoryState} />
     );
