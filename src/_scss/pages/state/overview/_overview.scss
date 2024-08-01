@@ -33,6 +33,26 @@
             padding-bottom: rem(42);
         }
 
+        .card__body {
+            h3.state-overview__heading {
+                margin-top: 0 !important;
+            }
+            .card__button {
+                margin-bottom: 0;
+            }
+
+            button {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        .state-section__viz.details {
+            @media(max-width: $medium-screen) {
+                margin: rem(48) rem(7) 0 0;
+            }
+        }
+
         h3.state-overview__heading {
             @include h4;
             font-size: rem(19);
@@ -50,6 +70,8 @@
                     }
                 }
             }
+
+
         }
 
         @import "totals";
@@ -60,6 +82,9 @@
             margin-right: rem(10);
 
             .award-breakdown__heading-row {
+                h3 {
+                    margin-top: 0;
+                }
 
                 @media(min-width: $tablet-screen) {
                     display: flex;
