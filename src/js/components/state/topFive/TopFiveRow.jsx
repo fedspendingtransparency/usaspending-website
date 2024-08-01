@@ -10,8 +10,8 @@ import { initialState as defaultFilters } from 'redux/reducers/search/searchFilt
 import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 
 import FeatureFlag from "../../sharedComponents/FeatureFlag";
-import {stateFIPSByAbbreviation, stateNameByFipsId} from "../../../dataMapping/state/stateNames";
-import {REQUEST_VERSION} from "../../../GlobalConstants";
+import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
+import { REQUEST_VERSION } from "../../../GlobalConstants";
 import { generateUrlHash } from "../../../helpers/searchHelper";
 
 const propTypes = {
@@ -250,7 +250,9 @@ const TopFiveRow = (props) => {
                         role="button"
                         tabIndex={0}
                         aria-label="View awards"
-                        onKeyDown={(e) => { if (e.key === "Enter") getSelectedLink(e, props.data.name); }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") getSelectedLink(e, props.data.name);
+                        }}
                         onClick={(e) => getSelectedLink(e, props.data)}>
                         View Awards
                     </a>
