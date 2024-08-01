@@ -2,7 +2,6 @@
     @import "mixins/moreOptionsBtn";
     @import "mixins/fullSectionWrap";
     @import 'treemapSource';
-    //padding: ($global-pad * 4) 0 ($global-pad * 6);
     background-color: #ececec;
     & .treemap-inner-wrap {
         @include fullSectionWrap(0, 0);
