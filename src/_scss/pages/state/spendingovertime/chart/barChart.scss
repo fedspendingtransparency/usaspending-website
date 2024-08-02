@@ -1,0 +1,11 @@
+svg.bar-graph {
+    @import "axis";
+    @import "bar";
+    .chart-legend-item {
+        .key-label {
+            font-size: rem(12);
+            color: #666;
+            fill: #666;
+        }
+    }
+}

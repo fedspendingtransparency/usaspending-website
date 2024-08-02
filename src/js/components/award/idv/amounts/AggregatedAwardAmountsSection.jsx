@@ -9,7 +9,7 @@ import { Tabs } from "data-transparency-ui";
 
 import { formatNumber } from 'helpers/moneyFormatter';
 
-import ChartError from 'components/search/visualizations/ChartError';
+import ChartError from 'components/sharedComponents/ChartError';
 import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
 
 import AwardsBanner from './AwardsBanner';
@@ -36,17 +36,17 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
         this.switchTab = this.switchTab.bind(this);
-    };
+    }
 
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
-    };
+    }
 
     switchTab(tab) {
         this.setState({
             active: tab
         });
-    };
+    }
 
     render() {
         if (this.props.inFlight) {

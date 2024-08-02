@@ -108,7 +108,7 @@ export default class AgencyListContainer extends React.Component {
         });
 
         // Only search if search is 2 or more characters
-        if (input.length >= 2) {
+        if (input.length >= 3) {
             this.setState({
                 agencySearchString: input
             });
@@ -119,7 +119,7 @@ export default class AgencyListContainer extends React.Component {
             }
 
             const agencySearchParams = {
-                search_text: this.state.agencySearchString,
+                search_text: input,
                 limit: 20
             };
 
@@ -232,7 +232,6 @@ export default class AgencyListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
                 placeholder={`${this.props.agencyType} Agency`}
-                errorHeader="Unknown Agency"
                 errorMessage="We were unable to find that agency."
                 ref={(input) => {
                     this.agencyList = input;

@@ -13,28 +13,30 @@ const propTypes = {
     selectedAwardIDs: PropTypes.object
 };
 
-export default class SelectedAwardIDs extends React.Component {
-    render() {
-        const shownAwardIDs = [];
-        this.props.selectedAwardIDs.entrySeq().forEach((entry) => {
-            const key = entry[0];
-            const awardID = entry[1];
-            const value = (<ShownAwardID
+const SelectedAwardIDs = (props) => {
+    const { selectedAwardIDs, toggleAwardID } = props;
+
+    const shownAwardIDs = [];
+    selectedAwardIDs.entrySeq().forEach((entry) => {
+        const key = entry[0];
+        const awardID = entry[1];
+        const value = (
+            <ShownAwardID
                 awardID={awardID}
                 label={`${awardID} | Award ID `}
                 key={key}
-                toggleAwardID={this.props.toggleAwardID.bind(null, awardID)} />);
-            shownAwardIDs.push(value);
-        });
+                toggleAwardID={() => toggleAwardID(awardID)} />);
+        shownAwardIDs.push(value);
+    });
 
-        return (
-            <div
-                className="selected-filters"
-                role="status">
-                {shownAwardIDs}
-            </div>
-        );
-    }
-}
+    return (
+        <div
+            className="selected-filters"
+            role="status">
+            {shownAwardIDs}
+        </div>
+    );
+};
 
 SelectedAwardIDs.propTypes = propTypes;
+export default SelectedAwardIDs;

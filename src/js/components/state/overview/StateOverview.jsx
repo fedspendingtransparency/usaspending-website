@@ -13,10 +13,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
-import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
-import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
 import { SectionHeader } from "data-transparency-ui";
 import DetailsTooltip from './DetailsTooltip';
+import SummaryStats from './SummaryStats';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
@@ -199,33 +198,23 @@ export default class StateOverview extends React.PureComponent {
                     <div className="state-overview__note">
                         <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
+
                     <div className="state-section__row">
-                        <div className="state-section__viz totals-container">
-                            <div className="state-section__viz totals">
-                                <h3 className="state-overview__heading">
-                                Total Awarded Amount
-                                </h3>
-                                <div className="totals__amount">
-                                    {this.props.stateProfile.totalAmount}
-                                </div>
-                                <div className="totals__awards">
-                                from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> prime awards
-                                </div>
-                                {(this.props.stateProfile.code) &&
-                                    <Link
-                                        className="state-section__award-button"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        to="/search"
-                                        onClick={handleGoToAdvancedSearch}>
-                                        View awards to this state
-                                    </Link>
-                                }
-                            </div>
-                            <div className="state-section__viz loan">
-                                <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
-                            </div>
-                        </div>
+                        <SummaryStats stateProfile={this.props.stateProfile} />
+                    </div>
+
+                    {(this.props.stateProfile.code) &&
+                        <Link
+                            className="state-section__award-button"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            to="/search"
+                            onClick={handleGoToAdvancedSearch}>
+                            View awards to this state
+                        </Link>
+                    }
+
+                    <div className="state-section__row">
                         <div className="state-section__viz details">
                             <h3 className="state-overview__heading">
                                 Details
@@ -260,7 +249,7 @@ export default class StateOverview extends React.PureComponent {
                             </table>
                         </div>
                     </div>
-                    <div className="state-section__row">
+                    <div className="state-section__row award-row">
                         <div className="state-section__viz award-breakdown">
                             {QAT ? (
                                 <>
@@ -290,6 +279,8 @@ export default class StateOverview extends React.PureComponent {
                             )}
                             <AwardBreakdownContainer toggleState={this.state.toggle} />
                         </div>
+                    </div>
+                    <div className="state-section__row geo-row">
                         <div className="state-section__viz geo">
                             <h3 className="state-overview__heading">
                                 Primary Place of Performance

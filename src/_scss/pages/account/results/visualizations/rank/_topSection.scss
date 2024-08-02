@@ -5,14 +5,18 @@
     @import "../../../../../components/visualizations/_period";
     margin-left: 0;
     width: 100%;
-    @include media($tablet-screen) {
-        @include display(flex);
-        float: none;
+    @include display(flex);
+    flex-direction: column;
+    float: none;
+
+    @media(min-width: $tablet-screen) {
+        flex-direction: row;
     }
+
     .visualization-period {
         .content {
             li {
-                //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
+                //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS)
                 @include grid-column(5.3);
             }
         }

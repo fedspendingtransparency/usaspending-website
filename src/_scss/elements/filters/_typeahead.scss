@@ -1,20 +1,44 @@
 .usa-da-typeahead {
+    .usa-da-typeahead__input {
+        position: relative;
+    }
+
     p {
         color: $color-gray;
         font-size: $small-font-size;
         margin-top: 0;
         margin-bottom: .5rem;
     }
-    input {
-        font-size: $small-font-size;
-        height: rem(40);
-        margin: 0 auto;
-        padding: 11px 8px 11px 8px;
-        width: 100%;
 
-        @include placeholder {
-            color: $color-placeholder;
-        }
+    svg {
+        position: absolute;
+        top: rem(10);
+        left: rem(10);
+        color: $gray-60;
+    }
+
+    input {
+        line-height: 1.5;
+        height: rem(32);
+        margin: 0 auto;
+        width: 100%;
+        border-color: $gray-cool-10;
+        border-radius: rem(3);
+        color: $gray-60;
+    }
+
+    .autocomplete-md {
+        font-size: $small-font-size;
+        padding: rem(6) rem(12);
+    }
+
+    .autocomplete-sm {
+        font-size: $smallest-font-size;
+        padding: rem(8);
+    }
+
+    .icon {
+        padding-left: rem(32);
     }
 
     .screen-reader-description {
@@ -28,30 +52,32 @@
 
     ul.autocomplete {
         background-color: $color-white;
-        border: 1px solid $color-gray-lighter;
+        border: 1px solid $gray-cool-3;
         cursor: default;
         list-style-type: none;
         margin: 0;
         padding: 0;
-        max-height: rem(400);
-        overflow-y: scroll;
+        max-height: rem(300);
+        overflow-y: auto;
+        border-radius: 3px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+
         li {
-            line-height: rem(20);
             font-size: $small-font-size;
+            line-height: 1.5;
             font-weight: normal;
-            padding: rem(10) rem(20);
-            color: $color-base;
-            border-bottom: 1px solid $color-gray-lighter;
+            padding: rem(5.5) rem(12);
+            color: $gray-60;
             margin-bottom: 0;
             width: 100%;
             vertical-align: middle;
             word-wrap: break-word;
+
             &:hover,
             &.hover,
             &[aria-selected="true"] {
-                background-color: $color-primary-alt-lightest;
+                background-color: $gray-cool-3;
                 cursor: pointer;
-                color: #333;
                 * {
                     color: $color-gray;
                 }
@@ -60,8 +86,17 @@
                     color: $color-gray;
                 }
             }
+
+            span {
+                font-weight: $font-semibold;
+            }
+        }
+
+        .unselectable {
+            pointer-events: none;
         }
     }
+
     .hide {
         display: none;
     }

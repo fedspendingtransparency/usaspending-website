@@ -73,7 +73,7 @@
           }
           .button-type__secondary-light{
             margin-top: 0;
-            padding-top: 0;
+            padding: rem(4) $global-padding * 2;
             justify-content: center;
             width: 100%;
             font-size: $font-size-16;
