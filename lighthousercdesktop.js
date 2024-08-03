@@ -11,7 +11,7 @@ module.exports = {
             additive: true,
             isSinglePageApplication: true,
             url: [ // the urls to run lighthouse against
-                'http://localhost/', 'http://localhost/search'
+                'http://localhost/', 'http://localhost/search', 'http://localhost:3000/search/?hash=31005574f6843059b2718797d2a3a8f9'
             ],
             settings: {
                 preset: "desktop"
