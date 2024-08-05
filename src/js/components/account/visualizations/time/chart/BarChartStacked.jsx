@@ -363,7 +363,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 <svg
                     className="bar-graph"
                     width={this.props.width}
-                    height={this.props.height + 20}>
+                    height={this.props.height + 40}>
 
                     <BarChartYAxis
                         {...this.state.virtualChart.yAxis}
