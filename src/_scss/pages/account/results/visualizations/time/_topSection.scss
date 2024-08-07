@@ -5,11 +5,15 @@
     @import "../../../../../components/visualizations/_period";
     margin-left: 0;
     width: 100%;
-    @include media($tablet-screen) {
-        @include display(flex);
-        float: none;
+    @include display(flex);
+    flex-direction: column;
+    float: none;
+
+    @media(min-width: $tablet-screen) {
+        flex-direction: row;
     }
-    .visualization-period {
+
+        .visualization-period {
         .content {
             ul {
                 display: flex;

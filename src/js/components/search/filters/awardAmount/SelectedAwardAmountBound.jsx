@@ -14,33 +14,27 @@ const propTypes = {
     name: PropTypes.string
 };
 
-export default class SelectedAwardAmountBound extends React.Component {
-    constructor(props) {
-        super(props);
-        this.removeFilter = this.removeFilter.bind(this);
-    }
-
-    removeFilter() {
-        const { removeFilter, name } = this.props;
+const SelectedAwardAmountBound = (props) => {
+    const removeFilterFn = () => {
+        const { removeFilter, name } = props;
         removeFilter(name);
-    }
+    };
 
-    render() {
-        const { label } = this.props;
-        return (
-            <button
-                className="shown-filter-button"
-                value={label}
-                onClick={this.removeFilter}
-                title="Click to remove."
-                aria-label={`Applied filter: ${label}`}>
-                {label}
-                <span className="close">
-                    <FontAwesomeIcon icon="times" />
-                </span>
-            </button>
-        );
-    }
-}
+    const { label } = props;
+    return (
+        <button
+            className="shown-filter-button"
+            value={label}
+            onClick={removeFilterFn}
+            title="Click to remove."
+            aria-label={`Applied filter: ${label}`}>
+            {label}
+            <span className="close">
+                <FontAwesomeIcon icon="times" />
+            </span>
+        </button>
+    );
+};
 
 SelectedAwardAmountBound.propTypes = propTypes;
+export default SelectedAwardAmountBound;

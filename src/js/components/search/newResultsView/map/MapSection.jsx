@@ -6,6 +6,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+import Analytics from 'helpers/analytics/Analytics';
 import MapSectionWrapper from "../../../../containers/search/newResultsView/MapSectionWrapper";
 import MapDsm from "./MapDsm";
 
@@ -18,6 +19,10 @@ const MapSection = ({ subaward }) => {
 
     const onClick = (e) => {
         setSelectedDropdown(e);
+        Analytics.event({
+            category: 'Section Map',
+            action: `View ${e}`
+        });
     };
 
     const wrapperProps = {

@@ -11,23 +11,21 @@ const propTypes = {
     label: PropTypes.string
 };
 
-export default class MapLegendItem extends React.Component {
-    render() {
-        const swatchStyle = {
-            backgroundColor: this.props.color
-        };
+export default function MapLegendItem(props) {
+    const swatchStyle = {
+        backgroundColor: props.color
+    };
 
-        return (
-            <li className="map-legend-item-container">
-                <div className="map-legend-item">
-                    <div className="color-swatch" style={swatchStyle} />
-                    <div className="label">
-                        {this.props.label}
-                    </div>
+    return (
+        <li className="map-legend-item-container">
+            <div className="map-legend-item">
+                <div className="color-swatch" style={swatchStyle} />
+                <div className="label">
+                    {props.label}
                 </div>
-            </li>
-        );
-    }
+            </div>
+        </li>
+    );
 }
 
 MapLegendItem.propTypes = propTypes;
