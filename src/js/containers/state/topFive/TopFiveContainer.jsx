@@ -86,12 +86,22 @@ export class TopFiveContainer extends React.Component {
             filters.award_type_codes = awardTypeGroups[this.props.type];
         }
 
-        return {
+        const params = {
             filters,
             category: this.props.category,
             limit: 5,
             page: 1
         };
+
+        if (this.props.category === 'awards') {
+            filters.award_type_codes = ['A', 'B', 'C', 'D'];
+            params.fields = ['Award ID', 'Award Amount'];
+            params.order = 'desc';
+            params.sort = 'Award Amount';
+            params.subawards = false;
+        }
+
+        return params;
     }
 
     loadCategory() {
@@ -112,10 +122,17 @@ export class TopFiveContainer extends React.Component {
             error: false
         });
 
-        this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
+        if (this.props.category === 'awards') {
+            this.request = SearchHelper.performSpendingByAwardSearch(this.dataParams());
+        }
+        else {
+            this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
+        }
+
         this.request.promise
             .then((res) => {
                 this.parseResults(res.data.results, res.data.category);
+                console.log(`res ${this.props.category}: `, res);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -131,7 +148,15 @@ export class TopFiveContainer extends React.Component {
     parseResults(data, type) {
         const parsed = data.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
-            result.populate(item, index + 1);
+            if (this.props.category === 'awards') {
+                result.populate({
+                    name: item['Award ID'],
+                    amount: item['Award Amount']
+                }, index + 1);
+            }
+            else {
+                result.populate(item, index + 1);
+            }
 
             if (type === 'awarding_agency' || type === 'awarding_subagency') {
                 result.nameTemplate = (code, name) => {
