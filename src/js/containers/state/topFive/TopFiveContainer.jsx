@@ -132,7 +132,6 @@ export class TopFiveContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 this.parseResults(res.data.results, res.data.category);
-                console.log(`res ${this.props.category}: `, res);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
