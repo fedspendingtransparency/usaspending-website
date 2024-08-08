@@ -159,7 +159,6 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                     dirtyFilters={this.props.dirtyFilters}
                     minCharsToSearch={1}
                     placeholder={`Enter ${this.props.component.code.toUpperCase()} value (${this.props.component.characterLimit} characters)`}
-                    errorMessage={`We were unable to find that ${this.props.component.label}`}
                     ref={(input) => {
                         this.programSourceList = input;
                     }}
