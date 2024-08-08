@@ -11,7 +11,8 @@ import { smTabletScreen } from "../../../../dataMapping/shared/mobileBreakpoints
 const propTypes = {
     color: PropTypes.string,
     label: PropTypes.string,
-    offset: PropTypes.number
+    offset: PropTypes.number,
+    mobileOffset: PropTypes.number
 };
 
 const BarChartLegendItem = (props) => {
@@ -27,6 +28,7 @@ const BarChartLegendItem = (props) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
+
     return (
         <g
             className="chart-legend-item"
