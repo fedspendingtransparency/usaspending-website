@@ -8,16 +8,16 @@ import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import {
     stateFilters,
-    filtersOnClickHandler
-} from 'dataMapping/covid19/recipient/map/map';
-import { awardTypeTabs } from 'dataMapping/covid19/covid19';
+    filtersOnClickHandler,
+    awardTypeTabs
+} from '../../../../dataMapping/state/stateMap';
 
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
-import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
-import MapMessage from 'components/search/visualizations/geo/MapMessage';
-import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
+import ResultsTableErrorMessage from '../../../../components/search/table/ResultsTableErrorMessage';
+import LoadingSpinner from '../../../../components/sharedComponents/LoadingSpinner';
+import { ExclamationTriangle } from '../../../../components/sharedComponents/icons/Icons';
+import GeoVisualizationTooltip from '../../../../components/search/visualizations/geo/GeoVisualizationTooltip';
+import MapMessage from '../../../../components/search/visualizations/geo/MapMessage';
+import MapWrapper from '../../../../components/search/visualizations/geo/MapWrapper';
 
 const propTypes = {
     mapLayer: PropTypes.string,
