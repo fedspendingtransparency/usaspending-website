@@ -70,3 +70,4 @@ const StateProfileAgency = (props) => {
 
 StateProfileAgency.propTypes = propTypes;
 StateProfileAgency.defaultProps = defaultProps;
+export default StateProfileAgency;

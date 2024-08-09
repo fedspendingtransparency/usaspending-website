@@ -10,6 +10,7 @@ import { mapFilterSortOrderByValue } from '../../../../dataMapping/state/stateMa
 import { handleSort } from '../../../../helpers/covid19Helper';
 import MapFiltersTitle from '../../../search/visualizations/geo/MapFiltersTitle';
 import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
+import StateAgencyAutocompleteContainer from "../../../../containers/state/visualizations/geo/StateAgencyAutocompleteContainer";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -23,6 +24,7 @@ const StateProfileMapFilters = ({ filters, activeFilters, isOpen }) => (
             <MapFiltersTitle />
         </div>
         <div className="map__filters-body">
+            {/* below chunk is for the dropdown filters */}
             {
                 Object.keys(filters).map((filter) => (
                     <div key={uniqueId()} className="map__filters-filter__container">
@@ -47,6 +49,12 @@ const StateProfileMapFilters = ({ filters, activeFilters, isOpen }) => (
                     </div>
                 ))
             }
+            {/* below chunk is for the autocomplete filters */}
+            <div key={uniqueId()} className="map__filters-filter__container">
+                <div className="map__filters-wrapper">
+                    <StateAgencyAutocompleteContainer />
+                </div>
+            </div>
         </div>
     </div>
 );

@@ -17,7 +17,7 @@ import LoadingSpinner from '../../../../components/sharedComponents/LoadingSpinn
 import { ExclamationTriangle } from '../../../../components/sharedComponents/icons/Icons';
 import GeoVisualizationTooltip from '../../../../components/search/visualizations/geo/GeoVisualizationTooltip';
 import MapMessage from '../../../../components/search/visualizations/geo/MapMessage';
-import MapWrapper from '../../../../components/search/visualizations/geo/MapWrapper';
+import MapWrapper from './MapWrapper';
 
 const propTypes = {
     mapLayer: PropTypes.string,
