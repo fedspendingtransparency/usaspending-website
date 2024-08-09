@@ -118,7 +118,7 @@ const InteractiveDataSourcesPage = () => {
             label: 'Data Validation',
             showSectionWrapper: false,
             scroller: true,
-            component: <DataValidation title="Data Validation" subtitle="How does the DATA Act Broker validate data before they are publicly available?" />
+            component: <DataValidation title="Data Validation" subtitle="How does the Data Broker validate data before they are publicly available?" />
         },
         {
             section: 'data-access',
