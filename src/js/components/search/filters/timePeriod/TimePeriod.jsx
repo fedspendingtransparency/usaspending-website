@@ -277,11 +277,13 @@ export default class TimePeriod extends React.Component {
     render() {
         let errorDetails;
         let showFilter;
+        let activeClassDR;
 
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
                 header={this.state.header}
                 message={this.state.errorMessage} />);
+            activeClassDR = 'inactive';
         }
 
         if (this.props.activeTab === 'fy') {
@@ -304,10 +306,15 @@ export default class TimePeriod extends React.Component {
                 hideError={this.hideError}
                 applyDateRange={this.validateDates}
                 removeDateRange={this.removeDateRange} />);
+            activeClassDR = '';
+        }
+
+        if (this.props.disableDateRange) {
+            activeClassDR = 'hidden';
         }
 
         const newAwardsFilter = (
-            <div className="new-awards-wrapper">
+            <div className={`new-awards-wrapper ${activeClassDR}`}>
                 <label
                     htmlFor="new-awards-checkbox">
                     <input
