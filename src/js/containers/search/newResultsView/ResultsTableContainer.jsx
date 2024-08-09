@@ -90,7 +90,7 @@ const ResultsTableContainer = (props) => {
     const [error, setError] = useState(false);
     const [results, setResults] = useState([]);
     const [total, setTotal] = useState(0);
-    const [resultLimit, setResultLimit] = useState(10);
+    const [resultLimit, setResultLimit] = useState(100);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
     const initialRender = useRef(true);
