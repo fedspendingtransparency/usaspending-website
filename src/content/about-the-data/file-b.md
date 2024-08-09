@@ -1,6 +1,6 @@
 File B (Account Breakdown by Program Activity & Object Class) is
 part of the package of data submitted to USAspending.gov every month
-by federal agencies via the DATA Act Broker, as required by the DATA
+by federal agencies via the Data Broker, as required by the DATA
 Act. It contains obligation and outlay data for all the relevant
 Treasury Account Symbols (TAS) in a reporting agency, with a breakdown by
 the accounting categories Budget Function, Program Activity, Object Class, and Disaster Emergency
