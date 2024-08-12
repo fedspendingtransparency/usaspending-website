@@ -350,11 +350,13 @@ export default class TimePeriod extends React.Component {
             }
         ];
 
-        const toggleTab = () => {
-            const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
-            this.setState({ ...this.state, activeTab: nextTab });
-            this.clearHint(true);
-            this.props.changeTab(nextTab);
+        const toggleTab = (e) => {
+            if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
+                const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
+                this.setState({ ...this.state, activeTab: nextTab });
+                this.clearHint(true);
+                this.props.changeTab(nextTab);
+            }
         };
 
         return (
