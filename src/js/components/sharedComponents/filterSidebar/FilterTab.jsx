@@ -22,7 +22,7 @@ const FilterTab = ({
         onClick={switchTab}
         onKeyDown={switchTab}
         title={`Show ${title}`}
-        aria-label={`Show ${label}`}
+        aria-label={`Show ${title}`}
         tabIndex={0}>
         <div className="filter-tabs__label">
             {label}
