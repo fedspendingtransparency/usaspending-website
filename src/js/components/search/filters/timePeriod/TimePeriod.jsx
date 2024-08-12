@@ -342,11 +342,13 @@ export default class TimePeriod extends React.Component {
                     <div>
                         Fiscal Year &nbsp; <GlossaryLink term="fiscal-year-fy" />
                     </div>
-                )
+                ),
+                title: 'Fiscal Year'
             },
             {
                 internal: 'dr',
-                label: 'Date Range'
+                label: 'Date Range',
+                title: 'Date Range'
             }
         ];
 

@@ -8,18 +8,21 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     label: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
     switchTab: PropTypes.func.isRequired
 };
 
-const FilterTab = ({ label, active, switchTab }) => (
+const FilterTab = ({
+    label, title, active, switchTab
+}) => (
     <div
         className={`filter-tabs__tab ${active ? 'active' : ''}`}
         role="tab"
         onClick={switchTab}
         onKeyDown={switchTab}
-        title={`Show ${label.label}`}
-        aria-label={`Show ${label.label}`}
+        title={`Show ${title}`}
+        aria-label={`Show ${label}`}
         tabIndex={0}>
         <div className="filter-tabs__label">
             {label}
