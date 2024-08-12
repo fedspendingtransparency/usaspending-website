@@ -16,10 +16,10 @@ $input-height: math.div(floor($input-height-exact * 10), 10);
 @mixin usa-input  {
     appearance: none;
     background-color: $color-white;
-    border: $input-border-width solid $color-gray-lighter;
     border-radius: 0;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     box-sizing: border-box;
+    border: $input-border-width solid $color-gray-lighter;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     color: $color-base; // standardize on firefox
     display: inline-block;
     font-size: $base-font-size;
@@ -29,10 +29,6 @@ $input-height: math.div(floor($input-height-exact * 10), 10);
     max-width: $input-max-width;
     outline: none;
     padding: $input-padding-vertical 0.7em;
-
-    &:focus {
-        box-shadow: $focus-shadow;
-    }
 }
 
 @import './inputs/checkbox';

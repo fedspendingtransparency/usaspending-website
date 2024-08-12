@@ -1,4 +1,7 @@
 .state-overview {
+    padding-bottom: 0;
+    margin-bottom: rem(2);
+
     .state-overview__title-wrapper {
         @include display(flex);
         @include align-items(center);
@@ -30,11 +33,31 @@
             padding-bottom: rem(42);
         }
 
+        .card__body {
+            h3.state-overview__heading {
+                margin-top: 0;
+            }
+            .card__button {
+                margin-bottom: 0;
+            }
+
+            button {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        .state-section__viz.details {
+            @media(max-width: $medium-screen) {
+                margin: rem(48) rem(7) 0 0;
+            }
+        }
+
         h3.state-overview__heading {
             @include h4;
             font-size: rem(19);
             font-weight: 600;
-            margin: 0;
+            margin-bottom: rem(10);
             .details__info_icon_holder {
                 position: relative;
                 padding-left: rem(10);
@@ -47,6 +70,8 @@
                     }
                 }
             }
+
+
         }
 
         @import "totals";
@@ -57,6 +82,9 @@
             margin-right: rem(10);
 
             .award-breakdown__heading-row {
+                h3 {
+                    margin-top: 0;
+                }
 
                 @media(min-width: $tablet-screen) {
                     display: flex;
@@ -223,3 +251,6 @@
     }
 }
 
+.details-card-body {
+    padding: 32px
+}
