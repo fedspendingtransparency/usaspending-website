@@ -3,12 +3,9 @@
  * Created by Nick Torres 8/9/2024
  **/
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import AgencyListContainer from 'containers/search/filters/AgencyListContainer';
-import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-
-import SelectedAgencies from './SelectedAgencies';
+import StateAgencyListContainer from './StateAgencyListContainer';
 
 const defaultProps = {
     agencyTypes: [
@@ -24,38 +21,17 @@ const propTypes = {
 };
 
 const StateProfileAgency = (props) => {
-    const [hint, setHint] = useState(null);
-    let showHint = false;
-    useEffect(() => {
-        if (props.dirtyAwarding) {
-            showHint = true;
-        }
-
-        if (showHint && hint) {
-            hint.showHint();
-        }
-    }, [props.dirtyAwarding]);
-
     const agencies = props.agencyTypes.map((type) => {
         let selectedAgencies = {};
-
         selectedAgencies = props.selectedAwardingAgencies;
 
         return (
             <div className="filter-item-wrap" key={`holder-${type}`}>
-                <AgencyListContainer
+                <StateAgencyListContainer
                     agencyType={type}
                     placeHolder="Search for an awarding agency..."
                     toggleAgency={props.toggleAgency}
                     selectedAgencies={selectedAgencies} />
-                <SelectedAgencies
-                    agencyType={type}
-                    selectedAgencies={selectedAgencies}
-                    toggleAgency={props.toggleAgency} />
-                <SubmitHint
-                    ref={(component) => {
-                        setHint(component);
-                    }} />
             </div>
         );
     });
