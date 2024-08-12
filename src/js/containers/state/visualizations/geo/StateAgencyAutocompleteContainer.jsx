@@ -3,14 +3,13 @@
   * Created by Nick Torres 8/9/2024
   **/
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { is } from 'immutable';
-
+import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
 import StateProfileAgency from '../../../../components/state/visualizations/geo/StateProfileAgency';
 
 const propTypes = {
@@ -20,6 +19,7 @@ const propTypes = {
 };
 
 const StateAgencyAutocompleteContainer = (props) => {
+    const filters = useSelector((state) => state.filters);
     const toggleAgency = (agency, isValid, agencyType) => {
     // If agency name exists and is valid
         if (agency !== null && isValid) {
@@ -42,6 +42,9 @@ const StateAgencyAutocompleteContainer = (props) => {
         return Symbol(`dirty ${type} agency`);
     };
 
+    useEffect(() => {
+        appliedFilterActions.applyStagedFilters(filters);
+    }, [filters]);
 
     return (
         <StateProfileAgency
@@ -58,5 +61,8 @@ export default connect(
         selectedAwardingAgencies: state.filters.selectedAwardingAgencies,
         appliedAwardingAgencies: state.appliedFilters.filters.selectedAwardingAgencies
     }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (dispatch) => ({
+        ...bindActionCreators(searchFilterActions, dispatch),
+        ...bindActionCreators(appliedFilterActions, dispatch)
+    })
 )(StateAgencyAutocompleteContainer);
