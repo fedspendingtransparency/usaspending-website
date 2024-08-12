@@ -26,10 +26,7 @@ const StateAgencyAutocompleteContainer = (props) => {
             const updateParams = {};
             updateParams.agency = agency;
 
-            if (agencyType === 'Funding') {
-                props.updateSelectedFundingAgencies(updateParams);
-            }
-            else {
+            if (agencyType === 'Awarding') {
                 props.updateSelectedAwardingAgencies(updateParams);
             }
         }

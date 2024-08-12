@@ -19,9 +19,7 @@ const defaultProps = {
 const propTypes = {
     toggleAgency: PropTypes.func,
     selectedAwardingAgencies: PropTypes.object,
-    selectedFundingAgencies: PropTypes.object,
     agencyTypes: PropTypes.array,
-    dirtyFunding: PropTypes.symbol,
     dirtyAwarding: PropTypes.symbol
 };
 
@@ -47,6 +45,7 @@ const StateProfileAgency = (props) => {
             <div className="filter-item-wrap" key={`holder-${type}`}>
                 <AgencyListContainer
                     agencyType={type}
+                    placeHolder="Search for an awarding agency..."
                     toggleAgency={props.toggleAgency}
                     selectedAgencies={selectedAgencies} />
                 <SelectedAgencies

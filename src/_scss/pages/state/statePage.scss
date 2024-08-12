@@ -33,7 +33,36 @@
         @import "./_positioning";
         @import "./_contentWrap";
         @import "elements/_divider";
+        @import "elements/filters/_typeahead";
         @import "../../components/pageLoading";
         @import "./footer/footer";
+
+
+        // typeahead stylings for state page
+        .map__filters-toggle.open {
+            @media(min-width: $large-screen) {
+                left: 340px !important;
+            }
+        }
+        .map__filters-container {
+            @media(min-width: $large-screen) {
+                width: 340px !important;
+            }
+        }
+        .usa-da-typeahead-wrapper {
+            margin-top: $global-margin * 2;
+
+            p {
+                text-transform: uppercase;
+                font-size: $font-size-12;
+                line-height: 1.25;
+                margin-bottom: $global-margin * .5;
+            }
+            input {
+                border: solid 2px $gray-cool-10;
+                font-size: $font-size-14;
+            }
+        }
+
     }
 }

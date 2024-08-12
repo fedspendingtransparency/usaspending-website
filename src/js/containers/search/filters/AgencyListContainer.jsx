@@ -17,7 +17,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 const propTypes = {
     toggleAgency: PropTypes.func,
     selectedAgencies: PropTypes.object,
-    agencyType: PropTypes.string
+    agencyType: PropTypes.string,
+    placeHolder: PropTypes.string
 };
 
 export default class AgencyListContainer extends React.Component {
@@ -231,7 +232,7 @@ export default class AgencyListContainer extends React.Component {
                 values={this.state.autocompleteAgencies}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
-                placeholder={`${this.props.agencyType} Agency`}
+                placeholder={this.props.placeHolder !== '' ? this.props.placeHolder : `${this.props.agencyType} Agency`}
                 errorMessage="We were unable to find that agency."
                 ref={(input) => {
                     this.agencyList = input;
