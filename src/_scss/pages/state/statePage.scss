@@ -45,6 +45,7 @@
             }
         }
         .map__filters-container {
+            padding: 16px 20px !important;
             @media(min-width: $large-screen) {
                 width: 340px !important;
             }
@@ -61,6 +62,10 @@
             input {
                 border: solid 2px $gray-cool-10;
                 font-size: $font-size-14;
+
+                &:focus-visible {
+                    outline: solid 2px $blue-50;
+                }
             }
         }
 
