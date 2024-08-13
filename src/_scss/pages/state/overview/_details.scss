@@ -4,10 +4,16 @@
     svg {
         height: rem(14);
     }
+    
+    h3 {
+        color: #555555;
+    }
 
     margin-left: rem(7);
 
     .details-info {
+        margin-top: 8px;
+
         .details-header {
             width: rem(351);
             height: rem(20);
@@ -35,10 +41,20 @@
             text-align: left;
             color: $color-base;
         }
+
+        .details__info_icon_holder {
+            margin-left: rem(10);
+        }
     }
 
     .details-button {
         display: flex;
         justify-content: center;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .text {
+        margin: 0 0 12px;
     }
 }

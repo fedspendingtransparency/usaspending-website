@@ -39,7 +39,7 @@ export default class DetailsTooltip extends React.Component {
                 className="state-overview-tooltip"
                 style={{
                     top: 44,
-                    left: 102
+                    left: 100
                 }}>
                 <div className="state-overview-tooltip__info_icon">
                     <Icons.InfoCircle />

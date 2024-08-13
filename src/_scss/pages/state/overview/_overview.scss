@@ -48,7 +48,7 @@
         }
 
         .state-section__viz.details {
-            @media(max-width: $medium-screen) {
+            @media(max-width: ($medium-screen - 1)) {
                 margin: rem(48) rem(7) 0 0;
             }
         }
