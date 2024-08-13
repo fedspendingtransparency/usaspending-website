@@ -289,7 +289,7 @@ export default () => {
                                         </p>
                                     </div>
                                     <h3 className="about-subtitle">
-                                        <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"><strong>DATA Act Broker Submission (DABS, also known as &quot;Broker&quot;)</strong></a>
+                                        <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"><strong>DATA Accountability Broker Submission (DABS, also known as &quot;Broker&quot;)</strong></a>
                                     </h3>
                                     <div className="about-section-content">
                                         <ul>
