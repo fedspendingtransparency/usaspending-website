@@ -14,6 +14,19 @@
     .checkbox-tree {
       margin-bottom: rem(20);
       border-bottom: 1px solid $color-gray-lighter;
+
+      // todo - these blocks are only for the naics checkbox tree demo
+      ul, li {
+        list-style-type: none;
+      }
+      ul {
+        padding-left: 0;
+      }
+
+      .tree-node__branch {
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
     .autocomplete__input {
       @include display(flex);
@@ -32,9 +45,6 @@
         position: absolute;
         width: rem(15);
         right: rem(5);
-        svg {
-            // color: $color-gray;
-        }
       }
     }
     @import '../../../../elements/filters/selectedFilterBtn';

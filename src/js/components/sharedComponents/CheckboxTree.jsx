@@ -10,11 +10,16 @@
 import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import PropTypes from 'prop-types';
-import { difference } from 'lodash';
+import { difference, uniqueId } from 'lodash';
 import replaceString from 'helpers/replaceString';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
+
+import TreeView, { flattenTree } from "react-accessible-treeview";
+import { FaSquare, FaCheckSquare, FaMinusSquare } from "react-icons/fa";
+import { IoMdArrowDropright } from "react-icons/io";
+import cx from "classnames";
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
@@ -43,6 +48,30 @@ const propTypes = {
 const defaultProps = {
     countLabel: '',
     isDisabled: false
+};
+
+const ArrowIcon = ({ isOpen, className }) => {
+    const baseClass = "arrow";
+    const classes = cx(
+        baseClass,
+        { [`${baseClass}--closed`]: !isOpen },
+        { [`${baseClass}--open`]: isOpen },
+        className
+    );
+    return <IoMdArrowDropright className={classes} />;
+};
+
+const CheckBoxIcon = ({ variant, ...rest }) => {
+    switch (variant) {
+        case "all":
+            return <FaCheckSquare {...rest} />;
+        case "none":
+            return <FaSquare {...rest} />;
+        case "some":
+            return <FaMinusSquare {...rest} />;
+        default:
+            return null;
+    }
 };
 
 export default class CheckboxTree extends Component {
@@ -221,7 +250,84 @@ export default class CheckboxTree extends Component {
             className,
             isDisabled
         } = this.props;
+
+        console.log('data', data);
+
         const labeledNodes = this.createLabels(data);
+
+        // this array has to be used in the root node, which is added with the unshift method below
+        // it allows the root node to know which objects are its children
+        const idArray = [];
+
+        const makeAStupidID = (i) => {
+            idArray.push(i + 1);
+            return i + 1;
+        };
+
+        // have to do this bc the flattenData fn is not working
+        // it doesn't match the ids btw the root node and the rest of the array items
+        const newData = data.map((obj, i) => ({
+            name: obj.label,
+            id: makeAStupidID(i),
+            parent: 0,
+            children: obj.children,
+            naics: obj.naics,
+            count: obj.count
+        }));
+
+        newData.unshift({
+            id: 0, parent: null, name: "", children: idArray
+        });
+
+        console.log('newData', newData);
+
+        // const folder = {
+        //     name: "",
+        //     children: [
+        //         {
+        //             name: "Fruits",
+        //             children: [
+        //                 { name: "Avocados" },
+        //                 { name: "Bananas" },
+        //                 { name: "Berries" },
+        //                 { name: "Oranges" },
+        //                 { name: "Pears" }
+        //             ]
+        //         },
+        //         {
+        //             name: "Drinks",
+        //             children: [
+        //                 { name: "Apple Juice" },
+        //                 { name: "Chocolate" },
+        //                 { name: "Coffee" },
+        //                 {
+        //                     name: "Tea",
+        //                     children: [
+        //                         { name: "Black Tea" },
+        //                         { name: "Green Tea" },
+        //                         { name: "Red Tea" },
+        //                         { name: "Matcha" }
+        //                     ]
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             name: "Vegetables",
+        //             children: [
+        //                 { name: "Beets" },
+        //                 { name: "Carrots" },
+        //                 { name: "Celery" },
+        //                 { name: "Lettuce" },
+        //                 { name: "Onions" }
+        //             ]
+        //         }
+        //     ]
+        // };
+        //
+        // const flattenedData = flattenTree(folder);
+        //
+        // console.log('flattenedData', flattenedData);
+
         if (isLoading) {
             return (
                 <div className="checkbox-tree-filter-message-container">
@@ -250,17 +356,58 @@ export default class CheckboxTree extends Component {
             );
         }
         else if (!data.length) return null;
+
         const checkboxTreeClass = className ? ` ${className}` : '';
+
         return (
             <div className={`checkbox-tree${checkboxTreeClass}`}>
-                <CheckBoxTree
-                    nodes={labeledNodes}
-                    disabled={isDisabled}
-                    checked={checked}
-                    expanded={expanded}
-                    onCheck={this.onCheck}
-                    onExpand={this.onExpand}
-                    icons={treeIcons} />
+
+                <TreeView
+                    data={newData}
+                    aria-label="Checkbox tree"
+                    multiSelect
+                    propagateSelect
+                    propagateSelectUpwards
+                    togglableSelect
+                    nodeRenderer={({
+                        element,
+                        isBranch,
+                        isExpanded,
+                        isSelected,
+                        isHalfSelected,
+                        getNodeProps,
+                        level,
+                        handleSelect,
+                        handleExpand
+                    }) => (
+                        <div
+                            {...getNodeProps({ onClick: handleExpand })}>
+                            {isBranch && <ArrowIcon isOpen={isExpanded} />}
+                            <CheckBoxIcon
+                                className="checkbox-tree__checkbox-icon"
+                                style={{ fill: 'white', border: '1px solid #a9aeb1', borderRadius: '2px' }}
+                                onClick={(e) => {
+                                    handleSelect(e);
+                                    e.stopPropagation();
+                                }}
+                                variant={
+                                    isHalfSelected ? "some" : isSelected ? "all" : "none"
+                                } />
+                            <div className="checkbox-tree__label-naics">{element.naics}</div>
+                            <div className="checkbox-tree__label-name">{element.name}</div>
+                            <div className="checkbox-tree__label-count"> {`${element.count} codes`}</div>
+                        </div>
+                    )} />
+
+                {/* <CheckBoxTree */}
+                {/*     nodes={labeledNodes} */}
+                {/*     disabled={isDisabled} */}
+                {/*     checked={checked} */}
+                {/*     expanded={expanded} */}
+                {/*     onCheck={this.onCheck} */}
+                {/*     onExpand={this.onExpand} */}
+                {/*     icons={treeIcons} /> */}
+
             </div>
         );
     }
