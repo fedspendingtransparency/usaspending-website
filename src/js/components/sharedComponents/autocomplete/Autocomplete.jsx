@@ -26,7 +26,8 @@ const propTypes = {
     minCharsToSearch: PropTypes.number,
     inFlight: PropTypes.bool,
     icon: PropTypes.bool,
-    size: PropTypes.oneOf(['small', 'medium'])
+    size: PropTypes.oneOf(['small', 'medium']),
+    id: PropTypes.string
 };
 
 const defaultProps = {
@@ -42,7 +43,8 @@ const defaultProps = {
     dirtyFilters: Symbol(''),
     minCharsToSearch: 3,
     icon: false,
-    size: 'medium'
+    size: 'medium',
+    id: ''
 };
 
 const Autocomplete = (props) => {
@@ -273,6 +275,7 @@ const Autocomplete = (props) => {
                 <div className="usa-da-typeahead__input">
                     {props.icon && <FontAwesomeIcon icon="search" />}
                     <input
+                        id={props.id !== '' ? props.id : null}
                         className={`autocomplete${variation}${props.icon ? ' icon' : ''}`}
                         ref={autocompleteInputRef}
                         type="text"
