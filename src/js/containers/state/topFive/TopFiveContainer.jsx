@@ -95,7 +95,7 @@ export class TopFiveContainer extends React.Component {
 
         if (this.props.category === 'awards') {
             filters.award_type_codes = ['A', 'B', 'C', 'D'];
-            params.fields = ['Award ID', 'Award Amount'];
+            params.fields = ['Award ID', 'Award Amount', 'generated_internal_id'];
             params.order = 'desc';
             params.sort = 'Award Amount';
             params.subawards = false;
@@ -150,11 +150,13 @@ export class TopFiveContainer extends React.Component {
             if (this.props.category === 'awards') {
                 result.populate({
                     name: item['Award ID'],
-                    amount: item['Award Amount']
+                    amount: item['Award Amount'],
+                    agency_slug: item.generated_internal_id,
+                    category: this.props.category
                 }, index + 1);
             }
             else {
-                result.populate(item, index + 1);
+                result.populate({ ...item, category: this.props.category }, index + 1);
             }
 
             if (type === 'awarding_agency' || type === 'awarding_subagency') {
