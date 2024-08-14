@@ -25,7 +25,13 @@ const AwardIDSearchContainer = () => {
                     const id = v.trim();
                     return { [id]: id };
                 });
+
+            selectedAwardIDs.forEach((value, key) => {
+                awardIdArray.push({ [key]: value });
+            });
+
             const awardIdObject = Object.assign({}, ...awardIdArray);
+
             awardId = OrderedMap(awardIdObject);
         }
         else {
