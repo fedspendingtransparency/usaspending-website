@@ -32,6 +32,8 @@ const AwardIDSearchContainer = () => {
             awardId = selectedAwardIDs.set(inputStr, inputStr);
         }
 
+        console.log("awardID:", awardId);
+
         dispatch(updateGenericFilter({
             type: 'selectedAwardIDs',
             value: awardId
