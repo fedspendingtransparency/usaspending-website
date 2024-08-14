@@ -240,7 +240,8 @@ export default class StateAgencyListContainer extends React.Component {
                 }}
                 label={`${this.props.agencyType} Agency`}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.state.noResults} />
+                noResults={this.state.noResults}
+                retainValue />
         );
     }
 }

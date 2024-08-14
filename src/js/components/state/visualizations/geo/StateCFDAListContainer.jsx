@@ -145,7 +145,8 @@ export default class StateCFDAListContainer extends React.Component {
                     this.cfdaList = input;
                 }}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.state.noResults} />
+                noResults={this.state.noResults}
+                retainValue />
         );
     }
 }
