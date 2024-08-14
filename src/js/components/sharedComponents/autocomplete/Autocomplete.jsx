@@ -27,7 +27,8 @@ const propTypes = {
     inFlight: PropTypes.bool,
     icon: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'medium']),
-    id: PropTypes.string
+    id: PropTypes.string,
+    minChar: PropTypes.bool
 };
 
 const defaultProps = {
@@ -44,7 +45,8 @@ const defaultProps = {
     minCharsToSearch: 3,
     icon: false,
     size: 'medium',
-    id: ''
+    id: '',
+    minChar: false
 };
 
 const Autocomplete = (props) => {
@@ -187,29 +189,31 @@ const Autocomplete = (props) => {
 
     const generateWarning = () => {
         if (showWarning) {
-            let errorProps = {};
+            let error;
 
-            if (value && value.length < props.minCharsToSearch) {
-                errorProps = {
-                    header: 'Error',
-                    description: `Please enter more than ${props.minCharsToSearch - 1} character${props.minCharsToSearch > 2 ? 's' : ''}.`
-                };
-            }
-            else {
-                errorProps = {
-                    header: props.errorHeader,
-                    description: props.errorMessage
-                };
-            }
-
-            return (
+            const warning = (header, description) => (
                 <ul className="autocomplete" role="listbox">
                     <li className="unselectable">
-                        <span>{errorProps.header}</span><br />
-                        {errorProps.description}
+                        <span>{header}</span><br />
+                        {description}
                     </li>
                 </ul>
             );
+
+            if ((value && value.length < props.minCharsToSearch) && props.minChar) {
+                error = warning(
+                    'Error',
+                    `Please enter more than ${props.minCharsToSearch - 1} character${props.minCharsToSearch > 2 ? 's' : ''}.`
+                );
+            }
+            else if ((value && value.length < props.minCharsToSearch) && !props.minChar) {
+                error = null;
+            }
+            else {
+                error = warning(props.errorHeader, props.errorMessage);
+            }
+
+            return error;
         }
 
         return null;
