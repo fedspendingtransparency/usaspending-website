@@ -125,7 +125,7 @@
     "webpack-merge": "^5.9.0"
   },
   "resolutions": {
-    "axios": "1.7.3",
+    "axios": "1.7.4",
     "braces": "3.0.3",
     "**/braces": "3.0.3",
     "browserify-sign": "4.2.2",
@@ -173,7 +173,7 @@
     "@mdx-js/react": "^2.1.5",
     "accounting": "^0.4.1",
     "ajv": "^8.11.0",
-    "axios": "^1.7.3",
+    "axios": "^1.7.4",
     "bourbon": "^4.3.4",
     "bourbon-neat": "^4.0.0",
     "buffer": "^6.0.3",
