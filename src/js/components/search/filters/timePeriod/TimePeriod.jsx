@@ -14,6 +14,7 @@ import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
+import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -291,7 +292,7 @@ export default class TimePeriod extends React.Component {
         }
 
         if (this.props.activeTab === 'fy') {
-            showFilter = (<AllFiscalYears
+            showFilter = (<AllFiscalYearsWithChips
                 updateFilter={this.props.updateFilter}
                 timePeriods={this.props.timePeriods}
                 selectedFY={this.props.filterTimePeriodFY} />);
