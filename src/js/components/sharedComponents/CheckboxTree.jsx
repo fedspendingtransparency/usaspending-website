@@ -255,6 +255,8 @@ export default class CheckboxTree extends Component {
 
         const labeledNodes = this.createLabels(data);
 
+        console.log('labeledNodes', labeledNodes);
+
         // this array has to be used in the root node, which is added with the unshift method below
         // it allows the root node to know which objects are its children
         const idArray = [];
@@ -275,6 +277,8 @@ export default class CheckboxTree extends Component {
             count: obj.count
         }));
 
+        // have to add a root node to the array
+        // and it's children array has to contain the ids for all the items that should appear in the tree
         newData.unshift({
             id: 0, parent: null, name: "", children: idArray
         });
