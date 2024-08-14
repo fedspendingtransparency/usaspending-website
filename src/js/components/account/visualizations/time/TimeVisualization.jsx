@@ -106,17 +106,20 @@ export default class TimeVisualization extends React.Component {
                 {
                     color: '#fba302',
                     label: 'Outlay',
-                    offset: 0
+                    offset: 0,
+                    mobileOffset: 0
                 },
                 {
                     color: '#5c7480',
                     label: 'Obligations Incurred',
-                    offset: 84
+                    offset: 84,
+                    mobileOffset: 24
                 },
                 {
                     color: '#a0bac4',
                     label: 'Unobligated Balance',
-                    offset: 220
+                    offset: 220,
+                    mobileOffset: 48
                 }
             ];
         }
