@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { Table, TooltipWrapper } from 'data-transparency-ui';
 import { categoryTitles } from 'dataMapping/state/topCategories';
 import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
 
@@ -20,12 +20,35 @@ const propTypes = {
 };
 
 const TopFive = (props) => {
+    const columns = [
+        {
+            title: 'name',
+            displayName: 'Name'
+        },
+        {
+            title: 'amount',
+            displayName: ["Award Amount"],
+            right: true
+        },
+        {
+            title: 'percent',
+            displayName: ["% of Total"],
+            right: true
+        }
+    ];
+
     const rows = props.results.map((result, index) => (
         <TopFiveRow
             key={index}
             data={result}
             total={props.total} />
     ));
+
+    const tableRows = props.results.map((result) => (
+        [result._slug ? result.linkedName : result.name, result.amount, (result._amount / props.total) * 100]
+    ));
+
+    console.log(tableRows);
 
     const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';
 
@@ -66,6 +89,10 @@ const TopFive = (props) => {
                         </> : categoryTitles[props.category]}
                 </div>
             </div>
+            {/*<Table*/}
+            {/*    classNames={['category-table__table']}*/}
+            {/*    columns={columns}*/}
+            {/*    rows={tableRows} />*/}
             <table className="category-table__table">
                 <thead
                     className="category-table__table-head">
