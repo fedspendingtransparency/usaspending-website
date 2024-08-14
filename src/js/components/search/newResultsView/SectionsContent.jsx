@@ -90,10 +90,10 @@ const SectionsContent = (props) => {
 
     return (
         <>
-            <MapSection subaward={props.subaward} />
+            <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
             <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
             <TimeSection subaward={props.subaward} timeHasLoaded={timeHasLoaded} />
-            <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
+            <MapSection subaward={props.subaward} />
         </>
     );
 };
