@@ -104,7 +104,7 @@ const Autocomplete = (props) => {
 
     const close = () => {
         // clear the input value if not a valid selection
-        if (props.retainValue && !staged) {
+        if (!props.retainValue && !staged) {
             clearInternalState();
         }
 
