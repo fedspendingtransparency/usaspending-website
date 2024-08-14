@@ -31,14 +31,11 @@ const AwardIDSearchContainer = () => {
             });
 
             const awardIdObject = Object.assign({}, ...awardIdArray);
-
             awardId = OrderedMap(awardIdObject);
         }
         else {
             awardId = selectedAwardIDs.set(inputStr, inputStr);
         }
-
-        console.log("awardID:", awardId);
 
         dispatch(updateGenericFilter({
             type: 'selectedAwardIDs',
