@@ -7,6 +7,7 @@ export const categories = {
     all: [
         'awarding_agency',
         'recipient',
+        'awards',
         'cfda',
         'naics',
         'county',
@@ -16,6 +17,7 @@ export const categories = {
         'awarding_agency',
         'awarding_subagency',
         'recipient',
+        'awards',
         'naics',
         'county',
         'district'
@@ -24,6 +26,7 @@ export const categories = {
         'awarding_agency',
         'awarding_subagency',
         'recipient',
+        'awards',
         'cfda',
         'county',
         'district'
@@ -32,6 +35,7 @@ export const categories = {
         'awarding_agency',
         'awarding_subagency',
         'recipient',
+        'awards',
         'cfda',
         'county',
         'district'
@@ -40,6 +44,7 @@ export const categories = {
         'awarding_agency',
         'awarding_subagency',
         'recipient',
+        'awards',
         'cfda',
         'county',
         'district'
@@ -48,6 +53,7 @@ export const categories = {
         'awarding_agency',
         'awarding_subagency',
         'recipient',
+        'awards',
         'cfda',
         'county',
         'district'
@@ -58,6 +64,7 @@ export const categoryTitles = {
     awarding_agency: 'Awarding Agencies',
     awarding_subagency: 'Awarding Sub-Agencies',
     recipient: 'Recipients',
+    awards: 'Awards',
     cfda: 'Assistance Listings (CFDA Programs)',
     naics: 'NAICS Codes',
     county: 'Counties',
