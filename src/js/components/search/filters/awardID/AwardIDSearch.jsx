@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import { Button } from 'data-transparency-ui';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import PropTypes from 'prop-types';
 import { usePrevious } from '../../../../helpers';
@@ -53,6 +53,9 @@ const AwardIDSearch = (props) => {
 
     return (
         <div className="award-id-filter">
+            <div className="award-id-filter-description">
+                Search for an individual ID or a comma-separated list of multiple IDs
+            </div>
             <div className="filter-item-wrap">
                 <form
                     className="award-id-filter-item-wrap"
@@ -60,14 +63,18 @@ const AwardIDSearch = (props) => {
                     <input
                         id="search"
                         type="text"
-                        className="award-id-input"
-                        placeholder="PIID, FAIN, or URI"
+                        className="filter-text-field"
+                        placeholder="Search for an ID..."
                         value={awardID}
                         onChange={inputChangeHandler} />
-                    <IndividualSubmit
-                        className="award-id-submit"
-                        onClick={applyAwardID}
-                        label="Filter by award ID" />
+                    <Button
+                        additionalClassnames="filter-add-button"
+                        copy="Add"
+                        buttonTitle="Filter by award ID"
+                        buttonSize="sm"
+                        buttonType="primary"
+                        backgroundColor="light"
+                        onClick={applyAwardID} />
                 </form>
 
                 {renderSelectedAwardIDs()}

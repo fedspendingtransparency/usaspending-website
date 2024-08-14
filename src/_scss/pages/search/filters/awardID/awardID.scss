@@ -15,6 +15,13 @@
         @include selected-filter-wrap;
     }
 
+    .award-id-filter-description {
+        padding: 1rem 2rem;
+        color: $gray-90;
+        font-size: $font-size-12;
+        line-height: $base-line-height;
+    }
+
     .award-id-filter-item-wrap {
         width: 100%;
         @include display(flex);
