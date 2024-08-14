@@ -235,7 +235,6 @@ export default class StateAgencyListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
                 placeholder={this.props.placeHolder !== '' ? this.props.placeHolder : `${this.props.agencyType} Agency`}
-                errorMessage="We were unable to find that agency."
                 ref={(input) => {
                     this.agencyList = input;
                 }}
