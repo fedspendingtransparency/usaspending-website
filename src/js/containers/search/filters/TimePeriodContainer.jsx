@@ -15,6 +15,8 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
+import GlobalConstants from "GlobalConstants";
+
 export const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
@@ -37,7 +39,8 @@ export class TimePeriodContainer extends React.Component {
             activeTab: 'fy',
             cachedTimePeriods: Set(),
             cachedStart: null,
-            cachedEnd: null
+            cachedEnd: null,
+            isQAT: GlobalConstants.QAT
         };
 
         // bind functions
@@ -67,8 +70,9 @@ export class TimePeriodContainer extends React.Component {
         // determine the current fiscal year
         const currentFY = FiscalYearHelper.currentFiscalYear();
 
+        // todo - remove this ternary when the new fy filter goes to Prod, only the option with the 'FY' will be used
         for (let i = currentFY; i >= startYear; i--) {
-            timePeriods.push(i.toString());
+            timePeriods.push(this.state.isQAT ? `FY ${i.toString()}` : i.toString());
         }
 
         this.setState({
