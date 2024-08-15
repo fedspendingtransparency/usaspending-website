@@ -113,7 +113,7 @@ const SearchSectionWrapper = ({
         else if (matchedSection === 'time') {
             rectTopOffset = 1680;
         }
-        else if (matchedSection === 'awards') {
+        else if (matchedSection === 'map') {
             rectTopOffset = 2240;
         }
 
