@@ -289,6 +289,7 @@ export default class TimePeriod extends React.Component {
             activeClassDR = 'inactive';
         }
 
+        // todo - when we remove this ternary, to use the new fy filter in Prod, we also need to remove a ternary in TimePeriodContainer, also marked with a todo
         if (this.props.activeTab === 'fy') {
             showFilter = GlobalConstants.QAT ? (<AllFiscalYearsWithChips
                 updateFilter={this.props.updateFilter}
