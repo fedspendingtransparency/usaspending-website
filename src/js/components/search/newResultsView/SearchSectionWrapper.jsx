@@ -4,16 +4,18 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
+import { throttle } from "lodash";
+import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
+
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
-import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
+import { mediumScreen } from "../../../dataMapping/shared/mobileBreakpoints";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -61,6 +63,9 @@ const SearchSectionWrapper = ({
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [windowWidth, setWindowWidth] = useState(0);
+
     const gaRef = useRef(false);
 
     const query = useQueryParams();
@@ -71,8 +76,6 @@ const SearchSectionWrapper = ({
 
     const history = useHistory();
     const sortFn = () => dropdownOptions;
-
-    const { mapHasLoaded } = useSelector((state) => state.searchView);
 
     const changeView = (label) => {
         setViewType(label);
@@ -107,14 +110,19 @@ const SearchSectionWrapper = ({
         }
 
         let rectTopOffset = 0;
+
         if (matchedSection === 'categories') {
-            rectTopOffset = 820;
+            rectTopOffset = 1200;
         }
         else if (matchedSection === 'time') {
-            rectTopOffset = 1680;
+            rectTopOffset = 2050;
         }
-        else if (matchedSection === 'awards') {
-            rectTopOffset = 2240;
+        else if (matchedSection === 'map') {
+            rectTopOffset = 2650;
+        }
+
+        if (isMobile) {
+            rectTopOffset += -290;
         }
 
         window.scrollTo({
@@ -132,11 +140,9 @@ const SearchSectionWrapper = ({
     };
 
     useEffect(() => {
-        if (mapHasLoaded) {
-            parseSection();
-        }
+        parseSection();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sectionName, mapHasLoaded]);
+    }, []);
 
     useEffect(() => {
         setContentHeight(content);
@@ -155,6 +161,18 @@ const SearchSectionWrapper = ({
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [viewType]);
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
 
     const Message = () => {
         if (isLoading) {
