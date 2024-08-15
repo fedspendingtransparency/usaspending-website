@@ -11,6 +11,7 @@ const BaseStateProfile = {
         this.id = data.fips || null;
         this.name = data.name || '';
         this.code = data.code || '';
+        this._totalOutlays = parseFloat(data.total_outlays) || 10000;
         this._totalAmount = parseFloat(data.total_prime_amount) || 0;
         this._totalAwards = parseFloat(data.total_prime_awards) || 0;
         this.type = data.type || '';
@@ -23,6 +24,13 @@ const BaseStateProfile = {
         this._totalFaceValueLoanPrimeAwards = data.total_face_value_loan_prime_awards || 0;
     },
     get totalAmount() {
+        if (this._totalOutlays >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalOutlays);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalOutlays / units.unit, 1)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalOutlays, 0);
+    },
+    get totalOutlays() {
         if (this._totalAmount >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalAmount);
             return `${MoneyFormatter.formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;

@@ -26,6 +26,14 @@ const SummaryStats = (props) => {
                     subtitleBottom: `from ${stateProfile.totalAwards} prime awards`
                 },
                 {
+                    title: "Outlayed Amount",
+                    type: 'outlayedAmount',
+                    amount: stateProfile.totalOutlays,
+                    isMonetary: true,
+                    isString: true,
+                    subtitleBottom: `from ${stateProfile.totalAwards} prime awards`
+                },
+                {
                     title: 'Face Value of Loans',
                     type: 'faceValueOfLoans',
                     amount: stateProfile.totalFaceValueLoanAmount,
