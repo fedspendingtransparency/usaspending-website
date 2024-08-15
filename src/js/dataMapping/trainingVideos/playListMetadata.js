@@ -1034,6 +1034,70 @@ const metaData = {
                 projection: "rectangular",
                 hasCustomThumbnail: true
             }
+        },
+        {
+            kind: "youtube#video",
+            etag: "G8I-3zmsOiDpwAbGoSqdP_dpn-A",
+            id: "PKFYRaSGKOc",
+            snippet: {
+                publishedAt: "2024-06-26T11:50:28Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "TESTIMONIAL: Your Data, Your Story: Alicia Wilson-Ahlstrom with the Children's Funding Project",
+                description: "USAspending.gov is excited to continue our customer testimonial campaign, \"Your Data, Your Story.\" Learn how individuals use USAspending.gov to make data-driven decisions related to their personal and professional goals, and how you can get started today!\n\nAlicia Wilson-Ahlstrom, Director of Research Capacity of the Children's Funding Project, describes how she uses USAspending.gov to research equitable and sustainable opportunities for children and youth across the country.  \n\nCHAPTERS: \n0:45 Tell us about yourself.\n1:07 Why is federal spending data important to you?\n1:41 What features on USAspending.gov provide the most value to you?\n2:43 How do you use data from USAspending.gov?\n3:05 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n  •  Visit USAspending.gov: https://www.usaspending.gov/\n  •  Sign up for our email list to receive updates and release notes by sending an email to:\n      join-usaspending@lists.fiscal.treasury.gov\n  •  Ask questions about the tools, features, and data on USAspending.gov by sending an email to:\n      usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you!\n\n#YourDataYourStory #USAspending #GovernmentSpending",
+                thumbnails: {
+                    default: {
+                        url: "https://i.ytimg.com/vi/PKFYRaSGKOc/default.jpg",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i.ytimg.com/vi/PKFYRaSGKOc/mqdefault.jpg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i.ytimg.com/vi/PKFYRaSGKOc/hqdefault.jpg",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i.ytimg.com/vi/PKFYRaSGKOc/sddefault.jpg",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i.ytimg.com/vi/PKFYRaSGKOc/maxresdefault.jpg",
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                channelTitle: "USAspending",
+                tags: [
+                    "federal government spending",
+                    "financial data",
+                    "customer testimonial",
+                    "nonprofit",
+                    "government spending",
+                    "government data"
+                ],
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                localized: {
+                    title: "Your Data, Your Story: Alicia Wilson-Ahlstrom with the Children's Funding Project",
+                    description: "USAspending.gov is excited to continue our customer testimonial campaign, \"Your Data, Your Story.\" Learn how individuals use USAspending.gov to make data-driven decisions related to their personal and professional goals, and how you can get started today!\n\nAlicia Wilson-Ahlstrom, Director of Research Capacity of the Children's Funding Project, describes how she uses USAspending.gov to research equitable and sustainable opportunities for children and youth across the country.  \n\nCHAPTERS: \n0:45 Tell us about yourself.\n1:07 Why is federal spending data important to you?\n1:41 What features on USAspending.gov provide the most value to you?\n2:43 How do you use data from USAspending.gov?\n3:05 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n  •  Visit USAspending.gov: https://www.usaspending.gov/\n  •  Sign up for our email list to receive updates and release notes by sending an email to:\n      join-usaspending@lists.fiscal.treasury.gov\n  •  Ask questions about the tools, features, and data on USAspending.gov by sending an email to:\n      usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you!\n\n#YourDataYourStory #USAspending #GovernmentSpending"
+                },
+                defaultAudioLanguage: "en"
+            },
+            contentDetails: {
+                duration: "PT4M3S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular",
+                hasCustomThumbnail: true
+            }
         }
     ]
 };

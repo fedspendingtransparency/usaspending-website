@@ -1,5 +1,5 @@
 File C (Account Breakdown by Award) is part of the package of data submitted 
-to USAspending.gov every month by federal agencies via the DATA Act Broker, 
+to USAspending.gov every month by federal agencies via the Data Broker, 
 as required by the DATA Act. It contains obligation and outlay 
 data for all awards issued by a reporting agency, covering both contract 
 and financial assistance awards over the lifetime of those awards. 
