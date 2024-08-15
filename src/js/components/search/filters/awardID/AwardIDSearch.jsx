@@ -53,10 +53,10 @@ const AwardIDSearch = (props) => {
 
     return (
         <div className="award-id-filter">
-            <div className="award-id-filter-description">
-                Search for an individual ID or a comma-separated list of multiple IDs
-            </div>
             <div className="filter-item-wrap">
+                <div className="award-id-filter-description">
+                    Search for an individual ID or a comma-separated list of multiple IDs
+                </div>
                 <form
                     className="award-id-filter-item-wrap"
                     onSubmit={applyAwardID}>

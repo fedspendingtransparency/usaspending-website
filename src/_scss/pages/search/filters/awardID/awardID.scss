@@ -16,7 +16,7 @@
     }
 
     .award-id-filter-description {
-        padding: 1rem 2rem;
+        margin-bottom: 7px;
         color: $gray-90;
         font-size: $font-size-12;
         line-height: $base-line-height;
@@ -27,23 +27,16 @@
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
+    }
 
-        .award-id-input {
-            @include flex(1 1 auto);
-            margin-right: rem(4);
-            font-size: $small-font-size;
-            color: $color-base;
-            line-height: rem(36);
-            height: rem(40);
-
-            @include placeholder {
-                color: $color-placeholder;
-            }
+    @media only screen and (min-width: $tablet-screen) {
+        .award-id-filter-item-wrap {
+            @include display(flex);
+            @include justify-content(flex-start);
         }
 
-        .award-id-submit {
-            @include flex(0 0 auto);
-            @include singleSubmit;
+        .award-id-filter-item-wrap .filter-text-field {
+            max-width: none;
         }
     }
 }

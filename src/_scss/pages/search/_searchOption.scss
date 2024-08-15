@@ -21,15 +21,12 @@
         border-radius: 3px;
         width: 100%;
         font-size: $small-font-size;
-        color: $color-base;
+        color: $theme-color-body;
         line-height: $base-line-height;
         height: 32px;
         flex-grow: 0;
         margin: 0 4px 0 0;
         padding: 7px 8px;
-        @include placeholder {
-            color: $gray-60;
-        }
 
         &:focus-visible {
             outline: 1px solid $color-focus;
