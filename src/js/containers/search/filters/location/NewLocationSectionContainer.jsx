@@ -16,7 +16,9 @@ const NewLocationSectionContainer = () => {
     const [noResults, setNoResults] = useState(false);
 
 
-    const parseLocations = (data, count) => {
+    const parseLocations = ({
+        countries, states, counties, cities
+    }, count) => {
         const countriesList = [];
         const statesList = [];
         const countiesList = [];
@@ -24,24 +26,32 @@ const NewLocationSectionContainer = () => {
 
         if (count === 0) {
             setNoResults(true);
+            return;
         }
 
-        data.countries.map((item, index) => {
-            countriesList.push(`${index + 1}. ${item.country_name}, `);
-        });
+        if (countries) {
+            countries.map((item, index) => (
+                countriesList.push(`${index + 1}. ${item.country_name}, `)
+            ));
+        }
 
-        data.states.map((item, index) => {
-            statesList.push(`${index + 1}. ${item.state_name}, `);
-        });
+        if (states) {
+            states.map((item, index) => (
+                statesList.push(`${index + 1}. ${item.state_name}, `)
+            ));
+        }
 
-        data.counties.map((item, index) => {
-            countiesList.push(`${index + 1}. ${item.county_name}, ${item.state_name} `);
-        });
+        if (counties) {
+            counties.map((item, index) => (
+                countiesList.push(`${index + 1}. ${item.county_name}, ${item.state_name} `)
+            ));
+        }
 
-
-        data.cities.map((item, index) => {
-            citiesList.push(`${index + 1}. ${item.city_name}, ${item.state_name} `);
-        });
+        if (cities) {
+            cities.map((item, index) => (
+                citiesList.push(`${index + 1}. ${item.city_name}, ${item.state_name} `)
+            ));
+        }
 
         setLocationList({
             countries: countriesList,
@@ -51,7 +61,7 @@ const NewLocationSectionContainer = () => {
         });
     };
 
-    const queryAutocompleteLocations = (input = 'mex') => {
+    const queryAutocompleteLocations = (input = 'den') => {
         const locationSearchParams = {
             search_text: input,
             limit: 5
@@ -74,6 +84,7 @@ const NewLocationSectionContainer = () => {
 
     return (
         <>
+            <div>No Results: {noResults.toString()}</div>
             <h5>Countries:</h5>
             <div>
                 {locationList.countries}
