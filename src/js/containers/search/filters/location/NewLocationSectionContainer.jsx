@@ -37,6 +37,24 @@ const NewLocationSectionContainer = () => {
         const districtsOriginalList = [];
 
         const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
+        const citySort = (cityArray) => {
+            /* eslint-disable camelcase */
+            const newCityArray = cityArray.map((city) => {
+                if (city.country_name === 'UNITED STATES') {
+                    return {
+                        ...city,
+                        city_name_update: `${city.city_name}, ${city.state_name}`
+                    };
+                }
+
+                return {
+                    ...city,
+                    city_name_update: `${city.city_name}, ${city.country_name}`
+                };
+            });
+            /* eslint-enable camelcase */
+            return locationSort(newCityArray, 'city_name_update');
+        };
 
         if (count === 0) {
             setNoResults(true);
@@ -66,8 +84,9 @@ const NewLocationSectionContainer = () => {
         }
 
         if (cities) {
-            cities.map((item, index) => (
-                citiesList.push(`${index + 1}. ${item.city_name}, ${item.state_name} `)
+            const sortedCities = citySort(cities);
+            sortedCities.map((item, index) => (
+                citiesList.push(`${index + 1}. ${item.city_name_update}, `)
             ));
         }
 
@@ -103,7 +122,7 @@ const NewLocationSectionContainer = () => {
         });
     };
 
-    const queryAutocompleteLocations = (input = '-01') => {
+    const queryAutocompleteLocations = (input = 'berlin') => {
         const locationSearchParams = {
             search_text: input,
             limit: 5
