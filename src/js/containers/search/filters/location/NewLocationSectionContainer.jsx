@@ -36,24 +36,30 @@ const NewLocationSectionContainer = () => {
         const districtsCurrentList = [];
         const districtsOriginalList = [];
 
+        const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
+
         if (count === 0) {
             setNoResults(true);
             return;
         }
 
         if (countries) {
+            locationSort(countries, 'country_name');
             countries.map((item, index) => (
                 countriesList.push(`${index + 1}. ${item.country_name}, `)
             ));
         }
 
         if (states) {
+            locationSort(states, 'state_name');
             states.map((item, index) => (
                 statesList.push(`${index + 1}. ${item.state_name}, `)
             ));
         }
 
         if (counties) {
+            locationSort(counties, 'county_name');
+
             counties.map((item, index) => (
                 countiesList.push(`${index + 1}. ${item.county_name}, ${item.state_name} `)
             ));
@@ -66,18 +72,21 @@ const NewLocationSectionContainer = () => {
         }
 
         if (zipCodes) {
+            locationSort(zipCodes, 'zip_code');
             zipCodes.map((item, index) => (
                 zipCodesList.push(`${index + 1}. ${item.zip_code}, ${item.state_name} `)
             ));
         }
 
         if (districtsCurrent) {
+            locationSort(districtsCurrent, 'current_cd');
             districtsCurrent.map((item, index) => (
                 districtsCurrentList.push(`${index + 1}. ${item.current_cd}, ${item.state_name} `)
             ));
         }
 
         if (districtsOriginal) {
+            locationSort(districtsOriginal, 'original_cd');
             districtsOriginal.map((item, index) => (
                 districtsOriginalList.push(`${index + 1}. ${item.original_cd}, ${item.state_name} `)
             ));
@@ -94,7 +103,7 @@ const NewLocationSectionContainer = () => {
         });
     };
 
-    const queryAutocompleteLocations = (input = 'TX-1') => {
+    const queryAutocompleteLocations = (input = '-01') => {
         const locationSearchParams = {
             search_text: input,
             limit: 5
