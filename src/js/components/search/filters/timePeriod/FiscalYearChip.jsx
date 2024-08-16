@@ -10,26 +10,21 @@ import { Button } from "data-transparency-ui";
 const propTypes = {
     year: PropTypes.string,
     saveSelectedYear: PropTypes.func,
-    checked: PropTypes.bool,
-    saveAllYears: PropTypes.func
+    selectedFY: PropTypes.bool
 };
 
 const defaultProps = {
-    checked: false
+    selected: false
 };
 
 const FiscalYearChip = ({
-    year, saveSelectedYear, checked, saveAllYears
+    year, saveSelectedYear, selectedFY
 }) => {
     const saveYear = () => {
         saveSelectedYear(year);
     };
 
-    // const allYears = () => {
-    //     saveAllYears();
-    // };
-
-    // todo - use checked prop to determine the style, for bg color
+    // todo - add more required props for Button?
     return (
         <div className="fy-chip-container">
             <Button
@@ -38,6 +33,7 @@ const FiscalYearChip = ({
                 buttonSize="sm"
                 buttonType="tertiary"
                 backgroundColor="light"
+                additionalClassnames={selectedFY.has(year) ? 'selected' : ''}
                 onClick={saveYear} />
         </div>
     );

@@ -1,0 +1,127 @@
+.tab-filter-wrap {
+  .filter-item-wrap {
+    @import 'elements/_inputs';
+    @import 'elements/_labels';
+    @import 'elements/filters/_errorMessage';
+    @import 'components/_alerts';
+    @import 'components/datePicker/_datePicker';
+    @import './_toggleButtons';
+    @import "elements/filters/_selectedFilterBtn";
+    @import "mixins/selectedFilterWrap";
+    @import "../_singleSubmit";
+
+    padding: 0 $global-pad rem(20);
+
+    // dtui Button overrides
+    .button-type__tertiary-light {
+      color: $gray-90;
+
+      &:hover {
+        background-color: $gray-cool-5;
+      }
+
+      &.selected {
+        border: solid 1px $theme-color-1;
+        background-color: $theme-color-1;
+        color: white;
+        font-weight: $font-semibold;
+          &:hover {
+            background-color: $blue-vivid-70;
+          }
+      }
+    }
+
+    .new-awards-wrapper {
+      display: flex;
+      align-items: baseline;
+      margin: rem(15) 0 0 0;
+
+      // this inactive class refers to the 'activeClassDR' var in TimePeriod.jsx; used here to left-align the new awards only checkbox in both Time Period and Date Range tabs
+      &.inactive {
+        margin: rem(15) 0 0 rem(15);
+      }
+
+      @import '../../tooltips';
+
+      .new-awards-checkbox {
+        @include usa-input-checkbox;
+        height: rem(14);
+        width: rem(14);
+        cursor: pointer;
+
+        &.not-active {
+          opacity: 0.5;
+          cursor: default;
+        }
+      }
+
+      .new-awards-label {
+        margin-left: rem(6);
+        font-size: rem(12);
+        cursor: pointer;
+
+        &.not-active {
+          opacity: 0.5;
+          cursor: default;
+        }
+
+        @include media($large-screen) {
+          font-size: $small-font-size;
+        }
+      }
+
+      .tooltip-wrapper {
+        svg {
+          width: rem(15);
+          height: rem(15);
+        }
+      }
+    }
+
+    .fiscal-years,
+    .date-range-option {
+      border-top: 1px solid $color-gray-lighter;
+      padding: 0;
+      margin-top: -1px;
+      z-index: 1;
+    }
+    .date-range-option {
+      @include grid-container;
+      margin-left: auto;
+      margin-right: auto;
+      input {
+        @include usa-input;
+      }
+      .date-range-wrapper {
+        margin-top: rem(25);
+
+        .set-date-submit {
+          @include singleSubmit;
+          @include media($large-screen) {
+            @include flex(0 0 auto);
+            margin: 0;
+            margin-bottom: rem(3);
+          }
+          @media(min-width: 1355px) {
+            @include align-self(flex-end);
+          }
+
+          @media (max-width: 1355px) {
+            margin-top: rem(15);
+          }
+          @media (min-width: $medium-screen) and (max-width: 1355px) {
+            width: 100%;
+            align-self: center;
+          }
+        }
+      }
+    }
+    .error-message {
+      margin: $global-mrg
+    }
+
+    .selected-filters {
+      @include selected-filter-wrap;
+    }
+  }
+}

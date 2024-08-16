@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Set } from 'immutable';
 
 import FiscalYearChip from "./FiscalYearChip";
 
@@ -16,8 +15,6 @@ const propTypes = {
 };
 
 const AllFiscalYearsWithChips = ({ timePeriods, selectedFY, updateFilter }) => {
-    // const [allFY, setAllFY] = useState(true);
-
     const saveSelectedYear = (year) => {
         let newYears;
 
@@ -36,35 +33,11 @@ const AllFiscalYearsWithChips = ({ timePeriods, selectedFY, updateFilter }) => {
         });
     };
 
-    // todo - only needed if we have an option to select all
-    // const saveAllYears = () => {
-    //     let newYears;
-    //
-    //     if (allFY) {
-    //         // all the years are already selected, so this is an operation to unselect everything
-    //         newYears = new Set([]);
-    //     }
-    //     else {
-    //         // we need to select all the years
-    //         newYears = new Set(timePeriods);
-    //     }
-    //
-    //     updateFilter({
-    //         fy: newYears
-    //     });
-    // };
-
-    // todo - this is only needed of we have an option to select all fy, which is not in the first mock
-    // useEffect(() => {
-    //     if (timePeriods.length === selectedFY.count()) {
-    //         setAllFY(true);
-    //     }
-    // }, [timePeriods, selectedFY]);
-
     return (
         <>
             {timePeriods.map((year) => (
                 <FiscalYearChip
+                    selectedFY={selectedFY}
                     year={year}
                     key={`filter-fy-${year}`}
                     saveSelectedYear={saveSelectedYear} />
