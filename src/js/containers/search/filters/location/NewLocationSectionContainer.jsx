@@ -10,6 +10,26 @@ const NewLocationSectionContainer = () => {
     const [locations, setLocations] = useState([]);
     const [noResults, setNoResults] = useState(false);
 
+    const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
+
+    const citySort = (cityArray) => {
+        /* eslint-disable camelcase */
+        const newCityArray = cityArray.map((city) => {
+            if (city.country_name === 'UNITED STATES') {
+                return {
+                    ...city,
+                    city_name_update: `${city.city_name}, ${city.state_name}`
+                };
+            }
+
+            return {
+                ...city,
+                city_name_update: `${city.city_name}, ${city.country_name}`
+            };
+        });
+        /* eslint-enable camelcase */
+        return locationSort(newCityArray, 'city_name_update');
+    };
 
     const parseLocations = ({
         countries,
@@ -22,26 +42,6 @@ const NewLocationSectionContainer = () => {
     }, count) => {
         const locationsList = [];
 
-        const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
-        const citySort = (cityArray) => {
-            /* eslint-disable camelcase */
-            const newCityArray = cityArray.map((city) => {
-                if (city.country_name === 'UNITED STATES') {
-                    return {
-                        ...city,
-                        city_name_update: `${city.city_name}, ${city.state_name}`
-                    };
-                }
-
-                return {
-                    ...city,
-                    city_name_update: `${city.city_name}, ${city.country_name}`
-                };
-            });
-            /* eslint-enable camelcase */
-            return locationSort(newCityArray, 'city_name_update');
-        };
-
         if (count === 0) {
             setNoResults(true);
             return;
@@ -49,7 +49,6 @@ const NewLocationSectionContainer = () => {
 
         if (countries) {
             locationSort(countries, 'country_name');
-
             countries.map((item, index) => (
                 locationsList.push(`${index + 1}. ${item.country_name}, `)
             ));
@@ -57,7 +56,6 @@ const NewLocationSectionContainer = () => {
 
         if (states) {
             locationSort(states, 'state_name');
-
             states.map((item, index) => (
                 locationsList.push(`${index + 1}. ${item.state_name}, `)
             ));
@@ -65,7 +63,6 @@ const NewLocationSectionContainer = () => {
 
         if (counties) {
             locationSort(counties, 'county_name');
-
             counties.map((item, index) => (
                 locationsList.push(`${index + 1}. ${item.county_name}, ${item.state_name} `)
             ));
@@ -73,7 +70,6 @@ const NewLocationSectionContainer = () => {
 
         if (cities) {
             const sortedCities = citySort(cities);
-
             sortedCities.map((item, index) => (
                 locationsList.push(`${index + 1}. ${item.city_name_update}, `)
             ));
@@ -81,7 +77,6 @@ const NewLocationSectionContainer = () => {
 
         if (zipCodes) {
             locationSort(zipCodes, 'zip_code');
-
             zipCodes.map((item, index) => (
                 locationsList.push(`${index + 1}. ${item.zip_code}, ${item.state_name} `)
             ));
@@ -89,7 +84,6 @@ const NewLocationSectionContainer = () => {
 
         if (districtsCurrent) {
             locationSort(districtsCurrent, 'current_cd');
-
             districtsCurrent.map((item, index) => (
                 locationsList.push(`${index + 1}. ${item.current_cd}, ${item.state_name} `)
             ));
@@ -97,7 +91,6 @@ const NewLocationSectionContainer = () => {
 
         if (districtsOriginal) {
             locationSort(districtsOriginal, 'original_cd');
-
             districtsOriginal.map((item, index) => (
                 locationsList.push(`${index + 1}. ${item.original_cd}, ${item.state_name} `)
             ));
