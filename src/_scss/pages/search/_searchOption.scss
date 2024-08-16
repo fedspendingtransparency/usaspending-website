@@ -23,10 +23,10 @@
         font-size: $small-font-size;
         color: $theme-color-body;
         line-height: $base-line-height;
-        height: 32px;
+        height: rem(32);
         flex-grow: 0;
-        margin: 0 4px 0 0;
-        padding: 7px 8px;
+        margin: 0 rem(4) 0 0;
+        padding: rem(7) rem(8);
 
         &:focus-visible {
             outline: 1px solid $color-focus;
@@ -34,7 +34,7 @@
     }
 
     .filter-add-button {
-        height: 32px;
+        height: rem(32);
         margin: 0;
         color: #fff;
     }
