@@ -11,18 +11,30 @@ const NewLocationSectionContainer = () => {
         countries: [],
         states: [],
         counties: [],
-        cities: []
+        cities: [],
+        zipCodes: [],
+        districtsCurrent: [],
+        districtsOriginal: []
     });
     const [noResults, setNoResults] = useState(false);
 
 
     const parseLocations = ({
-        countries, states, counties, cities
+        countries,
+        states,
+        counties,
+        cities,
+        zip_codes: zipCodes,
+        districts_current: districtsCurrent,
+        districts_original: districtsOriginal
     }, count) => {
         const countriesList = [];
         const statesList = [];
         const countiesList = [];
         const citiesList = [];
+        const zipCodesList = [];
+        const districtsCurrentList = [];
+        const districtsOriginalList = [];
 
         if (count === 0) {
             setNoResults(true);
@@ -53,15 +65,36 @@ const NewLocationSectionContainer = () => {
             ));
         }
 
+        if (zipCodes) {
+            zipCodes.map((item, index) => (
+                zipCodesList.push(`${index + 1}. ${item.zip_code}, ${item.state_name} `)
+            ));
+        }
+
+        if (districtsCurrent) {
+            districtsCurrent.map((item, index) => (
+                districtsCurrentList.push(`${index + 1}. ${item.current_cd}, ${item.state_name} `)
+            ));
+        }
+
+        if (districtsOriginal) {
+            districtsOriginal.map((item, index) => (
+                districtsOriginalList.push(`${index + 1}. ${item.original_cd}, ${item.state_name} `)
+            ));
+        }
+
         setLocationList({
             countries: countriesList,
             states: statesList,
             counties: countiesList,
-            cities: citiesList
+            cities: citiesList,
+            zipCodes: zipCodesList,
+            districtsCurrent: districtsCurrentList,
+            districtsOriginal: districtsOriginalList
         });
     };
 
-    const queryAutocompleteLocations = (input = 'den') => {
+    const queryAutocompleteLocations = (input = 'TX-1') => {
         const locationSearchParams = {
             search_text: input,
             limit: 5
@@ -100,6 +133,18 @@ const NewLocationSectionContainer = () => {
             <h5>City:</h5>
             <div>
                 {locationList.cities}
+            </div>
+            <h5>Zip Code:</h5>
+            <div>
+                {locationList.zipCodes}
+            </div>
+            <h5>Current Districts:</h5>
+            <div>
+                {locationList.districtsCurrent}
+            </div>
+            <h5>Original Districts:</h5>
+            <div>
+                {locationList.districtsOriginal}
             </div>
         </>
 
