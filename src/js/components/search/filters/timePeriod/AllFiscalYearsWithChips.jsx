@@ -34,7 +34,7 @@ const AllFiscalYearsWithChips = ({ timePeriods, selectedFY, updateFilter }) => {
     };
 
     return (
-        <>
+        <div className="fiscal-years-with-chips">
             {timePeriods.map((year) => (
                 <FiscalYearChip
                     selectedFY={selectedFY}
@@ -42,7 +42,7 @@ const AllFiscalYearsWithChips = ({ timePeriods, selectedFY, updateFilter }) => {
                     key={`filter-fy-${year}`}
                     saveSelectedYear={saveSelectedYear} />
             ))}
-        </>
+        </div>
     );
 };
 

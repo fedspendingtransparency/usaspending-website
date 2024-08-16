@@ -12,29 +12,48 @@
 
     padding: 0 $global-pad rem(20);
 
-    // dtui Button overrides
-    .button-type__tertiary-light {
-      color: $gray-90;
+    .fiscal-years-with-chips {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: $global-margin * 2;
 
-      &:hover {
-        background-color: $gray-cool-5;
-      }
+      // dtui Button overrides
+      .button-type__tertiary-light {
+        color: $gray-90;
+        font-size: $font-size-12;
+        white-space: nowrap;
+        padding: 0;
+        justify-content: center;
+        height: rem(26);
+        width: rem(58);
+        margin: 0 rem(4) rem(4) 0;
 
-      &.selected {
-        border: solid 1px $theme-color-1;
-        background-color: $theme-color-1;
-        color: white;
-        font-weight: $font-semibold;
+        &:hover {
+          background-color: $gray-cool-5;
+        }
+
+        &.selected {
+          border: solid 1px $theme-color-1;
+          background-color: $theme-color-1;
+          color: white;
+          font-weight: $font-semibold;
+
           &:hover {
             background-color: $blue-vivid-70;
           }
+        }
       }
     }
-
     .new-awards-wrapper {
       display: flex;
       align-items: baseline;
-      margin: rem(15) 0 0 0;
+      justify-content: center;
+      margin: rem(36) 0 0 0;
+
+      @media (min-width: $medium-screen) {
+        margin-top: rem(20);
+      }
+
 
       // this inactive class refers to the 'activeClassDR' var in TimePeriod.jsx; used here to left-align the new awards only checkbox in both Time Period and Date Range tabs
       &.inactive {
