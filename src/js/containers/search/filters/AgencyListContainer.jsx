@@ -44,7 +44,6 @@ export default class AgencyListContainer extends React.Component {
 
         // Format results of search for use in Autocomplete component
         if (results) {
-            console.log('results: ', results);
             results.forEach((item) => {
                 let subAbbreviation = '';
                 let topAbbreviation = '';
