@@ -17,6 +17,7 @@ const FilterTabs = ({ labels, active, switchTab }) => {
     const tabs = labels.map((label) => (
         <FilterTab
             label={label.label}
+            title={label.title}
             active={active === label.internal}
             switchTab={switchTab}
             key={`filter-tab-${label.internal}`} />

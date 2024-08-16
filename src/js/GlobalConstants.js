@@ -25,7 +25,7 @@ const globalConstants = {
     DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01',
     BANNER: {
-        isActive: true,
+        isActive: false,
         title: 'The data on the COVID-19 Spending Profile are current as of April 29, 2024.',
         content: 'We are fixing a bug to ensure the latest data are available. We apologize for the inconvenience. We appreciate your understanding and patience as we work to fix this issue quickly.',
         page: '/disaster/covid-19'
