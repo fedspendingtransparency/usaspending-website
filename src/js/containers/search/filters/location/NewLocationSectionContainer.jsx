@@ -49,57 +49,62 @@ const NewLocationSectionContainer = () => {
 
         if (countries) {
             locationSort(countries, 'country_name');
-            countries.map((item, index) => (
-                locationsList.push(`${index + 1}. ${item.country_name}, `)
+            countries.map((item) => (
+                locationsList.push({ ...item, category: 'country' })
             ));
         }
 
         if (states) {
             locationSort(states, 'state_name');
-            states.map((item, index) => (
-                locationsList.push(`${index + 1}. ${item.state_name}, `)
+            states.map((item) => (
+                locationsList.push({ ...item, category: 'state' })
             ));
         }
 
         if (counties) {
             locationSort(counties, 'county_name');
-            counties.map((item, index) => (
-                locationsList.push(`${index + 1}. ${item.county_name}, ${item.state_name} `)
+            counties.map((item) => (
+                locationsList.push({ ...item, category: 'county' })
             ));
         }
 
         if (cities) {
             const sortedCities = citySort(cities);
-            sortedCities.map((item, index) => (
-                locationsList.push(`${index + 1}. ${item.city_name_update}, `)
+            sortedCities.map((item) => (
+                locationsList.push({ ...item, category: 'city' })
             ));
         }
 
         if (zipCodes) {
             locationSort(zipCodes, 'zip_code');
-            zipCodes.map((item, index) => (
-                locationsList.push(`${index + 1}. ${item.zip_code}, ${item.state_name} `)
+            zipCodes.map((item) => (
+                locationsList.push({ ...item, category: 'zip code' })
             ));
         }
 
         if (districtsCurrent) {
             locationSort(districtsCurrent, 'current_cd');
-            districtsCurrent.map((item, index) => (
-                locationsList.push(`${index + 1}. ${item.current_cd}, ${item.state_name} `)
+            districtsCurrent.map((item) => (
+                locationsList.push({ ...item, category: 'current congressional district' })
             ));
         }
 
         if (districtsOriginal) {
             locationSort(districtsOriginal, 'original_cd');
-            districtsOriginal.map((item, index) => (
-                locationsList.push(`${index + 1}. ${item.original_cd}, ${item.state_name} `)
+            districtsOriginal.map((item) => (
+                locationsList.push({ ...item, category: 'original congressional district' })
             ));
         }
 
-        setLocations(locationsList);
+        if (count > 5) {
+            setLocations(locationsList.splice(0, 5));
+        }
+        else {
+            setLocations(locationsList);
+        }
     };
 
-    const queryAutocompleteLocations = (input = 'mex') => {
+    const queryAutocompleteLocations = (input = 'georgia') => {
         const locationSearchParams = {
             search_text: input,
             limit: 5
@@ -124,9 +129,11 @@ const NewLocationSectionContainer = () => {
             <div>No Results: {noResults.toString()}</div>
 
             <h5>All Locations:</h5>
-            <div>
-                {locations}
-            </div>
+            <ul>
+                {locations.map((location) => (
+                    <li>{JSON.stringify(location)}</li>
+                ))}
+            </ul>
         </>
 
     );
