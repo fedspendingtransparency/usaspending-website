@@ -14,5 +14,30 @@
             padding: 0 rem(20) rem(20);
         }
     }
+
+    // Common styles for basic text field input in Advanced Search
+    .filter-text-field {
+        border: solid 1px $gray-cool-10;
+        border-radius: 3px;
+        width: 100%;
+        font-size: $small-font-size;
+        color: $theme-color-body;
+        line-height: $base-line-height;
+        height: rem(32);
+        flex-grow: 0;
+        margin: 0 rem(4) 0 0;
+        padding: rem(7) rem(8);
+
+        &:focus-visible {
+            outline: 1px solid $color-focus;
+        }
+    }
+
+    .filter-add-button {
+        height: rem(32);
+        margin: 0;
+        color: #fff;
+    }
+
     @import "./_filterExpand";
 }
