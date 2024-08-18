@@ -23,14 +23,14 @@ const BaseStateProfile = {
         this._totalFaceValueLoanAmount = data.total_face_value_loan_amount || 0;
         this._totalFaceValueLoanPrimeAwards = data.total_face_value_loan_prime_awards || 0;
     },
-    get totalAmount() {
+    get totalOutlays() {
         if (this._totalOutlays >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalOutlays);
             return `${MoneyFormatter.formatMoneyWithPrecision(this._totalOutlays / units.unit, 1)} ${units.longLabel}`;
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._totalOutlays, 0);
     },
-    get totalOutlays() {
+    get totalAmount() {
         if (this._totalAmount >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalAmount);
             return `${MoneyFormatter.formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;
