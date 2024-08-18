@@ -82,16 +82,17 @@ const AwardBreakdownTreeMap = (props) => {
     };
 
     const buildVirtualTree = useCallback(() => {
+        const amountType = props.toggleState ? "totalOutlays" : "amount";
         const data = props.awardBreakdown;
         // remove the negative values from the data because they can't be displayed in the treemap
-        remove(data, (v) => v.amount <= 0);
+        remove(data, (v) => v[amountType] <= 0);
 
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({
             children: data
         })
-            .sum((d) => d.amount) // tell D3 how to extract the monetary value out of the object
-            .sort((a, b) => b.amount - a.amount); // sort the objects
+            .sum((d) => d[amountType]) // tell D3 how to extract the monetary value out of the object
+            .sort((a, b) => b[amountType] - a[amountType]); // sort the objects
 
         // set up a treemap object and pass in the root
         let tileStyle = treemapBinary;
