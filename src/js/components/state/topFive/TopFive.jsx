@@ -27,13 +27,12 @@ const TopFive = (props) => {
         },
         {
             title: 'amount',
-            displayName: ["Award Amount"],
-            right: true
+            displayName: ["Obligations"],
+
         },
         {
             title: 'percent',
             displayName: ["% of Total"],
-            right: true
         }
     ];
 
