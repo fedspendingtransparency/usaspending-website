@@ -33,6 +33,10 @@ const NewLocationSectionContainer = () => {
         return locationSort(newCityArray, 'city_name_update');
     };
 
+    const clearAutocompleteSuggestions = () => {
+        setLocations([]);
+    };
+
     const parseLocations = ({
         countries,
         states,
@@ -45,6 +49,7 @@ const NewLocationSectionContainer = () => {
         const locationsList = [];
 
         setNoResults(false);
+        clearAutocompleteSuggestions();
 
         if (count === 0) {
             setNoResults(true);
@@ -109,18 +114,27 @@ const NewLocationSectionContainer = () => {
     };
 
     const queryAutocompleteLocations = (input) => {
-        const locationSearchParams = {
-            search_text: input,
-            limit: 5
-        };
+        let locationSearchRequests;
+        if (input.length >= 3) {
+            console.log('success');
+            const locationSearchParams = {
+                search_text: input,
+                limit: 5
+            };
 
-        fetchLocations(locationSearchParams).promise
-            .then((res) => {
-                parseLocations(res.data.results, res.data.count);
-            })
-            .catch((err) => {
-                console.log('error: ', err);
-            });
+            locationSearchRequests = fetchLocations(locationSearchParams);
+
+            locationSearchRequests.promise
+                .then((res) => {
+                    parseLocations(res.data.results, res.data.count);
+                })
+                .catch((err) => {
+                    console.log('error: ', err);
+                });
+        }
+        else if (locationSearchRequests) {
+            locationSearchRequests.cancel();
+        }
     };
 
     const handleTextInput = (locationInput) => {
@@ -128,7 +142,6 @@ const NewLocationSectionContainer = () => {
         window.clearTimeout(timeout);
 
         timeout = window.setTimeout(() => {
-            console.log('locationInput: ', input);
             queryAutocompleteLocations(input);
         }, 1000);
     };
