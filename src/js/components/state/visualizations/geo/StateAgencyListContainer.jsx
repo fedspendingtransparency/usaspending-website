@@ -41,7 +41,7 @@ export default class StateAgencyListContainer extends React.Component {
         let noResults = false;
 
         // Format results of search for use in Autocomplete component
-        if (results && results.length > 0) {
+        if (results) {
             results.forEach((item) => {
                 let subAbbreviation = '';
                 let topAbbreviation = '';
