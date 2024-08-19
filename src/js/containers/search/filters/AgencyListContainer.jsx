@@ -43,7 +43,7 @@ export default class AgencyListContainer extends React.Component {
         let noResults = false;
 
         // Format results of search for use in Autocomplete component
-        if (results && results.length > 0) {
+        if (results) {
             results.forEach((item) => {
                 let subAbbreviation = '';
                 let topAbbreviation = '';
@@ -232,7 +232,6 @@ export default class AgencyListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
                 placeholder={`${this.props.agencyType} Agency`}
-                errorMessage="We were unable to find that agency."
                 ref={(input) => {
                     this.agencyList = input;
                 }}
