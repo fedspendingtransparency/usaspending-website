@@ -89,13 +89,29 @@
   // dtui overrides
   .category-table__table {
     .usda-table__cell {
+      color: $color-base;
       border: none;
     }
 
     .table-header {
       border: none;
+      color: $color-base;
       background: none;
       padding: 0 !important;
+
+      .table-header__content {
+        color: $color-base;
+        justify-content: center;
+        padding: rem(10) rem(15);
+      }
+    }
+
+    .table-header:first-child .table-header__content {
+      justify-content: flex-start;
+    }
+
+    .usda-table__label {
+      color: $color-base;
     }
   }
 
@@ -135,7 +151,10 @@
 
       &:first-child {
         text-align: left;
-        width: 55%
+        width: 55%;
+        svg {
+          display: none;
+        }
       }
 
       &:nth-child(2) {
@@ -146,6 +165,7 @@
         width: 20%;
       }
     }
+
 
     .category-table__table-row {
       .capitalize {

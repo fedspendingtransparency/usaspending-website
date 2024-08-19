@@ -49,8 +49,6 @@ const TopFive = (props) => {
         return [result._slug ? result.linkedName : result.name, result.amount, percent];
     });
 
-    console.log(tableRows);
-
     const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';
 
     let message = null;
@@ -94,27 +92,6 @@ const TopFive = (props) => {
                 classNames={['category-table__table']}
                 columns={columns}
                 rows={tableRows} />
-            <table className="category-table__table">
-                <thead
-                    className="category-table__table-head">
-                    <tr
-                        className="category-table__table-head-row">
-                        <th className="category-table__table-head-cell">
-                            Name
-                        </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
-                            Awarded Amount
-                        </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
-                            % of Total
-                        </th>
-                    </tr>
-                </thead>
-                <tbody
-                    className={`category-table__table-body ${hideBody}`}>
-                    {rows}
-                </tbody>
-            </table>
             {message}
         </div>
     );
