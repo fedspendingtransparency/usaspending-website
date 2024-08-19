@@ -9,8 +9,6 @@ import { Table, TooltipWrapper } from 'data-transparency-ui';
 import { categoryTitles } from 'dataMapping/state/topCategories';
 import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
 
-import TopFiveRow from './TopFiveRow';
-
 const propTypes = {
     category: PropTypes.string,
     results: PropTypes.array,
@@ -27,29 +25,20 @@ const TopFive = (props) => {
         },
         {
             title: 'amount',
-            displayName: ["Obligations"],
+            displayName: ["Obligations"]
 
         },
         {
             title: 'percent',
-            displayName: ["% of Total"],
+            displayName: ["% of Total"]
         }
     ];
-
-    const rows = props.results.map((result, index) => (
-        <TopFiveRow
-            key={index}
-            data={result}
-            total={props.total} />
-    ));
 
     const tableRows = props.results.map((result) => {
         const percentValue = (result._amount / props.total) * 100;
         const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
         return [result._slug ? result.linkedName : result.name, result.amount, percent];
     });
-
-    const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';
 
     let message = null;
     if (props.error) {
