@@ -215,14 +215,14 @@ export default class StateAgencyListContainer extends React.Component {
     toggleAgency(agency, valid) {
     // Pass selected agency to parent toggleAgency method, adding agencyType to method call
         this.props.toggleAgency(agency, valid, this.props.agencyType);
+        const inputBox = document.getElementById("state__agency-id");
 
         // Clear Autocomplete results
         this.setState({
             autocompleteAgencies: []
+        }, () => {
+            inputBox.value = valid.title;
         });
-        // below not working for some reason
-        const inputBox = document.getElementById("state__agency-id");
-        inputBox.innerHTML = valid.title;
     }
 
     render() {
