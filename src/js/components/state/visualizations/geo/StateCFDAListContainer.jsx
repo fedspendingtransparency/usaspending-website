@@ -136,6 +136,7 @@ export default class StateCFDAListContainer extends React.Component {
         return (
             <Autocomplete
                 {...this.props}
+                id="state__cfda-id"
                 label="Assistance Listing"
                 values={this.state.autocompleteCFDA}
                 handleTextInput={this.handleTextInput}

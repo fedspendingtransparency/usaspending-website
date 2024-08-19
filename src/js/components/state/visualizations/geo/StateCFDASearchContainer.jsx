@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 
 import StateCFDASearch from "./StateCFDASearch";
 
@@ -34,6 +35,12 @@ export class StateCFDASearchContainer extends React.Component {
             const updateParams = {};
             updateParams.cfda = cfda;
             this.props.updateSelectedCFDA(updateParams);
+
+            // below not working for some reason
+            const inputBox = document.getElementById("state__cfda-id");
+            console.debug(inputBox, cfda.program_title);
+            inputBox.value = cfda.program_title.trim();
+            inputBox.innerHTML = cfda.program_title.trim();
         }
     }
 
@@ -68,5 +75,8 @@ export default connect(
         selectedCFDA: state.filters.selectedCFDA,
         appliedCFDA: state.appliedFilters.filters.selectedCFDA
     }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (dispatch) => ({
+        ...bindActionCreators(searchFilterActions, dispatch),
+        ...bindActionCreators(appliedFilterActions, dispatch)
+    })
 )(StateCFDASearchContainer);

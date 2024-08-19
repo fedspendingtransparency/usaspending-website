@@ -220,10 +220,9 @@ export default class StateAgencyListContainer extends React.Component {
         this.setState({
             autocompleteAgencies: []
         });
-        // console.debug("clicked: ", valid.title);
         // below not working for some reason
         const inputBox = document.getElementById("state__agency-id");
-        inputBox.value = valid.title;
+        inputBox.innerHTML = valid.title;
     }
 
     render() {
