@@ -44,9 +44,11 @@ const TopFive = (props) => {
             total={props.total} />
     ));
 
-    const tableRows = props.results.map((result) => (
-        [result._slug ? result.linkedName : result.name, result.amount, (result._amount / props.total) * 100]
-    ));
+    const tableRows = props.results.map((result) => {
+        const percentValue = (result._amount / props.total) * 100;
+        const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
+        return [result._slug ? result.linkedName : result.name, result.amount, percent];
+    });
 
     console.log(tableRows);
 
@@ -89,10 +91,10 @@ const TopFive = (props) => {
                         </> : categoryTitles[props.category]}
                 </div>
             </div>
-            {/*<Table*/}
-            {/*    classNames={['category-table__table']}*/}
-            {/*    columns={columns}*/}
-            {/*    rows={tableRows} />*/}
+            <Table
+                classNames={['category-table__table']}
+                columns={columns}
+                rows={tableRows} />
             <table className="category-table__table">
                 <thead
                     className="category-table__table-head">

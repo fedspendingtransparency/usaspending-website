@@ -86,6 +86,19 @@
     }
   }
 
+  // dtui overrides
+  .category-table__table {
+    .usda-table__cell {
+      border: none;
+    }
+
+    .table-header {
+      border: none;
+      background: none;
+      padding: 0 !important;
+    }
+  }
+
   .category-table__table {
     font-size: $small-font-size;
     border-collapse: separate;
@@ -94,7 +107,7 @@
     -moz-border-radius: rem(5);
     margin: 0;
 
-    .category-table__table-head-cell {
+    .category-table__table-head-cell, .table-header {
       padding: rem(10) rem(15);
       border: 0;
       background-color: transparent;
@@ -108,7 +121,7 @@
     }
 
 
-    .category-table__table-cell {
+    .category-table__table-cell, .usda-table__cell {
       padding: rem(10) rem(15);
       border: 0;
       border-bottom: solid rgba(174, 176, 181, 0.5) rem(1);
