@@ -10,6 +10,8 @@ const NewLocationSectionContainer = () => {
     const [locations, setLocations] = useState([]);
     const [noResults, setNoResults] = useState(false);
 
+    let timeout;
+
     const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
 
     const citySort = (cityArray) => {
@@ -41,6 +43,8 @@ const NewLocationSectionContainer = () => {
         districts_original: districtsOriginal
     }, count) => {
         const locationsList = [];
+
+        setNoResults(false);
 
         if (count === 0) {
             setNoResults(true);
@@ -104,7 +108,7 @@ const NewLocationSectionContainer = () => {
         }
     };
 
-    const queryAutocompleteLocations = (input = 'georgia') => {
+    const queryAutocompleteLocations = (input) => {
         const locationSearchParams = {
             search_text: input,
             limit: 5
@@ -119,16 +123,34 @@ const NewLocationSectionContainer = () => {
             });
     };
 
+    const handleTextInput = (locationInput) => {
+        const input = locationInput.target.value;
+        window.clearTimeout(timeout);
+
+        timeout = window.setTimeout(() => {
+            console.log('locationInput: ', input);
+            queryAutocompleteLocations(input);
+        }, 1000);
+    };
+
+    // TODO: REMOVE HTML AND ONCHANGE. ONLY HERE FOR TESTING DEV-11306.
+    const onChange = (e) => {
+        e.persist();
+        handleTextInput(e);
+    };
+
     useEffect(() => {
-        queryAutocompleteLocations();
+        queryAutocompleteLocations('mexico');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <>
+            {/* TODO: REMOVE HTML AND ONCHANGE. ONLY HERE FOR TESTING DEV-11306. */}
             <div>No Results: {noResults.toString()}</div>
 
             <h5>All Locations:</h5>
+            <input type="text" id="input" name="input" onChange={onChange} />
             <ul>
                 {locations.map((location) => (
                     <li>{JSON.stringify(location)}</li>

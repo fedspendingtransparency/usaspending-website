@@ -197,7 +197,7 @@ export default class AgencyListContainer extends React.Component {
     }
 
     handleTextInput(agencyInput) {
-    // Clear existing agencies to ensure user can't select an old or existing one
+        // Clear existing agencies to ensure user can't select an old or existing one
         if (this.state.autocompleteAgencies.length > 0) {
             this.setState({
                 autocompleteAgencies: []
