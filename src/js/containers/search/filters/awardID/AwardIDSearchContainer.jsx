@@ -5,18 +5,37 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { is } from 'immutable';
+import { is, OrderedMap } from 'immutable';
 import { updateGenericFilter } from 'redux/actions/search/searchFilterActions';
 import AwardIDSearch from 'components/search/filters/awardID/AwardIDSearch';
-
 
 const AwardIDSearchContainer = () => {
     const dispatch = useDispatch();
     const { selectedAwardIDs } = useSelector((state) => state.filters);
     const { appliedAwardIDs } = useSelector((state) => state.appliedFilters.filters);
 
-    const addAwardID = (id) => {
-        const awardId = selectedAwardIDs.set(id, id);
+    const addAwardID = (inputStr) => {
+        let awardId = '';
+        const isCommaSeparatedValues = inputStr.includes(',');
+
+        if (isCommaSeparatedValues) {
+            const awardIdArray = inputStr
+                .split(',')
+                .map((v) => {
+                    const id = v.trim();
+                    return { [id]: id };
+                });
+
+            selectedAwardIDs.forEach((value, key) => {
+                awardIdArray.push({ [key]: value });
+            });
+
+            const awardIdObject = Object.assign({}, ...awardIdArray);
+            awardId = OrderedMap(awardIdObject);
+        }
+        else {
+            awardId = selectedAwardIDs.set(inputStr, inputStr);
+        }
 
         dispatch(updateGenericFilter({
             type: 'selectedAwardIDs',
@@ -26,6 +45,7 @@ const AwardIDSearchContainer = () => {
 
     const removeAwardID = (id) => {
         const awardId = selectedAwardIDs.delete(id);
+
         dispatch(updateGenericFilter({
             type: 'selectedAwardIDs',
             value: awardId
