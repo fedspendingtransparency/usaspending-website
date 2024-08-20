@@ -74,7 +74,6 @@ const ObligationsByAwardTypeTooltip = ({
         ];
     });
 
-    console.log(rows);
     return (
         <div className="award-type-tooltip">
             <div className="tooltip__title">
