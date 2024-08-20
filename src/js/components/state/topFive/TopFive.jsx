@@ -65,7 +65,9 @@ const TopFive = (props) => {
             <Table
                 classNames={['topfive-table__table']}
                 columns={columns}
-                rows={tableRows} />
+                rows={tableRows}
+                loading={props.loading}
+                error={props.error} />
         </div>
     );
 };

@@ -18,7 +18,7 @@ const SummaryStats = (props) => {
         <div className="state-section__viz totals-container">
             <InformationBoxes boxes={[
                 {
-                    title: "Obligated Amount",
+                    title: "Obligations",
                     type: 'obligatedAmount',
                     amount: stateProfile.totalAmount,
                     isMonetary: true,
