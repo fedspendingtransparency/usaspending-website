@@ -594,6 +594,7 @@ const StateProfileMapWrapper = (props) => {
     }, []);
 
     useEffect(() => {
+        console.debug("making it to useeffect of mapwrapper");
         if (scopeRef.current !== props.scope) {
             queueMapOperation('displayData', displayData);
             prepareMap();
