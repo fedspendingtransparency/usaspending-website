@@ -287,7 +287,7 @@ export default class StateAgencyListContainer extends React.Component {
             }
         });
 
-        // needs to set state on props.data
+        // needs to set state on props.data, it's not actually changing the data
         this.setState({
             data: {
                 values: spendingValues,

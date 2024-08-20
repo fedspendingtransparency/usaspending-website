@@ -29,7 +29,6 @@ const StateAgencyAutocompleteContainer = (props) => {
 
             if (agencyType === 'Awarding') {
                 props.updateSelectedAwardingAgencies(updateParams);
-                console.debug("clicked agency");
             }
         }
     };
