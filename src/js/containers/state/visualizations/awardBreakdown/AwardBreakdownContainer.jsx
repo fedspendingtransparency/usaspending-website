@@ -138,7 +138,8 @@ export class AwardBreakdownContainer extends React.Component {
                     toggleState={this.props.toggleState} />
                 <AwardBreakdownTable
                     awardBreakdown={this.state.rows}
-                    hasNegatives={this.state.hasNegatives} />
+                    hasNegatives={this.state.hasNegatives}
+                    toggleState={this.props.toggleState} />
             </div>
         );
     }

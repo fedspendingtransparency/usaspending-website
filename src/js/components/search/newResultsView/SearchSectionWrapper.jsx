@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
@@ -72,8 +71,6 @@ const SearchSectionWrapper = ({
     const history = useHistory();
     const sortFn = () => dropdownOptions;
 
-    const { mapHasLoaded } = useSelector((state) => state.searchView);
-
     const changeView = (label) => {
         setViewType(label);
 
@@ -113,7 +110,7 @@ const SearchSectionWrapper = ({
         else if (matchedSection === 'time') {
             rectTopOffset = 1680;
         }
-        else if (matchedSection === 'awards') {
+        else if (matchedSection === 'map') {
             rectTopOffset = 2240;
         }
 
@@ -132,14 +129,9 @@ const SearchSectionWrapper = ({
     };
 
     useEffect(() => {
-        if (mapHasLoaded) {
-            parseSection();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sectionName, mapHasLoaded]);
-
-    useEffect(() => {
         setContentHeight(content);
+        parseSection();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [content, sectionName]);
 
     useEffect(() => {
