@@ -454,6 +454,7 @@ const StateProfileMapWrapper = (props) => {
     };
 
     const displayData = () => {
+        console.debug("displayData");
         // don't do anything if the map has not yet loaded
         if (!mapReady) {
             // add to the map operation queue

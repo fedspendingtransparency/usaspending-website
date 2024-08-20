@@ -36,7 +36,6 @@ export default class StateCFDAListContainer extends React.Component {
     onClick(cfda, isValid) {
         const inputBox = document.getElementById("state__cfda-id");
         this.props.selectCFDA(cfda, isValid);
-        console.debug(cfda);
         // apply staged cfda filter HERE
         console.debug("cfda props", this.props);
         const newSearch = this.props.searchData;
