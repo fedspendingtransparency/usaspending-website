@@ -41,9 +41,7 @@ export default class StateCFDAListContainer extends React.Component {
             autocompleteCFDA: []
         }, () => {
             // below not working for some reason
-            console.debug(inputBox, cfda.program_title);
             inputBox.value = cfda.program_title;
-            inputBox.innerHTML = cfda.program_title;
         });
     }
 
@@ -144,7 +142,7 @@ export default class StateCFDAListContainer extends React.Component {
         // Perform search if user doesn't type again for 300ms
         this.timeout = window.setTimeout(() => {
             this.queryAutocompleteCFDA(input);
-        }, 200);
+        }, 300);
     }
 
     render() {

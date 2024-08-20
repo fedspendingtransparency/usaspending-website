@@ -263,9 +263,10 @@ const Autocomplete = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.noResults]);
 
-    useEffect(() => {
-        clearInternalState();
-    }, [props.dirtyFilters]);
+    // had to comment this out for 11277, if we have issues we may need to be more clever about this
+    // useEffect(() => {
+    //     clearInternalState();
+    // }, [props.dirtyFilters]);
 
     return (
         <div
