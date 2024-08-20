@@ -70,9 +70,8 @@ export class TimePeriodContainer extends React.Component {
         // determine the current fiscal year
         const currentFY = FiscalYearHelper.currentFiscalYear();
 
-        // todo - remove this ternary when the new fy filter goes to Prod, only the option with the 'FY' will be used
         for (let i = currentFY; i >= startYear; i--) {
-            timePeriods.push(this.state.isQAT ? `FY ${i.toString()}` : i.toString());
+            timePeriods.push(i.toString());
         }
 
         this.setState({

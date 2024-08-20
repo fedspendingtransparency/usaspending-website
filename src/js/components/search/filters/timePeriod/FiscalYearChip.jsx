@@ -28,8 +28,8 @@ const FiscalYearChip = ({
     return (
         <div className="fy-chip-container">
             <Button
-                copy={year}
-                buttonTitle={year}
+                copy={`FY ${year.toString()}`}
+                buttonTitle={`FY ${year.toString()}`}
                 buttonSize="sm"
                 buttonType="tertiary"
                 backgroundColor="light"
