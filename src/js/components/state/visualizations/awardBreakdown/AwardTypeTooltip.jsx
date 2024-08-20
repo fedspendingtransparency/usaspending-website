@@ -83,24 +83,27 @@ export default class AwardTypeTooltip extends React.Component {
 
     render() {
         let desc = (
-            <div className="tooltip-full">
-                <div className="tooltip-left">
+            <>
+                <div className="tooltip-body-row">
+                    <div className="tooltip-label">
+                        Obligations
+                    </div>
                     <div className="tooltip-value">
                         {this.props.value}
                     </div>
-                    <div className="tooltip-label">
-                        Total Amount
-                    </div>
                 </div>
-                <div className="tooltip-right">
+                <div className="tooltip-body-row">
+                    <div className="tooltip-label">
+                        Percent of Total
+                    </div>
                     <div className="tooltip-value">
                         {this.props.percentage}
                     </div>
-                    <div className="tooltip-label">
-                        Percent
-                    </div>
                 </div>
-            </div>
+
+
+            </>
+
         );
         let smallValue = '';
 
@@ -128,7 +131,7 @@ export default class AwardTypeTooltip extends React.Component {
                     <div className="tooltip-title">
                         {this.props.description}
                     </div>
-                    <div className="tooltip-body center">
+                    <div className="tooltip-body">
                         {desc}
                     </div>
                 </div>

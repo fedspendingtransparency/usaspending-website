@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import { throttle, remove, find, isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { awardTypeLabels } from 'dataMapping/state/awardTypes';
 import { labelColorFromBackground } from 'helpers/colorHelper';
@@ -212,7 +213,7 @@ export default class AwardBreakdownTreeMap extends React.Component {
 
             tooltip = (
                 <AwardTypeTooltip
-                    value={MoneyFormatter.formatTreemapValues(awardType.amount)}
+                    value={formatMoneyWithUnitsShortLabel(awardType.amount)}
                     percentage={MoneyFormatter.calculatePercentage(
                         awardType.amount, this.props.totalAmount)
                     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const propTypes = {
     y: PropTypes.number,
@@ -40,7 +40,7 @@ export default class StateTimeVisualizationTooltip extends React.Component {
     }
 
     render() {
-        const dollarValue = MoneyFormatter.formatMoney(this.props.data.yValue);
+        const dollarValue = formatMoneyWithUnitsShortLabel(this.props.data.yValue);
 
         return (
             <div className="visualization-tooltip">
@@ -58,13 +58,11 @@ export default class StateTimeVisualizationTooltip extends React.Component {
                         {this.props.data.xValue}
                     </div>
                     <div className="tooltip-body">
-                        <div className="tooltip-full">
-                            <div className="tooltip-value">
-                                {dollarValue}
-                            </div>
-                            <div className="tooltip-label">
-                                Amount Obligated
-                            </div>
+                        <div className="tooltip-label">
+                            Obligations
+                        </div>
+                        <div className="tooltip-value">
+                            {dollarValue}
                         </div>
                     </div>
                 </div>
