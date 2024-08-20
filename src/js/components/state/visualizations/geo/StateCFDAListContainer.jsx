@@ -44,7 +44,7 @@ export default class StateCFDAListContainer extends React.Component {
         });
 
         // apply staged cfda filter HERE
-        
+        console.debug("cfda props");
     }
 
     parseAutocompleteCFDA(cfda) {

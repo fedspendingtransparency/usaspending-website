@@ -8,12 +8,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
-
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-
 import StateCFDASearch from "./StateCFDASearch";
 
+const combinedActions = Object.assign({}, appliedFilterActions, searchFilterActions);
 const propTypes = {
     selectedCFDA: PropTypes.object,
     appliedCFDA: PropTypes.object,
@@ -67,10 +66,7 @@ StateCFDASearchContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         selectedCFDA: state.filters.selectedCFDA,
-        appliedCFDA: state.appliedFilters.filters.selectedCFDA
+        appliedCFDA: state.appliedFilters.filters?.selectedCFDA
     }),
-    (dispatch) => ({
-        ...bindActionCreators(searchFilterActions, dispatch),
-        ...bindActionCreators(appliedFilterActions, dispatch)
-    })
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(StateCFDASearchContainer);

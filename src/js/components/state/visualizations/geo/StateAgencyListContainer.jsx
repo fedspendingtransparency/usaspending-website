@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
+import { uniqueId } from 'lodash';
+
 import { filter, sortBy, slice, concat } from 'lodash';
 import { Search } from 'js-search';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
@@ -28,9 +30,17 @@ export default class StateAgencyListContainer extends React.Component {
             agencySearchString: '',
             autocompleteType: '',
             autocompleteAgencies: [],
-            noResults: false
+            noResults: false,
+            loading: true,
+            error: false,
+            data: {
+                values: [],
+                locations: []
+            },
+            renderHash: `geo-${uniqueId()}`
         };
 
+        this.apiRequest = null;
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
@@ -213,22 +223,83 @@ export default class StateAgencyListContainer extends React.Component {
     }
 
     toggleAgency(agency, valid) {
-    // Pass selected agency to parent toggleAgency method, adding agencyType to method call
+        // Pass selected agency to parent toggleAgency method, adding agencyType to method call
         this.props.toggleAgency(agency, valid, this.props.agencyType);
         const inputBox = document.getElementById("state__agency-id");
+
+        // apply staged awarding agency filter here
+        const newSearch = this.props.searchData;
+        newSearch.filters.agencies = [];
+        newSearch.filters.agencies.push(
+            {
+                name: valid.title,
+                tier: valid.data.agencyType,
+                type: "awarding"
+            }
+        );
 
         // Clear Autocomplete results
         this.setState({
             autocompleteAgencies: []
         }, () => {
             inputBox.value = valid.title;
+            console.debug(this.props);
+            // this.props.searchData = newSearch;
+            // generate the API parameters
+            if (this.apiRequest) {
+                this.apiRequest.cancel();
+            }
+            this.setState({
+                loading: true,
+                error: false
+            });
+            this.apiRequest = SearchHelper.performSpendingByGeographySearch(newSearch);
+            this.apiRequest.promise
+                .then((res) => {
+                    this.parseData(res.data);
+                    this.apiRequest = null;
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(err);
+                        this.apiRequest = null;
+
+                        this.setState({
+                            loading: false,
+                            error: true
+                        });
+                    }
+                });
+        });
+    }
+    parseData(data) {
+        const spendingValues = [];
+        const spendingShapes = [];
+        const spendingLabels = {};
+
+        data.results.forEach((item) => {
+            // state must not be null or empty string
+            if (item.shape_code && item.shape_code !== '') {
+                spendingShapes.push(item.shape_code);
+                spendingValues.push(parseFloat(item.aggregated_amount));
+                spendingLabels[item.shape_code] = {
+                    label: item.display_name,
+                    value: parseFloat(item.aggregated_amount)
+                };
+            }
         });
 
-        // apply staged awarding agency filter here
-        console.debug("props: ", this.props);
-        this.props.applyStagedFilters();
+        this.setState({
+            data: {
+                values: spendingValues,
+                locations: spendingShapes,
+                labels: spendingLabels
+            },
+            renderHash: `geo-${uniqueId()}`,
+            loading: false,
+            error: false
+        });
     }
-
     render() {
         return (
             <Autocomplete

@@ -130,11 +130,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 }
             ]
         };
-        /*
-,
-            program_numbers: [],
-            agencies: []
-*/
 
         if (timePeriod) {
             searchParams.time_period = timePeriod;
@@ -154,7 +149,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.setState({
             loading: true,
             error: false,
-            searchData: Object.assign({}, apiParams)
+            searchData: apiParams
         });
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise

@@ -12,6 +12,7 @@ import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import StateProfileAgency from '../../../../components/state/visualizations/geo/StateProfileAgency';
 
+const combinedActions = Object.assign({}, appliedFilterActions, searchFilterActions);
 const propTypes = {
     updateSelectedAwardingAgencies: PropTypes.func,
     selectedAwardingAgencies: PropTypes.object,
@@ -60,7 +61,7 @@ StateAgencyAutocompleteContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         selectedAwardingAgencies: state.filters.selectedAwardingAgencies,
-        appliedAwardingAgencies: state.appliedFilters.filters.selectedAwardingAgencies
+        appliedAwardingAgencies: state.appliedFilters.filters?.selectedAwardingAgencies
     }),
-    (dispatch) => bindActionCreators({ searchFilterActions, appliedFilterActions }, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(StateAgencyAutocompleteContainer);
