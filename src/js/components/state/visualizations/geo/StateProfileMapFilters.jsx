@@ -58,7 +58,7 @@ const StateProfileMapFilters = (props) => (
             </div>
             <div key={uniqueId()} className="map__filters-filter__container">
                 <div className="map__filters-wrapper">
-                    <StateCFDASearchContainer />
+                    <StateCFDASearchContainer {...props} />
                 </div>
             </div>
         </div>

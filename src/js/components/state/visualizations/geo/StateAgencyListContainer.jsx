@@ -6,9 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { uniqueId } from 'lodash';
-
-import { filter, sortBy, slice, concat } from 'lodash';
+import { filter, sortBy, slice, concat, uniqueId } from 'lodash';
 import { Search } from 'js-search';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -289,6 +287,7 @@ export default class StateAgencyListContainer extends React.Component {
             }
         });
 
+        // needs to set state on props.data
         this.setState({
             data: {
                 values: spendingValues,

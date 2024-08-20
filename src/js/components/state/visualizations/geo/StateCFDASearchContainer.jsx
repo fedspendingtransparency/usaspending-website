@@ -53,6 +53,7 @@ export class StateCFDASearchContainer extends React.Component {
     render() {
         return (
             <StateCFDASearch
+                {...this.props}
                 selectedCFDA={this.props.selectedCFDA}
                 dirtyFilters={this.dirtyFilters()}
                 selectCFDA={this.selectCFDA}
