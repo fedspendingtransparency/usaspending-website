@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button, Table } from "data-transparency-ui";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
+import NewLocationSectionContainer from "../containers/search/filters/location/NewLocationSectionContainer";
 
 require("pages/search/searchPage.scss");
 
@@ -82,6 +83,7 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <NewLocationSectionContainer />
                     <section style={{ margin: '80px', backgroundColor: 'white' }}>
                         <div style={{
                             width: '800px', overflowX: 'scroll', borderRadius: '8px', border: 'solid 1px #dfe1e2'
