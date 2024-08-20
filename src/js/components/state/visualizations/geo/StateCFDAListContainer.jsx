@@ -30,6 +30,21 @@ export default class StateCFDAListContainer extends React.Component {
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.timeout = null;
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(cfda, isValid) {
+        const inputBox = document.getElementById("state__cfda-id");
+
+        this.props.selectCFDA(cfda, isValid);
+        this.setState({
+            autocompleteCFDA: []
+        }, () => {
+            // below not working for some reason
+            console.debug(inputBox, cfda.program_title);
+            inputBox.value = cfda.program_title;
+            inputBox.innerHTML = cfda.program_title;
+        });
     }
 
     parseAutocompleteCFDA(cfda) {
@@ -57,7 +72,7 @@ export default class StateCFDAListContainer extends React.Component {
             noResults: false
         });
 
-        // Only search if input is 2 or more characters
+        // Only search if input is 3 or more characters
         if (input.length >= 3) {
             this.setState({
                 cfdaSearchString: input
@@ -129,7 +144,7 @@ export default class StateCFDAListContainer extends React.Component {
         // Perform search if user doesn't type again for 300ms
         this.timeout = window.setTimeout(() => {
             this.queryAutocompleteCFDA(input);
-        }, 300);
+        }, 200);
     }
 
     render() {
@@ -140,7 +155,7 @@ export default class StateCFDAListContainer extends React.Component {
                 label="Assistance Listing"
                 values={this.state.autocompleteCFDA}
                 handleTextInput={this.handleTextInput}
-                onSelect={this.props.selectCFDA}
+                onSelect={this.onClick}
                 placeholder="Search for an Assistance Listing..."
                 ref={(input) => {
                     this.cfdaList = input;
