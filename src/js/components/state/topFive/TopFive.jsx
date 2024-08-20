@@ -40,21 +40,6 @@ const TopFive = (props) => {
         return [result._slug ? result.linkedName : result.name, result.amount, percent];
     });
 
-    let message = null;
-    if (props.error) {
-        message = (
-            <div className="category-table__message">
-                An error occurred while loading this table.
-            </div>
-        );
-    }
-    else if (props.loading) {
-        message = (
-            <div className="category-table__message">
-                Loading...
-            </div>
-        );
-    }
     return (
         <div className="category-table">
             <div className="category-table__title">
@@ -78,10 +63,9 @@ const TopFive = (props) => {
                 </div>
             </div>
             <Table
-                classNames={['category-table__table']}
+                classNames={['topfive-table__table']}
                 columns={columns}
                 rows={tableRows} />
-            {message}
         </div>
     );
 };
