@@ -15,8 +15,6 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
-import GlobalConstants from "GlobalConstants";
-
 export const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
@@ -39,8 +37,7 @@ export class TimePeriodContainer extends React.Component {
             activeTab: 'fy',
             cachedTimePeriods: Set(),
             cachedStart: null,
-            cachedEnd: null,
-            isQAT: GlobalConstants.QAT
+            cachedEnd: null
         };
 
         // bind functions

@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import GlobalConstants from "GlobalConstants";
 import PropTypes from 'prop-types';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -17,7 +18,6 @@ import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import FilterTabs from '../../../sharedComponents/filterSidebar/FilterTabs';
 
-import GlobalConstants from "GlobalConstants";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -289,7 +289,6 @@ export default class TimePeriod extends React.Component {
             activeClassDR = 'inactive';
         }
 
-        // todo - when we remove this ternary, to use the new fy filter in Prod, we also need to remove a ternary in TimePeriodContainer, also marked with a todo
         if (this.props.activeTab === 'fy') {
             showFilter = GlobalConstants.QAT ? (<AllFiscalYearsWithChips
                 updateFilter={this.props.updateFilter}
