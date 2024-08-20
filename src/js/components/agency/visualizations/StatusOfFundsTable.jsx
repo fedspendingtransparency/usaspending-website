@@ -68,7 +68,7 @@ const StatusOfFundsTable = ({
             formatMoneyWithPrecision(data._budgetaryResources),
             formatMoneyWithPrecision(data._obligations)
         ]));
-    
+
     const onClickHandler = (item) => {
         const itemName = item[0] || '';
         const data = results.find(({ name }) => name === itemName);
