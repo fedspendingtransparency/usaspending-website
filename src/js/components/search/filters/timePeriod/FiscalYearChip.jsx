@@ -24,7 +24,6 @@ const FiscalYearChip = ({
         saveSelectedYear(year);
     };
 
-    // todo - add more required props for Button?
     return (
         <div className="fy-chip-container">
             <Button
