@@ -223,6 +223,10 @@ export default class StateAgencyListContainer extends React.Component {
         }, () => {
             inputBox.value = valid.title;
         });
+
+        // apply staged awarding agency filter here
+        console.debug("props: ", this.props);
+        this.props.applyStagedFilters();
     }
 
     render() {

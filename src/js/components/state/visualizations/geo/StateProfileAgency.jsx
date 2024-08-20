@@ -28,6 +28,7 @@ const StateProfileAgency = (props) => {
         return (
             <div className="filter-item-wrap" key={`holder-${type}`}>
                 <StateAgencyListContainer
+                    {...props}
                     agencyType={type}
                     placeHolder="Search for an awarding agency..."
                     toggleAgency={props.toggleAgency}

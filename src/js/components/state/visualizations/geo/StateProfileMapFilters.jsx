@@ -19,30 +19,30 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
-const StateProfileMapFilters = ({ filters, activeFilters, isOpen }) => (
-    <div className={isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
+const StateProfileMapFilters = (props) => (
+    <div className={props.isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
         <div className="map__filters-header">
             <MapFiltersTitle />
         </div>
         <div className="map__filters-body">
             {/* below chunk is for the dropdown filters */}
             {
-                Object.keys(filters).map((filter) => (
+                Object.keys(props.filters).map((filter) => (
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-wrapper">
-                            <span className="map__filters-label">{filters[filter].label}</span>
+                            <span className="map__filters-label">{props.filters[filter].label}</span>
                             <NewPicker
-                                enabled={filters[filter].enabled}
+                                enabled={props.filters[filter].enabled}
                                 size="sm"
                                 classname="map__filters-button"
                                 dropdownClassname="map__filters-dropdown"
                                 sortFn={handleSort}
-                                selectedOption={filters[filter].options?.find((option) => option.value === activeFilters[filter]).label}
+                                selectedOption={props.filters[filter].options?.find((option) => option.value === props.activeFilters[filter]).label}
                                 options={
-                                    filters[filter].options?.map((option) => ({
+                                    props.filters[filter].options?.map((option) => ({
                                         name: option.label,
                                         value: option.value,
-                                        onClick: filters[filter].onClick,
+                                        onClick: props.filters[filter].onClick,
                                         sortOrder: mapFilterSortOrderByValue[option.value]
                                     }))
                                 } />
@@ -53,7 +53,7 @@ const StateProfileMapFilters = ({ filters, activeFilters, isOpen }) => (
             {/* below chunk is for the autocomplete filters */}
             <div key={uniqueId()} className="map__filters-filter__container">
                 <div className="map__filters-wrapper">
-                    <StateAgencyAutocompleteContainer />
+                    <StateAgencyAutocompleteContainer {...props} />
                 </div>
             </div>
             <div key={uniqueId()} className="map__filters-filter__container">

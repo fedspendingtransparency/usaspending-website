@@ -31,6 +31,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.state = {
             mapLayer: 'county',
+            program_numbers: "",
+            agency: {},
             data: {
                 values: [],
                 locations: []
@@ -38,7 +40,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loading: true,
             loadingTiles: true,
-            error: false
+            error: false,
+            searchData: {}
         };
 
         this.apiRequest = null;
@@ -127,6 +130,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 }
             ]
         };
+        /*
+,
+            program_numbers: [],
+            agencies: []
+*/
 
         if (timePeriod) {
             searchParams.time_period = timePeriod;
@@ -138,16 +146,16 @@ export class GeoVisualizationSectionContainer extends React.Component {
             geo_layer: apiScopes[this.state.mapLayer],
             filters: searchParams
         };
-
+        //
         if (this.apiRequest) {
             this.apiRequest.cancel();
         }
 
         this.setState({
             loading: true,
-            error: false
+            error: false,
+            searchData: Object.assign({}, apiParams)
         });
-
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {

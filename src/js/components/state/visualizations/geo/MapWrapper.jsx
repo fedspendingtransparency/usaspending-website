@@ -43,7 +43,10 @@ const propTypes = {
     className: PropTypes.string,
     stateInfo: PropTypes.object,
     onMapLoaded: PropTypes.func.isRequired,
-    amountTypeEnabled: PropTypes.bool
+    amountTypeEnabled: PropTypes.bool,
+    searchData: PropTypes.object,
+    program_numbers: PropTypes.string,
+    agency: PropTypes.object
 };
 
 const defaultProps = {
@@ -568,6 +571,7 @@ const StateProfileMapWrapper = (props) => {
 
         return (
             <StateProfileMapFilters
+                {...props}
                 filters={mapFilters}
                 activeFilters={active}
                 isOpen={isFiltersOpen} />

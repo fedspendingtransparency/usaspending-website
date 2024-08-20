@@ -62,8 +62,5 @@ export default connect(
         selectedAwardingAgencies: state.filters.selectedAwardingAgencies,
         appliedAwardingAgencies: state.appliedFilters.filters.selectedAwardingAgencies
     }),
-    (dispatch) => ({
-        ...bindActionCreators(searchFilterActions, dispatch),
-        ...bindActionCreators(appliedFilterActions, dispatch)
-    })
+    (dispatch) => bindActionCreators({ searchFilterActions, appliedFilterActions }, dispatch)
 )(StateAgencyAutocompleteContainer);

@@ -40,9 +40,11 @@ export default class StateCFDAListContainer extends React.Component {
         this.setState({
             autocompleteCFDA: []
         }, () => {
-            // below not working for some reason
             inputBox.value = cfda.program_title;
         });
+
+        // apply staged cfda filter HERE
+        
     }
 
     parseAutocompleteCFDA(cfda) {

@@ -32,7 +32,10 @@ const propTypes = {
     noResults: PropTypes.bool,
     stateCenter: PropTypes.array,
     className: PropTypes.string,
-    stateInfo: PropTypes.object
+    stateInfo: PropTypes.object,
+    searchData: PropTypes.object,
+    program_numbers: PropTypes.string,
+    agency: PropTypes.object
 };
 
 const availableLayers = ['county', 'congressionalDistrict'];
@@ -158,6 +161,7 @@ const GeoVisualizationSection = (props) => {
     return (
         <div className="geo__map-section">
             <MapWrapper
+                {...props}
                 awardTypeFilters={awardTypeTabs}
                 filters={addOnClickToFilters()}
                 activeFilters={activeFilters}
