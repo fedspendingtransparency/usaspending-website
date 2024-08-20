@@ -26,7 +26,8 @@ const propTypes = {
     minCharsToSearch: PropTypes.number,
     inFlight: PropTypes.bool,
     icon: PropTypes.bool,
-    size: PropTypes.oneOf(['small', 'medium'])
+    size: PropTypes.oneOf(['small', 'medium']),
+    minChar: PropTypes.bool
 };
 
 const defaultProps = {
@@ -42,7 +43,8 @@ const defaultProps = {
     dirtyFilters: Symbol(''),
     minCharsToSearch: 3,
     icon: false,
-    size: 'medium'
+    size: 'medium',
+    minChar: false
 };
 
 const Autocomplete = (props) => {
@@ -102,7 +104,7 @@ const Autocomplete = (props) => {
 
     const close = () => {
         // clear the input value if not a valid selection
-        if (props.retainValue && !staged) {
+        if (!props.retainValue && !staged) {
             clearInternalState();
         }
 
@@ -185,29 +187,31 @@ const Autocomplete = (props) => {
 
     const generateWarning = () => {
         if (showWarning) {
-            let errorProps = {};
+            let error;
 
-            if (value && value.length < props.minCharsToSearch) {
-                errorProps = {
-                    header: 'Error',
-                    description: `Please enter more than ${props.minCharsToSearch - 1} character${props.minCharsToSearch > 2 ? 's' : ''}.`
-                };
-            }
-            else {
-                errorProps = {
-                    header: props.errorHeader,
-                    description: props.errorMessage
-                };
-            }
-
-            return (
+            const warning = (header, description) => (
                 <ul className="autocomplete" role="listbox">
                     <li className="unselectable">
-                        <span>{errorProps.header}</span><br />
-                        {errorProps.description}
+                        <span>{header}</span><br />
+                        {description}
                     </li>
                 </ul>
             );
+
+            if ((value && value.length < props.minCharsToSearch) && props.minChar) {
+                error = warning(
+                    'Error',
+                    `Please enter more than ${props.minCharsToSearch - 1} character${props.minCharsToSearch > 2 ? 's' : ''}.`
+                );
+            }
+            else if ((value && value.length < props.minCharsToSearch) && !props.minChar) {
+                error = null;
+            }
+            else {
+                error = warning(props.errorHeader, props.errorMessage);
+            }
+
+            return error;
         }
 
         return null;

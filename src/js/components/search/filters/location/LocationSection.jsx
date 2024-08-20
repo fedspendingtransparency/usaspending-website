@@ -64,11 +64,13 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
     const tabLabels = [
         {
             internal: 'pop',
-            label: 'Place of Performance'
+            label: 'Place of Performance',
+            title: 'Place of Performance'
         },
         {
             internal: 'recipient',
-            label: 'Recipient Location'
+            label: 'Recipient Location',
+            title: 'Recipient Location'
         }
     ];
 
