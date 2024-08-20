@@ -35,12 +35,6 @@ export class StateCFDASearchContainer extends React.Component {
             const updateParams = {};
             updateParams.cfda = cfda;
             this.props.updateSelectedCFDA(updateParams);
-
-            // below not working for some reason
-            const inputBox = document.getElementById("state__cfda-id");
-            console.debug(inputBox, cfda.program_title);
-            inputBox.value = cfda.program_title.trim();
-            inputBox.innerHTML = cfda.program_title.trim();
         }
     }
 
