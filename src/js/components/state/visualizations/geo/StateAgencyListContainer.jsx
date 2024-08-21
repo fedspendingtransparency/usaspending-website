@@ -297,6 +297,8 @@ export default class StateAgencyListContainer extends React.Component {
             loading: false,
             error: false
         });
+
+        console.debug("after query: ", this.state, this.props);
     }
     render() {
         return (
