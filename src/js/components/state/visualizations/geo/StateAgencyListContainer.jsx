@@ -241,7 +241,6 @@ export default class StateAgencyListContainer extends React.Component {
             autocompleteAgencies: []
         }, () => {
             inputBox.value = valid.title;
-            console.debug(this.props);
             // this.props.searchData = newSearch;
             // generate the API parameters
             if (this.apiRequest) {
