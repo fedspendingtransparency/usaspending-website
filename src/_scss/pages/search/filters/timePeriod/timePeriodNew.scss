@@ -24,7 +24,7 @@
         white-space: nowrap;
         padding: 0;
         justify-content: center;
-        height: rem(26);
+        height: rem(28);
         width: rem(58);
         margin: 0 rem(4) rem(4) 0;
 
@@ -40,6 +40,7 @@
 
           &:hover {
             background-color: $blue-vivid-70;
+            border: solid 1px $blue-vivid-70;
           }
         }
       }
@@ -48,12 +49,7 @@
       display: flex;
       align-items: baseline;
       justify-content: center;
-      margin: rem(36) 0 0 0;
-
-      @media (min-width: $medium-screen) {
-        margin-top: rem(20);
-      }
-
+      margin: rem(20) 0 0 0;
 
       // this inactive class refers to the 'activeClassDR' var in TimePeriod.jsx; used here to left-align the new awards only checkbox in both Time Period and Date Range tabs
       &.inactive {
