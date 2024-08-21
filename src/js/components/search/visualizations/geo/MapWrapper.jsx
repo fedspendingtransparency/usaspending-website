@@ -500,7 +500,7 @@ const MapWrapper = (props) => {
     const tooltipDescription = () => {
         const { stateProfile, mapLegendToggle } = props;
         // state page
-        if (stateProfile) return 'Awarded Amount';
+        if (stateProfile) return 'Obligations';
         // per capita toggle
         return (mapLegendToggle === 'totalSpending' ? 'Obligations' : 'Per Capita');
     };
