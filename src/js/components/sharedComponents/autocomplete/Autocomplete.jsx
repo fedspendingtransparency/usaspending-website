@@ -265,7 +265,9 @@ const Autocomplete = (props) => {
 
     // had to comment this out for 11277, if we have issues we may need to be more clever about this
     useEffect(() => {
-        clearInternalState();
+        if (!props.retainValue) {
+            clearInternalState();
+        }
     }, [props.dirtyFilters]);
 
     return (
