@@ -26,6 +26,9 @@ WORKDIR /node-workspace
 RUN npm install -g npm@9.8.1
 RUN npm install -g webpack@5.88.2
 RUN npm install -g webpack-cli@5.1.4
+
+# Ensure lock file is in sync before installing
+RUN npm install --package-lock-only --legacy-peer-deps
 RUN npm ci --legacy-peer-deps
 
 # Now copy the remaining source files
