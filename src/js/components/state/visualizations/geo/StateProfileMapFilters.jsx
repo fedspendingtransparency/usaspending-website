@@ -12,6 +12,7 @@ import MapFiltersTitle from '../../../search/visualizations/geo/MapFiltersTitle'
 import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
 import StateAgencyAutocompleteContainer from "../../../../containers/state/visualizations/geo/StateAgencyAutocompleteContainer";
 import StateCFDASearchContainer from "./StateCFDASearchContainer";
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -51,16 +52,18 @@ const StateProfileMapFilters = (props) => (
                 ))
             }
             {/* below chunk is for the autocomplete filters */}
-            <div key={uniqueId()} className="map__filters-filter__container">
-                <div className="map__filters-wrapper">
-                    <StateAgencyAutocompleteContainer {...props} />
+            <FeatureFlag>
+                <div key={uniqueId()} className="map__filters-filter__container">
+                    <div className="map__filters-wrapper">
+                        <StateAgencyAutocompleteContainer {...props} />
+                    </div>
                 </div>
-            </div>
-            <div key={uniqueId()} className="map__filters-filter__container">
-                <div className="map__filters-wrapper">
-                    <StateCFDASearchContainer {...props} />
+                <div key={uniqueId()} className="map__filters-filter__container">
+                    <div className="map__filters-wrapper">
+                        <StateCFDASearchContainer {...props} />
+                    </div>
                 </div>
-            </div>
+            </FeatureFlag>
         </div>
     </div>
 );
