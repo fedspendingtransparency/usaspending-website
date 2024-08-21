@@ -454,7 +454,6 @@ const StateProfileMapWrapper = (props) => {
     };
 
     const displayData = () => {
-        console.debug("displayData");
         // don't do anything if the map has not yet loaded
         if (!mapReady) {
             // add to the map operation queue
@@ -595,7 +594,6 @@ const StateProfileMapWrapper = (props) => {
     }, []);
 
     useEffect(() => {
-        console.debug("making it to useeffect of mapwrapper");
         if (scopeRef.current !== props.scope) {
             queueMapOperation('displayData', displayData);
             prepareMap();
