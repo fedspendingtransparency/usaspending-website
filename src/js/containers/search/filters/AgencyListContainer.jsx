@@ -232,7 +232,7 @@ export default class AgencyListContainer extends React.Component {
                 values={this.state.autocompleteAgencies}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
-                placeholder={this.props.placeHolder !== '' ? this.props.placeHolder : `${this.props.agencyType} Agency`}
+                placeholder={`${this.props.agencyType} Agency`}
                 ref={(input) => {
                     this.agencyList = input;
                 }}
