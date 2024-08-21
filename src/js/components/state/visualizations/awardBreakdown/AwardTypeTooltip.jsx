@@ -94,7 +94,7 @@ const AwardTypeTooltip = (props) => {
 
     let desc = (
         <>
-            <div className="tooltip-body-row">
+            <div className="tooltip-body-row mb">
                 <div className="tooltip-label">
                         Obligations
                 </div>
@@ -104,7 +104,7 @@ const AwardTypeTooltip = (props) => {
             </div>
             <div className="tooltip-body-row">
                 <div className="tooltip-label">
-                        Percent of Total
+                        Percent of total
                 </div>
                 <div className="tooltip-value">
                     {percentage}

@@ -58,7 +58,6 @@
             width: 100%;
             @import "components/visualizations/tooltip/_dataVizTooltip";
             .tooltip {
-                width: rem(225);
                 &.small {
                     width: rem(230);
                     min-height: rem(44);
@@ -84,6 +83,11 @@
                         @include justify-content(space-between);
                         @include align-items(center);
                         width: 100%;
+                    }
+                }
+
+                .tooltip-body .tooltip-body-row {
+                    &.mb {
                         margin-bottom: rem(8);
                     }
                 }
