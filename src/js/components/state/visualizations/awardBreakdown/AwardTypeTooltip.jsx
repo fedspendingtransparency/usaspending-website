@@ -94,7 +94,7 @@ const AwardTypeTooltip = (props) => {
 
     let desc = (
         <>
-            <div className="tooltip-body-row mb">
+            <div className="tooltip-body-row bottom-spacing">
                 <div className="tooltip-label">
                         Obligations
                 </div>
