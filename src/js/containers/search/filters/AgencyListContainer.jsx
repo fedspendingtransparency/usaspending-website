@@ -216,7 +216,7 @@ export default class AgencyListContainer extends React.Component {
 
     toggleAgency(agency, valid) {
     // Pass selected agency to parent toggleAgency method, adding agencyType to method call
-        this.toggleAgency(agency, valid, this.props.agencyType);
+        this.props.toggleAgency(agency, valid, this.props.agencyType);
 
         // Clear Autocomplete results
         this.setState({
