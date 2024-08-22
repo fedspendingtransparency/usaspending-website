@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import { isEqual, omit, differenceWith, uniqueId } from 'lodash';
+import { isEqual, omit, differenceWith } from 'lodash';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
@@ -90,17 +90,7 @@ export default class StateCFDAListContainer extends React.Component {
             }
         });
 
-        // needs to set state on props.data
-        this.setState({
-            data: {
-                values: spendingValues,
-                locations: spendingShapes,
-                labels: spendingLabels
-            },
-            renderHash: `geo-${uniqueId()}`,
-            loading: false,
-            error: false
-        });
+        this.props.setMapData(spendingValues, spendingShapes, spendingLabels);
     }
     parseAutocompleteCFDA(cfda) {
         const values = [];

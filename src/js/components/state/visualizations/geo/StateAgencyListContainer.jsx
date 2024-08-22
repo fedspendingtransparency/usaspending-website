@@ -230,7 +230,7 @@ export default class StateAgencyListContainer extends React.Component {
         newSearch.filters.agencies = [];
         newSearch.filters.agencies.push(
             {
-                name: valid.title,
+                name: valid.data.toptier_agency.name,
                 tier: valid.data.agencyType,
                 type: "awarding"
             }
@@ -240,7 +240,7 @@ export default class StateAgencyListContainer extends React.Component {
         this.setState({
             autocompleteAgencies: []
         }, () => {
-            inputBox.value = valid.title;
+            inputBox.value = valid.data.toptier_agency.name;
             // this.props.searchData = newSearch;
             // generate the API parameters
             if (this.apiRequest) {
@@ -288,20 +288,8 @@ export default class StateAgencyListContainer extends React.Component {
                 };
             }
         });
-        console.debug("data? ", data);
 
-        // needs to set state on props.data, it's not actually changing the data
-        this.setState({
-            data: {
-                values: spendingValues,
-                locations: spendingShapes,
-                labels: spendingLabels
-            },
-            renderHash: `geo-${uniqueId()}`,
-            loading: false,
-            error: false
-        });
-
+        this.props.setMapData(spendingValues, spendingShapes, spendingLabels);
     }
     render() {
         return (

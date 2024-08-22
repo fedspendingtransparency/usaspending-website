@@ -51,6 +51,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.changeMapLayer = this.changeMapLayer.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
+        this.setMapData = this.setMapData.bind(this);
     }
 
     componentDidMount() {
@@ -79,29 +80,18 @@ export class GeoVisualizationSectionContainer extends React.Component {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
     }
-
-    mapLoaded() {
+    setMapData(spendingValues, spendingShapes, spendingLabels) {
         this.setState({
-            loadingTiles: false
-        }, () => {
-            window.setTimeout(() => {
-                // SUPER BODGE: wait 300ms before measuring the map
-                // Mapbox source and render events appear to be firing the tiles are actually ready
-                // when served from cache
-                this.prepareFetch();
-            }, 300);
+            data: {
+                values: spendingValues,
+                locations: spendingShapes,
+                labels: spendingLabels
+            },
+            renderHash: `geo-${uniqueId()}`,
+            loading: false,
+            error: false
         });
     }
-
-    prepareFetch() {
-        if (this.state.loadingTiles) {
-            // we can't measure visible entities if the tiles aren't loaded yet, so stop
-            return;
-        }
-
-        this.fetchData();
-    }
-
     fetchData() {
     // Create the time period filter
         let timePeriod = null;
@@ -199,6 +189,27 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
+
+    mapLoaded() {
+        this.setState({
+            loadingTiles: false
+        }, () => {
+            window.setTimeout(() => {
+                // SUPER BODGE: wait 300ms before measuring the map
+                // Mapbox source and render events appear to be firing the tiles are actually ready
+                // when served from cache
+                this.prepareFetch();
+            }, 300);
+        });
+    }
+    prepareFetch() {
+        if (this.state.loadingTiles) {
+            // we can't measure visible entities if the tiles aren't loaded yet, so stop
+            return;
+        }
+
+        this.fetchData();
+    }
     changeMapLayer(layer) {
         this.setState({
             mapLayer: layer,
@@ -218,7 +229,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer}
-                className={this.props.className} />
+                className={this.props.className}
+                setMapData={this.setMapData} />
         );
     }
 }
