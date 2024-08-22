@@ -8,12 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import {
-    getTrailingTwelveMonths,
-    convertFYToDateRange,
-    currentFiscalYear,
-    earliestFiscalYear
-} from 'helpers/fiscalYearHelper';
+import { getTrailingTwelveMonths, convertFYToDateRange, currentFiscalYear, earliestFiscalYear } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 
@@ -98,7 +93,7 @@ const TopFiveContainer = (props) => {
                 });
         }
 
-        parseResults(data, type) {
+    parseResults(data, type) {
             const parsed = data.map((item, index) => {
                 const result = Object.create(BaseStateCategoryResult);
                 result.populate(item, index + 1);
@@ -119,8 +114,8 @@ const TopFiveContainer = (props) => {
             setLoading(false);
             setError(false);
             setResults(parsed);
-        }
-            return (
+    }
+             return (
                 <TopFive
                     category={props.category}
                     total={props.total}
@@ -134,7 +129,6 @@ const TopFiveContainer = (props) => {
     useEffect(() => {
            loadCategory();
     }, [recipientHash, fy]);
-
 }
 
 export default connect(
