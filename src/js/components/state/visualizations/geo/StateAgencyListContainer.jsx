@@ -253,7 +253,6 @@ export default class StateAgencyListContainer extends React.Component {
             this.apiRequest = SearchHelper.performSpendingByGeographySearch(newSearch);
             this.apiRequest.promise
                 .then((res) => {
-                    console.debug("Res: ", res);
                     this.parseData(res.data);
                     this.apiRequest = null;
                 })
@@ -268,8 +267,6 @@ export default class StateAgencyListContainer extends React.Component {
                         });
                     }
                 });
-
-            console.debug("after query: ", this.state, this.props);
         });
     }
     parseData(data) {
