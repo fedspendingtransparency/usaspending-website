@@ -355,7 +355,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 toggleTooltip={this.props.toggleTooltip} />
         ));
 
-        // add 20px to the top of the chart to avoid cutting off label text
+        // add 40px to the top of the chart to avoid cutting off label text (especially on mobile)
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
         return (
@@ -363,7 +363,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                 <svg
                     className="bar-graph"
                     width={this.props.width}
-                    height={this.props.height + 20}>
+                    height={this.props.height + 40}>
 
                     <BarChartYAxis
                         {...this.state.virtualChart.yAxis}

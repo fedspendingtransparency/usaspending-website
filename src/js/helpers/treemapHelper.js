@@ -64,21 +64,21 @@ export const stateTreemapColors = [
 // todo - use these two arrays with the commented out lines in AwardBreakdownTreeMap.jsx
 //  to finish the toggle, using the new colors;
 //  the old array above will not be needed
-// export const stateTreemapColorsNoToggle = [
-//     "#0e4f5c", // largest amount
-//     "#00687d",
-//     "#0081a1",
-//     "#009ec1",
-//     "#00BDE3" // smallest amount
-// ];
-//
-// export const stateTreemapColorsWithToggle = [
-//     "#0f6460", // largest amount, $mint-cool-60v
-//     "#008480", // $mint-cool-50v
-//     "#00a398", // $mint-cool-40v
-//     "#1dc2ae", // $mint-cool-30v
-//     "#29e1cb" // smallest amount, $mint-cool-20v
-// ];
+export const stateTreemapColorsNoToggle = [
+    "#0e4f5c", // largest amount
+    "#00687d",
+    "#0081a1",
+    "#009ec1",
+    "#00BDE3" // smallest amount
+];
+
+export const stateTreemapColorsWithToggle = [
+    "#0f6460", // largest amount, $mint-cool-60v
+    "#008480", // $mint-cool-50v
+    "#00a398", // $mint-cool-40v
+    "#1dc2ae", // $mint-cool-30v
+    "#29e1cb" // smallest amount, $mint-cool-20v
+];
 
 export const stateTooltipStyles = {
     defaultStyle: {

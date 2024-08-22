@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import GlobalConstants from "GlobalConstants";
 import PropTypes from 'prop-types';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -12,8 +13,11 @@ import { isEqual } from 'lodash';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
+import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
+import FilterTabs from '../../../sharedComponents/filterSidebar/FilterTabs';
+
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -60,14 +64,14 @@ export default class TimePeriod extends React.Component {
             isActive: false,
             selectedFY: new Set(),
             allFY: false,
-            clearHint: false
+            clearHint: false,
+            activeTab: 'fy'
         };
 
         // bind functions
         this.handleDateChange = this.handleDateChange.bind(this);
         this.showError = this.showError.bind(this);
         this.hideError = this.hideError.bind(this);
-        this.toggleFilters = this.toggleFilters.bind(this);
         this.validateDates = this.validateDates.bind(this);
         this.removeDateRange = this.removeDateRange.bind(this);
         this.clearHint = this.clearHint.bind(this);
@@ -176,11 +180,6 @@ export default class TimePeriod extends React.Component {
         }
     }
 
-    toggleFilters(e) {
-        this.clearHint(true);
-        this.props.changeTab(e.target.value);
-    }
-
     handleDateChange(date, dateType) {
     // the component will hold values of the start/end dates for use by the UI only
     // this is because the start/end range will be incomplete during the time the user has only
@@ -281,22 +280,24 @@ export default class TimePeriod extends React.Component {
     render() {
         let errorDetails;
         let showFilter;
-        let activeClassFY;
         let activeClassDR;
 
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
                 header={this.state.header}
                 message={this.state.errorMessage} />);
+            activeClassDR = 'inactive';
         }
 
         if (this.props.activeTab === 'fy') {
-            showFilter = (<AllFiscalYears
+            showFilter = GlobalConstants.QAT ? (<AllFiscalYearsWithChips
                 updateFilter={this.props.updateFilter}
                 timePeriods={this.props.timePeriods}
-                selectedFY={this.props.filterTimePeriodFY} />);
-            activeClassFY = '';
-            activeClassDR = 'inactive';
+                selectedFY={this.props.filterTimePeriodFY} />) :
+                (<AllFiscalYears
+                    updateFilter={this.props.updateFilter}
+                    timePeriods={this.props.timePeriods}
+                    selectedFY={this.props.filterTimePeriodFY} />);
         }
         else {
             showFilter = (<DateRange
@@ -312,7 +313,6 @@ export default class TimePeriod extends React.Component {
                 hideError={this.hideError}
                 applyDateRange={this.validateDates}
                 removeDateRange={this.removeDateRange} />);
-            activeClassFY = 'inactive';
             activeClassDR = '';
         }
 
@@ -342,39 +342,39 @@ export default class TimePeriod extends React.Component {
             </div>
         );
 
+        const tabLabels = [
+            {
+                internal: 'fy',
+                label: (
+                    <div>
+                        Fiscal Year &nbsp; <GlossaryLink term="fiscal-year-fy" />
+                    </div>
+                ),
+                title: 'Fiscal Year'
+            },
+            {
+                internal: 'dr',
+                label: 'Date Range',
+                title: 'Date Range'
+            }
+        ];
+
+        const toggleTab = (e) => {
+            if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
+                const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
+                this.setState({ ...this.state, activeTab: nextTab });
+                this.clearHint(true);
+                this.props.changeTab(nextTab);
+            }
+        };
+
         return (
             <div className="tab-filter-wrap">
-                <div className="filter-item-wrap">
-                    <ul
-                        className="toggle-buttons"
-                        role="tablist">
-                        <li>
-                            <button
-                                className={`tab-toggle ${activeClassFY}`}
-                                value="fy"
-                                role="tab"
-                                aria-selected={this.props.activeTab === 'fy'}
-                                aria-label="Fiscal Year"
-                                title="Fiscal Year"
-                                onClick={this.toggleFilters}>
-                                Fiscal Year<GlossaryLink term="fiscal-year-fy" />
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                className={`tab-toggle ${activeClassDR}`}
-                                id="filter-date-range-tab"
-                                value="dr"
-                                role="tab"
-                                aria-selected={this.props.activeTab === 'dr'}
-                                aria-label="Date Range"
-                                title="Date Range"
-                                onClick={this.toggleFilters}
-                                disabled={this.props.disableDateRange}>
-                                Date Range
-                            </button>
-                        </li>
-                    </ul>
+                <div className="filter-item-wrap location-filter">
+                    <FilterTabs
+                        labels={tabLabels}
+                        switchTab={toggleTab}
+                        active={this.state.activeTab} />
                     { showFilter }
                     { errorDetails }
                     { !this.props.federalAccountPage && newAwardsFilter }
