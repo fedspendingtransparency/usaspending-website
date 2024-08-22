@@ -1,6 +1,7 @@
 .search-filters-wrapper {
     @import "./filters/awardType/awardType";
     @import "./filters/timePeriod/timePeriod";
+    @import "./filters/timePeriod/timePeriodNew";
     @import "./filters/keyword/keyword";
     @import "./filters/location/location";
     @import "./filters/budgetCategory/budgetCategory";

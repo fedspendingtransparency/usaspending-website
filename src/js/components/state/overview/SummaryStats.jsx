@@ -15,7 +15,7 @@ const propTypes = {
 const SummaryStats = (props) => {
     const { stateProfile } = props;
     let boxes = [{
-        title: "Obligated Amount",
+        title: "Obligations",
         type: 'obligatedAmount',
         amount: stateProfile.totalAmount,
         isMonetary: true,
@@ -34,7 +34,7 @@ const SummaryStats = (props) => {
 
     if (GlobalConstants.QAT) {
         boxes = [{
-            title: "Obligated Amount",
+            title: "Obligations",
             type: 'obligatedAmount',
             amount: stateProfile.totalAmount,
             isMonetary: true,

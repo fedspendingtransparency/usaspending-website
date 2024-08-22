@@ -149,7 +149,7 @@
     @import "../../../../pages/search/results/visualizations/geo/map/map.scss";
 
     .visualization-tooltip {
-        @import "components/visualizations/tooltip/_tooltip";
+        @import "components/visualizations/tooltip/_dataVizTooltip";
     }
 
     .tooltip-spacer {
