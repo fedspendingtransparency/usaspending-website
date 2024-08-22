@@ -116,7 +116,6 @@ const NewLocationSectionContainer = () => {
     const queryAutocompleteLocations = (input) => {
         let locationSearchRequests;
         if (input.length >= 3) {
-            console.log('success');
             const locationSearchParams = {
                 search_text: input,
                 limit: 5
