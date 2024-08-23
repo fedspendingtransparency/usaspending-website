@@ -9,14 +9,12 @@ import { REQUEST_VERSION, QAT } from "GlobalConstants";
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import { isCancel } from 'axios';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
-import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
-import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
-import { SectionHeader } from "data-transparency-ui";
+import { CardContainer, SectionHeader, CardBody, CardButton, CardHero, FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import DetailsTooltip from './DetailsTooltip';
+import SummaryStats from './SummaryStats';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
@@ -38,6 +36,7 @@ export default class StateOverview extends React.PureComponent {
             toggle: false
         };
 
+        this.detailsHeight = document.getElementById("award")?.offsetHeight;
         this.showTooltip = this.showTooltip.bind(this);
         this.closeTooltip = this.closeTooltip.bind(this);
         this.setOpen = this.setOpen.bind(this);
@@ -160,7 +159,7 @@ export default class StateOverview extends React.PureComponent {
                 });
         };
         const handleGoToAdvancedSearch = (e) => {
-            e.preventDefault();
+            e?.preventDefault();
             getSelectedHash(this.props.stateProfile);
         };
         if ((this.props.stateProfile.population !== "--") && this.props.stateProfile.populationSourceYear) {
@@ -200,102 +199,100 @@ export default class StateOverview extends React.PureComponent {
                         <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
                     <div className="state-section__row">
-                        <div className="state-section__viz totals-container">
-                            <div className="state-section__viz totals">
-                                <h3 className="state-overview__heading">
-                                Total Awarded Amount
-                                </h3>
-                                <div className="totals__amount">
-                                    {this.props.stateProfile.totalAmount}
-                                </div>
-                                <div className="totals__awards">
-                                from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> prime awards
-                                </div>
-                                {(this.props.stateProfile.code) &&
-                                    <Link
-                                        className="state-section__award-button"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        to="/search"
-                                        onClick={handleGoToAdvancedSearch}>
-                                        View awards to this state
-                                    </Link>
-                                }
-                            </div>
-                            <div className="state-section__viz loan">
-                                <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
-                            </div>
-                        </div>
-                        <div className="state-section__viz details">
-                            <h3 className="state-overview__heading">
-                                Details
-                                <span className="details__info_icon_holder">
-                                    <button
-                                        id="details__info_icon"
-                                        className="details__info_icon"
-                                        onFocus={this.showTooltip}
-                                        onBlur={this.closeTooltip}
-                                        onMouseEnter={this.showTooltip}
-                                        onClick={this.showTooltip}>
-                                        <InfoCircle />
-                                    </button>
-                                </span>
-                            </h3>
-                            {tooltip}
-                            <table className="details__table">
-                                <tbody>
-                                    <tr>
-                                        <th>Population</th>
-                                        <td>{this.props.stateProfile.population} {populationSourceYear}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Awarded Amount Per Capita</th>
-                                        <td>{this.props.stateProfile.awardAmountPerCapita}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Median Household Income</th>
-                                        <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <SummaryStats stateProfile={this.props.stateProfile} />
                     </div>
-                    <div className="state-section__row">
-                        <div className="state-section__viz award-breakdown">
-                            {QAT ? (
-                                <>
-                                    <div className="award-breakdown__heading-row">
-                                        <h3 className="state-overview__heading">
-                                            Award Breakdown
-                                        </h3>
-                                        <div className="state-overview__heading-right-side">
-                                            <RoundedToggle toggle={this.state.toggle} onKeyToggle={this.onKeyToggle} onToggle={this.onToggle} label="View Outlays" />
-                                            <div className="state-overview__line-div" />
-                                            <Accordion setOpen={this.setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+                    <FlexGridRow>
+                        <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
+                            <div className="state-section__viz award-breakdown" id="award">
+                                {QAT ? (
+                                    <>
+                                        <div className="award-breakdown__heading-row">
+                                            <h3 className="state-overview__heading">
+                                                Award Breakdown
+                                            </h3>
+                                            <div className="state-overview__heading-right-side">
+                                                <RoundedToggle toggle={this.state.toggle} onKeyToggle={this.onKeyToggle} onToggle={this.onToggle} label="View Outlays" />
+                                                <div className="state-overview__line-div" />
+                                                <Accordion setOpen={this.setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    {this.state.open &&
-                                        <div className="state-overview__what-content">
-                                            <FontAwesomeIcon icon="info-circle" className="state-overview__info-icon" />
-                                            <p className="state-overview__what-heading">What is an <em>outlay</em>?</p>
-                                            <p className="state-overview__what-text">An <span className="state-overview__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="state-overview__emphasis">obligation&nbsp;<GlossaryLink term="obligation" /></span> , which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
-                                            <p className="state-overview__what-second-heading">Why are the <em>obligation</em> and <em>budgetary resource</em> amounts no longer visible on the chart?</p>
-                                            <p className="state-overview__what-text">Remember, the <span className="state-overview__emphasis">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> and obligations on this chart refer to available amounts and promised amounts for spending <em>in your selected fiscal year</em>. However, agencies may make outlays to pay off obligations made in your selected year <em>or in previous years</em>. This means outlays on this chart should <span className="state-overview__emphasis">not</span> be compared to the obligations or budgetary resources within any single fiscal year.</p>
-                                        </div>}
-                                </>
-                            ) : (
-                                <h3 className="state-overview__heading">
-                                    Award Breakdown
-                                </h3>
-                            )}
-                            <AwardBreakdownContainer toggleState={this.state.toggle} />
-                        </div>
-                        <div className="state-section__viz geo">
-                            <h3 className="state-overview__heading">
-                                Primary Place of Performance
-                            </h3>
-                            <GeoVisualizationSectionContainer className="state-profile__map-toggle" />
-                        </div>
+                                        {this.state.open &&
+                                            <div className="state-overview__what-content">
+                                                <FontAwesomeIcon icon="info-circle" className="state-overview__info-icon" />
+                                                <p className="state-overview__what-heading">What is an <em>outlay</em>?</p>
+                                                <p className="state-overview__what-text">An <span className="state-overview__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="state-overview__emphasis">obligation&nbsp;<GlossaryLink term="obligation" /></span> , which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
+                                                <p className="state-overview__what-second-heading">Why are the <em>obligation</em> and <em>budgetary resource</em> amounts no longer visible on the chart?</p>
+                                                <p className="state-overview__what-text">Remember, the <span className="state-overview__emphasis">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> and obligations on this chart refer to available amounts and promised amounts for spending <em>in your selected fiscal year</em>. However, agencies may make outlays to pay off obligations made in your selected year <em>or in previous years</em>. This means outlays on this chart should <span className="state-overview__emphasis">not</span> be compared to the obligations or budgetary resources within any single fiscal year.</p>
+                                            </div>}
+                                    </>
+                                ) : (
+                                    <h3 className="state-overview__heading">
+                                        Award Breakdown
+                                    </h3>
+                                )}
+                            </div>
+                        </FlexGridCol>
+                    </FlexGridRow>
+                    <FlexGridRow>
+                        <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
+                            <div className="state-section__viz award-breakdown" id="award">
+                                <AwardBreakdownContainer toggleState={this.state.toggle} />
+                            </div>
+                        </FlexGridCol>
+                        <FlexGridCol width={4} desktop={4} tablet={12} mobile={12}l>
+                            <div className="state-section__viz details state-overview__heading">
+                                <CardContainer variant="outline" size="md">
+                                    <CardHero fill="#005ea2" />
+                                    <CardBody
+                                        customClassName="details-card-body"
+                                        headline={
+                                            <div className="state-section__viz">
+                                                <h3 className="state-overview__heading">
+                                                    Details
+                                                    <span className="details__info_icon_holder">
+                                                        <button
+                                                            id="details__info_icon"
+                                                            className="details__info_icon"
+                                                            onFocus={this.showTooltip}
+                                                            onBlur={this.closeTooltip}
+                                                            onMouseEnter={this.showTooltip}
+                                                            onClick={this.showTooltip}>
+                                                            <InfoCircle />
+                                                        </button>
+                                                    </span>
+                                                </h3>
+                                                {tooltip}
+                                            </div>
+                                        }
+                                        text={
+                                            <div className="details-info">
+                                                <div className="details-header">Count</div>
+                                                <div className="details-text">{this.props.stateProfile.population} {populationSourceYear}</div>
+                                                <div className="details-header">Obligations Per Capita</div>
+                                                <div className="details-text">{this.props.stateProfile.awardAmountPerCapita}</div>
+                                                <div className="details-header">Median Household Income</div>
+                                                <div className="details-text">{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</div>
+                                            </div>
+                                        }>
+                                        <CardButton
+                                            customClassName="details-button"
+                                            onlyPerformAction
+                                            text={<div>View awards to this state <FontAwesomeIcon icon="arrow-right" /></div>}
+                                            variant="secondary"
+                                            textAlignment="center"
+                                            action={() => {
+                                                handleGoToAdvancedSearch();
+                                            }} />
+                                    </CardBody>
+                                </CardContainer>
+                            </div>
+                        </FlexGridCol>
+                    </FlexGridRow>
+                    <div className="state-section__viz geo">
+                        <h3 className="state-overview__heading">
+                            Primary Place of Performance
+                        </h3>
+                        <GeoVisualizationSectionContainer className="state-profile__map-toggle" />
                     </div>
                 </div>
             </div>

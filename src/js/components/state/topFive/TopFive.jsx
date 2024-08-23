@@ -5,11 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { Table, TooltipWrapper } from 'data-transparency-ui';
 import { categoryTitles } from 'dataMapping/state/topCategories';
 import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
 
-import TopFiveRow from './TopFiveRow';
 import FeatureFlag from "../../sharedComponents/FeatureFlag";
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
@@ -26,15 +25,27 @@ const propTypes = {
 };
 
 const TopFive = (props) => {
-    const rows = props?.results?.map((result, index) => (
-        <TopFiveRow
-            key={index}
-            data={result}
-            total={props.total}
-            dataParams={props.dataParams} />
-    ));
+    const columns = [
+        {
+            title: 'name',
+            displayName: 'Name'
+        },
+        {
+            title: 'amount',
+            displayName: ["Obligations"]
 
-    const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';
+        },
+        {
+            title: 'percent',
+            displayName: ["% of Total"]
+        }
+    ];
+
+    const tableRows = props.results.map((result) => {
+        const percentValue = (result._amount / props.total) * 100;
+        const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
+        return [result._slug ? result.linkedName : result.name, result.amount, percent];
+    });
 
     const createLink = () => {
         const params = props.dataParams;
@@ -219,21 +230,6 @@ const TopFive = (props) => {
             });
     };
 
-    let message = null;
-    if (props.error) {
-        message = (
-            <div className="category-table__message">
-                An error occurred while loading this table.
-            </div>
-        );
-    }
-    else if (props.loading) {
-        message = (
-            <div className="category-table__message">
-                Loading...
-            </div>
-        );
-    }
     return (
         <div className="category-table">
             <div className="category-table__title">
@@ -256,33 +252,12 @@ const TopFive = (props) => {
                         </> : categoryTitles[props.category]}
                 </div>
             </div>
-            <table className="category-table__table">
-                <thead
-                    className="category-table__table-head">
-                    <tr
-                        className="category-table__table-head-row">
-                        <th className="category-table__table-head-cell">
-                            Name
-                        </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
-                            Awarded Amount
-                        </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
-                            % of Total
-                        </th>
-                        <FeatureFlag>
-                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
-                                View in Award Search
-                            </th>
-                        </FeatureFlag>
-                    </tr>
-                </thead>
-                <tbody
-                    className={`category-table__table-body ${hideBody}`}>
-                    {rows}
-                </tbody>
-            </table>
-            {message}
+            <Table
+                classNames={['topfive-table__table']}
+                columns={columns}
+                rows={tableRows}
+                loading={props.loading}
+                error={props.error} />
         </div>
     );
 };

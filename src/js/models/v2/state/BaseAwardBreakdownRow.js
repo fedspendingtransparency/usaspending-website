@@ -12,6 +12,7 @@ const BaseAwardBreakdownRow = {
         this.name = awardTypeLabels[data.type] || '';
         this._amount = data.amount || 0;
         this._count = data.count || 0;
+        this._totalOutlays = data.total_outlays || 0;
     },
     get amount() {
         if (Math.abs(this._amount) >= MoneyFormatter.unitValues.MILLION) {
@@ -19,6 +20,13 @@ const BaseAwardBreakdownRow = {
             return `${MoneyFormatter.formatMoneyWithPrecision(this._amount / units.unit, 1)}${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
+    },
+    get totalOutlays() {
+        if (Math.abs(this._totalOutlays) >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalOutlays);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalOutlays / units.unit, 1)}${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalOutlays, 0);
     },
     get count() {
         return MoneyFormatter.formatNumberWithPrecision(this._count, 0);

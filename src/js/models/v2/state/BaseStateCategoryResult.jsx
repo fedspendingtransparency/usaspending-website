@@ -21,7 +21,7 @@ const BaseStateCategoryResult = {
         this._code = data.code || '';
         this._slug = data.agency_slug;
         this._amount = data.amount || 0;
-        this.url = '';
+        this._category = data.category || '';
 
         this._nameTemplate = defaultNameTemplate;
     },
@@ -42,6 +42,10 @@ const BaseStateCategoryResult = {
         return `${this.index}. ${this.combinedName}`;
     },
     get linkedName() {
+        if (this._category === 'awards') {
+            return <a href={`/award/${this._slug}`}>{this.name}</a>;
+        }
+
         return <a href={`/agency/${this._slug}`}>{this.name}</a>;
     }
 };

@@ -2,7 +2,6 @@
     @import "mixins/moreOptionsBtn";
     @import "mixins/fullSectionWrap";
     @import 'treemapSource';
-    padding: ($global-pad * 4) 0 ($global-pad * 6);
     background-color: #ececec;
     & .treemap-inner-wrap {
         @include fullSectionWrap(0, 0);
@@ -57,9 +56,8 @@
         .visualization-tooltip {
             position: relative;
             width: 100%;
-            @import "components/visualizations/tooltip/_tooltip";
+            @import "components/visualizations/tooltip/_dataVizTooltip";
             .tooltip {
-                width: rem(570);
                 &.small {
                     width: rem(230);
                     min-height: rem(44);
@@ -76,13 +74,22 @@
                     }
                 }
                 .tooltip-body {
-                    text-align: justify;
+                    @include display(flex);
+                    @include flex-direction(column);
+
+                    .tooltip-body-row {
+                        @include display(flex);
+                        @include flex-direction(row);
+                        @include justify-content(space-between);
+                        @include align-items(center);
+                        width: 100%;
+                    }
                 }
-                .tooltip-value {
-                    font-size: rem(30);
-                    line-height: rem(30);
-                    font-weight: $font-light;
-                    border-bottom: none;
+
+                .tooltip-body .tooltip-body-row {
+                    &.bottom-spacing {
+                        margin-bottom: rem(8);
+                    }
                 }
                 .tooltip-pointer {
                     &:after {

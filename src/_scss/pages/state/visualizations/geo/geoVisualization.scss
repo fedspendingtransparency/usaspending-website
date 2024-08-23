@@ -1,5 +1,4 @@
 .geo__map-section {
-    margin-top: rem(10);
     position: relative;
     .map-container {
         height: rem(475);
@@ -150,7 +149,7 @@
     @import "../../../../pages/search/results/visualizations/geo/map/map.scss";
 
     .visualization-tooltip {
-        @import "components/visualizations/tooltip/_tooltip";
+        @import "components/visualizations/tooltip/_dataVizTooltip";
     }
 
     .tooltip-spacer {

@@ -20,9 +20,9 @@ const propTypes = {
 
 const SectionsContent = (props) => {
     const [observerSupported, setObserverSupported] = useState(false);
-    const [awardTableHasLoaded, setAwardTableHasLoaded] = useState(false);
     const [timeHasLoaded, setTimeHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
+    const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
 
     const observerOptions = {
@@ -45,7 +45,6 @@ const SectionsContent = (props) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
                 if (section === 'awards') {
-                    setAwardTableHasLoaded(true);
                     logVisualizationViewEvent("awards");
                 }
                 else if (section === 'time') {
@@ -57,6 +56,7 @@ const SectionsContent = (props) => {
                     logVisualizationViewEvent("categories");
                 }
                 else if (section === "map") {
+                    setMapHasLoaded(true);
                     logVisualizationViewEvent("map");
                 }
             }
@@ -90,10 +90,10 @@ const SectionsContent = (props) => {
 
     return (
         <>
-            <MapSection subaward={props.subaward} />
+            <TableSection subaward={props.subaward} />
             <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
             <TimeSection subaward={props.subaward} timeHasLoaded={timeHasLoaded} />
-            <TableSection subaward={props.subaward} awardTableHasLoaded={awardTableHasLoaded} />
+            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
         </>
     );
 };

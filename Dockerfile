@@ -26,7 +26,7 @@ WORKDIR /node-workspace
 RUN npm install -g npm@9.8.1
 RUN npm install -g webpack@5.88.2
 RUN npm install -g webpack-cli@5.1.4
-RUN npm ci --legacy-peer-deps
+RUN npm ci --legacy-peer-deps --maxsockets 1
 
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
