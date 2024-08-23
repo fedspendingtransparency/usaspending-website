@@ -85,10 +85,8 @@ const TopFiveContainer = (props) => {
                 .catch((err) => {
                     if (!isCancel(err)) {
                         console.error(err);
-                        setState({
-                            loading: false,
-                            error: true
-                        });
+                        setLoading(false);
+                        setError(true);
                     }
                 });
         }
