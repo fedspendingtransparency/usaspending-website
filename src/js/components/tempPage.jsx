@@ -1,318 +1,293 @@
-import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button, Table } from "data-transparency-ui";
-import PageWrapper from "./sharedComponents/PageWrapper";
-import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-import NewLocationSectionContainer from "../containers/search/filters/location/NewLocationSectionContainer";
+import React, { useEffect, useRef, useState } from "react";
+import { FaSquare, FaCheckSquare, FaMinusSquare } from "react-icons/fa";
+import { IoMdArrowDropright } from "react-icons/io";
+import { AiOutlineLoading } from "react-icons/ai";
+import TreeView, { flattenTree } from "react-accessible-treeview";
+import cx from "classnames";
 
-require("pages/search/searchPage.scss");
+function TempPage() {
+    const initialData = [
+        {
+            name: "",
+            id: 0,
+            children: [],
+            parent: null
+        }];
 
-const tempPage = () => {
-    const imageLink = "../../img/top-bowie-state-combined-image.svg";
+    const loadedAlertElement = useRef(null);
+    const [data, setData] = useState(initialData);
+    const [nodesAlreadyLoaded, setNodesAlreadyLoaded] = useState([]);
+    const [searchString, setSearchString] = useState('');
+    const [selectedIds, setSelectedIds] = useState([]);
+    const [isUpdatingExpandedIds, setIsUpdatingExpandedIds] = useState(false);
+    const [expandedIds, setExpandedIds] = useState([]);
 
-    const columns =
-        [
-            {
-                title: 'award',
-                displayName: 'Prime Award ID',
-                columnWidth: 200
-            },
-            {
-                title: 'amount',
-                displayName: 'Amount',
-                columnWidth: 200
-            },
-            {
-                title: 'percent',
-                displayName: '% of Total Amount',
-                right: true,
-                columnWidth: 400
-            },
-            {
-                title: 'test',
-                displayName: 'test',
-                columnWidth: 200
-            },
-            {
-                title: 'mock1',
-                displayName: 'Mock Data 1',
-                columnWidth: 200
-            },
-            {
-                title: 'mock2',
-                displayName: 'Mock Data 2',
-                columnWidth: 200
-            },
-            {
-                title: 'mock2',
-                displayName: 'Mock Data 2',
-                columnWidth: 200
-            },
-            {
-                title: 'mock2',
-                displayName: 'Mock Data 2',
-                columnWidth: 200
-            },
-            {
-                title: 'mock2',
-                displayName: 'Mock Data 2',
-                columnWidth: 200
-            },
-            {
-                title: 'mock2',
-                displayName: 'Mock Data 2',
-                columnWidth: 200
-            },
-            {
-                title: 'mock2',
-                displayName: 'Mock Data 2',
-                columnWidth: 200
+    const updateTreeData = (list, id, children) => {
+        const d = list.map((node) => {
+            if (node.id === id) {
+                node.children = children.map((el) => el.id);
             }
-        ];
-    const rows = [
-        [<a href="/">Link</a>, 'first row', '25%', <a href="/">LinkLongLongLongLongLong</a>, 'mock1', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2LongerData'],
-        [<React.Fragment><strong>jsx</strong> content</React.Fragment>, 'second row', 'mock data longlonglonglonglonglong longlonglonglonglonglong', 'test', 'mock1', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2LongerData'],
-        [<a href="/">Link</a>, 'third row', 'test', <a href="/">Link</a>, 'mock1', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2LongerData'],
-        [<a href="/">Link</a>, 'fourth row', 'test', <a href="/">Link</a>, 'mock1', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2', 'mock2LongerData']
-    ];
+            return node;
+        });
+        return d.concat(children);
+    };
+
+    const createEntry = (obj, parent = 0, children = []) => ({
+        name: obj.naics_description,
+        id: obj.naics,
+        parent,
+        children,
+        metadata: {
+            count: obj.count,
+            naics: obj.naics
+        },
+        isBranch: obj.count > 0
+    });
+
+    function getAllInstancesOfKey(obj, targetKey) {
+        // Initialize an array to store all instances of the target key
+        const result = [];
+
+        // Helper function to perform recursive traversal
+        function traverse(current) {
+            // Base case: If current is not an object or array, return
+            if (current === null || typeof current !== 'object') {
+                return;
+            }
+
+            // If current is an array, iterate through each element
+            if (Array.isArray(current)) {
+                current.forEach((item) => traverse(item));
+            } else {
+                // If current is an object, check each key
+                Object.keys(current).forEach((key) => {
+                    if (key === targetKey && current[key]) {
+                    // If the key matches the target, add the value to the result array
+                        result.push(current[key]);
+                    }
+                    // Recursively traverse the value associated with the current key
+                    traverse(current[key]);
+                });
+            }
+        }
+
+        // Start the traversal from the top-level object
+        traverse(obj);
+
+        return result;
+    }
+
+    function addKeyInObject(obj, oldKey, newKey, isMetadata = false) {
+        // If the input is not an object or array, return it as is
+        if (obj === null || typeof obj !== 'object') {
+            return obj;
+        }
+
+        // If the input is an array, iterate through its elements
+        if (Array.isArray(obj)) {
+            return obj.map((item) => addKeyInObject(item, oldKey, newKey, isMetadata));
+        }
+
+        // Create a new object to avoid mutating the original one
+        const result = {};
+
+        // Iterate through the object's keys
+        Object.keys(obj).forEach((key) => {
+            // Add the value of the old key to the new key
+            if (key === oldKey) {
+                result[key] = obj[key]; // keep the old key
+                if (isMetadata === true) {
+                    result[newKey] = {
+                        [oldKey]: obj[key]
+                    };
+                } else {
+                    result[newKey] = obj[key]; // add the new key with the same value
+                }
+            } else {
+                // Recursively apply the function to the value
+                result[key] = addKeyInObject(obj[key], oldKey, newKey, isMetadata);
+            }
+        });
+
+        return result;
+    }
+
+    useEffect(() => {
+        const fetchInitialData = async () => {
+            const d = await fetch(`https://api.usaspending.gov/api/v2/references/naics/`);
+            const json = await d.json();
+            const initData = json.results.map((obj) => createEntry(obj));
+            setData((value) => updateTreeData(value, 0, initData));
+        };
+
+        fetchInitialData();
+    }, []);
+
+    useEffect(() => {
+        const search = async () => {
+            const d = await fetch(`https://api.usaspending.gov/api/v2/references/naics/?filter=${searchString}`);
+            const json = await d.json();
+
+            let convertedObj = addKeyInObject(addKeyInObject(json.results, 'naics', 'id'), 'naics_description', 'name');
+            // Add metadata object that contains count because that persists through a flattenTree
+            convertedObj = addKeyInObject(convertedObj, 'count', 'metadata', true);
+            const newTree = flattenTree(createEntry({}, 0, convertedObj));
+            setData(newTree);
+            setIsUpdatingExpandedIds(true);
+        };
+
+        if (searchString.length >= 2) {
+            search();
+        }
+    }, [searchString]);
+
+    // Expand all node from search if search is happening
+    useEffect(() => {
+        if (searchString.length >= 2 && isUpdatingExpandedIds) {
+            setExpandedIds(getAllInstancesOfKey(data, 'id'));
+            console.log(data);
+            console.log(getAllInstancesOfKey(data, 'id'));
+            setIsUpdatingExpandedIds(false);
+        }
+    }, [data, isUpdatingExpandedIds]);
+
+    const onLoadData = async ({ element }) => new Promise((resolve) => {
+        if (element.children.length > 0) {
+            resolve();
+            return;
+        }
+
+        if (searchString.length < 2) {
+            fetch(`https://api.usaspending.gov/api/v2/references/naics/${element.id}`)
+                .then((resp) => resp.json())
+                .then((d) => {
+                    const newChildren = d.results[0].children.map((obj) => createEntry(obj, element.naics));
+
+                    console.log('new children', newChildren);
+
+                    setData((value) => updateTreeData(value, element.id, newChildren));
+                    console.log('new data', data);
+                });
+        }
+    });
+
+    const wrappedOnLoadData = async (props) => {
+        const nodeHasNoChildData = props.element.children.length === 0;
+        const nodeHasAlreadyBeenLoaded = nodesAlreadyLoaded.find(
+            (e) => e.id === props.element.id
+        );
+
+        await onLoadData(props);
+
+        if (nodeHasNoChildData && !nodeHasAlreadyBeenLoaded) {
+            const el = loadedAlertElement.current;
+            setNodesAlreadyLoaded([...nodesAlreadyLoaded, props.element]);
+            if (el) {
+                (el.innerHTML = `${props.element.name} loaded`);
+            }
+
+            // Clearing aria-live region so loaded node alerts no longer appear in DOM
+            setTimeout(() => {
+                if (el) {
+                    (el.innerHTML = "");
+                }
+            }, 5000);
+        }
+    };
 
     return (
-        <PageFeatureFlag>
-            <PageWrapper
-                pageName="Test Page"
-                classNames="usa-da-search-page"
-                title="Test Page">
-                <main id="main-content" className="main-content">
-                    <NewLocationSectionContainer />
-                    <section style={{ margin: '80px', backgroundColor: 'white' }}>
-                        <div style={{
-                            width: '800px', overflowX: 'scroll', borderRadius: '8px', border: 'solid 1px #dfe1e2'
-                        }}>
-                            <Table columns={columns} rows={rows} classNames="search-results-dtui-table" stickyFirstColumn />
-                        </div>
-                    </section>
-                    <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px' }}>
-                        <div>1</div>
-                        <div>2</div>
-                        <div>3</div>
-                        <div>4</div>
-                        <div>5</div>
-                        <div>6</div>
-                    </div>
-                    <h1>Container Variants</h1>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
-                        <FlexGridCol width={3} desktop={3}>
-                            <CardContainer variant="outline" size="sm" height="200px">
-                                <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                        <FlexGridCol width={3} desktop={3}>
-                            <CardContainer variant="outline" size="md">
-                                <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                        <FlexGridCol width={3} desktop={3}>
-                            <CardContainer variant="elevated" size="md">
-                                <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                        <FlexGridCol width={3} desktop={3}>
-                            <CardContainer variant="outline" fill="#1a4480">
-                                <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                        <FlexGridCol width={3} desktop={3}>
-                            <CardContainer>
-                                <CardBody
-                                    overline="Award Search"
-                                    headline="Find details on federal awards"
-                                    text="Search spending to your community using Location filters like Place of Performance" >
-                                    <CardButton text="Search" variant="primary" link="/search" />
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                    </FlexGridRow>
-                    <h1>Hero Variants</h1>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
-                        <FlexGridCol width={3} desktop={3}>
-                            <CardContainer variant="elevated" size="sm">
-                                <CardHero variant="inset" fill="#1a4480" img={imageLink} />
-                                <CardBody variant="inset" overline="blah lbahl bhal" headline="more more more">
-                                    <p>hello</p>
-                                    <p>hello</p>
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                        <FlexGridCol width={3} desktop={3}>
-                            <CardContainer variant="elevated" size="md">
-                                <CardHero fill="#1a4480" img={imageLink} />
-                                <p>hello</p>
-                                <p>hello</p>
-                            </CardContainer>
-                        </FlexGridCol>
-                        <FlexGridCol width={3} desktop={3}>
-                            <CardContainer variant="elevated" size="md">
-                                <CardHero fill="#1a4480" />
-                                <CardBody
-                                    overline="Award Search"
-                                    headline="Find details on federal awards"
-                                    text="Search spending to your community using Location filters like Place of Performance" >
-                                    <CardButton text="Return Home" variant="primary" link="/" />
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                    </FlexGridRow>
-                    <h1>Button Variants</h1>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
-                        <FlexGridCol width={4} desktop={4}>
-                            <CardContainer variant="elevated" size="md">
-                                <CardHero fill="#1a4480" />
-                                <CardBody
-                                    overline="Resources"
-                                    headline="Learn how to use USAspending with our tutorial videos" >
-                                    <CardButton text="Search" variant="hero__button--action" link="/search" />
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                        <FlexGridCol width={4} desktop={4}>
-                            <CardContainer variant="elevated" size="md">
-                                <CardHero variant="expanded" img={imageLink} />
-                                <CardBody
-                                    overline="Resources"
-                                    headline="Learn how to use USAspending with our tutorial videos" >
-                                    <CardButton text="Search" link="/search" />
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                        <FlexGridCol width={4} desktop={4}>
-                            <CardContainer variant="elevated" size="md">
-                                <CardHero variant="expanded" fill="#1a4480" img={imageLink} />
-                                <CardBody
-                                    overline="Resources"
-                                    headline="Learn how to use USAspending with our tutorial videos" >
-                                    <CardButton text="Search" variant="text" link="/search" />
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                    </FlexGridRow>
-                    <h1>New Button Variants</h1>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="primary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="This is wrapping button text" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" maxWidth="200px" textAlignment="center" />
-                        <Button copy="This is wrapping button text" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" maxWidth="200px" textAlignment="left" />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="primary" backgroundColor="light" disabled />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" disabled />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="secondary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="secondary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="secondary" backgroundColor="light" />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="secondary" backgroundColor="dark" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="secondary" backgroundColor="dark" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="secondary" backgroundColor="dark" />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="tertiary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="tertiary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="tertiary" backgroundColor="light" />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="tertiaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="tertiaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="tertiaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="light" />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="dark" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="dark" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="dark" />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="dark" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="dark" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="dark" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button buttonTitle="TEST" buttonSize="sm" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonTitle="TEST" buttonSize="md" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonTitle="TEST" buttonSize="lg" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button buttonTitle="TEST" buttonSize="sm" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonTitle="TEST" buttonSize="md" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonTitle="TEST" buttonSize="lg" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="what" buttonTitle="TEST" buttonSize="sm" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="what" buttonTitle="TEST" buttonSize="md" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="what" buttonTitle="TEST" buttonSize="lg" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                    </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="hello" buttonTitle="TEST" buttonSize="sm" buttonType="intext" backgroundColor="light" to="https://usaspending.gov" />
-                        <Button copy="hello" buttonTitle="TEST" buttonSize="md" buttonType="intext" backgroundColor="light" to="https://usaspending.gov" />
-                        <Button copy="hello" buttonTitle="TEST" buttonSize="lg" buttonType="intext" backgroundColor="light" to="https://usaspending.gov" />
-                    </FlexGridRow>
-                </main>
-            </PageWrapper>
-        </PageFeatureFlag>
+        <>
+            <div>
+                <span className="checkbox-header">Search by Code or Name</span>
+                <input type="text" onChange={(e) => setSearchString(e.target.value)} value={searchString} />
+                <div
+                    className="visually-hidden"
+                    ref={loadedAlertElement}
+                    role="alert"
+                    aria-live="polite" />
+                <div className="checkbox">
+                    <TreeView
+                        data={data}
+                        aria-label="Checkbox tree"
+                        onLoadData={wrappedOnLoadData}
+                        multiSelect
+                        propagateSelect
+                        togglableSelect
+                        propagateSelectUpwards
+                        selectedIds={selectedIds}
+                        expandedIds={expandedIds}
+                        nodeRenderer={({
+                            element,
+                            isBranch,
+                            isExpanded,
+                            isSelected,
+                            isHalfSelected,
+                            getNodeProps,
+                            level,
+                            handleSelect,
+                            handleExpand
+                        }) => {
+                            const branchNode = (isExpanded, element) => (isExpanded && element.children.length === 0 ? (
+                                <>
+                                    <span
+                                        role="alert"
+                                        aria-live="assertive"
+                                        className="visually-hidden">
+                    loading {element.name}
+                                    </span>
+                                    <AiOutlineLoading
+                                        aria-hidden
+                                        className="loading-icon" />
+                                </>
+                            ) : (
+                                <ArrowIcon isOpen={isExpanded} />
+                            ));
+                            return (
+                                <div
+                                    {...getNodeProps({ onClick: handleExpand })}
+                                    style={{ marginLeft: 40 * (level - 1) }}>
+                                    {isBranch && branchNode(isExpanded, element)}
+                                    <CheckBoxIcon
+                                        className="checkbox-icon"
+                                        onClick={(e) => {
+                                            handleSelect(e);
+                                            e.stopPropagation();
+                                        }}
+                                        variant={
+                                            isHalfSelected ? "some" : isSelected ? "all" : "none"
+                                        } />
+                                    <span className="name">{element.id} {element.name} {element.metadata.count > 0 && `${element.metadata?.count} codes`}</span>
+                                </div>
+                            );
+                        }}/>
+                </div>
+            </div>
+        </>
     );
 };
 
+const ArrowIcon = ({ isOpen, className }) => {
+    const baseClass = "arrow";
+    const classes = cx(
+        baseClass,
+        { [`${baseClass}--closed`]: !isOpen },
+        { [`${baseClass}--open`]: isOpen },
+        className
+    );
+    return <IoMdArrowDropright className={classes} />;
+};
 
-export default tempPage;
+const CheckBoxIcon = ({ variant, ...rest }) => {
+    switch (variant) {
+        case "all":
+            return <FaCheckSquare {...rest} />;
+        case "none":
+            return <FaSquare {...rest} />;
+        case "some":
+            return <FaMinusSquare {...rest} />;
+        default:
+            return null;
+    }
+};
+
+export default TempPage;
