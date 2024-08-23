@@ -177,7 +177,7 @@ const SearchPage = ({
                             className="mobile-filter-button"
                             onClick={toggleMobileFilters}
                             onKeyUp={(e) => {
-                                if (e.key === "Escape") {
+                                if (e.key === "Escape" && showMobileFilters) {
                                     toggleMobileFilters();
                                 }
                             }}>
