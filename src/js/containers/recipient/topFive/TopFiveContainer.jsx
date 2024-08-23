@@ -70,27 +70,6 @@ const TopFiveContainer = (props) => {
             };
     }
 
-    loadCategory() {
-            if (request) {
-                request.cancel();
-            }
-            setLoading(false);
-            setError(false);
-
-            request = SearchHelper.performSpendingByCategorySearch(dataParams());
-            request.promise
-                .then((res) => {
-                    parseResults(res.data.results, res.data.category);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        console.error(err);
-                        setLoading(false);
-                        setError(true);
-                    }
-                });
-        }
-
     parseResults(data, type) {
             const parsed = data.map((item, index) => {
                 const result = Object.create(BaseStateCategoryResult);
@@ -113,12 +92,27 @@ const TopFiveContainer = (props) => {
             setError(false);
             setResults(parsed);
     }
-             return (
-                <TopFive
-                    category={props.category}
-                    total={props.total}
-                    {...state} />
-            );
+
+    loadCategory() {
+            if (request) {
+                request.cancel();
+            }
+            setLoading(false);
+            setError(false);
+
+            request = SearchHelper.performSpendingByCategorySearch(dataParams());
+            request.promise
+                .then((res) => {
+                    parseResults(res.data.results, res.data.category);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.error(err);
+                        setLoading(false);
+                        setError(true);
+                    }
+                });
+    }
 
     useEffect(() => {
            loadCategory();
@@ -127,6 +121,13 @@ const TopFiveContainer = (props) => {
     useEffect(() => {
            loadCategory();
     }, [recipientHash, fy]);
+
+             return (
+                <TopFive
+                    category={props.category}
+                    total={props.total}
+                    {...state} />
+            );
 }
 
 export default connect(
