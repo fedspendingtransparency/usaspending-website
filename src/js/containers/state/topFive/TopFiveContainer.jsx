@@ -79,23 +79,18 @@ const TopFiveContainer = (props) => {
         return params;
     }
 
-    loadCategory() {
-        if (!this.props.code) {
-            this.setState({
-                loading: false,
-                error: true
-            });
+    const loadCategory = () => {
+        if (!props.code) {
+            setCategoryState({ loading: false, error: true });
             return;
         }
 
-        if (this.request) {
-            this.request.cancel();
+        if (request) {
+            request.cancel();
         }
 
-        this.setState({
-            loading: true,
-            error: false
-        });
+        setCategoryState({ loading: false, error: true });
+    }
 
     const parseResults = (data, type) => {
         const parsed = data?.map((item, index) => {

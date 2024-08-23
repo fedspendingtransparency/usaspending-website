@@ -3,12 +3,14 @@
  * Created by Kevin Li 5/15/18
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TooltipWrapper } from 'data-transparency-ui';
 import { categoryTitles } from 'dataMapping/state/topCategories';
-import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
+import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 
+import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
 import FeatureFlag from "../../sharedComponents/FeatureFlag";
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
@@ -25,6 +27,9 @@ const propTypes = {
 };
 
 const TopFive = (props) => {
+    const [linkData, setLinkData] = useState();
+    const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
+
     const columns = [
         {
             title: 'name',
@@ -38,8 +43,18 @@ const TopFive = (props) => {
         {
             title: 'percent',
             displayName: ["% of Total"]
+        },
+        {
+            title: 'link',
+            displayName: ['View in Award Search']
         }
     ];
+
+    const getSelectedLink = (e, data) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setLinkData(data);
+    };
 
     const tableRows = props.results.map((result) => {
         const percentValue = (result._amount / props.total) * 100;
