@@ -128,7 +128,6 @@ const TopFiveContainer = (props) => {
         if (request) {
             request.cancel();
         }
-
         setLoading(true);
         setError(false);
 
@@ -160,13 +159,12 @@ const TopFiveContainer = (props) => {
             loadCategory();
         }, [code, fy, type])
 
-        return (
-            <TopFive
-                category={props.category}
-                total={props.total}
-                {...state} />
-        );
-
+    return (
+        <TopFive
+            category={props.category}
+            total={props.total}
+            {...state} />
+    );
 }
 
 export default connect(

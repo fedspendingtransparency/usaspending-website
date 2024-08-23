@@ -122,12 +122,12 @@ const TopFiveContainer = (props) => {
            loadCategory();
     }, [recipientHash, fy]);
 
-             return (
-                <TopFive
-                    category={props.category}
-                    total={props.total}
-                    {...state} />
-            );
+    return (
+        <TopFive
+            category={props.category}
+            total={props.total}
+            {...state} />
+    );
 }
 
 export default connect(
