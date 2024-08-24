@@ -59,7 +59,18 @@ const TopFive = (props) => {
     const tableRows = props.results?.map((result) => {
         const percentValue = (result._amount / props.total) * 100;
         const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
-        return [result._slug ? result.linkedName : result.name, result.amount, percent];
+        const linkText = props.category === "awards" ? "View this Award" : "View Awards";
+        return [result._slug ? result.linkedName : result.name, result.amount, percent,
+            <a
+                role="button"
+                tabIndex={0}
+                aria-label="View awards"
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") getSelectedLink(e, result.name);
+                }}
+                onClick={(e) => getSelectedLink(e, result)}>
+                {linkText}
+            </a>];
     });
 
     const createLink = () => {
@@ -196,6 +207,13 @@ const TopFive = (props) => {
                 }
             };
         }
+        else if (params.category === "awards") {
+            categoryFilter = {
+                selectedAwardIDs: {
+                    [linkData._name]: linkData._name
+                }
+            };
+        }
 
         let awardTypeFilter;
 
@@ -244,6 +262,13 @@ const TopFive = (props) => {
                 }
             });
     };
+
+    useEffect(() => {
+        if (agencySlugs && linkData) {
+            createLink();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [agencySlugs, linkData, slugsLoading, slugsError]);
 
     return (
         <div className="category-table">
