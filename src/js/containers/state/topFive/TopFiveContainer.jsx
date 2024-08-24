@@ -76,7 +76,7 @@ const TopFiveContainer = (props) => {
         }
 
         return params;
-    }
+    };
 
     const loadCategory = () => {
         let request;
@@ -108,7 +108,7 @@ const TopFiveContainer = (props) => {
                     setCategoryState({ loading: false, error: true });
                 }
             });
-    }
+    };
 
     const parseResults = (data, type) => {
         const parsed = data.map((item, index) => {
@@ -145,34 +145,6 @@ const TopFiveContainer = (props) => {
 
         setCategoryState({ loading: false, error: false, results: parsed });
     };
-
-    // const loadCategory = () => {
-    //     let request;
-    //
-    //     if (!props.code) {
-    //         setCategoryState({ loading: false, error: true });
-    //     }
-    //
-    //     if (request) {
-    //         request.cancel();
-    //     }
-    //
-    //     setCategoryState({ loading: true, error: false });
-    //
-    //
-    //     // generate a link with these dataParams
-    //     request = SearchHelper.performSpendingByCategorySearch(dataParams());
-    //     request.promise
-    //         .then((res) => {
-    //             parseResults(res.data.results, res.data.category);
-    //         })
-    //         .catch((err) => {
-    //             if (!isCancel(err)) {
-    //                 console.log(err);
-    //                 setCategoryState({ loading: false, error: true });
-    //             }
-    //         });
-    // };
 
     useEffect(() => {
         loadCategory();
