@@ -56,7 +56,7 @@ const TopFive = (props) => {
         setLinkData(data);
     };
 
-    const tableRows = props.results.map((result) => {
+    const tableRows = props.results?.map((result) => {
         const percentValue = (result._amount / props.total) * 100;
         const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
         return [result._slug ? result.linkedName : result.name, result.amount, percent];

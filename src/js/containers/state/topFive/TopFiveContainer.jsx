@@ -60,15 +60,14 @@ const TopFiveContainer = (props) => {
             filters.award_type_codes = awardTypeGroups[props.type];
         }
 
-        return {
+        const params = {
             filters,
             category: props.category,
             limit: 5,
             page: 1
         };
-    };
 
-        if (this.props.category === 'awards') {
+        if (props.category === 'awards') {
             filters.award_type_codes = ['A', 'B', 'C', 'D'];
             params.fields = ['Award ID', 'Award Amount', 'generated_internal_id'];
             params.order = 'desc';
@@ -80,6 +79,7 @@ const TopFiveContainer = (props) => {
     }
 
     const loadCategory = () => {
+        let request;
         if (!props.code) {
             setCategoryState({ loading: false, error: true });
             return;
@@ -90,45 +90,39 @@ const TopFiveContainer = (props) => {
         }
 
         setCategoryState({ loading: false, error: true });
-    }
 
-    const parseResults = (data, type) => {
-        const parsed = data?.map((item, index) => {
-        if (this.props.category === 'awards') {
-            this.request = SearchHelper.performSpendingByAwardSearch(this.dataParams());
+        if (props.category === 'awards') {
+            request = SearchHelper.performSpendingByAwardSearch(dataParams());
         }
         else {
-            this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
+            request = SearchHelper.performSpendingByCategorySearch(dataParams());
         }
 
-        this.request.promise
+        request.promise
             .then((res) => {
-                this.parseResults(res.data.results, res.data.category);
+                parseResults(res.data.results, res.data.category);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
+                    setCategoryState({ loading: false, error: true });
                 }
             });
     }
 
-    parseResults(data, type) {
+    const parseResults = (data, type) => {
         const parsed = data.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
-            if (this.props.category === 'awards') {
+            if (props.category === 'awards') {
                 result.populate({
                     name: item['Award ID'],
                     amount: item['Award Amount'],
                     agency_slug: item.generated_internal_id,
-                    category: this.props.category
+                    category: props.category
                 }, index + 1);
             }
             else {
-                result.populate({ ...item, category: this.props.category }, index + 1);
+                result.populate({ ...item, category: props.category }, index + 1);
             }
 
             if (type === 'awarding_agency' || type === 'awarding_subagency') {
@@ -152,33 +146,33 @@ const TopFiveContainer = (props) => {
         setCategoryState({ loading: false, error: false, results: parsed });
     };
 
-    const loadCategory = () => {
-        let request;
-
-        if (!props.code) {
-            setCategoryState({ loading: false, error: true });
-        }
-
-        if (request) {
-            request.cancel();
-        }
-
-        setCategoryState({ loading: true, error: false });
-
-
-        // generate a link with these dataParams
-        request = SearchHelper.performSpendingByCategorySearch(dataParams());
-        request.promise
-            .then((res) => {
-                parseResults(res.data.results, res.data.category);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    setCategoryState({ loading: false, error: true });
-                }
-            });
-    };
+    // const loadCategory = () => {
+    //     let request;
+    //
+    //     if (!props.code) {
+    //         setCategoryState({ loading: false, error: true });
+    //     }
+    //
+    //     if (request) {
+    //         request.cancel();
+    //     }
+    //
+    //     setCategoryState({ loading: true, error: false });
+    //
+    //
+    //     // generate a link with these dataParams
+    //     request = SearchHelper.performSpendingByCategorySearch(dataParams());
+    //     request.promise
+    //         .then((res) => {
+    //             parseResults(res.data.results, res.data.category);
+    //         })
+    //         .catch((err) => {
+    //             if (!isCancel(err)) {
+    //                 console.log(err);
+    //                 setCategoryState({ loading: false, error: true });
+    //             }
+    //         });
+    // };
 
     useEffect(() => {
         loadCategory();
