@@ -9,13 +9,12 @@ import { Table, TooltipWrapper } from 'data-transparency-ui';
 import { categoryTitles } from 'dataMapping/state/topCategories';
 import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
+import { isCancel } from "axios";
 
 import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
-import FeatureFlag from "../../sharedComponents/FeatureFlag";
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
 import { generateUrlHash } from "../../../helpers/searchHelper";
-import { isCancel } from "axios";
 
 const propTypes = {
     category: PropTypes.string,

@@ -78,38 +78,6 @@ const TopFiveContainer = (props) => {
         return params;
     };
 
-    const loadCategory = () => {
-        let request;
-        if (!props.code) {
-            setCategoryState({ loading: false, error: true });
-            return;
-        }
-
-        if (request) {
-            request.cancel();
-        }
-
-        setCategoryState({ loading: false, error: true });
-
-        if (props.category === 'awards') {
-            request = SearchHelper.performSpendingByAwardSearch(dataParams());
-        }
-        else {
-            request = SearchHelper.performSpendingByCategorySearch(dataParams());
-        }
-
-        request.promise
-            .then((res) => {
-                parseResults(res.data.results, res.data.category);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    setCategoryState({ loading: false, error: true });
-                }
-            });
-    };
-
     const parseResults = (data, type) => {
         const parsed = data.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
@@ -144,6 +112,38 @@ const TopFiveContainer = (props) => {
         });
 
         setCategoryState({ loading: false, error: false, results: parsed });
+    };
+
+    const loadCategory = () => {
+        let request;
+        if (!props.code) {
+            setCategoryState({ loading: false, error: true });
+            return;
+        }
+
+        if (request) {
+            request.cancel();
+        }
+
+        setCategoryState({ loading: false, error: true });
+
+        if (props.category === 'awards') {
+            request = SearchHelper.performSpendingByAwardSearch(dataParams());
+        }
+        else {
+            request = SearchHelper.performSpendingByCategorySearch(dataParams());
+        }
+
+        request.promise
+            .then((res) => {
+                parseResults(res.data.results, res.data.category);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    setCategoryState({ loading: false, error: true });
+                }
+            });
     };
 
     useEffect(() => {
