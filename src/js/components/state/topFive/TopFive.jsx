@@ -139,6 +139,22 @@ const TopFive = (props) => {
             // }
             // }
         }
+        else if (params.category === "defc") {
+            // TODO awaiting backend changes
+            // categoryFilter = {
+            //     defCodes: {
+            //         require: [linkData._code],
+            //         exclude: [],
+            //         counts: [
+            //             {
+            //                 label: linkData._name,
+            //                 value: linkData._code,
+            //                 count: 1
+            //             }
+            //         ]
+            //     }
+            // };
+        }
         else if (params.category === 'recipient') {
             categoryFilter = { selectedRecipients: [linkData._name] };
         }
