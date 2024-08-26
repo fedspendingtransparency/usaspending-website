@@ -95,13 +95,13 @@ const SearchSectionWrapper = ({
             return;
         }
         // add section to url
-        if (!window.location.href.includes(`section=${section}`)) {
-            const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
-        }
+        // if (!window.location.href.includes(`section=${section}`)) {
+        //     const newQueryParams = combineQueryParams(query, { section: `${section}` });
+        //     history.replace({
+        //         pathname: ``,
+        //         search: getQueryParamString(newQueryParams)
+        //     });
+        // }
 
         let rectTopOffset = 0;
         if (matchedSection === 'categories') {
@@ -122,15 +122,18 @@ const SearchSectionWrapper = ({
 
     const parseSection = () => {
         const params = history.location.search.split("&");
+        const sectionValue = params[0].substring(8);
         params.shift();
         if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=") {
-            jumpToSection(params[0].substring(8));
+            jumpToSection(sectionValue);
         }
     };
 
     useEffect(() => {
-        setContentHeight(content);
-        parseSection();
+        if (content && sectionName && content !== undefined && sectionName !== undefined) {
+            setContentHeight(content);
+            parseSection();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [content, sectionName]);
 
