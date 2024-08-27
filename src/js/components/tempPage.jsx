@@ -4,6 +4,7 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { AiOutlineLoading } from "react-icons/ai";
 import TreeView, { flattenTree } from "react-accessible-treeview";
 import cx from "classnames";
+import './tempPage.css';
 
 function TempPage() {
     const initialData = [
@@ -16,11 +17,14 @@ function TempPage() {
 
     const loadedAlertElement = useRef(null);
     const [data, setData] = useState(initialData);
+    const [preSearchData, setPreSearchData] = useState([]);
     const [nodesAlreadyLoaded, setNodesAlreadyLoaded] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [selectedIds, setSelectedIds] = useState([]);
     const [isUpdatingExpandedIds, setIsUpdatingExpandedIds] = useState(false);
+    const [isUpdatingData, setIsUpdatingData] = useState(false);
     const [expandedIds, setExpandedIds] = useState([]);
+    const [initialFetchData, setInitialFetchData] = useState([]);
 
     const updateTreeData = (list, id, children) => {
         const d = list.map((node) => {
@@ -118,6 +122,7 @@ function TempPage() {
             const json = await d.json();
             const initData = json.results.map((obj) => createEntry(obj));
             setData((value) => updateTreeData(value, 0, initData));
+            setInitialFetchData(data);
         };
 
         fetchInitialData();
@@ -132,12 +137,16 @@ function TempPage() {
             // Add metadata object that contains count because that persists through a flattenTree
             convertedObj = addKeyInObject(convertedObj, 'count', 'metadata', true);
             const newTree = flattenTree(createEntry({}, 0, convertedObj));
+            // setExpandedIds([]);
+            setPreSearchData(data);
             setData(newTree);
-            setIsUpdatingExpandedIds(true);
+            // setIsUpdatingExpandedIds(true);
         };
 
         if (searchString.length >= 2) {
             search();
+        } else if (preSearchData.length > 0 && searchString.length < 2) {
+            setData(preSearchData);
         }
     }, [searchString]);
 
@@ -150,6 +159,14 @@ function TempPage() {
             setIsUpdatingExpandedIds(false);
         }
     }, [data, isUpdatingExpandedIds]);
+
+    useEffect(() => {
+        if (searchString.length >= 2 && isUpdatingData) {
+            setExpandedIds([]);
+            console.log()
+            setIsUpdatingData(false);
+        }
+    }, [data, isUpdatingData]);
 
     const onLoadData = async ({ element }) => new Promise((resolve) => {
         if (element.children.length > 0) {
@@ -195,11 +212,13 @@ function TempPage() {
         }
     };
 
+    console.log(document.getElementById('naics-treeview'));
+
     return (
         <>
             <div>
-                <span className="checkbox-header">Search by Code or Name</span>
-                <input type="text" onChange={(e) => setSearchString(e.target.value)} value={searchString} />
+                <input type="text" onChange={(e) => setSearchString(e.target.value)} value={searchString} placeholder="Search filters..." />
+                <button onClick={() => setSearchString("")}>Clear</button>
                 <div
                     className="visually-hidden"
                     ref={loadedAlertElement}
@@ -207,15 +226,17 @@ function TempPage() {
                     aria-live="polite" />
                 <div className="checkbox">
                     <TreeView
+                        id="naics-treeview"
                         data={data}
+                        style={{ listStyle: "none", listStyleType: "none" }}
                         aria-label="Checkbox tree"
                         onLoadData={wrappedOnLoadData}
                         multiSelect
                         propagateSelect
                         togglableSelect
                         propagateSelectUpwards
-                        selectedIds={selectedIds}
-                        expandedIds={expandedIds}
+                        // selectedIds={searchString.length >= 2? getAllInstancesOfKey(data, 'id') : []}
+                        // expandedIds={searchString.length >= 2 ? getAllInstancesOfKey(data, 'id') : []}
                         nodeRenderer={({
                             element,
                             isBranch,
@@ -225,8 +246,10 @@ function TempPage() {
                             getNodeProps,
                             level,
                             handleSelect,
-                            handleExpand
+                            handleExpand,
+                            treeState
                         }) => {
+                            setSelectedIds(treeState.selectedIds);
                             const branchNode = (isExpanded, element) => (isExpanded && element.children.length === 0 ? (
                                 <>
                                     <span
@@ -245,21 +268,31 @@ function TempPage() {
                             return (
                                 <div
                                     {...getNodeProps({ onClick: handleExpand })}
-                                    style={{ marginLeft: 40 * (level - 1) }}>
-                                    {isBranch && branchNode(isExpanded, element)}
-                                    <CheckBoxIcon
-                                        className="checkbox-icon"
-                                        onClick={(e) => {
-                                            handleSelect(e);
-                                            e.stopPropagation();
-                                        }}
-                                        variant={
-                                            isHalfSelected ? "some" : isSelected ? "all" : "none"
-                                        } />
-                                    <span className="name">{element.id} {element.name} {element.metadata.count > 0 && `${element.metadata?.count} codes`}</span>
+                                    style={{
+                                        marginLeft: 40 * (level - 1),
+                                        padding: "1rem 0"
+                                    }}>
+                                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <CheckBoxIcon
+                                            className="checkbox-icon"
+                                            onClick={(e) => {
+                                                handleSelect(e);
+                                                e.stopPropagation();
+                                            }}
+                                            variant={
+                                                isHalfSelected ? "some" : isSelected ? "all" : "none"
+                                            } />
+                                        <div>
+                                            <span className="name">{element.id} - {element.name} </span>
+                                            <div style={{ fontStyle: "italic" }}>{element.metadata.count > 0 && `${element.metadata?.count} codes`}</div>
+                                        </div>
+                                        <div>
+                                            {isBranch && branchNode(isExpanded, element)}
+                                        </div>
+                                    </div>
                                 </div>
                             );
-                        }}/>
+                        }} />
                 </div>
             </div>
         </>
