@@ -99,6 +99,7 @@ const TopFive = (props) => {
         };
 
         if (params.category === 'awarding_agency') {
+            console.log("agency linkData", linkData);
             categoryFilter = {
                 selectedAwardingAgencies: {
                     [`${linkData.id}_toptier`]: {
@@ -117,26 +118,31 @@ const TopFive = (props) => {
                     }
                 }
             };
+
+            console.log("categoryFilter", categoryFilter);
         }
         else if (params.category === 'awarding_subagency') {
-            // TODO awaiting backend changes in DEV-10991
-            // example filter
-            // categoryFilter = {
-            //     "1188_subtier": {
-            //     "id": 1188,
-            //         "toptier_flag": false,
-            //         "toptier_agency": {
-            //         "toptier_code": "097",
-            //             "abbreviation": "DOD",
-            //             "name": "Department of Defense"
-            //     },
-            //     "subtier_agency": {
-            //         "abbreviation": "USA",
-            //             "name": "Department of the Army"
-            //     },
-            //     "agencyType": "subtier"
-            // }
-            // }
+            console.log("sub agency linkData", linkData);
+            categoryFilter = {
+                selectedAwardingAgencies: {
+                    [`${linkData.agency_id}_toptier`]: {
+                        id: linkData.agency_id,
+                        toptier_flag: false,
+                        toptier_agency: {
+                            toptier_code: agencySlugs[linkData.agency_slug],
+                            abbreviation: "DOD",
+                            name: linkData.agency_name
+                        },
+                        subtier_agency: {
+                            abbreviation: linkData._code,
+                            name: linkData._name
+                        },
+                        agencyType: "subtier"
+                    }
+                }
+            };
+
+            console.log("categoryFilter", categoryFilter);
         }
         else if (params.category === "defc") {
             // TODO awaiting backend changes
