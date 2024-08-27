@@ -32,6 +32,8 @@ const ResultsView = (props) => {
     const [timeLoaded, setTimeLoaded] = useState(false);
     const [categoriesLoaded, setCategoriesLoaded] = useState(false);
     const [mapLoaded, setMapLoaded] = useState(false);
+
+    // eslint-disable-next-line no-unused-vars
     const [tableLoaded, setTableLoaded] = useState(false);
 
     const filters = useSelector((state) => state.appliedFilters.filters);
@@ -43,15 +45,12 @@ const ResultsView = (props) => {
         const sections = ['map', 'time', 'categories', 'awards'];
         // we've been provided a section to jump to
         // check if it's a valid section
-        console.debug("in jump to section: ", section);
         const matchedSection = sections.find((sec) => sec === section);
-        console.debug("matched section: ", matchedSection);
         if (!matchedSection) {
             // no matching section
             return;
         }
 
-        console.debug("making it to this?");
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
@@ -95,7 +94,6 @@ const ResultsView = (props) => {
         params.shift();
 
         if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=") {
-            console.debug("in parse section", query.section, params);
             jumpToSection(query.section);
         }
     };
@@ -179,8 +177,6 @@ const ResultsView = (props) => {
 
         setResultContent(content);
     }, [props.noFiltersApplied, hasResults, subaward, waitForCheckForData]);
-
-    console.debug("is loaded: ", timeLoaded, categoriesLoaded, mapLoaded, tableLoaded);
 
     return (
         <div className="search-results-wrapper">
