@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import GlobalConstants from "GlobalConstants";
 import PropTypes from 'prop-types';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -12,9 +13,11 @@ import { isEqual } from 'lodash';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
+import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import FilterTabs from '../../../sharedComponents/filterSidebar/FilterTabs';
+
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -287,10 +290,14 @@ export default class TimePeriod extends React.Component {
         }
 
         if (this.props.activeTab === 'fy') {
-            showFilter = (<AllFiscalYears
+            showFilter = GlobalConstants.QAT ? (<AllFiscalYearsWithChips
                 updateFilter={this.props.updateFilter}
                 timePeriods={this.props.timePeriods}
-                selectedFY={this.props.filterTimePeriodFY} />);
+                selectedFY={this.props.filterTimePeriodFY} />) :
+                (<AllFiscalYears
+                    updateFilter={this.props.updateFilter}
+                    timePeriods={this.props.timePeriods}
+                    selectedFY={this.props.filterTimePeriodFY} />);
         }
         else {
             showFilter = (<DateRange
