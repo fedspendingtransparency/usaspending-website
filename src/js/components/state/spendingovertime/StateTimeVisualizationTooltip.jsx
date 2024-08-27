@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const propTypes = {
     y: PropTypes.number,
@@ -10,67 +10,76 @@ const propTypes = {
     chartWidth: PropTypes.number
 };
 
-export default class StateTimeVisualizationTooltip extends React.Component {
-    componentDidMount() {
-        this.positionTooltip();
-    }
+const StateTimeVisualizationTooltip = (props) => {
+    const {
+        y,
+        x,
+        data,
+        barWidth,
+        chartWidth
+    } = props;
 
-    positionTooltip() {
+    let divRef = useRef();
+    let pointerDivRef = useRef();
+
+    const positionTooltip = useCallback(() => {
     // we need to wait for the tooltip to render before we can full position it due to its
     // dynamic width
-        const tooltipWidth = this.div.offsetWidth;
+        const tooltipWidth = divRef.offsetWidth;
 
         // determine the tooltip direction
         let direction = 'left';
         // allow 20px padding
-        if (tooltipWidth + this.props.x >= this.props.chartWidth - 20) {
+        if (tooltipWidth + x >= chartWidth - 20) {
             direction = 'right';
         }
 
         // offset the tooltip position to account for its arrow/pointer
         let offset = 9;
         if (direction === 'right') {
-            offset = -9 - tooltipWidth - this.props.barWidth;
+            offset = -9 - tooltipWidth - barWidth;
         }
 
-        this.div.style.top = `${this.props.y}px`;
-        this.div.style.left = `${this.props.x + offset}px`;
-        this.div.className = `tooltip ${direction}`;
-        this.pointerDiv.className = `tooltip-pointer ${direction}`;
-    }
+        divRef.style.top = `${y}px`;
+        divRef.style.left = `${x + offset}px`;
+        divRef.className = `tooltip ${direction}`;
+        pointerDivRef.className = `tooltip-pointer ${direction}`;
+    }, [barWidth, chartWidth, x, y]);
 
-    render() {
-        const dollarValue = MoneyFormatter.formatMoney(this.props.data.yValue);
+    useEffect(() => {
+        positionTooltip();
+    }, [positionTooltip]);
 
-        return (
-            <div className="visualization-tooltip">
+
+    const dollarValue = formatMoneyWithUnitsShortLabel(data.yValue);
+
+    return (
+        <div className="visualization-tooltip">
+            <div
+                className="tooltip"
+                ref={(div) => {
+                    divRef = div;
+                }}>
                 <div
-                    className="tooltip"
+                    className="tooltip-pointer"
                     ref={(div) => {
-                        this.div = div;
-                    }}>
-                    <div
-                        className="tooltip-pointer"
-                        ref={(div) => {
-                            this.pointerDiv = div;
-                        }} />
-                    <div className="tooltip-title">
-                        {this.props.data.xValue}
+                        pointerDivRef = div;
+                    }} />
+                <div className="tooltip-title">
+                    {data.xValue}
+                </div>
+                <div className="tooltip-body">
+                    <div className="tooltip-label">
+                        Obligations
                     </div>
-                    <div className="tooltip-body">
-                        <div className="tooltip-full">
-                            <div className="tooltip-value">
-                                {dollarValue}
-                            </div>
-                            <div className="tooltip-label">
-                                Amount Obligated
-                            </div>
-                        </div>
+                    <div className="tooltip-value">
+                        {dollarValue}
                     </div>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 StateTimeVisualizationTooltip.propTypes = propTypes;
+export default StateTimeVisualizationTooltip;

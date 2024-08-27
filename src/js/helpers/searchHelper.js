@@ -11,6 +11,12 @@ import { checkboxTreeFilters } from 'dataMapping/shared/checkboxTree/checkboxTre
 import { apiRequest } from './apiRequest';
 
 // Agency search for autocomplete
+export const fetchLocations = (req) => apiRequest({
+    url: 'v2/autocomplete/location/',
+    method: 'post',
+    data: req
+});
+
 export const fetchAwardingAgencies = (req) => apiRequest({
     url: 'v2/autocomplete/awarding_agency/',
     method: 'post',
