@@ -99,7 +99,6 @@ const TopFive = (props) => {
         };
 
         if (params.category === 'awarding_agency') {
-            console.log("agency linkData", linkData);
             categoryFilter = {
                 selectedAwardingAgencies: {
                     [`${linkData.id}_toptier`]: {
@@ -118,19 +117,16 @@ const TopFive = (props) => {
                     }
                 }
             };
-
-            console.log("categoryFilter", categoryFilter);
         }
         else if (params.category === 'awarding_subagency') {
-            console.log("sub agency linkData", linkData);
             categoryFilter = {
                 selectedAwardingAgencies: {
-                    [`${linkData.agency_id}_toptier`]: {
-                        id: linkData.agency_id,
+                    [`${linkData.id}_toptier`]: {
+                        id: linkData.id,
                         toptier_flag: false,
                         toptier_agency: {
                             toptier_code: agencySlugs[linkData.agency_slug],
-                            abbreviation: "DOD",
+                            abbreviation: linkData.agency_code,
                             name: linkData.agency_name
                         },
                         subtier_agency: {
@@ -141,8 +137,6 @@ const TopFive = (props) => {
                     }
                 }
             };
-
-            console.log("categoryFilter", categoryFilter);
         }
         else if (params.category === "defc") {
             // TODO awaiting backend changes
