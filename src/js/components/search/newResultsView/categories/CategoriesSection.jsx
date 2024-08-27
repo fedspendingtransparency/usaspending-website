@@ -72,6 +72,7 @@ const CategoriesSection = (props) => {
         sectionName: 'categories'
 
     };
+
     return (
         <div id="search-page-component" className="categories">
             {props.categoriesHasLoaded ?
@@ -79,6 +80,7 @@ const CategoriesSection = (props) => {
                     wrapperProps={wrapperProps}
                     subaward={props.subaward}
                     categoriesHasLoaded={props.categoriesHasLoaded}
+                    setCategoriesLoaded={props.setCategoriesLoaded}
                     selectedDropdown={props.selectedDropdown}
                     setSelectedDropdown={props.setSelectedDropdown} />
                 :

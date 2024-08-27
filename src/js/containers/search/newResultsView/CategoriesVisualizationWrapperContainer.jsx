@@ -39,7 +39,8 @@ const propTypes = {
     agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.bool,
     wrapperProps: PropTypes.object,
-    setSelectedDropdown: PropTypes.func
+    setSelectedDropdown: PropTypes.func,
+    setCategoriesLoaded: PropTypes.func
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
@@ -386,6 +387,9 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.reduxFilters, scope, props.subaward]);
+
+
+    useEffect(() => props.setCategoriesLoaded(true), []);
 
     return (
         <div

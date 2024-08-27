@@ -15,7 +15,11 @@ import Analytics from "../../../helpers/analytics/Analytics";
 require("pages/search/searchPage.scss");
 
 const propTypes = {
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    setMapLoaded: PropTypes.func,
+    setCategoriesLoaded: PropTypes.func,
+    setTimeLoaded: PropTypes.func,
+    setTableLoaded: PropTypes.func
 };
 
 const SectionsContent = (props) => {
@@ -90,10 +94,10 @@ const SectionsContent = (props) => {
 
     return (
         <>
-            <TableSection subaward={props.subaward} />
-            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
-            <TimeSection subaward={props.subaward} timeHasLoaded={timeHasLoaded} />
-            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
+            <TableSection subaward={props.subaward} setTableLoaded={props.setTableLoaded} />
+            <CategoriesSection subaward={props.subaward} setCategoriesLoaded={props.setCategoriesLoaded} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
+            <TimeSection subaward={props.subaward} setTimeLoaded={props.setTimeLoaded} timeHasLoaded={timeHasLoaded} />
+            <MapSection subaward={props.subaward} setMapLoaded={props.setMapLoaded} mapHasLoaded={mapHasLoaded} />
         </>
     );
 };

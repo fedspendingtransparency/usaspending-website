@@ -496,6 +496,8 @@ const ResultsTableContainer = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), [tableType, resultLimit, page]);
 
+    useEffect(() => props.setTableLoaded(true), []);
+
     if (!columns[tableType]) {
         return null;
     }

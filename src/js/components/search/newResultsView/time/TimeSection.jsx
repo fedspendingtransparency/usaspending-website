@@ -15,10 +15,11 @@ import TimeDsm from "./TimeDsm";
 
 const propTypes = {
     timeHasLoaded: PropTypes.bool,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    setTimeLoaded: PropTypes.func
 };
 
-const TimeSection = ({ timeHasLoaded, subaward }) => {
+const TimeSection = ({ timeHasLoaded, subaward, setTimeLoaded }) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('month');
 
     const onClick = (e) => {
@@ -61,7 +62,8 @@ const TimeSection = ({ timeHasLoaded, subaward }) => {
                 <TimeVisualizationSectionContainer
                     wrapperProps={wrapperProps}
                     subaward={subaward}
-                    visualizationPeriod={visualizationPeriod} />
+                    visualizationPeriod={visualizationPeriod}
+                    setTimeLoaded={setTimeLoaded} />
                 :
                 <PlaceholderComponent className="time" />
             }

@@ -30,7 +30,8 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    visualizationPeriod: PropTypes.string
+    visualizationPeriod: PropTypes.string,
+    setTimeLoaded: PropTypes.func
 };
 
 const TimeVisualizationSectionContainer = (props) => {
@@ -312,6 +313,8 @@ const TimeVisualizationSectionContainer = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.visualizationPeriod]);
+
+    useEffect(() => props.setTimeLoaded(true), []);
 
     return (
         <SearchSectionWrapper

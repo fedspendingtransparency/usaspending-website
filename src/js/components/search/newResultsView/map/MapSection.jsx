@@ -13,10 +13,11 @@ import PlaceholderComponent from "../PlaceholderComponent";
 
 const propTypes = {
     subaward: PropTypes.bool,
-    mapHasLoaded: PropTypes.bool
+    mapHasLoaded: PropTypes.bool,
+    setMapLoaded: PropTypes.func
 };
 
-const MapSection = ({ subaward, mapHasLoaded }) => {
+const MapSection = ({ subaward, mapHasLoaded, setMapLoaded }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('place_of_performance');
 
     const onClick = (e) => {
@@ -54,7 +55,8 @@ const MapSection = ({ subaward, mapHasLoaded }) => {
                     subaward={subaward}
                     scope={selectedDropdown}
                     setScope={setSelectedDropdown}
-                    wrapperProps={wrapperProps} />
+                    wrapperProps={wrapperProps}
+                    setMapLoaded={setMapLoaded} />
                 :
                 <PlaceholderComponent classname="map" />
             }

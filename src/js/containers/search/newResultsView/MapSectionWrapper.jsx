@@ -30,7 +30,8 @@ const propTypes = {
     className: PropTypes.string,
     scope: PropTypes.string,
     setScope: PropTypes.func,
-    wrapperProps: PropTypes.object
+    wrapperProps: PropTypes.object,
+    setMapLoaded: PropTypes.func
 };
 
 const apiScopes = {
@@ -620,6 +621,8 @@ const MapSectionWrapper = React.memo((props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapViewType]);
+
+    useEffect(() => props.setMapLoaded(true), []);
 
     return (
         <SearchSectionWrapper

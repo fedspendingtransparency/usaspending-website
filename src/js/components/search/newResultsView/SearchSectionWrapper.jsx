@@ -5,8 +5,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
@@ -33,7 +31,7 @@ const propTypes = {
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     children: PropTypes.element,
-    table: PropTypes.bool,
+    table: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     sectionName: PropTypes.string
 };
 
@@ -61,14 +59,10 @@ const SearchSectionWrapper = ({
     const [viewType, setViewType] = useState('chart');
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const gaRef = useRef(false);
-
-    const query = useQueryParams();
-
     // Measures content height to set height for dsm content
     const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
-    const history = useHistory();
     const sortFn = () => dropdownOptions;
 
     const changeView = (label) => {
@@ -80,59 +74,9 @@ const SearchSectionWrapper = ({
         }
     };
 
-    const jumpToSection = (section = '') => {
-        const sections = ['map', 'time', 'categories', 'awards'];
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const matchedSection = sections.find((sec) => sec === section);
-        if (!matchedSection) {
-            // no matching section
-            return;
-        }
-        // find the section in dom
-        const sectionDom = document.querySelector(`.${matchedSection}`);
-        if (!sectionDom) {
-            return;
-        }
-        // add section to url
-        if (!window.location.href.includes(`section=${section}`)) {
-            const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
-        }
-
-        let rectTopOffset = 0;
-        if (matchedSection === 'categories') {
-            rectTopOffset = 820;
-        }
-        else if (matchedSection === 'time') {
-            rectTopOffset = 1680;
-        }
-        else if (matchedSection === 'map') {
-            rectTopOffset = 2240;
-        }
-
-        window.scrollTo({
-            top: rectTopOffset,
-            behavior: 'smooth'
-        });
-    };
-
-    const parseSection = () => {
-        const params = history.location.search.split("&");
-        params.shift();
-        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=") {
-            jumpToSection(params[0].substring(8));
-        }
-    };
-
     useEffect(() => {
         setContentHeight(content);
-        parseSection();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [content, sectionName]);
+    }, [content]);
 
     useEffect(() => {
         if (gaRef.current) {
