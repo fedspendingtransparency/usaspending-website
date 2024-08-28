@@ -17,18 +17,15 @@ const propTypes = {
     message: PropTypes.string
 };
 
-export default class DateRangeError extends React.Component {
-    render() {
-        return (
-            <div className="error-message">
-                <div className="error-title">
-                    <Icons.ExclamationCircle />
-                    <div className="heading">{this.props.header}</div>
-                </div>
-                <p className="message">{this.props.message}</p>
-            </div>
-        );
-    }
-}
+const DateRangeError = (props) => (
+    <div className="error-message">
+        <div className="error-title">
+            <Icons.ExclamationCircle />
+            <div className="heading">{props.header}</div>
+        </div>
+        <p className="message">{props.message}</p>
+    </div>
+);
 DateRangeError.defaultProps = defaultProps;
 DateRangeError.propTypes = propTypes;
+export default DateRangeError;
