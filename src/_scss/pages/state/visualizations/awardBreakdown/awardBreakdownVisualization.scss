@@ -29,7 +29,7 @@
     margin: rem(15) 0;
     font-size: $small-font-size;
     border-collapse: separate;
-    border: solid $color-gray-light rem(1);
+    border: solid $color-gray-border rem(1);
     border-radius: rem(5);
     -moz-border-radius: rem(5);
     .award-breakdown-table__head {
@@ -37,7 +37,7 @@
             padding: rem(10) rem(15);
             border: 0;
             background-color: transparent;
-            border-bottom: solid $color-gray-light rem(1);
+            border-bottom: solid $color-gray-border rem(1);
             font-weight: 600;
             text-align: center;
             &:first-child {
@@ -49,7 +49,7 @@
         .award-breakdown-table__data {
             padding: rem(5) rem(15);
             border: 0;
-            border-bottom: solid $color-gray-light rem(1);
+            border-bottom: solid $color-gray-border rem(1);
             background-color: transparent;
             font-weight: 400;
             text-align: center;
