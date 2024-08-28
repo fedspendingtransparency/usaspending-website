@@ -3,12 +3,13 @@
  * Created by Emily Gullo 11/03/2016
  **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import { usePrevious } from "../../../../helpers/";
 
 const dayjs = require('dayjs');
 
@@ -31,169 +32,164 @@ const propTypes = {
     removeDateRange: PropTypes.func
 };
 
-export default class DateRange extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showError: false,
-            header: '',
-            errorMessage: ''
-        };
+const DateRange = (props) => {
+    console.debug("incoming props: ", props);
+    const [startPicker, setStartPicker] = useState(null);
+    const [endPicker, setEndPicker] = useState(null);
+    const prevProps = usePrevious(props);
 
-        this.submitRange = this.submitRange.bind(this);
-        this.removeRange = this.removeRange.bind(this);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.startDate !== this.props.startDate && !this.props.startDate) {
+    useEffect(() => {
+        if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
             // the start date was reset to null, clear the picker
-            this.startPicker.clearValue();
+            startPicker?.clearValue();
         }
-        if (prevProps.endDate !== this.props.endDate && !this.props.endDate) {
-            // the end date was reset to null, clear the picker
-            this.endPicker.clearValue();
-        }
-    }
+    }, [props?.startDate]);
 
-    submitRange(e) {
+    useEffect(() => {
+        if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
+            // the end date was reset to null, clear the picker
+            endPicker?.clearValue();
+        }
+    }, [props?.endDate]);
+
+    const submitRange = (e) => {
     // allow the user to change date ranges by keyboard and pressing enter
         e.preventDefault();
-        this.props.applyDateRange();
-    }
+        props.applyDateRange();
+    };
 
-    removeRange() {
+    const removeRange = () => {
         const tabButton = document.getElementById('filter-date-range-tab');
         if (tabButton) {
             tabButton.focus();
         }
-        this.props.removeDateRange();
-    }
+        props.removeDateRange();
+    };
 
-    generateStartDateDisabledDays(earliestDate) {
+    const generateStartDateDisabledDays = (earliestDate) => {
     // handle the cutoff dates (preventing end dates from coming before
     // start dates or vice versa)
         const disabledDays = [earliestDate];
 
-        if (this.props.endDate) {
+        if (props.endDate) {
             // the cutoff date represents the latest possible date
             disabledDays.push({
-                after: this.props.endDate.toDate()
+                after: props.endDate.toDate()
             });
         }
 
         return disabledDays;
-    }
+    };
 
-    generateEndDateDisabledDays(earliestDate) {
+    const generateEndDateDisabledDays = (earliestDate) => {
         const disabledDays = [earliestDate];
 
-        if (this.props.startDate) {
+        if (props.startDate) {
             // cutoff date represents the earliest possible date
             disabledDays.push({
-                before: this.props.startDate.toDate()
+                before: props.startDate.toDate()
             });
         }
 
         return disabledDays;
-    }
+    };
 
-    render() {
-        const earliestDateString =
+    const earliestDateString =
             FiscalYearHelper.convertFYToDateRange(FiscalYearHelper.earliestFiscalYear)[0];
-        const earliestDate = dayjs(earliestDateString, 'YYYY-MM-DD').toDate();
+    const earliestDate = dayjs(earliestDateString, 'YYYY-MM-DD').toDate();
 
-        const startDateDisabledDays = this.generateStartDateDisabledDays(earliestDate);
-        const endDateDisabledDays = this.generateEndDateDisabledDays(earliestDate);
+    const startDateDisabledDays = generateStartDateDisabledDays(earliestDate);
+    const endDateDisabledDays = generateEndDateDisabledDays(earliestDate);
 
-        let dateLabel = '';
-        let hideTags = 'hide';
-        if (this.props.selectedStart || this.props.selectedEnd) {
-            hideTags = '';
-            let start = null;
-            let end = null;
-            if (this.props.selectedStart) {
-                start = dayjs(this.props.selectedStart, 'YYYY-MM-DD').format('MM/DD/YYYY');
-            }
-            if (this.props.selectedEnd) {
-                end = dayjs(this.props.selectedEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
-            }
-            if (start && end) {
-                dateLabel = `${start} to ${end}`;
-            }
-            else if (start) {
-                dateLabel = `${start} to present`;
-            }
-            else {
-                dateLabel = `... to ${end}`;
-            }
+    let dateLabel = '';
+    let hideTags = 'hide';
+    if (props.selectedStart || props.selectedEnd) {
+        hideTags = '';
+        let start = null;
+        let end = null;
+        if (props.selectedStart) {
+            start = dayjs(props.selectedStart, 'YYYY-MM-DD').format('MM/DD/YYYY');
         }
-
-        let noDates = false;
-        if (!this.props.startDate && !this.props.endDate) {
-            noDates = true;
+        if (props.selectedEnd) {
+            end = dayjs(props.selectedEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
         }
-
-        const accessibility = {
-            'aria-controls': 'selected-date-range'
-        };
-
-        return (
-            <div className="date-range-option">
-                <form
-                    className="date-range-wrapper"
-                    onSubmit={this.submitRange}>
-                    <DatePicker
-                        type="startDate"
-                        title="Action Date Start"
-                        onDateChange={this.props.onDateChange}
-                        value={this.props.startDate}
-                        opposite={this.props.endDate}
-                        showError={this.props.showError}
-                        hideError={this.props.hideError}
-                        disabledDays={startDateDisabledDays}
-                        ref={(component) => {
-                            this.startPicker = component;
-                        }}
-                        allowClearing />
-                    <DatePicker
-                        type="endDate"
-                        title="Action Date End"
-                        onDateChange={this.props.onDateChange}
-                        value={this.props.endDate}
-                        opposite={this.props.startDate}
-                        showError={this.props.showError}
-                        hideError={this.props.hideError}
-                        disabledDays={endDateDisabledDays}
-                        ref={(component) => {
-                            this.endPicker = component;
-                        }}
-                        allowClearing />
-                    <IndividualSubmit
-                        className="set-date-submit"
-                        onClick={this.submitRange}
-                        label="Filter by date range"
-                        disabled={noDates}
-                        accessibility={accessibility} />
-                </form>
-                <div
-                    className={`selected-filters ${hideTags}`}
-                    id="selected-date-range"
-                    aria-hidden={noDates}
-                    role="status">
-                    <button
-                        className="shown-filter-button"
-                        title="Click to remove filter."
-                        aria-label={`Applied date range: ${dateLabel}`}
-                        onClick={this.removeRange}>
-                        {dateLabel}
-                        <span className="close">
-                            <FontAwesomeIcon icon="times" />
-                        </span>
-                    </button>
-                </div>
-            </div>
-        );
+        if (start && end) {
+            dateLabel = `${start} to ${end}`;
+        }
+        else if (start) {
+            dateLabel = `${start} to present`;
+        }
+        else {
+            dateLabel = `... to ${end}`;
+        }
     }
-}
+
+    let noDates = false;
+    if (!props.startDate && !props.endDate) {
+        noDates = true;
+    }
+
+    const accessibility = {
+        'aria-controls': 'selected-date-range'
+    };
+
+    return (
+        <div className="date-range-option">
+            <form
+                className="date-range-wrapper"
+                onSubmit={submitRange}>
+                <DatePicker
+                    type="startDate"
+                    title="Action Date Start"
+                    onDateChange={props.onDateChange}
+                    value={props.startDate}
+                    opposite={props.endDate}
+                    showError={props.showError}
+                    hideError={props.hideError}
+                    disabledDays={startDateDisabledDays}
+                    ref={(component) => {
+                        setStartPicker(component);
+                    }}
+                    allowClearing />
+                <DatePicker
+                    type="endDate"
+                    title="Action Date End"
+                    onDateChange={props.onDateChange}
+                    value={props.endDate}
+                    opposite={props.startDate}
+                    showError={props.showError}
+                    hideError={props.hideError}
+                    disabledDays={endDateDisabledDays}
+                    ref={(component) => {
+                        setEndPicker(component);
+                    }}
+                    allowClearing />
+                <IndividualSubmit
+                    className="set-date-submit"
+                    onClick={submitRange}
+                    label="Filter by date range"
+                    disabled={noDates}
+                    accessibility={accessibility} />
+            </form>
+            <div
+                className={`selected-filters ${hideTags}`}
+                id="selected-date-range"
+                aria-hidden={noDates}
+                role="status">
+                <button
+                    className="shown-filter-button"
+                    title="Click to remove filter."
+                    aria-label={`Applied date range: ${dateLabel}`}
+                    onClick={removeRange}>
+                    {dateLabel}
+                    <span className="close">
+                        <FontAwesomeIcon icon="times" />
+                    </span>
+                </button>
+            </div>
+        </div>
+    );
+};
 DateRange.defaultProps = defaultProps;
 DateRange.propTypes = propTypes;
+export default DateRange;
