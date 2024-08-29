@@ -116,11 +116,17 @@ const Autocomplete = (props) => {
         if (selectedIndex > 0) {
             setSelectedIndex(selectedIndex - 1);
         }
+        else {
+            setSelectedIndex(props.values.length - 1);
+        }
     };
 
     const next = () => {
-        if (selectedIndex < props.maxSuggestions - 1) {
+        if (selectedIndex < props.values.length - 1) {
             setSelectedIndex(selectedIndex + 1);
+        }
+        else {
+            setSelectedIndex(0);
         }
     };
 
@@ -145,41 +151,36 @@ const Autocomplete = (props) => {
         setStaged(false);
     };
 
-    const setupAutocomplete = () => {
-        const target = autocompleteInputRef.current;
-
-        target.addEventListener('blur', () => {
-            close();
+    const onKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.stopPropagation();
+            e.preventDefault();
+            select(props.values[selectedIndex]);
             if (!props.retainValue) {
-                target.value = '';
+                setValue('');
             }
-        });
-
-        // enable tab keyboard shortcut for selection
-        target.addEventListener('keydown', (e) => {
-            // Enter
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                select(props.values[selectedIndex]);
-                if (!props.retainValue) {
-                    target.value = '';
-                }
-            }
-            // Tab or Escape
-            else if (e.key === 'Tab' || e.key === 'Escape') {
-                target.value = '';
-                close();
-            }
-            // Previous
-            else if (e.key === 'ArrowUp') {
-                previous();
-            }
-            // Next
-            else if (e.key === 'ArrowDown') {
-                next();
-            }
-        });
+        }
+        // Tab or Escape
+        else if (e.key === 'Tab' || e.key === 'Escape') {
+            setValue('');
+            close();
+        }
+        // Previous
+        else if (e.key === 'ArrowUp') {
+            previous();
+        }
+        // Next
+        else if (e.key === 'ArrowDown') {
+            next();
+        }
     };
+
+    const onBlur = () => {
+        close();
+        if (!props.retainValue) {
+            setValue('');
+        }
+    }
 
     const toggleWarning = () => {
         setShowWarning(props.noResults);
@@ -243,12 +244,8 @@ const Autocomplete = (props) => {
         variation = '-md';
     }
 
-    useEffect(() => {
-        setupAutocomplete();
-
-        return () => {
-            props.clearAutocompleteSuggestions();
-        };
+    useEffect(() => () => {
+        props.clearAutocompleteSuggestions();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -286,6 +283,8 @@ const Autocomplete = (props) => {
                         aria-controls={autocompleteIdRef.current}
                         aria-activedescendant={activeDescendant}
                         aria-autocomplete="list"
+                        onBlur={onBlur}
+                        onKeyDown={onKeyDown}
                         maxLength={props.characterLimit} />
                     {loadingIndicator}
                 </div>

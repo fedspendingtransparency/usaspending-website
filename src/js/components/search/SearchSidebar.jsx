@@ -182,7 +182,8 @@ const SearchSidebar = ({
     const expanded = [];
     releasedFilters.options.forEach((filter) => {
     // Collapse all by default, unless the filter has a selection made
-        if (filter.title === 'Time Period') {
+        // TODO: REmove agency from being always expanded, just for dev work
+        if (filter.title === 'Time Period' || filter.title === 'Agency') {
             // time period is always expanded
             expanded.push(true);
         }
