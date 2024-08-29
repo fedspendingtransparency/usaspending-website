@@ -140,7 +140,7 @@ const DateRange = (props) => {
                 onSubmit={submitRange}>
                 <DatePicker
                     type="startDate"
-                    title="Action Date Start"
+                    title="Start Date"
                     onDateChange={props.onDateChange}
                     value={props.startDate}
                     opposite={props.endDate}
@@ -153,7 +153,7 @@ const DateRange = (props) => {
                     allowClearing />
                 <DatePicker
                     type="endDate"
-                    title="Action Date End"
+                    title="End Date"
                     onDateChange={props.onDateChange}
                     value={props.endDate}
                     opposite={props.startDate}

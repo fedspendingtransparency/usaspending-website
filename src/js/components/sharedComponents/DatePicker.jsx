@@ -236,7 +236,7 @@ export default class DatePicker extends React.Component {
             <div className="generate-datepicker-wrap">
                 <div className="generate-datepicker">
                     <label htmlFor={inputId}>
-                        {this.props.title}
+                        <span className="generate-datepicker__label">{this.props.title}</span>
                         <input
                             id={inputId}
                             type="text"
