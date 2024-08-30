@@ -61,12 +61,11 @@ const StateProfileMapFilters = (props) => {
             <FeatureFlag>
                 <div key={uniqueId()} className="map__filters-filter__container">
                     <div className="map__filters-wrapper">
-                        <div className="filter-item-wrap" key={`holder-${type}`}>
+                        <div className="filter-item-wrap" key={`holder-awarding`}>
                         <StateAgencyListContainer
                             {...props}
-                            agencyType={type}
+                            agencyType="awarding"
                             placeHolder="Search for an awarding agency..."
-                            toggleAgency={props.toggleAgency}
                             selectedAgencies={selectedAgencies} />
                     </div>
                 </div>

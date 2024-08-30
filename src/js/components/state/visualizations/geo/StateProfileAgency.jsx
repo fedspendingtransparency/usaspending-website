@@ -22,6 +22,8 @@ const propTypes = {
 
 const StateProfileAgency = (props) => {
     const agencies = props.agencyTypes.map((type) => {
+
+        console.log(type);
         let selectedAgencies = {};
         selectedAgencies = props.selectedAwardingAgencies;
 
