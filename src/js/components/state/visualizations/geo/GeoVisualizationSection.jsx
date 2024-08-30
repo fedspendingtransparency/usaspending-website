@@ -73,6 +73,7 @@ const GeoVisualizationSection = (props) => {
 
     // this will need to be updated as more filters are added
     const addOnClickToFilters = () => Object.keys(stateFilters).reduce((acc, filter) => {
+        console.log(filter);
         const filterWithOnClick = {
             ...stateFilters[filter],
             onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter

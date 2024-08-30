@@ -92,6 +92,38 @@ export class GeoVisualizationSectionContainer extends React.Component {
             error: false
         });
     }
+
+    changeScope(newSearch) {
+        console.log("update data", newSearch);
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
+        this.setState({
+            loading: true,
+            error: false,
+            searchData: newSearch
+        });
+
+        this.apiRequest = SearchHelper.performSpendingByGeographySearch(newSearch);
+        this.apiRequest.promise
+            .then((res) => {
+                this.parseData(res.data);
+                this.apiRequest = null;
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.apiRequest = null;
+
+                    this.setState({
+                        loading: false,
+                        error: true
+                    });
+                }
+            });
+    }
+
     fetchData() {
     // Create the time period filter
         let timePeriod = null;
