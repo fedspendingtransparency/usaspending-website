@@ -33,6 +33,37 @@
     }
   }
 
+  // dtui table overrides
+  .topfive-table__table {
+      .usda-table__cell {
+          a {
+            cursor: pointer;
+          }
+
+          &:first-child {
+            width: 40%;
+          }
+
+          &:nth-child(2) {
+            width: 15%;
+          }
+
+          &:nth-child(3) {
+            width: 20%;
+          }
+
+          &:last-child {
+            width: 25%;
+          }
+      }
+
+    .table-header .table-header__content {
+      .table-header__label {
+        text-align: center;
+      }
+    }
+  }
+
   .category-table__table-head-row th:nth-child(2) {
     min-width: 150px;
   }
