@@ -23,28 +23,28 @@ const StateAgencyAutocompleteContainer = (props) => {
     const filters = useSelector((state) => state.filters);
     const toggleAgency = (agency, isValid, agencyType) => {
     // If agency name exists and is valid
-        if (agency !== null && isValid) {
-            const updateParams = {};
-            updateParams.agency = agency;
-
-            if (agencyType === 'Awarding') {
-                props.updateSelectedAwardingAgencies(updateParams);
-            }
-        }
+    //     if (agency !== null && isValid) {
+    //         const updateParams = {};
+    //         updateParams.agency = agency;
+    //
+    //         if (agencyType === 'Awarding') {
+    //             props.updateSelectedAwardingAgencies(updateParams);
+    //         }
+    //     }
     };
 
     const dirtyFilters = (type) => {
-        const stagedKey = `selected${type}Agencies`;
-        const appliedKey = `applied${type}Agencies`;
-
-        if (is(props[stagedKey], props[appliedKey])) {
-            return null;
-        }
-        return Symbol(`dirty ${type} agency`);
+        // const stagedKey = `selected${type}Agencies`;
+        // const appliedKey = `applied${type}Agencies`;
+        //
+        // if (is(props[stagedKey], props[appliedKey])) {
+        //     return null;
+        // }
+        // return Symbol(`dirty ${type} agency`);
     };
 
     useEffect(() => {
-        appliedFilterActions.applyStagedFilters(filters);
+        // appliedFilterActions.applyStagedFilters(filters);
     }, [filters]);
 
     return (

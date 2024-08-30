@@ -13,6 +13,7 @@ import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
 import StateAgencyAutocompleteContainer from "../../../../containers/state/visualizations/geo/StateAgencyAutocompleteContainer";
 import StateCFDASearchContainer from "./StateCFDASearchContainer";
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
+import StateAgencyListContainer from "./StateAgencyListContainer";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -20,8 +21,13 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
-const StateProfileMapFilters = (props) => (
-    <div className={props.isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
+const StateProfileMapFilters = (props) => {
+    const agencies = props.agencyTypes.map((type) => {
+        let selectedAgencies = {};
+        selectedAgencies = props.selectedAwardingAgencies;
+
+    return (
+        <div className={props.isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
         <div className="map__filters-header">
             <MapFiltersTitle />
         </div>
@@ -55,7 +61,13 @@ const StateProfileMapFilters = (props) => (
             <FeatureFlag>
                 <div key={uniqueId()} className="map__filters-filter__container">
                     <div className="map__filters-wrapper">
-                        <StateAgencyAutocompleteContainer {...props} />
+                        <div className="filter-item-wrap" key={`holder-${type}`}>
+                        <StateAgencyListContainer
+                            {...props}
+                            agencyType={type}
+                            placeHolder="Search for an awarding agency..."
+                            toggleAgency={props.toggleAgency}
+                            selectedAgencies={selectedAgencies} />
                     </div>
                 </div>
                 <div key={uniqueId()} className="map__filters-filter__container">
@@ -66,7 +78,8 @@ const StateProfileMapFilters = (props) => (
             </FeatureFlag>
         </div>
     </div>
-);
+    )
+};
 
 StateProfileMapFilters.propTypes = propTypes;
 export default StateProfileMapFilters;

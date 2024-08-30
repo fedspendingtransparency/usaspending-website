@@ -45,10 +45,8 @@ const GeoVisualizationSection = (props) => {
     const [selectedItem, setSelectedItem] = useState({});
     const [activeFilters, setActiveFilters] = useState({
         territory: props.mapLayer,
-        spendingType: 'obligation',
-        amountType: 'totalSpending',
-        recipientType: 'all',
-        awardType: 'all'
+        cfda: null,
+        awardingAgency: null
     });
     const dataRef = useRef(props.data);
 
@@ -73,7 +71,6 @@ const GeoVisualizationSection = (props) => {
 
     // this will need to be updated as more filters are added
     const addOnClickToFilters = () => Object.keys(stateFilters).reduce((acc, filter) => {
-        console.log(filter);
         const filterWithOnClick = {
             ...stateFilters[filter],
             onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
@@ -81,6 +78,10 @@ const GeoVisualizationSection = (props) => {
         acc[filter] = filterWithOnClick;
         return acc;
     }, {});
+
+    const updateFilters = (filters) => {
+        console.log(filters);
+    };
 
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
@@ -116,7 +117,7 @@ const GeoVisualizationSection = (props) => {
                 <div className="map-loading">
                     <LoadingSpinner />
                     <div className="loading-message">
-                            Gathering your data...
+                            Gathering your data blah...
                     </div>
                 </div>
             </MapMessage>
@@ -165,6 +166,7 @@ const GeoVisualizationSection = (props) => {
                 {...props}
                 awardTypeFilters={awardTypeTabs}
                 filters={addOnClickToFilters()}
+                updateFilters={updateFilters}
                 activeFilters={activeFilters}
                 setActiveFilters={setActiveFilters}
                 className={props.className}

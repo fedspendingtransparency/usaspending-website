@@ -236,15 +236,59 @@ export default class StateAgencyListContainer extends React.Component {
             }
         );
 
-        this.props.changeScope(newSearch);
-
         // Clear Autocomplete results
         this.setState({
             autocompleteAgencies: []
         }, () => {
             inputBox.value = valid.data.toptier_agency.name;
+            // this.props.searchData = newSearch;
+            // generate the API parameters
+            if (this.apiRequest) {
+                this.apiRequest.cancel();
+            }
+            this.setState({
+                loading: true,
+                error: false
+            });
+            this.apiRequest = SearchHelper.performSpendingByGeographySearch(newSearch);
+            this.apiRequest.promise
+                .then((res) => {
+                    this.props.changeScope(res.data, newSearch);
+                    this.apiRequest = null;
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(err);
+                        this.apiRequest = null;
+
+                        this.setState({
+                            loading: false,
+                            error: true
+                        });
+                    }
+                });
         });
     }
+    parseData(data) {
+        const spendingValues = [];
+        const spendingShapes = [];
+        const spendingLabels = {};
+
+        data.results.forEach((item) => {
+            // state must not be null or empty string
+            if (item.shape_code && item.shape_code !== '') {
+                spendingShapes.push(item.shape_code);
+                spendingValues.push(parseFloat(item.aggregated_amount));
+                spendingLabels[item.shape_code] = {
+                    label: item.display_name,
+                    value: parseFloat(item.aggregated_amount)
+                };
+            }
+        });
+
+        this.props.setMapData(spendingValues, spendingShapes, spendingLabels);
+    }
+
 
     render() {
         return (

@@ -52,6 +52,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
         this.setMapData = this.setMapData.bind(this);
+        this.changeScope = this.changeScope.bind(this);
     }
 
     componentDidMount() {
@@ -81,6 +82,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
     setMapData(spendingValues, spendingShapes, spendingLabels) {
+        console.log(spendingValues, spendingShapes, spendingLabels);
         this.setState({
             data: {
                 values: spendingValues,
@@ -90,38 +92,16 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loading: false,
             error: false
-        });
+        }, this.prepareFetch());
     }
 
-    changeScope(newSearch) {
+    changeScope(data, newSearch) {
         console.log("update data", newSearch);
-        if (this.apiRequest) {
-            this.apiRequest.cancel();
-        }
-
         this.setState({
-            loading: true,
+            loading: false,
             error: false,
             searchData: newSearch
-        });
-
-        this.apiRequest = SearchHelper.performSpendingByGeographySearch(newSearch);
-        this.apiRequest.promise
-            .then((res) => {
-                this.parseData(res.data);
-                this.apiRequest = null;
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    this.apiRequest = null;
-
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
-                }
-            });
+        }, this.parseData(data));
     }
 
     fetchData() {
@@ -193,6 +173,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     parseData(data) {
+        console.log("here");
         const spendingValues = [];
         const spendingShapes = [];
         const spendingLabels = {};
