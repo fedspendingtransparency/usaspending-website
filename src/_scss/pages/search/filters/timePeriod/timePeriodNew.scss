@@ -114,28 +114,31 @@
       .date-range-wrapper {
         margin-top: rem(25);
 
-        .generate-datepicker {
-          .generate-datepicker__label {
-            text-transform: uppercase;
-            display: block;
-            font-size: $font-size-10;
-            font-weight: $font-semibold;
-            line-height: 1.5;
-            color: $gray-60;
-            margin-bottom: .5 * $global-margin;
-          }
+        // uncomment when you're reformatting the date inputs
+        // .generate-datepicker {
+        //   .generate-datepicker__label {
+        //     text-transform: uppercase;
+        //     display: block;
+        //     font-size: $font-size-10;
+        //     font-weight: $font-semibold;
+        //     line-height: 1.5;
+        //     color: $gray-60;
+        //     margin-bottom: .5 * $global-margin;
+        //   }
 
-          input {
-            @include placeholder {
-              color: $gray-60;
-            }
+        //   input {
+        //     @include placeholder {
+        //       color: $gray-60;
+        //     }
 
-            line-height: 1.5;
-            border-radius: 3px;
-            border: solid 1px $gray-cool-10 !important;
-            padding: 7px 8px;
-          }
-        }
+        //     line-height: 1.5;
+        //     border-radius: 3px;
+        //     border: solid 1px $gray-cool-10 !important;
+        //     padding: 7px 8px;
+        //     margin-top: 0;
+        //     height: rem(32);
+        //   }
+        // }
 
         .set-date-submit {
           @include singleSubmit;

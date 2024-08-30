@@ -12,6 +12,9 @@ import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import { usePrevious } from "../../../../helpers/";
 
 const dayjs = require('dayjs');
+const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
+
+dayjs.extend(isSameOrAfter);
 
 const defaultProps = {
     startDate: '01/01/2016',
@@ -29,13 +32,15 @@ const propTypes = {
     showError: PropTypes.func,
     hideError: PropTypes.func,
     applyDateRange: PropTypes.func,
-    removeDateRange: PropTypes.func
+    removeDateRange: PropTypes.func,
+    updateFilter: PropTypes.func,
+    errorState: PropTypes.bool
 };
 
 const DateRange = (props) => {
-    console.debug("incoming props: ", props);
     const [startPicker, setStartPicker] = useState(null);
     const [endPicker, setEndPicker] = useState(null);
+    const [disabled, setDisabled] = useState(true);
     const prevProps = usePrevious(props);
 
     useEffect(() => {
@@ -51,11 +56,42 @@ const DateRange = (props) => {
             endPicker?.clearValue();
         }
     }, [props?.endDate]);
+    const submitDates = () => {
+        // validate that dates are provided for both fields and the end dates
+        // don't come before the start dates
+        // validate the date ranges
+        const start = props.startDate;
+        const end = props.endDate;
+        if (!props.errorState && (start || end)) {
+            // open-ended date range
+            let startValue = null;
+            let endValue = null;
+            if (start) {
+                startValue = start.format('YYYY-MM-DD');
+            }
+            else {
+                endValue = end.format('YYYY-MM-DD');
+            }
 
+            props.updateFilter({
+                dateType: 'dr',
+                startDate: startValue,
+                endDate: endValue
+            });
+        }
+        else {
+            // user has cleared the dates, which means we should clear the date range filter
+            props.updateFilter({
+                dateType: 'dr',
+                startDate: null,
+                endDate: null
+            });
+        }
+    };
     const submitRange = (e) => {
     // allow the user to change date ranges by keyboard and pressing enter
         e.preventDefault();
-        props.applyDateRange();
+        submitDates();
     };
 
     const removeRange = () => {
@@ -133,6 +169,33 @@ const DateRange = (props) => {
         'aria-controls': 'selected-date-range'
     };
 
+    const testDates = () => {
+        if (props.startDate === null && props.endDate === null) {
+            if (props.errorState) {
+                props.showError('', '');
+            }
+            return;
+        }
+        if (props.startDate !== null && !props.endDate.isSameOrAfter(props.startDate)) {
+            // end date comes before start date, invalid
+            // show an error message
+            props.showError('Invalid Dates',
+                'The end date cannot be earlier than the start date.');
+        }
+    };
+
+    const onFocus = () => {
+        testDates();
+    };
+
+    useEffect(() => {
+        if (noDates || props.errorState) {
+            setDisabled(true);
+        } else {
+            setDisabled(false);
+        }
+    }, [props.errorState, noDates, props.startDate, props.endDate]);
+
     return (
         <div className="date-range-option">
             <form
@@ -140,7 +203,7 @@ const DateRange = (props) => {
                 onSubmit={submitRange}>
                 <DatePicker
                     type="startDate"
-                    title="Start Date"
+                    title="Action Date Start"
                     onDateChange={props.onDateChange}
                     value={props.startDate}
                     opposite={props.endDate}
@@ -150,25 +213,29 @@ const DateRange = (props) => {
                     ref={(component) => {
                         setStartPicker(component);
                     }}
+                    id="date-range__startDate"
+                    onFocus={onFocus}
                     allowClearing />
                 <DatePicker
                     type="endDate"
-                    title="End Date"
+                    title="Action Date End"
                     onDateChange={props.onDateChange}
                     value={props.endDate}
                     opposite={props.startDate}
                     showError={props.showError}
                     hideError={props.hideError}
                     disabledDays={endDateDisabledDays}
+                    onFocus={onFocus}
                     ref={(component) => {
                         setEndPicker(component);
                     }}
+                    id="date-range__endDate"
                     allowClearing />
                 <IndividualSubmit
                     className="set-date-submit"
                     onClick={submitRange}
                     label="Filter by date range"
-                    disabled={noDates}
+                    disabled={disabled}
                     accessibility={accessibility} />
             </form>
             <div

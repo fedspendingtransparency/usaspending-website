@@ -26,7 +26,9 @@ const propTypes = {
     opposite: PropTypes.object,
     title: PropTypes.string,
     allowClearing: PropTypes.bool,
-    disabledDays: PropTypes.array
+    disabledDays: PropTypes.array,
+    onFocus: PropTypes.func,
+    id: PropTypes.string
 };
 
 export default class DatePicker extends React.Component {
@@ -230,19 +232,20 @@ export default class DatePicker extends React.Component {
             pickedDay = dayjs().toDate();
         }
 
-        const inputId = `picker-${uniqueId()}`;
+        const labelId = `picker-${uniqueId()}`;
 
         return (
             <div className="generate-datepicker-wrap">
                 <div className="generate-datepicker">
-                    <label htmlFor={inputId}>
+                    <label htmlFor={labelId}>
                         <span className="generate-datepicker__label">{this.props.title}</span>
                         <input
-                            id={inputId}
+                            id={this.props.id}
                             type="text"
                             placeholder="MM/DD/YYYY"
                             aria-label={this.props.title}
                             value={this.state.inputValue}
+                            onFocus={this.props.onFocus}
                             ref={(input) => {
                                 this.text = input;
                             }}
