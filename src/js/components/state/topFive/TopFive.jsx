@@ -262,13 +262,13 @@ const TopFive = (props) => {
                 window.open(`/search?hash=${hashData.hash}`, '_blank');
             })
             .catch((error) => {
-                console.log(error);
                 if (isCancel(error)) {
                     // Got cancelled
                 }
                 else if (error.response) {
-                    // Errored out but got response, toggle noAward flag
+                    // Errored out but got response
                     tempHash = null;
+                    console.log(error);
                 }
                 else {
                     // Request failed
