@@ -180,7 +180,7 @@ const Autocomplete = (props) => {
         if (!props.retainValue) {
             setValue('');
         }
-    }
+    };
 
     const toggleWarning = () => {
         setShowWarning(props.noResults);
