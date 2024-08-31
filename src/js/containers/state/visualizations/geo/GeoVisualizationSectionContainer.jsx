@@ -41,7 +41,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loading: true,
             loadingTiles: true,
             error: false,
-            searchData: {}
+            searchData: {},
+            selectedAgency: ""
         };
 
         this.apiRequest = null;
