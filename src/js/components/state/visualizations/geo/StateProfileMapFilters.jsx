@@ -10,7 +10,7 @@ import { mapFilterSortOrderByValue } from '../../../../dataMapping/state/stateMa
 import { handleSort } from '../../../../helpers/covid19Helper';
 import MapFiltersTitle from '../../../search/visualizations/geo/MapFiltersTitle';
 import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
-import StateCFDASearchContainer from "./agency/cfda/StateCFDASearchContainer";
+import StateCFDASearchContainer from "./cfda/StateCFDASearchContainer";
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import StateAgencyList from "./agency/StateAgencyList";
 
@@ -20,7 +20,7 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
-const StateProfileMapFilters = (props) => {
+const StateProfileMapFilters = React.memo((props) => {
     // const selectedAgencies = props.selectedAwardingAgencies;
 
     return (
@@ -75,7 +75,7 @@ const StateProfileMapFilters = (props) => {
             </div>
         </div>
     );
-};
+});
 
 StateProfileMapFilters.propTypes = propTypes;
 export default StateProfileMapFilters;

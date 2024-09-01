@@ -109,7 +109,7 @@ const mapboxSources = {
     }
 };
 
-const StateProfileMapWrapper = (props) => {
+const StateProfileMapWrapper = React.memo((props) => {
     const mapRef = useRef();
     const scopeRef = useRef(props.scope);
     const [mapLayers, setMapLayers] = useState({});
@@ -634,7 +634,7 @@ const StateProfileMapWrapper = (props) => {
             {props.children}
         </div>
     );
-};
+});
 
 StateProfileMapWrapper.propTypes = propTypes;
 StateProfileMapWrapper.defaultProps = defaultProps;

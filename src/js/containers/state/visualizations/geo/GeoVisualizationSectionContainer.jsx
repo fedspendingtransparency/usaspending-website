@@ -42,7 +42,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loadingTiles: true,
             error: false,
             searchData: {},
-            selectedAgency: ""
+            selectedAgencyName: ""
         };
 
         this.apiRequest = null;
@@ -52,7 +52,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.changeMapLayer = this.changeMapLayer.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
-        this.setMapData = this.setMapData.bind(this);
+        // this.setMapData = this.setMapData.bind(this);
         this.changeScope = this.changeScope.bind(this);
     }
 
@@ -82,27 +82,58 @@ export class GeoVisualizationSectionContainer extends React.Component {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
     }
-    setMapData(spendingValues, spendingShapes, spendingLabels) {
-        console.log(spendingValues, spendingShapes, spendingLabels);
-        this.setState({
-            data: {
-                values: spendingValues,
-                locations: spendingShapes,
-                labels: spendingLabels
-            },
-            renderHash: `geo-${uniqueId()}`,
-            loading: false,
-            error: false
-        }, this.prepareFetch());
-    }
 
-    changeScope(data, newSearch) {
-        console.log("update data", newSearch);
+    // need to figure out how the time period change affects this
+    changeScope(newSearch, filterType) {
+        // how is the filter already set here?
+        console.log(this.state.searchData);
+
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
         this.setState({
-            loading: false,
-            error: false,
-            searchData: newSearch
-        }, this.parseData(data));
+            loading: true,
+            error: false
+        });
+
+        const tempSearchData = this.state.searchData;
+        console.log("previous search data", tempSearchData);
+
+        if (filterType === "agency") {
+            if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, "agencies")) {
+                tempSearchData.filters.agencies = newSearch.filters.agencies;
+            } else {
+                tempSearchData.filters.agencies = [];
+                tempSearchData.filters.agencies = newSearch.filters.agencies;
+            }
+        }
+
+        console.log("temp search data", tempSearchData);
+
+        this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempSearchData);
+        this.apiRequest.promise
+            .then((res) => {
+                this.setState({
+                    loading: false,
+                    error: false,
+                    searchData: tempSearchData,
+                    selectedAgencyName: tempSearchData.filters.agencies[0].name
+                }, () => {
+                    this.parseData(res.data);
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.apiRequest = null;
+
+                    this.setState({
+                        loading: false,
+                        error: true
+                    });
+                }
+            });
     }
 
     fetchData() {
@@ -144,6 +175,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
             geo_layer: apiScopes[this.state.mapLayer],
             filters: searchParams
         };
+
+        this.setState({
+            apiParams
+        });
+
         //
         if (this.apiRequest) {
             this.apiRequest.cancel();
@@ -174,7 +210,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     parseData(data) {
-        console.log("here");
         const spendingValues = [];
         const spendingShapes = [];
         const spendingLabels = {};
@@ -243,8 +278,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer}
-                className={this.props.className}
-                setMapData={this.setMapData} />
+                className={this.props.className} />
         );
     }
 }

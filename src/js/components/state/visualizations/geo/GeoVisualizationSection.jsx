@@ -40,7 +40,7 @@ const propTypes = {
 
 const availableLayers = ['county', 'congressionalDistrict'];
 
-const GeoVisualizationSection = (props) => {
+const GeoVisualizationSection = React.memo((props) => {
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
     const [activeFilters, setActiveFilters] = useState({
@@ -189,7 +189,7 @@ const GeoVisualizationSection = (props) => {
             </MapWrapper>
         </div>
     );
-};
+});
 
 GeoVisualizationSection.propTypes = propTypes;
 export default GeoVisualizationSection;

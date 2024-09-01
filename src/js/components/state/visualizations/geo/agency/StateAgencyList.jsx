@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { filter, sortBy, slice, concat, uniqueId } from 'lodash';
+import { filter, sortBy, slice, concat } from 'lodash';
 import { Search } from 'js-search';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -17,7 +17,7 @@ const propTypes = {
     selectedAgency: PropTypes.string
 };
 
-const StateAgencyList = (props) => {
+const StateAgencyList = React.memo((props) => {
     const [agencySearchString, setAgencySearchString] = useState('');
     // const [autocompleteType, setAutocompleteType] = useState('');
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
@@ -29,12 +29,11 @@ const StateAgencyList = (props) => {
     //     locations: []
     // });
     // const [renderHash, setRenderHash] = useState(`geo-${uniqueId()}`);
-    const [agencyInput, setAgencyInput] = useState('');
-    const [searchFilter, setSearchFilter] = useState({});
+    const [searchData, setSearchData] = useState({});
+    const [selectedItem, setSelectedItem] = useState('');
 
-    let apiRequest = null;
     let timeout = null;
-    let agencySearchRequest = null;
+    let apiRequest = null;
     const input = useRef(null);
 
     const parseAutocompleteAgencies = (results) => {
@@ -55,26 +54,26 @@ const StateAgencyList = (props) => {
 
                 // Only push items if they are not in selectedAgencies
                 if (item.toptier_flag) {
-                    if (props.selectedAgencies.size === 0
-                        || !props.selectedAgencies.has(`${item.id}_toptier`)) {
-                        agencies.push({
-                            title: `${item.subtier_agency.name} ${topAbbreviation}`,
-                            data: Object.assign({}, item, {
-                                agencyType: 'toptier'
-                            })
-                        });
-                    }
-                }
-                else if (props.selectedAgencies.size === 0
-                    || !props.selectedAgencies.has(`${item.id}_subtier`)) {
+                    // if (props.selectedAgency.size === 0
+                    //     || !props.selectedAgency.has(`${item.id}_toptier`)) {
                     agencies.push({
-                        title: `${item.subtier_agency.name} ${subAbbreviation}`,
-                        subtitle: `Sub-Agency of ${item.toptier_agency.name} ${topAbbreviation}`,
+                        title: `${item.subtier_agency.name} ${topAbbreviation}`,
                         data: Object.assign({}, item, {
-                            agencyType: 'subtier'
+                            agencyType: 'toptier'
                         })
                     });
+                    // }
                 }
+                // else if (props.selectedAgency.size === 0
+                //     || !props.selectedAgency.has(`${item.id}_subtier`)) {
+                agencies.push({
+                    title: `${item.subtier_agency.name} ${subAbbreviation}`,
+                    subtitle: `Sub-Agency of ${item.toptier_agency.name} ${topAbbreviation}`,
+                    data: Object.assign({}, item, {
+                        agencyType: 'subtier'
+                    })
+                });
+                // }
             });
 
             if (agencies.length === 0) {
@@ -96,12 +95,11 @@ const StateAgencyList = (props) => {
         }
 
         setNoResults(noResults);
-        console.log("agencies", agencies);
         setAutocompleteAgencies(agencies);
     };
 
-    const performSecondarySearch = (data) => {
-        if ((agencySearchString.toLowerCase() === 'fem') || (agencySearchString.toLowerCase() === 'fema')) {
+    const performSecondarySearch = (data, inputVal) => {
+        if ((inputVal.toLowerCase() === 'fem') || (inputVal.toLowerCase() === 'fema')) {
             // don't change the order of results returned from the API
             parseAutocompleteAgencies(slice(data, 0, 10));
         }
@@ -119,7 +117,7 @@ const StateAgencyList = (props) => {
             search.addDocuments(data);
 
             // use the JS search library to search within the records
-            const results = search.search(agencySearchString);
+            const results = search.search(inputVal);
 
             const toptier = [];
             const subtier = [];
@@ -150,9 +148,9 @@ const StateAgencyList = (props) => {
             setAgencySearchString(inputVal);
 
 
-            if (agencySearchRequest) {
+            if (apiRequest) {
                 // A request is currently in-flight, cancel it
-                agencySearchRequest.cancel();
+                apiRequest.cancel();
             }
 
             const agencySearchParams = {
@@ -160,12 +158,11 @@ const StateAgencyList = (props) => {
                 limit: 20
             };
 
-            agencySearchRequest = SearchHelper.fetchAwardingAgencies(agencySearchParams);
+            apiRequest = SearchHelper.fetchAwardingAgencies(agencySearchParams);
 
-            agencySearchRequest.promise
+            apiRequest.promise
                 .then((res) => {
-                    console.log("response", res);
-                    performSecondarySearch(res.data.results);
+                    performSecondarySearch(res.data.results, inputVal);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -173,9 +170,9 @@ const StateAgencyList = (props) => {
                     }
                 });
         }
-        else if (agencySearchRequest) {
+        else if (apiRequest) {
             // A request is currently in-flight, cancel it
-            agencySearchRequest.cancel();
+            apiRequest.cancel();
         }
     };
 
@@ -188,7 +185,6 @@ const StateAgencyList = (props) => {
     // Clear existing agencies to ensure user can't select an old or existing one
         if (autocompleteAgencies.length > 0) {
             setAutocompleteAgencies([]);
-
         }
         const inputVal = inputEvent.target.value;
 
@@ -202,11 +198,10 @@ const StateAgencyList = (props) => {
     };
 
     const selectAgency = (agency, valid) => {
-        // Pass selected agency to parent selectAgency method, adding agencyType to method call
-        props.toggleAgency(agency, valid, props.agencyType);
-
-        // apply staged awarding agency filter here
-        const newSearch = props.searchData;
+        // apply awarding agency filter
+        const newSearch = {
+            filters: {}
+        };
         newSearch.filters.agencies = [];
         newSearch.filters.agencies.push(
             {
@@ -215,63 +210,25 @@ const StateAgencyList = (props) => {
                 type: "awarding"
             }
         );
-        setSearchFilter(newSearch);
-        setAgencyInput(valid.data.toptier_agency.name);
+        setSearchData(newSearch);
+        setSelectedItem(valid.data.toptier_agency.name);
         // Clear Autocomplete results
         setAutocompleteAgencies([]);
     };
 
-    // const parseData = () => {
-    //     const spendingValues = [];
-    //     const spendingShapes = [];
-    //     const spendingLabels = {};
-    //
-    //     data.results.forEach((item) => {
-    //         // state must not be null or empty string
-    //         if (item.shape_code && item.shape_code !== '') {
-    //             spendingShapes.push(item.shape_code);
-    //             spendingValues.push(parseFloat(item.aggregated_amount));
-    //             spendingLabels[item.shape_code] = {
-    //                 label: item.display_name,
-    //                 value: parseFloat(item.aggregated_amount)
-    //             };
-    //         }
-    //     });
-    //
-    //     props.setMapData(spendingValues, spendingShapes, spendingLabels);
-    // };
-
-    const getMapData = (newSearch) => {
-        // generate the API parameters
-        if (apiRequest) {
-            apiRequest.cancel();
+    useEffect(() => {
+        // need to call a function in the geovisualizationsectioncontainer
+        // need to set the selected item here too, must add the filter to the other search
+        if (selectedItem.length > 0) {
+            props.changeScope(searchData, "agency", selectedItem);
         }
 
-        setLoading(true);
-        setError(false);
-
-        apiRequest = SearchHelper.performSpendingByGeographySearch(newSearch);
-        apiRequest.promise
-            .then((res) => {
-                props.changeScope(res.data, newSearch);
-                apiRequest = null;
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    apiRequest = null;
-
-                    setLoading(false);
-                    setError(true);
-                }
-            });
-    };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchData]);
 
     useEffect(() => {
-        const inputBox = document.getElementById("state__agency-id");
-        inputBox.value = agencyInput;
-        getMapData(searchFilter);
-    }, [searchFilter]);
+        console.log("reloaded");
+    }, []);
 
     return (
         <Autocomplete
@@ -282,12 +239,13 @@ const StateAgencyList = (props) => {
             onSelect={selectAgency}
             placeholder={props.placeHolder !== '' ? props.placeHolder : `${props.agencyType} Agency`}
             ref={input}
+            selectedItem={selectedItem}
             label={`${props.agencyType} Agency`}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
             retainValue />
     );
-};
+});
 
 StateAgencyList.propTypes = propTypes;
 export default StateAgencyList;

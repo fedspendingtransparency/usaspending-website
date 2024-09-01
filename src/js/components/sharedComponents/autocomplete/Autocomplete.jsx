@@ -49,7 +49,7 @@ const defaultProps = {
     minChar: false
 };
 
-const Autocomplete = (props) => {
+const Autocomplete = React.memo((props) => {
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -263,12 +263,11 @@ const Autocomplete = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.noResults]);
 
-    // had to comment this out for 11277, if we have issues we may need to be more clever about this
     useEffect(() => {
-        if (!props.retainValue) {
-            clearInternalState();
+        if (props.selectedAgencyName && autocompleteInputRef?.current) {
+            autocompleteInputRef.current.value = props.selectedAgencyName;
         }
-    }, [props.dirtyFilters]);
+    }, [props.selectedAgencyName]);
 
     return (
         <div
@@ -311,7 +310,7 @@ const Autocomplete = (props) => {
             </div>
         </div>
     );
-};
+});
 
 Autocomplete.defaultProps = defaultProps;
 Autocomplete.propTypes = propTypes;
