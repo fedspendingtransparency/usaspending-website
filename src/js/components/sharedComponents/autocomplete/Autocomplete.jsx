@@ -72,7 +72,9 @@ const Autocomplete = React.memo((props) => {
 
     const clearInternalState = () => {
         setValue('');
-        autocompleteInputRef.current.value = '';
+        if (autocompleteInputRef.current) {
+            autocompleteInputRef.current.value = '';
+        }
     };
 
     const isValidSelection = (selection) => find(props.values, selection);
@@ -264,8 +266,10 @@ const Autocomplete = React.memo((props) => {
     }, [props.noResults]);
 
     useEffect(() => {
-        if (props.selectedAgencyName && autocompleteInputRef?.current) {
-            autocompleteInputRef.current.value = props.selectedAgencyName;
+        if (props.type && props.type === "agency") {
+            if (props.selectedAgencyName && autocompleteInputRef?.current) {
+                autocompleteInputRef.current.value = props.selectedAgencyName;
+            }
         }
     }, [props.selectedAgencyName]);
 

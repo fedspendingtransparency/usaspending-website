@@ -52,8 +52,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.changeMapLayer = this.changeMapLayer.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
-        // this.setMapData = this.setMapData.bind(this);
+        this.setMapData = this.setMapData.bind(this);
         this.changeScope = this.changeScope.bind(this);
+        this.clearSearchFilters = this.clearSearchFilters.bind(this);
     }
 
     componentDidMount() {
@@ -83,11 +84,21 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
+    setMapData(spendingValues, spendingShapes, spendingLabels) {
+        this.setState({
+            data: {
+                values: spendingValues,
+                locations: spendingShapes,
+                labels: spendingLabels
+            },
+            renderHash: `geo-${uniqueId()}`,
+            loading: false,
+            error: false
+        });
+    }
+
     // need to figure out how the time period change affects this
     changeScope(newSearch, filterType) {
-        // how is the filter already set here?
-        console.log(this.state.searchData);
-
         if (this.apiRequest) {
             this.apiRequest.cancel();
         }
@@ -98,18 +109,16 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
 
         const tempSearchData = this.state.searchData;
-        console.log("previous search data", tempSearchData);
 
         if (filterType === "agency") {
             if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, "agencies")) {
                 tempSearchData.filters.agencies = newSearch.filters.agencies;
-            } else {
+            }
+            else {
                 tempSearchData.filters.agencies = [];
                 tempSearchData.filters.agencies = newSearch.filters.agencies;
             }
         }
-
-        console.log("temp search data", tempSearchData);
 
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempSearchData);
         this.apiRequest.promise
@@ -118,7 +127,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     loading: false,
                     error: false,
                     searchData: tempSearchData,
-                    selectedAgencyName: tempSearchData.filters.agencies[0].name
+                    selectedAgencyName: tempSearchData.filters.agencies[0].name,
+                    selectedAgency: newSearch
                 }, () => {
                     this.parseData(res.data);
                 });
@@ -134,6 +144,22 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     });
                 }
             });
+    }
+
+    clearSearchFilters() {
+        this.setState((prevState) => ({
+            selectedAgencyName: "",
+            selectedAgency: {},
+            searchData: {
+                ...prevState.searchData,
+                filters: {
+                    ...prevState.searchData.filters,
+                    agencies: []
+                }
+            }
+        }), () => {
+            this.prepareFetch();
+        });
     }
 
     fetchData() {
@@ -278,6 +304,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer}
+                clearSearchFilters={this.clearSearchFilters}
                 className={this.props.className} />
         );
     }

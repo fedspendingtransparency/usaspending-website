@@ -14,21 +14,13 @@ import * as SearchHelper from 'helpers/searchHelper';
 const propTypes = {
     toggleAgency: PropTypes.func,
     placeHolder: PropTypes.string,
-    selectedAgency: PropTypes.string
+    clearSearchFilters: PropTypes.func
 };
 
 const StateAgencyList = React.memo((props) => {
     const [agencySearchString, setAgencySearchString] = useState('');
-    // const [autocompleteType, setAutocompleteType] = useState('');
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
     const [noResults, setNoResults] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    // const [data, setData] = useState({
-    //     values: [],
-    //     locations: []
-    // });
-    // const [renderHash, setRenderHash] = useState(`geo-${uniqueId()}`);
     const [searchData, setSearchData] = useState({});
     const [selectedItem, setSelectedItem] = useState('');
 
@@ -54,26 +46,21 @@ const StateAgencyList = React.memo((props) => {
 
                 // Only push items if they are not in selectedAgencies
                 if (item.toptier_flag) {
-                    // if (props.selectedAgency.size === 0
-                    //     || !props.selectedAgency.has(`${item.id}_toptier`)) {
                     agencies.push({
                         title: `${item.subtier_agency.name} ${topAbbreviation}`,
                         data: Object.assign({}, item, {
                             agencyType: 'toptier'
                         })
                     });
-                    // }
+                } else {
+                    agencies.push({
+                        title: `${item.subtier_agency.name} ${subAbbreviation}`,
+                        subtitle: `Sub-Agency of ${item.toptier_agency.name} ${topAbbreviation}`,
+                        data: Object.assign({}, item, {
+                            agencyType: 'subtier'
+                        })
+                    });
                 }
-                // else if (props.selectedAgency.size === 0
-                //     || !props.selectedAgency.has(`${item.id}_subtier`)) {
-                agencies.push({
-                    title: `${item.subtier_agency.name} ${subAbbreviation}`,
-                    subtitle: `Sub-Agency of ${item.toptier_agency.name} ${topAbbreviation}`,
-                    data: Object.assign({}, item, {
-                        agencyType: 'subtier'
-                    })
-                });
-                // }
             });
 
             if (agencies.length === 0) {
@@ -94,7 +81,9 @@ const StateAgencyList = React.memo((props) => {
             agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
         }
 
-        setNoResults(noResults);
+        if (agencies.length > 0) {
+            setNoResults(false);
+        }
         setAutocompleteAgencies(agencies);
     };
 
@@ -135,16 +124,29 @@ const StateAgencyList = React.memo((props) => {
             // combine the two arrays and limit it to 10
             const improvedResults = slice(concat(toptier, subtier), 0, 10);
 
+            if (improvedResults.length > 0) {
+                setNoResults(false);
+            }
+
             // Add search results to Redux
             parseAutocompleteAgencies(improvedResults);
         }
     };
 
+    const clearAutocompleteSuggestions = () => {
+        setAutocompleteAgencies([]);
+    };
+
     const queryAutocompleteAgencies = (inputVal) => {
         setNoResults(false);
 
-        // Only search if search is 2 or more characters
-        if (inputVal.length >= 3) {
+        if (inputVal.length === 0) {
+            clearAutocompleteSuggestions();
+            props.clearSearchFilters();
+            setAgencySearchString('');
+        }
+        else if (inputVal.length >= 3) {
+            // Only search if search is 2 or more characters
             setAgencySearchString(inputVal);
 
 
@@ -152,6 +154,7 @@ const StateAgencyList = React.memo((props) => {
                 // A request is currently in-flight, cancel it
                 apiRequest.cancel();
             }
+
 
             const agencySearchParams = {
                 search_text: inputVal,
@@ -174,11 +177,6 @@ const StateAgencyList = React.memo((props) => {
             // A request is currently in-flight, cancel it
             apiRequest.cancel();
         }
-    };
-
-
-    const clearAutocompleteSuggestions = () => {
-        setAutocompleteAgencies([]);
     };
 
     const handleTextInput = (inputEvent) => {
@@ -226,14 +224,11 @@ const StateAgencyList = React.memo((props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchData]);
 
-    useEffect(() => {
-        console.log("reloaded");
-    }, []);
-
     return (
         <Autocomplete
             {...props}
             id="state__agency-id"
+            type="agency"
             values={autocompleteAgencies}
             handleTextInput={handleTextInput}
             onSelect={selectAgency}

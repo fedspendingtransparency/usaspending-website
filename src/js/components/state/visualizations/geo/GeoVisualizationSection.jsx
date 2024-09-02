@@ -117,7 +117,7 @@ const GeoVisualizationSection = React.memo((props) => {
                 <div className="map-loading">
                     <LoadingSpinner />
                     <div className="loading-message">
-                            Gathering your data blah...
+                            Gathering your data...
                     </div>
                 </div>
             </MapMessage>
