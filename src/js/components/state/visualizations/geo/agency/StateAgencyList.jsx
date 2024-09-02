@@ -12,8 +12,8 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 import * as SearchHelper from 'helpers/searchHelper';
 
 const propTypes = {
-    toggleAgency: PropTypes.func,
-    placeHolder: PropTypes.string,
+    agencyType: PropTypes.string,
+    changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func
 };
 
@@ -26,7 +26,6 @@ const StateAgencyList = React.memo((props) => {
 
     let timeout = null;
     let apiRequest = null;
-    const input = useRef(null);
 
     const parseAutocompleteAgencies = (results) => {
         let agencies = [];
@@ -215,8 +214,6 @@ const StateAgencyList = React.memo((props) => {
     };
 
     useEffect(() => {
-        // need to call a function in the geovisualizationsectioncontainer
-        // need to set the selected item here too, must add the filter to the other search
         if (selectedItem.length > 0) {
             props.changeScope(searchData, "agency", selectedItem);
         }
@@ -232,8 +229,7 @@ const StateAgencyList = React.memo((props) => {
             values={autocompleteAgencies}
             handleTextInput={handleTextInput}
             onSelect={selectAgency}
-            placeholder={props.placeHolder !== '' ? props.placeHolder : `${props.agencyType} Agency`}
-            ref={input}
+            placeholder="Search for an Awarding Agency..."
             selectedItem={selectedItem}
             label={`${props.agencyType} Agency`}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
