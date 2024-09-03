@@ -150,7 +150,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
             return (newState);
         }, () => {
             this.prepareFetch();
-            console.log("new state here", this.state);
         });
     }
 

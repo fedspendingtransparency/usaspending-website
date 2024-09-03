@@ -24,6 +24,7 @@ const StateCFDAList = (props) => {
 
     let apiRequest = null;
     let timeout = null;
+    const cfdaInput = React.createRef();
 
     const selectCFDA = (cfda) => {
         setCFDATitleString(`${cfda.program_number} - ${cfda.program_title}`);
@@ -119,10 +120,18 @@ const StateCFDAList = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchData]);
 
+    useEffect(() => {
+        const el = document.getElementById("state__cfda-id");
+        el.addEventListener("focus", el.select());
+        return () => el.removeEventListener('focus', el.select());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <Autocomplete
             {...props}
             id="state__cfda-id"
+            ref={cfdaInput}
             label="Assistance Listing"
             values={autocompleteCFDA}
             handleTextInput={handleTextInput}
