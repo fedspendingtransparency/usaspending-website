@@ -98,6 +98,14 @@ const Autocomplete = (props) => {
         }
     };
 
+    const scrollToSelectedId = (id) => {
+        document.getElementById(`${autocompleteIdRef.current}__option_${id}`).scrollIntoView({
+            behavior: 'auto',
+            block: 'nearest',
+            inline: 'nearest'
+        });
+    };
+
     const open = () => {
         setShown(true);
     };
@@ -115,18 +123,22 @@ const Autocomplete = (props) => {
     const previous = () => {
         if (selectedIndex > 0) {
             setSelectedIndex(selectedIndex - 1);
+            scrollToSelectedId(selectedIndex - 1);
         }
         else {
             setSelectedIndex(props.values.length - 1);
+            scrollToSelectedId(props.values.length - 1);
         }
     };
 
     const next = () => {
         if (selectedIndex < props.values.length - 1) {
             setSelectedIndex(selectedIndex + 1);
+            scrollToSelectedId(selectedIndex + 1);
         }
         else {
             setSelectedIndex(0);
+            scrollToSelectedId(0);
         }
     };
 
