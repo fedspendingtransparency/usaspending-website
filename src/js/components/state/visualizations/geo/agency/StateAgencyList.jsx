@@ -12,9 +12,9 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 import * as SearchHelper from 'helpers/searchHelper';
 
 const propTypes = {
-    agencyType: PropTypes.string,
     changeScope: PropTypes.func,
-    clearSearchFilters: PropTypes.func
+    clearSearchFilters: PropTypes.func,
+    placeholder: PropTypes.string
 };
 
 const StateAgencyList = React.memo((props) => {
@@ -229,7 +229,6 @@ const StateAgencyList = React.memo((props) => {
             values={autocompleteAgencies}
             handleTextInput={handleTextInput}
             onSelect={selectAgency}
-            placeholder="Search for an Awarding Agency..."
             selectedItem={selectedItem}
             label={`${props.agencyType} Agency`}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}

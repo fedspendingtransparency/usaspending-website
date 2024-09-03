@@ -42,7 +42,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loadingTiles: true,
             error: false,
             searchData: {},
-            selectedAgencyName: ""
+            selectedItemsDisplayNames: {
+                agency: "",
+                cfda: "",
+                program_activity: ""
+            }
         };
 
         this.apiRequest = null;
@@ -120,16 +124,28 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
         }
 
+        if (filterType === "cfda") {
+            if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, "cfda")) {
+                tempSearchData.filters.agencies = newSearch.filters.agencies;
+            }
+            else {
+                tempSearchData.filters.agencies = [];
+                tempSearchData.filters.agencies = newSearch.filters.agencies;
+            }
+        }
+
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempSearchData);
         this.apiRequest.promise
             .then((res) => {
-                this.setState({
+                this.setState((prevState) => ({
                     loading: false,
                     error: false,
                     searchData: tempSearchData,
-                    selectedAgencyName: tempSearchData.filters.agencies[0].name,
-                    selectedAgency: newSearch
-                }, () => {
+                    selectedItemsDisplayNames: {
+                        ...prevState.selectedItemsDisplayNames,
+                        agency: tempSearchData.filters.agencies[0].name
+                    }
+                }), () => {
                     this.parseData(res.data);
                 });
             })
@@ -148,8 +164,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     clearSearchFilters() {
         this.setState((prevState) => ({
-            selectedAgencyName: "",
-            selectedAgency: {},
+            selectedItemsDisplayNames: {
+                ...prevState.selectedItemsDisplayNames,
+                agency: ''
+            },
             searchData: {
                 ...prevState.searchData,
                 filters: {

@@ -10,7 +10,7 @@ import { mapFilterSortOrderByValue } from '../../../../dataMapping/state/stateMa
 import { handleSort } from '../../../../helpers/covid19Helper';
 import MapFiltersTitle from '../../../search/visualizations/geo/MapFiltersTitle';
 import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
-import StateCFDASearchContainer from "./cfda/StateCFDASearchContainer";
+import StateCFDAListContainer from "./cfda/StateCFDAListContainer";
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import StateAgencyList from "./agency/StateAgencyList";
 
@@ -20,62 +20,60 @@ const propTypes = {
     isOpen: PropTypes.bool
 };
 
-const StateProfileMapFilters = React.memo((props) => {
-    // const selectedAgencies = props.selectedAwardingAgencies;
-
-    return (
-        <div className={props.isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
-            <div className="map__filters-header">
-                <MapFiltersTitle />
-            </div>
-            <div className="map__filters-body">
-                {/* below chunk is for the dropdown filters */}
-                {
-                    Object.keys(props.filters).map((filter) => (
-                        <div key={uniqueId()} className="map__filters-filter__container">
-                            <div className="map__filters-wrapper">
-                                <span className="map__filters-label">{props.filters[filter].label}</span>
-                                <NewPicker
-                                    enabled={props.filters[filter].enabled}
-                                    size="sm"
-                                    classname="map__filters-button"
-                                    dropdownClassname="map__filters-dropdown"
-                                    sortFn={handleSort}
-                                    selectedOption={props.filters[filter].options?.find((option) => option.value === props.activeFilters[filter]).label}
-                                    options={
-                                        props.filters[filter].options?.map((option) => ({
-                                            name: option.label,
-                                            value: option.value,
-                                            onClick: props.filters[filter].onClick,
-                                            sortOrder: mapFilterSortOrderByValue[option.value]
-                                        }))
-                                    } />
-                            </div>
-                        </div>
-                    ))
-                }
-                {/* below chunk is for the autocomplete filters */}
-                <FeatureFlag>
+const StateProfileMapFilters = React.memo((props) => (
+    <div className={props.isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
+        <div className="map__filters-header">
+            <MapFiltersTitle />
+        </div>
+        <div className="map__filters-body">
+            {/* below chunk is for the dropdown filters */}
+            {
+                Object.keys(props.filters).map((filter) => (
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-wrapper">
-                            <div className="filter-item-wrap" key="holder-awarding">
-                                <StateAgencyList
-                                    {...props}
-                                    agencyType="awarding"
-                                    placeHolder="Search for an awarding agency..." />
-                            </div>
-                        </div>
-                        <div key={uniqueId()} className="map__filters-filter__container">
-                            <div className="map__filters-wrapper">
-                                <StateCFDASearchContainer {...props} />
-                            </div>
+                            <span className="map__filters-label">{props.filters[filter].label}</span>
+                            <NewPicker
+                                enabled={props.filters[filter].enabled}
+                                size="sm"
+                                classname="map__filters-button"
+                                dropdownClassname="map__filters-dropdown"
+                                sortFn={handleSort}
+                                selectedOption={props.filters[filter].options?.find((option) => option.value === props.activeFilters[filter]).label}
+                                options={
+                                    props.filters[filter].options?.map((option) => ({
+                                        name: option.label,
+                                        value: option.value,
+                                        onClick: props.filters[filter].onClick,
+                                        sortOrder: mapFilterSortOrderByValue[option.value]
+                                    }))
+                                } />
                         </div>
                     </div>
-                </FeatureFlag>
-            </div>
+                ))
+            }
+            {/* below chunk is for the autocomplete filters */}
+            <FeatureFlag>
+                <div key={uniqueId()} className="map__filters-filter__container">
+                    <div className="map__filters-wrapper">
+                        <div className="filter-item-wrap" key="holder-awarding">
+                            <StateAgencyList
+                                {...props}
+                                agencyType="awarding"
+                                placeholder="Search for an Awarding Agency..." />
+                        </div>
+                    </div>
+                    <div key={uniqueId()} className="map__filters-filter__container">
+                        <div className="map__filters-wrapper">
+                            <StateCFDAListContainer
+                                {...props}
+                                placeholder="Search for an Assistance Listing..." />
+                        </div>
+                    </div>
+                </div>
+            </FeatureFlag>
         </div>
-    );
-});
+    </div>
+));
 
 StateProfileMapFilters.propTypes = propTypes;
 export default StateProfileMapFilters;
