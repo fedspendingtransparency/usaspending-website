@@ -79,10 +79,6 @@ const GeoVisualizationSection = React.memo((props) => {
         return acc;
     }, {});
 
-    const updateFilters = (filters) => {
-        console.log(filters);
-    };
-
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
         // TODO: This ref is necessary, need to figure out why the map components are losing reference to data
@@ -166,7 +162,6 @@ const GeoVisualizationSection = React.memo((props) => {
                 {...props}
                 awardTypeFilters={awardTypeTabs}
                 filters={addOnClickToFilters()}
-                updateFilters={updateFilters}
                 activeFilters={activeFilters}
                 setActiveFilters={setActiveFilters}
                 className={props.className}

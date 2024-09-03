@@ -17,7 +17,7 @@ const propTypes = {
 };
 
 const StateCFDAList = (props) => {
-    const [cfdaSearchString, setCFDASearchString] = useState('');
+    const [cfdaTitleString, setCFDATitleString] = useState('');
     const [autocompleteCFDA, setAutocompleteCFDA] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const [searchData, setSearchData] = useState({});
@@ -25,7 +25,8 @@ const StateCFDAList = (props) => {
     let apiRequest = null;
     let timeout = null;
 
-    const selectCFDA = (cfda, isValid) => {
+    const selectCFDA = (cfda) => {
+        setCFDATitleString(`${cfda.program_number} - ${cfda.program_title}`);
         const newSearch = props.searchData;
         newSearch.filters.program_numbers = [];
         newSearch.filters.program_numbers.push(cfda.program_number);
@@ -57,14 +58,10 @@ const StateCFDAList = (props) => {
         setNoResults(false);
 
         if (input.length === 0) {
-            // clearAutocompleteSuggestions();
             props.clearSearchFilters("program_number");
-            setCFDASearchString('');
         }
         // Only search if input is 3 or more characters
         else if (input.length >= 3) {
-            setCFDASearchString(input);
-
             if (apiRequest) {
                 // A request is currently in-flight, cancel it
                 apiRequest.cancel();
@@ -117,7 +114,7 @@ const StateCFDAList = (props) => {
 
     useEffect(() => {
         if (Object.keys(searchData).length > 0) {
-            props.changeScope(searchData, "program_number");
+            props.changeScope(searchData, "program_number", cfdaTitleString);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchData]);

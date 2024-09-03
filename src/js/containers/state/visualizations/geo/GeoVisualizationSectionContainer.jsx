@@ -91,7 +91,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     // need to figure out how the time period change affects this
-    changeScope(newSearch, filterType) {
+    changeScope(newSearch, filterType, displayName) {
         if (this.apiRequest) {
             this.apiRequest.cancel();
         }
@@ -120,7 +120,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     searchData: tempSearchData,
                     selectedItemsDisplayNames: {
                         ...prevState.selectedItemsDisplayNames,
-                        [filterType]: filterType === "agency" ? tempSearchData.filters[filterTypePlural][0].name : tempSearchData.filters[filterTypePlural][0]
+                        [filterType]: filterType === "agency" ? tempSearchData.filters[filterTypePlural][0].name : displayName
                     }
                 }), () => {
                     this.parseData(res.data);
@@ -142,20 +142,15 @@ export class GeoVisualizationSectionContainer extends React.Component {
     clearSearchFilters(filterType) {
         const filterTypePlural = `${filterType === 'agency' ? 'agencies' : `${filterType}s`}`;
 
-        this.setState((prevState) => ({
-            selectedItemsDisplayNames: {
-                ...prevState.selectedItemsDisplayNames,
-                [filterType]: ''
-            },
-            searchData: {
-                ...prevState.searchData,
-                filters: {
-                    ...prevState.searchData.filters,
-                    [filterTypePlural]: []
-                }
-            }
-        }), () => {
+        this.setState((prevState) => {
+            const newState = { ...prevState };
+            newState
+                .selectedItemsDisplayNames[filterType] = '';
+            delete newState.searchData.filters[filterTypePlural];
+            return (newState);
+        }, () => {
             this.prepareFetch();
+            console.log("new state here", this.state);
         });
     }
 
@@ -211,8 +206,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.setState({
             searchData: apiParams
-        }, () => {
-            console.log(this.state);
         });
 
         //
