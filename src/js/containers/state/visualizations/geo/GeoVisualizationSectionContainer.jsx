@@ -124,7 +124,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     }
                 }), () => {
                     this.parseData(res.data);
-                    console.log(this.state);
                 });
             })
             .catch((err) => {
@@ -161,7 +160,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     hasFilters() {
-        console.log("testing", this.state.searchData);
         return (this.state.searchData?.scope === 'place_of_performance' && this.state.searchData?.geo_layer.length > 0);
     };
 
@@ -213,6 +211,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.setState({
             searchData: apiParams
+        }, () => {
+            console.log(this.state);
         });
 
         //
@@ -224,16 +224,12 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loading: true,
             error: false,
             searchData: apiParams
-        }, () => {
-            console.log("state for geo", this.state);
         });
 
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
-                console.log("geo info", res.data);
-
                 this.apiRequest = null;
             })
             .catch((err) => {
@@ -306,7 +302,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loadingTiles: true
         }, () => {
             this.prepareFetch();
-            console.log("change map layer", this.state);
         });
     }
 
