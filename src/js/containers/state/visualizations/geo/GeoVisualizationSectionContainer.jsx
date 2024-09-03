@@ -44,7 +44,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             searchData: {},
             selectedItemsDisplayNames: {
                 agency: "",
-                cfda: "",
+                program_number: "",
                 program_activity: ""
             }
         };
@@ -56,7 +56,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.changeMapLayer = this.changeMapLayer.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
-        this.setMapData = this.setMapData.bind(this);
+        // this.filterTypePluralize = this.filterTypePluralize.bind(this);
         this.changeScope = this.changeScope.bind(this);
         this.clearSearchFilters = this.clearSearchFilters.bind(this);
     }
@@ -88,19 +88,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
-    setMapData(spendingValues, spendingShapes, spendingLabels) {
-        this.setState({
-            data: {
-                values: spendingValues,
-                locations: spendingShapes,
-                labels: spendingLabels
-            },
-            renderHash: `geo-${uniqueId()}`,
-            loading: false,
-            error: false
-        });
-    }
-
     // need to figure out how the time period change affects this
     changeScope(newSearch, filterType) {
         if (this.apiRequest) {
@@ -113,25 +100,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
 
         const tempSearchData = this.state.searchData;
-
-        if (filterType === "agency") {
-            if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, "agencies")) {
-                tempSearchData.filters.agencies = newSearch.filters.agencies;
-            }
-            else {
-                tempSearchData.filters.agencies = [];
-                tempSearchData.filters.agencies = newSearch.filters.agencies;
-            }
+        const filterTypePlural = `${filterType === 'agency' ? 'agencies' : `${filterType}s`}`;
+        if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, filterTypePlural)) {
+            tempSearchData.filters[filterTypePlural] = newSearch.filters[filterTypePlural];
         }
-
-        if (filterType === "cfda") {
-            if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, "cfda")) {
-                tempSearchData.filters.agencies = newSearch.filters.agencies;
-            }
-            else {
-                tempSearchData.filters.agencies = [];
-                tempSearchData.filters.agencies = newSearch.filters.agencies;
-            }
+        else {
+            tempSearchData.filters[filterTypePlural] = [];
+            tempSearchData.filters[filterTypePlural] = newSearch.filters[filterTypePlural];
         }
 
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempSearchData);
@@ -143,10 +118,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     searchData: tempSearchData,
                     selectedItemsDisplayNames: {
                         ...prevState.selectedItemsDisplayNames,
-                        agency: tempSearchData.filters.agencies[0].name
+                        [filterType]: filterType === "agency" ? tempSearchData.filters[filterTypePlural][0].name : tempSearchData.filters[filterTypePlural][0]
                     }
                 }), () => {
                     this.parseData(res.data);
+                    console.log(this.state);
                 });
             })
             .catch((err) => {
@@ -162,17 +138,19 @@ export class GeoVisualizationSectionContainer extends React.Component {
             });
     }
 
-    clearSearchFilters() {
+    clearSearchFilters(filterType) {
+        const filterTypePlural = `${filterType === 'agency' ? 'agencies' : `${filterType}s`}`;
+
         this.setState((prevState) => ({
             selectedItemsDisplayNames: {
                 ...prevState.selectedItemsDisplayNames,
-                agency: ''
+                [filterType]: ''
             },
             searchData: {
                 ...prevState.searchData,
                 filters: {
                     ...prevState.searchData.filters,
-                    agencies: []
+                    [filterTypePlural]: []
                 }
             }
         }), () => {

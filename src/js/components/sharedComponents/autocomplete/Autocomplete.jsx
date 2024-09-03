@@ -266,11 +266,10 @@ const Autocomplete = React.memo((props) => {
     }, [props.noResults]);
 
     useEffect(() => {
-        if (props.type && props.type === "agency") {
+        if (props.type) {
             if (props.selectedItemsDisplayNames[props.type] && autocompleteInputRef?.current) {
                 autocompleteInputRef.current.value = props.selectedItemsDisplayNames[props.type];
                 autocompleteInputRef.current.style.fontWeight = "bold";
-
             }
         }
     }, [props.selectedAgencyName]);

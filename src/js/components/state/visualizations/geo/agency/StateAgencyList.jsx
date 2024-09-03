@@ -22,7 +22,6 @@ const StateAgencyList = React.memo((props) => {
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const [searchData, setSearchData] = useState({});
-    const [selectedItem, setSelectedItem] = useState('');
 
     let timeout = null;
     let apiRequest = null;
@@ -141,7 +140,7 @@ const StateAgencyList = React.memo((props) => {
 
         if (inputVal.length === 0) {
             clearAutocompleteSuggestions();
-            props.clearSearchFilters();
+            props.clearSearchFilters("agency");
             setAgencySearchString('');
         }
         else if (inputVal.length >= 3) {
@@ -208,14 +207,12 @@ const StateAgencyList = React.memo((props) => {
             }
         );
         setSearchData(newSearch);
-        setSelectedItem(valid.data.toptier_agency.name);
-        // Clear Autocomplete results
         setAutocompleteAgencies([]);
     };
 
     useEffect(() => {
-        if (selectedItem.length > 0) {
-            props.changeScope(searchData, "agency", selectedItem);
+        if (Object.keys(searchData).length > 0) {
+            props.changeScope(searchData, "agency");
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -229,7 +226,6 @@ const StateAgencyList = React.memo((props) => {
             values={autocompleteAgencies}
             handleTextInput={handleTextInput}
             onSelect={selectAgency}
-            selectedItem={selectedItem}
             label={`${props.agencyType} Agency`}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
