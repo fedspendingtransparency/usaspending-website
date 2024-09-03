@@ -70,7 +70,6 @@ const PrimaryCheckboxType = (props) => {
         });
     };
 
-
     const compareFiltersToChildren = () => {
     // check to see if the children are all selected or not
         let allSelected = true;
