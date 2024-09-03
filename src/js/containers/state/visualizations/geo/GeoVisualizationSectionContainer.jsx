@@ -58,6 +58,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.prepareFetch = this.prepareFetch.bind(this);
         // this.filterTypePluralize = this.filterTypePluralize.bind(this);
         this.changeScope = this.changeScope.bind(this);
+        this.hasFilters = this.hasFilters.bind(this);
+        this.changeScope = this.changeScope.bind(this);
         this.clearSearchFilters = this.clearSearchFilters.bind(this);
     }
 
@@ -158,37 +160,48 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
+    hasFilters() {
+        console.log("testing", this.state.searchData);
+        return (this.state.searchData?.scope === 'place_of_performance' && this.state.searchData?.geo_layer.length > 0);
+    };
+
     fetchData() {
     // Create the time period filter
         let timePeriod = null;
         const fy = this.props.stateProfile.fy;
-        if (fy !== 'all') {
-            let dateRange = [];
-            if (fy === 'latest') {
-                dateRange = FiscalYearHelper.getTrailingTwelveMonths();
-            }
-            else {
-                dateRange = FiscalYearHelper.convertFYToDateRange(parseInt(fy, 10));
-            }
-            timePeriod = [
-                {
-                    start_date: dateRange[0],
-                    end_date: dateRange[1]
-                }
-            ];
-        }
+        let dateRange = [];
+        let searchParams;
 
-        const searchParams = {
-            place_of_performance_locations: [
-                {
-                    country: 'USA',
-                    state: this.props.stateProfile.overview.code
+        if (this.hasFilters()) {
+            searchParams = this.state.searchData.filters;
+        } else {
+            if (fy !== 'all') {
+                if (fy === 'latest') {
+                    dateRange = FiscalYearHelper.getTrailingTwelveMonths();
                 }
-            ]
-        };
+                else {
+                    dateRange = FiscalYearHelper.convertFYToDateRange(parseInt(fy, 10));
+                }
+                timePeriod = [
+                    {
+                        start_date: dateRange[0],
+                        end_date: dateRange[1]
+                    }
+                ];
+            }
 
-        if (timePeriod) {
-            searchParams.time_period = timePeriod;
+            searchParams = {
+                place_of_performance_locations: [
+                    {
+                        country: 'USA',
+                        state: this.props.stateProfile.overview.code
+                    }
+                ]
+            };
+
+            if (timePeriod) {
+                searchParams.time_period = timePeriod;
+            }
         }
 
         // generate the API parameters
@@ -199,7 +212,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         };
 
         this.setState({
-            apiParams
+            searchData: apiParams
         });
 
         //
@@ -211,11 +224,16 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loading: true,
             error: false,
             searchData: apiParams
+        }, () => {
+            console.log("state for geo", this.state);
         });
+
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
                 this.parseData(res.data);
+                console.log("geo info", res.data);
+
                 this.apiRequest = null;
             })
             .catch((err) => {
@@ -288,6 +306,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             loadingTiles: true
         }, () => {
             this.prepareFetch();
+            console.log("change map layer", this.state);
         });
     }
 
