@@ -44,6 +44,7 @@ const defaultProps = {
 
 // sub-filters hidden from the user, but  passed to the API when the parent filter is selected
 const excludedSubFilters = ["IDV_B"];
+
 const PrimaryCheckboxType = (props) => {
     const [showSubItems, setShowSubItems] = useState(false);
     const [arrowState, setArrowState] = useState('collapsed');
@@ -191,4 +192,5 @@ const PrimaryCheckboxType = (props) => {
 
 PrimaryCheckboxType.propTypes = propTypes;
 PrimaryCheckboxType.defaultProps = defaultProps;
+
 export default PrimaryCheckboxType;
