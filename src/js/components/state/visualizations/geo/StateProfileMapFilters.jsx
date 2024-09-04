@@ -11,7 +11,6 @@ import { handleSort } from '../../../../helpers/covid19Helper';
 import MapFiltersTitle from '../../../search/visualizations/geo/MapFiltersTitle';
 import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
 import StateCFDAList from "./cfda/StateCFDAList";
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import StateAgencyList from "./agency/StateAgencyList";
 
 const propTypes = {
@@ -52,25 +51,23 @@ const StateProfileMapFilters = React.memo((props) => (
                 ))
             }
             {/* below chunk is for the autocomplete filters */}
-            <FeatureFlag>
-                <div key={uniqueId()} className="map__filters-filter__container">
-                    <div className="map__filters-wrapper">
-                        <div className="filter-item-wrap" key="holder-awarding">
-                            <StateAgencyList
-                                {...props}
-                                agencyType="awarding"
-                                placeholder="Search for an Awarding Agency..." />
-                        </div>
-                    </div>
-                    <div key={uniqueId()} className="map__filters-filter__container">
-                        <div className="map__filters-wrapper">
-                            <StateCFDAList
-                                {...props}
-                                placeholder="Search for an Assistance Listing..." />
-                        </div>
+            <div key={uniqueId()} className="map__filters-filter__container">
+                <div className="map__filters-wrapper">
+                    <div className="filter-item-wrap" key="holder-awarding">
+                        <StateAgencyList
+                            {...props}
+                            agencyType="awarding"
+                            placeholder="Search for an Awarding Agency..." />
                     </div>
                 </div>
-            </FeatureFlag>
+                <div key={uniqueId()} className="map__filters-filter__container">
+                    <div className="map__filters-wrapper">
+                        <StateCFDAList
+                            {...props}
+                            placeholder="Search for an Assistance Listing..." />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 ));
