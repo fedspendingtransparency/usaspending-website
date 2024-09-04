@@ -204,8 +204,6 @@ export default class StateOverview extends React.PureComponent {
                     <FlexGridRow>
                         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
                             <div className="state-section__viz award-breakdown" id="award">
-                                {QAT ? (
-                                    <>
                                         <div className="award-breakdown__heading-row">
                                             <h3 className="state-overview__heading">
                                                 Award Breakdown
@@ -223,13 +221,8 @@ export default class StateOverview extends React.PureComponent {
                                                 <p className="state-overview__what-text">An <span className="state-overview__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="state-overview__emphasis">obligation&nbsp;<GlossaryLink term="obligation" /></span> , which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
                                                 <p className="state-overview__what-second-heading">Why are the <em>obligation</em> and <em>budgetary resource</em> amounts no longer visible on the chart?</p>
                                                 <p className="state-overview__what-text">Remember, the <span className="state-overview__emphasis">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> and obligations on this chart refer to available amounts and promised amounts for spending <em>in your selected fiscal year</em>. However, agencies may make outlays to pay off obligations made in your selected year <em>or in previous years</em>. This means outlays on this chart should <span className="state-overview__emphasis">not</span> be compared to the obligations or budgetary resources within any single fiscal year.</p>
-                                            </div>}
-                                    </>
-                                ) : (
-                                    <h3 className="state-overview__heading">
-                                        Award Breakdown
-                                    </h3>
-                                )}
+                                            </div>
+                                        }
                             </div>
                         </FlexGridCol>
                     </FlexGridRow>
