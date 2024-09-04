@@ -32,7 +32,7 @@ const FilterTabs = ({ labels, active, switchTab }) => {
 
     const tabs = labels.map((label) => (
         <FilterTab
-            id={label.label}
+            id={label.title}
             label={label.label}
             title={label.title}
             active={active === label.internal}
