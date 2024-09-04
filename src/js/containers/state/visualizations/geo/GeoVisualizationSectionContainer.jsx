@@ -141,7 +141,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     clearSearchFilters(filterType) {
         const filterTypePlural = `${filterType === 'agency' ? 'agencies' : `${filterType}s`}`;
-
+        const previousSelection = this.state.selectedItemsDisplayNames[filterType];
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState
@@ -149,7 +149,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
             delete newState.searchData.filters[filterTypePlural];
             return (newState);
         }, () => {
-            this.prepareFetch();
+            if (previousSelection.length > 0) {
+                this.prepareFetch();
+            }
         });
     }
 

@@ -17,17 +17,16 @@ const propTypes = {
 };
 
 const StateCFDAList = (props) => {
-    const [cfdaTitleString, setCFDATitleString] = useState('');
+    const [cfdaTitleString, setCfdaTitleString] = useState('');
     const [autocompleteCFDA, setAutocompleteCFDA] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const [searchData, setSearchData] = useState({});
 
     let apiRequest = null;
     let timeout = null;
-    const cfdaInput = React.createRef();
 
     const selectCFDA = (cfda) => {
-        setCFDATitleString(`${cfda.program_number} - ${cfda.program_title}`);
+        setCfdaTitleString(`${cfda.program_number} - ${cfda.program_title}`);
         const newSearch = props.searchData;
         newSearch.filters.program_numbers = [];
         newSearch.filters.program_numbers.push(cfda.program_number);
@@ -55,24 +54,11 @@ const StateCFDAList = (props) => {
         setAutocompleteCFDA(values);
     };
 
-    const checkStatus = (e) => {
-        if (e.target.value === '' && cfdaTitleString !== '') {
-            setCFDATitleString('');
-            setSearchData({});
-            console.log("clear");
-            props.clearSearchFilters("program_number");
-        }
-    };
-
     const queryAutocompleteCFDA = (input) => {
         setNoResults(false);
 
-        if (input.length === 0) {
-            setAutocompleteCFDA([]);
-            props.clearSearchFilters("program_number");
-        }
         // Only search if input is 3 or more characters
-        else if (input.length >= 3) {
+        if (input.length >= 3) {
             if (apiRequest) {
                 // A request is currently in-flight, cancel it
                 apiRequest.cancel();
@@ -114,7 +100,7 @@ const StateCFDAList = (props) => {
         setAutocompleteCFDA([]);
 
         // Grab input, clear any exiting timeout
-        const input = cfdaInput.target.value;
+        const input = cfdaInput.target?.value;
         window.clearTimeout(timeout);
 
         // Perform search if user doesn't type again for 300ms
@@ -132,10 +118,32 @@ const StateCFDAList = (props) => {
 
     useEffect(() => {
         const el = document.getElementById("state__cfda-id");
-        el.addEventListener("focus", el.select());
-        el.addEventListener("blur", e => checkStatus(e));
-
-        return () => el.removeEventListener('focus', el.select());
+        el.addEventListener("focus", (e) => {
+            if (e.target.value !== "") {
+                el.select();
+            }
+        });
+        el.addEventListener("blur", (e) => {
+            if (e.target.value === "") {
+                clearAutocompleteSuggestions();
+                props.clearSearchFilters("program_number");
+                setCfdaTitleString('');
+            }
+        });
+        return () => {
+            el.removeEventListener("focus", (e) => {
+                if (e.target.value !== "") {
+                    el.select();
+                }
+            });
+            el.removeEventListener("blur", (e) => {
+                if (e.target.value === "") {
+                    clearAutocompleteSuggestions();
+                    props.clearSearchFilters("agency");
+                    setCfdaTitleString('');
+                }
+            });
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -143,7 +151,6 @@ const StateCFDAList = (props) => {
         <Autocomplete
             {...props}
             id="state__cfda-id"
-            ref={cfdaInput}
             label="Assistance Listing"
             values={autocompleteCFDA}
             handleTextInput={handleTextInput}

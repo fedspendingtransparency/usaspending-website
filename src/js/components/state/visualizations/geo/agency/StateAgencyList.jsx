@@ -3,7 +3,7 @@
 * Created by Nick Torres 8/12/2024
 **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash';
@@ -50,7 +50,8 @@ const StateAgencyList = React.memo((props) => {
                             agencyType: 'toptier'
                         })
                     });
-                } else {
+                }
+                else {
                     agencies.push({
                         title: `${item.subtier_agency.name} ${subAbbreviation}`,
                         subtitle: `Sub-Agency of ${item.toptier_agency.name} ${topAbbreviation}`,
@@ -138,12 +139,7 @@ const StateAgencyList = React.memo((props) => {
     const queryAutocompleteAgencies = (inputVal) => {
         setNoResults(false);
 
-        if (inputVal.length === 0) {
-            clearAutocompleteSuggestions();
-            props.clearSearchFilters("agency");
-            setAgencySearchString('');
-        }
-        else if (inputVal.length >= 3) {
+        if (inputVal.length >= 3) {
             // Only search if search is 2 or more characters
             setAgencySearchString(inputVal);
 
@@ -220,10 +216,32 @@ const StateAgencyList = React.memo((props) => {
 
     useEffect(() => {
         const el = document.getElementById("state__agency-id");
-        el.addEventListener("focus", el.select());
-        el.addEventListener("blur", console.log("agency on blur"));
-
-        return () => el.removeEventListener('focus', el.select());
+        el.addEventListener("focus", (e) => {
+            if (e.target.value !== "") {
+                el.select();
+            }
+        });
+        el.addEventListener("blur", (e) => {
+            if (e.target.value === "") {
+                clearAutocompleteSuggestions();
+                props.clearSearchFilters("agency");
+                setAgencySearchString('');
+            }
+        });
+        return () => {
+            el.removeEventListener("focus", (e) => {
+                if (e.target.value !== "") {
+                    el.select();
+                }
+            });
+            el.removeEventListener("blur", (e) => {
+                if (e.target.value === "") {
+                    clearAutocompleteSuggestions();
+                    props.clearSearchFilters("agency");
+                    setAgencySearchString('');
+                }
+            });
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
