@@ -23,6 +23,14 @@ const SummaryStats = (props) => {
         subtitleBottom: `from ${stateProfile.totalAwards} prime awards`
     },
     {
+        title: "Outlayed Amount",
+        type: 'outlayedAmount',
+        amount: stateProfile.totalOutlays,
+        isMonetary: true,
+        isString: true,
+        subtitleBottom: `from ${stateProfile.totalAwards} prime awards`
+    },
+    {
         title: 'Face Value of Loans',
         type: 'faceValueOfLoans',
         amount: stateProfile.totalFaceValueLoanAmount,
@@ -31,34 +39,6 @@ const SummaryStats = (props) => {
         subtitleBottom:
             `from ${stateProfile.totalFaceValueLoanPrimeAwards} prime awards`
     }];
-
-    if (GlobalConstants.QAT) {
-        boxes = [{
-            title: "Obligations",
-            type: 'obligatedAmount',
-            amount: stateProfile.totalAmount,
-            isMonetary: true,
-            isString: true,
-            subtitleBottom: `from ${stateProfile.totalAwards} prime awards`
-        },
-        {
-            title: "Outlayed Amount",
-            type: 'outlayedAmount',
-            amount: stateProfile.totalOutlays,
-            isMonetary: true,
-            isString: true,
-            subtitleBottom: `from ${stateProfile.totalAwards} prime awards`
-        },
-        {
-            title: 'Face Value of Loans',
-            type: 'faceValueOfLoans',
-            amount: stateProfile.totalFaceValueLoanAmount,
-            isMonetary: true,
-            isString: true,
-            subtitleBottom:
-                    `from ${stateProfile.totalFaceValueLoanPrimeAwards} prime awards`
-        }];
-    }
 
     return (
         <div className="state-section__viz totals-container">
