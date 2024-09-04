@@ -55,10 +55,20 @@ const StateCFDAList = (props) => {
         setAutocompleteCFDA(values);
     };
 
+    const checkStatus = (e) => {
+        if (e.target.value === '' && cfdaTitleString !== '') {
+            setCFDATitleString('');
+            setSearchData({});
+            console.log("clear");
+            props.clearSearchFilters("program_number");
+        }
+    };
+
     const queryAutocompleteCFDA = (input) => {
         setNoResults(false);
 
         if (input.length === 0) {
+            setAutocompleteCFDA([]);
             props.clearSearchFilters("program_number");
         }
         // Only search if input is 3 or more characters
@@ -123,6 +133,8 @@ const StateCFDAList = (props) => {
     useEffect(() => {
         const el = document.getElementById("state__cfda-id");
         el.addEventListener("focus", el.select());
+        el.addEventListener("blur", e => checkStatus(e));
+
         return () => el.removeEventListener('focus', el.select());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

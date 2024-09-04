@@ -218,6 +218,15 @@ const StateAgencyList = React.memo((props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchData]);
 
+    useEffect(() => {
+        const el = document.getElementById("state__agency-id");
+        el.addEventListener("focus", el.select());
+        el.addEventListener("blur", console.log("agency on blur"));
+
+        return () => el.removeEventListener('focus', el.select());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <Autocomplete
             {...props}
