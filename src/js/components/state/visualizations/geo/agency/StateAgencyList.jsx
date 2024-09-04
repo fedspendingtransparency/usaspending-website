@@ -13,8 +13,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 
 const propTypes = {
     changeScope: PropTypes.func,
-    clearSearchFilters: PropTypes.func,
-    placeholder: PropTypes.string
+    clearSearchFilters: PropTypes.func
 };
 
 const StateAgencyList = React.memo((props) => {

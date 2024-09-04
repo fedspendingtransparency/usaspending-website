@@ -17,8 +17,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 const propTypes = {
     toggleAgency: PropTypes.func,
     selectedAgencies: PropTypes.object,
-    agencyType: PropTypes.string,
-    placeHolder: PropTypes.string
+    agencyType: PropTypes.string
 };
 
 export default class AgencyListContainer extends React.Component {
