@@ -123,11 +123,17 @@
 
                             .map__filters-dropdown {
                                 width: max-content;
+                                max-width: 300px;
+                                line-height: 1.5;
+                                height: 300px;
+                                overflow: hidden;
+                                overflow-y: scroll;
 
                                 li {
                                     button {
                                         padding-left: 1.5 * $global-padding !important;
                                         padding-right: 1.5 * $global-padding !important;
+                                        height: rem(32);
                                     }
                                 }
                             }

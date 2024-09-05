@@ -587,8 +587,10 @@ const StateProfileMapWrapper = React.memo((props) => {
         }));
         defCodeOptionsList.sort((a, b) => a.value - b.value);
         const tempMapFilters = mapFilters;
-        tempMapFilters.def_codes.options.push(...defCodeOptionsList);
-        setMapFilters(tempMapFilters);
+        if (tempMapFilters.def_codes.options.length === 1) {
+            tempMapFilters.def_codes.options.push(...defCodeOptionsList);
+            setMapFilters(tempMapFilters);
+        }
     };
 
     useEffect(() => {
