@@ -85,6 +85,13 @@
                 .map__filters-filter__container {
                     transition: 2s;
 
+
+                    button .filter__dropdown-button-text {
+                        max-width: 260px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
                     .map__filters-wrapper {
                         .map__filters-label {
                             font-size: $font-size-12;
@@ -95,6 +102,7 @@
                             display: flex;
                             margin-top: $global-margin * 2;
                             align-items: baseline;
+                            text-transform: uppercase;
                         }
 
                         .map__filters-button {
@@ -130,10 +138,14 @@
                                 overflow-y: scroll;
 
                                 li {
+                                    height: unset;
+                                    min-height: 3.2rem;
+
                                     button {
                                         padding-left: 1.5 * $global-padding !important;
                                         padding-right: 1.5 * $global-padding !important;
-                                        height: rem(32);
+                                        height: auto;
+                                        max-width: 300px;
                                     }
                                 }
                             }
