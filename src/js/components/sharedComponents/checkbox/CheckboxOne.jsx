@@ -28,6 +28,51 @@ const defaultProps = {
     filterTypeMapping: []
 };
 
+const CheckboxOnePrimary = ({
+    category, expanded, toggleExpanded, selectedTypes, toggleCheckboxType, filterTypes
+}) => {
+    const toggleChildren = () => {
+        console.log('category: ', category);
+    };
+
+    return (
+        <div className="checkbox-type-filter">
+            <div
+                className="checkbox-type-filter__heading"
+                role="button"
+                tabIndex="0">
+                {!expanded?.includes(category.id) &&
+                    <FontAwesomeIcon
+                        onClick={() => toggleExpanded(category)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") toggleExpanded(category);
+                        }}
+                        icon="chevron-right" />}
+                {expanded?.includes(category.id) &&
+                    <FontAwesomeIcon
+                        onClick={() => toggleExpanded(category)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") toggleExpanded(category);
+                        }}
+                        icon="chevron-down" />}
+                <div className="checkbox-type-filter__header">
+                    <input type="checkbox" onChange={toggleChildren} />
+                    <span>{category.name}</span>
+                    <span className="checkbox-type-filter__item-count">
+                        {category.filters?.length}
+                        {category.filters?.length === 1 ? 'type' : 'types'}
+                    </span>
+                </div>
+            </div>
+            <RecipientTypeList
+                expanded={expanded?.includes(category.id)}
+                selectedTypes={selectedTypes}
+                category={category}
+                toggleCheckboxType={toggleCheckboxType}
+                recipientTypes={filterTypes} />
+        </div>);
+};
+
 const CheckboxOne = ({
     filterTypes, filterTypeMapping, selectedTypes, toggleCheckboxType
 }) => {
@@ -46,32 +91,14 @@ const CheckboxOne = ({
     };
 
     const checkboxTypes = filterTypeMapping.map((category) => (
-        <div className="checkbox-type-filter">
-            <div
-                className="checkbox-type-filter__heading"
-                onClick={() => toggleExpanded(category)}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") toggleExpanded(category);
-                }}
-                role="button"
-                tabIndex="0">
-                {!expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
-                {expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
-                <div className="checkbox-type-filter__header">
-                    <span>{category.name}</span>
-                    <span className="checkbox-type-filter__item-count">
-                        {category.filters?.length}
-                        {category.filters?.length === 1 ? 'type' : 'types'}
-                    </span>
-                </div>
-            </div>
-            <RecipientTypeList
-                expanded={expanded?.includes(category.id)}
-                selectedTypes={selectedTypes}
-                category={category}
-                toggleCheckboxType={toggleCheckboxType}
-                recipientTypes={filterTypes} />
-        </div>));
+        <CheckboxOnePrimary
+            category={category}
+            toggleCheckboxType={toggleCheckboxType}
+            filterTypes={filterTypes}
+            selectedTypes={selectedTypes}
+            expanded={expanded}
+            toggleExpanded={toggleExpanded} />
+    ));
 
     return (
         <div className="filter-item-wrap">

@@ -49,9 +49,11 @@ const awardTypesData = [
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
+    /* eslint-disable react-hooks/rules-of-hooks */
     const { awardType } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     const toggleAward = (selection) => dispatch(toggleAwardType(selection));
+    /* eslint-enable react-hooks/rules-of-hooks */
 
     const columns =
         [
