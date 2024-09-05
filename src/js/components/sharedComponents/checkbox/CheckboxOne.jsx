@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Set } from 'immutable';
 
-import RecipientTypeList from "../../search/filters/recipient/RecipientTypeList";
+import RecipientTypeList from "components/search/filters/recipient/RecipientTypeList";
 
 const expandCheckboxTypeAccordions = (checkboxTypeMapping, selectedTypes) => {
     const toExpand = [];
@@ -26,8 +25,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    filterTypeMapping: [],
-    selectedTypes: new Set()
+    filterTypeMapping: []
 };
 
 const CheckboxOne = ({

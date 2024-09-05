@@ -12,6 +12,7 @@ const RecipientTypeList = ({
     category, selectedTypes, toggleCheckboxType, recipientTypes, expanded
 }) => {
     const selectRecipientType = (type) => {
+        console.log(type);
         const selection = {
             value: type
         };
@@ -32,4 +33,5 @@ const RecipientTypeList = ({
 };
 
 RecipientTypeList.propTypes = propTypes;
+
 export default RecipientTypeList;

@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button, Table } from "data-transparency-ui";
+import { useSelector, useDispatch } from "react-redux";
 
 import { awardTypeCodes, awardTypeGroups } from 'dataMapping/search/awardType';
 
@@ -8,6 +9,7 @@ import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import NewLocationSectionContainer from "../containers/search/filters/location/NewLocationSectionContainer";
 import CheckboxOne from "./sharedComponents/checkbox/CheckboxOne";
+import { toggleAwardType } from "../redux/actions/search/searchFilterActions";
 
 require("pages/search/searchPage.scss");
 
@@ -46,6 +48,10 @@ const awardTypesData = [
 
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
+
+    const { awardType } = useSelector((state) => state.filters);
+    const dispatch = useDispatch();
+    const toggleAward = (selection) => dispatch(toggleAwardType(selection));
 
     const columns =
         [
@@ -123,7 +129,9 @@ const tempPage = () => {
                 <main id="main-content" className="main-content">
                     <CheckboxOne
                         filterTypeMapping={awardTypesData}
-                        filterTypes={awardTypeCodes} />
+                        filterTypes={awardTypeCodes}
+                        selectedTypes={awardType}
+                        toggleCheckboxType={toggleAward} />
                     <div style={{ border: '1px solid green', padding: '8px' }}>
                         <NewLocationSectionContainer />
                     </div>
