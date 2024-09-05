@@ -9,7 +9,7 @@ import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import NewLocationSectionContainer from "../containers/search/filters/location/NewLocationSectionContainer";
 import CheckboxOne from "./sharedComponents/checkbox/CheckboxOne";
-import { toggleAwardType } from "../redux/actions/search/searchFilterActions";
+import { bulkAwardTypeChange, toggleAwardType } from "../redux/actions/search/searchFilterActions";
 
 require("pages/search/searchPage.scss");
 
@@ -53,6 +53,7 @@ const tempPage = () => {
     const { awardType } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     const toggleAward = (selection) => dispatch(toggleAwardType(selection));
+    const bulkAwardChange = (selection) => dispatch(bulkAwardTypeChange(selection));
     /* eslint-enable react-hooks/rules-of-hooks */
 
     const columns =
@@ -133,7 +134,8 @@ const tempPage = () => {
                         filterTypeMapping={awardTypesData}
                         filterTypes={awardTypeCodes}
                         selectedTypes={awardType}
-                        toggleCheckboxType={toggleAward} />
+                        toggleCheckboxType={toggleAward}
+                        bulkTypeChange={bulkAwardChange} />
                     <div style={{ border: '1px solid green', padding: '8px' }}>
                         <NewLocationSectionContainer />
                     </div>

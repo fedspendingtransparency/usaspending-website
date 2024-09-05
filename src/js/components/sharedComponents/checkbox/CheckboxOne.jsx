@@ -21,7 +21,8 @@ const propTypes = {
     filterTypes: PropTypes.object,
     filterTypeMapping: PropTypes.arrayOf(PropTypes.object),
     selectedTypes: PropTypes.object,
-    toggleCheckboxType: PropTypes.func
+    toggleCheckboxType: PropTypes.func,
+    bulkTypeChange: PropTypes.func
 };
 
 const defaultProps = {
@@ -29,10 +30,46 @@ const defaultProps = {
 };
 
 const CheckboxOnePrimary = ({
-    category, expanded, toggleExpanded, selectedTypes, toggleCheckboxType, filterTypes
+    category,
+    expanded,
+    toggleExpanded,
+    selectedTypes,
+    toggleCheckboxType,
+    filterTypes,
+    bulkTypeChange,
+    enableAnalytics = false
 }) => {
+    const [allChildren, setAllChildren] = useState(false);
+
     const toggleChildren = () => {
         console.log('category: ', category);
+        if (allChildren) {
+            // all the children are selected, deselect them
+            bulkTypeChange({
+                lookupName: '',
+                types: category.filters,
+                direction: 'remove'
+            });
+
+            // Analytics
+            if (enableAnalytics) {
+                // logDeselectFilterEvent(name, filterType);
+            }
+        }
+        else {
+            // not all the children are selected, select them all
+            bulkTypeChange({
+                lookupName: '',
+                types: category.filters,
+                direction: 'add'
+            });
+
+            // Analytics
+            if (enableAnalytics) {
+                // logPrimaryTypeFilterEvent(
+                //     name, filterType);
+            }
+        }
     };
 
     return (
@@ -74,7 +111,7 @@ const CheckboxOnePrimary = ({
 };
 
 const CheckboxOne = ({
-    filterTypes, filterTypeMapping, selectedTypes, toggleCheckboxType
+    filterTypes, filterTypeMapping, selectedTypes, toggleCheckboxType, bulkTypeChange
 }) => {
     const [expanded, setExpanded] = useState(
         expandCheckboxTypeAccordions(filterTypeMapping, selectedTypes)
@@ -97,7 +134,8 @@ const CheckboxOne = ({
             filterTypes={filterTypes}
             selectedTypes={selectedTypes}
             expanded={expanded}
-            toggleExpanded={toggleExpanded} />
+            toggleExpanded={toggleExpanded}
+            bulkTypeChange={bulkTypeChange} />
     ));
 
     return (
