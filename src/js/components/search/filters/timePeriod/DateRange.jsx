@@ -176,7 +176,8 @@ const DateRange = (props) => {
             }
             return;
         }
-        if (props.startDate !== null && !props.endDate.isSameOrAfter(props.startDate)) {
+
+        if (props.startDate !== null && props.endDate !== null && !props.endDate.isSameOrAfter(props.startDate)) {
             // end date comes before start date, invalid
             // show an error message
             props.showError('Invalid Dates',
@@ -194,6 +195,7 @@ const DateRange = (props) => {
         } else {
             setDisabled(false);
         }
+        testDates();
     }, [props.errorState, noDates, props.startDate, props.endDate]);
 
     return (
