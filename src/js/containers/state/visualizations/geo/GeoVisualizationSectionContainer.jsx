@@ -31,6 +31,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.state = {
             mapLayer: 'county',
+            program_numbers: "",
+            agency: {},
             data: {
                 values: [],
                 locations: []
@@ -38,7 +40,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loading: true,
             loadingTiles: true,
-            error: false
+            error: false,
+            searchData: {},
+            selectedItemsDisplayNames: {
+                agency: "",
+                program_number: "",
+                program_activity: ""
+            }
         };
 
         this.apiRequest = null;
@@ -48,6 +56,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.changeMapLayer = this.changeMapLayer.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
+        // this.filterTypePluralize = this.filterTypePluralize.bind(this);
+        this.changeScope = this.changeScope.bind(this);
+        this.hasFilters = this.hasFilters.bind(this);
+        this.changeScope = this.changeScope.bind(this);
+        this.clearSearchFilters = this.clearSearchFilters.bind(this);
     }
 
     componentDidMount() {
@@ -77,59 +90,112 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
-    mapLoaded() {
+    // need to figure out how the time period change affects this
+    changeScope(newSearch, filterType, displayName) {
+        if (this.apiRequest) {
+            this.apiRequest.cancel();
+        }
+
         this.setState({
-            loadingTiles: false
+            loading: true,
+            error: false
+        });
+
+        const tempSearchData = this.state.searchData;
+        const filterTypePlural = `${filterType === 'agency' ? 'agencies' : `${filterType}s`}`;
+        if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, filterTypePlural)) {
+            tempSearchData.filters[filterTypePlural] = newSearch.filters[filterTypePlural];
+        }
+        else {
+            tempSearchData.filters[filterTypePlural] = [];
+            tempSearchData.filters[filterTypePlural] = newSearch.filters[filterTypePlural];
+        }
+
+        this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempSearchData);
+        this.apiRequest.promise
+            .then((res) => {
+                this.setState((prevState) => ({
+                    loading: false,
+                    error: false,
+                    searchData: tempSearchData,
+                    selectedItemsDisplayNames: {
+                        ...prevState.selectedItemsDisplayNames,
+                        [filterType]: filterType === "agency" ? tempSearchData.filters[filterTypePlural][0].name : displayName
+                    }
+                }), () => {
+                    this.parseData(res.data);
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.apiRequest = null;
+
+                    this.setState({
+                        loading: false,
+                        error: true
+                    });
+                }
+            });
+    }
+
+    clearSearchFilters(filterType) {
+        const filterTypePlural = `${filterType === 'agency' ? 'agencies' : `${filterType}s`}`;
+        const previousSelection = this.state.selectedItemsDisplayNames[filterType];
+        this.setState((prevState) => {
+            const newState = { ...prevState };
+            newState
+                .selectedItemsDisplayNames[filterType] = '';
+            delete newState.searchData.filters[filterTypePlural];
+            return (newState);
         }, () => {
-            window.setTimeout(() => {
-                // SUPER BODGE: wait 300ms before measuring the map
-                // Mapbox source and render events appear to be firing the tiles are actually ready
-                // when served from cache
+            if (previousSelection.length > 0) {
                 this.prepareFetch();
-            }, 300);
+            }
         });
     }
 
-    prepareFetch() {
-        if (this.state.loadingTiles) {
-            // we can't measure visible entities if the tiles aren't loaded yet, so stop
-            return;
-        }
-
-        this.fetchData();
-    }
+    hasFilters() {
+        return (this.state.searchData?.scope === 'place_of_performance' && this.state.searchData?.geo_layer.length > 0);
+    };
 
     fetchData() {
     // Create the time period filter
         let timePeriod = null;
         const fy = this.props.stateProfile.fy;
-        if (fy !== 'all') {
-            let dateRange = [];
-            if (fy === 'latest') {
-                dateRange = FiscalYearHelper.getTrailingTwelveMonths();
-            }
-            else {
-                dateRange = FiscalYearHelper.convertFYToDateRange(parseInt(fy, 10));
-            }
-            timePeriod = [
-                {
-                    start_date: dateRange[0],
-                    end_date: dateRange[1]
-                }
-            ];
-        }
+        let dateRange = [];
+        let searchParams;
 
-        const searchParams = {
-            place_of_performance_locations: [
-                {
-                    country: 'USA',
-                    state: this.props.stateProfile.overview.code
+        if (this.hasFilters()) {
+            searchParams = this.state.searchData.filters;
+        } else {
+            if (fy !== 'all') {
+                if (fy === 'latest') {
+                    dateRange = FiscalYearHelper.getTrailingTwelveMonths();
                 }
-            ]
-        };
+                else {
+                    dateRange = FiscalYearHelper.convertFYToDateRange(parseInt(fy, 10));
+                }
+                timePeriod = [
+                    {
+                        start_date: dateRange[0],
+                        end_date: dateRange[1]
+                    }
+                ];
+            }
 
-        if (timePeriod) {
-            searchParams.time_period = timePeriod;
+            searchParams = {
+                place_of_performance_locations: [
+                    {
+                        country: 'USA',
+                        state: this.props.stateProfile.overview.code
+                    }
+                ]
+            };
+
+            if (timePeriod) {
+                searchParams.time_period = timePeriod;
+            }
         }
 
         // generate the API parameters
@@ -139,13 +205,19 @@ export class GeoVisualizationSectionContainer extends React.Component {
             filters: searchParams
         };
 
+        this.setState({
+            searchData: apiParams
+        });
+
+        //
         if (this.apiRequest) {
             this.apiRequest.cancel();
         }
 
         this.setState({
             loading: true,
-            error: false
+            error: false,
+            searchData: apiParams
         });
 
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
@@ -196,6 +268,27 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
+
+    mapLoaded() {
+        this.setState({
+            loadingTiles: false
+        }, () => {
+            window.setTimeout(() => {
+                // SUPER BODGE: wait 300ms before measuring the map
+                // Mapbox source and render events appear to be firing the tiles are actually ready
+                // when served from cache
+                this.prepareFetch();
+            }, 300);
+        });
+    }
+    prepareFetch() {
+        if (this.state.loadingTiles) {
+            // we can't measure visible entities if the tiles aren't loaded yet, so stop
+            return;
+        }
+
+        this.fetchData();
+    }
     changeMapLayer(layer) {
         this.setState({
             mapLayer: layer,
@@ -215,6 +308,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer}
+                clearSearchFilters={this.clearSearchFilters}
                 className={this.props.className} />
         );
     }

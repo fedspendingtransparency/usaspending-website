@@ -27,6 +27,7 @@ const propTypes = {
     inFlight: PropTypes.bool,
     icon: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'medium']),
+    id: PropTypes.string,
     minChar: PropTypes.bool
 };
 
@@ -44,10 +45,11 @@ const defaultProps = {
     minCharsToSearch: 3,
     icon: false,
     size: 'medium',
+    id: '',
     minChar: false
 };
 
-const Autocomplete = (props) => {
+const Autocomplete = React.memo((props) => {
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -70,7 +72,9 @@ const Autocomplete = (props) => {
 
     const clearInternalState = () => {
         setValue('');
-        autocompleteInputRef.current.value = '';
+        if (autocompleteInputRef.current) {
+            autocompleteInputRef.current.value = '';
+        }
     };
 
     const isValidSelection = (selection) => find(props.values, selection);
@@ -271,8 +275,13 @@ const Autocomplete = (props) => {
     }, [props.noResults]);
 
     useEffect(() => {
-        clearInternalState();
-    }, [props.dirtyFilters]);
+        if (props.type) {
+            if (props.selectedItemsDisplayNames[props.type] && autocompleteInputRef?.current) {
+                autocompleteInputRef.current.value = props.selectedItemsDisplayNames[props.type];
+                autocompleteInputRef.current.style.fontWeight = "bold";
+            }
+        }
+    }, [props.selectedAgencyName]);
 
     return (
         <div
@@ -286,6 +295,7 @@ const Autocomplete = (props) => {
                 <div className="usa-da-typeahead__input">
                     {props.icon && <FontAwesomeIcon icon="search" />}
                     <input
+                        id={props.id !== '' ? props.id : null}
                         className={`autocomplete${variation}${props.icon ? ' icon' : ''}`}
                         ref={autocompleteInputRef}
                         type="text"
@@ -316,7 +326,7 @@ const Autocomplete = (props) => {
             </div>
         </div>
     );
-};
+});
 
 Autocomplete.defaultProps = defaultProps;
 Autocomplete.propTypes = propTypes;
