@@ -203,36 +203,40 @@ const DateRange = (props) => {
             <form
                 className="date-range-wrapper"
                 onSubmit={submitRange}>
-                <DatePicker
-                    type="startDate"
-                    title="Action Date Start"
-                    onDateChange={props.onDateChange}
-                    value={props.startDate}
-                    opposite={props.endDate}
-                    showError={props.showError}
-                    hideError={props.hideError}
-                    disabledDays={startDateDisabledDays}
-                    ref={(component) => {
-                        setStartPicker(component);
-                    }}
-                    id="date-range__startDate"
-                    onFocus={onFocus}
-                    allowClearing />
-                <DatePicker
-                    type="endDate"
-                    title="Action Date End"
-                    onDateChange={props.onDateChange}
-                    value={props.endDate}
-                    opposite={props.startDate}
-                    showError={props.showError}
-                    hideError={props.hideError}
-                    disabledDays={endDateDisabledDays}
-                    onFocus={onFocus}
-                    ref={(component) => {
-                        setEndPicker(component);
-                    }}
-                    id="date-range__endDate"
-                    allowClearing />
+                <div className="date-range-column">
+                    <DatePicker
+                        type="startDate"
+                        title="Action Date Start"
+                        onDateChange={props.onDateChange}
+                        value={props.startDate}
+                        opposite={props.endDate}
+                        showError={props.showError}
+                        hideError={props.hideError}
+                        disabledDays={startDateDisabledDays}
+                        ref={(component) => {
+                            setStartPicker(component);
+                        }}
+                        id="date-range__startDate"
+                        onFocus={onFocus}
+                        allowClearing />
+                </div>
+                <div className="date-range-column">
+                    <DatePicker
+                        type="endDate"
+                        title="Action Date End"
+                        onDateChange={props.onDateChange}
+                        value={props.endDate}
+                        opposite={props.startDate}
+                        showError={props.showError}
+                        hideError={props.hideError}
+                        disabledDays={endDateDisabledDays}
+                        onFocus={onFocus}
+                        ref={(component) => {
+                            setEndPicker(component);
+                        }}
+                        id="date-range__endDate"
+                        allowClearing />
+                </div>
                 <IndividualSubmit
                     className="set-date-submit"
                     onClick={submitRange}

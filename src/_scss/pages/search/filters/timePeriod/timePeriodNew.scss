@@ -113,7 +113,9 @@
 
       .date-range-wrapper {
         margin-top: rem(25);
-
+        display: flex;
+        align-items: flex-end !important;
+        flex-direction: row;
         // uncomment when you're reformatting the date inputs
         // .generate-datepicker {
         //   .generate-datepicker__label {
@@ -140,9 +142,22 @@
         //   }
         // }
 
+        .date-range-column {
+          margin-right: .5 * $global-margin;
+          width: 100%;
+          
+          .generate-datepicker-wrap {
+            width: 100%;
+
+            input {
+              margin-bottom: 0;
+            }
+          }
+        }
+
         .set-date-submit {
           @include singleSubmit;
-
+          height: 42px !important;
           @include media($large-screen) {
             @include flex(0 0 auto);
             margin: 0;
