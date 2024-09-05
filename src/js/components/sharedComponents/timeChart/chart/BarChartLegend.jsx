@@ -12,18 +12,20 @@ const propTypes = {
     legend: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default class BarChartLegend extends React.Component {
-    render() {
-        const items = this.props.legend.map((item) => (<BarChartLegendItem
+const BarChartLegend = (props) => {
+    const items = props.legend.map((item) => (
+        <BarChartLegendItem
             {...item}
-            key={item.label} />));
+            key={item.label} />)
+    );
 
-        return (
-            <g className="chart-legend">
-                {items}
-            </g>
-        );
-    }
-}
+    return (
+        <g className="chart-legend">
+            {items}
+        </g>
+    );
+};
 
 BarChartLegend.propTypes = propTypes;
+
+export default BarChartLegend;

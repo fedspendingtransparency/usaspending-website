@@ -126,7 +126,7 @@ const TopFive = (props) => {
                         toptier_flag: false,
                         toptier_agency: {
                             toptier_code: agencySlugs[linkData.agency_slug],
-                            abbreviation: linkData.agency_code,
+                            abbreviation: linkData.agency_abbreviation,
                             name: linkData.agency_name
                         },
                         subtier_agency: {
