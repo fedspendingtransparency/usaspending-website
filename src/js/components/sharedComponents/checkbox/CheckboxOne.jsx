@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Set } from 'immutable';
 
 import RecipientTypeList from "../../search/filters/recipient/RecipientTypeList";
 
@@ -18,20 +19,23 @@ const expandCheckboxTypeAccordions = (checkboxTypeMapping, selectedTypes) => {
 };
 
 const propTypes = {
+    filterTypes: PropTypes.object,
     filterTypeMapping: PropTypes.arrayOf(PropTypes.object),
     selectedTypes: PropTypes.object,
-    dirtyFilters: PropTypes.symbol,
     toggleCheckboxType: PropTypes.func
 };
 
 const defaultProps = {
-    filterTypeMapping: []
+    filterTypeMapping: [],
+    selectedTypes: new Set()
 };
 
 const CheckboxOne = ({
     filterTypes, filterTypeMapping, selectedTypes, toggleCheckboxType
 }) => {
-    const [expanded, setExpanded] = useState(expandCheckboxTypeAccordions(filterTypeMapping, selectedTypes));
+    const [expanded, setExpanded] = useState(
+        expandCheckboxTypeAccordions(filterTypeMapping, selectedTypes)
+    );
 
     const toggleExpanded = (category) => {
         const containsId = expanded?.indexOf(category.id);
@@ -57,7 +61,10 @@ const CheckboxOne = ({
                 {expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
                 <div className="checkbox-type-filter__header">
                     <span>{category.name}</span>
-                    <span className="checkbox-type-filter__item-count">{category.filters?.length} {category.filters?.length === 1 ? 'type' : 'types'}</span>
+                    <span className="checkbox-type-filter__item-count">
+                        {category.filters?.length}
+                        {category.filters?.length === 1 ? 'type' : 'types'}
+                    </span>
                 </div>
             </div>
             <RecipientTypeList

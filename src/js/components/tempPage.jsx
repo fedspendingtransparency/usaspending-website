@@ -122,7 +122,7 @@ const tempPage = () => {
                 title="Test Page">
                 <main id="main-content" className="main-content">
                     <CheckboxOne
-                        filterTypeMapping={awardTypesData[0].filters}
+                        filterTypeMapping={awardTypesData}
                         filterTypes={awardTypeCodes} />
                     <div style={{ border: '1px solid green', padding: '8px' }}>
                         <NewLocationSectionContainer />
