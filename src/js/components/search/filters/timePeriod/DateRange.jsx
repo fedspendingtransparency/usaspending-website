@@ -138,7 +138,7 @@ export default class DateRange extends React.Component {
         };
 
         return (
-            <div className="date-range-option">
+            <div className="date-range-option" role="tabpanel" aria-labelledby="tabpanel-Date Range">
                 <form
                     className="date-range-wrapper"
                     onSubmit={this.submitRange}>
