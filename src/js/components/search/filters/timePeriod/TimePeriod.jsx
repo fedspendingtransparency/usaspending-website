@@ -277,10 +277,23 @@ export default class TimePeriod extends React.Component {
         }
     }
 
+    enterKeyToggleHandler(e) {
+        if (e.key === 'Enter') {
+            let isSelected = false;
+            if (!this.props.newAwardsOnlySelected) {
+                isSelected = true;
+            }
+            else {
+                isSelected = false;
+            }
+            this.props.updateNewAwardsOnlySelected(isSelected);
+        }
+    }
+
     render() {
         let errorDetails;
         let showFilter;
-        let activeClassDR;
+        let activeClassDR = '';
 
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
@@ -331,9 +344,10 @@ export default class TimePeriod extends React.Component {
                         value="new-awards-checkbox"
                         disabled={this.props.subaward || !this.props.newAwardsOnlyActive}
                         checked={this.props.newAwardsOnlySelected}
-                        onChange={this.newAwardsClick} />
+                        onChange={this.newAwardsClick}
+                        onKeyUp={(e) => this.enterKeyToggleHandler(e)} />
                     <span className={`new-awards-label ${this.props.subaward || !this.props.newAwardsOnlyActive ? 'not-active' : ''}`}>
-                    Show New Awards Only
+                        Show New Awards Only
                     </span>
                 </label>
                 <TooltipWrapper

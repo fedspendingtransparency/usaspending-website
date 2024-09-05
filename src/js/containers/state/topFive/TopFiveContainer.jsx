@@ -3,65 +3,38 @@
  * Created by Kevin Li 5/15/18
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-
 import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from 'components/state/topFive/TopFive';
 
-export class TopFiveContainer extends React.Component {
-    static propTypes = {
-        code: PropTypes.string,
-        total: PropTypes.number,
-        category: PropTypes.string,
-        fy: PropTypes.string,
-        type: PropTypes.string
-    };
+const propTypes = {
+    code: PropTypes.string,
+    total: PropTypes.number,
+    category: PropTypes.string,
+    fy: PropTypes.string,
+    type: PropTypes.string
+};
 
-    constructor(props) {
-        super(props);
+const TopFiveContainer = (props) => {
+    const [categoryState, setCategoryState] = useState({ loading: true, error: false, results: [] });
 
-        this.state = {
-            loading: true,
-            error: false,
-            results: []
-        };
-
-        this.request = null;
-    }
-
-    componentDidMount() {
-        this.loadCategory();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.code !== this.props.code) {
-            this.loadCategory();
-        }
-        else if (prevProps.fy !== this.props.fy) {
-            this.loadCategory();
-        }
-        else if (prevProps.type !== this.props.type) {
-            this.loadCategory();
-        }
-    }
-
-    dataParams() {
+    const dataParams = () => {
         let timePeriod = null;
-        if (this.props.fy === 'latest') {
+        if (props.fy === 'latest') {
             const trailing = getTrailingTwelveMonths();
             timePeriod = {
                 start_date: trailing[0],
                 end_date: trailing[1]
             };
         }
-        else if (this.props.fy !== 'all' && this.props.fy) {
-            const range = convertFYToDateRange(parseInt(this.props.fy, 10));
+        else if (props.fy !== 'all' && props.fy) {
+            const range = convertFYToDateRange(parseInt(props.fy, 10));
             timePeriod = {
                 start_date: range[0],
                 end_date: range[1]
@@ -73,7 +46,7 @@ export class TopFiveContainer extends React.Component {
             place_of_performance_locations: [
                 {
                     country: 'USA',
-                    state: this.props.code
+                    state: props.code
                 }
             ]
         };
@@ -82,18 +55,19 @@ export class TopFiveContainer extends React.Component {
             filters.time_period = [timePeriod];
         }
 
-        if (this.props.type !== 'all' && awardTypeGroups[this.props.type]) {
-            filters.award_type_codes = awardTypeGroups[this.props.type];
+        // Tab selection
+        if (props.type !== 'all' && awardTypeGroups[props.type]) {
+            filters.award_type_codes = awardTypeGroups[props.type];
         }
 
         const params = {
             filters,
-            category: this.props.category,
+            category: props.category,
             limit: 5,
             page: 1
         };
 
-        if (this.props.category === 'awards') {
+        if (props.category === 'awards') {
             filters.award_type_codes = ['A', 'B', 'C', 'D'];
             params.fields = ['Award ID', 'Award Amount', 'generated_internal_id'];
             params.order = 'desc';
@@ -102,61 +76,21 @@ export class TopFiveContainer extends React.Component {
         }
 
         return params;
-    }
+    };
 
-    loadCategory() {
-        if (!this.props.code) {
-            this.setState({
-                loading: false,
-                error: true
-            });
-            return;
-        }
-
-        if (this.request) {
-            this.request.cancel();
-        }
-
-        this.setState({
-            loading: true,
-            error: false
-        });
-
-        if (this.props.category === 'awards') {
-            this.request = SearchHelper.performSpendingByAwardSearch(this.dataParams());
-        }
-        else {
-            this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
-        }
-
-        this.request.promise
-            .then((res) => {
-                this.parseResults(res.data.results, res.data.category);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
-                }
-            });
-    }
-
-    parseResults(data, type) {
+    const parseResults = (data, type) => {
         const parsed = data.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
-            if (this.props.category === 'awards') {
+            if (props.category === 'awards') {
                 result.populate({
                     name: item['Award ID'],
                     amount: item['Award Amount'],
                     agency_slug: item.generated_internal_id,
-                    category: this.props.category
+                    category: props.category
                 }, index + 1);
             }
             else {
-                result.populate({ ...item, category: this.props.category }, index + 1);
+                result.populate({ ...item, category: props.category }, index + 1);
             }
 
             if (type === 'awarding_agency' || type === 'awarding_subagency') {
@@ -176,23 +110,57 @@ export class TopFiveContainer extends React.Component {
 
             return result;
         });
-        this.setState({
-            loading: false,
-            error: false,
-            results: parsed
-        });
-    }
 
-    render() {
-        return (
-            <TopFive
-                category={this.props.category}
-                total={this.props.total}
-                {...this.state} />
-        );
-    }
-}
+        setCategoryState({ loading: false, error: false, results: parsed });
+    };
 
+    const loadCategory = () => {
+        let request;
+        if (!props.code) {
+            setCategoryState({ loading: false, error: true });
+            return;
+        }
+
+        if (request) {
+            request.cancel();
+        }
+
+        setCategoryState({ loading: false, error: true });
+
+        if (props.category === 'awards') {
+            request = SearchHelper.performSpendingByAwardSearch(dataParams());
+        }
+        else {
+            request = SearchHelper.performSpendingByCategorySearch(dataParams());
+        }
+
+        request.promise
+            .then((res) => {
+                parseResults(res.data.results, res.data.category);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    setCategoryState({ loading: false, error: true });
+                }
+            });
+    };
+
+    useEffect(() => {
+        loadCategory();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.code, props.fy, props.type]);
+
+    return (
+        <TopFive
+            category={props.category}
+            dataParams={dataParams()}
+            total={props.total}
+            {...categoryState} />
+    );
+};
+
+TopFiveContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({

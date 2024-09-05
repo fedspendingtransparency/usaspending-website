@@ -27,6 +27,7 @@ const propTypes = {
     inFlight: PropTypes.bool,
     icon: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'medium']),
+    id: PropTypes.string,
     minChar: PropTypes.bool
 };
 
@@ -44,10 +45,11 @@ const defaultProps = {
     minCharsToSearch: 3,
     icon: false,
     size: 'medium',
+    id: '',
     minChar: false
 };
 
-const Autocomplete = (props) => {
+const Autocomplete = React.memo((props) => {
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -70,7 +72,9 @@ const Autocomplete = (props) => {
 
     const clearInternalState = () => {
         setValue('');
-        autocompleteInputRef.current.value = '';
+        if (autocompleteInputRef.current) {
+            autocompleteInputRef.current.value = '';
+        }
     };
 
     const isValidSelection = (selection) => find(props.values, selection);
@@ -98,6 +102,14 @@ const Autocomplete = (props) => {
         }
     };
 
+    const scrollToSelectedId = (id) => {
+        document.getElementById(`${autocompleteIdRef.current}__option_${id}`).scrollIntoView({
+            behavior: 'auto',
+            block: 'nearest',
+            inline: 'nearest'
+        });
+    };
+
     const open = () => {
         setShown(true);
     };
@@ -115,12 +127,22 @@ const Autocomplete = (props) => {
     const previous = () => {
         if (selectedIndex > 0) {
             setSelectedIndex(selectedIndex - 1);
+            scrollToSelectedId(selectedIndex - 1);
+        }
+        else {
+            setSelectedIndex(props.values.length - 1);
+            scrollToSelectedId(props.values.length - 1);
         }
     };
 
     const next = () => {
-        if (selectedIndex < props.maxSuggestions - 1) {
+        if (selectedIndex < props.values.length - 1) {
             setSelectedIndex(selectedIndex + 1);
+            scrollToSelectedId(selectedIndex + 1);
+        }
+        else {
+            setSelectedIndex(0);
+            scrollToSelectedId(0);
         }
     };
 
@@ -145,40 +167,35 @@ const Autocomplete = (props) => {
         setStaged(false);
     };
 
-    const setupAutocomplete = () => {
-        const target = autocompleteInputRef.current;
-
-        target.addEventListener('blur', () => {
-            close();
+    const onKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.stopPropagation();
+            e.preventDefault();
+            select(props.values[selectedIndex]);
             if (!props.retainValue) {
-                target.value = '';
+                setValue('');
             }
-        });
+        }
+        // Tab or Escape
+        else if (e.key === 'Tab' || e.key === 'Escape') {
+            setValue('');
+            close();
+        }
+        // Previous
+        else if (e.key === 'ArrowUp') {
+            previous();
+        }
+        // Next
+        else if (e.key === 'ArrowDown') {
+            next();
+        }
+    };
 
-        // enable tab keyboard shortcut for selection
-        target.addEventListener('keydown', (e) => {
-            // Enter
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                select(props.values[selectedIndex]);
-                if (!props.retainValue) {
-                    target.value = '';
-                }
-            }
-            // Tab or Escape
-            else if (e.key === 'Tab' || e.key === 'Escape') {
-                target.value = '';
-                close();
-            }
-            // Previous
-            else if (e.key === 'ArrowUp') {
-                previous();
-            }
-            // Next
-            else if (e.key === 'ArrowDown') {
-                next();
-            }
-        });
+    const onBlur = () => {
+        close();
+        if (!props.retainValue) {
+            setValue('');
+        }
     };
 
     const toggleWarning = () => {
@@ -243,12 +260,8 @@ const Autocomplete = (props) => {
         variation = '-md';
     }
 
-    useEffect(() => {
-        setupAutocomplete();
-
-        return () => {
-            props.clearAutocompleteSuggestions();
-        };
+    useEffect(() => () => {
+        props.clearAutocompleteSuggestions();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -262,8 +275,13 @@ const Autocomplete = (props) => {
     }, [props.noResults]);
 
     useEffect(() => {
-        clearInternalState();
-    }, [props.dirtyFilters]);
+        if (props.type) {
+            if (props.selectedItemsDisplayNames[props.type] && autocompleteInputRef?.current) {
+                autocompleteInputRef.current.value = props.selectedItemsDisplayNames[props.type];
+                autocompleteInputRef.current.style.fontWeight = "bold";
+            }
+        }
+    }, [props.selectedAgencyName]);
 
     return (
         <div
@@ -277,6 +295,7 @@ const Autocomplete = (props) => {
                 <div className="usa-da-typeahead__input">
                     {props.icon && <FontAwesomeIcon icon="search" />}
                     <input
+                        id={props.id !== '' ? props.id : null}
                         className={`autocomplete${variation}${props.icon ? ' icon' : ''}`}
                         ref={autocompleteInputRef}
                         type="text"
@@ -286,6 +305,8 @@ const Autocomplete = (props) => {
                         aria-controls={autocompleteIdRef.current}
                         aria-activedescendant={activeDescendant}
                         aria-autocomplete="list"
+                        onBlur={onBlur}
+                        onKeyDown={onKeyDown}
                         maxLength={props.characterLimit} />
                     {loadingIndicator}
                 </div>
@@ -305,7 +326,7 @@ const Autocomplete = (props) => {
             </div>
         </div>
     );
-};
+});
 
 Autocomplete.defaultProps = defaultProps;
 Autocomplete.propTypes = propTypes;
