@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InformationBoxes } from "data-transparency-ui";
-import GlobalConstants from "../../../GlobalConstants";
 
 const propTypes = {
     stateProfile: PropTypes.object
@@ -14,7 +13,7 @@ const propTypes = {
 
 const SummaryStats = (props) => {
     const { stateProfile } = props;
-    let boxes = [{
+    const boxes = [{
         title: "Obligations",
         type: 'obligatedAmount',
         amount: stateProfile.totalAmount,
