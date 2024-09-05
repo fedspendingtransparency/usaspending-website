@@ -2,12 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button, Table } from "data-transparency-ui";
 
-import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { awardTypeCodes, awardTypeGroups } from 'dataMapping/search/awardType';
 
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import NewLocationSectionContainer from "../containers/search/filters/location/NewLocationSectionContainer";
-import NewCheckbox from "./sharedComponents/checkbox/NewCheckbox";
+import CheckboxOne from "./sharedComponents/checkbox/CheckboxOne";
 
 require("pages/search/searchPage.scss");
 
@@ -121,7 +121,9 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <NewCheckbox filters={awardTypesData[0].filters} />
+                    <CheckboxOne
+                        filterTypeMapping={awardTypesData[0].filters}
+                        filterTypes={awardTypeCodes} />
                     <div style={{ border: '1px solid green', padding: '8px' }}>
                         <NewLocationSectionContainer />
                     </div>
