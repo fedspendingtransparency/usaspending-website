@@ -161,7 +161,6 @@
           @include media($large-screen) {
             @include flex(0 0 auto);
             margin: 0;
-            margin-bottom: rem(3);
           }
 
           @media(min-width: 1355px) {
