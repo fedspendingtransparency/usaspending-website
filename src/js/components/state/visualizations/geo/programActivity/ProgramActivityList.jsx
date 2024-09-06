@@ -27,11 +27,12 @@ const ProgramActivityList = (props) => {
     let timeout = null;
 
     const selectProgramActivity = (programActivity) => {
-        setTitleString(programActivity.name);
+        setTitleString(programActivity.program_activity_name);
         const newSearch = props.searchData;
-        newSearch.filters.program_activity = [];
-        newSearch.filters.program_activity.push(programActivity.program_activity);
-
+        newSearch.filters.program_activities = [];
+        newSearch.filters.program_activities.push({
+            name: programActivity.program_activity_name
+        });
         // Clear Autocomplete results
         setAutocompleteList([]);
         setSearchData(newSearch);
@@ -39,7 +40,6 @@ const ProgramActivityList = (props) => {
 
     const parseAutocompleteProgramActivity = (programActivity) => {
         const values = [];
-        console.log("programActivity", programActivity);
         if (programActivity && programActivity.length > 0) {
             programActivity.forEach((item) => {
                 const title = item.program_activity_name;
@@ -126,7 +126,7 @@ const ProgramActivityList = (props) => {
         el.addEventListener("blur", (e) => {
             if (e.target.value === "") {
                 clearAutocompleteSuggestions();
-                props.clearSearchFilters("program_number");
+                props.clearSearchFilters("program_activity");
                 setTitleString('');
             }
         });

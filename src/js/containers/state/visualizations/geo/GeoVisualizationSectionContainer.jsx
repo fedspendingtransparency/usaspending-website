@@ -60,7 +60,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.pluralize = this.pluralize.bind(this);
         this.changeScope = this.changeScope.bind(this);
         this.hasFilters = this.hasFilters.bind(this);
-        this.changeScope = this.changeScope.bind(this);
         this.clearSearchFilters = this.clearSearchFilters.bind(this);
     }
 
@@ -104,7 +103,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         const tempSearchData = this.state.searchData;
         const filterTypePlural = this.pluralize(filterType);
-        console.log(filterTypePlural);
         if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, filterTypePlural)) {
             tempSearchData.filters[filterTypePlural] = newSearch.filters[filterTypePlural];
         }
