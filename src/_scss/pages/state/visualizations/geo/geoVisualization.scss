@@ -59,6 +59,7 @@
                 opacity: 1;
                 display: block;
                 transition: opacity 1s, display 1s;
+                z-index: 3;
             }
 
             .map__filters-header {
