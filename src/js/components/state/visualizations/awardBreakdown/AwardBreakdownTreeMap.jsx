@@ -97,7 +97,7 @@ const AwardBreakdownTreeMap = (props) => {
 
         // set up a treemap object and pass in the root
         let tileStyle = treemapBinary;
-        if (window.innerWidth < 1) {
+        if (window.innerWidth < 768) {
             tileStyle = treemapSlice;
         }
 
