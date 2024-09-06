@@ -139,7 +139,8 @@
 
                                 li {
                                     height: unset;
-                                    min-height: 3.2rem;
+                                    min-height: rem(32);
+                                    margin-bottom: rem(5.5);
 
                                     button {
                                         padding-left: 1.5 * $global-padding !important;
