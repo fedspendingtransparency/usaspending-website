@@ -29,7 +29,9 @@ const AwardBreakdownTreeMap = (props) => {
     const [virtualChart, setVirtualChart] = useState([]);
     const [hoveredAwardType, setHoveredAwardType] = useState('');
     const sectionWrapper = useRef(null);
+
     const visualizationHeight = 175;
+    const amountType = props.toggleState ? "total_outlays" : "amount";
 
     const buildVirtualCell = (data, i) => {
         // let cellColor = TreemapHelper.stateTreemapColors[i];
@@ -83,7 +85,6 @@ const AwardBreakdownTreeMap = (props) => {
     };
 
     const buildVirtualTree = useCallback(() => {
-        const amountType = props.toggleState ? "totalOutlays" : "amount";
         const data = props.awardBreakdown;
         // remove the negative values from the data because they can't be displayed in the treemap
         remove(data, (v) => v[amountType] <= 0);
@@ -175,9 +176,9 @@ const AwardBreakdownTreeMap = (props) => {
 
             tooltip = (
                 <AwardTypeTooltip
-                    value={formatMoneyWithUnitsShortLabel(awardType.amount)}
+                    value={formatMoneyWithUnitsShortLabel(awardType[amountType])}
                     percentage={MoneyFormatter.calculatePercentage(
-                        awardType.amount, props.totalAmount)
+                        awardType[amountType], props.totalAmount)
                     }
                     description={awardTypeDefinition}
                     x={node.x0}
