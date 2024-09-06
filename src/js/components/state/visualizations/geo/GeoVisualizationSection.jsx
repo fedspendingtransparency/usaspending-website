@@ -68,8 +68,14 @@ const GeoVisualizationSection = React.memo((props) => {
         const newSearch = {
             filters: {}
         };
-        newSearch.filters.def_codes = [value];
-        props.changeScope(newSearch, "def_code");
+
+        if (value === "all") {
+            props.clearSearchFilters("def_code");
+        } else {
+            newSearch.filters.def_codes = [value];
+            props.changeScope(newSearch, "def_code", [value]);
+        }
+
         setActiveFilters({ ...activeFilters, def_codes: value });
     };
 

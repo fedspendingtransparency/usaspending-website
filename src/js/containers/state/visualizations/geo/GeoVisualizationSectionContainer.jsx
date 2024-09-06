@@ -44,6 +44,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             searchData: {},
             selectedItemsDisplayNames: {
                 agency: "",
+                def_code: "",
                 program_number: "",
                 program_activity: ""
             }
