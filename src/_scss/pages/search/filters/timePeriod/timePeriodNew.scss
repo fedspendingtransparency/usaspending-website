@@ -116,6 +116,9 @@
         display: flex;
         align-items: flex-end !important;
         flex-direction: row;
+        @media(min-width: $medium-screen) and (max-width: 1355px) {
+          flex-direction: column;
+        }
         // uncomment when you're reformatting the date inputs
         // .generate-datepicker {
         //   .generate-datepicker__label {
