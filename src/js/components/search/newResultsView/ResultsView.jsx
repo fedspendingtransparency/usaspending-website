@@ -83,10 +83,19 @@ const ResultsView = (props) => {
             }
         }
 
-        window.scrollTo({
-            top: rectTopOffset,
-            behavior: 'smooth'
-        });
+        if (props.isMobile) {
+            setTimeout(() => {
+                window.scrollTo({
+                    top: rectTopOffset,
+                    behavior: 'smooth'
+                });
+            }, 500);
+        } else {
+            window.scrollTo({
+                top: rectTopOffset,
+                behavior: 'smooth'
+            });
+        }
     };
 
     const parseSection = () => {
