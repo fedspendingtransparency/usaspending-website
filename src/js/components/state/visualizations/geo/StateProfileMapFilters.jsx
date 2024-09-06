@@ -13,6 +13,7 @@ import MapFiltersTitle from '../../../search/visualizations/geo/MapFiltersTitle'
 import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
 import StateCFDAList from "./cfda/StateCFDAList";
 import StateAgencyList from "./agency/StateAgencyList";
+import ProgramActivityList from "./programActivity/ProgramActivityList";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -60,14 +61,21 @@ const StateProfileMapFilters = React.memo((props) => (
                         <StateAgencyList
                             {...props}
                             agencyType="awarding"
-                            placeholder="Search for an Awarding Agency..." />
+                            placeholder="Search for an awarding agency..." />
+                    </div>
+                </div>
+                <div key={uniqueId()} className="map__filters-filter__container">
+                    <div className="map__filters-wrapper">
+                        <ProgramActivityList
+                            {...props}
+                            placeholder="Search for a program activity..." />
                     </div>
                 </div>
                 <div key={uniqueId()} className="map__filters-filter__container">
                     <div className="map__filters-wrapper">
                         <StateCFDAList
                             {...props}
-                            placeholder="Search for an Assistance Listing..." />
+                            placeholder="Search for an assistance listing..." />
                     </div>
                 </div>
             </div>
