@@ -24,7 +24,7 @@
             }
 
             &.open {
-                left: 23rem;
+                left: 25rem;
                 transition: left;
             }
 
@@ -41,7 +41,7 @@
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
             position: absolute;
-            width: 23rem;
+            width: 25rem;
             z-index: 2;
             transition: 1s;
             opacity: 1;
@@ -88,9 +88,13 @@
 
 
                     button .filter__dropdown-button-text {
-                        max-width: 260px;
+                        max-width: 165px;
                         overflow: hidden;
                         text-overflow: ellipsis;
+
+                        @media (min-width: $large-screen) {
+                            max-width: 260px;
+                        }
                     }
 
                     .map__filters-wrapper {
@@ -131,12 +135,19 @@
                             }
 
                             .map__filters-dropdown {
-                                width: max-content;
+                                //width: max-content;
                                 max-width: 300px;
                                 line-height: 1.5;
                                 height: 300px;
                                 overflow: hidden;
                                 overflow-y: scroll;
+
+                                ul {
+                                    max-width: 165px;
+                                    @media (min-width: $large-screen) {
+                                        width: max-content;
+                                    }
+                                }
 
                                 li {
                                     height: unset;
