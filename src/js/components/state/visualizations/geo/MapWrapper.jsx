@@ -5,19 +5,18 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { uniq, cloneDeep } from 'lodash';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
 import GlobalConstants from 'GlobalConstants';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
 
 import MapBox from '../../../search/visualizations/geo/map/MapBox';
 import MapLegend from '../../../search/visualizations/geo/MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 import MapFiltersToggle from "../../../covid19/recipient/map/MapFiltersToggle";
 import StateProfileMapFilters from "./StateProfileMapFilters";
-import { setMapHasLoaded } from "../../../../redux/actions/search/searchViewActions";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -42,7 +41,6 @@ const propTypes = {
     updateMapLegendToggle: PropTypes.func,
     className: PropTypes.string,
     stateInfo: PropTypes.object,
-    onMapLoaded: PropTypes.func.isRequired,
     amountTypeEnabled: PropTypes.bool,
     searchData: PropTypes.object,
     program_numbers: PropTypes.string,
@@ -124,6 +122,9 @@ const StateProfileMapWrapper = React.memo((props) => {
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
+
+    const [, , defCodes] = useDefCodes();
+    const [mapFilters, setMapFilters] = useState(cloneDeep(props.filters));
 
     const mapRemoved = () => {
         // map is about to be removed
@@ -550,33 +551,57 @@ const StateProfileMapWrapper = React.memo((props) => {
     };
     const filters = () => {
         const { activeFilters } = props;
-        let mapFilters = cloneDeep(props.filters);
+        let tempMapFilters = mapFilters;
+
         let active = cloneDeep(props.activeFilters);
-        if (!mapFilters || !activeFilters) return null;
+        if (!tempMapFilters || !activeFilters) return null;
         const awardTypeFilters = props.awardTypeFilters?.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
         if (awardTypeFilters?.includes(activeFilters.awardType)) {
-            mapFilters.spendingType.options.pop();
+            tempMapFilters.spendingType.options.pop();
         }
 
         if (props.activeFilters?.territory === 'country') {
-            mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
+            tempMapFilters = Object.assign({}, { territory: tempMapFilters.territory, def_codes: tempMapFilters.def_codes, amountType: { ...tempMapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
         }
         else if (props.amountTypeEnabled === false) {
-            mapFilters = Object.assign({}, { territory: mapFilters.territory });
+            tempMapFilters = Object.assign({}, { territory: tempMapFilters.territory, def_codes: tempMapFilters.def_codes });
         }
         else {
-            mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
+            tempMapFilters = Object.assign({}, { territory: tempMapFilters.territory, def_codes: tempMapFilters.def_codes, amountType: { ...tempMapFilters.amountType, enabled: true } });
         }
 
         return (
             <StateProfileMapFilters
                 {...props}
-                filters={mapFilters}
+                filters={tempMapFilters}
                 activeFilters={active}
                 isOpen={isFiltersOpen} />
         );
     };
+
+    const parseDefCodes = (codes) => {
+        const defCodeOptionsList = codes.map((code) => ({
+            label: `${code.code} - ${code.title}`,
+            value: code.code
+        }));
+
+        // Move DEFC 1 to the end of the list
+        const firstElement = defCodeOptionsList.shift();
+        defCodeOptionsList.push(firstElement);
+
+        const tempMapFilters = mapFilters;
+        if (tempMapFilters.def_codes.options.length === 1) {
+            tempMapFilters.def_codes.options.push(...defCodeOptionsList);
+            setMapFilters(tempMapFilters);
+        }
+    };
+
+    useEffect(() => {
+        if (defCodes.length > 0) {
+            parseDefCodes(defCodes);
+        }
+    }, [defCodes, parseDefCodes]);
 
     useEffect(() => {
         displayData();
@@ -638,11 +663,5 @@ const StateProfileMapWrapper = React.memo((props) => {
 
 StateProfileMapWrapper.propTypes = propTypes;
 StateProfileMapWrapper.defaultProps = defaultProps;
+export default StateProfileMapWrapper;
 
-export default connect((state) => ({
-    isMapLoaded: state.searchView.mapHasLoaded
-}),
-(dispatch) => ({
-    onMapLoaded: (bool) => dispatch(setMapHasLoaded(bool))
-})
-)(StateProfileMapWrapper);
