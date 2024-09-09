@@ -37,19 +37,6 @@
         @import "../../components/pageLoading";
         @import "./footer/footer";
 
-
-        // typeahead stylings for state page
-        .map__filters-toggle.open {
-            @media(min-width: $large-screen) {
-                left: 340px !important;
-            }
-        }
-        .map__filters-container {
-            padding: 16px 20px !important;
-            @media(min-width: $large-screen) {
-                width: 340px !important;
-            }
-        }
         .usa-da-typeahead-wrapper {
             margin-top: $global-margin * 2;
 

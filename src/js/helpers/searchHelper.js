@@ -29,6 +29,12 @@ export const fetchFundingAgencies = (req) => apiRequest({
     data: req
 });
 
+export const fetchProgramActivity = (req) => apiRequest({
+    url: 'v2/autocomplete/program_activity/',
+    method: 'post',
+    data: req
+});
+
 // TAS search
 export const fetchTas = (idString = '') => apiRequest({
     // str contains depth, prepended with agency & federal account delimited by a '/', if any.
