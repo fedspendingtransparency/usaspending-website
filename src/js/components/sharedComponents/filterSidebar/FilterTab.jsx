@@ -10,20 +10,33 @@ const propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
-    switchTab: PropTypes.func.isRequired
+    switchTab: PropTypes.func.isRequired,
+    focusNextTab: PropTypes.func.isRequired,
+    focusPrevTab: PropTypes.func.isRequired
 };
 
 const FilterTab = ({
-    label, title, active, switchTab
+    label, title, active, switchTab, focusNextTab, focusPrevTab
 }) => (
     <div
+        id={`filter-tab-${title}`}
         className={`filter-tabs__tab ${active ? 'active' : ''}`}
-        role="tab"
         onClick={switchTab}
-        onKeyDown={switchTab}
+        onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+                switchTab(e);
+            } else if (e.key === 'ArrowLeft') {
+                focusPrevTab(e);
+            } else if (e.key === 'ArrowRight') {
+                focusNextTab(e);
+            }
+        }}
         title={`Show ${title}`}
+        role="tab"
         aria-label={`Show ${title}`}
-        tabIndex={0}>
+        aria-selected={active}
+        aria-controls={`tabpanel-${title}`}
+        tabIndex={active ? 0 : -1}>
         <div className="filter-tabs__label">
             {label}
         </div>

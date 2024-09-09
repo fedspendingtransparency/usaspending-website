@@ -204,25 +204,39 @@ export default class StateOverview extends React.PureComponent {
                     <FlexGridRow>
                         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
                             <div className="state-section__viz award-breakdown" id="award">
-                                <div className="award-breakdown__heading-row">
+                                {QAT ? (
+                                    <>
+                                        <div className="award-breakdown__heading-row">
+                                            <h3 className="state-overview__heading">
+                                                Award Breakdown
+                                            </h3>
+                                            <div className="state-overview__heading-right-side">
+                                                <RoundedToggle toggle={this.state.toggle} onKeyToggle={this.onKeyToggle} onToggle={this.onToggle} label="View Outlays" />
+                                                <div className="state-overview__line-div" />
+                                                <Accordion setOpen={this.setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+                                            </div>
+                                        </div>
+                                        {this.state.open &&
+                                            <div className="state-overview__what-content">
+                                                <FontAwesomeIcon icon="info-circle" className="state-overview__info-icon" />
+                                                <p className="state-overview__what-heading">What is an <em>outlay</em>?</p>
+                                                <p className="state-overview__what-text">An <span className="state-overview__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="state-overview__emphasis">obligation&nbsp;<GlossaryLink term="obligation" /></span> , which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
+                                                <p className="state-overview__what-second-heading">
+                                                    How do outlays relate to the chart below?
+                                                </p>
+                                                <p className="state-overview__what-text">
+                                                    The chart below can be filtered to view outlayed amounts for each award type.
+                                                    Please note that outlay amounts displayed below may have been paying off
+                                                    obligations that occurred in a prior year, which is why obligations and outlays
+                                                    from a single year are not comparable.
+                                                </p>
+                                            </div>}
+                                    </>
+                                ) : (
                                     <h3 className="state-overview__heading">
                                         Award Breakdown
                                     </h3>
-                                    <div className="state-overview__heading-right-side">
-                                        <RoundedToggle toggle={this.state.toggle} onKeyToggle={this.onKeyToggle} onToggle={this.onToggle} label="View Outlays" />
-                                        <div className="state-overview__line-div" />
-                                        <Accordion setOpen={this.setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
-                                    </div>
-                                </div>
-                                {this.state.open &&
-                                    <div className="state-overview__what-content">
-                                        <FontAwesomeIcon icon="info-circle" className="state-overview__info-icon" />
-                                        <p className="state-overview__what-heading">What is an <em>outlay</em>?</p>
-                                        <p className="state-overview__what-text">An <span className="state-overview__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="state-overview__emphasis">obligation&nbsp;<GlossaryLink term="obligation" /></span> , which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
-                                        <p className="state-overview__what-second-heading">Why are the <em>obligation</em> and <em>budgetary resource</em> amounts no longer visible on the chart?</p>
-                                        <p className="state-overview__what-text">Remember, the <span className="state-overview__emphasis">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> and obligations on this chart refer to available amounts and promised amounts for spending <em>in your selected fiscal year</em>. However, agencies may make outlays to pay off obligations made in your selected year <em>or in previous years</em>. This means outlays on this chart should <span className="state-overview__emphasis">not</span> be compared to the obligations or budgetary resources within any single fiscal year.</p>
-                                    </div>
-                                }
+                                )}
                             </div>
                         </FlexGridCol>
                     </FlexGridRow>

@@ -8,16 +8,16 @@ import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import {
     stateFilters,
-    filtersOnClickHandler
-} from 'dataMapping/covid19/recipient/map/map';
-import { awardTypeTabs } from 'dataMapping/covid19/covid19';
+    filtersOnClickHandler,
+    awardTypeTabs
+} from '../../../../dataMapping/state/stateMap';
 
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
-import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
-import MapMessage from 'components/search/visualizations/geo/MapMessage';
-import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
+import ResultsTableErrorMessage from '../../../../components/search/table/ResultsTableErrorMessage';
+import LoadingSpinner from '../../../../components/sharedComponents/LoadingSpinner';
+import { ExclamationTriangle } from '../../../../components/sharedComponents/icons/Icons';
+import GeoVisualizationTooltip from '../../../../components/search/visualizations/geo/GeoVisualizationTooltip';
+import MapMessage from '../../../../components/search/visualizations/geo/MapMessage';
+import MapWrapper from './MapWrapper';
 
 const propTypes = {
     mapLayer: PropTypes.string,
@@ -32,20 +32,21 @@ const propTypes = {
     noResults: PropTypes.bool,
     stateCenter: PropTypes.array,
     className: PropTypes.string,
-    stateInfo: PropTypes.object
+    stateInfo: PropTypes.object,
+    searchData: PropTypes.object,
+    program_numbers: PropTypes.string,
+    agency: PropTypes.object
 };
 
 const availableLayers = ['county', 'congressionalDistrict'];
 
-const GeoVisualizationSection = (props) => {
+const GeoVisualizationSection = React.memo((props) => {
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
     const [activeFilters, setActiveFilters] = useState({
         territory: props.mapLayer,
-        spendingType: 'obligation',
-        amountType: 'totalSpending',
-        recipientType: 'all',
-        awardType: 'all'
+        def_codes: 'all',
+        awardingAgency: null
     });
     const dataRef = useRef(props.data);
 
@@ -63,16 +64,26 @@ const GeoVisualizationSection = (props) => {
         dataRef.current = props.data;
     }, [props.data]);
 
-    const updateAmountTypeFilter = (value) => {
-        setActiveFilters({ ...activeFilters, amountType: value });
-        props.updateMapLegendToggle(value);
+    const updateDefcFilter = (value) => {
+        const newSearch = {
+            filters: {}
+        };
+
+        if (value === "all") {
+            props.clearSearchFilters("def_code");
+        } else {
+            newSearch.filters.def_codes = [value];
+            props.changeScope(newSearch, "def_code", [value]);
+        }
+
+        setActiveFilters({ ...activeFilters, def_codes: value });
     };
 
     // this will need to be updated as more filters are added
     const addOnClickToFilters = () => Object.keys(stateFilters).reduce((acc, filter) => {
         const filterWithOnClick = {
             ...stateFilters[filter],
-            onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
+            onClick: filtersOnClickHandler[filter] === 'updateTerritoryFilter' ? updateTerritoryFilter : updateDefcFilter
         };
         acc[filter] = filterWithOnClick;
         return acc;
@@ -158,6 +169,7 @@ const GeoVisualizationSection = (props) => {
     return (
         <div className="geo__map-section">
             <MapWrapper
+                {...props}
                 awardTypeFilters={awardTypeTabs}
                 filters={addOnClickToFilters()}
                 activeFilters={activeFilters}
@@ -182,7 +194,7 @@ const GeoVisualizationSection = (props) => {
             </MapWrapper>
         </div>
     );
-};
+});
 
 GeoVisualizationSection.propTypes = propTypes;
 export default GeoVisualizationSection;
