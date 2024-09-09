@@ -40,7 +40,7 @@ const AwardBreakdownTable = (props) => {
                 <thead className="award-breakdown-table__head">
                     <tr className="award-breakdown-table__row">
                         <th className="award-breakdown-table__header-cell">Award Type</th>
-                        <th className="award-breakdown-table__header-cell">Amount</th>
+                        <th className="award-breakdown-table__header-cell">{props.toggleState ? "Outlays" : "Obligations"}</th>
                         <th className="award-breakdown-table__header-cell">Count</th>
                     </tr>
                 </thead>

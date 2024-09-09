@@ -185,7 +185,8 @@ const AwardBreakdownTreeMap = (props) => {
                     y={node.y0}
                     width={node.width}
                     height={node.height}
-                    sectionHeight={sectionHeight} />
+                    sectionHeight={sectionHeight}
+                    toggleState={props.toggleState} />
             );
         }
 
