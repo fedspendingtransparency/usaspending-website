@@ -586,7 +586,7 @@ const StateProfileMapWrapper = React.memo((props) => {
             value: code.code
         }));
 
-        // Move DEFC 1 to the end
+        // Move DEFC 1 to the end of the list
         const firstElement = defCodeOptionsList.shift();
         defCodeOptionsList.push(firstElement);
 
