@@ -29,15 +29,27 @@ const StateProfileMapFilters = React.memo((props) => (
         <div className="map__filters-body">
             {/* below chunk is for the dropdown filters */}
             {
-                Object.keys(props.filters).map((filter) => (
-                    <>
+                Object.keys(props.filters).map((filter) => {
+                    let filterType = null;
+
+                    if (props.filters[filter].label.includes('DEFC')) {
+                        filterType = 'defc';
+                    }
+
+                    if (props.filters[filter].label.includes('Award Type')) {
+                        filterType = 'awardType';
+                    }
+
+                    return (<>
                         <div key={uniqueId()} className="map__filters-filter__container">
                             <div className="map__filters-wrapper">
-                                <span className="map__filters-label">{props.filters[filter].label}</span>
+                                <span
+                                    className="map__filters-label">{props.filters[filter].label}
+                                </span>
                                 <NewPicker
                                     enabled={props.filters[filter].enabled}
                                     size="sm"
-                                    classname="map__filters-button"
+                                    classname={`map__filters-button ${filterType}`}
                                     dropdownClassname="map__filters-dropdown"
                                     sortFn={handleSort}
                                     selectedOption={props.filters[filter].options?.find((option) => option.value === props.activeFilters[filter])?.label}
@@ -51,8 +63,8 @@ const StateProfileMapFilters = React.memo((props) => (
                                     } />
                             </div>
                         </div>
-                    </>
-                ))
+                    </>);
+                })
             }
             {/* below chunk is for the autocomplete filters */}
             <div key={uniqueId()} className="map__filters-filter__container">

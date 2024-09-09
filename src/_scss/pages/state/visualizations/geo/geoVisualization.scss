@@ -26,6 +26,9 @@
             &.open {
                 left: 25rem;
                 transition: left;
+                @media(min-width: $large-screen) {
+                    left: 345px;
+                }
             }
 
             svg {
@@ -47,7 +50,7 @@
             opacity: 1;
             border: solid 1px $gray-cool-10;
             box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-            padding: rem(16) rem(48) rem(24) rem(24);
+            padding: rem(16) rem(20);
 
             &.closed {
                 opacity: 0;
@@ -60,6 +63,9 @@
                 display: block;
                 transition: opacity 1s, display 1s;
                 z-index: 3;
+                @media(min-width: $large-screen) {
+                    width: 345px;
+                }
             }
 
             .map__filters-header {
@@ -135,18 +141,29 @@
                             }
 
                             .map__filters-dropdown {
-                                //width: max-content;
+                                width: max-content;
+
+                                li {
+                                    button {
+                                        padding-left: 1.5 * $global-padding !important;
+                                        padding-right: 1.5 * $global-padding !important;
+                                    }
+                                }
+                            }
+                        }
+
+                        .map__filters-button.defc {
+
+                            .map__filters-dropdown {
+                                width: unset;
+                                height: 300px;
                                 max-width: 300px;
                                 line-height: 1.5;
-                                height: 300px;
                                 overflow: hidden;
                                 overflow-y: scroll;
 
                                 ul {
                                     max-width: 165px;
-                                    @media (min-width: $large-screen) {
-                                        width: max-content;
-                                    }
                                 }
 
                                 li {
@@ -158,11 +175,11 @@
                                         padding-left: 1.5 * $global-padding !important;
                                         padding-right: 1.5 * $global-padding !important;
                                         height: auto;
-                                        max-width: 300px;
                                     }
                                 }
                             }
                         }
+
                         .map__filters-dropdown {
                             min-width: 100%;
                             max-width: 500px;
