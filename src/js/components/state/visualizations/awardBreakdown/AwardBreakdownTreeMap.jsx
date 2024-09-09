@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/16/18
  */
 
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import { remove, find } from 'lodash';
@@ -11,8 +11,6 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { awardTypeLabels } from 'dataMapping/state/awardTypes';
-// import { labelColorFromBackground } from 'helpers/colorHelper';
-// import { stateTreemapColorsNoToggle, stateTreemapColorsWithToggle } from "../../../../helpers/treemapHelper";
 
 import AwardTypeCell from './AwardTypeCell';
 import AwardTypeTooltip from './AwardTypeTooltip';
@@ -28,7 +26,9 @@ const AwardBreakdownTreeMap = (props) => {
     const [visualizationWidth, setVisualizationWidth] = useState(0);
     const [virtualChart, setVirtualChart] = useState([]);
     const [hoveredAwardType, setHoveredAwardType] = useState('');
+
     const sectionWrapper = useRef(null);
+    const awardRef = useRef(props.awardBreakdown);
 
     const visualizationHeight = 175;
     const amountType = props.toggleState ? "total_outlays" : "amount";
@@ -84,8 +84,7 @@ const AwardBreakdownTreeMap = (props) => {
         };
     };
 
-    const buildVirtualTree = useCallback(() => {
-        const data = props.awardBreakdown;
+    const buildVirtualTree = (data) => {
         // remove the negative values from the data because they can't be displayed in the treemap
         remove(data, (v) => v[amountType] <= 0);
 
@@ -131,7 +130,7 @@ const AwardBreakdownTreeMap = (props) => {
         });
 
         setVirtualChart(cells);
-    });
+    };
 
     const handleWindowResize = () => {
         // determine if the width changed
@@ -142,8 +141,8 @@ const AwardBreakdownTreeMap = (props) => {
             if (sectionWrapper.current) {
                 setVisualizationWidth(sectionWrapper.current.offsetWidth);
             }
-            if (props.awardBreakdown.length > 0) {
-                buildVirtualTree(props);
+            if (awardRef.current.length > 0) {
+                buildVirtualTree(awardRef.current);
             }
         }
     };
@@ -211,13 +210,16 @@ const AwardBreakdownTreeMap = (props) => {
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, [handleWindowResize]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
+        awardRef.current = props.awardBreakdown;
         if (props.awardBreakdown.length > 0) {
-            buildVirtualTree(props);
+            buildVirtualTree(awardRef.current);
         }
-    }, [buildVirtualTree, hoveredAwardType, props]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.awardBreakdown]);
 
     return (
         <div className="award-breakdown__treemap">
