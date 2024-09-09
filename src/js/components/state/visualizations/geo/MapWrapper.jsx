@@ -585,7 +585,11 @@ const StateProfileMapWrapper = React.memo((props) => {
             label: `${code.code} - ${code.title}`,
             value: code.code
         }));
-        defCodeOptionsList.sort((a, b) => a.value - b.value);
+
+        // Move DEFC 1 to the end
+        const firstElement = defCodeOptionsList.shift();
+        defCodeOptionsList.push(firstElement);
+
         const tempMapFilters = mapFilters;
         if (tempMapFilters.def_codes.options.length === 1) {
             tempMapFilters.def_codes.options.push(...defCodeOptionsList);
