@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/16/18
  */
 
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import { remove, find } from 'lodash';
@@ -11,8 +11,6 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { awardTypeLabels } from 'dataMapping/state/awardTypes';
-// import { labelColorFromBackground } from 'helpers/colorHelper';
-// import { stateTreemapColorsNoToggle, stateTreemapColorsWithToggle } from "../../../../helpers/treemapHelper";
 
 import AwardTypeCell from './AwardTypeCell';
 import AwardTypeTooltip from './AwardTypeTooltip';
@@ -28,7 +26,11 @@ const AwardBreakdownTreeMap = (props) => {
     const [visualizationWidth, setVisualizationWidth] = useState(0);
     const [virtualChart, setVirtualChart] = useState([]);
     const [hoveredAwardType, setHoveredAwardType] = useState('');
+
+    const amountType = useRef(props.toggleState ? "total_outlays" : "amount");
     const sectionWrapper = useRef(null);
+    const awardRef = useRef(props.awardBreakdown);
+
     const visualizationHeight = 175;
 
     const buildVirtualCell = (data, i) => {
@@ -37,7 +39,7 @@ const AwardBreakdownTreeMap = (props) => {
 
         // todo - use these two lines, along with the new arrays to return colors in treemapHelper,
         //  when finishing the toggle functionality; the two lines above will not be used
-        let cellColor = props.toggleState ? TreemapHelper.stateTreemapColorsWithToggle[i] : TreemapHelper.stateTreemapColorsNoToggle[i];
+        let cellColor = amountType.current === 'total_outlays' ? TreemapHelper.stateTreemapColorsWithToggle[i] : TreemapHelper.stateTreemapColorsNoToggle[i];
         let textColor = TreemapHelper.stateTooltipStyles.defaultStyle.textColor;
 
         let textClass = '';
@@ -82,18 +84,16 @@ const AwardBreakdownTreeMap = (props) => {
         };
     };
 
-    const buildVirtualTree = useCallback(() => {
-        const amountType = props.toggleState ? "totalOutlays" : "amount";
-        const data = props.awardBreakdown;
+    const buildVirtualTree = (data, type) => {
         // remove the negative values from the data because they can't be displayed in the treemap
-        remove(data, (v) => v[amountType] <= 0);
+        remove(data, (v) => v[type] <= 0);
 
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({
             children: data
         })
-            .sum((d) => d[amountType]) // tell D3 how to extract the monetary value out of the object
-            .sort((a, b) => b[amountType] - a[amountType]); // sort the objects
+            .sum((d) => d[type]) // tell D3 how to extract the monetary value out of the object
+            .sort((a, b) => b[type] - a[type]); // sort the objects
 
         // set up a treemap object and pass in the root
         let tileStyle = treemapBinary;
@@ -130,7 +130,7 @@ const AwardBreakdownTreeMap = (props) => {
         });
 
         setVirtualChart(cells);
-    });
+    };
 
     const handleWindowResize = () => {
         // determine if the width changed
@@ -141,8 +141,8 @@ const AwardBreakdownTreeMap = (props) => {
             if (sectionWrapper.current) {
                 setVisualizationWidth(sectionWrapper.current.offsetWidth);
             }
-            if (props.awardBreakdown.length > 0) {
-                buildVirtualTree(props);
+            if (awardRef.current.length > 0) {
+                buildVirtualTree(awardRef.current, amountType.current);
             }
         }
     };
@@ -175,16 +175,17 @@ const AwardBreakdownTreeMap = (props) => {
 
             tooltip = (
                 <AwardTypeTooltip
-                    value={formatMoneyWithUnitsShortLabel(awardType.amount)}
+                    value={formatMoneyWithUnitsShortLabel(awardType[amountType.current])}
                     percentage={MoneyFormatter.calculatePercentage(
-                        awardType.amount, props.totalAmount)
+                        awardType[amountType.current], props.totalAmount)
                     }
                     description={awardTypeDefinition}
                     x={node.x0}
                     y={node.y0}
                     width={node.width}
                     height={node.height}
-                    sectionHeight={sectionHeight} />
+                    sectionHeight={sectionHeight}
+                    toggleState={props.toggleState} />
             );
         }
 
@@ -209,13 +210,21 @@ const AwardBreakdownTreeMap = (props) => {
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, [handleWindowResize]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
+        awardRef.current = props.awardBreakdown;
         if (props.awardBreakdown.length > 0) {
-            buildVirtualTree(props);
+            buildVirtualTree(awardRef.current, amountType.current);
         }
-    }, [buildVirtualTree, hoveredAwardType, props]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.awardBreakdown, amountType.current]);
+
+    useEffect(() => {
+        amountType.current = props.toggleState ? "total_outlays" : "amount";
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.toggleState]);
 
     return (
         <div className="award-breakdown__treemap">
