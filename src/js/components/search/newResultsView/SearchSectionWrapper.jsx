@@ -73,7 +73,7 @@ const SearchSectionWrapper = ({
 
     const params = history.location.search.split("&");
     params.shift();
-    const sectionValue = params[0].substring(8);
+    const sectionValue = params[0]?.substring(8);
     const sortFn = () => dropdownOptions;
 
     const changeView = (label) => {
@@ -119,7 +119,7 @@ const SearchSectionWrapper = ({
             rectTopOffset = 2240;
         }
 
-        if (section === sectionValue) {
+        if ((section && sectionValue) && section === sectionValue) {
             window.scrollTo({
                 top: rectTopOffset,
                 behavior: 'smooth'
@@ -128,7 +128,7 @@ const SearchSectionWrapper = ({
     };
 
     const parseSection = () => {
-        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=") {
+        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
             jumpToSection(sectionValue);
         }
     };
