@@ -85,7 +85,6 @@ const AwardBreakdownTreeMap = (props) => {
     };
 
     const buildVirtualTree = (data, type) => {
-        console.log('buildVirtualTree type: ', type);
         // remove the negative values from the data because they can't be displayed in the treemap
         remove(data, (v) => v[type] <= 0);
 
@@ -223,7 +222,6 @@ const AwardBreakdownTreeMap = (props) => {
     }, [props.awardBreakdown, amountType.current]);
 
     useEffect(() => {
-        console.log('fire');
         amountType.current = props.toggleState ? "total_outlays" : "amount";
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.toggleState]);
