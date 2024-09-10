@@ -125,6 +125,12 @@
     "webpack-merge": "^5.9.0"
   },
   "resolutions": {
+    "micromatch": "4.0.8",
+    "**/micromatch": "4.0.8",
+    "body-parser": "1.20.3",
+    "**/body-parser": "1.20.3",
+    "send": "0.19.0",
+    "**/send": "0.19.0",
     "axios": "1.7.4",
     "braces": "3.0.3",
     "**/braces": "3.0.3",
