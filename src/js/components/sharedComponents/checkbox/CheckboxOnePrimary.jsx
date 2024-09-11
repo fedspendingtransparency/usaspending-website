@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 import Analytics from 'helpers/analytics/Analytics';
 
-import RecipientTypeList from "../../search/filters/recipient/RecipientTypeList";
+import CheckboxOneSecondary from "./CheckboxOneSecondary";
 
 const propTypes = {
     category: PropTypes.object,
@@ -111,9 +111,9 @@ const CheckboxOnePrimary = ({
     }, [selectedTypes]);
 
     return (
-        <div className="checkbox-type-filter">
+        <div className="checkbox-filter__wrapper">
             <div
-                className="checkbox-type-filter__heading"
+                className="checkbox-filter__header-container"
                 role="button"
                 tabIndex="0">
                 {!expanded?.includes(category.id) &&
@@ -130,20 +130,20 @@ const CheckboxOnePrimary = ({
                             if (e.key === "Enter") toggleExpanded(category);
                         }}
                         icon="chevron-down" />}
-                <div className="checkbox-type-filter__header">
+                <div className="checkbox-filter__header">
                     <input
                         type="checkbox"
                         onChange={toggleChildren}
                         checked={allChildren}
                         id={`primary-checkbox__${category.id}`} />
                     <span>{category.name}</span>
-                    <span className="checkbox-type-filter__item-count">
+                    <span className="checkbox-filter__item-count">
                         {category.filters?.length}
                         {category.filters?.length === 1 ? 'type' : 'types'}
                     </span>
                 </div>
             </div>
-            <RecipientTypeList
+            <CheckboxOneSecondary
                 expanded={expanded?.includes(category.id)}
                 selectedTypes={selectedTypes}
                 category={category}

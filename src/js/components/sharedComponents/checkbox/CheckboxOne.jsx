@@ -1,3 +1,8 @@
+/**
+ * CheckboxOnePrimary.jsx
+ * Created by Josue Aguilar on 09/05/2024.
+ */
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -58,11 +63,7 @@ const CheckboxOne = ({
 
     return (
         <div className="filter-item-wrap">
-            <div className="checkbox-filter">
-                <ul className="checkbox-types">
-                    {checkboxTypes}
-                </ul>
-            </div>
+            {checkboxTypes}
         </div>
     );
 };
