@@ -76,7 +76,7 @@ export default class FiscalYear extends React.Component {
             );
         }
         return (
-            <div>{ yearOption }</div>
+            <div role="tabpanel" aria-labelledby="tabpanel-Fiscal Year">{ yearOption }</div>
         );
     }
 }

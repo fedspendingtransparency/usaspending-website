@@ -30,11 +30,19 @@
     .autocomplete-md {
         font-size: $small-font-size;
         padding: rem(6) rem(12);
+        
+        &:focus-visible {
+            outline: 1px solid $color-focus;
+        }
     }
 
     .autocomplete-sm {
         font-size: $smallest-font-size;
         padding: rem(8);
+
+        &:focus-visible {
+            outline: 1px solid $color-focus;
+        }
     }
 
     .icon {

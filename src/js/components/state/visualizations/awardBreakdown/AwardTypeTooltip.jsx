@@ -14,7 +14,8 @@ const propTypes = {
     y: PropTypes.number,
     width: PropTypes.number,
     percentage: PropTypes.string,
-    arrow: PropTypes.bool
+    arrow: PropTypes.bool,
+    toggleState: PropTypes.bool
 };
 
 const AwardTypeTooltip = (props) => {
@@ -91,12 +92,11 @@ const AwardTypeTooltip = (props) => {
         positionTooltip();
     }, [positionTooltip]);
 
-
     let desc = (
         <>
             <div className="tooltip-body-row bottom-spacing">
                 <div className="tooltip-label">
-                        Obligations
+                    {props.toggleState ? "Outlays" : "Obligations"}
                 </div>
                 <div className="tooltip-value">
                     {value}

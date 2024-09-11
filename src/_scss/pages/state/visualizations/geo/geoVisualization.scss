@@ -9,7 +9,6 @@
             width: rem(16);
             height: rem(35);
             top: rem(24);
-            left: 23rem;
             position: absolute;
             z-index: 2;
             border: solid 1px $gray-cool-10;
@@ -24,8 +23,11 @@
             }
 
             &.open {
-                left: 23rem;
+                left: 25rem;
                 transition: left;
+                @media(min-width: $large-screen) {
+                    left: 345px;
+                }
             }
 
             svg {
@@ -41,13 +43,13 @@
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
             position: absolute;
-            width: 23rem;
+            width: 25rem;
             z-index: 2;
             transition: 1s;
             opacity: 1;
             border: solid 1px $gray-cool-10;
             box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-            padding: rem(16) rem(48) rem(24) rem(24);
+            padding: rem(16) rem(20);
 
             &.closed {
                 opacity: 0;
@@ -59,6 +61,10 @@
                 opacity: 1;
                 display: block;
                 transition: opacity 1s, display 1s;
+                z-index: 3;
+                @media(min-width: $large-screen) {
+                    width: 345px;
+                }
             }
 
             .map__filters-header {
@@ -85,6 +91,17 @@
                 .map__filters-filter__container {
                     transition: 2s;
 
+
+                    button .filter__dropdown-button-text {
+                        max-width: 165px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+
+                        @media (min-width: $large-screen) {
+                            max-width: 260px;
+                        }
+                    }
+
                     .map__filters-wrapper {
                         .map__filters-label {
                             font-size: $font-size-12;
@@ -95,6 +112,7 @@
                             display: flex;
                             margin-top: $global-margin * 2;
                             align-items: baseline;
+                            text-transform: uppercase;
                         }
 
                         .map__filters-button {
@@ -132,6 +150,35 @@
                                 }
                             }
                         }
+
+                        .map__filters-button.defc {
+
+                            .map__filters-dropdown {
+                                width: unset;
+                                height: 300px;
+                                max-width: 300px;
+                                line-height: 1.5;
+                                overflow: hidden;
+                                overflow-y: scroll;
+
+                                ul {
+                                    max-width: 165px;
+                                }
+
+                                li {
+                                    height: unset;
+                                    min-height: rem(32);
+                                    margin-bottom: rem(5.5);
+
+                                    button {
+                                        padding-left: 1.5 * $global-padding !important;
+                                        padding-right: 1.5 * $global-padding !important;
+                                        height: auto;
+                                    }
+                                }
+                            }
+                        }
+
                         .map__filters-dropdown {
                             min-width: 100%;
                             max-width: 500px;
