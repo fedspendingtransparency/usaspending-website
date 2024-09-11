@@ -139,9 +139,9 @@ const CheckboxOnePrimary = ({
                         onChange={toggleChildren}
                         checked={allChildren}
                         id={`primary-checkbox__${category.id}`} />
-                    <span>{category.name}</span>
-                    <span className="checkbox-filter__item-count">
-                        {category.filters?.length}
+                    <span className="checkbox-filter__header-label">{category.name}</span>
+                    <span className="checkbox-filter__header-count">
+                        {category.filters?.length}{' '}
                         {category.filters?.length === 1 ? 'type' : 'types'}
                     </span>
                 </div>
