@@ -69,7 +69,8 @@ const DateRange = (props) => {
             if (start) {
                 startValue = start.format('YYYY-MM-DD');
             }
-            else {
+
+            if (end) {
                 endValue = end.format('YYYY-MM-DD');
             }
 
