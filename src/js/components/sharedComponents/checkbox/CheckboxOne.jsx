@@ -25,8 +25,8 @@ const propTypes = {
     filters: PropTypes.object,
     filterCategoryMapping: PropTypes.arrayOf(PropTypes.object),
     selectedFilters: PropTypes.object,
-    toggleCheckboxType: PropTypes.func,
-    bulkTypeChange: PropTypes.func
+    singleFilterChange: PropTypes.func,
+    bulkFilterChange: PropTypes.func
 };
 
 const defaultProps = {
@@ -34,7 +34,7 @@ const defaultProps = {
 };
 
 const CheckboxOne = ({
-    filters, filterCategoryMapping, selectedFilters, toggleCheckboxType, bulkTypeChange
+    filters, filterCategoryMapping, selectedFilters, singleFilterChange, bulkFilterChange
 }) => {
     const [expanded, setExpanded] = useState(
         expandCheckboxCategoryAccordions(filterCategoryMapping, selectedFilters)
@@ -53,12 +53,12 @@ const CheckboxOne = ({
     const checkboxCategories = filterCategoryMapping.map((category) => (
         <CheckboxOnePrimary
             category={category}
-            toggleCheckboxType={toggleCheckboxType}
+            toggleCheckboxType={singleFilterChange}
             filterTypes={filters}
             selectedTypes={selectedFilters}
             expanded={expanded}
             toggleExpanded={toggleExpanded}
-            bulkTypeChange={bulkTypeChange} />
+            bulkTypeChange={bulkFilterChange} />
     ));
 
     return (

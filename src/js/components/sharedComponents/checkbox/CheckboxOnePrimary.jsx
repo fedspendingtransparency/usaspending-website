@@ -15,9 +15,9 @@ const propTypes = {
     category: PropTypes.object,
     expanded: PropTypes.array,
     toggleExpanded: PropTypes.func,
-    selectedTypes: PropTypes.array,
+    selectedFilters: PropTypes.array,
     toggleCheckboxType: PropTypes.func,
-    filterTypes: PropTypes.object,
+    filters: PropTypes.object,
     bulkTypeChange: PropTypes.func,
     enableAnalytics: PropTypes.bool
 };

@@ -134,8 +134,8 @@ const tempPage = () => {
                         filterCategoryMapping={awardTypesData}
                         filters={awardTypeCodes}
                         selectedFilters={awardType}
-                        toggleCheckboxType={toggleAward}
-                        bulkTypeChange={bulkAwardChange} />
+                        singleFilterChange={toggleAward}
+                        bulkFilterChange={bulkAwardChange} />
                     <div style={{ border: '1px solid green', padding: '8px' }}>
                         <NewLocationSectionContainer />
                     </div>
