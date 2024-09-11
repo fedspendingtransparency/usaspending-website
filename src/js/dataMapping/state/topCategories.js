@@ -8,6 +8,7 @@ export const categories = {
         'awarding_agency',
         'recipient',
         'awards',
+        'defc',
         'cfda',
         'naics',
         'county',
@@ -18,6 +19,7 @@ export const categories = {
         'awarding_subagency',
         'recipient',
         'awards',
+        'defc',
         'naics',
         'county',
         'district'
@@ -27,6 +29,7 @@ export const categories = {
         'awarding_subagency',
         'recipient',
         'awards',
+        'defc',
         'cfda',
         'county',
         'district'
@@ -36,6 +39,7 @@ export const categories = {
         'awarding_subagency',
         'recipient',
         'awards',
+        'defc',
         'cfda',
         'county',
         'district'
@@ -45,6 +49,7 @@ export const categories = {
         'awarding_subagency',
         'recipient',
         'awards',
+        'defc',
         'cfda',
         'county',
         'district'
@@ -54,6 +59,7 @@ export const categories = {
         'awarding_subagency',
         'recipient',
         'awards',
+        'defc',
         'cfda',
         'county',
         'district'
@@ -65,6 +71,7 @@ export const categoryTitles = {
     awarding_subagency: 'Awarding Sub-Agencies',
     recipient: 'Recipients',
     awards: 'Awards',
+    defc: 'Disaster Emergency Fund Codes (DEFCs)',
     cfda: 'Assistance Listings (CFDA Programs)',
     naics: 'NAICS Codes',
     county: 'Counties',
