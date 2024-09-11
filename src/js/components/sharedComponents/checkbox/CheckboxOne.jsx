@@ -36,17 +36,17 @@ const defaultProps = {
 const CheckboxOne = ({
     filters, filterCategoryMapping, selectedFilters, singleFilterChange, bulkFilterChange
 }) => {
-    const [expanded, setExpanded] = useState(
+    const [expandedCategories, setExpandedCategories] = useState(
         expandCheckboxCategoryAccordions(filterCategoryMapping, selectedFilters)
     );
 
     const toggleExpanded = (category) => {
-        const containsId = expanded?.indexOf(category.id);
+        const containsId = expandedCategories?.indexOf(category.id);
         if (containsId <= -1) {
-            setExpanded([...expanded, category.id]);
+            setExpandedCategories([...expandedCategories, category.id]);
         }
         else {
-            setExpanded(expanded.filter((item) => item !== category.id));
+            setExpandedCategories(expandedCategories.filter((item) => item !== category.id));
         }
     };
 
@@ -56,7 +56,7 @@ const CheckboxOne = ({
             singleFilterChange={singleFilterChange}
             filters={filters}
             selectedFilters={selectedFilters}
-            expandedCategories={expanded}
+            expandedCategories={expandedCategories}
             toggleExpanded={toggleExpanded}
             bulkFilterChange={bulkFilterChange} />
     ));

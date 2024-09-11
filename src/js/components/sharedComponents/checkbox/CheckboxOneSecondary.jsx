@@ -8,31 +8,31 @@ import PropTypes from "prop-types";
 
 const propTypes = {
     category: PropTypes.object,
-    selectedTypes: PropTypes.object,
-    toggleCheckboxType: PropTypes.func,
-    recipientTypes: PropTypes.object
+    selectedFilters: PropTypes.object,
+    singleFilterChange: PropTypes.func,
+    filters: PropTypes.object
 };
 
 const CheckboxOneSecondary = ({
-    category, selectedTypes, toggleCheckboxType, recipientTypes, expanded
+    category, selectedFilters, singleFilterChange, filters, expanded
 }) => {
-    const selectRecipientType = (type) => {
+    const selectFilter = (filter) => {
         const selection = {
-            value: type
+            value: filter
         };
-        toggleCheckboxType(selection);
+        singleFilterChange(selection);
     };
 
     return expanded &&
-        category.filters?.map((type, index) => (
+        category.filters?.map((filter, index) => (
             <label className="checkbox-filter__item">
                 <input
                     type="checkbox"
                     id={`primary-checkbox-${index}`}
-                    value={type}
-                    checked={selectedTypes?.has(type)}
-                    onChange={() => selectRecipientType(type)} />
-                <span className="checkbox-filter__item-label">{recipientTypes[type]}</span>
+                    value={filter}
+                    checked={selectedFilters?.has(filter)}
+                    onChange={() => selectFilter(filter)} />
+                <span className="checkbox-filter__item-label">{filters[filter]}</span>
             </label>));
 };
 

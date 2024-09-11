@@ -148,10 +148,10 @@ const CheckboxOnePrimary = ({
             </div>
             <CheckboxOneSecondary
                 expanded={expandedCategories?.includes(category.id)}
-                selectedTypes={selectedFilters}
+                selectedFilters={selectedFilters}
                 category={category}
-                toggleCheckboxType={singleFilterChange}
-                recipientTypes={filters} />
+                singleFilterChange={singleFilterChange}
+                filters={filters} />
         </div>);
 };
 
