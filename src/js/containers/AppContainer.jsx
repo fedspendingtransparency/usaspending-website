@@ -65,6 +65,7 @@ const AppContainer = () => (
                 <Switch>
                     {routes.filter((route) => !route.hide).map(({ path, component }) => (
                         <Route
+                            exact
                             path={path}
                             component={(routerProps) => WithUrlListener(component, routerProps)}
                             key={path} />
