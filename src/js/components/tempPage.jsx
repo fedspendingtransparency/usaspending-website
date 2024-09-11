@@ -130,13 +130,15 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <CheckboxOne
-                        filterCategoryMapping={awardTypesData}
-                        filters={awardTypeCodes}
-                        selectedFilters={awardType}
-                        singleFilterChange={toggleAward}
-                        bulkFilterChange={bulkAwardChange} />
-                    <div style={{ border: '1px solid green', padding: '8px' }}>
+                    <div style={{ border: '1px solid red', padding: '8px', margin: '8px 0' }}>
+                        <CheckboxOne
+                            filterCategoryMapping={awardTypesData}
+                            filters={awardTypeCodes}
+                            selectedFilters={awardType}
+                            singleFilterChange={toggleAward}
+                            bulkFilterChange={bulkAwardChange} />
+                    </div>
+                    <div style={{ border: '1px solid green', padding: '8px', margin: '8px 0' }}>
                         <NewLocationSectionContainer />
                     </div>
                     <section style={{ margin: '80px', backgroundColor: 'white' }}>
