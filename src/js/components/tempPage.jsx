@@ -130,7 +130,7 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <div style={{ border: '1px solid red', padding: '8px', margin: '8px 0' }}>
+                    <div style={{ border: '1px solid red', margin: '8px 0' }}>
                         <CheckboxOne
                             filterCategoryMapping={awardTypesData}
                             filters={awardTypeCodes}

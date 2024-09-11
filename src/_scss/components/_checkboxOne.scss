@@ -1,7 +1,24 @@
 .filter-item-wrap {
-  color: red;
+  padding: rem(20) rem(32);
+}
+
+.checkbox-filter__header-container {
+  svg {
+    color: $blue-50;
+  }
 }
 
 .checkbox-filter__header {
   display: inline-block;
 }
+
+.checkbox-filter__list {
+  list-style: none;
+  margin: 0 0 rem(12) rem(34);
+  padding: 0;
+
+  li:first-of-type {
+    margin-top: rem(12);
+  }
+}
+

@@ -23,17 +23,23 @@ const CheckboxOneSecondary = ({
         singleFilterChange(selection);
     };
 
-    return expanded &&
-        category.filters?.map((filter, index) => (
-            <label className="checkbox-filter__item">
-                <input
-                    type="checkbox"
-                    id={`primary-checkbox-${index}`}
-                    value={filter}
-                    checked={selectedFilters?.has(filter)}
-                    onChange={() => selectFilter(filter)} />
-                <span className="checkbox-filter__item-label">{filters[filter]}</span>
-            </label>));
+    const items = category.filters?.map((filter, index) => (
+        <li className="checkbox-filter__item">
+            <input
+                type="checkbox"
+                id={`primary-checkbox-${index}`}
+                value={filter}
+                checked={selectedFilters?.has(filter)}
+                onChange={() => selectFilter(filter)} />
+            <span className="checkbox-filter__item-label">{filters[filter]}</span>
+        </li>
+    ));
+
+    return (
+        <ul className="checkbox-filter__list">
+            {expanded && items}
+        </ul>
+    );
 };
 
 CheckboxOneSecondary.propTypes = propTypes;
