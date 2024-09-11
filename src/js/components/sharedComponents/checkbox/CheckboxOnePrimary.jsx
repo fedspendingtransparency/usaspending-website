@@ -1,16 +1,23 @@
+/**
+ * CheckboxOnePrimary.jsx
+ * Created by Josue Aguilar on 09/05/2024.
+ */
+
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import RecipientTypeList from "../../search/filters/recipient/RecipientTypeList";
 
 const propTypes = {
-    category: PropTypes.array,
-    expanded: PropTypes.bool,
+    category: PropTypes.object,
+    expanded: PropTypes.array,
     toggleExpanded: PropTypes.func,
     selectedTypes: PropTypes.array,
     toggleCheckboxType: PropTypes.func,
-    filterTypes: PropTypes.array,
+    filterTypes: PropTypes.object,
     bulkTypeChange: PropTypes.func,
     enableAnalytics: PropTypes.bool
 };
@@ -29,6 +36,26 @@ const CheckboxOnePrimary = ({
 
     const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
 
+    const logPrimaryTypeFilterEvent = (type, filter) => {
+        Analytics.event({
+            event: 'search_checkbox_selection',
+            category: 'Search Filter Interaction',
+            action: `Selected ${filter} Type`,
+            label: type,
+            gtm: true
+        });
+    };
+
+    const logDeselectFilterEvent = (type, filter) => {
+        Analytics.event({
+            event: 'search_checkbox_selection',
+            category: 'Search Filter Interaction',
+            action: `Deselected ${filter} Type Children`,
+            label: type,
+            gtm: true
+        });
+    };
+
     const toggleChildren = () => {
         if (allChildren) {
             // all the children are selected, deselect them
@@ -40,7 +67,7 @@ const CheckboxOnePrimary = ({
 
             // Analytics
             if (enableAnalytics) {
-                // logDeselectFilterEvent(name, filterType);
+                logDeselectFilterEvent(category.id, category.name);
             }
         }
         else {
@@ -53,8 +80,7 @@ const CheckboxOnePrimary = ({
 
             // Analytics
             if (enableAnalytics) {
-                // logPrimaryTypeFilterEvent(
-                //     name, filterType);
+                logPrimaryTypeFilterEvent(category.id, category.name);
             }
         }
     };
