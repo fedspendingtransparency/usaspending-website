@@ -1,6 +1,6 @@
 /**
  * LocalConstants.js
- * Created by Andrea Blackwell 01/11/2024
+ * Created by Andrea Blackwell
  */
 
 export const localConstants = {
