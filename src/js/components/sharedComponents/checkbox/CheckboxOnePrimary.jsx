@@ -13,30 +13,30 @@ import CheckboxOneSecondary from "./CheckboxOneSecondary";
 
 const propTypes = {
     category: PropTypes.object,
-    expanded: PropTypes.array,
+    expandedCategories: PropTypes.array,
     toggleExpanded: PropTypes.func,
     selectedFilters: PropTypes.array,
-    toggleCheckboxType: PropTypes.func,
+    singleFilterChange: PropTypes.func,
     filters: PropTypes.object,
-    bulkTypeChange: PropTypes.func,
+    bulkFilterChange: PropTypes.func,
     enableAnalytics: PropTypes.bool
 };
 
 const CheckboxOnePrimary = ({
     category,
-    expanded,
+    expandedCategories,
     toggleExpanded,
-    selectedTypes,
-    toggleCheckboxType,
-    filterTypes,
-    bulkTypeChange,
+    selectedFilters,
+    singleFilterChange,
+    filters,
+    bulkFilterChange,
     enableAnalytics = false
 }) => {
     const [allChildren, setAllChildren] = useState(false);
 
     const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
 
-    const logPrimaryTypeFilterEvent = (type, filter) => {
+    const logPrimaryFilterEvent = (type, filter) => {
         Analytics.event({
             event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
@@ -59,7 +59,7 @@ const CheckboxOnePrimary = ({
     const toggleChildren = () => {
         if (allChildren) {
             // all the children are selected, deselect them
-            bulkTypeChange({
+            bulkFilterChange({
                 lookupName: '',
                 types: category.filters,
                 direction: 'remove'
@@ -72,7 +72,7 @@ const CheckboxOnePrimary = ({
         }
         else {
             // not all the children are selected, select them all
-            bulkTypeChange({
+            bulkFilterChange({
                 lookupName: '',
                 types: category.filters,
                 direction: 'add'
@@ -80,7 +80,7 @@ const CheckboxOnePrimary = ({
 
             // Analytics
             if (enableAnalytics) {
-                logPrimaryTypeFilterEvent(category.id, category.name);
+                logPrimaryFilterEvent(category.id, category.name);
             }
         }
     };
@@ -90,7 +90,7 @@ const CheckboxOnePrimary = ({
         let someSelected = false;
 
         for (const filter of category.filters) {
-            if (!selectedTypes.has(filter)) {
+            if (!selectedFilters.has(filter)) {
                 allSelected = false;
             }
             else {
@@ -101,6 +101,9 @@ const CheckboxOnePrimary = ({
         if (!allSelected && someSelected) {
             primaryCheckbox.indeterminate = true;
         }
+        else if (primaryCheckbox?.indeterminate) {
+            primaryCheckbox.indeterminate = false;
+        }
 
         setAllChildren(allSelected);
     };
@@ -108,7 +111,7 @@ const CheckboxOnePrimary = ({
     useEffect(() => {
         compareFiltersToChildren();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedTypes]);
+    }, [selectedFilters]);
 
     return (
         <div className="checkbox-filter__wrapper">
@@ -116,14 +119,14 @@ const CheckboxOnePrimary = ({
                 className="checkbox-filter__header-container"
                 role="button"
                 tabIndex="0">
-                {!expanded?.includes(category.id) &&
+                {!expandedCategories?.includes(category.id) &&
                     <FontAwesomeIcon
                         onClick={() => toggleExpanded(category)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") toggleExpanded(category);
                         }}
                         icon="chevron-right" />}
-                {expanded?.includes(category.id) &&
+                {expandedCategories?.includes(category.id) &&
                     <FontAwesomeIcon
                         onClick={() => toggleExpanded(category)}
                         onKeyDown={(e) => {
@@ -144,11 +147,11 @@ const CheckboxOnePrimary = ({
                 </div>
             </div>
             <CheckboxOneSecondary
-                expanded={expanded?.includes(category.id)}
-                selectedTypes={selectedTypes}
+                expanded={expandedCategories?.includes(category.id)}
+                selectedTypes={selectedFilters}
                 category={category}
-                toggleCheckboxType={toggleCheckboxType}
-                recipientTypes={filterTypes} />
+                toggleCheckboxType={singleFilterChange}
+                recipientTypes={filters} />
         </div>);
 };
 

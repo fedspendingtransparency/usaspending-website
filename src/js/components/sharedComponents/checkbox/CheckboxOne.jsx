@@ -53,12 +53,12 @@ const CheckboxOne = ({
     const checkboxCategories = filterCategoryMapping.map((category) => (
         <CheckboxOnePrimary
             category={category}
-            toggleCheckboxType={singleFilterChange}
-            filterTypes={filters}
-            selectedTypes={selectedFilters}
-            expanded={expanded}
+            singleFilterChange={singleFilterChange}
+            filters={filters}
+            selectedFilters={selectedFilters}
+            expandedCategories={expanded}
             toggleExpanded={toggleExpanded}
-            bulkTypeChange={bulkFilterChange} />
+            bulkFilterChange={bulkFilterChange} />
     ));
 
     return (
