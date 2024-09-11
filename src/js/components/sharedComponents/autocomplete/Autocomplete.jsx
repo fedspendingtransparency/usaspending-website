@@ -281,7 +281,7 @@ const Autocomplete = React.memo((props) => {
                 autocompleteInputRef.current.style.fontWeight = "bold";
             }
         }
-    }, [props.selectedItemsDisplayNames[props.type]]);
+    }, [props?.type]);
 
     return (
         <div
