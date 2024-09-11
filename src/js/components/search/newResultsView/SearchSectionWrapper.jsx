@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
+import { throttle } from "lodash";
 import { useHistory } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
@@ -69,6 +70,10 @@ const SearchSectionWrapper = ({
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const history = useHistory();
+
+    const params = history.location.search.split("&");
+    params.shift();
+    const sectionValue = params[0]?.substring(8);
     const sortFn = () => dropdownOptions;
 
     const changeView = (label) => {
@@ -80,7 +85,7 @@ const SearchSectionWrapper = ({
         }
     };
 
-    const jumpToSection = (section = '') => {
+    const jumpToSection = (section) => {
         const sections = ['map', 'time', 'categories', 'awards'];
         // we've been provided a section to jump to
         // check if it's a valid section
@@ -114,25 +119,24 @@ const SearchSectionWrapper = ({
             rectTopOffset = 2240;
         }
 
-        window.scrollTo({
-            top: rectTopOffset,
-            behavior: 'smooth'
-        });
-    };
-
-    const parseSection = () => {
-        const params = history.location.search.split("&");
-        params.shift();
-        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=") {
-            jumpToSection(params[0].substring(8));
+        if ((section && sectionValue) && section === sectionValue) {
+            window.scrollTo({
+                top: rectTopOffset,
+                behavior: 'smooth'
+            });
         }
     };
 
-    useEffect(() => {
+    const parseSection = () => {
+        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
+            jumpToSection(sectionValue);
+        }
+    };
+    useEffect(throttle(() => {
         setContentHeight(content);
         parseSection();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [content, sectionName]);
+    }, 500), [content, sectionName]);
 
     useEffect(() => {
         if (gaRef.current) {
