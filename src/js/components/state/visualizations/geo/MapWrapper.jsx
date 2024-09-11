@@ -528,10 +528,7 @@ const StateProfileMapWrapper = React.memo((props) => {
     };
 
     const legend = () => {
-        const {
-            stateProfile, updateMapLegendToggle, mapLegendToggle, scope
-        } = props;
-        if (stateProfile) return null; // no legend for state profile pages
+        const { updateMapLegendToggle, mapLegendToggle, scope } = props;
         return (
             <MapLegend
                 segments={spendingScale.segments}
