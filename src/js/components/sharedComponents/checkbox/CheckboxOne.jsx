@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 
 import CheckboxOnePrimary from "./CheckboxOnePrimary";
 
-const expandCheckboxTypeAccordions = (checkboxTypeMapping, selectedTypes) => {
+const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters) => {
     const toExpand = [];
-    checkboxTypeMapping.forEach((category) => {
+    filterCategoryMapping.forEach((category) => {
         category.filters.forEach((type) => {
-            if (selectedTypes.has(type)) {
+            if (selectedFilters.has(type)) {
                 toExpand.push(category.id);
             }
         });
@@ -22,9 +22,9 @@ const expandCheckboxTypeAccordions = (checkboxTypeMapping, selectedTypes) => {
 };
 
 const propTypes = {
-    filterTypes: PropTypes.object,
-    filterTypeMapping: PropTypes.arrayOf(PropTypes.object),
-    selectedTypes: PropTypes.object,
+    filters: PropTypes.object,
+    filterCategoryMapping: PropTypes.arrayOf(PropTypes.object),
+    selectedFilters: PropTypes.object,
     toggleCheckboxType: PropTypes.func,
     bulkTypeChange: PropTypes.func
 };
@@ -34,10 +34,10 @@ const defaultProps = {
 };
 
 const CheckboxOne = ({
-    filterTypes, filterTypeMapping, selectedTypes, toggleCheckboxType, bulkTypeChange
+    filters, filterCategoryMapping, selectedFilters, toggleCheckboxType, bulkTypeChange
 }) => {
     const [expanded, setExpanded] = useState(
-        expandCheckboxTypeAccordions(filterTypeMapping, selectedTypes)
+        expandCheckboxCategoryAccordions(filterCategoryMapping, selectedFilters)
     );
 
     const toggleExpanded = (category) => {
@@ -50,12 +50,12 @@ const CheckboxOne = ({
         }
     };
 
-    const checkboxTypes = filterTypeMapping.map((category) => (
+    const checkboxCategories = filterCategoryMapping.map((category) => (
         <CheckboxOnePrimary
             category={category}
             toggleCheckboxType={toggleCheckboxType}
-            filterTypes={filterTypes}
-            selectedTypes={selectedTypes}
+            filterTypes={filters}
+            selectedTypes={selectedFilters}
             expanded={expanded}
             toggleExpanded={toggleExpanded}
             bulkTypeChange={bulkTypeChange} />
@@ -63,7 +63,7 @@ const CheckboxOne = ({
 
     return (
         <div className="filter-item-wrap">
-            {checkboxTypes}
+            {checkboxCategories}
         </div>
     );
 };

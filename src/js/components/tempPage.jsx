@@ -131,9 +131,9 @@ const tempPage = () => {
                 title="Test Page">
                 <main id="main-content" className="main-content">
                     <CheckboxOne
-                        filterTypeMapping={awardTypesData}
-                        filterTypes={awardTypeCodes}
-                        selectedTypes={awardType}
+                        filterCategoryMapping={awardTypesData}
+                        filters={awardTypeCodes}
+                        selectedFilters={awardType}
                         toggleCheckboxType={toggleAward}
                         bulkTypeChange={bulkAwardChange} />
                     <div style={{ border: '1px solid green', padding: '8px' }}>
