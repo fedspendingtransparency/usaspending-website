@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
@@ -27,8 +27,9 @@ const CheckboxOnePrimary = ({
 }) => {
     const [allChildren, setAllChildren] = useState(false);
 
+    const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
+
     const toggleChildren = () => {
-        console.log('category: ', category);
         if (allChildren) {
             // all the children are selected, deselect them
             bulkTypeChange({
@@ -58,6 +59,31 @@ const CheckboxOnePrimary = ({
         }
     };
 
+    const compareFiltersToChildren = () => {
+        let allSelected = true;
+        let someSelected = false;
+
+        for (const filter of category.filters) {
+            if (!selectedTypes.has(filter)) {
+                allSelected = false;
+            }
+            else {
+                someSelected = true;
+            }
+        }
+
+        if (!allSelected && someSelected) {
+            primaryCheckbox.indeterminate = true;
+        }
+
+        setAllChildren(allSelected);
+    };
+
+    useEffect(() => {
+        compareFiltersToChildren();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedTypes]);
+
     return (
         <div className="checkbox-type-filter">
             <div
@@ -79,7 +105,11 @@ const CheckboxOnePrimary = ({
                         }}
                         icon="chevron-down" />}
                 <div className="checkbox-type-filter__header">
-                    <input type="checkbox" onChange={toggleChildren} />
+                    <input
+                        type="checkbox"
+                        onChange={toggleChildren}
+                        checked={allChildren}
+                        id={`primary-checkbox__${category.id}`} />
                     <span>{category.name}</span>
                     <span className="checkbox-type-filter__item-count">
                         {category.filters?.length}
