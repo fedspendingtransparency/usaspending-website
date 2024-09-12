@@ -361,8 +361,6 @@ const tempPage = () => {
                 title="Test Page">
                 <main id="main-content" className="main-content">
                     <div>
-                        {console.log(awardingAgencyResponseParse(awardingAgencyData))}
-                        {console.log(awardingAgencyCodes(awardingAgencyData))}
                         <div
                             style={{
                                 border: '1px solid red',
