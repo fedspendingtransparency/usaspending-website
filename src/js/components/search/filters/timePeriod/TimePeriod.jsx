@@ -80,10 +80,6 @@ export default class TimePeriod extends React.Component {
 
     componentDidMount() {
         this.prepopulateDatePickers();
-        // eslint-disable-next-line react/no-did-mount-set-state
-        // this.setState({
-        //     activeTab: this.state.dateRangeChipRemoved ? 'dr' : 'fy'
-        // });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -329,16 +325,14 @@ export default class TimePeriod extends React.Component {
         ];
 
         const toggleTab = (e) => {
-            this.setState({ dateRangeChipRemoved: false });
-            // this timeout allows time for the setState above to take effect
-            setTimeout(() => {
+            this.setState({ dateRangeChipRemoved: false }, () => {
                 if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
                     const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
                     this.setState({ ...this.state, activeTab: nextTab });
                     this.clearHint(true);
                     this.props.changeTab(nextTab);
                 }
-            }, 10);
+            });
         };
 
         return (
