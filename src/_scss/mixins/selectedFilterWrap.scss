@@ -6,7 +6,7 @@
     @include flex-flow(row wrap);
     background-color: #E4E4E4;
     padding: rem(5);
-    margin-top: $global-mrg;
+    margin-top: $global-margin * 2;
     margin-bottom: rem(10);
     &:empty {
         display: none;

@@ -29,7 +29,7 @@
   }
   .award-content {
       @import "mixins/fullSectionWrap";
-      @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+      @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
       background-color: $color-white;
 
       // Shared award summary styles

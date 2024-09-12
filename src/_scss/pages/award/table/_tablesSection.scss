@@ -61,7 +61,7 @@
         .table-type-toggle {
             @include display(flex);
             .tab-content span {
-                margin-right: math.div($global-mrg, 3);
+                margin-right: math.div($global-margin * 2, 3);
             }
         }
     }

@@ -245,7 +245,7 @@ $shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
 // (example usage {padding: ($global-pad * 4);} = 60px of padding.)
 $global-pad-mrg: rem(15);
 $global-pad: $global-pad-mrg;
-$global-mrg: $global-pad-mrg;
+//$global-mrg: $global-pad-mrg;
 
 // Global Padding and Margins (new units for 2022 homepage redesign)
 // (example usage {padding: ($global-padding * 4);} = 32px of padding.)
