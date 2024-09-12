@@ -10,6 +10,7 @@ import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import NewLocationSectionContainer from "../containers/search/filters/location/NewLocationSectionContainer";
 import CheckboxOne from "./sharedComponents/checkbox/CheckboxOne";
 import { bulkAwardTypeChange, toggleAwardType } from "../redux/actions/search/searchFilterActions";
+import { awardingAgencyCodes, awardingAgencyResponseParse } from "../helpers/search/checkboxOneHelper";
 
 require("pages/search/searchPage.scss");
 
@@ -45,6 +46,235 @@ const awardTypesData = [
         filters: awardTypeGroups.other
     }
 ];
+
+const awardingAgencyData = {
+    results: [
+        {
+            id: 1068,
+            toptier_flag: true,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            }
+        },
+        {
+            id: 1545,
+            toptier_flag: true,
+            toptier_agency: {
+                toptier_code: '519',
+                abbreviation: 'VEF',
+                name: 'Vietnam Education Foundation'
+            },
+            subtier_agency: {
+                abbreviation: 'VEF',
+                name: 'Vietnam Education Foundation'
+            }
+        },
+        {
+            id: 1228,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '097',
+                abbreviation: 'DOD',
+                name: 'Department of Defense'
+            },
+            subtier_agency: {
+                abbreviation: 'DODEA',
+                name: 'Department of Defense Education Activity'
+            }
+        },
+        {
+            id: 1099,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: null,
+                name: 'Compensatory Education Programs'
+            }
+        },
+        {
+            id: 1088,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'FIPSE',
+                name: 'Fund for the Improvement of Postsecondary Education'
+            }
+        },
+        {
+            id: 1104,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: null,
+                name: 'Indian Education Programs'
+            }
+        },
+        {
+            id: 1101,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'MEP',
+                name: 'Migrant Education Programs'
+            }
+        },
+        {
+            id: 1082,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'OBEMLA',
+                name: 'Office of Bilingual Education and Minority Languages Affairs'
+            }
+        },
+        {
+            id: 1081,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'OCTAE',
+                name: 'Office of Career, Technical, and Adult Education'
+            }
+        },
+        {
+            id: 1098,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'OERI',
+                name: 'Office of Educational Research and Improvement'
+            }
+        },
+        {
+            id: 1105,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'OESE',
+                name: 'Office of Elementary and Secondary Education'
+            }
+        },
+        {
+            id: 1092,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'HEP',
+                name: 'Office of Higher Education Programs'
+            }
+        },
+        {
+            id: 1093,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'OPE',
+                name: 'Office of Postsecondary Education'
+            }
+        },
+        {
+            id: 1083,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'OSERS',
+                name: 'Office of Special Education and Rehabilitative Services'
+            }
+        },
+        {
+            id: 1086,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: 'OSEP',
+                name: 'Office of Special Education Programs'
+            }
+        },
+        {
+            id: 1103,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '091',
+                abbreviation: 'ED',
+                name: 'Department of Education'
+            },
+            subtier_agency: {
+                abbreviation: null,
+                name: 'State and Local Education Programs'
+            }
+        },
+        {
+            id: 240,
+            toptier_flag: false,
+            toptier_agency: {
+                toptier_code: '014',
+                abbreviation: 'DOI',
+                name: 'Department of the Interior'
+            },
+            subtier_agency: {
+                abbreviation: null,
+                name: 'Bureau of Indian Affairs and Bureau of Indian Education'
+            }
+        }
+    ],
+    messages: [
+        'This endpoint is DEPRECATED. Please refer to the api contracts.'
+    ]
+};
 
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
@@ -130,13 +360,36 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <div style={{ border: '1px solid red', margin: '8px 0' }}>
-                        <CheckboxOne
-                            filterCategoryMapping={awardTypesData}
-                            filters={awardTypeCodes}
-                            selectedFilters={awardType}
-                            singleFilterChange={toggleAward}
-                            bulkFilterChange={bulkAwardChange} />
+                    <div>
+                        {console.log(awardingAgencyResponseParse(awardingAgencyData))}
+                        {console.log(awardingAgencyCodes(awardingAgencyData))}
+                        <div
+                            style={{
+                                border: '1px solid red',
+                                margin: '8px',
+                                display: 'inline-block'
+                            }} >
+                            <CheckboxOne
+                                filterCategoryMapping={awardTypesData}
+                                filters={awardTypeCodes}
+                                selectedFilters={awardType}
+                                singleFilterChange={toggleAward}
+                                bulkFilterChange={bulkAwardChange} />
+                        </div>
+                        <div
+                            style={{
+                                border: '1px solid blue',
+                                margin: '8px',
+                                display: 'inline-block'
+                            }}>
+                            <CheckboxOne
+                                filterCategoryMapping={awardingAgencyResponseParse(awardingAgencyData)}
+                                filters={awardingAgencyCodes(awardingAgencyData)}
+                                selectedFilters={awardType}
+                                singleFilterChange={toggleAward}
+                                bulkFilterChange={bulkAwardChange} />
+                        </div>
+
                     </div>
                     <div style={{ border: '1px solid green', padding: '8px', margin: '8px 0' }}>
                         <NewLocationSectionContainer />
