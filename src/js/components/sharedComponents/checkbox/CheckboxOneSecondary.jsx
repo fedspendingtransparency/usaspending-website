@@ -10,7 +10,8 @@ const propTypes = {
     category: PropTypes.object,
     selectedFilters: PropTypes.object,
     singleFilterChange: PropTypes.func,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    expanded: PropTypes.bool
 };
 
 const CheckboxOneSecondary = ({
