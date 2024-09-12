@@ -355,8 +355,6 @@ const StateProfileMapWrapper = React.memo((props) => {
     const mapReadyPrep = () => {
         // map has mounted, load the state shapes
         setMapReady(true);
-        // and set the redux property used for jumpTo function in searchSectionWrapper
-        props.onMapLoaded(true);
     };
 
     const measureMap = (forced = false) => {
