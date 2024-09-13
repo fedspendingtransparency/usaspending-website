@@ -45,7 +45,7 @@ const GeoVisualizationSection = React.memo((props) => {
     const [selectedItem, setSelectedItem] = useState({});
     const [activeFilters, setActiveFilters] = useState({
         territory: props.mapLayer,
-        cfda: null,
+        def_codes: 'all',
         awardingAgency: null
     });
     const dataRef = useRef(props.data);
@@ -64,16 +64,26 @@ const GeoVisualizationSection = React.memo((props) => {
         dataRef.current = props.data;
     }, [props.data]);
 
-    const updateAmountTypeFilter = (value) => {
-        setActiveFilters({ ...activeFilters, amountType: value });
-        props.updateMapLegendToggle(value);
+    const updateDefcFilter = (value) => {
+        const newSearch = {
+            filters: {}
+        };
+
+        if (value === "all") {
+            props.clearSearchFilters("def_code");
+        } else {
+            newSearch.filters.def_codes = [value];
+            props.changeScope(newSearch, "def_code", [value]);
+        }
+
+        setActiveFilters({ ...activeFilters, def_codes: value });
     };
 
     // this will need to be updated as more filters are added
     const addOnClickToFilters = () => Object.keys(stateFilters).reduce((acc, filter) => {
         const filterWithOnClick = {
             ...stateFilters[filter],
-            onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
+            onClick: filtersOnClickHandler[filter] === 'updateTerritoryFilter' ? updateTerritoryFilter : updateDefcFilter
         };
         acc[filter] = filterWithOnClick;
         return acc;
