@@ -16,7 +16,7 @@
         }
         & svg:not(:root) {
             fill: $color-gray-medium;
-            padding: 0 $global-pad;
+            padding: 0 $global-padding * 2;
         }
         & .breadcrumb-arrow {
             display: inline-block;

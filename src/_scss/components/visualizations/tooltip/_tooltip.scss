@@ -18,7 +18,7 @@
         color: $gray-90;
         font-size: $font-size-16;
         font-weight: $font-semibold;
-        padding: $global-pad ($global-pad * 2);
+        padding: $global-padding * 2 ($global-padding * 4);
         text-align: center;
         z-index: 9;
     }
@@ -26,7 +26,7 @@
         @include display(flex);
         @include flex-flow(row wrap);
         @include justify-content(space-between);
-        padding: rem(15) ($global-pad * 2);
+        padding: rem(15) ($global-padding * 4);
         &.center {
             width: 100%;
         }
