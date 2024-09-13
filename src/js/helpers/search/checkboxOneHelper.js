@@ -11,11 +11,12 @@ export const awardingAgencyResponseParse = ({ results }) => {
     const uniqueTopTiers = Array.from(setTiers).map(JSON.parse);
 
     // organize each sub tier into their top tier
-    results.map((res) => {
+    results.forEach((res) => {
         const category = uniqueTopTiers.find(
             (topTier) => topTier.id === res.toptier_agency.toptier_code
         );
-        return category.filters.push(res.id);
+
+        category.filters.push(res.id);
     });
 
     return uniqueTopTiers;
@@ -26,7 +27,7 @@ export const awardingAgencyCodes = (({ results }) => {
 
 
     /* eslint-disable camelcase */
-    results.map(({ id, subtier_agency }) => {
+    results.forEach(({ id, subtier_agency }) => {
         codesObj[id] = subtier_agency.name;
     });
     /* eslint-enable camelcase */
