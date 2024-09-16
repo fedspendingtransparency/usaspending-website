@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../../../sharedComponents/icons/Icons';
 
 const defaultProps = {
     header: '',
@@ -17,18 +16,14 @@ const propTypes = {
     message: PropTypes.string
 };
 
-export default class DateRangeError extends React.Component {
-    render() {
-        return (
-            <div className="error-message">
-                <div className="error-title">
-                    <Icons.ExclamationCircle />
-                    <div className="heading">{this.props.header}</div>
-                </div>
-                <p className="message">{this.props.message}</p>
-            </div>
-        );
-    }
-}
+const DateRangeError = (props) => (
+    <div className="date-range__warning">
+        <span className="date-range__invalid">Invalid search</span>
+        <ul>
+            <li>{props.message}</li>
+        </ul>
+    </div>
+);
 DateRangeError.defaultProps = defaultProps;
 DateRangeError.propTypes = propTypes;
+export default DateRangeError;

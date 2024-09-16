@@ -68,7 +68,7 @@ export default class StateTimeVisualization extends React.Component {
         const legend = [
             {
                 color: this.props.color,
-                label: 'Amount Obligated',
+                label: 'Obligations',
                 offset: 0
             }];
 

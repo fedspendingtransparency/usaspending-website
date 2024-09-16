@@ -175,7 +175,12 @@ const SearchPage = ({
                     <div className="mobile-filter-button-wrapper">
                         <button
                             className="mobile-filter-button"
-                            onClick={toggleMobileFilters}>
+                            onClick={toggleMobileFilters}
+                            onKeyUp={(e) => {
+                                if (e.key === "Escape" && showMobileFilters) {
+                                    toggleMobileFilters();
+                                }
+                            }}>
                             <div className="mobile-filter-button-content">
                                 <div className={`mobile-filter-button-count ${showCountBadge}`}>
                                     {filterCount}

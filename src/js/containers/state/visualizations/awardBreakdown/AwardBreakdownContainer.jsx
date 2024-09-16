@@ -31,7 +31,8 @@ export class AwardBreakdownContainer extends React.Component {
             awardBreakdown: [],
             rows: [],
             totalAmount: 0,
-            hasNegatives: false
+            hasNegatives: false,
+            data: []
         };
 
         this.searchRequest = null;
@@ -44,6 +45,10 @@ export class AwardBreakdownContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.stateProfile.id !== prevProps.stateProfile.id || this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
             this.fetchAwardBreakdown(this.props.stateProfile.id, this.props.stateProfile.fy);
+        }
+
+        if (this.props.toggleState !== prevProps.toggleState) {
+            this.parseData(this.state.data);
         }
     }
 
@@ -69,7 +74,8 @@ export class AwardBreakdownContainer extends React.Component {
                 this.searchRequest = null;
 
                 this.setState({
-                    inFlight: false
+                    inFlight: false,
+                    data: res.data
                 });
 
                 this.parseData(res.data);
@@ -88,10 +94,11 @@ export class AwardBreakdownContainer extends React.Component {
     }
 
     parseData(results) {
-    // Sum all amounts in the returned award types
+        const amountType = this.props.toggleState ? "total_outlays" : "amount";
+        // Sum all amounts in the returned award types
         const totalAmount = reduce(
             results,
-            (sum, awardType) => sum + parseFloat(awardType.amount),
+            (sum, awardType) => sum + parseFloat(awardType[amountType]),
             0
         );
 
@@ -100,7 +107,7 @@ export class AwardBreakdownContainer extends React.Component {
             results,
             (sum, awardType) => {
                 if (parseFloat(awardType.amount) >= 0) {
-                    return sum + parseFloat(awardType.amount);
+                    return sum + parseFloat(awardType[amountType]);
                 }
                 return sum;
             },
@@ -111,7 +118,7 @@ export class AwardBreakdownContainer extends React.Component {
 
         // Sort the results by amount
         const sortedResults = results.sort((rowA, rowB) =>
-            rowB.amount - rowA.amount
+            rowB[amountType] - rowA[amountType]
         );
 
         const rows = sortedResults.map((result) => {
