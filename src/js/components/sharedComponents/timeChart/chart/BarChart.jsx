@@ -3,10 +3,10 @@
  * Created by Kevin Li 12/16/16
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { scaleBand, scaleLinear } from 'd3-scale';
-import { isEqual, flattenDeep, min, max, mean, forEach, sum } from 'lodash';
+import { flattenDeep, min, max, mean, forEach, sum } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -42,53 +42,62 @@ const defaultProps = {
     legend: []
 };
 
-export default class BarChart extends React.Component {
-    constructor(props) {
-        super(props);
+const BarChart = (props) => {
+    // eslint-disable-next-line prefer-const
+    let dataPoints = {};
+    const [permxScale, setXScale] = useState(null);
+    const [permyScale, setYScale] = useState(null);
+    const [yTicks, setYTicks] = useState(null);
+    const [permitems, setItems] = useState([]);
+    const [xValues, setXValues] = useState([]);
+    const [yValues, setYValues] = useState([]);
+    const [yAverage, setYAverage] = useState(0);
+    const [permxAxisPos, setXAxisPos] = useState(0);
+    const [permgraphHeight, setGraphHeight] = useState(0);
+    const [activeBar, setActiveBar] = useState(null);
+    const [rawLabels, setRawLabels] = useState();
+    // eslint-disable-next-line no-unused-vars
+    const [divRef, setDivRef] = useState(null);
+    // eslint-disable-next-line no-unused-vars
+    const [svgRef, setSVGRef] = useState(null);
 
-        this.state = {
-            xScale: null,
-            yScale: null,
-            yTicks: null,
-            items: [],
-            xValues: [],
-            yValues: [],
-            yAverage: 0,
-            xAxisPos: 0,
-            graphHeight: 0,
-            activeBar: null,
-            padding: {
-                left: 0,
-                bottom: 20
-            }
-        };
-
-        this.dataPoints = {};
-
-        this.selectBar = this.selectBar.bind(this);
-        this.deselectBar = this.deselectBar.bind(this);
-        this.deregisterBar = this.deregisterBar.bind(this);
-    }
-
-    componentDidMount() {
-        this.generateChart(this.props);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (!isEqual(nextProps, this.props) || !isEqual(nextState, this.state)) {
-            return true;
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (!isEqual(nextProps, this.props) || !isEqual(nextState, this.state)) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    const deselectBar = () => {
+        if (!props.enableHighlight) {
+            // highlighting is disabled
+            return;
         }
-        return false;
-    }
 
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps, this.props)) {
-            this.generateChart(this.props);
+        setActiveBar(null);
+    };
+
+    const selectBar = (barIdentifier, isTouch = false) => {
+        if (!props.enableHighlight) {
+            // highlighting is disabled
+            return;
         }
-    }
 
-    generateChart(props) {
-    // flatten the Y values into a single array
+        if (isTouch && activeBar === barIdentifier) {
+            // a touch event occurred on an already active bar, this indicates a deselection
+            deselectBar();
+            return;
+        }
+
+        setActiveBar(barIdentifier);
+    };
+
+    const deregisterBar = (barIdentifier) => {
+    // the data point is about to be unmounted, remove it from the data point object
+        delete dataPoints[barIdentifier];
+    };
+
+    const generateChart = () => {
+        // flatten the Y values into a single array
         const allY = flattenDeep(props.ySeries);
 
         // calculate the axes and ranges
@@ -224,98 +233,48 @@ export default class BarChart extends React.Component {
                     width: itemWidth,
                     x: xPos,
                     y: yPos,
-                    color: this.props.legend[0].color,
+                    color: props.legend[0].color,
                     description,
-                    selectBar: this.selectBar,
-                    deselectBar: this.deselectBar,
-                    deregisterBar: this.deregisterBar
+                    selectBar,
+                    deselectBar,
+                    deregisterBar
                 };
                 items.push(bar);
             });
         });
 
         // save it all to state
-        this.setState({
-            xScale,
-            yScale,
-            items,
-            xAxisPos,
-            graphHeight,
-            yValues: allY,
-            xValues: props.groups,
-            rawLabels: props.rawLabels,
-            yAverage: mean(allY),
-            yTicks: yScale.ticks(7)
-        });
-    }
+        setXScale(xScale);
+        setYScale(yScale);
+        setItems(items);
+        setXAxisPos(xAxisPos);
+        setGraphHeight(graphHeight);
+        setYValues(allY);
+        setXValues(props.groups);
+        setRawLabels(props.rawLabels);
+        setYAverage(mean(allY));
+        setYTicks(yScale.ticks(7));
+    };
 
-    selectBar(barIdentifier, isTouch = false) {
-        if (!this.props.enableHighlight) {
-            // highlighting is disabled
-            return;
-        }
-
-        if (isTouch && this.state.activeBar === barIdentifier) {
-            // a touch event occurred on an already active bar, this indicates a deselection
-            this.deselectBar();
-            return;
-        }
-
-        this.setState({
-            activeBar: barIdentifier
-        }, () => {
-            // notify all the child items of the change
-            forEach(this.dataPoints, (value) => {
-                value.updateActive(this.state.activeBar);
-            });
-
-            this.prepareTooltip(barIdentifier);
-        });
-    }
-
-    deselectBar() {
-        if (!this.props.enableHighlight) {
-            // highlighting is disabled
-            return;
-        }
-
-        this.setState({
-            activeBar: null
-        }, () => {
-            // notify all the child items of the change
-            forEach(this.dataPoints, (value) => {
-                value.updateActive(this.state.activeBar);
-            });
-
-            // hide the tooltip
-            this.props.showTooltip(null, 0, 0);
-        });
-    }
-
-    deregisterBar(barIdentifier) {
-    // the data point is about to be unmounted, remove it from the data point object
-        delete this.dataPoints[barIdentifier];
-    }
-
-    prepareTooltip(barIdentifier) {
+    const prepareTooltip = (barIdentifier) => {
     // fetch the original data
         const groupIndex = barIdentifier.split('-')[0];
-        const groupLabel = this.props.groups[groupIndex];
+        const groupLabel = props.groups[groupIndex];
         const subIndex = barIdentifier.split('-')[1];
-        const yValue = this.props.ySeries[groupIndex][subIndex];
+        const yValue = props.ySeries[groupIndex][subIndex];
 
         // calculate the tooltip position
         // get the top of the chart on the HTML page
-        const chartTop = this.divRef.offsetTop;
-        const chartLeft = this.divRef.offsetLeft;
-        const xAxisHeight = this.state.graphHeight - this.state.yScale(0);
+        const chartTop = divRef.offsetTop;
+        const chartLeft = divRef.offsetLeft;
+        const xAxisHeight = permgraphHeight - permyScale(0);
 
         // calculate where the halfway to the top of the bar is for positive values
         let yPos = chartTop + xAxisHeight;
         if (yValue >= 0) {
             // for positive values, the bar height is the distance from the Y scale position of
             // the data point (the top of the bar) to the X axis position
-            const barHeight = this.state.yScale(yValue) - this.state.yScale(0);
+            const barHeight = permyScale(yValue) - permyScale(0);
 
             // since the tooltip exists in the HTML DOM instead of the SVG, offset its Y position
             // by adding the SVG's DOM Y position to it
@@ -324,7 +283,7 @@ export default class BarChart extends React.Component {
         else {
             // for negative values, bar height is calculated as the distance from the X axis to
             // the Y scale position for the data point (the bottom of the bar)
-            const barHeight = this.state.yScale(0) - this.state.yScale(yValue);
+            const barHeight = permyScale(0) - permyScale(yValue);
             // since we are starting at the X axis height, we need to keep going (adding Y position)
             // to the halfway point of the bar
             yPos += (barHeight / 2);
@@ -332,12 +291,12 @@ export default class BarChart extends React.Component {
 
         const xPos = (
             chartLeft +
-            this.state.items[groupIndex].x +
-            this.state.items[groupIndex].width +
-            this.props.padding.left);
+            permitems[groupIndex].x +
+            permitems[groupIndex].width +
+            props.padding.left);
 
         // calculate the percentage of the total
-        const rawPercent = (yValue / sum(this.state.yValues));
+        const rawPercent = (yValue / sum(yValues));
 
         // format the percentage to be rounded to 1 decimal value, if it is a number
         let percentage = 'N/A';
@@ -350,92 +309,112 @@ export default class BarChart extends React.Component {
         }
 
         // show the tooltip
-        this.props.showTooltip({
-            xValue: this.state.items[groupIndex].dataX,
-            yValue: this.state.items[groupIndex].dataY,
+        props.showTooltip({
+            xValue: permitems[groupIndex].dataX,
+            yValue: permitems[groupIndex].dataY,
             percentage,
             group: groupLabel
-        }, xPos, yPos, this.state.items[groupIndex].width);
-    }
+        }, xPos, yPos, permitems[groupIndex].width);
+    };
 
-    render() {
+    useEffect(() => {
+        generateChart(props);
+    }, [props]);
+
+    useState(() => {
+        if (activeBar !== null) {
+            forEach(dataPoints, (value) => {
+                value.updateActive(activeBar);
+            });
+
+            prepareTooltip(activeBar);
+        } else {
+        // notify all the child items of the change
+            forEach(dataPoints, (value) => {
+                value.updateActive(activeBar);
+            });
+
+            // hide the tooltip
+            props.showTooltip(null, 0, 0);
+        }
+    }, [activeBar]);
+
     // add 20px to the top of the chart to avoid cutting off label text
     // wrap the chart contents in a group and transform it down 20px to avoid impacting
     // positioning calculations
-        const bars = this.state.items.map((item) => (
-            <BarItem
-                key={item.key}
-                identifier={item.identifier}
-                dataY={item.dataY}
-                dataX={item.dataX}
-                graphHeight={item.graphHeight}
-                height={item.height}
-                width={item.width}
-                x={item.x}
-                y={item.y}
-                color={item.color}
-                description={item.description}
-                selectBar={item.selectBar}
-                deselectBar={item.deselectBar}
-                deregisterBar={item.deregisterBar}
-                ref={(component) => {
-                    this.dataPoints[item.identifier] = component;
-                }} />
-        ));
+    const bars = this.state.items.map((item) => (
+        <BarItem
+            key={item.key}
+            identifier={item.identifier}
+            dataY={item.dataY}
+            dataX={item.dataX}
+            graphHeight={item.graphHeight}
+            height={item.height}
+            width={item.width}
+            x={item.x}
+            y={item.y}
+            color={item.color}
+            description={item.description}
+            selectBar={item.selectBar}
+            deselectBar={item.deselectBar}
+            deregisterBar={item.deregisterBar}
+            ref={(component) => {
+                dataPoints[item.identifier] = component;
+            }} />
+    ));
 
-        return (
-            <div
-                ref={(div) => {
-                    this.divRef = div;
+    return (
+        <div
+            ref={(div) => {
+                setDivRef(div);
+            }}>
+            <svg
+                className="bar-graph"
+                width={props.width}
+                height={props.height + 20}
+                ref={(svg) => {
+                    setSVGRef(svg);
                 }}>
-                <svg
-                    className="bar-graph"
-                    width={this.props.width}
-                    height={this.props.height + 20}
-                    ref={(svg) => {
-                        this.svgRef = svg;
-                    }}>
-                    <g className="bar-graph-body" transform="translate(0,20)">
-                        <BarYAxis
-                            height={this.props.height - this.props.padding.bottom}
-                            width={this.props.width - this.props.padding.left}
-                            padding={this.props.padding}
-                            data={this.state.yValues}
-                            scale={this.state.yScale}
-                            ticks={this.state.yTicks}
-                            average={this.state.yAverage}
-                            generatedYAxis={this.generatedYAxis} />
+                <g className="bar-graph-body" transform="translate(0,20)">
+                    <BarYAxis
+                        height={props.height - props.padding.bottom}
+                        width={props.width - props.padding.left}
+                        padding={props.padding}
+                        data={yValues}
+                        scale={permyScale}
+                        ticks={yTicks}
+                        average={yAverage} />
 
-                        <BarXAxis
-                            top={this.props.height - this.props.padding.bottom}
-                            width={this.props.width - this.props.padding.left}
-                            padding={this.props.padding}
-                            data={this.state.xValues}
-                            rawLabels={this.state.rawLabels}
-                            scale={this.state.xScale}
-                            axisPos={this.state.xAxisPos}
-                            activeLabel={this.props.activeLabel}
-                            visualizationPeriod={this.props.visualizationPeriod} />
+                    <BarXAxis
+                        top={props.height - props.padding.bottom}
+                        width={props.width - props.padding.left}
+                        padding={props.padding}
+                        data={xValues}
+                        rawLabels={rawLabels}
+                        scale={permxScale}
+                        axisPos={permxAxisPos}
+                        activeLabel={props.activeLabel}
+                        visualizationPeriod={props.visualizationPeriod} />
 
-                        <g
-                            className="bar-data"
-                            transform={`translate(${this.props.padding.left},0)`}>
-                            {bars}
-                        </g>
-
-                        <g
-                            className="legend-container"
-                            transform={`translate(
-                                ${this.props.padding.left},
-                                ${this.props.height - 20})`}>
-                            <BarChartLegend legend={this.props.legend} />
-                        </g>
+                    <g
+                        className="bar-data"
+                        transform={`translate(${props.padding.left},0)`}>
+                        {bars}
                     </g>
-                </svg>
-            </div>
-        );
-    }
-}
+
+                    <g
+                        className="legend-container"
+                        transform={`translate(
+                                ${props.padding.left},
+                                ${props.height - 20})`}>
+                        <BarChartLegend legend={props.legend} />
+                    </g>
+                </g>
+            </svg>
+        </div>
+    );
+};
 
 BarChart.propTypes = propTypes;
 BarChart.defaultProps = defaultProps;
+export default BarChart;
