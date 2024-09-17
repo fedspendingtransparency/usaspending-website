@@ -21,7 +21,6 @@ import StateProfileMapFilters from "./StateProfileMapFilters";
 const propTypes = {
     filters: PropTypes.object,
     activeFilters: PropTypes.object,
-    setActiveFilters: PropTypes.func,
     awardTypeFilters: PropTypes.array,
     data: PropTypes.object,
     scope: PropTypes.string,
@@ -547,15 +546,14 @@ const StateProfileMapWrapper = React.memo((props) => {
     const filters = () => {
         const { activeFilters } = props;
         let tempMapFilters = mapFilters;
-
-        let active = cloneDeep(props.activeFilters);
+        let active = cloneDeep(activeFilters);
         if (!tempMapFilters || !activeFilters) return null;
         const awardTypeFilters = props.awardTypeFilters?.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
         if (awardTypeFilters?.includes(activeFilters.awardType)) {
             tempMapFilters.spendingType.options.pop();
         }
 
-        if (props.activeFilters?.territory === 'country') {
+        if (activeFilters?.territory === 'country') {
             tempMapFilters = Object.assign({}, { territory: tempMapFilters.territory, def_codes: tempMapFilters.def_codes, amountType: { ...tempMapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
         }
