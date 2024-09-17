@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/15/18
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
