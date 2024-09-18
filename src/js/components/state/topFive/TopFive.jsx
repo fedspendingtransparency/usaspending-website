@@ -58,7 +58,7 @@ const TopFive = (props) => {
     const tableRows = props.results?.map((result) => {
         const percentValue = (result._amount / props.total) * 100;
         const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
-        const linkText = props.category === "awards" ? "View this Award" : "View Awards";
+        const linkText = props.category === "awards" ? "View this award" : "View awards";
         return [result._slug ? result.linkedName : result.name, result.amount, percent,
             <a
                 role="button"
@@ -139,20 +139,19 @@ const TopFive = (props) => {
             };
         }
         else if (params.category === "defc") {
-            // TODO awaiting backend changes
-            // categoryFilter = {
-            //     defCodes: {
-            //         require: [linkData._code],
-            //         exclude: [],
-            //         counts: [
-            //             {
-            //                 label: linkData._name,
-            //                 value: linkData._code,
-            //                 count: 1
-            //             }
-            //         ]
-            //     }
-            // };
+            categoryFilter = {
+                defCodes: {
+                    require: [linkData._code],
+                    exclude: [],
+                    counts: [
+                        {
+                            label: linkData._name,
+                            value: linkData._code,
+                            count: 1
+                        }
+                    ]
+                }
+            };
         }
         else if (params.category === 'recipient') {
             categoryFilter = { selectedRecipients: [linkData._name] };
