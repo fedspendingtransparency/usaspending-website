@@ -14,7 +14,7 @@ const propTypes = {
     expanded: PropTypes.bool
 };
 
-const CheckboxOneSecondary = ({
+const AccordionCheckboxSecondary = ({
     category, selectedFilters, singleFilterChange, filters, expanded
 }) => {
     const selectFilter = (filter) => {
@@ -43,6 +43,6 @@ const CheckboxOneSecondary = ({
     );
 };
 
-CheckboxOneSecondary.propTypes = propTypes;
+AccordionCheckboxSecondary.propTypes = propTypes;
 
-export default CheckboxOneSecondary;
+export default AccordionCheckboxSecondary;

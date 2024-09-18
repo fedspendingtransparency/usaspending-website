@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import CheckboxOnePrimary from "./CheckboxOnePrimary";
+import AccordionCheckboxPrimary from "./AccordionCheckboxPrimary";
 
 const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters) => {
     const toExpand = [];
@@ -33,7 +33,7 @@ const defaultProps = {
     filterTypeMapping: []
 };
 
-const CheckboxOne = ({
+const AccordionCheckbox = ({
     filters, filterCategoryMapping, selectedFilters, singleFilterChange, bulkFilterChange
 }) => {
     const [expandedCategories, setExpandedCategories] = useState(
@@ -51,7 +51,7 @@ const CheckboxOne = ({
     };
 
     const checkboxCategories = filterCategoryMapping.map((category) => (
-        <CheckboxOnePrimary
+        <AccordionCheckboxPrimary
             category={category}
             singleFilterChange={singleFilterChange}
             filters={filters}
@@ -68,7 +68,7 @@ const CheckboxOne = ({
     );
 };
 
-CheckboxOne.propTypes = propTypes;
-CheckboxOne.defaultProps = defaultProps;
+AccordionCheckbox.propTypes = propTypes;
+AccordionCheckbox.defaultProps = defaultProps;
 
-export default CheckboxOne;
+export default AccordionCheckbox;

@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 import Analytics from 'helpers/analytics/Analytics';
 
-import CheckboxOneSecondary from "./CheckboxOneSecondary";
+import AccordionCheckboxSecondary from "./AccordionCheckboxSecondary";
 
 const propTypes = {
     category: PropTypes.object,
@@ -22,7 +22,7 @@ const propTypes = {
     enableAnalytics: PropTypes.bool
 };
 
-const CheckboxOnePrimary = ({
+const AccordionCheckboxPrimary = ({
     category,
     expandedCategories,
     toggleExpanded,
@@ -146,7 +146,7 @@ const CheckboxOnePrimary = ({
                     </span>
                 </div>
             </div>
-            <CheckboxOneSecondary
+            <AccordionCheckboxSecondary
                 expanded={expandedCategories?.includes(category.id)}
                 selectedFilters={selectedFilters}
                 category={category}
@@ -155,6 +155,6 @@ const CheckboxOnePrimary = ({
         </div>);
 };
 
-CheckboxOnePrimary.propTypes = propTypes;
+AccordionCheckboxPrimary.propTypes = propTypes;
 
-export default CheckboxOnePrimary;
+export default AccordionCheckboxPrimary;
