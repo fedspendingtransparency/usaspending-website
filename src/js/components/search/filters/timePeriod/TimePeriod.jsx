@@ -25,7 +25,6 @@ const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
 dayjs.extend(isSameOrAfter);
 
 const defaultProps = {
-    activeTab: 'fy',
     disableDateRange: false
 };
 
@@ -65,7 +64,8 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false,
-            activeTab: 'fy'
+            activeTab: 'fy',
+            dateRangeChipRemoved: false
         };
 
         // bind functions
@@ -200,6 +200,9 @@ export default class TimePeriod extends React.Component {
             startDate: null,
             endDate: null
         });
+        this.setState({
+            dateRangeChipRemoved: true
+        });
     }
 
     showError(error, message) {
@@ -249,7 +252,7 @@ export default class TimePeriod extends React.Component {
             activeClassDR = 'inactive';
         }
 
-        if (this.props.activeTab === 'fy') {
+        if (this.props.activeTab === 'fy' && !this.state.dateRangeChipRemoved) {
             showFilter = GlobalConstants.QAT ? (<AllFiscalYearsWithChips
                 updateFilter={this.props.updateFilter}
                 timePeriods={this.props.timePeriods}
@@ -322,12 +325,14 @@ export default class TimePeriod extends React.Component {
         ];
 
         const toggleTab = (e) => {
-            if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
-                const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
-                this.setState({ ...this.state, activeTab: nextTab });
-                this.clearHint(true);
-                this.props.changeTab(nextTab);
-            }
+            this.setState({ dateRangeChipRemoved: false }, () => {
+                if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
+                    const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
+                    this.setState({ ...this.state, activeTab: nextTab });
+                    this.clearHint(true);
+                    this.props.changeTab(nextTab);
+                }
+            });
         };
 
         return (

@@ -48,6 +48,7 @@ const DateRange = (props) => {
             // the start date was reset to null, clear the picker
             startPicker?.clearValue();
         }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props?.startDate]);
 
     useEffect(() => {
@@ -55,7 +56,9 @@ const DateRange = (props) => {
             // the end date was reset to null, clear the picker
             endPicker?.clearValue();
         }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props?.endDate]);
+
     const submitDates = () => {
         // validate that dates are provided for both fields and the end dates
         // don't come before the start dates
@@ -89,18 +92,11 @@ const DateRange = (props) => {
             });
         }
     };
+
     const submitRange = (e) => {
     // allow the user to change date ranges by keyboard and pressing enter
         e.preventDefault();
         submitDates();
-    };
-
-    const removeRange = () => {
-        const tabButton = document.getElementById('filter-date-range-tab');
-        if (tabButton) {
-            tabButton.focus();
-        }
-        props.removeDateRange();
     };
 
     const generateStartDateDisabledDays = (earliestDate) => {
@@ -193,10 +189,12 @@ const DateRange = (props) => {
     useEffect(() => {
         if (noDates || props.errorState) {
             setDisabled(true);
-        } else {
+        }
+        else {
             setDisabled(false);
         }
         testDates();
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.errorState, noDates, props.startDate, props.endDate]);
 
     return (
@@ -254,7 +252,7 @@ const DateRange = (props) => {
                     className="shown-filter-button"
                     title="Click to remove filter."
                     aria-label={`Applied date range: ${dateLabel}`}
-                    onClick={removeRange}>
+                    onClick={props.removeDateRange}>
                     {dateLabel}
                     <span className="close">
                         <FontAwesomeIcon icon="times" />
