@@ -43,16 +43,10 @@ const availableLayers = ['county', 'congressionalDistrict'];
 const GeoVisualizationSection = React.memo((props) => {
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
-    const [activeFilters, setActiveFilters] = useState({
-        territory: props.mapLayer,
-        def_codes: 'all',
-        awardingAgency: null
-    });
     const dataRef = useRef(props.data);
 
     const updateTerritoryFilter = (value) => {
         props.changeMapLayer(value);
-        setActiveFilters({ ...activeFilters, territory: value });
     };
 
     useEffect(() => {
@@ -75,8 +69,6 @@ const GeoVisualizationSection = React.memo((props) => {
             newSearch.filters.def_codes = [value];
             props.changeScope(newSearch, "def_code", [value]);
         }
-
-        setActiveFilters({ ...activeFilters, def_codes: value });
     };
 
     // this will need to be updated as more filters are added
@@ -172,8 +164,7 @@ const GeoVisualizationSection = React.memo((props) => {
                 {...props}
                 awardTypeFilters={awardTypeTabs}
                 filters={addOnClickToFilters()}
-                activeFilters={activeFilters}
-                setActiveFilters={setActiveFilters}
+                activeFilters={props.activeFilters}
                 className={props.className}
                 data={props.data}
                 renderHash={props.renderHash}
