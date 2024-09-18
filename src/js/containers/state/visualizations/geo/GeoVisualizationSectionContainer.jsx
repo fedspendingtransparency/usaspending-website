@@ -47,6 +47,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 def_code: "",
                 program_number: "",
                 program_activity: ""
+            },
+            activeFilters: {
+                territory: "county",
+                def_codes: 'all'
             }
         };
 
@@ -112,12 +116,17 @@ export class GeoVisualizationSectionContainer extends React.Component {
         }
 
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempSearchData);
+
         this.apiRequest.promise
             .then((res) => {
                 this.setState((prevState) => ({
                     loading: false,
                     error: false,
                     searchData: tempSearchData,
+                    activeFilters: {
+                        ...prevState.activeFilters,
+                        [filterTypePlural]: filterType === "agency" ? tempSearchData.filters[filterTypePlural][0].name : displayName[0]
+                    },
                     selectedItemsDisplayNames: {
                         ...prevState.selectedItemsDisplayNames,
                         [filterType]: filterType === "agency" ? tempSearchData.filters[filterTypePlural][0].name : displayName
@@ -289,6 +298,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }, 300);
         });
     }
+
     prepareFetch() {
         if (this.state.loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
@@ -298,11 +308,15 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.fetchData();
     }
     changeMapLayer(layer) {
-        this.setState({
+        this.setState((prevState) => ({
             mapLayer: layer,
             renderHash: `geo-${uniqueId()}`,
-            loadingTiles: true
-        }, () => {
+            loadingTiles: true,
+            activeFilters: {
+                ...prevState.activeFilters,
+                territory: layer
+            }
+        }), () => {
             this.prepareFetch();
         });
     }
