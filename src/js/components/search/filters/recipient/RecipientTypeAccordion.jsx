@@ -102,31 +102,32 @@ const RecipientTypeAccordion = ({
         }
     };
 
-    const checkboxTypes =
-        recipientTypeMapping.map((category) => (
-            <div className="recipient-type-filter">
-                <div
-                    className="recipient-type-filter__heading"
-                    onClick={() => toggleExpanded(category)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") toggleExpanded(category);
-                    }}
-                    role="button"
-                    tabIndex="0">
-                    {!expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
-                    {expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
-                    <div className="recipient-type-filter__header">
-                        <span>{category.name}</span>
-                        <span className="recipient-type-filter__item-count">{category.filters?.length} {category.filters?.length === 1 ? 'type' : 'types'}</span>
-                    </div>
+    const checkboxTypes = recipientTypeMapping.map((category) => (
+        <div className="recipient-type-filter">
+            <div
+                className="recipient-type-filter__heading"
+                onClick={() => toggleExpanded(category)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") toggleExpanded(category);
+                }}
+                role="button"
+                tabIndex="0">
+                {!expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
+                {expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
+                <div className="recipient-type-filter__header">
+                    <span>{category.name}</span>
+                    <span className="recipient-type-filter__item-count">
+                        {category.filters?.length} {category.filters?.length === 1 ? 'type' : 'types'}
+                    </span>
                 </div>
-                <RecipientTypeList
-                    expanded={expanded?.includes(category.id)}
-                    selectedTypes={selectedTypes}
-                    category={category}
-                    toggleCheckboxType={toggleCheckboxType}
-                    recipientTypes={recipientTypes} />
-            </div>));
+            </div>
+            <RecipientTypeList
+                expanded={expanded?.includes(category.id)}
+                selectedTypes={selectedTypes}
+                category={category}
+                toggleCheckboxType={toggleCheckboxType}
+                recipientTypes={recipientTypes} />
+        </div>));
 
     useEffect(() => {
         if (dirtyFilters && prevDirtyFilters !== dirtyFilters) {
@@ -141,6 +142,7 @@ const RecipientTypeAccordion = ({
             <div className="checkbox-type-filter">
                 <ul className="checkbox-types">
                     {checkboxTypes}
+                    {console.log('selectedTypes: ', selectedTypes)}
                 </ul>
                 <SubmitHint
                     ref={(component) => {
@@ -153,4 +155,5 @@ const RecipientTypeAccordion = ({
 
 RecipientTypeAccordion.defaultProps = defaultProps;
 RecipientTypeAccordion.propTypes = propTypes;
+
 export default RecipientTypeAccordion;
