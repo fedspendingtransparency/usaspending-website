@@ -141,11 +141,11 @@ const AccordionCheckboxPrimary = ({
                         onChange={toggleChildren}
                         checked={allChildren}
                         id={`primary-checkbox__${category.id}`} />
-                    <span className="checkbox-filter__header-label">{category.name}</span>
-                    <span className="checkbox-filter__header-count">
+                    <div className="checkbox-filter__header-label">{category.name}</div>
+                    <div className="checkbox-filter__header-count">
                         {category.filters?.length}{' '}
                         {category.filters?.length === 1 ? 'type' : 'types'}
-                    </span>
+                    </div>
                 </div>
             </div>
             <AccordionCheckboxSecondary
