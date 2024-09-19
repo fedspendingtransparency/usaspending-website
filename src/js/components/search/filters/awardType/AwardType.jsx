@@ -3,7 +3,7 @@
  * Created by Emily Gullo 11/01/2016
  **/
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
@@ -50,41 +50,40 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol
 };
 
-export default class AwardType extends React.Component {
-    componentDidUpdate(prevProps) {
-        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
-            if (this.hint) {
-                this.hint.showHint();
-            }
+const AwardType = (props) => {
+    const hint = useRef();
+
+    const awardTypes = awardTypesData.map((type, index) => (
+        <PrimaryCheckboxType
+            {...type}
+            {...props}
+            key={index}
+            types={awardTypeCodes}
+            filterType="Award"
+            selectedCheckboxes={props.awardType}
+            bulkTypeChange={props.bulkTypeChange} />
+    ));
+
+    useEffect(() => {
+        if (hint.current) {
+            hint.current.showHint();
         }
-    }
+    }, [props.dirtyFilters]);
 
-    render() {
-        const awardTypes = awardTypesData
-            .map((type, index) => (
-                <PrimaryCheckboxType
-                    {...type}
-                    {...this.props}
-                    key={index}
-                    types={awardTypeCodes}
-                    filterType="Award"
-                    selectedCheckboxes={this.props.awardType}
-                    bulkTypeChange={this.props.bulkTypeChange} />
-            ));
-
-        return (
-            <div className="award-type-filter search-filter checkbox-type-filter">
-                <div className="filter-item-wrap">
-                    <ul className="checkbox-types">
-                        {awardTypes}
-                    </ul>
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
-                </div>
+    return (
+        <div className="award-type-filter search-filter checkbox-type-filter">
+            <div className="filter-item-wrap">
+                <ul className="checkbox-types">
+                    {awardTypes}
+                </ul>
+                <SubmitHint
+                    ref={(component) => {
+                        hint.current = component;
+                    }} />
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 AwardType.propTypes = propTypes;
+
+export default AwardType;
