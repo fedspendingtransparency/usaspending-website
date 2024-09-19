@@ -41,7 +41,8 @@ export class DownloadBottomBarContainer extends React.Component {
             expectedFile: '',
             expectedUrl: '',
             title: 'We\'re preparing your download(s)...',
-            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
+            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.',
+            note: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive.'
         };
 
         this.request = null;
@@ -86,7 +87,8 @@ export class DownloadBottomBarContainer extends React.Component {
             showError: false,
             showSuccess: false,
             title: 'We\'re preparing your download(s)...',
-            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.'
+            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.',
+            note: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive.'
         });
     }
 
@@ -158,7 +160,8 @@ export class DownloadBottomBarContainer extends React.Component {
         if (this.props.download.expectedFile !== '') {
             expectedFile = this.props.download.expectedFile;
             downloadType = this.props.download.type;
-        } else if ((typeof this.state.expectedFile) === "object" && Object.prototype.hasOwnProperty.call(this.state.expectedFile, "file")) {
+        }
+        else if ((typeof this.state.expectedFile) === "object" && Object.prototype.hasOwnProperty.call(this.state.expectedFile, "file")) {
             expectedFile = this.state.expectedFile.file;
             downloadType = this.state.expectedFile.type;
         }
@@ -286,7 +289,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
                             showError={this.state.showError}
                             showSuccess={this.state.showSuccess}
                             title={this.state.title}
-                            description={this.state.description} />
+                            description={this.state.description}
+                            note={this.state.note} />
                     </CSSTransition>
                 </TransitionGroup>
             );
