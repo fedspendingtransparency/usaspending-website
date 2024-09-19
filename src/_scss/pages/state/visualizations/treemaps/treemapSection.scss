@@ -27,7 +27,7 @@
         .function-desc {
             padding-left: 10%;
             padding-right: 10%;
-            margin-top: ($global-mrg * 2);
+            margin-top: ($global-margin * 4);
             .function-title {
                 @include h1;
                 text-align: center;
@@ -164,7 +164,7 @@
             height: rem(642);
             &.large {
                 height: rem(20);
-                margin-bottom: $global-mrg;
+                margin-bottom: $global-margin * 2;
                 width: 100%;
             }
         }
