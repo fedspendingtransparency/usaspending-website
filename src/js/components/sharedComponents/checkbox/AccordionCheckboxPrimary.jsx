@@ -98,11 +98,13 @@ const AccordionCheckboxPrimary = ({
             }
         }
 
-        if (!allSelected && someSelected) {
-            primaryCheckbox.indeterminate = true;
-        }
-        else if (primaryCheckbox?.indeterminate) {
-            primaryCheckbox.indeterminate = false;
+        if (primaryCheckbox) {
+            if (!allSelected && someSelected) {
+                primaryCheckbox.indeterminate = true;
+            }
+            else if (primaryCheckbox?.indeterminate) {
+                primaryCheckbox.indeterminate = false;
+            }
         }
 
         setAllChildren(allSelected);
