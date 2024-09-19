@@ -4,7 +4,7 @@
     @include justify-content(center);
     background-color: $color-primary-darkest;
     color: $color-white;
-    padding: ($global-pad * 4) 0;
+    padding: ($global-padding * 8) 0;
     position: relative;
     width: 100%;
     .footer-content {

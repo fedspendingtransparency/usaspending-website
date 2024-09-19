@@ -73,7 +73,7 @@
     @include align-items(center);
     .tooltip__title {
         width: 100%;
-        margin-bottom: math.div($global-mrg, 2);
+        margin-bottom: math.div($global-margin * 2, 2);
         text-align: center;
     }
     .tooltip__text {

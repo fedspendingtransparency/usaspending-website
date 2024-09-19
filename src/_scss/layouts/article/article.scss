@@ -3,7 +3,7 @@
 
 .main-content {
     @import "../../mixins/fullSectionWrap";
-    @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+    @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
 
     .article-wrapper {
         @import "elements/_divider";
@@ -12,11 +12,11 @@
 
         h1 {
             @include setText($h3-font-size);
-            margin: ($global-pad * 2) 0;
+            margin: ($global-margin * 4) 0;
         }
 
         p {
-            margin: ($global-pad * 2) 0;
+            margin: ($global-margin * 4) 0;
         }
 
         @include media($tablet-screen) {
@@ -30,7 +30,6 @@
             @include grid-shift(3);
             float: none;
             left: unset;
-            float: none;
             margin: auto;
         }
 

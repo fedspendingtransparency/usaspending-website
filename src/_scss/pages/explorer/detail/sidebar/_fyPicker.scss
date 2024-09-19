@@ -41,7 +41,7 @@
             font-size: $font-size-20;
             line-height: $heading-line-height;
             svg {
-                margin-left: $global-mrg;
+                margin-left: $global-margin * 2;
             }
         }
 
