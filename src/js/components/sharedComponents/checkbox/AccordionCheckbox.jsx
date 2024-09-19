@@ -1,5 +1,5 @@
 /**
- * CheckboxOnePrimary.jsx
+ * AccordionCheckbox.jsx
  * Created by Josue Aguilar on 09/05/2024.
  */
 
