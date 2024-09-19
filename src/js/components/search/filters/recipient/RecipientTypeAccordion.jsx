@@ -142,7 +142,6 @@ const RecipientTypeAccordion = ({
             <div className="checkbox-type-filter">
                 <ul className="checkbox-types">
                     {checkboxTypes}
-                    {console.log('selectedTypes: ', selectedTypes)}
                 </ul>
                 <SubmitHint
                     ref={(component) => {
