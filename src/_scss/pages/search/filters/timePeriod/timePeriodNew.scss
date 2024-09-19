@@ -10,7 +10,7 @@
     @import "mixins/selectedFilterWrap";
     @import "../_singleSubmit";
 
-    padding: 0 $global-pad rem(20);
+    padding: 0 $global-padding * 2 rem(20);
 
     .fiscal-years-with-chips {
       display: flex;
@@ -148,7 +148,7 @@
         .date-range-column {
           margin-right: .5 * $global-margin;
           width: 100%;
-          
+
           .generate-datepicker-wrap {
             width: 100%;
 
