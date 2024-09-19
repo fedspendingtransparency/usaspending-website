@@ -118,7 +118,7 @@ const AccordionCheckboxPrimary = ({
     return (
         <div className="checkbox-filter__wrapper">
             <div
-                className="checkbox-filter__header-container"
+                className="checkbox-filter__header"
                 role="button"
                 tabIndex="0">
                 {!expandedCategories?.includes(category.id) &&
@@ -135,17 +135,15 @@ const AccordionCheckboxPrimary = ({
                             if (e.key === "Enter") toggleExpanded(category);
                         }}
                         icon="chevron-down" />}
-                <div className="checkbox-filter__header">
-                    <input
-                        type="checkbox"
-                        onChange={toggleChildren}
-                        checked={allChildren}
-                        id={`primary-checkbox__${category.id}`} />
-                    <div className="checkbox-filter__header-label">{category.name}</div>
-                    <div className="checkbox-filter__header-count">
-                        {category.filters?.length}{' '}
-                        {category.filters?.length === 1 ? 'type' : 'types'}
-                    </div>
+                <input
+                    type="checkbox"
+                    onChange={toggleChildren}
+                    checked={allChildren}
+                    id={`primary-checkbox__${category.id}`} />
+                <div className="checkbox-filter__header-label">{category.name}</div>
+                <div className="checkbox-filter__header-count">
+                    {category.filters?.length}{' '}
+                    {category.filters?.length === 1 ? 'type' : 'types'}
                 </div>
             </div>
             <AccordionCheckboxSecondary
