@@ -7,8 +7,8 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
-import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import AccordionCheckbox from "../../../sharedComponents/checkbox/AccordionCheckbox";
 
 const awardTypesData = [
     {
@@ -44,25 +44,14 @@ const awardTypesData = [
 ];
 
 const propTypes = {
-    awardTypes: PropTypes.arrayOf(PropTypes.object),
     awardType: PropTypes.object,
     bulkTypeChange: PropTypes.func,
+    toggleCheckboxType: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
 
 const AwardType = (props) => {
     const hint = useRef();
-
-    const awardTypes = awardTypesData.map((type, index) => (
-        <PrimaryCheckboxType
-            {...type}
-            {...props}
-            key={index}
-            types={awardTypeCodes}
-            filterType="Award"
-            selectedCheckboxes={props.awardType}
-            bulkTypeChange={props.bulkTypeChange} />
-    ));
 
     useEffect(() => {
         if (hint.current) {
@@ -74,7 +63,12 @@ const AwardType = (props) => {
         <div className="award-type-filter search-filter checkbox-type-filter">
             <div className="filter-item-wrap">
                 <ul className="checkbox-types">
-                    {awardTypes}
+                    <AccordionCheckbox
+                        filterCategoryMapping={awardTypesData}
+                        filters={awardTypeCodes}
+                        selectedFilters={props.awardType}
+                        singleFilterChange={props.toggleCheckboxType}
+                        bulkFilterChange={props.bulkTypeChange} />
                 </ul>
                 <SubmitHint
                     ref={(component) => {
