@@ -48,6 +48,8 @@
 
       .checkbox-filter__item {
         margin-bottom: rem(8);
+        display: flex;
+        align-items: center;
 
         .checkbox-filter__item input {
           vertical-align: middle;
