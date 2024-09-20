@@ -14,11 +14,11 @@
         max-height: rem(10);
       }
 
-
       input {
         margin-left: rem(8);
         vertical-align: middle;
-        }
+        margin-bottom: rem(1);
+      }
 
         .checkbox-filter__header-label, .checkbox-filter__header-count {
           margin-left: rem(4);
@@ -51,8 +51,9 @@
         display: flex;
         align-items: center;
 
-        .checkbox-filter__item input {
+        input {
           vertical-align: middle;
+          margin-bottom: rem(1);
         }
 
         .checkbox-filter__item-label {
