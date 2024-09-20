@@ -15,7 +15,7 @@ const propTypes = {
     category: PropTypes.object,
     expandedCategories: PropTypes.array,
     toggleExpanded: PropTypes.func,
-    selectedFilters: PropTypes.array,
+    selectedFilters: PropTypes.object,
     singleFilterChange: PropTypes.func,
     filters: PropTypes.object,
     bulkFilterChange: PropTypes.func,

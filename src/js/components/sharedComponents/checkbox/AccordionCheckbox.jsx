@@ -58,7 +58,8 @@ const AccordionCheckbox = ({
             selectedFilters={selectedFilters}
             expandedCategories={expandedCategories}
             toggleExpanded={toggleExpanded}
-            bulkFilterChange={bulkFilterChange} />
+            bulkFilterChange={bulkFilterChange}
+            key={category.id} />
     ));
 
     return (
