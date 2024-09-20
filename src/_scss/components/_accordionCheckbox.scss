@@ -14,14 +14,14 @@
         max-height: rem(10);
       }
 
-
       input {
-        margin-left: rem(8);
+        margin-left: $global-margin;
         vertical-align: middle;
-        }
+        margin-bottom: rem(1);
+      }
 
         .checkbox-filter__header-label, .checkbox-filter__header-count {
-          margin-left: rem(4);
+          margin-left: ($global-margin / 2);
         }
 
         .checkbox-filter__header-label {
@@ -37,26 +37,26 @@
 
     .checkbox-filter__list {
       list-style: none;
-      margin: 0 0 rem(12) rem(34);
+      margin: 0 0 ($global-margin * 1.5) rem(34);
       padding: 0;
       font-size: $font-size-12;
       line-height: 1.5;
 
       li:first-of-type {
-        margin-top: rem(12);
+        margin-top: ($global-margin * 1.5);
       }
 
       .checkbox-filter__item {
-        margin-bottom: rem(8);
+        margin-bottom: $global-margin;
         display: flex;
         align-items: center;
 
-        .checkbox-filter__item input {
-          vertical-align: middle;
+        input {
+          margin-bottom: rem(1);
         }
 
         .checkbox-filter__item-label {
-          margin-left: rem(4);
+          margin-left: ($global-margin / 2);
         }
       }
     }
