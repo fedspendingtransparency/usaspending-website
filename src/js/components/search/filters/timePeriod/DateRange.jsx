@@ -205,7 +205,7 @@ const DateRange = (props) => {
                 <div className="date-range-column">
                     <DatePicker
                         type="startDate"
-                        title="Action Date Start"
+                        title="START DATE"
                         onDateChange={props.onDateChange}
                         value={props.startDate}
                         opposite={props.endDate}
@@ -222,7 +222,7 @@ const DateRange = (props) => {
                 <div className="date-range-column">
                     <DatePicker
                         type="endDate"
-                        title="Action Date End"
+                        title="END DATE"
                         onDateChange={props.onDateChange}
                         value={props.endDate}
                         opposite={props.startDate}

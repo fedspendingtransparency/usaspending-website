@@ -242,7 +242,7 @@ export default class DatePicker extends React.Component {
                         <input
                             id={this.props.id}
                             type="text"
-                            placeholder="MM/DD/YYYY"
+                            placeholder="mm/dd/yyyy"
                             aria-label={this.props.title}
                             value={this.state.inputValue}
                             onFocus={this.props.onFocus}
@@ -252,12 +252,6 @@ export default class DatePicker extends React.Component {
                             onChange={this.handleTypedDate}
                             onBlur={this.handleInputBlur} />
                     </label>
-                    <a
-                        href="#null"
-                        onClick={this.toggleDatePicker}
-                        className="usa-da-icon picker-icon date">
-                        <Icons.Calendar alt="Date picker" />
-                    </a>
                 </div>
                 <div className={`floating-datepicker ${showDatePicker}`} role="dialog">
                     <DayPicker
