@@ -1,14 +1,27 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button, Table } from "data-transparency-ui";
+import { useSelector, useDispatch } from "react-redux";
+import { awardTypeCodes } from 'dataMapping/search/awardType';
+
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-import NewLocationSectionContainer from "../containers/search/filters/location/NewLocationSectionContainer";
+import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
+
+import { awardTypesData, awardingAgencyCodes, awardingAgencyResponseParse, awardingAgencyData } from "../helpers/search/accordionCheckboxHelper";
+import { bulkAwardTypeChange, toggleAwardType } from "../redux/actions/search/searchFilterActions";
 
 require("pages/search/searchPage.scss");
 
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
+
+    /* eslint-disable react-hooks/rules-of-hooks */
+    const { awardType } = useSelector((state) => state.filters);
+    const dispatch = useDispatch();
+    const toggleAward = (selection) => dispatch(toggleAwardType(selection));
+    const bulkAwardChange = (selection) => dispatch(bulkAwardTypeChange(selection));
+    /* eslint-enable react-hooks/rules-of-hooks */
 
     const columns =
         [
@@ -83,15 +96,56 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <NewLocationSectionContainer />
-                    <section style={{ margin: '80px', backgroundColor: 'white' }}>
-                        <div style={{
-                            width: '800px', overflowX: 'scroll', borderRadius: '8px', border: 'solid 1px #dfe1e2'
+                    <div
+                        style={{
+                            border: '1px solid red',
+                            margin: '8px',
+                            display: 'inline-block'
                         }}>
-                            <Table columns={columns} rows={rows} classNames="search-results-dtui-table" stickyFirstColumn />
+                        <AccordionCheckbox
+                            filterCategoryMapping={awardTypesData}
+                            filters={awardTypeCodes}
+                            selectedFilters={awardType}
+                            singleFilterChange={toggleAward}
+                            bulkFilterChange={bulkAwardChange} />
+                    </div>
+                    <div
+                        style={{
+                            border: '1px solid blue',
+                            margin: '8px',
+                            display: 'inline-block'
+                        }}>
+                        <AccordionCheckbox
+                            filterCategoryMapping={awardingAgencyResponseParse(awardingAgencyData)}
+                            filters={awardingAgencyCodes(awardingAgencyData)}
+                            selectedFilters={awardType}
+                            singleFilterChange={toggleAward}
+                            bulkFilterChange={bulkAwardChange} />
+                    </div>
+                    <section style={{
+                        margin: '80px',
+                        backgroundColor: 'white'
+                    }}>
+                        <div style={{
+                            width: '800px',
+                            overflowX: 'scroll',
+                            borderRadius: '8px',
+                            border: 'solid 1px #dfe1e2'
+                        }}>
+                            <Table
+                                columns={columns}
+                                rows={rows}
+                                classNames="search-results-dtui-table"
+                                stickyFirstColumn />
                         </div>
                     </section>
-                    <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px' }}>
+                    <div
+                        className="flex-gap"
+                        style={{
+                            display: 'inline-flex',
+                            'flex-wrap': 'wrap',
+                            gap: '12px'
+                        }}>
                         <div>1</div>
                         <div>2</div>
                         <div>3</div>
@@ -104,28 +158,36 @@ const tempPage = () => {
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="outline" size="sm" height="200px">
                                 <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                    <div>When awarding funding, the U.S. government enters a binding agreement called an
+                                        obligation, which meand that the federal government promises to spend the money.
+                                    </div>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="outline" size="md">
                                 <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                    <div>When awarding funding, the U.S. government enters a binding agreement called an
+                                        obligation, which meand that the federal government promises to spend the money.
+                                    </div>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="elevated" size="md">
                                 <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                    <div>When awarding funding, the U.S. government enters a binding agreement called an
+                                        obligation, which meand that the federal government promises to spend the money.
+                                    </div>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="outline" fill="#1a4480">
                                 <CardBody>
-                                    <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                    <div>When awarding funding, the U.S. government enters a binding agreement called an
+                                        obligation, which meand that the federal government promises to spend the money.
+                                    </div>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
@@ -134,7 +196,7 @@ const tempPage = () => {
                                 <CardBody
                                     overline="Award Search"
                                     headline="Find details on federal awards"
-                                    text="Search spending to your community using Location filters like Place of Performance" >
+                                    text="Search spending to your community using Location filters like Place of Performance">
                                     <CardButton text="Search" variant="primary" link="/search" />
                                 </CardBody>
                             </CardContainer>
@@ -164,7 +226,7 @@ const tempPage = () => {
                                 <CardBody
                                     overline="Award Search"
                                     headline="Find details on federal awards"
-                                    text="Search spending to your community using Location filters like Place of Performance" >
+                                    text="Search spending to your community using Location filters like Place of Performance">
                                     <CardButton text="Return Home" variant="primary" link="/" />
                                 </CardBody>
                             </CardContainer>
@@ -177,7 +239,7 @@ const tempPage = () => {
                                 <CardHero fill="#1a4480" />
                                 <CardBody
                                     overline="Resources"
-                                    headline="Learn how to use USAspending with our tutorial videos" >
+                                    headline="Learn how to use USAspending with our tutorial videos">
                                     <CardButton text="Search" variant="hero__button--action" link="/search" />
                                 </CardBody>
                             </CardContainer>
@@ -187,7 +249,7 @@ const tempPage = () => {
                                 <CardHero variant="expanded" img={imageLink} />
                                 <CardBody
                                     overline="Resources"
-                                    headline="Learn how to use USAspending with our tutorial videos" >
+                                    headline="Learn how to use USAspending with our tutorial videos">
                                     <CardButton text="Search" link="/search" />
                                 </CardBody>
                             </CardContainer>
@@ -197,7 +259,7 @@ const tempPage = () => {
                                 <CardHero variant="expanded" fill="#1a4480" img={imageLink} />
                                 <CardBody
                                     overline="Resources"
-                                    headline="Learn how to use USAspending with our tutorial videos" >
+                                    headline="Learn how to use USAspending with our tutorial videos">
                                     <CardButton text="Search" variant="text" link="/search" />
                                 </CardBody>
                             </CardContainer>
@@ -205,108 +267,538 @@ const tempPage = () => {
                     </FlexGridRow>
                     <h1>New Button Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="primary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="primary"
+                            backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="primary"
+                            backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="primary"
+                            backgroundColor="light" />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="This is wrapping button text" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" maxWidth="200px" textAlignment="center" />
-                        <Button copy="This is wrapping button text" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" maxWidth="200px" textAlignment="left" />
+                        <Button
+                            copy="This is wrapping button text"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            maxWidth="200px"
+                            textAlignment="center" />
+                        <Button
+                            copy="This is wrapping button text"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            maxWidth="200px"
+                            textAlignment="left" />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="primary" backgroundColor="light" disabled />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" disabled />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            disabled />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            disabled />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            disabled />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="primaryIcon"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="primaryIcon"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="primaryIcon"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="secondary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="secondary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="secondary" backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="secondary"
+                            backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="secondary"
+                            backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="secondary"
+                            backgroundColor="light" />
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="secondary" backgroundColor="dark" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="secondary" backgroundColor="dark" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="secondary" backgroundColor="dark" />
+                    <FlexGridRow
+                        width={3}
+                        desktop={3}
+                        hasGutter
+                        gutterSize={32}
+                        style={{
+                            marginLeft: "16px",
+                            backgroundColor: "#323a44"
+                        }}>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="secondary"
+                            backgroundColor="dark" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="secondary"
+                            backgroundColor="dark" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="secondary"
+                            backgroundColor="dark" />
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                    <FlexGridRow
+                        width={3}
+                        desktop={3}
+                        hasGutter
+                        gutterSize={32}
+                        style={{
+                            marginLeft: "16px",
+                            backgroundColor: "#323a44"
+                        }}>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="secondaryIcon"
+                            backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="secondaryIcon"
+                            backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="secondaryIcon"
+                            backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="tertiary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="tertiary" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="tertiary" backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="tertiary"
+                            backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="tertiary"
+                            backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="tertiary"
+                            backgroundColor="light" />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="tertiaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="tertiaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="tertiaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="tertiaryIcon"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="tertiaryIcon"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="tertiaryIcon"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="light" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="text"
+                            backgroundColor="light" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="text"
+                            backgroundColor="light" />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="dark" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="dark" />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="dark" />
+                    <FlexGridRow
+                        width={3}
+                        desktop={3}
+                        hasGutter
+                        gutterSize={32}
+                        style={{
+                            marginLeft: "16px",
+                            backgroundColor: "#323a44"
+                        }}>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="dark" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="text"
+                            backgroundColor="dark" />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="text"
+                            backgroundColor="dark" />
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                    <FlexGridRow
+                        width={3}
+                        desktop={3}
+                        hasGutter
+                        gutterSize={32}
+                        style={{
+                            marginLeft: "16px",
+                            backgroundColor: "#323a44"
+                        }}>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="text"
+                            backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="text"
+                            backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="text" backgroundColor="dark" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="text" backgroundColor="dark" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="text" backgroundColor="dark" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
+                    <FlexGridRow
+                        width={3}
+                        desktop={3}
+                        hasGutter
+                        gutterSize={32}
+                        style={{
+                            marginLeft: "16px",
+                            backgroundColor: "#323a44"
+                        }}>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="dark"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="text"
+                            backgroundColor="dark"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="text"
+                            backgroundColor="dark"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="stacked"
+                            backgroundColor="light"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="stacked"
+                            backgroundColor="light"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="stacked"
+                            backgroundColor="light"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                    <FlexGridRow
+                        width={3}
+                        desktop={3}
+                        hasGutter
+                        gutterSize={32}
+                        style={{
+                            marginLeft: "16px",
+                            backgroundColor: "#323a44"
+                        }}>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="stacked"
+                            backgroundColor="dark"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="stacked"
+                            backgroundColor="dark"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="stacked"
+                            backgroundColor="dark"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button buttonTitle="TEST" buttonSize="sm" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonTitle="TEST" buttonSize="md" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonTitle="TEST" buttonSize="lg" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="icon"
+                            backgroundColor="light"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="icon"
+                            backgroundColor="light"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="icon"
+                            backgroundColor="light"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px", backgroundColor: "#323a44" }}>
-                        <Button buttonTitle="TEST" buttonSize="sm" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonTitle="TEST" buttonSize="md" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonTitle="TEST" buttonSize="lg" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                    <FlexGridRow
+                        width={3}
+                        desktop={3}
+                        hasGutter
+                        gutterSize={32}
+                        style={{
+                            marginLeft: "16px",
+                            backgroundColor: "#323a44"
+                        }}>
+                        <Button
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="icon"
+                            backgroundColor="dark"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="icon"
+                            backgroundColor="dark"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="icon"
+                            backgroundColor="dark"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="what" buttonTitle="TEST" buttonSize="sm" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="what" buttonTitle="TEST" buttonSize="md" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button copy="what" buttonTitle="TEST" buttonSize="lg" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="what"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="inline"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="what"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="inline"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button
+                            copy="what"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="inline"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="hello" buttonTitle="TEST" buttonSize="sm" buttonType="intext" backgroundColor="light" to="https://usaspending.gov" />
-                        <Button copy="hello" buttonTitle="TEST" buttonSize="md" buttonType="intext" backgroundColor="light" to="https://usaspending.gov" />
-                        <Button copy="hello" buttonTitle="TEST" buttonSize="lg" buttonType="intext" backgroundColor="light" to="https://usaspending.gov" />
+                        <Button
+                            copy="hello"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="intext"
+                            backgroundColor="light"
+                            to="https://usaspending.gov" />
+                        <Button
+                            copy="hello"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="intext"
+                            backgroundColor="light"
+                            to="https://usaspending.gov" />
+                        <Button
+                            copy="hello"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="intext"
+                            backgroundColor="light"
+                            to="https://usaspending.gov" />
                     </FlexGridRow>
                 </main>
             </PageWrapper>
