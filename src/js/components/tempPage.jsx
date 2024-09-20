@@ -3,13 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button, Table } from "data-transparency-ui";
 import { useSelector, useDispatch } from "react-redux";
 import { awardTypeCodes } from 'dataMapping/search/awardType';
+import { recipientTypes } from 'dataMapping/search/recipientType';
 
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
 
-import { awardTypesData, awardingAgencyCodes, awardingAgencyResponseParse, awardingAgencyData } from "../helpers/search/accordionCheckboxHelper";
-import { bulkAwardTypeChange, toggleAwardType } from "../redux/actions/search/searchFilterActions";
+import { awardTypesData, awardingAgencyCodes, awardingAgencyResponseParse, awardingAgencyData, recipientTypeMapping } from "../helpers/search/filterCheckboxHelper";
+import { bulkAwardTypeChange, toggleAwardType, toggleRecipientType } from "../redux/actions/search/searchFilterActions";
 import ListCheckbox from "./sharedComponents/checkbox/ListCheckbox";
 
 require("pages/search/searchPage.scss");
@@ -18,10 +19,13 @@ const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
     /* eslint-disable react-hooks/rules-of-hooks */
-    const { awardType } = useSelector((state) => state.filters);
+    const { awardType, recipientType } = useSelector((state) => state.filters);
+
     const dispatch = useDispatch();
-    const toggleAward = (selection) => dispatch(toggleAwardType(selection));
+
+    const toggleAwardTypeChange = (selection) => dispatch(toggleAwardType(selection));
     const bulkAwardChange = (selection) => dispatch(bulkAwardTypeChange(selection));
+    const toggleRecipientTypeChange = (selection) => dispatch(toggleRecipientType(selection));
     /* eslint-enable react-hooks/rules-of-hooks */
 
     const columns =
@@ -109,7 +113,7 @@ const tempPage = () => {
                                 filterCategoryMapping={awardTypesData}
                                 filters={awardTypeCodes}
                                 selectedFilters={awardType}
-                                singleFilterChange={toggleAward}
+                                singleFilterChange={toggleAwardTypeChange}
                                 bulkFilterChange={bulkAwardChange} />
                         </div>
                         <div
@@ -123,7 +127,7 @@ const tempPage = () => {
                                 filterCategoryMapping={awardingAgencyResponseParse(awardingAgencyData)}
                                 filters={awardingAgencyCodes(awardingAgencyData)}
                                 selectedFilters={awardType}
-                                singleFilterChange={toggleAward}
+                                singleFilterChange={toggleAwardTypeChange}
                                 bulkFilterChange={bulkAwardChange} />
                         </div>
                         <div
@@ -134,11 +138,10 @@ const tempPage = () => {
                                 height: 'fit-content'
                             }}>
                             <ListCheckbox
-                                filterCategoryMapping={awardTypesData}
-                                filters={awardTypeCodes}
-                                selectedFilters={awardType}
-                                singleFilterChange={toggleAward}
-                                bulkFilterChange={bulkAwardChange} />
+                                filterCategoryMapping={recipientTypeMapping}
+                                filters={recipientTypes}
+                                selectedFilters={recipientType}
+                                singleFilterChange={toggleRecipientTypeChange} />
                         </div>
                     </div>
                     <section style={{
