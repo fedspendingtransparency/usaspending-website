@@ -25,10 +25,10 @@ const ListCheckbox = ({
     const checkboxCategories = filterCategoryMapping.map((category) => (
         <div className="checkbox-filter__wrapper">
             <div
-                className="checkbox-filter__header"
+                className="checkbox-filter__header list-checkbox"
                 role="button"
                 tabIndex="0">
-                <div className="checkbox-filter__header-label">{category.name}</div>
+                <div className="checkbox-filter__header-label list-checkbox">{category.name}</div>
                 <div className="checkbox-filter__header-count">
                     {category.filters?.length}{' '}
                     {category.filters?.length === 1 ? 'type' : 'types'}
