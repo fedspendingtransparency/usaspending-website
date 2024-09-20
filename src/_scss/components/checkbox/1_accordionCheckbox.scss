@@ -1,0 +1,28 @@
+// TODO: rename file once 11456 is merged into QAT and into this branch
+
+.filter-item-wrap {
+  .checkbox-filter__wrapper {
+    .checkbox-filter__header.accordion-checkbox {
+      margin-bottom: ($global-margin * 1.5);
+
+      svg {
+        color: $blue-50;
+        max-width: rem(10);
+        max-height: rem(10);
+      }
+
+      input {
+        margin: 0 0 rem(1) $global-margin;
+        vertical-align: middle;
+      }
+
+      .checkbox-filter__header-label.accordion-checkbox {
+        margin-left: ($global-margin / 2);
+      }
+    }
+
+    .checkbox-filter__list.accordion-checkbox {
+      margin: 0 0 ($global-margin * 1.5) rem(34);
+    }
+  }
+}
