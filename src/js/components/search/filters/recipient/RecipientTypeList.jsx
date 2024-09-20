@@ -32,4 +32,5 @@ const RecipientTypeList = ({
 };
 
 RecipientTypeList.propTypes = propTypes;
+
 export default RecipientTypeList;
