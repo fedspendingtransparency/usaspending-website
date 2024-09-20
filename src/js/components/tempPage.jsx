@@ -10,6 +10,7 @@ import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
 
 import { awardTypesData, awardingAgencyCodes, awardingAgencyResponseParse, awardingAgencyData } from "../helpers/search/accordionCheckboxHelper";
 import { bulkAwardTypeChange, toggleAwardType } from "../redux/actions/search/searchFilterActions";
+import ListCheckbox from "./sharedComponents/checkbox/ListCheckbox";
 
 require("pages/search/searchPage.scss");
 
@@ -118,6 +119,19 @@ const tempPage = () => {
                         <AccordionCheckbox
                             filterCategoryMapping={awardingAgencyResponseParse(awardingAgencyData)}
                             filters={awardingAgencyCodes(awardingAgencyData)}
+                            selectedFilters={awardType}
+                            singleFilterChange={toggleAward}
+                            bulkFilterChange={bulkAwardChange} />
+                    </div>
+                    <div
+                        style={{
+                            border: '1px solid green',
+                            margin: '8px',
+                            display: 'inline-block'
+                        }}>
+                        <ListCheckbox
+                            filterCategoryMapping={awardTypesData}
+                            filters={awardTypeCodes}
                             selectedFilters={awardType}
                             singleFilterChange={toggleAward}
                             bulkFilterChange={bulkAwardChange} />
