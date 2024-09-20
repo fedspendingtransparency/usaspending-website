@@ -97,44 +97,49 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <div
-                        style={{
-                            border: '1px solid red',
-                            margin: '8px',
-                            display: 'inline-block'
-                        }}>
-                        <AccordionCheckbox
-                            filterCategoryMapping={awardTypesData}
-                            filters={awardTypeCodes}
-                            selectedFilters={awardType}
-                            singleFilterChange={toggleAward}
-                            bulkFilterChange={bulkAwardChange} />
-                    </div>
-                    <div
-                        style={{
-                            border: '1px solid blue',
-                            margin: '8px',
-                            display: 'inline-block'
-                        }}>
-                        <AccordionCheckbox
-                            filterCategoryMapping={awardingAgencyResponseParse(awardingAgencyData)}
-                            filters={awardingAgencyCodes(awardingAgencyData)}
-                            selectedFilters={awardType}
-                            singleFilterChange={toggleAward}
-                            bulkFilterChange={bulkAwardChange} />
-                    </div>
-                    <div
-                        style={{
-                            border: '1px solid green',
-                            margin: '8px',
-                            display: 'inline-block'
-                        }}>
-                        <ListCheckbox
-                            filterCategoryMapping={awardTypesData}
-                            filters={awardTypeCodes}
-                            selectedFilters={awardType}
-                            singleFilterChange={toggleAward}
-                            bulkFilterChange={bulkAwardChange} />
+                    <div style={{ display: "flex" }} >
+                        <div
+                            style={{
+                                border: '1px solid red',
+                                margin: '8px',
+                                maxWidth: '300px',
+                                height: 'fit-content'
+                            }}>
+                            <AccordionCheckbox
+                                filterCategoryMapping={awardTypesData}
+                                filters={awardTypeCodes}
+                                selectedFilters={awardType}
+                                singleFilterChange={toggleAward}
+                                bulkFilterChange={bulkAwardChange} />
+                        </div>
+                        <div
+                            style={{
+                                border: '1px solid blue',
+                                margin: '8px',
+                                maxWidth: '300px',
+                                height: 'fit-content'
+                            }}>
+                            <AccordionCheckbox
+                                filterCategoryMapping={awardingAgencyResponseParse(awardingAgencyData)}
+                                filters={awardingAgencyCodes(awardingAgencyData)}
+                                selectedFilters={awardType}
+                                singleFilterChange={toggleAward}
+                                bulkFilterChange={bulkAwardChange} />
+                        </div>
+                        <div
+                            style={{
+                                border: '1px solid green',
+                                margin: '8px',
+                                maxWidth: '300px',
+                                height: 'fit-content'
+                            }}>
+                            <ListCheckbox
+                                filterCategoryMapping={awardTypesData}
+                                filters={awardTypeCodes}
+                                selectedFilters={awardType}
+                                singleFilterChange={toggleAward}
+                                bulkFilterChange={bulkAwardChange} />
+                        </div>
                     </div>
                     <section style={{
                         margin: '80px',
