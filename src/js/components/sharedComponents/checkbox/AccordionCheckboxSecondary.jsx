@@ -1,5 +1,5 @@
 /**
- * CheckboxOnePrimary.jsx
+ * AccordionCheckboxSecondary.jsx
  * Created by Josue Aguilar on 09/11/2024.
  */
 
@@ -32,7 +32,7 @@ const AccordionCheckboxSecondary = ({
                 value={filter}
                 checked={selectedFilters?.has(filter)}
                 onChange={() => selectFilter(filter)} />
-            <span className="checkbox-filter__item-label">{filters[filter]}</span>
+            <div className="checkbox-filter__item-label">{filters[filter]}</div>
         </li>
     ));
 
