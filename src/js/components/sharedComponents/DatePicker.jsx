@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import { uniqueId } from 'lodash';
-import * as Icons from './icons/Icons';
 
 const dayjs = require('dayjs');
 

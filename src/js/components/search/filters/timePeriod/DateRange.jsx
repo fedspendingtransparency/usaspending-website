@@ -5,10 +5,10 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import { usePrevious } from "../../../../helpers/";
 
 const dayjs = require('dayjs');
@@ -236,12 +236,13 @@ const DateRange = (props) => {
                         id="date-range__endDate"
                         allowClearing />
                 </div>
-                <IndividualSubmit
-                    className="set-date-submit"
-                    onClick={submitRange}
-                    label="Filter by date range"
-                    disabled={disabled}
-                    accessibility={accessibility} />
+                <Button
+                    copy="Add"
+                    buttonTitle="Add"
+                    buttonSize="sm"
+                    buttonType="primary"
+                    backgroundColor="light"
+                    onClick={submitRange} />
             </form>
             <div
                 className={`selected-filters ${hideTags}`}

@@ -155,13 +155,8 @@
           }
         }
 
-        .set-date-submit {
-          @include singleSubmit;
-          height: 42px !important;
-          @include media($large-screen) {
-            @include flex(0 0 auto);
-            margin: 0;
-          }
+        button {
+          margin: 0;
         }
       }
     }
