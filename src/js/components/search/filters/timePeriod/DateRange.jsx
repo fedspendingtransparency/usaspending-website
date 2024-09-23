@@ -40,7 +40,7 @@ const propTypes = {
 const DateRange = (props) => {
     const [startPicker, setStartPicker] = useState(null);
     const [endPicker, setEndPicker] = useState(null);
-    const [ , setDisabled] = useState(true);
+    const [, setDisabled] = useState(true);
     const prevProps = usePrevious(props);
 
     useEffect(() => {
