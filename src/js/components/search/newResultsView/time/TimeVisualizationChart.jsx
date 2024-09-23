@@ -149,6 +149,8 @@ const TimeVisualizationChart = (props) => {
         return <></>;
     };
 
+    console.log("transformedData:", transformedData);
+
     return (
         <div className="recharts-time-visualization-container">
             {props?.loading || props?.error || transformedData?.length === 0 ?

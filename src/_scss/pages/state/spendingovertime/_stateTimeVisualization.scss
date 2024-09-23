@@ -14,6 +14,11 @@
     }
 
     .state-visualization__time-wrapper {
-        min-height: rem(304);
+        // min-height: rem(304);
+        height: 350px;
+
+        .recharts-cartesian-axis-line {
+            stroke: $gray-cool-10;
+        }
     }
 }

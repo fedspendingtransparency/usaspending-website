@@ -63,6 +63,7 @@ export default class StateTimeVisualization extends React.Component {
     }
 
     render() {
+        console.log("Old chart data:", this.props.data);
         let chart = (<ChartMessage message="No data to display" />);
 
         const legend = [
