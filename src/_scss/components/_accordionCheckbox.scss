@@ -46,10 +46,10 @@
       .checkbox-filter__item {
         margin-bottom: $global-margin;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
 
         input {
-          margin-bottom: rem(1);
+          margin-top: rem(3);
         }
 
         .checkbox-filter__item-label {
