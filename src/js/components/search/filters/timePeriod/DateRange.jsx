@@ -40,7 +40,7 @@ const propTypes = {
 const DateRange = (props) => {
     const [startPicker, setStartPicker] = useState(null);
     const [endPicker, setEndPicker] = useState(null);
-    const [disabled, setDisabled] = useState(true);
+    const [ , setDisabled] = useState(true);
     const prevProps = usePrevious(props);
 
     useEffect(() => {
@@ -161,10 +161,6 @@ const DateRange = (props) => {
     if (!props.startDate && !props.endDate) {
         noDates = true;
     }
-
-    const accessibility = {
-        'aria-controls': 'selected-date-range'
-    };
 
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
