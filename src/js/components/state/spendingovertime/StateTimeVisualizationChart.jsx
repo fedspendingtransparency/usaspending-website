@@ -4,16 +4,28 @@
  **/
 
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import {
     BarChart,
-    Bar, XAxis,
+    Bar,
+    XAxis,
     YAxis,
     ResponsiveContainer,
-    ReferenceLine
+    ReferenceLine,
+    Tooltip
 } from 'recharts';
-import { LoadingMessage, NoResultsMessage, ErrorMessage } from "data-transparency-ui";
+import { LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 // import ChartMessage from 'components/sharedComponents/timeChart/TimeVisualizationChartMessage';
 import { formatMoneyWithUnitsShortLabel } from "../../../helpers/moneyFormatter";
+
+const CustomShapePropTypes = {
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    focusBar: PropTypes.bool,
+    label: PropTypes.string
+};
 
 const CustomShape = (props) => {
     const {
@@ -55,6 +67,14 @@ const CustomShape = (props) => {
     );
 };
 
+CustomShape.propTypes = CustomShapePropTypes;
+
+const CustomXTickPropTypes = {
+    x: PropTypes.number,
+    y: PropTypes.number,
+    payload: PropTypes.object
+};
+
 const CustomXTick = (props) => {
     const {
         x, y, payload
@@ -76,6 +96,14 @@ const CustomXTick = (props) => {
         </g>);
 };
 
+CustomXTick.propTypes = CustomXTickPropTypes;
+
+const CustomYTickPropTypes = {
+    x: PropTypes.number,
+    y: PropTypes.number,
+    payload: PropTypes.object
+};
+
 const CustomYTick = (props) => {
     const {
         x, y, payload
@@ -89,10 +117,55 @@ const CustomYTick = (props) => {
         </g>);
 };
 
-const StateTimeVisualizationChart = (props) => {
+CustomYTick.propTypes = CustomYTickPropTypes;
+
+const CustomTooltipPropTypes = {
+    active: PropTypes.bool,
+    payload: PropTypes.array,
+    label: PropTypes.string,
+    onSetFocusBar: PropTypes.func,
+    onMouseLeave: PropTypes.func
+};
+
+const CustomTooltip = (props) => {
+    // eslint-disable-next-line no-shadow
     const {
-        data, loading
+        active,
+        payload,
+        label,
+        onSetFocusBar,
+        onMouseLeave
     } = props;
+
+    if (active && payload && payload.length && payload[0].label !== "jump") {
+        onSetFocusBar(label);
+        return (
+            <div className="custom-tooltip" role="status" aria-live="assertive">
+                <div className="tooltip__title">
+                    {label}
+                </div>
+                <div className="tooltip__text">
+                    <div className="tooltip__text-label">Obligations</div>
+                    <div className="tooltip__text-amount">
+                        {formatMoneyWithUnitsShortLabel(payload[0].value)}
+                    </div>
+                </div>
+            </div>);
+    }
+
+    onMouseLeave();
+    return null;
+};
+
+CustomTooltip.propTypes = CustomTooltipPropTypes;
+
+const StateTimeVisualizationChartPropTypes = {
+    data: PropTypes.object,
+    loading: PropTypes.bool
+};
+
+const StateTimeVisualizationChart = (props) => {
+    const { data, loading } = props;
     const [focusBar, setFocusBar] = useState(null);
     const transformedData = [];
 
@@ -190,6 +263,13 @@ const StateTimeVisualizationChart = (props) => {
                         }}>
                         <XAxis dataKey="label" tick={<CustomXTick />} />
                         <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                        <Tooltip
+                            cursor={{ fill: '#fff' }}
+                            filterNull
+                            content={<CustomTooltip />}
+                            isAnimationActive={false}
+                            onSetFocusBar={setFocusBar}
+                            onMouseLeave={onMouseLeave} />
                         <ReferenceLine y={0} stroke="#dfe1e2" />
                         <Bar
                             dataKey="value"
@@ -205,4 +285,5 @@ const StateTimeVisualizationChart = (props) => {
     );
 };
 
+StateTimeVisualizationChart.propTypes = StateTimeVisualizationChartPropTypes;
 export default StateTimeVisualizationChart;
