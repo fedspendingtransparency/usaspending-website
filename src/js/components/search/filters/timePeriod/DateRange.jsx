@@ -162,10 +162,6 @@ const DateRange = (props) => {
         noDates = true;
     }
 
-    const accessibility = {
-        'aria-controls': 'selected-date-range'
-    };
-
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
             if (props.errorState) {
@@ -242,6 +238,7 @@ const DateRange = (props) => {
                     buttonSize="sm"
                     buttonType="primary"
                     backgroundColor="light"
+                    disabled={disabled}
                     onClick={submitRange} />
             </form>
             <div
