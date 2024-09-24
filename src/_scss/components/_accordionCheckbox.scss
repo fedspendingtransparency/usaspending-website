@@ -75,6 +75,7 @@
           @include usa-input-checkbox;
           margin: 0;
           border: solid rem(1) $gray-cool-20;
+          min-width: rem(14);
 
           &:checked {
             background-color: $blue-50;
