@@ -42,6 +42,10 @@
             @include placeholder {
                 color: $color-gray-light;
             }
+
+            &:focus-visible {
+                outline: 1px solid $color-focus;
+            }
         }
     }
 }
