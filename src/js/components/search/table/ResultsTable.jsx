@@ -365,9 +365,6 @@ export default class ResultsTable extends React.Component {
                             }}>{obj['Awarding Agency']}
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
-                        obj['Awarding Sub Agency'] || '--',
-                        obj['Awarding Sub Agency'] || '--',
-                        obj['Awarding Sub Agency'] || '--',
                         obj['Start Date'] || '--',
                         obj['End Date'] || '--'
                     );

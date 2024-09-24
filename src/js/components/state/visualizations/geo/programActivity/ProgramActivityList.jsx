@@ -1,6 +1,6 @@
 /**
-* StateCFDAList.jsx
-* Created by Nick Torres 8/13/2024
+* ProgramActivityList.jsx
+* Created by Andrea Blackwell 09/05/2024
 **/
 
 import React, { useEffect, useState } from 'react';
@@ -12,49 +12,49 @@ import * as SearchHelper from 'helpers/searchHelper';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectCFDA: PropTypes.func,
-    selectedCFDA: PropTypes.object
+    selectProgramActivity: PropTypes.func,
+    selectedProgramActivity: PropTypes.object,
+    placeholder: PropTypes.string
 };
 
-const StateCFDAList = (props) => {
-    const [cfdaTitleString, setCfdaTitleString] = useState('');
-    const [autocompleteCFDA, setAutocompleteCFDA] = useState([]);
+const ProgramActivityList = (props) => {
+    const [titleString, setTitleString] = useState('');
+    const [autocompleteList, setAutocompleteList] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const [searchData, setSearchData] = useState({});
 
     let apiRequest = null;
     let timeout = null;
 
-    const selectCFDA = (cfda) => {
-        setCfdaTitleString(`${cfda.program_number} - ${cfda.program_title}`);
+    const selectProgramActivity = (programActivity) => {
+        setTitleString(programActivity.program_activity_name);
         const newSearch = props.searchData;
-        newSearch.filters.program_numbers = [];
-        newSearch.filters.program_numbers.push(cfda.program_number);
-
+        newSearch.filters.program_activities = [];
+        newSearch.filters.program_activities.push({
+            name: programActivity.program_activity_name
+        });
         // Clear Autocomplete results
-        setAutocompleteCFDA([]);
+        setAutocompleteList([]);
         setSearchData(newSearch);
     };
 
-    const parseAutocompleteCFDA = (cfda) => {
+    const parseAutocompleteProgramActivity = (programActivity) => {
         const values = [];
-        if (cfda && cfda.length > 0) {
-            cfda.forEach((item) => {
-                const title = `${item.program_number} - ${item.program_title}`;
-                const subtitle = '';
+        if (programActivity && programActivity.length > 0) {
+            programActivity.forEach((item) => {
+                const title = item.program_activity_name;
 
                 values.push({
                     title,
-                    subtitle,
                     data: item
                 });
             });
         }
 
-        setAutocompleteCFDA(values);
+        setAutocompleteList(values);
     };
 
-    const queryAutocompleteCFDA = (input) => {
+    const queryAutocompleteProgramActivity = (input) => {
         setNoResults(false);
 
         // Only search if input is 3 or more characters
@@ -64,12 +64,12 @@ const StateCFDAList = (props) => {
                 apiRequest.cancel();
             }
 
-            const cfdaSearchParams = {
+            const searchParams = {
                 search_text: input,
                 limit: 1000
             };
 
-            apiRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
+            apiRequest = SearchHelper.fetchProgramActivity(searchParams);
 
             apiRequest.promise
                 .then((res) => {
@@ -77,7 +77,7 @@ const StateCFDAList = (props) => {
                     setNoResults(autocompleteData.length === 0);
 
                     // Add search results to Redux
-                    parseAutocompleteCFDA(autocompleteData);
+                    parseAutocompleteProgramActivity(autocompleteData);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -92,32 +92,32 @@ const StateCFDAList = (props) => {
     };
 
     const clearAutocompleteSuggestions = () => {
-        setAutocompleteCFDA([]);
+        setAutocompleteList([]);
     };
 
-    const handleTextInput = (cfdaInput) => {
+    const handleTextInput = (inputVal) => {
     // Clear existing cfdas to ensure user can't select an old or existing one
-        setAutocompleteCFDA([]);
+        setAutocompleteList([]);
 
         // Grab input, clear any exiting timeout
-        const input = cfdaInput.target?.value;
+        const input = inputVal.target?.value;
         window.clearTimeout(timeout);
 
         // Perform search if user doesn't type again for 300ms
         timeout = window.setTimeout(() => {
-            queryAutocompleteCFDA(input);
+            queryAutocompleteProgramActivity(input);
         }, 300);
     };
 
     useEffect(() => {
         if (Object.keys(searchData).length > 0) {
-            props.changeScope(searchData, "program_number", cfdaTitleString);
+            props.changeScope(searchData, "program_activity", titleString);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchData]);
 
     useEffect(() => {
-        const el = document.getElementById("state__cfda-id");
+        const el = document.getElementById("state__program-activity-id");
         el.addEventListener("focus", (e) => {
             if (e.target.value !== "") {
                 el.select();
@@ -126,8 +126,8 @@ const StateCFDAList = (props) => {
         el.addEventListener("blur", (e) => {
             if (e.target.value === "") {
                 clearAutocompleteSuggestions();
-                props.clearSearchFilters("program_number");
-                setCfdaTitleString('');
+                props.clearSearchFilters("program_activity");
+                setTitleString('');
             }
         });
         return () => {
@@ -139,8 +139,8 @@ const StateCFDAList = (props) => {
             el.removeEventListener("blur", (e) => {
                 if (e.target.value === "") {
                     clearAutocompleteSuggestions();
-                    props.clearSearchFilters("agency");
-                    setCfdaTitleString('');
+                    props.clearSearchFilters("program_activity");
+                    setTitleString('');
                 }
             });
         };
@@ -150,17 +150,17 @@ const StateCFDAList = (props) => {
     return (
         <Autocomplete
             {...props}
-            id="state__cfda-id"
-            label="Assistance Listing"
-            values={autocompleteCFDA}
+            id="state__program-activity-id"
+            label="Program Activity"
+            values={autocompleteList}
             handleTextInput={handleTextInput}
-            onSelect={selectCFDA}
-            type="program_number"
+            onSelect={selectProgramActivity}
+            type="program_activity"
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
             retainValue />
     );
 };
 
-StateCFDAList.propTypes = propTypes;
-export default StateCFDAList;
+ProgramActivityList.propTypes = propTypes;
+export default ProgramActivityList;

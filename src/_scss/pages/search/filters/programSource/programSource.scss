@@ -5,7 +5,7 @@
     @import "mixins/selectedFilterWrap";
     @import "../../tooltips";
 
-    padding: 0 $global-pad rem(20);
+    padding: 0 $global-padding * 2 rem(20);
 
     .program-source-components {
         .program-source-components__heading {

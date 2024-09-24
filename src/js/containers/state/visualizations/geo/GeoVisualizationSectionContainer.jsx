@@ -44,8 +44,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
             searchData: {},
             selectedItemsDisplayNames: {
                 agency: "",
+                def_code: "",
                 program_number: "",
                 program_activity: ""
+            },
+            activeFilters: {
+                territory: "county",
+                def_codes: 'all'
             }
         };
 
@@ -56,10 +61,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.changeMapLayer = this.changeMapLayer.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
-        // this.filterTypePluralize = this.filterTypePluralize.bind(this);
+        this.pluralize = this.pluralize.bind(this);
         this.changeScope = this.changeScope.bind(this);
         this.hasFilters = this.hasFilters.bind(this);
-        this.changeScope = this.changeScope.bind(this);
         this.clearSearchFilters = this.clearSearchFilters.bind(this);
     }
 
@@ -102,7 +106,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
 
         const tempSearchData = this.state.searchData;
-        const filterTypePlural = `${filterType === 'agency' ? 'agencies' : `${filterType}s`}`;
+        const filterTypePlural = this.pluralize(filterType);
         if (Object.prototype.hasOwnProperty.call(tempSearchData.filters, filterTypePlural)) {
             tempSearchData.filters[filterTypePlural] = newSearch.filters[filterTypePlural];
         }
@@ -112,12 +116,17 @@ export class GeoVisualizationSectionContainer extends React.Component {
         }
 
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(tempSearchData);
+
         this.apiRequest.promise
             .then((res) => {
                 this.setState((prevState) => ({
                     loading: false,
                     error: false,
                     searchData: tempSearchData,
+                    activeFilters: {
+                        ...prevState.activeFilters,
+                        [filterTypePlural]: filterType === "agency" ? tempSearchData.filters[filterTypePlural][0].name : displayName[0]
+                    },
                     selectedItemsDisplayNames: {
                         ...prevState.selectedItemsDisplayNames,
                         [filterType]: filterType === "agency" ? tempSearchData.filters[filterTypePlural][0].name : displayName
@@ -140,12 +149,15 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     clearSearchFilters(filterType) {
-        const filterTypePlural = `${filterType === 'agency' ? 'agencies' : `${filterType}s`}`;
+        const filterTypePlural = this.pluralize(filterType);
         const previousSelection = this.state.selectedItemsDisplayNames[filterType];
         this.setState((prevState) => {
             const newState = { ...prevState };
             newState
                 .selectedItemsDisplayNames[filterType] = '';
+            if (filterType === "def_code") {
+                newState.activeFilters.def_codes = "all";
+            }
             delete newState.searchData.filters[filterTypePlural];
             return (newState);
         }, () => {
@@ -157,7 +169,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     hasFilters() {
         return (this.state.searchData?.scope === 'place_of_performance' && this.state.searchData?.geo_layer.length > 0);
-    };
+    }
+
+    pluralize(string) {
+        if (string[string.length - 1] === "y") {
+            return `${string.slice(0, -1)}ies`;
+        }
+        return `${string}s`;
+    }
 
     fetchData() {
     // Create the time period filter
@@ -168,7 +187,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         if (this.hasFilters()) {
             searchParams = this.state.searchData.filters;
-        } else {
+        }
+        else {
             if (fy !== 'all') {
                 if (fy === 'latest') {
                     dateRange = FiscalYearHelper.getTrailingTwelveMonths();
@@ -281,6 +301,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }, 300);
         });
     }
+
     prepareFetch() {
         if (this.state.loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
@@ -290,11 +311,15 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.fetchData();
     }
     changeMapLayer(layer) {
-        this.setState({
+        this.setState((prevState) => ({
             mapLayer: layer,
             renderHash: `geo-${uniqueId()}`,
-            loadingTiles: true
-        }, () => {
+            loadingTiles: true,
+            activeFilters: {
+                ...prevState.activeFilters,
+                territory: layer
+            }
+        }), () => {
             this.prepareFetch();
         });
     }

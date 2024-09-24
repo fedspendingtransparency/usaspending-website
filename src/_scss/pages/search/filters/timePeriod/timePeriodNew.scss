@@ -10,7 +10,7 @@
     @import "mixins/selectedFilterWrap";
     @import "../_singleSubmit";
 
-    padding: 0 $global-pad rem(20);
+    padding: 0 $global-padding * 2 rem(20);
 
     .fiscal-years-with-chips {
       display: flex;
@@ -21,6 +21,7 @@
       .button-type__tertiary-light {
         color: $gray-90;
         font-size: $font-size-12;
+        font-weight: $font-normal;
         white-space: nowrap;
         padding: 0;
         justify-content: center;
@@ -45,6 +46,7 @@
         }
       }
     }
+
     .new-awards-wrapper {
       display: flex;
       align-items: baseline;
@@ -100,39 +102,90 @@
       margin-top: -1px;
       z-index: 1;
     }
+
     .date-range-option {
       @include grid-container;
       margin-left: auto;
       margin-right: auto;
+
       input {
         @include usa-input;
       }
+
       .date-range-wrapper {
-        margin-top: rem(25);
+        margin-top: $global-margin * 2;
+        display: flex;
+        align-items: flex-end !important;
+        flex-direction: row;
 
-        .set-date-submit {
-          @include singleSubmit;
-          @include media($large-screen) {
-            @include flex(0 0 auto);
-            margin: 0;
-            margin-bottom: rem(3);
-          }
-          @media(min-width: 1355px) {
-            @include align-self(flex-end);
-          }
+         .generate-datepicker {
+           .generate-datepicker__label {
+             text-transform: uppercase;
+             display: block;
+             font-size: $font-size-10;
+             font-weight: $font-semibold;
+             line-height: 1.5;
+             color: $gray-60;
+             margin-bottom: .5 * $global-margin;
+           }
 
-          @media (max-width: 1355px) {
-            margin-top: rem(15);
-          }
-          @media (min-width: $medium-screen) and (max-width: 1355px) {
+           input {
+             @include placeholder {
+               color: $gray-60;
+             }
+
+             line-height: 1.5;
+             border-radius: 3px;
+             border: solid 1px $gray-cool-10 !important;
+             padding: rem(7) rem(2);
+             margin-top: 0;
+             height: rem(32);
+           }
+         }
+
+        .date-range-column {
+          margin-right: .5 * $global-margin;
+          width: 100%;
+
+          .generate-datepicker-wrap {
             width: 100%;
-            align-self: center;
+
+            input {
+              margin-bottom: 0;
+            }
           }
+        }
+
+        button {
+          margin: 0;
         }
       }
     }
-    .error-message {
-      margin: $global-mrg
+
+    .date-range__warning {
+      margin-top: $global-margin;
+      line-height: 1.5;
+      position: relative;
+
+      .date-range__invalid {
+        font-size: $font-size-12;
+        font-weight: $font-semibold;
+        color: $color-secondary-vivid;
+      }
+
+      ul {
+        margin-top: .5 * $global-margin;
+        padding: 0;
+        margin-left: 1.5 * $global-margin;
+
+        li {
+          font-size: $font-size-10;
+          line-height: 1.5;
+          color: $color-secondary-vivid;
+          list-style-type: disc;
+          margin-left: $global-margin;
+        }
+      }
     }
 
     .selected-filters {

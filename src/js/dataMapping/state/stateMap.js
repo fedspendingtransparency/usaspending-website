@@ -54,19 +54,13 @@ export const stateFilters = {
             }
         ]
     },
-    amountType: {
-        label: 'AMOUNT TYPE',
-        enabled: false,
-        options: [
-            {
-                value: 'totalSpending',
-                label: 'Total Spending'
-            },
-            {
-                value: 'perCapita',
-                label: 'Per Capita Spending'
-            }
-        ]
+    def_codes: {
+        label: 'Disaster Emergency Fund Code (DEFC)',
+        enabled: true,
+        options: [{
+            value: 'all',
+            label: 'All Disaster Emergency Fund Codes (DEFCs)'
+        }]
     }
 };
 export const stateOnClickHandler = {
@@ -84,5 +78,6 @@ export const mapFilterSortOrderByValue = {
     perCapita: 1
 };
 export const filtersOnClickHandler = {
-    territory: 'updateTerritoryFilter'
+    territory: 'updateTerritoryFilter',
+    defc: "updateDefcFilter"
 };

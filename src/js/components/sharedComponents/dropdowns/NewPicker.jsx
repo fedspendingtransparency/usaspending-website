@@ -163,7 +163,7 @@ const NewPicker = ({
                         .map((option) => (
                             <li
                                 key={uniqueId()}
-                                className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name.trim() === selectedOption.trim() ? 'active' : ''}`}>
+                                className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name?.trim() === selectedOption?.trim() ? 'active' : ''}`}>
                                 <button
                                     style={{ display: "block", width: "100%" }}
                                     tabIndex={0}

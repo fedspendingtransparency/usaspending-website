@@ -40,7 +40,7 @@
                         font-weight: 300;
                         line-height: rem(34);
                         svg {
-                            margin-left: $global-mrg;
+                            margin-left: $global-margin * 2;
                         }
                     }
 

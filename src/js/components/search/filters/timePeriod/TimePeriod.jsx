@@ -25,7 +25,6 @@ const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
 dayjs.extend(isSameOrAfter);
 
 const defaultProps = {
-    activeTab: 'fy',
     disableDateRange: false
 };
 
@@ -65,14 +64,14 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false,
-            activeTab: 'fy'
+            activeTab: 'fy',
+            dateRangeChipRemoved: false
         };
 
         // bind functions
         this.handleDateChange = this.handleDateChange.bind(this);
         this.showError = this.showError.bind(this);
         this.hideError = this.hideError.bind(this);
-        this.validateDates = this.validateDates.bind(this);
         this.removeDateRange = this.removeDateRange.bind(this);
         this.clearHint = this.clearHint.bind(this);
         this.newAwardsClick = this.newAwardsClick.bind(this);
@@ -194,64 +193,15 @@ export default class TimePeriod extends React.Component {
         });
     }
 
-    validateDates() {
-    // validate that dates are provided for both fields and the end dates
-    // don't come before the start dates
-
-        // validate the date ranges
-        const start = this.state.startDateUI;
-        const end = this.state.endDateUI;
-        if (start && end) {
-            // both sets of dates exist
-            if (!end.isSameOrAfter(start)) {
-                // end date comes before start date, invalid
-                // show an error message
-                this.showError('Invalid Dates',
-                    'The end date cannot be earlier than the start date.');
-            }
-            else {
-                // valid!
-                this.hideError();
-                // update the filter parameters
-                this.props.updateFilter({
-                    dateType: 'dr',
-                    startDate: start.format('YYYY-MM-DD'),
-                    endDate: end.format('YYYY-MM-DD')
-                });
-            }
-        }
-        else if (start || end) {
-            // open-ended date range
-            let startValue = null;
-            let endValue = null;
-            if (start) {
-                startValue = start.format('YYYY-MM-DD');
-            }
-            else {
-                endValue = end.format('YYYY-MM-DD');
-            }
-
-            this.props.updateFilter({
-                dateType: 'dr',
-                startDate: startValue,
-                endDate: endValue
-            });
-        }
-        else {
-            // user has cleared the dates, which means we should clear the date range filter
-            this.props.updateFilter({
-                dateType: 'dr',
-                startDate: null,
-                endDate: null
-            });
-        }
-    }
     removeDateRange() {
         this.clearHint(true);
         this.props.updateFilter({
             dateType: 'dr',
             startDate: null,
             endDate: null
+        });
+        this.setState({
+            dateRangeChipRemoved: true
         });
     }
 
@@ -302,7 +252,7 @@ export default class TimePeriod extends React.Component {
             activeClassDR = 'inactive';
         }
 
-        if (this.props.activeTab === 'fy') {
+        if (this.props.activeTab === 'fy' && !this.state.dateRangeChipRemoved) {
             showFilter = GlobalConstants.QAT ? (<AllFiscalYearsWithChips
                 updateFilter={this.props.updateFilter}
                 timePeriods={this.props.timePeriods}
@@ -323,9 +273,10 @@ export default class TimePeriod extends React.Component {
                 selectedEnd={this.props.filterTimePeriodEnd}
                 onDateChange={this.handleDateChange}
                 showError={this.showError}
+                errorState={this.state.showError}
                 hideError={this.hideError}
-                applyDateRange={this.validateDates}
-                removeDateRange={this.removeDateRange} />);
+                removeDateRange={this.removeDateRange}
+                updateFilter={this.props.updateFilter} />);
             activeClassDR = '';
         }
 
@@ -374,12 +325,14 @@ export default class TimePeriod extends React.Component {
         ];
 
         const toggleTab = (e) => {
-            if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
-                const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
-                this.setState({ ...this.state, activeTab: nextTab });
-                this.clearHint(true);
-                this.props.changeTab(nextTab);
-            }
+            this.setState({ dateRangeChipRemoved: false }, () => {
+                if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
+                    const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
+                    this.setState({ ...this.state, activeTab: nextTab });
+                    this.clearHint(true);
+                    this.props.changeTab(nextTab);
+                }
+            });
         };
 
         return (

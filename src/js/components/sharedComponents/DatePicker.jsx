@@ -5,9 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DayPicker, { DateUtils } from 'react-day-picker';
 import { uniqueId } from 'lodash';
-import * as Icons from './icons/Icons';
 
 const dayjs = require('dayjs');
 
@@ -26,7 +24,9 @@ const propTypes = {
     opposite: PropTypes.object,
     title: PropTypes.string,
     allowClearing: PropTypes.bool,
-    disabledDays: PropTypes.array
+    disabledDays: PropTypes.array,
+    onFocus: PropTypes.func,
+    id: PropTypes.string
 };
 
 export default class DatePicker extends React.Component {
@@ -35,22 +35,17 @@ export default class DatePicker extends React.Component {
 
         this.state = {
             inputValue: '',
-            selectedDay: new Date(),
-            showDatePicker: false
+            selectedDay: new Date()
         };
 
         this.delayedBlur = false;
         this.escapeEvent = '';
 
-        // bind functions
-        this.datePickerChangeEvent = this.datePickerChangeEvent.bind(this);
         this.handleTypedDate = this.handleTypedDate.bind(this);
         this.handleInputBlur = this.handleInputBlur.bind(this);
-        this.toggleDatePicker = this.toggleDatePicker.bind(this);
         this.handleDatePick = this.handleDatePick.bind(this);
         this.handleDateFocus = this.handleDateFocus.bind(this);
         this.handleDateBlur = this.handleDateBlur.bind(this);
-        this.escapeEvent = this.escapeDatePicker.bind(this);
     }
 
     componentDidMount() {
@@ -66,8 +61,7 @@ export default class DatePicker extends React.Component {
     clearValue() {
         this.setState({
             inputValue: '',
-            selectedDay: new Date(),
-            showDatePicker: false
+            selectedDay: new Date()
         });
     }
 
@@ -81,63 +75,9 @@ export default class DatePicker extends React.Component {
         }
     }
 
-    toggleDatePicker(e) {
-        e.preventDefault();
-
-        this.setState({
-            showDatePicker: !this.state.showDatePicker
-        }, this.datePickerChangeEvent);
-    }
-
-    datePickerChangeEvent() {
-        const selectedDay = this.datepicker.dayPicker.querySelector('.DayPicker-Day--selected');
-        /**
-         * Given a user updates the month in the date picker to a month that does not include the date selected,
-         * there will not be a selected day class and will err, therefore if there is no selected day in the current
-         * month in the day picker we will not focus it.
-         */
-        if (this.state.showDatePicker && selectedDay) {
-            // focus on the date picker
-            selectedDay.focus();
-
-            // we want to close the date picker on escape key
-            // have to hold a reference to the bound function in order to cancel the listener later
-            window.addEventListener('keyup', this.escapeEvent);
-        }
-        else if (this.state.showDatePicker) {
-            /**
-             * Given a user updates the month in the date picker to a month that does not include the date selected,
-             * we must focus on another element within the datepicker or a user will not be able to outside click to
-             * hide the datepicker.
-             */
-            this.datepicker.focus();
-            // we want to close the date picker on escape key
-            // have to hold a reference to the bound function in order to cancel the listener later
-            window.addEventListener('keyup', this.escapeEvent);
-        }
-        else {
-            // date picker is now closed, stop listening for this event
-            window.removeEventListener('keyup', this.escapeEvent);
-            // return focus to the input field
-            this.text.focus();
-        }
-    }
-
-    escapeDatePicker(e) {
-        if (e.key === 'Escape') {
-            this.toggleDatePicker(e);
-        }
-    }
-
     handleDatePick(day) {
         this.props.onDateChange(day, this.props.type);
         this.props.hideError();
-        // close the popup if is shown
-        if (this.state.showDatePicker) {
-            this.setState({
-                showDatePicker: false
-            }, this.datePickerChangeEvent.bind(this));
-        }
     }
 
     handleTypedDate(e) {
@@ -210,63 +150,26 @@ export default class DatePicker extends React.Component {
     }
 
     render() {
-        let showDatePicker = ' hide';
-        if (this.state.showDatePicker) {
-            showDatePicker = '';
-        }
-
-        // handle null dates for the calendar default month and selecte date
-        let pickedDay = null;
-        if (this.props.value) {
-            // convert the dayjs object to a JS date object
-            pickedDay = this.props.value.toDate();
-        }
-        else if (this.props.opposite) {
-            // a start/end date was already picked
-            pickedDay = this.props.opposite.toDate();
-        }
-        else {
-            // no dates have been chosen at all, default to the current date
-            pickedDay = dayjs().toDate();
-        }
-
-        const inputId = `picker-${uniqueId()}`;
+        const labelId = `picker-${uniqueId()}`;
 
         return (
             <div className="generate-datepicker-wrap">
                 <div className="generate-datepicker">
-                    <label htmlFor={inputId}>
-                        {this.props.title}
+                    <label htmlFor={labelId}>
+                        <span className="generate-datepicker__label">{this.props.title}</span>
                         <input
-                            id={inputId}
+                            id={this.props.id}
                             type="text"
-                            placeholder="MM/DD/YYYY"
+                            placeholder="mm/dd/yyyy"
                             aria-label={this.props.title}
                             value={this.state.inputValue}
+                            onFocus={this.props.onFocus}
                             ref={(input) => {
                                 this.text = input;
                             }}
                             onChange={this.handleTypedDate}
                             onBlur={this.handleInputBlur} />
                     </label>
-                    <a
-                        href="#null"
-                        onClick={this.toggleDatePicker}
-                        className="usa-da-icon picker-icon date">
-                        <Icons.Calendar alt="Date picker" />
-                    </a>
-                </div>
-                <div className={`floating-datepicker ${showDatePicker}`} role="dialog">
-                    <DayPicker
-                        ref={(daypicker) => {
-                            this.datepicker = daypicker;
-                        }}
-                        month={pickedDay}
-                        disabledDays={this.props.disabledDays}
-                        selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
-                        onDayClick={this.handleDatePick}
-                        onFocus={this.handleDateFocus}
-                        onBlur={this.handleDateBlur} />
                 </div>
             </div>
         );

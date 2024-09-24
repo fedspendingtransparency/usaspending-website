@@ -278,10 +278,10 @@ const Autocomplete = React.memo((props) => {
         if (props.type) {
             if (props.selectedItemsDisplayNames[props.type] && autocompleteInputRef?.current) {
                 autocompleteInputRef.current.value = props.selectedItemsDisplayNames[props.type];
-                autocompleteInputRef.current.style.fontWeight = "bold";
+                autocompleteInputRef.current.style.fontWeight = "600";
             }
         }
-    }, [props.selectedAgencyName]);
+    }, [props?.type]);
 
     return (
         <div

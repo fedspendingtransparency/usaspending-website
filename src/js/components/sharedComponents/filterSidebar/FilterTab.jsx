@@ -7,8 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    label: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    label: PropTypes.object.isRequired,
     active: PropTypes.bool.isRequired,
     switchTab: PropTypes.func.isRequired,
     focusNextTab: PropTypes.func.isRequired,
@@ -16,29 +15,31 @@ const propTypes = {
 };
 
 const FilterTab = ({
-    label, title, active, switchTab, focusNextTab, focusPrevTab
+    label, active, switchTab, focusNextTab, focusPrevTab
 }) => (
     <div
-        id={`filter-tab-${title}`}
+        id={`filter-tab-${label.internal}`}
         className={`filter-tabs__tab ${active ? 'active' : ''}`}
         onClick={switchTab}
         onKeyDown={(e) => {
             if (e.key === 'Enter') {
                 switchTab(e);
-            } else if (e.key === 'ArrowLeft') {
+            }
+            else if (e.key === 'ArrowLeft') {
                 focusPrevTab(e);
-            } else if (e.key === 'ArrowRight') {
+            }
+            else if (e.key === 'ArrowRight') {
                 focusNextTab(e);
             }
         }}
-        title={`Show ${title}`}
+        title={`Show ${label.title}`}
         role="tab"
-        aria-label={`Show ${title}`}
+        aria-label={`Show ${label.title}`}
         aria-selected={active}
-        aria-controls={`tabpanel-${title}`}
+        aria-controls={`tabpanel-${label.internal}`}
         tabIndex={active ? 0 : -1}>
         <div className="filter-tabs__label">
-            {label}
+            {label.label}
         </div>
     </div>
 );

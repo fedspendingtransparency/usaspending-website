@@ -80,7 +80,7 @@
                     @include flex-direction(column);
                     @include flex(1 0 rem(180));
 
-                    padding: 0 $global-pad * 2;
+                    padding: 0 $global-padding * 4;
                     .item-label {
                         text-align: center;
                         width: 100%;

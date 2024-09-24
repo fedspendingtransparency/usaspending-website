@@ -43,16 +43,10 @@ const availableLayers = ['county', 'congressionalDistrict'];
 const GeoVisualizationSection = React.memo((props) => {
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
-    const [activeFilters, setActiveFilters] = useState({
-        territory: props.mapLayer,
-        cfda: null,
-        awardingAgency: null
-    });
     const dataRef = useRef(props.data);
 
     const updateTerritoryFilter = (value) => {
         props.changeMapLayer(value);
-        setActiveFilters({ ...activeFilters, territory: value });
     };
 
     useEffect(() => {
@@ -64,16 +58,24 @@ const GeoVisualizationSection = React.memo((props) => {
         dataRef.current = props.data;
     }, [props.data]);
 
-    const updateAmountTypeFilter = (value) => {
-        setActiveFilters({ ...activeFilters, amountType: value });
-        props.updateMapLegendToggle(value);
+    const updateDefcFilter = (value) => {
+        const newSearch = {
+            filters: {}
+        };
+
+        if (value === "all") {
+            props.clearSearchFilters("def_code");
+        } else {
+            newSearch.filters.def_codes = [value];
+            props.changeScope(newSearch, "def_code", [value]);
+        }
     };
 
     // this will need to be updated as more filters are added
     const addOnClickToFilters = () => Object.keys(stateFilters).reduce((acc, filter) => {
         const filterWithOnClick = {
             ...stateFilters[filter],
-            onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
+            onClick: filtersOnClickHandler[filter] === 'updateTerritoryFilter' ? updateTerritoryFilter : updateDefcFilter
         };
         acc[filter] = filterWithOnClick;
         return acc;
@@ -162,8 +164,7 @@ const GeoVisualizationSection = React.memo((props) => {
                 {...props}
                 awardTypeFilters={awardTypeTabs}
                 filters={addOnClickToFilters()}
-                activeFilters={activeFilters}
-                setActiveFilters={setActiveFilters}
+                activeFilters={props.activeFilters}
                 className={props.className}
                 data={props.data}
                 renderHash={props.renderHash}
