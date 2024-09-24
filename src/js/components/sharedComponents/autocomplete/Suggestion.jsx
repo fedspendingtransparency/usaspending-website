@@ -2,7 +2,7 @@
  * Created by michaelbray on 1/27/17.
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
