@@ -2,7 +2,7 @@
  * Created by michaelbray on 1/27/17.
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -11,14 +11,16 @@ const propTypes = {
     subtitle: PropTypes.string,
     data: PropTypes.object,
     selected: PropTypes.bool,
-    select: PropTypes.func
+    select: PropTypes.func,
+    matchingString: PropTypes.string
 };
 
 const defaultProps = {
     title: '',
     subtitle: '',
     data: [],
-    selected: false
+    selected: false,
+    matchingString: null
 };
 
 export default class Suggestion extends React.Component {
@@ -30,6 +32,24 @@ export default class Suggestion extends React.Component {
         this.suggestion.addEventListener('mousedown', () => {
             this.props.select(this.props.data);
         });
+    }
+
+    boldedText(text, shouldBeBold) {
+        const textArray = text.split(RegExp(shouldBeBold, "ig"));
+        const match = text.match(RegExp(shouldBeBold, "ig"));
+
+        return (
+            <span>
+                {textArray.map((item, index) => (
+                    <>
+                        {item}
+                        {index !== textArray.length - 1 && match && (
+                            <span className="semibold">{match[index]}</span>
+                        )}
+                    </>
+                ))}
+            </span>
+        );
     }
 
     render() {
@@ -44,7 +64,7 @@ export default class Suggestion extends React.Component {
                 ref={(s) => {
                     this.suggestion = s;
                 }}>
-                <span>{this.props.title}</span><br />
+                <span>{this.boldedText(this.props.title, this.props.matchingString)}</span><br />
                 {this.props.subtitle}
             </li>
         /* eslint-enable jsx-a11y/role-supports-aria-props */

@@ -321,7 +321,8 @@ const Autocomplete = React.memo((props) => {
                     selectedIndex={selectedIndex}
                     select={select.bind(this)}
                     maxSuggestions={props.maxSuggestions}
-                    autocompleteId={autocompleteIdRef.current} />
+                    autocompleteId={autocompleteIdRef.current}
+                    matchingString={value} />
                 {generateWarning()}
             </div>
         </div>

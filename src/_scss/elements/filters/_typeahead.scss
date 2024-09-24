@@ -30,6 +30,7 @@
     .autocomplete-md {
         font-size: $small-font-size;
         padding: rem(6) rem(12);
+        color: $theme-color-headline;
         
         &:focus-visible {
             outline: 1px solid $color-focus;
@@ -39,6 +40,7 @@
     .autocomplete-sm {
         font-size: $smallest-font-size;
         padding: rem(8);
+        color: $theme-color-headline;
 
         &:focus-visible {
             outline: 1px solid $color-focus;
@@ -95,8 +97,12 @@
                 }
             }
 
-            span {
+            span.semibold {
                 font-weight: $font-semibold;
+            }
+
+            span {
+                color: $theme-color-headline;
             }
         }
 

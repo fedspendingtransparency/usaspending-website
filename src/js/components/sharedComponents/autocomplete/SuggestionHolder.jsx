@@ -12,7 +12,8 @@ const propTypes = {
     selectedIndex: PropTypes.number,
     maxSuggestions: PropTypes.number,
     shown: PropTypes.bool,
-    autocompleteId: PropTypes.string
+    autocompleteId: PropTypes.string,
+    matchingString: PropTypes.string
 };
 
 const defaultProps = {
@@ -36,7 +37,8 @@ export default class SuggestionHolder extends React.Component {
                 selected={i === this.props.selectedIndex}
                 select={this.props.select}
                 id={`${this.props.autocompleteId}__option_${i}`}
-                key={i} />);
+                key={i}
+                matchingString={this.props.matchingString} />);
         }
 
         let hiddenClass = 'hide';
