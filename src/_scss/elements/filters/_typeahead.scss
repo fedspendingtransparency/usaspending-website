@@ -88,13 +88,6 @@
             &[aria-selected="true"] {
                 background-color: $gray-cool-3;
                 cursor: pointer;
-                * {
-                    color: $color-gray;
-                }
-                mark {
-                    background-color: $color-gray-lighter;
-                    color: $color-gray;
-                }
             }
 
             span.semibold {
