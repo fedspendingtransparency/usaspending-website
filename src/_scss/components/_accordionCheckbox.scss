@@ -9,10 +9,14 @@
       align-items: center;
       margin-bottom: ($global-margin * 1.5);
 
-      svg {
-        color: $blue-50;
-        max-width: rem(10);
-        max-height: rem(10);
+      .checkbox-filter__header-icon {
+        width: rem(10);
+
+        svg {
+          color: $blue-50;
+          max-width: rem(10);
+          max-height: rem(10);
+        }
       }
 
       input {
