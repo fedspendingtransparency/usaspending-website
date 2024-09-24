@@ -5,11 +5,13 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Analytics from 'helpers/analytics/Analytics';
 import { Button } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { usePrevious } from "../../../../helpers/";
+import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -41,7 +43,85 @@ const DateRange = (props) => {
     const [startPicker, setStartPicker] = useState(null);
     const [endPicker, setEndPicker] = useState(null);
     const [disabled, setDisabled] = useState(true);
+    const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
     const prevProps = usePrevious(props);
+
+    const onClick = (e) => {
+        setSelectedDropdownOption(e);
+        Analytics.event({
+            category: 'Date Range Dropdown',
+            action: `View ${e}`
+        });
+    };
+
+    const clearDropdownOption = () => {
+        setSelectedDropdownOption('');
+    };
+
+    const dropdownOptions = [
+        {
+            name: 'Select a date range',
+            value: 'select',
+            onClick: clearDropdownOption
+        },
+        {
+            name: 'Yesterday',
+            value: 'yesterday',
+            onClick
+        },
+        {
+            name: 'Last 7 days',
+            value: 'last-seven-days',
+            onClick
+        },
+        {
+            name: 'Last 15 days',
+            value: 'last-fifteen-days',
+            onClick
+        },
+        {
+            name: 'Last 30 days',
+            value: 'last-thirty-days',
+            onClick
+        },
+        {
+            name: 'Last 60 days',
+            value: 'last-sixty-days',
+            onClick
+        },
+        {
+            name: 'This month',
+            value: 'current-month',
+            onClick
+        },
+        {
+            name: 'Last 3 months',
+            value: 'last-three-months',
+            onClick
+        },
+        {
+            name: 'Last 6 months',
+            value: 'last-six-months',
+            onClick
+        },
+        {
+            name: 'Last 12 months',
+            value: 'last-twelve-months',
+            onClick
+        },
+        {
+            name: 'Last year (Jan - Dec)',
+            value: 'last-calendar-year',
+            onClick
+        },
+        {
+            name: 'Year-to-date (Jan - today)',
+            value: 'year-to-date',
+            onClick
+        }
+    ];
+
+    const sortFn = () => dropdownOptions;
 
     useEffect(() => {
         if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
@@ -201,7 +281,7 @@ const DateRange = (props) => {
                 <div className="date-range-column">
                     <DatePicker
                         type="startDate"
-                        title="START DATE"
+                        title="start date"
                         onDateChange={props.onDateChange}
                         value={props.startDate}
                         opposite={props.endDate}
@@ -218,7 +298,7 @@ const DateRange = (props) => {
                 <div className="date-range-column">
                     <DatePicker
                         type="endDate"
-                        title="END DATE"
+                        title="end date"
                         onDateChange={props.onDateChange}
                         value={props.endDate}
                         opposite={props.startDate}
@@ -257,9 +337,38 @@ const DateRange = (props) => {
                     </span>
                 </button>
             </div>
+            <div className="date-range-option__dropdown-section">
+                <div className="date-range-option__dropdown-section-top">
+                    <div className="date-range-option__dropdown-section-label">
+                    Date Ranges
+                    </div>
+                </div>
+                <div className="date-range-option__dropdown-section-bottom">
+                    <div className="date-range-option__dropdown-section-picker-wrapper">
+                        <NewPicker
+                            leftIcon=""
+                            size="sm"
+                            options={dropdownOptions}
+                            enabled
+                            selectedOption={dropdownOptions?.length
+                                ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
+                                : `${selectedDropdownOption}`}
+                            sortFn={sortFn} />
+                    </div>
+                    <Button
+                        copy="Add"
+                        buttonTitle="Add"
+                        buttonSize="sm"
+                        buttonType="primary"
+                        backgroundColor="light" />
+                    {/* // disabled={disabled}*/}
+                    {/* // onClick={submitRange} />*/}
+                </div>
+            </div>
         </div>
     );
 };
+
 DateRange.defaultProps = defaultProps;
 DateRange.propTypes = propTypes;
 export default DateRange;
