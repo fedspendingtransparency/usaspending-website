@@ -328,22 +328,6 @@ const DateRange = (props) => {
                     disabled={disabled}
                     onClick={submitRange} />
             </form>
-            <div
-                className={`selected-filters ${hideTags}`}
-                id="selected-date-range"
-                aria-hidden={noDates}
-                role="status">
-                <button
-                    className="shown-filter-button"
-                    title="Click to remove filter."
-                    aria-label={`Applied date range: ${dateLabel}`}
-                    onClick={props.removeDateRange}>
-                    {dateLabel}
-                    <span className="close">
-                        <FontAwesomeIcon icon="times" />
-                    </span>
-                </button>
-            </div>
             <FeatureFlag>
                 <div className="date-range-option__dropdown-section">
                     <div className="date-range-option__dropdown-section-top">
@@ -373,6 +357,22 @@ const DateRange = (props) => {
                     </div>
                 </div>
             </FeatureFlag>
+            <div
+                className={`selected-filters ${hideTags}`}
+                id="selected-date-range"
+                aria-hidden={noDates}
+                role="status">
+                <button
+                    className="shown-filter-button"
+                    title="Click to remove filter."
+                    aria-label={`Applied date range: ${dateLabel}`}
+                    onClick={props.removeDateRange}>
+                    {dateLabel}
+                    <span className="close">
+                        <FontAwesomeIcon icon="times" />
+                    </span>
+                </button>
+            </div>
         </div>
     );
 };
