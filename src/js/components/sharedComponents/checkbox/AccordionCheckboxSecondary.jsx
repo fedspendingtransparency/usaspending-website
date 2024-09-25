@@ -37,7 +37,7 @@ const AccordionCheckboxSecondary = ({
     ));
 
     return (
-        <ul className="checkbox-filter__list accordion-checkbox">
+        <ul className="checkbox-filter__list">
             {expanded && items}
         </ul>
     );

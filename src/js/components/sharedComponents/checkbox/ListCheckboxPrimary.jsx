@@ -36,7 +36,7 @@ const ListCheckboxPrimary = ({
     ));
 
     return (
-        <ul className="checkbox-filter__list list-checkbox">
+        <ul className="checkbox-filter__list">
             {items}
         </ul>
     );
