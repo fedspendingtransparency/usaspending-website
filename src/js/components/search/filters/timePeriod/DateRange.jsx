@@ -13,20 +13,15 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { usePrevious } from "../../../../helpers/";
 import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
+import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
 
 dayjs.extend(isSameOrAfter);
 
-const defaultProps = {
-    startDate: '01/01/2016',
-    endDate: '12/31/2016',
-    startingTab: 1
-};
-
 const propTypes = {
-    startingTab: PropTypes.number,
+    // startingTab: PropTypes.number,
     onDateChange: PropTypes.func,
     startDate: PropTypes.object,
     endDate: PropTypes.object,
@@ -49,14 +44,25 @@ const DateRange = (props) => {
 
     const onClick = (e) => {
         setSelectedDropdownOption(e);
+
         Analytics.event({
             category: 'Date Range Dropdown',
             action: `View ${e}`
         });
+
+        dateRangeDropdownTimePeriods.find((obj) => {
+            if (obj.value === e) {
+                // startDate = y.startDate;
+                // endDate = y.endDate;
+                props.onDateChange(obj.startDate, 'startDate');
+                props.onDateChange(obj.endDate, 'endDate');
+                return true;
+            }
+        });
     };
 
     const clearDropdownOption = () => {
-        setSelectedDropdownOption('');
+        setSelectedDropdownOption('select');
     };
 
     const dropdownOptions = [
@@ -362,9 +368,8 @@ const DateRange = (props) => {
                             buttonTitle="Add"
                             buttonSize="sm"
                             buttonType="primary"
-                            backgroundColor="light" />
-                        {/* // disabled={disabled}*/}
-                        {/* // onClick={submitRange} />*/}
+                            backgroundColor="light"
+                            onClick={submitRange} />
                     </div>
                 </div>
             </FeatureFlag>
@@ -372,6 +377,6 @@ const DateRange = (props) => {
     );
 };
 
-DateRange.defaultProps = defaultProps;
+// DateRange.defaultProps = defaultProps;
 DateRange.propTypes = propTypes;
 export default DateRange;
