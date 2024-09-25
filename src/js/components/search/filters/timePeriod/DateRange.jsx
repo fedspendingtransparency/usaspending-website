@@ -34,7 +34,9 @@ const propTypes = {
     applyDateRange: PropTypes.func,
     removeDateRange: PropTypes.func,
     updateFilter: PropTypes.func,
-    errorState: PropTypes.bool
+    errorState: PropTypes.bool,
+    header: PropTypes.string,
+    errorMessage: PropTypes.string
 };
 
 const DateRange = (props) => {
@@ -165,12 +167,11 @@ const DateRange = (props) => {
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
             if (props.errorState) {
-                props.showError('', '');
+                props.showError(props.header, props.errorMessage);
             }
             return;
         }
-
-        if (props.startDate !== null && props.endDate !== null && !props.endDate.isSameOrAfter(props.startDate)) {
+        if (props.startDate !== null && props.endDate !== null && props.startDate.isValid() && props.endDate.isValid() && !props.endDate.isSameOrAfter(props.startDate)) {
             // end date comes before start date, invalid
             // show an error message
             props.showError('Invalid Dates',
