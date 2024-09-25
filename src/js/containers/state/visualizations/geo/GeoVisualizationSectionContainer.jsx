@@ -155,6 +155,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
             const newState = { ...prevState };
             newState
                 .selectedItemsDisplayNames[filterType] = '';
+            if (filterType === "def_code") {
+                newState.activeFilters.def_codes = "all";
+            }
             delete newState.searchData.filters[filterTypePlural];
             return (newState);
         }, () => {
