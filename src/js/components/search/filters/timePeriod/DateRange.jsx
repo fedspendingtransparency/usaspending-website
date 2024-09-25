@@ -342,7 +342,7 @@ const DateRange = (props) => {
                 <div className="date-range-option__dropdown-section">
                     <div className="date-range-option__dropdown-section-top">
                         <div className="date-range-option__dropdown-section-label">
-                    Date Ranges
+                            Date Ranges
                         </div>
                     </div>
                     <div className="date-range-option__dropdown-section-bottom">
