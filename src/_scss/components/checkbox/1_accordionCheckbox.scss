@@ -5,24 +5,46 @@
     .checkbox-filter__header.accordion-checkbox {
       margin-bottom: ($global-margin * 1.5);
 
-      svg {
-        color: $blue-50;
-        max-width: rem(10);
-        max-height: rem(10);
+      .checkbox-filter__header-icon {
+        width: rem(10);
+
+        svg {
+          color: $blue-50;
+          max-width: rem(10);
+          max-height: rem(10);
+        }
       }
 
       input {
-        margin: 0 0 rem(1) $global-margin;
+        @include usa-input-checkbox;
+        margin: 0 0 rem(3) rem(6);
         vertical-align: middle;
+        border: solid rem(1) $gray-cool-20;
+
+        &:checked {
+          background-color: $blue-50;
+          border-color: $blue-50;
+        }
+
+        &:indeterminate {
+          background-color: $blue-50;
+          border-color: $blue-50;
+        }
+
+        &:indeterminate:before {
+          width: rem(10);
+          margin: rem(6) auto;
+          border-bottom: rem(2) solid #fff;
+        }
       }
 
       .checkbox-filter__header-label.accordion-checkbox {
-        margin-left: ($global-margin / 2);
+        margin-left: rem(6);
       }
     }
 
     .checkbox-filter__list.accordion-checkbox {
-      margin: 0 0 ($global-margin * 1.5) rem(34);
+      margin: 0 0 ($global-margin * 1.5) rem(38);
     }
   }
 }
