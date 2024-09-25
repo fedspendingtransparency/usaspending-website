@@ -25,7 +25,7 @@ const ListCheckbox = ({
     const checkboxCategories = filterCategoryMapping.map((category) => (
         <div className="checkbox-filter__wrapper">
             <div
-                className="checkbox-filter__header"
+                className="checkbox-filter__header list-checkbox"
                 role="button"
                 tabIndex="0">
                 <div className="checkbox-filter__header-label-container">
