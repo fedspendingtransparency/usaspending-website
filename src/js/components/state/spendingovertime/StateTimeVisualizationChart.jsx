@@ -12,49 +12,35 @@ import {
     YAxis,
     ResponsiveContainer,
     ReferenceLine,
-    Tooltip
+    Tooltip,
+    Legend
 } from 'recharts';
 import { LoadingMessage, NoResultsMessage } from "data-transparency-ui";
-// import ChartMessage from 'components/sharedComponents/timeChart/TimeVisualizationChartMessage';
 import { formatMoneyWithUnitsShortLabel } from "../../../helpers/moneyFormatter";
+import BarChartLegend from "../../sharedComponents/timeChart/chart/BarChartLegend";
 
 const CustomShapePropTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
-    focusBar: PropTypes.bool,
-    label: PropTypes.string
+    focusBar: PropTypes.bool
 };
 
 const CustomShape = (props) => {
     const {
-        x, y, width, height, focusBar, label
+        x, y, width, height, focusBar
     } = props;
 
-    const fill = "#1B2B85";
+    const fill = "#0081a1"; // $cyan-50v
     let fillOpacity = "1";
-    if (focusBar && !props?.isActive && label !== "jump") {
+    if (focusBar && !props?.isActive) {
         fillOpacity = "0.5";
     }
 
     const maxWidth = width > 120 ? 120 : width;
     const translateX = x + ((width / 2) - (maxWidth / 2));
-    const lineHeight = 315;
 
-    if (label === 'jump') {
-        return (
-            <g>
-                <line
-                    x1={x + (width / 2)}
-                    x2={x + (width / 2) + 1}
-                    y1={lineHeight}
-                    y2="6"
-                    stroke="#dfe1e2"
-                    strokeDasharray="5 3" />
-            </g>
-        );
-    }
     return (
         <rect
             x={translateX}
@@ -128,7 +114,6 @@ const CustomTooltipPropTypes = {
 };
 
 const CustomTooltip = (props) => {
-    // eslint-disable-next-line no-shadow
     const {
         active,
         payload,
@@ -137,7 +122,7 @@ const CustomTooltip = (props) => {
         onMouseLeave
     } = props;
 
-    if (active && payload && payload.length && payload[0].label !== "jump") {
+    if (active && payload && payload.length) {
         onSetFocusBar(label);
         return (
             <div className="custom-tooltip" role="status" aria-live="assertive">
@@ -169,9 +154,6 @@ const StateTimeVisualizationChart = (props) => {
     const [focusBar, setFocusBar] = useState(null);
     const transformedData = [];
 
-    console.log("x", data?.xSeries);
-    console.log("y", data?.ySeries);
-
     let label;
     let value;
     for (let i = 0; i < data?.xSeries?.length; i++) {
@@ -196,7 +178,24 @@ const StateTimeVisualizationChart = (props) => {
         setFocusBar(state.label);
     };
 
-    const Message = () => {
+    const barChartLegnedConfig = [
+        {
+            color: "#0081a1",
+            label: 'Obligations',
+            offset: 0
+        }
+    ];
+
+    const CustomLegend = () => (
+        <svg className="bar-graph" height={20}>
+            <g className="legend-container">
+                <BarChartLegend legend={barChartLegnedConfig} />
+            </g>
+        </svg>
+
+    );
+
+    const renderChart = () => {
         if (loading) {
             return <LoadingMessage />;
         }
@@ -204,83 +203,50 @@ const StateTimeVisualizationChart = (props) => {
             return <NoResultsMessage />;
         }
 
-        return <></>;
+        return (
+            <ResponsiveContainer>
+                <BarChart
+                    height={350}
+                    data={transformedData}
+                    accessibilityLayer
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        bottom: 5
+                    }}>
+                    <XAxis dataKey="label" tick={<CustomXTick />} />
+                    <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                    <Tooltip
+                        cursor={{ fill: '#fff' }}
+                        filterNull
+                        content={<CustomTooltip />}
+                        isAnimationActive={false}
+                        onSetFocusBar={setFocusBar}
+                        onMouseLeave={onMouseLeave} />
+                    <Legend
+                        align="left"
+                        iconType="circle"
+                        content={<CustomLegend />}
+                        wrapperStyle={{ left: 60 }}
+                        margin={{
+                            top: 19, right: 50, bottom: 0, left: 8
+                        }} />
+                    <ReferenceLine y={0} stroke="#dfe1e2" />
+                    <Bar
+                        dataKey="value"
+                        shape={<CustomShape focusBar={focusBar} />}
+                        activeBar={<CustomShape isActive focusBar={focusBar} />}
+                        onMouseEnter={onMouseMove}
+                        onMouseOut={onMouseLeave}
+                        onMouseLeave={onMouseLeave} />
+                </BarChart>
+            </ResponsiveContainer>
+        );
     };
-
-    console.log("transformedData:", transformedData);
-
-    // const renderChart = () => {
-    //     let chart = (<ChartMessage message="No data to display" />);
-
-    //     if (loading) {
-    //         // API request is still pending
-    //         chart = (<ChartMessage message="Loading data..." />);
-    //     }
-    //     else if (transformedData?.length > 0) {
-    //         // only mount the chart component if there is data to display
-    //         chart = (
-    //             <ResponsiveContainer>
-    //                 <BarChart
-    //                     height={350}
-    //                     data={transformedData}
-    //                     accessibilityLayer
-    //                     margin={{
-    //                         top: 5,
-    //                         right: 30,
-    //                         bottom: 5
-    //                     }}>
-    //                     <XAxis dataKey="label" tick={<CustomXTick />} />
-    //                     <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-    //                     <ReferenceLine y={0} stroke="#dfe1e2" />
-    //                     <Bar
-    //                         dataKey="value"
-    //                         shape={<CustomShape focusBar={focusBar} />}
-    //                         activeBar={<CustomShape isActive focusBar={focusBar} />}
-    //                         onMouseEnter={onMouseMove}
-    //                         onMouseOut={onMouseLeave}
-    //                         onMouseLeave={onMouseLeave} />
-    //                 </BarChart>
-    //             </ResponsiveContainer>);
-    //     }
-
-    //     return chart;
-    // };
 
     return (
         <div className="state-visualization__time-wrapper">
-            {loading || transformedData?.length === 0 ? (
-                <Message />
-            ) : (
-                <ResponsiveContainer>
-                    <BarChart
-                        height={350}
-                        data={transformedData}
-                        accessibilityLayer
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            bottom: 5
-                        }}>
-                        <XAxis dataKey="label" tick={<CustomXTick />} />
-                        <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                        <Tooltip
-                            cursor={{ fill: '#fff' }}
-                            filterNull
-                            content={<CustomTooltip />}
-                            isAnimationActive={false}
-                            onSetFocusBar={setFocusBar}
-                            onMouseLeave={onMouseLeave} />
-                        <ReferenceLine y={0} stroke="#dfe1e2" />
-                        <Bar
-                            dataKey="value"
-                            shape={<CustomShape focusBar={focusBar} />}
-                            activeBar={<CustomShape isActive focusBar={focusBar} />}
-                            onMouseEnter={onMouseMove}
-                            onMouseOut={onMouseLeave}
-                            onMouseLeave={onMouseLeave} />
-                    </BarChart>
-                </ResponsiveContainer>
-            )}
+            {renderChart()}
         </div>
     );
 };
