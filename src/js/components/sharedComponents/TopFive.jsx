@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TooltipWrapper } from 'data-transparency-ui';
-import { categoryTitles } from 'dataMapping/state/topCategories';
+import { categoryTitles } from 'dataMapping/topCategories';
 import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { isCancel } from "axios";
