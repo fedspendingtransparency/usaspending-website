@@ -39,16 +39,14 @@ export default class Suggestion extends React.Component {
         const match = text.match(RegExp(shouldBeBold, "ig"));
 
         return (
-            <span>
-                {textArray.map((item, index) => (
-                    <>
-                        {item}
-                        {index !== textArray.length - 1 && match && (
-                            <span className="semibold">{match[index]}</span>
-                        )}
-                    </>
-                ))}
-            </span>
+            textArray.map((item, index) => (
+                <>
+                    {item}
+                    {index !== textArray.length - 1 && match && (
+                        <span className="semibold">{match[index]}</span>
+                    )}
+                </>
+            ))
         );
     }
 
@@ -65,7 +63,7 @@ export default class Suggestion extends React.Component {
                     this.suggestion = s;
                 }}>
                 <span>{this.boldedText(this.props.title, this.props.matchingString)}</span><br />
-                {this.props.subtitle}
+                {this.boldedText(this.props.subtitle, this.props.matchingString)}
             </li>
         /* eslint-enable jsx-a11y/role-supports-aria-props */
         );
