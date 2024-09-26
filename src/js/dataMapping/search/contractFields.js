@@ -134,4 +134,12 @@ export const groupLabels = {
     extent_competed: 'Extent Competed'
 };
 
+export const extentCompetedTypeMapping = [
+    {
+        id: 'extent-competed',
+        name: 'Extent Competed',
+        filters: contractFilterGroups.extent_competed
+    }
+];
+
 /* eslint-enable quote-props */

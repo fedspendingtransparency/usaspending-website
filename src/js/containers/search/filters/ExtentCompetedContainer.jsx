@@ -8,10 +8,13 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
+import { QAT } from 'GlobalConstants';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import ContractFilter from 'components/search/filters/contractFilters/ContractFilter';
+import ListCheckbox from "../../../components/sharedComponents/checkbox/ListCheckbox";
+import { extentCompetedDefinitions, extentCompetedTypeMapping } from "../../../dataMapping/search/contractFields";
 
 const propTypes = {
     updateExtentCompeted: PropTypes.func,
@@ -39,7 +42,13 @@ export class ExtentCompetedContainer extends React.Component {
     }
 
     render() {
-        return (
+        return (QAT ?
+            <ListCheckbox
+                filterCategoryMapping={extentCompetedTypeMapping}
+                filters={extentCompetedDefinitions}
+                selectedFilters={this.props.extentCompeted}
+                singleFilterChange={this.props.updateExtentCompeted} />
+            :
             <ContractFilter
                 extentCompeted={this.props.extentCompeted}
                 dirtyFilters={this.dirtyFilters()}
