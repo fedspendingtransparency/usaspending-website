@@ -167,16 +167,16 @@ const TopFive = (props) => {
         else if (params.category === 'county') {
             locationFilter = {
                 selectedLocations: {
-                    [`${location.country}_${location.state}_${linkData._code}`]: {
-                        identifier: `${location.country}_${location.state}_${linkData._code}`,
+                    [`${filter.country}_${filter.state}_${linkData._code}`]: {
+                        identifier: `${filter.country}_${filter.state}_${linkData._code}`,
                         filter: {
-                            country: location.country,
-                            state: location.state,
+                            country: filter.country,
+                            state: filter.state,
                             county: linkData._code
                         },
                         display: {
                             entity: "County",
-                            standalone: `${linkData._name}, ${location.state}`,
+                            standalone: `${linkData._name}, ${filter.state}`,
                             title: linkData._name
                         }
                     }
@@ -186,16 +186,16 @@ const TopFive = (props) => {
         else if (params.category === 'district') {
             locationFilter = {
                 selectedLocations: {
-                    [`${location.country}_${location.state}_${linkData._code}`]: {
-                        identifier: `${location.country}_${location.state}_${linkData._code}`,
+                    [`${filter.country}_${filter.state}_${linkData._code}`]: {
+                        identifier: `${filter.country}_${filter.state}_${linkData._code}`,
                         filter: {
-                            country: location.country,
-                            state: location.state,
+                            country: filter.country,
+                            state: filter.state,
                             district_current: linkData._code
                         },
                         display: {
                             entity: "Current congressional district",
-                            standalone: `${linkData._name}, ${location.state}`,
+                            standalone: `${linkData._name}, ${filter.state}`,
                             title: linkData._name
                         }
                     }
