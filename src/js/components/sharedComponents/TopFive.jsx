@@ -74,29 +74,37 @@ const TopFive = (props) => {
 
     const createLink = () => {
         const params = props.dataParams;
-        const location = params.filters.place_of_performance_locations[0];
-        const fips = stateFIPSByAbbreviation[location.state];
-        const stateName = stateNameByFipsId[fips];
+        const filter = params.filters?.place_of_performance_locations ? params.filters?.place_of_performance_locations[0] : params.filters?.recipient_id;
 
+        let fips;
+        let stateName;
         let categoryFilter;
         let locationFilter;
 
-        locationFilter = {
-            selectedLocations: {
-                [`${location.country}_${location.state}`]: {
-                    identifier: `${location.country}_${location.state}`,
-                    filter: {
-                        country: location.country,
-                        state: location.state
-                    },
-                    display: {
-                        entity: "State",
-                        standalone: stateName,
-                        title: stateName
+        console.log('params: ', params);
+
+        // only set initial location filter if state page
+        if (params.filters?.place_of_performance_locations) {
+            fips = stateFIPSByAbbreviation[filter.state];
+            stateName = stateNameByFipsId[fips];
+
+            locationFilter = {
+                selectedLocations: {
+                    [`${filter.country}_${filter.state}`]: {
+                        identifier: `${filter.country}_${filter.state}`,
+                        filter: {
+                            country: filter.country,
+                            state: filter.state
+                        },
+                        display: {
+                            entity: "State",
+                            standalone: stateName,
+                            title: stateName
+                        }
                     }
                 }
-            }
-        };
+            };
+        }
 
         if (params.category === 'awarding_agency') {
             categoryFilter = {
@@ -234,6 +242,14 @@ const TopFive = (props) => {
         if (params.filters.award_type_codes?.length > 0) {
             awardTypeFilter = {
                 awardType: params.filters.award_type_codes
+            };
+        }
+
+        if (params.filters?.recipient_id) {
+            categoryFilter = {
+                ...categoryFilter,
+                selectedRecipients: [params.filters?.recipient_name]
+
             };
         }
 

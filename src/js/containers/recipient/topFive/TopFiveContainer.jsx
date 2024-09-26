@@ -23,7 +23,8 @@ export class TopFiveContainer extends React.Component {
         total: PropTypes.number,
         category: PropTypes.string,
         fy: PropTypes.string,
-        recipientHash: PropTypes.string
+        recipientHash: PropTypes.string,
+        recipientName: PropTypes.string
     };
 
     constructor(props) {
@@ -78,7 +79,8 @@ export class TopFiveContainer extends React.Component {
         }
 
         const filters = {
-            recipient_id: this.props.recipientHash
+            recipient_id: this.props.recipientHash,
+            recipient_name: this.props.recipientName
         };
 
         if (timePeriod) {
@@ -160,6 +162,7 @@ export default connect(
     (state) => ({
         total: state.recipient.overview._totalAmount,
         fy: state.recipient.fy,
-        recipientHash: state.recipient.id
+        recipientHash: state.recipient.id,
+        recipientName: state.recipient.overview.name
     })
 )(TopFiveContainer);
