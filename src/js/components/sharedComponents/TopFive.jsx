@@ -11,10 +11,10 @@ import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { isCancel } from "axios";
 
-import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
-import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
-import { REQUEST_VERSION } from "../../../GlobalConstants";
-import { generateUrlHash } from "../../../helpers/searchHelper";
+import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
+import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
+import { REQUEST_VERSION } from "../../GlobalConstants";
+import { generateUrlHash } from "../../helpers/searchHelper";
 
 const propTypes = {
     category: PropTypes.string,

@@ -16,8 +16,7 @@ import {
 } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
-
-import TopFive from 'components/recipient/topFive/TopFive';
+import TopFive from 'components/sharedComponents/TopFive';
 
 export class TopFiveContainer extends React.Component {
     static propTypes = {
@@ -150,6 +149,7 @@ export class TopFiveContainer extends React.Component {
             <TopFive
                 category={this.props.category}
                 total={this.props.total}
+                dataParams={this.dataParams()}
                 {...this.state} />
         );
     }
