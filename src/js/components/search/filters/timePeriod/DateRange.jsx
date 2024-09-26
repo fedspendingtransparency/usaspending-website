@@ -388,6 +388,5 @@ const DateRange = (props) => {
     );
 };
 
-// DateRange.defaultProps = defaultProps;
 DateRange.propTypes = propTypes;
 export default DateRange;
