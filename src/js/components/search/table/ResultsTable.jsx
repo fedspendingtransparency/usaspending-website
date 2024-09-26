@@ -273,6 +273,9 @@ export default class ResultsTable extends React.Component {
         // (page * limit) - 1 end
         // (page - 1) * limit start
         const arrayOfObjects = this.props.results;
+        console.log("table height:", this.state.tableHeight);
+        console.log("window height:", this.state.windowHeight);
+        console.log("sticky header height:", stickyHeaderHeight);
         let values = null;
         // check for not subaward && loans
         if (!this.props.subaward) {
@@ -489,7 +492,8 @@ export default class ResultsTable extends React.Component {
                 <div
                     className={`advanced-search__table-wrapper ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}
                     id="advanced-search__table-wrapper"
-                    style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
+                    style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight + stickyHeaderHeight + 16 + 40 + 57 } : null}>
+                    {/* style={{ height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 }} */}
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn={!this.props.isMobile}
