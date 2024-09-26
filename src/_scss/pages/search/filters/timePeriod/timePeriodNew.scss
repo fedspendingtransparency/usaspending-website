@@ -230,6 +230,8 @@
                   transform: translate(0px, 0px);
                   width: max-content;
                   min-width: 100%;
+                  height: rem(224);
+                  overflow-y: scroll;
 
                   .filter__dropdown-list-item {
                     padding-left: $global-margin;
