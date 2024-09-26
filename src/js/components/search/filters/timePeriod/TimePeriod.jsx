@@ -212,6 +212,7 @@ export default class TimePeriod extends React.Component {
             errorMessage: message
         });
     }
+
     hideError() {
         this.setState({
             showError: false,

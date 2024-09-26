@@ -41,10 +41,13 @@ const DateRange = (props) => {
     const [endPicker, setEndPicker] = useState(null);
     const [disabled, setDisabled] = useState(true);
     const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
+    const [dropdownOptionSelected, setDropdownOptionSelected] = useState(false);
+    const [noDates, setNoDates] = useState(false);
     const prevProps = usePrevious(props);
 
     const onClick = (e) => {
         setSelectedDropdownOption(e);
+        setDropdownOptionSelected(true);
 
         Analytics.event({
             category: 'Date Range Dropdown',
@@ -53,17 +56,17 @@ const DateRange = (props) => {
 
         dateRangeDropdownTimePeriods.find((obj) => {
             if (obj.value === e) {
-                // startDate = y.startDate;
-                // endDate = y.endDate;
                 props.onDateChange(obj.startDate, 'startDate');
                 props.onDateChange(obj.endDate, 'endDate');
                 return true;
             }
+            return false;
         });
     };
 
     const clearDropdownOption = () => {
         setSelectedDropdownOption('select');
+        setDropdownOptionSelected(false);
     };
 
     const dropdownOptions = [
@@ -130,22 +133,6 @@ const DateRange = (props) => {
     ];
 
     const sortFn = () => dropdownOptions;
-
-    useEffect(() => {
-        if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
-            // the start date was reset to null, clear the picker
-            startPicker?.clearValue();
-        }
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props?.startDate]);
-
-    useEffect(() => {
-        if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
-            // the end date was reset to null, clear the picker
-            endPicker?.clearValue();
-        }
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props?.endDate]);
 
     const submitDates = () => {
         // validate that dates are provided for both fields and the end dates
@@ -245,11 +232,6 @@ const DateRange = (props) => {
         }
     }
 
-    let noDates = false;
-    if (!props.startDate && !props.endDate) {
-        noDates = true;
-    }
-
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
             if (props.errorState) {
@@ -268,6 +250,34 @@ const DateRange = (props) => {
     const onFocus = () => {
         testDates();
     };
+
+    useEffect(() => {
+        if (!props.startDate && !props.endDate && !dropdownOptionSelected) {
+            setNoDates(true);
+        }
+        else {
+            setNoDates(false);
+            // we need this in cases where the error message is showing and the user selects an option from the dropdown
+            props.hideError();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props.endDate, props.startDate, dropdownOptionSelected]);
+
+    useEffect(() => {
+        if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
+            // the start date was reset to null, clear the picker
+            startPicker?.clearValue();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props?.startDate]);
+
+    useEffect(() => {
+        if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
+            // the end date was reset to null, clear the picker
+            endPicker?.clearValue();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props?.endDate]);
 
     useEffect(() => {
         if (noDates || props.errorState) {
