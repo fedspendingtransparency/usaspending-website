@@ -354,6 +354,7 @@ const DateRange = (props) => {
                             buttonSize="sm"
                             buttonType="primary"
                             backgroundColor="light"
+                            disabled={disabled}
                             onClick={submitRange} />
                     </div>
                 </div>
