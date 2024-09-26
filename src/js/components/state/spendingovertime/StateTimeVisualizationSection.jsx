@@ -109,8 +109,7 @@ export default class StateTimeVisualizationSection extends React.Component {
                         visualizationPeriod={this.props.visualizationPeriod}
                         loading={this.props.loading}
                         data={this.props.data}
-                        width={this.state.visualizationWidth}
-                        color="#708893" />)
+                        width={this.state.visualizationWidth} />)
                     : (
                         <StateTimeVisualization
                             visualizationPeriod={this.props.visualizationPeriod}
