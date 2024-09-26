@@ -15,20 +15,21 @@ const RecipientTypeList = ({
         const selection = {
             value: type
         };
+        console.log(selection);
         toggleCheckboxType(selection);
     };
 
-    return expanded &&
-            category.filters?.map((type, index) => (
-                <label className="recipient-type-filter__item">
-                    <input
-                        type="checkbox"
-                        id={`primary-checkbox-${index}`}
-                        value={type}
-                        checked={selectedTypes?.has(type)}
-                        onChange={() => selectRecipientType(type)} />
-                    <span className="label">{recipientTypes[type]}</span>
-                </label>));
+    // return expanded &&
+    return category.filters?.toSorted().map((type, index) => (
+        <label className="recipient-type-filter__item">
+            <input
+                type="checkbox"
+                id={`primary-checkbox-${index}`}
+                value={type}
+                checked={selectedTypes?.has(type)}
+                onChange={() => selectRecipientType(type)} />
+            <span className="label">{recipientTypes[type]}</span>
+        </label>));
 };
 
 RecipientTypeList.propTypes = propTypes;

@@ -182,7 +182,7 @@ const SearchSidebar = ({
     const expanded = [];
     releasedFilters.options.forEach((filter) => {
     // Collapse all by default, unless the filter has a selection made
-        if (filter.title === 'Time Period') {
+        if (filter.title === 'Time Period' || filter.title === 'Recipient Type' || filter.title === 'Recipient') {
             // time period is always expanded
             expanded.push(true);
         }

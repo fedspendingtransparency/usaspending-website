@@ -10,6 +10,7 @@ import RecipientNameDUNSContainer from
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import SelectedRecipients from './SelectedRecipients';
 import { usePrevious } from '../../../../helpers';
+import * as RecipientHelper from '../../../../helpers/recipientHelper';
 
 const propTypes = {
     toggleRecipient: PropTypes.func,
@@ -20,6 +21,7 @@ const propTypes = {
 const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) => {
     const [hint, setHint] = useState(null);
     const prevDirtyFilters = usePrevious(dirtyFilters);
+    const [recipients, setRecipients] = useState([]);
 
     let localSelectedRecipients = null;
 
@@ -28,6 +30,17 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
             selectedRecipients={selectedRecipients}
             toggleRecipient={toggleRecipient} />);
     }
+
+    useEffect(() => {
+        if (recipients.length === 0) {
+            const request = RecipientHelper.fetchXRecipients();
+
+            request.promise
+                .then((res) => {
+                    setRecipients(res.data.results);
+                });
+        }
+    }, [recipients.length]);
 
     useEffect(() => {
         if (dirtyFilters && prevDirtyFilters !== dirtyFilters) {
