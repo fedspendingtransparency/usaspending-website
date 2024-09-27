@@ -35,7 +35,7 @@ export class DownloadBottomBarContainer extends React.Component {
         super(props);
 
         this.state = {
-            visible: true,
+            visible: false,
             showError: false,
             showSuccess: false,
             expectedFile: '',

@@ -78,7 +78,7 @@ export default class DownloadBottomBar extends React.Component {
                             <CopyToClipboard
                                 text={this.props.download.expectedUrl}
                                 onCopy={this.onCopy}>
-                                <button>{this.state.copied ? 'Copied' : 'download link'}</button>
+                                <button>{this.state.copied ? 'copied' : 'download link'}</button>
                             </CopyToClipboard>
                             {` ${this.props.descriptionTwo}`}
                         </p>
