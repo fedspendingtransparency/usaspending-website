@@ -91,7 +91,6 @@ const RecipientTypeAccordion = ({
     const [expanded, setExpanded] = useState(expandRecipientTypeAccordions(recipientTypeMapping, selectedTypes));
     const [hint, setHint] = useState(null);
     const prevDirtyFilters = usePrevious(dirtyFilters);
-    const [filterString, setFilterString] = useState('');
 
     const toggleExpanded = (category) => {
         const containsId = expanded?.indexOf(category.id);
@@ -113,8 +112,8 @@ const RecipientTypeAccordion = ({
                 }}
                 role="button"
                 tabIndex="0">
-                {/* {!expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
-                {expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />} */}
+                {!expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-right" />}
+                {expanded?.includes(category.id) && <FontAwesomeIcon icon="chevron-down" />}
                 <div className="recipient-type-filter__header">
                     <span>{category.name}</span>
                     <span className="recipient-type-filter__item-count">
@@ -139,15 +138,8 @@ const RecipientTypeAccordion = ({
     }, [dirtyFilters, hint, prevDirtyFilters]);
 
     return (
-        <div className="filter-item-wrap" style={{ height: '400px', overflowY: 'scroll' }}>
+        <div className="filter-item-wrap">
             <div className="checkbox-type-filter">
-                <input
-                    id="search"
-                    type="text"
-                    className="filter-text-field"
-                    placeholder="Search filters..."
-                    value={filterString}
-                    onChange={(e) => setFilterString(e.target.value)} />
                 <ul className="checkbox-types">
                     {checkboxTypes}
                 </ul>
