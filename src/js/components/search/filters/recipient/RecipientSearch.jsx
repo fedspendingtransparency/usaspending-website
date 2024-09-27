@@ -24,12 +24,19 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
     const [recipients, setRecipients] = useState([]);
 
     let localSelectedRecipients = null;
+    console.log(selectedRecipients);
 
     if (selectedRecipients.size > 0) {
         localSelectedRecipients = (<SelectedRecipients
             selectedRecipients={selectedRecipients}
             toggleRecipient={toggleRecipient} />);
     }
+
+    const levelMapping = {
+        P: 'Parent',
+        R: 'Recipient',
+        C: 'Child'
+    };
 
     useEffect(() => {
         if (recipients.length === 0) {
@@ -38,6 +45,7 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
             request.promise
                 .then((res) => {
                     setRecipients(res.data.results);
+                    console.log(res.data.results);
                 });
         }
     }, [recipients.length]);
@@ -61,6 +69,26 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
                     ref={(component) => {
                         setHint(component);
                     }} />
+                <div className="filter-item-wrap" style={{ height: '400px', overflowY: 'scroll' }}>
+                    <div className="checkbox-type-filter">
+                        { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient, index) => (
+                            <div style={{ display: 'flex' }}>
+                                <div className="col" style={{ marginRight: '4px', marginTop: '2px' }}>
+                                    <input
+                                        type="checkbox"
+                                        id={`primary-checkbox-${index}`}
+                                        style={{ height: '16px', width: '16px' }}
+                                        onClick={() => toggleRecipient(recipient.name)} />
+                                </div>
+                                <div className="col">
+                                    <div className="uei"> <b>UEI:</b> {recipient.uei}</div>
+                                    <div className="legacy-duns">Legacy DUNS: {recipient.duns}</div>
+                                    <div><span className="recipient-name"><b>{recipient.name}</b></span> <span className="legacy-duns">{levelMapping[recipient.recipient_level]}</span> </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

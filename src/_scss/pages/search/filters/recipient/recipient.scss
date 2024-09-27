@@ -10,6 +10,40 @@
         padding-bottom: rem(20);
     }
 
+    .uei {
+        display: inline;
+        gap: 2px;
+        padding: 2.5px 4px;
+        border-radius: 2px;
+        background-color: #edeff0;
+    }
+
+    .legacy-duns {
+        flex-grow: 0;
+        font-family: SourceSansPro;
+        font-size: 13px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: italic;
+        line-height: 1.3;
+        letter-spacing: normal;
+        text-align: left;
+        color: #5c5c5c;
+    }
+
+    .recipient-name {
+        flex-grow: 0;
+        font-family: SourceSansPro;
+        font-size: 12px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: normal;
+        text-align: left;
+        color: #1b1b1b;
+    }
+
     .recipient-filter-item-wrap {
         padding: 0;
 
