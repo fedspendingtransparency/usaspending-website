@@ -136,9 +136,14 @@ export const groupLabels = {
 
 export const extentCompetedTypeMapping = [
     {
-        id: 'extent-competed',
-        name: 'Extent Competed',
-        filters: contractFilterGroups.extent_competed
+        id: 'available-for-competition',
+        name: 'Available for Competition',
+        filters: ['F', 'CDOCiv', 'E Civ', 'A', 'D']
+    },
+    {
+        id: 'not-available-for-competition',
+        name: 'Not Available for Competition',
+        filters: ['NDOCiv', 'B', 'C', 'G']
     }
 ];
 
