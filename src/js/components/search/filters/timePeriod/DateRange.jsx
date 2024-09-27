@@ -146,13 +146,9 @@ const DateRange = (props) => {
     const sortFn = () => dropdownOptions;
 
     const submitDates = () => {
-        // validate that dates are provided for both fields and the end dates
-        // don't come before the start dates
-        // validate the date ranges
         const start = props.startDate;
         const end = props.endDate;
         if (!props.errorState && (start || end)) {
-            // open-ended date range
             let startValue = null;
             let endValue = null;
             if (start) {
@@ -180,14 +176,14 @@ const DateRange = (props) => {
     };
 
     const submitRange = (e) => {
-    // allow the user to change date ranges by keyboard and pressing enter
+        // allow the user to change date ranges by keyboard and pressing enter
         e.preventDefault();
         submitDates();
     };
 
     const generateStartDateDisabledDays = (earliestDate) => {
-    // handle the cutoff dates (preventing end dates from coming before
-    // start dates or vice versa)
+        // handle the cutoff dates (preventing end dates from coming before
+        // start dates or vice versa)
         const disabledDays = [earliestDate];
 
         if (props.endDate) {
