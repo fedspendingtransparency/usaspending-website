@@ -201,7 +201,9 @@ export default class TimePeriod extends React.Component {
             endDate: null
         });
         this.setState({
-            dateRangeChipRemoved: true
+            dateRangeChipRemoved: true,
+            startDateUI: null,
+            endDateUI: null
         });
     }
 

@@ -28,7 +28,6 @@ const propTypes = {
     selectedEnd: PropTypes.string,
     showError: PropTypes.func,
     hideError: PropTypes.func,
-    applyDateRange: PropTypes.func,
     removeDateRange: PropTypes.func,
     updateFilter: PropTypes.func,
     errorState: PropTypes.bool,
@@ -47,33 +46,45 @@ const DateRange = (props) => {
 
     const onClick = (e) => {
         setSelectedDropdownOption(e);
-        setDropdownOptionSelected(true);
 
-        Analytics.event({
-            category: 'Date Range Dropdown',
-            action: `View ${e}`
-        });
+        if (e === 'select') {
+            setDropdownOptionSelected(false);
+        }
+        else {
+            setDropdownOptionSelected(true);
 
-        dateRangeDropdownTimePeriods.find((obj) => {
-            if (obj.value === e) {
-                props.onDateChange(obj.startDate, 'startDate');
-                props.onDateChange(obj.endDate, 'endDate');
-                return true;
-            }
-            return false;
-        });
+            Analytics.event({
+                category: 'Date Range Dropdown',
+                action: `View ${e}`
+            });
+
+            dateRangeDropdownTimePeriods.find((obj) => {
+                if (obj.value === e) {
+                    props.onDateChange(obj.startDate, 'startDate');
+                    props.onDateChange(obj.endDate, 'endDate');
+                    return true;
+                }
+                return false;
+            });
+        }
     };
 
-    const clearDropdownOption = () => {
+    // const clearDropdownOption = () => {
+    //     setSelectedDropdownOption('select');
+    //     setDropdownOptionSelected(false);
+    // };
+
+    const localRemoveDateRange = () => {
         setSelectedDropdownOption('select');
         setDropdownOptionSelected(false);
+        props.removeDateRange();
     };
 
     const dropdownOptions = [
         {
             name: 'Select a date range',
             value: 'select',
-            onClick: clearDropdownOption
+            onClick
         },
         {
             name: 'Yesterday',
@@ -377,7 +388,7 @@ const DateRange = (props) => {
                     className="shown-filter-button"
                     title="Click to remove filter."
                     aria-label={`Applied date range: ${dateLabel}`}
-                    onClick={props.removeDateRange}>
+                    onClick={localRemoveDateRange}>
                     {dateLabel}
                     <span className="close">
                         <FontAwesomeIcon icon="times" />
