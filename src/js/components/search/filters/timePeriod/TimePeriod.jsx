@@ -245,7 +245,7 @@ export default class TimePeriod extends React.Component {
         let showFilter;
         let activeClassDR = '';
 
-        if (this.state.showError && this.props.activeTab === 'dr') {
+        if (this.state.showError && this.props.activeTab === 'dr' && this.state.header !== '' && this.state.errorMessage !== '') {
             errorDetails = (<DateRangeError
                 header={this.state.header}
                 message={this.state.errorMessage} />);
@@ -276,7 +276,9 @@ export default class TimePeriod extends React.Component {
                 errorState={this.state.showError}
                 hideError={this.hideError}
                 removeDateRange={this.removeDateRange}
-                updateFilter={this.props.updateFilter} />);
+                updateFilter={this.props.updateFilter}
+                header={this.state.header}
+                errorMessage={this.state.errorMessage} />);
             activeClassDR = '';
         }
 
