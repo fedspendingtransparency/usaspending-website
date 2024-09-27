@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
@@ -84,7 +83,7 @@ const MapDsm = ({ subaward }) => {
                 <Link
                     to=""
                     aria-label="Open the About the Data"
-                    onClick={(e) => openAboutTheDataSidebar(e)}>Learn about Medicare Location Data
+                    onClick={(e) => openAboutTheDataSidebar(e)}>Learn about Medicare Location Data.
                 </Link>
             </p>
         </>
