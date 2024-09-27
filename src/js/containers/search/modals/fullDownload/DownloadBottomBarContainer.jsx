@@ -35,14 +35,14 @@ export class DownloadBottomBarContainer extends React.Component {
         super(props);
 
         this.state = {
-            visible: false,
+            visible: true,
             showError: false,
             showSuccess: false,
             expectedFile: '',
             expectedUrl: '',
             title: 'We\'re preparing your download(s)...',
-            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.',
-            note: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive.'
+            descriptionOne: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. If you plan to close this page, copy your',
+            descriptionTwo: 'before you go.'
         };
 
         this.request = null;
@@ -87,8 +87,8 @@ export class DownloadBottomBarContainer extends React.Component {
             showError: false,
             showSuccess: false,
             title: 'We\'re preparing your download(s)...',
-            description: 'If you plan to leave the site, copy the download link before you go - you\'ll need it to access your file.',
-            note: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive.'
+            descriptionOne: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. If you plan to close this page, copy your',
+            descriptionTwo: 'before you go.'
         });
     }
 
@@ -289,8 +289,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
                             showError={this.state.showError}
                             showSuccess={this.state.showSuccess}
                             title={this.state.title}
-                            description={this.state.description}
-                            note={this.state.note} />
+                            descriptionOne={this.state.descriptionOne}
+                            descriptionTwo={this.state.descriptionTwo} />
                     </CSSTransition>
                 </TransitionGroup>
             );

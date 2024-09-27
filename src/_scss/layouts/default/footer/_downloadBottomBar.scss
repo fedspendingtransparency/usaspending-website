@@ -48,9 +48,9 @@
             .icon {
                 height: rem(20);
                 display: inline-block;
-                width: rem(15);
+                margin-right: rem(3);
                 svg {
-                    width: rem(25);
+                    width: auto;
                     height: rem(10);
                     fill: $color-green;
                 }
