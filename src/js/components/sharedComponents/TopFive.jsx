@@ -82,6 +82,7 @@ const TopFive = (props) => {
         let locationFilter;
 
         console.log('params: ', params);
+        console.log('linkData: ', linkData);
 
         // only set initial location filter if state page
         if (params.filters?.place_of_performance_locations) {
@@ -233,6 +234,21 @@ const TopFive = (props) => {
             categoryFilter = {
                 selectedAwardIDs: {
                     [linkData._name]: linkData._name
+                }
+            };
+        }
+        else if (params.category === 'federal_account') {
+            categoryFilter = {
+                tasCodes: {
+                    require: [[linkData._code]],
+                    exclude: [],
+                    counts: [
+                        {
+                            label: linkData._name,
+                            value: linkData._code,
+                            count: 1
+                        }
+                    ]
                 }
             };
         }
