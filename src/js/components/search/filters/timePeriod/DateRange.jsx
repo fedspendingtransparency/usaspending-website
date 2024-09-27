@@ -5,10 +5,10 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import { usePrevious } from "../../../../helpers/";
 
 const dayjs = require('dayjs');
@@ -34,7 +34,9 @@ const propTypes = {
     applyDateRange: PropTypes.func,
     removeDateRange: PropTypes.func,
     updateFilter: PropTypes.func,
-    errorState: PropTypes.bool
+    errorState: PropTypes.bool,
+    header: PropTypes.string,
+    errorMessage: PropTypes.string
 };
 
 const DateRange = (props) => {
@@ -162,19 +164,14 @@ const DateRange = (props) => {
         noDates = true;
     }
 
-    const accessibility = {
-        'aria-controls': 'selected-date-range'
-    };
-
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
             if (props.errorState) {
-                props.showError('', '');
+                props.showError(props.header, props.errorMessage);
             }
             return;
         }
-
-        if (props.startDate !== null && props.endDate !== null && !props.endDate.isSameOrAfter(props.startDate)) {
+        if (props.startDate !== null && props.endDate !== null && props.startDate.isValid() && props.endDate.isValid() && !props.endDate.isSameOrAfter(props.startDate)) {
             // end date comes before start date, invalid
             // show an error message
             props.showError('Invalid Dates',
@@ -205,7 +202,7 @@ const DateRange = (props) => {
                 <div className="date-range-column">
                     <DatePicker
                         type="startDate"
-                        title="Action Date Start"
+                        title="START DATE"
                         onDateChange={props.onDateChange}
                         value={props.startDate}
                         opposite={props.endDate}
@@ -222,7 +219,7 @@ const DateRange = (props) => {
                 <div className="date-range-column">
                     <DatePicker
                         type="endDate"
-                        title="Action Date End"
+                        title="END DATE"
                         onDateChange={props.onDateChange}
                         value={props.endDate}
                         opposite={props.startDate}
@@ -236,12 +233,14 @@ const DateRange = (props) => {
                         id="date-range__endDate"
                         allowClearing />
                 </div>
-                <IndividualSubmit
-                    className="set-date-submit"
-                    onClick={submitRange}
-                    label="Filter by date range"
+                <Button
+                    copy="Add"
+                    buttonTitle="Add"
+                    buttonSize="sm"
+                    buttonType="primary"
+                    backgroundColor="light"
                     disabled={disabled}
-                    accessibility={accessibility} />
+                    onClick={submitRange} />
             </form>
             <div
                 className={`selected-filters ${hideTags}`}
