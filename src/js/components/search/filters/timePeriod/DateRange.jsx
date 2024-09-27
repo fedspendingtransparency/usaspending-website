@@ -69,11 +69,6 @@ const DateRange = (props) => {
         }
     };
 
-    // const clearDropdownOption = () => {
-    //     setSelectedDropdownOption('select');
-    //     setDropdownOptionSelected(false);
-    // };
-
     const localRemoveDateRange = () => {
         setSelectedDropdownOption('select');
         setDropdownOptionSelected(false);
@@ -173,12 +168,6 @@ const DateRange = (props) => {
                 endDate: null
             });
         }
-    };
-
-    const submitRange = (e) => {
-        // allow the user to change date ranges by keyboard and pressing enter
-        e.preventDefault();
-        submitDates();
     };
 
     const generateStartDateDisabledDays = (earliestDate) => {
@@ -301,7 +290,7 @@ const DateRange = (props) => {
         <div className="date-range-option">
             <form
                 className="date-range-wrapper"
-                onSubmit={submitRange}>
+                onSubmit={submitDates}>
                 <div className="date-range-column">
                     <DatePicker
                         type="startDate"
@@ -343,7 +332,7 @@ const DateRange = (props) => {
                     buttonType="primary"
                     backgroundColor="light"
                     disabled={disabled}
-                    onClick={submitRange} />
+                    onClick={submitDates} />
             </form>
             <FeatureFlag>
                 <div className="date-range-option__dropdown-section">
@@ -371,7 +360,7 @@ const DateRange = (props) => {
                             buttonType="primary"
                             backgroundColor="light"
                             disabled={disabled}
-                            onClick={submitRange} />
+                            onClick={submitDates} />
                     </div>
                 </div>
             </FeatureFlag>
