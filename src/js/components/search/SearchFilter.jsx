@@ -29,7 +29,6 @@ const SearchFilter = ({
     itemCount,
     selectedItems
 }) => {
-    console.log('SEARCH FILTER, iconName', iconName);
 
     return (
         <div className="search-filter__container">
