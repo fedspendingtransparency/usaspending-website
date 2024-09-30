@@ -28,24 +28,26 @@ const SearchFilter = ({
     description,
     itemCount,
     selectedItems
-}) => {
-
-    return (
-        <div className="search-filter__container">
-            <div className="search-filter__content">
-                <div className="search-filter__top-row">
-                    <div className="search-filter__top-row-icon-container" style={{ backgroundColor: iconBackgroundColor }}>
-                        <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
-                    </div>
-                    <div className="search-filter__top-row-title">{title}</div>
-                    <div className="search-filter__top-row-selected">{itemCount} selected</div>
+}) => (
+    <div className="search-filter__container">
+        <div className="search-filter__content">
+            <div className="search-filter__top-row">
+                <div className="search-filter__top-row-icon-container" style={{ backgroundColor: iconBackgroundColor }}>
+                    <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
                 </div>
-                <div className="search-filter__description">{description}</div>
-                <div className="search-filter__bottom-section" />
+                <div className="search-filter__top-row-text-container">
+                    <div className="search-filter__top-row-title">{title}</div>
+                    <div className="search-filter__top-row-selected-container">
+                        <div className="search-filter__top-row-selected">{itemCount}</div>
+                        <div className="search-filter__top-row-selected">selected</div>
+                    </div>
+                </div>
             </div>
+            <div className="search-filter__description">{description}</div>
+            <div className="search-filter__bottom-section" />
         </div>
-    );
-};
+    </div>
+);
 
 SearchFilter.propTypes = propTypes;
 export default SearchFilter;
