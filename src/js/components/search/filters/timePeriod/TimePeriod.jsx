@@ -180,10 +180,10 @@ export default class TimePeriod extends React.Component {
     }
 
     handleDateChange(date, dateType) {
-    // the component will hold values of the start/end dates for use by the UI only
-    // this is because the start/end range will be incomplete during the time the user has only
-    // picked one date, or if they have picked an invalid range
-    // additional logic is required to keep these values in sync with Redux
+        // the component will hold values of the start/end dates for use by the UI only
+        // this is because the start/end range will be incomplete during the time the user has only
+        // picked one date, or if they have picked an invalid range
+        // additional logic is required to keep these values in sync with Redux
         let value = dayjs(date);
         if (!date) {
             value = null;
@@ -201,7 +201,9 @@ export default class TimePeriod extends React.Component {
             endDate: null
         });
         this.setState({
-            dateRangeChipRemoved: true
+            dateRangeChipRemoved: true,
+            startDateUI: null,
+            endDateUI: null
         });
     }
 
@@ -212,6 +214,7 @@ export default class TimePeriod extends React.Component {
             errorMessage: message
         });
     }
+
     hideError() {
         this.setState({
             showError: false,
