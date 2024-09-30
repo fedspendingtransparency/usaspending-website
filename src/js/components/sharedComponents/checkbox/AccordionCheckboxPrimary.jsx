@@ -121,29 +121,33 @@ const AccordionCheckboxPrimary = ({
                 className="checkbox-filter__header"
                 role="button"
                 tabIndex="0">
-                {!expandedCategories?.includes(category.id) &&
+                <div className="checkbox-filter__header-icon">
+                    {!expandedCategories?.includes(category.id) &&
                     <FontAwesomeIcon
                         onClick={() => toggleExpanded(category)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") toggleExpanded(category);
                         }}
                         icon="chevron-right" />}
-                {expandedCategories?.includes(category.id) &&
+                    {expandedCategories?.includes(category.id) &&
                     <FontAwesomeIcon
                         onClick={() => toggleExpanded(category)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") toggleExpanded(category);
                         }}
                         icon="chevron-down" />}
+                </div>
                 <input
                     type="checkbox"
                     onChange={toggleChildren}
                     checked={allChildren}
                     id={`primary-checkbox__${category.id}`} />
-                <div className="checkbox-filter__header-label">{category.name}</div>
-                <div className="checkbox-filter__header-count">
-                    {category.filters?.length}{' '}
-                    {category.filters?.length === 1 ? 'type' : 'types'}
+                <div className="checkbox-filter__header-label-container">
+                    <span className="checkbox-filter__header-label">{category.name}</span>
+                    <span className="checkbox-filter__header-count">
+                        {category.filters?.length}{' '}
+                        {category.filters?.length === 1 ? 'type' : 'types'}
+                    </span>
                 </div>
             </div>
             <AccordionCheckboxSecondary

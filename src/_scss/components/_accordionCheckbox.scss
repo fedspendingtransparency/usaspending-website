@@ -7,21 +7,44 @@
       line-height: 1.5;
       display: flex;
       align-items: center;
+      margin-bottom: ($global-margin * 1.5);
 
-      svg {
-        color: $blue-50;
-        max-width: rem(10);
-        max-height: rem(10);
+      .checkbox-filter__header-icon {
+        width: rem(10);
+
+        svg {
+          color: $blue-50;
+          max-width: rem(10);
+          max-height: rem(10);
+        }
       }
 
       input {
-        margin-left: $global-margin;
+        @include usa-input-checkbox;
+        margin: 0 0 rem(3) rem(6);
         vertical-align: middle;
-        margin-bottom: rem(1);
+        border: solid rem(1) $gray-cool-20;
+
+        &:checked {
+          background-color: $blue-50;
+          border-color: $blue-50;
+        }
+
+        &:indeterminate {
+          background-color: $blue-50;
+          border-color: $blue-50;
+        }
+
+        &:indeterminate:before {
+          width: rem(10);
+          margin: rem(6) auto;
+          border-bottom: rem(2) solid #fff;
+        }
       }
 
+      .checkbox-filter__header-label-container {
         .checkbox-filter__header-label, .checkbox-filter__header-count {
-          margin-left: ($global-margin / 2);
+          margin-left: rem(6);
         }
 
         .checkbox-filter__header-label {
@@ -32,31 +55,38 @@
         .checkbox-filter__header-count {
           font-size: $font-size-10;
           font-style: italic;
+          color: $gray-60;
         }
+      }
     }
 
     .checkbox-filter__list {
       list-style: none;
-      margin: 0 0 ($global-margin * 1.5) rem(34);
+      margin: 0 0 ($global-margin * 1.5) rem(38);
       padding: 0;
       font-size: $font-size-12;
       line-height: 1.5;
 
-      li:first-of-type {
-        margin-top: ($global-margin * 1.5);
-      }
-
       .checkbox-filter__item {
         margin-bottom: $global-margin;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
 
         input {
-          margin-bottom: rem(1);
+          @include usa-input-checkbox;
+          margin: 0;
+          border: solid rem(1) $gray-cool-20;
+          min-width: rem(14);
+
+          &:checked {
+            background-color: $blue-50;
+            border-color: $blue-50;
+          }
         }
 
         .checkbox-filter__item-label {
-          margin-left: ($global-margin / 2);
+          margin: rem(1) 0 0 rem(6);
+          color: $gray-80;
         }
       }
     }
