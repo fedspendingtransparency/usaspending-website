@@ -273,9 +273,6 @@ export default class ResultsTable extends React.Component {
         // (page * limit) - 1 end
         // (page - 1) * limit start
         const arrayOfObjects = this.props.results;
-        console.log("table height:", this.state.tableHeight);
-        console.log("window height:", this.state.windowHeight);
-        console.log("sticky header height:", stickyHeaderHeight);
         let values = null;
         // check for not subaward && loans
         if (!this.props.subaward) {
