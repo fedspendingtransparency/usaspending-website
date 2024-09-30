@@ -38,8 +38,7 @@ const SearchFilter = ({
                 <div className="search-filter__top-row-text-container">
                     <div className="search-filter__top-row-title">{title}</div>
                     <div className="search-filter__top-row-selected-container">
-                        <div className="search-filter__top-row-selected">{itemCount}</div>
-                        <div className="search-filter__top-row-selected">selected</div>
+                        <div className="search-filter__top-row-selected">{itemCount} selected</div>
                     </div>
                 </div>
             </div>
