@@ -14,6 +14,9 @@ const propTypes = {
     expanded: PropTypes.bool
 };
 
+// sub-filters hidden from the user, but  passed to the API when the parent filter is selected
+const excludedSubFilters = "IDV_B";
+
 const AccordionCheckboxSecondary = ({
     category, selectedFilters, singleFilterChange, filters, expanded
 }) => {
@@ -21,11 +24,12 @@ const AccordionCheckboxSecondary = ({
         const selection = {
             value: filter
         };
+        console.log(filter);
         singleFilterChange(selection);
     };
 
     const items = category.filters?.map((filter, index) => (
-        <li className="checkbox-filter__item" key={filters[filter]}>
+        <li className={`checkbox-filter__item ${filter === excludedSubFilters ? 'hidden' : ''}`} key={filters[filter]}>
             <input
                 type="checkbox"
                 id={`primary-checkbox-${index}`}
