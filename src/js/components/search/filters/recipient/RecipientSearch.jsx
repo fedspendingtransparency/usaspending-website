@@ -69,21 +69,21 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
                     ref={(component) => {
                         setHint(component);
                     }} />
-                <div className="filter-item-wrap" style={{ height: '400px', overflowY: 'scroll' }}>
+                <div className="filter-item-wrap recipient-container">
                     <div className="checkbox-type-filter">
                         { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient, index) => (
-                            <div style={{ display: 'flex' }}>
-                                <div className="col" style={{ marginRight: '4px', marginTop: '2px' }}>
+                            <div className="container">
+                                <div className="col recipient-checkbox">
                                     <input
                                         type="checkbox"
                                         id={`primary-checkbox-${index}`}
-                                        style={{ height: '16px', width: '16px' }}
+                                        className="primary-checkbox-type"
                                         onClick={() => toggleRecipient(recipient.name)} />
                                 </div>
                                 <div className="col">
-                                    <div className="uei"> <b>UEI:</b> {recipient.uei}</div>
+                                    <div className="uei"> <span>UEI:</span> {recipient.uei}</div>
                                     <div className="legacy-duns">Legacy DUNS: {recipient.duns}</div>
-                                    <div><span className="recipient-name"><b>{recipient.name}</b></span> <span className="legacy-duns">{levelMapping[recipient.recipient_level]}</span> </div>
+                                    <div><span className="recipient-name">{recipient.name}</span><span className="legacy-duns">{levelMapping[recipient.recipient_level]}</span> </div>
                                 </div>
                             </div>
                         ))}

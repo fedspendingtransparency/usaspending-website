@@ -13,35 +13,58 @@
     .uei {
         display: inline;
         gap: 2px;
+        font-size: 12px;
         padding: 2.5px 4px;
         border-radius: 2px;
         background-color: #edeff0;
+        line-height: 1.5;
+
+        span {
+            font-weight: $font-bold;
+        }
     }
 
     .legacy-duns {
         flex-grow: 0;
-        font-family: SourceSansPro;
-        font-size: 13px;
-        font-weight: normal;
-        font-stretch: normal;
+        font-size: 10px;
         font-style: italic;
-        line-height: 1.3;
-        letter-spacing: normal;
+        line-height: 1.5;
         text-align: left;
         color: #5c5c5c;
+        margin-top: 4px;
+        padding-top: 2.5px;
+        padding-bottom: 2.5px;
+    }
+
+    .container {
+        display: flex;
     }
 
     .recipient-name {
         flex-grow: 0;
-        font-family: SourceSansPro;
         font-size: 12px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
         line-height: 1.5;
-        letter-spacing: normal;
         text-align: left;
         color: #1b1b1b;
+        margin-top: 4px;
+        border-right: 0;
+        margin-right: 0;
+    }
+
+    .recipient-checkbox {
+        margin-right: 6px;
+        margin-top: 4px;
+        input {
+            height: 16px;
+            width: 16px;
+        }
+    }
+
+    .recipient-container {
+        padding-left: 0;
+        padding-right: 0; 
+        height: 400px;
+        overflow-y: scroll;
     }
 
     .recipient-filter-item-wrap {
