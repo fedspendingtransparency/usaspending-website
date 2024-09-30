@@ -1,0 +1,37 @@
+.search-filter__container {
+  //this import shouldn't be necessary once this css file is imported into a css page
+  @import "all";
+
+  // this margin-bottom is only for demo
+  margin-bottom: rem(32);
+
+  .search-filter__content {
+    border-top: solid 1px $gray-cool-10;
+
+    .search-filter__top-row {
+      display: flex;
+      margin-top: $global-margin * 2;
+
+      .search-filter__top-row-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: rem(21);
+        width: rem(21);
+        border-radius: 4px;
+
+        svg {
+          height: rem(12);
+        }
+      }
+    }
+
+    .search-filter__description {
+
+    }
+
+    .search-filter__bottom-section {
+
+    }
+  }
+}

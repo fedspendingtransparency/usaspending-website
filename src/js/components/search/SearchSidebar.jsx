@@ -40,6 +40,8 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
+import SearchFilter from "./SearchFilter";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -198,36 +200,46 @@ const SearchSidebar = ({
     };
 
     return (
-        <div
-            className="search-sidebar"
-            role="search"
-            aria-label="Filters">
-            <div className="sidebar-header">
-                <div className="sidebar-header_title-advanced-search">
-                    <span className="filter-icon">
-                        <FilterIcon />
-                    </span>
-                    <h2 className="sidebar-title_advanced-search">Filters</h2>
+        <>
+            <FeatureFlag>
+                <SearchFilter
+                    iconName="calendar-alt"
+                    iconColor="#1A4480"
+                    iconBackgroundColor="#edf5ff"
+                    title="Time Period"
+                    description="Find awards by specific date or date range"
+                    itemCount={1} />
+            </FeatureFlag>
+            <div
+                className="search-sidebar"
+                role="search"
+                aria-label="Filters">
+                <div className="sidebar-header">
+                    <div className="sidebar-header_title-advanced-search">
+                        <span className="filter-icon">
+                            <FilterIcon />
+                        </span>
+                        <h2 className="sidebar-title_advanced-search">Filters</h2>
+                    </div>
+                    <div className="sidebar-paragraph__container">
+                        <div className="sidebar-paragraph">Learn which data elements are associated with certain search <div style={{ display: 'inline-table' }}>filters<TooltipWrapper icon="info" tooltipPosition={tooltipDirection()} tooltipComponent={FilterTooltip} /></div></div>
+                    </div>
                 </div>
-                <div className="sidebar-paragraph__container">
-                    <div className="sidebar-paragraph">Learn which data elements are associated with certain search <div style={{ display: 'inline-table' }}>filters<TooltipWrapper icon="info" tooltipPosition={tooltipDirection()} tooltipComponent={FilterTooltip} /></div></div>
+                <div className="sidebar-top-submit">
+                    <SearchSidebarSubmitContainer />
                 </div>
-            </div>
-
-            <div className="sidebar-top-submit">
-                <SearchSidebarSubmitContainer />
-            </div>
-            <FilterSidebar
-                {...releasedFilters}
-                expanded={expanded} />
-            <div className="sidebar-bottom-submit">
-                <SearchSidebarSubmitContainer />
-                {window.innerWidth <= mediumScreen &&
+                <FilterSidebar
+                    {...releasedFilters}
+                    expanded={expanded} />
+                <div className="sidebar-bottom-submit">
+                    <SearchSidebarSubmitContainer />
+                    {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
                     <KeywordSearchLink />
                 </div>}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
