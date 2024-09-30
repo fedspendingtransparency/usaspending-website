@@ -1,6 +1,6 @@
 /**
- * AccordionCheckboxSecondary.jsx
- * Created by Josue Aguilar on 09/11/2024.
+ * ListCheckboxPrimary.jsx
+ * Created by Josue Aguilar on 09/20/2024.
  */
 
 import React from "react";
@@ -10,26 +10,21 @@ const propTypes = {
     category: PropTypes.object,
     selectedFilters: PropTypes.object,
     singleFilterChange: PropTypes.func,
-    filters: PropTypes.object,
-    expanded: PropTypes.bool
+    filters: PropTypes.object
 };
 
-// sub-filters hidden from the user, but  passed to the API when the parent filter is selected
-const excludedSubFilters = "IDV_B";
-
-const AccordionCheckboxSecondary = ({
-    category, selectedFilters, singleFilterChange, filters, expanded
+const ListCheckboxPrimary = ({
+    category, selectedFilters, singleFilterChange, filters
 }) => {
     const selectFilter = (filter) => {
         const selection = {
             value: filter
         };
-        console.log(filter);
         singleFilterChange(selection);
     };
 
     const items = category.filters?.map((filter, index) => (
-        <li className={`checkbox-filter__item ${filter === excludedSubFilters ? 'hidden' : ''}`} key={filters[filter]}>
+        <li className="checkbox-filter__item">
             <input
                 type="checkbox"
                 id={`primary-checkbox-${index}`}
@@ -41,12 +36,12 @@ const AccordionCheckboxSecondary = ({
     ));
 
     return (
-        <ul className="checkbox-filter__list accordion-checkbox">
-            {expanded && items}
+        <ul className="checkbox-filter__list list-checkbox">
+            {items}
         </ul>
     );
 };
 
-AccordionCheckboxSecondary.propTypes = propTypes;
+ListCheckboxPrimary.propTypes = propTypes;
 
-export default AccordionCheckboxSecondary;
+export default ListCheckboxPrimary;

@@ -119,7 +119,7 @@ const AccordionCheckboxPrimary = ({
     return (
         <div className="checkbox-filter__wrapper">
             <div
-                className="checkbox-filter__header"
+                className="checkbox-filter__header accordion-checkbox"
                 role="button"
                 tabIndex="0">
                 <div className="checkbox-filter__header-icon">
@@ -144,7 +144,7 @@ const AccordionCheckboxPrimary = ({
                     checked={allChildren}
                     id={`primary-checkbox__${category.id}`} />
                 <div className="checkbox-filter__header-label-container">
-                    <span className="checkbox-filter__header-label">{category.name}</span>
+                    <span className="checkbox-filter__header-label accordion-checkbox">{category.name}</span>
                     <span className="checkbox-filter__header-count">
                         {count}{' '}
                         {count === 1 ? 'type' : 'types'}
