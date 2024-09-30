@@ -54,6 +54,10 @@
           color: $gray-80;
         }
       }
+
+      .checkbox-filter__item.hidden {
+        display: none;
+      }
     }
   }
 }
