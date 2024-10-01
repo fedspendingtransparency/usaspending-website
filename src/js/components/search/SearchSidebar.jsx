@@ -41,9 +41,9 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
 
+// these are for the SearchFilter demo
 import SearchFilter from "./SearchFilter";
 import FeatureFlag from "../sharedComponents/FeatureFlag";
-import SearchFilterDemoData from './SearchFilterDemoData';
 import searchFilterDemoData from "./SearchFilterDemoData";
 
 const staticFilters = {
