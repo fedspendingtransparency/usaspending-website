@@ -218,13 +218,13 @@ export const allDownloadOptions = [
     {
         label: 'Database Download',
         type: '',
-        url: `https://onevoicecrm.my.site.com/usaspending/s/`,
+        url: `https://onevoicecrm.my.site.com/usaspending/s/database-download`,
         code: 'database',
         description: 'Log in to access all datasets from Fiscal Year 2001 to present',
         callToAction: 'Explore Database Download',
         shouldOpenNewTab: true,
         enabled: true,
-        internalDomain: true,
+        internalDomain: false,
         externalLink: true,
         icon: ''
     },
