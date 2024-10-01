@@ -41,6 +41,11 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
 
+// these are for the SearchFilter demo
+import SearchFilter from "./SearchFilter";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
+import searchFilterDemoData from "./SearchFilterDemoData";
+
 const staticFilters = {
     // NOTE: if you update the title here
     // update the switch statement in helpers/sidebarHelper filterHasSelections!
@@ -173,13 +178,16 @@ const SearchSidebar = ({
         Object.keys(option).includes('isReleased') &&
         !option.isReleased
     ));
+
     const releasedFilters = indexOfUnreleased === -1
         ? staticFilters
         : Object.entries(staticFilters).reduce((acc, [key, arr]) => ({
             ...acc,
             [key]: arr.filter((item, i) => i !== indexOfUnreleased)
         }), {});
+
     const expanded = [];
+
     releasedFilters.options.forEach((filter) => {
     // Collapse all by default, unless the filter has a selection made
         if (filter.title === 'Time Period' || filter.title === 'Recipient Type' || filter.title === 'Recipient') {
@@ -190,6 +198,7 @@ const SearchSidebar = ({
             expanded.push(SidebarHelper.filterHasSelections(filters, filter));
         }
     });
+
     const tooltipDirection = () => {
         if (window.innerWidth <= mediumScreen) {
             return "bottom";
@@ -198,36 +207,49 @@ const SearchSidebar = ({
     };
 
     return (
-        <div
-            className="search-sidebar"
-            role="search"
-            aria-label="Filters">
-            <div className="sidebar-header">
-                <div className="sidebar-header_title-advanced-search">
-                    <span className="filter-icon">
-                        <FilterIcon />
-                    </span>
-                    <h2 className="sidebar-title_advanced-search">Filters</h2>
+        <>
+            <FeatureFlag>
+                {searchFilterDemoData.map((item) => (
+                    <SearchFilter
+                        iconName={item.iconName}
+                        iconColor={item.iconColor}
+                        iconBackgroundColor={item.iconBackgroundColor}
+                        title={item.title}
+                        description={item.description}
+                        itemCount={item.itemCount}
+                        selectedItems={item.selectedItems} />
+                ))}
+            </FeatureFlag>
+            <div
+                className="search-sidebar"
+                role="search"
+                aria-label="Filters">
+                <div className="sidebar-header">
+                    <div className="sidebar-header_title-advanced-search">
+                        <span className="filter-icon">
+                            <FilterIcon />
+                        </span>
+                        <h2 className="sidebar-title_advanced-search">Filters</h2>
+                    </div>
+                    <div className="sidebar-paragraph__container">
+                        <div className="sidebar-paragraph">Learn which data elements are associated with certain search <div style={{ display: 'inline-table' }}>filters<TooltipWrapper icon="info" tooltipPosition={tooltipDirection()} tooltipComponent={FilterTooltip} /></div></div>
+                    </div>
                 </div>
-                <div className="sidebar-paragraph__container">
-                    <div className="sidebar-paragraph">Learn which data elements are associated with certain search <div style={{ display: 'inline-table' }}>filters<TooltipWrapper icon="info" tooltipPosition={tooltipDirection()} tooltipComponent={FilterTooltip} /></div></div>
+                <div className="sidebar-top-submit">
+                    <SearchSidebarSubmitContainer />
                 </div>
-            </div>
-
-            <div className="sidebar-top-submit">
-                <SearchSidebarSubmitContainer />
-            </div>
-            <FilterSidebar
-                {...releasedFilters}
-                expanded={expanded} />
-            <div className="sidebar-bottom-submit">
-                <SearchSidebarSubmitContainer />
-                {window.innerWidth <= mediumScreen &&
+                <FilterSidebar
+                    {...releasedFilters}
+                    expanded={expanded} />
+                <div className="sidebar-bottom-submit">
+                    <SearchSidebarSubmitContainer />
+                    {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
                     <KeywordSearchLink />
                 </div>}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
