@@ -56,12 +56,12 @@
       margin-top: $global-margin * .5;
     }
 
-    .search-filter__description {
-
-    }
-
     .search-filter__bottom-section {
-
+      margin-top: $global-margin;
+      // these rules for fonts won't be needed when this section displays chips
+      font-size: $font-size-12;
+      line-height: 1.5;
+      color: $theme-color-body;
     }
   }
 }

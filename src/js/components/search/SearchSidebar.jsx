@@ -175,13 +175,16 @@ const SearchSidebar = ({
         Object.keys(option).includes('isReleased') &&
         !option.isReleased
     ));
+
     const releasedFilters = indexOfUnreleased === -1
         ? staticFilters
         : Object.entries(staticFilters).reduce((acc, [key, arr]) => ({
             ...acc,
             [key]: arr.filter((item, i) => i !== indexOfUnreleased)
         }), {});
+
     const expanded = [];
+
     releasedFilters.options.forEach((filter) => {
     // Collapse all by default, unless the filter has a selection made
         if (filter.title === 'Time Period') {
@@ -192,12 +195,20 @@ const SearchSidebar = ({
             expanded.push(SidebarHelper.filterHasSelections(filters, filter));
         }
     });
+
     const tooltipDirection = () => {
         if (window.innerWidth <= mediumScreen) {
             return "bottom";
         }
         return "right";
     };
+
+    // this array is only for demo-ing the SearchFilter component
+    const selectedItems = [
+        'Sample chip 1',
+        'Sample chip 2',
+        'Sample chip 3'
+    ];
 
     return (
         <>
@@ -208,7 +219,8 @@ const SearchSidebar = ({
                     iconBackgroundColor="#edf5ff"
                     title="Time Period"
                     description="Find awards by specific date or date range"
-                    itemCount={1} />
+                    itemCount={3}
+                    selectedItems={selectedItems} />
             </FeatureFlag>
             <div
                 className="search-sidebar"

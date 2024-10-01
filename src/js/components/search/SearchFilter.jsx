@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// this import shouldn't be necessary once this css file is imported into a css page
 import '../../../_scss/pages/search/_searchFilter.scss';
 
 const propTypes = {
@@ -43,7 +42,11 @@ const SearchFilter = ({
                 </div>
             </div>
             <div className="search-filter__description">{description}</div>
-            <div className="search-filter__bottom-section" />
+            <div className="search-filter__bottom-section">
+                {selectedItems.map((item) => (
+                    <div>{item}</div>
+                ))}
+            </div>
         </div>
     </div>
 );
