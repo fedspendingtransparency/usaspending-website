@@ -30,7 +30,7 @@
     .autocomplete-md {
         font-size: $small-font-size;
         padding: rem(6) rem(12);
-        
+
         &:focus-visible {
             outline: 1px solid $color-focus;
         }
@@ -100,10 +100,24 @@
             }
         }
 
+        li.autocomplete-heading {
+            font-size: $font-size-10;
+            font-weight: $font-semibold;
+            margin-bottom: rem(4);
+            //margin: 0 190px 4px 7px;
+            line-height: 1.5;
+            text-align: left;
+            color: $gray-60;
+            text-transform: uppercase;
+        }
+
         .unselectable {
             pointer-events: none;
         }
     }
+
+
+
 
     .hide {
         display: none;

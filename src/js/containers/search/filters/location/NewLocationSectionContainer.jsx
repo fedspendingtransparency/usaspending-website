@@ -107,26 +107,41 @@ const NewLocationSectionContainer = () => {
             });
         }
 
-        // if (zipCodes) {
-        //     locationSort(zipCodes, 'zip_code');
-        //     zipCodes.map((item) => (
-        //         locationsList.push({ ...item, category: 'zip code' })
-        //     ));
-        // }
-        //
-        // if (districtsCurrent) {
-        //     locationSort(districtsCurrent, 'current_cd');
-        //     districtsCurrent.map((item) => (
-        //         locationsList.push({ ...item, category: 'current congressional district' })
-        //     ));
-        // }
-        //
-        // if (districtsOriginal) {
-        //     locationSort(districtsOriginal, 'original_cd');
-        //     districtsOriginal.map((item) => (
-        //         locationsList.push({ ...item, category: 'original congressional district' })
-        //     ));
-        // }
+        if (zipCodes) {
+            locationSort(zipCodes, 'zip_code');
+            zipCodes.map((item) => {
+                const locationItem = Object.create(LocationEntity);
+                locationItem.populate({
+                    ...item,
+                    category: 'zip_code'
+                });
+                return locationsList.push(locationItem);
+            });
+        }
+
+        if (districtsCurrent) {
+            locationSort(districtsCurrent, 'current_cd');
+            districtsCurrent.map((item) => {
+                const locationItem = Object.create(LocationEntity);
+                locationItem.populate({
+                    ...item,
+                    category: 'current_cd'
+                });
+                return locationsList.push(locationItem);
+            });
+        }
+
+        if (districtsOriginal) {
+            locationSort(districtsOriginal, 'original_cd');
+            districtsOriginal.map((item) => {
+                const locationItem = Object.create(LocationEntity);
+                locationItem.populate({
+                    ...item,
+                    category: 'original_cd'
+                });
+                return locationsList.push(locationItem);
+            });
+        }
 
         if (count > 5) {
             setLocations(locationsList.splice(0, 5));
@@ -168,24 +183,17 @@ const NewLocationSectionContainer = () => {
         }, 1000);
     };
 
-    const onChange = (e) => {
-        e.persist();
-        handleTextInput(e);
+    const selectItem = (item) => {
+        console.log('selected item: ', item);
     };
 
     return (
         <>
-            {/* TODO: REMOVE HTML AND ONCHANGE. ONLY HERE FOR TESTING DEV-11306. */}
-            {/* <div>No Results: {noResults.toString()}</div> */}
-
-            <h5>All Locations:</h5>
             <ul>
                 <Autocomplete
-                    id="location-autocomplete"
-                    label="Locations"
                     values={locations}
                     handleTextInput={handleTextInput}
-                    onSelect={onChange}
+                    onSelect={selectItem}
                     clearAutocompleteSuggestions={clearAutocompleteSuggestions}
                     noResults={noResults}
                     retainValue />

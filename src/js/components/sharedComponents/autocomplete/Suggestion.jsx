@@ -4,6 +4,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { locationDropdown } from "../../../dataMapping/search/location";
 
 const propTypes = {
     id: PropTypes.string,
@@ -42,7 +43,7 @@ const Suggestion = (props) => {
     const isNewHeading = () => {
         let notFound = true;
         if (props.category) {
-            const key = parseInt(props.id[props.id.length - 1]);
+            const key = parseInt(props.id[props.id.length - 1], 10);
             const prevValues = props.values.slice(0, key);
 
             prevValues.forEach((value) => {
@@ -59,7 +60,7 @@ const Suggestion = (props) => {
     // We need to set aria-selected to use the arrow keys to select elements
     /* eslint-disable jsx-a11y/role-supports-aria-props */
         <>
-            {isNewHeading() && <li>{props.category}</li>}
+            {isNewHeading() && props.category && <li className="autocomplete-heading">{locationDropdown[props.category]}</li>}
             <li
                 id={props.id}
                 tabIndex={-1}

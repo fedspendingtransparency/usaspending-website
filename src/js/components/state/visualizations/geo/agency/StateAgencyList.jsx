@@ -244,8 +244,6 @@ const StateAgencyList = React.memo((props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log(autocompleteAgencies);
-
     return (
         <Autocomplete
             {...props}

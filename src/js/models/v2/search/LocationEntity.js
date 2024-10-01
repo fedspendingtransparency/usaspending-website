@@ -16,6 +16,15 @@ export const formatTitle = (category, item) => {
     else if (item.category === "state") {
         return item.state_name;
     }
+    else if (item.category === "zip_code") {
+        return item.state_name;
+    }
+    else if (item.category === "current_cd") {
+        return item.current_cd;
+    }
+    else if (item.category === "original_cd") {
+        return item.original_cd;
+    }
     return '--';
 };
 
@@ -25,10 +34,13 @@ const LocationEntity = {
         this.category = item.category || '--';
         this.title = formatTitle(this.category, item);
         this.data = {
-            _countyName: item.county_name || '--',
-            _countryName: item.country_name || '--',
-            _stateName: item.state_name || '--',
-            _cityName: item.city_name || '--'
+            _county_name: item.county_name || '--',
+            _country_name: item.country_name || '--',
+            _state_name: item.state_name || '--',
+            _city_name: item.city_name || '--',
+            _zip_code: item.zip_code || '--',
+            _original_cd: item.original_cd || '--',
+            _current_cd: item.current_cd || '--'
         };
     }
 };
