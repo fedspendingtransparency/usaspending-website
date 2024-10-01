@@ -3,7 +3,7 @@
  * Created by Josue Aguilar 8/15/2024
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { fetchLocations } from 'helpers/searchHelper';
 import Autocomplete from "../../../../components/sharedComponents/autocomplete/Autocomplete";
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
@@ -168,19 +168,9 @@ const NewLocationSectionContainer = () => {
         }, 1000);
     };
 
-    // TODO: REMOVE HTML AND ONCHANGE. ONLY HERE FOR TESTING DEV-11306.
     const onChange = (e) => {
         e.persist();
         handleTextInput(e);
-    };
-
-    useEffect(() => {
-        queryAutocompleteLocations('mexico');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const selectItem = (item) => {
-        console.log('selected item: ', item);
     };
 
     return (
@@ -195,7 +185,7 @@ const NewLocationSectionContainer = () => {
                     label="Locations"
                     values={locations}
                     handleTextInput={handleTextInput}
-                    onSelect={selectItem}
+                    onSelect={onChange}
                     clearAutocompleteSuggestions={clearAutocompleteSuggestions}
                     noResults={noResults}
                     retainValue />

@@ -8,10 +8,10 @@ export const formatTitle = (category, item) => {
         return item.country_name;
     }
     else if (category === "county") {
-        return `${item.county_name} , ${item.state_name}`;
+        return `${item.county_name}, ${item.state_name}`;
     }
     else if (category === "city") {
-        return `${item.city_name} , ${item.state_name}`;
+        return `${item.city_name}, ${item.state_name}`;
     }
     else if (item.category === "state") {
         return item.state_name;
