@@ -252,6 +252,23 @@ const TopFive = (props) => {
                 }
             };
         }
+        else if (params.category === 'country') {
+            locationFilter = {
+                selectedLocations: {
+                    [`${linkData._code}`]: {
+                        identifier: `${linkData._code}`,
+                        filter: {
+                            country: linkData._code
+                        },
+                        display: {
+                            entity: "Country",
+                            standalone: `${linkData._name}`,
+                            title: linkData._name
+                        }
+                    }
+                }
+            };
+        }
 
         let awardTypeFilter;
 
@@ -285,6 +302,8 @@ const TopFive = (props) => {
             },
             version: REQUEST_VERSION
         };
+
+        console.log('filterValue: ', filterValue);
 
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
