@@ -125,7 +125,7 @@ const TopFiveContainer = (props) => {
             request.cancel();
         }
 
-        setCategoryState({ loading: false, error: true });
+        setCategoryState({ loading: true, error: false });
 
         if (props.category === 'awards') {
             request = SearchHelper.performSpendingByAwardSearch(dataParams());
