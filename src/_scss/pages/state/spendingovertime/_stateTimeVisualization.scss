@@ -14,6 +14,13 @@
     }
 
     .state-visualization__time-wrapper {
-        min-height: rem(304);
+        height: rem(350);
+
+        // Applies styles to the tooltip
+        @import "pages/search/results/visualizations/time/timeVisualization";
+
+        .recharts-cartesian-axis-line {
+            stroke: $gray-cool-10;
+        }
     }
 }

@@ -32,8 +32,24 @@ const SearchSidebarSubmit = (props) => {
             className="sidebar-submit"
             role="region"
             aria-label="Submit">
-            <Button additionalClassnames="submit-button" copy="Submit" buttonTitle={title} buttonSize="md" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={props.applyStagedFilters} />
-            <Button additionalClassnames="reset-button" copy="Reset filters" buttonTitle="Reset filters" buttonSize="md" buttonType="text" backgroundColor="light" disabled={!props.requestsComplete} onClick={props.resetFilters} />
+            <Button
+                additionalClassnames="submit-button"
+                copy="Submit"
+                buttonTitle={title}
+                buttonSize="md"
+                buttonType="primary"
+                backgroundColor="light"
+                disabled={disabled}
+                onClick={props.applyStagedFilters} />
+            <Button
+                additionalClassnames="reset-button"
+                copy="Reset filters"
+                buttonTitle="Reset filters"
+                buttonSize="md"
+                buttonType="text"
+                backgroundColor="light"
+                disabled={!props.requestsComplete}
+                onClick={props.resetFilters} />
         </div>
     );
 };
