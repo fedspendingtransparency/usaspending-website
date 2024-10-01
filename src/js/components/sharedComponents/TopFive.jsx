@@ -269,6 +269,24 @@ const TopFive = (props) => {
                 }
             };
         }
+        else if (params.category === 'state_territory') {
+            locationFilter = {
+                selectedLocations: {
+                    [`USA_${linkData._code}`]: {
+                        identifier: `USA_${linkData._code}`,
+                        filter: {
+                            country: 'USA',
+                            state: linkData._code
+                        },
+                        display: {
+                            entity: "State or Territory",
+                            standalone: `${linkData._name}`,
+                            title: linkData._name
+                        }
+                    }
+                }
+            };
+        }
 
         let awardTypeFilter;
 
