@@ -54,13 +54,14 @@
     .recipient-checkbox {
         margin-right: 6px;
         margin-top: 4px;
+
         input {
             height: 16px;
             width: 16px;
         }
 
         input:not(:checked) {
-            outline: 2px solid $gray-cool-20;
+            //outline: 2px solid $gray-cool-20;
         }
 
         input:checked {
@@ -70,7 +71,7 @@
 
     .recipient-container {
         padding-left: 0;
-        padding-right: 0; 
+        padding-right: 0;
         height: 400px;
         overflow-y: scroll;
 

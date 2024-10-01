@@ -22,12 +22,3 @@ export const fetchNewAwardCounts = (params) => apiRequest({
     data: params
 });
 
-export const fetchXRecipients = (limit = 100) => apiRequest({
-    url: 'v2/recipient/',
-    method: 'post',
-    data: {
-        page_metadata: {
-            limit
-        }
-    }
-});
