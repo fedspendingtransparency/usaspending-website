@@ -13,7 +13,8 @@ const propTypes = {
     showError: PropTypes.bool,
     showSuccess: PropTypes.bool,
     title: PropTypes.string,
-    description: PropTypes.string,
+    descriptionOne: PropTypes.string,
+    descriptionTwo: PropTypes.string,
     download: PropTypes.object
 };
 
@@ -72,14 +73,15 @@ export default class DownloadBottomBar extends React.Component {
                             {this.props.title}
                         </div>
                         <p>
-                            {this.props.description}
+                            {`${this.props.descriptionOne} `}
+                            {this.state.copied ? <span>{icon}</span> : null}
+                            <CopyToClipboard
+                                text={this.props.download.expectedUrl}
+                                onCopy={this.onCopy}>
+                                <button>{this.state.copied ? 'copied' : 'download link'}</button>
+                            </CopyToClipboard>
+                            {` ${this.props.descriptionTwo}`}
                         </p>
-                        {this.state.copied ? <span>{icon}</span> : null}
-                        <CopyToClipboard
-                            text={this.props.download.expectedUrl}
-                            onCopy={this.onCopy}>
-                            <button>{this.state.copied ? 'Copied' : 'Your Download Link'}</button>
-                        </CopyToClipboard>
                     </div>
                 </div>
             </div>

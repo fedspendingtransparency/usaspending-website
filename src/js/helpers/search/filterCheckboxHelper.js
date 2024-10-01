@@ -1,4 +1,5 @@
 import { Set } from 'immutable';
+import { recipientTypeGroups } from 'dataMapping/search/recipientType';
 import { awardTypeGroups } from "../../dataMapping/search/awardType";
 
 export const awardingAgencyResponseParse = ({ results }) => {
@@ -297,3 +298,51 @@ export const awardingAgencyData = {
         'This endpoint is DEPRECATED. Please refer to the api contracts.'
     ]
 };
+
+export const recipientTypeMapping = [
+    {
+        id: 'recipient-business',
+        name: 'General Business',
+        filters: recipientTypeGroups.category_business
+    },
+    {
+        id: 'recipient-minority-owned-business',
+        name: 'Minority Owned Business',
+        filters: recipientTypeGroups.category_minority_owned_business
+    },
+    {
+        id: 'recipient-women-owned-business',
+        name: 'Women Owned Business',
+        filters: recipientTypeGroups.category_woman_owned_business
+    },
+    {
+        id: 'recipient-veteran-owned-business',
+        name: 'Veteran Owned Business',
+        filters: recipientTypeGroups.category_veteran_owned_business
+    },
+    {
+        id: 'recipient-special-designations',
+        name: 'Special Designations',
+        filters: recipientTypeGroups.category_special_designations
+    },
+    {
+        id: 'recipient-nonprofit',
+        name: 'Nonprofit',
+        filters: recipientTypeGroups.category_nonprofit
+    },
+    {
+        id: 'recipient-higher-education',
+        name: 'Higher Education',
+        filters: recipientTypeGroups.category_higher_education
+    },
+    {
+        id: 'recipient-government',
+        name: 'Government',
+        filters: recipientTypeGroups.category_government
+    },
+    {
+        id: 'recipient-individuals',
+        name: 'Individuals',
+        filters: recipientTypeGroups.category_individuals
+    }
+];
