@@ -11,6 +11,7 @@ import RecipientFilterContainer from 'containers/search/filters/location/Recipie
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
+import NewLocationSectionContainer from "../../../../containers/search/filters/location/NewLocationSectionContainer";
 
 const propTypes = {
     selectedRecipientLocations: PropTypes.object,
@@ -21,7 +22,7 @@ const propTypes = {
 const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyFilters }) => {
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
-    const [filter, setFilter] = useState(<POPFilterContainer />);
+    const [filter, setFilter] = useState(<NewLocationSectionContainer />);
 
     const openDefaultTab = () => {
         // check if the recipient or place of performance (default) tab should be enabled based
@@ -54,10 +55,11 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
 
     useEffect(() => {
         if (activeTab === 'recipient') {
-            setFilter(<RecipientFilterContainer />);
+            setFilter(<NewLocationSectionContainer />);
         }
         else {
-            setFilter(<POPFilterContainer />);
+            setFilter(<NewLocationSectionContainer />);
+            // setFilter(<POPFilterContainer />);
         }
     }, [activeTab]);
 

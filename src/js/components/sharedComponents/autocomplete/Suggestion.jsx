@@ -2,7 +2,7 @@
  * Created by michaelbray on 1/27/17.
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -21,36 +21,59 @@ const defaultProps = {
     selected: false
 };
 
-export default class Suggestion extends React.Component {
-    componentDidMount() {
-        this.setUpSuggestion();
-    }
+const Suggestion = (props) => {
+    const suggestion = useRef();
 
-    setUpSuggestion() {
-        this.suggestion.addEventListener('mousedown', () => {
-            this.props.select(this.props.data);
-        });
-    }
+    useEffect(() => {
+        if (suggestion.current) {
+            suggestion.current.addEventListener('mousedown', () => {
+                props.select(props.data);
+            });
+        }
+        return () => {
+            if (suggestion.current) {
+                suggestion.current.removeEventListener('mousedown', () => {
+                    props.select(props.data);
+                });
+            }
+        };
+    }, [props, suggestion]);
 
-    render() {
-        return (
-        // We need to set aria-selected to use the arrow keys to select elements
-        /* eslint-disable jsx-a11y/role-supports-aria-props */
+    const isNewHeading = () => {
+        let notFound = true;
+        if (props.category) {
+            const key = parseInt(props.id[props.id.length - 1]);
+            const prevValues = props.values.slice(0, key);
+
+            prevValues.forEach((value) => {
+                if (value.category === props.category) {
+                    notFound = false;
+                }
+            });
+            console.log("new heading", props.category);
+        }
+        return notFound;
+    };
+
+    return (
+    // We need to set aria-selected to use the arrow keys to select elements
+    /* eslint-disable jsx-a11y/role-supports-aria-props */
+        <>
+            {isNewHeading() && <li>{props.category}</li>}
             <li
-                id={this.props.id}
+                id={props.id}
                 tabIndex={-1}
-                aria-selected={this.props.selected}
+                aria-selected={props.selected}
                 role="option"
-                ref={(s) => {
-                    this.suggestion = s;
-                }}>
-                <span>{this.props.title}</span><br />
-                {this.props.subtitle}
+                ref={suggestion}>
+                <span>{props.title}</span><br />
+                {props.subtitle}
             </li>
-        /* eslint-enable jsx-a11y/role-supports-aria-props */
-        );
-    }
-}
+        </>
+    /* eslint-enable jsx-a11y/role-supports-aria-props */
+    );
+};
 
 Suggestion.defaultProps = defaultProps;
 Suggestion.propTypes = propTypes;
+export default Suggestion;

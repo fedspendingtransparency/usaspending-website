@@ -5,6 +5,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { fetchLocations } from 'helpers/searchHelper';
+import Autocomplete from "../../../../components/sharedComponents/autocomplete/Autocomplete";
+import LocationEntity from "../../../../models/v2/search/LocationEntity";
 
 const NewLocationSectionContainer = () => {
     const [locations, setLocations] = useState([]);
@@ -45,7 +47,8 @@ const NewLocationSectionContainer = () => {
         zip_codes: zipCodes,
         districts_current: districtsCurrent,
         districts_original: districtsOriginal
-    }, count) => {
+    },
+    count) => {
         const locationsList = [];
 
         setNoResults(false);
@@ -58,52 +61,72 @@ const NewLocationSectionContainer = () => {
 
         if (countries) {
             locationSort(countries, 'country_name');
-            countries.map((item) => (
-                locationsList.push({ ...item, category: 'country' })
-            ));
+            countries.map((item) => {
+                const locationItem = Object.create(LocationEntity);
+                locationItem.populate({
+                    ...item,
+                    category: 'country'
+                });
+                return locationsList.push(locationItem);
+            });
         }
 
         if (states) {
             locationSort(states, 'state_name');
-            states.map((item) => (
-                locationsList.push({ ...item, category: 'state' })
-            ));
+            states.map((item) => {
+                const locationItem = Object.create(LocationEntity);
+                locationItem.populate({
+                    ...item,
+                    category: 'state'
+                });
+                return locationsList.push(locationItem);
+            });
         }
 
         if (counties) {
             locationSort(counties, 'county_name');
-            counties.map((item) => (
-                locationsList.push({ ...item, category: 'county' })
-            ));
+            counties.map((item) => {
+                const locationItem = Object.create(LocationEntity);
+                locationItem.populate({
+                    ...item,
+                    category: 'county'
+                });
+                return locationsList.push(locationItem);
+            });
         }
 
         if (cities) {
             const sortedCities = citySort(cities);
-            sortedCities.map((item) => (
-                locationsList.push({ ...item, category: 'city' })
-            ));
+            sortedCities.map((item) => {
+                const locationItem = Object.create(LocationEntity);
+                locationItem.populate({
+                    ...item,
+                    category: 'city'
+                });
+                return locationsList.push(locationItem);
+            });
         }
 
-        if (zipCodes) {
-            locationSort(zipCodes, 'zip_code');
-            zipCodes.map((item) => (
-                locationsList.push({ ...item, category: 'zip code' })
-            ));
-        }
-
-        if (districtsCurrent) {
-            locationSort(districtsCurrent, 'current_cd');
-            districtsCurrent.map((item) => (
-                locationsList.push({ ...item, category: 'current congressional district' })
-            ));
-        }
-
-        if (districtsOriginal) {
-            locationSort(districtsOriginal, 'original_cd');
-            districtsOriginal.map((item) => (
-                locationsList.push({ ...item, category: 'original congressional district' })
-            ));
-        }
+        // if (zipCodes) {
+        //     locationSort(zipCodes, 'zip_code');
+        //     zipCodes.map((item) => (
+        //         locationsList.push({ ...item, category: 'zip code' })
+        //     ));
+        // }
+        //
+        // if (districtsCurrent) {
+        //     locationSort(districtsCurrent, 'current_cd');
+        //     districtsCurrent.map((item) => (
+        //         locationsList.push({ ...item, category: 'current congressional district' })
+        //     ));
+        // }
+        //
+        // if (districtsOriginal) {
+        //     locationSort(districtsOriginal, 'original_cd');
+        //     districtsOriginal.map((item) => (
+        //         locationsList.push({ ...item, category: 'original congressional district' })
+        //     ));
+        // }
 
         if (count > 5) {
             setLocations(locationsList.splice(0, 5));
@@ -156,17 +179,26 @@ const NewLocationSectionContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const selectItem = (item) => {
+        console.log('selected item: ', item);
+    };
+
     return (
         <>
             {/* TODO: REMOVE HTML AND ONCHANGE. ONLY HERE FOR TESTING DEV-11306. */}
-            <div>No Results: {noResults.toString()}</div>
+            {/* <div>No Results: {noResults.toString()}</div> */}
 
             <h5>All Locations:</h5>
-            <input type="text" id="input" name="input" onChange={onChange} />
             <ul>
-                {locations.map((location) => (
-                    <li>{JSON.stringify(location)}</li>
-                ))}
+                <Autocomplete
+                    id="location-autocomplete"
+                    label="Locations"
+                    values={locations}
+                    handleTextInput={handleTextInput}
+                    onSelect={selectItem}
+                    clearAutocompleteSuggestions={clearAutocompleteSuggestions}
+                    noResults={noResults}
+                    retainValue />
             </ul>
         </>
 
