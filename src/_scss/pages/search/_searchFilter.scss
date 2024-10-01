@@ -2,8 +2,7 @@
   //this import shouldn't be necessary once this css file is imported into a css page
   @import "all";
 
-  // this margin-bottom is only for demo
-  margin-bottom: rem(32);
+  margin-bottom: $global-margin * 2;
 
   .search-filter__content {
     border-top: solid 1px $gray-cool-10;

@@ -40,8 +40,11 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
+
 import SearchFilter from "./SearchFilter";
 import FeatureFlag from "../sharedComponents/FeatureFlag";
+import SearchFilterDemoData from './SearchFilterDemoData';
+import searchFilterDemoData from "./SearchFilterDemoData";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -203,24 +206,19 @@ const SearchSidebar = ({
         return "right";
     };
 
-    // this array is only for demo-ing the SearchFilter component
-    const selectedItems = [
-        'Sample chip 1',
-        'Sample chip 2',
-        'Sample chip 3'
-    ];
-
     return (
         <>
             <FeatureFlag>
-                <SearchFilter
-                    iconName="calendar-alt"
-                    iconColor="#1A4480"
-                    iconBackgroundColor="#edf5ff"
-                    title="Time Period"
-                    description="Find awards by specific date or date range"
-                    itemCount={3}
-                    selectedItems={selectedItems} />
+                {searchFilterDemoData.map((item) => (
+                    <SearchFilter
+                        iconName={item.iconName}
+                        iconColor={item.iconColor}
+                        iconBackgroundColor={item.iconBackgroundColor}
+                        title={item.title}
+                        description={item.description}
+                        itemCount={item.itemCount}
+                        selectedItems={item.selectedItems} />
+                ))}
             </FeatureFlag>
             <div
                 className="search-sidebar"
