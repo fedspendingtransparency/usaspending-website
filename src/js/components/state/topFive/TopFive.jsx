@@ -60,7 +60,6 @@ const TopFive = (props) => {
         const percent = (!isNaN(percentValue) && isFinite(percentValue)) ? `${Math.round(percentValue * 100) / 100}%` : '--';
         const linkText = props.category === "awards" ? "View this award" : "View awards";
 
-        console.debug("debugging: ", percentValue, percent, linkText);
         return [result._slug ? result.linkedName : result.name, result.amount, percent,
             <a
                 role="button"
