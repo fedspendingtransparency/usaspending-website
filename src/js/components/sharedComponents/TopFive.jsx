@@ -14,7 +14,9 @@ import { isCancel } from "axios";
 import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
 import { REQUEST_VERSION } from "../../GlobalConstants";
-import { generateUrlHash } from "../../helpers/searchHelper";
+import { fetchTas, generateUrlHash } from "../../helpers/searchHelper";
+import { cleanTasData } from "../../helpers/tasHelper";
+import { forEach } from "lodash";
 
 const propTypes = {
     category: PropTypes.string,
@@ -27,6 +29,7 @@ const propTypes = {
 
 const TopFive = (props) => {
     const [linkData, setLinkData] = useState();
+    const [tasCodes, setTasCodes] = useState();
     const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
 
     const columns = [
@@ -246,7 +249,7 @@ const TopFive = (props) => {
                         {
                             label: linkData._name,
                             value: linkData._code,
-                            count: 1
+                            count: 2
                         }
                     ]
                 }
@@ -321,8 +324,6 @@ const TopFive = (props) => {
             version: REQUEST_VERSION
         };
 
-        console.log('filterValue: ', filterValue);
-
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
@@ -352,6 +353,21 @@ const TopFive = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [agencySlugs, linkData, slugsLoading, slugsError]);
+
+    useEffect(() => {
+        if (props.category === 'federal_account' && props.results?.length) {
+            props.results.forEach((res) => {
+                const queryParam = `?depth=2&filter=${res._code}`;
+                const request = fetchTas(queryParam);
+                request.promise.then(({ data }) => {
+                    const nodes = cleanTasData(data.results);
+                    console.log('nodes: ', nodes);
+                });
+            });
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.results]);
 
     return (
         <div className="category-table">

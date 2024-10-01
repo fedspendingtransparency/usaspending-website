@@ -186,6 +186,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
             setLoading(true);
         }
 
+        console.log(federalAccountData);
         request.current = fetchTasList(federalAccountData.id, fy);
         const tasRequest = request.current;
         tasRequest.promise
