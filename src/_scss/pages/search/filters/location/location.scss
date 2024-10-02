@@ -223,5 +223,8 @@
         @include selected-filter-wrap;
     }
 
+    .usa-da-typeahead__input input {
+        margin-top: rem(16);
+    }
 
 }

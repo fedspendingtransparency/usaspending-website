@@ -4,13 +4,18 @@
  */
 
 import React, { useState } from 'react';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { fetchLocations } from 'helpers/searchHelper';
+import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import Autocomplete from "../../../../components/sharedComponents/autocomplete/Autocomplete";
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
+import SelectedLocations from "../../../../components/search/filters/location/SelectedLocations";
 
-const NewLocationSectionContainer = () => {
+const NewLocationSectionContainer = (props) => {
     const [locations, setLocations] = useState([]);
     const [noResults, setNoResults] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
 
     let timeout;
 
@@ -47,8 +52,7 @@ const NewLocationSectionContainer = () => {
         zip_codes: zipCodes,
         districts_current: districtsCurrent,
         districts_original: districtsOriginal
-    },
-    count) => {
+    }, count) => {
         const locationsList = [];
 
         setNoResults(false);
@@ -183,24 +187,132 @@ const NewLocationSectionContainer = () => {
         }, 1000);
     };
 
-    const selectItem = (item) => {
-        console.log('selected item: ', item);
+    const selectItem = (item, valid, obj) => {
+        // this.props.addPOPLocationObject(item);
+        setSelectedItem(obj);
+    };
+
+    const addLocation = () => {
+        const item = selectedItem;
+        let location = {};
+
+        if (item.category === "zip_code") {
+            location = {
+                identifier: `USA_${item.data.zip_code}`,
+                display: {
+                    title: item.data.zip_code,
+                    entity: "ZIP Code",
+                    standalone: item.data.zip_code
+                },
+                filter: {
+                    country: item.data.country_name,
+                    zip: item.data.zip_code
+                }
+            };
+        }
+        else if (item.category === "city") {
+            location = {
+                identifier: `USA_${item.data.state_name}_${item.data.city_name}`,
+                display: {
+                    title: `${item.data.city_name}, ${item.data.state_name}`,
+                    entity: "City",
+                    standalone: item.data.city_name
+                },
+                filter: {
+                    country: item.data.country_name,
+                    city: item.data.city_name,
+                    state: item.data.state_name
+                }
+            };
+        }
+        else if (item.category === "county") {
+            location = {
+                identifier: `USA_${item.data.state_name}`,
+                display: {
+                    title: `${item.data.county_name}, ${item.data.state_name}`,
+                    entity: "County",
+                    standalone: item.data.county_name
+                },
+                filter: {
+                    country: item.data.country_name,
+                    county: item.data.county_name,
+                    state: item.data.state_name
+                }
+            };
+        }
+        else if (item.category === "state") {
+            location = {
+                identifier: `USA_${item.data.state_name}`,
+                display: {
+                    title: item.data.state_name,
+                    entity: "State",
+                    standalone: item.data.state_name
+                },
+                filter: {
+                    country: item.data.country_name,
+                    state: item.data.state_name
+                }
+            };
+        }
+        else if (item.category === "country") {
+            location = {
+                identifier: `USA_${item.data.country_name}`,
+                display: {
+                    title: item.data.country_name,
+                    entity: "Country",
+                    standalone: item.data.country_name
+                },
+                filter: {
+                    country: item.data.country_name
+                }
+            };
+        }
+        else if (item.category === "current_cd") {
+
+        }
+        else if (item.category === "original_cd") {
+
+        }
+
+        console.log(location);
+
+        if (props.activeTab === 'recipient') {
+            props.addRecipientLocationObject(location);
+        }
+        else {
+            props.addPOPLocationObject(location);
+        }
+    };
+
+    const removeLocation = (locationId) => {
+        const newValue = props.selectedLocations.delete(locationId);
+        props.updateGenericFilter({
+            type: 'selectedLocations',
+            value: newValue
+        });
     };
 
     return (
         <>
-            <ul>
-                <Autocomplete
-                    values={locations}
-                    handleTextInput={handleTextInput}
-                    onSelect={selectItem}
-                    clearAutocompleteSuggestions={clearAutocompleteSuggestions}
-                    noResults={noResults}
-                    retainValue />
-            </ul>
+            <Autocomplete
+                values={locations}
+                handleTextInput={handleTextInput}
+                onSelect={selectItem}
+                clearAutocompleteSuggestions={clearAutocompleteSuggestions}
+                noResults={noResults}
+                retainValue />
+            <button onClick={addLocation}>Add</button>
+            <SelectedLocations
+                selectedLocations={props.selectedLocations}
+                removeLocation={removeLocation} />
         </>
 
     );
 };
 
-export default NewLocationSectionContainer;
+export default connect(
+    (state) => ({
+        selectedLocations: state.filters.selectedLocations
+    }),
+    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+)(NewLocationSectionContainer);

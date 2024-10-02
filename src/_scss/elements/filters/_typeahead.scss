@@ -67,6 +67,7 @@
         padding: 0;
         max-height: rem(300);
         overflow-y: auto;
+        overflow-x: hidden;
         border-radius: 3px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 
@@ -103,8 +104,7 @@
         li.autocomplete-heading {
             font-size: $font-size-10;
             font-weight: $font-semibold;
-            margin-bottom: rem(4);
-            //margin: 0 190px 4px 7px;
+            margin: 0 0 rem(4) rem(2);
             line-height: 1.5;
             text-align: left;
             color: $gray-60;

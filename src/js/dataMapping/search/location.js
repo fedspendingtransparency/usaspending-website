@@ -8,6 +8,6 @@ export const locationDropdown = {
     original_cd: "Original Congressional Districts (as reported by federal agencies)",
     county: "County",
     city: "City",
-    state: "State",
+    state: "State or Territory",
     country: "Country"
 };

@@ -54,13 +54,9 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
     }, [dirtyFilters]);
 
     useEffect(() => {
-        if (activeTab === 'recipient') {
-            setFilter(<NewLocationSectionContainer />);
-        }
-        else {
-            setFilter(<NewLocationSectionContainer />);
-            // setFilter(<POPFilterContainer />);
-        }
+        setFilter(<NewLocationSectionContainer
+            activeTab={activeTab} />);
+        // setFilter(<POPFilterContainer />);
     }, [activeTab]);
 
     const tabLabels = [

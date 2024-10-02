@@ -51,7 +51,6 @@ const Suggestion = (props) => {
                     notFound = false;
                 }
             });
-            console.log("new heading", props.category);
         }
         return notFound;
     };

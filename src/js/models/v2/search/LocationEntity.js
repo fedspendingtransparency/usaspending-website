@@ -13,16 +13,16 @@ export const formatTitle = (category, item) => {
     else if (category === "city") {
         return `${item.city_name}, ${item.state_name}`;
     }
-    else if (item.category === "state") {
+    else if (category === "state") {
         return item.state_name;
     }
-    else if (item.category === "zip_code") {
-        return item.state_name;
+    else if (category === "zip_code") {
+        return item.zip_code;
     }
-    else if (item.category === "current_cd") {
+    else if (category === "current_cd") {
         return item.current_cd;
     }
-    else if (item.category === "original_cd") {
+    else if (category === "original_cd") {
         return item.original_cd;
     }
     return '--';
@@ -34,13 +34,13 @@ const LocationEntity = {
         this.category = item.category || '--';
         this.title = formatTitle(this.category, item);
         this.data = {
-            _county_name: item.county_name || '--',
-            _country_name: item.country_name || '--',
-            _state_name: item.state_name || '--',
-            _city_name: item.city_name || '--',
-            _zip_code: item.zip_code || '--',
-            _original_cd: item.original_cd || '--',
-            _current_cd: item.current_cd || '--'
+            county_name: item.county_name || '--',
+            country_name: item.country_name || '--',
+            state_name: item.state_name || '--',
+            city_name: item.city_name || '--',
+            zip_code: item.zip_code || '--',
+            original_cd: item.original_cd || '--',
+            current_cd: item.current_cd || '--'
         };
     }
 };
