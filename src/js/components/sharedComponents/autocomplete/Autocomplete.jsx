@@ -49,7 +49,7 @@ const defaultProps = {
     minChar: false
 };
 
-const Autocomplete = React.memo((props) => {
+const Autocomplete = (props) => {
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -331,7 +331,7 @@ const Autocomplete = React.memo((props) => {
             </div>
         </div>
     );
-});
+};
 
 Autocomplete.defaultProps = defaultProps;
 Autocomplete.propTypes = propTypes;

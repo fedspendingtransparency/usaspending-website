@@ -223,8 +223,15 @@
         @include selected-filter-wrap;
     }
 
-    .usa-da-typeahead__input input {
+    .location-autocomplete {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
         margin-top: rem(16);
+        .usa-da-typeahead-wrapper {
+            width: 100%;
+            margin-right: rem(4);
+        }
     }
 
 }

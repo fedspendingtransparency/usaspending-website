@@ -6,16 +6,17 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { uniqueId } from 'lodash';
 import { fetchLocations } from 'helpers/searchHelper';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import Autocomplete from "../../../../components/sharedComponents/autocomplete/Autocomplete";
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
-import SelectedLocations from "../../../../components/search/filters/location/SelectedLocations";
+import LocationAutocomplete from "../../../../components/search/filters/location/LocationAutocomplete";
 
 const NewLocationSectionContainer = (props) => {
     const [locations, setLocations] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [readyToStage, setReadyToStage] = useState(false);
 
     let timeout;
 
@@ -42,6 +43,7 @@ const NewLocationSectionContainer = (props) => {
 
     const clearAutocompleteSuggestions = () => {
         setLocations([]);
+        setReadyToStage(false);
     };
 
     const parseLocations = ({
@@ -190,6 +192,7 @@ const NewLocationSectionContainer = (props) => {
     const selectItem = (item, valid, obj) => {
         // this.props.addPOPLocationObject(item);
         setSelectedItem(obj);
+        setReadyToStage(true);
     };
 
     const addLocation = () => {
@@ -282,6 +285,8 @@ const NewLocationSectionContainer = (props) => {
         else {
             props.addPOPLocationObject(location);
         }
+
+        clearAutocompleteSuggestions();
     };
 
     const removeLocation = (locationId) => {
@@ -292,21 +297,21 @@ const NewLocationSectionContainer = (props) => {
         });
     };
 
-    return (
-        <>
-            <Autocomplete
-                values={locations}
-                handleTextInput={handleTextInput}
-                onSelect={selectItem}
-                clearAutocompleteSuggestions={clearAutocompleteSuggestions}
-                noResults={noResults}
-                retainValue />
-            <button onClick={addLocation}>Add</button>
-            <SelectedLocations
-                selectedLocations={props.selectedLocations}
-                removeLocation={removeLocation} />
-        </>
+    console.log(props.activeTab);
 
+    return (
+        <LocationAutocomplete
+            activeTab={props.activeTab}
+            locations={locations}
+            handleTextInput={handleTextInput}
+            selectItem={selectItem}
+            clearAutocompleteSuggestions={clearAutocompleteSuggestions}
+            noResults={noResults}
+            readyToStage={readyToStage}
+            addLocation={addLocation}
+            selectedLocations={props.selectedLocations}
+            removeLocation={removeLocation} />
+    // key={`location-${uniqueId()}`} />
     );
 };
 
