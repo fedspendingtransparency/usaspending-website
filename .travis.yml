@@ -1,7 +1,7 @@
 language: node_js
 dist: focal
 node_js:
-  - 18
+  - 20.12.2
 # Need a C++ compiler
 addons:
   chrome: stable
@@ -10,8 +10,8 @@ cache:
     - node_modules
 before_install:
   - npm install -g @lhci/cli@0.9.x
-  - npm install -g npm@9.8.1
-  - npm install -g webpack@5.88.2
+  - npm install -g npm@10.8.3
+  - npm install -g webpack@5.94.0
   - npm install -g webpack-cli@5.1.4
 install:
   - npm ci --legacy-peer-deps --timeout=90000
