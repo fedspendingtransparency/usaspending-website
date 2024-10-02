@@ -14,9 +14,7 @@ import { isCancel } from "axios";
 import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
 import { REQUEST_VERSION } from "../../GlobalConstants";
-import { fetchTas, generateUrlHash } from "../../helpers/searchHelper";
-import { cleanTasData } from "../../helpers/tasHelper";
-import { forEach } from "lodash";
+import { generateUrlHash } from "../../helpers/searchHelper";
 
 const propTypes = {
     category: PropTypes.string,
@@ -29,7 +27,6 @@ const propTypes = {
 
 const TopFive = (props) => {
     const [linkData, setLinkData] = useState();
-    const [tasCodes, setTasCodes] = useState();
     const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
 
     const columns = [
@@ -77,6 +74,7 @@ const TopFive = (props) => {
 
     const createLink = () => {
         const params = props.dataParams;
+        // set filter to either be pop locations for state page, or recipient_id for recipient page
         const filter = params.filters?.place_of_performance_locations ? params.filters?.place_of_performance_locations[0] : params.filters?.recipient_id;
 
         let fips;
@@ -84,10 +82,7 @@ const TopFive = (props) => {
         let categoryFilter;
         let locationFilter;
 
-        console.log('params: ', params);
-        console.log('linkData: ', linkData);
-
-        // only set initial location filter if state page
+        // only set initial location filter if state page and not recipient page
         if (params.filters?.place_of_performance_locations) {
             fips = stateFIPSByAbbreviation[filter.state];
             stateName = stateNameByFipsId[fips];
@@ -241,6 +236,8 @@ const TopFive = (props) => {
             };
         }
         else if (params.category === 'federal_account') {
+            // to be used on recipient page, once design approves links
+            // TODO: in future ticket, update to be able to link to TAS advanced search
             categoryFilter = {
                 tasCodes: {
                     require: [[linkData._code]],
@@ -256,6 +253,7 @@ const TopFive = (props) => {
             };
         }
         else if (params.category === 'country') {
+            // to be used on recipient page, once design approves links
             locationFilter = {
                 selectedLocations: {
                     [`${linkData._code}`]: {
@@ -273,6 +271,7 @@ const TopFive = (props) => {
             };
         }
         else if (params.category === 'state_territory') {
+            // to be used on recipient page, once design approves links
             locationFilter = {
                 selectedLocations: {
                     [`USA_${linkData._code}`]: {
@@ -353,21 +352,6 @@ const TopFive = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [agencySlugs, linkData, slugsLoading, slugsError]);
-
-    useEffect(() => {
-        if (props.category === 'federal_account' && props.results?.length) {
-            props.results.forEach((res) => {
-                const queryParam = `?depth=2&filter=${res._code}`;
-                const request = fetchTas(queryParam);
-                request.promise.then(({ data }) => {
-                    const nodes = cleanTasData(data.results);
-                    console.log('nodes: ', nodes);
-                });
-            });
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.results]);
 
     return (
         <div className="category-table">
