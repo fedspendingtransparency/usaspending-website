@@ -132,7 +132,6 @@ const StatePage = ({
     const backgroundColor = {
         backgroundColor: "#1a4480"
     };
-
     return (
         <PageWrapper
             pageName="state"

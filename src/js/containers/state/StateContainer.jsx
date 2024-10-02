@@ -48,7 +48,8 @@ export class StateContainer extends React.Component {
         const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
 
         if (!Object.keys(this.props.match.params).includes('fy')) {
-            this.props.history.replace(`/state/${stateName}/latest`);
+            // this.props.history.replace(`/state/${stateName}/latest`);
+            this.props.history.replace(`/state/${stateName}/2025`);
         }
         else if (!wasInputStateName) {
             this.props.history.replace(`/state/${stateName}/${fy}`);
