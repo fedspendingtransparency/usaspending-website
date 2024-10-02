@@ -52,7 +52,6 @@ const TopFive = (props) => {
     // TODO: remove once award links get added to Recipient Page
     if (props.dataParams.filters?.recipient_id) {
         columns.pop();
-        console.log('new columns: ', columns);
     }
 
     const getSelectedLink = (e, data) => {
@@ -84,7 +83,6 @@ const TopFive = (props) => {
         // TODO: remove once award links get added to Recipient Page
         if (props.dataParams.filters?.recipient_id) {
             rowArray.pop();
-            console.log('new rowArray: ', rowArray);
         }
 
         return rowArray;
