@@ -49,6 +49,12 @@ const TopFive = (props) => {
         }
     ];
 
+    // TODO: remove once award links get added to Recipient Page
+    if (props.dataParams.filters?.recipient_id) {
+        columns.pop();
+        console.log('new columns: ', columns);
+    }
+
     const getSelectedLink = (e, data) => {
         e.preventDefault();
         e.stopPropagation();
@@ -59,7 +65,10 @@ const TopFive = (props) => {
         const percentValue = (result._amount / props.total) * 100;
         const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
         const linkText = props.category === "awards" ? "View this award" : "View awards";
-        return [result._slug ? result.linkedName : result.name, result.amount, percent,
+        const rowArray = [
+            result._slug ? result.linkedName : result.name,
+            result.amount,
+            percent,
             <a
                 role="button"
                 tabIndex={0}
@@ -69,7 +78,16 @@ const TopFive = (props) => {
                 }}
                 onClick={(e) => getSelectedLink(e, result)}>
                 {linkText}
-            </a>];
+            </a>
+        ];
+
+        // TODO: remove once award links get added to Recipient Page
+        if (props.dataParams.filters?.recipient_id) {
+            rowArray.pop();
+            console.log('new rowArray: ', rowArray);
+        }
+
+        return rowArray;
     });
 
     const createLink = () => {
