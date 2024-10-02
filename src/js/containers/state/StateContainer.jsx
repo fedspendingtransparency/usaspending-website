@@ -87,9 +87,9 @@ export class StateContainer extends React.Component {
     }
 
     onClickFy(fy) {
-        const [, stateName] = parseStateDataFromUrl(this.props.match.params.state);
-        this.props.history.push(`/state/${stateName}/${fy}`);
+        this.props.history.push(`/state/${this.props.match.params.state}/${fy}`);
         this.props.setStateFiscalYear(fy);
+        this.props.stateProfile.fy = fy;
     }
 
     setStateCenter(id) {
