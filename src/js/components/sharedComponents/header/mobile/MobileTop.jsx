@@ -65,6 +65,7 @@ const MobileTop = (props) => {
                         className={props.detailMobileNavIsHidden ? "mobile-nav-header__close-button" : "mobile-nav-header__close-button-section"}
                         title="Close menu"
                         aria-label="Close menu"
+                        tabIndex="0"
                         onClick={(e) => props.hideMobileNav(e)}>
                         <FontAwesomeIcon size="lg" alt="close button" icon="times" />
                     </button>
