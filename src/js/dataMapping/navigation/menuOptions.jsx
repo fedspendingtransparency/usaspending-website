@@ -224,8 +224,8 @@ export const allDownloadOptions = [
         callToAction: 'Explore Database Download',
         shouldOpenNewTab: true,
         enabled: true,
-        internalDomain: false,
-        externalLink: true,
+        internalDomain: true,
+        externalLink: false,
         icon: ''
     },
     {
