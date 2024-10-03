@@ -35,6 +35,19 @@ const StateContainer = (props) => {
         error: false
     });
 
+        if (!Object.keys(this.props.match.params).includes('fy')) {
+            // this.props.history.replace(`/state/${stateName}/latest`);
+            this.props.history.replace(`/state/${stateName}/2025`);
+        }
+        else if (!wasInputStateName) {
+            this.props.history.replace(`/state/${stateName}/${fy}`);
+        }
+        else {
+            this.props.setStateFiscalYear(fy);
+            this.loadStateOverview(stateId, fy);
+            this.setStateCenter(stateId);
+        }
+    }
     const onClickFy = (fy) => {
         const [, stateName] = parseStateDataFromUrl(props.match.params.state);
         props.history.push(`/state/${stateName}/${fy}`);
@@ -88,16 +101,17 @@ const StateContainer = (props) => {
         const { fy, state } = props.match.params;
         const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
 
-        if (!Object.keys(props.match.params).includes('fy')) {
-            props.history.replace(`/state/${stateName}/latest`);
+        if (!Object.keys(this.props.match.params).includes('fy')) {
+            // this.props.history.replace(`/state/${stateName}/latest`);
+            this.props.history.replace(`/state/${stateName}/2025`);
         }
         else if (!wasInputStateName) {
-            props.history.replace(`/state/${stateName}/${fy}`);
+            this.props.history.replace(`/state/${stateName}/${fy}`);
         }
         else {
-            props.setStateFiscalYear(fy);
-            loadStateOverview(stateId, fy);
-            setStateCenter(stateId);
+            this.props.setStateFiscalYear(fy);
+            this.loadStateOverview(stateId, fy);
+            this.setStateCenter(stateId);
         }
 
         return () => {
@@ -135,7 +149,6 @@ const StateContainer = (props) => {
 };
 
 StateContainer.propTypes = propTypes;
-// const StateContainerWithRouter = withRouter(StateContainer);
 
 export default connect(
     (state) => ({
