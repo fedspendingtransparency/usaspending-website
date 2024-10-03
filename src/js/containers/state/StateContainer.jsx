@@ -89,7 +89,8 @@ const StateContainer = (props) => {
         const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
 
         if (!Object.keys(props.match.params).includes('fy')) {
-            props.history.replace(`/state/${stateName}/latest`);
+            // props.history.replace(`/state/${stateName}/latest`);
+            props.history.replace(`/state/${stateName}/2025`);
         }
         else if (!wasInputStateName) {
             props.history.replace(`/state/${stateName}/${fy}`);
@@ -135,7 +136,6 @@ const StateContainer = (props) => {
 };
 
 StateContainer.propTypes = propTypes;
-// const StateContainerWithRouter = withRouter(StateContainer);
 
 export default connect(
     (state) => ({
