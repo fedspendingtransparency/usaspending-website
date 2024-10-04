@@ -61,12 +61,6 @@ const BarChart = (props) => {
     // eslint-disable-next-line no-unused-vars
     const [svgRef, setSVGRef] = useState(null);
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (!isEqual(nextProps, this.props) || !isEqual(nextState, this.state)) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
     const deselectBar = () => {
         if (!props.enableHighlight) {
             // highlighting is disabled
@@ -342,7 +336,7 @@ const BarChart = (props) => {
     // add 20px to the top of the chart to avoid cutting off label text
     // wrap the chart contents in a group and transform it down 20px to avoid impacting
     // positioning calculations
-    const bars = this.state.items.map((item) => (
+    const bars = permitems.map((item) => (
         <BarItem
             key={item.key}
             identifier={item.identifier}
