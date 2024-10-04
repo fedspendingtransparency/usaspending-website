@@ -94,6 +94,7 @@ $gray-cool-1: #FBFCFD;
 $gray-2: #F9F9F9;
 $gray-10: #E6E6E6;
 $gray-cool-30: #a9aeb1;
+$gray-80: #2E2E2E;
 $gray-90: #1B1B1B;
 $gray-cool-50: #71767a;
 $gray-cool-60: #565C65;
@@ -239,13 +240,6 @@ $card-outline-color: $gray-cool-10;
 $shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);
 $shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
 $shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
-
-
-// Global Padding and Margins
-// (example usage {padding: ($global-pad * 4);} = 60px of padding.)
-$global-pad-mrg: rem(15);
-$global-pad: $global-pad-mrg;
-$global-mrg: $global-pad-mrg;
 
 // Global Padding and Margins (new units for 2022 homepage redesign)
 // (example usage {padding: ($global-padding * 4);} = 32px of padding.)

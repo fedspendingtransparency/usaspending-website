@@ -5,25 +5,22 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Analytics from 'helpers/analytics/Analytics';
+import { Button } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import { usePrevious } from "../../../../helpers/";
+import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
+import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
 
 dayjs.extend(isSameOrAfter);
 
-const defaultProps = {
-    startDate: '01/01/2016',
-    endDate: '12/31/2016',
-    startingTab: 1
-};
-
 const propTypes = {
-    startingTab: PropTypes.number,
     onDateChange: PropTypes.func,
     startDate: PropTypes.object,
     endDate: PropTypes.object,
@@ -31,39 +28,122 @@ const propTypes = {
     selectedEnd: PropTypes.string,
     showError: PropTypes.func,
     hideError: PropTypes.func,
-    applyDateRange: PropTypes.func,
     removeDateRange: PropTypes.func,
     updateFilter: PropTypes.func,
-    errorState: PropTypes.bool
+    errorState: PropTypes.bool,
+    header: PropTypes.string,
+    errorMessage: PropTypes.string
 };
 
 const DateRange = (props) => {
     const [startPicker, setStartPicker] = useState(null);
     const [endPicker, setEndPicker] = useState(null);
     const [disabled, setDisabled] = useState(true);
+    const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
+    const [dropdownOptionSelected, setDropdownOptionSelected] = useState(false);
+    const [noDates, setNoDates] = useState(false);
     const prevProps = usePrevious(props);
 
-    useEffect(() => {
-        if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
-            // the start date was reset to null, clear the picker
-            startPicker?.clearValue();
-        }
-    }, [props?.startDate]);
+    const onClick = (e) => {
+        setSelectedDropdownOption(e);
 
-    useEffect(() => {
-        if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
-            // the end date was reset to null, clear the picker
-            endPicker?.clearValue();
+        if (e === 'select') {
+            setDropdownOptionSelected(false);
         }
-    }, [props?.endDate]);
+        else {
+            setDropdownOptionSelected(true);
+
+            Analytics.event({
+                category: 'Date Range Dropdown',
+                action: `View ${e}`
+            });
+
+            dateRangeDropdownTimePeriods.find((obj) => {
+                if (obj.value === e) {
+                    props.onDateChange(obj.startDate, 'startDate');
+                    props.onDateChange(obj.endDate, 'endDate');
+                    return true;
+                }
+                return false;
+            });
+        }
+    };
+
+    const localRemoveDateRange = () => {
+        setSelectedDropdownOption('select');
+        setDropdownOptionSelected(false);
+        props.removeDateRange();
+    };
+
+    const dropdownOptions = [
+        {
+            name: 'Select a date range',
+            value: 'select',
+            onClick
+        },
+        {
+            name: 'Yesterday',
+            value: 'yesterday',
+            onClick
+        },
+        {
+            name: 'Last 7 days',
+            value: 'last-seven-days',
+            onClick
+        },
+        {
+            name: 'Last 15 days',
+            value: 'last-fifteen-days',
+            onClick
+        },
+        {
+            name: 'Last 30 days',
+            value: 'last-thirty-days',
+            onClick
+        },
+        {
+            name: 'Last 60 days',
+            value: 'last-sixty-days',
+            onClick
+        },
+        {
+            name: 'This month',
+            value: 'current-month',
+            onClick
+        },
+        {
+            name: 'Last 3 months',
+            value: 'last-three-months',
+            onClick
+        },
+        {
+            name: 'Last 6 months',
+            value: 'last-six-months',
+            onClick
+        },
+        {
+            name: 'Last 12 months',
+            value: 'last-twelve-months',
+            onClick
+        },
+        {
+            name: 'Last year (Jan - Dec)',
+            value: 'last-calendar-year',
+            onClick
+        },
+        {
+            name: 'Year-to-date (Jan - today)',
+            value: 'year-to-date',
+            onClick
+        }
+    ];
+
+    const sortFn = () => dropdownOptions;
+
     const submitDates = () => {
-        // validate that dates are provided for both fields and the end dates
-        // don't come before the start dates
-        // validate the date ranges
         const start = props.startDate;
         const end = props.endDate;
         if (!props.errorState && (start || end)) {
-            // open-ended date range
             let startValue = null;
             let endValue = null;
             if (start) {
@@ -89,23 +169,10 @@ const DateRange = (props) => {
             });
         }
     };
-    const submitRange = (e) => {
-    // allow the user to change date ranges by keyboard and pressing enter
-        e.preventDefault();
-        submitDates();
-    };
-
-    const removeRange = () => {
-        const tabButton = document.getElementById('filter-date-range-tab');
-        if (tabButton) {
-            tabButton.focus();
-        }
-        props.removeDateRange();
-    };
 
     const generateStartDateDisabledDays = (earliestDate) => {
-    // handle the cutoff dates (preventing end dates from coming before
-    // start dates or vice versa)
+        // handle the cutoff dates (preventing end dates from coming before
+        // start dates or vice versa)
         const disabledDays = [earliestDate];
 
         if (props.endDate) {
@@ -161,24 +228,14 @@ const DateRange = (props) => {
         }
     }
 
-    let noDates = false;
-    if (!props.startDate && !props.endDate) {
-        noDates = true;
-    }
-
-    const accessibility = {
-        'aria-controls': 'selected-date-range'
-    };
-
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
             if (props.errorState) {
-                props.showError('', '');
+                props.showError(props.header, props.errorMessage);
             }
             return;
         }
-
-        if (props.startDate !== null && props.endDate !== null && !props.endDate.isSameOrAfter(props.startDate)) {
+        if (props.startDate !== null && props.endDate !== null && props.startDate.isValid() && props.endDate.isValid() && !props.endDate.isSameOrAfter(props.startDate)) {
             // end date comes before start date, invalid
             // show an error message
             props.showError('Invalid Dates',
@@ -191,23 +248,53 @@ const DateRange = (props) => {
     };
 
     useEffect(() => {
+        if (!props.startDate && !props.endDate && !dropdownOptionSelected) {
+            setNoDates(true);
+        }
+        else {
+            setNoDates(false);
+            // we need this in cases where the error message is showing and the user selects an option from the dropdown
+            props.hideError();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props.endDate, props.startDate, dropdownOptionSelected]);
+
+    useEffect(() => {
+        if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
+            // the start date was reset to null, clear the picker
+            startPicker?.clearValue();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props?.startDate]);
+
+    useEffect(() => {
+        if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
+            // the end date was reset to null, clear the picker
+            endPicker?.clearValue();
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props?.endDate]);
+
+    useEffect(() => {
         if (noDates || props.errorState) {
             setDisabled(true);
-        } else {
+        }
+        else {
             setDisabled(false);
         }
         testDates();
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.errorState, noDates, props.startDate, props.endDate]);
 
     return (
         <div className="date-range-option">
             <form
                 className="date-range-wrapper"
-                onSubmit={submitRange}>
+                onSubmit={submitDates}>
                 <div className="date-range-column">
                     <DatePicker
                         type="startDate"
-                        title="Action Date Start"
+                        title="start date"
                         onDateChange={props.onDateChange}
                         value={props.startDate}
                         opposite={props.endDate}
@@ -224,7 +311,7 @@ const DateRange = (props) => {
                 <div className="date-range-column">
                     <DatePicker
                         type="endDate"
-                        title="Action Date End"
+                        title="end date"
                         onDateChange={props.onDateChange}
                         value={props.endDate}
                         opposite={props.startDate}
@@ -238,13 +325,45 @@ const DateRange = (props) => {
                         id="date-range__endDate"
                         allowClearing />
                 </div>
-                <IndividualSubmit
-                    className="set-date-submit"
-                    onClick={submitRange}
-                    label="Filter by date range"
+                <Button
+                    copy="Add"
+                    buttonTitle="Add"
+                    buttonSize="sm"
+                    buttonType="primary"
+                    backgroundColor="light"
                     disabled={disabled}
-                    accessibility={accessibility} />
+                    onClick={submitDates} />
             </form>
+            <FeatureFlag>
+                <div className="date-range-option__dropdown-section">
+                    <div className="date-range-option__dropdown-section-top">
+                        <div className="date-range-option__dropdown-section-label">
+                            Date Ranges
+                        </div>
+                    </div>
+                    <div className="date-range-option__dropdown-section-bottom">
+                        <div className="date-range-option__dropdown-section-picker-wrapper">
+                            <NewPicker
+                                leftIcon=""
+                                size="sm"
+                                options={dropdownOptions}
+                                enabled
+                                selectedOption={dropdownOptions?.length
+                                    ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
+                                    : `${selectedDropdownOption}`}
+                                sortFn={sortFn} />
+                        </div>
+                        <Button
+                            copy="Add"
+                            buttonTitle="Add"
+                            buttonSize="sm"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            disabled={disabled}
+                            onClick={submitDates} />
+                    </div>
+                </div>
+            </FeatureFlag>
             <div
                 className={`selected-filters ${hideTags}`}
                 id="selected-date-range"
@@ -254,7 +373,7 @@ const DateRange = (props) => {
                     className="shown-filter-button"
                     title="Click to remove filter."
                     aria-label={`Applied date range: ${dateLabel}`}
-                    onClick={removeRange}>
+                    onClick={localRemoveDateRange}>
                     {dateLabel}
                     <span className="close">
                         <FontAwesomeIcon icon="times" />
@@ -264,6 +383,6 @@ const DateRange = (props) => {
         </div>
     );
 };
-DateRange.defaultProps = defaultProps;
+
 DateRange.propTypes = propTypes;
 export default DateRange;

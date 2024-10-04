@@ -11,9 +11,11 @@
     @import "./mobile/mobileResults";
     @import "../../components/tooltips/customTooltipContent";
     @import "../../components/tooltips/index";
+    @import "../../components/checkbox/filterCheckbox";
 
     @import "resultsView/resultsView";
     @import "resultsView/dtuiOverrides";
+
 
     .subaward-dropdown__list {
         min-width: max-content;

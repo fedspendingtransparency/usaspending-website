@@ -1,7 +1,7 @@
 @import "../summary/summary";
 
 .landing-page {
-    padding: $global-pad;
+    padding: $global-padding * 2;
     .landing-page__overview {
         text-align: center;
         h2.landing-page__title {

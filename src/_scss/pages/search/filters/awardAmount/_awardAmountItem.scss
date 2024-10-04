@@ -1,5 +1,5 @@
 li.award-amount-set {
     &:last-of-type {
-        margin-bottom: $global-mrg;
+        margin-bottom: $global-margin * 2;
     }
 }

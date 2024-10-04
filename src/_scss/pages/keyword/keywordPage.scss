@@ -6,8 +6,8 @@
 
     .keyword-content {
         @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
-        padding:  rem(25);
+        @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
+        padding:  $global-padding * 3;
         background-color: $color-white;
         box-shadow: $container-shadow;
         color: $color-base;

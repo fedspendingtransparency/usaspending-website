@@ -42,72 +42,10 @@
             @include placeholder {
                 color: $color-gray-light;
             }
-        }
-    }
-    a.picker-icon {
-        display: block;
-        position: absolute;
-        top: 3.3rem;
-        right: .6rem;
-        height: 1.5rem;
-        max-width: 1.5rem;
-        & svg {
-            z-index: 9;
-            fill: $color-gray-light;
-            height: 1.5rem;
-            width: 1.5rem;
-            &:hover{
-                fill: darken($color-gray-light, 20%)
+
+            &:focus-visible {
+                outline: 1px solid $color-focus;
             }
-        }
-        &.error {
-            & svg {
-                fill: $color-secondary;
-            }
-        }
-    }
-    .floating-datepicker {
-        position: absolute;
-        top: 65px;
-        z-index: 9999;
-        background-color: $color-white;
-        border: 1px solid $color-gray-lighter;
-        box-shadow: $box-shadow;
-        // import day picker library styling
-        @import "../../lib/react-day-picker/_daypicker.scss";
-        .DayPicker-Month{
-            font-size: 1.3rem;
-        }
-        .DayPicker-Weekday{
-            background: $color-gray-lightest;
-            border-bottom: 1px solid darken($color-gray-lightest, 5%);
-        }
-        .DayPicker-Day {
-            border: 1px solid $color-gray-lightest;
-            color: $color-gray;
-            background: $color-white;
-            font-size: 1.2rem;
-            padding: 0.8rem 1.0rem;
-            &:hover{
-                background: lighten( $color-active, 30% )
-            }
-            &:active,
-            &:focus {
-                color: $color-white;
-                background-color: $color-active;
-            }
-        }
-        .DayPicker-Caption,
-        .DayPicker-WeekdaysRow {
-            color: $color-gray;
-            margin-bottom: 1rem;
-            .DayPicker-Weekday {
-                font-size: 1.3rem;
-            }
-        }
-        .DayPicker-Day--disabled {
-            opacity: 0.4;
-            pointer-events: none;
         }
     }
 }

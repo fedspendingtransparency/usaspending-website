@@ -16,14 +16,17 @@ const propTypes = {
     message: PropTypes.string
 };
 
-const DateRangeError = (props) => (
-    <div className="date-range__warning">
-        <span className="date-range__invalid">Invalid search</span>
-        <ul>
-            <li>{props.message}</li>
-        </ul>
-    </div>
-);
+const DateRangeError = (props) => {
+    const errorHeader = props.header || 'Invalid search';
+    return (
+        <div className="date-range__warning">
+            <span className="date-range__invalid">{errorHeader}</span>
+            <ul>
+                <li>{props.message}</li>
+            </ul>
+        </div>
+    );
+};
 DateRangeError.defaultProps = defaultProps;
 DateRangeError.propTypes = propTypes;
 export default DateRangeError;
