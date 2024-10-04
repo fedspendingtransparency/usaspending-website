@@ -3,12 +3,11 @@
  * Created by Kevin Li 3/17/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { withRouter } from 'react-router-dom';
 import { flowRight } from 'lodash';
 
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
@@ -42,113 +41,14 @@ const combinedActions = Object.assign({},
     filterActions
 );
 
-export class AccountContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const AccountContainer = (props) => {
+    const [loading, setLoading] = useState(true);
+    const [validAccount, setValidAccount] = useState(true);
 
-        this.state = {
-            loading: true,
-            validAccount: true
-        };
+    let accountRequest = null;
+    let fiscalYearSnapshotRequest = null;
 
-        this.accountRequest = null;
-        this.fiscalYearSnapshotRequest = null;
-    }
-
-    componentDidMount() {
-        this.loadData();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.match.params.accountNumber !== this.props.match.params.accountNumber) {
-            this.loadData();
-        }
-        if (!prevProps.latestPeriod?.year && this.props.latestPeriod?.year && this.props.account?.id) {
-            // The latest FY became available and we have the internal / database id required for
-            // the FY snapshot request
-            this.loadFiscalYearSnapshot(this.props.account.id);
-        }
-    }
-
-    loadData() {
-        if (this.accountRequest) {
-            this.accountRequest.cancel();
-        }
-
-        this.setState({
-            loading: true
-        });
-
-        this.accountRequest = AccountHelper.fetchFederalAccount(this.props.match.params.accountNumber);
-
-        this.accountRequest.promise
-            .then((res) => {
-                this.accountRequest = null;
-
-                // update the redux store
-                this.parseAccount(res.data);
-
-                this.setState({
-                    validAccount: true
-                });
-            })
-            .catch((err) => {
-                this.accountRequest = null;
-
-                if (!isCancel(err)) {
-                    this.setState({
-                        loading: false,
-                        validAccount: false
-                    });
-
-                    console.log(err);
-                }
-            });
-    }
-
-    parseAccount(data) {
-        const account = new FederalAccount(data);
-        this.props.setSelectedAccount(account);
-        if (this.props.latestPeriod.year) {
-            this.loadFiscalYearSnapshot(account.id);
-        }
-    }
-
-    loadFiscalYearSnapshot(id) {
-        if (this.fiscalYearSnapshotRequest) {
-            this.fiscalYearSnapshotRequest.cancel();
-        }
-
-        this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
-            id,
-            this.props.latestPeriod.year
-        );
-
-        this.fiscalYearSnapshotRequest.promise
-            .then((res) => {
-                this.fiscalYearSnapshotRequest = null;
-
-                // update the redux store
-                this.parseFYSnapshot(res.data);
-
-                this.setState({
-                    loading: false
-                });
-            })
-            .catch((err) => {
-                this.fiscalYearSnapshotRequest = null;
-
-                if (!isCancel(err)) {
-                    this.setState({
-                        loading: false
-                    });
-
-                    console.log(err);
-                }
-            });
-    }
-
-    parseFYSnapshot(data) {
+    const parseFYSnapshot = (data) => {
         const balances = {
             available: false
         };
@@ -161,29 +61,107 @@ export class AccountContainer extends React.Component {
         }
 
         // update the Redux account model with balances
-        const account = Object.assign({}, this.props.account);
+        const account = Object.assign({}, props.account);
         account.totals = balances;
-        this.props.setSelectedAccount(account);
-    }
+        props.setSelectedAccount(account);
+    };
 
-    render() {
+    const loadFiscalYearSnapshot = (id) => {
+        if (fiscalYearSnapshotRequest) {
+            fiscalYearSnapshotRequest.cancel();
+        }
+
+        fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
+            id,
+            props.latestPeriod.year
+        );
+
+        fiscalYearSnapshotRequest.promise
+            .then((res) => {
+                fiscalYearSnapshotRequest = null;
+
+                // update the redux store
+                parseFYSnapshot(res.data);
+
+                setLoading(false);
+            })
+            .catch((err) => {
+                fiscalYearSnapshotRequest = null;
+
+                if (!isCancel(err)) {
+                    setLoading(false);
+                    console.log(err);
+                }
+            });
+    };
+
+    const parseAccount = (data) => {
+        const account = new FederalAccount(data);
+        props.setSelectedAccount(account);
+        if (props.latestPeriod.year) {
+            loadFiscalYearSnapshot(account.id);
+        }
+    };
+
+
+    const loadData = () => {
+        if (accountRequest) {
+            accountRequest.cancel();
+        }
+
+        setLoading(true);
+
+        accountRequest = AccountHelper.fetchFederalAccount(props.match.params.accountNumber);
+
+        accountRequest.promise
+            .then((res) => {
+                accountRequest = null;
+
+                // update the redux store
+                parseAccount(res.data);
+
+                setValidAccount(true);
+            })
+            .catch((err) => {
+                accountRequest = null;
+
+                if (!isCancel(err)) {
+                    setLoading(false);
+                    setValidAccount(false);
+                    console.log(err);
+                }
+            });
+    };
+
+    useEffect(() => {
+        loadData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props?.match?.params?.accountNumber]);
+
+    useEffect(() => {
+        loadFiscalYearSnapshot(props.account.id);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.latestPeriod?.year, props.account?.id]);
+
+    const renderAccount = () => {
         let output = <LoadingAccount />;
 
-        if (!this.state.loading && !this.state.validAccount) {
+        if (!loading && !validAccount) {
             output = <InvalidAccount />;
         }
-        else if (!this.state.loading && !this.props.isFetchLatestFyLoading) {
-            output = <Account {...this.props} currentFiscalYear={`${this.props.latestPeriod.year}`} />;
+        else if (!loading && !props.isFetchLatestFyLoading) {
+            output = <Account {...props} currentFiscalYear={`${props.latestPeriod.year}`} />;
         }
 
         return output;
-    }
-}
+    };
+
+    return (renderAccount());
+};
 
 AccountContainer.propTypes = propTypes;
 
 export default flowRight(
-    withRouter,
     withLatestFy,
     connect(
         (state) => ({

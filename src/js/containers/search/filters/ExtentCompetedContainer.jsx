@@ -8,10 +8,12 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { is } from 'immutable';
+import { QAT } from 'GlobalConstants';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
 import ContractFilter from 'components/search/filters/contractFilters/ContractFilter';
+import ListCheckbox from 'components/sharedComponents/checkbox/ListCheckbox';
+import { extentCompetedDefinitions, extentCompetedTypeMapping } from 'dataMapping/search/contractFields';
 
 const propTypes = {
     updateExtentCompeted: PropTypes.func,
@@ -19,37 +21,34 @@ const propTypes = {
     appliedEC: PropTypes.object
 };
 
-export class ExtentCompetedContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, appliedEC }) => {
+    const selectExtentCompeted = (value) => {
+        updateExtentCompeted(value);
+    };
 
-        // Bind functions
-        this.selectExtentCompeted = this.selectExtentCompeted.bind(this);
-    }
-
-    selectExtentCompeted(value) {
-        this.props.updateExtentCompeted(value);
-    }
-
-    dirtyFilters() {
-        if (is(this.props.extentCompeted, this.props.appliedEC)) {
+    const dirtyFilters = () => {
+        if (is(extentCompeted, appliedEC)) {
             return null;
         }
         return Symbol('dirty extent competed');
-    }
+    };
 
-    render() {
-        return (
-            <ContractFilter
-                extentCompeted={this.props.extentCompeted}
-                dirtyFilters={this.dirtyFilters()}
-                contractFilterType="extent_competed"
-                contractFilterOptions="extentCompetedDefinitions"
-                contractFilterState="extentCompeted"
-                toggleFilter={this.selectExtentCompeted} />
-        );
-    }
-}
+    return (QAT ?
+        <ListCheckbox
+            filterCategoryMapping={extentCompetedTypeMapping}
+            filters={extentCompetedDefinitions}
+            selectedFilters={extentCompeted}
+            singleFilterChange={updateExtentCompeted} />
+        :
+        <ContractFilter
+            extentCompeted={extentCompeted}
+            dirtyFilters={dirtyFilters()}
+            contractFilterType="extent_competed"
+            contractFilterOptions="extentCompetedDefinitions"
+            contractFilterState="extentCompeted"
+            toggleFilter={selectExtentCompeted} />
+    );
+};
 
 ExtentCompetedContainer.propTypes = propTypes;
 

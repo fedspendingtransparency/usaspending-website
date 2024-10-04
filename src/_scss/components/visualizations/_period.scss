@@ -1,7 +1,7 @@
 .visualization-period {
     @include grid-column(16);
     @import "_scope";
-    margin-top: $global-mrg;
+    margin-top: $global-margin * 2;
     margin-left: 0;
     width: 100%;
     @include media($tablet-screen) {

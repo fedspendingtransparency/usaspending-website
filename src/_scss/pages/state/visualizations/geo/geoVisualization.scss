@@ -1,5 +1,6 @@
 .geo__map-section {
     position: relative;
+    @import "loading";
     .map-container {
         height: rem(475);
         width: 100%;

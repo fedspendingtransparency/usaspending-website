@@ -8,7 +8,7 @@
 
     .main-content {
         @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(0, ($global-mrg * 4));
+        @include fullSectionWrap(0, ($global-margin * 8));
         padding: 0;
         @import "./overview/overview";
         @import "./results/searchResults";

@@ -8,7 +8,7 @@
         @import "./checkbox/secondaryCheckboxType";
         & li {
             &:last-child {
-                margin-bottom: $global-mrg;
+                margin-bottom: $global-margin * 2;
             }
         }
     }
