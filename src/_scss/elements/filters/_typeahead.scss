@@ -30,6 +30,7 @@
     .autocomplete-md {
         font-size: $small-font-size;
         padding: rem(6) rem(12);
+        color: $theme-color-headline;
         
         &:focus-visible {
             outline: 1px solid $color-focus;
@@ -39,6 +40,7 @@
     .autocomplete-sm {
         font-size: $smallest-font-size;
         padding: rem(8);
+        color: $theme-color-headline;
 
         &:focus-visible {
             outline: 1px solid $color-focus;
@@ -86,17 +88,14 @@
             &[aria-selected="true"] {
                 background-color: $gray-cool-3;
                 cursor: pointer;
-                * {
-                    color: $color-gray;
-                }
-                mark {
-                    background-color: $color-gray-lighter;
-                    color: $color-gray;
-                }
+            }
+
+            span.semibold {
+                font-weight: $font-semibold;
             }
 
             span {
-                font-weight: $font-semibold;
+                color: $theme-color-headline;
             }
         }
 

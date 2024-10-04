@@ -210,11 +210,6 @@
                         border: none;
                       }
 
-                      &:focus {
-                        outline: none;
-                        box-shadow: none;
-                      }
-
                       .usa-dt-picker__button-text {
                         @include flex(0 0 auto);
                         margin-right: 0.3rem;
@@ -273,7 +268,7 @@
 
             .tooltip {
               .tooltip-body {
-                padding: 0 ($global-pad * 2);
+                padding: 0 ($global-padding * 4);
               }
 
               .tooltip-left {

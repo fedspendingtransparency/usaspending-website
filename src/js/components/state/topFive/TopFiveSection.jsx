@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { Tabs, SectionHeader } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { categories as topCategories } from 'dataMapping/state/topCategories';
+import { categories as topCategories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'containers/state/topFive/TopFiveContainer';
 
 const tabTypes = [

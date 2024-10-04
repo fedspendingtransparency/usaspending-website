@@ -5,12 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import GlobalConstants from "GlobalConstants";
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader } from 'data-transparency-ui';
 
 import TimeVisualizationPeriodButton from 'components/search/newResultsView/time/TimeVisualizationPeriodButton';
 import StateTimeVisualization from './StateTimeVisualization';
+import StateTimeVisualizationChart from './StateTimeVisualizationChart';
 
 const propTypes = {
     data: PropTypes.object,
@@ -101,12 +103,20 @@ export default class StateTimeVisualizationSection extends React.Component {
                     </div>
                 </div>
 
-                <StateTimeVisualization
-                    visualizationPeriod={this.props.visualizationPeriod}
-                    loading={this.props.loading}
-                    data={this.props.data}
-                    width={this.state.visualizationWidth}
-                    color="#708893" />
+                {GlobalConstants.QAT ? (
+                    // Uses Recharts
+                    <StateTimeVisualizationChart
+                        visualizationPeriod={this.props.visualizationPeriod}
+                        loading={this.props.loading}
+                        data={this.props.data}
+                        width={this.state.visualizationWidth} />)
+                    : (
+                        <StateTimeVisualization
+                            visualizationPeriod={this.props.visualizationPeriod}
+                            loading={this.props.loading}
+                            data={this.props.data}
+                            width={this.state.visualizationWidth}
+                            color="#708893" />)}
             </section>
         );
     }

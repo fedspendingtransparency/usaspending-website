@@ -16,7 +16,7 @@
         }
         & svg:not(:root) {
             fill: $color-gray-medium;
-            padding: 0 $global-pad;
+            padding: 0 $global-padding * 2;
         }
         & .breadcrumb-arrow {
             display: inline-block;
@@ -31,7 +31,7 @@
             float: none;
             & ul {
                 padding-left: 0;
-                margin: ($global-mrg * 2) 0 0 0;
+                margin: ($global-margin * 4) 0 0 0;
             }
         }
         @include media($large-screen) {
@@ -40,7 +40,7 @@
             float: none;
             & ul {
                 padding-left: 0;
-                margin: ($global-mrg * 2) 0 0 0;
+                margin: ($global-margin * 4) 0 0 0;
             }
         }
         @include media($x-large-screen) {
@@ -56,20 +56,14 @@
         }
     }
     .article-wrapper {
+        margin-top: $global-margin * 2;
+
         h1 {
-            margin: ($global-pad * 2) 0 ($global-pad) 0;
+            margin: ($global-margin * 4) 0 ($global-margin * 2) 0;
         }
+
         hr.results-divider {
-            margin: 0 0 ($global-pad * 3) 0;
-        }
-        @include media($small-screen) {
-            margin-top: $global-mrg;
-        }
-        @include media($tablet-screen) {
-            margin-top: $global-mrg;
-        }
-        @include media($medium-screen) {
-            margin-top: $global-mrg;
+            margin: 0 0 ($global-margin * 6) 0;
         }
     }
 }
