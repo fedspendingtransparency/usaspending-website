@@ -82,6 +82,11 @@ export const fetchAwardV2 = (awardId) => apiRequest({
     url: `v2/awards/${awardId}/`
 });
 
+export const fetchRecipients = () => apiRequest({
+    url: 'v2/recipient/',
+    method: 'post'
+});
+
 // Fetch Individual Award's Transactions
 export const fetchAwardTransaction = (params) => apiRequest({
     url: 'v2/transactions/',
