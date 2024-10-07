@@ -6,15 +6,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TooltipWrapper } from 'data-transparency-ui';
-import { categoryTitles } from 'dataMapping/state/topCategories';
+import { categoryTitles } from 'dataMapping/topCategories';
 import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { isCancel } from "axios";
 
-import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
-import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../../dataMapping/state/stateNames";
-import { REQUEST_VERSION } from "../../../GlobalConstants";
-import { generateUrlHash } from "../../../helpers/searchHelper";
+import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
+import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
+import { REQUEST_VERSION } from "../../GlobalConstants";
+import { generateUrlHash } from "../../helpers/searchHelper";
 
 const propTypes = {
     category: PropTypes.string,
@@ -49,6 +49,11 @@ const TopFive = (props) => {
         }
     ];
 
+    // TODO: remove once award links get added to Recipient Page
+    if (props.dataParams.filters?.recipient_id) {
+        columns.pop();
+    }
+
     const getSelectedLink = (e, data) => {
         e.preventDefault();
         e.stopPropagation();
@@ -60,7 +65,11 @@ const TopFive = (props) => {
         const percent = (!isNaN(percentValue) && isFinite(percentValue)) ? `${Math.round(percentValue * 100) / 100}%` : '--';
         const linkText = props.category === "awards" ? "View this award" : "View awards";
 
-        return [result._slug ? result.linkedName : result.name, result.amount, percent,
+        // return [result._slug ? result.linkedName : result.name, result.amount, percent,
+        const rowArray = [
+            result._slug ? result.linkedName : result.name,
+            result.amount,
+            percent,
             <a
                 role="button"
                 tabIndex={0}
@@ -70,34 +79,49 @@ const TopFive = (props) => {
                 }}
                 onClick={(e) => getSelectedLink(e, result)}>
                 {linkText}
-            </a>];
+            </a>
+        ];
+
+        // TODO: remove once award links get added to Recipient Page
+        if (props.dataParams.filters?.recipient_id) {
+            rowArray.pop();
+        }
+
+        return rowArray;
     });
 
     const createLink = () => {
         const params = props.dataParams;
-        const location = params.filters.place_of_performance_locations[0];
-        const fips = stateFIPSByAbbreviation[location.state];
-        const stateName = stateNameByFipsId[fips];
+        // set filter to either be pop locations for state page, or recipient_id for recipient page
+        const filter = params.filters?.place_of_performance_locations ? params.filters?.place_of_performance_locations[0] : params.filters?.recipient_id;
 
+        let fips;
+        let stateName;
         let categoryFilter;
         let locationFilter;
 
-        locationFilter = {
-            selectedLocations: {
-                [`${location.country}_${location.state}`]: {
-                    identifier: `${location.country}_${location.state}`,
-                    filter: {
-                        country: location.country,
-                        state: location.state
-                    },
-                    display: {
-                        entity: "State",
-                        standalone: stateName,
-                        title: stateName
+        // only set initial location filter if state page and not recipient page
+        if (params.filters?.place_of_performance_locations) {
+            fips = stateFIPSByAbbreviation[filter.state];
+            stateName = stateNameByFipsId[fips];
+
+            locationFilter = {
+                selectedLocations: {
+                    [`${filter.country}_${filter.state}`]: {
+                        identifier: `${filter.country}_${filter.state}`,
+                        filter: {
+                            country: filter.country,
+                            state: filter.state
+                        },
+                        display: {
+                            entity: "State",
+                            standalone: stateName,
+                            title: stateName
+                        }
                     }
                 }
-            }
-        };
+            };
+        }
 
         if (params.category === 'awarding_agency') {
             categoryFilter = {
@@ -160,16 +184,16 @@ const TopFive = (props) => {
         else if (params.category === 'county') {
             locationFilter = {
                 selectedLocations: {
-                    [`${location.country}_${location.state}_${linkData._code}`]: {
-                        identifier: `${location.country}_${location.state}_${linkData._code}`,
+                    [`${filter.country}_${filter.state}_${linkData._code}`]: {
+                        identifier: `${filter.country}_${filter.state}_${linkData._code}`,
                         filter: {
-                            country: location.country,
-                            state: location.state,
+                            country: filter.country,
+                            state: filter.state,
                             county: linkData._code
                         },
                         display: {
                             entity: "County",
-                            standalone: `${linkData._name}, ${location.state}`,
+                            standalone: `${linkData._name}, ${filter.state}`,
                             title: linkData._name
                         }
                     }
@@ -179,16 +203,16 @@ const TopFive = (props) => {
         else if (params.category === 'district') {
             locationFilter = {
                 selectedLocations: {
-                    [`${location.country}_${location.state}_${linkData._code}`]: {
-                        identifier: `${location.country}_${location.state}_${linkData._code}`,
+                    [`${filter.country}_${filter.state}_${linkData._code}`]: {
+                        identifier: `${filter.country}_${filter.state}_${linkData._code}`,
                         filter: {
-                            country: location.country,
-                            state: location.state,
+                            country: filter.country,
+                            state: filter.state,
                             district_current: linkData._code
                         },
                         display: {
                             entity: "Current congressional district",
-                            standalone: `${linkData._name}, ${location.state}`,
+                            standalone: `${linkData._name}, ${filter.state}`,
                             title: linkData._name
                         }
                     }
@@ -229,12 +253,74 @@ const TopFive = (props) => {
                 }
             };
         }
+        else if (params.category === 'federal_account') {
+            // to be used on recipient page, once design approves links
+            // TODO: in future ticket, update to be able to link to TAS advanced search
+            categoryFilter = {
+                tasCodes: {
+                    require: [[linkData._code]],
+                    exclude: [],
+                    counts: [
+                        {
+                            label: linkData._name,
+                            value: linkData._code,
+                            count: 2
+                        }
+                    ]
+                }
+            };
+        }
+        else if (params.category === 'country') {
+            // to be used on recipient page, once design approves links
+            locationFilter = {
+                selectedLocations: {
+                    [`${linkData._code}`]: {
+                        identifier: `${linkData._code}`,
+                        filter: {
+                            country: linkData._code
+                        },
+                        display: {
+                            entity: "Country",
+                            standalone: `${linkData._name}`,
+                            title: linkData._name
+                        }
+                    }
+                }
+            };
+        }
+        else if (params.category === 'state_territory') {
+            // to be used on recipient page, once design approves links
+            locationFilter = {
+                selectedLocations: {
+                    [`USA_${linkData._code}`]: {
+                        identifier: `USA_${linkData._code}`,
+                        filter: {
+                            country: 'USA',
+                            state: linkData._code
+                        },
+                        display: {
+                            entity: "State or Territory",
+                            standalone: `${linkData._name}`,
+                            title: linkData._name
+                        }
+                    }
+                }
+            };
+        }
 
         let awardTypeFilter;
 
         if (params.filters.award_type_codes?.length > 0) {
             awardTypeFilter = {
                 awardType: params.filters.award_type_codes
+            };
+        }
+
+        if (params.filters?.recipient_id) {
+            categoryFilter = {
+                ...categoryFilter,
+                selectedRecipients: [params.filters?.recipient_name]
+
             };
         }
 

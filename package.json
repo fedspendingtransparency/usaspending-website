@@ -23,8 +23,8 @@
   },
   "author": "",
   "engines": {
-    "node": ">=18.17.0",
-    "npm": ">=9.8.1"
+    "node": ">=20.12.2",
+    "npm": ">=10.8.3"
   },
   "license": "SEE LICENSE IN LICENSE.MD",
   "devDependencies": {
@@ -220,7 +220,6 @@
     "react-checkbox-tree": "1.5.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-custom-scrollbars": "^4.1.2",
-    "react-day-picker": "^7.0.2",
     "react-dom": "^18.2.0",
     "react-flip-toolkit": "^7.0.17",
     "react-helmet": "^6.1.0",

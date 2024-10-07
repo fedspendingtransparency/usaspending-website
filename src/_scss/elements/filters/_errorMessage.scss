@@ -2,8 +2,8 @@
     @import "mixins/setText";
     @include usa-input-error-message;
     border: 1px solid $color-secondary-dark;
-    padding: $global-pad;
-    margin: $global-mrg 0;
+    padding: $global-padding * 2;
+    margin: $global-margin * 2 0;
     .error-title {
         @include display(flex);
         @include justify-content(flex-start);

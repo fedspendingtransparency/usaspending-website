@@ -16,7 +16,7 @@
       .tooltip-subtitle {
         text-align: center;
         background-color: #f8f8f8;
-        padding: $global-pad ($global-pad * 2);
+        padding: $global-padding * 2 ($global-padding * 4);
       }
       .disclaimer-total {
           margin-bottom: rem(15);

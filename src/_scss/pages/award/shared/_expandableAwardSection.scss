@@ -4,12 +4,12 @@
         @include button-unstyled;
         @include display(flex);
         color: $color-link;
-        margin-top: $global-mrg;
+        margin-top: $global-margin * 2;
         .award-description__button-icon {
-            padding-left: rem(5);
+            padding-left: rem(4);
             svg {
-                height: rem(15);
-                width: rem(15);
+                height: rem(16);
+                width: rem(16);
                 fill: $color-link;
             }
         }
@@ -17,6 +17,6 @@
 }
 .award-expandable-section__primary {
     .primary-btn {
-        margin-top: 30px;
+        margin-top: $global-margin * 4;
     }
 }

@@ -1,6 +1,6 @@
 .award-history {
     padding: rem(40) 0 rem(60);
-    width: 100%; 
+    width: 100%;
     @import "../table/_tablesSection";
     .table-types {
       .table-type-toggle {
@@ -11,7 +11,7 @@
         @include display(flex);
         justify-content: center;
         .total-item {
-            padding: $global-pad;
+            padding: $global-padding * 2;
             .total-value {
                 font-weight: bold;
             }

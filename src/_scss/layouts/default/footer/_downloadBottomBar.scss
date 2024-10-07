@@ -3,7 +3,6 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: rem(100);
 
     z-index: $z-base + 3;
 
@@ -25,21 +24,19 @@
             .title {
                 font-size: $h6-font-size;
                 font-weight: $font-normal;
+                margin: rem(10) auto;
             }
 
             p {
                 margin: 0;
                 font-size: $small-font-size;
-                display: inline-block;
             }
 
             button {
                 @include button-unstyled;
                 display: inline-block;
-                margin: rem(10) auto;
                 color: $color-primary;
                 font-weight: 600;
-                margin-left: rem(5);
             }
 
             .link {
@@ -51,9 +48,9 @@
             .icon {
                 height: rem(20);
                 display: inline-block;
-                width: rem(15);
+                margin-right: rem(3);
                 svg {
-                    width: rem(25);
+                    width: auto;
                     height: rem(10);
                     fill: $color-green;
                 }

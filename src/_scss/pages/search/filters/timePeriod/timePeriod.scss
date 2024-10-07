@@ -10,7 +10,7 @@
         @import "mixins/selectedFilterWrap";
         @import "../_singleSubmit";
 
-        padding: 0 $global-pad rem(20);
+        padding: 0 $global-padding * 2 rem(20);
 
         .new-awards-wrapper {
             display: flex;
@@ -66,7 +66,7 @@
         ul.fiscal-years {
             @include clearfix;
             list-style-type: none;
-            padding: $global-pad $global-pad 0;
+            padding: $global-padding * 2 $global-padding * 2 0;
             margin: -1px 0 0;
             .fy-columns-container {
                 display: flex;
@@ -75,7 +75,7 @@
                         float: left;
                         width: 42.3%;
                     }
-            
+
                 }
 
             li {
@@ -143,7 +143,7 @@
             }
         }
         .error-message {
-            margin: $global-mrg
+            margin: $global-margin * 2
         }
 
         .selected-filters {

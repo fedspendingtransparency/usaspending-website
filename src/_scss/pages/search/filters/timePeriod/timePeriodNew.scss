@@ -10,7 +10,7 @@
     @import "mixins/selectedFilterWrap";
     @import "../_singleSubmit";
 
-    padding: 0 $global-pad rem(20);
+    padding: 0 $global-padding * 2 rem(20);
 
     .fiscal-years-with-chips {
       display: flex;
@@ -21,6 +21,7 @@
       .button-type__tertiary-light {
         color: $gray-90;
         font-size: $font-size-12;
+        font-weight: $font-normal;
         white-space: nowrap;
         padding: 0;
         justify-content: center;
@@ -50,7 +51,7 @@
       display: flex;
       align-items: baseline;
       justify-content: center;
-      margin: rem(20) 0 0 0;
+      margin: rem(42) 0 0 0;
 
       // this inactive class refers to the 'activeClassDR' var in TimePeriod.jsx; used here to left-align the new awards only checkbox in both Time Period and Date Range tabs
       &.inactive {
@@ -112,43 +113,40 @@
       }
 
       .date-range-wrapper {
-        margin-top: rem(25);
+        margin-top: $global-margin * 2;
         display: flex;
         align-items: flex-end !important;
         flex-direction: row;
-        @media(min-width: $medium-screen) and (max-width: 1355px) {
-          flex-direction: column;
-        }
-        // uncomment when you're reformatting the date inputs
-        // .generate-datepicker {
-        //   .generate-datepicker__label {
-        //     text-transform: uppercase;
-        //     display: block;
-        //     font-size: $font-size-10;
-        //     font-weight: $font-semibold;
-        //     line-height: 1.5;
-        //     color: $gray-60;
-        //     margin-bottom: .5 * $global-margin;
-        //   }
 
-        //   input {
-        //     @include placeholder {
-        //       color: $gray-60;
-        //     }
+         .generate-datepicker {
+           .generate-datepicker__label {
+             text-transform: uppercase;
+             display: block;
+             font-size: $font-size-10;
+             font-weight: $font-semibold;
+             line-height: 1.5;
+             color: $gray-60;
+             margin-bottom: .5 * $global-margin;
+           }
 
-        //     line-height: 1.5;
-        //     border-radius: 3px;
-        //     border: solid 1px $gray-cool-10 !important;
-        //     padding: 7px 8px;
-        //     margin-top: 0;
-        //     height: rem(32);
-        //   }
-        // }
+           input {
+             @include placeholder {
+               color: $gray-60;
+             }
+
+             line-height: 1.5;
+             border-radius: 3px;
+             border: solid 1px $gray-cool-10 !important;
+             padding: rem(7) rem(2);
+             margin-top: 0;
+             height: rem(32);
+           }
+         }
 
         .date-range-column {
           margin-right: .5 * $global-margin;
           width: 100%;
-          
+
           .generate-datepicker-wrap {
             width: 100%;
 
@@ -158,25 +156,111 @@
           }
         }
 
-        .set-date-submit {
-          @include singleSubmit;
-          height: 42px !important;
-          @include media($large-screen) {
-            @include flex(0 0 auto);
-            margin: 0;
-          }
+        button {
+          margin: 0;
+        }
+      }
 
-          @media(min-width: 1355px) {
-            @include align-self(flex-end);
-          }
+      .date-range-option__dropdown-section {
+        margin-top: $global-margin * 3;
 
-          @media (max-width: 1355px) {
-            margin-top: rem(15);
-          }
+        .date-range-option__dropdown-section-label {
+          text-transform: uppercase;
+          font-size: $font-size-10;
+          font-weight: $font-semibold;
+          line-height: 1.5;
+          color: $gray-60;
+        }
 
-          @media (min-width: $medium-screen) and (max-width: 1355px) {
+        .date-range-option__dropdown-section-bottom {
+          display: flex;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+          align-items: center;
+          width: auto;
+          height: rem(32);
+          margin-top: $global-margin;
+
+          .date-range-option__dropdown-section-picker-wrapper {
             width: 100%;
-            align-self: center;
+            margin-right: $global-margin * .5;
+
+            .filter__dropdown-container {
+              height: rem(32);
+
+              .filter__dropdown-button-list-container {
+                width: 100%;
+
+                button {
+                  width: 100%;
+                }
+
+                [class*="filter__dropdown-button"] {
+                  margin: 0;
+                  border-color: $gray-cool-10;
+                  justify-content: space-between;
+
+                  .filter__dropdown-button-text {
+                    margin-right: rem(8);
+                    font-size: $font-size-12;
+                    line-height: 1.5;
+                    color: $gray-cool-60;
+                    opacity: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
+
+                  .filter__dropdown-chevron {
+                    padding-top: 0;
+                    svg {
+                      color: $theme-color-1;
+                      opacity: 1;
+                      vertical-align: middle;
+                      width: rem(10);
+                    }
+                  }
+                }
+
+                ul[class^='filter__dropdown-list'] {
+                  background-color: $color-white;
+                  border: rem(2) solid $gray-cool-10;
+                  border-radius: rem(4);
+                  box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+                  transform: translate(0px, 0px);
+                  width: max-content;
+                  min-width: 100%;
+                  height: rem(224);
+                  overflow-y: scroll;
+
+                  .filter__dropdown-list-item {
+                    padding-left: $global-margin;
+                    padding-right: $global-margin;
+
+                    button {
+                      font-size: $font-size-12;
+                      line-height: 1.5;
+                      color: $gray-cool-60;
+                      opacity: 1;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      cursor: pointer;
+                      width: 100%;
+                      height: 100%;
+                    }
+                  }
+
+                  .filter__dropdown-list-item.active:hover {
+                    background-color: $gray-cool-10;
+                  }
+                }
+              }
+            }
+          }
+
+          button {
+            margin: 0;
           }
         }
       }

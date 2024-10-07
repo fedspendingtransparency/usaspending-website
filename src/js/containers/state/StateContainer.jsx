@@ -3,13 +3,11 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { withRouter } from 'react-router-dom';
-
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
@@ -30,128 +28,118 @@ const propTypes = {
     history: PropTypes.object
 };
 
-export class StateContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const StateContainer = (props) => {
+    let fullRequest = null;
+    const [statusState, setStatusState] = useState({
+        loading: true,
+        error: false
+    });
 
-        this.state = {
-            loading: true,
-            error: false
-        };
+    const onClickFy = (fy) => {
+        const [, stateName] = parseStateDataFromUrl(props.match.params.state);
+        props.history.push(`/state/${stateName}/${fy}`);
+        props.setStateFiscalYear(fy);
+    };
 
-        this.request = null;
-        this.onClickFy = this.onClickFy.bind(this);
-    }
-
-    componentDidMount() {
-        const { fy, state } = this.props.match.params;
-        const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
-
-        if (!Object.keys(this.props.match.params).includes('fy')) {
-            // this.props.history.replace(`/state/${stateName}/latest`);
-            this.props.history.replace(`/state/${stateName}/2025`);
-        }
-        else if (!wasInputStateName) {
-            this.props.history.replace(`/state/${stateName}/${fy}`);
-        }
-        else {
-            this.props.setStateFiscalYear(fy);
-            this.loadStateOverview(stateId, fy);
-            this.setStateCenter(stateId);
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.state !== prevProps.match.params.state) {
-            const [, , stateId] = parseStateDataFromUrl(this.props.match.params.state);
-            // Reset the FY
-            this.props.setStateFiscalYear(this.props.match.params.fy);
-            this.loadStateOverview(stateId, this.props.match.params.fy);
-            // Update the map center
-            this.setStateCenter(stateId);
-        }
-        if (
-            (!prevProps.match.params.fy && this.props.match.params.fy) ||
-            (prevProps.match.params.fy !== this.props.match.params.fy)) {
-            // we just redirected the user or to the new url which includes the fy selection
-            this.props.setStateFiscalYear(this.props.match.params.fy);
-        }
-        if (this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
-            const [, , stateId] = parseStateDataFromUrl(this.props.match.params.state);
-            this.loadStateOverview(stateId, this.props.stateProfile.fy);
-        }
-    }
-
-    componentWillUnmount() {
-        this.props.resetState();
-    }
-
-    onClickFy(fy) {
-        this.props.history.push(`/state/${this.props.match.params.state}/${fy}`);
-        this.props.setStateFiscalYear(fy);
-    }
-
-    setStateCenter(id) {
+    const setStateCenter = (id) => {
         const center = stateCenterFromFips(id);
-        this.props.setStateCenter(center);
-    }
+        props.setStateCenter(center);
+    };
 
-    loadStateOverview(id, year) {
-        if (this.request) {
-            this.request.cancel();
+    const parseOverview = (data) => {
+        if (Object.keys(data).length === 0) {
+            return;
+        }
+        const stateProfile = Object.create(BaseStateProfile);
+        stateProfile.populate(data);
+        props.setStateOverview(stateProfile);
+    };
+
+    const loadStateOverview = (id, year) => {
+        if (fullRequest) {
+            fullRequest.cancel();
         }
 
-        this.request = StateHelper.fetchStateOverview(id, year);
+        fullRequest = StateHelper.fetchStateOverview(id, year);
 
-        this.request.promise
+        fullRequest.promise
             .then((res) => {
                 const noState = Object.keys(res.data).length === 0;
 
-                this.setState({
+                setStatusState(Object.assign({}, {
                     loading: false,
                     error: noState
-                }, () => {
-                    if (!noState) {
-                        this.parseOverview(res.data);
-                    }
-                });
+                }));
+
+                parseOverview(res.data);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
-
-                    this.setState({
+                    setStatusState(Object.assign({}, {
                         loading: false,
                         error: true
-                    });
+                    }));
                 }
             });
-    }
+    };
 
-    parseOverview(data) {
-        const stateProfile = Object.create(BaseStateProfile);
-        stateProfile.populate(data);
-        this.props.setStateOverview(stateProfile);
-    }
+    useEffect(() => {
+        const { fy, state } = props.match.params;
+        const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
 
-    render() {
-        return (
-            <StatePage
-                loading={this.state.loading}
-                error={this.state.error}
-                id={this.props.stateProfile.id}
-                stateProfile={this.props.stateProfile}
-                pickedFy={this.onClickFy} />
-        );
-    }
-}
+        if (!Object.keys(props.match.params).includes('fy')) {
+            // props.history.replace(`/state/${stateName}/latest`);
+            props.history.replace(`/state/${stateName}/2025`);
+        }
+        else if (!wasInputStateName) {
+            props.history.replace(`/state/${stateName}/${fy}`);
+        }
+        else {
+            props.setStateFiscalYear(fy);
+            loadStateOverview(stateId, fy);
+            setStateCenter(stateId);
+        }
+
+        return () => {
+            props.resetState();
+        };
+    }, []);
+
+    useEffect(() => {
+        const [, , stateId] = parseStateDataFromUrl(props?.match?.params?.state);
+        // Reset the FY
+        props.setStateFiscalYear(props.match.params.fy);
+        loadStateOverview(stateId, props.match.params.fy);
+        // Update the map center
+        setStateCenter(stateId);
+    }, [props?.match?.params?.state]);
+
+    useEffect(() => {
+        // we just redirected the user or to the new url which includes the fy selection
+        props.setStateFiscalYear(props?.match?.params?.fy);
+    }, [props?.match?.params?.fy]);
+
+    useEffect(() => {
+        const [, , stateId] = parseStateDataFromUrl(props.match.params.state);
+        loadStateOverview(stateId, props.stateProfile.fy);
+    }, [props?.stateProfile?.fy]);
+
+    return (
+        <StatePage
+            loading={statusState.loading}
+            error={statusState.error}
+            id={props.stateProfile.id}
+            stateProfile={props.stateProfile}
+            pickedFy={onClickFy} />
+    );
+};
 
 StateContainer.propTypes = propTypes;
-const StateContainerWithRouter = withRouter(StateContainer);
 
 export default connect(
     (state) => ({
         stateProfile: state.stateProfile
     }),
     (dispatch) => bindActionCreators(stateActions, dispatch)
-)(StateContainerWithRouter);
+)(StateContainer);

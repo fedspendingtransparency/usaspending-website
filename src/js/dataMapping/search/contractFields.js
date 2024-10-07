@@ -134,4 +134,17 @@ export const groupLabels = {
     extent_competed: 'Extent Competed'
 };
 
+export const extentCompetedTypeMapping = [
+    {
+        id: 'available-for-competition',
+        name: 'Available for Competition',
+        filters: ['F', 'CDOCiv', 'E Civ', 'A', 'D']
+    },
+    {
+        id: 'not-available-for-competition',
+        name: 'Not Available for Competition',
+        filters: ['NDOCiv', 'B', 'C', 'G']
+    }
+];
+
 /* eslint-enable quote-props */
