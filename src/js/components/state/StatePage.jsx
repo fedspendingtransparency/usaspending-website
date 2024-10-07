@@ -129,9 +129,7 @@ const StatePage = ({
         handleShareOptionClick(name, slug, emailArgs);
     };
 
-    const backgroundColor = {
-        backgroundColor: "#1a4480"
-    };
+    const backgroundColor = "#1a4480";
     return (
         <PageWrapper
             pageName="state"
