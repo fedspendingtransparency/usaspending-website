@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Tabs } from 'data-transparency-ui';
+import { Tabs, NoResultsMessage } from 'data-transparency-ui';
 import { throttle } from "lodash";
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
@@ -67,12 +67,17 @@ const ResultsTableSection = (props) => {
                 active={props.currentType}
                 switchTab={props.switchTab} />
             <div className="results-table-content">
-                <ResultsTable
-                    {...props}
-                    visibleWidth={tableWidth}
-                    awardIdClick={props.awardIdClick}
-                    subAwardIdClick={props.subAwardIdClick}
-                    isMobile={isMobile} />
+                {props.results.length ? (
+                    <ResultsTable
+                        {...props}
+                        visibleWidth={tableWidth}
+                        awardIdClick={props.awardIdClick}
+                        subAwardIdClick={props.subAwardIdClick}
+                        isMobile={isMobile} />
+                )
+                    :
+                    <NoResultsMessage />
+                }
             </div>
         </div>
     );
