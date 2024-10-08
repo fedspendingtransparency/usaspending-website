@@ -11,7 +11,7 @@ import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYea
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import TopFive from 'components/state/topFive/TopFive';
+import TopFive from 'components/sharedComponents/TopFive';
 
 const propTypes = {
     code: PropTypes.string,
@@ -125,7 +125,7 @@ const TopFiveContainer = (props) => {
             request.cancel();
         }
 
-        setCategoryState({ loading: false, error: true });
+        setCategoryState({ loading: true, error: false });
 
         if (props.category === 'awards') {
             request = SearchHelper.performSpendingByAwardSearch(dataParams());

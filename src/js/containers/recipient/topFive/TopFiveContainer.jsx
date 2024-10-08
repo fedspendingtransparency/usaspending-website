@@ -16,15 +16,15 @@ import {
 } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
-
-import TopFive from 'components/recipient/topFive/TopFive';
+import TopFive from 'components/sharedComponents/TopFive';
 
 export class TopFiveContainer extends React.Component {
     static propTypes = {
         total: PropTypes.number,
         category: PropTypes.string,
         fy: PropTypes.string,
-        recipientHash: PropTypes.string
+        recipientHash: PropTypes.string,
+        recipientName: PropTypes.string
     };
 
     constructor(props) {
@@ -79,7 +79,8 @@ export class TopFiveContainer extends React.Component {
         }
 
         const filters = {
-            recipient_id: this.props.recipientHash
+            recipient_id: this.props.recipientHash,
+            recipient_name: this.props.recipientName
         };
 
         if (timePeriod) {
@@ -150,6 +151,7 @@ export class TopFiveContainer extends React.Component {
             <TopFive
                 category={this.props.category}
                 total={this.props.total}
+                dataParams={this.dataParams()}
                 {...this.state} />
         );
     }
@@ -160,6 +162,7 @@ export default connect(
     (state) => ({
         total: state.recipient.overview._totalAmount,
         fy: state.recipient.fy,
-        recipientHash: state.recipient.id
+        recipientHash: state.recipient.id,
+        recipientName: state.recipient.overview.name
     })
 )(TopFiveContainer);

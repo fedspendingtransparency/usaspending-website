@@ -2,13 +2,14 @@
     @import 'all';
     @import 'layouts/default/default';
     @import 'layouts/default/stickyHeader/header';
+
     .main-content {
         @import '../../mixins/fullSectionWrap';
         @include fullSectionWrap(0,0);
         @include display(flex);
         @include flex-wrap(wrap);
         @include flex-direction(column);
-        width: 100%;
+        width: 94%;
         max-width: 160rem;
         border-radius: rem(5) rem(5) 0 0;
         background: $color-white;
@@ -24,13 +25,17 @@
             }
         }
     }
+
     &.about-the-data_agencies-page {
         @import './_agenciesPage';
     }
+
     &.about-the-data_agency-details-page {
         @import './_agencyDetailsPage';
     }
+
     @import 'components/Note';
+
     .default-note {
         font-style: italic;
         margin-top: 0;
@@ -45,19 +50,24 @@
         }
         @import 'components/externalLink';
     }
+
     .table-container {
         max-width: 100%;
     }
+
     .usda-message {
         background-color: $color-white;
         width: 100vw;
     }
+
     @import 'components/stickyTable';
+
     .agency-table-download {
         svg {
             margin-right: rem(5);
         }
     }
+
     .usda-table {
         thead {
             th {
