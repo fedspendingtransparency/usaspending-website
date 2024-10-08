@@ -15,6 +15,8 @@
     }
 }
 @import './tableControls';
+
+// STATS BY SUBMISSION PERIOD TABLE
 .table-container.table-container_submissions .usda-table {
     // Styles specific to the "Statistics by Reporting Period" tab
 
@@ -62,3 +64,53 @@
     }
 }
 
+// UPDATES BY FISCAL YEAR TABLE
+.table-container.table-container_publications .usda-table {
+    // Styles specific to the "Statistics by Reporting Period" tab
+
+    // this was added after the dtui table styles were changed for the new search page
+    td.usda-table__cell.usda-table__cell_right {
+        border: 0;
+        border-top: solid 1px $color-gray-border;
+        border-right: solid 1px $color-gray-border;
+    }
+    th, td {
+        // we need to get rid of the black borders that will appear
+        border: 0;
+    }
+
+    td {
+        // and replace them with this gray border
+        border-top: solid 1px $color-gray-border;
+        border-right: solid 1px $color-gray-border;
+    }
+
+    th {
+        border-right: solid 1px $color-gray-border;
+    }
+    th.nested-header {
+        border-top: solid 1px $color-gray-border;
+    }
+    // end of border fixing chunk
+
+    thead {
+        th {
+            &:last-of-type {
+                // Hide sorting for the Agency Comments column
+                .table-header__sort {
+                    display: none;
+                }
+                .tooltip-spacer {
+                    transform: translate(-4px, 2px);
+                    text-transform: none;
+                    .tooltip__content{
+                        left: rem(-100);
+                        @media(min-width: 992px) {
+                            left: rem(-200);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
