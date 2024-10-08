@@ -16,8 +16,10 @@ import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
 import { defaultColumns, defaultSort } from 'dataMapping/search/awardTableColumns';
 import AccountAwardSearchOperation from 'models/v1/account/queries/AccountAwardSearchOperation';
-import ResultsTableSection from 'components/search/table/ResultsTableSection';
+// import ResultsTableSection from 'components/search/table/ResultsTableSection';
+import ResultsTableSection from 'components/search/newResultsView/table/ResultsTableSection';
 import { tableTypes, subTypes } from 'containers/search/newResultsView/ResultsTableContainer';
+import { SectionHeader } from "data-transparency-ui";
 
 const propTypes = {
     account: PropTypes.object,
@@ -322,25 +324,32 @@ const AccountAwardsContainer = (props) => {
     }));
 
     return (
-        <ResultsTableSection
-            error={error}
-            inFlight={inFlight}
-            results={results}
-            columns={columns[tableType]}
-            sort={sort}
-            tableTypes={tabsWithCounts}
-            currentType={tableType}
-            tableInstance={tableInstance}
-            switchTab={switchTab}
-            updateSort={updateSort}
-            loadNextPage={loadNextPage}
-            subaward={props.subaward}
-            page={page}
-            setPage={setPage}
-            total={total}
-            resultsLimit={resultLimit}
-            setResultLimit={setResultLimit}
-            resultsCount={counts[tableType]} />
+        <>
+            <SectionHeader
+                title="Spending by Prime Award"
+                titleTooltip={{ component: false }}
+                descTooltip={{ component: false }} />
+            <hr className="results-divider" />
+            <ResultsTableSection
+                error={error}
+                inFlight={inFlight}
+                results={results}
+                columns={columns[tableType]}
+                sort={sort}
+                tableTypes={tabsWithCounts}
+                currentType={tableType}
+                tableInstance={tableInstance}
+                switchTab={switchTab}
+                updateSort={updateSort}
+                loadNextPage={loadNextPage}
+                subaward={props.subaward}
+                page={page}
+                setPage={setPage}
+                total={total}
+                resultsLimit={resultLimit}
+                setResultLimit={setResultLimit}
+                resultsCount={counts[tableType]} />
+        </>
     );
 };
 

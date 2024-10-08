@@ -48,6 +48,7 @@ export default class ResultsTable extends React.Component {
             activateRightFade: !props.isMobile,
             windowWidth: 0
         };
+
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
@@ -489,6 +490,8 @@ export default class ResultsTable extends React.Component {
                 <div
                     className={`advanced-search__table-wrapper ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}
                     id="advanced-search__table-wrapper"
+                    // style={this.state.tableHeight > this.state.windowHeight ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : null}>
+
                     style={{ height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 }}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
