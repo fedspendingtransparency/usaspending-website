@@ -10,7 +10,7 @@ import { Button } from "data-transparency-ui";
 const propTypes = {
     year: PropTypes.string,
     saveSelectedYear: PropTypes.func,
-    selectedFY: PropTypes.bool
+    selectedFY: PropTypes.object
 };
 
 const defaultProps = {
