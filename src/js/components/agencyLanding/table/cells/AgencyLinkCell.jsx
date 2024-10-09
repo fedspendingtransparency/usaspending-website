@@ -12,7 +12,7 @@ export default class AgencyLinkCell extends React.Component {
     static propTypes = {
         name: PropTypes.string,
         column: PropTypes.string,
-        id: PropTypes.number,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         agencySearchString: PropTypes.string
     };
 
