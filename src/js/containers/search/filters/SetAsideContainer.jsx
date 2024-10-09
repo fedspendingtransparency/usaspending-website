@@ -10,8 +10,8 @@ import { connect } from 'react-redux';
 import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
-import ContractFilter from 'components/search/filters/contractFilters/ContractFilter';
+import { setAsideDefinitions, setAsideTypeMapping } from 'dataMapping/search/contractFields';
+import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
 
 const propTypes = {
     updateSetAside: PropTypes.func,
@@ -32,13 +32,11 @@ const SetAsideContainer = ({ updateSetAside, setAside, appliedSetAside }) => {
     };
 
     return (
-        <ContractFilter
-            setAside={setAside}
-            dirtyFilters={dirtyFilters()}
-            contractFilterType="set_aside"
-            contractFilterOptions="setAsideDefinitions"
-            contractFilterState="setAside"
-            toggleFilter={selectSetAside} />
+        <ListCheckbox
+            filterCategoryMapping={setAsideTypeMapping}
+            filters={setAsideDefinitions}
+            selectedFilters={setAside}
+            singleFilterChange={updateSetAside} />
     );
 };
 

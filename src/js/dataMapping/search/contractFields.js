@@ -147,4 +147,42 @@ export const extentCompetedTypeMapping = [
     }
 ];
 
+export const setAsideTypeMapping = [
+    {
+        id: 'hbcu-mi',
+        name: 'Historically Black College/University (HBCU) or Minority Institution (MI)',
+        filters: ['HMP', 'HMT']
+    },
+    {
+        id: 'hub-zone',
+        name: 'Historically Underutilized Business Zone Small Businesses (HUBZone)',
+        filters: ['HZC', 'HZS']
+    },
+    {
+        id: 'naob',
+        name: 'Native American-Owned Businesses',
+        filters: ['BI', 'ISEE', 'ISBEE']
+    },
+    {
+        id: 'no-set-aside',
+        name: 'No Set Aside',
+        filters: ['NONE']
+    },
+    {
+        id: 'small-disadvantaged',
+        name: 'Small Disadvantaged Business and 8(a) Small Businesses',
+        filters: ['8AN', 'HS3', '8A', 'HS2Civ', 'ESB', 'RSBCiv', '8ACCiv', 'SBP', 'SBA']
+    },
+    {
+        id: 'vosb',
+        name: 'Veteran-Owned Businesses',
+        filters: ['SDVOSBC', 'SDVOSBS', 'VSA', 'VSS']
+    },
+    {
+        id: 'wosb',
+        name: 'Women-Owned Small Businesses (WOSB)',
+        filters: ['EDWOSBSS', 'EDWOSB', 'WOSBSS', 'WOSB']
+    }
+];
+
 /* eslint-enable quote-props */
