@@ -19,37 +19,28 @@ const propTypes = {
     appliedSetAside: PropTypes.object
 };
 
-export class SetAsideContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const SetAsideContainer = ({ updateSetAside, setAside, appliedSetAside }) => {
+    const selectSetAside = (value) => {
+        updateSetAside(value);
+    };
 
-        // Bind functions
-        this.selectSetAside = this.selectSetAside.bind(this);
-    }
-
-    selectSetAside(value) {
-        this.props.updateSetAside(value);
-    }
-
-    dirtyFilters() {
-        if (is(this.props.setAside, this.props.appliedSetAside)) {
+    const dirtyFilters = () => {
+        if (is(setAside, appliedSetAside)) {
             return null;
         }
         return Symbol('dirty set aside');
-    }
+    };
 
-    render() {
-        return (
-            <ContractFilter
-                setAside={this.props.setAside}
-                dirtyFilters={this.dirtyFilters()}
-                contractFilterType="set_aside"
-                contractFilterOptions="setAsideDefinitions"
-                contractFilterState="setAside"
-                toggleFilter={this.selectSetAside} />
-        );
-    }
-}
+    return (
+        <ContractFilter
+            setAside={setAside}
+            dirtyFilters={dirtyFilters()}
+            contractFilterType="set_aside"
+            contractFilterOptions="setAsideDefinitions"
+            contractFilterState="setAside"
+            toggleFilter={selectSetAside} />
+    );
+};
 
 SetAsideContainer.propTypes = propTypes;
 
