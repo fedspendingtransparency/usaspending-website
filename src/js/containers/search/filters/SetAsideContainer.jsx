@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAsideDefinitions, setAsideTypeMapping } from 'dataMapping/search/contractFields';
