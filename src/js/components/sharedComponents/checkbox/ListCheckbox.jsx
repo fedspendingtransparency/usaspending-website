@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ListCheckboxPrimary from "./ListCheckboxPrimary";
+import SubmitHint from "../filterSidebar/SubmitHint";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -23,7 +24,7 @@ const ListCheckbox = ({
     filters, filterCategoryMapping, selectedFilters, singleFilterChange
 }) => {
     const checkboxCategories = filterCategoryMapping.map((category) => (
-        <div className="checkbox-filter__wrapper">
+        <div className="checkbox-filter__wrapper" key={category.id}>
             <div
                 className="checkbox-filter__header list-checkbox"
                 role="button"
@@ -47,6 +48,7 @@ const ListCheckbox = ({
     return (
         <div className="filter-item-wrap">
             {checkboxCategories}
+            <SubmitHint selectedFilters={selectedFilters} />
         </div>
     );
 };

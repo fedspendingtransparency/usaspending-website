@@ -15,30 +15,16 @@ import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
 
 const propTypes = {
     updateSetAside: PropTypes.func,
-    setAside: PropTypes.object,
-    appliedSetAside: PropTypes.object
+    setAside: PropTypes.object
 };
 
-const SetAsideContainer = ({ updateSetAside, setAside, appliedSetAside }) => {
-    const selectSetAside = (value) => {
-        updateSetAside(value);
-    };
-
-    const dirtyFilters = () => {
-        if (is(setAside, appliedSetAside)) {
-            return null;
-        }
-        return Symbol('dirty set aside');
-    };
-
-    return (
-        <ListCheckbox
-            filterCategoryMapping={setAsideTypeMapping}
-            filters={setAsideDefinitions}
-            selectedFilters={setAside}
-            singleFilterChange={updateSetAside} />
-    );
-};
+const SetAsideContainer = ({ updateSetAside, setAside }) => (
+    <ListCheckbox
+        filterCategoryMapping={setAsideTypeMapping}
+        filters={setAsideDefinitions}
+        selectedFilters={setAside}
+        singleFilterChange={updateSetAside} />
+);
 
 SetAsideContainer.propTypes = propTypes;
 
