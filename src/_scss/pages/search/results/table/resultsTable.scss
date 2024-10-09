@@ -46,13 +46,13 @@
 
     }
 
-    .results-table-width-master {
-        width: 100%;
-    }
-
     .advanced-search__table-wrapper {
         width: auto;
-        overflow-x: scroll;
+        overflow-y: auto;
+
+        @media (min-width: $tablet-screen) {
+            overflow-x: scroll;
+        }
 
         // this is to prevent the border of cells under the sticky column from
         // showing in the top left corner as you scroll right

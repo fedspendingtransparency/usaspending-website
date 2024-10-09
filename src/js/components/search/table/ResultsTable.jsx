@@ -48,6 +48,7 @@ export default class ResultsTable extends React.Component {
             activateRightFade: !props.isMobile,
             windowWidth: 0
         };
+
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
