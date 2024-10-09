@@ -29,7 +29,6 @@ const Header = () => {
 
     const isBannerActive = () => {
         if (GlobalConstants?.BANNER?.isActive) {
-            console.log("location", location.pathname);
             if (GlobalConstants.BANNER.page && GlobalConstants.BANNER.page !== "") {
                 return location.pathname.includes(GlobalConstants.BANNER.page);
             }
