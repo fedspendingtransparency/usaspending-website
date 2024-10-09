@@ -31,22 +31,22 @@ export const setAsideDefinitions = {
     'HS2Civ': 'Combination HUBZone and 8(a)',
     'EDWOSB': 'Economically-Disadvantaged Women-Owned Small Business',
     'EDWOSBSS': 'Economically Disadvantaged Women Owned Small Business Sole Source',
-    'ESB': 'Emerging Small Business Set-Aside',
-    'HMP': 'HBCU or MI Set-Aside - Partial',
-    'HMT': 'HBCU or MI Set-Aside - Total',
-    'HZC': 'HUBZone Set-Aside',
+    'ESB': 'Emerging Small Business Set Aside',
+    'HMP': 'HBCU or MI Set Aside - Partial',
+    'HMT': 'HBCU or MI Set Aside - Total',
+    'HZC': 'HUBZone Set Aside',
     'HZS': 'HUBZone Sole Source',
     'ISEE': 'Indian Economic Enterprise',
     'ISBEE': 'Indian Small Business Economic Enterprise',
     'NONE': 'No Set Aside Used',
     'RSBCiv': 'Reserved for Small Business $2,501 to $100K',
-    '8ACCiv': 'SDB Set-Aside 8(a)',
+    '8ACCiv': 'SDB Set Aside 8(a)',
     'SDVOSBS': 'SDVOSB Sole Source',
-    'SDVOSBC': 'Service-Disabled Veteran-Owned Small Business Set-Aside',
-    'SBP': 'Small Business Set-Aside - Partial',
-    'SBA': 'Small Business Set-Aside - Total',
-    'VSBCiv': 'Very Small Business Set-Aside',
-    'VSA': 'Veteran Set-Aside',
+    'SDVOSBC': 'Service-Disabled Veteran-Owned Small Business Set Aside',
+    'SBP': 'Small Business Set Aside - Partial',
+    'SBA': 'Small Business Set Aside - Total',
+    'VSBCiv': 'Very Small Business Set Aside',
+    'VSA': 'Veteran Set Aside',
     'VSS': 'Veteran Sole Source',
     'WOSB': 'Women-Owned Small Business',
     'WOSBSS': 'Women Owned Small Business Sole Source'
@@ -130,7 +130,7 @@ export const groupKeys = [
 
 export const groupLabels = {
     pricing_type: 'Type of Contract Pricing',
-    set_aside: 'Type of Set-Aside',
+    set_aside: 'Type of Set Aside',
     extent_competed: 'Extent Competed'
 };
 
@@ -171,7 +171,7 @@ export const setAsideTypeMapping = [
     {
         id: 'small-disadvantaged',
         name: 'Small Disadvantaged Business and 8(a) Small Businesses',
-        filters: ['8AN', 'HS3', '8A', 'HS2Civ', 'ESB', 'RSBCiv', '8ACCiv', 'SBP', 'SBA']
+        filters: ['8AN', 'HS3', '8A', 'HS2Civ', 'ESB', 'RSBCiv', '8ACCiv', 'SBP', 'SBA', 'VSBCiv']
     },
     {
         id: 'vosb',
