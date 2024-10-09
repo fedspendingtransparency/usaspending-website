@@ -1,3 +1,11 @@
+li.checkbox-set {
+    input {
+        &:focus-visible {
+            outline: solid 1px $color-focus;
+        }
+    }
+    
+}
 li.award-amount-set {
     &:last-of-type {
         margin-bottom: $global-margin * 2;
