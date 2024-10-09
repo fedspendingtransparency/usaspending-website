@@ -24,7 +24,7 @@ const ListCheckboxPrimary = ({
     };
 
     const items = category.filters?.map((filter, index) => (
-        <li className="checkbox-filter__item">
+        <li className="checkbox-filter__item" key={filters[filter]}>
             <input
                 type="checkbox"
                 id={`primary-checkbox-${index}`}

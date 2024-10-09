@@ -22,6 +22,12 @@ export default class SubmitHint extends React.Component {
         this.hideHint();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.selectedFilters && prevProps.selectedFilters !== this.props.selectedFilters) {
+            this.showHint();
+        }
+    }
+
     componentWillUnmount() {
         if (this.hideTimer) {
             window.clearTimeout(this.hideTimer);
