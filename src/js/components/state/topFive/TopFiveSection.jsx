@@ -4,11 +4,13 @@
  */
 
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
 import { Tabs, SectionHeader } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { categories as topCategories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'containers/state/topFive/TopFiveContainer';
+import {categoryNames} from "../../../dataMapping/search/spendingByCategory";
 
 const tabTypes = [
     {
@@ -37,7 +39,7 @@ const tabTypes = [
     }
 ];
 
-const TopFiveSection = () => {
+const TopFiveSection = (props) => {
     const [active, setActive] = useState('all');
 
     const switchTab = (tab) => {
