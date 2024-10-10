@@ -24,6 +24,7 @@ const propTypes = {
 
 const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, appliedEC }) => {
     const [searchString, setSearchString] = useState('');
+    const [filterCategoryMapping, setFilterCategoryMapping] = useState(extentCompetedTypeMapping);
 
     const selectExtentCompeted = (value) => {
         updateExtentCompeted(value);
@@ -41,11 +42,26 @@ const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, applied
     };
 
     const onClear = () => {
-        console.log('onClear');
+        setSearchString('');
+    };
+
+    const searchCategoryMapping = () => {
+        // filter out definitions based on search text
+        // eslint-disable-next-line no-unused-vars
+        const filteredDefinitions = Object.fromEntries(Object.entries(extentCompetedDefinitions).filter(([key, value]) => value.toLowerCase().includes(searchString.toLowerCase())));
+
+        // filter out type mapping filters based on filteredDefinitions
+        const filteredCategories = extentCompetedTypeMapping.map((type) => ({
+            ...type,
+            filters: type.filters.filter((v) => Object.keys(filteredDefinitions).includes(v))
+        }));
+
+        setFilterCategoryMapping(filteredCategories);
     };
 
     useEffect(() => {
-        console.log('searchString: ', searchString);
+        searchCategoryMapping();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
     return (
@@ -61,7 +77,7 @@ const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, applied
                 onClear={onClear} />
             {QAT ?
                 <ListCheckbox
-                    filterCategoryMapping={extentCompetedTypeMapping}
+                    filterCategoryMapping={filterCategoryMapping}
                     filters={extentCompetedDefinitions}
                     selectedFilters={extentCompeted}
                     singleFilterChange={updateExtentCompeted} />
