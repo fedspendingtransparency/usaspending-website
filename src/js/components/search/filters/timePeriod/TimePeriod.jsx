@@ -314,6 +314,11 @@ export default class TimePeriod extends React.Component {
 
         const tabLabels = [
             {
+                internal: 'dr',
+                label: 'Custom Dates',
+                title: 'Custom Dates'
+            },
+            {
                 internal: 'fy',
                 label: (
                     <div>
@@ -321,11 +326,6 @@ export default class TimePeriod extends React.Component {
                     </div>
                 ),
                 title: 'Fiscal Year'
-            },
-            {
-                internal: 'dr',
-                label: 'Date Range',
-                title: 'Date Range'
             }
         ];
 
