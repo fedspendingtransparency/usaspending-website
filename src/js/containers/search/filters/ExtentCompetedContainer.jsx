@@ -3,7 +3,7 @@
  * Created by Emily Gullo on 6/22/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import ContractFilter from 'components/search/filters/contractFilters/ContractFilter';
 import ListCheckbox from 'components/sharedComponents/checkbox/ListCheckbox';
 import { extentCompetedDefinitions, extentCompetedTypeMapping } from 'dataMapping/search/contractFields';
+import { EntityDropdownAutocomplete } from "../../../components/search/filters/location/EntityDropdownAutocomplete";
 
 const propTypes = {
     updateExtentCompeted: PropTypes.func,
@@ -22,6 +23,8 @@ const propTypes = {
 };
 
 const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, appliedEC }) => {
+    const [searchString, setSearchString] = useState('');
+
     const selectExtentCompeted = (value) => {
         updateExtentCompeted(value);
     };
@@ -33,20 +36,45 @@ const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, applied
         return Symbol('dirty extent competed');
     };
 
-    return (QAT ?
-        <ListCheckbox
-            filterCategoryMapping={extentCompetedTypeMapping}
-            filters={extentCompetedDefinitions}
-            selectedFilters={extentCompeted}
-            singleFilterChange={updateExtentCompeted} />
-        :
-        <ContractFilter
-            extentCompeted={extentCompeted}
-            dirtyFilters={dirtyFilters()}
-            contractFilterType="extent_competed"
-            contractFilterOptions="extentCompetedDefinitions"
-            contractFilterState="extentCompeted"
-            toggleFilter={selectExtentCompeted} />
+    const handleTextInputChange = (e) => {
+        setSearchString(e.target.value);
+    };
+
+    const onClear = () => {
+        console.log('onClear');
+    };
+
+    useEffect(() => {
+        console.log('searchString: ', searchString);
+    }, [searchString]);
+
+    return (
+        <>
+            <EntityDropdownAutocomplete
+                placeholder="Type to find codes"
+                searchString={searchString}
+                enabled
+                handleTextInputChange={handleTextInputChange}
+                context={{}}
+                loading={false}
+                isClearable
+                onClear={onClear} />
+            {QAT ?
+                <ListCheckbox
+                    filterCategoryMapping={extentCompetedTypeMapping}
+                    filters={extentCompetedDefinitions}
+                    selectedFilters={extentCompeted}
+                    singleFilterChange={updateExtentCompeted} />
+                :
+                <ContractFilter
+                    extentCompeted={extentCompeted}
+                    dirtyFilters={dirtyFilters()}
+                    contractFilterType="extent_competed"
+                    contractFilterOptions="extentCompetedDefinitions"
+                    contractFilterState="extentCompeted"
+                    toggleFilter={selectExtentCompeted} />
+            }
+        </>
     );
 };
 
