@@ -3,8 +3,10 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import GlobalConstants from 'GlobalConstants';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
@@ -38,13 +40,12 @@ import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 import { TooltipWrapper } from 'data-transparency-ui';
+
+
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
 
-// these are for the SearchFilter demo
-import SearchFilter from "./SearchFilter";
-import FeatureFlag from "../sharedComponents/FeatureFlag";
-import searchFilterDemoData from "./SearchFilterDemoData";
+import SearchSidebarv2 from "./SearchSidebarv2";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -208,18 +209,6 @@ const SearchSidebar = ({
 
     return (
         <>
-            <FeatureFlag>
-                {searchFilterDemoData.map((item) => (
-                    <SearchFilter
-                        iconName={item.iconName}
-                        iconColor={item.iconColor}
-                        iconBackgroundColor={item.iconBackgroundColor}
-                        title={item.title}
-                        description={item.description}
-                        itemCount={item.itemCount}
-                        selectedItems={item.selectedItems} />
-                ))}
-            </FeatureFlag>
             <div
                 className="search-sidebar"
                 role="search"
@@ -245,7 +234,7 @@ const SearchSidebar = ({
                     <SearchSidebarSubmitContainer />
                     {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
-                    <KeywordSearchLink />
+                    {/* <KeywordSearchLink /> */}
                 </div>}
                 </div>
             </div>

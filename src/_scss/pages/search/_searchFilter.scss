@@ -1,11 +1,11 @@
 .search-filter__container {
   //this import shouldn't be necessary once this css file is imported into a css page
   @import "all";
-
+  border-top: solid 1px $gray-cool-10;
   margin-bottom: $global-margin * 2;
 
   .search-filter__content {
-    border-top: solid 1px $gray-cool-10;
+    margin: rem(16) rem(32);
 
     .search-filter__top-row {
       display: flex;

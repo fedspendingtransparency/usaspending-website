@@ -1,9 +1,21 @@
 /**
- * SearchFilterDemoData.jsx
- * Created by Brian Petway 09/30/2024
+ * SearchFilterCategories.js
  */
 
-export const SearchFilterDemoData = [
+export const SearchFilterCategories = [
+    {
+        iconName: 'calendar-alt',
+        iconColor: '#1A4480',
+        iconBackgroundColor: '#edf5ff',
+        title: 'Location',
+        description: 'Find awards by specific date or date range',
+        itemCount: 3,
+        selectedItems: [
+            'Sample chip 1',
+            'Sample chip 2',
+            'Sample chip 3'
+        ]
+    },
     {
         iconName: 'calendar-alt',
         iconColor: '#1A4480',
@@ -39,7 +51,19 @@ export const SearchFilterDemoData = [
             'Sample chip 1',
             'Sample chip 2'
         ]
+    },
+    {
+        iconName: 'building',
+        iconColor: '#1b2b85',
+        iconBackgroundColor: '#edf0ff',
+        title: 'Sources',
+        description: 'Find awards by business, nonprofit, other organization, and more',
+        itemCount: 2,
+        selectedItems: [
+            'Sample chip 1',
+            'Sample chip 2'
+        ]
     }
 ];
 
-export default SearchFilterDemoData;
+export default SearchFilterCategories;

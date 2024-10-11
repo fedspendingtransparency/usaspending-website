@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
+import GlobalConstants from 'GlobalConstants';
+
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { AddFilter } from 'components/sharedComponents/icons/Icons';
@@ -26,6 +29,8 @@ import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
 import Button from "../sharedComponents/buttons/Button";
+import SearchSidebarv2 from "./SearchSidebarv2";
+
 
 const propTypes = {
     download: PropTypes.object,
@@ -57,6 +62,9 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [searchv2, setSearchv2] = useState(false);
+    const [fullSidebar, setFullSidebar] = useState(false);
+
 
     const dispatch = useDispatch();
 
@@ -103,13 +111,8 @@ const SearchPage = ({
         setShowFullDownload(false);
     };
 
-    let fullSidebar = (
-        <SearchSidebar
-            filters={filters}
-            hash={hash} />
-    );
     if (isMobile) {
-        fullSidebar = null;
+        setFullSidebar(null);
     }
 
     const pluralizeFilterLabel = (count) => {
@@ -140,6 +143,18 @@ const SearchPage = ({
         setStateHash(hash);
     }, [hash]);
 
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.search === "?version=2" && GlobalConstants.QAT) {
+            setSearchv2(true);
+            setFullSidebar(<SearchSidebarv2 />);
+        } else {
+            setSearchv2(false);
+            setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
+        }
+    }, [location.search]);
+
     return (
         <PageWrapper
             pageName="Advanced Search"
@@ -166,9 +181,9 @@ const SearchPage = ({
             filters={appliedFilters}>
             <div id="main-content">
                 <FlexGridRow className="search-contents">
-                    <FlexGridCol className="full-search-sidebar" width={3}>
+                    <FlexGridCol className={`full-search-sidebar ${searchv2 ? "v2" : ""}`} width={3}>
                         {fullSidebar}
-                        {isMobile === false ?
+                        {isMobile === false && searchv2 === false ?
                             <KeywordSearchLink />
                             : ''}
                     </FlexGridCol>
