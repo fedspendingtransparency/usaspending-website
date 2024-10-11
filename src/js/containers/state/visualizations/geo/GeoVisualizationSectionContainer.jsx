@@ -185,25 +185,26 @@ export class GeoVisualizationSectionContainer extends React.Component {
         let dateRange = [];
         let searchParams;
 
-        if (this.hasFilters()) {
+        if (fy !== 'all') {
+            if (fy === 'latest') {
+                dateRange = FiscalYearHelper.getTrailingTwelveMonths();
+            }
+            else {
+                dateRange = FiscalYearHelper.convertFYToDateRange(parseInt(fy, 10));
+            }
+            timePeriod = [
+                {
+                    start_date: dateRange[0],
+                    end_date: dateRange[1]
+                }
+            ];
+        }
+
+
+        if (this.hasFilters() && fy !== 'all') {
             searchParams = this.state.searchData.filters;
         }
         else {
-            if (fy !== 'all') {
-                if (fy === 'latest') {
-                    dateRange = FiscalYearHelper.getTrailingTwelveMonths();
-                }
-                else {
-                    dateRange = FiscalYearHelper.convertFYToDateRange(parseInt(fy, 10));
-                }
-                timePeriod = [
-                    {
-                        start_date: dateRange[0],
-                        end_date: dateRange[1]
-                    }
-                ];
-            }
-
             searchParams = {
                 place_of_performance_locations: [
                     {
@@ -212,10 +213,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
                     }
                 ]
             };
+        }
 
-            if (timePeriod) {
-                searchParams.time_period = timePeriod;
-            }
+        if (timePeriod) {
+            searchParams.time_period = timePeriod;
         }
 
         // generate the API parameters
