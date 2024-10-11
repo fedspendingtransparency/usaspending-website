@@ -25,6 +25,7 @@ const propTypes = {
 const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, appliedEC }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategoryMapping, setFilterCategoryMapping] = useState(extentCompetedTypeMapping);
+    const [noResults, setNoResults] = useState(false);
 
     const selectExtentCompeted = (value) => {
         updateExtentCompeted(value);
@@ -58,6 +59,13 @@ const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, applied
 
         // remove any categories that do not have any filters left
         const filteredCategories = filteredFilters.filter((type) => type.filters.length > 0);
+
+        if (filteredCategories.length > 0) {
+            setNoResults(false);
+        }
+        else {
+            setNoResults(true);
+        }
 
         setFilterCategoryMapping(filteredCategories);
     };
@@ -93,6 +101,7 @@ const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, applied
                     contractFilterState="extentCompeted"
                     toggleFilter={selectExtentCompeted} />
             }
+            {noResults && <div className="no-results">No Results</div>}
         </div>
     );
 };
