@@ -51,10 +51,13 @@ const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, applied
         const filteredDefinitions = Object.fromEntries(Object.entries(extentCompetedDefinitions).filter(([key, value]) => value.toLowerCase().includes(searchString.toLowerCase())));
 
         // filter out type mapping filters based on filteredDefinitions
-        const filteredCategories = extentCompetedTypeMapping.map((type) => ({
+        const filteredFilters = extentCompetedTypeMapping.map((type) => ({
             ...type,
             filters: type.filters.filter((v) => Object.keys(filteredDefinitions).includes(v))
         }));
+
+        // remove any categories that do not have any filters left
+        const filteredCategories = filteredFilters.filter((type) => type.filters.length > 0);
 
         setFilterCategoryMapping(filteredCategories);
     };
