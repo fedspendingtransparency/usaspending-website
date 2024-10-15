@@ -124,7 +124,9 @@ export class TopFiveContainer extends React.Component {
 
     parseResults(data, type) {
         if (data.length < 1) {
-            this.setState({noResultState: true});
+            this.setState({
+                noResultState: true
+            });
         } else {
             const parsed = data.map((item, index) => {
                 const result = Object.create(BaseStateCategoryResult);
