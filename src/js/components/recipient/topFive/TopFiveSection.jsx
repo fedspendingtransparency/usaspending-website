@@ -3,7 +3,7 @@
  * Created by Kwadwo Opoku-Debrah 07/10/18
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { recipientCategories as topCategories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'containers/recipient/topFive/TopFiveContainer';
