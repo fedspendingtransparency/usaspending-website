@@ -3,6 +3,8 @@
     @import "layouts/default/stickyHeader/header";
     @import "./header/options";
 
+    @import "../search/resultsView/dtuiOverrides";
+
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
 
