@@ -10,10 +10,8 @@ import TopFiveContainer from 'containers/recipient/topFive/TopFiveContainer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader } from "data-transparency-ui";
 
-const TopFiveSection = (props) => {
-    const content = topCategories
-        .filter((results) => results.length !== 0)
-        .map((category, i) => {
+const TopFiveSection = () => {
+    const content = topCategories.map((category, i) => {
             if (i % 2 === 0) {
                 return (
                     <div key={category} className="category-row">

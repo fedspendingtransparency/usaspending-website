@@ -22,7 +22,7 @@ const propTypes = {
     total: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    dataParams: PropTypes.object,
+    dataParams: PropTypes.object
 };
 
 const TopFive = (props) => {

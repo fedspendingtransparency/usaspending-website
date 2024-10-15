@@ -15,11 +15,10 @@ import TopFive from "../../../components/sharedComponents/TopFive";
 
 const propTypes = {
     code: PropTypes.string,
-    results: PropTypes.array,
     total: PropTypes.number,
     category: PropTypes.string,
     fy: PropTypes.string,
-    type: PropTypes.string,
+    type: PropTypes.string
 };
 
 const TopFiveContainer = (props) => {
@@ -165,7 +164,6 @@ const TopFiveContainer = (props) => {
                     category={props.category}
                     dataParams={dataParams()}
                     total={props.total}
-                    results={props.results}
                     {...categoryState} />
             }
         </>
@@ -178,6 +176,6 @@ export default connect(
     (state) => ({
         code: state.stateProfile.overview.code,
         total: state.stateProfile.overview._totalAmount,
-        fy: state.stateProfile.fy,
+        fy: state.stateProfile.fy
     })
 )(TopFiveContainer);
