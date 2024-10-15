@@ -82,10 +82,9 @@ const TopFiveContainer = (props) => {
 
     const parseResults = (data, type) => {
         if (data.length < 1) {
-            setNoResultState(true)
+            setNoResultState(true);
         } else {
             const parsed = data.map((item, index) => {
-                console.log(data.length);
                 const result = Object.create(BaseStateCategoryResult);
                 if (props.category === 'awards') {
                     result.populate({
@@ -113,8 +112,9 @@ const TopFiveContainer = (props) => {
                 else if (type === 'county' || type === 'district') {
                     result.nameTemplate = (code, name) => (name);
                 }
-
+                setNoResultState(false);
                 return result;
+
             });
 
         setCategoryState({ loading: false, error: false, results: parsed });
