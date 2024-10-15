@@ -70,9 +70,10 @@ const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted }) => {
                 context={{}}
                 loading={false}
                 isClearable
-                onClear={onClear} />
+                onClear={onClear}
+                searchIcon />
             {noResults ?
-                <div className="no-results">No Results</div>
+                <div className="no-results">No results found.</div>
                 :
                 <ListCheckbox
                     filterCategoryMapping={filterCategoryMapping}
