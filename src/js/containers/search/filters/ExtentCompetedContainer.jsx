@@ -72,7 +72,7 @@ const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted }) => {
                 isClearable
                 onClear={onClear} />
             {noResults ?
-                <div className="no-results">No Results</div>
+                <div className="no-results">No results found.</div>
                 :
                 <ListCheckbox
                     filterCategoryMapping={filterCategoryMapping}
