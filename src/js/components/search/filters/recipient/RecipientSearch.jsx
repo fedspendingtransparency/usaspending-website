@@ -52,7 +52,9 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
                         setHint(component);
                     }} />
                 <FeatureFlag>
-                    <RecipientResults />
+                    <RecipientResults
+                        selectedRecipients={selectedRecipients}
+                        toggleRecipient={toggleRecipient} />
                 </FeatureFlag>
             </div>
         </div>

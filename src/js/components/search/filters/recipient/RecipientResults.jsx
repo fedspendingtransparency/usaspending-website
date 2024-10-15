@@ -13,7 +13,7 @@ const propTypes = {
     toggleRecipient: PropTypes.func
 };
 
-const RecipientResults = (selectedRecipients, toggleRecipient) => {
+const RecipientResults = ({ toggleRecipient }) => {
     const [recipients, setRecipients] = useState([]);
 
     const levelMapping = {
@@ -42,7 +42,7 @@ const RecipientResults = (selectedRecipients, toggleRecipient) => {
                             name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei}</div>)}
                             value={`primary-checkbox-${index}`}
                             key={recipient.uei}
-                            toggleCheckboxType={() => toggleRecipient(recipient.name)} />
+                            toggleCheckboxType={toggleRecipient} />
                         <div className="recipient-label__bottom-section">
                             <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns}</div>
                             <div>
