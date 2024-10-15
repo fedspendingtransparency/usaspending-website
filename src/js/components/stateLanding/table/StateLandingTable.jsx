@@ -99,7 +99,7 @@ const StateLandingTable = (props) => {
                                     <div className="header-cell__title header-cell__title_right">
                                         Awarded Amount
                                         <div className="header-cell__subtitle">
-                                            from trailing 12 months
+                                        from the latest Fiscal Year
                                         </div>
                                     </div>
                                 </div>

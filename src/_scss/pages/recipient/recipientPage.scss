@@ -25,6 +25,10 @@
 		width: auto;
     }
 
+	.topfive .topfive__content .category-table .category-table__title {
+		height: unset;
+	}
+
 	.main-content {
 		@import "../../mixins/fullSectionWrap";
 		@include fullSectionWrap(0,0);
