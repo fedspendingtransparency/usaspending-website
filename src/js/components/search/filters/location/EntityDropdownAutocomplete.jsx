@@ -50,9 +50,7 @@ export const EntityDropdownAutocomplete = ({
     searchIcon
 }) => (
     <div className="autocomplete__input">
-        <div className="search-icon">
-            {searchIcon && <FontAwesomeIcon icon="search" />}
-        </div>
+        {searchIcon && <div className="search-icon"><FontAwesomeIcon icon="search" /></div>}
         <input
             className="geo-entity-dropdown__input"
             disabled={!enabled}
