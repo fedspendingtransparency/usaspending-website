@@ -3,10 +3,11 @@
  * Created by Josue Aguilar on 09/05/2024.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import AccordionCheckboxPrimary from "./AccordionCheckboxPrimary";
+import { EntityDropdownAutocomplete } from "../../search/filters/location/EntityDropdownAutocomplete";
 
 const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters) => {
     const toExpand = [];
@@ -36,6 +37,9 @@ const defaultProps = {
 const AccordionCheckbox = ({
     filters, filterCategoryMapping, selectedFilters, singleFilterChange, bulkFilterChange
 }) => {
+    const [searchString, setSearchString] = useState('');
+    const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
+    const [noResults, setNoResults] = useState(false);
     const [expandedCategories, setExpandedCategories] = useState(
         expandCheckboxCategoryAccordions(filterCategoryMapping, selectedFilters)
     );
@@ -50,7 +54,44 @@ const AccordionCheckbox = ({
         }
     };
 
-    const checkboxCategories = filterCategoryMapping.map((category) => (
+    const handleTextInputChange = (e) => {
+        setSearchString(e.target.value);
+    };
+
+    const onClear = () => {
+        setSearchString('');
+    };
+
+    const searchCategoryMapping = () => {
+        // filter out definitions based on search text
+        // eslint-disable-next-line no-unused-vars
+        const filteredDefinitions = Object.fromEntries(Object.entries(filters).filter(([key, value]) => value.toLowerCase().includes(searchString.toLowerCase())));
+
+        // filter out type mapping filters based on filteredDefinitions
+        const filteredFilters = filterCategoryMapping.map((type) => ({
+            ...type,
+            filters: type.filters.filter((v) => Object.keys(filteredDefinitions).includes(v))
+        }));
+
+        // remove any categories that do not have any filters left
+        const filteredCategories = filteredFilters.filter((type) => type.filters.length > 0);
+
+        if (filteredCategories.length > 0) {
+            setNoResults(false);
+        }
+        else {
+            setNoResults(true);
+        }
+
+        setFilterCategory(filteredCategories);
+    };
+
+    useEffect(() => {
+        searchCategoryMapping();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchString]);
+
+    const checkboxCategories = filterCategory.map((category) => (
         <AccordionCheckboxPrimary
             category={category}
             singleFilterChange={singleFilterChange}
@@ -64,6 +105,15 @@ const AccordionCheckbox = ({
 
     return (
         <div className="filter-item-wrap">
+            <EntityDropdownAutocomplete
+                placeholder="Search filters..."
+                searchString={searchString}
+                enabled
+                handleTextInputChange={handleTextInputChange}
+                context={{}}
+                loading={false}
+                isClearable
+                onClear={onClear} />
             {checkboxCategories}
         </div>
     );
