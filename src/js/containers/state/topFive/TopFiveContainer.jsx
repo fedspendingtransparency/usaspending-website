@@ -157,6 +157,7 @@ const TopFiveContainer = (props) => {
             category={props.category}
             dataParams={dataParams()}
             total={props.total}
+            results={props.results}
             {...categoryState} />
     );
 };

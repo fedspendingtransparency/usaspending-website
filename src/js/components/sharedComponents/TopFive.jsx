@@ -28,6 +28,7 @@ const propTypes = {
 const TopFive = (props) => {
     const [linkData, setLinkData] = useState();
     const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
+    console.log(props);
 
     const columns = [
         {
@@ -64,7 +65,6 @@ const TopFive = (props) => {
         const percentValue = (result._amount / props.total) * 100;
         const percent = (!isNaN(percentValue) && isFinite(percentValue)) ? `${Math.round(percentValue * 100) / 100}%` : '--';
         const linkText = props.category === "awards" ? "View this award" : "View awards";
-        const resultsAreEmpty = props.results.length === 0 ? "empty" : "not empty";
 
         // return [result._slug ? result.linkedName : result.name, result.amount, percent,
         const rowArray = [

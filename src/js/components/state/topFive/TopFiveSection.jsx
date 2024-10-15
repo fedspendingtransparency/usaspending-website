@@ -41,16 +41,18 @@ const tabTypes = [
 
 const TopFiveSection = (props) => {
     const [active, setActive] = useState('all');
-
     const switchTab = (tab) => {
         setActive(tab);
     };
 
-    const content = topCategories[active].map((category) => (
-        <TopFiveContainer
-            key={category}
-            category={category}
-            type={active} />
+    const content = topCategories[active]
+        .filter((results) => results.length == 0)
+        .map((category) => (
+            <TopFiveContainer
+                key={category}
+                category={category}
+                type={active}
+                results={props.results}/>
     ));
 
     return (
