@@ -315,23 +315,23 @@ export default class TimePeriod extends React.Component {
         const tabLabels = [
             {
                 internal: 'dr',
-                label: 'Custom Dates',
-                title: 'Custom Dates'
+                label: 'Custom dates',
+                title: 'Custom dates'
             },
             {
                 internal: 'fy',
                 label: (
                     <div>
-                        Fiscal Year &nbsp; <GlossaryLink term="fiscal-year-fy" />
+                        Fiscal years &nbsp; <GlossaryLink term="fiscal-year-fy" />
                     </div>
                 ),
-                title: 'Fiscal Year'
+                title: 'Fiscal years'
             }
         ];
 
         const toggleTab = (e) => {
             this.setState({ dateRangeChipRemoved: false }, () => {
-                if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
+                if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal years') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Custom dates')) {
                     const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
                     this.setState({ ...this.state, activeTab: nextTab });
                     this.clearHint(true);
