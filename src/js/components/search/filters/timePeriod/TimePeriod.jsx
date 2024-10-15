@@ -64,7 +64,7 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false,
-            activeTab: 'fy',
+            activeTab: 'dr',
             dateRangeChipRemoved: false
         };
 
