@@ -88,8 +88,15 @@ const AccordionCheckbox = ({
 
     useEffect(() => {
         searchCategoryMapping();
+        if (searchString) {
+            const test = filterCategory.map((category) => category.id);
+            setExpandedCategories(test);
+        }
+        else {
+            setExpandedCategories([]);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchString]);
+    }, [searchString, filterCategory]);
 
     const checkboxCategories = filterCategory.map((category) => (
         <AccordionCheckboxPrimary
