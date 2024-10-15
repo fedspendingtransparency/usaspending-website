@@ -59,6 +59,7 @@ const AccordionCheckbox = ({
     };
 
     const onClear = () => {
+        setExpandedCategories([]);
         setSearchString('');
     };
 
@@ -89,14 +90,11 @@ const AccordionCheckbox = ({
     useEffect(() => {
         searchCategoryMapping();
         if (searchString) {
-            const test = filterCategory.map((category) => category.id);
-            setExpandedCategories(test);
-        }
-        else {
-            setExpandedCategories([]);
+            const categoryIds = filterCategory.map((category) => category.id);
+            setExpandedCategories(categoryIds);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchString, filterCategory]);
+    }, [searchString]);
 
     const checkboxCategories = filterCategory.map((category) => (
         <AccordionCheckboxPrimary
