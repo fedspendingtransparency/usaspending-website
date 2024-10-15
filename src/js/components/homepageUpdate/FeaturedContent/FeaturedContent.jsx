@@ -34,7 +34,7 @@ const FeaturedContent = () => (
                             overline="YOUR DATA, YOUR STORY"
                             headline={
                                 <div>
-                                        Learn how Americans use USAspending in the “Your Data, Your Story” video series
+                                        Watch how people across the country navigate USASpending.gov in the "Your Data, Your Story" video series
                                 </div>
                             }>
                         </CardBody>

@@ -395,7 +395,7 @@ const TopFive = (props) => {
                 </div>
             </div>
             <Table
-                classNames={['topfive-table__table']}
+                classNames="topfive-table__table"
                 columns={columns}
                 rows={tableRows}
                 loading={props.loading}
