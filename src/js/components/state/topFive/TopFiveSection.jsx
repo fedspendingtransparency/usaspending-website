@@ -44,11 +44,11 @@ const TopFiveSection = () => {
     };
 
     const content = topCategories[active].map((category) => (
-            <TopFiveContainer
-                key={category}
-                category={category}
-                type={active} />
-        ));
+        <TopFiveContainer
+            key={category}
+            category={category}
+            type={active} />
+    ));
 
     return (
         <div
