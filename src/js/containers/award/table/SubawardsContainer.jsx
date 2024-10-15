@@ -61,6 +61,9 @@ export class SubawardsContainer extends React.Component {
 
     componentWillUnmount() {
         this.unmounted = true;
+        if (this.subawardRequest) {
+            this.subawardRequest.cancel();
+        }
     }
 
     fetchSubawards(page = 1, reset = false) {

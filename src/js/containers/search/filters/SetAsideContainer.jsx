@@ -7,49 +7,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
-import ContractFilter from 'components/search/filters/contractFilters/ContractFilter';
+import { setAsideDefinitions, setAsideTypeMapping } from 'dataMapping/search/contractFields';
+import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
 
 const propTypes = {
     updateSetAside: PropTypes.func,
-    setAside: PropTypes.object,
-    appliedSetAside: PropTypes.object
+    setAside: PropTypes.object
 };
 
-export class SetAsideContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        // Bind functions
-        this.selectSetAside = this.selectSetAside.bind(this);
-    }
-
-    selectSetAside(value) {
-        this.props.updateSetAside(value);
-    }
-
-    dirtyFilters() {
-        if (is(this.props.setAside, this.props.appliedSetAside)) {
-            return null;
-        }
-        return Symbol('dirty set aside');
-    }
-
-    render() {
-        return (
-            <ContractFilter
-                setAside={this.props.setAside}
-                dirtyFilters={this.dirtyFilters()}
-                contractFilterType="set_aside"
-                contractFilterOptions="setAsideDefinitions"
-                contractFilterState="setAside"
-                toggleFilter={this.selectSetAside} />
-        );
-    }
-}
+const SetAsideContainer = ({ updateSetAside, setAside }) => (
+    <ListCheckbox
+        filterCategoryMapping={setAsideTypeMapping}
+        filters={setAsideDefinitions}
+        selectedFilters={setAside}
+        singleFilterChange={updateSetAside} />
+);
 
 SetAsideContainer.propTypes = propTypes;
 
