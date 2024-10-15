@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader } from "data-transparency-ui";
 
 const TopFiveSection = () => {
-
     const content = topCategories.map((category) => (
         <TopFiveContainer
             key={category}

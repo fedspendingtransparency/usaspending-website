@@ -94,7 +94,7 @@ const TopFiveContainer = (props) => {
                     }, index + 1);
                 }
                 else {
-                    result.populate({...item, category: props.category}, index + 1);
+                    result.populate({ ...item, category: props.category }, index + 1);
                 }
 
                 if (type === 'awarding_agency' || type === 'awarding_subagency') {
@@ -113,10 +113,9 @@ const TopFiveContainer = (props) => {
                 }
                 setNoResultState(false);
                 return result;
-
             });
 
-        setCategoryState({ loading: false, error: false, results: parsed });
+            setCategoryState({ loading: false, error: false, results: parsed });
         }
     };
 

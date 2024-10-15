@@ -151,7 +151,6 @@ export class TopFiveContainer extends React.Component {
                 results: parsed
             });
         }
-
     }
 
     render() {
