@@ -119,7 +119,11 @@ const AccordionCheckbox = ({
                 loading={false}
                 isClearable
                 onClear={onClear} />
-            {checkboxCategories}
+            {noResults ?
+                <div className="no-results">No results found.</div>
+                :
+                checkboxCategories
+            }
         </div>
     );
 };
