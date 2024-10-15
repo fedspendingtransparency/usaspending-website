@@ -35,7 +35,7 @@ export class TimePeriodContainer extends React.Component {
 
         this.state = {
             timePeriods: [],
-            activeTab: 'fy',
+            activeTab: 'dr',
             cachedTimePeriods: Set(),
             cachedStart: null,
             cachedEnd: null

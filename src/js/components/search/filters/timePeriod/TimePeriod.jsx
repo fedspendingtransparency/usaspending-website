@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import GlobalConstants from "GlobalConstants";
 import PropTypes from 'prop-types';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -12,7 +11,6 @@ import { Set } from 'immutable';
 import { isEqual } from 'lodash';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
-import AllFiscalYears from './AllFiscalYears';
 import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
@@ -64,7 +62,7 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false,
-            activeTab: 'fy',
+            activeTab: 'dr',
             dateRangeChipRemoved: false
         };
 
@@ -256,14 +254,10 @@ export default class TimePeriod extends React.Component {
         }
 
         if (this.props.activeTab === 'fy' && !this.state.dateRangeChipRemoved) {
-            showFilter = GlobalConstants.QAT ? (<AllFiscalYearsWithChips
+            showFilter = (<AllFiscalYearsWithChips
                 updateFilter={this.props.updateFilter}
                 timePeriods={this.props.timePeriods}
-                selectedFY={this.props.filterTimePeriodFY} />) :
-                (<AllFiscalYears
-                    updateFilter={this.props.updateFilter}
-                    timePeriods={this.props.timePeriods}
-                    selectedFY={this.props.filterTimePeriodFY} />);
+                selectedFY={this.props.filterTimePeriodFY} />);
         }
         else {
             showFilter = (<DateRange
@@ -288,7 +282,6 @@ export default class TimePeriod extends React.Component {
         if (this.props.disableDateRange) {
             activeClassDR = 'hidden';
         }
-
         const newAwardsFilter = (
             <div className={`new-awards-wrapper ${activeClassDR}`}>
                 <label
@@ -314,24 +307,24 @@ export default class TimePeriod extends React.Component {
 
         const tabLabels = [
             {
+                internal: 'dr',
+                label: 'Custom dates',
+                title: 'Custom dates'
+            },
+            {
                 internal: 'fy',
                 label: (
                     <div>
-                        Fiscal Year &nbsp; <GlossaryLink term="fiscal-year-fy" />
+                        Fiscal years &nbsp; <GlossaryLink term="fiscal-year-fy" />
                     </div>
                 ),
-                title: 'Fiscal Year'
-            },
-            {
-                internal: 'dr',
-                label: 'Date Range',
-                title: 'Date Range'
+                title: 'Fiscal years'
             }
         ];
 
         const toggleTab = (e) => {
             this.setState({ dateRangeChipRemoved: false }, () => {
-                if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal Year') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Date Range')) {
+                if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal years') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Custom dates')) {
                     const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
                     this.setState({ ...this.state, activeTab: nextTab });
                     this.clearHint(true);
