@@ -1,4 +1,45 @@
 .filter-item-wrap {
+  .autocomplete__input {
+    @include display(flex);
+    width: 100%;
+    padding: ($global-spacing-unit * 2) 0 rem(20) 0;
+    position: relative;
+
+    input {
+      width: 100%;
+      height: rem(32);
+      margin: 0;
+      padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit ($global-spacing-unit * 4);
+      font-size: $smallest-font-size;
+      line-height: 1.5;
+      color: $gray-60;
+      border: solid rem(1) $gray-cool-10;
+      border-radius: rem(3);
+    }
+
+    svg {
+      color: $gray-60;
+    }
+
+    .search-icon {
+      @include flex(0 0 auto);
+      @include align-self(center);
+      position: absolute;
+      width: rem(16);
+      left: $global-spacing-unit;
+    }
+
+    .icon {
+      @include flex(0 0 auto);
+      @include align-self(center);
+      justify-self: center;
+      position: absolute;
+      height: rem(16);
+      right: $global-spacing-unit;
+      top: rem(22);
+    }
+  }
+
   .checkbox-filter__wrapper {
     .checkbox-filter__header.accordion-checkbox {
       margin-bottom: ($global-margin * 1.5);
