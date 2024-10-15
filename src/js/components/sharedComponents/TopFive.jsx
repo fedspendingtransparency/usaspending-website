@@ -28,7 +28,6 @@ const propTypes = {
 const TopFive = (props) => {
     const [linkData, setLinkData] = useState();
     const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
-    console.log(props);
 
     const columns = [
         {

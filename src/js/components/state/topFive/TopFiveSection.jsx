@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { categories as topCategories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'containers/state/topFive/TopFiveContainer';
-import {categoryNames} from "../../../dataMapping/search/spendingByCategory";
+import { categoryNames } from "../../../dataMapping/search/spendingByCategory";
 
 const tabTypes = [
     {
@@ -46,14 +46,13 @@ const TopFiveSection = (props) => {
     };
 
     const content = topCategories[active]
-        .filter((results) => results.length == 0)
         .map((category) => (
             <TopFiveContainer
                 key={category}
                 category={category}
                 type={active}
-                results={props.results}/>
-    ));
+                results={props.results} />
+        ));
 
     return (
         <div
