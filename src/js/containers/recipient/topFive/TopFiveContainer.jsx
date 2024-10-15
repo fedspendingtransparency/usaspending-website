@@ -33,7 +33,8 @@ export class TopFiveContainer extends React.Component {
         this.state = {
             loading: true,
             error: false,
-            results: []
+            results: [],
+            noResultState: false
         };
 
         this.request = null;
@@ -122,37 +123,46 @@ export class TopFiveContainer extends React.Component {
     }
 
     parseResults(data, type) {
-        const parsed = data.map((item, index) => {
-            const result = Object.create(BaseStateCategoryResult);
-            result.populate(item, index + 1);
-            if (type === 'awarding_agency' || type === 'awarding_subagency') {
-                result.nameTemplate = (code, name) => {
-                    if (code) {
-                        return `${name} (${code})`;
-                    }
-                    return name;
-                };
-            }
+        if (data.length < 1) {
+            this.setState({noResultState: true});
+        } else {
+            const parsed = data.map((item, index) => {
+                const result = Object.create(BaseStateCategoryResult);
+                result.populate(item, index + 1);
+                if (type === 'awarding_agency' || type === 'awarding_subagency') {
+                    result.nameTemplate = (code, name) => {
+                        if (code) {
+                            return `${name} (${code})`;
+                        }
+                        return name;
+                    };
+                }
 
-            else if (type === 'country' || type === 'state_territory') {
-                result.nameTemplate = (name) => (name);
-            }
-            return result;
-        });
-        this.setState({
-            loading: false,
-            error: false,
-            results: parsed
-        });
+                else if (type === 'country' || type === 'state_territory') {
+                    result.nameTemplate = (name) => (name);
+                }
+                return result;
+            });
+            this.setState({
+                loading: false,
+                error: false,
+                results: parsed
+            });
+        }
+
     }
 
     render() {
         return (
-            <TopFive
-                category={this.props.category}
-                total={this.props.total}
-                dataParams={this.dataParams()}
-                {...this.state} />
+            <>
+                {!this.state.noResultState &&
+                    <TopFive
+                        category={this.props.category}
+                        total={this.props.total}
+                        dataParams={this.dataParams()}
+                        {...this.state} />
+                }
+            </>
         );
     }
 }
