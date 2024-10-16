@@ -62,7 +62,6 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false,
-            activeTab: 'dr',
             dateRangeChipRemoved: false
         };
 
@@ -324,11 +323,10 @@ export default class TimePeriod extends React.Component {
 
         const toggleTab = (e) => {
             this.setState({ dateRangeChipRemoved: false }, () => {
-                if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal years') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Custom dates')) {
-                    const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
-                    this.setState({ ...this.state, activeTab: nextTab });
-                    this.clearHint(true);
+                if ((this.props.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal years') || (this.props.activeTab === 'dr' && e.target.textContent.trim() !== 'Custom dates')) {
+                    const nextTab = this.props.activeTab === 'fy' ? 'dr' : 'fy';
                     this.props.changeTab(nextTab);
+                    this.clearHint(true);
                 }
             });
         };
@@ -339,7 +337,7 @@ export default class TimePeriod extends React.Component {
                     <FilterTabs
                         labels={tabLabels}
                         switchTab={toggleTab}
-                        active={this.state.activeTab} />
+                        active={this.props.activeTab} />
                     { showFilter }
                     { errorDetails }
                     { !this.props.federalAccountPage && newAwardsFilter }
