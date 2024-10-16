@@ -27,6 +27,11 @@
       position: absolute;
       width: rem(16);
       left: ($global-spacing-unit * 3);
+      padding: rem(2);
+
+      svg {
+        width: rem(12);
+      }
     }
 
     .icon {
@@ -34,9 +39,14 @@
       @include align-self(center);
       justify-self: center;
       position: absolute;
-      height: rem(16);
+      width: rem(16);
       right: ($global-spacing-unit * 3);
-      top: rem(22);
+      top: rem(18);
+      padding: 2px;
+
+      svg {
+        height: rem(12);
+      }
     }
   }
 
