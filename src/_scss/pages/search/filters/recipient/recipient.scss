@@ -5,9 +5,104 @@
     @import "mixins/selectedFilterWrap";
     @import "../_singleSubmit";
 
-    .filter-item-wrap {
-        // reduce the bottom padding because the checkbox items have their own bottom padding
-        padding-bottom: rem(20);
+    .filter-item-wrap .recipient-container {
+        margin-top: $global-margin * 2.5;
+        padding: 0 0 $global-padding * 2.5 0;
+        height: rem(400);
+        overflow-y: scroll;
+        list-style: none;
+
+        >div>div:not(:first-child) {
+            margin-top: $global-margin * 1.5;
+        }
+
+        .checkbox-type-filter {
+            p {
+                color: $color-gray;
+                font-size: $small-font-size;
+                margin-top: 0;
+                margin-bottom: rem(5);
+            }
+            span {
+                label {
+                    color: $color-gray;
+                    font-weight: normal;
+                }
+                &:not(:last-child) {
+                    border-right: rem(1) solid rgba(0, 0, 0, 0.3);
+                    padding-right: rem(10);
+                    margin-right: rem(10);
+                }
+            }
+
+            .checkbox-set,
+            .secondary-checkbox-type {
+                margin: 0.5rem 0;
+            }
+
+            .recipient-label__container {
+                display: flex;
+                flex-flow: column nowrap;
+
+                .primary-checkbox-type {
+                    padding-left: 0;
+                }
+
+                .checkbox-set {
+                    margin: 0;
+                }
+
+                input {
+                    height: rem(14);
+                    width: rem(14);
+                    appearance: none;
+                    outline: none;
+                    border-color: $gray-cool-20;
+                    top: rem(4);
+                }
+
+                .checkbox-item-wrapper {
+                    .checkbox-item-label {
+                        margin-left: 0;
+                    }
+                }
+
+                .recipient-checkbox__uei {
+                    display: inline;
+                    font-size: $font-size-10;
+                    padding: rem(2.5) $global-padding * .5;
+                    border-radius: 2px;
+                    background-color: $gray-cool-5;
+                    line-height: 1.5;
+
+                    span {
+                        font-weight: $font-bold;
+                    }
+                }
+
+                .recipient-label__bottom-section {
+                    margin-left: rem(21);
+
+                    .recipient-label__legacy-duns {
+                        font-size: $font-size-10;
+                        font-style: italic;
+                        line-height: 1.5;
+                        color: $gray-60;
+                        margin-top: $global-margin * .5;
+                        padding: rem(2.5) 0;
+                    }
+
+                    .recipient-label__recipient-name {
+                        font-size: $font-size-12;
+                        line-height: 1.5;
+                        color: $gray-90;
+                        margin-top: $global-margin * .5;
+                        border-right: 0;
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
     }
 
     .recipient-filter-item-wrap {
@@ -36,36 +131,6 @@
         }
     }
 
-    .recipient-radio,
-    .checkbox-type-filter {
-        p {
-            color: $color-gray;
-            font-size: $small-font-size;
-            margin-top: 0;
-            margin-bottom: rem(5);
-        }
-        span {
-            label {
-                color: $color-gray;
-                font-weight: normal;
-                margin-left: 0.75rem;
-            }
-            &:not(:last-child) {
-                border-right: rem(1) solid rgba(0, 0, 0, 0.3);
-                padding-right: rem(10);
-                margin-right: rem(10);
-            }
-        }
-    }
-
-    .recipient-radio {}
-    .checkbox-type-filter {
-        .checkbox-set,
-        .secondary-checkbox-type {
-            margin: 0.5rem 0;
-        }
-    }
-
     .shown {
         min-height: rem(180);
     }
@@ -81,7 +146,7 @@
 
         .funding {
             .usa-da-typeahead {
-                margin: 0rem 0 rem(10);
+                margin: 0 0 rem(10);
             }
         }
     }
