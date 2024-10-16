@@ -26,11 +26,14 @@
       @include align-self(center);
       position: absolute;
       width: rem(16);
+      height: rem(16);
       left: ($global-spacing-unit * 3);
+      top: rem(18);
       padding: rem(2);
 
       svg {
         width: rem(12);
+        height: rem(12);
       }
     }
 
@@ -40,11 +43,13 @@
       justify-self: center;
       position: absolute;
       width: rem(16);
+      height: rem(12);
       right: ($global-spacing-unit * 3);
       top: rem(18);
       padding: 2px;
 
       svg {
+        width: rem(12);
         height: rem(12);
       }
     }
