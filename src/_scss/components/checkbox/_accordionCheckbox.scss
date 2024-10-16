@@ -46,6 +46,14 @@
     }
   }
 
+  .no-results {
+    padding-bottom: rem(20);
+    font-size: $lead-font-size;
+    line-height: 1.5;
+    color: $gray-60;
+    text-align: center;
+  }
+
   .checkbox-filter__wrapper {
     .checkbox-filter__header.accordion-checkbox {
       margin-bottom: ($global-margin * 1.5);
