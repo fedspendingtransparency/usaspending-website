@@ -97,13 +97,18 @@ export default class TimePeriod extends React.Component {
     }
 
     determineIfNaoIsActive(prevProps, prevState) {
+        console.log('determineIfNaoIsActive, dirtyFilters', this.props.dirtyFilters);
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
             this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY.size);
             this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY.size);
         }
-        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+        if (this.props.dirtyFilters) {
+            console.log('in dirtyFilters block');
+            // if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+            //     console.log('in dirtyFilters logic block');
             this.props.updateNewAwardsOnlyActive(true);
             this.props.updateNaoActiveFromFyOrDateRange(true);
+            // }
         }
         else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
             this.props.updateNewAwardsOnlyActive(false);

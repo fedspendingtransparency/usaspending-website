@@ -51,6 +51,8 @@ export class SearchSidebarSubmitContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        // console.log('this.props.stagedFilters', this.props.stagedFilters);
+
         const areStagedAndAppliedFiltersEquivalent = (
             areFiltersEqual(this.props.stagedFilters, prevProps.stagedFilters) &&
             areFiltersEqual(this.props.appliedFilters, prevProps.appliedFilters)

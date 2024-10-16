@@ -162,6 +162,8 @@ const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { 
  * @returns {boolean}
  */
 export const areFiltersEqual = (filters = initialState, filterReference = initialState) => {
+    // console.log('areFiltersEqual, filters', filters);
+    // console.log('areFiltersEqual, filterReference', filterReference);
     if (!filterReference && filters) return false;
     const referenceObject = Object.assign({}, filterReference);
     const comparisonObject = Object.assign({}, filters);
@@ -190,14 +192,23 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         const key = immutableFilterKeys[i];
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
-        if (!is(unfilteredValue, currentValue)) return false;
+        // console.log('key', key);
+        // console.log('unfilteredValue', unfilteredValue);
+        // console.log('currentValue', currentValue);
+        if (!is(unfilteredValue, currentValue)) {
+            // console.log('in first false block');
+            return false;
+        }
     }
 
     for (let i = 0; i < checkboxTreeFilters.length; i++) {
         const key = checkboxTreeFilters[i];
         const unfilteredValue = comparisonObject[key].toObject();
         const currentValue = referenceObject[key].toObject();
-        if (!areCheckboxSelectionsEqual(unfilteredValue, currentValue)) return false;
+        if (!areCheckboxSelectionsEqual(unfilteredValue, currentValue)) {
+            // console.log('in second false block');
+            return false;
+        }
     }
 
     return true;
