@@ -11,7 +11,7 @@ import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYea
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
-import TopFive from 'components/sharedComponents/TopFive';
+import TopFive from "../../../components/sharedComponents/TopFive";
 
 const propTypes = {
     code: PropTypes.string,
@@ -23,6 +23,7 @@ const propTypes = {
 
 const TopFiveContainer = (props) => {
     const [categoryState, setCategoryState] = useState({ loading: true, error: false, results: [] });
+    const [noResultState, setNoResultState] = useState(false);
 
     const dataParams = () => {
         let timePeriod = null;
@@ -79,39 +80,43 @@ const TopFiveContainer = (props) => {
     };
 
     const parseResults = (data, type) => {
-        const parsed = data.map((item, index) => {
-            const result = Object.create(BaseStateCategoryResult);
-            if (props.category === 'awards') {
-                result.populate({
-                    name: item['Award ID'],
-                    amount: item['Award Amount'],
-                    agency_slug: item.generated_internal_id,
-                    category: props.category
-                }, index + 1);
-            }
-            else {
-                result.populate({ ...item, category: props.category }, index + 1);
-            }
+        if (data.length < 1) {
+            setNoResultState(true);
+        } else {
+            const parsed = data.map((item, index) => {
+                const result = Object.create(BaseStateCategoryResult);
+                if (props.category === 'awards') {
+                    result.populate({
+                        name: item['Award ID'],
+                        amount: item['Award Amount'],
+                        agency_slug: item.generated_internal_id,
+                        category: props.category
+                    }, index + 1);
+                }
+                else {
+                    result.populate({ ...item, category: props.category }, index + 1);
+                }
 
-            if (type === 'awarding_agency' || type === 'awarding_subagency') {
-                result.nameTemplate = (code, name) => {
-                    if (code) {
-                        return `${name} (${code})`;
-                    }
-                    return name;
-                };
-            }
-            else if (type === 'recipient') {
-                result.nameTemplate = (code, name) => name;
-            }
-            else if (type === 'county' || type === 'district') {
-                result.nameTemplate = (code, name) => (name);
-            }
+                if (type === 'awarding_agency' || type === 'awarding_subagency') {
+                    result.nameTemplate = (code, name) => {
+                        if (code) {
+                            return `${name} (${code})`;
+                        }
+                        return name;
+                    };
+                }
+                else if (type === 'recipient') {
+                    result.nameTemplate = (code, name) => name;
+                }
+                else if (type === 'county' || type === 'district') {
+                    result.nameTemplate = (code, name) => (name);
+                }
+                setNoResultState(false);
+                return result;
+            });
 
-            return result;
-        });
-
-        setCategoryState({ loading: false, error: false, results: parsed });
+            setCategoryState({ loading: false, error: false, results: parsed });
+        }
     };
 
     const loadCategory = () => {
@@ -152,11 +157,15 @@ const TopFiveContainer = (props) => {
     }, [props.code, props.fy, props.type]);
 
     return (
-        <TopFive
-            category={props.category}
-            dataParams={dataParams()}
-            total={props.total}
-            {...categoryState} />
+        <>
+            {!noResultState &&
+                <TopFive
+                    category={props.category}
+                    dataParams={dataParams()}
+                    total={props.total}
+                    {...categoryState} />
+            }
+        </>
     );
 };
 
