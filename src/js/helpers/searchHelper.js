@@ -190,18 +190,14 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         const key = immutableFilterKeys[i];
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
-        if (!is(unfilteredValue, currentValue)) {
-            return false;
-        }
+        if (!is(unfilteredValue, currentValue)) return false;
     }
 
     for (let i = 0; i < checkboxTreeFilters.length; i++) {
         const key = checkboxTreeFilters[i];
         const unfilteredValue = comparisonObject[key].toObject();
         const currentValue = referenceObject[key].toObject();
-        if (!areCheckboxSelectionsEqual(unfilteredValue, currentValue)) {
-            return false;
-        }
+        if (!areCheckboxSelectionsEqual(unfilteredValue, currentValue)) return false;
     }
 
     return true;
