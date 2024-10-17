@@ -57,14 +57,34 @@ const TopFiveContainer = (props) => {
             filters.time_period = [timePeriod];
         }
 
-        if (props.category === 'defc') {
-            // console.log(defCodes);
-            const listOfCodes = defCodes.map(getListOfCodes)
-            function getListOfCodes(item) {
-                return [item.code].join(" ");
-            }
+        if (props.category === 'naics') {
+            const listOfNaics = ["327991"];
+            if (listOfNaics) {
+                filters.naics_codes = listOfNaics; }
+        }
 
-            console.log(listOfCodes);
+        if (props.category === 'defc') {
+            // function getListOfCodes(item) {
+            //     return [item.code].join(" ");
+            // }
+            // const listOfCodes = defCodes.map(getListOfCodes);
+            const listOfCodes = [
+                "1",
+                "L",
+                "M",
+                "N",
+                "O",
+                "P",
+                "U",
+                "V",
+                "Z"
+            ];
+
+
+            if (listOfCodes.length > 0) {
+                filters.def_codes = listOfCodes;
+                console.log(listOfCodes);
+            }
         }
 
         // Tab selection
