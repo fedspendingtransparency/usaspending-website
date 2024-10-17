@@ -59,7 +59,7 @@
     }
 
     .status-of-funds__what-content {
-        border-left: 4px solid $color-primary-alt-light;
+        border-left: 8px solid $color-primary-alt-light;
         border-top: 1px solid $color-primary-alt-light;
         border-right: 1px solid $color-primary-alt-light;
         border-bottom: 1px solid $color-primary-alt-light;
@@ -99,8 +99,11 @@
             font-size: rem(14);
             color: $color-base;
             margin-bottom: 0;
-            margin-right: 16px;
             margin-top: 8px;
+        }
+
+        .status-of-funds__emphasis {
+            font-weight: $font-semibold;
         }
     }
 
