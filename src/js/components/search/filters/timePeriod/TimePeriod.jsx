@@ -100,7 +100,7 @@ export default class TimePeriod extends React.Component {
             this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY.size);
             this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY.size);
         }
-        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+        if (this.props.dirtyFilters) {
             this.props.updateNewAwardsOnlyActive(true);
             this.props.updateNaoActiveFromFyOrDateRange(true);
         }
