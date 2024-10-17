@@ -2,7 +2,7 @@
   .autocomplete__input {
     @include display(flex);
     width: 100%;
-    padding: ($global-spacing-unit * 2) 0 rem(20) 0;
+    padding-bottom: rem(20);
     position: relative;
 
     input {
@@ -30,7 +30,7 @@
       width: rem(16);
       height: rem(16);
       left: $global-spacing-unit;
-      top: rem(18);
+      top: rem(2);
       padding: rem(2);
     }
 
@@ -41,7 +41,7 @@
       position: absolute;
       height: rem(16);
       right: $global-spacing-unit;
-      top: rem(18);
+      top: rem(2);
       padding: rem(2);
     }
   }
@@ -72,6 +72,7 @@
         @include usa-input-checkbox;
         width: rem(12);
         height: rem(12);
+        min-width: rem(12);
         margin: 0 0 rem(3) rem(6);
         vertical-align: middle;
         border: solid rem(1) $gray-cool-20;
