@@ -109,7 +109,7 @@ const RecipientOverview = (props) => {
     );
     if (recipient.businessTypes.length > 0) {
         businessTypes = (
-            <td>
+            <td className="recipient-section__details-table-last-td">
                 {recipient.businessTypes.map((type, i) =>
                     <div key={i}>{type}</div>)}
             </td>
@@ -217,11 +217,11 @@ const RecipientOverview = (props) => {
                         <h3 className="recipient-overview__heading">
                             Details
                         </h3>
-                        <table className="details__table">
+                        <table className="recipient-section__details-table">
                             <tbody>
                                 <tr>
-                                    <th>Recipient Identifier</th>
-                                    <td>{idList(recipient.duns, recipient.uei).map((i) => <>{i}<br /></>)}</td>
+                                    <th className="recipient-section__details-table-first-th">Recipient Identifier</th>
+                                    <td className="recipient-section__details-table-first-td">{idList(recipient.duns, recipient.uei).map((i) => <>{i}<br /></>)}</td>
                                 </tr>
                                 <tr>
                                     <th>Address</th>
@@ -229,24 +229,22 @@ const RecipientOverview = (props) => {
                                 </tr>
                                 <tr>
                                     <th className="details__table-cd-row">
-                                        <div className="details__table-cd-text">
+                                        <div className="`details__table-cd-text`">
                                             Congressional District
                                         </div>
-                                        <FeatureFlag>
-                                            <TooltipWrapper
-                                                className="congressional-district__tt"
-                                                icon="info"
-                                                tooltipPosition="bottom"
-                                                styles={{
-                                                    position: 'relative'
-                                                }}
-                                                tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
-                                        </FeatureFlag>
+                                        <TooltipWrapper
+                                            className="congressional-district__tt"
+                                            icon="info"
+                                            tooltipPosition="left"
+                                            styles={{
+                                                position: 'relative'
+                                            }}
+                                            tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
                                     </th>
                                     {congressionalDistrict}
                                 </tr>
                                 <tr>
-                                    <th>Business Types</th>
+                                    <th className="recipient-section__details-table-last-th">Business Types</th>
                                     {businessTypes}
                                 </tr>
                             </tbody>

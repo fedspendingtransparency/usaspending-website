@@ -80,6 +80,37 @@
 					@include flex(1 1 50%);
 				}
 
+				.recipient-section__details-table {
+					border-collapse: unset !important;
+					//border-spacing: 0;
+
+					th, td {
+						//border: 0;
+						border: solid 1px $color-gray-border;
+					}
+
+					.recipient-section__details-table-first-th {
+						border-top-left-radius: 5px;
+					}
+
+					.recipient-section__details-table-first-td {
+						border-top-right-radius: 5px;
+					}
+
+					.recipient-section__details-table-last-th {
+						border-bottom-left-radius: 5px;
+					}
+
+					.recipient-section__details-table-last-td {
+						border-bottom-right-radius: 5px;
+					}
+
+					.details__table-cd-row {
+						display: flex;
+						flex-direction: row;
+					}
+				}
+
 				.recipient-section__award-button {
 					@include display(flex);
 					@include flex(0 0 auto);
