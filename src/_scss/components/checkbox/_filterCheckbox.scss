@@ -47,6 +47,7 @@
           border: solid rem(1) $gray-cool-20;
           width: rem(12);
           height: rem(12);
+          min-width: rem(12);
           top: unset;
 
           &:checked {
