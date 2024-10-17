@@ -35,7 +35,7 @@
       .checkbox-filter__item {
         margin-bottom: $global-margin;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
 
         &:last-of-type {
           margin-bottom: 0;
@@ -47,7 +47,7 @@
           border: solid rem(1) $gray-cool-20;
           width: rem(12);
           height: rem(12);
-          top: rem(3);
+          top: unset;
 
           &:checked {
             background-color: $blue-50;

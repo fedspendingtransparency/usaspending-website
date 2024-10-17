@@ -2,7 +2,7 @@
   .autocomplete__input {
     @include display(flex);
     width: 100%;
-    padding: ($global-spacing-unit * 2) ($global-spacing-unit * 2) rem(20) ($global-spacing-unit * 2);
+    padding: 0 ($global-spacing-unit * 2) rem(20) ($global-spacing-unit * 2);
     position: relative;
 
     input {
@@ -30,7 +30,7 @@
       width: rem(16);
       height: rem(16);
       left: ($global-spacing-unit * 3);
-      top: rem(18);
+      top: rem(2);
       padding: rem(2);
     }
 
@@ -42,7 +42,7 @@
       width: rem(16);
       height: rem(12);
       right: ($global-spacing-unit * 3);
-      top: rem(18);
+      top: rem(2);
       padding: rem(2);
     }
   }
