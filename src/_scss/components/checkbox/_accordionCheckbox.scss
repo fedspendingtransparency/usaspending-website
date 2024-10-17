@@ -70,6 +70,8 @@
 
       input {
         @include usa-input-checkbox;
+        width: rem(12);
+        height: rem(12);
         margin: 0 0 rem(3) rem(6);
         vertical-align: middle;
         border: solid rem(1) $gray-cool-20;
