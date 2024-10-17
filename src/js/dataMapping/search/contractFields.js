@@ -26,7 +26,7 @@ export const pricingTypeDefinitions = {
 export const setAsideDefinitions = {
     '8AN': '8(a) Sole Source',
     'HS3': '8(a) with HUBZone Preference',
-    '8A': '8A Competed',
+    '8A': '8(a) Competed',
     'BI': 'Buy Indian',
     'HS2Civ': 'Combination HUBZone and 8(a)',
     'EDWOSB': 'Economically-Disadvantaged Women-Owned Small Business',
