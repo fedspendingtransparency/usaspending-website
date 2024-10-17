@@ -23,11 +23,13 @@ const propTypes = {
     loading: PropTypes.bool,
     showDisclaimer: PropTypes.bool,
     onClear: PropTypes.func,
-    isClearable: PropTypes.bool
+    isClearable: PropTypes.bool,
+    searchIcon: PropTypes.bool
 };
 
 const defaultProps = {
-    enabled: true
+    enabled: true,
+    searchIcon: false
 };
 
 // eslint-disable-next-line import/prefer-default-export
@@ -44,9 +46,11 @@ export const EntityDropdownAutocomplete = ({
     handleOnKeyUp,
     showDisclaimer,
     onClear,
-    isClearable
+    isClearable,
+    searchIcon
 }) => (
     <div className="autocomplete__input">
+        {searchIcon && <div className="search-icon"><FontAwesomeIcon icon="search" /></div>}
         <input
             className="geo-entity-dropdown__input"
             disabled={!enabled}
