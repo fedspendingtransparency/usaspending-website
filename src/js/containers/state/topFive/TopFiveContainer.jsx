@@ -12,6 +12,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from "../../../components/sharedComponents/TopFive";
+import { useDefCodes } from "../../covid19/WithDefCodes";
 
 const propTypes = {
     code: PropTypes.string,
@@ -24,7 +25,7 @@ const propTypes = {
 const TopFiveContainer = (props) => {
     const [categoryState, setCategoryState] = useState({ loading: true, error: false, results: [] });
     const [noResultState, setNoResultState] = useState(false);
-
+    const [, , defCodes] = useDefCodes();
     const dataParams = () => {
         let timePeriod = null;
         if (props.fy === 'latest') {
@@ -56,6 +57,16 @@ const TopFiveContainer = (props) => {
             filters.time_period = [timePeriod];
         }
 
+        if (props.category === 'defc') {
+            // console.log(defCodes);
+            const listOfCodes = defCodes.map(getListOfCodes)
+            function getListOfCodes(item) {
+                return [item.code].join(" ");
+            }
+
+            console.log(listOfCodes);
+        }
+
         // Tab selection
         if (props.type !== 'all' && awardTypeGroups[props.type]) {
             filters.award_type_codes = awardTypeGroups[props.type];
@@ -75,7 +86,6 @@ const TopFiveContainer = (props) => {
             params.sort = 'Award Amount';
             params.subawards = false;
         }
-
         return params;
     };
 
