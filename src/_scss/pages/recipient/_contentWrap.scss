@@ -80,13 +80,20 @@
 					@include flex(1 1 50%);
 				}
 
+				// this is all to make the borders gray and not doubled
+				// it's not ideal, but here we are
 				.recipient-section__details-table {
 					border-collapse: unset !important;
-					//border-spacing: 0;
 
-					th, td {
-						//border: 0;
+					th {
 						border: solid 1px $color-gray-border;
+						border-right: 0;
+						border-bottom: 0;
+					}
+
+					td {
+						border: solid 1px $color-gray-border;
+						border-bottom: 0;
 					}
 
 					.recipient-section__details-table-first-th {
@@ -99,10 +106,12 @@
 
 					.recipient-section__details-table-last-th {
 						border-bottom-left-radius: 5px;
+						border-bottom: solid 1px $color-gray-border;
 					}
 
 					.recipient-section__details-table-last-td {
 						border-bottom-right-radius: 5px;
+						border-bottom: solid 1px $color-gray-border;
 					}
 
 					.details__table-cd-row {
