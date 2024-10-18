@@ -10,6 +10,9 @@ import RecipientNameDUNSContainer from
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import SelectedRecipients from './SelectedRecipients';
 import { usePrevious } from '../../../../helpers';
+import RecipientResults from "./RecipientResults";
+
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     toggleRecipient: PropTypes.func,
@@ -48,6 +51,11 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
                     ref={(component) => {
                         setHint(component);
                     }} />
+                <FeatureFlag>
+                    <RecipientResults
+                        selectedRecipients={selectedRecipients}
+                        toggleRecipient={toggleRecipient} />
+                </FeatureFlag>
             </div>
         </div>
     );
