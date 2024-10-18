@@ -1,4 +1,59 @@
 .filter-item-wrap {
+  .autocomplete__input {
+    @include display(flex);
+    width: 100%;
+    padding-bottom: rem(20);
+    position: relative;
+
+    input {
+      width: 100%;
+      height: rem(32);
+      margin: 0;
+      padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit ($global-spacing-unit * 4);
+      font-size: $smallest-font-size;
+      line-height: 1.5;
+      color: $gray-60;
+      border: solid rem(1) $gray-cool-10;
+      border-radius: rem(3);
+    }
+
+    svg {
+      color: $gray-60;
+      width: rem(12);
+      height: rem(12);
+    }
+
+    .search-icon {
+      @include flex(0 0 auto);
+      @include align-self(center);
+      position: absolute;
+      width: rem(16);
+      height: rem(16);
+      left: $global-spacing-unit;
+      top: rem(2);
+      padding: rem(2);
+    }
+
+    .icon {
+      @include flex(0 0 auto);
+      @include align-self(center);
+      justify-self: center;
+      position: absolute;
+      height: rem(16);
+      right: $global-spacing-unit;
+      top: rem(2);
+      padding: rem(2);
+    }
+  }
+
+  .no-results {
+    padding-bottom: rem(20);
+    font-size: $lead-font-size;
+    line-height: 1.5;
+    color: $gray-60;
+    text-align: center;
+  }
+
   .checkbox-filter__wrapper {
     .checkbox-filter__header.accordion-checkbox {
       margin-bottom: ($global-margin * 1.5);
@@ -15,13 +70,22 @@
 
       input {
         @include usa-input-checkbox;
-        margin: 0 0 rem(3) rem(6);
+        width: rem(12);
+        height: rem(12);
+        min-width: rem(12);
+        margin: 0 0 rem(4) rem(6);
         vertical-align: middle;
         border: solid rem(1) $gray-cool-20;
 
         &:checked {
           background-color: $blue-50;
           border-color: $blue-50;
+        }
+
+        &:checked:before {
+          width: rem(4);
+          height: rem(8);
+          margin: rem(0) rem(3);
         }
 
         &:indeterminate {
@@ -31,7 +95,7 @@
 
         &:indeterminate:before {
           width: rem(10);
-          margin: rem(6) auto;
+          margin: rem(5) auto;
           border-bottom: rem(2) solid #fff;
         }
       }
@@ -42,7 +106,7 @@
     }
 
     .checkbox-filter__list.accordion-checkbox {
-      margin: 0 0 ($global-margin * 1.5) rem(38);
+      margin: 0 0 ($global-margin * 1.5) rem(30);
     }
   }
 }
