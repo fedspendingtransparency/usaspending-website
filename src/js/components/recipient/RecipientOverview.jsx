@@ -18,7 +18,6 @@ import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 import { REQUEST_VERSION } from "../../GlobalConstants";
-import FeatureFlag from "../sharedComponents/FeatureFlag";
 import { CondensedCDTooltip } from '../../components/award/shared/InfoTooltipContent';
 
 const propTypes = {
