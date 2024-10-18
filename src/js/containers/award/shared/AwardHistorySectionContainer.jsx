@@ -15,6 +15,7 @@ import SubawardsContainer from 'containers/award/table/SubawardsContainer';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
+import AwardHistoryTableContainer from "../table/AwardHistoryTableContainer";
 
 const propTypes = {
     overview: PropTypes.object,
@@ -159,6 +160,7 @@ export class AwardHistory extends React.Component {
                             this.tableWidthController = div;
                         }} />
                     <div className="tables-content">
+                        <AwardHistoryTableContainer category={overview.category} />
                         {this.currentSection()}
                     </div>
                 </div>
