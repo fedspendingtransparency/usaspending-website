@@ -75,6 +75,13 @@
                     margin-right: 0;
                     line-height: 1.5;
                 }
+
+                #advanced-search__table-wrapper {
+                    height: auto !important;
+                    @media(min-width: $large-screen) {
+                        max-height: 650px !important;
+                    }
+                }
             }
         }
     }
