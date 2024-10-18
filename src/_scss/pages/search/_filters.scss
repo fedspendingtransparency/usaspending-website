@@ -1,55 +1,55 @@
 .search-filters-wrapper {
-    @import "./filters/awardType/awardType";
-    @import "./filters/timePeriod/timePeriod";
-    @import "./filters/timePeriod/timePeriodNew";
-    @import "./filters/keyword/keyword";
-    @import "./filters/location/location";
-    @import "./filters/budgetCategory/budgetCategory";
-    @import "./filters/agency/agency";
-    @import "./filters/naics/naics";
-    @import "./filters/recipient/recipient";
-    @import "./filters/recipient/recipientType";
-    @import "./filters/awardID/awardID";
-    @import "./filters/awardAmount/awardAmount";
-    @import "./filters/otherFilters/otherFilters";
-    @import "./filters/otherFilters/tasCheckbox";
-    @import "./filters/otherFilters/pscCheckbox";
-    @import "./filters/otherFilters/extentCompeted";
-    @import "./filters/programSource/programSource";
-    @import "../../components/_comingSoon";
-    @import "../../components/_checkboxes";
-    @import "./filters/otherFilters/defCheckbox";
-    @import "./_submitHint";
+  @import "./filters/awardType/awardType";
+  @import "./filters/timePeriod/timePeriod";
+  @import "./filters/timePeriod/timePeriodNew";
+  @import "./filters/keyword/keyword";
+  @import "./filters/location/location";
+  @import "./filters/budgetCategory/budgetCategory";
+  @import "./filters/agency/agency";
+  @import "./filters/naics/naics";
+  @import "./filters/recipient/recipient";
+  @import "./filters/recipient/recipientType";
+  @import "./filters/awardID/awardID";
+  @import "./filters/awardAmount/awardAmount";
+  @import "./filters/otherFilters/otherFilters";
+  @import "./filters/otherFilters/tasCheckbox";
+  @import "./filters/otherFilters/pscCheckbox";
+  @import "./filters/otherFilters/extentCompeted";
+  @import "./filters/programSource/programSource";
+  @import "../../components/_comingSoon";
+  @import "../../components/_checkboxes";
+  @import "./filters/otherFilters/defCheckbox";
+  @import "./_submitHint";
 
-    @include comingSoon;
+  @include comingSoon;
 
-    .coming-soon {
-	    background: repeating-linear-gradient(
-	        45deg,
-	        rgba($color-gray-lightest, .2),
-	        rgba($color-gray-lightest, .2) rem(3px),
-	        rgba($color-gray-lighter, .3) rem(3px),
-	        rgba($color-gray-lighter, .3) rem(5px)
-	    );
-	    .filter-toggle {
-            svg {
-                fill: $color-gray-lighter;
-            }
-            .filter-header {
-                color: $color-gray-lighter;
-            }
-        }
-	    .coming-soon-container {
-	        .coming-soon-icon {
-	            bottom: rem(24px);
-	            left: rem(35px);
-	            position: relative;
-	        }
-	        .coming-soon-label {
-	            bottom: rem(20px);
-	            color: $color-gray-lighter;
-	            left: rem(50px);
-	        }
-	    }
-	}
+  .coming-soon {
+    background: repeating-linear-gradient(
+                    45deg,
+                    rgba($color-gray-lightest, .2),
+                    rgba($color-gray-lightest, .2) rem(3px),
+                    rgba($color-gray-lighter, .3) rem(3px),
+                    rgba($color-gray-lighter, .3) rem(5px)
+    );
+    .filter-toggle {
+      svg {
+        fill: $color-gray-lighter;
+      }
+      .filter-header {
+        color: $color-gray-lighter;
+      }
+    }
+    .coming-soon-container {
+      .coming-soon-icon {
+        bottom: rem(24px);
+        left: rem(35px);
+        position: relative;
+      }
+      .coming-soon-label {
+        bottom: rem(20px);
+        color: $color-gray-lighter;
+        left: rem(50px);
+      }
+    }
+  }
 }

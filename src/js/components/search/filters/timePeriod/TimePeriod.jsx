@@ -62,7 +62,6 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false,
-            activeTab: 'dr',
             dateRangeChipRemoved: false
         };
 
@@ -101,7 +100,7 @@ export default class TimePeriod extends React.Component {
             this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY.size);
             this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY.size);
         }
-        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+        if (this.props.dirtyFilters) {
             this.props.updateNewAwardsOnlyActive(true);
             this.props.updateNaoActiveFromFyOrDateRange(true);
         }
@@ -324,11 +323,10 @@ export default class TimePeriod extends React.Component {
 
         const toggleTab = (e) => {
             this.setState({ dateRangeChipRemoved: false }, () => {
-                if ((this.state.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal years') || (this.state.activeTab === 'dr' && e.target.textContent.trim() !== 'Custom dates')) {
-                    const nextTab = this.state.activeTab === 'fy' ? 'dr' : 'fy';
-                    this.setState({ ...this.state, activeTab: nextTab });
-                    this.clearHint(true);
+                if ((this.props.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal years') || (this.props.activeTab === 'dr' && e.target.textContent.trim() !== 'Custom dates')) {
+                    const nextTab = this.props.activeTab === 'fy' ? 'dr' : 'fy';
                     this.props.changeTab(nextTab);
+                    this.clearHint(true);
                 }
             });
         };
@@ -339,7 +337,7 @@ export default class TimePeriod extends React.Component {
                     <FilterTabs
                         labels={tabLabels}
                         switchTab={toggleTab}
-                        active={this.state.activeTab} />
+                        active={this.props.activeTab} />
                     { showFilter }
                     { errorDetails }
                     { !this.props.federalAccountPage && newAwardsFilter }

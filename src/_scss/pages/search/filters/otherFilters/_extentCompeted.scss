@@ -2,7 +2,7 @@
   .autocomplete__input {
     @include display(flex);
     width: 100%;
-    padding: ($global-spacing-unit * 2) ($global-spacing-unit * 2) rem(20) ($global-spacing-unit * 2);
+    padding: 0 ($global-spacing-unit * 2) rem(20) ($global-spacing-unit * 2);
     position: relative;
 
     input {
@@ -19,6 +19,8 @@
 
     svg {
       color: $gray-60;
+      width: rem(12);
+      height: rem(12);
     }
 
     .search-icon {
@@ -26,7 +28,10 @@
       @include align-self(center);
       position: absolute;
       width: rem(16);
+      height: rem(16);
       left: ($global-spacing-unit * 3);
+      top: rem(2);
+      padding: rem(2);
     }
 
     .icon {
@@ -34,9 +39,11 @@
       @include align-self(center);
       justify-self: center;
       position: absolute;
-      height: rem(16);
+      width: rem(16);
+      height: rem(12);
       right: ($global-spacing-unit * 3);
-      top: rem(22);
+      top: rem(2);
+      padding: rem(2);
     }
   }
 

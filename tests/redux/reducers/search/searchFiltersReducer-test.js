@@ -840,7 +840,7 @@ describe('searchFiltersReducer', () => {
                 };
 
                 const expectedSecond = {
-                    timePeriodType: 'fy',
+                    timePeriodType: 'dr',
                     timePeriodFY: new Set(),
                     timePeriodStart: null,
                     timePeriodEnd: null
@@ -886,7 +886,7 @@ describe('searchFiltersReducer', () => {
                 };
 
                 const expectedSecond = {
-                    timePeriodType: 'fy',
+                    timePeriodType: 'dr',
                     timePeriodFY: new Set(),
                     timePeriodStart: null,
                     timePeriodEnd: null
