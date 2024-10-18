@@ -85,15 +85,18 @@
 				.recipient-section__details-table {
 					border-collapse: unset !important;
 
-					th {
-						border: solid 1px $color-gray-border;
-						border-right: 0;
-						border-bottom: 0;
+					tr {
+						height: rem(39);
 					}
 
-					td {
+					th, td {
 						border: solid 1px $color-gray-border;
 						border-bottom: 0;
+						padding: rem(10) rem(15);
+					}
+
+					th {
+						border-right: 0;
 					}
 
 					.recipient-section__details-table-first-th {
