@@ -80,6 +80,49 @@
 					@include flex(1 1 50%);
 				}
 
+				// this is all to make the borders gray and not doubled
+				// it's not ideal, but here we are
+				.recipient-section__details-table {
+					border-collapse: unset !important;
+
+					tr {
+						height: rem(39);
+					}
+
+					th, td {
+						border: solid 1px $color-gray-border;
+						border-bottom: 0;
+						padding: rem(10) rem(15);
+					}
+
+					th {
+						border-right: 0;
+					}
+
+					.recipient-section__details-table-first-th {
+						border-top-left-radius: 5px;
+					}
+
+					.recipient-section__details-table-first-td {
+						border-top-right-radius: 5px;
+					}
+
+					.recipient-section__details-table-last-th {
+						border-bottom-left-radius: 5px;
+						border-bottom: solid 1px $color-gray-border;
+					}
+
+					.recipient-section__details-table-last-td {
+						border-bottom-right-radius: 5px;
+						border-bottom: solid 1px $color-gray-border;
+					}
+
+					.details__table-cd-row {
+						display: flex;
+						flex-direction: row;
+					}
+				}
+
 				.recipient-section__award-button {
 					@include display(flex);
 					@include flex(0 0 auto);
