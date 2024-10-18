@@ -57,12 +57,6 @@ const TopFiveContainer = (props) => {
             filters.time_period = [timePeriod];
         }
 
-        if (props.category === 'naics') {
-            const listOfNaics = ["327991"];
-            if (listOfNaics) {
-                filters.naics_codes = listOfNaics; }
-        }
-
         if (props.category === 'defc') {
             // function getListOfCodes(item) {
             //     return [item.code].join(" ");
@@ -79,8 +73,6 @@ const TopFiveContainer = (props) => {
                 "V",
                 "Z"
             ];
-
-
             if (listOfCodes.length > 0) {
                 filters.def_codes = listOfCodes;
                 console.log(listOfCodes);
