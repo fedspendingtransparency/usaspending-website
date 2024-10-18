@@ -54,6 +54,12 @@
             background-color: $blue-50;
             border-color: $blue-50;
           }
+
+          &:checked:before {
+            width: rem(4);
+            height: rem(8);
+            margin: rem(0) rem(3);
+          }
         }
 
         .checkbox-filter__item-label {

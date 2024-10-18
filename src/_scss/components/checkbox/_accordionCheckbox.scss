@@ -82,6 +82,12 @@
           border-color: $blue-50;
         }
 
+        &:checked:before {
+          width: rem(4);
+          height: rem(8);
+          margin: rem(0) rem(3);
+        }
+
         &:indeterminate {
           background-color: $blue-50;
           border-color: $blue-50;
@@ -89,7 +95,7 @@
 
         &:indeterminate:before {
           width: rem(10);
-          margin: rem(6) auto;
+          margin: rem(5) auto;
           border-bottom: rem(2) solid #fff;
         }
       }
