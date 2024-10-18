@@ -15,6 +15,7 @@ const propTypes = {
 
 const RecipientResults = ({ toggleRecipient }) => {
     const [recipients, setRecipients] = useState([]);
+    let recipientRequest;
 
     const levelMapping = {
         P: 'Parent',
@@ -22,16 +23,23 @@ const RecipientResults = ({ toggleRecipient }) => {
         C: 'Child'
     };
 
-    useEffect(() => {
-        if (recipients.length === 0) {
-            const request = SearchHelper.fetchRecipients();
-
-            request.promise
-                .then((res) => {
-                    setRecipients(res.data.results);
-                });
+    const getRecipients = () => {
+        if (recipientRequest) {
+            recipientRequest.cancel();
         }
-    }, [recipients.length]);
+
+        recipientRequest = SearchHelper.fetchRecipients();
+
+        recipientRequest.promise
+            .then((res) => {
+                setRecipients(res.data.results);
+            });
+    };
+
+    useEffect(() => {
+        getRecipients();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="filter-item-wrap recipient-container">
