@@ -22,7 +22,6 @@ const propTypes = {
 const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyFilters }) => {
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
-    const [filter, setFilter] = useState(<NewLocationSectionContainer />);
 
     const openDefaultTab = () => {
         // check if the recipient or place of performance (default) tab should be enabled based
@@ -53,12 +52,6 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dirtyFilters]);
 
-    useEffect(() => {
-        setFilter(<NewLocationSectionContainer
-            activeTab={activeTab} />);
-        // setFilter(<POPFilterContainer />);
-    }, [activeTab]);
-
     const tabLabels = [
         {
             internal: 'pop',
@@ -78,7 +71,8 @@ const LocationSection = ({ selectedRecipientLocations, selectedLocations, dirtyF
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-            {filter}
+            <NewLocationSectionContainer
+                activeTab={activeTab} />
             <SubmitHint
                 ref={(component) => {
                     setHint(component);

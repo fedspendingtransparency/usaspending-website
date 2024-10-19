@@ -310,8 +310,9 @@ const NewLocationSectionContainer = (props) => {
             readyToStage={readyToStage}
             addLocation={addLocation}
             selectedLocations={props.selectedLocations}
-            removeLocation={removeLocation} />
-    // key={`location-${uniqueId()}`} />
+            selectedRecipientLocations={props.selectedRecipientLocations}
+            removeLocation={removeLocation}
+            key={`location-${props.activeTab}`} />
     );
 };
 

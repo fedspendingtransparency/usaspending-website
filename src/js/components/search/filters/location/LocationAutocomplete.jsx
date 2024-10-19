@@ -34,7 +34,9 @@ const LocationAutocomplete = (props) => {
             <SelectedLocations
                 id={activeTab}
                 selectedLocations={props.selectedLocations}
-                removeLocation={props.removeLocation} />
+                selectedRecipientLocations={props.selectedRecipientLocations}
+                removeLocation={props.removeLocation}
+                key={`selected-location-${props.activeTab}`} />
         </div>
     );
 };
