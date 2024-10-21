@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import GlobalConstants from 'GlobalConstants';
 import ShownLocation from './ShownLocation';
 
 const propTypes = {
@@ -17,9 +17,11 @@ const propTypes = {
 export default class SelectedLocations extends React.Component {
     render() {
         const shownLocations = [];
-        console.log(this.props.selectedRecipientLocations);
-        const selectedLocations = this.props.id === "pop" ? this.props.selectedLocations : this.props.selectedRecipientLocations;
-        if (selectedLocations?.size === 0) {
+        let selectedLocations = this.props.selectedLocations;
+        if (this.props.id === "recipient" && GlobalConstants.QAT) {
+            selectedLocations = this.props.selectedRecipientLocations;
+        }
+        if (selectedLocations?.size !== 0) {
             selectedLocations.entrySeq()
                 .forEach((entry) => {
                     const key = entry[0];
@@ -28,7 +30,7 @@ export default class SelectedLocations extends React.Component {
                         location={location}
                         label={`${location.display.entity.toUpperCase()} | ${location.display.standalone}`}
                         key={key}
-                        removeLocation={this.props.removeLocation.bind(null, key)}/>);
+                        removeLocation={this.props.removeLocation.bind(null, key)} />);
                     shownLocations.push(value);
                 });
         }

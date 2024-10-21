@@ -5,10 +5,16 @@ import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
 
 const LocationAutocomplete = (props) => {
     const [activeTab, setActiveTab] = useState(props.activeTab);
-
+    const [locationValue, setLocationValue] = useState(props.locations);
     useEffect(() => {
         setActiveTab(props.activeTab);
     }, [props.activeTab]);
+
+    const addLocation = (e) => {
+        e.preventDefault();
+        props.addLocation();
+        setLocationValue("");
+    };
 
     return (
         <div id={activeTab}>
@@ -29,7 +35,7 @@ const LocationAutocomplete = (props) => {
                     buttonType="primary"
                     backgroundColor="light"
                     disabled={!props.readyToStage}
-                    onClick={props.addLocation} />
+                    onClick={addLocation} />
             </div>
             <SelectedLocations
                 id={activeTab}

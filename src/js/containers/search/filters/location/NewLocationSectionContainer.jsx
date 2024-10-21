@@ -3,22 +3,40 @@
  * Created by Josue Aguilar 8/15/2024
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { uniqueId } from 'lodash';
 import { fetchLocations } from 'helpers/searchHelper';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
 import LocationAutocomplete from "../../../../components/search/filters/location/LocationAutocomplete";
+import { fipsIdByStateName, stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
+import { fetchLocationList } from "../../../../helpers/mapHelper";
+import { isCancel } from "axios";
 
 const NewLocationSectionContainer = (props) => {
     const [locations, setLocations] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [readyToStage, setReadyToStage] = useState(false);
+    const [countriesList, setCountriesList] = useState([]);
 
     let timeout;
+
+    useEffect(() => {
+        const listRequest = fetchLocationList("countries");
+
+        listRequest.promise
+            .then((res) => {
+                setCountriesList(res?.data?.countries);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                }
+            });
+    }, []);
+
 
     const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
 
@@ -195,78 +213,85 @@ const NewLocationSectionContainer = (props) => {
         setReadyToStage(true);
     };
 
+    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
+
     const addLocation = () => {
         const item = selectedItem;
         let location = {};
+        const countryAbbreviation = item.data.country_name === 'UNITED STATES' ? 'USA' : countriesList?.find((country) => country.name === item.data.country_name)?.code;
 
         if (item.category === "zip_code") {
             location = {
-                identifier: `USA_${item.data.zip_code}`,
+                identifier: `${countryAbbreviation}_${item.data.zip_code}`,
                 display: {
                     title: item.data.zip_code,
                     entity: "ZIP Code",
                     standalone: item.data.zip_code
                 },
                 filter: {
-                    country: item.data.country_name,
+                    country: countryAbbreviation,
                     zip: item.data.zip_code
                 }
             };
         }
         else if (item.category === "city") {
+            const fipsCode = fipsIdByStateName[item.data.state_name.toLowerCase()];
+            const stateAbbrevation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
             location = {
-                identifier: `USA_${item.data.state_name}_${item.data.city_name}`,
+                identifier: `${countryAbbreviation}_${stateAbbrevation}_${item.data.city_name}`,
                 display: {
                     title: `${item.data.city_name}, ${item.data.state_name}`,
                     entity: "City",
                     standalone: item.data.city_name
                 },
                 filter: {
-                    country: item.data.country_name,
+                    country: countryAbbreviation,
                     city: item.data.city_name,
-                    state: item.data.state_name
+                    state: stateAbbrevation
                 }
             };
         }
         else if (item.category === "county") {
             location = {
-                identifier: `USA_${item.data.state_name}`,
+                identifier: `${countryAbbreviation}_${item.data.state_name}`,
                 display: {
                     title: `${item.data.county_name}, ${item.data.state_name}`,
                     entity: "County",
                     standalone: item.data.county_name
                 },
                 filter: {
-                    country: item.data.country_name,
+                    country: countryAbbreviation,
                     county: item.data.county_name,
                     state: item.data.state_name
                 }
             };
         }
         else if (item.category === "state") {
+            const fipsCode = fipsIdByStateName[item.data.state_name.toLowerCase()];
+            const stateAbbrevation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
             location = {
-                identifier: `USA_${item.data.state_name}`,
+                identifier: `${countryAbbreviation}_${stateAbbrevation}`,
                 display: {
                     title: item.data.state_name,
                     entity: "State",
                     standalone: item.data.state_name
                 },
                 filter: {
-                    country: item.data.country_name,
-                    state: item.data.state_name
+                    country: countryAbbreviation,
+                    state: stateAbbrevation
                 }
             };
         }
         else if (item.category === "country") {
             location = {
-                identifier: `USA_${item.data.country_name}`,
+                identifier: countryAbbreviation,
                 display: {
                     title: item.data.country_name,
                     entity: "Country",
                     standalone: item.data.country_name
                 },
                 filter: {
-                    country: item.data.country_name
+                    country: countryAbbreviation
                 }
             };
         }
@@ -276,8 +301,6 @@ const NewLocationSectionContainer = (props) => {
         else if (item.category === "original_cd") {
 
         }
-
-        console.log(location);
 
         if (props.activeTab === 'recipient') {
             props.addRecipientLocationObject(location);
@@ -290,14 +313,13 @@ const NewLocationSectionContainer = (props) => {
     };
 
     const removeLocation = (locationId) => {
-        const newValue = props.selectedLocations.delete(locationId);
+        const type = props.activeTab === 'recipient' ? 'selectedRecipientLocations' : 'selectedLocations';
+        const newValue = props[type].delete(locationId);
         props.updateGenericFilter({
-            type: 'selectedLocations',
+            type,
             value: newValue
         });
     };
-
-    console.log(props.activeTab);
 
     return (
         <LocationAutocomplete
