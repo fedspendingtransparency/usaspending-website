@@ -7,6 +7,9 @@ import { uniqueId } from "lodash";
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
+import { Table } from "data-transparency-ui";
+import tableMapping from "../../../dataMapping/award/transactionHistoryTable/tableMapping";
+import { AwardHistoryTransactionsTableRow } from "../../../models/v2/award/BaseFederalAccountFunding";
 
 const propTypes = {
     award: PropTypes.object,
@@ -24,8 +27,38 @@ const AwardHistoryTableContainer = ({ award, category }) => {
     const [error, setError] = useState(false);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
 
+    const [columns, setColumns] = useState([]);
+
     let request = null;
     const pageLimit = 5;
+
+    const parseData = (data) => {
+        console.log('data: ', data);
+        console.log('tableMapping: ', category, tableMapping[category]);
+        setColumns(tableMapping[category]);
+
+        const arrayOfObjects = data.map((item) => {
+            const row = Object.create(AwardHistoryTransactionsTableRow);
+            row.populate(item, category);
+
+            return row;
+        });
+
+        const rows = arrayOfObjects.map((obj) => {
+            const value = [];
+            value.push(
+                obj.modificationNumber || '--',
+                obj.actionDate || '--',
+                obj.federalActionObligation || '--',
+                obj.actionTypeDescription || '--',
+                obj.description || '--'
+            );
+
+            return value;
+        });
+
+        console.log('rows', rows);
+    };
 
     const fetchData = (pageNumber = 1, reset = false) => {
         if (!award.id) {
@@ -51,7 +84,7 @@ const AwardHistoryTableContainer = ({ award, category }) => {
 
         request.promise
             .then((res) => {
-                console.log('res: ', res);
+                parseData(res.data.results);
             })
             .catch((err) => {
                 request = null;

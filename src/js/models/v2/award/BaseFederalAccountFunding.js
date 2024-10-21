@@ -20,6 +20,24 @@ const monthToPeriod = {
     12: 'P12'
 };
 
+export const AwardHistoryTransactionsTableRow = {
+    populateContract(data) {
+        this.modificationNumber = data.modification_number || null;
+        this.actionDate = data.action_date || null;
+        this.federalActionObligation = data.federal_action_obligation || null;
+        this.actionTypeDescription = data.action_type || null;
+        this.description = data.description || null;
+    },
+
+    populate(data, category) {
+        switch (category) {
+            case 'contract': this.populateContract(data);
+                break;
+            default:
+        }
+    }
+};
+
 const BaseFederalAccount = {
     populateBase(data) {
         this.reportingFiscalYear = data.reporting_fiscal_year || null;
