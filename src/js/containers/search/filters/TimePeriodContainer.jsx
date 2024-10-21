@@ -23,6 +23,7 @@ const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
+    filterTime_Period: PropTypes.array,
     appliedFilters: PropTypes.object,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
@@ -89,6 +90,7 @@ export class TimePeriodContainer extends React.Component {
     }
 
     updateFilter(params) {
+        console.debug(this.props.filterTimePeriodType, this.props.filterTimePeriodStart, this.props.filterTimePeriodEnd);
         const newFilters = Object.assign({}, params);
 
         if (this.state.activeTab === 'fy') {
@@ -166,6 +168,7 @@ export default connect(
         filterTimePeriodType: state.filters.timePeriodType,
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTimePeriodStart: state.filters.timePeriodStart,
+        filterTime_Period: state.filters.time_period,
         filterTimePeriodEnd: state.filters.timePeriodEnd,
         newAwardsOnlySelected: state.filters.filterNewAwardsOnlySelected,
         newAwardsOnlyActive: state.filters.filterNewAwardsOnlyActive,

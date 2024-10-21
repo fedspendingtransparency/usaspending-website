@@ -20,7 +20,7 @@ class SearchAwardsOperation {
         this.timePeriodType = 'dr';
         this.timePeriodFY = [];
         this.timePeriodRange = [];
-
+        this.time_period = [];
         this.dateType = '';
 
         this.awardType = [];
@@ -55,7 +55,7 @@ class SearchAwardsOperation {
 
     fromState(state) {
         this.keyword = state.keyword.toArray();
-
+        this.time_period = state.time_period;
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
@@ -114,6 +114,11 @@ class SearchAwardsOperation {
         // Add keyword
         if (this.keyword.length > 0) {
             filters[rootKeys.keywords] = this.keyword;
+        }
+
+        // add new time_period
+        if (this.time_period.length > 0) {
+            filters[rootKeys.time_period] = this.time_period;
         }
 
         // Add Time Period
