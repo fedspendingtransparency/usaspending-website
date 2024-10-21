@@ -33,6 +33,12 @@ const AwardHistoryTableContainer = ({ award, category }) => {
     let request = null;
     const pageLimit = 5;
 
+    const updateSort = (field, direction) => {
+        setSort(Object.assign({
+            field, direction
+        }));
+    };
+
     const parseData = (data) => {
         console.log('data: ', data);
         console.log('tableMapping: ', category, tableMapping[category]);
@@ -141,13 +147,14 @@ const AwardHistoryTableContainer = ({ award, category }) => {
     useEffect(() => {
         fetchData(1, true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [award.id]);
+    }, [award.id, sort]);
 
     return (
         <Table
             columns={columns}
             rows={rows}
-            currentSort={{ direction: 'desc', field: 'modificationNumber' }}
+            currentSort={sort}
+            updateSort={updateSort}
             classNames="award-history-table"
             loading={inFlight}
             error={error} />
