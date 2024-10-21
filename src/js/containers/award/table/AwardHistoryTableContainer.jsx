@@ -28,6 +28,7 @@ const AwardHistoryTableContainer = ({ award, category }) => {
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
 
     const [columns, setColumns] = useState([]);
+    const [rows, setRows] = useState([]);
 
     let request = null;
     const pageLimit = 5;
@@ -44,12 +45,12 @@ const AwardHistoryTableContainer = ({ award, category }) => {
             return row;
         });
 
-        const rows = arrayOfObjects.map((obj) => {
+        const dtuiRows = arrayOfObjects.map((obj) => {
             const value = [];
             value.push(
                 obj.modificationNumber || '--',
                 obj.actionDate || '--',
-                obj.federalActionObligation || '--',
+                obj.federalActionObligation,
                 obj.actionTypeDescription || '--',
                 obj.description || '--'
             );
@@ -57,7 +58,7 @@ const AwardHistoryTableContainer = ({ award, category }) => {
             return value;
         });
 
-        console.log('rows', rows);
+        console.log('dtuiRows', dtuiRows);
     };
 
     const fetchData = (pageNumber = 1, reset = false) => {
