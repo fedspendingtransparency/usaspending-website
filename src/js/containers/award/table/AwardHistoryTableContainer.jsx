@@ -98,8 +98,7 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
     };
 
     const parseFederalAccountData = (data) => {
-        setColumns(federalAccountsTableMapping.idv);
-
+        let dtuiRows;
         const fundingResults = data
             .map((item) => {
                 const fundingResult = Object.create(BaseFederalAccountFunding);
@@ -107,24 +106,49 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
                 return fundingResult;
             });
 
-        const dtuiRows = fundingResults.map((obj) => {
-            const value = [];
+        if (award.category === 'idv') {
+            setColumns(federalAccountsTableMapping.idv);
 
-            value.push(
-                obj.submissionDate || '--',
-                obj.id || '--',
-                obj.agency || '--',
-                obj.awardingAgencyName || '--',
-                obj.disasterEmergencyFundCode || '--',
-                obj.fedAccount || '--',
-                obj.programActivity || '--',
-                obj.objectClass || '--',
-                obj.fundingObligated || '--',
-                obj.grossOutlayAmount || '--'
-            );
+            dtuiRows = fundingResults.map((obj) => {
+                const value = [];
 
-            return value;
-        });
+                value.push(
+                    obj.submissionDate || '--',
+                    obj.id || '--',
+                    obj.agency || '--',
+                    obj.awardingAgencyName || '--',
+                    obj.disasterEmergencyFundCode || '--',
+                    obj.fedAccount || '--',
+                    obj.programActivity || '--',
+                    obj.objectClass || '--',
+                    obj.fundingObligated || '--',
+                    obj.grossOutlayAmount || '--'
+                );
+
+                return value;
+            });
+        }
+        else {
+            setColumns(federalAccountsTableMapping.otherFunding);
+
+            dtuiRows = fundingResults.map((obj) => {
+                const value = [];
+
+                value.push(
+                    obj.submissionDate || '--',
+                    obj.fedAccount || '--',
+                    obj.agency || '--',
+                    obj.awardingAgencyName || '--',
+                    obj.disasterEmergencyFundCode || '--',
+                    obj.programActivity || '--',
+                    obj.objectClass || '--',
+                    obj.fundingObligated || '--',
+                    obj.grossOutlayAmount || '--'
+                );
+
+                return value;
+            });
+        }
 
         setRows(dtuiRows);
         setInFlight(false);
@@ -167,7 +191,7 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
                 if (activeTab === 'transaction') {
                     parseTransactionsData(res.data.results);
                 }
-                else if (activeTab === 'federal_account' && award.category === 'idv') {
+                else if (activeTab === 'federal_account') {
                     parseFederalAccountData(res.data.results);
                 }
                 else {
@@ -210,6 +234,12 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
         else if (activeTab === 'federal_account' && award.category === 'idv') {
             setSort({
                 field: 'piid',
+                direction: 'asc'
+            });
+        }
+        else if (activeTab === 'federal_account' && award.category !== 'idv') {
+            setSort({
+                field: 'reporting_fiscal_date',
                 direction: 'asc'
             });
         }
