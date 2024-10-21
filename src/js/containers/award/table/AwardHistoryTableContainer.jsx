@@ -130,7 +130,7 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
         setInFlight(false);
     };
 
-    const fetchData = (pageNumber = 1, reset = false) => {
+    const fetchData = (pageNumber = 1) => {
         if (!award.id) {
             return;
         }
@@ -201,7 +201,13 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
     }, [award.id, sort]);
 
     useEffect(() => {
-        if (activeTab === 'federal_account' && award.category === 'idv') {
+        if (activeTab === 'transaction') {
+            setSort({
+                field: 'modification_number',
+                direction: 'desc'
+            });
+        }
+        else if (activeTab === 'federal_account' && award.category === 'idv') {
             setSort({
                 field: 'piid',
                 direction: 'asc'
