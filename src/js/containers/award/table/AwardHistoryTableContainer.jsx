@@ -28,7 +28,7 @@ const AwardHistoryTableContainer = ({ award, category }) => {
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
 
     const [columns, setColumns] = useState([]);
-    const [rows, setRows] = useState([]);
+    const [rows, setRows] = useState();
 
     let request = null;
     const pageLimit = 5;
@@ -36,7 +36,12 @@ const AwardHistoryTableContainer = ({ award, category }) => {
     const parseData = (data) => {
         console.log('data: ', data);
         console.log('tableMapping: ', category, tableMapping[category]);
-        setColumns(tableMapping[category]);
+        if (category === 'idv' || category === 'loan' || category === 'contract') {
+            setColumns(tableMapping[category]);
+        }
+        else {
+            setColumns(tableMapping.assistance);
+        }
 
         const arrayOfObjects = data.map((item) => {
             const row = Object.create(AwardHistoryTransactionsTableRow);
@@ -50,7 +55,7 @@ const AwardHistoryTableContainer = ({ award, category }) => {
             value.push(
                 obj.modificationNumber || '--',
                 obj.actionDate || '--',
-                obj.federalActionObligation,
+                obj.federalActionObligation || '--',
                 obj.actionTypeDescription || '--',
                 obj.description || '--'
             );
@@ -59,6 +64,8 @@ const AwardHistoryTableContainer = ({ award, category }) => {
         });
 
         console.log('dtuiRows', dtuiRows);
+        setRows(dtuiRows);
+        setInFlight(false);
     };
 
     const fetchData = (pageNumber = 1, reset = false) => {
@@ -114,7 +121,13 @@ const AwardHistoryTableContainer = ({ award, category }) => {
     }, [award.id]);
 
     return (
-        <div>Meowdy</div>
+        <Table
+            columns={columns}
+            rows={rows}
+            currentSort={{ direction: 'desc', field: 'modificationNumber' }}
+            classNames="award-history-table"
+            loading={inFlight}
+            error={error} />
     );
 };
 
