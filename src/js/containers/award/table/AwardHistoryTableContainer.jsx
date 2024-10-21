@@ -4,19 +4,22 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { isCancel } from "axios";
 import { uniqueId } from "lodash";
-
-import { fetchAwardTransaction } from 'helpers/searchHelper';
-import * as awardActions from 'redux/actions/award/awardActions';
 import { Table } from "data-transparency-ui";
-import tableMapping from "../../../dataMapping/award/transactionHistoryTable/tableMapping";
-import { AwardHistoryTransactionsTableRow } from "../../../models/v2/award/BaseFederalAccountFunding";
+
+import * as awardActions from 'redux/actions/award/awardActions';
+import { fetchAwardTransaction } from 'helpers/searchHelper';
+import { transactionsTableMapping, federalAccountsTableMapping } from "dataMapping/award/transactionHistoryTable/tableMapping";
+import BaseFederalAccountFunding, { AwardHistoryTransactionsTableRow } from "models/v2/award/BaseFederalAccountFunding";
+import { fetchFederalAccountFunding } from "helpers/awardHistoryHelper";
+import { fetchAwardFedAccountFunding } from 'helpers/idvHelper';
 
 const propTypes = {
     award: PropTypes.object,
-    category: PropTypes.string
+    category: PropTypes.string,
+    activeTab: PropTypes.string
 };
 
-const AwardHistoryTableContainer = ({ award, category }) => {
+const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
     const [inFlight, setInFlight] = useState(false);
     const [page, setPage] = useState(1);
     const [nextPage, setNextPage] = useState(false);
@@ -39,14 +42,12 @@ const AwardHistoryTableContainer = ({ award, category }) => {
         }));
     };
 
-    const parseData = (data) => {
-        console.log('data: ', data);
-        console.log('tableMapping: ', category, tableMapping[category]);
+    const parseTransactionsData = (data) => {
         if (category === 'idv' || category === 'loan' || category === 'contract') {
-            setColumns(tableMapping[category]);
+            setColumns(transactionsTableMapping[category]);
         }
         else {
-            setColumns(tableMapping.assistance);
+            setColumns(transactionsTableMapping.assistance);
         }
 
         const arrayOfObjects = data.map((item) => {
@@ -92,7 +93,39 @@ const AwardHistoryTableContainer = ({ award, category }) => {
             return value;
         });
 
-        console.log('dtuiRows', dtuiRows);
+        setRows(dtuiRows);
+        setInFlight(false);
+    };
+
+    const parseFederalAccountData = (data) => {
+        setColumns(federalAccountsTableMapping.idv);
+
+        const fundingResults = data
+            .map((item) => {
+                const fundingResult = Object.create(BaseFederalAccountFunding);
+                fundingResult.populate(item, category);
+                return fundingResult;
+            });
+
+        const dtuiRows = fundingResults.map((obj) => {
+            const value = [];
+
+            value.push(
+                obj.submissionDate || '--',
+                obj.id || '--',
+                obj.agency || '--',
+                obj.awardingAgencyName || '--',
+                obj.disasterEmergencyFundCode || '--',
+                obj.fedAccount || '--',
+                obj.programActivity || '--',
+                obj.objectClass || '--',
+                obj.fundingObligated || '--',
+                obj.grossOutlayAmount || '--'
+            );
+
+            return value;
+        });
+
         setRows(dtuiRows);
         setInFlight(false);
     };
@@ -117,11 +150,29 @@ const AwardHistoryTableContainer = ({ award, category }) => {
             limit: pageLimit
         };
 
-        request = fetchAwardTransaction(params);
+        switch (activeTab) {
+            case 'transaction': request = fetchAwardTransaction(params);
+                break;
+            case 'federal_account': request = (award.category === 'idv')
+                ? fetchAwardFedAccountFunding(params)
+                : fetchFederalAccountFunding(params);
+                break;
+            case 'subaward':
+                break;
+            default: break;
+        }
 
         request.promise
             .then((res) => {
-                parseData(res.data.results);
+                if (activeTab === 'transaction') {
+                    parseTransactionsData(res.data.results);
+                }
+                else if (activeTab === 'federal_account' && award.category === 'idv') {
+                    parseFederalAccountData(res.data.results);
+                }
+                else {
+                    console.log('res: ', res);
+                }
             })
             .catch((err) => {
                 request = null;
@@ -148,6 +199,16 @@ const AwardHistoryTableContainer = ({ award, category }) => {
         fetchData(1, true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [award.id, sort]);
+
+    useEffect(() => {
+        if (activeTab === 'federal_account' && award.category === 'idv') {
+            setSort({
+                field: 'piid',
+                direction: 'asc'
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTab]);
 
     return (
         <Table

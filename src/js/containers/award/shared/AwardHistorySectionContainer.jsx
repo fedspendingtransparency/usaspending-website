@@ -160,7 +160,9 @@ export class AwardHistory extends React.Component {
                             this.tableWidthController = div;
                         }} />
                     <div className="tables-content">
-                        <AwardHistoryTableContainer category={overview.category} />
+                        <AwardHistoryTableContainer
+                            category={overview.category}
+                            activeTab={this.props.activeTab} />
                         {this.currentSection()}
                     </div>
                 </div>
