@@ -52,13 +52,36 @@ const AwardHistoryTableContainer = ({ award, category }) => {
 
         const dtuiRows = arrayOfObjects.map((obj) => {
             const value = [];
-            value.push(
-                obj.modificationNumber || '--',
-                obj.actionDate || '--',
-                obj.federalActionObligation || '--',
-                obj.actionTypeDescription || '--',
-                obj.description || '--'
-            );
+            if (category === 'idv' || category === 'contract') {
+                value.push(
+                    obj.modificationNumber || '--',
+                    obj.actionDate || '--',
+                    obj.federalActionObligation || '--',
+                    obj.actionTypeDescription || '--',
+                    obj.description || '--'
+                );
+            }
+            else if (category === 'loan') {
+                value.push(
+                    obj.modificationNumber || '--',
+                    obj.cfdaNumber || '--',
+                    obj.actionDate || '--',
+                    obj.faceValue || '--',
+                    obj.subsidy || '--',
+                    obj.actionTypeDescription || '--',
+                    obj.description || '--'
+                );
+            }
+            else {
+                value.push(
+                    obj.modificationNumber || '--',
+                    obj.cfdaNumber || '--',
+                    obj.actionDate || '--',
+                    obj.federalActionObligation || '--',
+                    obj.actionTypeDescription || '--',
+                    obj.description || '--'
+                );
+            }
 
             return value;
         });
