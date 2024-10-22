@@ -104,6 +104,8 @@ const BaseFederalAccount = {
     populate(data, category) {
         if (category === 'idv') {
             this.populateBase(data);
+
+            this.federalAccountCode = `${data.agency_id}-${data.main_account_code}`;
         }
         else {
             this.populateBase(data);
