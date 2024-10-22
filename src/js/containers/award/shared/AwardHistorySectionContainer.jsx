@@ -162,7 +162,8 @@ export class AwardHistory extends React.Component {
                     <div className="tables-content">
                         <AwardHistoryTableContainer
                             category={overview.category}
-                            activeTab={this.props.activeTab} />
+                            activeTab={this.props.activeTab}
+                            tabOptions={tabOptions} />
                         {this.currentSection()}
                     </div>
                 </div>

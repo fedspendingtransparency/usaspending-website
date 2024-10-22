@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { isCancel } from "axios";
 import { uniqueId } from "lodash";
-import { Table } from "data-transparency-ui";
+import { Table, Pagination } from "data-transparency-ui";
 
 import * as awardActions from 'redux/actions/award/awardActions';
 import { fetchAwardTransaction, performSubawardSearch } from 'helpers/searchHelper';
@@ -17,22 +17,23 @@ import { fetchAwardFedAccountFunding } from 'helpers/idvHelper';
 const propTypes = {
     award: PropTypes.object,
     category: PropTypes.string,
-    activeTab: PropTypes.string
+    activeTab: PropTypes.string,
+    tabOptions: PropTypes.arrayOf(PropTypes.object)
 };
 
-const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
+const AwardHistoryTableContainer = ({
+    award, category, activeTab, tabOptions
+}) => {
     const [inFlight, setInFlight] = useState(false);
     const [page, setPage] = useState(1);
-    const [nextPage, setNextPage] = useState(false);
     const [sort, setSort] = useState({
         field: 'modification_number',
-        direction: 'desc'
+        direction: 'asc'
     });
     const [error, setError] = useState(false);
-    const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
-
     const [columns, setColumns] = useState([]);
     const [rows, setRows] = useState();
+    const [totalItems, setTotalItems] = useState(0);
 
     let request = null;
     const pageLimit = 15;
@@ -238,7 +239,7 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
     };
 
     useEffect(() => {
-        fetchData(1, true);
+        fetchData(1);
 
         return () => {
             if (request) {
@@ -249,15 +250,20 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
     }, [request]);
 
     useEffect(() => {
-        fetchData(1, true);
+        fetchData(1);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [award.id, sort]);
+
+    useEffect(() => {
+        fetchData(page);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
 
     useEffect(() => {
         if (activeTab === 'transaction') {
             setSort({
                 field: 'modification_number',
-                direction: 'desc'
+                direction: 'asc'
             });
         }
         else if (activeTab === 'federal_account' && award.category === 'idv') {
@@ -281,15 +287,30 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab]);
 
+    useEffect(() => {
+        if (tabOptions[0]?.count) {
+            setTotalItems(tabOptions[0].count);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tabOptions]);
+
     return (
-        <Table
-            columns={columns}
-            rows={rows}
-            currentSort={sort}
-            updateSort={updateSort}
-            classNames="award-history-table"
-            loading={inFlight}
-            error={error} />
+        <>
+            <Table
+                columns={columns}
+                rows={rows}
+                currentSort={sort}
+                updateSort={updateSort}
+                classNames="award-history-table"
+                loading={inFlight}
+                error={error} />
+            <Pagination
+                resultsText
+                currentPage={page}
+                changePage={setPage}
+                pageSize={pageLimit}
+                totalItems={totalItems} />
+        </>
     );
 };
 
