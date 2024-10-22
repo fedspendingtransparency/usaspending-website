@@ -34,7 +34,6 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <NewLocationSectionContainer />
                     <div
                         style={{
                             border: '1px solid red',

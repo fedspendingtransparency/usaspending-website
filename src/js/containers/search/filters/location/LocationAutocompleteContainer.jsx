@@ -22,9 +22,67 @@ const LocationAutocompleteContainer = (props) => {
     const [countriesList, setCountriesList] = useState([]);
 
     let timeout;
+    let listRequest;
+    let countyListRequest;
 
-    useEffect(() => {
-        const listRequest = fetchLocationList("countries");
+    const createLocationObjectByType = (location) => {
+        if (props.activeTab === 'recipient') {
+            props.addRecipientLocationObject(location);
+        }
+        else {
+            props.addPOPLocationObject(location);
+        }
+    };
+
+    const addCounty = (countyList, county, state, stateAbbreviation, countryAbbreviation) => {
+        const countyObj = countyList.counties.find((item) => item.name.toLowerCase() === `${county.toLowerCase()} county`);
+
+        const location = {
+            identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyObj.fips}`,
+            display: {
+                title: `${county}, ${state}`,
+                entity: "County",
+                standalone: county
+            },
+            filter: {
+                country: countryAbbreviation,
+                county: countyObj.fips,
+                state: stateAbbreviation
+            }
+        };
+
+        createLocationObjectByType(location);
+    };
+
+    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
+
+    const loadCounties = (county, state, countryAbbreviation) => {
+        const fipsCode = fipsIdByStateName[state.toLowerCase()];
+        const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode).toLowerCase();
+
+        if (countyListRequest) {
+            countyListRequest.cancel();
+        }
+
+        countyListRequest = fetchLocationList(`counties/${stateAbbreviation}_counties`);
+
+        countyListRequest.promise
+            .then((res) => {
+                addCounty(res.data, county, state, stateAbbreviation, countryAbbreviation);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                }
+            });
+    };
+
+    const loadCountries = () => {
+        if (listRequest) {
+            listRequest.cancel();
+        }
+
+        listRequest = fetchLocationList("countries");
 
         listRequest.promise
             .then((res) => {
@@ -35,18 +93,11 @@ const LocationAutocompleteContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, []);
-
-    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
-
-    const createLocationObjectByType = (location) => {
-        if (props.activeTab === 'recipient') {
-            props.addRecipientLocationObject(location);
-        }
-        else {
-            props.addPOPLocationObject(location);
-        }
     };
+
+    useEffect(() => {
+        loadCountries();
+    }, [loadCountries]);
 
     const addZip = (zipCode) => {
         // make a ZIP location object
@@ -86,31 +137,11 @@ const LocationAutocompleteContainer = (props) => {
         return location;
     };
 
-    const addCounty = (county, state, countryAbbreviation) => {
-        const fipsCode = fipsIdByStateName[state.toLowerCase()];
-        const stateAbbrevation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
-        const location = {
-            identifier: `${countryAbbreviation}_${stateAbbrevation}`,
-            display: {
-                title: `${county}, ${state}`,
-                entity: "County",
-                standalone: county
-            },
-            filter: {
-                country: countryAbbreviation,
-                county,
-                state: stateAbbrevation
-            }
-        };
-
-        return location;
-    };
-
     const addState = (state, countryAbbreviation) => {
         const fipsCode = fipsIdByStateName[state.toLowerCase()];
-        const stateAbbrevation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
+        const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
         const location = {
-            identifier: `${countryAbbreviation}_${stateAbbrevation}`,
+            identifier: `${countryAbbreviation}_${stateAbbreviation}`,
             display: {
                 title: state,
                 entity: "State",
@@ -118,7 +149,7 @@ const LocationAutocompleteContainer = (props) => {
             },
             filter: {
                 country: countryAbbreviation,
-                state: stateAbbrevation
+                state: stateAbbreviation
             }
         };
 
@@ -179,7 +210,7 @@ const LocationAutocompleteContainer = (props) => {
             location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation);
         }
         else if (item.category === "county") {
-            location = addCounty(item.data.county_name, item.data.state_name, countryAbbreviation);
+            loadCounties(item.data.county_name, item.data.state_name, countryAbbreviation);
         }
         else if (item.category === "state") {
             location = addState(item.data.state_name, countryAbbreviation);
@@ -194,7 +225,10 @@ const LocationAutocompleteContainer = (props) => {
             location = addDistrict(item.data.current_cd, "Original congressional district");
         }
 
-        createLocationObjectByType(location);
+        if (item.category !== "county") {
+            createLocationObjectByType(location);
+        }
+
         clearAutocompleteSuggestions();
     };
 
@@ -363,7 +397,7 @@ const LocationAutocompleteContainer = (props) => {
     };
 
     const selectItem = (item, valid, obj) => {
-        // this.props.addPOPLocationObject(item);
+        // props.addPOPLocationObject(item);
         setSelectedItem(obj);
         setReadyToStage(true);
     };
