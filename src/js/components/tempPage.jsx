@@ -7,7 +7,6 @@ import { recipientTypes } from 'dataMapping/search/recipientType';
 
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-import NewLocationSectionContainer from "../containers/search/filters/location/LocationAutocompleteContainer";
 
 import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
 
@@ -29,8 +28,6 @@ const tempPage = () => {
     const bulkAwardChange = (selection) => dispatch(bulkAwardTypeChange(selection));
     const toggleRecipientTypeChange = (selection) => dispatch(toggleRecipientType(selection));
     /* eslint-enable react-hooks/rules-of-hooks */
-
-
 
     return (
         <PageFeatureFlag>

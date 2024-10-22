@@ -57,13 +57,7 @@ const Suggestion = (props) => {
         return notFound;
     };
 
-    const setUpSuggestion = () => {
-        suggestion.addEventListener('mousedown', () => {
-            props.select(props.data);
-        });
-    }
-
-    boldedText(text, shouldBeBold) {
+    const boldedText = (text, shouldBeBold) => {
         const textArray = text.split(RegExp(shouldBeBold, "ig"));
         const match = text.match(RegExp(shouldBeBold, "ig"));
 
@@ -77,9 +71,9 @@ const Suggestion = (props) => {
                 </>
             ))
         );
-    }
+    };
 
-   return (
+    return (
     // We need to set aria-selected to use the arrow keys to select elements
     /* eslint-disable jsx-a11y/role-supports-aria-props */
         <>
