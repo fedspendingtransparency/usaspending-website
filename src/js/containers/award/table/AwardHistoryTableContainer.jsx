@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { isCancel } from "axios";
-import { uniqueId } from "lodash";
 import { Table, Pagination } from "data-transparency-ui";
 
 import * as awardActions from 'redux/actions/award/awardActions';
@@ -34,6 +33,8 @@ const AwardHistoryTableContainer = ({
     const [columns, setColumns] = useState([]);
     const [rows, setRows] = useState();
     const [totalItems, setTotalItems] = useState(0);
+
+    const tabCounts = useRef({});
 
     let request = null;
     const pageLimit = 15;
@@ -284,12 +285,19 @@ const AwardHistoryTableContainer = ({
                 direction: 'desc'
             });
         }
+
+        if (tabOptions[0]?.count) {
+            setTotalItems(tabCounts.current[activeTab]);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab]);
 
     useEffect(() => {
         if (tabOptions[0]?.count) {
             setTotalItems(tabOptions[0].count);
+            tabOptions.forEach((tab) => {
+                tabCounts.current[tab.internal] = tab.count;
+            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tabOptions]);
