@@ -26,7 +26,7 @@ export const AwardHistoryTransactionsTableRow = {
         this.modificationNumber = data.modification_number || null;
         this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
-        this.actionTypeDescription = `${data.action_type}: ${data.action_type_description}` || null;
+        this.actionTypeDescription = data.action_type ? `${data.action_type}: ${data.action_type_description}` : null;
         this.description = data.description || null;
     },
 
@@ -36,7 +36,7 @@ export const AwardHistoryTransactionsTableRow = {
         this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this.faceValue = formatMoney(data.face_value_loan_guarantee) || null;
         this.subsidy = formatMoney(data.original_loan_subsidy_cost) || null;
-        this.actionTypeDescription = `${data.action_type}: ${data.action_type_description}` || null;
+        this.actionTypeDescription = data.action_type ? `${data.action_type}: ${data.action_type_description}` : null;
         this.description = data.description || null;
     },
 
@@ -44,7 +44,7 @@ export const AwardHistoryTransactionsTableRow = {
         this.modificationNumber = data.modification_number || null;
         this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
-        this.actionTypeDescription = `${data.action_type}: ${data.action_type_description}` || null;
+        this.actionTypeDescription = data.action_type ? `${data.action_type}: ${data.action_type_description}` : null;
         this.description = data.description || null;
     },
 
@@ -53,7 +53,7 @@ export const AwardHistoryTransactionsTableRow = {
         this.cfdaNumber = data.cfda_number || null;
         this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
-        this.actionTypeDescription = `${data.action_type}: ${data.action_type_description}` || null;
+        this.actionTypeDescription = data.action_type ? `${data.action_type}: ${data.action_type_description}` : null;
         this.description = data.description || null;
     },
 
