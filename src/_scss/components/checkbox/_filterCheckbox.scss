@@ -37,15 +37,28 @@
         display: flex;
         align-items: flex-start;
 
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+
         input {
           @include usa-input-checkbox;
           margin: 0;
           border: solid rem(1) $gray-cool-20;
-          min-width: rem(14);
+          width: rem(12);
+          height: rem(12);
+          min-width: rem(12);
+          top: rem(3);
 
           &:checked {
             background-color: $blue-50;
             border-color: $blue-50;
+          }
+
+          &:checked:before {
+            width: rem(4);
+            height: rem(8);
+            margin: rem(0) rem(3);
           }
         }
 
