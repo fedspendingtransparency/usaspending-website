@@ -39,7 +39,7 @@ const SuggestionHolder = (props) => {
             select={props.select}
             id={`${props.autocompleteId}__option_${i}`}
             key={i}
-            matchingString={this.props.matchingString} />);
+            matchingString={props.matchingString} />);
     }
 
     let hiddenClass = 'hide';

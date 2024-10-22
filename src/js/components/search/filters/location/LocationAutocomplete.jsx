@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "data-transparency-ui";
+import PropTypes from "prop-types";
 import SelectedLocations from "./SelectedLocations";
 import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
+
+const propTypes = {
+    activeTab: PropTypes.string,
+    locations: PropTypes.arrayOf(PropTypes.object),
+    handleTextInput: PropTypes.func,
+    selectItem: PropTypes.object,
+    clearAutocompleteSuggestions: PropTypes.func,
+    noResults: PropTypes.bool,
+    readyToStage: PropTypes.bool,
+    addLocation: PropTypes.func,
+    selectedLocations: PropTypes.array,
+    selectedRecipientLocations:  PropTypes.array,
+    removeLocation: PropTypes.func,
+    key: PropTypes.string
+};
 
 const LocationAutocomplete = (props) => {
     const [activeTab, setActiveTab] = useState(props.activeTab);
@@ -47,4 +63,5 @@ const LocationAutocomplete = (props) => {
     );
 };
 
+LocationAutocomplete.propTypes = propTypes;
 export default LocationAutocomplete;
