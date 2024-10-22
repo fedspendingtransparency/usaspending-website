@@ -344,7 +344,8 @@ const AwardHistoryTableContainer = ({
                 currentPage={page}
                 changePage={setPage}
                 pageSize={pageLimit}
-                totalItems={totalItems} />
+                totalItems={totalItems}
+                hideLast={totalItems >= 50000} />
         </>
     );
 };

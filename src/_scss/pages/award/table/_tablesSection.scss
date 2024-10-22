@@ -101,5 +101,12 @@
                 margin: 0;
             }
         }
+
+        .usda-table__cell div {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 300px
+        }
     }
 }
