@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { isCancel } from "axios";
-import { Table, Pagination } from "data-transparency-ui";
+import { Table, Pagination, InformationBoxes } from "data-transparency-ui";
 
 import * as awardActions from 'redux/actions/award/awardActions';
 import { fetchAwardTransaction, performSubawardSearch } from 'helpers/searchHelper';
@@ -38,6 +38,8 @@ const AwardHistoryTableContainer = ({
 
     let request = null;
     const pageLimit = 15;
+    const totalSubAwardLabel = 'Number of Sub-Award Transactions';
+    const totalSubAwardAmountLabel = 'Sub-Award Obligations';
 
     const updateSort = (field, direction) => {
         setSort(Object.assign({
@@ -304,6 +306,25 @@ const AwardHistoryTableContainer = ({
 
     return (
         <>
+            {activeTab === 'subaward' &&
+                <div className="subaward-totals">
+                    <InformationBoxes boxes={[{
+                        title: totalSubAwardLabel,
+                        type: 'totalSubAward',
+                        amount: award.overview.subawardCount
+                    }, {
+                        title: totalSubAwardAmountLabel,
+                        type: 'totalSubAwardAmount',
+                        amount: `${award.overview._subawardTotal}`,
+                        isMonetary: true
+                    }, {
+                        title: 'Percent of Prime Award Obligations',
+                        type: 'subAwardedPercent',
+                        isString: true,
+                        amount: `${award.overview.subAwardedPercent}`
+                    }]} />
+                </div>
+            }
             <Table
                 columns={columns}
                 rows={rows}
