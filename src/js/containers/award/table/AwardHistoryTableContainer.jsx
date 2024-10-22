@@ -33,6 +33,7 @@ const AwardHistoryTableContainer = ({
     const [columns, setColumns] = useState([]);
     const [rows, setRows] = useState();
     const [totalItems, setTotalItems] = useState(0);
+    const [activateRightFade, setActivateRightFade] = useState(false);
 
     const tabCounts = useRef({});
 
@@ -283,6 +284,15 @@ const AwardHistoryTableContainer = ({
             });
     };
 
+    const checkToAddRightFade = (isScrolledLeft, isScrolledRight) => {
+        if (!isScrolledLeft) {
+            setActivateRightFade(true);
+        }
+        if (isScrolledRight) {
+            setActivateRightFade(false);
+        }
+    };
+
     useEffect(() => {
         fetchData(1);
 
@@ -369,16 +379,19 @@ const AwardHistoryTableContainer = ({
             }
             <div className="search-results-table-section">
                 <div className="results-table-content">
-                    <Table
-                        columns={columns}
-                        rows={rows}
-                        currentSort={sort}
-                        updateSort={updateSort}
-                        classNames="table-for-new-search-page award-results-table-dtui"
-                        loading={inFlight}
-                        error={error}
-                        rowHeight={58}
-                        headerRowHeight={45} />
+                    <div className={`advanced-search__table-wrapper ${activateRightFade ? 'activate-right-fade' : ''}`}>
+                        <Table
+                            columns={columns}
+                            rows={rows}
+                            currentSort={sort}
+                            updateSort={updateSort}
+                            classNames="table-for-new-search-page award-results-table-dtui"
+                            loading={inFlight}
+                            error={error}
+                            rowHeight={58}
+                            headerRowHeight={45}
+                            checkToAddRightFade={checkToAddRightFade} />
+                    </div>
                 </div>
             </div>
             <Pagination
