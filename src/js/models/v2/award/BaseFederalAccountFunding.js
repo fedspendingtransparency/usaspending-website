@@ -4,6 +4,7 @@
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
+import dayjs from "dayjs";
 
 const monthToPeriod = {
     1: 'P01/P02',
@@ -23,7 +24,7 @@ const monthToPeriod = {
 export const AwardHistoryTransactionsTableRow = {
     populateIdv(data) {
         this.modificationNumber = data.modification_number || null;
-        this.actionDate = data.action_date || null;
+        this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
         this.actionTypeDescription = `${data.action_type}: ${data.action_type_description}` || null;
         this.description = data.description || null;
@@ -32,7 +33,7 @@ export const AwardHistoryTransactionsTableRow = {
     populateLoan(data) {
         this.modificationNumber = data.modification_number || null;
         this.cfdaNumber = data.cfda_number || null;
-        this.actionDate = data.action_date || null;
+        this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this.faceValue = formatMoney(data.face_value_loan_guarantee) || null;
         this.subsidy = formatMoney(data.original_loan_subsidy_cost) || null;
         this.actionTypeDescription = `${data.action_type}: ${data.action_type_description}` || null;
@@ -41,7 +42,7 @@ export const AwardHistoryTransactionsTableRow = {
 
     populateContract(data) {
         this.modificationNumber = data.modification_number || null;
-        this.actionDate = data.action_date || null;
+        this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
         this.actionTypeDescription = `${data.action_type}: ${data.action_type_description}` || null;
         this.description = data.description || null;
@@ -50,7 +51,7 @@ export const AwardHistoryTransactionsTableRow = {
     populateAssistance(data) {
         this.modificationNumber = data.modification_number || null;
         this.cfdaNumber = data.cfda_number || null;
-        this.actionDate = data.action_date || null;
+        this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
         this.actionTypeDescription = `${data.action_type}: ${data.action_type_description}` || null;
         this.description = data.description || null;

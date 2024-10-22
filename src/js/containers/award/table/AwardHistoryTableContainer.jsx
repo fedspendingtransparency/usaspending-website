@@ -7,9 +7,10 @@ import { uniqueId } from "lodash";
 import { Table } from "data-transparency-ui";
 
 import * as awardActions from 'redux/actions/award/awardActions';
-import { fetchAwardTransaction } from 'helpers/searchHelper';
-import { transactionsTableMapping, federalAccountsTableMapping } from "dataMapping/award/transactionHistoryTable/tableMapping";
+import { fetchAwardTransaction, performSubawardSearch } from 'helpers/searchHelper';
+import { transactionsTableMapping, federalAccountsTableMapping, subawardTableMapping } from "dataMapping/award/transactionHistoryTable/tableMapping";
 import BaseFederalAccountFunding, { AwardHistoryTransactionsTableRow } from "models/v2/award/BaseFederalAccountFunding";
+import BaseSubawardRow from "models/v2/award/subawards/BaseSubawardRow";
 import { fetchFederalAccountFunding } from "helpers/awardHistoryHelper";
 import { fetchAwardFedAccountFunding } from 'helpers/idvHelper';
 
@@ -34,7 +35,7 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
     const [rows, setRows] = useState();
 
     let request = null;
-    const pageLimit = 5;
+    const pageLimit = 15;
 
     const updateSort = (field, direction) => {
         setSort(Object.assign({
@@ -50,14 +51,14 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
             setColumns(transactionsTableMapping.assistance);
         }
 
-        const arrayOfObjects = data.map((item) => {
-            const row = Object.create(AwardHistoryTransactionsTableRow);
-            row.populate(item, category);
+        const transactions = data.map((item) => {
+            const transaction = Object.create(AwardHistoryTransactionsTableRow);
+            transaction.populate(item, category);
 
-            return row;
+            return transaction;
         });
 
-        const dtuiRows = arrayOfObjects.map((obj) => {
+        const dtuiRows = transactions.map((obj) => {
             const value = [];
             if (category === 'idv' || category === 'contract') {
                 value.push(
@@ -99,17 +100,17 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
 
     const parseFederalAccountData = (data) => {
         let dtuiRows;
-        const fundingResults = data
+        const federalAccounts = data
             .map((item) => {
-                const fundingResult = Object.create(BaseFederalAccountFunding);
-                fundingResult.populate(item, category);
-                return fundingResult;
+                const account = Object.create(BaseFederalAccountFunding);
+                account.populate(item, category);
+                return account;
             });
 
         if (award.category === 'idv') {
             setColumns(federalAccountsTableMapping.idv);
 
-            dtuiRows = fundingResults.map((obj) => {
+            dtuiRows = federalAccounts.map((obj) => {
                 const value = [];
 
                 value.push(
@@ -131,7 +132,7 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
         else {
             setColumns(federalAccountsTableMapping.otherFunding);
 
-            dtuiRows = fundingResults.map((obj) => {
+            dtuiRows = federalAccounts.map((obj) => {
                 const value = [];
 
                 value.push(
@@ -149,6 +150,34 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
                 return value;
             });
         }
+
+        setRows(dtuiRows);
+        setInFlight(false);
+    };
+
+    const parseSubawardData = (data) => {
+        setColumns(subawardTableMapping);
+
+        const subawards = data
+            .map((item) => {
+                const fundingResult = Object.create(BaseSubawardRow);
+                fundingResult.populate(item, category);
+                return fundingResult;
+            });
+
+        const dtuiRows = subawards.map((obj) => {
+            const value = [];
+
+            value.push(
+                obj.number || '--',
+                obj.recipient || '--',
+                obj.date || '--',
+                obj._amount || '--',
+                obj.description || '--'
+            );
+
+            return value;
+        });
 
         setRows(dtuiRows);
         setInFlight(false);
@@ -181,7 +210,7 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
                 ? fetchAwardFedAccountFunding(params)
                 : fetchFederalAccountFunding(params);
                 break;
-            case 'subaward':
+            case 'subaward': request = performSubawardSearch(params);
                 break;
             default: break;
         }
@@ -195,7 +224,7 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
                     parseFederalAccountData(res.data.results);
                 }
                 else {
-                    console.log('res: ', res);
+                    parseSubawardData(res.data.results);
                 }
             })
             .catch((err) => {
@@ -241,6 +270,12 @@ const AwardHistoryTableContainer = ({ award, category, activeTab }) => {
             setSort({
                 field: 'reporting_fiscal_date',
                 direction: 'asc'
+            });
+        }
+        else {
+            setSort({
+                field: 'subaward_number',
+                direction: 'desc'
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

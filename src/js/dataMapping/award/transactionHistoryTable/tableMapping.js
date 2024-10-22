@@ -267,3 +267,36 @@ export const federalAccountsTableMapping = {
         }
     ]
 };
+
+export const subawardTableMapping = [
+    {
+        columnWidth: 300,
+        displayName: 'Sub-Award ID',
+        right: false,
+        title: 'subaward_number'
+    },
+    {
+        columnWidth: 300,
+        displayName: 'Recipient Name',
+        right: false,
+        title: 'recipient_name'
+    },
+    {
+        columnWidth: 300,
+        displayName: 'Action Date',
+        right: false,
+        title: 'action_date'
+    },
+    {
+        columnWidth: 300,
+        displayName: 'Amount',
+        right: false,
+        title: 'amount'
+    },
+    {
+        columnWidth: 300,
+        displayName: 'Sub-Award Description',
+        right: false,
+        title: 'description'
+    }
+];
