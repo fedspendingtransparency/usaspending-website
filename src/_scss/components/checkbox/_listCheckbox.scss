@@ -1,0 +1,15 @@
+.filter-item-wrap {
+  .checkbox-filter__wrapper {
+    .checkbox-filter__header.list-checkbox {
+      margin-bottom: $global-margin;
+    }
+
+    .checkbox-filter__list.list-checkbox {
+      margin: 0 0 ($global-margin * 2) 0;
+
+      .checkbox-filter__item .checkbox-filter__item-label {
+        color: $gray-90;
+      }
+    }
+  }
+}

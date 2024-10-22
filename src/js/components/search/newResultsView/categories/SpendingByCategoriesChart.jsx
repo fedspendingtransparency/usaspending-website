@@ -101,10 +101,20 @@ const SpendingByCategoriesChart = (props) => {
 
         const translateX = isSmMobile ? 2 : 8;
 
+        let anchorString = 'start';
+        let negativeOffset = 0;
+
+        // for negative values we want the label to be at the left end of the
+        // bar, so we change the textAnchor value and add a small offset
+        if (value[0] === '-') {
+            anchorString = 'end';
+            negativeOffset = -16;
+        }
+
         return (
-            <g transform={`translate(${x + width + translateX}, ${y + 14})`}>
+            <g transform={`translate(${x + width + translateX + negativeOffset}, ${y + 15})`}>
                 <Text
-                    textAnchor="left"
+                    textAnchor={anchorString}
                     fontSize={14}
                     fontWeight={600}
                     fill="#07648D"

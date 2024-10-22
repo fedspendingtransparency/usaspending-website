@@ -5,27 +5,17 @@
 
 import React from 'react';
 
-import { recipientCategories as topCategories } from 'dataMapping/recipients/topCategories';
+import { recipientCategories as topCategories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'containers/recipient/topFive/TopFiveContainer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader } from "data-transparency-ui";
 
 const TopFiveSection = () => {
-    const content = topCategories.map((category, i) => {
-        if (i % 2 === 0) {
-            return (
-                <div key={category} className="category-row">
-                    <TopFiveContainer
-                        key={category}
-                        category={category} />
-                    <TopFiveContainer
-                        key={topCategories[i + 1]}
-                        category={topCategories[i + 1]} />
-                </div>
-            );
-        }
-        return false;
-    });
+    const content = topCategories.map((category) => (
+        <TopFiveContainer
+            key={category}
+            category={category} />
+    ));
 
     return (
         <div

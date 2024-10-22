@@ -16,15 +16,15 @@ import {
 } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
-
-import TopFive from 'components/recipient/topFive/TopFive';
+import TopFive from 'components/sharedComponents/TopFive';
 
 export class TopFiveContainer extends React.Component {
     static propTypes = {
         total: PropTypes.number,
         category: PropTypes.string,
         fy: PropTypes.string,
-        recipientHash: PropTypes.string
+        recipientHash: PropTypes.string,
+        recipientName: PropTypes.string
     };
 
     constructor(props) {
@@ -33,7 +33,8 @@ export class TopFiveContainer extends React.Component {
         this.state = {
             loading: true,
             error: false,
-            results: []
+            results: [],
+            noResultState: false
         };
 
         this.request = null;
@@ -79,7 +80,8 @@ export class TopFiveContainer extends React.Component {
         }
 
         const filters = {
-            recipient_id: this.props.recipientHash
+            recipient_id: this.props.recipientHash,
+            recipient_name: this.props.recipientName
         };
 
         if (timePeriod) {
@@ -121,36 +123,47 @@ export class TopFiveContainer extends React.Component {
     }
 
     parseResults(data, type) {
-        const parsed = data.map((item, index) => {
-            const result = Object.create(BaseStateCategoryResult);
-            result.populate(item, index + 1);
-            if (type === 'awarding_agency' || type === 'awarding_subagency') {
-                result.nameTemplate = (code, name) => {
-                    if (code) {
-                        return `${name} (${code})`;
-                    }
-                    return name;
-                };
-            }
+        if (data.length < 1) {
+            this.setState({
+                noResultState: true
+            });
+        } else {
+            const parsed = data.map((item, index) => {
+                const result = Object.create(BaseStateCategoryResult);
+                result.populate(item, index + 1);
+                if (type === 'awarding_agency' || type === 'awarding_subagency') {
+                    result.nameTemplate = (code, name) => {
+                        if (code) {
+                            return `${name} (${code})`;
+                        }
+                        return name;
+                    };
+                }
 
-            else if (type === 'country' || type === 'state_territory') {
-                result.nameTemplate = (name) => (name);
-            }
-            return result;
-        });
-        this.setState({
-            loading: false,
-            error: false,
-            results: parsed
-        });
+                else if (type === 'country' || type === 'state_territory') {
+                    result.nameTemplate = (name) => (name);
+                }
+                return result;
+            });
+            this.setState({
+                loading: false,
+                error: false,
+                results: parsed
+            });
+        }
     }
 
     render() {
         return (
-            <TopFive
-                category={this.props.category}
-                total={this.props.total}
-                {...this.state} />
+            <>
+                {!this.state.noResultState &&
+                    <TopFive
+                        category={this.props.category}
+                        total={this.props.total}
+                        dataParams={this.dataParams()}
+                        {...this.state} />
+                }
+            </>
         );
     }
 }
@@ -160,6 +173,7 @@ export default connect(
     (state) => ({
         total: state.recipient.overview._totalAmount,
         fy: state.recipient.fy,
-        recipientHash: state.recipient.id
+        recipientHash: state.recipient.id,
+        recipientName: state.recipient.overview.name
     })
 )(TopFiveContainer);

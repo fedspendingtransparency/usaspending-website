@@ -12,14 +12,16 @@ const propTypes = {
     subtitle: PropTypes.string,
     data: PropTypes.object,
     selected: PropTypes.bool,
-    select: PropTypes.func
+    select: PropTypes.func,
+    matchingString: PropTypes.string
 };
 
 const defaultProps = {
     title: '',
     subtitle: '',
     data: [],
-    selected: false
+    selected: false,
+    matchingString: null
 };
 
 const Suggestion = (props) => {
@@ -55,7 +57,29 @@ const Suggestion = (props) => {
         return notFound;
     };
 
-    return (
+    const setUpSuggestion = () => {
+        suggestion.addEventListener('mousedown', () => {
+            props.select(props.data);
+        });
+    }
+
+    boldedText(text, shouldBeBold) {
+        const textArray = text.split(RegExp(shouldBeBold, "ig"));
+        const match = text.match(RegExp(shouldBeBold, "ig"));
+
+        return (
+            textArray.map((item, index) => (
+                <>
+                    {item}
+                    {index !== textArray.length - 1 && match && (
+                        <span className="semibold">{match[index]}</span>
+                    )}
+                </>
+            ))
+        );
+    }
+
+   return (
     // We need to set aria-selected to use the arrow keys to select elements
     /* eslint-disable jsx-a11y/role-supports-aria-props */
         <>
@@ -66,8 +90,8 @@ const Suggestion = (props) => {
                 aria-selected={props.selected}
                 role="option"
                 ref={suggestion}>
-                <span>{props.title}</span><br />
-                {props.subtitle}
+                <span>{boldedText(props.title, props.matchingString)}</span><br />
+                {boldedText(props.subtitle, props.matchingString)}
             </li>
         </>
     /* eslint-enable jsx-a11y/role-supports-aria-props */

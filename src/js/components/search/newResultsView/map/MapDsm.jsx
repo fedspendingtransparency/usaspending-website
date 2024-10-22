@@ -1,12 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
+import {
+    setAboutTheDataTermFromUrl,
+    showAboutTheData
+} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
 
 const MapDsm = ({ subaward }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
+
+    const dispatch = useDispatch();
+
+    const openAboutTheDataSidebar = (e) => {
+        dispatch(setAboutTheDataTermFromUrl('medicare-location-data'));
+        dispatch(showAboutTheData());
+        dispatch(setLastOpenedSlideout('atd'));
+        e.preventDefault();
+    };
 
     return (
         <>
@@ -65,8 +79,12 @@ const MapDsm = ({ subaward }) => {
                 <span className="award-search__glossary-term">NOTE: </span>
                 Data reported by the Department of Health and Human Services (HHS) related
                 to Medicare payments does not reflect the place where "the majority of the work" occurs, as
-                required by USAspending's data model specifications. For more information, visit our&nbsp;
-                <Link target="_blank" rel="noopener noreferrer" to="/about?section=data-quality">About Page</Link>.
+                required by USAspending's data model specifications. &nbsp;
+                <Link
+                    to=""
+                    aria-label="Open the About the Data"
+                    onClick={(e) => openAboutTheDataSidebar(e)}>Learn about Medicare Location Data.
+                </Link>
             </p>
         </>
     );

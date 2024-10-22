@@ -1,0 +1,76 @@
+@import "listCheckbox";
+@import "_accordionCheckbox";
+
+.filter-item-wrap {
+  padding: rem(20) rem(32);
+
+  .checkbox-filter__wrapper {
+    .checkbox-filter__header {
+      font-size: $font-size-12;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+
+      .checkbox-filter__header-label-container {
+        .checkbox-filter__header-label {
+          font-weight: $font-semibold;
+          color: $gray-90;
+        }
+
+        .checkbox-filter__header-count {
+          margin-left: rem(6);
+          font-size: $font-size-10;
+          font-style: italic;
+          color: $gray-60;
+        }
+      }
+    }
+
+    .checkbox-filter__list {
+      list-style: none;
+      padding: 0;
+      font-size: $font-size-12;
+      line-height: 1.5;
+
+      .checkbox-filter__item {
+        margin-bottom: $global-margin;
+        display: flex;
+        align-items: flex-start;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+
+        input {
+          @include usa-input-checkbox;
+          margin: 0;
+          border: solid rem(1) $gray-cool-20;
+          width: rem(12);
+          height: rem(12);
+          min-width: rem(12);
+          top: rem(3);
+
+          &:checked {
+            background-color: $blue-50;
+            border-color: $blue-50;
+          }
+
+          &:checked:before {
+            width: rem(4);
+            height: rem(8);
+            margin: rem(0) rem(3);
+          }
+        }
+
+        .checkbox-filter__item-label {
+          margin: rem(1) 0 0 rem(6);
+          color: $gray-80;
+        }
+      }
+
+      .checkbox-filter__item.hidden {
+        display: none;
+      }
+    }
+  }
+}

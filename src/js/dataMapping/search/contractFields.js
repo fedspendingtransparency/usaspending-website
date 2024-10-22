@@ -26,27 +26,27 @@ export const pricingTypeDefinitions = {
 export const setAsideDefinitions = {
     '8AN': '8(a) Sole Source',
     'HS3': '8(a) with HUBZone Preference',
-    '8A': '8A Competed',
+    '8A': '8(a) Competed',
     'BI': 'Buy Indian',
     'HS2Civ': 'Combination HUBZone and 8(a)',
     'EDWOSB': 'Economically-Disadvantaged Women-Owned Small Business',
     'EDWOSBSS': 'Economically Disadvantaged Women Owned Small Business Sole Source',
-    'ESB': 'Emerging Small Business Set-Aside',
-    'HMP': 'HBCU or MI Set-Aside - Partial',
-    'HMT': 'HBCU or MI Set-Aside - Total',
-    'HZC': 'HUBZone Set-Aside',
+    'ESB': 'Emerging Small Business Set Aside',
+    'HMP': 'HBCU or MI Set Aside - Partial',
+    'HMT': 'HBCU or MI Set Aside - Total',
+    'HZC': 'HUBZone Set Aside',
     'HZS': 'HUBZone Sole Source',
     'ISEE': 'Indian Economic Enterprise',
     'ISBEE': 'Indian Small Business Economic Enterprise',
     'NONE': 'No Set Aside Used',
     'RSBCiv': 'Reserved for Small Business $2,501 to $100K',
-    '8ACCiv': 'SDB Set-Aside 8(a)',
+    '8ACCiv': 'SDB Set Aside 8(a)',
     'SDVOSBS': 'SDVOSB Sole Source',
-    'SDVOSBC': 'Service-Disabled Veteran-Owned Small Business Set-Aside',
-    'SBP': 'Small Business Set-Aside - Partial',
-    'SBA': 'Small Business Set-Aside - Total',
-    'VSBCiv': 'Very Small Business Set-Aside',
-    'VSA': 'Veteran Set-Aside',
+    'SDVOSBC': 'Service-Disabled Veteran-Owned Small Business Set Aside',
+    'SBP': 'Small Business Set Aside - Partial',
+    'SBA': 'Small Business Set Aside - Total',
+    'VSBCiv': 'Very Small Business Set Aside',
+    'VSA': 'Veteran Set Aside',
     'VSS': 'Veteran Sole Source',
     'WOSB': 'Women-Owned Small Business',
     'WOSBSS': 'Women Owned Small Business Sole Source'
@@ -130,8 +130,59 @@ export const groupKeys = [
 
 export const groupLabels = {
     pricing_type: 'Type of Contract Pricing',
-    set_aside: 'Type of Set-Aside',
+    set_aside: 'Type of Set Aside',
     extent_competed: 'Extent Competed'
 };
+
+export const extentCompetedTypeMapping = [
+    {
+        id: 'available-for-competition',
+        name: 'Available for Competition',
+        filters: ['F', 'CDOCiv', 'E Civ', 'A', 'D']
+    },
+    {
+        id: 'not-available-for-competition',
+        name: 'Not Available for Competition',
+        filters: ['NDOCiv', 'B', 'C', 'G']
+    }
+];
+
+export const setAsideTypeMapping = [
+    {
+        id: 'hbcu-mi',
+        name: 'Historically Black College/University (HBCU) or Minority Institution (MI)',
+        filters: ['HMP', 'HMT']
+    },
+    {
+        id: 'hub-zone',
+        name: 'Historically Underutilized Business Zone Small Businesses (HUBZone)',
+        filters: ['HZC', 'HZS']
+    },
+    {
+        id: 'naob',
+        name: 'Native American-Owned Businesses',
+        filters: ['BI', 'ISEE', 'ISBEE']
+    },
+    {
+        id: 'no-set-aside',
+        name: 'No Set Aside',
+        filters: ['NONE']
+    },
+    {
+        id: 'small-disadvantaged',
+        name: 'Small Disadvantaged Business and 8(a) Small Businesses',
+        filters: ['8AN', 'HS3', '8A', 'HS2Civ', 'ESB', 'RSBCiv', '8ACCiv', 'SBP', 'SBA', 'VSBCiv']
+    },
+    {
+        id: 'vosb',
+        name: 'Veteran-Owned Businesses',
+        filters: ['SDVOSBC', 'SDVOSBS', 'VSA', 'VSS']
+    },
+    {
+        id: 'wosb',
+        name: 'Women-Owned Small Businesses (WOSB)',
+        filters: ['EDWOSBSS', 'EDWOSB', 'WOSBSS', 'WOSB']
+    }
+];
 
 /* eslint-enable quote-props */

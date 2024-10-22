@@ -12,7 +12,8 @@ const propTypes = {
     selectedIndex: PropTypes.number,
     maxSuggestions: PropTypes.number,
     shown: PropTypes.bool,
-    autocompleteId: PropTypes.string
+    autocompleteId: PropTypes.string,
+    matchingString: PropTypes.string
 };
 
 const defaultProps = {
@@ -37,7 +38,8 @@ const SuggestionHolder = (props) => {
             selected={i === props.selectedIndex}
             select={props.select}
             id={`${props.autocompleteId}__option_${i}`}
-            key={i} />);
+            key={i}
+            matchingString={this.props.matchingString} />);
     }
 
     let hiddenClass = 'hide';
@@ -57,4 +59,4 @@ const SuggestionHolder = (props) => {
 
 SuggestionHolder.defaultProps = defaultProps;
 SuggestionHolder.propTypes = propTypes;
-export default SuggestionHolder
+export default SuggestionHolder;

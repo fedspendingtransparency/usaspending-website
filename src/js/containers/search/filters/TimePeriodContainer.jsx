@@ -25,7 +25,8 @@ const propTypes = {
     filterTimePeriodEnd: PropTypes.string,
     appliedFilters: PropTypes.object,
     newAwardsOnlySelected: PropTypes.bool,
-    newAwardsOnlyActive: PropTypes.bool
+    newAwardsOnlyActive: PropTypes.bool,
+    naoActiveFromFyOrDateRange: PropTypes.bool
 };
 
 export class TimePeriodContainer extends React.Component {
@@ -34,7 +35,7 @@ export class TimePeriodContainer extends React.Component {
 
         this.state = {
             timePeriods: [],
-            activeTab: 'fy',
+            activeTab: 'dr',
             cachedTimePeriods: Set(),
             cachedStart: null,
             cachedEnd: null
@@ -46,6 +47,11 @@ export class TimePeriodContainer extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.appliedFilters.timePeriodType === 'fy') {
+            this.changeTab('fy');
+        } else {
+            this.changeTab('dr');
+        }
         this.generateTimePeriods();
     }
 
@@ -83,28 +89,18 @@ export class TimePeriodContainer extends React.Component {
     }
 
     updateFilter(params) {
-        // set the state to a clone of the filter subobject merged with the param object
-        const currentFilters = {
-            dateType: this.state.activeTab,
-            fy: this.props.filterTimePeriodFY,
-            startDate: this.props.filterTimePeriodStart,
-            endDate: this.props.filterTimePeriodEnd
-        };
-
-        const newFilters = Object.assign({}, currentFilters, params);
+        const newFilters = Object.assign({}, params);
 
         if (this.state.activeTab === 'fy') {
+            newFilters.dateType = 'fy';
             // reset the date range values
             newFilters.startDate = null;
             newFilters.endDate = null;
         }
         else {
             // reset the fiscal year set
+            // start and end dates and datetype are in params
             newFilters.fy = [];
-
-            if (!newFilters.startDate && !newFilters.endDate) {
-                newFilters.dateType = 'fy';
-            }
         }
 
         this.props.updateTimePeriod(newFilters);
