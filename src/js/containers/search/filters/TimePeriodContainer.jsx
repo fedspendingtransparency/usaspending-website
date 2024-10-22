@@ -19,6 +19,7 @@ export const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
     updateTimePeriod: PropTypes.func,
+    updateTimePeriodArray: PropTypes.func,
     filterTimePeriodType: PropTypes.string,
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
@@ -106,6 +107,9 @@ export class TimePeriodContainer extends React.Component {
         }
 
         this.props.updateTimePeriod(newFilters);
+
+        // testing
+        this.props.updateTimePeriodArray(newFilters);
     }
 
     dirtyFilters() {

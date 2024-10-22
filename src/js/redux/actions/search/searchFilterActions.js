@@ -21,6 +21,15 @@ export const updateTimePeriod = (state) => ({
     end: state.endDate
 });
 
+// New Time Period Filter
+export const updateTimePeriodArray = (state) => ({
+    type: 'ADD_TIME_PERIOD_OBJECT',
+    dateType: state.dateType,
+    fy: state.fy,
+    start: state.startDate,
+    end: state.endDate
+});
+
 export const updateNewAwardsOnlySelected = (state) => ({
     type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_SELECTED',
     filterValue: state

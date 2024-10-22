@@ -103,10 +103,11 @@ const searchFiltersReducer = (state = initialState, action) => {
 
         // New Time Period Filter Array
         case 'ADD_TIME_PERIOD_OBJECT': {
-            // FY time period is stored as an ImmutableJS set
-            return Array.push({
-                timePeriodStart: action.start,
-                timePeriodEnd: action.end
+            return Object.assign({}, state, {
+                time_period: state.time_period.concat({
+                    start_date: action.start,
+                    end_date: action.end
+                })
             });
         }
 
