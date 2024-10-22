@@ -12,7 +12,7 @@ import GlobalConstants from 'GlobalConstants';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
-import NewLocationSectionContainer from "../../../../containers/search/filters/location/NewLocationSectionContainer";
+import NewLocationSectionContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {

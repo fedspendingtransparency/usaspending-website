@@ -6,7 +6,7 @@ import { awardTypeCodes } from 'dataMapping/search/awardType';
 
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-import NewLocationSectionContainer from "../containers/search/filters/location/NewLocationSectionContainer";
+import NewLocationSectionContainer from "../containers/search/filters/location/LocationAutocompleteContainer";
 
 import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
 

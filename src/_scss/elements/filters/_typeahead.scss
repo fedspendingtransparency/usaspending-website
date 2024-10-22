@@ -101,23 +101,10 @@
             }
         }
 
-        li.autocomplete-heading {
-            font-size: $font-size-10;
-            font-weight: $font-semibold;
-            margin: 0 0 rem(4) rem(2);
-            line-height: 1.5;
-            text-align: left;
-            color: $gray-60;
-            text-transform: uppercase;
-        }
-
         .unselectable {
             pointer-events: none;
         }
     }
-
-
-
 
     .hide {
         display: none;

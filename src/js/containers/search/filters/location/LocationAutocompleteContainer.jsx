@@ -1,20 +1,20 @@
 /**
- * NewLocationSectionContainer.jsx
+ * LocationAutocompleteContainer.jsx
  * Created by Josue Aguilar 8/15/2024
  */
 
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { isCancel } from "axios";
 import { fetchLocations } from 'helpers/searchHelper';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
 import LocationAutocomplete from "../../../../components/search/filters/location/LocationAutocomplete";
 import { fipsIdByStateName, stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 import { fetchLocationList } from "../../../../helpers/mapHelper";
-import { isCancel } from "axios";
 
-const NewLocationSectionContainer = (props) => {
+const LocationAutocompleteContainer = (props) => {
     const [locations, setLocations] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -37,6 +37,166 @@ const NewLocationSectionContainer = (props) => {
             });
     }, []);
 
+    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
+
+    const createLocationObjectByType = (location) => {
+        if (props.activeTab === 'recipient') {
+            props.addRecipientLocationObject(location);
+        }
+        else {
+            props.addPOPLocationObject(location);
+        }
+    };
+
+    const addZip = (zipCode) => {
+        // make a ZIP location object
+        const location = {
+            identifier: `USA_${zipCode}`,
+            display: {
+                title: zipCode,
+                entity: "ZIP Code",
+                standalone: zipCode
+            },
+            filter: {
+                country: "USA",
+                zip: zipCode
+            }
+        };
+
+        return location;
+    };
+
+    const addCity = (city, state, countryAbbreviation) => {
+        const fipsCode = fipsIdByStateName[state.toLowerCase()];
+        const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
+        const location = {
+            identifier: `${countryAbbreviation}_${stateAbbreviation}_${city}`,
+            display: {
+                title: `${city}, ${state}`,
+                entity: "City",
+                standalone: city
+            },
+            filter: {
+                country: countryAbbreviation,
+                city,
+                state: stateAbbreviation
+            }
+        };
+
+        return location;
+    };
+
+    const addCounty = (county, state, countryAbbreviation) => {
+        const fipsCode = fipsIdByStateName[state.toLowerCase()];
+        const stateAbbrevation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
+        const location = {
+            identifier: `${countryAbbreviation}_${stateAbbrevation}`,
+            display: {
+                title: `${county}, ${state}`,
+                entity: "County",
+                standalone: county
+            },
+            filter: {
+                country: countryAbbreviation,
+                county,
+                state: stateAbbrevation
+            }
+        };
+
+        return location;
+    };
+
+    const addState = (state, countryAbbreviation) => {
+        const fipsCode = fipsIdByStateName[state.toLowerCase()];
+        const stateAbbrevation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
+        const location = {
+            identifier: `${countryAbbreviation}_${stateAbbrevation}`,
+            display: {
+                title: state,
+                entity: "State",
+                standalone: state
+            },
+            filter: {
+                country: countryAbbreviation,
+                state: stateAbbrevation
+            }
+        };
+
+        return location;
+    };
+
+    const addCountry = (country, countryAbbreviation) => {
+        const location = {
+            identifier: countryAbbreviation,
+            display: {
+                title: country,
+                entity: "Country",
+                standalone: country
+            },
+            filter: {
+                country: countryAbbreviation
+            }
+        };
+
+        return location;
+    };
+
+    const addDistrict = (district, type) => {
+        const districtArray = district.split('-');
+        const stateAbbreviation = districtArray[0];
+        const districtNumber = districtArray[1];
+        const location = {
+            identifier: `USA_${stateAbbreviation}_${districtNumber}`,
+            filter: {
+                country: "USA",
+                state: stateAbbreviation,
+                district_current: districtNumber
+            },
+            display: {
+                entity: type,
+                standalone: district,
+                title: district
+            }
+        };
+
+        return location;
+    };
+
+    const clearAutocompleteSuggestions = () => {
+        setLocations([]);
+        setReadyToStage(false);
+    };
+
+    const addLocation = () => {
+        const item = selectedItem;
+        let location = {};
+        const countryAbbreviation = item.data.country_name === 'UNITED STATES' ? 'USA' : countriesList?.find((country) => country.name === item.data.country_name)?.code;
+
+        if (item.category === "zip_code") {
+            location = addZip(item.data.zip_code);
+        }
+        else if (item.category === "city") {
+            location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation);
+        }
+        else if (item.category === "county") {
+            location = addCounty(item.data.county_name, item.data.state_name, countryAbbreviation);
+        }
+        else if (item.category === "state") {
+            location = addState(item.data.state_name, countryAbbreviation);
+        }
+        else if (item.category === "country") {
+            location = addCountry(item.data.country_name, countryAbbreviation);
+        }
+        else if (item.category === "current_cd") {
+            location = addDistrict(item.data.current_cd, "Current congressional district");
+        }
+        else if (item.category === "original_cd") {
+            location = addDistrict(item.data.current_cd, "Original congressional district");
+        }
+
+        createLocationObjectByType(location);
+        clearAutocompleteSuggestions();
+    };
 
     const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
 
@@ -57,11 +217,6 @@ const NewLocationSectionContainer = (props) => {
         });
         /* eslint-enable camelcase */
         return locationSort(newCityArray, 'city_name_update');
-    };
-
-    const clearAutocompleteSuggestions = () => {
-        setLocations([]);
-        setReadyToStage(false);
     };
 
     const parseLocations = ({
@@ -213,105 +368,6 @@ const NewLocationSectionContainer = (props) => {
         setReadyToStage(true);
     };
 
-    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
-
-    const addLocation = () => {
-        const item = selectedItem;
-        let location = {};
-        const countryAbbreviation = item.data.country_name === 'UNITED STATES' ? 'USA' : countriesList?.find((country) => country.name === item.data.country_name)?.code;
-
-        if (item.category === "zip_code") {
-            location = {
-                identifier: `${countryAbbreviation}_${item.data.zip_code}`,
-                display: {
-                    title: item.data.zip_code,
-                    entity: "ZIP Code",
-                    standalone: item.data.zip_code
-                },
-                filter: {
-                    country: countryAbbreviation,
-                    zip: item.data.zip_code
-                }
-            };
-        }
-        else if (item.category === "city") {
-            const fipsCode = fipsIdByStateName[item.data.state_name.toLowerCase()];
-            const stateAbbrevation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
-            location = {
-                identifier: `${countryAbbreviation}_${stateAbbrevation}_${item.data.city_name}`,
-                display: {
-                    title: `${item.data.city_name}, ${item.data.state_name}`,
-                    entity: "City",
-                    standalone: item.data.city_name
-                },
-                filter: {
-                    country: countryAbbreviation,
-                    city: item.data.city_name,
-                    state: stateAbbrevation
-                }
-            };
-        }
-        else if (item.category === "county") {
-            location = {
-                identifier: `${countryAbbreviation}_${item.data.state_name}`,
-                display: {
-                    title: `${item.data.county_name}, ${item.data.state_name}`,
-                    entity: "County",
-                    standalone: item.data.county_name
-                },
-                filter: {
-                    country: countryAbbreviation,
-                    county: item.data.county_name,
-                    state: item.data.state_name
-                }
-            };
-        }
-        else if (item.category === "state") {
-            const fipsCode = fipsIdByStateName[item.data.state_name.toLowerCase()];
-            const stateAbbrevation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
-            location = {
-                identifier: `${countryAbbreviation}_${stateAbbrevation}`,
-                display: {
-                    title: item.data.state_name,
-                    entity: "State",
-                    standalone: item.data.state_name
-                },
-                filter: {
-                    country: countryAbbreviation,
-                    state: stateAbbrevation
-                }
-            };
-        }
-        else if (item.category === "country") {
-            location = {
-                identifier: countryAbbreviation,
-                display: {
-                    title: item.data.country_name,
-                    entity: "Country",
-                    standalone: item.data.country_name
-                },
-                filter: {
-                    country: countryAbbreviation
-                }
-            };
-        }
-        else if (item.category === "current_cd") {
-
-        }
-        else if (item.category === "original_cd") {
-
-        }
-
-        if (props.activeTab === 'recipient') {
-            props.addRecipientLocationObject(location);
-        }
-        else {
-            props.addPOPLocationObject(location);
-        }
-
-        clearAutocompleteSuggestions();
-    };
-
     const removeLocation = (locationId) => {
         const type = props.activeTab === 'recipient' ? 'selectedRecipientLocations' : 'selectedLocations';
         const newValue = props[type].delete(locationId);
@@ -343,4 +399,4 @@ export default connect(
         selectedLocations: state.filters.selectedLocations
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(NewLocationSectionContainer);
+)(LocationAutocompleteContainer);
