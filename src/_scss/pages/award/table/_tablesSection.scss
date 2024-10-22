@@ -88,4 +88,18 @@
             z-index: $z-header - 1;
         }
     }
+
+    .tables-content {
+        @import "../../search/results/table/resultsTable";
+        @import "../../search/results/typography";
+
+        .search-results-table-section .results-table-content {
+            overflow-x: auto;
+            margin: $global-spacing-unit 0;
+
+            table.usda-table.award-history-table {
+                margin: 0;
+            }
+        }
+    }
 }

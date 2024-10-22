@@ -325,14 +325,20 @@ const AwardHistoryTableContainer = ({
                     }]} />
                 </div>
             }
-            <Table
-                columns={columns}
-                rows={rows}
-                currentSort={sort}
-                updateSort={updateSort}
-                classNames="award-history-table"
-                loading={inFlight}
-                error={error} />
+            <div className="search-results-table-section">
+                <div className="results-table-content">
+                    <Table
+                        columns={columns}
+                        rows={rows}
+                        currentSort={sort}
+                        updateSort={updateSort}
+                        classNames="award-history-table"
+                        loading={inFlight}
+                        error={error}
+                        rowHeight={58}
+                        headerRowHeight={45} />
+                </div>
+            </div>
             <Pagination
                 resultsText
                 currentPage={page}
