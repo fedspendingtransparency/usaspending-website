@@ -141,9 +141,30 @@ const AwardHistoryTableContainer = ({
 
                 value.push(
                     obj.submissionDate || '--',
-                    obj.fedAccount || '--',
-                    obj.agency || '--',
-                    obj.awardingAgencyName || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/federal_account/${obj.federalAccountCode}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Prime Recipient Name']);
+                        }}>{obj.fedAccount}
+                    </a> || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/agency/${obj.fundingAgencySlug}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Prime Recipient Name']);
+                        }}>{obj.agency}
+                    </a> || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/agency/${obj.awardingAgencySlug}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Prime Recipient Name']);
+                        }}>{obj.awardingAgencyName}
+                    </a> || '--',
                     obj.disasterEmergencyFundCode || '--',
                     obj.programActivity || '--',
                     obj.objectClass || '--',
