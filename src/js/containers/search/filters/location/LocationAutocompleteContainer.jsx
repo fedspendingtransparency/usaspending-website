@@ -107,7 +107,8 @@ const LocationAutocompleteContainer = (props) => {
 
     useEffect(() => {
         loadCountries();
-    }, [loadCountries]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const addZip = (zipCode) => {
         // make a ZIP location object
