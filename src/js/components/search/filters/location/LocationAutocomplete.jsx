@@ -14,7 +14,7 @@ const propTypes = {
     readyToStage: PropTypes.bool,
     addLocation: PropTypes.func,
     selectedLocations: PropTypes.object,
-    selectedRecipientLocations:  PropTypes.object,
+    selectedRecipientLocations: PropTypes.object,
     removeLocation: PropTypes.func
 };
 
