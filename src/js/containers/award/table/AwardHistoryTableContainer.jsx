@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { isCancel } from "axios";
 import { Table, Pagination, InformationBoxes } from "data-transparency-ui";
 
+import ReadMore from "components/sharedComponents/ReadMore";
 import * as awardActions from 'redux/actions/award/awardActions';
 import { fetchAwardTransaction, performSubawardSearch } from 'helpers/searchHelper';
 import { transactionsTableMapping, federalAccountsTableMapping, subawardTableMapping } from "dataMapping/award/transactionHistoryTable/tableMapping";
@@ -70,8 +71,12 @@ const AwardHistoryTableContainer = ({
                     obj.modificationNumber || '--',
                     obj.actionDate || '--',
                     obj.federalActionObligation || '--',
-                    obj.actionTypeDescription || '--',
-                    obj.description || '--'
+                    <ReadMore
+                        text={obj.actionTypeDescription || '--'}
+                        limit={60} />,
+                    <ReadMore
+                        text={obj.description || '--'}
+                        limit={60} />
                 );
             }
             else if (category === 'loan') {
@@ -81,8 +86,12 @@ const AwardHistoryTableContainer = ({
                     obj.actionDate || '--',
                     obj.faceValue || '--',
                     obj.subsidy || '--',
-                    obj.actionTypeDescription || '--',
-                    obj.description || '--'
+                    <ReadMore
+                        text={obj.actionTypeDescription || '--'}
+                        limit={60} />,
+                    <ReadMore
+                        text={obj.description || '--'}
+                        limit={60} />
                 );
             }
             else {
@@ -91,8 +100,12 @@ const AwardHistoryTableContainer = ({
                     obj.cfdaNumber || '--',
                     obj.actionDate || '--',
                     obj.federalActionObligation || '--',
-                    obj.actionTypeDescription || '--',
-                    obj.description || '--'
+                    <ReadMore
+                        text={obj.actionTypeDescription || '--'}
+                        limit={60} />,
+                    <ReadMore
+                        text={obj.description || '--'}
+                        limit={60} />
                 );
             }
 
@@ -146,8 +159,12 @@ const AwardHistoryTableContainer = ({
                             this.clickHandler(obj['Prime Recipient Name']);
                         }}>{obj.fedAccount}
                     </a> || '--' || '--',
-                    obj.programActivity || '--',
-                    obj.objectClass || '--',
+                    <ReadMore
+                        text={obj.programActivity || '--'}
+                        limit={60} /> || '--',
+                    <ReadMore
+                        text={obj.objectClass || '--'}
+                        limit={60} /> || '--',
                     obj.fundingObligated || '--',
                     obj.grossOutlayAmount || '--'
                 );
@@ -188,8 +205,12 @@ const AwardHistoryTableContainer = ({
                         }}>{obj.awardingAgencyName}
                     </a> || '--',
                     obj.disasterEmergencyFundCode || '--',
-                    obj.programActivity || '--',
-                    obj.objectClass || '--',
+                    <ReadMore
+                        text={obj.programActivity || '--'}
+                        limit={60} /> || '--',
+                    <ReadMore
+                        text={obj.objectClass || '--'}
+                        limit={60} /> || '--',
                     obj.fundingObligated || '--',
                     obj.grossOutlayAmount || '--'
                 );
@@ -217,10 +238,14 @@ const AwardHistoryTableContainer = ({
 
             value.push(
                 obj.number || '--',
-                obj.recipient || '--',
+                <ReadMore
+                    text={obj.recipient || '--'}
+                    limit={60} />,
                 obj.date || '--',
                 obj._amount || '--',
-                obj.description || '--'
+                <ReadMore
+                    text={obj.description || '--'}
+                    limit={60} />
             );
 
             return value;
