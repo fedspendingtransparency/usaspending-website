@@ -7,9 +7,21 @@
     margin-bottom: rem(20);
     transition: opacity 0.25s ease;
     z-index: 15;
+
+    .usa-dt-tab {
+        border-bottom: rem(1) solid $gray-cool-10;
+        margin-bottom: rem(-1);
+
+        &.active {
+            border-bottom: rem(1) solid transparent;
+        }
+    }
+
     .usa-dt-tab:focus {
         outline: none;
+        background-color: red;
     }
+
     @media (min-width: $tablet-screen) {
         .usa-dt-tab-list {
           overflow-x: visible;
