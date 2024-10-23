@@ -1,3 +1,8 @@
+/**
+ * LocationAutocomplete.jsx
+ * Created by Andrea Blackwell 10/2024
+ */
+
 import React, { useState, useEffect } from "react";
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
