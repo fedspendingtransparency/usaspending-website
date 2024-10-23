@@ -73,10 +73,10 @@ const AwardHistoryTableContainer = ({
                     obj.federalActionObligation || '--',
                     <ReadMore
                         text={obj.actionTypeDescription || '--'}
-                        limit={60} />,
+                        limit={50} />,
                     <ReadMore
                         text={obj.description || '--'}
-                        limit={60} />
+                        limit={50} />
                 );
             }
             else if (category === 'loan') {
@@ -88,10 +88,10 @@ const AwardHistoryTableContainer = ({
                     obj.subsidy || '--',
                     <ReadMore
                         text={obj.actionTypeDescription || '--'}
-                        limit={60} />,
+                        limit={50} />,
                     <ReadMore
                         text={obj.description || '--'}
-                        limit={60} />
+                        limit={50} />
                 );
             }
             else {
@@ -102,10 +102,10 @@ const AwardHistoryTableContainer = ({
                     obj.federalActionObligation || '--',
                     <ReadMore
                         text={obj.actionTypeDescription || '--'}
-                        limit={60} />,
+                        limit={50} />,
                     <ReadMore
                         text={obj.description || '--'}
-                        limit={60} />
+                        limit={50} />
                 );
             }
 
@@ -161,10 +161,10 @@ const AwardHistoryTableContainer = ({
                     </a> || '--' || '--',
                     <ReadMore
                         text={obj.programActivity || '--'}
-                        limit={60} /> || '--',
+                        limit={50} /> || '--',
                     <ReadMore
                         text={obj.objectClass || '--'}
-                        limit={60} /> || '--',
+                        limit={50} /> || '--',
                     obj.fundingObligated || '--',
                     obj.grossOutlayAmount || '--'
                 );
@@ -207,10 +207,10 @@ const AwardHistoryTableContainer = ({
                     obj.disasterEmergencyFundCode || '--',
                     <ReadMore
                         text={obj.programActivity || '--'}
-                        limit={60} /> || '--',
+                        limit={50} /> || '--',
                     <ReadMore
                         text={obj.objectClass || '--'}
-                        limit={60} /> || '--',
+                        limit={50} /> || '--',
                     obj.fundingObligated || '--',
                     obj.grossOutlayAmount || '--'
                 );
@@ -240,12 +240,12 @@ const AwardHistoryTableContainer = ({
                 obj.number || '--',
                 <ReadMore
                     text={obj.recipient || '--'}
-                    limit={60} />,
+                    limit={50} />,
                 obj.date || '--',
                 obj._amount || '--',
                 <ReadMore
                     text={obj.description || '--'}
-                    limit={60} />
+                    limit={50} />
             );
 
             return value;
