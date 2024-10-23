@@ -7,12 +7,22 @@ import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { isCancel } from "axios";
+import PropTypes from "prop-types";
 import { fetchLocations } from 'helpers/searchHelper';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
 import LocationAutocomplete from "../../../../components/search/filters/location/LocationAutocomplete";
 import { fipsIdByStateName, stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 import { fetchLocationList } from "../../../../helpers/mapHelper";
+
+const propTypes = {
+    activeTab: PropTypes.string,
+    addRecipientLocationObject: PropTypes.func,
+    addPOPLocationObject: PropTypes.func,
+    updateGenericFilter: PropTypes.func,
+    selectedLocations: PropTypes.object,
+    selectedRecipientLocations: PropTypes.object
+};
 
 const LocationAutocompleteContainer = (props) => {
     const [locations, setLocations] = useState([]);
@@ -397,7 +407,6 @@ const LocationAutocompleteContainer = (props) => {
     };
 
     const selectItem = (item, valid, obj) => {
-        // props.addPOPLocationObject(item);
         setSelectedItem(obj);
         setReadyToStage(true);
     };
@@ -427,6 +436,7 @@ const LocationAutocompleteContainer = (props) => {
     );
 };
 
+LocationAutocompleteContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         selectedLocations: state.filters.selectedLocations
