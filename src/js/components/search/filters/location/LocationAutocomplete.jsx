@@ -8,13 +8,13 @@ const propTypes = {
     activeTab: PropTypes.string,
     locations: PropTypes.arrayOf(PropTypes.object),
     handleTextInput: PropTypes.func,
-    selectItem: PropTypes.object,
+    selectItem: PropTypes.func,
     clearAutocompleteSuggestions: PropTypes.func,
     noResults: PropTypes.bool,
     readyToStage: PropTypes.bool,
     addLocation: PropTypes.func,
     selectedLocations: PropTypes.object,
-    selectedRecipientLocations:  PropTypes.objectßß,
+    selectedRecipientLocations:  PropTypes.object,
     removeLocation: PropTypes.func
 };
 
