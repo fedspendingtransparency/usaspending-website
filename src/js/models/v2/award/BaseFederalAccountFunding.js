@@ -4,6 +4,7 @@
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
+import dayjs from "dayjs";
 
 const monthToPeriod = {
     1: 'P01/P02',
@@ -18,6 +19,55 @@ const monthToPeriod = {
     10: 'P10',
     11: 'P11',
     12: 'P12'
+};
+
+export const AwardHistoryTransactionsTableRow = {
+    populateIdv(data) {
+        this.modificationNumber = data.modification_number || null;
+        this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
+        this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
+        this.actionTypeDescription = data.action_type ? `${data.action_type}: ${data.action_type_description}` : null;
+        this.description = data.description || null;
+    },
+
+    populateLoan(data) {
+        this.modificationNumber = data.modification_number || null;
+        this.cfdaNumber = data.cfda_number || null;
+        this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
+        this.faceValue = formatMoney(data.face_value_loan_guarantee) || null;
+        this.subsidy = formatMoney(data.original_loan_subsidy_cost) || null;
+        this.actionTypeDescription = data.action_type ? `${data.action_type}: ${data.action_type_description}` : null;
+        this.description = data.description || null;
+    },
+
+    populateContract(data) {
+        this.modificationNumber = data.modification_number || null;
+        this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
+        this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
+        this.actionTypeDescription = data.action_type ? `${data.action_type}: ${data.action_type_description}` : null;
+        this.description = data.description || null;
+    },
+
+    populateAssistance(data) {
+        this.modificationNumber = data.modification_number || null;
+        this.cfdaNumber = data.cfda_number || null;
+        this.actionDate = dayjs(data.action_date).format('MM/DD/YYYY') || null;
+        this.federalActionObligation = formatMoney(data.federal_action_obligation) || null;
+        this.actionTypeDescription = data.action_type ? `${data.action_type}: ${data.action_type_description}` : null;
+        this.description = data.description || null;
+    },
+
+    populate(data, category) {
+        switch (category) {
+            case 'idv': this.populateIdv(data);
+                break;
+            case 'loan': this.populateLoan(data);
+                break;
+            case 'contract': this.populateContract(data);
+                break;
+            default: this.populateAssistance(data);
+        }
+    }
 };
 
 const BaseFederalAccount = {
@@ -54,6 +104,8 @@ const BaseFederalAccount = {
     populate(data, category) {
         if (category === 'idv') {
             this.populateBase(data);
+
+            this.federalAccountCode = `${data.agency_id}-${data.main_account_code}`;
         }
         else {
             this.populateBase(data);

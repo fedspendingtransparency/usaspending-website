@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import { keywordTableColumnTypes } from 'dataMapping/keyword/keywordTableColumnTypes';
 
-import IBTable from 'components/sharedComponents/IBTable/IBTable';
+import IBTable from 'components/keyword/IBTable/IBTable';
 
 import ResultsTableFormattedCell from 'components/search/table/cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from 'components/search/table/cells/ResultsTableLinkCell';
