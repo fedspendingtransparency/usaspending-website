@@ -13,10 +13,9 @@ const propTypes = {
     noResults: PropTypes.bool,
     readyToStage: PropTypes.bool,
     addLocation: PropTypes.func,
-    selectedLocations: PropTypes.array,
-    selectedRecipientLocations:  PropTypes.array,
-    removeLocation: PropTypes.func,
-    key: PropTypes.string
+    selectedLocations: PropTypes.object,
+    selectedRecipientLocations:  PropTypes.objectßß,
+    removeLocation: PropTypes.func
 };
 
 const LocationAutocomplete = (props) => {
@@ -29,7 +28,6 @@ const LocationAutocomplete = (props) => {
     const addLocation = (e) => {
         e.preventDefault();
         props.addLocation();
-        setLocationValue("");
     };
 
     return (

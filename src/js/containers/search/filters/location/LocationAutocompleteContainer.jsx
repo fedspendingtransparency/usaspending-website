@@ -423,8 +423,7 @@ const LocationAutocompleteContainer = (props) => {
             addLocation={addLocation}
             selectedLocations={props.selectedLocations}
             selectedRecipientLocations={props.selectedRecipientLocations}
-            removeLocation={removeLocation}
-            key={`location-${props.activeTab}`} />
+            removeLocation={removeLocation} />
     );
 };
 

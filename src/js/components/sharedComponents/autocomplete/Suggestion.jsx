@@ -83,7 +83,8 @@ const Suggestion = (props) => {
                 tabIndex={-1}
                 aria-selected={props.selected}
                 role="option"
-                ref={suggestion}>
+                ref={suggestion}
+                key={props.id}>
                 <span>{boldedText(props.title, props.matchingString)}</span><br />
                 {boldedText(props.subtitle, props.matchingString)}
             </li>
