@@ -205,18 +205,23 @@
             // this block copied from statusOfFunds/visualizationSection, for the styles in the accordion
             // but margins needed to change for this instance
             .state-overview__what-content {
-                border-left: 4px solid $color-primary-alt-light;
+                border-left: 8px solid $color-primary-alt-light;
                 border-top: 1px solid $color-primary-alt-light;
                 border-right: 1px solid $color-primary-alt-light;
                 border-bottom: 1px solid $color-primary-alt-light;
                 background-color: #e0f3f8;
                 padding: 24px 16px;
                 margin-bottom: rem(16);
+                @import "../../../components/glossaryLink";
 
                 .state-overview__info-icon {
                     height: 20px;
                     width: 20px;
                     color: #00bfe7;
+                }
+
+                .state-overview__emphasis {
+                    font-weight: $font-semibold;
                 }
 
                 .state-overview__what-heading {
@@ -241,7 +246,6 @@
                     font-size: rem(14);
                     color: $color-base;
                     margin-bottom: 0;
-                    margin-right: 16px;
                     margin-top: 8px;
                 }
             }
