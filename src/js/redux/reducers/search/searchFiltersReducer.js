@@ -50,7 +50,7 @@ export const requiredTypes = {
 
 export const initialState = {
     keyword: OrderedMap(),
-    timePeriodType: 'fy',
+    timePeriodType: 'dr',
     timePeriodFY: Set(),
     timePeriodStart: null,
     timePeriodEnd: null,

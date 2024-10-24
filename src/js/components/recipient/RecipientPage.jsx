@@ -142,9 +142,7 @@ export const RecipientPage = ({
             message="The recipient ID provided is invalid. Please check the ID and try again." />);
     }
 
-    const backgroundColor = {
-        backgroundColor: "#1a4480"
-    };
+    const backgroundColor = "#1a4480";
 
     return (
         <PageWrapper

@@ -35,7 +35,7 @@ export class TimePeriodContainer extends React.Component {
 
         this.state = {
             timePeriods: [],
-            activeTab: 'fy',
+            activeTab: 'dr',
             cachedTimePeriods: Set(),
             cachedStart: null,
             cachedEnd: null
@@ -47,6 +47,11 @@ export class TimePeriodContainer extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.appliedFilters.timePeriodType === 'fy') {
+            this.changeTab('fy');
+        } else {
+            this.changeTab('dr');
+        }
         this.generateTimePeriods();
     }
 

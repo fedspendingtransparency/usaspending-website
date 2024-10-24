@@ -17,7 +17,7 @@ class SearchAwardsOperation {
     constructor() {
         this.keyword = [];
 
-        this.timePeriodType = 'fy';
+        this.timePeriodType = 'dr';
         this.timePeriodFY = [];
         this.timePeriodRange = [];
 

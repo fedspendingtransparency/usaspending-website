@@ -11,7 +11,7 @@ import { showModal } from 'redux/actions/modal/modalActions';
 
 const propTypes = {
     url: PropTypes.string.isRequired,
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.node]),
     isCard: PropTypes.bool
 };
 
