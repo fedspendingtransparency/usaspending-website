@@ -31,7 +31,7 @@
         font-size: $small-font-size;
         padding: rem(6) rem(12);
         color: $theme-color-headline;
-        
+
         &:focus-visible {
             outline: 1px solid $color-focus;
         }
@@ -69,6 +69,7 @@
         padding: 0;
         max-height: rem(300);
         overflow-y: auto;
+        overflow-x: hidden;
         border-radius: 3px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 

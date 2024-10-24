@@ -9,12 +9,10 @@ import PropTypes from 'prop-types';
 import { tabs, awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
 import { Tabs } from "data-transparency-ui";
-import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
-import FederalAccountTableContainer from 'containers/award/table/FederalAccountTableContainer';
-import SubawardsContainer from 'containers/award/table/SubawardsContainer';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
+import AwardHistoryTableContainer from "../table/AwardHistoryTableContainer";
 
 const propTypes = {
     overview: PropTypes.object,
@@ -98,36 +96,6 @@ export class AwardHistory extends React.Component {
             });
     }
 
-    currentSection = (
-        activeTab = this.props.activeTab,
-        overview = this.props.overview,
-        tableWidth = this.state.tableWidth,
-        awardId = this.props.awardId
-    ) => {
-        switch (activeTab) {
-            case 'transaction':
-                return (
-                    <TransactionsTableContainer
-                        category={overview.category}
-                        tableWidth={tableWidth} />
-                );
-            case 'federal_account':
-                return (
-                    <FederalAccountTableContainer
-                        category={overview.category}
-                        tableWidth={tableWidth} />
-                );
-            case 'subaward':
-                return (
-                    <SubawardsContainer
-                        tableWidth={tableWidth}
-                        awardId={awardId} />
-                );
-            default:
-                return null;
-        }
-    };
-
     render() {
         const {
             overview,
@@ -159,7 +127,10 @@ export class AwardHistory extends React.Component {
                             this.tableWidthController = div;
                         }} />
                     <div className="tables-content">
-                        {this.currentSection()}
+                        <AwardHistoryTableContainer
+                            category={overview.category}
+                            activeTab={this.props.activeTab}
+                            tabOptions={tabOptions} />
                     </div>
                 </div>
             </div>
