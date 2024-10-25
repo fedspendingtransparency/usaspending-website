@@ -14,7 +14,6 @@ import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
-import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
