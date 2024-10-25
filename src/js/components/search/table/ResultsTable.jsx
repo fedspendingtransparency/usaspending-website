@@ -490,7 +490,7 @@ export default class ResultsTable extends React.Component {
                 <div
                     className={`advanced-search__table-wrapper ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}
                     id="advanced-search__table-wrapper"
-                    style={this.props.resultsCount >= this.props.resultsLimit ? { height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 } : {}}>
+                    style={this.props.resultsCount >= this.props.resultsLimit ? { height: '638px' } : {}}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn={!this.props.isMobile}
