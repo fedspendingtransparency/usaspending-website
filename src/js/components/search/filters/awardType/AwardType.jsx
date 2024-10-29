@@ -61,20 +61,16 @@ const AwardType = (props) => {
 
     return (
         <div className="award-type-filter search-filter checkbox-type-filter">
-            <div className="filter-item-wrap">
-                <ul className="checkbox-types">
-                    <AccordionCheckbox
-                        filterCategoryMapping={awardTypesData}
-                        filters={awardTypeCodes}
-                        selectedFilters={props.awardType}
-                        singleFilterChange={props.toggleCheckboxType}
-                        bulkFilterChange={props.bulkTypeChange} />
-                </ul>
-                <SubmitHint
-                    ref={(component) => {
-                        hint.current = component;
-                    }} />
-            </div>
+            <AccordionCheckbox
+                filterCategoryMapping={awardTypesData}
+                filters={awardTypeCodes}
+                selectedFilters={props.awardType}
+                singleFilterChange={props.toggleCheckboxType}
+                bulkFilterChange={props.bulkTypeChange} />
+            <SubmitHint
+                ref={(component) => {
+                    hint.current = component;
+                }} />
         </div>
     );
 };

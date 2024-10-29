@@ -392,7 +392,9 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
             setOnToggle(!toggle);
         }
     };
-
+    const handleChangeLimit = (newLimit) => {
+        changePageSize(newLimit);
+    };
     return (
         <div className="body__content status-of-funds">
             <IntroSection name={overview.name} fy={fy} totalItems={totalItems} />
@@ -432,7 +434,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                             <Pagination
                                 currentPage={currentPage}
                                 changePage={changeCurrentPage}
-                                changeLimit={changePageSize}
+                                changeLimit={handleChangeLimit}
                                 resultsText
                                 pageSize={10}
                                 totalItems={totalItems} />

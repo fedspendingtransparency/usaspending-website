@@ -39,7 +39,6 @@ const tabTypes = [
 
 const TopFiveSection = () => {
     const [active, setActive] = useState('all');
-
     const switchTab = (tab) => {
         setActive(tab);
     };

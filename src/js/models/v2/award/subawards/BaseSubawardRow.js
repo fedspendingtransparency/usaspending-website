@@ -18,6 +18,7 @@ const BaseSubawardRow = {
         this._actionDate = (
             (data.action_date && parseDate(data.action_date)) || null
         );
+        this.date = dayjs(data.action_date).format('MM/DD/YYYY') || null;
         this._amount = parseFloat(data.amount) || 0;
         this.recipient = (data.recipient_name) || '';
     },
