@@ -23,11 +23,12 @@
   }
 
   .main-content {
-    @include display(flex);
-    @include flex-grow(1);
-    @include flex-wrap(wrap);
-    max-width: rem(1600);
-    margin: auto;
+    max-width: rem(1400);
+    padding: rem(40) rem(32) rem(32) rem(32);
+
+    @media (max-width: $tablet-screen) {
+      padding: rem(40) rem(16) rem(16) rem(16);
+    }
 
     ul {
       padding: 0;
@@ -38,20 +39,13 @@
     }
 
     .body {
-      @include display(flex);
-      @include flex(1 1 auto);
       width: 100%;
-      @include flex-direction(column);
-      margin: 0 0 rem(20) 0;
+      margin: auto;
       background: $color-white;
 
       @media (min-width: $medium-screen) {
         margin: 0;
         border-radius: 0.5rem 0.5rem 0 0;
-      }
-
-      @media (min-width: $tablet-screen) {
-        width: 70%;
       }
 
       .body__section {
