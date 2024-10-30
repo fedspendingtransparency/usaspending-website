@@ -44,7 +44,7 @@ export default class BaseTopFilterGroup extends React.Component {
                         </div>
                     </div>
                     <div className="filter-group-bottom">
-                        <div className="filter-values">
+                        <div className="filter-values" role="list">
                             {tags}
                         </div>
                     </div>
