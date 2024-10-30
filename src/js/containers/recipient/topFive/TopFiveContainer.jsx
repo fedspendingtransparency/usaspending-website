@@ -133,11 +133,6 @@ const TopFiveContainer = ({
     useEffect(() => {
         loadCategory();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        loadCategory();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [recipientHash, fy]);
 
     return (
