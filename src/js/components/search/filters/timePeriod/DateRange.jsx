@@ -35,7 +35,9 @@ const propTypes = {
 };
 
 const DateRange = (props) => {
+    // eslint-disable-next-line no-unused-vars
     const [startPicker, setStartPicker] = useState(null);
+    // eslint-disable-next-line no-unused-vars
     const [endPicker, setEndPicker] = useState(null);
     const [disabled, setDisabled] = useState(true);
     const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
