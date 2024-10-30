@@ -46,6 +46,7 @@ export default class LegacyTopFilterItem extends React.Component {
                 <button
                     className="filter-item"
                     aria-label={accessibleLabel}
+                    role="listitem"
                     title={accessibleLabel}
                     onClick={this.clickedButton}
                     disabled={this.props.compressed}>
