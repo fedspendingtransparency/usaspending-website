@@ -73,7 +73,7 @@ export default class LegacyBaseTopFilterGroup extends React.Component {
                         </div>
                     </div>
                     <div className="filter-group-bottom">
-                        <div className="filter-values" role="list">
+                        <div className="filter-values">
                             {tags}
                         </div>
                     </div>
