@@ -25,7 +25,7 @@ const globalConstants = {
     DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01',
     BANNER: {
-        isActive: true,
+        isActive: false,
         title: 'There is currently a bug affecting the download feature of our service.',
         content: 'We appreciate your understanding and patience as we work to fix this issue. Please contact our service desk for additional information.',
         page: 'search'

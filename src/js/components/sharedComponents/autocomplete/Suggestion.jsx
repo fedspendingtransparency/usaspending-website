@@ -2,8 +2,9 @@
  * Created by michaelbray on 1/27/17.
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { locationDropdown } from "../../../dataMapping/search/location";
 
 const propTypes = {
     id: PropTypes.string,
@@ -23,18 +24,40 @@ const defaultProps = {
     matchingString: null
 };
 
-export default class Suggestion extends React.Component {
-    componentDidMount() {
-        this.setUpSuggestion();
-    }
+const Suggestion = (props) => {
+    const suggestion = useRef();
 
-    setUpSuggestion() {
-        this.suggestion.addEventListener('mousedown', () => {
-            this.props.select(this.props.data);
-        });
-    }
+    useEffect(() => {
+        if (suggestion.current) {
+            suggestion.current.addEventListener('mousedown', () => {
+                props.select(props.data);
+            });
+        }
+        return () => {
+            if (suggestion.current) {
+                suggestion.current.removeEventListener('mousedown', () => {
+                    props.select(props.data);
+                });
+            }
+        };
+    }, [props, suggestion]);
 
-    boldedText(text, shouldBeBold) {
+    const isNewHeading = () => {
+        let notFound = true;
+        if (props.category) {
+            const key = parseInt(props.id[props.id.length - 1], 10);
+            const prevValues = props.values.slice(0, key);
+
+            prevValues.forEach((value) => {
+                if (value.category === props.category) {
+                    notFound = false;
+                }
+            });
+        }
+        return notFound;
+    };
+
+    const boldedText = (text, shouldBeBold) => {
         const textArray = text.split(RegExp(shouldBeBold, "ig"));
         const match = text.match(RegExp(shouldBeBold, "ig"));
 
@@ -48,27 +71,27 @@ export default class Suggestion extends React.Component {
                 </>
             ))
         );
-    }
+    };
 
-    render() {
-        return (
-        // We need to set aria-selected to use the arrow keys to select elements
-        /* eslint-disable jsx-a11y/role-supports-aria-props */
+    return (
+    // We need to set aria-selected to use the arrow keys to select elements
+    /* eslint-disable jsx-a11y/role-supports-aria-props */
+        <>
+            {isNewHeading() && props.category && <li className="autocomplete-heading">{locationDropdown[props.category]}</li>}
             <li
-                id={this.props.id}
+                id={props.id}
                 tabIndex={-1}
-                aria-selected={this.props.selected}
+                aria-selected={props.selected}
                 role="option"
-                ref={(s) => {
-                    this.suggestion = s;
-                }}>
-                <span>{this.boldedText(this.props.title, this.props.matchingString)}</span><br />
-                {this.boldedText(this.props.subtitle, this.props.matchingString)}
+                ref={suggestion}>
+                <span>{boldedText(props.title, props.matchingString)}</span><br />
+                {boldedText(props.subtitle, props.matchingString)}
             </li>
-        /* eslint-enable jsx-a11y/role-supports-aria-props */
-        );
-    }
-}
+        </>
+    /* eslint-enable jsx-a11y/role-supports-aria-props */
+    );
+};
 
 Suggestion.defaultProps = defaultProps;
 Suggestion.propTypes = propTypes;
+export default Suggestion;
