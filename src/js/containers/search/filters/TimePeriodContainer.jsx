@@ -91,7 +91,6 @@ export class TimePeriodContainer extends React.Component {
     }
 
     updateFilter(params) {
-        console.debug(this.props.filterTimePeriodType, this.props.filterTimePeriodStart, this.props.filterTimePeriodEnd);
         const newFilters = Object.assign({}, params);
 
         if (this.state.activeTab === 'fy') {
@@ -108,7 +107,7 @@ export class TimePeriodContainer extends React.Component {
 
         this.props.updateTimePeriod(newFilters);
 
-        // testing
+        // here is where the time_period array gets updated
         this.props.updateTimePeriodArray(newFilters);
     }
 
