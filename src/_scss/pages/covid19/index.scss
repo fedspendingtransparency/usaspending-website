@@ -24,10 +24,10 @@
 
   .main-content {
     max-width: rem(1400);
-    padding: rem(40) rem(32) rem(32) rem(32);
+    padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
 
     @media (max-width: $tablet-screen) {
-      padding: rem(40) rem(16) rem(16) rem(16);
+      padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
     }
 
     ul {
