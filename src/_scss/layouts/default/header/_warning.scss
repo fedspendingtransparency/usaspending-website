@@ -3,7 +3,6 @@
     @import "mixins/fullSectionWrap";
     background: $color-primary-alt-lightest;
     width: 100%;
-    border-top: 5px solid $color-primary-alt-light;
     .info-banner__content {
         @include display(flex);
         @include align-items(flex-start);

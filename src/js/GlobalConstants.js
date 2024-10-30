@@ -25,11 +25,12 @@ const globalConstants = {
     DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01',
     BANNER: {
-        isActive: false,
-        title: 'There is currently a bug affecting the download feature of our service.',
-        content: 'We appreciate your understanding and patience as we work to fix this issue. Please contact our service desk for additional information.',
-        page: 'search'
+        isActive: true,
+        title: 'Video Library References',
+        content: 'Please Note: Screenshots and text references in the video library may not reflect the current version of the site; copy, design, and usability improvements are consistently being deployed.',
+        page: 'training-videos'
     }
 };
 
 module.exports = globalConstants;
+
