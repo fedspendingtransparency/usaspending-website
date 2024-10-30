@@ -173,7 +173,7 @@ const Covid19Page = ({ loading }) => {
 
                 <main id="main-content" className="main-content">
                     <FlexGridRow className="body covid-content__row">
-                        <FlexGridCol className="covid-content__row" width="fill">
+                        <FlexGridCol className="covid-content__col" width="fill">
                             <section className="body__section">
                                 <Heading publicLaw={query.publicLaw} />
                             </section>
