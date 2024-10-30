@@ -35,11 +35,11 @@ const AwardHistoryTableContainer = ({
     const [rows, setRows] = useState();
     const [totalItems, setTotalItems] = useState(0);
     const [activateRightFade, setActivateRightFade] = useState(false);
+    const [pageLimit, setPageLimit] = useState(10);
 
     const tabCounts = useRef({});
 
     let request = null;
-    const pageLimit = 15;
     const totalSubAwardLabel = 'Number of Sub-Award Transactions';
     const totalSubAwardAmountLabel = 'Sub-Award Obligations';
 
@@ -332,7 +332,7 @@ const AwardHistoryTableContainer = ({
     useEffect(() => {
         fetchData(1);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [award.id, sort]);
+    }, [award.id, sort, pageLimit]);
 
     useEffect(() => {
         fetchData(page);
@@ -421,9 +421,11 @@ const AwardHistoryTableContainer = ({
             </div>
             <Pagination
                 resultsText
+                limitSelector
                 currentPage={page}
                 changePage={setPage}
                 pageSize={pageLimit}
+                changeLimit={setPageLimit}
                 totalItems={totalItems}
                 hideLast={totalItems >= 50000} />
         </>
