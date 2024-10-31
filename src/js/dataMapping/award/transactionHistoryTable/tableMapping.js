@@ -63,7 +63,7 @@ export const transactionsTableMapping = {
             title: 'original_loan_subsidy_cost'
         },
         {
-            columnWidth: 200,
+            columnWidth: 250,
             displayName: 'Action Type',
             right: false,
             title: 'action_type'
