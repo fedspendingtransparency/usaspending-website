@@ -1,5 +1,7 @@
 .tas-deprecation-notice__container {
   background-color: $blue-cool-5v;
+  border-radius: 3px;
+  border: solid 1px $card-outline-color;
   padding: $global-spacing-unit * 2;
   margin-bottom: $global-spacing-unit * 2;
 
