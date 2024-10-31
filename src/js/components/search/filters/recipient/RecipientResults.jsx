@@ -32,6 +32,19 @@ const RecipientResults = ({ toggleRecipient }) => {
 
         recipientRequest.promise
             .then((res) => {
+                // todo - only for testing; remove after design review
+                res.data.results.forEach((r) => {
+                    if (r.name === 'ARIZONA HEALTH CARE COST CONTAINMENT SYSTEM') {
+                        r.uei = '';
+                    }
+                    if (r.name === 'COLORADO DEPARMENT-HEALTH CARE') {
+                        r.uei = false;
+                    }
+                    if (r.name === 'DEPARTMENT OF HEALTH HUMAN SERVICES') {
+                        r.uei = null;
+                    }
+                });
+                console.log('res.data', res.data);
                 setRecipients(res.data.results);
             });
     };
@@ -47,7 +60,7 @@ const RecipientResults = ({ toggleRecipient }) => {
                 { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient, index) => (
                     <div className="recipient-label__container">
                         <PrimaryCheckboxType
-                            name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei}</div>)}
+                            name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
                             value={`primary-checkbox-${index}`}
                             key={recipient.uei}
                             toggleCheckboxType={toggleRecipient} />
