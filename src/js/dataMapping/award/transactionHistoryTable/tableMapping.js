@@ -287,7 +287,6 @@ export const subawardTableMapping = [
         right: false,
         title: 'action_date'
     },
-    // TODO: REFORMAT DOLLAR AMOUNT
     {
         columnWidth: 150,
         displayName: 'Amount',

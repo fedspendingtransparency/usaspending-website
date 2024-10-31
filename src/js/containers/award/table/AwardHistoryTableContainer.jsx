@@ -13,6 +13,7 @@ import BaseFederalAccountFunding, { AwardHistoryTransactionsTableRow } from "mod
 import BaseSubawardRow from "models/v2/award/subawards/BaseSubawardRow";
 import { fetchFederalAccountFunding } from "helpers/awardHistoryHelper";
 import { fetchAwardFedAccountFunding } from 'helpers/idvHelper';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
     award: PropTypes.object,
@@ -242,7 +243,7 @@ const AwardHistoryTableContainer = ({
                     text={obj.recipient || '--'}
                     limit={50} />,
                 obj.date || '--',
-                obj._amount || '--',
+                formatMoney(obj._amount) || '--',
                 <ReadMore
                     text={obj.description || '--'}
                     limit={50} />
