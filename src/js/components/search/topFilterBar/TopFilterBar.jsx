@@ -71,8 +71,7 @@ const TopFilterBar = (props) => {
                 </div>
                 <div className="search-top-filters">
                     <div
-                        className={`search-top-filters-content ${newAwardsOnlyPresent ? 'newAwardsOnlyPresent' : ''} ${props.subaward ? 'subAward' : ''}`}
-                        role="list">
+                        className={`search-top-filters-content ${newAwardsOnlyPresent ? 'newAwardsOnlyPresent' : ''} ${props.subaward ? 'subAward' : ''}`}>
                         {filters}
                     </div>
                 </div>

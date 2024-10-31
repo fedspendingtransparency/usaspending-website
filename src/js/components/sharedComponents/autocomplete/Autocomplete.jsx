@@ -237,7 +237,7 @@ const Autocomplete = (props) => {
         return null;
     };
 
-    let activeDescendant = false;
+    let activeDescendant = '';
     let status = '';
 
     if (shown && selectedIndex > -1) {
@@ -286,7 +286,7 @@ const Autocomplete = (props) => {
                 autocompleteInputRef.current.style.fontWeight = "600";
             }
         }
-    }, [props?.type]);
+    }, [props.selectedItemsDisplayNames, props.type]);
 
     return (
         <div
