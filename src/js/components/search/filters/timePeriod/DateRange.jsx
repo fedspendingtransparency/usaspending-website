@@ -35,7 +35,9 @@ const propTypes = {
 };
 
 const DateRange = (props) => {
+    // eslint-disable-next-line no-unused-vars
     const [startPicker, setStartPicker] = useState(null);
+    // eslint-disable-next-line no-unused-vars
     const [endPicker, setEndPicker] = useState(null);
     const [disabled, setDisabled] = useState(true);
     const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
@@ -300,9 +302,6 @@ const DateRange = (props) => {
                         showError={props.showError}
                         hideError={props.hideError}
                         disabledDays={startDateDisabledDays}
-                        ref={(component) => {
-                            setStartPicker(component);
-                        }}
                         id="date-range__startDate"
                         onFocus={onFocus}
                         allowClearing />
@@ -318,9 +317,6 @@ const DateRange = (props) => {
                         hideError={props.hideError}
                         disabledDays={endDateDisabledDays}
                         onFocus={onFocus}
-                        ref={(component) => {
-                            setEndPicker(component);
-                        }}
                         id="date-range__endDate"
                         allowClearing />
                 </div>
