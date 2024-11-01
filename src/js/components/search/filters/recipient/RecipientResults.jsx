@@ -64,11 +64,11 @@ const RecipientResults = ({ toggleRecipient }) => {
                             value={`primary-checkbox-${index}`}
                             key={recipient.uei}
                             toggleCheckboxType={toggleRecipient} />
-                        <div className="recipient-label__bottom-section">
+                        <div className="recipient-label__lower-container">
                             <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns}</div>
-                            <div>
+                            <div className="recipient-label__name-container">
                                 <span className="recipient-label__recipient-name">{recipient.name}</span>
-                                <span className="recipient-label__legacy-duns">{levelMapping[recipient.recipient_level]}</span>
+                                <span className="recipient-label__recipient-level">{levelMapping[recipient.recipient_level]}</span>
                             </div>
                         </div>
                     </div>
