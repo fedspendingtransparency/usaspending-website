@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
-/* import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
@@ -50,17 +50,17 @@ const Header = () => {
                 className="site-header__wrapper"
                 aria-label="Site header">
                 <GovBanner />
-                {isBannerActive() &&
-                    <InfoBanner
-                        /* icon={<FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />}*/
-                        /* borderTopColor="#f9c642" */
-                        /* backgroundColor="#fff1d2" */
-                        backgroundColor="#E7F2F5"
-                        borderBottomColor="#ADCFDC"
-                        title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
-                        content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
                 <NavbarWrapper />
             </header>
+            {isBannerActive() &&
+                    <InfoBanner
+                        icon={<FontAwesomeIcon size="lg" icon="info-circle" color="#59b9de" />}
+                        borderTopColor="#59b9de"
+                        /* backgroundColor="#fff1d2" */
+                        backgroundColor="#e1f3f8"
+                        borderBottomColor="#97d4ea"
+                        title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
+                        content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
             <AboutTheDataContainer />
             <GlossaryContainer />
             <GlobalModalContainer />
