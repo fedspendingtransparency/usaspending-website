@@ -20,7 +20,7 @@ class SearchAwardsOperation {
         this.timePeriodType = 'dr';
         this.timePeriodFY = [];
         this.timePeriodRange = [];
-
+        this.time_period = [];
         this.dateType = '';
 
         this.awardType = [];
@@ -55,7 +55,7 @@ class SearchAwardsOperation {
 
     fromState(state) {
         this.keyword = state.keyword.toArray();
-
+        this.time_period = state.time_period;
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
@@ -112,13 +112,18 @@ class SearchAwardsOperation {
     // Convert the search operation into JS objects
         const filters = {};
         // Add keyword
-        if (this.keyword.length > 0) {
+        if (this.keyword?.length > 0) {
             filters[rootKeys.keywords] = this.keyword;
         }
 
+        // add new time_period
+        if (this.time_period?.length > 0) {
+            filters[rootKeys.time_period] = this.time_period;
+        }
+
         // Add Time Period
-        if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
-            if (this.timePeriodType === 'fy' && this.timePeriodFY.length > 0) {
+        if (this.timePeriodFY?.length > 0 || this.timePeriodRange?.length === 2) {
+            if (this.timePeriodType === 'fy' && this.timePeriodFY?.length > 0) {
                 filters[rootKeys.timePeriod] = this.timePeriodFY.map((fy) => {
                     const dates = FiscalYearHelper.convertFYToDateRange(fy);
 
@@ -128,7 +133,7 @@ class SearchAwardsOperation {
                     };
                 });
             }
-            else if (this.timePeriodType === 'dr' && this.timePeriodRange.length > 0) {
+            else if (this.timePeriodType === 'dr' && this.timePeriodRange?.length > 0) {
                 let start = this.timePeriodRange[0];
                 let end = this.timePeriodRange[1];
 
@@ -153,8 +158,8 @@ class SearchAwardsOperation {
             }
         }
 
-        if ((this.timePeriodType === 'fy' && this.timePeriodFY.length === 0) ||
-        (this.timePeriodType === 'dr' && this.timePeriodRange.length === 0)) {
+        if ((this.timePeriodType === 'fy' && this.timePeriodFY?.length === 0) ||
+        (this.timePeriodType === 'dr' && this.timePeriodRange?.length === 0)) {
             // the user selected fiscal years but did not specify any years OR
             // the user has selected the date range type but has not entered any dates yet
             // this should default to a period of time from FY 2008 to present
@@ -182,7 +187,7 @@ class SearchAwardsOperation {
         }
 
         // Add Agencies
-        if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
+        if (this.fundingAgencies?.length > 0 || this.awardingAgencies?.length > 0) {
             const agencies = [];
 
             this.fundingAgencies.forEach((agencyArray) => {
@@ -215,34 +220,34 @@ class SearchAwardsOperation {
         }
 
         // Add Program Sources
-        if (this.tasSources.length > 0 || this.tasCheckbox.require.length > 0) {
+        if (this.tasSources?.length > 0 || this.tasCheckbox.require?.length > 0) {
             const tasCodes = [];
 
             this.tasSources.forEach((tasObject) => {
                 tasCodes.push(pickBy(tasObject));
             });
 
-            if (tasCodes.length > 0) {
+            if (tasCodes?.length > 0) {
                 filters[rootKeys.tasSources] = tasCodes;
             }
 
-            if (this.tasCheckbox.exclude.length > 0) {
+            if (this.tasCheckbox.exclude?.length > 0) {
                 filters[rootKeys.tasCheckbox] = {
                     require: trimCheckedToCommonAncestors(this.tasCheckbox.require),
                     exclude: this.tasCheckbox.exclude
                 };
             }
-            else if (this.tasCheckbox.require.length > 0) {
+            else if (this.tasCheckbox.require?.length > 0) {
                 filters[rootKeys.tasCheckbox] = { require: trimCheckedToCommonAncestors(this.tasCheckbox.require) };
             }
         }
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
-        if (this.selectedRecipients.length > 0) {
+        if (this.selectedRecipients?.length > 0) {
             filters[rootKeys.recipients] = this.selectedRecipients;
         }
 
-        if (this.selectedRecipientLocations.length > 0) {
+        if (this.selectedRecipientLocations?.length > 0) {
             const locationSet = this.selectedRecipientLocations.reduce((accLocationSet, currLocation) => {
                 if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
@@ -253,17 +258,17 @@ class SearchAwardsOperation {
                 return accLocationSet;
             }, []);
 
-            if (locationSet.length > 0) {
+            if (locationSet?.length > 0) {
                 filters[rootKeys.recipientLocation] = locationSet;
             }
         }
 
-        if (this.recipientType.length > 0) {
+        if (this.recipientType?.length > 0) {
             filters[rootKeys.recipientType] = this.recipientType;
         }
 
         // Add Locations
-        if (this.selectedLocations.length > 0) {
+        if (this.selectedLocations?.length > 0) {
             const locationSet = this.selectedLocations.reduce((accLocationSet, currLocation) => {
                 if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
@@ -274,13 +279,13 @@ class SearchAwardsOperation {
                 return accLocationSet;
             }, []);
 
-            if (locationSet.length > 0) {
+            if (locationSet?.length > 0) {
                 filters[rootKeys.placeOfPerformance] = locationSet;
             }
         }
 
         // Add Award Amounts
-        if (this.awardAmounts.length > 0) {
+        if (this.awardAmounts?.length > 0) {
             const amounts = [];
 
             // The backend expects an object with a lower bound, an upper bound, or both.
@@ -301,24 +306,24 @@ class SearchAwardsOperation {
 
             // Only push the array to the filters element if at least
             // one award amount object is defined
-            if (amounts.length > 0) {
+            if (amounts?.length > 0) {
                 filters[rootKeys.awardAmount] = amounts;
             }
         }
 
         // Add Award IDs
-        if (this.selectedAwardIDs.length > 0) {
+        if (this.selectedAwardIDs?.length > 0) {
             filters[rootKeys.awardID] = this.selectedAwardIDs;
         }
 
         // Add CFDA
-        if (this.selectedCFDA.length > 0) {
+        if (this.selectedCFDA?.length > 0) {
             filters[rootKeys.cfda] = this.selectedCFDA.map((cfda) => cfda.program_number);
         }
 
         // Add NAICS
-        if (this.naicsCodes.require.length > 0) {
-            if (this.naicsCodes.exclude.length > 0) {
+        if (this.naicsCodes.require?.length > 0) {
+            if (this.naicsCodes.exclude?.length > 0) {
                 filters[rootKeys.naics] = this.naicsCodes;
             }
             else {
@@ -327,8 +332,8 @@ class SearchAwardsOperation {
         }
 
         // Add PSC
-        if (this.pscCheckbox.require.length > 0) {
-            if (this.pscCheckbox.exclude.length > 0) {
+        if (this.pscCheckbox.require?.length > 0) {
+            if (this.pscCheckbox.exclude?.length > 0) {
                 filters[rootKeys.psc] = {
                     require: trimCheckedToCommonAncestors(this.pscCheckbox.require),
                     exclude: this.pscCheckbox.exclude
@@ -340,22 +345,22 @@ class SearchAwardsOperation {
         }
 
         // Add Contract Pricing
-        if (this.pricingType.length > 0) {
+        if (this.pricingType?.length > 0) {
             filters[rootKeys.contractPricing] = this.pricingType;
         }
 
         // Add Set Aside Type
-        if (this.setAside.length > 0) {
+        if (this.setAside?.length > 0) {
             filters[rootKeys.setAsideType] = this.setAside;
         }
 
         // Add Extent Competed
-        if (this.extentCompeted.length > 0) {
+        if (this.extentCompeted?.length > 0) {
             filters[rootKeys.extentCompeted] = this.extentCompeted;
         }
 
         // Add Def Codes
-        if (this.defCodes.require.length > 0) {
+        if (this.defCodes.require?.length > 0) {
             // right now, due to the shape of this data, we never send excluded to the api, so the
             // api expects just an array of strings. Should that ever change and the DEFC data becomes more complex
             // and the checkbox tree is more like the others, we can easily migrate to the more complex request object.

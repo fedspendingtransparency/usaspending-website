@@ -3,7 +3,7 @@
   * Created by Kevin Li 7/25/16
   **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
@@ -29,151 +29,96 @@ const propTypes = {
     id: PropTypes.string
 };
 
-export default class DatePicker extends React.Component {
-    constructor(props) {
-        super(props);
+const DatePicker = (props) => {
+    const [inputValue, setInputValue] = useState('');
 
-        this.state = {
-            inputValue: '',
-            selectedDay: new Date()
-        };
+    const clearValue = () => {
+        setInputValue('');
+    };
 
-        this.delayedBlur = false;
-        this.escapeEvent = '';
-
-        this.handleTypedDate = this.handleTypedDate.bind(this);
-        this.handleInputBlur = this.handleInputBlur.bind(this);
-        this.handleDatePick = this.handleDatePick.bind(this);
-        this.handleDateFocus = this.handleDateFocus.bind(this);
-        this.handleDateBlur = this.handleDateBlur.bind(this);
-    }
-
-    componentDidMount() {
-        this.parseValueForInput();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.value !== this.props.value) {
-            this.parseValueForInput();
+    const parseValueForInput = () => {
+        // convert the date to something typeable
+        if (props.value != null) {
+            const iV = props.value.format('MM/DD/YYYY');
+            setInputValue(iV);
         }
-    }
+    };
 
-    clearValue() {
-        this.setState({
-            inputValue: '',
-            selectedDay: new Date()
-        });
-    }
+    const handleDatePick = (day) => {
+        props.onDateChange(day, props.type);
+        props.hideError();
+    };
 
-    parseValueForInput() {
-    // convert the date to something typeable
-        if (this.props.value != null) {
-            const iV = this.props.value.format('MM/DD/YYYY');
-            this.setState({
-                inputValue: iV
-            });
+    const handleTypedDate = (e) => {
+        setInputValue(e.target.value);
+        if (e.target.value === '') {
+            // if the input is an empty string, this indicates the user wants to clear the date
+            clearValue();
+            return;
         }
-    }
 
-    handleDatePick(day) {
-        this.props.onDateChange(day, this.props.type);
-        this.props.hideError();
-    }
+        // check if this meets the MM/DD/YYYY format requirement
+        let format = 'MM/DD/YYYY';
+        const primaryFormat = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/;
+        // secretly check for a secondary format
+        const secondaryFormat = /[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/;
 
-    handleTypedDate(e) {
-    // update the string state of the input field
-        this.setState({
-            inputValue: e.target.value
-        }, () => {
-            if (this.state.inputValue === '') {
-                // if the input is an empty string, this indicates the user wants to clear the date
-                this.clearValue();
-                this.handleDatePick(null);
-                return;
-            }
-            // check if this meets the MM/DD/YYYY format requirement
-            let format = 'MM/DD/YYYY';
-            const primaryFormat = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/;
-            // secretly check for a secondary format
-            const secondaryFormat = /[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/;
+        const matchedFirst = primaryFormat.test(e.target.value);
+        const matchedSecond = secondaryFormat.test(e.target.value);
 
-            const matchedFirst = primaryFormat.test(this.state.inputValue);
-            const matchedSecond = secondaryFormat.test(this.state.inputValue);
-
-            if (!matchedFirst && !matchedSecond) {
-                // doesn't match either format, user may still be typing or just entered invalid data
-                return;
-            }
-            else if (!matchedFirst && matchedSecond) {
-                // only matched the second format
-                format = 'M/D/YYYY';
-            }
-
-            // determine if this is a parseable date
-            const date = dayjs(this.state.inputValue, format);
-            if (date.isValid()) {
-                // it's a valid date
-                this.handleDatePick(date.toDate());
-            }
-        });
-    }
-
-    handleInputBlur() {
-        if (this.state.inputValue.length > 0 && !this.props.value) {
-            // user entered something into the input field and no date has been set yet,
-            // input must have been invalid
-            this.props.showError('Invalid Date', 'The date entered is not a valid date.');
-            this.state.inputValue = '';
+        if (!matchedFirst && !matchedSecond) {
+            // doesn't match either format, user may still be typing or just entered invalid data
+            return;
         }
-        else if (this.state.inputValue.length > 0) {
-            this.parseValueForInput();
+        else if (!matchedFirst && matchedSecond) {
+            // only matched the second format
+            format = 'M/D/YYYY';
         }
-    }
 
-    handleDateBlur() {
-    // blur event gets triggered apparently by any child element
-    // blur will trigger before focus per W3C, delay the blur logic
-    // so that it can be cancelled if focus shifts to a child element
-        this.delayedBlur = window.setTimeout(() => {
-            this.setState({
-                showDatePicker: false
-            }, this.datePickerChangeEvent);
-        }, 20);
-    }
-
-    handleDateFocus() {
-    // check if we lost focus from the parent element, if so cancel that blur event
-        if (this.delayedBlur) {
-            window.clearTimeout(this.delayedBlur);
-            this.delayedBlur = null;
+        // determine if this is a parseable date
+        const date = dayjs(e.target.value, format);
+        if (date.isValid()) {
+            // it's a valid date
+            handleDatePick(date.toDate());
         }
-    }
+    };
 
-    render() {
-        const labelId = `picker-${uniqueId()}`;
+    // don't know if this is necessary anymore
+    // const handleInputBlur = () => {
+    //     if (inputValue.length > 0 && !props.value) {
+    //         // user entered something into the input field and no date has been set yet,
+    //         // input must have been invalid
+    //         props.showError('Invalid Date', 'The date entered is not a valid date.');
+    //         setInputValue('');
+    //     }
+    //     else if (inputValue.length > 0) {
+    //         parseValueForInput();
+    //     }
+    // };
 
-        return (
-            <div className="generate-datepicker-wrap">
-                <div className="generate-datepicker">
-                    <label htmlFor={labelId}>
-                        <span className="generate-datepicker__label">{this.props.title}</span>
-                        <input
-                            id={this.props.id}
-                            type="text"
-                            placeholder="mm/dd/yyyy"
-                            aria-label={this.props.title}
-                            value={this.state.inputValue}
-                            onFocus={this.props.onFocus}
-                            ref={(input) => {
-                                this.text = input;
-                            }}
-                            onChange={this.handleTypedDate}
-                            onBlur={this.handleInputBlur} />
-                    </label>
-                </div>
+    useEffect(() => {
+        parseValueForInput();
+    }, [props.value]);
+    const labelId = `picker-${uniqueId()}`;
+
+    return (
+        <div className="generate-datepicker-wrap">
+            <div className="generate-datepicker">
+                <label htmlFor={labelId}>
+                    <span className="generate-datepicker__label">{props.title}</span>
+                    <input
+                        id={props.id}
+                        type="text"
+                        placeholder="mm/dd/yyyy"
+                        aria-label={props.title}
+                        value={inputValue}
+                        onChange={handleTypedDate} />
+                </label>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 DatePicker.defaultProps = defaultProps;
 DatePicker.propTypes = propTypes;
+
+export default DatePicker;
