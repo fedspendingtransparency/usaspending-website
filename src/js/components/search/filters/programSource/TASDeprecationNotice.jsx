@@ -10,11 +10,9 @@ const TASDeprecationNotice = () => (
         <div className="tas-deprecation-notice__heading">
                 The TAS Components filter will be removed
         </div>
-        <br />
         <div className="tas-deprecation-notice__text">
                 You can still search for a specific TAS or Federal Account in the search text field within the Treasury Account tab.
         </div>
-        <br />
         <div className="tas-deprecation-notice__text">
                 The API endpoint for this filter will still be available.
         </div>
