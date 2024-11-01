@@ -38,7 +38,7 @@ const InfoBanner = (props) => {
                 display: `${closeBanner ? 'none' : ''}`,
                 backgroundColor: props.backgroundColor,
                 borderTop: `${props.borderTopColor !== '' ? `4px solid ${props.borderTopColor}` : ''}`,
-                borderBottom: `${props.borderBottomColor !== '' ? `2px solid ${props.borderBottomColor}` : ''}`
+                borderBottom: `${props.borderBottomColor !== '' ? `1px solid ${props.borderBottomColor}` : ''}`
             }}>
             <div className="info-banner__content">
                 <div className="info-banner__icon">
