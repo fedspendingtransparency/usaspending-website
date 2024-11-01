@@ -32,19 +32,6 @@ const RecipientResults = ({ toggleRecipient }) => {
 
         recipientRequest.promise
             .then((res) => {
-                // todo - only for testing; remove after design review
-                res.data.results.forEach((r) => {
-                    if (r.name === 'ARIZONA HEALTH CARE COST CONTAINMENT SYSTEM') {
-                        r.uei = '';
-                    }
-                    if (r.name === 'COLORADO DEPARMENT-HEALTH CARE') {
-                        r.uei = false;
-                    }
-                    if (r.name === 'DEPARTMENT OF HEALTH HUMAN SERVICES') {
-                        r.uei = null;
-                    }
-                });
-                console.log('res.data', res.data);
                 setRecipients(res.data.results);
             });
     };
