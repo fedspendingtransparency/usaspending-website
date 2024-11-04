@@ -105,7 +105,7 @@ const Frequency = (props) => {
                                             href="https://fiscal.treasury.gov/data-transparency/resources.html"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                            Government-wide Spending Data Model (GSDM)
+                                            Governmentwide Spending Data Model (GSDM)
                                         </a>
                                     .
                                     </p>

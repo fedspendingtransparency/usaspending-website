@@ -44,7 +44,7 @@ const Background = () => (
                         agency programs
                 </li>
                 <li>
-                        Establish government-wide data standards for financial data and
+                        Establish governmentwide data standards for financial data and
                         provide consistent, reliable, and searchable data that is displayed
                         accurately
                 </li>
