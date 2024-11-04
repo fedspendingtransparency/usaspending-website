@@ -1,25 +1,25 @@
 export const transactionsTableMapping = {
     idv: [
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Modification Number',
             right: false,
             title: 'modification_number'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Action Date',
             right: false,
             title: 'action_date'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Amount',
-            right: false,
+            right: true,
             title: 'federal_action_obligation'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Action Type',
             right: false,
             title: 'action_type'
@@ -33,37 +33,37 @@ export const transactionsTableMapping = {
     ],
     loan: [
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Modification Number',
             right: false,
             title: 'modification_number'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'CFDA Number',
             right: false,
             title: 'cfda_number'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Action Date',
             right: false,
             title: 'action_date'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Loan Face Value',
-            right: false,
+            right: true,
             title: 'face_value_loan_guarantee'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Loan Subsidy Cost (Total Obligations To Date)',
-            right: false,
+            right: true,
             title: 'original_loan_subsidy_cost'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Action Type',
             right: false,
             title: 'action_type'
@@ -77,25 +77,25 @@ export const transactionsTableMapping = {
     ],
     contract: [
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Modification Number',
             right: false,
             title: 'modification_number'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Action Date',
             right: false,
             title: 'action_date'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Amount',
             right: false,
             title: 'federal_action_obligation'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Action Type',
             right: false,
             title: 'action_type'
@@ -109,31 +109,31 @@ export const transactionsTableMapping = {
     ],
     assistance: [
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Modification Number',
             right: false,
             title: 'modification_number'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Assistance Listing',
             right: false,
             title: 'cfda_number'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Action Date',
             right: false,
             title: 'action_date'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Amount',
-            right: false,
+            right: true,
             title: 'federal_action_obligation'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Action Type',
             right: false,
             title: 'action_type'
@@ -150,13 +150,13 @@ export const transactionsTableMapping = {
 export const federalAccountsTableMapping = {
     idv: [
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Submission Period',
             right: false,
             title: 'reporting_fiscal_date'
         },
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Award ID',
             right: false,
             title: 'piid'
@@ -174,13 +174,13 @@ export const federalAccountsTableMapping = {
             title: 'awarding_agency_name'
         },
         {
-            columnWidth: 300,
+            columnWidth: 100,
             displayName: 'DEFC',
             right: false,
             title: 'disaster_emergency_fund_code'
         },
         {
-            columnWidth: 300,
+            columnWidth: 500,
             displayName: 'Federal Account Name',
             right: false,
             title: 'account_title'
@@ -198,27 +198,27 @@ export const federalAccountsTableMapping = {
             title: 'object_class'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Funding Obligated',
-            right: false,
+            right: true,
             title: 'transaction_obligated_amount'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Outlayed Amount (Beginning of FY to Period End)',
-            right: false,
+            right: true,
             title: 'gross_outlay_amount'
         }
     ],
     otherFunding: [
         {
-            columnWidth: 300,
+            columnWidth: 150,
             displayName: 'Submission Period',
             right: false,
             title: 'reporting_fiscal_date'
         },
         {
-            columnWidth: 300,
+            columnWidth: 500,
             displayName: 'Federal Account',
             right: false,
             title: 'account_title'
@@ -236,7 +236,7 @@ export const federalAccountsTableMapping = {
             title: 'awarding_agency_name'
         },
         {
-            columnWidth: 300,
+            columnWidth: 100,
             displayName: 'DEFC',
             right: false,
             title: 'disaster_emergency_fund_code'
@@ -254,15 +254,15 @@ export const federalAccountsTableMapping = {
             title: 'object_class'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Funding Obligated',
-            right: false,
+            right: true,
             title: 'transaction_obligated_amount'
         },
         {
-            columnWidth: 300,
+            columnWidth: 250,
             displayName: 'Outlayed Amount (Beginning of FY to Period End)',
-            right: false,
+            right: true,
             title: 'gross_outlay_amount'
         }
     ]
@@ -270,7 +270,7 @@ export const federalAccountsTableMapping = {
 
 export const subawardTableMapping = [
     {
-        columnWidth: 300,
+        columnWidth: 150,
         displayName: 'Sub-Award ID',
         right: false,
         title: 'subaward_number'
@@ -282,15 +282,15 @@ export const subawardTableMapping = [
         title: 'recipient_name'
     },
     {
-        columnWidth: 300,
+        columnWidth: 150,
         displayName: 'Action Date',
         right: false,
         title: 'action_date'
     },
     {
-        columnWidth: 300,
+        columnWidth: 150,
         displayName: 'Amount',
-        right: false,
+        right: true,
         title: 'amount'
     },
     {

@@ -60,7 +60,7 @@ const TrainingVideosHeading = () => {
                                 <ShareIcon
                                     url={getBaseUrl(slug)}
                                     onShareOptionClick={onShareClick}
-                                    colors={{ backgroundColor: "#ccecf2", color: "#2378c3" }}
+                                    colors={{ backgroundColor: "#edf0ff", color: "#2378c3" }}
                                     dropdownDirection={isMobile ? 'right' : 'left'}
                                     classNames="no-margin-left"
                                     noShareText />

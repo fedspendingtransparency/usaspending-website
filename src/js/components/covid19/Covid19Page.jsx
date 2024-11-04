@@ -8,8 +8,9 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { find, throttle } from 'lodash';
-import { ShareIcon } from 'data-transparency-ui';
+import { ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
+
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -169,39 +170,43 @@ const Covid19Page = ({ loading }) => {
                 <Helmet>
                     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                 </Helmet>
-                <main id="main-content" className="main-content usda__flex-row">
-                    <div className="body usda__flex-col">
-                        <section className="body__section">
-                            <Heading publicLaw={query.publicLaw} />
-                        </section>
-                        {Object.keys(componentByCovid19Section())
-                            .filter((section) => componentByCovid19Section()[section].showInMainSection)
-                            .map((section) => (
-                                <Covid19Section
-                                    key={section}
-                                    section={section}
-                                    publicLaw={query.publicLaw}
-                                    icon={componentByCovid19Section()[section].icon}
-                                    headerText={componentByCovid19Section()[section].headerText}
-                                    title={componentByCovid19Section()[section].title}
-                                    tooltipProps={componentByCovid19Section()[section].tooltipProps}
-                                    tooltip={componentByCovid19Section()[section].tooltip}>
-                                    {componentByCovid19Section(query.publicLaw, handleExternalLinkClick)[section].component}
-                                </Covid19Section>
-                            ))}
-                        <section className="body__section" id="covid19-data_sources_and_methodology">
-                            <DataSourcesAndMethodology
-                                handleExternalLinkClick={handleExternalLinkClick}
-                                publicLaw={query.publicLaw} />
-                        </section>
-                        <section className="body__section" id="covid19-other_resources">
-                            <OtherResources
-                                handleExternalLinkClick={handleExternalLinkClick}
-                                publicLaw={query.publicLaw} />
-                            <LinkToAdvancedSearchContainer />
-                        </section>
-                    </div>
-                    <GlobalModalContainer />
+
+                <main id="main-content" className="main-content">
+                    <FlexGridRow className="body covid-content__row">
+                        <FlexGridCol className="covid-content__col" width="fill">
+                            <section className="body__section">
+                                <Heading publicLaw={query.publicLaw} />
+                            </section>
+
+                            {Object.keys(componentByCovid19Section())
+                                .filter((section) => componentByCovid19Section()[section].showInMainSection)
+                                .map((section) => (
+                                    <Covid19Section
+                                        key={section}
+                                        section={section}
+                                        publicLaw={query.publicLaw}
+                                        icon={componentByCovid19Section()[section].icon}
+                                        headerText={componentByCovid19Section()[section].headerText}
+                                        title={componentByCovid19Section()[section].title}
+                                        tooltipProps={componentByCovid19Section()[section].tooltipProps}
+                                        tooltip={componentByCovid19Section()[section].tooltip}>
+                                        {componentByCovid19Section(query.publicLaw, handleExternalLinkClick)[section].component}
+                                    </Covid19Section>
+                                ))}
+                            <section className="body__section" id="covid19-data_sources_and_methodology">
+                                <DataSourcesAndMethodology
+                                    handleExternalLinkClick={handleExternalLinkClick}
+                                    publicLaw={query.publicLaw} />
+                            </section>
+                            <section className="body__section" id="covid19-other_resources">
+                                <OtherResources
+                                    handleExternalLinkClick={handleExternalLinkClick}
+                                    publicLaw={query.publicLaw} />
+                                <LinkToAdvancedSearchContainer />
+                            </section>
+                            <GlobalModalContainer />
+                        </FlexGridCol>
+                    </FlexGridRow>
                 </main>
             </LoadingWrapper>
         </PageWrapper>
