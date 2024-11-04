@@ -5,6 +5,9 @@
     @import "mixins/selectedFilterWrap";
     @import "../../tooltips";
 
+    // temporary; remove import and delete the scss file when TASDeprecationNotice is removed
+    @import "./tasDeprecationNotice.scss";
+
     padding: 0 $global-padding * 2 rem(20);
 
     .program-source-components {
