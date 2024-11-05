@@ -90,7 +90,7 @@ export const FilterCategoryTree = {
     },
     timePeriod: {
         title: 'Time Period',
-        child: <TimePeriodContainer />
+        component: <TimePeriodContainer />
     },
     characteristics: {
         children: [
