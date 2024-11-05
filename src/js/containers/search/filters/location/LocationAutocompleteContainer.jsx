@@ -75,7 +75,6 @@ const LocationAutocompleteContainer = (props) => {
         }
 
         countyListRequest = fetchLocationList(`counties/${stateAbbreviation}_counties`);
-
         countyListRequest.promise
             .then((res) => {
                 addCounty(res.data, county, state, stateAbbreviation, countryAbbreviation);
@@ -93,7 +92,6 @@ const LocationAutocompleteContainer = (props) => {
         }
 
         listRequest = fetchLocationList("countries");
-
         listRequest.promise
             .then((res) => {
                 setCountriesList(res?.data?.countries);
@@ -420,9 +418,10 @@ const LocationAutocompleteContainer = (props) => {
             value: newValue
         });
     };
-
+    console.debug("top top top level stuff: ", props);
     return (
         <LocationAutocomplete
+            {...props}
             activeTab={props.activeTab}
             locations={locations}
             handleTextInput={handleTextInput}
