@@ -5,7 +5,14 @@
  */
 
 import React from 'react';
-import LocationSection from "../../components/search/filters/location/LocationSection";
+
+import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
+import { DEFCheckboxTree } from "../../containers/search/filters/def/DEFCheckboxTree";
+import NewLocationSectionContainer from "../../containers/search/filters/location/NewLocationSectionContainer";
+import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodContainer";
+import RecipientContainer from "../../containers/recipient/RecipientContainer";
+import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
+import AgencyContainer from "../../containers/agency/AgencyContainer";
 
 export const SearchFilterCategories = [
     {
@@ -16,8 +23,6 @@ export const SearchFilterCategories = [
         title: 'Location',
         description: 'Find awards by recipient location or where work is being done',
         itemCount: 3,
-        // eslint-disable-next-line react/react-in-jsx-scope
-        filterComponent: <LocationSection />,
         selectedItems: [
             'Sample chip 1',
             'Sample chip 2',
@@ -32,7 +37,6 @@ export const SearchFilterCategories = [
         title: 'Time Period',
         description: 'Find awards by specific date or date range',
         itemCount: 3,
-        filterComponent: <LocationSection />,
         selectedItems: [
             'Sample chip 1',
             'Sample chip 2',
@@ -47,7 +51,6 @@ export const SearchFilterCategories = [
         title: 'Characteristics',
         description: 'Find awards by award type, ID, industry code, and more',
         itemCount: 1,
-        filterComponent: <LocationSection />,
         selectedItems: [
             'Sample chip 1'
         ]
@@ -60,7 +63,6 @@ export const SearchFilterCategories = [
         title: 'Recipients',
         description: 'Find awards by business, nonprofit, other organization, and more',
         itemCount: 2,
-        filterComponent: <LocationSection />,
         selectedItems: [
             'Sample chip 1',
             'Sample chip 2'
@@ -74,7 +76,6 @@ export const SearchFilterCategories = [
         title: 'Sources',
         description: 'Find awards by the source of funding (agency, Treasury Account Symbol, or Disaster Emergency Fund Code)',
         itemCount: 2,
-        filterComponent: <LocationSection />,
         selectedItems: [
             'Sample chip 1',
             'Sample chip 2'
@@ -82,4 +83,81 @@ export const SearchFilterCategories = [
     }
 ];
 
-export default SearchFilterCategories;
+export const FilterCategoryTree = {
+    location: {
+        title: 'Location',
+        component: <NewLocationSectionContainer />
+    },
+    timePeriod: {
+        title: 'Time Period',
+        child: <TimePeriodContainer />
+    },
+    characteristics: {
+        children: [
+            {
+                title: 'Award Description'
+            },
+            {
+                title: 'Award ID'
+            },
+            {
+                title: 'Spending Amount'
+            },
+            {
+                title: 'Contract Award Type'
+            },
+            {
+                title: 'North American Industry Classification System (NAICS)'
+            },
+            {
+                title: 'Product and Service Code (PSC)'
+            },
+            {
+                title: 'Type of Contract Pricing'
+            },
+            {
+                title: 'Type of Set Aside'
+            },
+            {
+                title: 'Extent Competed'
+            },
+            {
+                title: 'Financial Assistance Award Type'
+            }
+
+        ]
+
+    },
+    recipient: {
+        children: [
+            {
+                title: 'Recipient',
+                component: <RecipientContainer />
+            },
+            {
+                title: 'Recipient Type',
+                component: <RecipientTypeContainer />
+            }
+        ]
+    },
+    sources: {
+        children: [
+            {
+                title: 'Agency',
+                component: <AgencyContainer />
+            },
+            {
+                title: 'Treasury Account Symbol (TAS)',
+                component: <TASCheckboxTreeContainer />
+            },
+            {
+                title: 'COVID-19 Spending',
+                component: <DEFCheckboxTree />
+            },
+            {
+                title: 'Infrastructure Spending',
+                component: <DEFCheckboxTree />
+            }
+        ]
+    }
+};
