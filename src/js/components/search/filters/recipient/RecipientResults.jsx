@@ -52,7 +52,7 @@ const RecipientResults = ({ toggleRecipient }) => {
                             key={recipient.uei}
                             toggleCheckboxType={toggleRecipient} />
                         <div className="recipient-label__lower-container">
-                            <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns}</div>
+                            <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns ? recipient.duns : 'Not provided'}</div>
                             <div className="recipient-label__name-container">
                                 <span className="recipient-label__recipient-name">{recipient.name}</span>
                                 <span className="recipient-label__recipient-level">{levelMapping[recipient.recipient_level]}</span>

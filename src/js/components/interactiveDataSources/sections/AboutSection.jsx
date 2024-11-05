@@ -71,7 +71,7 @@ const AboutSection = () => {
                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html"
                         target="_blank"
                         rel="noopener noreferrer">
-                        Government-wide Spending Data Model (GSDM)
+                        Governmentwide Spending Data Model (GSDM)
                     </a>
                     : technical documentation for the data submitted to, and extracted by, USAspending.gov (Files A, B, C, D1, D2, E, and F)
                 </li>
