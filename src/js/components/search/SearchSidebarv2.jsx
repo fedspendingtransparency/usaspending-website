@@ -62,10 +62,9 @@ const SearchSidebar = () => {
         <div onClick={(e) => toggleHide(e)}>hide / show</div>
         {/* finish filter category tree with each category mapping to components and display each filter correctly */}
         {/* format second level and third level panels */}
-        {/* style with round button and docked/closed position */}
-        {/* style with back button */}
         {/* add transition to drilldown / opening new panels */}
-
+        {/* style with back button */}
+        {/* style with round button and docked/closed position */}
         <div className="search-sidebar" id="slide" style={hide ? { display: 'none' } : null}>
             {drilldown !== null ?
                 <div>
