@@ -23,22 +23,16 @@ const SearchSidebar = () => {
         setHide((prevState) => !prevState);
     };
 
-    const toggleDrilldown = (e) => {
-        e.preventDefault();
-        setDrilldown((prevState) => !prevState);
+    const setLevel2 = (e, item) => {
+        setSelectedCategory(item);
+        setDrilldown(FilterCategoryTree[item?.categoryKey]);
+        setCurrentLevel(2);
     };
 
-    const selectCategory = (e, item, component) => {
-        console.log(currentLevel);
-        if (currentLevel === 1) {
-            setSelectedCategory(item);
-            setDrilldown(FilterCategoryTree[item?.categoryKey]);
-            setCurrentLevel(2);
-        } else if (currentLevel === 2) {
-            setDrilldown(component);
-            setCurrentLevel(3);
-        }
-    };
+    const setLevel3 = (component) => {
+        setDrilldown(component);
+        setCurrentLevel(3);
+    }
 
     const goBack = (e) => {
         console.log(currentLevel);
@@ -66,17 +60,18 @@ const SearchSidebar = () => {
     return <>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div onClick={(e) => toggleHide(e)}>hide / show</div>
-        {/* need to add filter category tree with each category mapping to components */}
+        {/* finish filter category tree with each category mapping to components and display each filter correctly */}
+        {/* format second level and third level panels */}
         {/* style with round button and docked/closed position */}
         {/* style with back button */}
-        {/* add individual filter layout */}
+        {/* add transition to drilldown / opening new panels */}
 
         <div className="search-sidebar" id="slide" style={hide ? { display: 'none' } : null}>
             {drilldown !== null ?
                 <div>
                     <p>drilldown level - {currentLevel}</p>
                     <div onClick={(e) => goBack(e)}>Back</div>
-                    { drilldown?.children?.map((item) => <div onClick={(e)=> selectCategory(null, null, item.component)}>{item.title}</div>) }
+                    { drilldown?.children?.map((item) => <div onClick={(e)=> setLevel3(item.component)}>{item.title}</div>) }
                     { drilldown?.component }
                 </div>
                 :
@@ -91,7 +86,7 @@ const SearchSidebar = () => {
                         description={item.description}
                         itemCount={item.itemCount}
                         selectedItems={item.selectedItems}
-                        selectCategory={selectCategory} />)}
+                        selectCategory={setLevel2} />)}
                 </>
             }
             <div className="sidebar-bottom-submit v2">
