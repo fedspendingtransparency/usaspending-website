@@ -98,7 +98,7 @@ const DataSubmissionExtraction = (props) => {
                                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                        Government-wide Spending Data Model (GSDM)
+                                        Governmentwide Spending Data Model (GSDM)
                                     </a>{" "}
                                 page.
                                 </p>
@@ -137,7 +137,7 @@ const DataSubmissionExtraction = (props) => {
                                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                        Government-wide Spending Data Model (GSDM)
+                                        Governmentwide Spending Data Model (GSDM)
                                     </a>{" "}
                                 page.
                                 </p>} />
