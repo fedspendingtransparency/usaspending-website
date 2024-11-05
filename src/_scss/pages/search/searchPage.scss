@@ -72,6 +72,25 @@
                     margin: 0;
                 }
 
+                //v2
+                #slide {
+                    position: absolute;
+                    left: -300px;
+                    width: 300px;
+                    -webkit-animation: slide 0.5s forwards;
+                    //-webkit-animation-delay: 2s;
+                    animation: slide 0.5s forwards;
+                    //animation-delay: 2s;
+                }
+
+                @-webkit-keyframes slide {
+                    100% { left: 0; }
+                }
+
+                @keyframes slide {
+                    100% { left: 0; }
+                }
+
 
                 &.v2 {
                     //margin: rem(16) rem(32);

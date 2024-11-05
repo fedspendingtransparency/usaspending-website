@@ -16,21 +16,24 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     itemCount: PropTypes.number,
-    selectedItems: PropTypes.array
+    selectedItems: PropTypes.array,
+    selectCategory: PropTypes.func
 };
 
 const SearchFilter = ({
+    item,
     iconName,
     iconColor,
     iconBackgroundColor,
     title,
     description,
     itemCount,
-    selectedItems
+    selectedItems,
+    selectCategory
 }) => (
     <div className="search-filter__container">
         <div className="search-filter__content">
-            <div className="search-filter__top-row">
+            <div className="search-filter__top-row" onClick={(e) => selectCategory(e, item)}>
                 <div className="search-filter__top-row-icon-container" style={{ backgroundColor: iconBackgroundColor }}>
                     <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
                 </div>
