@@ -148,7 +148,7 @@ const SearchPage = ({
     useEffect(() => {
         if (location.search === "?version=2" && GlobalConstants.QAT) {
             setSearchv2(true);
-            setFullSidebar(<SearchSidebarv2 />);
+            setFullSidebar(<SearchSidebarv2 filters={filters} hash={hash} />);
         } else {
             setSearchv2(false);
             setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);

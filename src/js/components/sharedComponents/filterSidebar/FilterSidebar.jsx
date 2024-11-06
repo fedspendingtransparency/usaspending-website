@@ -40,7 +40,7 @@ export default class FilterSidebar extends React.Component {
                 const glossarySlug = this.props.glossaryEntries[i];
                 return (<FilterOption
                     name={title}
-                    tooltip={tooltip}
+                    // tooltip={tooltip}
                     key={title}
                     component={component}
                     accessory={accessory}
@@ -48,6 +48,8 @@ export default class FilterSidebar extends React.Component {
                     disabled={component === null}
                     glossarySlug={glossarySlug} />);
             });
+
+        console.log(optionsList);
 
         return (
             <div className="search-filters-wrapper">

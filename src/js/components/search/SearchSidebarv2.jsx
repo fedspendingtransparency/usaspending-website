@@ -6,13 +6,15 @@
 import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { SearchFilterCategories, FilterCategoryTree } from "dataMapping/search/newSearchFilterCategories";
+import * as SidebarHelper from 'helpers/sidebarHelper';
 
 
 // these are for the SearchFilter demo
 import SearchFilter from "./SearchFilter";
 import { SearchSidebarSubmitContainer } from "../../containers/search/SearchSidebarSubmitContainer";
+import {TimePeriodContainer} from "../../containers/search/filters/TimePeriodContainer";
 
-const SearchSidebar = () => {
+const SearchSidebar = (props) => {
     const [hide, setHide] = useState(false);
     const [drilldown, setDrilldown] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -69,9 +71,10 @@ const SearchSidebar = () => {
             {drilldown !== null ?
                 <div>
                     <p>drilldown level - {currentLevel}</p>
-                    <div onClick={(e) => goBack(e)}>Back</div>
-                    { drilldown?.children?.map((item) => <div onClick={(e)=> setLevel3(item.component)}>{item.title}</div>) }
-                    { drilldown?.component }
+                    <TimePeriodContainer {...props} />
+                    {/*<div onClick={(e) => goBack(e)}>Back</div>*/}
+                    {/*{ drilldown?.children?.map((item) => <div onClick={(e)=> setLevel3(item.component)}>{item.title}</div>) }*/}
+                    {/*{ drilldown?.component }*/}
                 </div>
                 :
                 <>
