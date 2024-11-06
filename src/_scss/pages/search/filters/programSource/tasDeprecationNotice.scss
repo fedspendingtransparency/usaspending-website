@@ -1,0 +1,21 @@
+.tas-deprecation-notice__container {
+  background-color: $blue-cool-5v;
+  border-radius: 3px;
+  border: solid 1px $card-outline-color;
+  padding: $global-spacing-unit * 2;
+  margin-bottom: $global-spacing-unit * 2;
+
+  .tas-deprecation-notice__heading {
+    font-size: $font-size-14;
+    color: $theme-color-headline;
+    font-weight: $font-semibold;
+    line-height: 1.5;
+  }
+
+  .tas-deprecation-notice__text {
+    font-size: $font-size-14;
+    color: $theme-color-body;
+    line-height: 1.5;
+    margin-top: $global-spacing-unit;
+  }
+}

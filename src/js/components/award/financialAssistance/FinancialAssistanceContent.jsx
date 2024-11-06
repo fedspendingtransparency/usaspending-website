@@ -144,7 +144,6 @@ const FinancialAssistanceContent = ({
                 </AwardSection>
             )}
             <AwardHistory
-                awardId={awardId}
                 overview={overview}
                 setActiveTab={setActiveTab}
                 activeTab={activeTab} />

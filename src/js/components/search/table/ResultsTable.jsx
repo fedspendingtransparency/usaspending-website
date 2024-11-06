@@ -14,7 +14,6 @@ import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
-import { stickyHeaderHeight } from '../../../dataMapping/stickyHeader/stickyHeader';
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
@@ -48,6 +47,7 @@ export default class ResultsTable extends React.Component {
             activateRightFade: !props.isMobile,
             windowWidth: 0
         };
+
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
@@ -489,7 +489,7 @@ export default class ResultsTable extends React.Component {
                 <div
                     className={`advanced-search__table-wrapper ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}
                     id="advanced-search__table-wrapper"
-                    style={{ height: this.state.windowHeight - stickyHeaderHeight - 16 - 40 - 57 }}>
+                    style={this.props.resultsCount >= this.props.resultsLimit ? { height: '638px' } : {}}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn={!this.props.isMobile}

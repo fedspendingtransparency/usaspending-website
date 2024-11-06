@@ -217,8 +217,8 @@ export default class StateOverview extends React.PureComponent {
                                 {this.state.open &&
                                     <div className="state-overview__what-content">
                                         <FontAwesomeIcon icon="info-circle" className="state-overview__info-icon" />
-                                        <p className="state-overview__what-heading">What is an <em>outlay</em>?</p>
-                                        <p className="state-overview__what-text">An <span className="state-overview__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="state-overview__emphasis">obligation&nbsp;<GlossaryLink term="obligation" /></span> , which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
+                                        <p className="state-overview__what-heading">What is an outlay?</p>
+                                        <p className="state-overview__what-text">An <span className="state-overview__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="state-overview__emphasis">obligation&nbsp;<GlossaryLink term="obligation" /></span> , which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). Outlays are the transactions that pay off the federal government&apos;s obligations.</p>
                                         <p className="state-overview__what-second-heading">
                                             How do outlays relate to the chart below?
                                         </p>

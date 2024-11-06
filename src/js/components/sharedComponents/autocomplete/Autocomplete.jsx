@@ -49,7 +49,7 @@ const defaultProps = {
     minChar: false
 };
 
-const Autocomplete = React.memo((props) => {
+const Autocomplete = (props) => {
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -83,17 +83,20 @@ const Autocomplete = React.memo((props) => {
         // Force the change up into the parent components
         // Validate the current value is on the autocomplete list
         let selectedItem = null;
+        let selectedItemTitle = null;
         const isValid = isValidSelection(selection);
 
         if (isValid) {
             selectedItem = selection.data;
+            selectedItemTitle = selection.title;
             setStaged(true);
         }
 
-        props.onSelect(selectedItem, isValid);
+        props.onSelect(selectedItem, isValid, selection);
 
         if (props.retainValue && isValid) {
-            autocompleteInputRef.current.value = selectedItem.code;
+            autocompleteInputRef.current.value = selectedItemTitle;
+            autocompleteInputRef.current.style.fontWeight = "400";
         }
 
         else {
@@ -234,7 +237,7 @@ const Autocomplete = React.memo((props) => {
         return null;
     };
 
-    let activeDescendant = false;
+    let activeDescendant = '';
     let status = '';
 
     if (shown && selectedIndex > -1) {
@@ -274,14 +277,16 @@ const Autocomplete = React.memo((props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.noResults]);
 
+    // retainValue if selectedItemsDisplayNames is passed in
+    // this is necessary because the map refreshes after the data is updated
     useEffect(() => {
-        if (props.type) {
+        if (props.type && props.selectedItemsDisplayNames && Object.keys(props.selectedItemsDisplayNames).length > 0) {
             if (props.selectedItemsDisplayNames[props.type] && autocompleteInputRef?.current) {
                 autocompleteInputRef.current.value = props.selectedItemsDisplayNames[props.type];
                 autocompleteInputRef.current.style.fontWeight = "600";
             }
         }
-    }, [props?.type]);
+    }, [props.selectedItemsDisplayNames, props.type]);
 
     return (
         <div
@@ -327,7 +332,7 @@ const Autocomplete = React.memo((props) => {
             </div>
         </div>
     );
-});
+};
 
 Autocomplete.defaultProps = defaultProps;
 Autocomplete.propTypes = propTypes;

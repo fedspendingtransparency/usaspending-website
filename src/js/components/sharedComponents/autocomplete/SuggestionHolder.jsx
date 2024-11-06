@@ -23,39 +23,40 @@ const defaultProps = {
     maxSuggestions: 10
 };
 
-export default class SuggestionHolder extends React.Component {
-    render() {
-        const suggestions = [];
+const SuggestionHolder = (props) => {
+    const suggestions = [];
 
-        // Ensure we're only showing maxSuggestions results at most
-        for (let i = 0; i < Math.min(this.props.suggestions.length,
-            this.props.maxSuggestions); i++) {
-            suggestions.push(<Suggestion
-                title={this.props.suggestions[i].title}
-                subtitle={this.props.suggestions[i].subtitle}
-                data={this.props.suggestions[i]}
-                selected={i === this.props.selectedIndex}
-                select={this.props.select}
-                id={`${this.props.autocompleteId}__option_${i}`}
-                key={i}
-                matchingString={this.props.matchingString} />);
-        }
-
-        let hiddenClass = 'hide';
-        if (this.props.shown && this.props.suggestions.length > 0) {
-            hiddenClass = '';
-        }
-
-        return (
-            <ul
-                id={this.props.autocompleteId}
-                className={`autocomplete ${hiddenClass}`}
-                role="listbox">
-                {suggestions}
-            </ul>
-        );
+    // Ensure we're only showing maxSuggestions results at most
+    for (let i = 0; i < Math.min(props.suggestions.length,
+        props.maxSuggestions); i++) {
+        suggestions.push(<Suggestion
+            values={props.suggestions}
+            category={props.suggestions[i].category}
+            title={props.suggestions[i].title}
+            subtitle={props.suggestions[i].subtitle}
+            data={props.suggestions[i]}
+            selected={i === props.selectedIndex}
+            select={props.select}
+            id={`${props.autocompleteId}__option_${i}`}
+            key={i}
+            matchingString={props.matchingString} />);
     }
-}
+
+    let hiddenClass = 'hide';
+    if (props.shown && props.suggestions.length > 0) {
+        hiddenClass = '';
+    }
+
+    return (
+        <ul
+            id={props.autocompleteId}
+            className={`autocomplete ${hiddenClass}`}
+            role="listbox">
+            {suggestions}
+        </ul>
+    );
+};
 
 SuggestionHolder.defaultProps = defaultProps;
 SuggestionHolder.propTypes = propTypes;
+export default SuggestionHolder;

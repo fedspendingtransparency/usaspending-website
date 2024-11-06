@@ -10,6 +10,7 @@ import EntityWarning from 'components/search/filters/location/EntityWarning';
 import ProgramSourceAutocompleteContainer from 'containers/search/filters/programSource/ProgramSourceAutocompleteContainer';
 import TASCheckboxTree from 'containers/search/filters/programSource/TASCheckboxTreeContainer';
 import { treasuryAccountComponents } from 'dataMapping/search/programSourceComponents';
+import TASDeprecationNotice from "./TASDeprecationNotice";
 
 const propTypes = {
     updateComponent: PropTypes.func,
@@ -77,9 +78,12 @@ export default class TreasuryAccountFilters extends React.Component {
             <div className="program-source-tab">
                 <div className="program-source-components">
                     {activeTab === 2 && (
-                        <div className="program-source-components__heading">
+                        <>
+                            <div className="program-source-components__heading">
                             Treasury Account Components
-                        </div>
+                            </div>
+                            <TASDeprecationNotice />
+                        </>
                     )}
                     {this.generateFilters()}
                     <div

@@ -36,7 +36,11 @@
             }
             @import "elements/_divider";
             @import "./visualizations/visualizations";
-            @import "./table/awardTable";
+            @import "../../search/results/table/resultsTable";
+
+            .usa-dt-pagination {
+                margin-top: $global-margin;
+            }
         }
     }
 }

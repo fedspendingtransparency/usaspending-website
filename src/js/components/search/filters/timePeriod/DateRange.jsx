@@ -12,7 +12,6 @@ import DatePicker from 'components/sharedComponents/DatePicker';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { usePrevious } from "../../../../helpers/";
 import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 
 const dayjs = require('dayjs');
@@ -36,7 +35,9 @@ const propTypes = {
 };
 
 const DateRange = (props) => {
+    // eslint-disable-next-line no-unused-vars
     const [startPicker, setStartPicker] = useState(null);
+    // eslint-disable-next-line no-unused-vars
     const [endPicker, setEndPicker] = useState(null);
     const [disabled, setDisabled] = useState(true);
     const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
@@ -301,9 +302,6 @@ const DateRange = (props) => {
                         showError={props.showError}
                         hideError={props.hideError}
                         disabledDays={startDateDisabledDays}
-                        ref={(component) => {
-                            setStartPicker(component);
-                        }}
                         id="date-range__startDate"
                         onFocus={onFocus}
                         allowClearing />
@@ -319,9 +317,6 @@ const DateRange = (props) => {
                         hideError={props.hideError}
                         disabledDays={endDateDisabledDays}
                         onFocus={onFocus}
-                        ref={(component) => {
-                            setEndPicker(component);
-                        }}
                         id="date-range__endDate"
                         allowClearing />
                 </div>
@@ -334,36 +329,34 @@ const DateRange = (props) => {
                     disabled={disabled}
                     onClick={submitDates} />
             </form>
-            <FeatureFlag>
-                <div className="date-range-option__dropdown-section">
-                    <div className="date-range-option__dropdown-section-top">
-                        <div className="date-range-option__dropdown-section-label">
+            <div className="date-range-option__dropdown-section">
+                <div className="date-range-option__dropdown-section-top">
+                    <div className="date-range-option__dropdown-section-label">
                             Date Ranges
-                        </div>
-                    </div>
-                    <div className="date-range-option__dropdown-section-bottom">
-                        <div className="date-range-option__dropdown-section-picker-wrapper">
-                            <NewPicker
-                                leftIcon=""
-                                size="sm"
-                                options={dropdownOptions}
-                                enabled
-                                selectedOption={dropdownOptions?.length
-                                    ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
-                                    : `${selectedDropdownOption}`}
-                                sortFn={sortFn} />
-                        </div>
-                        <Button
-                            copy="Add"
-                            buttonTitle="Add"
-                            buttonSize="sm"
-                            buttonType="primary"
-                            backgroundColor="light"
-                            disabled={disabled}
-                            onClick={submitDates} />
                     </div>
                 </div>
-            </FeatureFlag>
+                <div className="date-range-option__dropdown-section-bottom">
+                    <div className="date-range-option__dropdown-section-picker-wrapper">
+                        <NewPicker
+                            leftIcon=""
+                            size="sm"
+                            options={dropdownOptions}
+                            enabled
+                            selectedOption={dropdownOptions?.length
+                                ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
+                                : `${selectedDropdownOption}`}
+                            sortFn={sortFn} />
+                    </div>
+                    <Button
+                        copy="Add"
+                        buttonTitle="Add"
+                        buttonSize="sm"
+                        buttonType="primary"
+                        backgroundColor="light"
+                        disabled={disabled}
+                        onClick={submitDates} />
+                </div>
+            </div>
             <div
                 className={`selected-filters ${hideTags}`}
                 id="selected-date-range"

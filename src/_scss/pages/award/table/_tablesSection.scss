@@ -7,9 +7,20 @@
     margin-bottom: rem(20);
     transition: opacity 0.25s ease;
     z-index: 15;
+
+    .usa-dt-tab {
+        border-bottom: rem(1) solid $gray-cool-10;
+        margin-bottom: rem(-1);
+
+        &.active {
+            border-bottom: rem(1) solid transparent;
+        }
+    }
+
     .usa-dt-tab:focus {
         outline: none;
     }
+
     @media (min-width: $tablet-screen) {
         .usa-dt-tab-list {
           overflow-x: visible;
@@ -86,6 +97,20 @@
 
         .field-list {
             z-index: $z-header - 1;
+        }
+    }
+
+    .tables-content {
+        @import "../../search/results/table/resultsTable";
+        @import "../../search/results/typography";
+
+        .search-results-table-section .results-table-content {
+            overflow-x: auto;
+            margin: $global-spacing-unit 0;
+
+            table.usda-table.award-history-table {
+                margin: 0;
+            }
         }
     }
 }

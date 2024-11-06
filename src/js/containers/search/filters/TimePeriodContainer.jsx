@@ -19,10 +19,12 @@ export const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
     updateTimePeriod: PropTypes.func,
+    updateTimePeriodArray: PropTypes.func,
     filterTimePeriodType: PropTypes.string,
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
+    filterTime_Period: PropTypes.array,
     appliedFilters: PropTypes.object,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
@@ -35,7 +37,7 @@ export class TimePeriodContainer extends React.Component {
 
         this.state = {
             timePeriods: [],
-            activeTab: 'fy',
+            activeTab: 'dr',
             cachedTimePeriods: Set(),
             cachedStart: null,
             cachedEnd: null
@@ -47,6 +49,11 @@ export class TimePeriodContainer extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.appliedFilters.timePeriodType === 'fy') {
+            this.changeTab('fy');
+        } else {
+            this.changeTab('dr');
+        }
         this.generateTimePeriods();
     }
 
@@ -99,6 +106,9 @@ export class TimePeriodContainer extends React.Component {
         }
 
         this.props.updateTimePeriod(newFilters);
+
+        // here is where the time_period array gets updated
+        this.props.updateTimePeriodArray(newFilters);
     }
 
     dirtyFilters() {
@@ -161,6 +171,7 @@ export default connect(
         filterTimePeriodType: state.filters.timePeriodType,
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTimePeriodStart: state.filters.timePeriodStart,
+        filterTime_Period: state.filters.time_period,
         filterTimePeriodEnd: state.filters.timePeriodEnd,
         newAwardsOnlySelected: state.filters.filterNewAwardsOnlySelected,
         newAwardsOnlyActive: state.filters.filterNewAwardsOnlyActive,

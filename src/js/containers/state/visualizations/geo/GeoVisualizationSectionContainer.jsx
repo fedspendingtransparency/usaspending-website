@@ -201,7 +201,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         }
 
 
-        if (this.hasFilters()) {
+        if (this.hasFilters() && fy !== 'all') {
             searchParams = this.state.searchData.filters;
         }
         else {

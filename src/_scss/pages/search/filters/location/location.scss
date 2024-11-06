@@ -6,6 +6,7 @@
     @import "./_dropdown";
     @import "./_warning";
     @import "components/_filterTabs.scss";
+    @import "elements/filters/_typeahead";
 
     padding: 0 $global-padding * 2 rem(20);
 
@@ -222,5 +223,38 @@
         @include selected-filter-wrap;
     }
 
+    .location-autocomplete {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: rem(16);
+        .usa-da-typeahead-wrapper {
+            width: 100%;
+            margin-right: rem(4);
+        }
+
+        ul.autocomplete li {
+            padding: rem(4) rem(12);
+
+            span {
+                font-weight: $font-normal;
+                color: $gray-90;
+                font-size: $font-size-12;
+            }
+
+            &.autocomplete-heading {
+                font-size: $font-size-10;
+                font-weight: $font-semibold;
+                line-height: 1.5;
+                text-align: left;
+                color: $gray-60;
+                text-transform: uppercase;
+                padding-top: rem(12);
+                &:first-child {
+                    padding-top: rem(8);
+                }
+            }
+        }
+    }
 
 }

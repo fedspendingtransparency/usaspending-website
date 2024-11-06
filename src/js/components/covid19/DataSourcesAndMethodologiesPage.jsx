@@ -332,7 +332,7 @@ export default () => {
                                                 <strong>Frequency of updates:</strong> monthly
                                             </li>
                                             <li>
-                                                <strong>Details:</strong> A data extract from GTAS is used to power the government-wide spending totals in the first two sections of the page (&quot;Overview&quot; and &quot;Total Spending by Budget Category&quot;). Certain DABS data are cross-validated against GTAS in the Broker submission process, including all of the Treasury Account Balance (File A) data.
+                                                <strong>Details:</strong> A data extract from GTAS is used to power the governmentwide spending totals in the first two sections of the page (&quot;Overview&quot; and &quot;Total Spending by Budget Category&quot;). Certain DABS data are cross-validated against GTAS in the Broker submission process, including all of the Treasury Account Balance (File A) data.
                                             </li>
                                         </ul>
                                     </div>

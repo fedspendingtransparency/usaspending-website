@@ -50,8 +50,9 @@ export const requiredTypes = {
 
 export const initialState = {
     keyword: OrderedMap(),
-    timePeriodType: 'fy',
+    timePeriodType: 'dr',
     timePeriodFY: Set(),
+    time_period: [],
     timePeriodStart: null,
     timePeriodEnd: null,
     filterNewAwardsOnlySelected: false,
@@ -97,6 +98,16 @@ const searchFiltersReducer = (state = initialState, action) => {
                 timePeriodStart: action.start,
                 timePeriodEnd: action.end,
                 timePeriodFY: new Set(action.fy)
+            });
+        }
+
+        // New Time Period Filter Array
+        case 'ADD_TIME_PERIOD_OBJECT': {
+            return Object.assign({}, state, {
+                time_period: state.time_period.concat({
+                    start_date: action.start,
+                    end_date: action.end
+                })
             });
         }
 
@@ -300,6 +311,9 @@ const searchFiltersReducer = (state = initialState, action) => {
                 timePeriodStart: initialState.timePeriodStart,
                 timePeriodEnd: initialState.timePeriodEnd
             });
+        }
+        case 'RESET_TIME_PERIOD_OBJECT': {
+            return initialState.time_period;
         }
         case 'CLEAR_SEARCH_FILTER_TYPE': {
             return Object.assign({}, state, {
