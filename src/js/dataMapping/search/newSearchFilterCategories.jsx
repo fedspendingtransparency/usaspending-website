@@ -8,7 +8,6 @@ import React from 'react';
 
 import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
 import { DEFCheckboxTree } from "../../containers/search/filters/def/DEFCheckboxTree";
-import NewLocationSectionContainer from "../../containers/search/filters/location/NewLocationSectionContainer";
 import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodContainer";
 import RecipientContainer from "../../containers/recipient/RecipientContainer";
 import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
