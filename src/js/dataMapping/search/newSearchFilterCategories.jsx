@@ -1,7 +1,6 @@
 /**
  * SearchFilterCategories.jsx
- * Andrea Blackwell
- * November 4, 2024
+ * Created by Andrea Blackwell November 4, 2024
  */
 
 import React from 'react';
@@ -12,6 +11,7 @@ import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodC
 import RecipientContainer from "../../containers/recipient/RecipientContainer";
 import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
 import AgencyContainer from "../../containers/agency/AgencyContainer";
+import LocationAutocompleteContainer from "../../containers/search/filters/location/LocationAutocompleteContainer";
 
 export const SearchFilterCategories = [
     {
@@ -85,7 +85,7 @@ export const SearchFilterCategories = [
 export const FilterCategoryTree = {
     location: {
         title: 'Location',
-        component: <NewLocationSectionContainer />
+        component: <LocationAutocompleteContainer />
     },
     timePeriod: {
         title: 'Time Period',

@@ -49,7 +49,7 @@ export class TimePeriodContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.appliedFilters.timePeriodType === 'fy') {
+        if (this.props.appliedFilters?.timePeriodType === 'fy') {
             this.changeTab('fy');
         } else {
             this.changeTab('dr');
@@ -125,7 +125,7 @@ export class TimePeriodContainer extends React.Component {
 
         const noChanges = appliedFields.every((appliedField, index) => {
             const activeField = activeFields[index];
-            const appliedValue = this.props.appliedFilters[appliedField];
+            const appliedValue = this.props.appliedFilters ? this.props?.appliedFilters[appliedField] : null;
             const activeValue = this.props[activeField];
 
             // do not set time filter to dirty when 1 checkbox is unchecked
