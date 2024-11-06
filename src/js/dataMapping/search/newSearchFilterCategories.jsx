@@ -130,32 +130,26 @@ export const FilterCategoryTree = {
     recipient: {
         children: [
             {
-                title: 'Recipient',
-                component: <RecipientContainer />
+                title: 'Recipient'
             },
             {
-                title: 'Recipient Type',
-                component: <RecipientTypeContainer />
+                title: 'Recipient Type'
             }
         ]
     },
     sources: {
         children: [
             {
-                title: 'Agency',
-                component: <AgencyContainer />
+                title: 'Agency'
             },
             {
-                title: 'Treasury Account Symbol (TAS)',
-                component: <TASCheckboxTreeContainer />
+                title: 'Treasury Account Symbol (TAS)'
             },
             {
-                title: 'COVID-19 Spending',
-                component: <DEFCheckboxTree />
+                title: 'COVID-19 Spending'
             },
             {
-                title: 'Infrastructure Spending',
-                component: <DEFCheckboxTree />
+                title: 'Infrastructure Spending'
             }
         ]
     }
