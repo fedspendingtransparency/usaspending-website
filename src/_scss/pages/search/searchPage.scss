@@ -92,6 +92,10 @@
                 }
 
 
+                .search-sidebar.hide, .search-sidebar__drilldown.hide, .search-sidebar__main-menu.hide  {
+                    display: none;
+                }
+
                 &.v2 {
                     //margin: rem(16) rem(32);
                     //border-right: #dfe1e2 1px solid;

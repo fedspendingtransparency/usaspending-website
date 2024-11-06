@@ -12,7 +12,7 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 // these are for the SearchFilter demo
 import SearchFilter from "./SearchFilter";
 import { SearchSidebarSubmitContainer } from "../../containers/search/SearchSidebarSubmitContainer";
-import {TimePeriodContainer} from "../../containers/search/filters/TimePeriodContainer";
+import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodContainer";
 
 const SearchSidebar = (props) => {
     const [hide, setHide] = useState(false);
@@ -26,15 +26,17 @@ const SearchSidebar = (props) => {
     };
 
     const setLevel2 = (e, item) => {
+        e.preventDefault();
         setSelectedCategory(item);
         setDrilldown(FilterCategoryTree[item?.categoryKey]);
         setCurrentLevel(2);
     };
 
-    const setLevel3 = (component) => {
+    const setLevel3 = (e, component) => {
+        e.preventDefault();
         setDrilldown(component);
         setCurrentLevel(3);
-    }
+    };
 
     const goBack = (e) => {
         console.log(currentLevel);
@@ -42,56 +44,53 @@ const SearchSidebar = (props) => {
             e.preventDefault();
             setDrilldown(null);
             setCurrentLevel(1);
-        } else if (currentLevel === 3) {
+        }
+        else if (currentLevel === 3) {
             setDrilldown(selectedCategory[FilterCategoryTree[selectedCategory?.categoryKey]]);
             setCurrentLevel(2);
-        };
+        }
 
         if (currentLevel === 1) {
             console.log("log an error message");
         }
-
     };
-
-    useEffect(() => {
-        if (drilldown) {
-            console.log(selectedCategory);
-        }
-    }, [drilldown]);
+    //
+    // useEffect(() => {
+    //     if (drilldown) {
+    //         console.log(selectedCategory);
+    //     }
+    // }, [drilldown, selectedCategory]);
 
     return <>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div onClick={(e) => toggleHide(e)}>hide / show</div>
-        {/* finish filter category tree with each category mapping to components and display each filter correctly */}
         {/* format second level and third level panels */}
         {/* add transition to drilldown / opening new panels */}
         {/* style with back button */}
         {/* style with round button and docked/closed position */}
-        <div className="search-sidebar" id="slide" style={hide ? { display: 'none' } : null}>
-            {drilldown !== null ?
-                <div>
-                    <p>drilldown level - {currentLevel}</p>
-                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    <div onClick={(e) => goBack(e)}>Back</div>
-                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    { drilldown?.children?.map((item) => <div onClick={(e)=> setLevel3(item.component)}>{item.title}</div>) }
-                    { drilldown?.component }
-                </div>
-                :
-                <>
-                    <div className="search-sidebar--header">Search by...</div>
-                    {SearchFilterCategories.map((item) => <SearchFilter
-                        item={item}
-                        iconName={item.iconName}
-                        iconColor={item.iconColor}
-                        iconBackgroundColor={item.iconBackgroundColor}
-                        title={item.title}
-                        description={item.description}
-                        itemCount={item.itemCount}
-                        selectedItems={item.selectedItems}
-                        selectCategory={setLevel2} />)}
-                </>
-            }
+        <div className={`search-sidebar {hide ? 'hide' : ''}`} id="slide">
+            <div className={`search-sidebar__drilldown {!drilldown ? 'hide' : ''}`}>
+                <p>drilldown level - {currentLevel}</p>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <div onClick={(e) => goBack(e)}>Back</div>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                { drilldown?.children?.map((item) => <div onClick={(e) => setLevel3(e, item.component)}>{item.title}</div>) }
+                { drilldown?.component }
+            </div>
+
+            <div className={`search-sidebar__main-menu {React.isValidElement(drilldown) ? 'hide' : ''}`}>
+                <div className="search-sidebar--header">Search by...</div>
+                {SearchFilterCategories.map((item) => (<SearchFilter
+                    item={item}
+                    iconName={item.iconName}
+                    iconColor={item.iconColor}
+                    iconBackgroundColor={item.iconBackgroundColor}
+                    title={item.title}
+                    description={item.description}
+                    itemCount={item.itemCount}
+                    selectedItems={item.selectedItems}
+                    selectCategory={setLevel2} />))}
+            </div>
             <div className="sidebar-bottom-submit v2">
                 <SearchSidebarSubmitContainer />
             </div>
