@@ -28,6 +28,7 @@ export const CheckboxTreeSelections = Record(defaultCheckboxTreeSelections);
 export const requiredTypes = {
     keyword: OrderedMap,
     timePeriodFY: Set,
+    time_period: OrderedMap,
     selectedLocations: OrderedMap,
     selectedFundingAgencies: OrderedMap,
     selectedAwardingAgencies: OrderedMap,
@@ -52,7 +53,7 @@ export const initialState = {
     keyword: OrderedMap(),
     timePeriodType: 'dr',
     timePeriodFY: Set(),
-    time_period: [],
+    time_period: OrderedMap(),
     timePeriodStart: null,
     timePeriodEnd: null,
     filterNewAwardsOnlySelected: false,
