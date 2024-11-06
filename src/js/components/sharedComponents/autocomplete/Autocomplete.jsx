@@ -96,7 +96,7 @@ const Autocomplete = (props) => {
 
         if (props.retainValue && isValid) {
             autocompleteInputRef.current.value = selectedItemTitle;
-            autocompleteInputRef.current.style.fontWeight = "600";
+            autocompleteInputRef.current.style.fontWeight = "400";
         }
 
         else {
