@@ -46,8 +46,6 @@ const LocationAutocomplete = (props) => {
                     onSelect={props.selectItem}
                     clearAutocompleteSuggestions={props.clearAutocompleteSuggestions}
                     noResults={props.noResults}
-                    minCharsToSearch={3}
-                    minChar
                     placeholder="Search for a location..."
                     isLoading={props.isLoading}
                     retainValue />
