@@ -49,7 +49,7 @@ const SuggestionHolder = (props) => {
     return (
         <ul
             id={props.autocompleteId}
-            className={`testing autocomplete ${hiddenClass}`}
+            className={`autocomplete ${hiddenClass}`}
             role="listbox">
             {suggestions}
         </ul>
