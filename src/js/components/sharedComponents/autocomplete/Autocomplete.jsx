@@ -28,7 +28,8 @@ const propTypes = {
     icon: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'medium']),
     id: PropTypes.string,
-    minChar: PropTypes.bool
+    minChar: PropTypes.bool,
+    isLoading: PropTypes.bool
 };
 
 const defaultProps = {
@@ -46,7 +47,8 @@ const defaultProps = {
     icon: false,
     size: 'medium',
     id: '',
-    minChar: false
+    minChar: false,
+    isLoading: false
 };
 
 const Autocomplete = (props) => {
@@ -250,11 +252,12 @@ const Autocomplete = (props) => {
         }
     }
 
-    const loadingIndicator = props.inFlight ? (
-        <div className="usa-da-typeahead__loading-icon">
+    const loadingIndicator = (
+        <div className="autocomplete-filter-message-container">
             <FontAwesomeIcon icon="spinner" spin />
+            <div className="autocomplete-filter-message-container__text">Loading your data...</div>
         </div>
-    ) : null;
+    );
 
     let variation = '';
     if (props.size === 'small') {
@@ -314,21 +317,20 @@ const Autocomplete = (props) => {
                         onBlur={onBlur}
                         onKeyDown={onKeyDown}
                         maxLength={props.characterLimit} />
-                    {loadingIndicator}
                 </div>
                 <div
                     className="screen-reader-description"
                     role="alert">
                     {status}
                 </div>
-                <SuggestionHolder
+                {props.isLoading ? loadingIndicator : <SuggestionHolder
                     suggestions={props.values}
                     shown={shown}
                     selectedIndex={selectedIndex}
                     select={select.bind(this)}
                     maxSuggestions={props.maxSuggestions}
                     autocompleteId={autocompleteIdRef.current}
-                    matchingString={value} />
+                    matchingString={value} />}
                 {generateWarning()}
             </div>
         </div>

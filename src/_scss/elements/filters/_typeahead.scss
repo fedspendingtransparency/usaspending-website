@@ -10,13 +10,6 @@
         margin-bottom: .5rem;
     }
 
-    svg {
-        position: absolute;
-        top: rem(10);
-        left: rem(10);
-        color: $gray-60;
-    }
-
     input {
         line-height: 1.5;
         height: rem(32);
@@ -107,5 +100,15 @@
 
     .hide {
         display: none;
+    }
+
+    .autocomplete-filter-message-container {
+        font-size: rem(30);
+        text-align: center;
+        margin-top: $global-margin;
+        .autocomplete-filter-message-container__text {
+          font-size: 2rem;
+          padding-bottom: 2rem;
+        }
     }
 }

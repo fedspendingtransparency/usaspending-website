@@ -20,7 +20,8 @@ const propTypes = {
     addLocation: PropTypes.func,
     selectedLocations: PropTypes.object,
     selectedRecipientLocations: PropTypes.object,
-    removeLocation: PropTypes.func
+    removeLocation: PropTypes.func,
+    isLoading: PropTypes.bool
 };
 
 const LocationAutocomplete = (props) => {
@@ -46,7 +47,10 @@ const LocationAutocomplete = (props) => {
                     onSelect={props.selectItem}
                     clearAutocompleteSuggestions={props.clearAutocompleteSuggestions}
                     noResults={props.noResults}
+                    minCharsToSearch={3}
+                    minChar
                     placeholder="Search for a location..."
+                    isLoading={props.isLoading}
                     retainValue />
                 <Button
                     additionalClassnames="submit-button"

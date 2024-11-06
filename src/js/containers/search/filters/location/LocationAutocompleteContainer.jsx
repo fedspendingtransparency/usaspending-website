@@ -30,6 +30,7 @@ const LocationAutocompleteContainer = (props) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [readyToStage, setReadyToStage] = useState(false);
     const [countriesList, setCountriesList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     let timeout;
     let listRequest;
@@ -72,9 +73,11 @@ const LocationAutocompleteContainer = (props) => {
 
         if (countyListRequest) {
             countyListRequest.cancel();
+            setIsLoading(false);
         }
 
         countyListRequest = fetchLocationList(`counties/${stateAbbreviation}_counties`);
+        setIsLoading(true);
         countyListRequest.promise
             .then((res) => {
                 addCounty(res.data, county, state, stateAbbreviation, countryAbbreviation);
@@ -82,6 +85,7 @@ const LocationAutocompleteContainer = (props) => {
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
+                    setIsLoading(false);
                 }
             });
     };
@@ -89,6 +93,7 @@ const LocationAutocompleteContainer = (props) => {
     const loadCountries = () => {
         if (listRequest) {
             listRequest.cancel();
+            setIsLoading(false);
         }
 
         listRequest = fetchLocationList("countries");
@@ -99,6 +104,7 @@ const LocationAutocompleteContainer = (props) => {
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
+                    setIsLoading(false);
                 }
             });
     };
@@ -205,6 +211,7 @@ const LocationAutocompleteContainer = (props) => {
     const clearAutocompleteSuggestions = () => {
         setLocations([]);
         setReadyToStage(false);
+        setIsLoading(false);
     };
 
     const addLocation = () => {
@@ -278,6 +285,7 @@ const LocationAutocompleteContainer = (props) => {
 
         if (count === 0) {
             setNoResults(true);
+            setIsLoading(false);
             return;
         }
 
@@ -382,17 +390,19 @@ const LocationAutocompleteContainer = (props) => {
             };
 
             locationSearchRequests = fetchLocations(locationSearchParams);
-
+            setIsLoading(true);
             locationSearchRequests.promise
                 .then((res) => {
                     parseLocations(res.data.results, res.data.count);
                 })
                 .catch((err) => {
                     console.log('error: ', err);
+                    setIsLoading(false);
                 });
         }
         else if (locationSearchRequests) {
             locationSearchRequests.cancel();
+            setIsLoading(false);
         }
     };
 
@@ -432,7 +442,8 @@ const LocationAutocompleteContainer = (props) => {
             addLocation={addLocation}
             selectedLocations={props.selectedLocations}
             selectedRecipientLocations={props.selectedRecipientLocations}
-            removeLocation={removeLocation} />
+            removeLocation={removeLocation}
+            isLoading={isLoading} />
     );
 };
 
