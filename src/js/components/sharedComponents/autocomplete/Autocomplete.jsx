@@ -52,7 +52,6 @@ const defaultProps = {
 };
 
 const Autocomplete = (props) => {
-    console.debug("stuff: ", props);
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);

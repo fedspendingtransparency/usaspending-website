@@ -36,7 +36,6 @@ const LocationAutocomplete = (props) => {
         props.addLocation();
     };
 
-    console.debug("top level: ", props);
     return (
         <div id={activeTab}>
             <div className={`location-autocomplete ${props.activeTab}`}>

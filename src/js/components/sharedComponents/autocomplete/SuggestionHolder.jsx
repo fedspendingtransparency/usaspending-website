@@ -46,7 +46,6 @@ const SuggestionHolder = (props) => {
     if (props.shown && props.suggestions.length > 0) {
         hiddenClass = '';
     }
-    console.debug("suggestionholder: ", props);
     return (
         <ul
             id={props.autocompleteId}

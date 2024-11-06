@@ -428,7 +428,6 @@ const LocationAutocompleteContainer = (props) => {
             value: newValue
         });
     };
-    console.debug("top top top level stuff: ", props);
     return (
         <LocationAutocomplete
             {...props}
