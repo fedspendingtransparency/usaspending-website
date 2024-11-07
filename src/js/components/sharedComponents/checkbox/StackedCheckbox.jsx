@@ -32,7 +32,7 @@ const StackedCheckbox = ({
     toggleRecipient,
     getRecipientsFromSearchString
 }) => {
-    const { searchString, setSearchString } = useState('');
+    const [searchString, setSearchString] = useState('');
 
     const handleTextInputChange = (e) => {
         if (e.target.value.length >= 3) {
