@@ -13,6 +13,7 @@ import { usePrevious } from '../../../../helpers';
 import RecipientResultsContainer from "./RecipientResultsContainer";
 
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
+import GlobalConstants from 'GlobalConstants';
 
 const propTypes = {
     toggleRecipient: PropTypes.func,
@@ -43,19 +44,22 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
     return (
         <div className="recipient-filter">
             <div className="filter-item-wrap">
-                <RecipientNameDUNSContainer
-                    selectedRecipients={selectedRecipients}
-                    toggleRecipient={toggleRecipient} />
-                {localSelectedRecipients}
-                <SubmitHint
-                    ref={(component) => {
-                        setHint(component);
-                    }} />
-                <FeatureFlag>
+                {GlobalConstants.QAT ?
                     <RecipientResultsContainer
                         selectedRecipients={selectedRecipients}
                         toggleRecipient={toggleRecipient} />
-                </FeatureFlag>
+                    :
+                    <>
+                        <RecipientNameDUNSContainer
+                            selectedRecipients={selectedRecipients}
+                            toggleRecipient={toggleRecipient} />
+                        {localSelectedRecipients}
+                        <SubmitHint
+                            ref={(component) => {
+                                setHint(component);
+                            }} />
+                    </>
+                }
             </div>
         </div>
     );
