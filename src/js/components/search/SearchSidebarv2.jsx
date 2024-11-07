@@ -65,15 +65,15 @@ const SearchSidebar = (props) => {
     //     }
     // }, [drilldown, selectedCategory]);
 
-    return (<div style={{display: "flex"}}>
+    return (<div className="search-sidebar-slider__v2">
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div onClick={(e) => toggleHide(e)}>hide / show</div>
         {/* format second level and third level panels */}
         {/* add transition to drilldown / opening new panels */}
         {/* style with back button */}
         {/* style with round button and docked/closed position */}
-        <div className={`search-sidebar ${hide ? 'hide' : ''}`} id="slide">
-            <div className={`search-sidebar__drilldown ${!isDrilldown ? 'hide' : ''}`}>
+        <div className={`search-sidebar ${hide ? '' : 'opened'}`} id="slider-container">
+            <div className={`search-sidebar__drilldown ${isDrilldown ? 'opened' : ''}`}>
                 <p>drilldown level - {currentLevel}</p>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div onClick={(e) => goBack(e)}>Back</div>
@@ -82,7 +82,7 @@ const SearchSidebar = (props) => {
                 { drilldown?.component }
             </div>
 
-            <div className={`search-sidebar__main-menu ${isDrilldown ? 'hide' : ''}`}>
+            <div className={`search-sidebar__main-menu ${isDrilldown ? '' : 'opened'}`}>
                 <div className="search-sidebar--header">Search by...</div>
                 {SearchFilterCategories.map((item) => (<SearchFilter
                     item={item}
