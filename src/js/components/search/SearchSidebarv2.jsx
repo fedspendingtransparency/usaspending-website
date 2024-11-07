@@ -17,6 +17,7 @@ import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodC
 const SearchSidebar = (props) => {
     const [hide, setHide] = useState(false);
     const [drilldown, setDrilldown] = useState(null);
+    const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [currentLevel, setCurrentLevel] = useState(1);
 
@@ -29,12 +30,14 @@ const SearchSidebar = (props) => {
         e.preventDefault();
         setSelectedCategory(item);
         setDrilldown(FilterCategoryTree[item?.categoryKey]);
+        setIsDrilldown(true);
         setCurrentLevel(2);
     };
 
     const setLevel3 = (e, component) => {
         e.preventDefault();
         setDrilldown(component);
+        setIsDrilldown(true);
         setCurrentLevel(3);
     };
 
@@ -44,6 +47,7 @@ const SearchSidebar = (props) => {
             e.preventDefault();
             setDrilldown(null);
             setCurrentLevel(1);
+            setIsDrilldown(false);
         }
         else if (currentLevel === 3) {
             setDrilldown(selectedCategory[FilterCategoryTree[selectedCategory?.categoryKey]]);
@@ -61,15 +65,15 @@ const SearchSidebar = (props) => {
     //     }
     // }, [drilldown, selectedCategory]);
 
-    return <>
+    return (<div style={{display: "flex"}}>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div onClick={(e) => toggleHide(e)}>hide / show</div>
         {/* format second level and third level panels */}
         {/* add transition to drilldown / opening new panels */}
         {/* style with back button */}
         {/* style with round button and docked/closed position */}
-        <div className={`search-sidebar {hide ? 'hide' : ''}`} id="slide">
-            <div className={`search-sidebar__drilldown {!drilldown ? 'hide' : ''}`}>
+        <div className={`search-sidebar ${hide ? 'hide' : ''}`} id="slide">
+            <div className={`search-sidebar__drilldown ${!isDrilldown ? 'hide' : ''}`}>
                 <p>drilldown level - {currentLevel}</p>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div onClick={(e) => goBack(e)}>Back</div>
@@ -78,7 +82,7 @@ const SearchSidebar = (props) => {
                 { drilldown?.component }
             </div>
 
-            <div className={`search-sidebar__main-menu {React.isValidElement(drilldown) ? 'hide' : ''}`}>
+            <div className={`search-sidebar__main-menu ${isDrilldown ? 'hide' : ''}`}>
                 <div className="search-sidebar--header">Search by...</div>
                 {SearchFilterCategories.map((item) => (<SearchFilter
                     item={item}
@@ -95,7 +99,7 @@ const SearchSidebar = (props) => {
                 <SearchSidebarSubmitContainer />
             </div>
         </div>
-    </>;
+            </div>);
 };
 
 // SearchSidebar.propTypes = propTypes;
