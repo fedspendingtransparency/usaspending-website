@@ -42,7 +42,8 @@ const StackedCheckbox = ({
 
     useEffect(() => {
         getRecipientsFromSearchString(searchString);
-    }, [getRecipientsFromSearchString, searchString]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchString]);
 
     return (
         <div className="stacked-checkbox__container">
