@@ -5,7 +5,13 @@
     @import "mixins/selectedFilterWrap";
     @import "../_singleSubmit";
 
-    @import "components/checkbox/stackedCheckboxList";
+    @import "components/checkbox/primaryStackedCheckbox";
+
+    .filter-item-wrap {
+        .autocomplete__input {
+            padding-bottom: 0;
+        }
+    }
 
     .recipient-results__container {
         margin-top: $global-margin * 2.5;
