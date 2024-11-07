@@ -6,8 +6,6 @@
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other query modules
 export const updateSelectedDates = (currentDates, date) => {
-    let updatedSet = currentDates;
-
     if (date.start || date.end) {
         currentDates.push({
             start_date: date.start,
