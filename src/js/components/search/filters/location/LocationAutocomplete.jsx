@@ -20,7 +20,8 @@ const propTypes = {
     addLocation: PropTypes.func,
     selectedLocations: PropTypes.object,
     selectedRecipientLocations: PropTypes.object,
-    removeLocation: PropTypes.func
+    removeLocation: PropTypes.func,
+    isLoading: PropTypes.bool
 };
 
 const LocationAutocomplete = (props) => {
@@ -39,12 +40,14 @@ const LocationAutocomplete = (props) => {
         <div id={activeTab}>
             <div className={`location-autocomplete ${props.activeTab}`}>
                 <Autocomplete
+                    {...props}
                     values={props.locations}
                     handleTextInput={props.handleTextInput}
                     onSelect={props.selectItem}
                     clearAutocompleteSuggestions={props.clearAutocompleteSuggestions}
                     noResults={props.noResults}
                     placeholder="Search for a location..."
+                    isLoading={props.isLoading}
                     retainValue />
                 <Button
                     additionalClassnames="submit-button"
