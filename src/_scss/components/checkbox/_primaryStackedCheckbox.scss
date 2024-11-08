@@ -2,6 +2,10 @@
   display: flex;
   flex-flow: column nowrap;
 
+  :not(:first-of-type) {
+    margin-top: $global-spacing-unit;
+  }
+
   .checkbox-set {
     margin: 0;
 
