@@ -12,7 +12,6 @@ import SelectedRecipients from './SelectedRecipients';
 import { usePrevious } from '../../../../helpers';
 import RecipientResultsContainer from "./RecipientResultsContainer";
 
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import GlobalConstants from 'GlobalConstants';
 
 const propTypes = {

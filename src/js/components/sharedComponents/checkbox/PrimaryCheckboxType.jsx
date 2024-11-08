@@ -15,7 +15,7 @@ import CollapsedCheckboxType from './CollapsedCheckboxType';
 import SingleCheckboxType from './SingleCheckboxType';
 
 const propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.string || PropTypes.element,
     name: PropTypes.string,
     lookupName: PropTypes.string,
     filters: PropTypes.array,

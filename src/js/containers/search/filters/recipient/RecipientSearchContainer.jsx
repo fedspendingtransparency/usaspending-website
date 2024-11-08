@@ -19,6 +19,7 @@ const propTypes = {
 
 const RecipientSearchContainer = (props) => {
     const toggleRecipient = (recipient) => {
+        console.log('in toggleRecipient', recipient);
         props.updateSelectedRecipients(recipient);
     };
 

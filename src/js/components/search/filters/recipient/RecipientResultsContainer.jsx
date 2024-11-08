@@ -6,9 +6,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import * as SearchHelper from 'helpers/searchHelper';
-import StackedCheckbox from "../../../sharedComponents/checkbox/StackedCheckbox";
-import PrimaryStackedCheckbox from "../../../sharedComponents/checkbox/PrimaryStackedCheckbox";
 import { EntityDropdownAutocomplete } from "../location/EntityDropdownAutocomplete";
+import PrimaryCheckboxType from "../../../sharedComponents/checkbox/PrimaryCheckboxType";
 
 const propTypes = {
     selectedRecipients: PropTypes.object,
@@ -77,13 +76,6 @@ const RecipientResultsContainer = ({ toggleRecipient }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // if you end up using two common components here
-    // you'll need to send the recipients array to the SecondaryCheckbox cmpnt
-    // and the toggle fn prop
-    // and the labels for the UEi and DUNS fields
-    // and the itemLabelAfterName, which will require a loop through the data, ugh
-    // or we ask the backend to change the field for us, to the string we'll use
-
     console.log('recipients', recipients);
 
     return (
@@ -98,16 +90,31 @@ const RecipientResultsContainer = ({ toggleRecipient }) => {
             <div className="recipient-results__container">
                 <div className="checkbox-type-filter">
                     { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient, index) => (
-                        <PrimaryStackedCheckbox
-                            index={index}
-                            checkboxLabel="UEI: "
-                            checkboxLabelContent={recipient.uei ? recipient.uei : 'Not provided'}
-                            subheadingLabel="Legacy DUNS: "
-                            subheadingLabelContent={recipient.duns ? recipient.duns : 'Not provided'}
-                            itemName={recipient.name || recipient.recipient_name}
-                            itemLabelAfterName={levelMapping[recipient.recipient_level]}
-                            toggleRecipient={toggleRecipient}
-                            getRecipientsFromSearchString={getRecipientsFromSearchString} />
+                        <div className="recipient-label__container">
+                            <PrimaryCheckboxType
+                                name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
+                                value={`primary-checkbox-${index}`}
+                                key={recipient.uei}
+                                toggleCheckboxType={toggleRecipient} />
+                            <div className="recipient-label__lower-container">
+                                <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns ? recipient.duns : 'Not provided'}</div>
+                                <div className="recipient-label__name-container">
+                                    <span className="recipient-label__recipient-name">{recipient.name || recipient.recipient_name}</span>
+                                    <span className="recipient-label__recipient-level">{levelMapping[recipient.recipient_level]}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        // <PrimaryStackedCheckbox
+                        //     index={index}
+                        //     checkboxLabel="UEI: "
+                        //     checkboxLabelContent={recipient.uei ? recipient.uei : 'Not provided'}
+                        //     subheadingLabel="Legacy DUNS: "
+                        //     subheadingLabelContent={recipient.duns ? recipient.duns : 'Not provided'}
+                        //     itemName={recipient.name || recipient.recipient_name}
+                        //     itemLabelAfterName={levelMapping[recipient.recipient_level]}
+                        //     toggleRecipient={toggleRecipient}
+                        //     getRecipientsFromSearchString={getRecipientsFromSearchString} />
                     ))}
                 </div>
             </div>
