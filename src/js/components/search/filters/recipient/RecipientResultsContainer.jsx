@@ -66,7 +66,9 @@ const RecipientResultsContainer = ({ toggleRecipient }) => {
     };
 
     useEffect(() => {
-        getRecipientsFromSearchString(searchString);
+        if (searchString) {
+            getRecipientsFromSearchString(searchString);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
