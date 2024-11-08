@@ -4,18 +4,16 @@
  **/
 
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
 import { SearchFilterCategories, FilterCategoryTree } from "dataMapping/search/newSearchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
-
-// these are for the SearchFilter demo
 import SearchFilter from "../SearchFilter";
 import { SearchSidebarSubmitContainer } from "../../../containers/search/SearchSidebarSubmitContainer";
-import { TimePeriodContainer } from "../../../containers/search/filters/TimePeriodContainer";
+import CategoriesList from "./CateogriesList";
+import CategoryFilter from "./CategoryFilter";
 
-const SearchSidebar = (props) => {
+const SearchSidebar = () => {
     const [isOpened, setIsOpened] = useState(true);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -67,50 +65,44 @@ const SearchSidebar = (props) => {
         }
     };
 
-    return (<div className="search-sidebar-slider search-sidebar">
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        {/* format second level and third level panels */}
-        {/* add transition to drilldown / opening new panels */}
-        {/* style with back button */}
-        {/* reposition and finish styling the round button and docked/closed position */}
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-        <div className="slider-open-toggle" onClick={(e) => toggleOpened(e)}>
-            <FontAwesomeIcon className="chevron-left" icon="chevron-left" />
-        </div>
-        <div className={`search-sidebar slider-container ${isOpened ? 'opened' : ''}`}>
-            <div className={`search-sidebar__drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
-                <p>drilldown level - {currentLevel}</p>
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <div onClick={(e) => goBack(e)}>Back</div>
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <CategoriesList
-                    categories={drilldown.children}>
-                    setLevel3={setLevel3}
-                </CategoriesList>
-                <CategoryFilter />
-                { drilldown?.component }
+    return (
+        <div className="search-sidebar-slider search-sidebar">
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+            <div className="slider-open-toggle" onClick={(e) => toggleOpened(e)}>
+                <FontAwesomeIcon className="chevron-left" icon="chevron-left" />
             </div>
+            <div className={`search-sidebar slider-container ${isOpened ? 'opened' : ''}`}>
+                <div className={`search-sidebar__drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
+                    <p>FOR DEBUGGING PURPOSES:  drilldown level - {currentLevel}</p>
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                    <div onClick={(e) => goBack(e)}>Back</div>
+                    {drilldown?.children && <CategoriesList
+                        categories={drilldown.children}
+                        setLevel3={setLevel3} />}
 
-            <div className={`search-sidebar__main-menu ${isDrilldown ? '' : 'opened'}`}>
-                <div className="search-sidebar--header">
-                    <span>Search by...</span>
+                    {drilldown?.component && <CategoryFilter component={drilldown.component} />}
                 </div>
-                {SearchFilterCategories.map((item) => (<SearchFilter
-                    item={item}
-                    iconName={item.iconName}
-                    iconColor={item.iconColor}
-                    iconBackgroundColor={item.iconBackgroundColor}
-                    title={item.title}
-                    description={item.description}
-                    itemCount={item.itemCount}
-                    selectedItems={item.selectedItems}
-                    selectCategory={setLevel2} />))}
+
+                <div className={`search-sidebar__main-menu ${isDrilldown ? '' : 'opened'}`}>
+                    <div className="search-sidebar--header">
+                        <span>Search by...</span>
+                    </div>
+                    {SearchFilterCategories.map((item) => (<SearchFilter
+                        item={item}
+                        iconName={item.iconName}
+                        iconColor={item.iconColor}
+                        iconBackgroundColor={item.iconBackgroundColor}
+                        title={item.title}
+                        description={item.description}
+                        itemCount={item.itemCount}
+                        selectedItems={item.selectedItems}
+                        selectCategory={setLevel2} />))}
+                </div>
+                <div className="sidebar-bottom-submit v2">
+                    <SearchSidebarSubmitContainer />
+                </div>
             </div>
-            <div className="sidebar-bottom-submit v2">
-                <SearchSidebarSubmitContainer />
-            </div>
-        </div>
-    </div>);
+        </div>);
 };
 
 // SearchSidebar.propTypes = propTypes;

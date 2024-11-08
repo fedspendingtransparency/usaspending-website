@@ -1,4 +1,4 @@
-/* CategoriesList */
+/* CategoriesList.jsx */
 /* Created by Andrea Blackwell November 8, 2024 */
 
 import React from "react";
