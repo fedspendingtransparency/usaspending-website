@@ -1,0 +1,113 @@
+@import '_searchFilter';
+
+$sidebar-width: 354px;
+$negative-side-bar-width: calc(-1 * $sidebar-width);
+
+@keyframes left-sidebar-slidein {
+  0% {
+    transform: translateX($negative-side-bar-width);
+    visibility: hidden;
+  }
+  100% {
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+@keyframes drilldown-slidein {
+  0% {
+    transform: translateX($sidebar-width);
+    visibility: hidden;
+  }
+  100% {
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+@keyframes left-sidebar-slideout {
+  0% {
+    transform: translateX(0);
+    visibility: visible;
+  }
+  100% {
+    transform: translateX($negative-side-bar-width);
+    visibility: hidden;
+  }
+}
+
+.slider-open-toggle {
+  position: absolute;
+  left: calc($sidebar-width - 12px);
+  border-radius: 12px;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #dfe1e2;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+
+  .chevron-left {
+    margin: auto;
+    color: #2378c3;
+    width: 6px;
+    height: 10px;
+  }
+}
+
+.search-sidebar-slider {
+  height: 1000px;
+  .slider-container {
+    position: absolute;
+    width: $sidebar-width;
+    min-height: 600px;
+    margin-top: -40px !important;
+    border: 1px solid #dfe1d2;
+    box-shadow: none;
+    border-radius: unset;
+
+    &.opened {
+      -webkit-animation: left-sidebar-slidein 0.5s forwards;
+      //-webkit-animation-delay: 2s;
+      animation: left-sidebar-slidein 0.5s forwards;
+      //animation-delay: 2s;
+    }
+
+    &:not(.opened) {
+      animation: left-sidebar-slideout 0.5s forwards;
+      -webkit-animation: left-sidebar-slideout 0.5s forwards;
+    }
+
+    .search-sidebar__drilldown {
+      &.opened {
+        -webkit-animation: drilldown-slidein 0.5s forwards;
+        //-webkit-animation-delay: 2s;
+        animation: drilldown-slidein 0.5s forwards;
+        //animation-delay: 2s;
+        display: block;
+      }
+    }
+
+    .search-sidebar__drilldown:not(.opened), .search-sidebar__main-menu:not(.opened) {
+      display: none;
+    }
+
+  }
+
+  .search-sidebar--header {
+    margin: rem(16) rem(32);
+    height: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #1b1b1b;
+  }
+
+  .sidebar-bottom-submit {
+    border-top: #dfe1e2 1px solid;
+
+  }
+}

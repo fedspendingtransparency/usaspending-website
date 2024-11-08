@@ -6,6 +6,7 @@
 import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { SearchFilterCategories, FilterCategoryTree } from "dataMapping/search/newSearchFilterCategories";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
 
@@ -15,16 +16,23 @@ import { SearchSidebarSubmitContainer } from "../../containers/search/SearchSide
 import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodContainer";
 
 const SearchSidebar = (props) => {
-    const [hide, setHide] = useState(false);
+    const [isOpened, setIsOpened] = useState(true);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [currentLevel, setCurrentLevel] = useState(1);
 
-    const toggleHide = (e) => {
+    const toggleOpened = (e) => {
         e.preventDefault();
-        setHide((prevState) => !prevState);
+        setIsOpened((prevState) => !prevState);
     };
+
+    // const tooltipDirection = () => {
+    //     if (window.innerWidth <= mediumScreen) {
+    //         return "bottom";
+    //     }
+    //     return "right";
+    // };
 
     const setLevel2 = (e, item) => {
         e.preventDefault();
@@ -58,22 +66,19 @@ const SearchSidebar = (props) => {
             console.log("log an error message");
         }
     };
-    //
-    // useEffect(() => {
-    //     if (drilldown) {
-    //         console.log(selectedCategory);
-    //     }
-    // }, [drilldown, selectedCategory]);
 
-    return (<div className="search-sidebar-slider__v2">
+    return (<div className="search-sidebar-slider search-sidebar">
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        <div onClick={(e) => toggleHide(e)}>hide / show</div>
         {/* format second level and third level panels */}
         {/* add transition to drilldown / opening new panels */}
         {/* style with back button */}
-        {/* style with round button and docked/closed position */}
-        <div className={`search-sidebar ${hide ? '' : 'opened'}`} id="slider-container">
-            <div className={`search-sidebar__drilldown ${isDrilldown ? 'opened' : ''}`}>
+        {/* reposition and finish styling the round button and docked/closed position */}
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+        <div className="slider-open-toggle" onClick={(e) => toggleOpened(e)}>
+            <FontAwesomeIcon className="chevron-left" icon="chevron-left" />
+        </div>
+        <div className={`search-sidebar slider-container ${isOpened ? 'opened' : ''}`}>
+            <div className={`search-sidebar__drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
                 <p>drilldown level - {currentLevel}</p>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div onClick={(e) => goBack(e)}>Back</div>
@@ -83,7 +88,9 @@ const SearchSidebar = (props) => {
             </div>
 
             <div className={`search-sidebar__main-menu ${isDrilldown ? '' : 'opened'}`}>
-                <div className="search-sidebar--header">Search by...</div>
+                <div className="search-sidebar--header">
+                    <span>Search by...</span>
+                </div>
                 {SearchFilterCategories.map((item) => (<SearchFilter
                     item={item}
                     iconName={item.iconName}
@@ -99,7 +106,7 @@ const SearchSidebar = (props) => {
                 <SearchSidebarSubmitContainer />
             </div>
         </div>
-            </div>);
+    </div>);
 };
 
 // SearchSidebar.propTypes = propTypes;

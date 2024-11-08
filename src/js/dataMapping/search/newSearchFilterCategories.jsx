@@ -11,8 +11,7 @@ import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodC
 import RecipientContainer from "../../containers/recipient/RecipientContainer";
 import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
 import AgencyContainer from "../../containers/agency/AgencyContainer";
-import LocationAutocompleteContainer from "../../containers/search/filters/location/LocationAutocompleteContainer";
-
+import {LocationSectionContainer} from "../../containers/search/filters/location/LocationSectionContainer";
 export const SearchFilterCategories = [
     {
         categoryKey: 'location',
@@ -85,7 +84,7 @@ export const SearchFilterCategories = [
 export const FilterCategoryTree = {
     location: {
         title: 'Location',
-        component: <LocationAutocompleteContainer />
+        component: <LocationSectionContainer />
     },
     timePeriod: {
         title: 'Time Period',

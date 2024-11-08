@@ -31,6 +31,8 @@ import ResultsView from "./newResultsView/ResultsView";
 import Button from "../sharedComponents/buttons/Button";
 import SearchSidebarv2 from "./SearchSidebarv2";
 
+require('pages/search/searchPage.scss');
+
 
 const propTypes = {
     download: PropTypes.object,
