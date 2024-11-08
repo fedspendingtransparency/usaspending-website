@@ -11,9 +11,9 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 
 
 // these are for the SearchFilter demo
-import SearchFilter from "./SearchFilter";
-import { SearchSidebarSubmitContainer } from "../../containers/search/SearchSidebarSubmitContainer";
-import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodContainer";
+import SearchFilter from "../SearchFilter";
+import { SearchSidebarSubmitContainer } from "../../../containers/search/SearchSidebarSubmitContainer";
+import { TimePeriodContainer } from "../../../containers/search/filters/TimePeriodContainer";
 
 const SearchSidebar = (props) => {
     const [isOpened, setIsOpened] = useState(true);
@@ -83,7 +83,11 @@ const SearchSidebar = (props) => {
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div onClick={(e) => goBack(e)}>Back</div>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                { drilldown?.children?.map((item) => <div onClick={(e) => setLevel3(e, item.component)}>{item.title}</div>) }
+                <CategoriesList
+                    categories={drilldown.children}>
+                    setLevel3={setLevel3}
+                </CategoriesList>
+                <CategoryFilter />
                 { drilldown?.component }
             </div>
 

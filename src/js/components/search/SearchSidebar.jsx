@@ -45,7 +45,7 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
 
-import SearchSidebarv2 from "./SearchSidebarv2";
+import SearchSidebarv2 from "./sidebar/SearchSidebarv2";
 
 const staticFilters = {
     // NOTE: if you update the title here
