@@ -40,7 +40,7 @@ export default class FilterSidebar extends React.Component {
                 const glossarySlug = this.props.glossaryEntries[i];
                 return (<FilterOption
                     name={title}
-                    // tooltip={tooltip}
+                    tooltip={tooltip}
                     key={title}
                     component={component}
                     accessory={accessory}
