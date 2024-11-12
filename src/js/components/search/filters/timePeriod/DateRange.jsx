@@ -206,12 +206,12 @@ const DateRange = (props) => {
 
     const startDateDisabledDays = generateStartDateDisabledDays(earliestDate);
     const endDateDisabledDays = generateEndDateDisabledDays(earliestDate);
+    const lastInTimePeriod = props.timePeriod[props.timePeriod.length - 1];
 
     let dateLabel = '';
     let hideTags = 'hide';
-    if (props.timePeriod.length > 0) {
-        const lastInTimePeriod = props.timePeriod[props.timePeriod.length - 1];
 
+    if (props.timePeriod.length > 0) {
         hideTags = '';
         let start = null;
         let end = null;
@@ -228,8 +228,11 @@ const DateRange = (props) => {
         else if (start) {
             dateLabel = `${start} to present`;
         }
-        else {
+        else if (end) {
             dateLabel = `... to ${end}`;
+        }
+        else {
+            hideTags = 'hide';
         }
     }
 
