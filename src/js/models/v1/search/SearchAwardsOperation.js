@@ -122,7 +122,7 @@ class SearchAwardsOperation {
         }
 
         // Add Time Period
-        if (this.timePeriodFY?.length > 0 || this.timePeriodRange?.length === 2) {
+        if (this.timePeriodFY?.length > 0 || this.time_period?.length > 0) {
             if (this.timePeriodType === 'fy' && this.timePeriodFY?.length > 0) {
                 filters[rootKeys.timePeriod] = this.timePeriodFY.map((fy) => {
                     const dates = FiscalYearHelper.convertFYToDateRange(fy);
@@ -133,9 +133,11 @@ class SearchAwardsOperation {
                     };
                 });
             }
-            else if (this.timePeriodType === 'dr' && this.timePeriodRange?.length > 0) {
-                let start = this.timePeriodRange[0];
-                let end = this.timePeriodRange[1];
+            else if (this.timePeriodType === 'dr' && this.time_period?.length > 0) {
+                const lastInTimePeriod = this.time_period[this.time_period?.length - 1];
+
+                let start = lastInTimePeriod.start_date;
+                let end = lastInTimePeriod.end_date;
 
                 // if no start or end date is provided, use the 2008-present date range to fill out
                 // the missing dates
@@ -159,7 +161,7 @@ class SearchAwardsOperation {
         }
 
         if ((this.timePeriodType === 'fy' && this.timePeriodFY?.length === 0) ||
-        (this.timePeriodType === 'dr' && this.timePeriodRange?.length === 0)) {
+        (this.timePeriodType === 'dr' && this.time_period?.length === 0)) {
             // the user selected fiscal years but did not specify any years OR
             // the user has selected the date range type but has not entered any dates yet
             // this should default to a period of time from FY 2008 to present
