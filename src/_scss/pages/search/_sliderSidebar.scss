@@ -2,15 +2,23 @@
 
 $sidebar-width: 354px;
 $negative-side-bar-width: calc(-1 * $sidebar-width);
+$sidebar-width-closed: 32px;
 
-@keyframes left-sidebar-slidein {
+@keyframes left-sidebar-slideopen {
   0% {
-    transform: translateX($negative-side-bar-width);
-    visibility: hidden;
+    width: $sidebar-width-closed;
   }
   100% {
-    transform: translateX(0);
-    visibility: visible;
+    width: $sidebar-width;
+  }
+}
+
+@keyframes left-sidebar-slideclose {
+  0% {
+    width: $sidebar-width;
+  }
+  100% {
+    width: $sidebar-width-closed;
   }
 }
 
@@ -25,20 +33,12 @@ $negative-side-bar-width: calc(-1 * $sidebar-width);
   }
 }
 
-@keyframes left-sidebar-slideout {
-  0% {
-    transform: translateX(0);
-    visibility: visible;
-  }
-  100% {
-    transform: translateX($negative-side-bar-width);
-    visibility: hidden;
-  }
-}
+
 
 .slider-open-toggle {
-  position: absolute;
-  left: calc($sidebar-width - 12px);
+  float: right;
+  margin-right: -12px;
+  margin-top: 16px;
   border-radius: 12px;
   width: 24px;
   height: 24px;
@@ -48,7 +48,7 @@ $negative-side-bar-width: calc(-1 * $sidebar-width);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  z-index: 8;
 
   .chevron-left {
     margin: auto;
@@ -59,26 +59,31 @@ $negative-side-bar-width: calc(-1 * $sidebar-width);
 }
 
 .search-sidebar-slider {
-  height: 1000px;
+  background-color: #fff;
+  box-shadow: unset;
+  border-radius: unset;
+  width: $sidebar-width;
+
   .slider-container {
-    position: absolute;
     width: $sidebar-width;
-    min-height: 600px;
-    margin-top: -40px !important;
+    margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid #dfe1d2;
     box-shadow: none;
     border-radius: unset;
 
     &.opened {
-      -webkit-animation: left-sidebar-slidein 0.5s forwards;
-      //-webkit-animation-delay: 2s;
-      animation: left-sidebar-slidein 0.5s forwards;
-      //animation-delay: 2s;
+      -webkit-animation: left-sidebar-slideopen 0.05s forwards;
+      animation: left-sidebar-slideopen 0.5s forwards;
     }
 
     &:not(.opened) {
-      animation: left-sidebar-slideout 0.5s forwards;
-      -webkit-animation: left-sidebar-slideout 0.5s forwards;
+      animation: left-sidebar-slideclose 0.5s forwards;
+      -webkit-animation: left-sidebar-slideclose 0.5s forwards;
+
+      .search-sidebar__drilldown, .search-sidebar__main-menu {
+        overflow: hidden;
+        white-space: nowrap;
+      }
     }
 
     .search-sidebar__drilldown {

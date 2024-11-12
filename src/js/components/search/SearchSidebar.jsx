@@ -234,7 +234,7 @@ const SearchSidebar = ({
                     <SearchSidebarSubmitContainer />
                     {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
-                    {/* <KeywordSearchLink /> */}
+                     <KeywordSearchLink />
                 </div>}
                 </div>
             </div>

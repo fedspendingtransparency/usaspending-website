@@ -64,7 +64,7 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const [searchv2, setSearchv2] = useState(false);
+    const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
 
 

@@ -68,12 +68,15 @@ const SearchSidebar = () => {
     return (
         <div className="search-sidebar-slider search-sidebar">
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-            <div className="slider-open-toggle" onClick={(e) => toggleOpened(e)}>
-                <FontAwesomeIcon className="chevron-left" icon="chevron-left" />
-            </div>
+            {/*<div className="slider-open-toggle" onClick={(e) => toggleOpened(e)}>*/}
+            {/*    <FontAwesomeIcon className="chevron-left" icon="chevron-left" />*/}
+            {/*</div>*/}
             <div className={`search-sidebar slider-container ${isOpened ? 'opened' : ''}`}>
+                <div className="slider-open-toggle" onClick={(e) => toggleOpened(e)}>
+                    <FontAwesomeIcon className="chevron-left" icon="chevron-left"/>
+                </div>
                 <div className={`search-sidebar__drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
-                    <p>FOR DEBUGGING PURPOSES:  drilldown level - {currentLevel}</p>
+                    <p>FOR DEBUGGING PURPOSES: drilldown level - {currentLevel}</p>
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                     <div onClick={(e) => goBack(e)}>Back</div>
                     {drilldown?.children && <CategoriesList
@@ -96,10 +99,10 @@ const SearchSidebar = () => {
                         description={item.description}
                         itemCount={item.itemCount}
                         selectedItems={item.selectedItems}
-                        selectCategory={setLevel2} />))}
+                        selectCategory={setLevel2}/>))}
                 </div>
                 <div className="sidebar-bottom-submit v2">
-                    <SearchSidebarSubmitContainer />
+                    <SearchSidebarSubmitContainer/>
                 </div>
             </div>
         </div>);
