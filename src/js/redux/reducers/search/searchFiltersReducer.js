@@ -14,7 +14,7 @@ import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunction
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
 import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunctions';
-import * as TimePeriodFilterFunctions from './filters/timePeriodFilterFunctions';
+// import * as TimePeriodFilterFunctions from './filters/timePeriodFilterFunctions';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
@@ -105,15 +105,11 @@ const searchFiltersReducer = (state = initialState, action) => {
 
         // New Time Period Filter Array
         case 'ADD_TIME_PERIOD_OBJECT': {
-            // return Object.assign({}, state, {
-            //     time_period: state.time_period.concat({
-            //         start_date: action.start,
-            //         end_date: action.end
-            //     })
-            // });
-
             return Object.assign({}, state, {
-                time_period: TimePeriodFilterFunctions.updateSelectedDates(state.time_period, action)
+                time_period: state.time_period.concat({
+                    start_date: action.start,
+                    end_date: action.end
+                })
             });
         }
 
