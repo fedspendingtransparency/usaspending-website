@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/21/16
   **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -31,69 +31,35 @@ const propTypes = {
     naoActiveFromFyOrDateRange: PropTypes.bool
 };
 
-export class TimePeriodContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const TimePeriodContainer = (props) => {
+    const [timePeriods, setTimePeriods] = useState([]);
+    const [activeTab, setActiveTab] = useState('dr');
 
-        this.state = {
-            timePeriods: [],
-            activeTab: 'dr',
-            cachedTimePeriods: Set(),
-            cachedStart: null,
-            cachedEnd: null
-        };
+    const setUpdateState = (prop) => {
+        setActiveTab(prop.filterTimePeriodType);
+    };
 
-        // bind functions
-        this.updateFilter = this.updateFilter.bind(this);
-        this.changeTab = this.changeTab.bind(this);
-    }
-
-    componentDidMount() {
-        if (this.props.appliedFilters.timePeriodType === 'fy') {
-            this.changeTab('fy');
-        } else {
-            this.changeTab('dr');
-        }
-        this.generateTimePeriods();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.filterTimePeriodType !== this.props.filterTimePeriodType) {
-            this.setUpdateState(this.props);
-        }
-    }
-
-    setUpdateState(props) {
-        this.setState({
-            activeTab: props.filterTimePeriodType
-        });
-    }
-
-    generateTimePeriods() {
-        const timePeriods = [];
+    const generateTimePeriods = () => {
+        const timePeriodArr = [];
 
         // determine the current fiscal year
         const currentFY = FiscalYearHelper.currentFiscalYear();
 
         for (let i = currentFY; i >= startYear; i--) {
-            timePeriods.push(i.toString());
+            timePeriodArr.push(i.toString());
         }
 
-        this.setState({
-            timePeriods
-        });
-    }
+        setTimePeriods(timePeriodArr);
+    };
 
-    changeTab(tab) {
-        this.setState({
-            activeTab: tab
-        });
-    }
+    const changeTab = (tab) => {
+        setActiveTab(tab);
+    };
 
-    updateFilter(params) {
+    const updateFilter = (params) => {
         const newFilters = Object.assign({}, params);
 
-        if (this.state.activeTab === 'fy') {
+        if (activeTab === 'fy') {
             newFilters.dateType = 'fy';
             // reset the date range values
             newFilters.startDate = null;
@@ -105,13 +71,13 @@ export class TimePeriodContainer extends React.Component {
             newFilters.fy = [];
         }
 
-        this.props.updateTimePeriod(newFilters);
+        props.updateTimePeriod(newFilters);
 
         // here is where the time_period array gets updated
-        this.props.updateTimePeriodArray(newFilters);
-    }
+        props.updateTimePeriodArray(newFilters);
+    };
 
-    dirtyFilters() {
+    const dirtyFilters = () => {
         const appliedFields = [
             'timePeriodFY',
             'timePeriodStart',
@@ -125,8 +91,8 @@ export class TimePeriodContainer extends React.Component {
 
         const noChanges = appliedFields.every((appliedField, index) => {
             const activeField = activeFields[index];
-            const appliedValue = this.props.appliedFilters[appliedField];
-            const activeValue = this.props[activeField];
+            const appliedValue = props.appliedFilters[appliedField];
+            const activeValue = props[activeField];
 
             // do not set time filter to dirty when 1 checkbox is unchecked
             if ((activeValue && activeValue.size === 0) && (appliedValue && appliedValue.size >= 1)) {
@@ -146,23 +112,37 @@ export class TimePeriodContainer extends React.Component {
             return Symbol('dirty time filter');
         }
         return null;
-    }
+    };
 
-    render() {
-        return (
-            <TimePeriod
-                {...this.props}
-                dirtyFilters={this.dirtyFilters()}
-                newAwardsOnlySelected={this.props.newAwardsOnlySelected}
-                newAwardsOnlyActive={this.props.newAwardsOnlyActive}
-                naoActiveFromFyOrDateRange={this.props.naoActiveFromFyOrDateRange}
-                activeTab={this.state.activeTab}
-                timePeriods={this.state.timePeriods}
-                updateFilter={this.updateFilter}
-                changeTab={this.changeTab} />
-        );
-    }
-}
+    useEffect(() => {
+        if (props.appliedFilters.timePeriodType === 'fy') {
+            changeTab('fy');
+        }
+        else {
+            changeTab('dr');
+        }
+        generateTimePeriods();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        setUpdateState(props);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.filterTimePeriodType]);
+
+    return (
+        <TimePeriod
+            {...props}
+            dirtyFilters={dirtyFilters()}
+            newAwardsOnlySelected={props.newAwardsOnlySelected}
+            newAwardsOnlyActive={props.newAwardsOnlyActive}
+            naoActiveFromFyOrDateRange={props.naoActiveFromFyOrDateRange}
+            activeTab={activeTab}
+            timePeriods={timePeriods}
+            updateFilter={updateFilter}
+            changeTab={changeTab} />
+    );
+};
 
 TimePeriodContainer.propTypes = propTypes;
 
