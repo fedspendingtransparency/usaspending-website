@@ -81,12 +81,14 @@ const TimePeriodContainer = (props) => {
         const appliedFields = [
             'timePeriodFY',
             'timePeriodStart',
-            'timePeriodEnd'
+            'timePeriodEnd',
+            'time_period'
         ];
         const activeFields = [
             'filterTimePeriodFY',
             'filterTimePeriodStart',
-            'filterTimePeriodEnd'
+            'filterTimePeriodEnd',
+            'filterTime_Period'
         ];
 
         const noChanges = appliedFields.every((appliedField, index) => {
