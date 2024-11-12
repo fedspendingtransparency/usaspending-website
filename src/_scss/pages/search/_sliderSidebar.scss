@@ -1,7 +1,6 @@
 @import '_searchFilter';
 
 $sidebar-width: 354px;
-$negative-side-bar-width: calc(-1 * $sidebar-width);
 $sidebar-width-closed: 32px;
 
 @keyframes left-sidebar-slideopen {
@@ -24,7 +23,7 @@ $sidebar-width-closed: 32px;
 
 @keyframes drilldown-slidein {
   0% {
-    transform: translateX($sidebar-width);
+    transform: translateX(24px);
     visibility: hidden;
   }
   100% {
@@ -48,9 +47,9 @@ $sidebar-width-closed: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 8;
+  cursor: pointer;
 
-  .chevron-left {
+  .chevron {
     margin: auto;
     color: #2378c3;
     width: 6px;
@@ -71,14 +70,18 @@ $sidebar-width-closed: 32px;
     box-shadow: none;
     border-radius: unset;
 
-    &.opened {
-      -webkit-animation: left-sidebar-slideopen 0.05s forwards;
-      animation: left-sidebar-slideopen 0.5s forwards;
+    &.opened:not(.initial-load) {
+      -webkit-animation: left-sidebar-slideopen 0.25s forwards;
+      animation: left-sidebar-slideopen 0.25s forwards;
+
+      .search-sidebar__drilldown, .search-sidebar__main-menu {
+        //width: $sidebar-width;
+      }
     }
 
     &:not(.opened) {
-      animation: left-sidebar-slideclose 0.5s forwards;
-      -webkit-animation: left-sidebar-slideclose 0.5s forwards;
+      animation: left-sidebar-slideclose 0.25s forwards;
+      -webkit-animation: left-sidebar-slideclose 0.25s forwards;
 
       .search-sidebar__drilldown, .search-sidebar__main-menu {
         overflow: hidden;
@@ -87,10 +90,31 @@ $sidebar-width-closed: 32px;
     }
 
     .search-sidebar__drilldown {
+      margin: 32px;
+
+      .search-sidebar--header {
+        margin: 16px 0 16px 0;
+        border-bottom: solid 1px #dfe1e2;
+      }
+
+      .sidebar-back-btn {
+        color: #2378c3;
+        cursor: pointer;
+        .chevron {
+          width: 6px;
+          height: 10px;
+          margin: 2px 8px 2px 0;
+        }
+      }
+
+      .location-filter {
+        padding: 0 0 2rem 0;
+      }
+
       &.opened {
-        -webkit-animation: drilldown-slidein 0.5s forwards;
+        -webkit-animation: drilldown-slidein 0.02s forwards;
         //-webkit-animation-delay: 2s;
-        animation: drilldown-slidein 0.5s forwards;
+        animation: drilldown-slidein 0.02s forwards;
         //animation-delay: 2s;
         display: block;
       }

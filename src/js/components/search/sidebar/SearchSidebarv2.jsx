@@ -6,7 +6,6 @@
 import React, { useEffect, useState } from 'react';
 import { SearchFilterCategories, FilterCategoryTree } from "dataMapping/search/newSearchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as SidebarHelper from 'helpers/sidebarHelper';
 
 import SearchFilter from "../SearchFilter";
 import { SearchSidebarSubmitContainer } from "../../../containers/search/SearchSidebarSubmitContainer";
@@ -19,6 +18,7 @@ const SearchSidebar = () => {
     const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [currentLevel, setCurrentLevel] = useState(1);
+    const [initialPageLoad, setInitialPageLoad] = useState(true);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -65,24 +65,48 @@ const SearchSidebar = () => {
         }
     };
 
+    const keyHandler = (e, func) => {
+        e.preventDefault();
+        if (e.key === "Enter") {
+            func(e);
+        }
+    };
+
+    useEffect(() => {
+        if (!isOpened && initialPageLoad) {
+            setInitialPageLoad(false);
+        }
+    }, [initialPageLoad, isOpened]);
+
     return (
         <div className="search-sidebar-slider search-sidebar">
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-            {/*<div className="slider-open-toggle" onClick={(e) => toggleOpened(e)}>*/}
-            {/*    <FontAwesomeIcon className="chevron-left" icon="chevron-left" />*/}
-            {/*</div>*/}
-            <div className={`search-sidebar slider-container ${isOpened ? 'opened' : ''}`}>
-                <div className="slider-open-toggle" onClick={(e) => toggleOpened(e)}>
-                    <FontAwesomeIcon className="chevron-left" icon="chevron-left"/>
+            <div className={`search-sidebar slider-container ${initialPageLoad ? 'initial-load' : ''} ${isOpened ? 'opened' : ''}`}>
+                <div
+                    className="slider-open-toggle"
+                    onClick={(e) => toggleOpened(e)}
+                    onKeyDown={(e) => keyHandler(e, toggleOpened)}
+                    role="button"
+                    tabIndex="0">
+                    {isOpened ?
+                        <FontAwesomeIcon className="chevron" icon="chevron-left" />
+                        :
+                        <FontAwesomeIcon className="chevron" icon="chevron-right" />
+                    }
                 </div>
                 <div className={`search-sidebar__drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
-                    <p>FOR DEBUGGING PURPOSES: drilldown level - {currentLevel}</p>
-                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    <div onClick={(e) => goBack(e)}>Back</div>
-                    {drilldown?.children && <CategoriesList
-                        categories={drilldown.children}
-                        setLevel3={setLevel3} />}
-
+                    <div className="search-sidebar--header">
+                        <div
+                            className="sidebar-back-btn"
+                            onClick={(e) => goBack(e)}
+                            onKeyDown={(e) => keyHandler(e, goBack)}
+                            role="button"
+                            tabIndex="0">
+                            <FontAwesomeIcon className="chevron" icon="chevron-left" />&nbsp;Back (level {currentLevel})
+                        </div>
+                        {drilldown?.children && <CategoriesList
+                            categories={drilldown.children}
+                            setLevel3={setLevel3} />}
+                    </div>
                     {drilldown?.component && <CategoryFilter component={drilldown.component} />}
                 </div>
 
@@ -99,10 +123,10 @@ const SearchSidebar = () => {
                         description={item.description}
                         itemCount={item.itemCount}
                         selectedItems={item.selectedItems}
-                        selectCategory={setLevel2}/>))}
+                        selectCategory={setLevel2} />))}
                 </div>
                 <div className="sidebar-bottom-submit v2">
-                    <SearchSidebarSubmitContainer/>
+                    <SearchSidebarSubmitContainer />
                 </div>
             </div>
         </div>);
