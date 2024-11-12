@@ -82,7 +82,6 @@ const TopFilterBarContainer = (props) => {
             const lastInTimePeriod = props.filters.time_period[props.filters.time_period.length - 1];
             // check to see if any date ranges are selected
             if (lastInTimePeriod?.start_date || lastInTimePeriod?.end_date) {
-                console.log('fire:', lastInTimePeriod);
                 // start and end dates are provided
                 selected = true;
                 filter.code = 'timePeriodDR';
