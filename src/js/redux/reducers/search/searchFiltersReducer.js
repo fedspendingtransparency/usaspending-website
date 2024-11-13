@@ -14,7 +14,6 @@ import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunction
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
 import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunctions';
-// import * as TimePeriodFilterFunctions from './filters/timePeriodFilterFunctions';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
