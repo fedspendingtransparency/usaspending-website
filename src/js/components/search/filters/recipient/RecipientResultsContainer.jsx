@@ -89,11 +89,11 @@ const RecipientResultsContainer = ({ toggleRecipient }) => {
                 searchIcon />
             <div className="recipient-results__container">
                 <div className="checkbox-type-filter">
-                    { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient, index) => (
+                    { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient) => (
                         <div className="recipient-label__container">
                             <PrimaryCheckboxType
                                 name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
-                                value={`primary-checkbox-${index}`}
+                                value={recipient.name}
                                 key={recipient.uei}
                                 toggleCheckboxType={toggleRecipient} />
                             <div className="recipient-label__lower-container">
