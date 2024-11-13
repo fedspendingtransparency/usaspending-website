@@ -53,7 +53,6 @@ const RecipientResultsContainer = ({ selectedRecipients, toggleRecipient }) => {
 
         recipientRequest.promise
             .then((res) => {
-                console.log('res', res);
                 setRecipients(res.data.results);
             });
     };
@@ -91,7 +90,7 @@ const RecipientResultsContainer = ({ selectedRecipients, toggleRecipient }) => {
                         <div className="recipient-label__container">
                             <PrimaryCheckboxType
                                 name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
-                                value={recipient.name}
+                                value={recipient.name || recipient.recipient_name}
                                 key={recipient.uei}
                                 toggleCheckboxType={toggleRecipient}
                                 selectedCheckboxes={selectedRecipients} />

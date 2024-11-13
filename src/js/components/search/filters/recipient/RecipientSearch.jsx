@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import RecipientNameDUNSContainer from
     'containers/search/filters/recipient/RecipientNameDUNSContainer';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import GlobalConstants from 'GlobalConstants';
 import SelectedRecipients from './SelectedRecipients';
 import { usePrevious } from '../../../../helpers';
-import RecipientResultsContainer from "./RecipientResultsContainer";
 
-import GlobalConstants from 'GlobalConstants';
+import RecipientResultsContainer from "./RecipientResultsContainer";
 
 const propTypes = {
     toggleRecipient: PropTypes.func,
