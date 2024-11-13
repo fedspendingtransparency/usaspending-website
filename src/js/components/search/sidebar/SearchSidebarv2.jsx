@@ -25,13 +25,6 @@ const SearchSidebar = () => {
         setIsOpened((prevState) => !prevState);
     };
 
-    // const tooltipDirection = () => {
-    //     if (window.innerWidth <= mediumScreen) {
-    //         return "bottom";
-    //     }
-    //     return "right";
-    // };
-
     const setLevel2 = (e, item) => {
         e.preventDefault();
         setSelectedCategory(item);
@@ -101,13 +94,24 @@ const SearchSidebar = () => {
                             onKeyDown={(e) => keyHandler(e, goBack)}
                             role="button"
                             tabIndex="0">
-                            <FontAwesomeIcon className="chevron" icon="chevron-left" />&nbsp;Back (level {currentLevel})
+                            <FontAwesomeIcon className="chevron" icon="chevron-left" />&nbsp;Back
                         </div>
                         {drilldown?.children && <CategoriesList
+                            iconName={selectedCategory.iconName}
+                            iconColor={selectedCategory.iconColor}
+                            iconBackgroundColor={selectedCategory.iconBackgroundColor}
+                            title={selectedCategory.title}
+                            description={selectedCategory.description}
                             categories={drilldown.children}
                             setLevel3={setLevel3} />}
                     </div>
-                    {drilldown?.component && <CategoryFilter component={drilldown.component} />}
+                    {drilldown?.component && <CategoryFilter
+                        iconName={selectedCategory.iconName}
+                        iconColor={selectedCategory.iconColor}
+                        iconBackgroundColor={selectedCategory.iconBackgroundColor}
+                        title={selectedCategory.title}
+                        description={selectedCategory.description}
+                        component={drilldown.component} />}
                 </div>
 
                 <div className={`search-sidebar__main-menu ${isDrilldown ? '' : 'opened'}`}>

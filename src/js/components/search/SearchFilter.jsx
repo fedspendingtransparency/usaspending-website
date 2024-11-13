@@ -31,23 +31,31 @@ const SearchFilter = ({
 }) => (
     <div className="search-filter__container">
         <div className="search-filter__content">
-            <div className="search-filter__top-row" onClick={(e) => selectCategory(e, item)}>
+            <div
+                className="search-filter__top-row">
                 <div className="search-filter__top-row-icon-container" style={{ backgroundColor: iconBackgroundColor }}>
                     <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
                 </div>
                 <div className="search-filter__top-row-text-container">
-                    <div className="search-filter__top-row-title">{title}</div>
-                    <div className="search-filter__top-row-selected-container">
-                        <div className="search-filter__top-row-selected">{itemCount} selected</div>
+                    <div
+                        className="search-filter__top-row-title"
+                        onClick={(e) => selectCategory(e, item)}
+                        OnKeyDown={(e) => (e.key === "Enter" ? selectCategory(e, item) : '')}
+                        tabIndex={0}
+                        role="button">{title}
                     </div>
                 </div>
+                {/*<div className="search-filter__top-row-selected-container">*/}
+                {/*    <div className="search-filter__top-row-selected">{itemCount} selected</div>*/}
+                {/*</div>*/}
             </div>
             <div className="search-filter__description">{description}</div>
-            <div className="search-filter__bottom-section">
-                {selectedItems.map((item) => (
-                    <div>{item}</div>
-                ))}
-            </div>
+            {/*<div*/}
+            {/*    className="search-filter__bottom-section">*/}
+            {/*    {selectedItems.map((selectedItem) => (*/}
+            {/*        <div>{selectedItem}</div>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
         </div>
     </div>
 );
