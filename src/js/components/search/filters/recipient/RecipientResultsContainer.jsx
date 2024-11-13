@@ -11,14 +11,26 @@ import PrimaryCheckboxType from "../../../sharedComponents/checkbox/PrimaryCheck
 
 const propTypes = {
     selectedRecipients: PropTypes.object,
-    toggleRecipient: PropTypes.func
+    updateSelectedRecipients: PropTypes.func
 };
 
-const RecipientResultsContainer = ({ selectedRecipients, toggleRecipient }) => {
+const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipients }) => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
 
     let recipientRequest;
+
+    const toggleRecipient = ({ value }) => {
+        if (value.name.includes(searchString.toUpperCase()) || searchString === '') {
+            updateSelectedRecipients(value.name);
+        }
+        else if (value.uei.includes(searchString.toUpperCase())) {
+            updateSelectedRecipients(value.uei);
+        }
+        else if (value.duns.includes(searchString)) {
+            updateSelectedRecipients(value.duns);
+        }
+    };
 
     const levelMapping = {
         P: 'Parent',
@@ -90,7 +102,11 @@ const RecipientResultsContainer = ({ selectedRecipients, toggleRecipient }) => {
                         <div className="recipient-label__container">
                             <PrimaryCheckboxType
                                 name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
-                                value={recipient.name || recipient.recipient_name}
+                                value={{
+                                    name: recipient.name ? recipient.name : recipient.recipient_name,
+                                    uei: recipient.uei,
+                                    duns: recipient.duns ? recipient.duns : null
+                                }}
                                 key={recipient.uei}
                                 toggleCheckboxType={toggleRecipient}
                                 selectedCheckboxes={selectedRecipients} />

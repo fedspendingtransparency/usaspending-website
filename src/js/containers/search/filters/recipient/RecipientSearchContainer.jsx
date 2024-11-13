@@ -33,7 +33,8 @@ const RecipientSearchContainer = (props) => {
         <RecipientSearch
             {...props}
             dirtyFilters={dirtyFilters}
-            toggleRecipient={toggleRecipient} />
+            toggleRecipient={toggleRecipient}
+            updateSelectedRecipients={props.updateSelectedRecipients} />
     );
 };
 

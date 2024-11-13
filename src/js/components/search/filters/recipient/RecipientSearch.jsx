@@ -17,10 +17,13 @@ import RecipientResultsContainer from "./RecipientResultsContainer";
 const propTypes = {
     toggleRecipient: PropTypes.func,
     selectedRecipients: PropTypes.object,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    updateSelectedRecipients: PropTypes.func
 };
 
-const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) => {
+const RecipientSearch = ({
+    toggleRecipient, selectedRecipients, dirtyFilters, updateSelectedRecipients
+}) => {
     const [hint, setHint] = useState(null);
     const prevDirtyFilters = usePrevious(dirtyFilters);
 
@@ -46,7 +49,7 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
                 {GlobalConstants.QAT ?
                     <RecipientResultsContainer
                         selectedRecipients={selectedRecipients}
-                        toggleRecipient={toggleRecipient} />
+                        updateSelectedRecipients={updateSelectedRecipients} />
                     :
                     <>
                         <RecipientNameDUNSContainer

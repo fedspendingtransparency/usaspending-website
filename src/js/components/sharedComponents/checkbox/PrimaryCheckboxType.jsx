@@ -20,7 +20,7 @@ const propTypes = {
     lookupName: PropTypes.string,
     filters: PropTypes.array,
     bulkTypeChange: PropTypes.func,
-    value: PropTypes.string,
+    value: PropTypes.string || PropTypes.object,
     filterType: PropTypes.string,
     types: PropTypes.object,
     selectedCheckboxes: PropTypes.object,
