@@ -76,8 +76,6 @@ const RecipientResultsContainer = ({ toggleRecipient }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log('recipients', recipients);
-
     return (
         <>
             <EntityDropdownAutocomplete
@@ -104,17 +102,6 @@ const RecipientResultsContainer = ({ toggleRecipient }) => {
                                 </div>
                             </div>
                         </div>
-
-                        // <PrimaryStackedCheckbox
-                        //     index={index}
-                        //     checkboxLabel="UEI: "
-                        //     checkboxLabelContent={recipient.uei ? recipient.uei : 'Not provided'}
-                        //     subheadingLabel="Legacy DUNS: "
-                        //     subheadingLabelContent={recipient.duns ? recipient.duns : 'Not provided'}
-                        //     itemName={recipient.name || recipient.recipient_name}
-                        //     itemLabelAfterName={levelMapping[recipient.recipient_level]}
-                        //     toggleRecipient={toggleRecipient}
-                        //     getRecipientsFromSearchString={getRecipientsFromSearchString} />
                     ))}
                 </div>
             </div>
