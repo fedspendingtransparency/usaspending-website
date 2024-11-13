@@ -341,6 +341,7 @@ const AwardHistoryTableContainer = ({
     }, [page]);
 
     useEffect(() => {
+        setPage(1);
         if (activeTab === 'transaction') {
             setSort({
                 field: 'modification_number',
