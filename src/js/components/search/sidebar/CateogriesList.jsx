@@ -22,10 +22,11 @@ const CategoriesList = ({
             </div>
         </div>
         {categories.map((item) => (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <a
                 onClick={(e) => setLevel3(e, item.component)}
-                onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, item.component) : ''))}>
+                onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, item.component) : ''))}
+                role="button"
+                tabIndex={0}>
                 {item.title}
             </a>
         ))};

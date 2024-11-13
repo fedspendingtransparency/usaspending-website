@@ -4,14 +4,8 @@
  */
 
 import React from 'react';
+import { LocationSectionContainer } from "../../containers/search/filters/location/LocationSectionContainer";
 
-import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
-import { DEFCheckboxTree } from "../../containers/search/filters/def/DEFCheckboxTree";
-import { TimePeriodContainer } from "../../containers/search/filters/TimePeriodContainer";
-import RecipientContainer from "../../containers/recipient/RecipientContainer";
-import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
-import AgencyContainer from "../../containers/agency/AgencyContainer";
-import {LocationSectionContainer} from "../../containers/search/filters/location/LocationSectionContainer";
 export const SearchFilterCategories = [
     {
         categoryKey: 'location',
@@ -88,7 +82,7 @@ export const FilterCategoryTree = {
     },
     timePeriod: {
         title: 'Time Period',
-        component: <TimePeriodContainer />
+        component: null
     },
     characteristics: {
         children: [
