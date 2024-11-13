@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
-import GlobalConstants from 'GlobalConstants';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -21,7 +19,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { showModal } from 'redux/actions/modal/modalActions';
 
-import SearchSidebar from './SearchSidebar';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
@@ -145,22 +142,16 @@ const SearchPage = ({
         setStateHash(hash);
     }, [hash]);
 
-    const location = useLocation();
-
     useEffect(() => {
-        if (location.search === "?version=2" && GlobalConstants.QAT) {
-            setSearchv2(true);
-            setFullSidebar(<SearchSidebarv2 filters={filters} hash={hash} />);
-        } else {
-            setSearchv2(false);
-            setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
-        }
-    }, [location.search]);
+        setSearchv2(true);
+        setFullSidebar(<SearchSidebarv2 filters={filters} hash={hash} />);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <PageWrapper
             pageName="Advanced Search"
-            classNames="usa-da-search-page"
+            classNames="usa-da-search-page v2"
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
@@ -183,7 +174,7 @@ const SearchPage = ({
             filters={appliedFilters}>
             <div id="main-content">
                 <FlexGridRow className="search-contents">
-                    <FlexGridCol className={`full-search-sidebar ${searchv2 ? "v2" : ""}`} width={3}>
+                    <FlexGridCol className="full-search-sidebar" width={3}>
                         {fullSidebar}
                         {isMobile === false && searchv2 === false ?
                             <KeywordSearchLink />

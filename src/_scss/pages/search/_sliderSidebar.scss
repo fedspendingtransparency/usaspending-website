@@ -69,6 +69,7 @@ $sidebar-width-closed: 32px;
     border: 1px solid #dfe1d2;
     box-shadow: none;
     border-radius: unset;
+    padding-right: 16px;
 
     &.opened:not(.initial-load) {
       -webkit-animation: left-sidebar-slideopen 0.25s forwards;
