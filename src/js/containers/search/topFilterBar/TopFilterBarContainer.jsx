@@ -79,23 +79,24 @@ const TopFilterBarContainer = (props) => {
             }
         }
         else if (props.filters?.timePeriodType === 'dr') {
+            const lastInTimePeriod = props.filters.time_period[props.filters.time_period.length - 1];
             // check to see if any date ranges are selected
-            if (props.filters.timePeriodStart || props.filters.timePeriodEnd) {
+            if (lastInTimePeriod?.start_date || lastInTimePeriod?.end_date) {
                 // start and end dates are provided
                 selected = true;
                 filter.code = 'timePeriodDR';
                 filter.name = 'Time Period';
 
-                const startString = dayjs(props.filters.timePeriodStart, 'YYYY-MM-DD')
+                const startString = dayjs(lastInTimePeriod.start_date, 'YYYY-MM-DD')
                     .format('MM/DD/YYYY');
-                const endString = dayjs(props.filters.timePeriodEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                const endString = dayjs(lastInTimePeriod.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
                 filter.values = [`${startString} to ${endString}`];
 
-                if (!props.filters.timePeriodStart) {
+                if (!lastInTimePeriod.start_date) {
                     // open-ended start date
                     filter.values = [`... to ${endString}`];
                 }
-                else if (!props.filters.timePeriodEnd) {
+                else if (!lastInTimePeriod.end_date) {
                     // open-ended end date
                     filter.values = [`${startString} to present`];
                 }

@@ -43,9 +43,9 @@ export const parseRemoteFilters = (data) => {
     const version = data.version;
 
     if (version !== filterStoreVersion) {
-    // versions don't match, don't populate the filters
-    // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
-    // a URL hash contains data that no longer applies to the current site
+        // versions don't match, don't populate the filters
+        // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
+        // a URL hash contains data that no longer applies to the current site
         console.info("version mismatch");
         return null;
     }
