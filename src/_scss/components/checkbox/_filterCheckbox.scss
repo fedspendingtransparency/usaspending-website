@@ -60,10 +60,6 @@
             height: rem(8);
             margin: rem(0) rem(3);
           }
-
-          &:focus-visible {
-            outline: solid rem(1) $color-focus;
-          }
         }
 
         .checkbox-filter__item-label {

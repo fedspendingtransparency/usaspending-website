@@ -98,10 +98,6 @@
           margin: rem(5) auto;
           border-bottom: rem(2) solid #fff;
         }
-
-        &:focus-visible {
-          outline: solid rem(1) $color-focus;
-        }
       }
 
       .checkbox-filter__header-label.accordion-checkbox {
