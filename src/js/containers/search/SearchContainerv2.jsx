@@ -19,7 +19,7 @@ import * as DownloadHelper from 'helpers/downloadHelper';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 
-import SearchPagev2 from 'components/search/SearchPagev2';
+import SearchPagev2 from 'components/search/newSidebar/SearchPagev2';
 
 import {
     convertFiltersToAnalyticEvents,

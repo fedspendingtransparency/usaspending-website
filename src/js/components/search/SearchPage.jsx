@@ -29,7 +29,7 @@ import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
 import Button from "../sharedComponents/buttons/Button";
-import SearchSidebarv2 from "./sidebar/SearchSidebarv2";
+import SearchSidebarv2 from "./newSidebar/SearchSidebarv2";
 
 require('pages/search/searchPage.scss');
 

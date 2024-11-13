@@ -19,14 +19,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { showModal } from 'redux/actions/modal/modalActions';
 
-import NoDownloadHover from './header/NoDownloadHover';
-import KeywordSearchLink from "./KeywordSearchLink";
-import MobileFilters from "./mobile/MobileFilters";
-import SubawardDropdown from "./SubawardDropdown";
-import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
-import ResultsView from "./newResultsView/ResultsView";
-import Button from "../sharedComponents/buttons/Button";
-import SearchSidebarv2 from "./sidebar/SearchSidebarv2";
+import NoDownloadHover from '../header/NoDownloadHover';
+import KeywordSearchLink from "../KeywordSearchLink";
+import MobileFilters from "../mobile/MobileFilters";
+import SubawardDropdown from "../SubawardDropdown";
+import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
+import ResultsView from "../newResultsView/ResultsView";
+import Button from "../../sharedComponents/buttons/Button";
+import SearchSidebarv2 from "./SearchSidebarv2";
 
 require('pages/search/searchPage.scss');
 

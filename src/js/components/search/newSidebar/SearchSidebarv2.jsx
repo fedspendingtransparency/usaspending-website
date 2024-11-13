@@ -41,7 +41,6 @@ const SearchSidebar = () => {
     };
 
     const goBack = (e) => {
-        console.log(currentLevel);
         if (currentLevel === 2) {
             e.preventDefault();
             setDrilldown(null);
@@ -51,10 +50,6 @@ const SearchSidebar = () => {
         else if (currentLevel === 3) {
             setDrilldown(selectedCategory[FilterCategoryTree[selectedCategory?.categoryKey]]);
             setCurrentLevel(2);
-        }
-
-        if (currentLevel === 1) {
-            console.log("log an error message");
         }
     };
 
@@ -72,10 +67,10 @@ const SearchSidebar = () => {
     }, [initialPageLoad, isOpened]);
 
     return (
-        <div className="search-sidebar-slider search-sidebar">
-            <div className={`search-sidebar slider-container ${initialPageLoad ? 'initial-load' : ''} ${isOpened ? 'opened' : ''}`}>
+        <div className="search-collapsible-sidebar-container search-sidebar">
+            <div className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
                 <div
-                    className="slider-open-toggle"
+                    className="collapsible-sidebar--toggle"
                     onClick={(e) => toggleOpened(e)}
                     onKeyDown={(e) => keyHandler(e, toggleOpened)}
                     role="button"
@@ -86,10 +81,10 @@ const SearchSidebar = () => {
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
                     }
                 </div>
-                <div className={`search-sidebar__drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
-                    <div className="search-sidebar--header">
+                <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
+                    <div className="collapsible-sidebar--header">
                         <div
-                            className="sidebar-back-btn"
+                            className="collapsible-sidebar--back-btn"
                             onClick={(e) => goBack(e)}
                             onKeyDown={(e) => keyHandler(e, goBack)}
                             role="button"
@@ -115,8 +110,8 @@ const SearchSidebar = () => {
                         component={drilldown.component} />}
                 </div>
 
-                <div className={`search-sidebar__main-menu ${isDrilldown ? '' : 'opened'}`}>
-                    <div className="search-sidebar--header">
+                <div className={`collapsible-sidebar--main-menu ${isDrilldown ? '' : 'opened'}`}>
+                    <div className="collapsible-sidebar--header">
                         <span>Search by...</span>
                     </div>
                     {SearchFilterCategories.map((item) => (<SearchFilter
@@ -130,7 +125,7 @@ const SearchSidebar = () => {
                         selectedItems={item.selectedItems}
                         selectCategory={setLevel2} />))}
                 </div>
-                <div className="sidebar-bottom-submit v2">
+                <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />
                 </div>
             </div>
