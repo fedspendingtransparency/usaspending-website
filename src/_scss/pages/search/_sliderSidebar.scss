@@ -89,6 +89,26 @@ $sidebar-width-closed: 32px;
     .search-sidebar__drilldown {
       margin: 0 32px 32px;
 
+      .categories-list-item-container {
+        margin-top: 16px;
+        padding-bottom: 4px;
+        min-height: 26px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        line-height: 1.5;
+        align-items: center;
+        font-size: 12px;
+        color: #1b1b1b;
+        font-weight: 600;
+        border-bottom: solid 1px #dfe1e2;
+
+        .categories-list-item {
+          display: flex;
+
+        }
+      }
+
       .search-filter__content {
         margin: unset;
       }

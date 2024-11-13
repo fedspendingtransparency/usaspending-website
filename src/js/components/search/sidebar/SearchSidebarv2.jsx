@@ -96,15 +96,16 @@ const SearchSidebar = () => {
                             tabIndex="0">
                             <FontAwesomeIcon className="chevron" icon="chevron-left" />&nbsp;Back
                         </div>
-                        {drilldown?.children && <CategoriesList
-                            iconName={selectedCategory.iconName}
-                            iconColor={selectedCategory.iconColor}
-                            iconBackgroundColor={selectedCategory.iconBackgroundColor}
-                            title={selectedCategory.title}
-                            description={selectedCategory.description}
-                            categories={drilldown.children}
-                            setLevel3={setLevel3} />}
                     </div>
+                    {drilldown?.children && <CategoriesList
+                        iconName={selectedCategory.iconName}
+                        iconColor={selectedCategory.iconColor}
+                        iconBackgroundColor={selectedCategory.iconBackgroundColor}
+                        title={selectedCategory.title}
+                        description={selectedCategory.description}
+                        categories={drilldown.children}
+                        setLevel3={setLevel3} />}
+
                     {drilldown?.component && <CategoryFilter
                         iconName={selectedCategory.iconName}
                         iconColor={selectedCategory.iconColor}
@@ -135,8 +136,5 @@ const SearchSidebar = () => {
             </div>
         </div>);
 };
-
-// SearchSidebar.propTypes = propTypes;
-// SearchSidebar.defaultProps = defaultProps;
 
 export default SearchSidebar;
