@@ -14,7 +14,7 @@ const propTypes = {
     toggleRecipient: PropTypes.func
 };
 
-const RecipientResultsContainer = ({ toggleRecipient }) => {
+const RecipientResultsContainer = ({ selectedRecipients, toggleRecipient }) => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
 
@@ -93,7 +93,8 @@ const RecipientResultsContainer = ({ toggleRecipient }) => {
                                 name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
                                 value={recipient.name}
                                 key={recipient.uei}
-                                toggleCheckboxType={toggleRecipient} />
+                                toggleCheckboxType={toggleRecipient}
+                                selectedCheckboxes={selectedRecipients} />
                             <div className="recipient-label__lower-container">
                                 <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns ? recipient.duns : 'Not provided'}</div>
                                 <div className="recipient-label__name-container">
