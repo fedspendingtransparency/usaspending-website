@@ -93,7 +93,7 @@ export default class TimePeriod extends React.Component {
             }
         }
 
-        // this.determineIfNaoIsActive(prevProps, prevState);
+        this.determineIfNaoIsActive(prevProps, prevState);
     }
 
     determineIfNaoIsActive(prevProps, prevState) {

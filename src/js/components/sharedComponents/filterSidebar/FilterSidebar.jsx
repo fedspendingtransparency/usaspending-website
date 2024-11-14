@@ -49,8 +49,6 @@ export default class FilterSidebar extends React.Component {
                     glossarySlug={glossarySlug} />);
             });
 
-        console.log(optionsList);
-
         return (
             <div className="search-filters-wrapper">
                 {optionsList}

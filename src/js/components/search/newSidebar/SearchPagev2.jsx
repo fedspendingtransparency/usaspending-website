@@ -1,7 +1,7 @@
 /**
- * SearchPage.jsx
- * Created by Emily Gullo 10/14/2016
- **/
+ * SearchPagev2.jsx
+ * * Created by Andrea Blackwell November 4, 2024
+ * **/
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
