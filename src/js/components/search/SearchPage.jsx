@@ -9,7 +9,6 @@ import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
-import GlobalConstants from 'GlobalConstants';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -29,7 +28,6 @@ import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
 import Button from "../sharedComponents/buttons/Button";
-import SearchSidebarv2 from "./newSidebar/SearchSidebarv2";
 
 require('pages/search/searchPage.scss');
 
@@ -64,7 +62,6 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
 
 
@@ -148,14 +145,8 @@ const SearchPage = ({
     const location = useLocation();
 
     useEffect(() => {
-        if (location.search === "?version=2" && GlobalConstants.QAT) {
-            setSearchv2(true);
-            setFullSidebar(<SearchSidebarv2 filters={filters} hash={hash} />);
-        } else {
-            setSearchv2(false);
-            setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
-        }
-    }, [location.search]);
+        setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
+    }, [filters, hash, location.search]);
 
     return (
         <PageWrapper
@@ -183,11 +174,9 @@ const SearchPage = ({
             filters={appliedFilters}>
             <div id="main-content">
                 <FlexGridRow className="search-contents">
-                    <FlexGridCol className={`full-search-sidebar ${searchv2 ? "v2" : ""}`} width={3}>
+                    <FlexGridCol className="full-search-sidebar" width={3}>
                         {fullSidebar}
-                        {isMobile === false && searchv2 === false ?
-                            <KeywordSearchLink />
-                            : ''}
+                        <KeywordSearchLink />
                     </FlexGridCol>
                     <div className="mobile-filter-button-wrapper">
                         <button
