@@ -78,7 +78,6 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
             getRecipientsFromSearchString(searchString);
         }
         else {
-            console.log('here');
             getAllRecipients();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
