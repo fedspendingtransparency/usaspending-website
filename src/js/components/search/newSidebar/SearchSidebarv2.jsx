@@ -6,8 +6,9 @@
 import React, { useEffect, useState } from 'react';
 import { SearchFilterCategories, FilterCategoryTree } from "dataMapping/search/newSearchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { throttle } from "lodash";
 
-import SearchFilter from "../SearchFilter";
+import SearchFilter from "./SearchFilter";
 import { SearchSidebarSubmitContainer } from "../../../containers/search/SearchSidebarSubmitContainer";
 import CategoriesList from "./CateogriesList";
 import CategoryFilter from "./CategoryFilter";
@@ -19,7 +20,9 @@ const SearchSidebar = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [currentLevel, setCurrentLevel] = useState(1);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
-
+    const [windowWidth, setWindowWidth] = useState();
+    const [windowHeight, setWindowHeight] = useState();
+    const [sidebarHeight, setSidebarHeight] = useState();
     const toggleOpened = (e) => {
         e.preventDefault();
         setIsOpened((prevState) => !prevState);
@@ -66,9 +69,39 @@ const SearchSidebar = () => {
         }
     }, [initialPageLoad, isOpened]);
 
+    const handleScroll = throttle(() => {
+        const element = document.querySelector(".usda-page-header");
+        if (element?.classList?.contains("usda-page-header--sticky")) {
+            setWindowHeight(window.innerHeight - 100);
+            setSidebarHeight(window.innerHeight - 100 - 178);
+
+        } else {
+            setWindowHeight(window.innerHeight - 198);
+            setSidebarHeight(window.innerHeight - 198 - 178);
+        }
+    }, 50);
+
+    useEffect(() => {
+        setWindowHeight(window.innerHeight - 198);
+        setSidebarHeight(window.innerHeight - 198 - 178);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     return (
         <div className="search-collapsible-sidebar-container search-sidebar">
-            <div className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
+            <div style={{ height: windowHeight }} className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => toggleOpened(e)}
@@ -89,7 +122,7 @@ const SearchSidebar = () => {
                             onKeyDown={(e) => keyHandler(e, goBack)}
                             role="button"
                             tabIndex="0">
-                            <FontAwesomeIcon className="chevron" icon="chevron-left" />&nbsp;Back
+                            <FontAwesomeIcon className="chevron" icon="chevron-left" />Back
                         </div>
                     </div>
                     {drilldown?.children && <CategoriesList
@@ -114,16 +147,18 @@ const SearchSidebar = () => {
                     <div className="collapsible-sidebar--header">
                         <span>Search by...</span>
                     </div>
-                    {SearchFilterCategories.map((item) => (<SearchFilter
-                        item={item}
-                        iconName={item.iconName}
-                        iconColor={item.iconColor}
-                        iconBackgroundColor={item.iconBackgroundColor}
-                        title={item.title}
-                        description={item.description}
-                        itemCount={item.itemCount}
-                        selectedItems={item.selectedItems}
-                        selectCategory={setLevel2} />))}
+                    <div className="collapsible-sidebar--search-filters-list" style={{ height: sidebarHeight }}>
+                        {SearchFilterCategories.map((item) => (<SearchFilter
+                            item={item}
+                            iconName={item.iconName}
+                            iconColor={item.iconColor}
+                            iconBackgroundColor={item.iconBackgroundColor}
+                            title={item.title}
+                            description={item.description}
+                            itemCount={item.itemCount}
+                            selectedItems={item.selectedItems}
+                            selectCategory={setLevel2} />))}
+                    </div>
                 </div>
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />

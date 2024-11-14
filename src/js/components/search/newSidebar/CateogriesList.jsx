@@ -4,7 +4,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchFilter from "../SearchFilter";
+import SearchFilter from "./SearchFilter";
 
 const propTypes = {
     categories: PropTypes.object,
@@ -30,8 +30,8 @@ const CategoriesList = ({
                     role="button"
                     tabIndex={0}>
                     <div className="categories-list-item">
-                        <div>{item.title}</div>
-                        <div><FontAwesomeIcon className="chevron" icon="chevron-right" /></div>
+                        <div style={{ float: "left" }}>{item.title}</div>
+                        <div style={{ float: "right" }}><FontAwesomeIcon className="chevron" icon="chevron-right" /></div>
                     </div>
                 </div>
             ))}

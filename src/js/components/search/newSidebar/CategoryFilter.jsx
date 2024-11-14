@@ -5,7 +5,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchFilter from "../SearchFilter";
+import SearchFilter from "./SearchFilter";
 
 const propTypes = {
     component: PropTypes.object
