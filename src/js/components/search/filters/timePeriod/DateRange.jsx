@@ -23,6 +23,7 @@ const propTypes = {
     onDateChange: PropTypes.func,
     startDate: PropTypes.object,
     endDate: PropTypes.object,
+    timePeriod: PropTypes.array,
     selectedStart: PropTypes.string,
     selectedEnd: PropTypes.string,
     showError: PropTypes.func,
@@ -205,18 +206,21 @@ const DateRange = (props) => {
 
     const startDateDisabledDays = generateStartDateDisabledDays(earliestDate);
     const endDateDisabledDays = generateEndDateDisabledDays(earliestDate);
+    const lastInTimePeriod = props.timePeriod[props.timePeriod.length - 1];
 
     let dateLabel = '';
     let hideTags = 'hide';
-    if (props.selectedStart || props.selectedEnd) {
+
+    if (props.timePeriod.length > 0) {
         hideTags = '';
         let start = null;
         let end = null;
-        if (props.selectedStart) {
-            start = dayjs(props.selectedStart, 'YYYY-MM-DD').format('MM/DD/YYYY');
+
+        if (lastInTimePeriod.start_date) {
+            start = dayjs(lastInTimePeriod.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
         }
-        if (props.selectedEnd) {
-            end = dayjs(props.selectedEnd, 'YYYY-MM-DD').format('MM/DD/YYYY');
+        if (lastInTimePeriod.end_date) {
+            end = dayjs(lastInTimePeriod.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
         }
         if (start && end) {
             dateLabel = `${start} to ${end}`;
@@ -224,8 +228,11 @@ const DateRange = (props) => {
         else if (start) {
             dateLabel = `${start} to present`;
         }
-        else {
+        else if (end) {
             dateLabel = `... to ${end}`;
+        }
+        else {
+            hideTags = 'hide';
         }
     }
 

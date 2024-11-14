@@ -31,6 +31,7 @@ const propTypes = {
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
     filterTimePeriodType: PropTypes.string,
+    filterTime_Period: PropTypes.array,
     label: PropTypes.string,
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
@@ -265,6 +266,7 @@ export default class TimePeriod extends React.Component {
                 startingTab={1}
                 startDate={this.state.startDateUI}
                 endDate={this.state.endDateUI}
+                timePeriod={this.props.filterTime_Period}
                 selectedStart={this.props.filterTimePeriodStart}
                 selectedEnd={this.props.filterTimePeriodEnd}
                 onDateChange={this.handleDateChange}
