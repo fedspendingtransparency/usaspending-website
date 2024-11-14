@@ -22,7 +22,7 @@ export default class SelectedLocations extends React.Component {
             selectedLocations = this.props.selectedRecipientLocations;
         }
         if (selectedLocations?.size !== 0) {
-            selectedLocations.entrySeq()
+            selectedLocations?.entrySeq()
                 .forEach((entry) => {
                     const key = entry[0];
                     const location = entry[1];

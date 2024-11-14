@@ -71,7 +71,7 @@ const TimePeriodContainer = (props) => {
             newFilters.fy = [];
         }
 
-        // props.updateTimePeriod(newFilters);
+        props.updateTimePeriod(newFilters);
 
         // here is where the time_period array gets updated
         props.updateTimePeriodArray(newFilters);
