@@ -30,7 +30,7 @@ const LocationSection = (props) => {
     const openDefaultTab = () => {
         // check if the recipient or place of performance (default) tab should be enabled based
         // on the currently selected filters
-        if (selectedRecipientLocations.count() > 0 && selectedLocations.count() === 0) {
+        if (selectedRecipientLocations?.count() > 0 && selectedLocations.count() === 0) {
             // there are recipient locations and no place of performance locations
             setActiveTab('recipient');
         }
