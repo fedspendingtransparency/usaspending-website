@@ -12,7 +12,7 @@ const propTypes = {
 };
 
 const CategoriesList = ({
-    categories, setLevel3, iconBackgroundColor, iconName, iconColor, title, description
+    categories, setLevel3, iconBackgroundColor, iconName, iconColor, title, description, height
 }) => (
     <div>
         <SearchFilter
@@ -21,7 +21,7 @@ const CategoriesList = ({
             iconBackgroundColor={iconBackgroundColor}
             title={title}
             description={description} />
-        <div className="categories-list">
+        <div className="categories-list" style={{ height }}>
             {categories.map((item) => (
                 <div
                     className="categories-list-item-container"

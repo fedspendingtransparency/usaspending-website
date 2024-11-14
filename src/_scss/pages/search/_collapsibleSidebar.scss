@@ -35,14 +35,14 @@ $sidebar-width-closed: 32px;
 
 .search-collapsible-sidebar-container {
   position: sticky;
-  background-color: #fff;
+  background-color: $color-white;
   box-shadow: unset;
   border-radius: unset;
   width: $sidebar-width;
 
   .chevron {
     margin: auto;
-    color: #2378c3;
+    color: $blue-50;
     width: 6px;
     height: 10px;
   }
@@ -55,8 +55,8 @@ $sidebar-width-closed: 32px;
     width: 24px;
     height: 24px;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px #dfe1e2;
-    background-color: #fff;
+    border: solid 1px $gray-cool-10;
+    background-color: $color-white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,7 +66,7 @@ $sidebar-width-closed: 32px;
   .collapsible-sidebar {
     width: $sidebar-width;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
-    border: 1px solid #dfe1d2;
+    border: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
     padding: 0 rem(32);
@@ -92,12 +92,11 @@ $sidebar-width-closed: 32px;
       font-size: 16px;
       font-weight: 600;
       line-height: 1.5;
-      color: #1b1b1b;
+      color: $gray-90;
     }
 
     .sidebar-bottom-submit {
-      border-top: #dfe1e2 1px solid;
-      //margin-top: -40px;
+      border-top: $gray-cool-10 1px solid;
 
     }
 
@@ -107,7 +106,7 @@ $sidebar-width-closed: 32px;
       }
 
       .collapsible-sidebar--search-filters-list {
-        overflow-y: scroll;
+        overflow-y: auto;
       }
     }
 
@@ -123,7 +122,7 @@ $sidebar-width-closed: 32px;
       }
 
       .collapsible-sidebar--back-btn {
-        color: #2378c3;
+        color: $blue-50;
         cursor: pointer;
         .chevron {
           width: 6px;
@@ -139,14 +138,13 @@ $sidebar-width-closed: 32px;
         line-height: 1.5;
         align-items: center;
         font-size: 12px;
-        color: #1b1b1b;
-        font-weight: 600;
-        border-bottom: solid 1px #dfe1e2;
+        color: $gray-90;
+        font-weight: $font-semibold;
+        border-bottom: solid 1px $gray-cool-10;
+      }
 
-        .categories-list-item {
-          //display: flex;
-
-        }
+      .categories-list {
+        overflow-y: auto;
       }
 
       .search-filter__content {

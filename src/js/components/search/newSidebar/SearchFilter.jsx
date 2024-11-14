@@ -25,8 +25,6 @@ const SearchFilter = ({
     iconBackgroundColor,
     title,
     description,
-    itemCount,
-    selectedItems,
     selectCategory
 }) => (
     <div className="search-filter__container">
@@ -45,17 +43,17 @@ const SearchFilter = ({
                         role="button">{title}
                     </div>
                 </div>
-                {/*<div className="search-filter__top-row-selected-container">*/}
+                {/* <div className="search-filter__top-row-selected-container">*/}
                 {/*    <div className="search-filter__top-row-selected">{itemCount} selected</div>*/}
-                {/*</div>*/}
+                {/* </div>*/}
             </div>
             <div className="search-filter__description">{description}</div>
-            {/*<div*/}
+            {/* <div*/}
             {/*    className="search-filter__bottom-section">*/}
             {/*    {selectedItems.map((selectedItem) => (*/}
             {/*        <div>{selectedItem}</div>*/}
             {/*    ))}*/}
-            {/*</div>*/}
+            {/* </div>*/}
         </div>
     </div>
 );

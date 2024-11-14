@@ -74,8 +74,8 @@ const SearchSidebar = () => {
         if (element?.classList?.contains("usda-page-header--sticky")) {
             setWindowHeight(window.innerHeight - 100);
             setSidebarHeight(window.innerHeight - 100 - 178);
-
-        } else {
+        }
+        else {
             setWindowHeight(window.innerHeight - 198);
             setSidebarHeight(window.innerHeight - 198 - 178);
         }
@@ -86,7 +86,7 @@ const SearchSidebar = () => {
         setSidebarHeight(window.innerHeight - 198 - 178);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [handleScroll]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -126,6 +126,7 @@ const SearchSidebar = () => {
                         </div>
                     </div>
                     {drilldown?.children && <CategoriesList
+                        height={windowHeight}
                         iconName={selectedCategory.iconName}
                         iconColor={selectedCategory.iconColor}
                         iconBackgroundColor={selectedCategory.iconBackgroundColor}
@@ -135,6 +136,7 @@ const SearchSidebar = () => {
                         setLevel3={setLevel3} />}
 
                     {drilldown?.component && <CategoryFilter
+                        height={windowHeight}
                         iconName={selectedCategory.iconName}
                         iconColor={selectedCategory.iconColor}
                         iconBackgroundColor={selectedCategory.iconBackgroundColor}
