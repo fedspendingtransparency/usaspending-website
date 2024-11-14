@@ -70,22 +70,19 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
     };
 
     const handleTextInputChange = (e) => {
-        if (e.target.value.length >= 3) {
-            setSearchString(e.target.value);
-        }
+        setSearchString(e.target.value);
     };
 
     useEffect(() => {
-        if (searchString) {
+        if (searchString.length >= 3) {
             getRecipientsFromSearchString(searchString);
+        }
+        else {
+            console.log('here');
+            getAllRecipients();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
-
-    useEffect(() => {
-        getAllRecipients();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <>
