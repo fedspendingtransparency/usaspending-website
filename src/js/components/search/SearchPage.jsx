@@ -176,7 +176,9 @@ const SearchPage = ({
                 <FlexGridRow className="search-contents">
                     <FlexGridCol className="full-search-sidebar" width={3}>
                         {fullSidebar}
-                        <KeywordSearchLink />
+                        {isMobile === false ?
+                            <KeywordSearchLink />
+                            : ''}
                     </FlexGridCol>
                     <div className="mobile-filter-button-wrapper">
                         <button
