@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -142,11 +141,9 @@ const SearchPage = ({
         setStateHash(hash);
     }, [hash]);
 
-    const location = useLocation();
-
     useEffect(() => {
         setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
-    }, [filters, hash, location.search]);
+    }, [filters, hash]);
 
     return (
         <PageWrapper
