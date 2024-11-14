@@ -3,10 +3,8 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
-import GlobalConstants from 'GlobalConstants';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
@@ -44,8 +42,6 @@ import { TooltipWrapper } from 'data-transparency-ui';
 
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
-
-import SearchSidebarv2 from "./newSidebar/SearchSidebarv2";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -234,7 +230,7 @@ const SearchSidebar = ({
                     <SearchSidebarSubmitContainer />
                     {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
-                     <KeywordSearchLink />
+                    <KeywordSearchLink />
                 </div>}
                 </div>
             </div>
