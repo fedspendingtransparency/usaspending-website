@@ -1,19 +1,18 @@
 /**
- * SearchSidebarv2.jsx
+ * CollapsibleSidebar.jsx
  * Created by Andrea Blackwell 11/05/2024
  **/
 
 import React, { useEffect, useState } from 'react';
-import { SearchFilterCategories, FilterCategoryTree } from "dataMapping/search/newSearchFilterCategories";
+import { FilterCategoryTree } from "dataMapping/search/newSearchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 
-import SearchFilter from "./SearchFilter";
 import { SearchSidebarSubmitContainer } from "../../../containers/search/SearchSidebarSubmitContainer";
-import CategoriesList from "./CateogriesList";
-import CategoryFilter from "./CategoryFilter";
+import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
+import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
 
-const SearchSidebar = () => {
+const CollapsibleSidebar = (props) => {
     const [isOpened, setIsOpened] = useState(true);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -56,12 +55,25 @@ const SearchSidebar = () => {
         }
     };
 
-    const keyHandler = (e, func) => {
-        e.preventDefault();
-        if (e.key === "Enter") {
-            func(e);
+    useEffect(() => {
+        if (isOpened) {
+            if (document.querySelector(".full-search-sidebar")) {
+                document.querySelector(".full-search-sidebar").style.width = "25%";
+            }
+            if (document.querySelector(".results-view")) {
+                console.log("here");
+                document.querySelector(".results-view").style.width = "75%";
+            }
+        } else {
+            if (document.querySelector(".full-search-sidebar")) {
+                document.querySelector(".full-search-sidebar").style.width = "0%";
+            }
+            if (document.querySelector(".results-view")) {
+                console.log("here");
+                document.querySelector(".results-view").style.width = "99%";
+            }
         }
-    };
+    }, [isOpened]);
 
     useEffect(() => {
         if (!isOpened && initialPageLoad) {
@@ -80,6 +92,13 @@ const SearchSidebar = () => {
             setSidebarHeight(window.innerHeight - 198 - 178);
         }
     }, 50);
+
+    const keyHandler = (e, func) => {
+        e.preventDefault();
+        if (e.key === "Enter") {
+            func(e);
+        }
+    };
 
     useEffect(() => {
         setWindowHeight(window.innerHeight - 198);
@@ -101,7 +120,9 @@ const SearchSidebar = () => {
 
     return (
         <div className="search-collapsible-sidebar-container search-sidebar">
-            <div style={{ height: windowHeight }} className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
+            <div
+                style={{ height: windowHeight }}
+                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => toggleOpened(e)}
@@ -114,54 +135,20 @@ const SearchSidebar = () => {
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
                     }
                 </div>
-                <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
-                    <div className="collapsible-sidebar--header">
-                        <div
-                            className="collapsible-sidebar--back-btn"
-                            onClick={(e) => goBack(e)}
-                            onKeyDown={(e) => keyHandler(e, goBack)}
-                            role="button"
-                            tabIndex="0">
-                            <FontAwesomeIcon className="chevron" icon="chevron-left" />Back
-                        </div>
-                    </div>
-                    {drilldown?.children && <CategoriesList
-                        height={windowHeight}
-                        iconName={selectedCategory.iconName}
-                        iconColor={selectedCategory.iconColor}
-                        iconBackgroundColor={selectedCategory.iconBackgroundColor}
-                        title={selectedCategory.title}
-                        description={selectedCategory.description}
-                        categories={drilldown.children}
-                        setLevel3={setLevel3} />}
+                <SearchSidebarMainMenu
+                    isDrilldown={isDrilldown}
+                    sidebarHeight={sidebarHeight}
+                    setLevel2={setLevel2} />
 
-                    {drilldown?.component && <CategoryFilter
-                        height={windowHeight}
-                        iconName={selectedCategory.iconName}
-                        iconColor={selectedCategory.iconColor}
-                        iconBackgroundColor={selectedCategory.iconBackgroundColor}
-                        title={selectedCategory.title}
-                        description={selectedCategory.description}
-                        component={drilldown.component} />}
-                </div>
+                <SearchSidebarDrilldown
+                    list={drilldown?.children}
+                    filter={drilldown?.component}
+                    isDrilldown={isDrilldown}
+                    windowHeight={windowHeight}
+                    selectedCategory={selectedCategory}
+                    setLevel3={setLevel3}
+                    goBack={goBack} />
 
-                <div className={`collapsible-sidebar--main-menu ${isDrilldown ? '' : 'opened'}`}>
-                    <div className="collapsible-sidebar--header">
-                        <span>Search by...</span>
-                    </div>
-                    <div className="collapsible-sidebar--search-filters-list" style={{ height: sidebarHeight }}>
-                        {SearchFilterCategories.map((item) => (<SearchFilter
-                            item={item}
-                            iconName={item.iconName}
-                            iconColor={item.iconColor}
-                            iconBackgroundColor={item.iconBackgroundColor}
-                            title={item.title}
-                            description={item.description}
-                            itemCount={item.itemCount}
-                            selectedItems={item.selectedItems}
-                            selectCategory={setLevel2} />))}
-                    </div>
-                </div>
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />
                 </div>
@@ -169,4 +156,4 @@ const SearchSidebar = () => {
         </div>);
 };
 
-export default SearchSidebar;
+export default CollapsibleSidebar;
