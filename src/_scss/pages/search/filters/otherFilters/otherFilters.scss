@@ -1,4 +1,4 @@
-.cfda-filter, .psc-filter, .naics-filter, .contract-filter {
+.cfda-filter, .psc-filter, .naics-filter {
     @import "elements/filters/_errorMessage";
     @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
@@ -20,14 +20,6 @@
 
     .selected-filters {
         @include selected-filter-wrap;
-    }
-
-    button.contract-filter-toggle-button {
-        background-color: $color-white;
-        color: $theme-color-1;
-        padding: 0.7rem 0 0;
-        margin: 0.7rem 0 0 0;
-        font-weight: normal;
     }
 }
 

@@ -1,7 +1,7 @@
 /**
- * SearchPage.jsx
- * Created by Emily Gullo 10/14/2016
- **/
+ * SearchPagev2.jsx
+ * * Created by Andrea Blackwell November 4, 2024
+ * **/
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -19,14 +19,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { showModal } from 'redux/actions/modal/modalActions';
 
-import SearchSidebar from './SearchSidebar';
-import NoDownloadHover from './header/NoDownloadHover';
-import KeywordSearchLink from "./KeywordSearchLink";
-import MobileFilters from "./mobile/MobileFilters";
-import SubawardDropdown from "./SubawardDropdown";
-import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
-import ResultsView from "./newResultsView/ResultsView";
-import Button from "../sharedComponents/buttons/Button";
+import NoDownloadHover from '../header/NoDownloadHover';
+import KeywordSearchLink from "../KeywordSearchLink";
+import MobileFilters from "../mobile/MobileFilters";
+import SubawardDropdown from "../SubawardDropdown";
+import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
+import ResultsView from "../newResultsView/ResultsView";
+import Button from "../../sharedComponents/buttons/Button";
+import SearchSidebarv2 from "./SearchSidebarv2";
 
 require('pages/search/searchPage.scss');
 
@@ -61,6 +61,7 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
 
 
@@ -142,13 +143,15 @@ const SearchPage = ({
     }, [hash]);
 
     useEffect(() => {
-        setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
-    }, [filters, hash]);
+        setSearchv2(true);
+        setFullSidebar(<SearchSidebarv2 filters={filters} hash={hash} />);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <PageWrapper
             pageName="Advanced Search"
-            classNames="usa-da-search-page"
+            classNames="usa-da-search-page v2"
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
@@ -173,7 +176,7 @@ const SearchPage = ({
                 <FlexGridRow className="search-contents">
                     <FlexGridCol className="full-search-sidebar" width={3}>
                         {fullSidebar}
-                        {isMobile === false ?
+                        {isMobile === false && searchv2 === false ?
                             <KeywordSearchLink />
                             : ''}
                     </FlexGridCol>

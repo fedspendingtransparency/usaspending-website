@@ -47,15 +47,15 @@ const RecipientResults = ({ toggleRecipient }) => {
                 { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient, index) => (
                     <div className="recipient-label__container">
                         <PrimaryCheckboxType
-                            name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei}</div>)}
+                            name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
                             value={`primary-checkbox-${index}`}
                             key={recipient.uei}
                             toggleCheckboxType={toggleRecipient} />
-                        <div className="recipient-label__bottom-section">
-                            <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns}</div>
-                            <div>
+                        <div className="recipient-label__lower-container">
+                            <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns ? recipient.duns : 'Not provided'}</div>
+                            <div className="recipient-label__name-container">
                                 <span className="recipient-label__recipient-name">{recipient.name}</span>
-                                <span className="recipient-label__legacy-duns">{levelMapping[recipient.recipient_level]}</span>
+                                <span className="recipient-label__recipient-level">{levelMapping[recipient.recipient_level]}</span>
                             </div>
                         </div>
                     </div>

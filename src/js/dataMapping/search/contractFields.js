@@ -185,4 +185,42 @@ export const setAsideTypeMapping = [
     }
 ];
 
+export const pricingTypeMapping = [
+    {
+        id: 'combination',
+        name: 'Combination',
+        filters: ['2']
+    },
+    {
+        id: 'cost-reimbursement-contracts',
+        name: 'Cost Reimbursement Contracts',
+        filters: ['S', 'R', 'U', 'V', 'T']
+    },
+    {
+        id: 'fixed-price-contracts',
+        name: 'Fixed Price Contracts',
+        filters: ['J', 'M', 'L', 'B', 'A', 'K']
+    },
+    {
+        id: 'labor-hours',
+        name: 'Labor Hours',
+        filters: ['Z']
+    },
+    {
+        id: 'order-dependent',
+        name: 'Order Dependent',
+        filters: ['1']
+    },
+    {
+        id: 'other',
+        name: 'Other',
+        filters: ['3']
+    },
+    {
+        id: 'time-and-materials',
+        name: 'Time and Materials',
+        filters: ['Y']
+    }
+];
+
 /* eslint-enable quote-props */

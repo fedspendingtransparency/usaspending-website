@@ -19,7 +19,7 @@ import * as DownloadHelper from 'helpers/downloadHelper';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 
-import SearchPage from 'components/search/SearchPage';
+import SearchPagev2 from 'components/search/newSidebar/SearchPagev2';
 
 import {
     convertFiltersToAnalyticEvents,
@@ -43,9 +43,9 @@ export const parseRemoteFilters = (data) => {
     const version = data.version;
 
     if (version !== filterStoreVersion) {
-        // versions don't match, don't populate the filters
-        // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
-        // a URL hash contains data that no longer applies to the current site
+    // versions don't match, don't populate the filters
+    // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
+    // a URL hash contains data that no longer applies to the current site
         console.info("version mismatch");
         return null;
     }
@@ -71,7 +71,7 @@ export const parseRemoteFilters = (data) => {
     return reduxValues;
 };
 
-const SearchContainer = ({ history }) => {
+const SearchContainerv2 = ({ history }) => {
     const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
     const query = useQueryParams();
 
@@ -155,7 +155,7 @@ const SearchContainer = ({ history }) => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        history.push('/search');
+                        history.push('/searchv2');
                         request.current = null;
                     }
                 });
@@ -185,7 +185,7 @@ const SearchContainer = ({ history }) => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
             history.replace({
-                pathname: '/search',
+                pathname: '/searchv2',
                 search: ''
             });
             setDownloadAvailable(false);
@@ -211,7 +211,7 @@ const SearchContainer = ({ history }) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
                 history.replace({
-                    pathname: `/search/`,
+                    pathname: `/searchv2/`,
                     search: getQueryParamString(newQueryParams)
                 });
                 setGenerateHashInFlight(false);
@@ -253,7 +253,7 @@ const SearchContainer = ({ history }) => {
     }, [appliedFilters, stagedFilters]);
 
     return (
-        <SearchPage
+        <SearchPagev2
             hash={urlHash}
             filters={stagedFilters}
             appliedFilters={appliedFilters}
@@ -265,20 +265,20 @@ const SearchContainer = ({ history }) => {
     );
 };
 
-SearchContainer.propTypes = propTypes;
-export default SearchContainer;
+SearchContainerv2.propTypes = propTypes;
+export default SearchContainerv2;
 
-export const SearchContainerRedirect = () => {
+export const SearchContainerRedirectv2 = () => {
     const { urlHash: pathHash } = useParams();
     return (
         <Redirect
             to={{
-                pathname: '/search/',
+                pathname: '/searchv2/',
                 search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
             }} />
     );
 };
 
-SearchContainer.propTypes = {
+SearchContainerv2.propTypes = {
     history: PropTypes.object.isRequired
 };

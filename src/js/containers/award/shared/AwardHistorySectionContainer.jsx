@@ -3,7 +3,7 @@
  * Created by David Trinh 12/10/2018
  **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { tabs, awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
@@ -17,51 +17,23 @@ import AwardHistoryTableContainer from "../table/AwardHistoryTableContainer";
 const propTypes = {
     overview: PropTypes.object,
     setActiveTab: PropTypes.func,
-    activeTab: PropTypes.string,
-    count: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    activeTab: PropTypes.string
 };
 
-export class AwardHistory extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tabs: [],
-            tableWidth: 0
-        };
-        this.countRequest = null;
-    }
+const AwardHistory = ({
+    overview, setActiveTab, activeTab
+}) => {
+    const [tabOptions, setTabOptions] = useState([]);
 
-    componentDidMount() {
-    // set the initial table width
-        this.setTableWidth();
-        // watch the window for size changes
-        window.addEventListener('resize', this.setTableWidth);
-        this.setTableTabsAndGetCounts();
-    }
+    const sectionTitle = (overview.category === 'idv')
+        ? "Award History for this IDV"
+        : "Award History";
+    const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
+    let countRequest = null;
 
-    componentDidUpdate(prevProps) {
-        const { overview } = this.props;
-        // check award changed
-        if (overview.generatedId !== prevProps.overview.generatedId) {
-            // reset the tab
-            this.setTableTabsAndGetCounts();
-        }
-    }
-
-    componentWillUnmount() {
-    // stop watching for size changes
-        window.removeEventListener('resize', this.setTableWidth);
-    }
-
-    setTableWidth = () => {
-        if (!this.tableWidthController) return;
-        const tableWidth = this.tableWidthController.clientWidth - 2;
-        this.setState({ tableWidth });
-    };
-
-    setTableTabsAndGetCounts(award = this.props.overview) {
-        if (this.countRequest) {
-            this.countRequest.cancel();
+    const setTableTabsAndGetCounts = (award = overview) => {
+        if (countRequest) {
+            countRequest.cancel();
         }
 
         const tabsWithCounts = tabs(award.category)
@@ -73,9 +45,9 @@ export class AwardHistory extends React.Component {
             })
             .map(async (tab) => {
                 const isIdv = (award.category === 'idv');
-                this.countRequest = getAwardHistoryCounts(tab.internal, award.generatedId, isIdv);
+                countRequest = getAwardHistoryCounts(tab.internal, award.generatedId, isIdv);
                 try {
-                    const { data } = await this.countRequest.promise;
+                    const { data } = await countRequest.promise;
                     if (isIdv && tab.internal === 'federal_account') {
                         // response object for idv federal account endpoint is { count: int }
                         return { ...tab, count: data.count };
@@ -91,52 +63,38 @@ export class AwardHistory extends React.Component {
 
         return Promise.all(tabsWithCounts)
             .then((result) => {
-                this.setState({ tabs: result }, this.setTableWidth);
-                this.countRequest = null;
+                setTabOptions(result);
+                countRequest = null;
             });
-    }
+    };
 
-    render() {
-        const {
-            overview,
-            setActiveTab,
-            activeTab
-        } = this.props;
-        const sectionTitle = (overview.category === 'idv')
-            ? "Award History for this IDV"
-            : "Award History";
-        const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
-        const tabOptions = this.state.tabs;
-        return (
-            <div id="award-award-history" className="award-viz award-history">
-                <AwardSectionHeader
-                    title={sectionTitle}
-                    icon={<AwardLoop alt="Award History" />}
-                    tooltip={tooltip}
-                    tooltipWide={(overview.category === 'contract')} />
-                <div className="tables-section">
-                    <Tabs
-                        types={tabOptions}
-                        active={activeTab}
-                        switchTab={setActiveTab} />
-                    <div
-                        className="tables-width-master"
-                        ref={(div) => {
-                            // this is an empty div that scales via CSS
-                            // the results table width will follow this div's width
-                            this.tableWidthController = div;
-                        }} />
-                    <div className="tables-content">
-                        <AwardHistoryTableContainer
-                            category={overview.category}
-                            activeTab={this.props.activeTab}
-                            tabOptions={tabOptions} />
-                    </div>
+    useEffect(() => {
+        setTableTabsAndGetCounts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [overview.generatedId]);
+
+    return (
+        <div id="award-award-history" className="award-viz award-history">
+            <AwardSectionHeader
+                title={sectionTitle}
+                icon={<AwardLoop alt="Award History" />}
+                tooltip={tooltip}
+                tooltipWide={(overview.category === 'contract')} />
+            <div className="tables-section">
+                <Tabs
+                    types={tabOptions}
+                    active={activeTab}
+                    switchTab={setActiveTab} />
+                <div className="tables-content">
+                    <AwardHistoryTableContainer
+                        category={overview.category}
+                        activeTab={activeTab}
+                        tabOptions={tabOptions} />
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 AwardHistory.propTypes = propTypes;
 
