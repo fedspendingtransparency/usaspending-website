@@ -3,7 +3,7 @@
  * Created by Brian Petway 10/01/2024
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from "prop-types";
 import * as SearchHelper from 'helpers/searchHelper';
 import { EntityDropdownAutocomplete } from "../location/EntityDropdownAutocomplete";
@@ -18,7 +18,7 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
 
-    let recipientRequest;
+    const recipientRequest = useRef();
 
     const toggleRecipient = ({ value }) => {
         if (value.name.includes(searchString.toUpperCase()) || searchString === '') {
@@ -39,21 +39,21 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
     };
 
     const getAllRecipients = () => {
-        if (recipientRequest) {
-            recipientRequest.cancel();
+        if (recipientRequest.current) {
+            recipientRequest.current.cancel();
         }
 
-        recipientRequest = SearchHelper.fetchRecipients();
+        recipientRequest.current = SearchHelper.fetchRecipients();
 
-        recipientRequest.promise
+        recipientRequest.current.promise
             .then((res) => {
                 setRecipients(res.data.results);
             });
     };
 
     const getRecipientsFromSearchString = (term) => {
-        if (recipientRequest) {
-            recipientRequest.cancel();
+        if (recipientRequest.current) {
+            recipientRequest.current.cancel();
         }
 
         const paramObj = {
@@ -61,9 +61,9 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
             limit: 50
         };
 
-        recipientRequest = SearchHelper.fetchRecipientsAutocomplete(paramObj);
+        recipientRequest.current = SearchHelper.fetchRecipientsAutocomplete(paramObj);
 
-        recipientRequest.promise
+        recipientRequest.current.promise
             .then((res) => {
                 setRecipients(res.data.results);
             });
