@@ -38,6 +38,7 @@ $sidebar-width-closed: 32px;
 }
 
 .search-collapsible-sidebar-container {
+  position: fixed;
   background-color: $color-white;
   box-shadow: unset;
   border-radius: unset;
