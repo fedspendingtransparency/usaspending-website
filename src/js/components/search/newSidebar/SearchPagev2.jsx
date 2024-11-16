@@ -3,7 +3,7 @@
  * * Created by Andrea Blackwell November 4, 2024
  * **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
@@ -64,7 +64,6 @@ const SearchPage = ({
     const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
 
-    const resultsViewRef = useRef();
     const dispatch = useDispatch();
 
     const getSlugWithHash = () => {
@@ -144,7 +143,7 @@ const SearchPage = ({
 
     useEffect(() => {
         setSearchv2(true);
-        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} resultsViewRef={resultsViewRef} />);
+        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} />);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -233,7 +232,7 @@ const SearchPage = ({
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
-                    <FlexGridCol ref={resultsViewRef} className="results-view" desktop={9} tablet={12} mobile={12}>
+                    <FlexGridCol className="results-view" desktop={9} tablet={12} mobile={12}>
                         <ResultsView
                             filters={filters}
                             isMobile={isMobile}

@@ -39,10 +39,10 @@ $sidebar-width-closed: 32px;
 
 .search-collapsible-sidebar-container {
   position: fixed;
+  top: 188px;
   background-color: $color-white;
   box-shadow: unset;
   border-radius: unset;
-  margin-bottom: -32px !important;
 
   .chevron {
     margin: auto;

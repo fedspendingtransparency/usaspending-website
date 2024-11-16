@@ -12,7 +12,7 @@ import { SearchSidebarSubmitContainer } from "../../../containers/search/SearchS
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
 
-const CollapsibleSidebar = (props) => {
+const CollapsibleSidebar = () => {
     const [isOpened, setIsOpened] = useState(true);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -61,7 +61,6 @@ const CollapsibleSidebar = (props) => {
                 document.querySelector(".full-search-sidebar").style.width = "25%";
             }
             if (document.querySelector(".results-view")) {
-                console.log("here");
                 document.querySelector(".results-view").style.width = "75%";
             }
         } else {
@@ -81,17 +80,22 @@ const CollapsibleSidebar = (props) => {
         }
     }, [initialPageLoad, isOpened]);
 
-    const handleScroll = throttle(() => {
+    const handleScroll = () => {
+        console.log(window.innerHeight);
+        console.log("on scroll detected");
+        console.log(window.scrollY);
         const element = document.querySelector(".usda-page-header");
         if (element?.classList?.contains("usda-page-header--sticky")) {
-            setWindowHeight(window.innerHeight - 100);
-            setSidebarHeight(window.innerHeight - 100 - 178);
+            document.querySelector(".search-collapsible-sidebar-container").style.top = "100px";
+            setWindowHeight(window.innerHeight - 60);
+            setSidebarHeight(window.innerHeight - 60 - 168);
         }
         else {
-            setWindowHeight(window.innerHeight - 198);
-            setSidebarHeight(window.innerHeight - 198 - 178);
+            document.querySelector(".search-collapsible-sidebar-container").style.top = `${188 - window.scrollY}px`;
+            setWindowHeight(window.innerHeight - 148 + window.scrollY);
+            setSidebarHeight(window.innerHeight - 148 - 168 + window.scrollY);
         }
-    }, 50);
+    };
 
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -101,11 +105,11 @@ const CollapsibleSidebar = (props) => {
     };
 
     useEffect(() => {
-        setWindowHeight(window.innerHeight - 198);
-        setSidebarHeight(window.innerHeight - 198 - 178);
-        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        window.addEventListener('scroll', (e) => handleScroll(e));
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         const handleResize = throttle(() => {
