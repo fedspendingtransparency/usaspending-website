@@ -81,10 +81,10 @@ const CollapsibleSidebar = () => {
     }, [initialPageLoad, isOpened]);
 
     const handleScroll = () => {
-        console.log(window.innerHeight);
-        console.log("on scroll detected");
-        console.log(window.scrollY);
+        // 581.63 is the height of the footer at 1839 px browser width
+
         const element = document.querySelector(".usda-page-header");
+
         if (element?.classList?.contains("usda-page-header--sticky")) {
             document.querySelector(".search-collapsible-sidebar-container").style.top = "100px";
             setWindowHeight(window.innerHeight - 60);
