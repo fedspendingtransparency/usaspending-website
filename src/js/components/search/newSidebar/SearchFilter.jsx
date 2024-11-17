@@ -27,21 +27,19 @@ const SearchFilter = ({
     description,
     selectCategory
 }) => (
-    <div className="search-filter__container">
+    <div
+        className="search-filter__container"
+        onClick={(e) => selectCategory(e, item)}
+        OnKeyDown={(e) => (e.key === "Enter" ? selectCategory(e, item) : '')}
+        tabIndex={0}
+        role="button">
         <div className="search-filter__content">
-            <div
-                className="search-filter__top-row">
+            <div className="search-filter__top-row">
                 <div className="search-filter__top-row-icon-container" style={{ backgroundColor: iconBackgroundColor }}>
                     <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
                 </div>
                 <div className="search-filter__top-row-text-container">
-                    <div
-                        className="search-filter__top-row-title"
-                        onClick={(e) => selectCategory(e, item)}
-                        OnKeyDown={(e) => (e.key === "Enter" ? selectCategory(e, item) : '')}
-                        tabIndex={0}
-                        role="button">{title}
-                    </div>
+                    <div className="search-filter__top-row-title">{title}</div>
                 </div>
                 {/* <div className="search-filter__top-row-selected-container">*/}
                 {/*    <div className="search-filter__top-row-selected">{itemCount} selected</div>*/}

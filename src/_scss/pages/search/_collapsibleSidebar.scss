@@ -91,12 +91,12 @@
     }
 
     .collapsible-sidebar--header {
-      margin: rem(16) 0;
-      height: 24px;
+      padding: rem(16) rem(32);
       font-size: 16px;
       font-weight: 600;
       line-height: 1.5;
       color: $gray-90;
+      border-bottom: $gray-cool-10 1px solid;
     }
 
     .sidebar-bottom-submit {
