@@ -1,8 +1,5 @@
 @import '_searchFilter';
 
-$sidebar-width: 354px;
-$sidebar-width-closed: 32px;
-
 @keyframes collapsible-sidebar-slideopen {
   0% {
     width: 0%;
@@ -31,10 +28,6 @@ $sidebar-width-closed: 32px;
     transform: translateX(0);
     visibility: visible;
   }
-}
-
-.full-search-sidebar {
-  //width: 5% !important;
 }
 
 .search-collapsible-sidebar-container {
@@ -68,7 +61,7 @@ $sidebar-width-closed: 32px;
   }
 
   .collapsible-sidebar {
-    width: $sidebar-width;
+    width: 354px;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid $gray-cool-10;
     box-shadow: none;
@@ -91,6 +84,10 @@ $sidebar-width-closed: 32px;
 
     .collapsible-sidebar--content {
       padding-left: $global-margin * 4;
+    }
+
+    .categories-list, .category-filter {
+      overflow-y: auto;
     }
 
     .collapsible-sidebar--header {
@@ -161,6 +158,12 @@ $sidebar-width-closed: 32px;
       .location-filter {
         padding: 0 0 2rem 0;
       }
+    }
+
+    .sidebar-bottom-submit {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
     }
   }
 }

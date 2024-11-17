@@ -13,31 +13,37 @@ const propTypes = {
 
 const CategoriesList = ({
     categories, setLevel3, iconBackgroundColor, iconName, iconColor, title, description, height
-}) => (
-    <div>
-        <SearchFilter
-            iconName={iconName}
-            iconColor={iconColor}
-            iconBackgroundColor={iconBackgroundColor}
-            title={title}
-            description={description} />
-        <div className="categories-list" style={{ height }}>
-            {categories.map((item) => (
-                <div
-                    className="categories-list-item-container"
-                    onClick={(e) => setLevel3(e, item.component)}
-                    onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, item.component) : ''))}
-                    role="button"
-                    tabIndex={0}>
-                    <div className="categories-list-item">
-                        <div style={{ float: "left" }}>{item.title}</div>
-                        <div style={{ float: "right" }}><FontAwesomeIcon className="chevron" icon="chevron-right" /></div>
+}) => {
+
+    console.log(height);
+
+    return (
+        <>
+            <SearchFilter
+                iconName={iconName}
+                iconColor={iconColor}
+                iconBackgroundColor={iconBackgroundColor}
+                title={title}
+                description={description} />
+            <div className="categories-list" style={{ height: `${height - 60}px` }}>
+                {categories.map((item) => (
+                    <div
+                        className="categories-list-item-container"
+                        onClick={(e) => setLevel3(e, item.component)}
+                        onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, item.component) : ''))}
+                        role="button"
+                        tabIndex={0}>
+                        <div className="categories-list-item">
+                            <div style={{ float: "left" }}>{item.title}</div>
+                            <div style={{ float: "right" }}><FontAwesomeIcon className="chevron" icon="chevron-right" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            ))}
-        </div>
-    </div>
-);
+                ))}
+            </div>
+        </>
+    );
+};
 
 CategoriesList.propTypes = propTypes;
 export default CategoriesList;

@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 const SearchSidebarDrilldown = ({
-    list, filter, isDrilldown, windowHeight, selectedCategory, setLevel3, goBack
+    list, filter, isDrilldown, windowHeight, selectedCategory, setLevel3, goBack, sidebarHeight
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -32,27 +32,27 @@ const SearchSidebarDrilldown = ({
                 onKeyDown={(e) => keyHandler(e, goBack)}
                 role="button"
                 tabIndex="0">
-                <FontAwesomeIcon className="chevron" icon="chevron-left"/>Back
+                <FontAwesomeIcon className="chevron" icon="chevron-left" />Back
             </div>
             <div className="collapsible-sidebar--content">
                 {list && <CategoriesList
-                    height={windowHeight}
+                    height={sidebarHeight}
                     iconName={selectedCategory.iconName}
                     iconColor={selectedCategory.iconColor}
                     iconBackgroundColor={selectedCategory.iconBackgroundColor}
                     title={selectedCategory.title}
                     description={selectedCategory.description}
                     categories={list}
-                    setLevel3={setLevel3}/>}
+                    setLevel3={setLevel3} />}
 
                 {filter && <CategoryFilter
-                    height={windowHeight}
+                    height={sidebarHeight}
                     iconName={selectedCategory.iconName}
                     iconColor={selectedCategory.iconColor}
                     iconBackgroundColor={selectedCategory.iconBackgroundColor}
                     title={selectedCategory.title}
                     description={selectedCategory.description}
-                    component={filter}/>}
+                    component={filter} />}
             </div>
         </div>);
 };
