@@ -15,12 +15,12 @@ import CollapsedCheckboxType from './CollapsedCheckboxType';
 import SingleCheckboxType from './SingleCheckboxType';
 
 const propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.string || PropTypes.element,
     name: PropTypes.string,
     lookupName: PropTypes.string,
     filters: PropTypes.array,
     bulkTypeChange: PropTypes.func,
-    value: PropTypes.string,
+    value: PropTypes.string || PropTypes.object,
     filterType: PropTypes.string,
     types: PropTypes.object,
     selectedCheckboxes: PropTypes.object,
