@@ -32,6 +32,7 @@
 
 .search-collapsible-sidebar-container {
   position: fixed;
+  width: 25%;
   top: 188px;
   background-color: $color-white;
   box-shadow: unset;
@@ -61,7 +62,6 @@
   }
 
   .collapsible-sidebar {
-    width: 354px;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid $gray-cool-10;
     box-shadow: none;
