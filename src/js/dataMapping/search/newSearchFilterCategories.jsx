@@ -5,6 +5,9 @@
 
 import React from 'react';
 import { LocationSectionContainer } from "../../containers/search/filters/location/LocationSectionContainer";
+import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
+import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
+import AwardIDSearch from "../../components/search/filters/awardID/AwardIDSearch";
 
 export const SearchFilterCategories = [
     {
@@ -56,7 +59,7 @@ export const FilterCategoryTree = {
     },
     timePeriod: {
         title: 'Time Period',
-        component: null
+        component: <TimePeriodContainer />
     },
     characteristics: {
         children: [
@@ -64,7 +67,8 @@ export const FilterCategoryTree = {
                 title: 'Award Description'
             },
             {
-                title: 'Award ID'
+                title: 'Award ID',
+                component: <LocationSectionContainer />
             },
             {
                 title: 'Spending Amount'
@@ -94,7 +98,7 @@ export const FilterCategoryTree = {
         ]
 
     },
-    recipient: {
+    recipients: {
         children: [
             {
                 title: 'Recipient'
