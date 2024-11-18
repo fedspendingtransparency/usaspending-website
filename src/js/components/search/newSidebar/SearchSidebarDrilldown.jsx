@@ -26,13 +26,15 @@ const SearchSidebarDrilldown = ({
 
     return (
         <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
-            <div
-                className="collapsible-sidebar--back-btn"
-                onClick={(e) => goBack(e)}
-                onKeyDown={(e) => keyHandler(e, goBack)}
-                role="button"
-                tabIndex="0">
-                <FontAwesomeIcon className="chevron" icon="chevron-left" />Back
+            <div className="collapsible-sidebar--header">
+                <div
+                    className="collapsible-sidebar--back-btn"
+                    onClick={(e) => goBack(e)}
+                    onKeyDown={(e) => keyHandler(e, goBack)}
+                    role="button"
+                    tabIndex="0">
+                    <FontAwesomeIcon className="chevron" icon="chevron-left"/>Back
+                </div>
             </div>
             <div className="collapsible-sidebar--content">
                 {list && <CategoriesList

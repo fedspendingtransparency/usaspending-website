@@ -20,8 +20,8 @@ const CategoryFilter = ({
             iconBackgroundColor={iconBackgroundColor}
             title={title}
             description={description} />
-        <div className="category-filter" style={{ height: `${height - 60}` }}>
-            {component}
+        <div className="category-filter" style={{ height: `${height - 60}`, marginTop: "-36px" }}>
+            <div style={{ margin: "0 32px" }}>{component}</div>
         </div>
     </>
 );
