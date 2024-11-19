@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SectionHeader } from "data-transparency-ui";
+import { SectionHeader, FlexGridRow } from "data-transparency-ui";
 
 import TimeVisualizationPeriodButton from 'components/search/newResultsView/time/TimeVisualizationPeriodButton';
 import RecipientTimeVisualization from './RecipientTimeVisualization';
@@ -55,7 +55,7 @@ export default class RecipientTimeVisualizationSection extends React.Component {
 
     render() {
         return (
-            <section
+            <FlexGridRow
                 id="recipient-transactions-over-time"
                 className="recipient-section transactions-over-time">
                 <SectionHeader
@@ -109,7 +109,7 @@ export default class RecipientTimeVisualizationSection extends React.Component {
                     data={this.props.data}
                     width={this.state.visualizationWidth}
                     color="#141D3B" />
-            </section>
+            </FlexGridRow>
         );
     }
 }

@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 import { isCancel } from 'axios';
-import { TooltipWrapper, SectionHeader } from 'data-transparency-ui';
+import { TooltipWrapper, SectionHeader, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -165,9 +165,10 @@ const RecipientOverview = (props) => {
         getSelectedHash(recipient.uei);
     };
     return (
-        <div
+        <FlexGridRow
             id="recipient-overview"
             className="recipient-section recipient-overview">
+
             <h2 className="recipient-overview__title">
                 {recipient.name}
                 {viewAlternateNames}
@@ -185,7 +186,7 @@ const RecipientOverview = (props) => {
                     {viewChildren}
                 </div>
                 <div className="recipient-section__row">
-                    <div className="recipient-section__viz totals-container">
+                    <FlexGridCol desktop={5} className="recipient-section__viz totals-container">
                         <div className="recipient-section__viz totals">
                             <h3 className="recipient-overview__heading">
                                 Total Awarded Amount
@@ -210,9 +211,9 @@ const RecipientOverview = (props) => {
                         <div className="recipient-section__viz loan">
                             <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
                         </div>
-                    </div>
+                    </FlexGridCol>
 
-                    <div className="recipient-section__viz details">
+                    <FlexGridCol desktop={5} className="recipient-section__viz details">
                         <h3 className="recipient-overview__heading">
                             Details
                         </h3>
@@ -248,10 +249,10 @@ const RecipientOverview = (props) => {
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </FlexGridCol>
                 </div>
             </div>
-        </div>
+        </FlexGridRow>
     );
 };
 
