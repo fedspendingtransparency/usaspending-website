@@ -87,6 +87,13 @@ export const fetchRecipients = () => apiRequest({
     method: 'post'
 });
 
+// Recipient search for autocomplete
+export const fetchRecipientsAutocomplete = (req) => apiRequest({
+    url: 'v2/autocomplete/recipient/',
+    method: 'post',
+    data: req
+});
+
 // Fetch Individual Award's Transactions
 export const fetchAwardTransaction = (params) => apiRequest({
     url: 'v2/transactions/',

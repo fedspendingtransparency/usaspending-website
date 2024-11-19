@@ -72,8 +72,24 @@ export default class SingleCheckboxType extends React.Component {
     }
 
     render() {
-        const checked = this.props.selectedCheckboxes.has(this.value);
         const elementId = `checkbox-${uniqueId()}`;
+        let checked;
+
+        // if statement specifically for recipient filter checkboxes
+        if (typeof this.value === "object" && (
+            this.props.selectedCheckboxes.has(this.value.name) ||
+            this.props.selectedCheckboxes.has(this.value.duns) ||
+            this.props.selectedCheckboxes.has(this.value.uei)
+        )) {
+            checked = true;
+        }
+        else if (typeof this.value === "object") {
+            checked = false;
+        }
+        else {
+            this.props.selectedCheckboxes.has(this.value);
+        }
+
         return (
             <div className="primary-checkbox-type single-item">
                 <div className="primary-checkbox-wrapper">
