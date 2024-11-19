@@ -8,19 +8,22 @@ import PropTypes from 'prop-types';
 import RecipientNameDUNSContainer from
     'containers/search/filters/recipient/RecipientNameDUNSContainer';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import GlobalConstants from 'GlobalConstants';
 import SelectedRecipients from './SelectedRecipients';
 import { usePrevious } from '../../../../helpers';
-import RecipientResults from "./RecipientResults";
 
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
+import RecipientResultsContainer from "./RecipientResultsContainer";
 
 const propTypes = {
     toggleRecipient: PropTypes.func,
     selectedRecipients: PropTypes.object,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    updateSelectedRecipients: PropTypes.func
 };
 
-const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) => {
+const RecipientSearch = ({
+    toggleRecipient, selectedRecipients, dirtyFilters, updateSelectedRecipients
+}) => {
     const [hint, setHint] = useState(null);
     const prevDirtyFilters = usePrevious(dirtyFilters);
 
@@ -43,19 +46,22 @@ const RecipientSearch = ({ toggleRecipient, selectedRecipients, dirtyFilters }) 
     return (
         <div className="recipient-filter">
             <div className="filter-item-wrap">
-                <RecipientNameDUNSContainer
-                    selectedRecipients={selectedRecipients}
-                    toggleRecipient={toggleRecipient} />
-                {localSelectedRecipients}
-                <SubmitHint
-                    ref={(component) => {
-                        setHint(component);
-                    }} />
-                <FeatureFlag>
-                    <RecipientResults
+                {GlobalConstants.QAT ?
+                    <RecipientResultsContainer
                         selectedRecipients={selectedRecipients}
-                        toggleRecipient={toggleRecipient} />
-                </FeatureFlag>
+                        updateSelectedRecipients={updateSelectedRecipients} />
+                    :
+                    <>
+                        <RecipientNameDUNSContainer
+                            selectedRecipients={selectedRecipients}
+                            toggleRecipient={toggleRecipient} />
+                        {localSelectedRecipients}
+                        <SubmitHint
+                            ref={(component) => {
+                                setHint(component);
+                            }} />
+                    </>
+                }
             </div>
         </div>
     );

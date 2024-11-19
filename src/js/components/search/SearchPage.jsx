@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
+
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { AddFilter } from 'components/sharedComponents/icons/Icons';
@@ -26,6 +27,9 @@ import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
 import Button from "../sharedComponents/buttons/Button";
+
+require('pages/search/searchPage.scss');
+
 
 const propTypes = {
     download: PropTypes.object,
@@ -57,6 +61,8 @@ const SearchPage = ({
     const [stateHash, setStateHash] = useState(hash);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [fullSidebar, setFullSidebar] = useState(false);
+
 
     const dispatch = useDispatch();
 
@@ -103,13 +109,8 @@ const SearchPage = ({
         setShowFullDownload(false);
     };
 
-    let fullSidebar = (
-        <SearchSidebar
-            filters={filters}
-            hash={hash} />
-    );
     if (isMobile) {
-        fullSidebar = null;
+        setFullSidebar(null);
     }
 
     const pluralizeFilterLabel = (count) => {
@@ -139,6 +140,10 @@ const SearchPage = ({
     useEffect(() => {
         setStateHash(hash);
     }, [hash]);
+
+    useEffect(() => {
+        setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
+    }, [filters, hash]);
 
     return (
         <PageWrapper

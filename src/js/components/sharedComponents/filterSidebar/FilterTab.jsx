@@ -36,7 +36,6 @@ const FilterTab = ({
         role="tab"
         aria-label={`Show ${label.title}`}
         aria-selected={active}
-        aria-controls={`tabpanel-${label.internal}`}
         tabIndex={active ? 0 : -1}>
         <div className="filter-tabs__label">
             {label.label}

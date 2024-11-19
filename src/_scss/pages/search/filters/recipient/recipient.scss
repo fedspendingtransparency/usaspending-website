@@ -5,65 +5,45 @@
     @import "mixins/selectedFilterWrap";
     @import "../_singleSubmit";
 
-    .filter-item-wrap .recipient-container {
+    .filter-item-wrap {
+        .autocomplete__input {
+            padding-bottom: 0;
+        }
+    }
+
+    .recipient-results__container {
         margin-top: $global-margin * 2.5;
         padding: 0 0 $global-padding * 2.5 0;
         height: rem(400);
         overflow-y: scroll;
         list-style: none;
 
-        >div>div:not(:first-child) {
-            margin-top: $global-margin * 1.5;
-        }
-
         .checkbox-type-filter {
-            p {
-                color: $color-gray;
-                font-size: $small-font-size;
-                margin-top: 0;
-                margin-bottom: rem(5);
-            }
-            span {
-                label {
-                    color: $color-gray;
-                    font-weight: normal;
-                }
-                &:not(:last-child) {
-                    border-right: rem(1) solid rgba(0, 0, 0, 0.3);
-                    padding-right: rem(10);
-                    margin-right: rem(10);
-                }
-            }
-
-            .checkbox-set,
-            .secondary-checkbox-type {
-                margin: 0.5rem 0;
-            }
-
             .recipient-label__container {
                 display: flex;
                 flex-flow: column nowrap;
-
-                .primary-checkbox-type {
-                    padding-left: 0;
-                }
+                margin-bottom: $global-spacing-unit;
 
                 .checkbox-set {
                     margin: 0;
-                }
 
-                input {
-                    height: rem(14);
-                    width: rem(14);
-                    appearance: none;
-                    outline: none;
-                    border-color: $gray-cool-20;
-                    top: rem(4);
-                }
+                    .primary-checkbox-type {
+                        padding-left: 0;
 
-                .checkbox-item-wrapper {
-                    .checkbox-item-label {
-                        margin-left: 0;
+                        .checkbox-item-wrapper {
+                            .checkbox-item-label {
+                                margin-left: 0;
+                            }
+
+                            input {
+                                height: rem(14);
+                                width: rem(14);
+                                appearance: none;
+                                outline: none;
+                                border-color: $gray-cool-20;
+                                top: rem(4);
+                            }
+                        }
                     }
                 }
 
@@ -74,13 +54,14 @@
                     border-radius: 2px;
                     background-color: $gray-cool-5;
                     line-height: 1.5;
+                    color: $theme-color-headline;
 
                     span {
-                        font-weight: $font-bold;
+                        font-weight: $font-semibold;
                     }
                 }
 
-                .recipient-label__bottom-section {
+                .recipient-label__lower-container {
                     margin-left: rem(21);
 
                     .recipient-label__legacy-duns {
@@ -89,16 +70,27 @@
                         line-height: 1.5;
                         color: $gray-60;
                         margin-top: $global-margin * .5;
-                        padding: rem(2.5) 0;
                     }
 
-                    .recipient-label__recipient-name {
-                        font-size: $font-size-12;
-                        line-height: 1.5;
-                        color: $gray-90;
-                        margin-top: $global-margin * .5;
-                        border-right: 0;
-                        margin-right: 0;
+                    .recipient-label__name-container {
+                        margin: rem(4) rem(4) 0 0;
+
+                        .recipient-label__recipient-name {
+                            font-size: $font-size-12;
+                            font-weight: $font-normal;
+                            line-height: 1.5;
+                            color: $gray-90;
+                            border-right: 0;
+                            margin-right: 0;
+                        }
+
+                        .recipient-label__recipient-level {
+                            font-size: $font-size-10;
+                            font-style: italic;
+                            line-height: 1.5;
+                            color: $gray-60;
+                            margin-left: $global-spacing-unit;
+                        }
                     }
                 }
             }

@@ -120,7 +120,6 @@ const ContractContent = ({
             </AwardSection>
             <AwardSection className="award-history-section" type="row">
                 <AwardHistory
-                    awardId={awardId}
                     overview={overview}
                     setActiveTab={setActiveTab}
                     activeTab={activeTab} />

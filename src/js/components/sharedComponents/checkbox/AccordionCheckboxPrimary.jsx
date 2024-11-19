@@ -129,6 +129,7 @@ const AccordionCheckboxPrimary = ({
                         onKeyDown={(e) => {
                             if (e.key === "Enter") toggleExpanded(category);
                         }}
+                        tabIndex={0}
                         icon="chevron-right" />}
                     {expandedCategories?.includes(category.id) &&
                     <FontAwesomeIcon
@@ -136,6 +137,7 @@ const AccordionCheckboxPrimary = ({
                         onKeyDown={(e) => {
                             if (e.key === "Enter") toggleExpanded(category);
                         }}
+                        tabIndex={0}
                         icon="chevron-down" />}
                 </div>
                 <input

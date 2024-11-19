@@ -99,13 +99,13 @@ const Frequency = (props) => {
                                     Files A, B, and C are submitted by federal agencies to
                                     USAspending.gov on a monthly basis, as required by the DATA Act. You
                                     can see specific DATA Act reporting submission dates in the
-                                    spreadsheets available in the{" "}
+                                    spreadsheets available in the resources page for the{" "}
                                         <a
                                             className="scroller-overlay-card__link"
                                             href="https://fiscal.treasury.gov/data-transparency/resources.html"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        resources page for the DATA Act Information Model Schema (DAIMS)
+                                            Governmentwide Spending Data Model (GSDM)
                                         </a>
                                     .
                                     </p>

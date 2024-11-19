@@ -39,6 +39,10 @@
         }
     }
 
+    &:focus-visible {
+        outline: solid rem(1) $color-focus;
+    }
+
     + label {
         cursor: pointer;
         margin-bottom: 0.5em;

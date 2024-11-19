@@ -15,6 +15,7 @@
 
     @import "resultsView/resultsView";
     @import "resultsView/dtuiOverrides";
+    @import "collapsibleSidebar";
 
 
     .subaward-dropdown__list {
@@ -72,7 +73,6 @@
                     margin: 0;
                 }
             }
-
             .search-results-wrapper {
                 @import "./results/searchResults";
                 @import "./topFilterBar/topFilterBar";
@@ -125,4 +125,7 @@
         }
     }
 }
+
+@import "./_searchv2";
+
 
