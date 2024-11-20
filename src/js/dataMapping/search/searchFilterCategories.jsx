@@ -7,7 +7,6 @@ import React from 'react';
 import { LocationSectionContainer } from "../../containers/search/filters/location/LocationSectionContainer";
 import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
-import AwardIDSearch from "../../components/search/filters/awardID/AwardIDSearch";
 
 export const SearchFilterCategories = [
     {
