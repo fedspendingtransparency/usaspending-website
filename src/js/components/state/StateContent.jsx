@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
+
 import StateTimeVisualizationSectionContainer from 'containers/state/StateTimeVisualizationSectionContainer';
 import TopFiveSection from './topFive/TopFiveSection';
 import StateOverview from './overview/StateOverview';
@@ -16,16 +18,16 @@ const propTypes = {
 };
 
 const StateContent = ({ stateProfile }) => (
-    <div className="state-content-wrapper">
-        <div className="state-content">
+    <FlexGridRow className="state-content-wrapper">
+        <FlexGridCol className="state-content">
             <StateOverview
                 stateProfile={stateProfile.overview} />
             <StateTimeVisualizationSectionContainer
                 stateProfile={stateProfile.overview} />
             <TopFiveSection />
             <StateFooter />
-        </div>
-    </div>
+        </FlexGridCol>
+    </FlexGridRow>
 );
 
 StateContent.propTypes = propTypes;
