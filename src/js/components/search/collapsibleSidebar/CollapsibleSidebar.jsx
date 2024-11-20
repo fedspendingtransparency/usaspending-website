@@ -4,7 +4,7 @@
  **/
 
 import React, { useEffect, useState } from 'react';
-import { FilterCategoryTree } from "dataMapping/search/newSearchFilterCategories";
+import { FilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 
@@ -22,6 +22,8 @@ const CollapsibleSidebar = () => {
     const [windowWidth, setWindowWidth] = useState();
     const [windowHeight, setWindowHeight] = useState();
     const [sidebarHeight, setSidebarHeight] = useState();
+
+
     const toggleOpened = (e) => {
         e.preventDefault();
         setIsOpened((prevState) => !prevState);
@@ -35,9 +37,10 @@ const CollapsibleSidebar = () => {
         setCurrentLevel(2);
     };
 
-    const setLevel3 = (e, component) => {
+    const setLevel3 = (e, item) => {
+        console.log(item);
         e.preventDefault();
-        setDrilldown(component);
+        setDrilldown(item);
         setIsDrilldown(true);
         setCurrentLevel(3);
     };
@@ -63,12 +66,12 @@ const CollapsibleSidebar = () => {
             if (document.querySelector(".results-view")) {
                 document.querySelector(".results-view").style.width = "75%";
             }
-        } else {
+        }
+        else {
             if (document.querySelector(".full-search-sidebar")) {
                 document.querySelector(".full-search-sidebar").style.width = "0%";
             }
             if (document.querySelector(".results-view")) {
-                console.log("here");
                 document.querySelector(".results-view").style.width = "99%";
             }
         }
@@ -84,16 +87,19 @@ const CollapsibleSidebar = () => {
         // 581.63 is the height of the footer at 1839 px browser width
 
         const element = document.querySelector(".usda-page-header");
+        const header = 60;
+        const stickyHeader = 148;
+        const nonScrollableElements = 172;
 
         if (element?.classList?.contains("usda-page-header--sticky")) {
             document.querySelector(".search-collapsible-sidebar-container").style.top = "100px";
-            setWindowHeight(window.innerHeight - 60);
-            setSidebarHeight(window.innerHeight - 60 - 168);
+            setWindowHeight(window.innerHeight - header);
+            setSidebarHeight(window.innerHeight - header - nonScrollableElements);
         }
         else {
             document.querySelector(".search-collapsible-sidebar-container").style.top = `${188 - window.scrollY}px`;
-            setWindowHeight(window.innerHeight - 148 + window.scrollY);
-            setSidebarHeight(window.innerHeight - 148 - 168 + window.scrollY);
+            setWindowHeight((window.innerHeight - stickyHeader) + window.scrollY);
+            setSidebarHeight(((window.innerHeight - stickyHeader) - nonScrollableElements) + window.scrollY);
         }
     };
 
@@ -158,7 +164,8 @@ const CollapsibleSidebar = () => {
                     <SearchSidebarSubmitContainer />
                 </div>
             </div>
-        </div>);
+        </div>
+    );
 };
 
 export default CollapsibleSidebar;

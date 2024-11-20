@@ -68,7 +68,7 @@ export const FilterCategoryTree = {
             },
             {
                 title: 'Award ID',
-                component: <LocationSectionContainer />
+                component: <AwardIDSearchContainer />
             },
             {
                 title: 'Spending Amount'

@@ -31,8 +31,6 @@
 }
 
 .search-collapsible-sidebar-container {
-  position: fixed;
-  width: 25%;
   top: 188px;
   background-color: $color-white;
   box-shadow: unset;
@@ -157,7 +155,7 @@
     }
 
     .sidebar-bottom-submit {
-      position: absolute;
+      position: relative;
       bottom: 0;
       width: 100%;
     }

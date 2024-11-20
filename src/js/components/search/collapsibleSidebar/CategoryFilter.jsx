@@ -4,7 +4,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import PropTypes from 'prop-types';
-import SearchFilter from "./SearchFilter";
+import CategoryHeader from "./CategoryHeader";
 
 const propTypes = {
     component: PropTypes.object
@@ -14,7 +14,7 @@ const CategoryFilter = ({
     iconBackgroundColor, iconName, iconColor, component, title, description, height
 }) => (
     <>
-        <SearchFilter
+        <CategoryHeader
             iconName={iconName}
             iconColor={iconColor}
             iconBackgroundColor={iconBackgroundColor}

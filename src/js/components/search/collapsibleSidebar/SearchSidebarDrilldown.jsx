@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 const SearchSidebarDrilldown = ({
-    list, filter, isDrilldown, windowHeight, selectedCategory, setLevel3, goBack, sidebarHeight
+    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -33,7 +33,7 @@ const SearchSidebarDrilldown = ({
                     onKeyDown={(e) => keyHandler(e, goBack)}
                     role="button"
                     tabIndex="0">
-                    <FontAwesomeIcon className="chevron" icon="chevron-left"/>Back
+                    <FontAwesomeIcon className="chevron" icon="chevron-left" />Back
                 </div>
             </div>
             <div className="collapsible-sidebar--content">

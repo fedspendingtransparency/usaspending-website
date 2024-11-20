@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { SearchFilterCategories } from "dataMapping/search/newSearchFilterCategories";
-import SearchFilter from "./SearchFilter";
+import { SearchFilterCategories } from "dataMapping/search/searchFilterCategories";
+import CategoryHeader from "./CategoryHeader";
 
 const propTypes = {
     isDrilldown: PropTypes.bool,
@@ -15,7 +15,7 @@ const SearchSidebarMainMenu = ({ isDrilldown, sidebarHeight, setLevel2 }) => (
             <span>Search by...</span>
         </div>
         <div className="collapsible-sidebar--search-filters-list" style={{ height: sidebarHeight }}>
-            {SearchFilterCategories.map((item) => (<SearchFilter
+            {SearchFilterCategories.map((item) => (<CategoryHeader
                 item={item}
                 iconName={item.iconName}
                 iconColor={item.iconColor}
@@ -24,7 +24,9 @@ const SearchSidebarMainMenu = ({ isDrilldown, sidebarHeight, setLevel2 }) => (
                 description={item.description}
                 itemCount={item.itemCount}
                 selectedItems={item.selectedItems}
-                selectCategory={setLevel2} />))}
+                selectCategory={setLevel2}
+                isClickable
+                showDescription />))}
         </div>
     </div>
 );

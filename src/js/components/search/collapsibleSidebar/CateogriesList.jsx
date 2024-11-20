@@ -4,7 +4,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchFilter from "./SearchFilter";
+import CategoryHeader from "./CategoryHeader";
 
 const propTypes = {
     categories: PropTypes.object,
@@ -15,22 +15,22 @@ const CategoriesList = ({
     categories, setLevel3, iconBackgroundColor, iconName, iconColor, title, description, height
 }) => {
 
-    console.log(height);
+    console.log(categories);
 
     return (
         <>
-            <SearchFilter
+            <CategoryHeader
                 iconName={iconName}
                 iconColor={iconColor}
                 iconBackgroundColor={iconBackgroundColor}
                 title={title}
                 description={description} />
-            <div className="categories-list" style={{ height: `${height - 120}px`, marginTop: "-36px" }}>
+            <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
                 <div style={{ margin: "0 16px 0 32px" }}>
                     {categories.map((item) => (
                         <div
                             className="categories-list-item-container"
-                            onClick={(e) => setLevel3(e, item.component)}
+                            onClick={(e) => setLevel3(e, item)}
                             onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, item.component) : ''))}
                             role="button"
                             tabIndex={0}>
