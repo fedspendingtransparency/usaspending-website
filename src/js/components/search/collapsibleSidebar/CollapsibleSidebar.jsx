@@ -110,6 +110,13 @@ const CollapsibleSidebar = () => {
         }
     };
 
+    const handleResize = throttle(() => {
+        const newWidth = window.innerWidth;
+        if (windowWidth !== newWidth) {
+            setWindowWidth(newWidth);
+        }
+    }, 50);
+
     useEffect(() => {
         handleScroll();
         window.addEventListener('scroll', (e) => handleScroll(e));
@@ -118,15 +125,11 @@ const CollapsibleSidebar = () => {
     }, []);
 
     useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
+        handleResize();
+        window.addEventListener('resize', (e) => handleResize(e));
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="search-collapsible-sidebar-container search-sidebar">

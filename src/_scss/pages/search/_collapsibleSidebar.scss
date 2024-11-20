@@ -58,6 +58,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    z-index: 2;
   }
 
   .collapsible-sidebar {
@@ -75,9 +76,8 @@
       animation: collapsible-sidebar-slideclose 0.25s forwards;
       -webkit-animation: collapsible-sidebar-slideclose 0.25s forwards;
 
-      .collapsible-sidebar-drilldown, .collapsible-sidebar--main-menu {
-        overflow: hidden;
-        white-space: nowrap;
+      .sidebar-bottom-submit, .search-filter__container, .collapsible-sidebar--header, .collapsible-sidebar--drilldown, .collapsible-sidebar--main-menu {
+        display: none;
       }
     }
 
