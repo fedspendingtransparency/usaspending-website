@@ -13,11 +13,7 @@ const propTypes = {
 
 const CategoriesList = ({
     categories, setLevel3, iconBackgroundColor, iconName, iconColor, title, description, height
-}) => {
-
-    console.log(categories);
-
-    return (
+}) => (
         <>
             <CategoryHeader
                 iconName={iconName}
@@ -44,8 +40,7 @@ const CategoriesList = ({
                 </div>
             </div>
         </>
-    );
-};
+);
 
 CategoriesList.propTypes = propTypes;
 export default CategoriesList;
