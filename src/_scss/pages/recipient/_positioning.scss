@@ -1,23 +1,14 @@
 .recipient-content-wrapper {
-    @include display(flex);
-    @include align-items(flex-start);
     width: 100%;
-
-    .recipient-sidebar {
-        display: none;
-        margin-top: 0;
-        // Evenly distribute the 30px space between the sidebar & content
-        margin-right: rem(15);
-        @include media($medium-screen) {
-            display: block;
-            @include flex(0 0 25%);
-        }
+    padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
+    
+    @media (max-width: $tablet-screen) {
+        padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
     }
 
     .recipient-content {
         width: 100%;
-        @include media($medium-screen) {
-            @include flex(1 1 75%);
-        }
+        max-width: rem(1400);
+        margin: auto;
     }
 }
