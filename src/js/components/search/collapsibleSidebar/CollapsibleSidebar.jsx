@@ -91,13 +91,20 @@ const CollapsibleSidebar = () => {
         const stickyHeader = 148;
         const nonScrollableElements = 172;
 
+        const stickyEnd = document.querySelector(".stay-in-touch__section").offsetTop;
+        const scrollbarHeight = document.querySelector(".search-collapsible-sidebar-container").offsetHeight;
+
+        if (window.scrollY + scrollbarHeight > stickyEnd) {
+            document.querySelector(".search-collapsible-sidebar-container").style.top = window.scrollY + scrollbarHeight;
+        }
+
         if (element?.classList?.contains("usda-page-header--sticky")) {
-            document.querySelector(".search-collapsible-sidebar-container").style.top = "100px";
+            document.querySelector(".search-collapsible-sidebar-container").style.top = `${window.scrollY - 30}px`;
             setWindowHeight(window.innerHeight - header);
             setSidebarHeight(window.innerHeight - header - nonScrollableElements);
         }
         else {
-            document.querySelector(".search-collapsible-sidebar-container").style.top = `${188 - window.scrollY}px`;
+            // document.querySelector(".search-collapsible-sidebar-container").style.top = `${188 - window.scrollY}px`;
             setWindowHeight((window.innerHeight - stickyHeader) + window.scrollY);
             setSidebarHeight(((window.innerHeight - stickyHeader) - nonScrollableElements) + window.scrollY);
         }
