@@ -30,8 +30,6 @@
 	}
 
 	.main-content {
-		@import "../../mixins/fullSectionWrap";
-		@include fullSectionWrap(0,0);
 		padding:  0;
 		@import "./_positioning";
 		@import "../../components/pageLoading";

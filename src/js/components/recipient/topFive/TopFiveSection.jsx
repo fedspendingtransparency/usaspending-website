@@ -8,7 +8,7 @@ import React from 'react';
 import { recipientCategories as topCategories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'containers/recipient/topFive/TopFiveContainer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SectionHeader } from "data-transparency-ui";
+import { SectionHeader, FlexGridRow } from "data-transparency-ui";
 
 const TopFiveSection = () => {
     const content = topCategories.map((category) => (
@@ -18,7 +18,7 @@ const TopFiveSection = () => {
     ));
 
     return (
-        <div
+        <FlexGridRow
             className="recipient-section topfive"
             id="recipient-top-five">
             <SectionHeader
@@ -33,7 +33,7 @@ const TopFiveSection = () => {
             <div className="topfive__content">
                 {content}
             </div>
-        </div>
+        </FlexGridRow>
     );
 };
 
