@@ -235,7 +235,7 @@ const SearchPage = ({
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                         </Helmet>
-                        <FlexGridCol desktop={9} tablet={12} mobile={12}>
+                        <FlexGridCol className="search-results" desktop={9} tablet={12} mobile={12}>
                             <ResultsView
                                 filters={filters}
                                 isMobile={isMobile}
