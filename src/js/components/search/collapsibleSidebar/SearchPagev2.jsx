@@ -26,7 +26,7 @@ import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
 import Button from "../../sharedComponents/buttons/Button";
-import SearchSidebarv2 from "./SearchSidebarv2";
+import CollapsibleSidebar from "./CollapsibleSidebar";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 
 require('pages/search/searchPage.scss');
@@ -145,7 +145,7 @@ const SearchPage = ({
 
     useEffect(() => {
         setSearchv2(true);
-        setFullSidebar(<SearchSidebarv2 filters={filters} hash={hash} />);
+        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} />);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -235,7 +235,7 @@ const SearchPage = ({
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                         </Helmet>
-                        <FlexGridCol desktop={9} tablet={12} mobile={12}>
+                        <FlexGridCol className="search-results" desktop={9} tablet={12} mobile={12}>
                             <ResultsView
                                 filters={filters}
                                 isMobile={isMobile}

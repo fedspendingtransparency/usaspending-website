@@ -1,23 +1,20 @@
 @import '_searchFilter';
 
-$sidebar-width: 354px;
-$sidebar-width-closed: 32px;
-
 @keyframes collapsible-sidebar-slideopen {
   0% {
-    width: $sidebar-width-closed;
+    width: 0%;
   }
   100% {
-    width: $sidebar-width;
+    width: 100%;
   }
 }
 
 @keyframes collapsible-sidebar-slideclose {
   0% {
-    width: $sidebar-width;
+    width: 100%;
   }
   100% {
-    width: $sidebar-width-closed;
+    width: 0%;
   }
 }
 
@@ -34,11 +31,11 @@ $sidebar-width-closed: 32px;
 }
 
 .search-collapsible-sidebar-container {
-  position: sticky;
+  position: relative;
+  //top: 188px;
   background-color: $color-white;
   box-shadow: unset;
   border-radius: unset;
-  width: $sidebar-width;
 
   .chevron {
     margin: auto;
@@ -48,8 +45,9 @@ $sidebar-width-closed: 32px;
   }
 
   .collapsible-sidebar--toggle {
+    position: relative;
     float: right;
-    margin-right: -42px;
+    margin-right: -12px;
     margin-top: 16px;
     border-radius: 12px;
     width: 24px;
@@ -61,15 +59,14 @@ $sidebar-width-closed: 32px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    z-index: 2;
   }
 
   .collapsible-sidebar {
-    width: $sidebar-width;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
-    padding: 0 rem(32);
 
     &.opened:not(.is-initial-loaded) {
       -webkit-animation: collapsible-sidebar-slideopen 0.25s forwards;
@@ -80,19 +77,22 @@ $sidebar-width-closed: 32px;
       animation: collapsible-sidebar-slideclose 0.25s forwards;
       -webkit-animation: collapsible-sidebar-slideclose 0.25s forwards;
 
-      .collapsible-sidebar-drilldown, .collapsible-sidebar--main-menu {
-        overflow: hidden;
-        white-space: nowrap;
+      .sidebar-bottom-submit, .search-filter__container, .collapsible-sidebar--header, .collapsible-sidebar--drilldown, .collapsible-sidebar--main-menu {
+        display: none;
       }
     }
 
+    .categories-list, .category-filter {
+      overflow-y: auto;
+    }
+
     .collapsible-sidebar--header {
-      margin: rem(16) 0;
-      height: 24px;
+      padding: rem(16) rem(32);
       font-size: 16px;
       font-weight: 600;
       line-height: 1.5;
       color: $gray-90;
+      border-bottom: $gray-cool-10 1px solid;
     }
 
     .sidebar-bottom-submit {
@@ -154,6 +154,12 @@ $sidebar-width-closed: 32px;
       .location-filter {
         padding: 0 0 2rem 0;
       }
+    }
+
+    .sidebar-bottom-submit {
+      position: relative;
+      bottom: 0;
+      width: 100%;
     }
   }
 }

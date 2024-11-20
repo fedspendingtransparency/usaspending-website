@@ -1,14 +1,16 @@
 .search-filter__container {
-  border-top: solid 1px $gray-cool-10;
-  margin-bottom: $global-margin * 2;
+  cursor: pointer;
+  &:not(:first-child) {
+    border-top: solid 1px $gray-cool-10;
+  }
+  padding: $global-margin * 2 $global-margin * 4;
 
   .search-filter__content {
-    margin: rem(16) 0;
+    margin: $global-margin * 2 0;
     height: rem(91);
 
     .search-filter__top-row {
       display: flex;
-      margin-top: $global-margin * 2;
 
       .search-filter__top-row-icon-container {
         display: flex;
@@ -34,7 +36,6 @@
           font-weight: $font-semibold;
           line-height: 1.5;
           color: $theme-color-headline;
-          cursor: pointer;
         }
 
         .search-filter__top-row-selected-container {
