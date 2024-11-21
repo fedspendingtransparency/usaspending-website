@@ -107,7 +107,7 @@ export const FilterCategoryTree = {
             },
             {
                 title: 'Recipient Type',
-                component: <RecipientTypeContainer />
+                component: <RecipientTypeContainer v2Search />
             }
         ]
     },

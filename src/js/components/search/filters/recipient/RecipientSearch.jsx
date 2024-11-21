@@ -45,7 +45,7 @@ const RecipientSearch = ({
 
     return (
         <div className="recipient-filter">
-            <div className={`filter-item-wrap ${v2Search ? 'v2Search' : ''}`}>
+            <div className={`filter-item-wrap ${v2Search ? 'no-padding' : ''}`}>
                 {GlobalConstants.QAT ?
                     <RecipientResultsContainer
                         selectedRecipients={selectedRecipients}
