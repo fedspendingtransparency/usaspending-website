@@ -59,7 +59,12 @@ const propTypes = {
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({})),
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    showInfo: PropTypes.bool
+};
+
+const defaultProps = {
+    showInfo: true
 };
 
 const SearchNote = () => (
@@ -374,7 +379,8 @@ export class TASCheckboxTree extends React.Component {
             checked,
             expanded,
             counts,
-            searchExpanded
+            searchExpanded,
+            showInfo
         } = this.props;
         const {
             isLoading,
@@ -386,12 +392,13 @@ export class TASCheckboxTree extends React.Component {
         } = this.state;
         return (
             <div className="tas-checkbox">
+                {showInfo &&
                 <span className="checkbox-header">
                     Search by Agency, Federal Account, or Treasury Account
                     <CSSOnlyTooltip
                         definition={<SearchNote />}
                         heading="Find a Treasury Account" />
-                </span>
+                </span>}
                 <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}
@@ -447,6 +454,7 @@ export class TASCheckboxTree extends React.Component {
 }
 
 TASCheckboxTree.propTypes = propTypes;
+TASCheckboxTree.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => ({
     nodes: state.tas.tas.toJS(),
