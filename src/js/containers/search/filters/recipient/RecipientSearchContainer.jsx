@@ -14,7 +14,12 @@ import RecipientSearch from 'components/search/filters/recipient/RecipientSearch
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,
     selectedRecipients: PropTypes.object,
-    appliedRecipients: PropTypes.object
+    appliedRecipients: PropTypes.object,
+    v2Search: PropTypes.bool
+};
+
+const defaultProps = {
+    v2Search: false
 };
 
 const RecipientSearchContainer = (props) => {
@@ -39,6 +44,7 @@ const RecipientSearchContainer = (props) => {
 };
 
 RecipientSearchContainer.propTypes = propTypes;
+RecipientSearchContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({

@@ -7,6 +7,8 @@ import React from 'react';
 import { LocationSectionContainer } from "../../containers/search/filters/location/LocationSectionContainer";
 import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
+import RecipientSearchContainer from "../../containers/search/filters/recipient/RecipientSearchContainer";
+import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
 
 export const SearchFilterCategories = [
     {
@@ -100,10 +102,12 @@ export const FilterCategoryTree = {
     recipients: {
         children: [
             {
-                title: 'Recipient'
+                title: 'Recipient',
+                component: <RecipientSearchContainer v2Search />
             },
             {
-                title: 'Recipient Type'
+                title: 'Recipient Type',
+                component: <RecipientTypeContainer />
             }
         ]
     },
