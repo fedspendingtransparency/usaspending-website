@@ -97,6 +97,16 @@
         }
     }
 
+    .recipient-filter-message-container {
+        font-size: rem(30);
+        text-align: center;
+        margin-top: $global-margin;
+        .recipient-filter-message-container__text {
+          font-size: 2rem;
+          padding-bottom: 2rem;
+        }
+    }
+
     .recipient-filter-item-wrap {
         padding: 0;
 
