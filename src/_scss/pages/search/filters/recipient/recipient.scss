@@ -9,6 +9,22 @@
         .autocomplete__input {
             padding-bottom: 0;
         }
+
+        .find-recipients-text {
+            text-align: center;
+            font-size: $smallest-font-size;
+            line-height: 1.5;
+
+            &.label {
+                color: $gray-90;
+                margin: ($global-spacing-unit * 3) 0 rem(4) 0;
+                font-weight: $font-semibold;
+            }
+
+            &.content {
+                color: $gray-60;
+            }
+        }
     }
 
     .recipient-results__container {
