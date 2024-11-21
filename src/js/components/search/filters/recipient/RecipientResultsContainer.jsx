@@ -11,10 +11,14 @@ import PrimaryCheckboxType from "../../../sharedComponents/checkbox/PrimaryCheck
 
 const propTypes = {
     selectedRecipients: PropTypes.object,
-    updateSelectedRecipients: PropTypes.func
+    updateSelectedRecipients: PropTypes.func,
+    newSearch: PropTypes.bool,
+    setNewSearch: PropTypes.func
 };
 
-const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipients }) => {
+const RecipientResultsContainer = ({
+    selectedRecipients, updateSelectedRecipients, newSearch, setNewSearch
+}) => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
 
@@ -75,9 +79,11 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
 
     useEffect(() => {
         if (searchString.length >= 3) {
+            setNewSearch(false);
             getRecipientsFromSearchString(searchString);
         }
         else {
+            setNewSearch(true);
             getAllRecipients();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,7 +98,7 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
                 context={{}}
                 loading={false}
                 searchIcon />
-            <div className="recipient-results__container">
+            <div className={`recipient-results__container ${newSearch ? 'bottom-fade' : ''}`}>
                 <div className="checkbox-type-filter">
                     { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient) => (
                         <div className="recipient-label__container">

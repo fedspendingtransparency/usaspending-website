@@ -25,6 +25,7 @@ const RecipientSearch = ({
     toggleRecipient, selectedRecipients, dirtyFilters, updateSelectedRecipients
 }) => {
     const [hint, setHint] = useState(null);
+    const [newSearch, setNewSearch] = useState(true);
     const prevDirtyFilters = usePrevious(dirtyFilters);
 
     let localSelectedRecipients = null;
@@ -49,7 +50,9 @@ const RecipientSearch = ({
                 {GlobalConstants.QAT ?
                     <RecipientResultsContainer
                         selectedRecipients={selectedRecipients}
-                        updateSelectedRecipients={updateSelectedRecipients} />
+                        updateSelectedRecipients={updateSelectedRecipients}
+                        newSearch={newSearch}
+                        setNewSearch={setNewSearch} />
                     :
                     <>
                         <RecipientNameDUNSContainer
@@ -62,12 +65,17 @@ const RecipientSearch = ({
                             }} />
                     </>
                 }
-                <div className="find-recipients-text label">
-                    Use the search bar to find recipients
-                </div>
-                <div className="find-recipients-text content">
-                    The first 100 recipients are displayed by default. Please use the search bar to find additional recipients.
-                </div>
+                {newSearch &&
+                    <>
+                        <div className="find-recipients-text label">
+                            Use the search bar to find recipients
+                        </div>
+                        <div className="find-recipients-text content">
+                            The first 100 recipients are displayed by default. Please use the search bar to find
+                            additional recipients.
+                        </div>
+                    </>
+                }
             </div>
         </div>
     );
