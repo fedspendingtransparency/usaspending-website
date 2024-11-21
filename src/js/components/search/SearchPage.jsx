@@ -109,10 +109,6 @@ const SearchPage = ({
         setShowFullDownload(false);
     };
 
-    if (isMobile) {
-        setFullSidebar(null);
-    }
-
     const pluralizeFilterLabel = (count) => {
         if (count === 1) {
             return 'Filter';
@@ -139,11 +135,13 @@ const SearchPage = ({
 
     useEffect(() => {
         setStateHash(hash);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hash]);
 
     useEffect(() => {
         setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
-    }, [filters, hash]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <PageWrapper
