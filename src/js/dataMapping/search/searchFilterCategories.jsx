@@ -7,8 +7,6 @@ import React from 'react';
 import { LocationSectionContainer } from "../../containers/search/filters/location/LocationSectionContainer";
 import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
-import AgencyContainer from "../../containers/search/filters/AgencyContainer";
-import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
 
 export const SearchFilterCategories = [
     {
@@ -112,12 +110,10 @@ export const FilterCategoryTree = {
     sources: {
         children: [
             {
-                title: 'Agency',
-                component: <AgencyContainer />
+                title: 'Agency'
             },
             {
-                title: 'Treasury Account Symbol (TAS)',
-                component: <TASCheckboxTreeContainer showInfo={false} />
+                title: 'Treasury Account Symbol (TAS)'
             },
             {
                 title: 'COVID-19 Spending'
