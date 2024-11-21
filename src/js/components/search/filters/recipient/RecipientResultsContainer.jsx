@@ -45,7 +45,10 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
             recipientRequest.current.cancel();
         }
 
-        recipientRequest.current = SearchHelper.fetchRecipients();
+        const paramObj = {
+            limit: 100
+        };
+        recipientRequest.current = SearchHelper.fetchRecipients(paramObj);
         setIsLoading(true);
         recipientRequest.current.promise
             .then((res) => {
@@ -61,7 +64,7 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
 
         const paramObj = {
             search_text: term,
-            limit: 50
+            limit: 100
         };
 
         recipientRequest.current = SearchHelper.fetchRecipientsAutocomplete(paramObj);
