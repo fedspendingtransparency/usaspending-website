@@ -1,10 +1,4 @@
 .recipient-filter {
-    @import "elements/filters/_errorMessage";
-    @import "elements/filters/_typeahead";
-    @import "elements/filters/_selectedFilterBtn";
-    @import "mixins/selectedFilterWrap";
-    @import "../_singleSubmit";
-
     .filter-item-wrap {
         .autocomplete__input {
             padding-bottom: 0;
@@ -115,55 +109,5 @@
                 }
             }
         }
-    }
-
-    .recipient-filter-item-wrap {
-        padding: 0;
-
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-
-        .recipient-input {
-            @include flex(1 1 auto);
-            margin-right: rem(4);
-            font-size: $small-font-size;
-            color: $color-base;
-            line-height: rem(36);
-            height: rem(40);
-
-            @include placeholder {
-                color: $color-placeholder;
-            }
-        }
-
-        .recipient-submit {
-            @include flex(0 0 auto);
-            @include singleSubmit();
-        }
-    }
-
-    .shown {
-        min-height: rem(180);
-    }
-
-    .visually-hidden {
-        display: none;
-    }
-
-    .pop-typeahead {
-        .usa-da-typeahead {
-            margin-top: 0;
-        }
-
-        .funding {
-            .usa-da-typeahead {
-                margin: 0 0 rem(10);
-            }
-        }
-    }
-
-    .selected-filters {
-        @include selected-filter-wrap;
     }
 }
