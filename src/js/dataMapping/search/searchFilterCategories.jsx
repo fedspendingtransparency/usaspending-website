@@ -117,7 +117,7 @@ export const FilterCategoryTree = {
             },
             {
                 title: 'Treasury Account Symbol (TAS)',
-                component: <TASCheckboxTreeContainer />
+                component: <TASCheckboxTreeContainer showInfo={false} />
             },
             {
                 title: 'COVID-19 Spending'
