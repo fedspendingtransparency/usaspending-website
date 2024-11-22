@@ -16,33 +16,16 @@ const propTypes = {
     selectedRecipients: PropTypes.object
 };
 
-const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients }) => {
-    const [newSearch, setNewSearch] = useState(true);
-
-    return (
-        <div className="recipient-filter">
-            <div className="filter-item-wrap">
-                <RecipientResultsContainer
-                    selectedRecipients={selectedRecipients}
-                    updateSelectedRecipients={updateSelectedRecipients}
-                    newSearch={newSearch}
-                    setNewSearch={setNewSearch} />
-                <SubmitHint selectedFilters={selectedRecipients} />
-                {newSearch &&
-                    <>
-                        <div className="find-recipients-text label">
-                            Use the search bar to find recipients
-                        </div>
-                        <div className="find-recipients-text content">
-                            The first 100 recipients are displayed by default. Please use the search bar to find
-                            additional recipients.
-                        </div>
-                    </>
-                }
-            </div>
+const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients }) => (
+    <div className="recipient-filter">
+        <div className="filter-item-wrap">
+            <RecipientResultsContainer
+                selectedRecipients={selectedRecipients}
+                updateSelectedRecipients={updateSelectedRecipients} />
+            <SubmitHint selectedFilters={selectedRecipients} />
         </div>
-    );
-};
+    </div>
+);
 
 RecipientSearchContainer.propTypes = propTypes;
 

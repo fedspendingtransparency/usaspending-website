@@ -3,6 +3,14 @@
         .autocomplete__input {
             padding-bottom: 0;
         }
+    }
+
+    .recipient-results__container {
+        margin-top: $global-margin * 2.5;
+        padding: 0 0 $global-padding * 2.5 0;
+        height: rem(400);
+        overflow-y: scroll;
+        list-style: none;
 
         .find-recipients-text {
             text-align: center;
@@ -19,20 +27,12 @@
                 color: $gray-60;
             }
         }
-    }
-
-    .recipient-results__container {
-        margin-top: $global-margin * 2.5;
-        padding: 0 0 $global-padding * 2.5 0;
-        height: rem(400);
-        overflow-y: scroll;
-        list-style: none;
-
-        &.bottom-fade {
-            mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
-        }
 
         .checkbox-type-filter {
+            &.bottom-fade {
+                mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
+            }
+
             .recipient-label__container {
                 display: flex;
                 flex-flow: column nowrap;

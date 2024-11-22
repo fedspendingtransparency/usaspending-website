@@ -11,16 +11,13 @@ import PrimaryCheckboxType from "../../../sharedComponents/checkbox/PrimaryCheck
 
 const propTypes = {
     selectedRecipients: PropTypes.object,
-    updateSelectedRecipients: PropTypes.func,
-    newSearch: PropTypes.bool,
-    setNewSearch: PropTypes.func
+    updateSelectedRecipients: PropTypes.func
 };
 
-const RecipientResultsContainer = ({
-    selectedRecipients, updateSelectedRecipients, newSearch, setNewSearch
-}) => {
+const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipients }) => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
+    const [newSearch, setNewSearch] = useState(true);
 
     const recipientRequest = useRef();
 
@@ -98,8 +95,8 @@ const RecipientResultsContainer = ({
                 context={{}}
                 loading={false}
                 searchIcon />
-            <div className={`recipient-results__container ${newSearch ? 'bottom-fade' : ''}`}>
-                <div className="checkbox-type-filter">
+            <div className="recipient-results__container">
+                <div className={`checkbox-type-filter ${newSearch ? 'bottom-fade' : ''}`}>
                     { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient) => (
                         <div className="recipient-label__container">
                             <PrimaryCheckboxType
@@ -122,6 +119,17 @@ const RecipientResultsContainer = ({
                         </div>
                     ))}
                 </div>
+                {newSearch &&
+                    <>
+                        <div className="find-recipients-text label">
+                            Use the search bar to find recipients
+                        </div>
+                        <div className="find-recipients-text content">
+                            The first 100 recipients are displayed by default. Please use the search bar to find
+                            additional recipients.
+                        </div>
+                    </>
+                }
             </div>
         </>
     );
