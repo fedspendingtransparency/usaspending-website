@@ -12,7 +12,14 @@ const propTypes = {
 };
 
 const CategoriesList = ({
-    categories, setLevel3, iconBackgroundColor, iconName, iconColor, title, description, height
+    categories,
+    setLevel3,
+    iconBackgroundColor,
+    iconName,
+    iconColor,
+    title,
+    description,
+    height
 }) => (
     <>
         <CategoryHeader
@@ -23,20 +30,41 @@ const CategoriesList = ({
             description={description} />
         <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
             <div style={{ margin: "0 16px 0 32px" }}>
-                {categories.map((item) => (
-                    <div
-                        className="categories-list-item-container"
-                        onClick={(e) => setLevel3(e, item)}
-                        onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, item.component) : ''))}
-                        role="button"
-                        tabIndex={0}>
-                        <div className="categories-list-item">
-                            <div style={{ float: "left" }}>{item.title}</div>
-                            <div style={{ float: "right" }}><FontAwesomeIcon className="chevron" icon="chevron-right" />
+                {categories.map((item) => {
+                    if (title === 'Characteristics') {
+                        return item.categories.map(
+                            (category) => (
+                                <div
+                                    className="categories-list-item-container"
+                                    onClick={(e) => setLevel3(e, category)}
+                                    onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, category.component) : ''))}
+                                    role="button"
+                                    tabIndex={0}>
+                                    <div className="categories-list-item">
+                                        <div style={{ float: "left" }}>{category.title}</div>
+                                        <div style={{ float: "right" }}><FontAwesomeIcon className="chevron" icon="chevron-right" />
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        );
+                    }
+
+                    return (
+                        <div
+                            className="categories-list-item-container"
+                            onClick={(e) => setLevel3(e, item)}
+                            onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, item.component) : ''))}
+                            role="button"
+                            tabIndex={0}>
+                            <div className="categories-list-item">
+                                <div style={{ float: "left" }}>{item.title}</div>
+                                <div style={{ float: "right" }}><FontAwesomeIcon className="chevron" icon="chevron-right" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     </>

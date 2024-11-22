@@ -65,37 +65,54 @@ export const FilterCategoryTree = {
     characteristics: {
         children: [
             {
-                title: 'Award Description'
+                categoryType: 'All',
+                categories: [
+                    {
+                        title: 'Award Description'
+                    },
+                    {
+                        title: 'Award ID',
+                        component: <AwardIDSearchContainer />
+                    },
+                    {
+                        title: 'Spending Amount'
+                    }
+                ]
             },
             {
-                title: 'Award ID',
-                component: <AwardIDSearchContainer />
+                categoryType: 'Contracts',
+                categories: [
+                    {
+                        title: 'Contract Award Type'
+                    },
+                    {
+                        title: 'North American Industry Classification System (NAICS)'
+                    },
+                    {
+                        title: 'Product and Service Code (PSC)'
+                    },
+                    {
+                        title: 'Type of Contract Pricing'
+                    },
+                    {
+                        title: 'Type of Set Aside'
+                    },
+                    {
+                        title: 'Extent Competed'
+                    }
+                ]
             },
             {
-                title: 'Spending Amount'
-            },
-            {
-                title: 'Contract Award Type'
-            },
-            {
-                title: 'North American Industry Classification System (NAICS)'
-            },
-            {
-                title: 'Product and Service Code (PSC)'
-            },
-            {
-                title: 'Type of Contract Pricing'
-            },
-            {
-                title: 'Type of Set Aside'
-            },
-            {
-                title: 'Extent Competed'
-            },
-            {
-                title: 'Financial Assistance Award Type'
+                categoryType: 'Financial Assistance',
+                categories: [
+                    {
+                        title: 'Financial Assistance Award Type'
+                    },
+                    {
+                        title: 'Assistance Listing'
+                    }
+                ]
             }
-
         ]
 
     },
