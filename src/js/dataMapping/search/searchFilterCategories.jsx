@@ -103,11 +103,11 @@ export const FilterCategoryTree = {
         children: [
             {
                 title: 'Recipient',
-                component: <RecipientSearchContainer v2Search />
+                component: <RecipientSearchContainer />
             },
             {
                 title: 'Recipient Type',
-                component: <RecipientTypeContainer v2Search />
+                component: <RecipientTypeContainer />
             }
         ]
     },

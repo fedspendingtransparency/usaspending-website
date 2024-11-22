@@ -22,7 +22,7 @@ const propTypes = {
 };
 
 const RecipientSearch = ({
-    toggleRecipient, selectedRecipients, dirtyFilters, updateSelectedRecipients, v2Search
+    toggleRecipient, selectedRecipients, dirtyFilters, updateSelectedRecipients
 }) => {
     const [hint, setHint] = useState(null);
     const prevDirtyFilters = usePrevious(dirtyFilters);
@@ -45,7 +45,7 @@ const RecipientSearch = ({
 
     return (
         <div className="recipient-filter">
-            <div className={`filter-item-wrap ${v2Search ? 'no-padding' : ''}`}>
+            <div className="filter-item-wrap">
                 {GlobalConstants.QAT ?
                     <RecipientResultsContainer
                         selectedRecipients={selectedRecipients}

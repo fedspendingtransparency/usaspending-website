@@ -14,12 +14,11 @@ import RecipientTypeAccordion from 'components/search/filters/recipient/Recipien
 const propTypes = {
     toggleRecipientType: PropTypes.func,
     recipientType: PropTypes.object,
-    appliedType: PropTypes.object,
-    v2Search: PropTypes.bool
+    appliedType: PropTypes.object
 };
 
 const RecipientTypeContainer = ({
-    toggleRecipientType, recipientType, appliedType, v2Search
+    toggleRecipientType, recipientType, appliedType
 }) => {
     let justMounted = true;
     const firstUpdate = useRef(true);
@@ -47,8 +46,7 @@ const RecipientTypeContainer = ({
         <RecipientTypeAccordion
             dirtyFilters={dirtyFilters()}
             selectedTypes={recipientType}
-            toggleCheckboxType={toggleRecipientTypeFunc}
-            v2Search={v2Search} />
+            toggleCheckboxType={toggleRecipientTypeFunc} />
     );
 };
 

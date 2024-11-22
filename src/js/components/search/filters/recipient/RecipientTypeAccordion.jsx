@@ -79,16 +79,14 @@ const propTypes = {
     recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
     selectedTypes: PropTypes.object,
     dirtyFilters: PropTypes.symbol,
-    toggleCheckboxType: PropTypes.func,
-    v2Search: PropTypes.bool
+    toggleCheckboxType: PropTypes.func
 };
 
 const RecipientTypeAccordion = ({
     recipientTypeMapping,
     selectedTypes,
     dirtyFilters,
-    toggleCheckboxType,
-    v2Search
+    toggleCheckboxType
 }) => {
     const [expanded, setExpanded] = useState(expandRecipientTypeAccordions(recipientTypeMapping, selectedTypes));
     const [hint, setHint] = useState(null);
@@ -140,7 +138,7 @@ const RecipientTypeAccordion = ({
     }, [dirtyFilters, hint, prevDirtyFilters]);
 
     return (
-        <div className={`filter-item-wrap ${v2Search ? 'no-padding' : ''}`}>
+        <div className="filter-item-wrap">
             <div className="checkbox-type-filter">
                 <ul className="checkbox-types">
                     {checkboxTypes}
