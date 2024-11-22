@@ -9,6 +9,14 @@ import TimePeriodContainer from "../../containers/search/filters/TimePeriodConta
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
 import AgencyContainer from "../../containers/search/filters/AgencyContainer";
 import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
+import AwardAmountSearchContainer from "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
+// import {AwardTypeContainer} from "../../containers/search/filters/AwardTypeContainer";
+// import {NAICSCheckboxTree} from "../../containers/search/filters/naics/NAICSCheckboxTree";
+// import {PSCCheckboxTreeContainer} from "../../containers/search/filters/psc/PSCCheckboxTreeContainer";
+import PricingTypeContainer from "../../containers/search/filters/PricingTypeContainer";
+import SetAsideContainer from "../../containers/search/filters/SetAsideContainer";
+import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
+// import {CFDASearchContainer} from "../../containers/search/filters/cfda/CFDASearchContainer";
 
 export const SearchFilterCategories = [
     {
@@ -72,28 +80,37 @@ export const FilterCategoryTree = {
                 component: <AwardIDSearchContainer />
             },
             {
-                title: 'Spending Amount'
+                title: 'Spending Amount',
+                component: <AwardAmountSearchContainer />
             },
             {
-                title: 'Contract Award Type'
+                title: 'Contract Award Type' // ,
+                // component: <AwardTypeContainer />
             },
             {
-                title: 'North American Industry Classification System (NAICS)'
+                title: 'North American Industry Classification System (NAICS)'// ,
+                // component: <NAICSCheckboxTree />
             },
             {
-                title: 'Product and Service Code (PSC)'
+                title: 'Product and Service Code (PSC)'// ,
+                // component: <PSCCheckboxTreeContainer />
             },
             {
-                title: 'Type of Contract Pricing'
+                title: 'Type of Contract Pricing',
+                component: <PricingTypeContainer />
             },
             {
-                title: 'Type of Set Aside'
+                title: 'Type of Set Aside',
+                component: <SetAsideContainer />
+
             },
             {
-                title: 'Extent Competed'
+                title: 'Extent Competed',
+                component: <ExtentCompetedContainer />
             },
             {
                 title: 'Financial Assistance Award Type'
+                // component: <CFDASearchContainer />
             }
 
         ]
