@@ -32,21 +32,28 @@ const CategoriesList = ({
             <div style={{ margin: "0 16px 0 32px" }}>
                 {categories.map((item) => {
                     if (title === 'Characteristics') {
-                        return item.categories.map(
-                            (category) => (
-                                <div
-                                    className="categories-list-item-container"
-                                    onClick={(e) => setLevel3(e, category)}
-                                    onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, category.component) : ''))}
-                                    role="button"
-                                    tabIndex={0}>
-                                    <div className="categories-list-item">
-                                        <div style={{ float: "left" }}>{category.title}</div>
-                                        <div style={{ float: "right" }}><FontAwesomeIcon className="chevron" icon="chevron-right" />
+                        return (
+                            <>
+                                <div>{item.categoryType}</div>
+                                {
+                                    item.categories.map((category) => (
+                                        <div
+                                            className="categories-list-item-container"
+                                            onClick={(e) => setLevel3(e, category)}
+                                            onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, category.component) : ''))}
+                                            role="button"
+                                            tabIndex={0}>
+                                            <div className="categories-list-item">
+                                                <div style={{ float: "left" }}>{category.title}</div>
+                                                <div style={{ float: "right" }}><FontAwesomeIcon
+                                                    className="chevron"
+                                                    icon="chevron-right" />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            )
+                                    ))
+                                }
+                            </>
                         );
                     }
 
