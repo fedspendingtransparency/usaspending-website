@@ -129,7 +129,7 @@ export const FilterCategoryTree = {
     sources: {
         children: [
             {
-                categoryType: '',
+                categoryType: 'doNotDisplay',
                 categories: [
                     {
                         title: 'Agency',

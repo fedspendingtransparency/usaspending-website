@@ -31,12 +31,12 @@ const CategoriesList = ({
         <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
             <div style={{ margin: "0 16px 0 32px" }}>
                 {categories.map((item) => {
-                    if (title === 'Characteristics' || title === 'Sources') {
+                    if (item?.categoryType) {
                         return (
                             <>
                                 <div
                                     className="categories-list-category-type"
-                                    style={item.categoryType === '' ? { display: 'none' } : {}}>
+                                    style={item.categoryType === 'doNotDisplay' ? { display: 'none' } : {}}>
                                     {item.categoryType}
                                 </div>
                                 {
