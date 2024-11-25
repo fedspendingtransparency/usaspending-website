@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -23,6 +24,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [newSearch, setNewSearch] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const recipientRequest = useRef();
 
@@ -49,11 +51,18 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
             recipientRequest.current.cancel();
         }
 
-        recipientRequest.current = SearchHelper.fetchRecipients();
+        const paramObj = {
+            limit: 100
+        };
+
+        recipientRequest.current = SearchHelper.fetchRecipients(paramObj);
+
+        setIsLoading(true);
 
         recipientRequest.current.promise
             .then((res) => {
                 setRecipients(res.data.results);
+                setIsLoading(false);
             });
     };
 
@@ -64,20 +73,30 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
 
         const paramObj = {
             search_text: term,
-            limit: 50
+            limit: 100
         };
 
         recipientRequest.current = SearchHelper.fetchRecipientsAutocomplete(paramObj);
 
+        setIsLoading(true);
+
         recipientRequest.current.promise
             .then((res) => {
                 setRecipients(res.data.results);
+                setIsLoading(false);
             });
     };
 
     const handleTextInputChange = (e) => {
         setSearchString(e.target.value);
     };
+
+    const loadingIndicator = (
+        <div className="recipient-filter-message-container">
+            <FontAwesomeIcon icon="spinner" spin />
+            <div className="recipient-filter-message-container__text">Loading your data...</div>
+        </div>
+    );
 
     useEffect(() => {
         if (searchString.length >= 3) {
@@ -101,53 +120,55 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     context={{}}
                     loading={false}
                     searchIcon />
-                <div className="recipient-results__container">
-                    <div className={`checkbox-type-filter ${newSearch ? 'bottom-fade' : ''}`}>
-                        {recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
-                            .map((recipient) => (
-                                <div className="recipient-label__container">
-                                    <PrimaryCheckboxType
-                                        name={(
-                                            <div className="recipient-checkbox__uei">
-                                                <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}
+                {isLoading ? loadingIndicator :
+                    <div className="recipient-results__container">
+                        <div className={`checkbox-type-filter ${newSearch ? 'bottom-fade' : ''}`}>
+                            {recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
+                                .map((recipient) => (
+                                    <div className="recipient-label__container">
+                                        <PrimaryCheckboxType
+                                            name={(
+                                                <div className="recipient-checkbox__uei">
+                                                    <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}
+                                                </div>
+                                            )}
+                                            value={{
+                                                name: recipient.name ? recipient.name : recipient.recipient_name,
+                                                uei: recipient.uei,
+                                                duns: recipient.duns ? recipient.duns : null
+                                            }}
+                                            key={recipient.uei}
+                                            toggleCheckboxType={toggleRecipient}
+                                            selectedCheckboxes={selectedRecipients} />
+                                        <div className="recipient-label__lower-container">
+                                            <div className="recipient-label__legacy-duns">Legacy
+                                                DUNS: {recipient.duns ? recipient.duns : 'Not provided'}
                                             </div>
-                                        )}
-                                        value={{
-                                            name: recipient.name ? recipient.name : recipient.recipient_name,
-                                            uei: recipient.uei,
-                                            duns: recipient.duns ? recipient.duns : null
-                                        }}
-                                        key={recipient.uei}
-                                        toggleCheckboxType={toggleRecipient}
-                                        selectedCheckboxes={selectedRecipients} />
-                                    <div className="recipient-label__lower-container">
-                                        <div className="recipient-label__legacy-duns">Legacy
-                                            DUNS: {recipient.duns ? recipient.duns : 'Not provided'}
-                                        </div>
-                                        <div className="recipient-label__name-container">
-                                            <span className="recipient-label__recipient-name">
-                                                {recipient.name || recipient.recipient_name}
-                                            </span>
-                                            <span className="recipient-label__recipient-level">
-                                                {levelMapping[recipient.recipient_level]}
-                                            </span>
+                                            <div className="recipient-label__name-container">
+                                                <span className="recipient-label__recipient-name">
+                                                    {recipient.name || recipient.recipient_name}
+                                                </span>
+                                                <span className="recipient-label__recipient-level">
+                                                    {levelMapping[recipient.recipient_level]}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
+                                ))}
+                        </div>
+                        {newSearch &&
+                            <>
+                                <div className="find-recipients-text label">
+                                    Use the search bar to find recipients
                                 </div>
-                            ))}
+                                <div className="find-recipients-text content">
+                                    The first 100 recipients are displayed by default.
+                                    Please use the search bar to find additional recipients.
+                                </div>
+                            </>
+                        }
                     </div>
-                    {newSearch &&
-                        <>
-                            <div className="find-recipients-text label">
-                                Use the search bar to find recipients
-                            </div>
-                            <div className="find-recipients-text content">
-                                The first 100 recipients are displayed by default.
-                                Please use the search bar to find additional recipients.
-                            </div>
-                        </>
-                    }
-                </div>
+                }
                 <SubmitHint selectedFilters={selectedRecipients} />
             </div>
         </div>
