@@ -82,9 +82,10 @@ export const fetchAwardV2 = (awardId) => apiRequest({
     url: `v2/awards/${awardId}/`
 });
 
-export const fetchRecipients = () => apiRequest({
+export const fetchRecipients = (req) => apiRequest({
     url: 'v2/recipient/',
-    method: 'post'
+    method: 'post',
+    data: req
 });
 
 // Recipient search for autocomplete
