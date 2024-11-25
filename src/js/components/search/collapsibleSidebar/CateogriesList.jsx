@@ -34,7 +34,7 @@ const CategoriesList = ({
                     if (title === 'Characteristics') {
                         return (
                             <>
-                                <div>{item.categoryType}</div>
+                                <div className="categories-list-category-type">{item.categoryType}</div>
                                 {
                                     item.categories.map((category) => (
                                         <div

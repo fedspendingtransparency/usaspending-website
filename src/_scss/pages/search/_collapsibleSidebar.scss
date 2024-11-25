@@ -131,13 +131,28 @@
         }
       }
 
+      .categories-list-category-type {
+        color: $gray-90;
+        font-size: rem(10);
+        line-height: 1.5;
+        padding: rem(2) rem(6);
+        background-color: $gray-cool-5;
+        border-radius: rem(4);
+        width: fit-content;
+        margin: rem(34) 0 rem(18) 0;
+
+        &:first-of-type {
+          margin-top: 0;
+        }
+      }
+
       .categories-list-item-container {
         margin-top: 16px;
         padding-bottom: 4px;
         min-height: 26px;
         line-height: 1.5;
         align-items: center;
-        font-size: 12px;
+        font-size: $smallest-font-size;
         color: $gray-90;
         font-weight: $font-semibold;
         border-bottom: solid 1px $gray-cool-10;

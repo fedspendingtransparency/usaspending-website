@@ -65,7 +65,7 @@ export const FilterCategoryTree = {
     characteristics: {
         children: [
             {
-                categoryType: 'All',
+                categoryType: 'ALL',
                 categories: [
                     {
                         title: 'Award Description'
@@ -80,7 +80,7 @@ export const FilterCategoryTree = {
                 ]
             },
             {
-                categoryType: 'Contracts',
+                categoryType: 'CONTRACTS',
                 categories: [
                     {
                         title: 'Contract Award Type'
@@ -103,7 +103,7 @@ export const FilterCategoryTree = {
                 ]
             },
             {
-                categoryType: 'Financial Assistance',
+                categoryType: 'FINANCIAL ASSISTANCE',
                 categories: [
                     {
                         title: 'Financial Assistance Award Type'
