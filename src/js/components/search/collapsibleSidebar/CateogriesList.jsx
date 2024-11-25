@@ -40,7 +40,11 @@ const CategoriesList = ({
                                         <div
                                             className="categories-list-item-container"
                                             onClick={(e) => setLevel3(e, category)}
-                                            onKeyUp={((e) => (e.key === "Enter" ? setLevel3(e, category.component) : ''))}
+                                            onKeyUp={
+                                                ((e) => (
+                                                    e.key === "Enter" ? setLevel3(e, category.component) : ''
+                                                ))
+                                            }
                                             role="button"
                                             tabIndex={0}>
                                             <div className="categories-list-item">
