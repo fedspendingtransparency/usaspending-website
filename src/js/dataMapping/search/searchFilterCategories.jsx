@@ -129,18 +129,28 @@ export const FilterCategoryTree = {
     sources: {
         children: [
             {
-                title: 'Agency',
-                component: <AgencyContainer />
+                categoryType: '',
+                categories: [
+                    {
+                        title: 'Agency',
+                        component: <AgencyContainer />
+                    },
+                    {
+                        title: 'Treasury Account Symbol (TAS)',
+                        component: <TASCheckboxTreeContainer showInfo={false} />
+                    }
+                ]
             },
             {
-                title: 'Treasury Account Symbol (TAS)',
-                component: <TASCheckboxTreeContainer showInfo={false} />
-            },
-            {
-                title: 'COVID-19 Spending'
-            },
-            {
-                title: 'Infrastructure Spending'
+                categoryType: 'DISASTER EMERGENCY FUND CODE (DEFC)',
+                categories: [
+                    {
+                        title: 'COVID-19 Spending'
+                    },
+                    {
+                        title: 'Infrastructure Spending'
+                    }
+                ]
             }
         ]
     }
