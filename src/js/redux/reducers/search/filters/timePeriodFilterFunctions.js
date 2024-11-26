@@ -5,14 +5,16 @@
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other query modules
-export const updateSelectedDates = (currentDates, date) => {
+export const updateDRs = (currentDates, date) => {
+    let updatedSet = currentDates;
+
     if (date.start || date.end) {
-        currentDates.push({
+        updatedSet = updatedSet.add({
             start_date: date.start,
             end_date: date.end
         });
     }
 
-    return currentDates;
+    return updatedSet;
 };
 /* eslint-enable import/prefer-default-export */
