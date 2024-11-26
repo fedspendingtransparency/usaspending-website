@@ -55,14 +55,10 @@ class SearchAwardsOperation {
 
     fromState(state) {
         this.keyword = state.keyword.toArray();
-        this.time_period = state.time_period;
+        this.time_period = state.time_period.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
-        if (state.timePeriodType === 'dr' && (state.timePeriodStart || state.timePeriodEnd)) {
-            this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
-            this.timePeriodFY = [];
-        }
 
         this.dateType = state.filterNewAwardsOnlySelected;
 
@@ -109,16 +105,11 @@ class SearchAwardsOperation {
     }
 
     toParams() {
-    // Convert the search operation into JS objects
+        // Convert the search operation into JS objects
         const filters = {};
         // Add keyword
         if (this.keyword?.length > 0) {
             filters[rootKeys.keywords] = this.keyword;
-        }
-
-        // add new time_period
-        if (this.time_period?.length > 0) {
-            filters[rootKeys.time_period] = this.time_period;
         }
 
         // Add Time Period
@@ -134,29 +125,32 @@ class SearchAwardsOperation {
                 });
             }
             else if (this.timePeriodType === 'dr' && this.time_period?.length > 0) {
-                const lastInTimePeriod = this.time_period[this.time_period?.length - 1];
-
-                let start = lastInTimePeriod.start_date;
-                let end = lastInTimePeriod.end_date;
-
+                console.debug("DR TIME PERIOD: ", this);
                 // if no start or end date is provided, use the 2008-present date range to fill out
                 // the missing dates
                 const initialYear = FiscalYearHelper.earliestFiscalYear;
                 const currentYear = FiscalYearHelper.currentFiscalYear();
+                const values = [];
+                this.time_period.forEach((time) => {
+                    let start = time.start_date;
+                    let end = time.end_date;
 
-                if (!start) {
-                    start = FiscalYearHelper.convertFYToDateRange(initialYear)[0];
-                }
-                if (!end) {
-                    end = FiscalYearHelper.convertFYToDateRange(currentYear)[1];
-                }
-
-                filters[rootKeys.timePeriod] = [
-                    {
-                        [timePeriodKeys.startDate]: start,
-                        [timePeriodKeys.endDate]: end
+                    if (!start) {
+                        start = FiscalYearHelper.convertFYToDateRange(initialYear)[0];
                     }
-                ];
+                    if (!end) {
+                        end = FiscalYearHelper.convertFYToDateRange(currentYear)[1];
+                    }
+
+                    values.push(
+                        {
+                            [timePeriodKeys.startDate]: start,
+                            [timePeriodKeys.endDate]: end
+                        }
+                    );
+                });
+
+                filters[rootKeys.timePeriod] = values;
             }
         }
 
