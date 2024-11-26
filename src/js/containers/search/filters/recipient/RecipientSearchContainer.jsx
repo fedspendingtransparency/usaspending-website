@@ -31,14 +31,14 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     let localSelectedRecipients = null;
 
     const toggleRecipient = ({ value }) => {
-        if (value.name.includes(searchString.toUpperCase()) || searchString === '') {
-            updateSelectedRecipients(value.name);
-        }
-        else if (value.uei.includes(searchString.toUpperCase())) {
+        if (value.uei && value.uei?.includes(searchString.toUpperCase())) {
             updateSelectedRecipients(value.uei);
         }
-        else if (value.duns.includes(searchString)) {
+        else if (value.uei && value?.duns.includes(searchString)) {
             updateSelectedRecipients(value.duns);
+        }
+        else {
+            updateSelectedRecipients(value.name);
         }
     };
 
