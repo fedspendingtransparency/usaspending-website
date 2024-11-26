@@ -173,12 +173,12 @@ const SearchPage = ({
             <PageFeatureFlag>
                 <div id="main-content">
                     <FlexGridRow className="search-contents">
-                        <FlexGridCol className="full-search-sidebar" width={3}>
+                        <div className="full-search-sidebar">
                             {fullSidebar}
                             {isMobile === false && searchv2 === false ?
                                 <KeywordSearchLink />
                                 : ''}
-                        </FlexGridCol>
+                        </div>
                         <div className="mobile-filter-button-wrapper">
                             <button
                                 className="mobile-filter-button"
@@ -232,7 +232,7 @@ const SearchPage = ({
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                         </Helmet>
-                        <FlexGridCol className="search-results" desktop={9} tablet={12} mobile={12}>
+                        <FlexGridCol className="search-results" desktop={12} tablet={12} mobile={12}>
                             <ResultsView
                                 filters={filters}
                                 isMobile={isMobile}

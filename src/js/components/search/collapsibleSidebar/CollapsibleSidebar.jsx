@@ -57,22 +57,22 @@ const CollapsibleSidebar = () => {
     };
 
     useEffect(() => {
-        if (isOpened) {
-            if (document.querySelector(".full-search-sidebar")) {
-                document.querySelector(".full-search-sidebar").style.width = "25%";
-            }
-            if (document.querySelector(".search-results")) {
-                document.querySelector(".search-results").style.width = "75%";
-            }
-        }
-        else {
-            if (document.querySelector(".full-search-sidebar")) {
-                document.querySelector(".full-search-sidebar").style.width = "0%";
-            }
-            if (document.querySelector(".search-results")) {
-                document.querySelector(".search-results").style.width = "99%";
-            }
-        }
+        // if (isOpened) {
+        //     if (document.querySelector(".full-search-sidebar")) {
+        //         document.querySelector(".full-search-sidebar").style.width = "25%";
+        //     }
+        //     if (document.querySelector(".search-results")) {
+        //         document.querySelector(".search-results").style.width = "75%";
+        //     }
+        // }
+        // else {
+        //     if (document.querySelector(".full-search-sidebar")) {
+        //         document.querySelector(".full-search-sidebar").style.width = "0%";
+        //     }
+        //     if (document.querySelector(".search-results")) {
+        //         document.querySelector(".search-results").style.width = "99%";
+        //     }
+        // }
     }, [isOpened]);
 
     useEffect(() => {
