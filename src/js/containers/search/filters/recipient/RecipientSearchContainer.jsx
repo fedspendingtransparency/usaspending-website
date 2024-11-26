@@ -110,6 +110,14 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
+    useEffect(() => {
+        if (selectedRecipients.size > 0) {
+            const first = [...selectedRecipients][0];
+            setSearchString(first);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <div className="recipient-filter">
             <div className="filter-item-wrap">

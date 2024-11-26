@@ -16,7 +16,7 @@ import SingleCheckboxType from './SingleCheckboxType';
 
 const propTypes = {
     id: PropTypes.string || PropTypes.element,
-    name: PropTypes.string,
+    name: PropTypes.string || PropTypes.element,
     lookupName: PropTypes.string,
     filters: PropTypes.array,
     bulkTypeChange: PropTypes.func,
