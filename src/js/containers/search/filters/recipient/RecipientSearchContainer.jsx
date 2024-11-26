@@ -14,6 +14,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import SubmitHint from "../../../../components/sharedComponents/filterSidebar/SubmitHint";
 import { EntityDropdownAutocomplete } from "../../../../components/search/filters/location/EntityDropdownAutocomplete";
 import PrimaryCheckboxType from "../../../../components/sharedComponents/checkbox/PrimaryCheckboxType";
+import SelectedRecipients from "../../../../components/search/filters/recipient/SelectedRecipients";
 
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,
@@ -27,6 +28,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const [isLoading, setIsLoading] = useState(false);
 
     const recipientRequest = useRef();
+    let localSelectedRecipients = null;
 
     const toggleRecipient = ({ value }) => {
         if (value.name.includes(searchString.toUpperCase()) || searchString === '') {
@@ -38,6 +40,10 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         else if (value.duns.includes(searchString)) {
             updateSelectedRecipients(value.duns);
         }
+    };
+
+    const removeRecipient = (recipient) => {
+        updateSelectedRecipients(recipient);
     };
 
     const levelMapping = {
@@ -97,6 +103,14 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
             <div className="recipient-filter-message-container__text">Loading your data...</div>
         </div>
     );
+
+    if (selectedRecipients.size > 0) {
+        localSelectedRecipients = (
+            <SelectedRecipients
+                selectedRecipients={selectedRecipients}
+                toggleRecipient={removeRecipient} />
+        );
+    }
 
     useEffect(() => {
         if (searchString.length >= 3) {
@@ -177,6 +191,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                         }
                     </div>
                 }
+                {localSelectedRecipients}
                 <SubmitHint selectedFilters={selectedRecipients} />
             </div>
         </div>

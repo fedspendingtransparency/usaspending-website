@@ -1,7 +1,14 @@
 .recipient-filter {
+    @import "elements/filters/_selectedFilterBtn";
+    @import "mixins/selectedFilterWrap";
+
     .filter-item-wrap {
         .autocomplete__input {
             padding-bottom: 0;
+        }
+
+        .selected-filters {
+            @include selected-filter-wrap;
         }
     }
 
