@@ -55,10 +55,12 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const sortResults = (data) => {
         // sort alphabetically
         data.sort((a, b) => {
-            if (a.name < b.name) {
+            const nameA = a.name ? a.name : a.recipient_name;
+            const nameB = b.name ? b.name : b.recipient_name;
+            if (nameA < nameB) {
                 return -1;
             }
-            if (a.name > b.name) {
+            if (nameA > nameB) {
                 return 1;
             }
 
@@ -68,6 +70,17 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         // sort by selected recipients
         if (selectedRecipients.size > 0) {
             const recipientsArray = selectedRecipients.toArray();
+
+            recipientsArray.sort((a, b) => {
+                if (a > b) {
+                    return -1;
+                }
+                if (a < b) {
+                    return 1;
+                }
+
+                return 0;
+            });
 
             recipientsArray.forEach((recipient) => {
                 data.sort((a, b) => {
