@@ -106,6 +106,12 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
+        case 'REMOVE_TIME_PERIOD_ITEM': {
+            return Object.assign({}, {
+                time_period: TimePeriodFilterFunctions.setDR(action)
+            });
+        }
+
         // New Awards Only Filter, Selected
         case 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_SELECTED': {
             return Object.assign({}, state, {

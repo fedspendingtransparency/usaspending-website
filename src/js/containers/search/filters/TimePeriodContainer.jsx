@@ -18,8 +18,8 @@ import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 export const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
-    updateTimePeriod: PropTypes.func,
     updateTimePeriodArray: PropTypes.func,
+    setTimePeriodArray: PropTypes.func,
     filterTimePeriodType: PropTypes.string,
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
@@ -61,33 +61,33 @@ const TimePeriodContainer = (props) => {
 
         if (activeTab === 'fy') {
             newFilters.dateType = 'fy';
-            // reset the date range values
-            newFilters.startDate = null;
-            newFilters.endDate = null;
+            props.updateTimePeriod(newFilters);
         }
         else {
             // reset the fiscal year set
             // start and end dates and datetype are in params
+            console.debug("updating time period array");
             newFilters.fy = [];
+            props.updateTimePeriodArray(newFilters);
         }
+    };
 
-        props.updateTimePeriod(newFilters);
-
-        // here is where the time_period array gets updated
-        props.updateTimePeriodArray(newFilters);
+    const removeFilter = (toRemove) => {
+        if (toRemove.target) {
+            const indexToRemove = toRemove.target.getAttribute('index');
+            const timePeriodArray = props.filterTime_Period.toArray();
+            timePeriodArray.splice(indexToRemove, 1);
+            props.setTimePeriodArray(timePeriodArray);
+        }
     };
 
     const dirtyFilters = () => {
         const appliedFields = [
             'timePeriodFY',
-            'timePeriodStart',
-            'timePeriodEnd',
             'time_period'
         ];
         const activeFields = [
             'filterTimePeriodFY',
-            'filterTimePeriodStart',
-            'filterTimePeriodEnd',
             'filterTime_Period'
         ];
 
@@ -142,6 +142,7 @@ const TimePeriodContainer = (props) => {
             activeTab={activeTab}
             timePeriods={timePeriods}
             updateFilter={updateFilter}
+            removeFilter={removeFilter}
             changeTab={changeTab} />
     );
 };
@@ -152,9 +153,7 @@ export default connect(
     (state) => ({
         filterTimePeriodType: state.filters.timePeriodType,
         filterTimePeriodFY: state.filters.timePeriodFY,
-        filterTimePeriodStart: state.filters.timePeriodStart,
         filterTime_Period: state.filters.time_period,
-        filterTimePeriodEnd: state.filters.timePeriodEnd,
         newAwardsOnlySelected: state.filters.filterNewAwardsOnlySelected,
         newAwardsOnlyActive: state.filters.filterNewAwardsOnlyActive,
         naoActiveFromFyOrDateRange: state.filters.filterNaoActiveFromFyOrDateRange,

@@ -17,4 +17,6 @@ export const updateDRs = (currentDates, date) => {
 
     return updatedSet;
 };
+
+export const setDR = (newDR) => newDR;
 /* eslint-enable import/prefer-default-export */

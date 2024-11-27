@@ -35,7 +35,6 @@ const TopFilterBar = (props) => {
         filterBarHeader += 's';
     }
     filterBarHeader += ':';
-
     const dispatch = useDispatch();
 
     return (
