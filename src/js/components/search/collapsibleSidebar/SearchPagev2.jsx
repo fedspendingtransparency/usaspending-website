@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
@@ -179,56 +179,56 @@ const SearchPage = ({
                                 <KeywordSearchLink />
                                 : ''}
                         </div>
-                        {/*<div className="mobile-filter-button-wrapper">*/}
-                        {/*    <button*/}
-                        {/*        className="mobile-filter-button"*/}
-                        {/*        onClick={toggleMobileFilters}*/}
-                        {/*        onKeyUp={(e) => {*/}
-                        {/*            if (e.key === "Escape" && showMobileFilters) {*/}
-                        {/*                toggleMobileFilters();*/}
-                        {/*            }*/}
-                        {/*        }}>*/}
-                        {/*        <div className="mobile-filter-button-content">*/}
-                        {/*            <div className={`mobile-filter-button-count ${showCountBadge}`}>*/}
-                        {/*                {filterCount}*/}
-                        {/*            </div>*/}
-                        {/*            <div className="mobile-filter-button-icon">*/}
-                        {/*                <AddFilter alt="Toggle filters" />*/}
-                        {/*            </div>*/}
-                        {/*            <div className="mobile-filter-button-label">*/}
-                        {/*                {pluralizeFilterLabel(filterCount)}*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
-                        {/*    </button>*/}
-                        {/*</div>*/}
-                        {/*<div*/}
-                        {/*    className="visualization-tabs__toggle-mobile">*/}
-                        {/*    <Button*/}
-                        {/*        onClick={(e) => {*/}
-                        {/*            e.persist();*/}
-                        {/*            dispatch(showModal(window.location.href, 'filter'));*/}
-                        {/*        }}*/}
-                        {/*        onKeyUp={(e) => {*/}
-                        {/*            e.persist();*/}
-                        {/*            if (e.key === 'Enter') {*/}
-                        {/*                dispatch(showModal(window.location.href, 'filter'));*/}
-                        {/*            }*/}
-                        {/*        }}*/}
-                        {/*        copy="Learn how active filters work"*/}
-                        {/*        buttonTitle="filter modal"*/}
-                        {/*        buttonSize="sm"*/}
-                        {/*        buttonType="text"*/}
-                        {/*        backgroundColor="light"*/}
-                        {/*        imageAlignment="right"*/}
-                        {/*        image={<FontAwesomeIcon icon="window-restore" />} />*/}
-                        {/*</div>*/}
-                        {/*<FlexGridCol className="mobile-search-sidebar">*/}
-                        {/*    <MobileFilters*/}
-                        {/*        filters={filters}*/}
-                        {/*        filterCount={filterCount}*/}
-                        {/*        showMobileFilters={showMobileFilters}*/}
-                        {/*        toggleMobileFilters={toggleMobileFilters} />*/}
-                        {/*</FlexGridCol>*/}
+                        <div className="mobile-filter-button-wrapper">
+                            <button
+                                className="mobile-filter-button"
+                                onClick={toggleMobileFilters}
+                                onKeyUp={(e) => {
+                                    if (e.key === "Escape" && showMobileFilters) {
+                                        toggleMobileFilters();
+                                    }
+                                }}>
+                                <div className="mobile-filter-button-content">
+                                    <div className={`mobile-filter-button-count ${showCountBadge}`}>
+                                        {filterCount}
+                                    </div>
+                                    <div className="mobile-filter-button-icon">
+                                        <AddFilter alt="Toggle filters" />
+                                    </div>
+                                    <div className="mobile-filter-button-label">
+                                        {pluralizeFilterLabel(filterCount)}
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div
+                            className="visualization-tabs__toggle-mobile">
+                            <Button
+                                onClick={(e) => {
+                                    e.persist();
+                                    dispatch(showModal(window.location.href, 'filter'));
+                                }}
+                                onKeyUp={(e) => {
+                                    e.persist();
+                                    if (e.key === 'Enter') {
+                                        dispatch(showModal(window.location.href, 'filter'));
+                                    }
+                                }}
+                                copy="Learn how active filters work"
+                                buttonTitle="filter modal"
+                                buttonSize="sm"
+                                buttonType="text"
+                                backgroundColor="light"
+                                imageAlignment="right"
+                                image={<FontAwesomeIcon icon="window-restore" />} />
+                        </div>
+                        <FlexGridCol className="mobile-search-sidebar">
+                            <MobileFilters
+                                filters={filters}
+                                filterCount={filterCount}
+                                showMobileFilters={showMobileFilters}
+                                toggleMobileFilters={toggleMobileFilters} />
+                        </FlexGridCol>
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                         </Helmet>
@@ -244,10 +244,10 @@ const SearchPage = ({
                                 noFiltersApplied={noFiltersApplied} />
                         </div>
                     </div>
-                    {/*<FullDownloadModalContainer*/}
-                    {/*    download={download}*/}
-                    {/*    mounted={showFullDownload}*/}
-                    {/*    hideModal={hideDownloadModal} />*/}
+                    <FullDownloadModalContainer
+                        download={download}
+                        mounted={showFullDownload}
+                        hideModal={hideDownloadModal} />
                 </div>
             </PageFeatureFlag>
         </PageWrapper>
