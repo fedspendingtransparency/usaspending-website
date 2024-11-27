@@ -65,37 +65,54 @@ export const FilterCategoryTree = {
     characteristics: {
         children: [
             {
-                title: 'Award Description'
+                categoryType: 'ALL',
+                categories: [
+                    {
+                        title: 'Award Description'
+                    },
+                    {
+                        title: 'Award ID',
+                        component: <AwardIDSearchContainer />
+                    },
+                    {
+                        title: 'Spending Amount'
+                    }
+                ]
             },
             {
-                title: 'Award ID',
-                component: <AwardIDSearchContainer />
+                categoryType: 'CONTRACTS',
+                categories: [
+                    {
+                        title: 'Contract Award Type'
+                    },
+                    {
+                        title: 'North American Industry Classification System (NAICS)'
+                    },
+                    {
+                        title: 'Product and Service Code (PSC)'
+                    },
+                    {
+                        title: 'Type of Contract Pricing'
+                    },
+                    {
+                        title: 'Type of Set Aside'
+                    },
+                    {
+                        title: 'Extent Competed'
+                    }
+                ]
             },
             {
-                title: 'Spending Amount'
-            },
-            {
-                title: 'Contract Award Type'
-            },
-            {
-                title: 'North American Industry Classification System (NAICS)'
-            },
-            {
-                title: 'Product and Service Code (PSC)'
-            },
-            {
-                title: 'Type of Contract Pricing'
-            },
-            {
-                title: 'Type of Set Aside'
-            },
-            {
-                title: 'Extent Competed'
-            },
-            {
-                title: 'Financial Assistance Award Type'
+                categoryType: 'FINANCIAL ASSISTANCE',
+                categories: [
+                    {
+                        title: 'Financial Assistance Award Type'
+                    },
+                    {
+                        title: 'Assistance Listing'
+                    }
+                ]
             }
-
         ]
 
     },
@@ -112,18 +129,28 @@ export const FilterCategoryTree = {
     sources: {
         children: [
             {
-                title: 'Agency',
-                component: <AgencyContainer />
+                categoryType: 'doNotDisplay',
+                categories: [
+                    {
+                        title: 'Agency',
+                        component: <AgencyContainer />
+                    },
+                    {
+                        title: 'Treasury Account Symbol (TAS)',
+                        component: <TASCheckboxTreeContainer showInfo={false} />
+                    }
+                ]
             },
             {
-                title: 'Treasury Account Symbol (TAS)',
-                component: <TASCheckboxTreeContainer showInfo={false} />
-            },
-            {
-                title: 'COVID-19 Spending'
-            },
-            {
-                title: 'Infrastructure Spending'
+                categoryType: 'DISASTER EMERGENCY FUND CODE (DEFC)',
+                categories: [
+                    {
+                        title: 'COVID-19 Spending'
+                    },
+                    {
+                        title: 'Infrastructure Spending'
+                    }
+                ]
             }
         ]
     }
