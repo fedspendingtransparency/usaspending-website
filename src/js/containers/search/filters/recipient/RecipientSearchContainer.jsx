@@ -52,6 +52,41 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         C: 'Child'
     };
 
+    const sortResults = (data) => {
+        // sort alphabetically
+        data.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+
+            return 0;
+        });
+
+        // sort by selected recipients
+        if (selectedRecipients.size > 0) {
+            const recipientsArray = selectedRecipients.toArray();
+
+            recipientsArray.forEach((recipient) => {
+                data.sort((a, b) => {
+                    const aValues = Object.values(a);
+                    const bValues = Object.values(b);
+
+                    if (aValues.includes(recipient) && !bValues.includes(recipient)) {
+                        return -1;
+                    }
+                    if (!aValues.includes(recipient) && bValues.includes(recipient)) {
+                        return 1;
+                    }
+
+                    return 0;
+                });
+            });
+        }
+    };
+
     const getAllRecipients = () => {
         if (recipientRequest.current) {
             recipientRequest.current.cancel();
@@ -69,6 +104,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
             .then((res) => {
                 setRecipients(res.data.results);
                 setIsLoading(false);
+                sortResults(res.data.results);
             });
     };
 
@@ -88,6 +124,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
 
         recipientRequest.current.promise
             .then((res) => {
+                sortResults(res.data.results);
                 setRecipients(res.data.results);
                 setIsLoading(false);
             });
