@@ -21,7 +21,7 @@ const propTypes = {
     id: PropTypes.string,
     toggleExpand: PropTypes.func,
     toggleChildren: PropTypes.func,
-    name: PropTypes.string,
+    name: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     selected: PropTypes.bool,
     hideArrow: PropTypes.bool,
     arrowState: PropTypes.string,
