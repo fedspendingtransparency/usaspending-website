@@ -31,10 +31,10 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     let localSelectedRecipients = null;
 
     const toggleRecipient = ({ value }) => {
-        if (value.uei && value.uei?.includes(searchString.toUpperCase())) {
+        if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
             updateSelectedRecipients(value.uei);
         }
-        else if (value.uei && value?.duns.includes(searchString)) {
+        else if (value.duns && searchString.length > 2 && value?.duns.includes(searchString)) {
             updateSelectedRecipients(value.duns);
         }
         else {
