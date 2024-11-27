@@ -57,23 +57,26 @@ const CollapsibleSidebar = () => {
     };
 
     useEffect(() => {
-        // if (isOpened) {
-        //     if (document.querySelector(".full-search-sidebar")) {
-        //         document.querySelector(".full-search-sidebar").style.width = "25%";
-        //     }
-        //     if (document.querySelector(".search-results")) {
-        //         document.querySelector(".search-results").style.width = "75%";
-        //     }
-        // }
-        // else {
-        //     if (document.querySelector(".full-search-sidebar")) {
-        //         document.querySelector(".full-search-sidebar").style.width = "0%";
-        //     }
-        //     if (document.querySelector(".search-results")) {
-        //         document.querySelector(".search-results").style.width = "99%";
-        //     }
-        // }
-    }, [isOpened]);
+        if (isOpened) {
+            if (document.querySelector(".full-search-sidebar")) {
+                if (windowWidth < 991 && windowWidth < 1200) {
+                    document.querySelector(".full-search-sidebar").style.width = "unset";
+                    document.querySelector(".full-search-sidebar").style.flexBasis = "282px";
+                    document.querySelector(".collapsible-sidebar").style.width = "282px";
+                }
+                else if (windowWidth > 1199) {
+                    document.querySelector(".full-search-sidebar").style.width = "unset";
+                    document.querySelector(".full-search-sidebar").style.flexBasis = "332px";
+                    document.querySelector(".collapsible-sidebar").style.width = "332px";
+                }
+            }
+        }
+        else if (document.querySelector(".full-search-sidebar")) {
+            document.querySelector(".full-search-sidebar").style.width = "0";
+            document.querySelector(".full-search-sidebar").style.flexBasis = "0";
+            document.querySelector(".collapsible-sidebar").style.width = "0";
+        }
+    }, [isOpened, windowWidth]);
 
     useEffect(() => {
         if (!isOpened && initialPageLoad) {
@@ -93,11 +96,11 @@ const CollapsibleSidebar = () => {
         const scrollbarHeight = document.querySelector(".search-collapsible-sidebar-container").offsetHeight;
 
         if (window.scrollY + scrollbarHeight > stickyEnd) {
-            document.querySelector(".search-collapsible-sidebar-container").style.top = window.scrollY + scrollbarHeight;
+            // document.querySelector(".search-collapsible-sidebar-container").style.top = window.scrollY + scrollbarHeight;
         }
 
         if (element?.classList?.contains("usda-page-header--sticky")) {
-            document.querySelector(".search-collapsible-sidebar-container").style.top = `${window.scrollY - 30}px`;
+            // document.querySelector(".search-collapsible-sidebar-container").style.top = `${window.scrollY - 30}px`;
             setWindowHeight(window.innerHeight - header);
             setSidebarHeight(window.innerHeight - header - nonScrollableElements);
         }

@@ -31,7 +31,7 @@
 }
 
 .search-collapsible-sidebar-container {
-  position: relative;
+  position: fixed;
   background-color: $color-white;
   box-shadow: unset;
   border-radius: unset;
@@ -173,7 +173,7 @@
     }
 
     .sidebar-bottom-submit {
-      position: relative;
+      position: absolute;
       bottom: 0;
       width: 100%;
     }
@@ -181,6 +181,16 @@
 }
 
 .search-contents.v2 {
+  .collapsible-sidebar {
+    @media(min-width: $large-screen) {
+      width: 350px;
+    }
+
+    @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
+      width: 300px;
+    }
+  }
+
   .full-search-sidebar {
     display: none;
     @media(min-width: $large-screen) {
@@ -188,7 +198,7 @@
       flex-basis: 350px;
     }
 
-    @media(min-width: $medium-screen) {
+    @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
       display: flex;
       flex-basis: 300px;
     }
