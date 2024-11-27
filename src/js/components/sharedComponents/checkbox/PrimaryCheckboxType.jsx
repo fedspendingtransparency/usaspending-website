@@ -16,11 +16,11 @@ import SingleCheckboxType from './SingleCheckboxType';
 
 const propTypes = {
     id: PropTypes.string || PropTypes.element,
-    name: PropTypes.string || PropTypes.element,
+    name: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     lookupName: PropTypes.string,
     filters: PropTypes.array,
     bulkTypeChange: PropTypes.func,
-    value: PropTypes.string || PropTypes.object,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     filterType: PropTypes.string,
     types: PropTypes.object,
     selectedCheckboxes: PropTypes.object,

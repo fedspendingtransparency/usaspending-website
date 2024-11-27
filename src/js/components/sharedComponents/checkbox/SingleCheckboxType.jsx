@@ -11,8 +11,8 @@ import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     id: PropTypes.string,
-    code: PropTypes.string,
-    name: PropTypes.string,
+    code: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    name: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     toggleCheckboxType: PropTypes.func,
     filterType: PropTypes.string,
     selectedCheckboxes: PropTypes.object,
