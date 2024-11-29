@@ -36,6 +36,10 @@
   box-shadow: unset;
   border-radius: unset;
 
+  &.fixed {
+    position: fixed;
+  }
+
   .chevron {
     margin: auto;
     color: $blue-50;
