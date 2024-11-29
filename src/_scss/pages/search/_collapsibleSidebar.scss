@@ -193,6 +193,7 @@
 
   .full-search-sidebar {
     display: none;
+    margin-right: rem(16) !important;
     @media(min-width: $large-screen) {
       display: flex;
       flex-basis: 350px;
