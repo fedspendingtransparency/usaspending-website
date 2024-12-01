@@ -90,38 +90,59 @@ const CollapsibleSidebar = () => {
         return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
     };
 
-    const handleScroll = () => {
-        // 581.63 is the height of the footer at 1839 px browser width
-        const stayInTouch = document.querySelector("footer");
-        const box = stayInTouch.getBoundingClientRect();
-        // Calculate the intersection between the element and the viewport
+    const checkInView = (el) => {
+        const bbox = el.getBoundingClientRect();
+
         const intersection = {
-            top: Math.max(0, box.top),
-            left: Math.max(0, box.left),
-            bottom: Math.min(window.innerHeight, box.bottom),
-            right: Math.min(window.innerWidth, box.right)
+            top: Math.max(0, bbox.top),
+            left: Math.max(0, bbox.left),
+            bottom: Math.min(window.innerHeight, bbox.bottom),
+            right: Math.min(window.innerWidth, bbox.right)
         };
 
-        const amountInView = intersection.bottom - (intersection.top + 48);
+        return (intersection.bottom - intersection.top);
+    };
+
+    const handleScroll = () => {
+        // 581.63 is the height of the footer at 1839 px browser width
+        const footer = document.querySelector("footer");
+        const footerInView = checkInView(footer) + 48;
+
+        const header1 = document.querySelector(".usda-page-header");
+        const bbox = header1.getBoundingClientRect();
+
+        const siteHeader = document.querySelector(".site-header__wrapper");
+        const top = checkInView(header1) < 0 ? 0 : bbox.bottom;
+        const padding = 40;
+        const headingInView = top + padding;
 
         const element = document.querySelector(".usda-page-header");
-        const header = 60;
+
+        console.log("header in view", top, padding, checkInView(header1), checkInView(siteHeader));
+
+        const header = headingInView;
         const stickyHeader = 148;
         const nonScrollableElements = 172;
+        document.querySelector(".search-collapsible-sidebar-container").style.top = `${top + padding}px`;
 
         if (element?.classList?.contains("usda-page-header--sticky")) {
-            if (amountInView < 0) {
-                document.querySelector(".search-collapsible-sidebar-container").style.top = `100px`;
-                setWindowHeight(window.innerHeight - header);
-                setSidebarHeight(window.innerHeight - header - nonScrollableElements);
+            if (footerInView < 0) {
+                setWindowHeight(window.innerHeight - header + padding);
+                setSidebarHeight(window.innerHeight - header - nonScrollableElements + padding);
             }
             else {
-                setWindowHeight(window.innerHeight - header - amountInView);
-                setSidebarHeight(window.innerHeight - header - nonScrollableElements - amountInView);
+                const newSidebarHeight = window.innerHeight - header - nonScrollableElements - footerInView + padding;
+                if (newSidebarHeight < 1) {
+                    document.querySelector(".collapsible-sidebar--header").style.display = "none";
+                } else {
+                    document.querySelector(".collapsible-sidebar--header").style.display = "block";
+                }
+                setWindowHeight(window.innerHeight - header - footerInView + padding);
+                setSidebarHeight(newSidebarHeight);
             }
         }
         else {
-            document.querySelector(".search-collapsible-sidebar-container").style.top = `188px`;
+            // document.querySelector(".search-collapsible-sidebar-container").style.top = `188px`;
             setWindowHeight((window.innerHeight - stickyHeader) + window.scrollY);
             setSidebarHeight(((window.innerHeight - stickyHeader) - nonScrollableElements) + window.scrollY);
         }
