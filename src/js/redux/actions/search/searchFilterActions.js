@@ -27,7 +27,9 @@ export const updateTimePeriodArray = (state) => ({
     dateType: state.dateType,
     fy: state.fy,
     start: state.startDate,
-    end: state.endDate
+    end: state.endDate,
+    removeFilter: state.removeFilter,
+    event: state.event
 });
 
 export const setTimePeriodArray = (state) => ({
