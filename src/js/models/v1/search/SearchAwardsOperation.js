@@ -125,7 +125,6 @@ class SearchAwardsOperation {
                 });
             }
             else if (this.timePeriodType === 'dr' && this.time_period?.length > 0) {
-                console.debug("DR TIME PERIOD: ", this);
                 // if no start or end date is provided, use the 2008-present date range to fill out
                 // the missing dates
                 const initialYear = FiscalYearHelper.earliestFiscalYear;
