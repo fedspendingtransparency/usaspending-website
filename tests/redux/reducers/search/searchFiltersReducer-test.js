@@ -109,19 +109,15 @@ describe('searchFiltersReducer', () => {
             const action = {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
-                fy: ['1778', '1777', '1775'],
-                start: null,
-                end: null
+                fy: ['1778', '1777', '1775']
             };
 
             const expected = {
                 timePeriodType: 'fy',
-                timePeriodFY: new Set(['1778', '1777', '1775']),
-                timePeriodStart: null,
-                timePeriodEnd: null
+                timePeriodFY: new Set(['1778', '1777', '1775'])
             };
 
-            const updatedState = searchFiltersReducer(undefined, action);
+            const updatedState = searchFiltersReducer(null, action);
 
             Object.keys(expected).forEach((key) => {
                 expect(updatedState[key]).toEqual(expected[key]);
@@ -834,16 +830,12 @@ describe('searchFiltersReducer', () => {
 
                 const expectedFirst = {
                     timePeriodType: 'fy',
-                    timePeriodFY: new Set(['1778', '1777', '1775']),
-                    timePeriodStart: null,
-                    timePeriodEnd: null
+                    timePeriodFY: new Set(['1778', '1777', '1775'])
                 };
 
                 const expectedSecond = {
                     timePeriodType: 'dr',
-                    timePeriodFY: new Set(),
-                    timePeriodStart: null,
-                    timePeriodEnd: null
+                    timePeriodFY: new Set()
                 };
 
                 // perform the first action to change the time period filter values
@@ -881,15 +873,13 @@ describe('searchFiltersReducer', () => {
                 const expectedFirst = {
                     timePeriodType: 'dr',
                     timePeriodFY: new Set(),
-                    timePeriodStart: '1776-01-01',
-                    timePeriodEnd: '1776-12-31'
+                    time_period: new Set()
                 };
 
                 const expectedSecond = {
                     timePeriodType: 'dr',
                     timePeriodFY: new Set(),
-                    timePeriodStart: null,
-                    timePeriodEnd: null
+                    time_period: new Set()
                 };
 
                 // perform the first action to change the time period filter values
@@ -948,17 +938,13 @@ describe('searchFiltersReducer', () => {
                 const secondAction = {
                     type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                     dateType: 'fy',
-                    fy: ['1778', '1777', '1775'],
-                    start: null,
-                    end: null
+                    fy: ['1778', '1777', '1775']
                 };
 
                 const firstExpected = 'domestic';
                 const secondExpected = {
                     timePeriodType: 'fy',
-                    timePeriodFY: new Set(['1778', '1777', '1775']),
-                    timePeriodStart: null,
-                    timePeriodEnd: null
+                    timePeriodFY: new Set(['1778', '1777', '1775'])
                 };
 
                 // perform the first action that updates the domestic/foreign scope
