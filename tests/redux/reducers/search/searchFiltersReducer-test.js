@@ -125,6 +125,30 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('ADD_TIME_PERIOD_OBJECT', () => {
+        it('should set the time period value to the provided action date', () => {
+            const action = {
+                type: 'ADD_TIME_PERIOD_OBJECT',
+                dateType: 'dr',
+                fy: new Set(),
+                time_period: new Set([{ start_date: '1776-01-01', end_date: '1776-12-31' }])
+            };
+
+            const expected = {
+                timePeriodType: 'dr',
+                timePeriodFY: new Set(),
+                time_period: new Set([{ start_date: '1776-01-01', end_date: '1776-12-31' }])
+            };
+
+            const updatedState = searchFiltersReducer(null, action);
+
+            Object.keys(expected).forEach((key) => {
+                expect(updatedState[key]).toEqual(expected[key]);
+            });
+        });
+    });
+
+
     describe('UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_SELECTED', () => {
         it('should set the filterNewAwardsOnlySelected value to the provided action data', () => {
             const action = {
@@ -415,6 +439,7 @@ describe('searchFiltersReducer', () => {
 
     describe('UPDATE_RECIPIENT_DOMESTIC_FORIEGN', () => {
         it(
+            // eslint-disable-next-line no-useless-concat
             'should set the Recipient domestic/foreign filter ' + 'scope to the input string',
             () => {
                 const action = {
@@ -820,8 +845,7 @@ describe('searchFiltersReducer', () => {
                     type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                     dateType: 'fy',
                     fy: ['1778', '1777', '1775'],
-                    start: null,
-                    end: null
+                    time_period: new Set()
                 };
 
                 const resetAction = {
@@ -862,8 +886,7 @@ describe('searchFiltersReducer', () => {
                     type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                     dateType: 'dr',
                     fy: [],
-                    start: '1776-01-01',
-                    end: '1776-12-31'
+                    time_period: new Set([{ start_date: '1776-01-01', end_date: '1776-12-31' }])
                 };
 
                 const resetAction = {
