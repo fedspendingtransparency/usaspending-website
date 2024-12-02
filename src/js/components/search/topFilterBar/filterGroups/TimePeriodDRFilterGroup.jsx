@@ -22,8 +22,8 @@ export default class TimePeriodDRFilterGroup extends React.Component {
         this.clearGroup = this.clearGroup.bind(this);
     }
 
+    // preserving in case we need it in the future
     // removeTimePeriod() {
-    //     console.debug("remove time period being called ", this.props);
     //     // prepopulate the Redux action argument with the current filter values
     //     const timePeriodFilter = {
     //         dateType: this.props.redux.reduxFilters.timePeriodType,
