@@ -66,7 +66,6 @@ const TimePeriodContainer = (props) => {
         else {
             // reset the fiscal year set
             // start and end dates and datetype are in params
-            console.debug("updating time period array");
             newFilters.fy = [];
             props.updateTimePeriodArray(newFilters);
         }

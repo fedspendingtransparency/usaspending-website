@@ -207,9 +207,6 @@ const DateRange = (props) => {
     const startDateDisabledDays = generateStartDateDisabledDays(earliestDate);
     const endDateDisabledDays = generateEndDateDisabledDays(earliestDate);
 
-    let hideTags = 'hide';
-
-
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
             if (props.errorState) {
@@ -295,8 +292,6 @@ const DateRange = (props) => {
                 labelArray.push(dateLabel);
             }
         }
-    } else {
-        hideTags = 'hide';
     }
     return (
         <div className="date-range-option">
@@ -369,7 +364,7 @@ const DateRange = (props) => {
                 </div>
             </div>
             <div
-                className={`selected-filters`}
+                className="selected-filters"
                 id="selected-date-range"
                 aria-hidden={noDates}
                 role="status">

@@ -128,7 +128,6 @@ export default class TimePeriod extends React.Component {
         // or loading from a URL)
         const startDate = dayjs(null, 'YYYY-MM-DD');
         const endDate = dayjs(null, 'YYYY-MM-DD');
-        console.debug("prepopulate date pickers: ", startDate, endDate, this.state, this.props);
         if (startDate.isValid() && endDate.isValid()) {
             this.setState({
                 startDateUI: startDate,
@@ -193,7 +192,6 @@ export default class TimePeriod extends React.Component {
 
     removeDateRange(e) {
         this.clearHint(true);
-        console.debug("remove this specific item: ", e, this.props);
         this.props.updateFilter({
             dateType: 'dr',
             startDate: null,
