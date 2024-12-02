@@ -98,7 +98,7 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // New Time Period Filter Array
+        // New Time Period Filter Item
         case 'ADD_TIME_PERIOD_OBJECT': {
             return Object.assign({}, state, {
                 time_period: TimePeriodFilterFunctions.updateDRs(

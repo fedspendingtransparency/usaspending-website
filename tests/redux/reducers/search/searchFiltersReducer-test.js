@@ -127,21 +127,22 @@ describe('searchFiltersReducer', () => {
 
     describe('ADD_TIME_PERIOD_OBJECT', () => {
         it('should set the time period value to the provided action date', () => {
+            const startingState = Object.assign({}, initialState);
             const action = {
                 type: 'ADD_TIME_PERIOD_OBJECT',
                 dateType: 'dr',
-                fy: new Set(),
-                time_period: new Set([{ start_date: '1776-01-01', end_date: '1776-12-31' }])
+                start: '1776-01-01',
+                end: '1776-12-31'
             };
 
             const expected = {
                 timePeriodType: 'dr',
-                timePeriodFY: new Set(),
                 time_period: new Set([{ start_date: '1776-01-01', end_date: '1776-12-31' }])
             };
 
-            const updatedState = searchFiltersReducer(null, action);
-
+            const updatedState = searchFiltersReducer(startingState, action);
+            console.log("updated state: ", updatedState);
+            console.log("expected: ", expected);
             Object.keys(expected).forEach((key) => {
                 expect(updatedState[key]).toEqual(expected[key]);
             });
