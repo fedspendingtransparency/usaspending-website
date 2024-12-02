@@ -32,11 +32,6 @@ export const updateTimePeriodArray = (state) => ({
     event: state.event
 });
 
-export const setTimePeriodArray = (state) => ({
-    type: "REMOVE_TIME_PERIOD_ITEM",
-    newSet: state
-});
-
 export const updateNewAwardsOnlySelected = (state) => ({
     type: 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY_SELECTED',
     filterValue: state
