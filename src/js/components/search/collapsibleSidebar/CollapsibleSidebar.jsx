@@ -123,7 +123,7 @@ const CollapsibleSidebar = () => {
     };
 
     const handleScroll = throttle(() => {
-        // 581.63 is the height of the footer at 1839 px browser width
+        // TODO:  Remove upon completion of sidepanel - 581.63 is the height of the footer at 1839 px browser width
         const footerEl = document.querySelector("footer");
         const footerInView = checkInView(footerEl) + 48;
         const topStickyBarEl = document.querySelector(".usda-page-header");
