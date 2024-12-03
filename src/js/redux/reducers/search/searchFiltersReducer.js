@@ -101,6 +101,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         // New Time Period Filter Item
         case 'ADD_TIME_PERIOD_OBJECT': {
             return Object.assign({}, state, {
+                timePeriodType: action.dateType,
                 time_period: TimePeriodFilterFunctions.updateDRs(
                     state.time_period, action)
             });
