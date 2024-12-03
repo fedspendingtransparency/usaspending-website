@@ -9,6 +9,8 @@ import TimePeriodContainer from "../../containers/search/filters/TimePeriodConta
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
 import AgencyContainer from "../../containers/search/filters/AgencyContainer";
 import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
+import RecipientSearchContainer from "../../containers/search/filters/recipient/RecipientSearchContainer";
+import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
 
 export const SearchFilterCategories = [
     {
@@ -119,10 +121,12 @@ export const FilterCategoryTree = {
     recipients: {
         children: [
             {
-                title: 'Recipient'
+                title: 'Recipient',
+                component: <RecipientSearchContainer />
             },
             {
-                title: 'Recipient Type'
+                title: 'Recipient Type',
+                component: <RecipientTypeContainer />
             }
         ]
     },
