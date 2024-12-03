@@ -97,7 +97,7 @@ const CollapsibleSidebar = () => {
         return (intersection.bottom - intersection.top);
     };
 
-    const resizeSidebarWithFullHeader = (footerInView, headingInView, headingPadding, inPanelNonScrollableEls) => {
+    const resizeSidebarWithStickyBar = (footerInView, headingInView, headingPadding, inPanelNonScrollableEls) => {
         if (footerInView < 0) {
             setWindowHeight((window.innerHeight - headingInView) + headingPadding);
             setSidebarHeight(((window.innerHeight - headingInView) - inPanelNonScrollableEls) + headingPadding);
@@ -117,7 +117,7 @@ const CollapsibleSidebar = () => {
         }
     };
 
-    const resizeSidebarWithStickyBar = (fullHeader, inPanelNonScrollableEls) => {
+    const resizeSidebarWithFullHeader = (fullHeader, inPanelNonScrollableEls) => {
         setWindowHeight((window.innerHeight - fullHeader) + window.scrollY);
         setSidebarHeight(((window.innerHeight - fullHeader) - inPanelNonScrollableEls) + window.scrollY);
     };
@@ -137,10 +137,10 @@ const CollapsibleSidebar = () => {
         document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
 
         if (topStickyBarEl?.classList?.contains("usda-page-header--sticky")) {
-            resizeSidebarWithFullHeader(footerInView, headingInView, headingPadding, inPanelNonScrollableEls);
+            resizeSidebarWithStickyBar(footerInView, headingInView, headingPadding, inPanelNonScrollableEls);
         }
         else if (top !== 0) {
-            resizeSidebarWithStickyBar(fullHeader, inPanelNonScrollableEls);
+            resizeSidebarWithFullHeader(fullHeader, inPanelNonScrollableEls);
         }
     }, 50);
 
