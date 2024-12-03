@@ -7,8 +7,8 @@ import React from 'react';
 import { LocationSectionContainer } from "../../containers/search/filters/location/LocationSectionContainer";
 import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
-import RecipientSearchContainer from "../../containers/search/filters/recipient/RecipientSearchContainer";
-import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
+import AgencyContainer from "../../containers/search/filters/AgencyContainer";
+import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
 
 export const SearchFilterCategories = [
     {
@@ -65,65 +65,92 @@ export const FilterCategoryTree = {
     characteristics: {
         children: [
             {
-                title: 'Award Description'
+                categoryType: 'ALL',
+                categories: [
+                    {
+                        title: 'Award Description'
+                    },
+                    {
+                        title: 'Award ID',
+                        component: <AwardIDSearchContainer />
+                    },
+                    {
+                        title: 'Spending Amount'
+                    }
+                ]
             },
             {
-                title: 'Award ID',
-                component: <AwardIDSearchContainer />
+                categoryType: 'CONTRACTS',
+                categories: [
+                    {
+                        title: 'Contract Award Type'
+                    },
+                    {
+                        title: 'North American Industry Classification System (NAICS)'
+                    },
+                    {
+                        title: 'Product and Service Code (PSC)'
+                    },
+                    {
+                        title: 'Type of Contract Pricing'
+                    },
+                    {
+                        title: 'Type of Set Aside'
+                    },
+                    {
+                        title: 'Extent Competed'
+                    }
+                ]
             },
             {
-                title: 'Spending Amount'
-            },
-            {
-                title: 'Contract Award Type'
-            },
-            {
-                title: 'North American Industry Classification System (NAICS)'
-            },
-            {
-                title: 'Product and Service Code (PSC)'
-            },
-            {
-                title: 'Type of Contract Pricing'
-            },
-            {
-                title: 'Type of Set Aside'
-            },
-            {
-                title: 'Extent Competed'
-            },
-            {
-                title: 'Financial Assistance Award Type'
+                categoryType: 'FINANCIAL ASSISTANCE',
+                categories: [
+                    {
+                        title: 'Financial Assistance Award Type'
+                    },
+                    {
+                        title: 'Assistance Listing'
+                    }
+                ]
             }
-
         ]
 
     },
     recipients: {
         children: [
             {
-                title: 'Recipient',
-                component: <RecipientSearchContainer />
+                title: 'Recipient'
             },
             {
-                title: 'Recipient Type',
-                component: <RecipientTypeContainer />
+                title: 'Recipient Type'
             }
         ]
     },
     sources: {
         children: [
             {
-                title: 'Agency'
+                categoryType: 'doNotDisplay',
+                categories: [
+                    {
+                        title: 'Agency',
+                        component: <AgencyContainer />
+                    },
+                    {
+                        title: 'Treasury Account Symbol (TAS)',
+                        component: <TASCheckboxTreeContainer showInfo={false} />
+                    }
+                ]
             },
             {
-                title: 'Treasury Account Symbol (TAS)'
-            },
-            {
-                title: 'COVID-19 Spending'
-            },
-            {
-                title: 'Infrastructure Spending'
+                categoryType: 'DISASTER EMERGENCY FUND CODE (DEFC)',
+                categories: [
+                    {
+                        title: 'COVID-19 Spending'
+                    },
+                    {
+                        title: 'Infrastructure Spending'
+                    }
+                ]
             }
         ]
     }

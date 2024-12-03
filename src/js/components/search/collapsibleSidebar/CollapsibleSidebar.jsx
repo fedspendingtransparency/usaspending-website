@@ -8,7 +8,7 @@ import { FilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 
-import { SearchSidebarSubmitContainer } from "../../../containers/search/SearchSidebarSubmitContainer";
+import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
 
@@ -22,7 +22,6 @@ const CollapsibleSidebar = () => {
     const [windowWidth, setWindowWidth] = useState();
     const [windowHeight, setWindowHeight] = useState();
     const [sidebarHeight, setSidebarHeight] = useState();
-
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -38,7 +37,6 @@ const CollapsibleSidebar = () => {
     };
 
     const setLevel3 = (e, item) => {
-        console.log(item);
         e.preventDefault();
         setDrilldown(item);
         setIsDrilldown(true);
