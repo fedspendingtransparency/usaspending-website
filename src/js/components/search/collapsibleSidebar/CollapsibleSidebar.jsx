@@ -84,12 +84,6 @@ const CollapsibleSidebar = () => {
         }
     }, [initialPageLoad, isOpened]);
 
-    const checkVisible = (el) => {
-        const rect = el.getBoundingClientRect();
-        const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-        return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
-    };
-
     const checkInView = (el) => {
         const bbox = el.getBoundingClientRect();
 
@@ -103,50 +97,52 @@ const CollapsibleSidebar = () => {
         return (intersection.bottom - intersection.top);
     };
 
-    const handleScroll = () => {
-        // 581.63 is the height of the footer at 1839 px browser width
-        const footer = document.querySelector("footer");
-        const footerInView = checkInView(footer) + 48;
-
-        const header1 = document.querySelector(".usda-page-header");
-        const bbox = header1.getBoundingClientRect();
-
-        const siteHeader = document.querySelector(".site-header__wrapper");
-        const top = checkInView(header1) < 0 ? 0 : bbox.bottom;
-        const padding = 40;
-        const headingInView = top + padding;
-
-        const element = document.querySelector(".usda-page-header");
-
-        console.log("header in view", top, padding, checkInView(header1), checkInView(siteHeader));
-
-        const header = headingInView;
-        const stickyHeader = 148;
-        const nonScrollableElements = 172;
-        document.querySelector(".search-collapsible-sidebar-container").style.top = `${top + padding}px`;
-
-        if (element?.classList?.contains("usda-page-header--sticky")) {
-            if (footerInView < 0) {
-                setWindowHeight(window.innerHeight - header + padding);
-                setSidebarHeight(window.innerHeight - header - nonScrollableElements + padding);
-            }
-            else {
-                const newSidebarHeight = window.innerHeight - header - nonScrollableElements - footerInView + padding;
-                if (newSidebarHeight < 1) {
-                    document.querySelector(".collapsible-sidebar--header").style.display = "none";
-                } else {
-                    document.querySelector(".collapsible-sidebar--header").style.display = "block";
-                }
-                setWindowHeight(window.innerHeight - header - footerInView + padding);
-                setSidebarHeight(newSidebarHeight);
-            }
+    const resizeSidebarWithFullHeader = (footerInView, headingInView, headingPadding, inPanelNonScrollableEls) => {
+        if (footerInView < 0) {
+            setWindowHeight((window.innerHeight - headingInView) + headingPadding);
+            setSidebarHeight(((window.innerHeight - headingInView) - inPanelNonScrollableEls) + headingPadding);
         }
         else {
-            // document.querySelector(".search-collapsible-sidebar-container").style.top = `188px`;
-            setWindowHeight((window.innerHeight - stickyHeader) + window.scrollY);
-            setSidebarHeight(((window.innerHeight - stickyHeader) - nonScrollableElements) + window.scrollY);
+            // Hide side search by... if only a small part of the sidebar is in view
+            const newSidebarHeight = (((window.innerHeight - headingInView) - inPanelNonScrollableEls) - footerInView) + headingPadding;
+            if (newSidebarHeight < 1) {
+                document.querySelector(".collapsible-sidebar--header").style.display = "none";
+            }
+            else {
+                document.querySelector(".collapsible-sidebar--header").style.display = "block";
+            }
+
+            setWindowHeight(((window.innerHeight - headingInView) - footerInView) + headingPadding);
+            setSidebarHeight(newSidebarHeight);
         }
     };
+
+    const resizeSidebarWithStickyBar = (fullHeader, inPanelNonScrollableEls) => {
+        setWindowHeight((window.innerHeight - fullHeader) + window.scrollY);
+        setSidebarHeight(((window.innerHeight - fullHeader) - inPanelNonScrollableEls) + window.scrollY);
+    };
+
+    const handleScroll = throttle(() => {
+        // 581.63 is the height of the footer at 1839 px browser width
+        const footerEl = document.querySelector("footer");
+        const footerInView = checkInView(footerEl) + 48;
+        const topStickyBarEl = document.querySelector(".usda-page-header");
+        const topStickyBarBbox = topStickyBarEl.getBoundingClientRect();
+        const top = checkInView(topStickyBarEl) < 0 ? 0 : topStickyBarBbox.bottom;
+        const headingPadding = 40;
+        const headingInView = top + headingPadding;
+        const fullHeader = 148;
+        const inPanelNonScrollableEls = 172;
+
+        document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
+
+        if (topStickyBarEl?.classList?.contains("usda-page-header--sticky")) {
+            resizeSidebarWithFullHeader(footerInView, headingInView, headingPadding, inPanelNonScrollableEls);
+        }
+        else if (top !== 0) {
+            resizeSidebarWithStickyBar(fullHeader, inPanelNonScrollableEls);
+        }
+    }, 50);
 
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -165,7 +161,10 @@ const CollapsibleSidebar = () => {
     useEffect(() => {
         handleScroll();
         window.addEventListener('scroll', (e) => handleScroll(e));
-        return () => window.removeEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
