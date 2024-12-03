@@ -89,20 +89,24 @@ const TopFilterBarContainer = (props) => {
                 filter.code = 'timePeriodDR';
                 filter.name = 'Time Period';
                 for (const period of props.filters.time_period) {
-                    if (period.start_date || period.end_date) {
-                        const startString = dayjs(period.start_date, 'YYYY-MM-DD')
-                            .format('MM/DD/YYYY');
-                        const endString = dayjs(period.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-                        filter.values.push([`${startString} to ${endString}`]);
+                    let startString;
+                    let endString;
 
-                        if (!period.start_date) {
-                            // open-ended start date
-                            filter.values.push([`... to ${endString}`]);
-                        }
-                        else if (!period.end_date) {
-                            // open-ended end date
-                            filter.values.push([`${startString} to present`]);
-                        }
+                    if (period.start_date) {
+                        startString = dayjs(period.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                    }
+
+                    if (period.end_date) {
+                        endString = dayjs(period.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                    }
+                    if (period.start_date && period.end_date) {
+                        filter.values.push([`${startString} to ${endString}`]);
+                    } else if (period.start_date) {
+                        // open-ended end date
+                        filter.values.push([`${startString} to present`]);
+                    } else if (period.end_date) {
+                        // open-ended start date
+                        filter.values.push([`... to ${endString}`]);
                     }
                 }
             }
