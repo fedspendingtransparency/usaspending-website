@@ -181,10 +181,8 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
     if (referenceObject.timePeriodType === 'fy') {
     // if the time period is fiscal year, we don't care about the date range values, even
     // if they're provided because the date range tab isn't selected
-        delete comparisonObject.timePeriodStart;
-        delete comparisonObject.timePeriodEnd;
-        delete referenceObject.timePeriodStart;
-        delete referenceObject.timePeriodEnd;
+        delete comparisonObject.time_period;
+        delete referenceObject.time_period;
     }
     else if (referenceObject.timePeriodEnd === 'dr') {
     // if the time period is date range, we don't care about the fiscal year values, even

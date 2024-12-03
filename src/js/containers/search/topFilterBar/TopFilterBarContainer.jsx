@@ -65,7 +65,9 @@ const TopFilterBarContainer = (props) => {
      */
     const prepareTimeFilter = () => {
         let selected = false;
-        const filter = {};
+        const filter = {
+            values: []
+        };
         if (props.filters?.timePeriodType === 'fy') {
             // check to see if any FYs are selected
             if (props.filters.timePeriodFY?.size > 0) {
@@ -75,30 +77,37 @@ const TopFilterBarContainer = (props) => {
                 filter.name = 'Time Period';
 
                 // return the years in chronological order
-                filter.values = orderBy(props.filters.timePeriodFY.toArray(), [], ['desc']);
+                filter.values.push(orderBy(props.filters.timePeriodFY.toArray(), [], ['desc']));
             }
         }
         else if (props.filters?.timePeriodType === 'dr') {
-            const lastInTimePeriod = props.filters.time_period[props.filters.time_period.length - 1];
-            // check to see if any date ranges are selected
-            if (lastInTimePeriod?.start_date || lastInTimePeriod?.end_date) {
+            // const lastInTimePeriod = props.filters.time_period[props.filters.time_period.length - 1];
+            // // check to see if any date ranges are selected
+            if (props.filters.time_period.size > 0) {
                 // start and end dates are provided
                 selected = true;
                 filter.code = 'timePeriodDR';
                 filter.name = 'Time Period';
+                for (const period of props.filters.time_period) {
+                    let startString;
+                    let endString;
 
-                const startString = dayjs(lastInTimePeriod.start_date, 'YYYY-MM-DD')
-                    .format('MM/DD/YYYY');
-                const endString = dayjs(lastInTimePeriod.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-                filter.values = [`${startString} to ${endString}`];
+                    if (period.start_date) {
+                        startString = dayjs(period.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                    }
 
-                if (!lastInTimePeriod.start_date) {
-                    // open-ended start date
-                    filter.values = [`... to ${endString}`];
-                }
-                else if (!lastInTimePeriod.end_date) {
-                    // open-ended end date
-                    filter.values = [`${startString} to present`];
+                    if (period.end_date) {
+                        endString = dayjs(period.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+                    }
+                    if (period.start_date && period.end_date) {
+                        filter.values.push([`${startString} to ${endString}`]);
+                    } else if (period.start_date) {
+                        // open-ended end date
+                        filter.values.push([`${startString} to present`]);
+                    } else if (period.end_date) {
+                        // open-ended start date
+                        filter.values.push([`... to ${endString}`]);
+                    }
                 }
             }
         }
