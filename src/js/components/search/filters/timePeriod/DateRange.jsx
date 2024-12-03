@@ -72,9 +72,11 @@ const DateRange = (props) => {
     };
 
     const localRemoveDateRange = (e) => {
-        setSelectedDropdownOption('select');
-        setDropdownOptionSelected(false);
-        props.removeDateRange(e);
+        if (e.type === 'click' || e.key === "Enter") {
+            setSelectedDropdownOption('select');
+            setDropdownOptionSelected(false);
+            props.removeDateRange(e);
+        }
     };
 
     const dropdownOptions = [
@@ -374,11 +376,13 @@ const DateRange = (props) => {
                             className="shown-filter-button"
                             title="Click to remove filter."
                             index={index}
+                            tabIndex={0}
                             aria-label={`Applied date range: ${dateLabel}`}
-                            onClick={localRemoveDateRange}>
+                            onClick={localRemoveDateRange}
+                            onKeyUp={localRemoveDateRange}>
                             {dateLabel}
-                            <span index={index} className="close">
-                                <FontAwesomeIcon index={index} icon="times" />
+                            <span role="button" index={index} tabIndex={0} onKeyup={localRemoveDateRange} onClick={localRemoveDateRange} className="close">
+                                <FontAwesomeIcon tabIndex={0} onKeyup={localRemoveDateRange} onClick={localRemoveDateRange} index={index} icon="times" />
                             </span>
                         </button>
                     )
