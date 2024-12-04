@@ -77,7 +77,7 @@ const TopFilterBarContainer = (props) => {
                 filter.name = 'Time Period';
 
                 // return the years in chronological order
-                filter.values.push(orderBy(props.filters.timePeriodFY.toArray(), [], ['desc']));
+                filter.values = orderBy(props.filters.timePeriodFY.toArray(), [], ['desc']);
             }
         }
         else if (props.filters?.timePeriodType === 'dr') {
@@ -111,6 +111,7 @@ const TopFilterBarContainer = (props) => {
                 }
             }
         }
+        console.debug("filter: ", filter);
 
         if (selected) {
             return filter;
