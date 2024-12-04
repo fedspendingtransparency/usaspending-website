@@ -111,7 +111,6 @@ const TopFilterBarContainer = (props) => {
                 }
             }
         }
-        console.debug("filter: ", filter);
 
         if (selected) {
             return filter;
