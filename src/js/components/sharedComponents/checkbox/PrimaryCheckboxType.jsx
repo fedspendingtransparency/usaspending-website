@@ -15,12 +15,12 @@ import CollapsedCheckboxType from './CollapsedCheckboxType';
 import SingleCheckboxType from './SingleCheckboxType';
 
 const propTypes = {
-    id: PropTypes.oneOfType(PropTypes.string, PropTypes.element),
-    name: PropTypes.oneOfType(PropTypes.string, PropTypes.object),
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    name: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     lookupName: PropTypes.string,
     filters: PropTypes.array,
     bulkTypeChange: PropTypes.func,
-    value: PropTypes.oneOfType(PropTypes.string, PropTypes.object),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     filterType: PropTypes.string,
     types: PropTypes.object,
     selectedCheckboxes: PropTypes.object,
@@ -139,14 +139,12 @@ const PrimaryCheckboxType = ({
     };
 
     let primaryTypes = (<CollapsedCheckboxType
-        id={id}
-        name={name}
-        code={value}
-        selected={allChildren}
-        arrowState={arrowState}
         toggleExpand={toggleSubItems}
         toggleChildren={toggleChildren}
+        name={name}
+        selected={allChildren}
         hideArrow={selectedChildren || restrictChildren}
+        arrowState={arrowState}
         isCollapsable={isCollapsable} />);
 
     let secondaryTypes = null;
