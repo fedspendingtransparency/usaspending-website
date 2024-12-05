@@ -154,16 +154,16 @@ const PrimaryCheckboxType = ({
             .filter((subFilter) => !excludedSubFilters.includes(subFilter))
             .map((code) => (
                 <SecondaryCheckboxType
-                    toggleCheckboxType={toggleCheckboxType}
-                    lookupName={lookupName}
-                    enableAnalytics={enableAnalytics}
-                    selectedCheckboxes={selectedCheckboxes}
-                    filterType={filterType}
-                    restrictChildren={restrictChildren}
+                    id={`secondary-checkbox-${uniqueId()}`}
                     code={code}
                     name={types[code]}
-                    key={`${id} - ${code}`}
-                    id={`secondary-checkbox-${uniqueId()}`} />
+                    lookupName={lookupName}
+                    toggleCheckboxType={toggleCheckboxType}
+                    filterType={filterType}
+                    selectedCheckboxes={selectedCheckboxes}
+                    enableAnalytics={enableAnalytics}
+                    restrictChildren={restrictChildren}
+                    key={`${id} - ${code}`} />
             ));
     }
 
