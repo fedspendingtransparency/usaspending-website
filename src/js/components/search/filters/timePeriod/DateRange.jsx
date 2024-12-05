@@ -9,7 +9,6 @@ import Analytics from 'helpers/analytics/Analytics';
 import { Button } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { usePrevious } from "../../../../helpers/";
 import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
@@ -174,41 +173,6 @@ const DateRange = (props) => {
         }
     };
 
-    const generateStartDateDisabledDays = (earliestDate) => {
-        // handle the cutoff dates (preventing end dates from coming before
-        // start dates or vice versa)
-        const disabledDays = [earliestDate];
-
-        if (props.endDate) {
-            // the cutoff date represents the latest possible date
-            disabledDays.push({
-                after: props.endDate.toDate()
-            });
-        }
-
-        return disabledDays;
-    };
-
-    const generateEndDateDisabledDays = (earliestDate) => {
-        const disabledDays = [earliestDate];
-
-        if (props.startDate) {
-            // cutoff date represents the earliest possible date
-            disabledDays.push({
-                before: props.startDate.toDate()
-            });
-        }
-
-        return disabledDays;
-    };
-
-    const earliestDateString =
-            FiscalYearHelper.convertFYToDateRange(FiscalYearHelper.earliestFiscalYear)[0];
-    const earliestDate = dayjs(earliestDateString, 'YYYY-MM-DD').toDate();
-
-    const startDateDisabledDays = generateStartDateDisabledDays(earliestDate);
-    const endDateDisabledDays = generateEndDateDisabledDays(earliestDate);
-
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
             if (props.errorState) {
@@ -309,10 +273,8 @@ const DateRange = (props) => {
                         opposite={props.endDate}
                         showError={props.showError}
                         hideError={props.hideError}
-                        disabledDays={startDateDisabledDays}
                         id="date-range__startDate"
-                        onFocus={onFocus}
-                        allowClearing />
+                        onFocus={onFocus} />
                 </div>
                 <div className="date-range-column">
                     <DatePicker
@@ -323,10 +285,8 @@ const DateRange = (props) => {
                         opposite={props.startDate}
                         showError={props.showError}
                         hideError={props.hideError}
-                        disabledDays={endDateDisabledDays}
                         onFocus={onFocus}
-                        id="date-range__endDate"
-                        allowClearing />
+                        id="date-range__endDate" />
                 </div>
                 <Button
                     copy="Add"
