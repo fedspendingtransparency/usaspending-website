@@ -164,10 +164,6 @@ const propTypes = {
     filters: PropTypes.object
 };
 
-const defaultProps = {
-    mobile: false
-};
-
 const SearchSidebar = ({
     filters
 }) => {
@@ -239,6 +235,5 @@ const SearchSidebar = ({
 };
 
 SearchSidebar.propTypes = propTypes;
-SearchSidebar.defaultProps = defaultProps;
 
 export default SearchSidebar;
