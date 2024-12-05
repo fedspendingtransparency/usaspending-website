@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import AccordionCheckboxPrimary from "./AccordionCheckboxPrimary";
-import { EntityDropdownAutocomplete } from "../../search/filters/location/EntityDropdownAutocomplete";
+import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
 
 const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters) => {
     const toExpand = [];
