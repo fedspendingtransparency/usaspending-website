@@ -17,7 +17,9 @@ const propTypes = {
     appliedType: PropTypes.object
 };
 
-const RecipientTypeContainer = (props) => {
+const RecipientTypeContainer = ({
+    toggleRecipientType, recipientType, appliedType
+}) => {
     let justMounted = true;
     const firstUpdate = useRef(true);
 
@@ -29,12 +31,12 @@ const RecipientTypeContainer = (props) => {
         justMounted = false;
     }, []);
 
-    const toggleRecipientType = (selection) => {
-        props.toggleRecipientType(selection);
+    const toggleRecipientTypeFunc = (selection) => {
+        toggleRecipientType(selection);
     };
 
     const dirtyFilters = () => {
-        if (justMounted || is(props.recipientType, props.appliedType)) {
+        if (justMounted || is(recipientType, appliedType)) {
             return null;
         }
         return Symbol('dirty recipient type');
@@ -43,8 +45,8 @@ const RecipientTypeContainer = (props) => {
     return (
         <RecipientTypeAccordion
             dirtyFilters={dirtyFilters()}
-            selectedTypes={props.recipientType}
-            toggleCheckboxType={toggleRecipientType} />
+            selectedTypes={recipientType}
+            toggleCheckboxType={toggleRecipientTypeFunc} />
     );
 };
 

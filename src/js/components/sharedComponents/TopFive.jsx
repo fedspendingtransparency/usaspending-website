@@ -324,18 +324,15 @@ const TopFive = (props) => {
             };
         }
 
-        const timePeriodFilter = {
-            timePeriodStart: params.filters.time_period[0].start_date,
-            timePeriodEnd: params.filters.time_period[0].end_date,
-            timePeriodType: 'dr'
-        };
+        const timePeriodFilter = [{ start_date: params.filters.time_period[0].start_date, end_date: params.filters.time_period[0].end_date }];
 
         const filterValue = {
             filters: {
                 ...defaultFilters,
                 ...categoryFilter,
                 ...locationFilter,
-                ...timePeriodFilter,
+                timePeriodType: 'dr',
+                time_period: timePeriodFilter,
                 ...awardTypeFilter
             },
             version: REQUEST_VERSION

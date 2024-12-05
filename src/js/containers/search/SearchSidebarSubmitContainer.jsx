@@ -3,7 +3,7 @@
  * Created by Kevin Li 12/21/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
+import { usePrevious } from "../../helpers";
 
 const combinedActions = Object.assign(
     {},
@@ -38,90 +39,77 @@ const propTypes = {
     resetAppliedFilters: PropTypes.func
 };
 
-export class SearchSidebarSubmitContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const SearchSidebarSubmitContainer = (props) => {
+    const [filtersChanged, setFiltersChanged] = useState(false);
+    const prevProps = usePrevious(props);
 
-        this.state = {
-            filtersChanged: false
-        };
+    const areStagedFiltersEmpty = () => areFiltersEqual(props.stagedFilters, initialState);
 
-        this.resetFilters = this.resetFilters.bind(this);
-        this.applyStagedFilters = this.applyStagedFilters.bind(this);
-    }
-
-    componentDidUpdate(prevProps) {
-        const areStagedAndAppliedFiltersEquivalent = (
-            areFiltersEqual(this.props.stagedFilters, prevProps.stagedFilters) &&
-            areFiltersEqual(this.props.appliedFilters, prevProps.appliedFilters)
-        );
-        if (!areStagedAndAppliedFiltersEquivalent) {
-            this.stagingChanged();
-        }
-    }
-
-    areStagedFiltersEmpty = () => areFiltersEqual(this.props.stagedFilters, initialState);
-
-    compareStores() {
+    const compareStores = () => {
     // we need to do a deep equality check by comparing every store key
-        const storeKeys = Object.keys(this.props.stagedFilters);
-        if (storeKeys.length !== Object.keys(this.props.appliedFilters).length) {
+        const storeKeys = Object.keys(props.stagedFilters);
+        if (storeKeys.length !== Object.keys(props.appliedFilters).length) {
             // key lengths do not match, there's a difference so fail immediately
             return false;
         }
-        return areFiltersEqual(this.props.stagedFilters, this.props.appliedFilters);
-    }
+        return areFiltersEqual(props.stagedFilters, props.appliedFilters);
+    };
 
-    stagingChanged() {
+    const resetFilters = () => {
+        props.clearStagedFilters();
+        props.resetAppliedFilters();
+        props.resetMapLegendToggle();
+    };
+
+    const stagingChanged = () => {
     // do a deep equality check between the staged filters and applied filters
-        if (!this.compareStores()) {
-            this.setState({
-                filtersChanged: true
-            });
+        if (!compareStores()) {
+            setFiltersChanged(true);
         }
-        else if (this.state.filtersChanged) {
-            this.setState({
-                filtersChanged: false
-            });
+        else if (filtersChanged) {
+            setFiltersChanged(false);
         }
-    }
+    };
 
-    applyStagedFilters() {
-        this.props.setAppliedFilterCompletion(false);
+    const applyStagedFilters = () => {
+        props.setAppliedFilterCompletion(false);
 
-        if (areFiltersEqual(this.props.stagedFilters)) {
-            this.resetFilters();
+        if (areFiltersEqual(props.stagedFilters)) {
+            resetFilters();
         }
         else {
-            this.props.applyStagedFilters(this.props.stagedFilters);
-            this.props.setAppliedFilterCompletion(true);
+            props.applyStagedFilters(props.stagedFilters);
+            props.setAppliedFilterCompletion(true);
         }
-        this.setState({
-            filtersChanged: false
-        });
+        setFiltersChanged(false);
 
-        const events = convertFiltersToAnalyticEvents(this.props.stagedFilters);
+        const events = convertFiltersToAnalyticEvents(props.stagedFilters);
         sendAnalyticEvents(events);
         sendFieldCombinations(events);
-    }
+    };
 
-    resetFilters() {
-        this.props.clearStagedFilters();
-        this.props.resetAppliedFilters();
-        this.props.resetMapLegendToggle();
-    }
-
-    render() {
-        return (
-            <SearchSidebarSubmit
-                stagedFiltersAreEmpty={this.areStagedFiltersEmpty()}
-                filtersChanged={this.state.filtersChanged}
-                requestsComplete={this.props.requestsComplete}
-                applyStagedFilters={this.applyStagedFilters}
-                resetFilters={this.resetFilters} />
+    useEffect(() => {
+        const areStagedAndAppliedFiltersEquivalent = (
+            areFiltersEqual(props.stagedFilters, prevProps?.stagedFilters) &&
+            areFiltersEqual(props.appliedFilters, prevProps?.appliedFilters)
         );
-    }
-}
+        if (!areStagedAndAppliedFiltersEquivalent) {
+            stagingChanged();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.stagedFilters, props.appliedFilters]);
+
+    return (
+        <SearchSidebarSubmit
+            stagedFiltersAreEmpty={areStagedFiltersEmpty()}
+            filtersChanged={filtersChanged}
+            requestsComplete={props.requestsComplete}
+            applyStagedFilters={applyStagedFilters}
+            resetFilters={resetFilters} />
+    );
+};
+
+SearchSidebarSubmitContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -139,4 +127,3 @@ export default connect(
     })
 )(SearchSidebarSubmitContainer);
 
-SearchSidebarSubmitContainer.propTypes = propTypes;

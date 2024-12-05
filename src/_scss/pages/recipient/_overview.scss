@@ -25,6 +25,7 @@
         }
     }
 	.recipient-overview__content {
+        width:100%;
 		h3.recipient-overview__heading {
 			@include h4;
 			font-size: rem(19);

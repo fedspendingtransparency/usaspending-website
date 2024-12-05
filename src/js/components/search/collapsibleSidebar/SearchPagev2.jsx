@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
@@ -26,7 +26,7 @@ import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
 import Button from "../../sharedComponents/buttons/Button";
-import SearchSidebarv2 from "./SearchSidebarv2";
+import CollapsibleSidebar from "./CollapsibleSidebar";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 
 require('pages/search/searchPage.scss');
@@ -142,7 +142,7 @@ const SearchPage = ({
 
     useEffect(() => {
         setSearchv2(true);
-        setFullSidebar(<SearchSidebarv2 filters={filters} hash={hash} />);
+        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} />);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -172,13 +172,13 @@ const SearchPage = ({
             filters={appliedFilters}>
             <PageFeatureFlag>
                 <div id="main-content">
-                    <FlexGridRow className="search-contents">
-                        <FlexGridCol className="full-search-sidebar" width={3}>
+                    <div className="search-contents v2">
+                        <div className="full-search-sidebar">
                             {fullSidebar}
                             {isMobile === false && searchv2 === false ?
                                 <KeywordSearchLink />
                                 : ''}
-                        </FlexGridCol>
+                        </div>
                         <div className="mobile-filter-button-wrapper">
                             <button
                                 className="mobile-filter-button"
@@ -232,7 +232,7 @@ const SearchPage = ({
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                         </Helmet>
-                        <FlexGridCol desktop={9} tablet={12} mobile={12}>
+                        <div className="search-results-view-container">
                             <ResultsView
                                 filters={filters}
                                 isMobile={isMobile}
@@ -242,8 +242,8 @@ const SearchPage = ({
                                 toggleMobileFilters={toggleMobileFilters}
                                 requestsComplete={requestsComplete}
                                 noFiltersApplied={noFiltersApplied} />
-                        </FlexGridCol>
-                    </FlexGridRow>
+                        </div>
+                    </div>
                     <FullDownloadModalContainer
                         download={download}
                         mounted={showFullDownload}

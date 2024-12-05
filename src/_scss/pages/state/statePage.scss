@@ -26,8 +26,8 @@
     }
 
     .main-content {
-        @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(0,0);
+        //@import "../../mixins/fullSectionWrap";
+        //@include fullSectionWrap(0,0);
         padding:  0;
 
         @import "./_positioning";
