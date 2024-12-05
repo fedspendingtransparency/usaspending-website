@@ -30,12 +30,8 @@ const propTypes = {
     bulkFilterChange: PropTypes.func
 };
 
-const defaultProps = {
-    filterTypeMapping: []
-};
-
 const AccordionCheckbox = ({
-    filters, filterCategoryMapping, selectedFilters, singleFilterChange, bulkFilterChange
+    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -130,6 +126,5 @@ const AccordionCheckbox = ({
 };
 
 AccordionCheckbox.propTypes = propTypes;
-AccordionCheckbox.defaultProps = defaultProps;
 
 export default AccordionCheckbox;
