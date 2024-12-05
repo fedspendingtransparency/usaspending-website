@@ -15,37 +15,39 @@ import CollapsedCheckboxType from './CollapsedCheckboxType';
 import SingleCheckboxType from './SingleCheckboxType';
 
 const propTypes = {
-    id: PropTypes.string || PropTypes.element,
-    name: PropTypes.string,
+    id: PropTypes.oneOfType(PropTypes.string, PropTypes.element),
+    name: PropTypes.oneOfType(PropTypes.string, PropTypes.object),
     lookupName: PropTypes.string,
     filters: PropTypes.array,
     bulkTypeChange: PropTypes.func,
-    value: PropTypes.string || PropTypes.object,
+    value: PropTypes.oneOfType(PropTypes.string, PropTypes.object),
     filterType: PropTypes.string,
     types: PropTypes.object,
     selectedCheckboxes: PropTypes.object,
     enableAnalytics: PropTypes.bool,
     restrictChildren: PropTypes.bool,
-    isCollapsable: PropTypes.bool
-};
-
-const defaultProps = {
-    name: '',
-    lookupName: '',
-    filters: [],
-    value: '',
-    filterType: '',
-    types: {},
-    selectedCheckboxes: new Set(),
-    enableAnalytics: false,
-    restrictChildren: false,
-    isCollapsable: true
+    isCollapsable: PropTypes.bool,
+    toggleCheckboxType: PropTypes.func
 };
 
 // sub-filters hidden from the user, but  passed to the API when the parent filter is selected
 const excludedSubFilters = ["IDV_B"];
 
-const PrimaryCheckboxType = (props) => {
+const PrimaryCheckboxType = ({
+    id,
+    name = '',
+    lookupName = '',
+    filters = [],
+    value = '',
+    filterType = '',
+    types = {},
+    selectedCheckboxes = new Set(),
+    enableAnalytics = false,
+    restrictChildren = false,
+    isCollapsable = true,
+    bulkTypeChange,
+    toggleCheckboxType
+}) => {
     const [showSubItems, setShowSubItems] = useState(false);
     const [arrowState, setArrowState] = useState('collapsed');
     const [selectedChildren, setSelectedChildren] = useState(false);
@@ -76,8 +78,8 @@ const PrimaryCheckboxType = (props) => {
         let allSelected = true;
         let someSelected = false;
 
-        for (const code of props.filters) {
-            if (!props.selectedCheckboxes.has(code)) {
+        for (const code of filters) {
+            if (!selectedCheckboxes.has(code)) {
                 allSelected = false;
             }
             else {
@@ -110,72 +112,80 @@ const PrimaryCheckboxType = (props) => {
     const toggleChildren = () => {
         if (allChildren) {
             // all the children are selected, deselect them
-            props.bulkTypeChange({
-                lookupName: props.lookupName,
-                types: props.filters,
+            bulkTypeChange({
+                lookupName,
+                types: filters,
                 direction: 'remove'
             });
 
             // Analytics
-            if (props.enableAnalytics) {
-                logDeselectFilterEvent(props.name, props.filterType);
+            if (enableAnalytics) {
+                logDeselectFilterEvent(name, filterType);
             }
         }
         else {
             // not all the children are selected, select them all
-            props.bulkTypeChange({
-                lookupName: props.lookupName,
-                types: props.filters,
+            bulkTypeChange({
+                lookupName,
+                types: filters,
                 direction: 'add'
             });
 
             // Analytics
-            if (props.enableAnalytics) {
-                logPrimaryTypeFilterEvent(
-                    props.name, props.filterType);
+            if (enableAnalytics) {
+                logPrimaryTypeFilterEvent(name, filterType);
             }
         }
     };
 
     let primaryTypes = (<CollapsedCheckboxType
-        id={props.id}
-        name={props.name}
-        code={props.value}
+        id={id}
+        name={name}
+        code={value}
         selected={allChildren}
         arrowState={arrowState}
         toggleExpand={toggleSubItems}
         toggleChildren={toggleChildren}
-        hideArrow={selectedChildren || props.restrictChildren}
-        isCollapsable={props.isCollapsable} />);
+        hideArrow={selectedChildren || restrictChildren}
+        isCollapsable={isCollapsable} />);
 
     let secondaryTypes = null;
 
-    if (showSubItems || !props.isCollapsable) {
-        secondaryTypes = props.filters
+    if (showSubItems || !isCollapsable) {
+        secondaryTypes = filters
             .filter((subFilter) => !excludedSubFilters.includes(subFilter))
             .map((code) => (
                 <SecondaryCheckboxType
-                    {...props}
+                    toggleCheckboxType={toggleCheckboxType}
+                    lookupName={lookupName}
+                    enableAnalytics={enableAnalytics}
+                    selectedCheckboxes={selectedCheckboxes}
+                    filterType={filterType}
+                    restrictChildren={restrictChildren}
                     code={code}
-                    name={props.types[code]}
-                    key={`${props.id} - ${code}`}
+                    name={types[code]}
+                    key={`${id} - ${code}`}
                     id={`secondary-checkbox-${uniqueId()}`} />
             ));
     }
 
-    if (props.filters.length === 0) {
+    if (filters.length === 0) {
         primaryTypes = (<SingleCheckboxType
-            {...props}
-            code={props.value}
-            name={props.name}
-            key={`${props.id} - ${props.value}`}
+            value={value}
+            enableAnalytics={enableAnalytics}
+            selectedCheckboxes={selectedCheckboxes}
+            filterType={filterType}
+            toggleCheckboxType={toggleCheckboxType}
+            code={value}
+            name={name}
+            key={`${id} - ${value}`}
             id={`primary-checkbox-${uniqueId()}`} />);
     }
 
     useEffect(() => {
         compareFiltersToChildren();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.selectedCheckboxes]);
+    }, [selectedCheckboxes]);
 
     return (
         <li className="checkbox-set">
@@ -190,6 +200,5 @@ const PrimaryCheckboxType = (props) => {
 };
 
 PrimaryCheckboxType.propTypes = propTypes;
-PrimaryCheckboxType.defaultProps = defaultProps;
 
 export default PrimaryCheckboxType;
