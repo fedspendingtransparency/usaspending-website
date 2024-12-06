@@ -17,12 +17,8 @@ const propTypes = {
     singleFilterChange: PropTypes.func
 };
 
-const defaultProps = {
-    filterTypeMapping: []
-};
-
 const ListCheckbox = ({
-    filters, filterCategoryMapping, selectedFilters, singleFilterChange
+    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -112,6 +108,4 @@ const ListCheckbox = ({
 };
 
 ListCheckbox.propTypes = propTypes;
-ListCheckbox.defaultProps = defaultProps;
-
 export default ListCheckbox;
