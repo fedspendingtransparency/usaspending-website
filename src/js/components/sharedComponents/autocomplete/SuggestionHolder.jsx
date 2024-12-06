@@ -16,46 +16,47 @@ const propTypes = {
     matchingString: PropTypes.string
 };
 
-const defaultProps = {
-    suggestions: [],
-    shown: false,
-    selectedIndex: 0,
-    maxSuggestions: 10
-};
-
-const SuggestionHolder = (props) => {
-    const suggestions = [];
+const SuggestionHolder = ({
+    select,
+    suggestions = [],
+    selectedIndex = 0,
+    maxSuggestions = 10,
+    shown = false,
+    autocompleteId,
+    matchingString
+}) => {
+    const suggestionsArray = [];
 
     // Ensure we're only showing maxSuggestions results at most
-    for (let i = 0; i < Math.min(props.suggestions.length,
-        props.maxSuggestions); i++) {
-        suggestions.push(<Suggestion
-            values={props.suggestions}
-            category={props.suggestions[i].category}
-            title={props.suggestions[i].title}
-            subtitle={props.suggestions[i].subtitle}
-            data={props.suggestions[i]}
-            selected={i === props.selectedIndex}
-            select={props.select}
-            id={`${props.autocompleteId}__option_${i}`}
+    for (let i = 0; i < Math.min(suggestions.length,
+        maxSuggestions); i++) {
+        suggestionsArray.push(<Suggestion
+            values={suggestions}
+            category={suggestions[i].category}
+            title={suggestions[i].title}
+            subtitle={suggestions[i].subtitle}
+            data={suggestions[i]}
+            selected={i === selectedIndex}
+            select={select}
+            id={`${autocompleteId}__option_${i}`}
             key={i}
-            matchingString={props.matchingString} />);
+            matchingString={matchingString} />);
     }
 
     let hiddenClass = 'hide';
-    if (props.shown && props.suggestions.length > 0) {
+    if (shown && suggestions.length > 0) {
         hiddenClass = '';
     }
     return (
         <ul
-            id={props.autocompleteId}
+            id={autocompleteId}
             className={`autocomplete ${hiddenClass}`}
             role="listbox">
-            {suggestions}
+            {suggestionsArray}
         </ul>
     );
 };
 
-SuggestionHolder.defaultProps = defaultProps;
 SuggestionHolder.propTypes = propTypes;
+
 export default SuggestionHolder;

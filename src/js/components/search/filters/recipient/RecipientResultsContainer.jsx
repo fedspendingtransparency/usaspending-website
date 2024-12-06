@@ -7,7 +7,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as SearchHelper from 'helpers/searchHelper';
-import { EntityDropdownAutocomplete } from "../location/EntityDropdownAutocomplete";
+import EntityDropdownAutocomplete from "../location/EntityDropdownAutocomplete";
 import PrimaryCheckboxType from "../../../sharedComponents/checkbox/PrimaryCheckboxType";
 
 const propTypes = {

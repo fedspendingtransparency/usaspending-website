@@ -24,20 +24,12 @@ const propTypes = {
     og_image: PropTypes.string
 };
 
-const defaultProps = {
-    og_url: 'https://usaspending.gov',
-    og_title: 'USAspending.gov',
-    og_description: 'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
-    og_site_name: 'USAspending.gov',
-    og_image: 'https://usaspending.gov/img/FacebookOG.png'
-};
-
 const MetaTags = ({
-    og_url: url,
-    og_title: title,
-    og_description: description,
-    og_site_name: siteName,
-    og_image: image
+    og_url: url = 'https://usaspending.gov',
+    og_title: title = 'USAspending.gov',
+    og_description: description = 'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
+    og_site_name: siteName = 'USAspending.gov',
+    og_image: image = 'https://usaspending.gov/img/FacebookOG.png'
 }) => {
     const dispatch = useDispatch();
 
@@ -134,6 +126,5 @@ const MetaTags = ({
 };
 
 MetaTags.propTypes = propTypes;
-MetaTags.defaultProps = defaultProps;
 
 export default MetaTags;

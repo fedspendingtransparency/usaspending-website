@@ -10,23 +10,18 @@ const propTypes = {
     title: PropTypes.string.isRequired
 };
 
-const defaultProps = {
-    title: 'Filter'
-};
-
-const TopFilterItem = (props) => (
+const TopFilterItem = ({ title = 'Filter' }) => (
     <div className="filter-item-container">
         <div
             className="filter-item"
             role="listitem">
             <div className="filter-item-title">
-                {props.title}
+                {title}
             </div>
         </div>
     </div>
 );
 
 TopFilterItem.propTypes = propTypes;
-TopFilterItem.defaultProps = defaultProps;
 
 export default TopFilterItem;

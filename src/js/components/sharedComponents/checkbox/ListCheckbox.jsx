@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import ListCheckboxPrimary from "./ListCheckboxPrimary";
 import SubmitHint from "../filterSidebar/SubmitHint";
-import { EntityDropdownAutocomplete } from "../../search/filters/location/EntityDropdownAutocomplete";
+import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -17,12 +17,8 @@ const propTypes = {
     singleFilterChange: PropTypes.func
 };
 
-const defaultProps = {
-    filterTypeMapping: []
-};
-
 const ListCheckbox = ({
-    filters, filterCategoryMapping, selectedFilters, singleFilterChange
+    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -112,6 +108,4 @@ const ListCheckbox = ({
 };
 
 ListCheckbox.propTypes = propTypes;
-ListCheckbox.defaultProps = defaultProps;
-
 export default ListCheckbox;

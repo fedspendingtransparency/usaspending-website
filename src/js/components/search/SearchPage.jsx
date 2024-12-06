@@ -221,9 +221,7 @@ const SearchPage = ({
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
-                            filterCount={filterCount}
-                            showMobileFilters={showMobileFilters}
-                            toggleMobileFilters={toggleMobileFilters} />
+                            showMobileFilters={showMobileFilters} />
                     </FlexGridCol>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />

@@ -17,26 +17,28 @@ const propTypes = {
     onKeyDown: PropTypes.func
 };
 
-const defaultProps = {
-    onKeyDown: () => {}
-};
-
-const IndividualSubmit = (props) => (
+const IndividualSubmit = ({
+    className,
+    disabled,
+    onClick,
+    label,
+    accessibility,
+    onKeyDown = () => {}
+}) => (
     <button
-        className={props.className}
-        disabled={props.disabled}
-        onClick={props.onClick}
-        title={props.label}
-        aria-label={props.label}
-        onKeyDown={props.onKeyDown}
-        {...props.accessibility}>
+        className={className}
+        disabled={disabled}
+        onClick={onClick}
+        title={label}
+        aria-label={label}
+        onKeyDown={onKeyDown}
+        {...accessibility}>
         <div className="icon">
-            <Search alt={props.label} />
+            <Search alt={label} />
         </div>
     </button>
 );
 
 IndividualSubmit.propTypes = propTypes;
-IndividualSubmit.defaultProps = defaultProps;
 
 export default IndividualSubmit;

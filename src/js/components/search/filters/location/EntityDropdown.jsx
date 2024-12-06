@@ -13,7 +13,7 @@ import { defaultLocationValues }
 
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
-import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
+import EntityDropdownAutocomplete from './EntityDropdownAutocomplete';
 import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {

@@ -17,7 +17,7 @@ import RecipientResultsContainer from "./RecipientResultsContainer";
 const propTypes = {
     toggleRecipient: PropTypes.func,
     selectedRecipients: PropTypes.object,
-    dirtyFilters: PropTypes.symbol,
+    dirtyFilters: PropTypes.oneOfType([PropTypes.symbol, PropTypes.func]),
     updateSelectedRecipients: PropTypes.func
 };
 
