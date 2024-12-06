@@ -35,7 +35,6 @@ const AwardHistoryTableContainer = ({
     const [columns, setColumns] = useState([]);
     const [rows, setRows] = useState();
     const [totalItems, setTotalItems] = useState(0);
-    const [activateRightFade, setActivateRightFade] = useState(false);
     const [pageLimit, setPageLimit] = useState(10);
 
     const tabCounts = useRef({});
@@ -310,15 +309,6 @@ const AwardHistoryTableContainer = ({
             });
     };
 
-    const checkToAddRightFade = (isScrolledLeft, isScrolledRight) => {
-        if (!isScrolledLeft) {
-            setActivateRightFade(true);
-        }
-        if (isScrolledRight) {
-            setActivateRightFade(false);
-        }
-    };
-
     useEffect(() => {
         fetchData(1);
 
@@ -406,7 +396,7 @@ const AwardHistoryTableContainer = ({
             }
             <div className="search-results-table-section">
                 <div className="results-table-content">
-                    <div className={`advanced-search__table-wrapper ${activateRightFade ? 'activate-right-fade' : ''}`}>
+                    <div className="advanced-search__table-wrapper">
                         <Table
                             columns={columns}
                             rows={rows}
@@ -416,8 +406,7 @@ const AwardHistoryTableContainer = ({
                             loading={inFlight}
                             error={error}
                             rowHeight={58}
-                            headerRowHeight={45}
-                            checkToAddRightFade={checkToAddRightFade} />
+                            headerRowHeight={45} />
                     </div>
                 </div>
             </div>
