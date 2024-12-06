@@ -44,7 +44,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
         this.state = {
             loading: true,
             data: new VisData(),
-            visualizationPeriod: 'year',
+            visualizationPeriod: 'quarter',
             hasFilteredObligated: false
         };
 
