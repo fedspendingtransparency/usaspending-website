@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ShareIcon } from 'data-transparency-ui';
+import { ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -47,11 +47,15 @@ const Account = ({ account, currentFiscalYear }) => {
             <main
                 id="main-content"
                 className="main-content">
-                <AccountOverview account={account} currentFiscalYear={currentFiscalYear} />
-                <div className="filter-results">
-                    <SearchSidebar />
-                    <SearchResults showNote={account.parent_agency_toptier_code === '097'} />
-                </div>
+                <FlexGridRow className="fed-account-content__row" >
+                    <FlexGridCol className="fed-account-content__col" >
+                        <AccountOverview account={account} currentFiscalYear={currentFiscalYear} />
+                        <div className="filter-results">
+                            <SearchSidebar />
+                            <SearchResults showNote={account.parent_agency_toptier_code === '097'} />
+                        </div>
+                    </FlexGridCol>
+                </FlexGridRow>
             </main>
         </PageWrapper>
     );
