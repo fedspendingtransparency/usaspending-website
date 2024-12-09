@@ -29,17 +29,18 @@
             @import "archive/archive";
             @import "defCheckbox";
             @import "metadataPage";
-            @include grid-column(16);
-            @include media($medium-screen) {
-                @include grid-column(12);
-            }
             background-color: $color-white;
             padding: rem(30) rem(20);
 
-            @media(min-width: $medium-screen) {
-                margin-left: 0 !important;
-                width: 100% !important;
-            }
+
+            // @include grid-column(16);
+            // @include media($medium-screen) {
+            //     @include grid-column(12);
+            // }
+            // @media(min-width: $medium-screen) {
+            //     margin-left: 0 !important;
+            //     width: 100% !important;
+            // }
         }
     }
 }
