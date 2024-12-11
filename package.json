@@ -199,7 +199,7 @@
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "data-transparency-ui": "file:../data-transparency-ui/data-transparency-ui-6.4.0.tgz",
+    "data-transparency-ui": "file:../data-transparency-ui/data-transparency-ui-7.0.0.tgz",
     "date-fns": "^2.16.1",
     "dayjs": "^1.11.10",
     "dompurify": "^2.5.6",
