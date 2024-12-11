@@ -42,7 +42,7 @@
     }
     @include flex-grow(1);
     @include flex-wrap(wrap);
-    max-width: rem(1600);
+    max-width: rem(1400);
     margin: auto;
 
     ul {
@@ -75,7 +75,7 @@
       }
 
       @media (max-width: $medium-screen) {
-        margin: rem(20) rem(20) rem(20) rem(20);
+        margin: rem(20) rem(16) rem(20) rem(16);
       }
 
       .usda-message {
