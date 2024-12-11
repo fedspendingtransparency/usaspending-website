@@ -16,7 +16,6 @@ registerIcons();
 
 const appDiv = document.getElementById("app");
 const root = createRoot(appDiv);
-console.debug("farts");
 const App = root.render(
     <AppContainer />
 );
