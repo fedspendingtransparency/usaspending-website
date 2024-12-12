@@ -141,8 +141,6 @@ describe('searchFiltersReducer', () => {
             };
 
             const updatedState = searchFiltersReducer(startingState, action);
-            console.log("updated state: ", updatedState);
-            console.log("expected: ", expected);
             Object.keys(expected).forEach((key) => {
                 expect(updatedState[key]).toEqual(expected[key]);
             });

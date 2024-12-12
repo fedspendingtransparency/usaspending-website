@@ -267,7 +267,7 @@ const DateRange = (props) => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.errorState, noDates, props.startDate, props.endDate]);
 
-    if (props.timePeriod.size > 0) {
+    if (props.timePeriod?.size > 0) {
         for (const timeinput of props.timePeriod) {
             let dateLabel = '';
             let start = null;
