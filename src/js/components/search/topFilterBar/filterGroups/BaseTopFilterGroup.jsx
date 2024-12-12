@@ -24,7 +24,7 @@ export default class BaseTopFilterGroup extends React.Component {
     render() {
         const tags = this.props.tags.map((tag) => (
             <TopFilterItem
-                key={`top-tag-${this.props.filter.code}-${tag.value}`}
+                key={`top-tag-${tag.id}-${tag.value}`}
                 title={tag.title}
                 value={tag.value}
                 code={this.props.filter.code}

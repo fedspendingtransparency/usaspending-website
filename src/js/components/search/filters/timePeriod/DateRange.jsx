@@ -45,7 +45,7 @@ const DateRange = (props) => {
     const [dropdownOptionSelected, setDropdownOptionSelected] = useState(false);
     const [noDates, setNoDates] = useState(false);
     const prevProps = usePrevious(props);
-
+    const labelArray = [];
     const onClick = (e) => {
         setSelectedDropdownOption(e);
 
@@ -71,10 +71,12 @@ const DateRange = (props) => {
         }
     };
 
-    const localRemoveDateRange = () => {
-        setSelectedDropdownOption('select');
-        setDropdownOptionSelected(false);
-        props.removeDateRange();
+    const localRemoveDateRange = (e) => {
+        if (e.type === 'click' || e.key === "Enter") {
+            setSelectedDropdownOption('select');
+            setDropdownOptionSelected(false);
+            props.removeDateRange(e);
+        }
     };
 
     const dropdownOptions = [
@@ -206,35 +208,6 @@ const DateRange = (props) => {
 
     const startDateDisabledDays = generateStartDateDisabledDays(earliestDate);
     const endDateDisabledDays = generateEndDateDisabledDays(earliestDate);
-    const lastInTimePeriod = props.timePeriod[props.timePeriod.length - 1];
-
-    let dateLabel = '';
-    let hideTags = 'hide';
-
-    if (props.timePeriod.length > 0) {
-        hideTags = '';
-        let start = null;
-        let end = null;
-
-        if (lastInTimePeriod.start_date) {
-            start = dayjs(lastInTimePeriod.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-        }
-        if (lastInTimePeriod.end_date) {
-            end = dayjs(lastInTimePeriod.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-        }
-        if (start && end) {
-            dateLabel = `${start} to ${end}`;
-        }
-        else if (start) {
-            dateLabel = `${start} to present`;
-        }
-        else if (end) {
-            dateLabel = `... to ${end}`;
-        }
-        else {
-            hideTags = 'hide';
-        }
-    }
 
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
@@ -294,6 +267,34 @@ const DateRange = (props) => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.errorState, noDates, props.startDate, props.endDate]);
 
+    if (props.timePeriod?.size > 0) {
+        for (const timeinput of props.timePeriod) {
+            let dateLabel = '';
+            let start = null;
+            let end = null;
+
+            if (timeinput.start_date) {
+                start = dayjs(timeinput.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+            }
+            if (timeinput.end_date) {
+                end = dayjs(timeinput.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+            }
+
+            if (start && end) {
+                dateLabel = `${start} to ${end}`;
+            }
+            else if (start) {
+                dateLabel = `${start} to present`;
+            }
+            else if (end) {
+                dateLabel = `... to ${end}`;
+            }
+
+            if (dateLabel !== '') {
+                labelArray.push(dateLabel);
+            }
+        }
+    }
     return (
         <div className="date-range-option">
             <form
@@ -365,20 +366,28 @@ const DateRange = (props) => {
                 </div>
             </div>
             <div
-                className={`selected-filters ${hideTags}`}
+                className="selected-filters"
                 id="selected-date-range"
                 aria-hidden={noDates}
                 role="status">
-                <button
-                    className="shown-filter-button"
-                    title="Click to remove filter."
-                    aria-label={`Applied date range: ${dateLabel}`}
-                    onClick={localRemoveDateRange}>
-                    {dateLabel}
-                    <span className="close">
-                        <FontAwesomeIcon icon="times" />
-                    </span>
-                </button>
+                {labelArray.map((dateLabel, index) =>
+                    (
+                        <button
+                            className="shown-filter-button"
+                            title="Click to remove filter."
+                            index={index}
+                            tabIndex={0}
+                            aria-label={`Applied date range: ${dateLabel}`}
+                            onClick={localRemoveDateRange}
+                            onKeyUp={localRemoveDateRange}>
+                            {dateLabel}
+                            <span role="button" index={index} tabIndex={0} onKeyup={localRemoveDateRange} onClick={localRemoveDateRange} className="close">
+                                <FontAwesomeIcon tabIndex={0} onKeyup={localRemoveDateRange} onClick={localRemoveDateRange} index={index} icon="times" />
+                            </span>
+                        </button>
+                    )
+                )}
+
             </div>
         </div>
     );

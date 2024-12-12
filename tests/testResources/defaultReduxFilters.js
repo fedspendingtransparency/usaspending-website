@@ -14,11 +14,9 @@ import * as FiscalYearHelper from '../../src/js/helpers/fiscalYearHelper';
 export const defaultFilters = {
     keyword: new OrderedMap(),
     awardType: new Set(),
-    time_period: [],
+    time_period: new Set(),
     timePeriodType: 'dr',
     timePeriodFY: new Set([`${FiscalYearHelper.currentFiscalYear()}`]),
-    timePeriodStart: null,
-    timePeriodEnd: null,
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all',
     budgetFunctions: new OrderedMap(),

@@ -201,11 +201,10 @@ describe('searchAnalytics', () => {
         it('should set the `timePeriod` field to an array of `timePeriodStart` and `timePeriodEnd` filters when a date range is selected', () => {
             const filters = {
                 timePeriodType: 'dr',
-                timePeriodStart: '1900-01-01',
-                timePeriodEnd: '1900-02-01'
+                time_period: new Set([{ start_date: '1900-01-01', end_date: '1900-02-01' }])
             };
             const redux = searchAnalytics.unifyDateFields(filters);
-            expect(redux.timePeriod).toEqual(['1900-01-01', '1900-02-01']);
+            expect(redux.timePeriod).toEqual(new Set([{ start_date: '1900-01-01', end_date: '1900-02-01' }]));
         });
     });
 

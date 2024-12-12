@@ -36,6 +36,7 @@ const propTypes = {
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
+    removeFilter: PropTypes.func,
     updateNewAwardsOnlySelected: PropTypes.func,
     updateNewAwardsOnlyActive: PropTypes.func,
     updateNaoActiveFromFyOrDateRange: PropTypes.func,
@@ -98,8 +99,8 @@ export default class TimePeriod extends React.Component {
 
     determineIfNaoIsActive(prevProps, prevState) {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
-            this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY.size);
-            this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY.size);
+            this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY?.size);
+            this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY?.size);
         }
         if (this.props.dirtyFilters) {
             this.props.updateNewAwardsOnlyActive(true);
@@ -123,12 +124,10 @@ export default class TimePeriod extends React.Component {
             // not filtering by a date range
             return;
         }
-
         // prepopulate the date pickers with the current filter values (in the event of remounting
         // or loading from a URL)
-        const startDate = dayjs(this.props.filterTimePeriodStart, 'YYYY-MM-DD');
-        const endDate = dayjs(this.props.filterTimePeriodEnd, 'YYYY-MM-DD');
-
+        const startDate = dayjs(null, 'YYYY-MM-DD');
+        const endDate = dayjs(null, 'YYYY-MM-DD');
         if (startDate.isValid() && endDate.isValid()) {
             this.setState({
                 startDateUI: startDate,
@@ -191,7 +190,7 @@ export default class TimePeriod extends React.Component {
         });
     }
 
-    removeDateRange() {
+    removeDateRange(e) {
         this.clearHint(true);
         this.props.updateFilter({
             dateType: 'dr',
@@ -203,6 +202,16 @@ export default class TimePeriod extends React.Component {
             startDateUI: null,
             endDateUI: null
         });
+
+        if (this.props.activeTab === 'dr') {
+            this.props.updateFilter({
+                dateType: 'dr',
+                startDate: null,
+                endDate: null,
+                event: e,
+                removeFilter: true
+            });
+        }
     }
 
     showError(error, message) {
