@@ -27,6 +27,7 @@ const CategoryHeader = ({
     iconBackgroundColor,
     title,
     description,
+    itemCount,
     selectCategory,
     isClickable
 }) => {
@@ -43,9 +44,9 @@ const CategoryHeader = ({
                 <div className="search-filter__top-row-text-container">
                     <div className="search-filter__top-row-title">{title}</div>
                 </div>
-                {/* <div className="search-filter__top-row-selected-container">*/}
-                {/*    <div className="search-filter__top-row-selected">{itemCount} selected</div>*/}
-                {/* </div>*/}
+                <div className="search-filter__top-row-selected-container">
+                    <div className="search-filter__top-row-selected">{itemCount} selected</div>
+                </div>
             </div>
             <div className="search-filter__description">{description}</div>
             {/* <div*/}
@@ -81,7 +82,7 @@ const CategoryHeader = ({
         else {
             setContent(filterButton);
         }
-    }, [isClickable]);
+    }, [clickableFilterButton, filterButton, isClickable]);
 
 
     return (<>{ content }</>);
