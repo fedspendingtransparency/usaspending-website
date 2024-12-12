@@ -1,24 +1,18 @@
 .usa-da-bulk-download-page {
     @import "all";
     @import "layouts/default/stickyHeader/header";
-
     @import "./form/downloadForm";
 
     .bulk-download {
-        @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
         padding: 0;
+        margin-left: rem(16);
+        margin-right: rem(16);
 
-        @media(max-width: $medium-screen) {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-            width: 76% !important;
+        @media(min-width: $medium-screen) {
+            margin-left: rem(32);
+            margin-right: rem(32);
         }
-
-
         @include media($medium-screen) {
-            max-width: rem(600);
-            margin: auto;
             &.award-data-archive-special-width {
                 max-width: rem(975);
             }
@@ -30,17 +24,7 @@
             @import "defCheckbox";
             @import "metadataPage";
             background-color: $color-white;
-            padding: rem(30) rem(20);
-
-
-            // @include grid-column(16);
-            // @include media($medium-screen) {
-            //     @include grid-column(12);
-            // }
-            // @media(min-width: $medium-screen) {
-            //     margin-left: 0 !important;
-            //     width: 100% !important;
-            // }
+            padding: rem(30) 0;
         }
     }
 }
