@@ -21,7 +21,7 @@
     max-width: rem(1400);
     margin-left: rem(16);
     margin-right: rem(16);
-    @media (min-width: $medium-screen) {
+    @media (min-width: $tablet-screen) {
       margin-left: rem(32);
       margin-right: rem(32);
     }
