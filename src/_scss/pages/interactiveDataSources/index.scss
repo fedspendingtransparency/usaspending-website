@@ -66,7 +66,7 @@
       margin: 0;
       background: $color-white;
       margin: rem(20) rem(16) rem(20) rem(16);
-      @media (min-width: $medium-screen) {
+      @media (min-width: $tablet-screen) {
         margin: rem(20) rem(32) rem(20) rem(32);
       }
 
