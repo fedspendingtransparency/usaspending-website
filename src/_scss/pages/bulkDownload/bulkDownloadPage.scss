@@ -8,11 +8,11 @@
         margin-left: rem(16);
         margin-right: rem(16);
 
-        @media(min-width: $medium-screen) {
+        @media(min-width: $tablet-screen) {
             margin-left: rem(32);
             margin-right: rem(32);
         }
-        @include media($medium-screen) {
+        @include media($tablet-screen) {
             &.award-data-archive-special-width {
                 max-width: rem(1400);
             }
