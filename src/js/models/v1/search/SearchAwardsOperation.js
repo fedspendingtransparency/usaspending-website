@@ -55,7 +55,7 @@ class SearchAwardsOperation {
 
     fromState(state) {
         this.keyword = state.keyword.toArray();
-        this.time_period = state.time_period.toArray();
+        this.time_period = state.time_period?.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
