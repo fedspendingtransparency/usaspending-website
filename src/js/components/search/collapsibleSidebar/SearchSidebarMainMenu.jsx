@@ -14,11 +14,17 @@ const propTypes = {
 const SearchSidebarMainMenu = ({
     isDrilldown, sidebarHeight, setLevel2, filters
 }) => {
-    const { selectedLocations } = filters;
+    const {
+        selectedLocations,
+        selectedRecipientLocations,
+        timePeriodType,
+        time_period: timePeriod,
+        timePeriodFY
+    } = filters;
 
     const itemCount = {
-        location: selectedLocations.size,
-        timePeriod: 0,
+        location: selectedLocations.size + selectedRecipientLocations.size,
+        timePeriod: timePeriodType === 'dr' ? timePeriod.size : timePeriodFY.size,
         characteristics: 0,
         recipients: 0,
         sources: 0
