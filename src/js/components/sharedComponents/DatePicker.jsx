@@ -9,12 +9,6 @@ import { uniqueId } from 'lodash';
 
 const dayjs = require('dayjs');
 
-const defaultProps = {
-    type: 'startDate',
-    allowClearing: false,
-    disabledDays: []
-};
-
 const propTypes = {
     value: PropTypes.object,
     type: PropTypes.string,
@@ -23,13 +17,11 @@ const propTypes = {
     hideError: PropTypes.func,
     opposite: PropTypes.object,
     title: PropTypes.string,
-    allowClearing: PropTypes.bool,
-    disabledDays: PropTypes.array,
     onFocus: PropTypes.func,
     id: PropTypes.string
 };
 
-const DatePicker = (props) => {
+const DatePicker = ({ type = 'startDate', ...props }) => {
     const [inputValue, setInputValue] = useState('');
 
     const clearValue = () => {
@@ -45,7 +37,7 @@ const DatePicker = (props) => {
     };
 
     const handleDatePick = (day) => {
-        props.onDateChange(day, props.type);
+        props.onDateChange(day, type);
         props.hideError();
     };
 
@@ -83,23 +75,12 @@ const DatePicker = (props) => {
         }
     };
 
-    // don't know if this is necessary anymore
-    // const handleInputBlur = () => {
-    //     if (inputValue.length > 0 && !props.value) {
-    //         // user entered something into the input field and no date has been set yet,
-    //         // input must have been invalid
-    //         props.showError('Invalid Date', 'The date entered is not a valid date.');
-    //         setInputValue('');
-    //     }
-    //     else if (inputValue.length > 0) {
-    //         parseValueForInput();
-    //     }
-    // };
+    const labelId = `picker-${uniqueId()}`;
 
     useEffect(() => {
         parseValueForInput();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.value]);
-    const labelId = `picker-${uniqueId()}`;
 
     return (
         <div className="generate-datepicker-wrap">
@@ -118,7 +99,6 @@ const DatePicker = (props) => {
         </div>
     );
 };
-DatePicker.defaultProps = defaultProps;
 DatePicker.propTypes = propTypes;
 
 export default DatePicker;
