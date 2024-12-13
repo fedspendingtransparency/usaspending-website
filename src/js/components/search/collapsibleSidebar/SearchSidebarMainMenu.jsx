@@ -26,6 +26,8 @@ const SearchSidebarMainMenu = ({
 
     useEffect(() => {
         console.log(filters);
+        itemCount.location = selectedLocations.size;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters]);
 
     return (
