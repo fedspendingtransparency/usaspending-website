@@ -145,7 +145,6 @@ const CollapsibleSidebar = () => {
     }, 50);
 
     const keyHandler = (e, func) => {
-        e.preventDefault();
         if (e.key === "Enter") {
             func(e);
         }
@@ -185,7 +184,8 @@ const CollapsibleSidebar = () => {
                     onClick={(e) => toggleOpened(e)}
                     onKeyDown={(e) => keyHandler(e, toggleOpened)}
                     role="button"
-                    tabIndex="0">
+                    focusable="true"
+                    tabIndex={0}>
                     {isOpened ?
                         <FontAwesomeIcon className="chevron" icon="chevron-left" />
                         :
