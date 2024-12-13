@@ -63,7 +63,6 @@ const SearchPage = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [fullSidebar, setFullSidebar] = useState(false);
 
-
     const dispatch = useDispatch();
 
     const getSlugWithHash = () => {
@@ -140,6 +139,7 @@ const SearchPage = ({
 
     useEffect(() => {
         setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
+        dispatch(setSearchViewSubaward(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -221,9 +221,7 @@ const SearchPage = ({
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
-                            filterCount={filterCount}
-                            showMobileFilters={showMobileFilters}
-                            toggleMobileFilters={toggleMobileFilters} />
+                            showMobileFilters={showMobileFilters} />
                     </FlexGridCol>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />

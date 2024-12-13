@@ -5,8 +5,9 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as SearchHelper from 'helpers/searchHelper';
-import { EntityDropdownAutocomplete } from "../location/EntityDropdownAutocomplete";
+import EntityDropdownAutocomplete from "../location/EntityDropdownAutocomplete";
 import PrimaryCheckboxType from "../../../sharedComponents/checkbox/PrimaryCheckboxType";
 
 const propTypes = {
@@ -17,6 +18,7 @@ const propTypes = {
 const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipients }) => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const recipientRequest = useRef();
 
@@ -43,11 +45,15 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
             recipientRequest.current.cancel();
         }
 
-        recipientRequest.current = SearchHelper.fetchRecipients();
-
+        const paramObj = {
+            limit: 100
+        };
+        recipientRequest.current = SearchHelper.fetchRecipients(paramObj);
+        setIsLoading(true);
         recipientRequest.current.promise
             .then((res) => {
                 setRecipients(res.data.results);
+                setIsLoading(false);
             });
     };
 
@@ -58,14 +64,15 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
 
         const paramObj = {
             search_text: term,
-            limit: 50
+            limit: 100
         };
 
         recipientRequest.current = SearchHelper.fetchRecipientsAutocomplete(paramObj);
-
+        setIsLoading(true);
         recipientRequest.current.promise
             .then((res) => {
                 setRecipients(res.data.results);
+                setIsLoading(false);
             });
     };
 
@@ -83,6 +90,13 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
+    const loadingIndicator = (
+        <div className="recipient-filter-message-container">
+            <FontAwesomeIcon icon="spinner" spin />
+            <div className="recipient-filter-message-container__text">Loading your data...</div>
+        </div>
+    );
+
     return (
         <>
             <EntityDropdownAutocomplete
@@ -92,31 +106,32 @@ const RecipientResultsContainer = ({ selectedRecipients, updateSelectedRecipient
                 context={{}}
                 loading={false}
                 searchIcon />
-            <div className="recipient-results__container">
-                <div className="checkbox-type-filter">
-                    { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient) => (
-                        <div className="recipient-label__container">
-                            <PrimaryCheckboxType
-                                name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
-                                value={{
-                                    name: recipient.name ? recipient.name : recipient.recipient_name,
-                                    uei: recipient.uei,
-                                    duns: recipient.duns ? recipient.duns : null
-                                }}
-                                key={recipient.uei}
-                                toggleCheckboxType={toggleRecipient}
-                                selectedCheckboxes={selectedRecipients} />
-                            <div className="recipient-label__lower-container">
-                                <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns ? recipient.duns : 'Not provided'}</div>
-                                <div className="recipient-label__name-container">
-                                    <span className="recipient-label__recipient-name">{recipient.name || recipient.recipient_name}</span>
-                                    <span className="recipient-label__recipient-level">{levelMapping[recipient.recipient_level]}</span>
+            {isLoading ? loadingIndicator :
+                <div className="recipient-results__container">
+                    <div className="checkbox-type-filter">
+                        { recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1)).map((recipient) => (
+                            <div className="recipient-label__container">
+                                <PrimaryCheckboxType
+                                    name={(<div className="recipient-checkbox__uei"> <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}</div>)}
+                                    value={{
+                                        name: recipient.name ? recipient.name : recipient.recipient_name,
+                                        uei: recipient.uei,
+                                        duns: recipient.duns ? recipient.duns : null
+                                    }}
+                                    key={recipient.uei}
+                                    toggleCheckboxType={toggleRecipient}
+                                    selectedCheckboxes={selectedRecipients} />
+                                <div className="recipient-label__lower-container">
+                                    <div className="recipient-label__legacy-duns">Legacy DUNS: {recipient.duns ? recipient.duns : 'Not provided'}</div>
+                                    <div className="recipient-label__name-container">
+                                        <span className="recipient-label__recipient-name">{recipient.name || recipient.recipient_name}</span>
+                                        <span className="recipient-label__recipient-level">{levelMapping[recipient.recipient_level]}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+                        ))}
+                    </div>
+                </div>}
         </>
     );
 };

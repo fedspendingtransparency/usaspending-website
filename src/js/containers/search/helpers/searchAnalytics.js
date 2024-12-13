@@ -234,7 +234,7 @@ export const unifyDateFields = (redux) => {
         clonedRedux.timePeriod = clonedRedux.timePeriodFY;
     }
     else {
-        clonedRedux.timePeriod = [clonedRedux.timePeriodStart, clonedRedux.timePeriodEnd];
+        clonedRedux.timePeriod = clonedRedux.time_period;
     }
     return clonedRedux;
 };

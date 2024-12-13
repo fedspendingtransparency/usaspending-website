@@ -13,10 +13,6 @@ const propTypes = {
     selectedFY: PropTypes.object
 };
 
-const defaultProps = {
-    selected: false
-};
-
 const FiscalYearChip = ({
     year, saveSelectedYear, selectedFY
 }) => {
@@ -39,5 +35,5 @@ const FiscalYearChip = ({
 };
 
 FiscalYearChip.propTypes = propTypes;
-FiscalYearChip.defaultProps = defaultProps;
+
 export default FiscalYearChip;

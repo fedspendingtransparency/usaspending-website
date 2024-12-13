@@ -22,53 +22,48 @@ const propTypes = {
     removeFilter: PropTypes.func
 };
 
-const defaultProps = {
-    awardAmountRanges: awardRanges
-};
-
-const AwardAmountSearch = (props) => {
+const AwardAmountSearch = ({
+    selectAwardRange,
+    awardAmountRanges = awardRanges,
+    awardAmounts,
+    dirtyFilters,
+    removeFilter
+}) => {
     const [hint, setHint] = useState(null);
 
 
     const toggleSelection = (selection) => {
-        props.selectAwardRange(selection);
+        selectAwardRange(selection);
     };
 
     const searchSpecificRange = (selections) => {
         const min = selections[0];
         const max = selections[1];
-        props.selectAwardRange({ value: [min, max] });
+        selectAwardRange({ value: [min, max] });
     };
 
-    const awardAmountCheckboxes = () => {
-        const { awardAmountRanges, awardAmounts } = props;
-        return reduce(awardAmountRanges, (result, value, key) => {
-            const name = formatAwardAmountRange(
-                value, 0);
-            result.push(
-                (<PrimaryCheckboxType
-                    {...props}
-                    key={key}
-                    id={`award-${key}`}
-                    name={name}
-                    value={key}
-                    types={awardRanges}
-                    code={value}
-                    filterType="Award Amount"
-                    selectedCheckboxes={awardAmounts}
-                    toggleCheckboxType={toggleSelection} />)
-            );
-            return result;
-        }, []);
-    };
+    const awardAmountCheckboxes = () => reduce(awardAmountRanges, (result, value, key) => {
+        const name = formatAwardAmountRange(
+            value, 0);
+        result.push(
+            (<PrimaryCheckboxType
+                id={`award-${key}`}
+                name={name}
+                value={key}
+                filterType="Award Amount"
+                types={awardRanges}
+                selectedCheckboxes={awardAmounts}
+                toggleCheckboxType={toggleSelection} />)
+        );
+        return result;
+    }, []);
 
     const removeFilterFn = (name) => {
-        const { removeFilter } = props;
         removeFilter(name);
     };
 
     const stagedFilters = () => {
-        const filterObject = props.awardAmounts.toObject();
+        const filterObject = awardAmounts.toObject();
         let stagedFilter;
         let name;
         each(filterObject, (val, key) => {
@@ -86,10 +81,10 @@ const AwardAmountSearch = (props) => {
     };
 
     useEffect(() => {
-        if (props.dirtyFilters && hint) {
+        if (dirtyFilters && hint) {
             hint.showHint();
         }
-    }, [props.dirtyFilters]);
+    }, [dirtyFilters, hint]);
 
     const stagedFiltersResult = stagedFilters();
     const awardAmountRangeItems = awardAmountCheckboxes();
@@ -99,9 +94,7 @@ const AwardAmountSearch = (props) => {
             <div className="filter-item-wrap">
                 <ul className="award-amounts checkbox-types">
                     {awardAmountRangeItems}
-                    <SpecificAwardAmountItem
-                        {...props}
-                        searchSpecificRange={searchSpecificRange} />
+                    <SpecificAwardAmountItem searchSpecificRange={searchSpecificRange} />
                 </ul>
                 <SubmitHint
                     ref={(component) => {
@@ -118,5 +111,4 @@ const AwardAmountSearch = (props) => {
 };
 
 AwardAmountSearch.propTypes = propTypes;
-AwardAmountSearch.defaultProps = defaultProps;
 export default AwardAmountSearch;

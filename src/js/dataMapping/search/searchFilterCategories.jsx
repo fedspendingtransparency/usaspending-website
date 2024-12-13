@@ -9,6 +9,8 @@ import TimePeriodContainer from "../../containers/search/filters/TimePeriodConta
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
 import AgencyContainer from "../../containers/search/filters/AgencyContainer";
 import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
+import RecipientSearchContainer from "../../containers/search/filters/recipient/RecipientSearchContainer";
+import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
 import AwardAmountSearchContainer from "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
 // import {AwardTypeContainer} from "../../containers/search/filters/AwardTypeContainer";
 // import {NAICSCheckboxTree} from "../../containers/search/filters/naics/NAICSCheckboxTree";
@@ -73,44 +75,61 @@ export const FilterCategoryTree = {
     characteristics: {
         children: [
             {
-                title: 'Award Description'
+                categoryType: 'ALL',
+                categories: [
+                    {
+                        title: 'Award Description'
+                    },
+                    {
+                        title: 'Award ID',
+                        component: <AwardIDSearchContainer />
+                    },
+                    {
+                        title: 'Spending Amount',
+                        component: <AwardAmountSearchContainer />
+                    }                    }
+                ]
             },
             {
-                title: 'Award ID',
-                component: <AwardIDSearchContainer />
+                categoryType: 'CONTRACTS',
+                categories: [
+                    {
+                        title: 'Contract Award Type'
+                        // component: <AwardTypeContainer />
+                    },
+                    {
+                        title: 'North American Industry Classification System (NAICS)'
+                        // component: <NAICSCheckboxTree />
+                    },
+                    {
+                        title: 'Product and Service Code (PSC)'
+                        // component: <PSCCheckboxTreeContainer />
+                    },
+                    {
+                        title: 'Type of Contract Pricing',
+                        component: <PricingTypeContainer />
+                    },
+                    {
+                        title: 'Type of Set Aside',
+                        component: <SetAsideContainer />
+                    },
+                    {
+                        title: 'Extent Competed',
+                        component: <ExtentCompetedContainer />
+                    }
+                ]
             },
             {
-                title: 'Spending Amount',
-                component: <AwardAmountSearchContainer />
-            },
-            {
-                title: 'Contract Award Type' // ,
-                // component: <AwardTypeContainer />
-            },
-            {
-                title: 'North American Industry Classification System (NAICS)'// ,
-                // component: <NAICSCheckboxTree />
-            },
-            {
-                title: 'Product and Service Code (PSC)'// ,
-                // component: <PSCCheckboxTreeContainer />
-            },
-            {
-                title: 'Type of Contract Pricing',
-                component: <PricingTypeContainer />
-            },
-            {
-                title: 'Type of Set Aside',
-                component: <SetAsideContainer />
-
-            },
-            {
-                title: 'Extent Competed',
-                component: <ExtentCompetedContainer />
-            },
-            {
-                title: 'Financial Assistance Award Type'
-                // component: <CFDASearchContainer />
+                categoryType: 'FINANCIAL ASSISTANCE',
+                categories: [
+                    {
+                        title: 'Financial Assistance Award Type'
+                        // component: <CFDASearchContainer />
+                    },
+                    {
+                        title: 'Assistance Listing'
+                    }
+                ]
             }
 
         ]
@@ -119,28 +138,40 @@ export const FilterCategoryTree = {
     recipients: {
         children: [
             {
-                title: 'Recipient'
+                title: 'Recipient',
+                component: <RecipientSearchContainer />
             },
             {
-                title: 'Recipient Type'
+                title: 'Recipient Type',
+                component: <RecipientTypeContainer />
             }
         ]
     },
     sources: {
         children: [
             {
-                title: 'Agency',
-                component: <AgencyContainer />
+                categoryType: 'doNotDisplay',
+                categories: [
+                    {
+                        title: 'Agency',
+                        component: <AgencyContainer />
+                    },
+                    {
+                        title: 'Treasury Account Symbol (TAS)',
+                        component: <TASCheckboxTreeContainer showInfo={false} />
+                    }
+                ]
             },
             {
-                title: 'Treasury Account Symbol (TAS)',
-                component: <TASCheckboxTreeContainer showInfo={false} />
-            },
-            {
-                title: 'COVID-19 Spending'
-            },
-            {
-                title: 'Infrastructure Spending'
+                categoryType: 'DISASTER EMERGENCY FUND CODE (DEFC)',
+                categories: [
+                    {
+                        title: 'COVID-19 Spending'
+                    },
+                    {
+                        title: 'Infrastructure Spending'
+                    }
+                ]
             }
         ]
     }
