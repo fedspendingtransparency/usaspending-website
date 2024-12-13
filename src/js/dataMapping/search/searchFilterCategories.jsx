@@ -87,7 +87,7 @@ export const FilterCategoryTree = {
                     {
                         title: 'Spending Amount',
                         component: <AwardAmountSearchContainer />
-                    }                    }
+                    }
                 ]
             },
             {
@@ -124,10 +124,10 @@ export const FilterCategoryTree = {
                 categories: [
                     {
                         title: 'Financial Assistance Award Type'
-                        // component: <CFDASearchContainer />
                     },
                     {
                         title: 'Assistance Listing'
+                        // component: <CFDASearchContainer />
                     }
                 ]
             }
