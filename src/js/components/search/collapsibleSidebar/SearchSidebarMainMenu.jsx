@@ -19,14 +19,16 @@ const SearchSidebarMainMenu = ({
         selectedRecipientLocations,
         timePeriodType,
         time_period: timePeriod,
-        timePeriodFY
+        timePeriodFY,
+        selectedRecipients,
+        recipientType
     } = filters;
 
     const itemCount = {
         location: selectedLocations.size + selectedRecipientLocations.size,
         timePeriod: timePeriodType === 'dr' ? timePeriod.size : timePeriodFY.size,
         characteristics: 0,
-        recipients: 0,
+        recipients: selectedRecipients.size + recipientType.size,
         sources: 0
     };
 
