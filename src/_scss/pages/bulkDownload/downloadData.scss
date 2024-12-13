@@ -7,8 +7,6 @@
         }
     }
     .download-center__filters {
-        @include grid-column(16);
-        margin-left: 0 !important;
         @include media($medium-screen) {
             width: 100%;
         }
@@ -24,9 +22,6 @@
         }
         @import "./form/downloadForm";
         .download-center__reset-container {
-            @media(max-width: $medium-screen) {
-                width: 79.5%;
-            }
             .download-center__reset {
                 @include button-unstyled;
                 display: block;
@@ -38,14 +33,8 @@
     }
 
     .download-info {
-        @include grid-column(16);
-        margin-left: rem(10);
-        width: 94%;
         @include media($medium-screen) {
-            @include grid-column(7);
-            border-left: solid 1px #e1e1e1;
-            padding: rem(15) rem(30) 0 rem(30);
-            width: 94%;
+            padding: rem(15) 0 0 0;
         }
 
         h3.download-info__title {
