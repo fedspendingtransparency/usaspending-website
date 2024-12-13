@@ -21,6 +21,13 @@ const SearchSidebarMainMenu = ({
         time_period: timePeriod,
         timePeriodFY,
         selectedAwardIDs,
+        awardAmounts,
+        awardType,
+        naicsCodes,
+        pscCodes,
+        pricingType,
+        setAside,
+        extentCompeted,
         selectedRecipients,
         recipientType,
         selectedAwardingAgencies,
@@ -34,7 +41,15 @@ const SearchSidebarMainMenu = ({
         tasCodes.counts.length +
         defCodes.counts.length;
 
-    const characteristicsCount = selectedAwardIDs.size;
+    // TODO: Add Award Description (?) to count
+    const characteristicsCount = selectedAwardIDs.size +
+        awardAmounts.size +
+        awardType.size +
+        naicsCodes.counts.length +
+        pscCodes.counts.length +
+        pricingType.size +
+        setAside.size +
+        extentCompeted.size;
 
     const itemCount = {
         location: selectedLocations.size + selectedRecipientLocations.size,
