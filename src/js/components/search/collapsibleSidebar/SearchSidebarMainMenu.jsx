@@ -21,20 +21,35 @@ const SearchSidebarMainMenu = ({
         time_period: timePeriod,
         timePeriodFY,
         selectedRecipients,
-        recipientType
+        recipientType,
+        selectedAwardingAgencies,
+        selectedFundingAgencies,
+        tasCodes,
+        defCodes
     } = filters;
+
+    const tasCounts = tasCodes._map._root.entries.filter(
+        (array) => array[0] === 'counts'
+    )[0][1].length;
+    const defCounts = defCodes._map._root.entries.filter(
+        (array) => array[0] === 'counts'
+    )[0][1].length;
+
+    const sourcesCount = selectedAwardingAgencies.size +
+        selectedFundingAgencies.size +
+        tasCounts +
+        defCounts;
 
     const itemCount = {
         location: selectedLocations.size + selectedRecipientLocations.size,
         timePeriod: timePeriodType === 'dr' ? timePeriod.size : timePeriodFY.size,
         characteristics: 0,
         recipients: selectedRecipients.size + recipientType.size,
-        sources: 0
+        sources: sourcesCount
     };
 
     useEffect(() => {
-        console.log(filters);
-        itemCount.location = selectedLocations.size;
+        console.log(tasCounts);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters]);
 
