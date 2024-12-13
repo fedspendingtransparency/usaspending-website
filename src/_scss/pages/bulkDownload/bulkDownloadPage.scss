@@ -11,6 +11,7 @@
         @media(min-width: $tablet-screen) {
             margin-left: rem(32);
             margin-right: rem(32);
+            max-width: rem(600);
         }
         @include media($tablet-screen) {
             &.award-data-archive-special-width {
