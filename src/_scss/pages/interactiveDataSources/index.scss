@@ -39,7 +39,6 @@
     @include flex-grow(1);
     @include flex-wrap(wrap);
     max-width: rem(1400);
-    margin: 0 rem(32);
 
     ul {
       padding: 0;
