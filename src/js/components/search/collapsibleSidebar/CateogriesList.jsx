@@ -1,5 +1,7 @@
-/* CategoriesList.jsx */
-/* Created by Andrea Blackwell November 8, 2024 */
+/**
+ * CategoriesList.jsx
+ * Created by Andrea Blackwell November 8, 2024
+ */
 
 import React from "react";
 import PropTypes from 'prop-types';
@@ -8,7 +10,13 @@ import CategoryHeader from "./CategoryHeader";
 
 const propTypes = {
     categories: PropTypes.object,
-    setLevel3: PropTypes.func
+    setLevel3: PropTypes.func,
+    iconName: PropTypes.string,
+    iconColor: PropTypes.string,
+    iconBackgroundColor: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    height: PropTypes.number
 };
 
 const CategoriesList = ({
@@ -29,7 +37,7 @@ const CategoriesList = ({
             title={title}
             description={description} />
         <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
-            <div style={{ margin: "0 16px 0 32px" }}>
+            <div style={{ margin: "0 32px"}}>
                 {categories.map((item) => {
                     if (item?.categoryType) {
                         return (
