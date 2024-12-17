@@ -3,7 +3,7 @@
  * Created by Emily Gullo 11/01/2016
  **/
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
@@ -45,35 +45,21 @@ const awardTypesData = [
 
 const propTypes = {
     awardType: PropTypes.object,
-    bulkTypeChange: PropTypes.func,
     toggleCheckboxType: PropTypes.func,
-    dirtyFilters: PropTypes.symbol
+    bulkTypeChange: PropTypes.func
 };
 
-const AwardType = (props) => {
-    const hint = useRef();
-
-    useEffect(() => {
-        if (hint.current) {
-            hint.current.showHint();
-        }
-    }, [props.dirtyFilters]);
-
-    return (
-        <div className="award-type-filter search-filter checkbox-type-filter">
-            <AccordionCheckbox
-                filterCategoryMapping={awardTypesData}
-                filters={awardTypeCodes}
-                selectedFilters={props.awardType}
-                singleFilterChange={props.toggleCheckboxType}
-                bulkFilterChange={props.bulkTypeChange} />
-            <SubmitHint
-                ref={(component) => {
-                    hint.current = component;
-                }} />
-        </div>
-    );
-};
+const AwardType = ({ awardType, toggleCheckboxType, bulkTypeChange }) => (
+    <div className="award-type-filter search-filter checkbox-type-filter">
+        <AccordionCheckbox
+            filterCategoryMapping={awardTypesData}
+            filters={awardTypeCodes}
+            selectedFilters={awardType}
+            singleFilterChange={toggleCheckboxType}
+            bulkFilterChange={bulkTypeChange} />
+        <SubmitHint selectedFilters={awardType} />
+    </div>
+);
 AwardType.propTypes = propTypes;
 
 export default AwardType;
