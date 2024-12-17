@@ -149,15 +149,24 @@
       }
 
       .categories-list-item-container {
-        margin-top: 16px;
-        padding-bottom: 4px;
-        min-height: 26px;
+        padding-top: rem(16);
+        padding-bottom: rem(4);
+        min-height: rem(39);
         line-height: 1.5;
         align-items: center;
         font-size: $smallest-font-size;
         color: $gray-90;
         font-weight: $font-semibold;
         border-bottom: solid 1px $gray-cool-10;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $gray-cool-2;
+
+          .chevron {
+            color: $blue-70v;
+          }
+        }
       }
 
       .categories-list {

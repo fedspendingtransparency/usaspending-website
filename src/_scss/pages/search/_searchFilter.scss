@@ -5,6 +5,10 @@
   }
   padding: $global-margin * 2 $global-margin * 4;
 
+  &:hover {
+    background-color: $gray-cool-3;
+  }
+
   .search-filter__content {
     height: rem(91);
 
