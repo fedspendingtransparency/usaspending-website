@@ -151,7 +151,7 @@ const SpendingByCategoriesChart = (props) => {
                         left: 8,
                         bottom: 10
                     }}>
-                    <XAxis type="number" domain={[(dataMin) => (dataMin * 1.03), 'auto']} hide />
+                    <XAxis type="number" domain={[(dataMin) => (dataMin * 1.05), 'auto']} hide />
                     <YAxis
                         type="category"
                         dataKey="label"
