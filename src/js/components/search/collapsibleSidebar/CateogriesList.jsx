@@ -37,7 +37,7 @@ const CategoriesList = ({
             title={title}
             description={description} />
         <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
-            <div style={{ margin: "0 32px"}}>
+            <div style={{ margin: "0 32px" }}>
                 {categories.map((item) => {
                     if (item?.categoryType) {
                         return (
