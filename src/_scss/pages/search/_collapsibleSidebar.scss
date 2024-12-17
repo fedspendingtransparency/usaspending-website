@@ -40,7 +40,7 @@
     margin: auto;
     color: $blue-50;
     width: 6px;
-    height: 10px;
+    height: 100%;
   }
 
   .collapsible-sidebar--toggle {
@@ -149,11 +149,8 @@
       }
 
       .categories-list-item-container {
-        padding-top: rem(16);
-        padding-bottom: rem(4);
         min-height: rem(39);
         line-height: 1.5;
-        align-items: center;
         font-size: $smallest-font-size;
         color: $gray-90;
         font-weight: $font-semibold;
@@ -165,6 +162,18 @@
 
           .chevron {
             color: $blue-70v;
+          }
+        }
+
+        .categories-list-item {
+          display: flex;
+          align-content: center;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          padding: rem(12) 0;
+
+          div {
+            max-width: rem(250);
           }
         }
       }
