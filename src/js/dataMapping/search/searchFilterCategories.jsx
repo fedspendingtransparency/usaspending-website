@@ -12,7 +12,7 @@ import TASCheckboxTreeContainer from "../../containers/search/filters/programSou
 import RecipientSearchContainer from "../../containers/search/filters/recipient/RecipientSearchContainer";
 import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
 import AwardAmountSearchContainer from "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
-// import {AwardTypeContainer} from "../../containers/search/filters/AwardTypeContainer";
+import AwardTypeContainer from "../../containers/search/filters/AwardTypeContainer";
 // import {NAICSCheckboxTree} from "../../containers/search/filters/naics/NAICSCheckboxTree";
 // import {PSCCheckboxTreeContainer} from "../../containers/search/filters/psc/PSCCheckboxTreeContainer";
 import PricingTypeContainer from "../../containers/search/filters/PricingTypeContainer";
@@ -94,8 +94,8 @@ export const FilterCategoryTree = {
                 categoryType: 'CONTRACTS',
                 categories: [
                     {
-                        title: 'Contract Award Type'
-                        // component: <AwardTypeContainer />
+                        title: 'Contract Award Type',
+                        component: <AwardTypeContainer />
                     },
                     {
                         title: 'North American Industry Classification System (NAICS)'

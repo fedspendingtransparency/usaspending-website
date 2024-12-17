@@ -60,6 +60,6 @@ const AwardType = ({ awardType, toggleCheckboxType, bulkTypeChange }) => (
         <SubmitHint selectedFilters={awardType} />
     </div>
 );
-AwardType.propTypes = propTypes;
 
+AwardType.propTypes = propTypes;
 export default AwardType;

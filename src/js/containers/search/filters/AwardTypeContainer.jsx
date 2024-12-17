@@ -39,7 +39,6 @@ const AwardTypeContainer = ({
 };
 
 AwardTypeContainer.propTypes = propTypes;
-
 export default connect(
     (state) => ({
         awardType: state.filters.awardType
