@@ -9,7 +9,8 @@ const propTypes = {
     list: PropTypes.array,
     filter: PropTypes.object,
     isDrilldown: PropTypes.bool,
-    windowHeight: PropTypes.number,
+    gotBack: PropTypes.func,
+    sidebarHeight: PropTypes.number,
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
     selectedCategoryTitle: PropTypes.string
