@@ -11,11 +11,12 @@ const propTypes = {
     isDrilldown: PropTypes.bool,
     windowHeight: PropTypes.number,
     selectedCategory: PropTypes.object,
-    setLevel3: PropTypes.func
+    setLevel3: PropTypes.func,
+    selectedCategoryTitle: PropTypes.string
 };
 
 const SearchSidebarDrilldown = ({
-    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight
+    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight, selectedCategoryTitle
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -52,7 +53,7 @@ const SearchSidebarDrilldown = ({
                     iconName={selectedCategory.iconName}
                     iconColor={selectedCategory.iconColor}
                     iconBackgroundColor={selectedCategory.iconBackgroundColor}
-                    title={selectedCategory.title}
+                    title={selectedCategoryTitle}
                     description={selectedCategory.description}
                     component={filter} />}
             </div>

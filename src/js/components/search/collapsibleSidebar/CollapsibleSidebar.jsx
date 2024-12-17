@@ -203,6 +203,7 @@ const CollapsibleSidebar = () => {
                     isDrilldown={isDrilldown}
                     windowHeight={windowHeight}
                     selectedCategory={selectedCategory}
+                    selectedCategoryTitle={drilldown?.title}
                     sidebarHeight={sidebarHeight}
                     setLevel3={setLevel3}
                     goBack={goBack} />
