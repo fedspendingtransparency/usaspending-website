@@ -155,7 +155,6 @@
         color: $gray-90;
         font-weight: $font-semibold;
         border-bottom: solid 1px $gray-cool-10;
-        cursor: pointer;
 
         &:hover {
           background-color: $gray-cool-2;
@@ -171,9 +170,15 @@
           flex-wrap: wrap;
           justify-content: space-between;
           padding: rem(12) 0;
+          cursor: pointer;
 
           div {
             max-width: rem(250);
+            cursor: pointer;
+          }
+
+          svg {
+            cursor: pointer;
           }
         }
       }
