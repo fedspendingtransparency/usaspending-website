@@ -51,11 +51,7 @@ const SearchSidebarDrilldown = ({
 
                 {filter && <CategoryFilter
                     height={sidebarHeight}
-                    iconName={selectedCategory.iconName}
-                    iconColor={selectedCategory.iconColor}
-                    iconBackgroundColor={selectedCategory.iconBackgroundColor}
                     title={selectedCategoryTitle}
-                    description={selectedCategory.description}
                     component={filter} />}
             </div>
         </div>);

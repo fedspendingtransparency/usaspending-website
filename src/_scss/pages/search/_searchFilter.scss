@@ -16,6 +16,11 @@
     height: rem(124);
     padding: ($global-margin * 2) 0 rem(46) 0;
 
+    &.filter-header__title {
+      padding-bottom: $global-margin * 3;
+      height: unset;
+    }
+
     .search-filter__top-row {
       display: flex;
 

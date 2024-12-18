@@ -33,13 +33,15 @@ const CategoryHeader = ({
     const [content, setContent] = useState();
 
     const innerContent = (
-        <div className="search-filter__content">
+        <div className={`search-filter__content ${iconName ? '' : 'filter-header__title'}`}>
             <div className="search-filter__top-row">
-                <div
-                    className="search-filter__top-row-icon-container"
-                    style={{ backgroundColor: iconBackgroundColor }}>
-                    <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
-                </div>
+                {iconName &&
+                    <div
+                        className="search-filter__top-row-icon-container"
+                        style={{ backgroundColor: iconBackgroundColor }}>
+                        <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
+                    </div>
+                }
                 <div className="search-filter__top-row-text-container">
                     <div className="search-filter__top-row-title">{title}</div>
                 </div>
@@ -47,7 +49,9 @@ const CategoryHeader = ({
                 {/*    <div className="search-filter__top-row-selected">{itemCount} selected</div>*/}
                 {/* </div>*/}
             </div>
-            <div className="search-filter__description">{description}</div>
+            {description &&
+                <div className="search-filter__description">{description}</div>
+            }
             {/* <div*/}
             {/*    className="search-filter__bottom-section">*/}
             {/*    {selectedItems.map((selectedItem) => (*/}
@@ -81,7 +85,7 @@ const CategoryHeader = ({
         else {
             setContent(filterButton);
         }
-    }, [isClickable]);
+    }, [clickableFilterButton, filterButton, isClickable]);
 
 
     return (<>{ content }</>);
