@@ -116,6 +116,10 @@
         display: none;
       }
 
+      .filter-item-wrap {
+        padding: 0 32px;
+      }
+
       &.opened {
         display: block;
         -webkit-animation: drilldown-slidein 0.2s forwards;
@@ -162,10 +166,6 @@
 
       .categories-list {
         overflow-y: auto;
-      }
-
-      .location-filter {
-        padding: 0 0 2rem 0;
       }
     }
 

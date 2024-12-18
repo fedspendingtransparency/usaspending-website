@@ -344,7 +344,7 @@ export default class TimePeriod extends React.Component {
 
         return (
             <div className="tab-filter-wrap">
-                <div className="filter-item-wrap location-filter">
+                <div className="filter-item-wrap">
                     <FilterTabs
                         labels={tabLabels}
                         switchTab={toggleTab}
