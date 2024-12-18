@@ -26,6 +26,30 @@ const SearchSidebarDrilldown = ({
         }
     };
 
+    let categoryFilter;
+
+    if (selectedCategory?.title === 'Location' || selectedCategory?.title === 'Time Period') {
+        categoryFilter = (
+            <CategoryFilter
+                height={sidebarHeight}
+                iconName={selectedCategory.iconName}
+                iconColor={selectedCategory.iconColor}
+                iconBackgroundColor={selectedCategory.iconBackgroundColor}
+                title={selectedCategoryTitle}
+                description={selectedCategory.description}
+                component={filter} />
+        );
+    }
+    else {
+        categoryFilter = (
+            <CategoryFilter
+                height={sidebarHeight}
+                title={selectedCategoryTitle}
+                component={filter} />
+        );
+    }
+
+
     return (
         <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
             <div className="collapsible-sidebar--header">
@@ -49,10 +73,7 @@ const SearchSidebarDrilldown = ({
                     categories={list}
                     setLevel3={setLevel3} />}
 
-                {filter && <CategoryFilter
-                    height={sidebarHeight}
-                    title={selectedCategoryTitle}
-                    component={filter} />}
+                {filter && categoryFilter}
             </div>
         </div>);
 };
