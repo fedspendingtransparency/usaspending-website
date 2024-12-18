@@ -81,7 +81,7 @@ const LocationSection = (props) => {
     ];
 
     return (
-        <div className="location-filter search-filter">
+        <div className="filter-item-wrap location-filter search-filter">
             <FilterTabs
                 labels={tabLabels}
                 switchTab={toggleTab}
