@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CategoryHeader from "./CategoryHeader";
 
 const propTypes = {
-    categories: PropTypes.object,
+    categories: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     setLevel3: PropTypes.func,
     iconName: PropTypes.string,
     iconColor: PropTypes.string,
