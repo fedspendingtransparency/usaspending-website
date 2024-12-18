@@ -175,6 +175,14 @@
           div {
             max-width: rem(250);
             cursor: pointer;
+
+            &:first-of-type {
+              padding-left: rem(4);
+            }
+
+            &:last-of-type {
+              padding-right: rem(4);
+            }
           }
 
           svg {
