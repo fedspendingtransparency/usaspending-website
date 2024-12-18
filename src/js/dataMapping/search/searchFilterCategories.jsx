@@ -18,7 +18,7 @@ import PSCCheckboxTreeContainer from "../../containers/search/filters/psc/PSCChe
 import PricingTypeContainer from "../../containers/search/filters/PricingTypeContainer";
 import SetAsideContainer from "../../containers/search/filters/SetAsideContainer";
 import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
-// import {CFDASearchContainer} from "../../containers/search/filters/cfda/CFDASearchContainer";
+import CFDASearchContainer from "../../containers/search/filters/cfda/CFDASearchContainer";
 
 export const SearchFilterCategories = [
     {
@@ -138,8 +138,8 @@ export const FilterCategoryTree = {
                         title: 'Financial Assistance Award Type'
                     },
                     {
-                        title: 'Assistance Listing'
-                        // component: <CFDASearchContainer />
+                        title: 'Assistance Listing',
+                        component: <CFDASearchContainer />
                     }
                 ]
             }
