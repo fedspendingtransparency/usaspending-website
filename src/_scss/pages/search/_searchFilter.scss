@@ -8,7 +8,7 @@
   }
   padding: 0 ($global-margin * 4);
 
-  &:hover {
+  &.hover:hover{
     background-color: $gray-cool-3;
   }
 

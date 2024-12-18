@@ -69,7 +69,7 @@ const CategoryHeader = ({
 
     const clickableFilterButton = (
         <div
-            className="search-filter__container"
+            className="search-filter__container hover"
             onClick={(e) => selectCategory(e, item)}
             onKeyDown={(e) => (e.key === "Enter" ? selectCategory(e, item) : '')}
             tabIndex={0}
@@ -85,7 +85,8 @@ const CategoryHeader = ({
         else {
             setContent(filterButton);
         }
-    }, [clickableFilterButton, filterButton, isClickable]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isClickable]);
 
 
     return (<>{ content }</>);
