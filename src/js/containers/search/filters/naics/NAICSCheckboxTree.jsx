@@ -42,7 +42,7 @@ import {
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
-import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
+import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 const propTypes = {

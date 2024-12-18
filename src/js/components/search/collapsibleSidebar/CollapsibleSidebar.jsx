@@ -51,7 +51,7 @@ const CollapsibleSidebar = () => {
             setIsDrilldown(false);
         }
         else if (currentLevel === 3) {
-            setDrilldown(selectedCategory[FilterCategoryTree[selectedCategory?.categoryKey]]);
+            setDrilldown(FilterCategoryTree[selectedCategory?.categoryKey]);
             setCurrentLevel(2);
         }
     };
@@ -145,7 +145,6 @@ const CollapsibleSidebar = () => {
     }, 50);
 
     const keyHandler = (e, func) => {
-        e.preventDefault();
         if (e.key === "Enter") {
             func(e);
         }
@@ -185,7 +184,8 @@ const CollapsibleSidebar = () => {
                     onClick={(e) => toggleOpened(e)}
                     onKeyDown={(e) => keyHandler(e, toggleOpened)}
                     role="button"
-                    tabIndex="0">
+                    focusable="true"
+                    tabIndex={0}>
                     {isOpened ?
                         <FontAwesomeIcon className="chevron" icon="chevron-left" />
                         :

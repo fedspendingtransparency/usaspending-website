@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { find, throttle } from 'lodash';
-import { ComingSoon, ShareIcon } from 'data-transparency-ui';
+import { ComingSoon, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -228,7 +228,7 @@ const InteractiveDataSourcesPage = () => {
             jumpToSection={jumpToSection}
             inPageNav>
             <main id="main-content" className="main-content usda__flex-row">
-                <div className="body usda__flex-col">
+                <FlexGridCol className="body usda__flex-col">
                     {sections.map((section) => (
                         <InteractiveDataSourcesSection
                             key={section.section}
@@ -236,7 +236,7 @@ const InteractiveDataSourcesPage = () => {
                             {section.component || <ComingSoon />}
                         </InteractiveDataSourcesSection>
                     ))}
-                </div>
+                </FlexGridCol>
             </main>
         </PageWrapper>
     );

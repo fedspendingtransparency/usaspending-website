@@ -22,9 +22,7 @@ const propTypes = {
     noResults: PropTypes.bool,
     characterLimit: PropTypes.number,
     retainValue: PropTypes.bool,
-    dirtyFilters: PropTypes.symbol,
     minCharsToSearch: PropTypes.number,
-    inFlight: PropTypes.bool,
     icon: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'medium']),
     id: PropTypes.string,
@@ -32,26 +30,28 @@ const propTypes = {
     isLoading: PropTypes.bool
 };
 
-const defaultProps = {
-    values: [],
-    placeholder: '',
-    errorHeader: 'No results found',
-    errorMessage: '',
-    maxSuggestions: 1000,
-    label: '',
-    noResults: false,
-    characterLimit: 524288, // default for HTML input elements
-    retainValue: false,
-    dirtyFilters: Symbol(''),
-    minCharsToSearch: 3,
-    icon: false,
-    size: 'medium',
-    id: '',
-    minChar: false,
-    isLoading: false
-};
-
-const Autocomplete = (props) => {
+const Autocomplete = ({
+    handleTextInput,
+    onSelect,
+    clearAutocompleteSuggestions,
+    values = [],
+    placeholder = '',
+    errorHeader = 'No results found',
+    errorMessage = '',
+    maxSuggestions = 1000,
+    label = '',
+    noResults = false,
+    characterLimit = 524288, // default for HTML input elements
+    retainValue = false,
+    minCharsToSearch = 3,
+    icon = false,
+    size = 'medium',
+    id = '',
+    minChar = false,
+    isLoading = false,
+    selectedItemsDisplayNames,
+    type
+}) => {
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -65,7 +65,7 @@ const Autocomplete = (props) => {
         // Hide any old warnings
         setShowWarning(false);
 
-        if (input.length < props.minCharsToSearch) {
+        if (input.length < minCharsToSearch) {
             // Ensure user has typed the minimum number of characters before searching
             setValue(input);
             setShowWarning(true);
@@ -79,7 +79,7 @@ const Autocomplete = (props) => {
         }
     };
 
-    const isValidSelection = (selection) => find(props.values, selection);
+    const isValidSelection = (selection) => find(values, selection);
 
     const bubbleUpChange = (selection) => {
         // Force the change up into the parent components
@@ -94,9 +94,9 @@ const Autocomplete = (props) => {
             setStaged(true);
         }
 
-        props.onSelect(selectedItem, isValid, selection);
+        onSelect(selectedItem, isValid, selection);
 
-        if (props.retainValue && isValid) {
+        if (retainValue && isValid) {
             autocompleteInputRef.current.value = selectedItemTitle;
             autocompleteInputRef.current.style.fontWeight = "400";
         }
@@ -107,8 +107,8 @@ const Autocomplete = (props) => {
         }
     };
 
-    const scrollToSelectedId = (id) => {
-        document.getElementById(`${autocompleteIdRef.current}__option_${id}`).scrollIntoView({
+    const scrollToSelectedId = (selectedId) => {
+        document.getElementById(`${autocompleteIdRef.current}__option_${selectedId}`).scrollIntoView({
             behavior: 'auto',
             block: 'nearest',
             inline: 'nearest'
@@ -121,7 +121,7 @@ const Autocomplete = (props) => {
 
     const close = () => {
         // clear the input value if not a valid selection
-        if (!props.retainValue && !staged) {
+        if (!retainValue && !staged) {
             clearInternalState();
         }
 
@@ -135,13 +135,13 @@ const Autocomplete = (props) => {
             scrollToSelectedId(selectedIndex - 1);
         }
         else {
-            setSelectedIndex(props.values.length - 1);
-            scrollToSelectedId(props.values.length - 1);
+            setSelectedIndex(values.length - 1);
+            scrollToSelectedId(values.length - 1);
         }
     };
 
     const next = () => {
-        if (selectedIndex < props.values.length - 1) {
+        if (selectedIndex < values.length - 1) {
             setSelectedIndex(selectedIndex + 1);
             scrollToSelectedId(selectedIndex + 1);
         }
@@ -160,7 +160,7 @@ const Autocomplete = (props) => {
         e.persist();
         checkValidity(e.target.value);
         let selectIndex = 0;
-        props.handleTextInput(e);
+        handleTextInput(e);
 
         if (!e.target.value) {
             selectIndex = -1;
@@ -176,8 +176,8 @@ const Autocomplete = (props) => {
         if (e.key === 'Enter') {
             e.stopPropagation();
             e.preventDefault();
-            select(props.values[selectedIndex]);
-            if (!props.retainValue) {
+            select(values[selectedIndex]);
+            if (!retainValue) {
                 setValue('');
             }
         }
@@ -198,13 +198,13 @@ const Autocomplete = (props) => {
 
     const onBlur = () => {
         close();
-        if (!props.retainValue) {
+        if (!retainValue) {
             setValue('');
         }
     };
 
     const toggleWarning = () => {
-        setShowWarning(props.noResults);
+        setShowWarning(noResults);
     };
 
     const generateWarning = () => {
@@ -220,17 +220,17 @@ const Autocomplete = (props) => {
                 </ul>
             );
 
-            if ((value && value.length < props.minCharsToSearch) && props.minChar) {
+            if ((value && value.length < minCharsToSearch) && minChar) {
                 error = warning(
                     'Error',
-                    `Please enter more than ${props.minCharsToSearch - 1} character${props.minCharsToSearch > 2 ? 's' : ''}.`
+                    `Please enter more than ${minCharsToSearch - 1} character${minCharsToSearch > 2 ? 's' : ''}.`
                 );
             }
-            else if ((value && value.length < props.minCharsToSearch) && !props.minChar) {
+            else if ((value && value.length < minCharsToSearch) && !minChar) {
                 error = null;
             }
             else {
-                error = warning(props.errorHeader, props.errorMessage);
+                error = warning(errorHeader, errorMessage);
             }
 
             return error;
@@ -244,9 +244,9 @@ const Autocomplete = (props) => {
 
     if (shown && selectedIndex > -1) {
         activeDescendant = `${autocompleteIdRef.current}__option-${selectedIndex}`;
-        if (props.values.length > selectedIndex) {
-            const selectedString = props.values[selectedIndex].title;
-            const valueCount = Math.min(props.maxSuggestions, props.values.length);
+        if (values.length > selectedIndex) {
+            const selectedString = values[selectedIndex].title;
+            const valueCount = Math.min(maxSuggestions, values.length);
             status = `${selectedString} (${selectedIndex + 1} of ${valueCount})`;
         }
     }
@@ -259,37 +259,37 @@ const Autocomplete = (props) => {
     );
 
     let variation = '';
-    if (props.size === 'small') {
+    if (size === 'small') {
         variation = '-sm';
     }
-    else if (props.size === 'medium') {
+    else if (size === 'medium') {
         variation = '-md';
     }
 
     useEffect(() => () => {
-        props.clearAutocompleteSuggestions();
+        clearAutocompleteSuggestions();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         open();
-    }, [props.values]);
+    }, [values]);
 
     useEffect(() => {
         toggleWarning();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.noResults]);
+    }, [noResults]);
 
     // retainValue if selectedItemsDisplayNames is passed in
     // this is necessary because the map refreshes after the data is updated
     useEffect(() => {
-        if (props.type && props.selectedItemsDisplayNames && Object.keys(props.selectedItemsDisplayNames).length > 0) {
-            if (props.selectedItemsDisplayNames[props.type] && autocompleteInputRef?.current) {
-                autocompleteInputRef.current.value = props.selectedItemsDisplayNames[props.type];
+        if (type && selectedItemsDisplayNames && Object.keys(selectedItemsDisplayNames).length > 0) {
+            if (selectedItemsDisplayNames[type] && autocompleteInputRef?.current) {
+                autocompleteInputRef.current.value = selectedItemsDisplayNames[type];
                 autocompleteInputRef.current.style.fontWeight = "600";
             }
         }
-    }, [props.selectedItemsDisplayNames, props.type]);
+    }, [selectedItemsDisplayNames, type]);
 
     return (
         <div
@@ -299,15 +299,15 @@ const Autocomplete = (props) => {
             aria-expanded={shown}
             aria-haspopup="true">
             <div className="usa-da-typeahead">
-                <p>{props.label}</p>
+                <p>{label}</p>
                 <div className="usa-da-typeahead__input">
-                    {props.icon && <FontAwesomeIcon icon="search" />}
+                    {icon && <FontAwesomeIcon icon="search" />}
                     <input
-                        id={props.id !== '' ? props.id : null}
-                        className={`autocomplete${variation}${props.icon ? ' icon' : ''}`}
+                        id={id !== '' ? id : null}
+                        className={`autocomplete${variation}${icon ? ' icon' : ''}`}
                         ref={autocompleteInputRef}
                         type="text"
-                        placeholder={props.placeholder}
+                        placeholder={placeholder}
                         onChange={onChange.bind(this)}
                         tabIndex={0}
                         aria-controls={autocompleteIdRef.current}
@@ -315,19 +315,19 @@ const Autocomplete = (props) => {
                         aria-autocomplete="list"
                         onBlur={onBlur}
                         onKeyDown={onKeyDown}
-                        maxLength={props.characterLimit} />
+                        maxLength={characterLimit} />
                 </div>
                 <div
                     className="screen-reader-description"
                     role="alert">
                     {status}
                 </div>
-                {props.isLoading ? loadingIndicator : <SuggestionHolder
-                    suggestions={props.values}
+                {isLoading ? loadingIndicator : <SuggestionHolder
+                    suggestions={values}
                     shown={shown}
                     selectedIndex={selectedIndex}
                     select={select.bind(this)}
-                    maxSuggestions={props.maxSuggestions}
+                    maxSuggestions={maxSuggestions}
                     autocompleteId={autocompleteIdRef.current}
                     matchingString={value} />}
                 {generateWarning()}
@@ -336,7 +336,6 @@ const Autocomplete = (props) => {
     );
 };
 
-Autocomplete.defaultProps = defaultProps;
 Autocomplete.propTypes = propTypes;
 
 export default Autocomplete;
