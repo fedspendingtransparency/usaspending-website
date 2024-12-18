@@ -1,13 +1,20 @@
-/* CategoryFilter.jsx */
-/* Created by Andrea Blackwell November 8, 2024 */
+/**
+ * CategoryFilter.jsx
+ * Created by Andrea Blackwell November 8, 2024
+ */
 
-// eslint-disable-next-line no-unused-vars
 import React from "react";
 import PropTypes from 'prop-types';
 import CategoryHeader from "./CategoryHeader";
 
 const propTypes = {
-    component: PropTypes.object
+    component: PropTypes.object,
+    iconBackgroundColor: PropTypes.string,
+    iconName: PropTypes.string,
+    iconColor: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    height: PropTypes.number
 };
 
 const CategoryFilter = ({
@@ -20,8 +27,9 @@ const CategoryFilter = ({
             iconBackgroundColor={iconBackgroundColor}
             title={title}
             description={description} />
+        {/* TODO Remove negative margin after releasing the collapsible sidebar */}
         <div className="category-filter" style={{ height: `${height - 60}`, marginTop: "-36px" }}>
-            <div style={{ margin: "0 32px" }}>{component}</div>
+            <div>{component}</div>
         </div>
     </>
 );
