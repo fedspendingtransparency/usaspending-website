@@ -1,3 +1,8 @@
+/**
+ * SearchSidebarDrilldown.jsx
+ * Created by Andrea Blackwell 11/05/2024
+ **/
+
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,11 +14,10 @@ const propTypes = {
     list: PropTypes.array,
     filter: PropTypes.object,
     isDrilldown: PropTypes.bool,
-    gotBack: PropTypes.func,
     sidebarHeight: PropTypes.number,
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
-    selectedCategoryTitle: PropTypes.string
+    goBack: PropTypes.func
 };
 
 const SearchSidebarDrilldown = ({

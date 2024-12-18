@@ -51,7 +51,7 @@ const CollapsibleSidebar = () => {
             setIsDrilldown(false);
         }
         else if (currentLevel === 3) {
-            setDrilldown(selectedCategory[FilterCategoryTree[selectedCategory?.categoryKey]]);
+            setDrilldown(FilterCategoryTree[selectedCategory?.categoryKey]);
             setCurrentLevel(2);
         }
     };
