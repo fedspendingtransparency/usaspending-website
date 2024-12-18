@@ -39,10 +39,14 @@ const DateRange = (props) => {
     const [startPicker, setStartPicker] = useState(null);
     // eslint-disable-next-line no-unused-vars
     const [endPicker, setEndPicker] = useState(null);
+    const [dropdownDisabled, setDropdownDisabled] = useState(true);
+    const [drDisabled, setDRDisabled] = useState(true);
     const [disabled, setDisabled] = useState(true);
     const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
     const [dropdownOptionSelected, setDropdownOptionSelected] = useState(false);
     const [noDates, setNoDates] = useState(false);
+    const [noDatesDR, setNoDatesDR] = useState(false);
+    const [noDatesDropdown, setNoDatesDropdown] = useState(false);
     const prevProps = usePrevious(props);
     const labelArray = [];
     const onClick = (e) => {
@@ -193,16 +197,16 @@ const DateRange = (props) => {
     };
 
     useEffect(() => {
-        if (!props.startDate && !props.endDate && !dropdownOptionSelected) {
-            setNoDates(true);
-        }
-        else {
-            setNoDates(false);
-            // we need this in cases where the error message is showing and the user selects an option from the dropdown
+        // where we should handle setting no dates
+        console.debug("props: ", props);
+        if (!props.startDate && !props.endDate) {
+            setNoDatesDR(true);
             props.hideError();
+        } else {
+            setNoDatesDR(false);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.endDate, props.startDate, dropdownOptionSelected]);
+    }, [props.endDate, props.startDate]);
 
     useEffect(() => {
         if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
@@ -221,15 +225,21 @@ const DateRange = (props) => {
     }, [props?.endDate]);
 
     useEffect(() => {
-        if (noDates || props.errorState) {
-            setDisabled(true);
+        // change how disabled works
+        if (!noDatesDR) {
+            setDRDisabled(false);
+            testDates();
+        } else if (noDatesDR) {
+            setDRDisabled(true);
         }
-        else {
-            setDisabled(false);
-        }
-        testDates();
+        // if (noDatesDropdown) {
+        //     setDropdownDisabled(true);
+        // }
+        // else {
+        //     setDisabled(false);
+        // }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.errorState, noDates, props.startDate, props.endDate]);
+    }, [props.errorState, noDatesDR, props.startDate, props.endDate]);
 
     if (props.timePeriod?.size > 0) {
         for (const timeinput of props.timePeriod) {
@@ -294,7 +304,7 @@ const DateRange = (props) => {
                     buttonSize="sm"
                     buttonType="primary"
                     backgroundColor="light"
-                    disabled={disabled}
+                    disabled={drDisabled}
                     onClick={submitDates} />
             </form>
             <div className="date-range-option__dropdown-section">
@@ -321,7 +331,7 @@ const DateRange = (props) => {
                         buttonSize="sm"
                         buttonType="primary"
                         backgroundColor="light"
-                        disabled={disabled}
+                        disabled={dropdownDisabled}
                         onClick={submitDates} />
                 </div>
             </div>
