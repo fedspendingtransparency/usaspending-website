@@ -54,7 +54,6 @@ export default class ResultsTable extends React.Component {
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.prepareTable = this.prepareTable.bind(this);
         this.measureHeight = this.measureHeight.bind(this);
-        this.checkToAddRightFade = this.checkToAddRightFade.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
     }
 
@@ -463,19 +462,6 @@ export default class ResultsTable extends React.Component {
         return values;
     }
 
-    checkToAddRightFade(isScrolledLeft, isScrolledRight) {
-        if (!isScrolledLeft && !this.props.isMobile) {
-            this.setState({
-                activateRightFade: true
-            });
-        }
-        if (isScrolledRight || this.props.isMobile) {
-            this.setState({
-                activateRightFade: false
-            });
-        }
-    }
-
     render() {
         const cols = this.prepareDTUIColumns();
         const limitedRows = this.prepareDTUIRows();
@@ -487,13 +473,12 @@ export default class ResultsTable extends React.Component {
         return (
             <>
                 <div
-                    className={`advanced-search__table-wrapper ${this.state.activateRightFade ? 'activate-right-fade' : ''} `}
+                    className="advanced-search__table-wrapper"
                     id="advanced-search__table-wrapper"
                     style={this.props.resultsCount >= this.props.resultsLimit ? { height: '638px' } : {}}>
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn={!this.props.isMobile}
-                        checkToAddRightFade={this.checkToAddRightFade}
                         columns={cols}
                         rows={limitedRows}
                         rowHeight={this.props.isMobile ? null : 58}
