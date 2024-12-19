@@ -49,6 +49,7 @@ const DateRange = (props) => {
     const [noDatesDropdown, setNoDatesDropdown] = useState(false);
     const prevProps = usePrevious(props);
     const labelArray = [];
+
     const onClick = (e) => {
         setSelectedDropdownOption(e);
 
@@ -57,7 +58,7 @@ const DateRange = (props) => {
         }
         else {
             setDropdownOptionSelected(true);
-
+            setNoDatesDropdown(false);
             Analytics.event({
                 category: 'Date Range Dropdown',
                 action: `View ${e}`
@@ -65,6 +66,7 @@ const DateRange = (props) => {
 
             dateRangeDropdownTimePeriods.find((obj) => {
                 if (obj.value === e) {
+                    console.debug("object: ", obj, e);
                     props.onDateChange(obj.startDate, 'startDate');
                     props.onDateChange(obj.endDate, 'endDate');
                     return true;
@@ -198,7 +200,7 @@ const DateRange = (props) => {
 
     useEffect(() => {
         // where we should handle setting no dates
-        console.debug("props: ", props);
+        console.debug("setting no dates: ", props);
         if (!props.startDate && !props.endDate) {
             setNoDatesDR(true);
             props.hideError();
@@ -209,6 +211,15 @@ const DateRange = (props) => {
     }, [props.endDate, props.startDate]);
 
     useEffect(() => {
+        // where we should handle setting no dates
+        console.debug("props no dates dropdown: ", props);
+
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [noDatesDropdown]);
+
+    useEffect(() => {
+        console.debug("start date section: ", props);
+
         if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
             // the start date was reset to null, clear the picker
             startPicker?.clearValue();
@@ -217,6 +228,8 @@ const DateRange = (props) => {
     }, [props?.startDate]);
 
     useEffect(() => {
+        console.debug("end date section: ", props);
+
         if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
             // the end date was reset to null, clear the picker
             endPicker?.clearValue();
@@ -225,6 +238,7 @@ const DateRange = (props) => {
     }, [props?.endDate]);
 
     useEffect(() => {
+        console.debug("add disabled section: ", props);
         // change how disabled works
         if (!noDatesDR) {
             setDRDisabled(false);
@@ -284,7 +298,8 @@ const DateRange = (props) => {
                         showError={props.showError}
                         hideError={props.hideError}
                         id="date-range__startDate"
-                        onFocus={onFocus} />
+                        onFocus={onFocus}
+                        updateFilter={props.updateFilter} />
                 </div>
                 <div className="date-range-column">
                     <DatePicker
@@ -296,6 +311,7 @@ const DateRange = (props) => {
                         showError={props.showError}
                         hideError={props.hideError}
                         onFocus={onFocus}
+                        updateFilter={props.updateFilter}
                         id="date-range__endDate" />
                 </div>
                 <Button
