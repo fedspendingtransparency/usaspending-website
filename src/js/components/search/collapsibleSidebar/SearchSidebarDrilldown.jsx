@@ -21,7 +21,7 @@ const propTypes = {
 };
 
 const SearchSidebarDrilldown = ({
-    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight
+    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight, selectedCategoryTitle
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -29,6 +29,30 @@ const SearchSidebarDrilldown = ({
             func(e);
         }
     };
+
+    let categoryFilter;
+
+    if (selectedCategory?.title === 'Location' || selectedCategory?.title === 'Time Period') {
+        categoryFilter = (
+            <CategoryFilter
+                height={sidebarHeight}
+                iconName={selectedCategory.iconName}
+                iconColor={selectedCategory.iconColor}
+                iconBackgroundColor={selectedCategory.iconBackgroundColor}
+                title={selectedCategoryTitle}
+                description={selectedCategory.description}
+                component={filter} />
+        );
+    }
+    else {
+        categoryFilter = (
+            <CategoryFilter
+                height={sidebarHeight}
+                title={selectedCategoryTitle}
+                component={filter} />
+        );
+    }
+
 
     return (
         <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
@@ -53,14 +77,7 @@ const SearchSidebarDrilldown = ({
                     categories={list}
                     setLevel3={setLevel3} />}
 
-                {filter && <CategoryFilter
-                    height={sidebarHeight}
-                    iconName={selectedCategory.iconName}
-                    iconColor={selectedCategory.iconColor}
-                    iconBackgroundColor={selectedCategory.iconBackgroundColor}
-                    title={selectedCategory.title}
-                    description={selectedCategory.description}
-                    component={filter} />}
+                {filter && categoryFilter}
             </div>
         </div>);
 };
