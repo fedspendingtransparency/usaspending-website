@@ -1,0 +1,52 @@
+{
+    "counties": [
+        {
+            "code": "09001",
+            "fips": "001",
+            "state": "CT",
+            "name": "Fairfield County"
+        },
+        {
+            "code": "09003",
+            "fips": "003",
+            "state": "CT",
+            "name": "Hartford County"
+        },
+        {
+            "code": "09005",
+            "fips": "005",
+            "state": "CT",
+            "name": "Litchfield County"
+        },
+        {
+            "code": "09007",
+            "fips": "007",
+            "state": "CT",
+            "name": "Middlesex County"
+        },
+        {
+            "code": "09009",
+            "fips": "009",
+            "state": "CT",
+            "name": "New Haven County"
+        },
+        {
+            "code": "09011",
+            "fips": "011",
+            "state": "CT",
+            "name": "New London County"
+        },
+        {
+            "code": "09013",
+            "fips": "013",
+            "state": "CT",
+            "name": "Tolland County"
+        },
+        {
+            "code": "09015",
+            "fips": "015",
+            "state": "CT",
+            "name": "Windham County"
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "counties": [
+        {
+            "code": "74050",
+            "fips": "050",
+            "state": "UM",
+            "name": "Baker Island"
+        },
+        {
+            "code": "74100",
+            "fips": "100",
+            "state": "UM",
+            "name": "Howland Island"
+        },
+        {
+            "code": "74150",
+            "fips": "150",
+            "state": "UM",
+            "name": "Jarvis Island"
+        },
+        {
+            "code": "74200",
+            "fips": "200",
+            "state": "UM",
+            "name": "Johnston Atoll"
+        },
+        {
+            "code": "74250",
+            "fips": "250",
+            "state": "UM",
+            "name": "Kingman Reef"
+        },
+        {
+            "code": "74300",
+            "fips": "300",
+            "state": "UM",
+            "name": "Midway Islands"
+        },
+        {
+            "code": "74350",
+            "fips": "350",
+            "state": "UM",
+            "name": "Navassa Island"
+        },
+        {
+            "code": "74400",
+            "fips": "400",
+            "state": "UM",
+            "name": "Palmyra Atoll"
+        },
+        {
+            "code": "74450",
+            "fips": "450",
+            "state": "UM",
+            "name": "Wake Island"
+        }
+    ]
+}

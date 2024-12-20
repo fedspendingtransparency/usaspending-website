@@ -1,0 +1,94 @@
+{
+    "counties": [
+        {
+            "code": "04001",
+            "fips": "001",
+            "state": "AZ",
+            "name": "Apache County"
+        },
+        {
+            "code": "04003",
+            "fips": "003",
+            "state": "AZ",
+            "name": "Cochise County"
+        },
+        {
+            "code": "04005",
+            "fips": "005",
+            "state": "AZ",
+            "name": "Coconino County"
+        },
+        {
+            "code": "04007",
+            "fips": "007",
+            "state": "AZ",
+            "name": "Gila County"
+        },
+        {
+            "code": "04009",
+            "fips": "009",
+            "state": "AZ",
+            "name": "Graham County"
+        },
+        {
+            "code": "04011",
+            "fips": "011",
+            "state": "AZ",
+            "name": "Greenlee County"
+        },
+        {
+            "code": "04012",
+            "fips": "012",
+            "state": "AZ",
+            "name": "La Paz County"
+        },
+        {
+            "code": "04013",
+            "fips": "013",
+            "state": "AZ",
+            "name": "Maricopa County"
+        },
+        {
+            "code": "04015",
+            "fips": "015",
+            "state": "AZ",
+            "name": "Mohave County"
+        },
+        {
+            "code": "04017",
+            "fips": "017",
+            "state": "AZ",
+            "name": "Navajo County"
+        },
+        {
+            "code": "04019",
+            "fips": "019",
+            "state": "AZ",
+            "name": "Pima County"
+        },
+        {
+            "code": "04021",
+            "fips": "021",
+            "state": "AZ",
+            "name": "Pinal County"
+        },
+        {
+            "code": "04023",
+            "fips": "023",
+            "state": "AZ",
+            "name": "Santa Cruz County"
+        },
+        {
+            "code": "04025",
+            "fips": "025",
+            "state": "AZ",
+            "name": "Yavapai County"
+        },
+        {
+            "code": "04027",
+            "fips": "027",
+            "state": "AZ",
+            "name": "Yuma County"
+        }
+    ]
+}

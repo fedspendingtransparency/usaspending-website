@@ -1,0 +1,178 @@
+{
+    "counties": [
+        {
+            "code": "02013",
+            "fips": "013",
+            "state": "AK",
+            "name": "Aleutians East Borough"
+        },
+        {
+            "code": "02016",
+            "fips": "016",
+            "state": "AK",
+            "name": "Aleutians West Census Area"
+        },
+        {
+            "code": "02020",
+            "fips": "020",
+            "state": "AK",
+            "name": "Anchorage Municipality"
+        },
+        {
+            "code": "02050",
+            "fips": "050",
+            "state": "AK",
+            "name": "Bethel Census Area"
+        },
+        {
+            "code": "02060",
+            "fips": "060",
+            "state": "AK",
+            "name": "Bristol Bay Borough"
+        },
+        {
+            "code": "02068",
+            "fips": "068",
+            "state": "AK",
+            "name": "Denali Borough"
+        },
+        {
+            "code": "02070",
+            "fips": "070",
+            "state": "AK",
+            "name": "Dillingham Census Area"
+        },
+        {
+            "code": "02090",
+            "fips": "090",
+            "state": "AK",
+            "name": "Fairbanks North Star Borough"
+        },
+        {
+            "code": "02100",
+            "fips": "100",
+            "state": "AK",
+            "name": "Haines Borough"
+        },
+        {
+            "code": "02105",
+            "fips": "105",
+            "state": "AK",
+            "name": "Hoonah-Angoon Census Area"
+        },
+        {
+            "code": "02110",
+            "fips": "110",
+            "state": "AK",
+            "name": "Juneau City and Borough"
+        },
+        {
+            "code": "02122",
+            "fips": "122",
+            "state": "AK",
+            "name": "Kenai Peninsula Borough"
+        },
+        {
+            "code": "02130",
+            "fips": "130",
+            "state": "AK",
+            "name": "Ketchikan Gateway Borough"
+        },
+        {
+            "code": "02150",
+            "fips": "150",
+            "state": "AK",
+            "name": "Kodiak Island Borough"
+        },
+        {
+            "code": "02158",
+            "fips": "158",
+            "state": "AK",
+            "name": "Kusilvak Census Area"
+        },
+        {
+            "code": "02164",
+            "fips": "164",
+            "state": "AK",
+            "name": "Lake and Peninsula Borough"
+        },
+        {
+            "code": "02170",
+            "fips": "170",
+            "state": "AK",
+            "name": "Matanuska-Susitna Borough"
+        },
+        {
+            "code": "02180",
+            "fips": "180",
+            "state": "AK",
+            "name": "Nome Census Area"
+        },
+        {
+            "code": "02185",
+            "fips": "185",
+            "state": "AK",
+            "name": "North Slope Borough"
+        },
+        {
+            "code": "02188",
+            "fips": "188",
+            "state": "AK",
+            "name": "Northwest Arctic Borough"
+        },
+        {
+            "code": "02195",
+            "fips": "195",
+            "state": "AK",
+            "name": "Petersburg Borough"
+        },
+        {
+            "code": "02198",
+            "fips": "198",
+            "state": "AK",
+            "name": "Prince of Wales-Hyder Census Area"
+        },
+        {
+            "code": "02220",
+            "fips": "220",
+            "state": "AK",
+            "name": "Sitka City and Borough"
+        },
+        {
+            "code": "02230",
+            "fips": "230",
+            "state": "AK",
+            "name": "Skagway Municipality"
+        },
+        {
+            "code": "02240",
+            "fips": "240",
+            "state": "AK",
+            "name": "Southeast Fairbanks Census Area"
+        },
+        {
+            "code": "02261",
+            "fips": "261",
+            "state": "AK",
+            "name": "Valdez-Cordova Census Area"
+        },
+        {
+            "code": "02275",
+            "fips": "275",
+            "state": "AK",
+            "name": "Wrangell City and Borough"
+        },
+        {
+            "code": "02282",
+            "fips": "282",
+            "state": "AK",
+            "name": "Yakutat City and Borough"
+        },
+        {
+            "code": "02290",
+            "fips": "290",
+            "state": "AK",
+            "name": "Yukon-Koyukuk Census Area"
+        }
+    ]
+}

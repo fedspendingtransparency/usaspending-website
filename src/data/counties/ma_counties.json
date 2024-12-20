@@ -1,0 +1,88 @@
+{
+    "counties": [
+        {
+            "code": "25001",
+            "fips": "001",
+            "state": "MA",
+            "name": "Barnstable County"
+        },
+        {
+            "code": "25003",
+            "fips": "003",
+            "state": "MA",
+            "name": "Berkshire County"
+        },
+        {
+            "code": "25005",
+            "fips": "005",
+            "state": "MA",
+            "name": "Bristol County"
+        },
+        {
+            "code": "25007",
+            "fips": "007",
+            "state": "MA",
+            "name": "Dukes County"
+        },
+        {
+            "code": "25009",
+            "fips": "009",
+            "state": "MA",
+            "name": "Essex County"
+        },
+        {
+            "code": "25011",
+            "fips": "011",
+            "state": "MA",
+            "name": "Franklin County"
+        },
+        {
+            "code": "25013",
+            "fips": "013",
+            "state": "MA",
+            "name": "Hampden County"
+        },
+        {
+            "code": "25015",
+            "fips": "015",
+            "state": "MA",
+            "name": "Hampshire County"
+        },
+        {
+            "code": "25017",
+            "fips": "017",
+            "state": "MA",
+            "name": "Middlesex County"
+        },
+        {
+            "code": "25019",
+            "fips": "019",
+            "state": "MA",
+            "name": "Nantucket County"
+        },
+        {
+            "code": "25021",
+            "fips": "021",
+            "state": "MA",
+            "name": "Norfolk County"
+        },
+        {
+            "code": "25023",
+            "fips": "023",
+            "state": "MA",
+            "name": "Plymouth County"
+        },
+        {
+            "code": "25025",
+            "fips": "025",
+            "state": "MA",
+            "name": "Suffolk County"
+        },
+        {
+            "code": "25027",
+            "fips": "027",
+            "state": "MA",
+            "name": "Worcester County"
+        }
+    ]
+}

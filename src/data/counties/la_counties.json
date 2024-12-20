@@ -1,0 +1,388 @@
+{
+    "counties": [
+        {
+            "code": "22001",
+            "fips": "001",
+            "state": "LA",
+            "name": "Acadia Parish"
+        },
+        {
+            "code": "22003",
+            "fips": "003",
+            "state": "LA",
+            "name": "Allen Parish"
+        },
+        {
+            "code": "22005",
+            "fips": "005",
+            "state": "LA",
+            "name": "Ascension Parish"
+        },
+        {
+            "code": "22007",
+            "fips": "007",
+            "state": "LA",
+            "name": "Assumption Parish"
+        },
+        {
+            "code": "22009",
+            "fips": "009",
+            "state": "LA",
+            "name": "Avoyelles Parish"
+        },
+        {
+            "code": "22011",
+            "fips": "011",
+            "state": "LA",
+            "name": "Beauregard Parish"
+        },
+        {
+            "code": "22013",
+            "fips": "013",
+            "state": "LA",
+            "name": "Bienville Parish"
+        },
+        {
+            "code": "22015",
+            "fips": "015",
+            "state": "LA",
+            "name": "Bossier Parish"
+        },
+        {
+            "code": "22017",
+            "fips": "017",
+            "state": "LA",
+            "name": "Caddo Parish"
+        },
+        {
+            "code": "22019",
+            "fips": "019",
+            "state": "LA",
+            "name": "Calcasieu Parish"
+        },
+        {
+            "code": "22021",
+            "fips": "021",
+            "state": "LA",
+            "name": "Caldwell Parish"
+        },
+        {
+            "code": "22023",
+            "fips": "023",
+            "state": "LA",
+            "name": "Cameron Parish"
+        },
+        {
+            "code": "22025",
+            "fips": "025",
+            "state": "LA",
+            "name": "Catahoula Parish"
+        },
+        {
+            "code": "22027",
+            "fips": "027",
+            "state": "LA",
+            "name": "Claiborne Parish"
+        },
+        {
+            "code": "22029",
+            "fips": "029",
+            "state": "LA",
+            "name": "Concordia Parish"
+        },
+        {
+            "code": "22031",
+            "fips": "031",
+            "state": "LA",
+            "name": "De Soto Parish"
+        },
+        {
+            "code": "22033",
+            "fips": "033",
+            "state": "LA",
+            "name": "East Baton Rouge Parish"
+        },
+        {
+            "code": "22035",
+            "fips": "035",
+            "state": "LA",
+            "name": "East Carroll Parish"
+        },
+        {
+            "code": "22037",
+            "fips": "037",
+            "state": "LA",
+            "name": "East Feliciana Parish"
+        },
+        {
+            "code": "22039",
+            "fips": "039",
+            "state": "LA",
+            "name": "Evangeline Parish"
+        },
+        {
+            "code": "22041",
+            "fips": "041",
+            "state": "LA",
+            "name": "Franklin Parish"
+        },
+        {
+            "code": "22043",
+            "fips": "043",
+            "state": "LA",
+            "name": "Grant Parish"
+        },
+        {
+            "code": "22045",
+            "fips": "045",
+            "state": "LA",
+            "name": "Iberia Parish"
+        },
+        {
+            "code": "22047",
+            "fips": "047",
+            "state": "LA",
+            "name": "Iberville Parish"
+        },
+        {
+            "code": "22049",
+            "fips": "049",
+            "state": "LA",
+            "name": "Jackson Parish"
+        },
+        {
+            "code": "22051",
+            "fips": "051",
+            "state": "LA",
+            "name": "Jefferson Parish"
+        },
+        {
+            "code": "22053",
+            "fips": "053",
+            "state": "LA",
+            "name": "Jefferson Davis Parish"
+        },
+        {
+            "code": "22059",
+            "fips": "059",
+            "state": "LA",
+            "name": "LaSalle Parish"
+        },
+        {
+            "code": "22055",
+            "fips": "055",
+            "state": "LA",
+            "name": "Lafayette Parish"
+        },
+        {
+            "code": "22057",
+            "fips": "057",
+            "state": "LA",
+            "name": "Lafourche Parish"
+        },
+        {
+            "code": "22061",
+            "fips": "061",
+            "state": "LA",
+            "name": "Lincoln Parish"
+        },
+        {
+            "code": "22063",
+            "fips": "063",
+            "state": "LA",
+            "name": "Livingston Parish"
+        },
+        {
+            "code": "22065",
+            "fips": "065",
+            "state": "LA",
+            "name": "Madison Parish"
+        },
+        {
+            "code": "22067",
+            "fips": "067",
+            "state": "LA",
+            "name": "Morehouse Parish"
+        },
+        {
+            "code": "22069",
+            "fips": "069",
+            "state": "LA",
+            "name": "Natchitoches Parish"
+        },
+        {
+            "code": "22071",
+            "fips": "071",
+            "state": "LA",
+            "name": "Orleans Parish"
+        },
+        {
+            "code": "22073",
+            "fips": "073",
+            "state": "LA",
+            "name": "Ouachita Parish"
+        },
+        {
+            "code": "22075",
+            "fips": "075",
+            "state": "LA",
+            "name": "Plaquemines Parish"
+        },
+        {
+            "code": "22077",
+            "fips": "077",
+            "state": "LA",
+            "name": "Pointe Coupee Parish"
+        },
+        {
+            "code": "22079",
+            "fips": "079",
+            "state": "LA",
+            "name": "Rapides Parish"
+        },
+        {
+            "code": "22081",
+            "fips": "081",
+            "state": "LA",
+            "name": "Red River Parish"
+        },
+        {
+            "code": "22083",
+            "fips": "083",
+            "state": "LA",
+            "name": "Richland Parish"
+        },
+        {
+            "code": "22085",
+            "fips": "085",
+            "state": "LA",
+            "name": "Sabine Parish"
+        },
+        {
+            "code": "22087",
+            "fips": "087",
+            "state": "LA",
+            "name": "Saint Bernard Parish"
+        },
+        {
+            "code": "22089",
+            "fips": "089",
+            "state": "LA",
+            "name": "Saint Charles Parish"
+        },
+        {
+            "code": "22091",
+            "fips": "091",
+            "state": "LA",
+            "name": "Saint Helena Parish"
+        },
+        {
+            "code": "22093",
+            "fips": "093",
+            "state": "LA",
+            "name": "Saint James Parish"
+        },
+        {
+            "code": "22095",
+            "fips": "095",
+            "state": "LA",
+            "name": "Saint John the Baptist Parish"
+        },
+        {
+            "code": "22097",
+            "fips": "097",
+            "state": "LA",
+            "name": "Saint Landry Parish"
+        },
+        {
+            "code": "22099",
+            "fips": "099",
+            "state": "LA",
+            "name": "Saint Martin Parish"
+        },
+        {
+            "code": "22101",
+            "fips": "101",
+            "state": "LA",
+            "name": "Saint Mary Parish"
+        },
+        {
+            "code": "22103",
+            "fips": "103",
+            "state": "LA",
+            "name": "Saint Tammany Parish"
+        },
+        {
+            "code": "22105",
+            "fips": "105",
+            "state": "LA",
+            "name": "Tangipahoa Parish"
+        },
+        {
+            "code": "22107",
+            "fips": "107",
+            "state": "LA",
+            "name": "Tensas Parish"
+        },
+        {
+            "code": "22109",
+            "fips": "109",
+            "state": "LA",
+            "name": "Terrebonne Parish"
+        },
+        {
+            "code": "22111",
+            "fips": "111",
+            "state": "LA",
+            "name": "Union Parish"
+        },
+        {
+            "code": "22113",
+            "fips": "113",
+            "state": "LA",
+            "name": "Vermilion Parish"
+        },
+        {
+            "code": "22115",
+            "fips": "115",
+            "state": "LA",
+            "name": "Vernon Parish"
+        },
+        {
+            "code": "22117",
+            "fips": "117",
+            "state": "LA",
+            "name": "Washington Parish"
+        },
+        {
+            "code": "22119",
+            "fips": "119",
+            "state": "LA",
+            "name": "Webster Parish"
+        },
+        {
+            "code": "22121",
+            "fips": "121",
+            "state": "LA",
+            "name": "West Baton Rouge Parish"
+        },
+        {
+            "code": "22123",
+            "fips": "123",
+            "state": "LA",
+            "name": "West Carroll Parish"
+        },
+        {
+            "code": "22125",
+            "fips": "125",
+            "state": "LA",
+            "name": "West Feliciana Parish"
+        },
+        {
+            "code": "22127",
+            "fips": "127",
+            "state": "LA",
+            "name": "Winn Parish"
+        }
+    ]
+}

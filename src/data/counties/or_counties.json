@@ -1,0 +1,220 @@
+{
+    "counties": [
+        {
+            "code": "41001",
+            "fips": "001",
+            "state": "OR",
+            "name": "Baker County"
+        },
+        {
+            "code": "41003",
+            "fips": "003",
+            "state": "OR",
+            "name": "Benton County"
+        },
+        {
+            "code": "41005",
+            "fips": "005",
+            "state": "OR",
+            "name": "Clackamas County"
+        },
+        {
+            "code": "41007",
+            "fips": "007",
+            "state": "OR",
+            "name": "Clatsop County"
+        },
+        {
+            "code": "41009",
+            "fips": "009",
+            "state": "OR",
+            "name": "Columbia County"
+        },
+        {
+            "code": "41011",
+            "fips": "011",
+            "state": "OR",
+            "name": "Coos County"
+        },
+        {
+            "code": "41013",
+            "fips": "013",
+            "state": "OR",
+            "name": "Crook County"
+        },
+        {
+            "code": "41015",
+            "fips": "015",
+            "state": "OR",
+            "name": "Curry County"
+        },
+        {
+            "code": "41017",
+            "fips": "017",
+            "state": "OR",
+            "name": "Deschutes County"
+        },
+        {
+            "code": "41019",
+            "fips": "019",
+            "state": "OR",
+            "name": "Douglas County"
+        },
+        {
+            "code": "41021",
+            "fips": "021",
+            "state": "OR",
+            "name": "Gilliam County"
+        },
+        {
+            "code": "41023",
+            "fips": "023",
+            "state": "OR",
+            "name": "Grant County"
+        },
+        {
+            "code": "41025",
+            "fips": "025",
+            "state": "OR",
+            "name": "Harney County"
+        },
+        {
+            "code": "41027",
+            "fips": "027",
+            "state": "OR",
+            "name": "Hood River County"
+        },
+        {
+            "code": "41029",
+            "fips": "029",
+            "state": "OR",
+            "name": "Jackson County"
+        },
+        {
+            "code": "41031",
+            "fips": "031",
+            "state": "OR",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "41033",
+            "fips": "033",
+            "state": "OR",
+            "name": "Josephine County"
+        },
+        {
+            "code": "41035",
+            "fips": "035",
+            "state": "OR",
+            "name": "Klamath County"
+        },
+        {
+            "code": "41037",
+            "fips": "037",
+            "state": "OR",
+            "name": "Lake County"
+        },
+        {
+            "code": "41039",
+            "fips": "039",
+            "state": "OR",
+            "name": "Lane County"
+        },
+        {
+            "code": "41041",
+            "fips": "041",
+            "state": "OR",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "41043",
+            "fips": "043",
+            "state": "OR",
+            "name": "Linn County"
+        },
+        {
+            "code": "41045",
+            "fips": "045",
+            "state": "OR",
+            "name": "Malheur County"
+        },
+        {
+            "code": "41047",
+            "fips": "047",
+            "state": "OR",
+            "name": "Marion County"
+        },
+        {
+            "code": "41049",
+            "fips": "049",
+            "state": "OR",
+            "name": "Morrow County"
+        },
+        {
+            "code": "41051",
+            "fips": "051",
+            "state": "OR",
+            "name": "Multnomah County"
+        },
+        {
+            "code": "41053",
+            "fips": "053",
+            "state": "OR",
+            "name": "Polk County"
+        },
+        {
+            "code": "41055",
+            "fips": "055",
+            "state": "OR",
+            "name": "Sherman County"
+        },
+        {
+            "code": "41057",
+            "fips": "057",
+            "state": "OR",
+            "name": "Tillamook County"
+        },
+        {
+            "code": "41059",
+            "fips": "059",
+            "state": "OR",
+            "name": "Umatilla County"
+        },
+        {
+            "code": "41061",
+            "fips": "061",
+            "state": "OR",
+            "name": "Union County"
+        },
+        {
+            "code": "41063",
+            "fips": "063",
+            "state": "OR",
+            "name": "Wallowa County"
+        },
+        {
+            "code": "41065",
+            "fips": "065",
+            "state": "OR",
+            "name": "Wasco County"
+        },
+        {
+            "code": "41067",
+            "fips": "067",
+            "state": "OR",
+            "name": "Washington County"
+        },
+        {
+            "code": "41069",
+            "fips": "069",
+            "state": "OR",
+            "name": "Wheeler County"
+        },
+        {
+            "code": "41071",
+            "fips": "071",
+            "state": "OR",
+            "name": "Yamhill County"
+        }
+    ]
+}

@@ -1,0 +1,406 @@
+{
+    "counties": [
+        {
+            "code": "42001",
+            "fips": "001",
+            "state": "PA",
+            "name": "Adams County"
+        },
+        {
+            "code": "42003",
+            "fips": "003",
+            "state": "PA",
+            "name": "Allegheny County"
+        },
+        {
+            "code": "42005",
+            "fips": "005",
+            "state": "PA",
+            "name": "Armstrong County"
+        },
+        {
+            "code": "42007",
+            "fips": "007",
+            "state": "PA",
+            "name": "Beaver County"
+        },
+        {
+            "code": "42009",
+            "fips": "009",
+            "state": "PA",
+            "name": "Bedford County"
+        },
+        {
+            "code": "42011",
+            "fips": "011",
+            "state": "PA",
+            "name": "Berks County"
+        },
+        {
+            "code": "42013",
+            "fips": "013",
+            "state": "PA",
+            "name": "Blair County"
+        },
+        {
+            "code": "42015",
+            "fips": "015",
+            "state": "PA",
+            "name": "Bradford County"
+        },
+        {
+            "code": "42017",
+            "fips": "017",
+            "state": "PA",
+            "name": "Bucks County"
+        },
+        {
+            "code": "42019",
+            "fips": "019",
+            "state": "PA",
+            "name": "Butler County"
+        },
+        {
+            "code": "42021",
+            "fips": "021",
+            "state": "PA",
+            "name": "Cambria County"
+        },
+        {
+            "code": "42023",
+            "fips": "023",
+            "state": "PA",
+            "name": "Cameron County"
+        },
+        {
+            "code": "42025",
+            "fips": "025",
+            "state": "PA",
+            "name": "Carbon County"
+        },
+        {
+            "code": "42027",
+            "fips": "027",
+            "state": "PA",
+            "name": "Centre County"
+        },
+        {
+            "code": "42029",
+            "fips": "029",
+            "state": "PA",
+            "name": "Chester County"
+        },
+        {
+            "code": "42031",
+            "fips": "031",
+            "state": "PA",
+            "name": "Clarion County"
+        },
+        {
+            "code": "42033",
+            "fips": "033",
+            "state": "PA",
+            "name": "Clearfield County"
+        },
+        {
+            "code": "42035",
+            "fips": "035",
+            "state": "PA",
+            "name": "Clinton County"
+        },
+        {
+            "code": "42037",
+            "fips": "037",
+            "state": "PA",
+            "name": "Columbia County"
+        },
+        {
+            "code": "42039",
+            "fips": "039",
+            "state": "PA",
+            "name": "Crawford County"
+        },
+        {
+            "code": "42041",
+            "fips": "041",
+            "state": "PA",
+            "name": "Cumberland County"
+        },
+        {
+            "code": "42043",
+            "fips": "043",
+            "state": "PA",
+            "name": "Dauphin County"
+        },
+        {
+            "code": "42045",
+            "fips": "045",
+            "state": "PA",
+            "name": "Delaware County"
+        },
+        {
+            "code": "42047",
+            "fips": "047",
+            "state": "PA",
+            "name": "Elk County"
+        },
+        {
+            "code": "42049",
+            "fips": "049",
+            "state": "PA",
+            "name": "Erie County"
+        },
+        {
+            "code": "42051",
+            "fips": "051",
+            "state": "PA",
+            "name": "Fayette County"
+        },
+        {
+            "code": "42053",
+            "fips": "053",
+            "state": "PA",
+            "name": "Forest County"
+        },
+        {
+            "code": "42055",
+            "fips": "055",
+            "state": "PA",
+            "name": "Franklin County"
+        },
+        {
+            "code": "42057",
+            "fips": "057",
+            "state": "PA",
+            "name": "Fulton County"
+        },
+        {
+            "code": "42059",
+            "fips": "059",
+            "state": "PA",
+            "name": "Greene County"
+        },
+        {
+            "code": "42061",
+            "fips": "061",
+            "state": "PA",
+            "name": "Huntingdon County"
+        },
+        {
+            "code": "42063",
+            "fips": "063",
+            "state": "PA",
+            "name": "Indiana County"
+        },
+        {
+            "code": "42065",
+            "fips": "065",
+            "state": "PA",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "42067",
+            "fips": "067",
+            "state": "PA",
+            "name": "Juniata County"
+        },
+        {
+            "code": "42069",
+            "fips": "069",
+            "state": "PA",
+            "name": "Lackawanna County"
+        },
+        {
+            "code": "42071",
+            "fips": "071",
+            "state": "PA",
+            "name": "Lancaster County"
+        },
+        {
+            "code": "42073",
+            "fips": "073",
+            "state": "PA",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "42075",
+            "fips": "075",
+            "state": "PA",
+            "name": "Lebanon County"
+        },
+        {
+            "code": "42077",
+            "fips": "077",
+            "state": "PA",
+            "name": "Lehigh County"
+        },
+        {
+            "code": "42079",
+            "fips": "079",
+            "state": "PA",
+            "name": "Luzerne County"
+        },
+        {
+            "code": "42081",
+            "fips": "081",
+            "state": "PA",
+            "name": "Lycoming County"
+        },
+        {
+            "code": "42083",
+            "fips": "083",
+            "state": "PA",
+            "name": "McKean County"
+        },
+        {
+            "code": "42085",
+            "fips": "085",
+            "state": "PA",
+            "name": "Mercer County"
+        },
+        {
+            "code": "42087",
+            "fips": "087",
+            "state": "PA",
+            "name": "Mifflin County"
+        },
+        {
+            "code": "42089",
+            "fips": "089",
+            "state": "PA",
+            "name": "Monroe County"
+        },
+        {
+            "code": "42091",
+            "fips": "091",
+            "state": "PA",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "42093",
+            "fips": "093",
+            "state": "PA",
+            "name": "Montour County"
+        },
+        {
+            "code": "42095",
+            "fips": "095",
+            "state": "PA",
+            "name": "Northampton County"
+        },
+        {
+            "code": "42097",
+            "fips": "097",
+            "state": "PA",
+            "name": "Northumberland County"
+        },
+        {
+            "code": "42099",
+            "fips": "099",
+            "state": "PA",
+            "name": "Perry County"
+        },
+        {
+            "code": "42101",
+            "fips": "101",
+            "state": "PA",
+            "name": "Philadelphia County"
+        },
+        {
+            "code": "42103",
+            "fips": "103",
+            "state": "PA",
+            "name": "Pike County"
+        },
+        {
+            "code": "42105",
+            "fips": "105",
+            "state": "PA",
+            "name": "Potter County"
+        },
+        {
+            "code": "42107",
+            "fips": "107",
+            "state": "PA",
+            "name": "Schuylkill County"
+        },
+        {
+            "code": "42109",
+            "fips": "109",
+            "state": "PA",
+            "name": "Snyder County"
+        },
+        {
+            "code": "42111",
+            "fips": "111",
+            "state": "PA",
+            "name": "Somerset County"
+        },
+        {
+            "code": "42113",
+            "fips": "113",
+            "state": "PA",
+            "name": "Sullivan County"
+        },
+        {
+            "code": "42115",
+            "fips": "115",
+            "state": "PA",
+            "name": "Susquehanna County"
+        },
+        {
+            "code": "42117",
+            "fips": "117",
+            "state": "PA",
+            "name": "Tioga County"
+        },
+        {
+            "code": "42119",
+            "fips": "119",
+            "state": "PA",
+            "name": "Union County"
+        },
+        {
+            "code": "42121",
+            "fips": "121",
+            "state": "PA",
+            "name": "Venango County"
+        },
+        {
+            "code": "42123",
+            "fips": "123",
+            "state": "PA",
+            "name": "Warren County"
+        },
+        {
+            "code": "42125",
+            "fips": "125",
+            "state": "PA",
+            "name": "Washington County"
+        },
+        {
+            "code": "42127",
+            "fips": "127",
+            "state": "PA",
+            "name": "Wayne County"
+        },
+        {
+            "code": "42129",
+            "fips": "129",
+            "state": "PA",
+            "name": "Westmoreland County"
+        },
+        {
+            "code": "42131",
+            "fips": "131",
+            "state": "PA",
+            "name": "Wyoming County"
+        },
+        {
+            "code": "42133",
+            "fips": "133",
+            "state": "PA",
+            "name": "York County"
+        }
+    ]
+}

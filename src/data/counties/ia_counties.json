@@ -1,0 +1,598 @@
+{
+    "counties": [
+        {
+            "code": "19001",
+            "fips": "001",
+            "state": "IA",
+            "name": "Adair County"
+        },
+        {
+            "code": "19003",
+            "fips": "003",
+            "state": "IA",
+            "name": "Adams County"
+        },
+        {
+            "code": "19005",
+            "fips": "005",
+            "state": "IA",
+            "name": "Allamakee County"
+        },
+        {
+            "code": "19007",
+            "fips": "007",
+            "state": "IA",
+            "name": "Appanoose County"
+        },
+        {
+            "code": "19009",
+            "fips": "009",
+            "state": "IA",
+            "name": "Audubon County"
+        },
+        {
+            "code": "19011",
+            "fips": "011",
+            "state": "IA",
+            "name": "Benton County"
+        },
+        {
+            "code": "19013",
+            "fips": "013",
+            "state": "IA",
+            "name": "Black Hawk County"
+        },
+        {
+            "code": "19015",
+            "fips": "015",
+            "state": "IA",
+            "name": "Boone County"
+        },
+        {
+            "code": "19017",
+            "fips": "017",
+            "state": "IA",
+            "name": "Bremer County"
+        },
+        {
+            "code": "19019",
+            "fips": "019",
+            "state": "IA",
+            "name": "Buchanan County"
+        },
+        {
+            "code": "19021",
+            "fips": "021",
+            "state": "IA",
+            "name": "Buena Vista County"
+        },
+        {
+            "code": "19023",
+            "fips": "023",
+            "state": "IA",
+            "name": "Butler County"
+        },
+        {
+            "code": "19025",
+            "fips": "025",
+            "state": "IA",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "19027",
+            "fips": "027",
+            "state": "IA",
+            "name": "Carroll County"
+        },
+        {
+            "code": "19029",
+            "fips": "029",
+            "state": "IA",
+            "name": "Cass County"
+        },
+        {
+            "code": "19031",
+            "fips": "031",
+            "state": "IA",
+            "name": "Cedar County"
+        },
+        {
+            "code": "19033",
+            "fips": "033",
+            "state": "IA",
+            "name": "Cerro Gordo County"
+        },
+        {
+            "code": "19035",
+            "fips": "035",
+            "state": "IA",
+            "name": "Cherokee County"
+        },
+        {
+            "code": "19037",
+            "fips": "037",
+            "state": "IA",
+            "name": "Chickasaw County"
+        },
+        {
+            "code": "19039",
+            "fips": "039",
+            "state": "IA",
+            "name": "Clarke County"
+        },
+        {
+            "code": "19041",
+            "fips": "041",
+            "state": "IA",
+            "name": "Clay County"
+        },
+        {
+            "code": "19043",
+            "fips": "043",
+            "state": "IA",
+            "name": "Clayton County"
+        },
+        {
+            "code": "19045",
+            "fips": "045",
+            "state": "IA",
+            "name": "Clinton County"
+        },
+        {
+            "code": "19047",
+            "fips": "047",
+            "state": "IA",
+            "name": "Crawford County"
+        },
+        {
+            "code": "19049",
+            "fips": "049",
+            "state": "IA",
+            "name": "Dallas County"
+        },
+        {
+            "code": "19051",
+            "fips": "051",
+            "state": "IA",
+            "name": "Davis County"
+        },
+        {
+            "code": "19053",
+            "fips": "053",
+            "state": "IA",
+            "name": "Decatur County"
+        },
+        {
+            "code": "19055",
+            "fips": "055",
+            "state": "IA",
+            "name": "Delaware County"
+        },
+        {
+            "code": "19057",
+            "fips": "057",
+            "state": "IA",
+            "name": "Des Moines County"
+        },
+        {
+            "code": "19059",
+            "fips": "059",
+            "state": "IA",
+            "name": "Dickinson County"
+        },
+        {
+            "code": "19061",
+            "fips": "061",
+            "state": "IA",
+            "name": "Dubuque County"
+        },
+        {
+            "code": "19063",
+            "fips": "063",
+            "state": "IA",
+            "name": "Emmet County"
+        },
+        {
+            "code": "19065",
+            "fips": "065",
+            "state": "IA",
+            "name": "Fayette County"
+        },
+        {
+            "code": "19067",
+            "fips": "067",
+            "state": "IA",
+            "name": "Floyd County"
+        },
+        {
+            "code": "19069",
+            "fips": "069",
+            "state": "IA",
+            "name": "Franklin County"
+        },
+        {
+            "code": "19071",
+            "fips": "071",
+            "state": "IA",
+            "name": "Fremont County"
+        },
+        {
+            "code": "19073",
+            "fips": "073",
+            "state": "IA",
+            "name": "Greene County"
+        },
+        {
+            "code": "19075",
+            "fips": "075",
+            "state": "IA",
+            "name": "Grundy County"
+        },
+        {
+            "code": "19077",
+            "fips": "077",
+            "state": "IA",
+            "name": "Guthrie County"
+        },
+        {
+            "code": "19079",
+            "fips": "079",
+            "state": "IA",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "19081",
+            "fips": "081",
+            "state": "IA",
+            "name": "Hancock County"
+        },
+        {
+            "code": "19083",
+            "fips": "083",
+            "state": "IA",
+            "name": "Hardin County"
+        },
+        {
+            "code": "19085",
+            "fips": "085",
+            "state": "IA",
+            "name": "Harrison County"
+        },
+        {
+            "code": "19087",
+            "fips": "087",
+            "state": "IA",
+            "name": "Henry County"
+        },
+        {
+            "code": "19089",
+            "fips": "089",
+            "state": "IA",
+            "name": "Howard County"
+        },
+        {
+            "code": "19091",
+            "fips": "091",
+            "state": "IA",
+            "name": "Humboldt County"
+        },
+        {
+            "code": "19093",
+            "fips": "093",
+            "state": "IA",
+            "name": "Ida County"
+        },
+        {
+            "code": "19095",
+            "fips": "095",
+            "state": "IA",
+            "name": "Iowa County"
+        },
+        {
+            "code": "19097",
+            "fips": "097",
+            "state": "IA",
+            "name": "Jackson County"
+        },
+        {
+            "code": "19099",
+            "fips": "099",
+            "state": "IA",
+            "name": "Jasper County"
+        },
+        {
+            "code": "19101",
+            "fips": "101",
+            "state": "IA",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "19103",
+            "fips": "103",
+            "state": "IA",
+            "name": "Johnson County"
+        },
+        {
+            "code": "19105",
+            "fips": "105",
+            "state": "IA",
+            "name": "Jones County"
+        },
+        {
+            "code": "19107",
+            "fips": "107",
+            "state": "IA",
+            "name": "Keokuk County"
+        },
+        {
+            "code": "19109",
+            "fips": "109",
+            "state": "IA",
+            "name": "Kossuth County"
+        },
+        {
+            "code": "19111",
+            "fips": "111",
+            "state": "IA",
+            "name": "Lee County"
+        },
+        {
+            "code": "19113",
+            "fips": "113",
+            "state": "IA",
+            "name": "Linn County"
+        },
+        {
+            "code": "19115",
+            "fips": "115",
+            "state": "IA",
+            "name": "Louisa County"
+        },
+        {
+            "code": "19117",
+            "fips": "117",
+            "state": "IA",
+            "name": "Lucas County"
+        },
+        {
+            "code": "19119",
+            "fips": "119",
+            "state": "IA",
+            "name": "Lyon County"
+        },
+        {
+            "code": "19121",
+            "fips": "121",
+            "state": "IA",
+            "name": "Madison County"
+        },
+        {
+            "code": "19123",
+            "fips": "123",
+            "state": "IA",
+            "name": "Mahaska County"
+        },
+        {
+            "code": "19125",
+            "fips": "125",
+            "state": "IA",
+            "name": "Marion County"
+        },
+        {
+            "code": "19127",
+            "fips": "127",
+            "state": "IA",
+            "name": "Marshall County"
+        },
+        {
+            "code": "19129",
+            "fips": "129",
+            "state": "IA",
+            "name": "Mills County"
+        },
+        {
+            "code": "19131",
+            "fips": "131",
+            "state": "IA",
+            "name": "Mitchell County"
+        },
+        {
+            "code": "19133",
+            "fips": "133",
+            "state": "IA",
+            "name": "Monona County"
+        },
+        {
+            "code": "19135",
+            "fips": "135",
+            "state": "IA",
+            "name": "Monroe County"
+        },
+        {
+            "code": "19137",
+            "fips": "137",
+            "state": "IA",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "19139",
+            "fips": "139",
+            "state": "IA",
+            "name": "Muscatine County"
+        },
+        {
+            "code": "19141",
+            "fips": "141",
+            "state": "IA",
+            "name": "O'Brien County"
+        },
+        {
+            "code": "19143",
+            "fips": "143",
+            "state": "IA",
+            "name": "Osceola County"
+        },
+        {
+            "code": "19145",
+            "fips": "145",
+            "state": "IA",
+            "name": "Page County"
+        },
+        {
+            "code": "19147",
+            "fips": "147",
+            "state": "IA",
+            "name": "Palo Alto County"
+        },
+        {
+            "code": "19149",
+            "fips": "149",
+            "state": "IA",
+            "name": "Plymouth County"
+        },
+        {
+            "code": "19151",
+            "fips": "151",
+            "state": "IA",
+            "name": "Pocahontas County"
+        },
+        {
+            "code": "19153",
+            "fips": "153",
+            "state": "IA",
+            "name": "Polk County"
+        },
+        {
+            "code": "19155",
+            "fips": "155",
+            "state": "IA",
+            "name": "Pottawattamie County"
+        },
+        {
+            "code": "19157",
+            "fips": "157",
+            "state": "IA",
+            "name": "Poweshiek County"
+        },
+        {
+            "code": "19159",
+            "fips": "159",
+            "state": "IA",
+            "name": "Ringgold County"
+        },
+        {
+            "code": "19161",
+            "fips": "161",
+            "state": "IA",
+            "name": "Sac County"
+        },
+        {
+            "code": "19163",
+            "fips": "163",
+            "state": "IA",
+            "name": "Scott County"
+        },
+        {
+            "code": "19165",
+            "fips": "165",
+            "state": "IA",
+            "name": "Shelby County"
+        },
+        {
+            "code": "19167",
+            "fips": "167",
+            "state": "IA",
+            "name": "Sioux County"
+        },
+        {
+            "code": "19169",
+            "fips": "169",
+            "state": "IA",
+            "name": "Story County"
+        },
+        {
+            "code": "19171",
+            "fips": "171",
+            "state": "IA",
+            "name": "Tama County"
+        },
+        {
+            "code": "19173",
+            "fips": "173",
+            "state": "IA",
+            "name": "Taylor County"
+        },
+        {
+            "code": "19175",
+            "fips": "175",
+            "state": "IA",
+            "name": "Union County"
+        },
+        {
+            "code": "19177",
+            "fips": "177",
+            "state": "IA",
+            "name": "Van Buren County"
+        },
+        {
+            "code": "19179",
+            "fips": "179",
+            "state": "IA",
+            "name": "Wapello County"
+        },
+        {
+            "code": "19181",
+            "fips": "181",
+            "state": "IA",
+            "name": "Warren County"
+        },
+        {
+            "code": "19183",
+            "fips": "183",
+            "state": "IA",
+            "name": "Washington County"
+        },
+        {
+            "code": "19185",
+            "fips": "185",
+            "state": "IA",
+            "name": "Wayne County"
+        },
+        {
+            "code": "19187",
+            "fips": "187",
+            "state": "IA",
+            "name": "Webster County"
+        },
+        {
+            "code": "19189",
+            "fips": "189",
+            "state": "IA",
+            "name": "Winnebago County"
+        },
+        {
+            "code": "19191",
+            "fips": "191",
+            "state": "IA",
+            "name": "Winneshiek County"
+        },
+        {
+            "code": "19193",
+            "fips": "193",
+            "state": "IA",
+            "name": "Woodbury County"
+        },
+        {
+            "code": "19195",
+            "fips": "195",
+            "state": "IA",
+            "name": "Worth County"
+        },
+        {
+            "code": "19197",
+            "fips": "197",
+            "state": "IA",
+            "name": "Wright County"
+        }
+    ]
+}

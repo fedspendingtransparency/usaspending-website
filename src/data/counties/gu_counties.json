@@ -1,0 +1,10 @@
+{
+    "counties": [
+        {
+            "code": "66010",
+            "fips": "010",
+            "state": "GU",
+            "name": "Territory of Guam"
+        }
+    ]
+}

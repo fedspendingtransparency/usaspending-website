@@ -1,0 +1,130 @@
+{
+    "counties": [
+        {
+            "code": "34001",
+            "fips": "001",
+            "state": "NJ",
+            "name": "Atlantic County"
+        },
+        {
+            "code": "34003",
+            "fips": "003",
+            "state": "NJ",
+            "name": "Bergen County"
+        },
+        {
+            "code": "34005",
+            "fips": "005",
+            "state": "NJ",
+            "name": "Burlington County"
+        },
+        {
+            "code": "34007",
+            "fips": "007",
+            "state": "NJ",
+            "name": "Camden County"
+        },
+        {
+            "code": "34009",
+            "fips": "009",
+            "state": "NJ",
+            "name": "Cape May County"
+        },
+        {
+            "code": "34011",
+            "fips": "011",
+            "state": "NJ",
+            "name": "Cumberland County"
+        },
+        {
+            "code": "34013",
+            "fips": "013",
+            "state": "NJ",
+            "name": "Essex County"
+        },
+        {
+            "code": "34015",
+            "fips": "015",
+            "state": "NJ",
+            "name": "Gloucester County"
+        },
+        {
+            "code": "34017",
+            "fips": "017",
+            "state": "NJ",
+            "name": "Hudson County"
+        },
+        {
+            "code": "34019",
+            "fips": "019",
+            "state": "NJ",
+            "name": "Hunterdon County"
+        },
+        {
+            "code": "34021",
+            "fips": "021",
+            "state": "NJ",
+            "name": "Mercer County"
+        },
+        {
+            "code": "34023",
+            "fips": "023",
+            "state": "NJ",
+            "name": "Middlesex County"
+        },
+        {
+            "code": "34025",
+            "fips": "025",
+            "state": "NJ",
+            "name": "Monmouth County"
+        },
+        {
+            "code": "34027",
+            "fips": "027",
+            "state": "NJ",
+            "name": "Morris County"
+        },
+        {
+            "code": "34029",
+            "fips": "029",
+            "state": "NJ",
+            "name": "Ocean County"
+        },
+        {
+            "code": "34031",
+            "fips": "031",
+            "state": "NJ",
+            "name": "Passaic County"
+        },
+        {
+            "code": "34033",
+            "fips": "033",
+            "state": "NJ",
+            "name": "Salem County"
+        },
+        {
+            "code": "34035",
+            "fips": "035",
+            "state": "NJ",
+            "name": "Somerset County"
+        },
+        {
+            "code": "34037",
+            "fips": "037",
+            "state": "NJ",
+            "name": "Sussex County"
+        },
+        {
+            "code": "34039",
+            "fips": "039",
+            "state": "NJ",
+            "name": "Union County"
+        },
+        {
+            "code": "34041",
+            "fips": "041",
+            "state": "NJ",
+            "name": "Warren County"
+        }
+    ]
+}

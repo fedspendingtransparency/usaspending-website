@@ -1,0 +1,454 @@
+{
+    "counties": [
+        {
+            "code": "05001",
+            "fips": "001",
+            "state": "AR",
+            "name": "Arkansas County"
+        },
+        {
+            "code": "05003",
+            "fips": "003",
+            "state": "AR",
+            "name": "Ashley County"
+        },
+        {
+            "code": "05005",
+            "fips": "005",
+            "state": "AR",
+            "name": "Baxter County"
+        },
+        {
+            "code": "05007",
+            "fips": "007",
+            "state": "AR",
+            "name": "Benton County"
+        },
+        {
+            "code": "05009",
+            "fips": "009",
+            "state": "AR",
+            "name": "Boone County"
+        },
+        {
+            "code": "05011",
+            "fips": "011",
+            "state": "AR",
+            "name": "Bradley County"
+        },
+        {
+            "code": "05013",
+            "fips": "013",
+            "state": "AR",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "05015",
+            "fips": "015",
+            "state": "AR",
+            "name": "Carroll County"
+        },
+        {
+            "code": "05017",
+            "fips": "017",
+            "state": "AR",
+            "name": "Chicot County"
+        },
+        {
+            "code": "05019",
+            "fips": "019",
+            "state": "AR",
+            "name": "Clark County"
+        },
+        {
+            "code": "05021",
+            "fips": "021",
+            "state": "AR",
+            "name": "Clay County"
+        },
+        {
+            "code": "05023",
+            "fips": "023",
+            "state": "AR",
+            "name": "Cleburne County"
+        },
+        {
+            "code": "05025",
+            "fips": "025",
+            "state": "AR",
+            "name": "Cleveland County"
+        },
+        {
+            "code": "05027",
+            "fips": "027",
+            "state": "AR",
+            "name": "Columbia County"
+        },
+        {
+            "code": "05029",
+            "fips": "029",
+            "state": "AR",
+            "name": "Conway County"
+        },
+        {
+            "code": "05031",
+            "fips": "031",
+            "state": "AR",
+            "name": "Craighead County"
+        },
+        {
+            "code": "05033",
+            "fips": "033",
+            "state": "AR",
+            "name": "Crawford County"
+        },
+        {
+            "code": "05035",
+            "fips": "035",
+            "state": "AR",
+            "name": "Crittenden County"
+        },
+        {
+            "code": "05037",
+            "fips": "037",
+            "state": "AR",
+            "name": "Cross County"
+        },
+        {
+            "code": "05039",
+            "fips": "039",
+            "state": "AR",
+            "name": "Dallas County"
+        },
+        {
+            "code": "05041",
+            "fips": "041",
+            "state": "AR",
+            "name": "Desha County"
+        },
+        {
+            "code": "05043",
+            "fips": "043",
+            "state": "AR",
+            "name": "Drew County"
+        },
+        {
+            "code": "05045",
+            "fips": "045",
+            "state": "AR",
+            "name": "Faulkner County"
+        },
+        {
+            "code": "05047",
+            "fips": "047",
+            "state": "AR",
+            "name": "Franklin County"
+        },
+        {
+            "code": "05049",
+            "fips": "049",
+            "state": "AR",
+            "name": "Fulton County"
+        },
+        {
+            "code": "05051",
+            "fips": "051",
+            "state": "AR",
+            "name": "Garland County"
+        },
+        {
+            "code": "05053",
+            "fips": "053",
+            "state": "AR",
+            "name": "Grant County"
+        },
+        {
+            "code": "05055",
+            "fips": "055",
+            "state": "AR",
+            "name": "Greene County"
+        },
+        {
+            "code": "05057",
+            "fips": "057",
+            "state": "AR",
+            "name": "Hempstead County"
+        },
+        {
+            "code": "05059",
+            "fips": "059",
+            "state": "AR",
+            "name": "Hot Spring County"
+        },
+        {
+            "code": "05061",
+            "fips": "061",
+            "state": "AR",
+            "name": "Howard County"
+        },
+        {
+            "code": "05063",
+            "fips": "063",
+            "state": "AR",
+            "name": "Independence County"
+        },
+        {
+            "code": "05065",
+            "fips": "065",
+            "state": "AR",
+            "name": "Izard County"
+        },
+        {
+            "code": "05067",
+            "fips": "067",
+            "state": "AR",
+            "name": "Jackson County"
+        },
+        {
+            "code": "05069",
+            "fips": "069",
+            "state": "AR",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "05071",
+            "fips": "071",
+            "state": "AR",
+            "name": "Johnson County"
+        },
+        {
+            "code": "05073",
+            "fips": "073",
+            "state": "AR",
+            "name": "Lafayette County"
+        },
+        {
+            "code": "05075",
+            "fips": "075",
+            "state": "AR",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "05077",
+            "fips": "077",
+            "state": "AR",
+            "name": "Lee County"
+        },
+        {
+            "code": "05079",
+            "fips": "079",
+            "state": "AR",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "05081",
+            "fips": "081",
+            "state": "AR",
+            "name": "Little River County"
+        },
+        {
+            "code": "05083",
+            "fips": "083",
+            "state": "AR",
+            "name": "Logan County"
+        },
+        {
+            "code": "05085",
+            "fips": "085",
+            "state": "AR",
+            "name": "Lonoke County"
+        },
+        {
+            "code": "05087",
+            "fips": "087",
+            "state": "AR",
+            "name": "Madison County"
+        },
+        {
+            "code": "05089",
+            "fips": "089",
+            "state": "AR",
+            "name": "Marion County"
+        },
+        {
+            "code": "05091",
+            "fips": "091",
+            "state": "AR",
+            "name": "Miller County"
+        },
+        {
+            "code": "05093",
+            "fips": "093",
+            "state": "AR",
+            "name": "Mississippi County"
+        },
+        {
+            "code": "05095",
+            "fips": "095",
+            "state": "AR",
+            "name": "Monroe County"
+        },
+        {
+            "code": "05097",
+            "fips": "097",
+            "state": "AR",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "05099",
+            "fips": "099",
+            "state": "AR",
+            "name": "Nevada County"
+        },
+        {
+            "code": "05101",
+            "fips": "101",
+            "state": "AR",
+            "name": "Newton County"
+        },
+        {
+            "code": "05103",
+            "fips": "103",
+            "state": "AR",
+            "name": "Ouachita County"
+        },
+        {
+            "code": "05105",
+            "fips": "105",
+            "state": "AR",
+            "name": "Perry County"
+        },
+        {
+            "code": "05107",
+            "fips": "107",
+            "state": "AR",
+            "name": "Phillips County"
+        },
+        {
+            "code": "05109",
+            "fips": "109",
+            "state": "AR",
+            "name": "Pike County"
+        },
+        {
+            "code": "05111",
+            "fips": "111",
+            "state": "AR",
+            "name": "Poinsett County"
+        },
+        {
+            "code": "05113",
+            "fips": "113",
+            "state": "AR",
+            "name": "Polk County"
+        },
+        {
+            "code": "05115",
+            "fips": "115",
+            "state": "AR",
+            "name": "Pope County"
+        },
+        {
+            "code": "05117",
+            "fips": "117",
+            "state": "AR",
+            "name": "Prairie County"
+        },
+        {
+            "code": "05119",
+            "fips": "119",
+            "state": "AR",
+            "name": "Pulaski County"
+        },
+        {
+            "code": "05121",
+            "fips": "121",
+            "state": "AR",
+            "name": "Randolph County"
+        },
+        {
+            "code": "05125",
+            "fips": "125",
+            "state": "AR",
+            "name": "Saline County"
+        },
+        {
+            "code": "05127",
+            "fips": "127",
+            "state": "AR",
+            "name": "Scott County"
+        },
+        {
+            "code": "05129",
+            "fips": "129",
+            "state": "AR",
+            "name": "Searcy County"
+        },
+        {
+            "code": "05131",
+            "fips": "131",
+            "state": "AR",
+            "name": "Sebastian County"
+        },
+        {
+            "code": "05133",
+            "fips": "133",
+            "state": "AR",
+            "name": "Sevier County"
+        },
+        {
+            "code": "05135",
+            "fips": "135",
+            "state": "AR",
+            "name": "Sharp County"
+        },
+        {
+            "code": "05123",
+            "fips": "123",
+            "state": "AR",
+            "name": "Saint Francis County"
+        },
+        {
+            "code": "05137",
+            "fips": "137",
+            "state": "AR",
+            "name": "Stone County"
+        },
+        {
+            "code": "05139",
+            "fips": "139",
+            "state": "AR",
+            "name": "Union County"
+        },
+        {
+            "code": "05141",
+            "fips": "141",
+            "state": "AR",
+            "name": "Van Buren County"
+        },
+        {
+            "code": "05143",
+            "fips": "143",
+            "state": "AR",
+            "name": "Washington County"
+        },
+        {
+            "code": "05145",
+            "fips": "145",
+            "state": "AR",
+            "name": "White County"
+        },
+        {
+            "code": "05147",
+            "fips": "147",
+            "state": "AR",
+            "name": "Woodruff County"
+        },
+        {
+            "code": "05149",
+            "fips": "149",
+            "state": "AR",
+            "name": "Yell County"
+        }
+    ]
+}

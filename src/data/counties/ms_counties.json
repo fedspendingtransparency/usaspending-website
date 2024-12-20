@@ -1,0 +1,496 @@
+{
+    "counties": [
+        {
+            "code": "28001",
+            "fips": "001",
+            "state": "MS",
+            "name": "Adams County"
+        },
+        {
+            "code": "28003",
+            "fips": "003",
+            "state": "MS",
+            "name": "Alcorn County"
+        },
+        {
+            "code": "28005",
+            "fips": "005",
+            "state": "MS",
+            "name": "Amite County"
+        },
+        {
+            "code": "28007",
+            "fips": "007",
+            "state": "MS",
+            "name": "Attala County"
+        },
+        {
+            "code": "28009",
+            "fips": "009",
+            "state": "MS",
+            "name": "Benton County"
+        },
+        {
+            "code": "28011",
+            "fips": "011",
+            "state": "MS",
+            "name": "Bolivar County"
+        },
+        {
+            "code": "28013",
+            "fips": "013",
+            "state": "MS",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "28015",
+            "fips": "015",
+            "state": "MS",
+            "name": "Carroll County"
+        },
+        {
+            "code": "28017",
+            "fips": "017",
+            "state": "MS",
+            "name": "Chickasaw County"
+        },
+        {
+            "code": "28019",
+            "fips": "019",
+            "state": "MS",
+            "name": "Choctaw County"
+        },
+        {
+            "code": "28021",
+            "fips": "021",
+            "state": "MS",
+            "name": "Claiborne County"
+        },
+        {
+            "code": "28023",
+            "fips": "023",
+            "state": "MS",
+            "name": "Clarke County"
+        },
+        {
+            "code": "28025",
+            "fips": "025",
+            "state": "MS",
+            "name": "Clay County"
+        },
+        {
+            "code": "28027",
+            "fips": "027",
+            "state": "MS",
+            "name": "Coahoma County"
+        },
+        {
+            "code": "28029",
+            "fips": "029",
+            "state": "MS",
+            "name": "Copiah County"
+        },
+        {
+            "code": "28031",
+            "fips": "031",
+            "state": "MS",
+            "name": "Covington County"
+        },
+        {
+            "code": "28033",
+            "fips": "033",
+            "state": "MS",
+            "name": "DeSoto County"
+        },
+        {
+            "code": "28035",
+            "fips": "035",
+            "state": "MS",
+            "name": "Forrest County"
+        },
+        {
+            "code": "28037",
+            "fips": "037",
+            "state": "MS",
+            "name": "Franklin County"
+        },
+        {
+            "code": "28039",
+            "fips": "039",
+            "state": "MS",
+            "name": "George County"
+        },
+        {
+            "code": "28041",
+            "fips": "041",
+            "state": "MS",
+            "name": "Greene County"
+        },
+        {
+            "code": "28043",
+            "fips": "043",
+            "state": "MS",
+            "name": "Grenada County"
+        },
+        {
+            "code": "28045",
+            "fips": "045",
+            "state": "MS",
+            "name": "Hancock County"
+        },
+        {
+            "code": "28047",
+            "fips": "047",
+            "state": "MS",
+            "name": "Harrison County"
+        },
+        {
+            "code": "28049",
+            "fips": "049",
+            "state": "MS",
+            "name": "Hinds County"
+        },
+        {
+            "code": "28051",
+            "fips": "051",
+            "state": "MS",
+            "name": "Holmes County"
+        },
+        {
+            "code": "28053",
+            "fips": "053",
+            "state": "MS",
+            "name": "Humphreys County"
+        },
+        {
+            "code": "28055",
+            "fips": "055",
+            "state": "MS",
+            "name": "Issaquena County"
+        },
+        {
+            "code": "28057",
+            "fips": "057",
+            "state": "MS",
+            "name": "Itawamba County"
+        },
+        {
+            "code": "28059",
+            "fips": "059",
+            "state": "MS",
+            "name": "Jackson County"
+        },
+        {
+            "code": "28061",
+            "fips": "061",
+            "state": "MS",
+            "name": "Jasper County"
+        },
+        {
+            "code": "28063",
+            "fips": "063",
+            "state": "MS",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "28065",
+            "fips": "065",
+            "state": "MS",
+            "name": "Jefferson Davis County"
+        },
+        {
+            "code": "28067",
+            "fips": "067",
+            "state": "MS",
+            "name": "Jones County"
+        },
+        {
+            "code": "28069",
+            "fips": "069",
+            "state": "MS",
+            "name": "Kemper County"
+        },
+        {
+            "code": "28071",
+            "fips": "071",
+            "state": "MS",
+            "name": "Lafayette County"
+        },
+        {
+            "code": "28073",
+            "fips": "073",
+            "state": "MS",
+            "name": "Lamar County"
+        },
+        {
+            "code": "28075",
+            "fips": "075",
+            "state": "MS",
+            "name": "Lauderdale County"
+        },
+        {
+            "code": "28077",
+            "fips": "077",
+            "state": "MS",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "28079",
+            "fips": "079",
+            "state": "MS",
+            "name": "Leake County"
+        },
+        {
+            "code": "28081",
+            "fips": "081",
+            "state": "MS",
+            "name": "Lee County"
+        },
+        {
+            "code": "28083",
+            "fips": "083",
+            "state": "MS",
+            "name": "Leflore County"
+        },
+        {
+            "code": "28085",
+            "fips": "085",
+            "state": "MS",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "28087",
+            "fips": "087",
+            "state": "MS",
+            "name": "Lowndes County"
+        },
+        {
+            "code": "28089",
+            "fips": "089",
+            "state": "MS",
+            "name": "Madison County"
+        },
+        {
+            "code": "28091",
+            "fips": "091",
+            "state": "MS",
+            "name": "Marion County"
+        },
+        {
+            "code": "28093",
+            "fips": "093",
+            "state": "MS",
+            "name": "Marshall County"
+        },
+        {
+            "code": "28095",
+            "fips": "095",
+            "state": "MS",
+            "name": "Monroe County"
+        },
+        {
+            "code": "28097",
+            "fips": "097",
+            "state": "MS",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "28099",
+            "fips": "099",
+            "state": "MS",
+            "name": "Neshoba County"
+        },
+        {
+            "code": "28101",
+            "fips": "101",
+            "state": "MS",
+            "name": "Newton County"
+        },
+        {
+            "code": "28103",
+            "fips": "103",
+            "state": "MS",
+            "name": "Noxubee County"
+        },
+        {
+            "code": "28105",
+            "fips": "105",
+            "state": "MS",
+            "name": "Oktibbeha County"
+        },
+        {
+            "code": "28107",
+            "fips": "107",
+            "state": "MS",
+            "name": "Panola County"
+        },
+        {
+            "code": "28109",
+            "fips": "109",
+            "state": "MS",
+            "name": "Pearl River County"
+        },
+        {
+            "code": "28111",
+            "fips": "111",
+            "state": "MS",
+            "name": "Perry County"
+        },
+        {
+            "code": "28113",
+            "fips": "113",
+            "state": "MS",
+            "name": "Pike County"
+        },
+        {
+            "code": "28115",
+            "fips": "115",
+            "state": "MS",
+            "name": "Pontotoc County"
+        },
+        {
+            "code": "28117",
+            "fips": "117",
+            "state": "MS",
+            "name": "Prentiss County"
+        },
+        {
+            "code": "28119",
+            "fips": "119",
+            "state": "MS",
+            "name": "Quitman County"
+        },
+        {
+            "code": "28121",
+            "fips": "121",
+            "state": "MS",
+            "name": "Rankin County"
+        },
+        {
+            "code": "28123",
+            "fips": "123",
+            "state": "MS",
+            "name": "Scott County"
+        },
+        {
+            "code": "28125",
+            "fips": "125",
+            "state": "MS",
+            "name": "Sharkey County"
+        },
+        {
+            "code": "28127",
+            "fips": "127",
+            "state": "MS",
+            "name": "Simpson County"
+        },
+        {
+            "code": "28129",
+            "fips": "129",
+            "state": "MS",
+            "name": "Smith County"
+        },
+        {
+            "code": "28131",
+            "fips": "131",
+            "state": "MS",
+            "name": "Stone County"
+        },
+        {
+            "code": "28133",
+            "fips": "133",
+            "state": "MS",
+            "name": "Sunflower County"
+        },
+        {
+            "code": "28135",
+            "fips": "135",
+            "state": "MS",
+            "name": "Tallahatchie County"
+        },
+        {
+            "code": "28137",
+            "fips": "137",
+            "state": "MS",
+            "name": "Tate County"
+        },
+        {
+            "code": "28139",
+            "fips": "139",
+            "state": "MS",
+            "name": "Tippah County"
+        },
+        {
+            "code": "28141",
+            "fips": "141",
+            "state": "MS",
+            "name": "Tishomingo County"
+        },
+        {
+            "code": "28143",
+            "fips": "143",
+            "state": "MS",
+            "name": "Tunica County"
+        },
+        {
+            "code": "28145",
+            "fips": "145",
+            "state": "MS",
+            "name": "Union County"
+        },
+        {
+            "code": "28147",
+            "fips": "147",
+            "state": "MS",
+            "name": "Walthall County"
+        },
+        {
+            "code": "28149",
+            "fips": "149",
+            "state": "MS",
+            "name": "Warren County"
+        },
+        {
+            "code": "28151",
+            "fips": "151",
+            "state": "MS",
+            "name": "Washington County"
+        },
+        {
+            "code": "28153",
+            "fips": "153",
+            "state": "MS",
+            "name": "Wayne County"
+        },
+        {
+            "code": "28155",
+            "fips": "155",
+            "state": "MS",
+            "name": "Webster County"
+        },
+        {
+            "code": "28157",
+            "fips": "157",
+            "state": "MS",
+            "name": "Wilkinson County"
+        },
+        {
+            "code": "28159",
+            "fips": "159",
+            "state": "MS",
+            "name": "Winston County"
+        },
+        {
+            "code": "28161",
+            "fips": "161",
+            "state": "MS",
+            "name": "Yalobusha County"
+        },
+        {
+            "code": "28163",
+            "fips": "163",
+            "state": "MS",
+            "name": "Yazoo County"
+        }
+    ]
+}

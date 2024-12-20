@@ -1,0 +1,502 @@
+{
+    "counties": [
+        {
+            "code": "26001",
+            "fips": "001",
+            "state": "MI",
+            "name": "Alcona County"
+        },
+        {
+            "code": "26003",
+            "fips": "003",
+            "state": "MI",
+            "name": "Alger County"
+        },
+        {
+            "code": "26005",
+            "fips": "005",
+            "state": "MI",
+            "name": "Allegan County"
+        },
+        {
+            "code": "26007",
+            "fips": "007",
+            "state": "MI",
+            "name": "Alpena County"
+        },
+        {
+            "code": "26009",
+            "fips": "009",
+            "state": "MI",
+            "name": "Antrim County"
+        },
+        {
+            "code": "26011",
+            "fips": "011",
+            "state": "MI",
+            "name": "Arenac County"
+        },
+        {
+            "code": "26013",
+            "fips": "013",
+            "state": "MI",
+            "name": "Baraga County"
+        },
+        {
+            "code": "26015",
+            "fips": "015",
+            "state": "MI",
+            "name": "Barry County"
+        },
+        {
+            "code": "26017",
+            "fips": "017",
+            "state": "MI",
+            "name": "Bay County"
+        },
+        {
+            "code": "26019",
+            "fips": "019",
+            "state": "MI",
+            "name": "Benzie County"
+        },
+        {
+            "code": "26021",
+            "fips": "021",
+            "state": "MI",
+            "name": "Berrien County"
+        },
+        {
+            "code": "26023",
+            "fips": "023",
+            "state": "MI",
+            "name": "Branch County"
+        },
+        {
+            "code": "26025",
+            "fips": "025",
+            "state": "MI",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "26027",
+            "fips": "027",
+            "state": "MI",
+            "name": "Cass County"
+        },
+        {
+            "code": "26029",
+            "fips": "029",
+            "state": "MI",
+            "name": "Charlevoix County"
+        },
+        {
+            "code": "26031",
+            "fips": "031",
+            "state": "MI",
+            "name": "Cheboygan County"
+        },
+        {
+            "code": "26033",
+            "fips": "033",
+            "state": "MI",
+            "name": "Chippewa County"
+        },
+        {
+            "code": "26035",
+            "fips": "035",
+            "state": "MI",
+            "name": "Clare County"
+        },
+        {
+            "code": "26037",
+            "fips": "037",
+            "state": "MI",
+            "name": "Clinton County"
+        },
+        {
+            "code": "26039",
+            "fips": "039",
+            "state": "MI",
+            "name": "Crawford County"
+        },
+        {
+            "code": "26041",
+            "fips": "041",
+            "state": "MI",
+            "name": "Delta County"
+        },
+        {
+            "code": "26043",
+            "fips": "043",
+            "state": "MI",
+            "name": "Dickinson County"
+        },
+        {
+            "code": "26045",
+            "fips": "045",
+            "state": "MI",
+            "name": "Eaton County"
+        },
+        {
+            "code": "26047",
+            "fips": "047",
+            "state": "MI",
+            "name": "Emmet County"
+        },
+        {
+            "code": "26049",
+            "fips": "049",
+            "state": "MI",
+            "name": "Genesee County"
+        },
+        {
+            "code": "26051",
+            "fips": "051",
+            "state": "MI",
+            "name": "Gladwin County"
+        },
+        {
+            "code": "26053",
+            "fips": "053",
+            "state": "MI",
+            "name": "Gogebic County"
+        },
+        {
+            "code": "26055",
+            "fips": "055",
+            "state": "MI",
+            "name": "Grand Traverse County"
+        },
+        {
+            "code": "26057",
+            "fips": "057",
+            "state": "MI",
+            "name": "Gratiot County"
+        },
+        {
+            "code": "26059",
+            "fips": "059",
+            "state": "MI",
+            "name": "Hillsdale County"
+        },
+        {
+            "code": "26061",
+            "fips": "061",
+            "state": "MI",
+            "name": "Houghton County"
+        },
+        {
+            "code": "26063",
+            "fips": "063",
+            "state": "MI",
+            "name": "Huron County"
+        },
+        {
+            "code": "26065",
+            "fips": "065",
+            "state": "MI",
+            "name": "Ingham County"
+        },
+        {
+            "code": "26067",
+            "fips": "067",
+            "state": "MI",
+            "name": "Ionia County"
+        },
+        {
+            "code": "26069",
+            "fips": "069",
+            "state": "MI",
+            "name": "Iosco County"
+        },
+        {
+            "code": "26071",
+            "fips": "071",
+            "state": "MI",
+            "name": "Iron County"
+        },
+        {
+            "code": "26073",
+            "fips": "073",
+            "state": "MI",
+            "name": "Isabella County"
+        },
+        {
+            "code": "26075",
+            "fips": "075",
+            "state": "MI",
+            "name": "Jackson County"
+        },
+        {
+            "code": "26077",
+            "fips": "077",
+            "state": "MI",
+            "name": "Kalamazoo County"
+        },
+        {
+            "code": "26079",
+            "fips": "079",
+            "state": "MI",
+            "name": "Kalkaska County"
+        },
+        {
+            "code": "26081",
+            "fips": "081",
+            "state": "MI",
+            "name": "Kent County"
+        },
+        {
+            "code": "26083",
+            "fips": "083",
+            "state": "MI",
+            "name": "Keweenaw County"
+        },
+        {
+            "code": "26085",
+            "fips": "085",
+            "state": "MI",
+            "name": "Lake County"
+        },
+        {
+            "code": "26087",
+            "fips": "087",
+            "state": "MI",
+            "name": "Lapeer County"
+        },
+        {
+            "code": "26089",
+            "fips": "089",
+            "state": "MI",
+            "name": "Leelanau County"
+        },
+        {
+            "code": "26091",
+            "fips": "091",
+            "state": "MI",
+            "name": "Lenawee County"
+        },
+        {
+            "code": "26093",
+            "fips": "093",
+            "state": "MI",
+            "name": "Livingston County"
+        },
+        {
+            "code": "26095",
+            "fips": "095",
+            "state": "MI",
+            "name": "Luce County"
+        },
+        {
+            "code": "26097",
+            "fips": "097",
+            "state": "MI",
+            "name": "Mackinac County"
+        },
+        {
+            "code": "26099",
+            "fips": "099",
+            "state": "MI",
+            "name": "Macomb County"
+        },
+        {
+            "code": "26101",
+            "fips": "101",
+            "state": "MI",
+            "name": "Manistee County"
+        },
+        {
+            "code": "26103",
+            "fips": "103",
+            "state": "MI",
+            "name": "Marquette County"
+        },
+        {
+            "code": "26105",
+            "fips": "105",
+            "state": "MI",
+            "name": "Mason County"
+        },
+        {
+            "code": "26107",
+            "fips": "107",
+            "state": "MI",
+            "name": "Mecosta County"
+        },
+        {
+            "code": "26109",
+            "fips": "109",
+            "state": "MI",
+            "name": "Menominee County"
+        },
+        {
+            "code": "26111",
+            "fips": "111",
+            "state": "MI",
+            "name": "Midland County"
+        },
+        {
+            "code": "26113",
+            "fips": "113",
+            "state": "MI",
+            "name": "Missaukee County"
+        },
+        {
+            "code": "26115",
+            "fips": "115",
+            "state": "MI",
+            "name": "Monroe County"
+        },
+        {
+            "code": "26117",
+            "fips": "117",
+            "state": "MI",
+            "name": "Montcalm County"
+        },
+        {
+            "code": "26119",
+            "fips": "119",
+            "state": "MI",
+            "name": "Montmorency County"
+        },
+        {
+            "code": "26121",
+            "fips": "121",
+            "state": "MI",
+            "name": "Muskegon County"
+        },
+        {
+            "code": "26123",
+            "fips": "123",
+            "state": "MI",
+            "name": "Newaygo County"
+        },
+        {
+            "code": "26125",
+            "fips": "125",
+            "state": "MI",
+            "name": "Oakland County"
+        },
+        {
+            "code": "26127",
+            "fips": "127",
+            "state": "MI",
+            "name": "Oceana County"
+        },
+        {
+            "code": "26129",
+            "fips": "129",
+            "state": "MI",
+            "name": "Ogemaw County"
+        },
+        {
+            "code": "26131",
+            "fips": "131",
+            "state": "MI",
+            "name": "Ontonagon County"
+        },
+        {
+            "code": "26133",
+            "fips": "133",
+            "state": "MI",
+            "name": "Osceola County"
+        },
+        {
+            "code": "26135",
+            "fips": "135",
+            "state": "MI",
+            "name": "Oscoda County"
+        },
+        {
+            "code": "26137",
+            "fips": "137",
+            "state": "MI",
+            "name": "Otsego County"
+        },
+        {
+            "code": "26139",
+            "fips": "139",
+            "state": "MI",
+            "name": "Ottawa County"
+        },
+        {
+            "code": "26141",
+            "fips": "141",
+            "state": "MI",
+            "name": "Presque Isle County"
+        },
+        {
+            "code": "26143",
+            "fips": "143",
+            "state": "MI",
+            "name": "Roscommon County"
+        },
+        {
+            "code": "26145",
+            "fips": "145",
+            "state": "MI",
+            "name": "Saginaw County"
+        },
+        {
+            "code": "26151",
+            "fips": "151",
+            "state": "MI",
+            "name": "Sanilac County"
+        },
+        {
+            "code": "26153",
+            "fips": "153",
+            "state": "MI",
+            "name": "Schoolcraft County"
+        },
+        {
+            "code": "26155",
+            "fips": "155",
+            "state": "MI",
+            "name": "Shiawassee County"
+        },
+        {
+            "code": "26147",
+            "fips": "147",
+            "state": "MI",
+            "name": "Saint Clair County"
+        },
+        {
+            "code": "26149",
+            "fips": "149",
+            "state": "MI",
+            "name": "Saint Joseph County"
+        },
+        {
+            "code": "26157",
+            "fips": "157",
+            "state": "MI",
+            "name": "Tuscola County"
+        },
+        {
+            "code": "26159",
+            "fips": "159",
+            "state": "MI",
+            "name": "Van Buren County"
+        },
+        {
+            "code": "26161",
+            "fips": "161",
+            "state": "MI",
+            "name": "Washtenaw County"
+        },
+        {
+            "code": "26163",
+            "fips": "163",
+            "state": "MI",
+            "name": "Wayne County"
+        },
+        {
+            "code": "26165",
+            "fips": "165",
+            "state": "MI",
+            "name": "Wexford County"
+        }
+    ]
+}

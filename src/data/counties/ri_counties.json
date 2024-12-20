@@ -1,0 +1,34 @@
+{
+    "counties": [
+        {
+            "code": "44001",
+            "fips": "001",
+            "state": "RI",
+            "name": "Bristol County"
+        },
+        {
+            "code": "44003",
+            "fips": "003",
+            "state": "RI",
+            "name": "Kent County"
+        },
+        {
+            "code": "44005",
+            "fips": "005",
+            "state": "RI",
+            "name": "Newport County"
+        },
+        {
+            "code": "44007",
+            "fips": "007",
+            "state": "RI",
+            "name": "Providence County"
+        },
+        {
+            "code": "44009",
+            "fips": "009",
+            "state": "RI",
+            "name": "Washington County"
+        }
+    ]
+}

@@ -1,0 +1,202 @@
+{
+    "counties": [
+        {
+            "code": "35001",
+            "fips": "001",
+            "state": "NM",
+            "name": "Bernalillo County"
+        },
+        {
+            "code": "35003",
+            "fips": "003",
+            "state": "NM",
+            "name": "Catron County"
+        },
+        {
+            "code": "35005",
+            "fips": "005",
+            "state": "NM",
+            "name": "Chaves County"
+        },
+        {
+            "code": "35006",
+            "fips": "006",
+            "state": "NM",
+            "name": "Cibola County"
+        },
+        {
+            "code": "35007",
+            "fips": "007",
+            "state": "NM",
+            "name": "Colfax County"
+        },
+        {
+            "code": "35009",
+            "fips": "009",
+            "state": "NM",
+            "name": "Curry County"
+        },
+        {
+            "code": "35011",
+            "fips": "011",
+            "state": "NM",
+            "name": "De Baca County"
+        },
+        {
+            "code": "35013",
+            "fips": "013",
+            "state": "NM",
+            "name": "Doña Ana County"
+        },
+        {
+            "code": "35015",
+            "fips": "015",
+            "state": "NM",
+            "name": "Eddy County"
+        },
+        {
+            "code": "35017",
+            "fips": "017",
+            "state": "NM",
+            "name": "Grant County"
+        },
+        {
+            "code": "35019",
+            "fips": "019",
+            "state": "NM",
+            "name": "Guadalupe County"
+        },
+        {
+            "code": "35021",
+            "fips": "021",
+            "state": "NM",
+            "name": "Harding County"
+        },
+        {
+            "code": "35023",
+            "fips": "023",
+            "state": "NM",
+            "name": "Hidalgo County"
+        },
+        {
+            "code": "35025",
+            "fips": "025",
+            "state": "NM",
+            "name": "Lea County"
+        },
+        {
+            "code": "35027",
+            "fips": "027",
+            "state": "NM",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "35028",
+            "fips": "028",
+            "state": "NM",
+            "name": "Los Alamos County"
+        },
+        {
+            "code": "35029",
+            "fips": "029",
+            "state": "NM",
+            "name": "Luna County"
+        },
+        {
+            "code": "35031",
+            "fips": "031",
+            "state": "NM",
+            "name": "McKinley County"
+        },
+        {
+            "code": "35033",
+            "fips": "033",
+            "state": "NM",
+            "name": "Mora County"
+        },
+        {
+            "code": "35035",
+            "fips": "035",
+            "state": "NM",
+            "name": "Otero County"
+        },
+        {
+            "code": "35037",
+            "fips": "037",
+            "state": "NM",
+            "name": "Quay County"
+        },
+        {
+            "code": "35039",
+            "fips": "039",
+            "state": "NM",
+            "name": "Rio Arriba County"
+        },
+        {
+            "code": "35041",
+            "fips": "041",
+            "state": "NM",
+            "name": "Roosevelt County"
+        },
+        {
+            "code": "35045",
+            "fips": "045",
+            "state": "NM",
+            "name": "San Juan County"
+        },
+        {
+            "code": "35047",
+            "fips": "047",
+            "state": "NM",
+            "name": "San Miguel County"
+        },
+        {
+            "code": "35043",
+            "fips": "043",
+            "state": "NM",
+            "name": "Sandoval County"
+        },
+        {
+            "code": "35049",
+            "fips": "049",
+            "state": "NM",
+            "name": "Santa Fe County"
+        },
+        {
+            "code": "35051",
+            "fips": "051",
+            "state": "NM",
+            "name": "Sierra County"
+        },
+        {
+            "code": "35053",
+            "fips": "053",
+            "state": "NM",
+            "name": "Socorro County"
+        },
+        {
+            "code": "35055",
+            "fips": "055",
+            "state": "NM",
+            "name": "Taos County"
+        },
+        {
+            "code": "35057",
+            "fips": "057",
+            "state": "NM",
+            "name": "Torrance County"
+        },
+        {
+            "code": "35059",
+            "fips": "059",
+            "state": "NM",
+            "name": "Union County"
+        },
+        {
+            "code": "35061",
+            "fips": "061",
+            "state": "NM",
+            "name": "Valencia County"
+        }
+    ]
+}

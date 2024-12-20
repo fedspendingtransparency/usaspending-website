@@ -1,0 +1,148 @@
+{
+    "counties": [
+        {
+            "code": "24001",
+            "fips": "001",
+            "state": "MD",
+            "name": "Allegany County"
+        },
+        {
+            "code": "24003",
+            "fips": "003",
+            "state": "MD",
+            "name": "Anne Arundel County"
+        },
+        {
+            "code": "24005",
+            "fips": "005",
+            "state": "MD",
+            "name": "Baltimore County"
+        },
+        {
+            "code": "24510",
+            "fips": "510",
+            "state": "MD",
+            "name": "City of Baltimore"
+        },
+        {
+            "code": "24009",
+            "fips": "009",
+            "state": "MD",
+            "name": "Calvert County"
+        },
+        {
+            "code": "24011",
+            "fips": "011",
+            "state": "MD",
+            "name": "Caroline County"
+        },
+        {
+            "code": "24013",
+            "fips": "013",
+            "state": "MD",
+            "name": "Carroll County"
+        },
+        {
+            "code": "24015",
+            "fips": "015",
+            "state": "MD",
+            "name": "Cecil County"
+        },
+        {
+            "code": "24017",
+            "fips": "017",
+            "state": "MD",
+            "name": "Charles County"
+        },
+        {
+            "code": "24019",
+            "fips": "019",
+            "state": "MD",
+            "name": "Dorchester County"
+        },
+        {
+            "code": "24021",
+            "fips": "021",
+            "state": "MD",
+            "name": "Frederick County"
+        },
+        {
+            "code": "24023",
+            "fips": "023",
+            "state": "MD",
+            "name": "Garrett County"
+        },
+        {
+            "code": "24025",
+            "fips": "025",
+            "state": "MD",
+            "name": "Harford County"
+        },
+        {
+            "code": "24027",
+            "fips": "027",
+            "state": "MD",
+            "name": "Howard County"
+        },
+        {
+            "code": "24029",
+            "fips": "029",
+            "state": "MD",
+            "name": "Kent County"
+        },
+        {
+            "code": "24031",
+            "fips": "031",
+            "state": "MD",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "24033",
+            "fips": "033",
+            "state": "MD",
+            "name": "Prince George's County"
+        },
+        {
+            "code": "24035",
+            "fips": "035",
+            "state": "MD",
+            "name": "Queen Anne's County"
+        },
+        {
+            "code": "24039",
+            "fips": "039",
+            "state": "MD",
+            "name": "Somerset County"
+        },
+        {
+            "code": "24037",
+            "fips": "037",
+            "state": "MD",
+            "name": "Saint Mary's County"
+        },
+        {
+            "code": "24041",
+            "fips": "041",
+            "state": "MD",
+            "name": "Talbot County"
+        },
+        {
+            "code": "24043",
+            "fips": "043",
+            "state": "MD",
+            "name": "Washington County"
+        },
+        {
+            "code": "24045",
+            "fips": "045",
+            "state": "MD",
+            "name": "Wicomico County"
+        },
+        {
+            "code": "24047",
+            "fips": "047",
+            "state": "MD",
+            "name": "Worcester County"
+        }
+    ]
+}

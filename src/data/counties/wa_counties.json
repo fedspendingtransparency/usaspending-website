@@ -1,0 +1,238 @@
+{
+    "counties": [
+        {
+            "code": "53001",
+            "fips": "001",
+            "state": "WA",
+            "name": "Adams County"
+        },
+        {
+            "code": "53003",
+            "fips": "003",
+            "state": "WA",
+            "name": "Asotin County"
+        },
+        {
+            "code": "53005",
+            "fips": "005",
+            "state": "WA",
+            "name": "Benton County"
+        },
+        {
+            "code": "53007",
+            "fips": "007",
+            "state": "WA",
+            "name": "Chelan County"
+        },
+        {
+            "code": "53009",
+            "fips": "009",
+            "state": "WA",
+            "name": "Clallam County"
+        },
+        {
+            "code": "53011",
+            "fips": "011",
+            "state": "WA",
+            "name": "Clark County"
+        },
+        {
+            "code": "53013",
+            "fips": "013",
+            "state": "WA",
+            "name": "Columbia County"
+        },
+        {
+            "code": "53015",
+            "fips": "015",
+            "state": "WA",
+            "name": "Cowlitz County"
+        },
+        {
+            "code": "53017",
+            "fips": "017",
+            "state": "WA",
+            "name": "Douglas County"
+        },
+        {
+            "code": "53019",
+            "fips": "019",
+            "state": "WA",
+            "name": "Ferry County"
+        },
+        {
+            "code": "53021",
+            "fips": "021",
+            "state": "WA",
+            "name": "Franklin County"
+        },
+        {
+            "code": "53023",
+            "fips": "023",
+            "state": "WA",
+            "name": "Garfield County"
+        },
+        {
+            "code": "53025",
+            "fips": "025",
+            "state": "WA",
+            "name": "Grant County"
+        },
+        {
+            "code": "53027",
+            "fips": "027",
+            "state": "WA",
+            "name": "Grays Harbor County"
+        },
+        {
+            "code": "53029",
+            "fips": "029",
+            "state": "WA",
+            "name": "Island County"
+        },
+        {
+            "code": "53031",
+            "fips": "031",
+            "state": "WA",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "53033",
+            "fips": "033",
+            "state": "WA",
+            "name": "King County"
+        },
+        {
+            "code": "53035",
+            "fips": "035",
+            "state": "WA",
+            "name": "Kitsap County"
+        },
+        {
+            "code": "53037",
+            "fips": "037",
+            "state": "WA",
+            "name": "Kittitas County"
+        },
+        {
+            "code": "53039",
+            "fips": "039",
+            "state": "WA",
+            "name": "Klickitat County"
+        },
+        {
+            "code": "53041",
+            "fips": "041",
+            "state": "WA",
+            "name": "Lewis County"
+        },
+        {
+            "code": "53043",
+            "fips": "043",
+            "state": "WA",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "53045",
+            "fips": "045",
+            "state": "WA",
+            "name": "Mason County"
+        },
+        {
+            "code": "53047",
+            "fips": "047",
+            "state": "WA",
+            "name": "Okanogan County"
+        },
+        {
+            "code": "53049",
+            "fips": "049",
+            "state": "WA",
+            "name": "Pacific County"
+        },
+        {
+            "code": "53051",
+            "fips": "051",
+            "state": "WA",
+            "name": "Pend Oreille County"
+        },
+        {
+            "code": "53053",
+            "fips": "053",
+            "state": "WA",
+            "name": "Pierce County"
+        },
+        {
+            "code": "53055",
+            "fips": "055",
+            "state": "WA",
+            "name": "San Juan County"
+        },
+        {
+            "code": "53057",
+            "fips": "057",
+            "state": "WA",
+            "name": "Skagit County"
+        },
+        {
+            "code": "53059",
+            "fips": "059",
+            "state": "WA",
+            "name": "Skamania County"
+        },
+        {
+            "code": "53061",
+            "fips": "061",
+            "state": "WA",
+            "name": "Snohomish County"
+        },
+        {
+            "code": "53063",
+            "fips": "063",
+            "state": "WA",
+            "name": "Spokane County"
+        },
+        {
+            "code": "53065",
+            "fips": "065",
+            "state": "WA",
+            "name": "Stevens County"
+        },
+        {
+            "code": "53067",
+            "fips": "067",
+            "state": "WA",
+            "name": "Thurston County"
+        },
+        {
+            "code": "53069",
+            "fips": "069",
+            "state": "WA",
+            "name": "Wahkiakum County"
+        },
+        {
+            "code": "53071",
+            "fips": "071",
+            "state": "WA",
+            "name": "Walla Walla County"
+        },
+        {
+            "code": "53073",
+            "fips": "073",
+            "state": "WA",
+            "name": "Whatcom County"
+        },
+        {
+            "code": "53075",
+            "fips": "075",
+            "state": "WA",
+            "name": "Whitman County"
+        },
+        {
+            "code": "53077",
+            "fips": "077",
+            "state": "WA",
+            "name": "Yakima County"
+        }
+    ]
+}

@@ -1,0 +1,604 @@
+{
+    "counties": [
+        {
+            "code": "37001",
+            "fips": "001",
+            "state": "NC",
+            "name": "Alamance County"
+        },
+        {
+            "code": "37003",
+            "fips": "003",
+            "state": "NC",
+            "name": "Alexander County"
+        },
+        {
+            "code": "37005",
+            "fips": "005",
+            "state": "NC",
+            "name": "Alleghany County"
+        },
+        {
+            "code": "37007",
+            "fips": "007",
+            "state": "NC",
+            "name": "Anson County"
+        },
+        {
+            "code": "37009",
+            "fips": "009",
+            "state": "NC",
+            "name": "Ashe County"
+        },
+        {
+            "code": "37011",
+            "fips": "011",
+            "state": "NC",
+            "name": "Avery County"
+        },
+        {
+            "code": "37013",
+            "fips": "013",
+            "state": "NC",
+            "name": "Beaufort County"
+        },
+        {
+            "code": "37015",
+            "fips": "015",
+            "state": "NC",
+            "name": "Bertie County"
+        },
+        {
+            "code": "37017",
+            "fips": "017",
+            "state": "NC",
+            "name": "Bladen County"
+        },
+        {
+            "code": "37019",
+            "fips": "019",
+            "state": "NC",
+            "name": "Brunswick County"
+        },
+        {
+            "code": "37021",
+            "fips": "021",
+            "state": "NC",
+            "name": "Buncombe County"
+        },
+        {
+            "code": "37023",
+            "fips": "023",
+            "state": "NC",
+            "name": "Burke County"
+        },
+        {
+            "code": "37025",
+            "fips": "025",
+            "state": "NC",
+            "name": "Cabarrus County"
+        },
+        {
+            "code": "37027",
+            "fips": "027",
+            "state": "NC",
+            "name": "Caldwell County"
+        },
+        {
+            "code": "37029",
+            "fips": "029",
+            "state": "NC",
+            "name": "Camden County"
+        },
+        {
+            "code": "37031",
+            "fips": "031",
+            "state": "NC",
+            "name": "Carteret County"
+        },
+        {
+            "code": "37033",
+            "fips": "033",
+            "state": "NC",
+            "name": "Caswell County"
+        },
+        {
+            "code": "37035",
+            "fips": "035",
+            "state": "NC",
+            "name": "Catawba County"
+        },
+        {
+            "code": "37037",
+            "fips": "037",
+            "state": "NC",
+            "name": "Chatham County"
+        },
+        {
+            "code": "37039",
+            "fips": "039",
+            "state": "NC",
+            "name": "Cherokee County"
+        },
+        {
+            "code": "37041",
+            "fips": "041",
+            "state": "NC",
+            "name": "Chowan County"
+        },
+        {
+            "code": "37043",
+            "fips": "043",
+            "state": "NC",
+            "name": "Clay County"
+        },
+        {
+            "code": "37045",
+            "fips": "045",
+            "state": "NC",
+            "name": "Cleveland County"
+        },
+        {
+            "code": "37047",
+            "fips": "047",
+            "state": "NC",
+            "name": "Columbus County"
+        },
+        {
+            "code": "37049",
+            "fips": "049",
+            "state": "NC",
+            "name": "Craven County"
+        },
+        {
+            "code": "37051",
+            "fips": "051",
+            "state": "NC",
+            "name": "Cumberland County"
+        },
+        {
+            "code": "37053",
+            "fips": "053",
+            "state": "NC",
+            "name": "Currituck County"
+        },
+        {
+            "code": "37055",
+            "fips": "055",
+            "state": "NC",
+            "name": "Dare County"
+        },
+        {
+            "code": "37057",
+            "fips": "057",
+            "state": "NC",
+            "name": "Davidson County"
+        },
+        {
+            "code": "37059",
+            "fips": "059",
+            "state": "NC",
+            "name": "Davie County"
+        },
+        {
+            "code": "37061",
+            "fips": "061",
+            "state": "NC",
+            "name": "Duplin County"
+        },
+        {
+            "code": "37063",
+            "fips": "063",
+            "state": "NC",
+            "name": "Durham County"
+        },
+        {
+            "code": "37065",
+            "fips": "065",
+            "state": "NC",
+            "name": "Edgecombe County"
+        },
+        {
+            "code": "37067",
+            "fips": "067",
+            "state": "NC",
+            "name": "Forsyth County"
+        },
+        {
+            "code": "37069",
+            "fips": "069",
+            "state": "NC",
+            "name": "Franklin County"
+        },
+        {
+            "code": "37071",
+            "fips": "071",
+            "state": "NC",
+            "name": "Gaston County"
+        },
+        {
+            "code": "37073",
+            "fips": "073",
+            "state": "NC",
+            "name": "Gates County"
+        },
+        {
+            "code": "37075",
+            "fips": "075",
+            "state": "NC",
+            "name": "Graham County"
+        },
+        {
+            "code": "37077",
+            "fips": "077",
+            "state": "NC",
+            "name": "Granville County"
+        },
+        {
+            "code": "37079",
+            "fips": "079",
+            "state": "NC",
+            "name": "Greene County"
+        },
+        {
+            "code": "37081",
+            "fips": "081",
+            "state": "NC",
+            "name": "Guilford County"
+        },
+        {
+            "code": "37083",
+            "fips": "083",
+            "state": "NC",
+            "name": "Halifax County"
+        },
+        {
+            "code": "37085",
+            "fips": "085",
+            "state": "NC",
+            "name": "Harnett County"
+        },
+        {
+            "code": "37087",
+            "fips": "087",
+            "state": "NC",
+            "name": "Haywood County"
+        },
+        {
+            "code": "37089",
+            "fips": "089",
+            "state": "NC",
+            "name": "Henderson County"
+        },
+        {
+            "code": "37091",
+            "fips": "091",
+            "state": "NC",
+            "name": "Hertford County"
+        },
+        {
+            "code": "37093",
+            "fips": "093",
+            "state": "NC",
+            "name": "Hoke County"
+        },
+        {
+            "code": "37095",
+            "fips": "095",
+            "state": "NC",
+            "name": "Hyde County"
+        },
+        {
+            "code": "37097",
+            "fips": "097",
+            "state": "NC",
+            "name": "Iredell County"
+        },
+        {
+            "code": "37099",
+            "fips": "099",
+            "state": "NC",
+            "name": "Jackson County"
+        },
+        {
+            "code": "37101",
+            "fips": "101",
+            "state": "NC",
+            "name": "Johnston County"
+        },
+        {
+            "code": "37103",
+            "fips": "103",
+            "state": "NC",
+            "name": "Jones County"
+        },
+        {
+            "code": "37105",
+            "fips": "105",
+            "state": "NC",
+            "name": "Lee County"
+        },
+        {
+            "code": "37107",
+            "fips": "107",
+            "state": "NC",
+            "name": "Lenoir County"
+        },
+        {
+            "code": "37109",
+            "fips": "109",
+            "state": "NC",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "37113",
+            "fips": "113",
+            "state": "NC",
+            "name": "Macon County"
+        },
+        {
+            "code": "37115",
+            "fips": "115",
+            "state": "NC",
+            "name": "Madison County"
+        },
+        {
+            "code": "37117",
+            "fips": "117",
+            "state": "NC",
+            "name": "Martin County"
+        },
+        {
+            "code": "37111",
+            "fips": "111",
+            "state": "NC",
+            "name": "McDowell County"
+        },
+        {
+            "code": "37119",
+            "fips": "119",
+            "state": "NC",
+            "name": "Mecklenburg County"
+        },
+        {
+            "code": "37121",
+            "fips": "121",
+            "state": "NC",
+            "name": "Mitchell County"
+        },
+        {
+            "code": "37123",
+            "fips": "123",
+            "state": "NC",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "37125",
+            "fips": "125",
+            "state": "NC",
+            "name": "Moore County"
+        },
+        {
+            "code": "37127",
+            "fips": "127",
+            "state": "NC",
+            "name": "Nash County"
+        },
+        {
+            "code": "37129",
+            "fips": "129",
+            "state": "NC",
+            "name": "New Hanover County"
+        },
+        {
+            "code": "37131",
+            "fips": "131",
+            "state": "NC",
+            "name": "Northampton County"
+        },
+        {
+            "code": "37133",
+            "fips": "133",
+            "state": "NC",
+            "name": "Onslow County"
+        },
+        {
+            "code": "37135",
+            "fips": "135",
+            "state": "NC",
+            "name": "Orange County"
+        },
+        {
+            "code": "37137",
+            "fips": "137",
+            "state": "NC",
+            "name": "Pamlico County"
+        },
+        {
+            "code": "37139",
+            "fips": "139",
+            "state": "NC",
+            "name": "Pasquotank County"
+        },
+        {
+            "code": "37141",
+            "fips": "141",
+            "state": "NC",
+            "name": "Pender County"
+        },
+        {
+            "code": "37143",
+            "fips": "143",
+            "state": "NC",
+            "name": "Perquimans County"
+        },
+        {
+            "code": "37145",
+            "fips": "145",
+            "state": "NC",
+            "name": "Person County"
+        },
+        {
+            "code": "37147",
+            "fips": "147",
+            "state": "NC",
+            "name": "Pitt County"
+        },
+        {
+            "code": "37149",
+            "fips": "149",
+            "state": "NC",
+            "name": "Polk County"
+        },
+        {
+            "code": "37151",
+            "fips": "151",
+            "state": "NC",
+            "name": "Randolph County"
+        },
+        {
+            "code": "37153",
+            "fips": "153",
+            "state": "NC",
+            "name": "Richmond County"
+        },
+        {
+            "code": "37155",
+            "fips": "155",
+            "state": "NC",
+            "name": "Robeson County"
+        },
+        {
+            "code": "37157",
+            "fips": "157",
+            "state": "NC",
+            "name": "Rockingham County"
+        },
+        {
+            "code": "37159",
+            "fips": "159",
+            "state": "NC",
+            "name": "Rowan County"
+        },
+        {
+            "code": "37161",
+            "fips": "161",
+            "state": "NC",
+            "name": "Rutherford County"
+        },
+        {
+            "code": "37163",
+            "fips": "163",
+            "state": "NC",
+            "name": "Sampson County"
+        },
+        {
+            "code": "37165",
+            "fips": "165",
+            "state": "NC",
+            "name": "Scotland County"
+        },
+        {
+            "code": "37167",
+            "fips": "167",
+            "state": "NC",
+            "name": "Stanly County"
+        },
+        {
+            "code": "37169",
+            "fips": "169",
+            "state": "NC",
+            "name": "Stokes County"
+        },
+        {
+            "code": "37171",
+            "fips": "171",
+            "state": "NC",
+            "name": "Surry County"
+        },
+        {
+            "code": "37173",
+            "fips": "173",
+            "state": "NC",
+            "name": "Swain County"
+        },
+        {
+            "code": "37175",
+            "fips": "175",
+            "state": "NC",
+            "name": "Transylvania County"
+        },
+        {
+            "code": "37177",
+            "fips": "177",
+            "state": "NC",
+            "name": "Tyrrell County"
+        },
+        {
+            "code": "37179",
+            "fips": "179",
+            "state": "NC",
+            "name": "Union County"
+        },
+        {
+            "code": "37181",
+            "fips": "181",
+            "state": "NC",
+            "name": "Vance County"
+        },
+        {
+            "code": "37183",
+            "fips": "183",
+            "state": "NC",
+            "name": "Wake County"
+        },
+        {
+            "code": "37185",
+            "fips": "185",
+            "state": "NC",
+            "name": "Warren County"
+        },
+        {
+            "code": "37187",
+            "fips": "187",
+            "state": "NC",
+            "name": "Washington County"
+        },
+        {
+            "code": "37189",
+            "fips": "189",
+            "state": "NC",
+            "name": "Watauga County"
+        },
+        {
+            "code": "37191",
+            "fips": "191",
+            "state": "NC",
+            "name": "Wayne County"
+        },
+        {
+            "code": "37193",
+            "fips": "193",
+            "state": "NC",
+            "name": "Wilkes County"
+        },
+        {
+            "code": "37195",
+            "fips": "195",
+            "state": "NC",
+            "name": "Wilson County"
+        },
+        {
+            "code": "37197",
+            "fips": "197",
+            "state": "NC",
+            "name": "Yadkin County"
+        },
+        {
+            "code": "37199",
+            "fips": "199",
+            "state": "NC",
+            "name": "Yancey County"
+        }
+    ]
+}

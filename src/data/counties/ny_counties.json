@@ -1,0 +1,376 @@
+{
+    "counties": [
+        {
+            "code": "36001",
+            "fips": "001",
+            "state": "NY",
+            "name": "Albany County"
+        },
+        {
+            "code": "36003",
+            "fips": "003",
+            "state": "NY",
+            "name": "Allegany County"
+        },
+        {
+            "code": "36005",
+            "fips": "005",
+            "state": "NY",
+            "name": "Bronx County"
+        },
+        {
+            "code": "36007",
+            "fips": "007",
+            "state": "NY",
+            "name": "Broome County"
+        },
+        {
+            "code": "36009",
+            "fips": "009",
+            "state": "NY",
+            "name": "Cattaraugus County"
+        },
+        {
+            "code": "36011",
+            "fips": "011",
+            "state": "NY",
+            "name": "Cayuga County"
+        },
+        {
+            "code": "36013",
+            "fips": "013",
+            "state": "NY",
+            "name": "Chautauqua County"
+        },
+        {
+            "code": "36015",
+            "fips": "015",
+            "state": "NY",
+            "name": "Chemung County"
+        },
+        {
+            "code": "36017",
+            "fips": "017",
+            "state": "NY",
+            "name": "Chenango County"
+        },
+        {
+            "code": "36019",
+            "fips": "019",
+            "state": "NY",
+            "name": "Clinton County"
+        },
+        {
+            "code": "36021",
+            "fips": "021",
+            "state": "NY",
+            "name": "Columbia County"
+        },
+        {
+            "code": "36023",
+            "fips": "023",
+            "state": "NY",
+            "name": "Cortland County"
+        },
+        {
+            "code": "36025",
+            "fips": "025",
+            "state": "NY",
+            "name": "Delaware County"
+        },
+        {
+            "code": "36027",
+            "fips": "027",
+            "state": "NY",
+            "name": "Dutchess County"
+        },
+        {
+            "code": "36029",
+            "fips": "029",
+            "state": "NY",
+            "name": "Erie County"
+        },
+        {
+            "code": "36031",
+            "fips": "031",
+            "state": "NY",
+            "name": "Essex County"
+        },
+        {
+            "code": "36033",
+            "fips": "033",
+            "state": "NY",
+            "name": "Franklin County"
+        },
+        {
+            "code": "36035",
+            "fips": "035",
+            "state": "NY",
+            "name": "Fulton County"
+        },
+        {
+            "code": "36037",
+            "fips": "037",
+            "state": "NY",
+            "name": "Genesee County"
+        },
+        {
+            "code": "36039",
+            "fips": "039",
+            "state": "NY",
+            "name": "Greene County"
+        },
+        {
+            "code": "36041",
+            "fips": "041",
+            "state": "NY",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "36043",
+            "fips": "043",
+            "state": "NY",
+            "name": "Herkimer County"
+        },
+        {
+            "code": "36045",
+            "fips": "045",
+            "state": "NY",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "36047",
+            "fips": "047",
+            "state": "NY",
+            "name": "Kings County"
+        },
+        {
+            "code": "36049",
+            "fips": "049",
+            "state": "NY",
+            "name": "Lewis County"
+        },
+        {
+            "code": "36051",
+            "fips": "051",
+            "state": "NY",
+            "name": "Livingston County"
+        },
+        {
+            "code": "36053",
+            "fips": "053",
+            "state": "NY",
+            "name": "Madison County"
+        },
+        {
+            "code": "36055",
+            "fips": "055",
+            "state": "NY",
+            "name": "Monroe County"
+        },
+        {
+            "code": "36057",
+            "fips": "057",
+            "state": "NY",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "36059",
+            "fips": "059",
+            "state": "NY",
+            "name": "Nassau County"
+        },
+        {
+            "code": "36061",
+            "fips": "061",
+            "state": "NY",
+            "name": "New York County"
+        },
+        {
+            "code": "36063",
+            "fips": "063",
+            "state": "NY",
+            "name": "Niagara County"
+        },
+        {
+            "code": "36065",
+            "fips": "065",
+            "state": "NY",
+            "name": "Oneida County"
+        },
+        {
+            "code": "36067",
+            "fips": "067",
+            "state": "NY",
+            "name": "Onondaga County"
+        },
+        {
+            "code": "36069",
+            "fips": "069",
+            "state": "NY",
+            "name": "Ontario County"
+        },
+        {
+            "code": "36071",
+            "fips": "071",
+            "state": "NY",
+            "name": "Orange County"
+        },
+        {
+            "code": "36073",
+            "fips": "073",
+            "state": "NY",
+            "name": "Orleans County"
+        },
+        {
+            "code": "36075",
+            "fips": "075",
+            "state": "NY",
+            "name": "Oswego County"
+        },
+        {
+            "code": "36077",
+            "fips": "077",
+            "state": "NY",
+            "name": "Otsego County"
+        },
+        {
+            "code": "36079",
+            "fips": "079",
+            "state": "NY",
+            "name": "Putnam County"
+        },
+        {
+            "code": "36081",
+            "fips": "081",
+            "state": "NY",
+            "name": "Queens County"
+        },
+        {
+            "code": "36083",
+            "fips": "083",
+            "state": "NY",
+            "name": "Rensselaer County"
+        },
+        {
+            "code": "36085",
+            "fips": "085",
+            "state": "NY",
+            "name": "Richmond County"
+        },
+        {
+            "code": "36087",
+            "fips": "087",
+            "state": "NY",
+            "name": "Rockland County"
+        },
+        {
+            "code": "36091",
+            "fips": "091",
+            "state": "NY",
+            "name": "Saratoga County"
+        },
+        {
+            "code": "36093",
+            "fips": "093",
+            "state": "NY",
+            "name": "Schenectady County"
+        },
+        {
+            "code": "36095",
+            "fips": "095",
+            "state": "NY",
+            "name": "Schoharie County"
+        },
+        {
+            "code": "36097",
+            "fips": "097",
+            "state": "NY",
+            "name": "Schuyler County"
+        },
+        {
+            "code": "36099",
+            "fips": "099",
+            "state": "NY",
+            "name": "Seneca County"
+        },
+        {
+            "code": "36089",
+            "fips": "089",
+            "state": "NY",
+            "name": "Saint Lawrence County"
+        },
+        {
+            "code": "36101",
+            "fips": "101",
+            "state": "NY",
+            "name": "Steuben County"
+        },
+        {
+            "code": "36103",
+            "fips": "103",
+            "state": "NY",
+            "name": "Suffolk County"
+        },
+        {
+            "code": "36105",
+            "fips": "105",
+            "state": "NY",
+            "name": "Sullivan County"
+        },
+        {
+            "code": "36107",
+            "fips": "107",
+            "state": "NY",
+            "name": "Tioga County"
+        },
+        {
+            "code": "36109",
+            "fips": "109",
+            "state": "NY",
+            "name": "Tompkins County"
+        },
+        {
+            "code": "36111",
+            "fips": "111",
+            "state": "NY",
+            "name": "Ulster County"
+        },
+        {
+            "code": "36113",
+            "fips": "113",
+            "state": "NY",
+            "name": "Warren County"
+        },
+        {
+            "code": "36115",
+            "fips": "115",
+            "state": "NY",
+            "name": "Washington County"
+        },
+        {
+            "code": "36117",
+            "fips": "117",
+            "state": "NY",
+            "name": "Wayne County"
+        },
+        {
+            "code": "36119",
+            "fips": "119",
+            "state": "NY",
+            "name": "Westchester County"
+        },
+        {
+            "code": "36121",
+            "fips": "121",
+            "state": "NY",
+            "name": "Wyoming County"
+        },
+        {
+            "code": "36123",
+            "fips": "123",
+            "state": "NY",
+            "name": "Yates County"
+        }
+    ]
+}

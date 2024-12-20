@@ -1,0 +1,958 @@
+{
+    "counties": [
+        {
+            "code": "13001",
+            "fips": "001",
+            "state": "GA",
+            "name": "Appling County"
+        },
+        {
+            "code": "13003",
+            "fips": "003",
+            "state": "GA",
+            "name": "Atkinson County"
+        },
+        {
+            "code": "13005",
+            "fips": "005",
+            "state": "GA",
+            "name": "Bacon County"
+        },
+        {
+            "code": "13007",
+            "fips": "007",
+            "state": "GA",
+            "name": "Baker County"
+        },
+        {
+            "code": "13009",
+            "fips": "009",
+            "state": "GA",
+            "name": "Baldwin County"
+        },
+        {
+            "code": "13011",
+            "fips": "011",
+            "state": "GA",
+            "name": "Banks County"
+        },
+        {
+            "code": "13013",
+            "fips": "013",
+            "state": "GA",
+            "name": "Barrow County"
+        },
+        {
+            "code": "13015",
+            "fips": "015",
+            "state": "GA",
+            "name": "Bartow County"
+        },
+        {
+            "code": "13017",
+            "fips": "017",
+            "state": "GA",
+            "name": "Ben Hill County"
+        },
+        {
+            "code": "13019",
+            "fips": "019",
+            "state": "GA",
+            "name": "Berrien County"
+        },
+        {
+            "code": "13021",
+            "fips": "021",
+            "state": "GA",
+            "name": "Bibb County"
+        },
+        {
+            "code": "13023",
+            "fips": "023",
+            "state": "GA",
+            "name": "Bleckley County"
+        },
+        {
+            "code": "13025",
+            "fips": "025",
+            "state": "GA",
+            "name": "Brantley County"
+        },
+        {
+            "code": "13027",
+            "fips": "027",
+            "state": "GA",
+            "name": "Brooks County"
+        },
+        {
+            "code": "13029",
+            "fips": "029",
+            "state": "GA",
+            "name": "Bryan County"
+        },
+        {
+            "code": "13031",
+            "fips": "031",
+            "state": "GA",
+            "name": "Bulloch County"
+        },
+        {
+            "code": "13033",
+            "fips": "033",
+            "state": "GA",
+            "name": "Burke County"
+        },
+        {
+            "code": "13035",
+            "fips": "035",
+            "state": "GA",
+            "name": "Butts County"
+        },
+        {
+            "code": "13037",
+            "fips": "037",
+            "state": "GA",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "13039",
+            "fips": "039",
+            "state": "GA",
+            "name": "Camden County"
+        },
+        {
+            "code": "13043",
+            "fips": "043",
+            "state": "GA",
+            "name": "Candler County"
+        },
+        {
+            "code": "13045",
+            "fips": "045",
+            "state": "GA",
+            "name": "Carroll County"
+        },
+        {
+            "code": "13047",
+            "fips": "047",
+            "state": "GA",
+            "name": "Catoosa County"
+        },
+        {
+            "code": "13049",
+            "fips": "049",
+            "state": "GA",
+            "name": "Charlton County"
+        },
+        {
+            "code": "13051",
+            "fips": "051",
+            "state": "GA",
+            "name": "Chatham County"
+        },
+        {
+            "code": "13053",
+            "fips": "053",
+            "state": "GA",
+            "name": "Chattahoochee County"
+        },
+        {
+            "code": "13055",
+            "fips": "055",
+            "state": "GA",
+            "name": "Chattooga County"
+        },
+        {
+            "code": "13057",
+            "fips": "057",
+            "state": "GA",
+            "name": "Cherokee County"
+        },
+        {
+            "code": "13059",
+            "fips": "059",
+            "state": "GA",
+            "name": "Clarke County"
+        },
+        {
+            "code": "13061",
+            "fips": "061",
+            "state": "GA",
+            "name": "Clay County"
+        },
+        {
+            "code": "13063",
+            "fips": "063",
+            "state": "GA",
+            "name": "Clayton County"
+        },
+        {
+            "code": "13065",
+            "fips": "065",
+            "state": "GA",
+            "name": "Clinch County"
+        },
+        {
+            "code": "13067",
+            "fips": "067",
+            "state": "GA",
+            "name": "Cobb County"
+        },
+        {
+            "code": "13069",
+            "fips": "069",
+            "state": "GA",
+            "name": "Coffee County"
+        },
+        {
+            "code": "13071",
+            "fips": "071",
+            "state": "GA",
+            "name": "Colquitt County"
+        },
+        {
+            "code": "13073",
+            "fips": "073",
+            "state": "GA",
+            "name": "Columbia County"
+        },
+        {
+            "code": "13075",
+            "fips": "075",
+            "state": "GA",
+            "name": "Cook County"
+        },
+        {
+            "code": "13077",
+            "fips": "077",
+            "state": "GA",
+            "name": "Coweta County"
+        },
+        {
+            "code": "13079",
+            "fips": "079",
+            "state": "GA",
+            "name": "Crawford County"
+        },
+        {
+            "code": "13081",
+            "fips": "081",
+            "state": "GA",
+            "name": "Crisp County"
+        },
+        {
+            "code": "13083",
+            "fips": "083",
+            "state": "GA",
+            "name": "Dade County"
+        },
+        {
+            "code": "13085",
+            "fips": "085",
+            "state": "GA",
+            "name": "Dawson County"
+        },
+        {
+            "code": "13089",
+            "fips": "089",
+            "state": "GA",
+            "name": "DeKalb County"
+        },
+        {
+            "code": "13087",
+            "fips": "087",
+            "state": "GA",
+            "name": "Decatur County"
+        },
+        {
+            "code": "13091",
+            "fips": "091",
+            "state": "GA",
+            "name": "Dodge County"
+        },
+        {
+            "code": "13093",
+            "fips": "093",
+            "state": "GA",
+            "name": "Dooly County"
+        },
+        {
+            "code": "13095",
+            "fips": "095",
+            "state": "GA",
+            "name": "Dougherty County"
+        },
+        {
+            "code": "13097",
+            "fips": "097",
+            "state": "GA",
+            "name": "Douglas County"
+        },
+        {
+            "code": "13099",
+            "fips": "099",
+            "state": "GA",
+            "name": "Early County"
+        },
+        {
+            "code": "13101",
+            "fips": "101",
+            "state": "GA",
+            "name": "Echols County"
+        },
+        {
+            "code": "13103",
+            "fips": "103",
+            "state": "GA",
+            "name": "Effingham County"
+        },
+        {
+            "code": "13105",
+            "fips": "105",
+            "state": "GA",
+            "name": "Elbert County"
+        },
+        {
+            "code": "13107",
+            "fips": "107",
+            "state": "GA",
+            "name": "Emanuel County"
+        },
+        {
+            "code": "13109",
+            "fips": "109",
+            "state": "GA",
+            "name": "Evans County"
+        },
+        {
+            "code": "13111",
+            "fips": "111",
+            "state": "GA",
+            "name": "Fannin County"
+        },
+        {
+            "code": "13113",
+            "fips": "113",
+            "state": "GA",
+            "name": "Fayette County"
+        },
+        {
+            "code": "13115",
+            "fips": "115",
+            "state": "GA",
+            "name": "Floyd County"
+        },
+        {
+            "code": "13117",
+            "fips": "117",
+            "state": "GA",
+            "name": "Forsyth County"
+        },
+        {
+            "code": "13119",
+            "fips": "119",
+            "state": "GA",
+            "name": "Franklin County"
+        },
+        {
+            "code": "13121",
+            "fips": "121",
+            "state": "GA",
+            "name": "Fulton County"
+        },
+        {
+            "code": "13123",
+            "fips": "123",
+            "state": "GA",
+            "name": "Gilmer County"
+        },
+        {
+            "code": "13125",
+            "fips": "125",
+            "state": "GA",
+            "name": "Glascock County"
+        },
+        {
+            "code": "13127",
+            "fips": "127",
+            "state": "GA",
+            "name": "Glynn County"
+        },
+        {
+            "code": "13129",
+            "fips": "129",
+            "state": "GA",
+            "name": "Gordon County"
+        },
+        {
+            "code": "13131",
+            "fips": "131",
+            "state": "GA",
+            "name": "Grady County"
+        },
+        {
+            "code": "13133",
+            "fips": "133",
+            "state": "GA",
+            "name": "Greene County"
+        },
+        {
+            "code": "13135",
+            "fips": "135",
+            "state": "GA",
+            "name": "Gwinnett County"
+        },
+        {
+            "code": "13137",
+            "fips": "137",
+            "state": "GA",
+            "name": "Habersham County"
+        },
+        {
+            "code": "13139",
+            "fips": "139",
+            "state": "GA",
+            "name": "Hall County"
+        },
+        {
+            "code": "13141",
+            "fips": "141",
+            "state": "GA",
+            "name": "Hancock County"
+        },
+        {
+            "code": "13143",
+            "fips": "143",
+            "state": "GA",
+            "name": "Haralson County"
+        },
+        {
+            "code": "13145",
+            "fips": "145",
+            "state": "GA",
+            "name": "Harris County"
+        },
+        {
+            "code": "13147",
+            "fips": "147",
+            "state": "GA",
+            "name": "Hart County"
+        },
+        {
+            "code": "13149",
+            "fips": "149",
+            "state": "GA",
+            "name": "Heard County"
+        },
+        {
+            "code": "13151",
+            "fips": "151",
+            "state": "GA",
+            "name": "Henry County"
+        },
+        {
+            "code": "13153",
+            "fips": "153",
+            "state": "GA",
+            "name": "Houston County"
+        },
+        {
+            "code": "13155",
+            "fips": "155",
+            "state": "GA",
+            "name": "Irwin County"
+        },
+        {
+            "code": "13157",
+            "fips": "157",
+            "state": "GA",
+            "name": "Jackson County"
+        },
+        {
+            "code": "13159",
+            "fips": "159",
+            "state": "GA",
+            "name": "Jasper County"
+        },
+        {
+            "code": "13161",
+            "fips": "161",
+            "state": "GA",
+            "name": "Jeff Davis County"
+        },
+        {
+            "code": "13163",
+            "fips": "163",
+            "state": "GA",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "13165",
+            "fips": "165",
+            "state": "GA",
+            "name": "Jenkins County"
+        },
+        {
+            "code": "13167",
+            "fips": "167",
+            "state": "GA",
+            "name": "Johnson County"
+        },
+        {
+            "code": "13169",
+            "fips": "169",
+            "state": "GA",
+            "name": "Jones County"
+        },
+        {
+            "code": "13171",
+            "fips": "171",
+            "state": "GA",
+            "name": "Lamar County"
+        },
+        {
+            "code": "13173",
+            "fips": "173",
+            "state": "GA",
+            "name": "Lanier County"
+        },
+        {
+            "code": "13175",
+            "fips": "175",
+            "state": "GA",
+            "name": "Laurens County"
+        },
+        {
+            "code": "13177",
+            "fips": "177",
+            "state": "GA",
+            "name": "Lee County"
+        },
+        {
+            "code": "13179",
+            "fips": "179",
+            "state": "GA",
+            "name": "Liberty County"
+        },
+        {
+            "code": "13181",
+            "fips": "181",
+            "state": "GA",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "13183",
+            "fips": "183",
+            "state": "GA",
+            "name": "Long County"
+        },
+        {
+            "code": "13185",
+            "fips": "185",
+            "state": "GA",
+            "name": "Lowndes County"
+        },
+        {
+            "code": "13187",
+            "fips": "187",
+            "state": "GA",
+            "name": "Lumpkin County"
+        },
+        {
+            "code": "13193",
+            "fips": "193",
+            "state": "GA",
+            "name": "Macon County"
+        },
+        {
+            "code": "13195",
+            "fips": "195",
+            "state": "GA",
+            "name": "Madison County"
+        },
+        {
+            "code": "13197",
+            "fips": "197",
+            "state": "GA",
+            "name": "Marion County"
+        },
+        {
+            "code": "13189",
+            "fips": "189",
+            "state": "GA",
+            "name": "McDuffie County"
+        },
+        {
+            "code": "13191",
+            "fips": "191",
+            "state": "GA",
+            "name": "McIntosh County"
+        },
+        {
+            "code": "13199",
+            "fips": "199",
+            "state": "GA",
+            "name": "Meriwether County"
+        },
+        {
+            "code": "13201",
+            "fips": "201",
+            "state": "GA",
+            "name": "Miller County"
+        },
+        {
+            "code": "13205",
+            "fips": "205",
+            "state": "GA",
+            "name": "Mitchell County"
+        },
+        {
+            "code": "13207",
+            "fips": "207",
+            "state": "GA",
+            "name": "Monroe County"
+        },
+        {
+            "code": "13209",
+            "fips": "209",
+            "state": "GA",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "13211",
+            "fips": "211",
+            "state": "GA",
+            "name": "Morgan County"
+        },
+        {
+            "code": "13213",
+            "fips": "213",
+            "state": "GA",
+            "name": "Murray County"
+        },
+        {
+            "code": "13215",
+            "fips": "215",
+            "state": "GA",
+            "name": "Muscogee County"
+        },
+        {
+            "code": "13217",
+            "fips": "217",
+            "state": "GA",
+            "name": "Newton County"
+        },
+        {
+            "code": "13219",
+            "fips": "219",
+            "state": "GA",
+            "name": "Oconee County"
+        },
+        {
+            "code": "13221",
+            "fips": "221",
+            "state": "GA",
+            "name": "Oglethorpe County"
+        },
+        {
+            "code": "13223",
+            "fips": "223",
+            "state": "GA",
+            "name": "Paulding County"
+        },
+        {
+            "code": "13225",
+            "fips": "225",
+            "state": "GA",
+            "name": "Peach County"
+        },
+        {
+            "code": "13227",
+            "fips": "227",
+            "state": "GA",
+            "name": "Pickens County"
+        },
+        {
+            "code": "13229",
+            "fips": "229",
+            "state": "GA",
+            "name": "Pierce County"
+        },
+        {
+            "code": "13231",
+            "fips": "231",
+            "state": "GA",
+            "name": "Pike County"
+        },
+        {
+            "code": "13233",
+            "fips": "233",
+            "state": "GA",
+            "name": "Polk County"
+        },
+        {
+            "code": "13235",
+            "fips": "235",
+            "state": "GA",
+            "name": "Pulaski County"
+        },
+        {
+            "code": "13237",
+            "fips": "237",
+            "state": "GA",
+            "name": "Putnam County"
+        },
+        {
+            "code": "13239",
+            "fips": "239",
+            "state": "GA",
+            "name": "Quitman County"
+        },
+        {
+            "code": "13241",
+            "fips": "241",
+            "state": "GA",
+            "name": "Rabun County"
+        },
+        {
+            "code": "13243",
+            "fips": "243",
+            "state": "GA",
+            "name": "Randolph County"
+        },
+        {
+            "code": "13245",
+            "fips": "245",
+            "state": "GA",
+            "name": "Richmond County"
+        },
+        {
+            "code": "13247",
+            "fips": "247",
+            "state": "GA",
+            "name": "Rockdale County"
+        },
+        {
+            "code": "13249",
+            "fips": "249",
+            "state": "GA",
+            "name": "Schley County"
+        },
+        {
+            "code": "13251",
+            "fips": "251",
+            "state": "GA",
+            "name": "Screven County"
+        },
+        {
+            "code": "13253",
+            "fips": "253",
+            "state": "GA",
+            "name": "Seminole County"
+        },
+        {
+            "code": "13255",
+            "fips": "255",
+            "state": "GA",
+            "name": "Spalding County"
+        },
+        {
+            "code": "13257",
+            "fips": "257",
+            "state": "GA",
+            "name": "Stephens County"
+        },
+        {
+            "code": "13259",
+            "fips": "259",
+            "state": "GA",
+            "name": "Stewart County"
+        },
+        {
+            "code": "13261",
+            "fips": "261",
+            "state": "GA",
+            "name": "Sumter County"
+        },
+        {
+            "code": "13263",
+            "fips": "263",
+            "state": "GA",
+            "name": "Talbot County"
+        },
+        {
+            "code": "13265",
+            "fips": "265",
+            "state": "GA",
+            "name": "Taliaferro County"
+        },
+        {
+            "code": "13267",
+            "fips": "267",
+            "state": "GA",
+            "name": "Tattnall County"
+        },
+        {
+            "code": "13269",
+            "fips": "269",
+            "state": "GA",
+            "name": "Taylor County"
+        },
+        {
+            "code": "13271",
+            "fips": "271",
+            "state": "GA",
+            "name": "Telfair County"
+        },
+        {
+            "code": "13273",
+            "fips": "273",
+            "state": "GA",
+            "name": "Terrell County"
+        },
+        {
+            "code": "13275",
+            "fips": "275",
+            "state": "GA",
+            "name": "Thomas County"
+        },
+        {
+            "code": "13277",
+            "fips": "277",
+            "state": "GA",
+            "name": "Tift County"
+        },
+        {
+            "code": "13279",
+            "fips": "279",
+            "state": "GA",
+            "name": "Toombs County"
+        },
+        {
+            "code": "13281",
+            "fips": "281",
+            "state": "GA",
+            "name": "Towns County"
+        },
+        {
+            "code": "13283",
+            "fips": "283",
+            "state": "GA",
+            "name": "Treutlen County"
+        },
+        {
+            "code": "13285",
+            "fips": "285",
+            "state": "GA",
+            "name": "Troup County"
+        },
+        {
+            "code": "13287",
+            "fips": "287",
+            "state": "GA",
+            "name": "Turner County"
+        },
+        {
+            "code": "13289",
+            "fips": "289",
+            "state": "GA",
+            "name": "Twiggs County"
+        },
+        {
+            "code": "13291",
+            "fips": "291",
+            "state": "GA",
+            "name": "Union County"
+        },
+        {
+            "code": "13293",
+            "fips": "293",
+            "state": "GA",
+            "name": "Upson County"
+        },
+        {
+            "code": "13295",
+            "fips": "295",
+            "state": "GA",
+            "name": "Walker County"
+        },
+        {
+            "code": "13297",
+            "fips": "297",
+            "state": "GA",
+            "name": "Walton County"
+        },
+        {
+            "code": "13299",
+            "fips": "299",
+            "state": "GA",
+            "name": "Ware County"
+        },
+        {
+            "code": "13301",
+            "fips": "301",
+            "state": "GA",
+            "name": "Warren County"
+        },
+        {
+            "code": "13303",
+            "fips": "303",
+            "state": "GA",
+            "name": "Washington County"
+        },
+        {
+            "code": "13305",
+            "fips": "305",
+            "state": "GA",
+            "name": "Wayne County"
+        },
+        {
+            "code": "13307",
+            "fips": "307",
+            "state": "GA",
+            "name": "Webster County"
+        },
+        {
+            "code": "13309",
+            "fips": "309",
+            "state": "GA",
+            "name": "Wheeler County"
+        },
+        {
+            "code": "13311",
+            "fips": "311",
+            "state": "GA",
+            "name": "White County"
+        },
+        {
+            "code": "13313",
+            "fips": "313",
+            "state": "GA",
+            "name": "Whitfield County"
+        },
+        {
+            "code": "13315",
+            "fips": "315",
+            "state": "GA",
+            "name": "Wilcox County"
+        },
+        {
+            "code": "13317",
+            "fips": "317",
+            "state": "GA",
+            "name": "Wilkes County"
+        },
+        {
+            "code": "13319",
+            "fips": "319",
+            "state": "GA",
+            "name": "Wilkinson County"
+        },
+        {
+            "code": "13321",
+            "fips": "321",
+            "state": "GA",
+            "name": "Worth County"
+        }
+    ]
+}

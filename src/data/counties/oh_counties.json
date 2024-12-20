@@ -1,0 +1,532 @@
+{
+    "counties": [
+        {
+            "code": "39001",
+            "fips": "001",
+            "state": "OH",
+            "name": "Adams County"
+        },
+        {
+            "code": "39003",
+            "fips": "003",
+            "state": "OH",
+            "name": "Allen County"
+        },
+        {
+            "code": "39005",
+            "fips": "005",
+            "state": "OH",
+            "name": "Ashland County"
+        },
+        {
+            "code": "39007",
+            "fips": "007",
+            "state": "OH",
+            "name": "Ashtabula County"
+        },
+        {
+            "code": "39009",
+            "fips": "009",
+            "state": "OH",
+            "name": "Athens County"
+        },
+        {
+            "code": "39011",
+            "fips": "011",
+            "state": "OH",
+            "name": "Auglaize County"
+        },
+        {
+            "code": "39013",
+            "fips": "013",
+            "state": "OH",
+            "name": "Belmont County"
+        },
+        {
+            "code": "39015",
+            "fips": "015",
+            "state": "OH",
+            "name": "Brown County"
+        },
+        {
+            "code": "39017",
+            "fips": "017",
+            "state": "OH",
+            "name": "Butler County"
+        },
+        {
+            "code": "39019",
+            "fips": "019",
+            "state": "OH",
+            "name": "Carroll County"
+        },
+        {
+            "code": "39021",
+            "fips": "021",
+            "state": "OH",
+            "name": "Champaign County"
+        },
+        {
+            "code": "39023",
+            "fips": "023",
+            "state": "OH",
+            "name": "Clark County"
+        },
+        {
+            "code": "39025",
+            "fips": "025",
+            "state": "OH",
+            "name": "Clermont County"
+        },
+        {
+            "code": "39027",
+            "fips": "027",
+            "state": "OH",
+            "name": "Clinton County"
+        },
+        {
+            "code": "39029",
+            "fips": "029",
+            "state": "OH",
+            "name": "Columbiana County"
+        },
+        {
+            "code": "39031",
+            "fips": "031",
+            "state": "OH",
+            "name": "Coshocton County"
+        },
+        {
+            "code": "39033",
+            "fips": "033",
+            "state": "OH",
+            "name": "Crawford County"
+        },
+        {
+            "code": "39035",
+            "fips": "035",
+            "state": "OH",
+            "name": "Cuyahoga County"
+        },
+        {
+            "code": "39037",
+            "fips": "037",
+            "state": "OH",
+            "name": "Darke County"
+        },
+        {
+            "code": "39039",
+            "fips": "039",
+            "state": "OH",
+            "name": "Defiance County"
+        },
+        {
+            "code": "39041",
+            "fips": "041",
+            "state": "OH",
+            "name": "Delaware County"
+        },
+        {
+            "code": "39043",
+            "fips": "043",
+            "state": "OH",
+            "name": "Erie County"
+        },
+        {
+            "code": "39045",
+            "fips": "045",
+            "state": "OH",
+            "name": "Fairfield County"
+        },
+        {
+            "code": "39047",
+            "fips": "047",
+            "state": "OH",
+            "name": "Fayette County"
+        },
+        {
+            "code": "39049",
+            "fips": "049",
+            "state": "OH",
+            "name": "Franklin County"
+        },
+        {
+            "code": "39051",
+            "fips": "051",
+            "state": "OH",
+            "name": "Fulton County"
+        },
+        {
+            "code": "39053",
+            "fips": "053",
+            "state": "OH",
+            "name": "Gallia County"
+        },
+        {
+            "code": "39055",
+            "fips": "055",
+            "state": "OH",
+            "name": "Geauga County"
+        },
+        {
+            "code": "39057",
+            "fips": "057",
+            "state": "OH",
+            "name": "Greene County"
+        },
+        {
+            "code": "39059",
+            "fips": "059",
+            "state": "OH",
+            "name": "Guernsey County"
+        },
+        {
+            "code": "39061",
+            "fips": "061",
+            "state": "OH",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "39063",
+            "fips": "063",
+            "state": "OH",
+            "name": "Hancock County"
+        },
+        {
+            "code": "39065",
+            "fips": "065",
+            "state": "OH",
+            "name": "Hardin County"
+        },
+        {
+            "code": "39067",
+            "fips": "067",
+            "state": "OH",
+            "name": "Harrison County"
+        },
+        {
+            "code": "39069",
+            "fips": "069",
+            "state": "OH",
+            "name": "Henry County"
+        },
+        {
+            "code": "39071",
+            "fips": "071",
+            "state": "OH",
+            "name": "Highland County"
+        },
+        {
+            "code": "39073",
+            "fips": "073",
+            "state": "OH",
+            "name": "Hocking County"
+        },
+        {
+            "code": "39075",
+            "fips": "075",
+            "state": "OH",
+            "name": "Holmes County"
+        },
+        {
+            "code": "39077",
+            "fips": "077",
+            "state": "OH",
+            "name": "Huron County"
+        },
+        {
+            "code": "39079",
+            "fips": "079",
+            "state": "OH",
+            "name": "Jackson County"
+        },
+        {
+            "code": "39081",
+            "fips": "081",
+            "state": "OH",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "39083",
+            "fips": "083",
+            "state": "OH",
+            "name": "Knox County"
+        },
+        {
+            "code": "39085",
+            "fips": "085",
+            "state": "OH",
+            "name": "Lake County"
+        },
+        {
+            "code": "39087",
+            "fips": "087",
+            "state": "OH",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "39089",
+            "fips": "089",
+            "state": "OH",
+            "name": "Licking County"
+        },
+        {
+            "code": "39091",
+            "fips": "091",
+            "state": "OH",
+            "name": "Logan County"
+        },
+        {
+            "code": "39093",
+            "fips": "093",
+            "state": "OH",
+            "name": "Lorain County"
+        },
+        {
+            "code": "39095",
+            "fips": "095",
+            "state": "OH",
+            "name": "Lucas County"
+        },
+        {
+            "code": "39097",
+            "fips": "097",
+            "state": "OH",
+            "name": "Madison County"
+        },
+        {
+            "code": "39099",
+            "fips": "099",
+            "state": "OH",
+            "name": "Mahoning County"
+        },
+        {
+            "code": "39101",
+            "fips": "101",
+            "state": "OH",
+            "name": "Marion County"
+        },
+        {
+            "code": "39103",
+            "fips": "103",
+            "state": "OH",
+            "name": "Medina County"
+        },
+        {
+            "code": "39105",
+            "fips": "105",
+            "state": "OH",
+            "name": "Meigs County"
+        },
+        {
+            "code": "39107",
+            "fips": "107",
+            "state": "OH",
+            "name": "Mercer County"
+        },
+        {
+            "code": "39109",
+            "fips": "109",
+            "state": "OH",
+            "name": "Miami County"
+        },
+        {
+            "code": "39111",
+            "fips": "111",
+            "state": "OH",
+            "name": "Monroe County"
+        },
+        {
+            "code": "39113",
+            "fips": "113",
+            "state": "OH",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "39115",
+            "fips": "115",
+            "state": "OH",
+            "name": "Morgan County"
+        },
+        {
+            "code": "39117",
+            "fips": "117",
+            "state": "OH",
+            "name": "Morrow County"
+        },
+        {
+            "code": "39119",
+            "fips": "119",
+            "state": "OH",
+            "name": "Muskingum County"
+        },
+        {
+            "code": "39121",
+            "fips": "121",
+            "state": "OH",
+            "name": "Noble County"
+        },
+        {
+            "code": "39123",
+            "fips": "123",
+            "state": "OH",
+            "name": "Ottawa County"
+        },
+        {
+            "code": "39125",
+            "fips": "125",
+            "state": "OH",
+            "name": "Paulding County"
+        },
+        {
+            "code": "39127",
+            "fips": "127",
+            "state": "OH",
+            "name": "Perry County"
+        },
+        {
+            "code": "39129",
+            "fips": "129",
+            "state": "OH",
+            "name": "Pickaway County"
+        },
+        {
+            "code": "39131",
+            "fips": "131",
+            "state": "OH",
+            "name": "Pike County"
+        },
+        {
+            "code": "39133",
+            "fips": "133",
+            "state": "OH",
+            "name": "Portage County"
+        },
+        {
+            "code": "39135",
+            "fips": "135",
+            "state": "OH",
+            "name": "Preble County"
+        },
+        {
+            "code": "39137",
+            "fips": "137",
+            "state": "OH",
+            "name": "Putnam County"
+        },
+        {
+            "code": "39139",
+            "fips": "139",
+            "state": "OH",
+            "name": "Richland County"
+        },
+        {
+            "code": "39141",
+            "fips": "141",
+            "state": "OH",
+            "name": "Ross County"
+        },
+        {
+            "code": "39143",
+            "fips": "143",
+            "state": "OH",
+            "name": "Sandusky County"
+        },
+        {
+            "code": "39145",
+            "fips": "145",
+            "state": "OH",
+            "name": "Scioto County"
+        },
+        {
+            "code": "39147",
+            "fips": "147",
+            "state": "OH",
+            "name": "Seneca County"
+        },
+        {
+            "code": "39149",
+            "fips": "149",
+            "state": "OH",
+            "name": "Shelby County"
+        },
+        {
+            "code": "39151",
+            "fips": "151",
+            "state": "OH",
+            "name": "Stark County"
+        },
+        {
+            "code": "39153",
+            "fips": "153",
+            "state": "OH",
+            "name": "Summit County"
+        },
+        {
+            "code": "39155",
+            "fips": "155",
+            "state": "OH",
+            "name": "Trumbull County"
+        },
+        {
+            "code": "39157",
+            "fips": "157",
+            "state": "OH",
+            "name": "Tuscarawas County"
+        },
+        {
+            "code": "39159",
+            "fips": "159",
+            "state": "OH",
+            "name": "Union County"
+        },
+        {
+            "code": "39161",
+            "fips": "161",
+            "state": "OH",
+            "name": "Van Wert County"
+        },
+        {
+            "code": "39163",
+            "fips": "163",
+            "state": "OH",
+            "name": "Vinton County"
+        },
+        {
+            "code": "39165",
+            "fips": "165",
+            "state": "OH",
+            "name": "Warren County"
+        },
+        {
+            "code": "39167",
+            "fips": "167",
+            "state": "OH",
+            "name": "Washington County"
+        },
+        {
+            "code": "39169",
+            "fips": "169",
+            "state": "OH",
+            "name": "Wayne County"
+        },
+        {
+            "code": "39171",
+            "fips": "171",
+            "state": "OH",
+            "name": "Williams County"
+        },
+        {
+            "code": "39173",
+            "fips": "173",
+            "state": "OH",
+            "name": "Wood County"
+        },
+        {
+            "code": "39175",
+            "fips": "175",
+            "state": "OH",
+            "name": "Wyandot County"
+        }
+    ]
+}

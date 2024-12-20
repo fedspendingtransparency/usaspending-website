@@ -1,0 +1,202 @@
+{
+    "counties": [
+        {
+            "code": "68007",
+            "fips": "007",
+            "state": "MH",
+            "name": "Municipality of Ailinginae"
+        },
+        {
+            "code": "68010",
+            "fips": "010",
+            "state": "MH",
+            "name": "Municipality of Ailinglaplap"
+        },
+        {
+            "code": "68030",
+            "fips": "030",
+            "state": "MH",
+            "name": "Municipality of Ailuk"
+        },
+        {
+            "code": "68040",
+            "fips": "040",
+            "state": "MH",
+            "name": "Municipality of Arno"
+        },
+        {
+            "code": "68050",
+            "fips": "050",
+            "state": "MH",
+            "name": "Municipality of Aur"
+        },
+        {
+            "code": "68060",
+            "fips": "060",
+            "state": "MH",
+            "name": "Municipality of Bikar"
+        },
+        {
+            "code": "68070",
+            "fips": "070",
+            "state": "MH",
+            "name": "Municipality of Bikini"
+        },
+        {
+            "code": "68073",
+            "fips": "073",
+            "state": "MH",
+            "name": "Municipality of Bokak"
+        },
+        {
+            "code": "68080",
+            "fips": "080",
+            "state": "MH",
+            "name": "Municipality of Ebon"
+        },
+        {
+            "code": "68090",
+            "fips": "090",
+            "state": "MH",
+            "name": "Municipality of Enewetak"
+        },
+        {
+            "code": "68100",
+            "fips": "100",
+            "state": "MH",
+            "name": "Municipality of Erikub"
+        },
+        {
+            "code": "68110",
+            "fips": "110",
+            "state": "MH",
+            "name": "Municipality of Jabat"
+        },
+        {
+            "code": "68120",
+            "fips": "120",
+            "state": "MH",
+            "name": "Municipality of Jaluit"
+        },
+        {
+            "code": "68130",
+            "fips": "130",
+            "state": "MH",
+            "name": "Municipality of Jemo"
+        },
+        {
+            "code": "68140",
+            "fips": "140",
+            "state": "MH",
+            "name": "Municipality of Kili"
+        },
+        {
+            "code": "68150",
+            "fips": "150",
+            "state": "MH",
+            "name": "Municipality of Kwajalein"
+        },
+        {
+            "code": "68160",
+            "fips": "160",
+            "state": "MH",
+            "name": "Municipality of Lae"
+        },
+        {
+            "code": "68170",
+            "fips": "170",
+            "state": "MH",
+            "name": "Municipality of Lib"
+        },
+        {
+            "code": "68180",
+            "fips": "180",
+            "state": "MH",
+            "name": "Municipality of Likiep"
+        },
+        {
+            "code": "68190",
+            "fips": "190",
+            "state": "MH",
+            "name": "Municipality of Majuro"
+        },
+        {
+            "code": "68300",
+            "fips": "300",
+            "state": "MH",
+            "name": "Municipality of Maloelap"
+        },
+        {
+            "code": "68310",
+            "fips": "310",
+            "state": "MH",
+            "name": "Municipality of Mejit"
+        },
+        {
+            "code": "68320",
+            "fips": "320",
+            "state": "MH",
+            "name": "Municipality of Mili"
+        },
+        {
+            "code": "68330",
+            "fips": "330",
+            "state": "MH",
+            "name": "Municipality of Namorik"
+        },
+        {
+            "code": "68340",
+            "fips": "340",
+            "state": "MH",
+            "name": "Municipality of Namu"
+        },
+        {
+            "code": "68350",
+            "fips": "350",
+            "state": "MH",
+            "name": "Municipality of Rongelap"
+        },
+        {
+            "code": "68360",
+            "fips": "360",
+            "state": "MH",
+            "name": "Municipality of Rongrik"
+        },
+        {
+            "code": "68385",
+            "fips": "385",
+            "state": "MH",
+            "name": "Municipality of Toke"
+        },
+        {
+            "code": "68390",
+            "fips": "390",
+            "state": "MH",
+            "name": "Municipality of Ujae"
+        },
+        {
+            "code": "68400",
+            "fips": "400",
+            "state": "MH",
+            "name": "Municipality of Ujelang"
+        },
+        {
+            "code": "68410",
+            "fips": "410",
+            "state": "MH",
+            "name": "Municipality of Utrik"
+        },
+        {
+            "code": "68420",
+            "fips": "420",
+            "state": "MH",
+            "name": "Municipality of Wotho"
+        },
+        {
+            "code": "68430",
+            "fips": "430",
+            "state": "MH",
+            "name": "Municipality of Wotje"
+        }
+    ]
+}

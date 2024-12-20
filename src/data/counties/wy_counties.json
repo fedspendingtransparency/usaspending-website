@@ -1,0 +1,142 @@
+{
+    "counties": [
+        {
+            "code": "56001",
+            "fips": "001",
+            "state": "WY",
+            "name": "Albany County"
+        },
+        {
+            "code": "56003",
+            "fips": "003",
+            "state": "WY",
+            "name": "Big Horn County"
+        },
+        {
+            "code": "56005",
+            "fips": "005",
+            "state": "WY",
+            "name": "Campbell County"
+        },
+        {
+            "code": "56007",
+            "fips": "007",
+            "state": "WY",
+            "name": "Carbon County"
+        },
+        {
+            "code": "56009",
+            "fips": "009",
+            "state": "WY",
+            "name": "Converse County"
+        },
+        {
+            "code": "56011",
+            "fips": "011",
+            "state": "WY",
+            "name": "Crook County"
+        },
+        {
+            "code": "56013",
+            "fips": "013",
+            "state": "WY",
+            "name": "Fremont County"
+        },
+        {
+            "code": "56015",
+            "fips": "015",
+            "state": "WY",
+            "name": "Goshen County"
+        },
+        {
+            "code": "56017",
+            "fips": "017",
+            "state": "WY",
+            "name": "Hot Springs County"
+        },
+        {
+            "code": "56019",
+            "fips": "019",
+            "state": "WY",
+            "name": "Johnson County"
+        },
+        {
+            "code": "56021",
+            "fips": "021",
+            "state": "WY",
+            "name": "Laramie County"
+        },
+        {
+            "code": "56023",
+            "fips": "023",
+            "state": "WY",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "56025",
+            "fips": "025",
+            "state": "WY",
+            "name": "Natrona County"
+        },
+        {
+            "code": "56027",
+            "fips": "027",
+            "state": "WY",
+            "name": "Niobrara County"
+        },
+        {
+            "code": "56029",
+            "fips": "029",
+            "state": "WY",
+            "name": "Park County"
+        },
+        {
+            "code": "56031",
+            "fips": "031",
+            "state": "WY",
+            "name": "Platte County"
+        },
+        {
+            "code": "56033",
+            "fips": "033",
+            "state": "WY",
+            "name": "Sheridan County"
+        },
+        {
+            "code": "56035",
+            "fips": "035",
+            "state": "WY",
+            "name": "Sublette County"
+        },
+        {
+            "code": "56037",
+            "fips": "037",
+            "state": "WY",
+            "name": "Sweetwater County"
+        },
+        {
+            "code": "56039",
+            "fips": "039",
+            "state": "WY",
+            "name": "Teton County"
+        },
+        {
+            "code": "56041",
+            "fips": "041",
+            "state": "WY",
+            "name": "Uinta County"
+        },
+        {
+            "code": "56043",
+            "fips": "043",
+            "state": "WY",
+            "name": "Washakie County"
+        },
+        {
+            "code": "56045",
+            "fips": "045",
+            "state": "WY",
+            "name": "Weston County"
+        }
+    ]
+}

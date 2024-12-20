@@ -1,0 +1,10 @@
+{
+    "counties": [
+        {
+            "code": "11001",
+            "fips": "001",
+            "state": "DC",
+            "name": "District of Columbia"
+        }
+    ]
+}

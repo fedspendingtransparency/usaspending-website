@@ -1,0 +1,22 @@
+{
+    "counties": [
+        {
+            "code": "10001",
+            "fips": "001",
+            "state": "DE",
+            "name": "Kent County"
+        },
+        {
+            "code": "10003",
+            "fips": "003",
+            "state": "DE",
+            "name": "New Castle County"
+        },
+        {
+            "code": "10005",
+            "fips": "005",
+            "state": "DE",
+            "name": "Sussex County"
+        }
+    ]
+}

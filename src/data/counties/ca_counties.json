@@ -1,0 +1,352 @@
+{
+    "counties": [
+        {
+            "code": "06001",
+            "fips": "001",
+            "state": "CA",
+            "name": "Alameda County"
+        },
+        {
+            "code": "06003",
+            "fips": "003",
+            "state": "CA",
+            "name": "Alpine County"
+        },
+        {
+            "code": "06005",
+            "fips": "005",
+            "state": "CA",
+            "name": "Amador County"
+        },
+        {
+            "code": "06007",
+            "fips": "007",
+            "state": "CA",
+            "name": "Butte County"
+        },
+        {
+            "code": "06009",
+            "fips": "009",
+            "state": "CA",
+            "name": "Calaveras County"
+        },
+        {
+            "code": "06011",
+            "fips": "011",
+            "state": "CA",
+            "name": "Colusa County"
+        },
+        {
+            "code": "06013",
+            "fips": "013",
+            "state": "CA",
+            "name": "Contra Costa County"
+        },
+        {
+            "code": "06015",
+            "fips": "015",
+            "state": "CA",
+            "name": "Del Norte County"
+        },
+        {
+            "code": "06017",
+            "fips": "017",
+            "state": "CA",
+            "name": "El Dorado County"
+        },
+        {
+            "code": "06019",
+            "fips": "019",
+            "state": "CA",
+            "name": "Fresno County"
+        },
+        {
+            "code": "06021",
+            "fips": "021",
+            "state": "CA",
+            "name": "Glenn County"
+        },
+        {
+            "code": "06023",
+            "fips": "023",
+            "state": "CA",
+            "name": "Humboldt County"
+        },
+        {
+            "code": "06025",
+            "fips": "025",
+            "state": "CA",
+            "name": "Imperial County"
+        },
+        {
+            "code": "06027",
+            "fips": "027",
+            "state": "CA",
+            "name": "Inyo County"
+        },
+        {
+            "code": "06029",
+            "fips": "029",
+            "state": "CA",
+            "name": "Kern County"
+        },
+        {
+            "code": "06031",
+            "fips": "031",
+            "state": "CA",
+            "name": "Kings County"
+        },
+        {
+            "code": "06033",
+            "fips": "033",
+            "state": "CA",
+            "name": "Lake County"
+        },
+        {
+            "code": "06035",
+            "fips": "035",
+            "state": "CA",
+            "name": "Lassen County"
+        },
+        {
+            "code": "06037",
+            "fips": "037",
+            "state": "CA",
+            "name": "Los Angeles County"
+        },
+        {
+            "code": "06039",
+            "fips": "039",
+            "state": "CA",
+            "name": "Madera County"
+        },
+        {
+            "code": "06041",
+            "fips": "041",
+            "state": "CA",
+            "name": "Marin County"
+        },
+        {
+            "code": "06043",
+            "fips": "043",
+            "state": "CA",
+            "name": "Mariposa County"
+        },
+        {
+            "code": "06045",
+            "fips": "045",
+            "state": "CA",
+            "name": "Mendocino County"
+        },
+        {
+            "code": "06047",
+            "fips": "047",
+            "state": "CA",
+            "name": "Merced County"
+        },
+        {
+            "code": "06049",
+            "fips": "049",
+            "state": "CA",
+            "name": "Modoc County"
+        },
+        {
+            "code": "06051",
+            "fips": "051",
+            "state": "CA",
+            "name": "Mono County"
+        },
+        {
+            "code": "06053",
+            "fips": "053",
+            "state": "CA",
+            "name": "Monterey County"
+        },
+        {
+            "code": "06055",
+            "fips": "055",
+            "state": "CA",
+            "name": "Napa County"
+        },
+        {
+            "code": "06057",
+            "fips": "057",
+            "state": "CA",
+            "name": "Nevada County"
+        },
+        {
+            "code": "06059",
+            "fips": "059",
+            "state": "CA",
+            "name": "Orange County"
+        },
+        {
+            "code": "06061",
+            "fips": "061",
+            "state": "CA",
+            "name": "Placer County"
+        },
+        {
+            "code": "06063",
+            "fips": "063",
+            "state": "CA",
+            "name": "Plumas County"
+        },
+        {
+            "code": "06065",
+            "fips": "065",
+            "state": "CA",
+            "name": "Riverside County"
+        },
+        {
+            "code": "06067",
+            "fips": "067",
+            "state": "CA",
+            "name": "Sacramento County"
+        },
+        {
+            "code": "06069",
+            "fips": "069",
+            "state": "CA",
+            "name": "San Benito County"
+        },
+        {
+            "code": "06071",
+            "fips": "071",
+            "state": "CA",
+            "name": "San Bernardino County"
+        },
+        {
+            "code": "06073",
+            "fips": "073",
+            "state": "CA",
+            "name": "San Diego County"
+        },
+        {
+            "code": "06075",
+            "fips": "075",
+            "state": "CA",
+            "name": "San Francisco County"
+        },
+        {
+            "code": "06077",
+            "fips": "077",
+            "state": "CA",
+            "name": "San Joaquin County"
+        },
+        {
+            "code": "06079",
+            "fips": "079",
+            "state": "CA",
+            "name": "San Luis Obispo County"
+        },
+        {
+            "code": "06081",
+            "fips": "081",
+            "state": "CA",
+            "name": "San Mateo County"
+        },
+        {
+            "code": "06083",
+            "fips": "083",
+            "state": "CA",
+            "name": "Santa Barbara County"
+        },
+        {
+            "code": "06085",
+            "fips": "085",
+            "state": "CA",
+            "name": "Santa Clara County"
+        },
+        {
+            "code": "06087",
+            "fips": "087",
+            "state": "CA",
+            "name": "Santa Cruz County"
+        },
+        {
+            "code": "06089",
+            "fips": "089",
+            "state": "CA",
+            "name": "Shasta County"
+        },
+        {
+            "code": "06091",
+            "fips": "091",
+            "state": "CA",
+            "name": "Sierra County"
+        },
+        {
+            "code": "06093",
+            "fips": "093",
+            "state": "CA",
+            "name": "Siskiyou County"
+        },
+        {
+            "code": "06095",
+            "fips": "095",
+            "state": "CA",
+            "name": "Solano County"
+        },
+        {
+            "code": "06097",
+            "fips": "097",
+            "state": "CA",
+            "name": "Sonoma County"
+        },
+        {
+            "code": "06099",
+            "fips": "099",
+            "state": "CA",
+            "name": "Stanislaus County"
+        },
+        {
+            "code": "06101",
+            "fips": "101",
+            "state": "CA",
+            "name": "Sutter County"
+        },
+        {
+            "code": "06103",
+            "fips": "103",
+            "state": "CA",
+            "name": "Tehama County"
+        },
+        {
+            "code": "06105",
+            "fips": "105",
+            "state": "CA",
+            "name": "Trinity County"
+        },
+        {
+            "code": "06107",
+            "fips": "107",
+            "state": "CA",
+            "name": "Tulare County"
+        },
+        {
+            "code": "06109",
+            "fips": "109",
+            "state": "CA",
+            "name": "Tuolumne County"
+        },
+        {
+            "code": "06111",
+            "fips": "111",
+            "state": "CA",
+            "name": "Ventura County"
+        },
+        {
+            "code": "06113",
+            "fips": "113",
+            "state": "CA",
+            "name": "Yolo County"
+        },
+        {
+            "code": "06115",
+            "fips": "115",
+            "state": "CA",
+            "name": "Yuba County"
+        }
+    ]
+}

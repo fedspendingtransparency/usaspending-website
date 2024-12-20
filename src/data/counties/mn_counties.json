@@ -1,0 +1,526 @@
+{
+    "counties": [
+        {
+            "code": "27001",
+            "fips": "001",
+            "state": "MN",
+            "name": "Aitkin County"
+        },
+        {
+            "code": "27003",
+            "fips": "003",
+            "state": "MN",
+            "name": "Anoka County"
+        },
+        {
+            "code": "27005",
+            "fips": "005",
+            "state": "MN",
+            "name": "Becker County"
+        },
+        {
+            "code": "27007",
+            "fips": "007",
+            "state": "MN",
+            "name": "Beltrami County"
+        },
+        {
+            "code": "27009",
+            "fips": "009",
+            "state": "MN",
+            "name": "Benton County"
+        },
+        {
+            "code": "27011",
+            "fips": "011",
+            "state": "MN",
+            "name": "Big Stone County"
+        },
+        {
+            "code": "27013",
+            "fips": "013",
+            "state": "MN",
+            "name": "Blue Earth County"
+        },
+        {
+            "code": "27015",
+            "fips": "015",
+            "state": "MN",
+            "name": "Brown County"
+        },
+        {
+            "code": "27017",
+            "fips": "017",
+            "state": "MN",
+            "name": "Carlton County"
+        },
+        {
+            "code": "27019",
+            "fips": "019",
+            "state": "MN",
+            "name": "Carver County"
+        },
+        {
+            "code": "27021",
+            "fips": "021",
+            "state": "MN",
+            "name": "Cass County"
+        },
+        {
+            "code": "27023",
+            "fips": "023",
+            "state": "MN",
+            "name": "Chippewa County"
+        },
+        {
+            "code": "27025",
+            "fips": "025",
+            "state": "MN",
+            "name": "Chisago County"
+        },
+        {
+            "code": "27027",
+            "fips": "027",
+            "state": "MN",
+            "name": "Clay County"
+        },
+        {
+            "code": "27029",
+            "fips": "029",
+            "state": "MN",
+            "name": "Clearwater County"
+        },
+        {
+            "code": "27031",
+            "fips": "031",
+            "state": "MN",
+            "name": "Cook County"
+        },
+        {
+            "code": "27033",
+            "fips": "033",
+            "state": "MN",
+            "name": "Cottonwood County"
+        },
+        {
+            "code": "27035",
+            "fips": "035",
+            "state": "MN",
+            "name": "Crow Wing County"
+        },
+        {
+            "code": "27037",
+            "fips": "037",
+            "state": "MN",
+            "name": "Dakota County"
+        },
+        {
+            "code": "27039",
+            "fips": "039",
+            "state": "MN",
+            "name": "Dodge County"
+        },
+        {
+            "code": "27041",
+            "fips": "041",
+            "state": "MN",
+            "name": "Douglas County"
+        },
+        {
+            "code": "27043",
+            "fips": "043",
+            "state": "MN",
+            "name": "Faribault County"
+        },
+        {
+            "code": "27045",
+            "fips": "045",
+            "state": "MN",
+            "name": "Fillmore County"
+        },
+        {
+            "code": "27047",
+            "fips": "047",
+            "state": "MN",
+            "name": "Freeborn County"
+        },
+        {
+            "code": "27049",
+            "fips": "049",
+            "state": "MN",
+            "name": "Goodhue County"
+        },
+        {
+            "code": "27051",
+            "fips": "051",
+            "state": "MN",
+            "name": "Grant County"
+        },
+        {
+            "code": "27053",
+            "fips": "053",
+            "state": "MN",
+            "name": "Hennepin County"
+        },
+        {
+            "code": "27055",
+            "fips": "055",
+            "state": "MN",
+            "name": "Houston County"
+        },
+        {
+            "code": "27057",
+            "fips": "057",
+            "state": "MN",
+            "name": "Hubbard County"
+        },
+        {
+            "code": "27059",
+            "fips": "059",
+            "state": "MN",
+            "name": "Isanti County"
+        },
+        {
+            "code": "27061",
+            "fips": "061",
+            "state": "MN",
+            "name": "Itasca County"
+        },
+        {
+            "code": "27063",
+            "fips": "063",
+            "state": "MN",
+            "name": "Jackson County"
+        },
+        {
+            "code": "27065",
+            "fips": "065",
+            "state": "MN",
+            "name": "Kanabec County"
+        },
+        {
+            "code": "27067",
+            "fips": "067",
+            "state": "MN",
+            "name": "Kandiyohi County"
+        },
+        {
+            "code": "27069",
+            "fips": "069",
+            "state": "MN",
+            "name": "Kittson County"
+        },
+        {
+            "code": "27071",
+            "fips": "071",
+            "state": "MN",
+            "name": "Koochiching County"
+        },
+        {
+            "code": "27073",
+            "fips": "073",
+            "state": "MN",
+            "name": "Lac qui Parle County"
+        },
+        {
+            "code": "27075",
+            "fips": "075",
+            "state": "MN",
+            "name": "Lake County"
+        },
+        {
+            "code": "27077",
+            "fips": "077",
+            "state": "MN",
+            "name": "Lake of the Woods County"
+        },
+        {
+            "code": "27079",
+            "fips": "079",
+            "state": "MN",
+            "name": "Le Sueur County"
+        },
+        {
+            "code": "27081",
+            "fips": "081",
+            "state": "MN",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "27083",
+            "fips": "083",
+            "state": "MN",
+            "name": "Lyon County"
+        },
+        {
+            "code": "27087",
+            "fips": "087",
+            "state": "MN",
+            "name": "Mahnomen County"
+        },
+        {
+            "code": "27089",
+            "fips": "089",
+            "state": "MN",
+            "name": "Marshall County"
+        },
+        {
+            "code": "27091",
+            "fips": "091",
+            "state": "MN",
+            "name": "Martin County"
+        },
+        {
+            "code": "27085",
+            "fips": "085",
+            "state": "MN",
+            "name": "McLeod County"
+        },
+        {
+            "code": "27093",
+            "fips": "093",
+            "state": "MN",
+            "name": "Meeker County"
+        },
+        {
+            "code": "27095",
+            "fips": "095",
+            "state": "MN",
+            "name": "Mille Lacs County"
+        },
+        {
+            "code": "27097",
+            "fips": "097",
+            "state": "MN",
+            "name": "Morrison County"
+        },
+        {
+            "code": "27099",
+            "fips": "099",
+            "state": "MN",
+            "name": "Mower County"
+        },
+        {
+            "code": "27101",
+            "fips": "101",
+            "state": "MN",
+            "name": "Murray County"
+        },
+        {
+            "code": "27103",
+            "fips": "103",
+            "state": "MN",
+            "name": "Nicollet County"
+        },
+        {
+            "code": "27105",
+            "fips": "105",
+            "state": "MN",
+            "name": "Nobles County"
+        },
+        {
+            "code": "27107",
+            "fips": "107",
+            "state": "MN",
+            "name": "Norman County"
+        },
+        {
+            "code": "27109",
+            "fips": "109",
+            "state": "MN",
+            "name": "Olmsted County"
+        },
+        {
+            "code": "27111",
+            "fips": "111",
+            "state": "MN",
+            "name": "Otter Tail County"
+        },
+        {
+            "code": "27113",
+            "fips": "113",
+            "state": "MN",
+            "name": "Pennington County"
+        },
+        {
+            "code": "27115",
+            "fips": "115",
+            "state": "MN",
+            "name": "Pine County"
+        },
+        {
+            "code": "27117",
+            "fips": "117",
+            "state": "MN",
+            "name": "Pipestone County"
+        },
+        {
+            "code": "27119",
+            "fips": "119",
+            "state": "MN",
+            "name": "Polk County"
+        },
+        {
+            "code": "27121",
+            "fips": "121",
+            "state": "MN",
+            "name": "Pope County"
+        },
+        {
+            "code": "27123",
+            "fips": "123",
+            "state": "MN",
+            "name": "Ramsey County"
+        },
+        {
+            "code": "27125",
+            "fips": "125",
+            "state": "MN",
+            "name": "Red Lake County"
+        },
+        {
+            "code": "27127",
+            "fips": "127",
+            "state": "MN",
+            "name": "Redwood County"
+        },
+        {
+            "code": "27129",
+            "fips": "129",
+            "state": "MN",
+            "name": "Renville County"
+        },
+        {
+            "code": "27131",
+            "fips": "131",
+            "state": "MN",
+            "name": "Rice County"
+        },
+        {
+            "code": "27133",
+            "fips": "133",
+            "state": "MN",
+            "name": "Rock County"
+        },
+        {
+            "code": "27135",
+            "fips": "135",
+            "state": "MN",
+            "name": "Roseau County"
+        },
+        {
+            "code": "27139",
+            "fips": "139",
+            "state": "MN",
+            "name": "Scott County"
+        },
+        {
+            "code": "27141",
+            "fips": "141",
+            "state": "MN",
+            "name": "Sherburne County"
+        },
+        {
+            "code": "27143",
+            "fips": "143",
+            "state": "MN",
+            "name": "Sibley County"
+        },
+        {
+            "code": "27137",
+            "fips": "137",
+            "state": "MN",
+            "name": "Saint Louis County"
+        },
+        {
+            "code": "27145",
+            "fips": "145",
+            "state": "MN",
+            "name": "Stearns County"
+        },
+        {
+            "code": "27147",
+            "fips": "147",
+            "state": "MN",
+            "name": "Steele County"
+        },
+        {
+            "code": "27149",
+            "fips": "149",
+            "state": "MN",
+            "name": "Stevens County"
+        },
+        {
+            "code": "27151",
+            "fips": "151",
+            "state": "MN",
+            "name": "Swift County"
+        },
+        {
+            "code": "27153",
+            "fips": "153",
+            "state": "MN",
+            "name": "Todd County"
+        },
+        {
+            "code": "27155",
+            "fips": "155",
+            "state": "MN",
+            "name": "Traverse County"
+        },
+        {
+            "code": "27157",
+            "fips": "157",
+            "state": "MN",
+            "name": "Wabasha County"
+        },
+        {
+            "code": "27159",
+            "fips": "159",
+            "state": "MN",
+            "name": "Wadena County"
+        },
+        {
+            "code": "27161",
+            "fips": "161",
+            "state": "MN",
+            "name": "Waseca County"
+        },
+        {
+            "code": "27163",
+            "fips": "163",
+            "state": "MN",
+            "name": "Washington County"
+        },
+        {
+            "code": "27165",
+            "fips": "165",
+            "state": "MN",
+            "name": "Watonwan County"
+        },
+        {
+            "code": "27167",
+            "fips": "167",
+            "state": "MN",
+            "name": "Wilkin County"
+        },
+        {
+            "code": "27169",
+            "fips": "169",
+            "state": "MN",
+            "name": "Winona County"
+        },
+        {
+            "code": "27171",
+            "fips": "171",
+            "state": "MN",
+            "name": "Wright County"
+        },
+        {
+            "code": "27173",
+            "fips": "173",
+            "state": "MN",
+            "name": "Yellow Medicine County"
+        }
+    ]
+}

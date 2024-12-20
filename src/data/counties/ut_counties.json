@@ -1,0 +1,178 @@
+{
+    "counties": [
+        {
+            "code": "49001",
+            "fips": "001",
+            "state": "UT",
+            "name": "Beaver County"
+        },
+        {
+            "code": "49003",
+            "fips": "003",
+            "state": "UT",
+            "name": "Box Elder County"
+        },
+        {
+            "code": "49005",
+            "fips": "005",
+            "state": "UT",
+            "name": "Cache County"
+        },
+        {
+            "code": "49007",
+            "fips": "007",
+            "state": "UT",
+            "name": "Carbon County"
+        },
+        {
+            "code": "49009",
+            "fips": "009",
+            "state": "UT",
+            "name": "Daggett County"
+        },
+        {
+            "code": "49011",
+            "fips": "011",
+            "state": "UT",
+            "name": "Davis County"
+        },
+        {
+            "code": "49013",
+            "fips": "013",
+            "state": "UT",
+            "name": "Duchesne County"
+        },
+        {
+            "code": "49015",
+            "fips": "015",
+            "state": "UT",
+            "name": "Emery County"
+        },
+        {
+            "code": "49017",
+            "fips": "017",
+            "state": "UT",
+            "name": "Garfield County"
+        },
+        {
+            "code": "49019",
+            "fips": "019",
+            "state": "UT",
+            "name": "Grand County"
+        },
+        {
+            "code": "49021",
+            "fips": "021",
+            "state": "UT",
+            "name": "Iron County"
+        },
+        {
+            "code": "49023",
+            "fips": "023",
+            "state": "UT",
+            "name": "Juab County"
+        },
+        {
+            "code": "49025",
+            "fips": "025",
+            "state": "UT",
+            "name": "Kane County"
+        },
+        {
+            "code": "49027",
+            "fips": "027",
+            "state": "UT",
+            "name": "Millard County"
+        },
+        {
+            "code": "49029",
+            "fips": "029",
+            "state": "UT",
+            "name": "Morgan County"
+        },
+        {
+            "code": "49031",
+            "fips": "031",
+            "state": "UT",
+            "name": "Piute County"
+        },
+        {
+            "code": "49033",
+            "fips": "033",
+            "state": "UT",
+            "name": "Rich County"
+        },
+        {
+            "code": "49035",
+            "fips": "035",
+            "state": "UT",
+            "name": "Salt Lake County"
+        },
+        {
+            "code": "49037",
+            "fips": "037",
+            "state": "UT",
+            "name": "San Juan County"
+        },
+        {
+            "code": "49039",
+            "fips": "039",
+            "state": "UT",
+            "name": "Sanpete County"
+        },
+        {
+            "code": "49041",
+            "fips": "041",
+            "state": "UT",
+            "name": "Sevier County"
+        },
+        {
+            "code": "49043",
+            "fips": "043",
+            "state": "UT",
+            "name": "Summit County"
+        },
+        {
+            "code": "49045",
+            "fips": "045",
+            "state": "UT",
+            "name": "Tooele County"
+        },
+        {
+            "code": "49047",
+            "fips": "047",
+            "state": "UT",
+            "name": "Uintah County"
+        },
+        {
+            "code": "49049",
+            "fips": "049",
+            "state": "UT",
+            "name": "Utah County"
+        },
+        {
+            "code": "49051",
+            "fips": "051",
+            "state": "UT",
+            "name": "Wasatch County"
+        },
+        {
+            "code": "49053",
+            "fips": "053",
+            "state": "UT",
+            "name": "Washington County"
+        },
+        {
+            "code": "49055",
+            "fips": "055",
+            "state": "UT",
+            "name": "Wayne County"
+        },
+        {
+            "code": "49057",
+            "fips": "057",
+            "state": "UT",
+            "name": "Weber County"
+        }
+    ]
+}
