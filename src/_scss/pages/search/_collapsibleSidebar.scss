@@ -171,15 +171,12 @@
         .categories-list-item {
           display: flex;
           align-content: center;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           justify-content: space-between;
           padding: rem(12) 0;
           cursor: pointer;
 
           div {
-            max-width: rem(250);
-            cursor: pointer;
-
             &:first-of-type {
               padding-left: rem(4);
             }
@@ -189,17 +186,29 @@
             }
           }
 
-          svg {
+          .categories-list-item__text-container {
             cursor: pointer;
+            display: flex;
+
+            .categories-list-item__title {
+              padding: 0;
+            }
+
+            .categories-list-item__count {
+              font-size: $font-size-10;
+              font-weight: normal;
+              background-color: $gray-cool-2;
+              padding: rem(2) rem(6);
+              border-radius: rem(4);
+              border: solid rem(1) $gray-cool-5;
+              margin-left: $global-spacing-unit;
+              height: fit-content;
+              white-space: nowrap;
+            }
           }
 
-          .categories-list-item__count {
-            font-size: $font-size-10;
-            font-weight: normal;
-            background-color: $gray-cool-2;
-            padding: rem(2) rem(6);
-            border-radius: rem(4);
-            border: solid rem(1) $gray-cool-5;
+          svg {
+            cursor: pointer;
           }
         }
       }

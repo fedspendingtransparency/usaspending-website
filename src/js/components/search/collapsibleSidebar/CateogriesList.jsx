@@ -65,12 +65,14 @@ const CategoriesList = ({
                                             role="button"
                                             tabIndex={0}>
                                             <div className="categories-list-item">
-                                                <div style={{ float: "left" }}>{category.title}</div>
-                                                {filterCount[category.title] > 0 &&
-                                                    <div className="categories-list-item__count">
-                                                        {filterCount[category.title]} selected
-                                                    </div>
-                                                }
+                                                <div className="categories-list-item__text-container">
+                                                    <div className="categories-list-item__title" style={{ float: "left" }}>{category.title}</div>
+                                                    {filterCount[category.title] > 0 &&
+                                                        <div className="categories-list-item__count">
+                                                            {filterCount[category.title]} selected
+                                                        </div>
+                                                    }
+                                                </div>
                                                 <div style={{ float: "right" }}><FontAwesomeIcon
                                                     className="chevron"
                                                     icon="chevron-right" />
