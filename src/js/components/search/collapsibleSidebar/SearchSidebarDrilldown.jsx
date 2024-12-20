@@ -94,7 +94,7 @@ const SearchSidebarDrilldown = ({
                 height={sidebarHeight}
                 title={selectedCategoryTitle}
                 component={filter}
-                itemCount={filterCount[selectedCategory?.title]} />
+                itemCount={filterCount[selectedCategoryTitle]} />
         );
     }
 
