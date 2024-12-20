@@ -8,13 +8,18 @@
   }
   padding: 0 ($global-margin * 4);
 
-  &:hover {
+  &.hover:hover{
     background-color: $gray-cool-3;
   }
 
   .search-filter__content {
     height: rem(124);
     padding: ($global-margin * 2) 0 rem(46) 0;
+
+    &.filter-header__title {
+      padding-bottom: $global-margin;
+      height: unset;
+    }
 
     .search-filter__top-row {
       display: flex;

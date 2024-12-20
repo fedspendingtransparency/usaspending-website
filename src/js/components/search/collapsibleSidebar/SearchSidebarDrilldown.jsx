@@ -23,7 +23,7 @@ const propTypes = {
 };
 
 const SearchSidebarDrilldown = ({
-    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight, itemCount, filters
+    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight, itemCount, filters, selectedCategoryTitle
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -73,6 +73,30 @@ const SearchSidebarDrilldown = ({
         'Infrastructure Spending': 0
     };
 
+    let categoryFilter;
+
+    if (selectedCategory?.title === 'Location' || selectedCategory?.title === 'Time Period') {
+        categoryFilter = (
+            <CategoryFilter
+                height={sidebarHeight}
+                iconName={selectedCategory.iconName}
+                iconColor={selectedCategory.iconColor}
+                iconBackgroundColor={selectedCategory.iconBackgroundColor}
+                title={selectedCategoryTitle}
+                description={selectedCategory.description}
+                component={filter} />
+        );
+    }
+    else {
+        categoryFilter = (
+            <CategoryFilter
+                height={sidebarHeight}
+                title={selectedCategoryTitle}
+                component={filter} />
+        );
+    }
+
+
     return (
         <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
             <div className="collapsible-sidebar--header">
@@ -97,15 +121,7 @@ const SearchSidebarDrilldown = ({
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]} />}
 
-                {filter && <CategoryFilter
-                    height={sidebarHeight}
-                    iconName={selectedCategory.iconName}
-                    iconColor={selectedCategory.iconColor}
-                    iconBackgroundColor={selectedCategory.iconBackgroundColor}
-                    title={selectedCategory.title}
-                    description={selectedCategory.description}
-                    component={filter}
-                    itemCount={filterCount[selectedCategory.title]} />}
+                {filter && categoryFilter}
             </div>
         </div>);
 };
