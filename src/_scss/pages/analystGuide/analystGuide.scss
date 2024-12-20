@@ -17,9 +17,13 @@
   }
 
   .analyst-guide-body {
-    margin: 0 $global-margin * 2;
-    @media (min-width: $medium-screen) {
-      margin: 0;
+    width: 100%;
+    max-width: rem(1400);
+    margin-left: rem(16);
+    margin-right: rem(16);
+    @media (min-width: $tablet-screen) {
+      margin-left: rem(32);
+      margin-right: rem(32);
     }
   }
 
@@ -32,14 +36,10 @@
       }
       color: $color-primary;
       margin-top: $global-margin * 4;
-      margin-left: -24px;
-      margin-right: -12px;
-      @media (min-width: $medium-screen) {
-        margin-left: -40px;
-        margin-right: -12px;
-      }
+
 
       .usda-share-icon {
+        margin-left: 0;
         span {
           display: flex;
         }
@@ -151,10 +151,7 @@
     letter-spacing: normal;
     color: $gray-90;
     font-size: rem(28);
-    margin: 36px 0px 20px;
-    @media (max-width: $medium-screen) {
-      margin: 32px 16px 20px;
-    }
+    margin: 32px 0px 20px;
   }
 
   .analyst-guide__bodyText {
@@ -166,9 +163,6 @@
     line-height: $base-line-height;
     letter-spacing: normal;
     color: $color-base;
-    @media (max-width: $medium-screen) {
-      margin: 20px 16px 40px;
-    }
 
     .analyst-guide__external-link {
       @include button-unstyled;
@@ -183,9 +177,6 @@
   }
 
   .analyst-guide__questionSections {
-    @media (max-width: $medium-screen) {
-      margin: 40px 16px 2px;
-    }
       margin: 40px 0px 2px;
       font-size: rem(20);
       font-weight: $font-semibold;
@@ -198,7 +189,7 @@
 
   .analyst-guide__answerSection {
     @media (max-width: $medium-screen) {
-      margin: 8px 16px;
+      margin: 8px 0;
     }
   }
 
@@ -209,9 +200,6 @@
   }
 
   .analyst-guide__questionLine {
-    @media (max-width: $medium-screen) {
-      margin: 2px 16px 20px;
-    }
       margin: 2px 0px 20px;
       border-bottom: 2px solid black;
   }

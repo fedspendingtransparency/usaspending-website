@@ -1,3 +1,8 @@
+/**
+ * SearchSidebarMainMenu.jsx
+ * Created by Andrea Blackwell 11/05/2024
+ **/
+
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
