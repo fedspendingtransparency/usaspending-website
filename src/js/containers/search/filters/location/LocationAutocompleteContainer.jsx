@@ -46,14 +46,14 @@ const LocationAutocompleteContainer = (props) => {
 
     const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
 
-    const loadCounties = (county, state, countryAbbreviation, countyFips) => {
+    const loadCounties = (county, state, countryAbbreviation, stateFips, countyFips) => {
         const stateAbbreviation = getKeyByValue(
             stateFIPSByAbbreviation,
-            countyFips.slice(0, 2)
+            stateFips
         ).toLowerCase();
 
         const location = {
-            identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyFips.slice(2)}`,
+            identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyFips}`,
             display: {
                 title: `${county}, ${state}`,
                 entity: "County",
@@ -61,7 +61,7 @@ const LocationAutocompleteContainer = (props) => {
             },
             filter: {
                 country: countryAbbreviation,
-                county: countyFips.slice(2),
+                county: countyFips,
                 state: stateAbbreviation
             }
         };
@@ -205,7 +205,13 @@ const LocationAutocompleteContainer = (props) => {
             location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation);
         }
         else if (item.category === "county") {
-            loadCounties(item.data.county_name, item.data.state_name, countryAbbreviation, item.data.county_fips);
+            loadCounties(
+                item.data.county_name,
+                item.data.state_name,
+                countryAbbreviation,
+                item.data.state_fips,
+                item.data.county_fips
+            );
         }
         else if (item.category === "state") {
             location = addState(item.data.state_name, countryAbbreviation);

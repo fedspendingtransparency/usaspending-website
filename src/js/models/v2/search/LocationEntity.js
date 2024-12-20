@@ -41,7 +41,8 @@ const LocationEntity = {
             zip_code: item.zip_code || '--',
             original_cd: item.original_cd || '--',
             current_cd: item.current_cd || '--',
-            county_fips: item.county_fips || '--'
+            state_fips: item.county_fips?.slice(0, 2) || '--',
+            county_fips: item.county_fips?.slice(2) || '--'
         };
     }
 };
