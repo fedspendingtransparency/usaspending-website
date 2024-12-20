@@ -178,6 +178,7 @@ const CollapsibleSidebar = ({ filters }) => {
         pricingType,
         setAside,
         extentCompeted,
+        selectedCFDA,
         selectedRecipients,
         recipientType,
         selectedAwardingAgencies,
@@ -199,7 +200,8 @@ const CollapsibleSidebar = ({ filters }) => {
         pscCodes.counts.length +
         pricingType.size +
         setAside.size +
-        extentCompeted.size;
+        extentCompeted.size +
+        selectedCFDA.size;
 
     const itemCount = {
         location: selectedLocations.size + selectedRecipientLocations.size,
