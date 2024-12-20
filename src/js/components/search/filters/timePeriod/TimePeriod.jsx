@@ -57,6 +57,8 @@ export default class TimePeriod extends React.Component {
         this.state = {
             startDateUI: null,
             endDateUI: null,
+            startDateDropdown: null,
+            endDateDropdown: null,
             showError: false,
             header: '',
             description: '',
@@ -185,12 +187,19 @@ export default class TimePeriod extends React.Component {
         if (!date) {
             value = null;
         }
-        this.setState({
-            [`${dateType}UI`]: value
-        });
+        if (!dateType.includes("Dropdown")) {
+            this.setState({
+                [`${dateType}UI`]: value
+            });
+        } else if (dateType.includes("Dropdown")) {
+            this.setState({
+                [`${dateType}`]: value
+            });
+        }
     }
 
     removeDateRange(e) {
+        console.debug("REMOVE DATE RANGE: ", this.props, e, this.state);
         this.clearHint(true);
         this.props.updateFilter({
             dateType: 'dr',
@@ -200,7 +209,9 @@ export default class TimePeriod extends React.Component {
         this.setState({
             dateRangeChipRemoved: true,
             startDateUI: null,
-            endDateUI: null
+            endDateUI: null,
+            startDateDropdown: null,
+            endDateDropdown: null
         });
 
         if (this.props.activeTab === 'dr') {
@@ -275,6 +286,8 @@ export default class TimePeriod extends React.Component {
                 startingTab={1}
                 startDate={this.state.startDateUI}
                 endDate={this.state.endDateUI}
+                startDateDropdown={this.state.startDateDropdown}
+                endDateDropdown={this.state.endDateDropdown}
                 timePeriod={this.props.filterTime_Period}
                 selectedStart={this.props.filterTimePeriodStart}
                 selectedEnd={this.props.filterTimePeriodEnd}

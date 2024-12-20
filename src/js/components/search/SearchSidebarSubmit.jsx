@@ -16,6 +16,7 @@ const propTypes = {
 };
 
 const SearchSidebarSubmit = (props) => {
+    console.debug("search props: ", props);
     let disabled = false;
     let title = 'Click to submit your search.';
 

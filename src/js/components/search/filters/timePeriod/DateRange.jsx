@@ -41,10 +41,8 @@ const DateRange = (props) => {
     const [endPicker, setEndPicker] = useState(null);
     const [dropdownDisabled, setDropdownDisabled] = useState(true);
     const [drDisabled, setDRDisabled] = useState(true);
-    const [disabled, setDisabled] = useState(true);
     const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
     const [dropdownOptionSelected, setDropdownOptionSelected] = useState(false);
-    const [noDates, setNoDates] = useState(false);
     const [noDatesDR, setNoDatesDR] = useState(false);
     const [noDatesDropdown, setNoDatesDropdown] = useState(false);
     const prevProps = usePrevious(props);
@@ -55,6 +53,9 @@ const DateRange = (props) => {
 
         if (e === 'select') {
             setDropdownOptionSelected(false);
+            setNoDatesDropdown(true);
+            props.onDateChange(null, 'startDateDropdown');
+            props.onDateChange(null, 'endDateDropdown');
         }
         else {
             setDropdownOptionSelected(true);
@@ -65,10 +66,10 @@ const DateRange = (props) => {
             });
 
             dateRangeDropdownTimePeriods.find((obj) => {
+                console.debug("object: ", obj, e);
                 if (obj.value === e) {
-                    console.debug("object: ", obj, e);
-                    props.onDateChange(obj.startDate, 'startDate');
-                    props.onDateChange(obj.endDate, 'endDate');
+                    props.onDateChange(obj.startDate, 'startDateDropdown');
+                    props.onDateChange(obj.endDate, 'endDateDropdown');
                     return true;
                 }
                 return false;
@@ -179,6 +180,39 @@ const DateRange = (props) => {
         }
     };
 
+    const submitDatesDropdown = () => {
+        const start = props.startDateDropdown;
+        const end = props.endDateDropdown;
+        console.debug("PROPS: ", props);
+        if (!props.errorState && (start || end)) {
+            console.debug("here1");
+            let startValue = null;
+            let endValue = null;
+            if (start) {
+                startValue = start.format('YYYY-MM-DD');
+            }
+
+            if (end) {
+                endValue = end.format('YYYY-MM-DD');
+            }
+
+            props.updateFilter({
+                dateType: 'dr',
+                startDate: startValue,
+                endDate: endValue
+            });
+        }
+        else {
+            console.debug("here2");
+            // user has cleared the dates, which means we should clear the date range filter
+            props.updateFilter({
+                dateType: 'dr',
+                startDate: null,
+                endDate: null
+            });
+        }
+    };
+
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
             if (props.errorState) {
@@ -199,8 +233,8 @@ const DateRange = (props) => {
     };
 
     useEffect(() => {
+        console.debug("1");
         // where we should handle setting no dates
-        console.debug("setting no dates: ", props);
         if (!props.startDate && !props.endDate) {
             setNoDatesDR(true);
             props.hideError();
@@ -211,15 +245,19 @@ const DateRange = (props) => {
     }, [props.endDate, props.startDate]);
 
     useEffect(() => {
+        console.debug("2");
         // where we should handle setting no dates
-        console.debug("props no dates dropdown: ", props);
-
+        if (!props.startDateDropdown && !props.endDateDropdown) {
+            setNoDatesDropdown(true);
+            props.hideError();
+        } else {
+            setNoDatesDropdown(false);
+        }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [noDatesDropdown]);
+    }, [props.endDateDropdown, props.startDateDropdown]);
 
     useEffect(() => {
-        console.debug("start date section: ", props);
-
+        console.debug("3");
         if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
             // the start date was reset to null, clear the picker
             startPicker?.clearValue();
@@ -228,7 +266,7 @@ const DateRange = (props) => {
     }, [props?.startDate]);
 
     useEffect(() => {
-        console.debug("end date section: ", props);
+        console.debug("4");
 
         if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
             // the end date was reset to null, clear the picker
@@ -238,7 +276,7 @@ const DateRange = (props) => {
     }, [props?.endDate]);
 
     useEffect(() => {
-        console.debug("add disabled section: ", props);
+        console.debug("5", props);
         // change how disabled works
         if (!noDatesDR) {
             setDRDisabled(false);
@@ -246,14 +284,14 @@ const DateRange = (props) => {
         } else if (noDatesDR) {
             setDRDisabled(true);
         }
-        // if (noDatesDropdown) {
-        //     setDropdownDisabled(true);
-        // }
-        // else {
-        //     setDisabled(false);
-        // }
+        if (!noDatesDropdown) {
+            setDropdownDisabled(false);
+        }
+        else {
+            setDropdownDisabled(true);
+        }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.errorState, noDatesDR, props.startDate, props.endDate]);
+    }, [props.errorState, noDatesDR, noDatesDropdown, props.startDate, props.endDate, props.startDateDropdown, props.endDateDropdown, dropdownOptionSelected]);
 
     if (props.timePeriod?.size > 0) {
         for (const timeinput of props.timePeriod) {
@@ -348,13 +386,13 @@ const DateRange = (props) => {
                         buttonType="primary"
                         backgroundColor="light"
                         disabled={dropdownDisabled}
-                        onClick={submitDates} />
+                        onClick={submitDatesDropdown} />
                 </div>
             </div>
             <div
                 className="selected-filters"
                 id="selected-date-range"
-                aria-hidden={noDates}
+                aria-hidden={noDatesDR || noDatesDropdown}
                 role="status">
                 {labelArray.map((dateLabel, index) =>
                     (

@@ -23,17 +23,13 @@ const propTypes = {
 };
 
 const DatePicker = ({ type = 'startDate', ...props }) => {
-    console.debug("date picker props: ", props);
     const [inputValue, setInputValue] = useState('');
 
     const clearValue = (e) => {
         setInputValue('');
-        console.debug(e.target.id);
         if (e.target.id.includes("startDate")) {
-            console.debug("here");
             props.onDateChange(null, 'startDate');
         } else if (e.target.id.includes("endDate")) {
-            console.debug("here2");
             props.onDateChange(null, 'endDate');
         }
     };
