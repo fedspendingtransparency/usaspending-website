@@ -10,6 +10,7 @@ import { isCancel } from "axios";
 import PropTypes from "prop-types";
 import { fetchLocations } from 'helpers/searchHelper';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import GlobalConstants from 'GlobalConstants';
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
 import LocationAutocomplete from "../../../../components/search/filters/location/LocationAutocomplete";
 import { fipsIdByStateName, stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
@@ -67,8 +68,8 @@ const LocationAutocompleteContainer = (props) => {
 
     const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
 
-    const loadCounties = (county, state, countryAbbreviation) => {
-        const fipsCode = fipsIdByStateName[state.toLowerCase()];
+    const loadCounties = (county, state, countryAbbreviation, countyFips) => {
+        const fipsCode = GlobalConstants.QAT ? countyFips.slice(0, 2) : fipsIdByStateName[state.toLowerCase()];
         const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode).toLowerCase();
 
         if (countyListRequest) {
@@ -76,18 +77,37 @@ const LocationAutocompleteContainer = (props) => {
             setIsLoading(false);
         }
 
-        countyListRequest = fetchLocationList(`counties/${stateAbbreviation}_counties`);
-        setIsLoading(true);
-        countyListRequest.promise
-            .then((res) => {
-                addCounty(res.data, county, state, stateAbbreviation, countryAbbreviation);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    setIsLoading(false);
+        if (GlobalConstants.QAT) {
+            const location = {
+                identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyFips.slice(2)}`,
+                display: {
+                    title: `${county}, ${state}`,
+                    entity: "County",
+                    standalone: county
+                },
+                filter: {
+                    country: countryAbbreviation,
+                    county: countyFips.slice(2),
+                    state: stateAbbreviation
                 }
-            });
+            };
+
+            createLocationObjectByType(location);
+        }
+        else {
+            countyListRequest = fetchLocationList(`counties/${stateAbbreviation}_counties`);
+            setIsLoading(true);
+            countyListRequest.promise
+                .then((res) => {
+                    addCounty(res.data, county, state, stateAbbreviation, countryAbbreviation);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(err);
+                        setIsLoading(false);
+                    }
+                });
+        }
     };
 
     const loadCountries = () => {
@@ -226,7 +246,7 @@ const LocationAutocompleteContainer = (props) => {
             location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation);
         }
         else if (item.category === "county") {
-            loadCounties(item.data.county_name, item.data.state_name, countryAbbreviation);
+            loadCounties(item.data.county_name, item.data.state_name, countryAbbreviation, item.data.county_fips);
         }
         else if (item.category === "state") {
             location = addState(item.data.state_name, countryAbbreviation);

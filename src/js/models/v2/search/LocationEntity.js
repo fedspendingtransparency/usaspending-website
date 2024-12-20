@@ -40,7 +40,8 @@ const LocationEntity = {
             city_name: item.city_name || '--',
             zip_code: item.zip_code || '--',
             original_cd: item.original_cd || '--',
-            current_cd: item.current_cd || '--'
+            current_cd: item.current_cd || '--',
+            county_fips: item.county_fips || '--'
         };
     }
 };
