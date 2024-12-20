@@ -7,12 +7,19 @@ import React, { useEffect, useState } from 'react';
 import { FilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
 
-const CollapsibleSidebar = () => {
+
+const propTypes = {
+    filters: PropTypes.object
+};
+
+const CollapsibleSidebar = ({ filters }) => {
     const [isOpened, setIsOpened] = useState(true);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -157,6 +164,51 @@ const CollapsibleSidebar = () => {
         }
     }, 50);
 
+    const {
+        selectedLocations,
+        selectedRecipientLocations,
+        timePeriodType,
+        time_period: timePeriod,
+        timePeriodFY,
+        selectedAwardIDs,
+        awardAmounts,
+        awardType,
+        naicsCodes,
+        pscCodes,
+        pricingType,
+        setAside,
+        extentCompeted,
+        selectedRecipients,
+        recipientType,
+        selectedAwardingAgencies,
+        selectedFundingAgencies,
+        tasCodes,
+        defCodes
+    } = filters;
+
+    const sourcesCount = selectedAwardingAgencies.size +
+        selectedFundingAgencies.size +
+        tasCodes.counts.length +
+        defCodes.counts.length;
+
+    // TODO: Add Award Description (?) to count
+    const characteristicsCount = selectedAwardIDs.size +
+        awardAmounts.size +
+        awardType.size +
+        naicsCodes.counts.length +
+        pscCodes.counts.length +
+        pricingType.size +
+        setAside.size +
+        extentCompeted.size;
+
+    const itemCount = {
+        location: selectedLocations.size + selectedRecipientLocations.size,
+        timePeriod: timePeriodType === 'dr' ? timePeriod.size : timePeriodFY.size,
+        characteristics: characteristicsCount,
+        recipients: selectedRecipients.size + recipientType.size,
+        sources: sourcesCount
+    };
+
     useEffect(() => {
         handleScroll();
         window.addEventListener('scroll', (e) => handleScroll(e));
@@ -195,7 +247,8 @@ const CollapsibleSidebar = () => {
                 <SearchSidebarMainMenu
                     isDrilldown={isDrilldown}
                     sidebarHeight={sidebarHeight}
-                    setLevel2={setLevel2} />
+                    setLevel2={setLevel2}
+                    itemCount={itemCount} />
 
                 <SearchSidebarDrilldown
                     list={drilldown?.children}
@@ -215,4 +268,9 @@ const CollapsibleSidebar = () => {
     );
 };
 
-export default CollapsibleSidebar;
+CollapsibleSidebar.propTypes = propTypes;
+export default connect(
+    (state) => ({
+        filters: state.filters
+    })
+)(CollapsibleSidebar);
