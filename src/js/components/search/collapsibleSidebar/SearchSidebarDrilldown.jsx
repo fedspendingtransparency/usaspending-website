@@ -84,7 +84,8 @@ const SearchSidebarDrilldown = ({
                 iconBackgroundColor={selectedCategory.iconBackgroundColor}
                 title={selectedCategoryTitle}
                 description={selectedCategory.description}
-                component={filter} />
+                component={filter}
+                itemCount={filterCount[selectedCategory?.title]} />
         );
     }
     else {
@@ -92,7 +93,8 @@ const SearchSidebarDrilldown = ({
             <CategoryFilter
                 height={sidebarHeight}
                 title={selectedCategoryTitle}
-                component={filter} />
+                component={filter}
+                itemCount={filterCount[selectedCategory?.title]} />
         );
     }
 

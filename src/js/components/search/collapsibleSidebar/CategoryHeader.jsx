@@ -87,7 +87,7 @@ const CategoryHeader = ({
             setContent(filterButton);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isClickable]);
+    }, [isClickable, itemCount]);
 
 
     return (<>{ content }</>);
