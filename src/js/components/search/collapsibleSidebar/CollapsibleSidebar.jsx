@@ -258,7 +258,8 @@ const CollapsibleSidebar = ({ filters }) => {
                     selectedCategory={selectedCategory}
                     sidebarHeight={sidebarHeight}
                     setLevel3={setLevel3}
-                    goBack={goBack} />
+                    goBack={goBack}
+                    itemCount={itemCount} />
 
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />

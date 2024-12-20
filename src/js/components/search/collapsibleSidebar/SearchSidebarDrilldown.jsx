@@ -17,11 +17,12 @@ const propTypes = {
     sidebarHeight: PropTypes.number,
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
-    goBack: PropTypes.func
+    goBack: PropTypes.func,
+    itemCount: PropTypes.object
 };
 
 const SearchSidebarDrilldown = ({
-    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight
+    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight, itemCount
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -51,7 +52,8 @@ const SearchSidebarDrilldown = ({
                     title={selectedCategory.title}
                     description={selectedCategory.description}
                     categories={list}
-                    setLevel3={setLevel3} />}
+                    setLevel3={setLevel3}
+                    itemCount={itemCount[selectedCategory.categoryKey]} />}
 
                 {filter && <CategoryFilter
                     height={sidebarHeight}

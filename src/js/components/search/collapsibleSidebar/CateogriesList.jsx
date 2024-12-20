@@ -16,7 +16,8 @@ const propTypes = {
     iconBackgroundColor: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    height: PropTypes.number
+    height: PropTypes.number,
+    itemCount: PropTypes.object
 };
 
 const CategoriesList = ({
@@ -27,7 +28,8 @@ const CategoriesList = ({
     iconColor,
     title,
     description,
-    height
+    height,
+    itemCount
 }) => (
     <>
         <CategoryHeader
@@ -35,7 +37,8 @@ const CategoriesList = ({
             iconColor={iconColor}
             iconBackgroundColor={iconBackgroundColor}
             title={title}
-            description={description} />
+            description={description}
+            itemCount={itemCount} />
         <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
             <div style={{ margin: "0 32px" }}>
                 {categories.map((item) => {
