@@ -10,7 +10,6 @@ import { isCancel } from "axios";
 import PropTypes from "prop-types";
 import { fetchLocations } from 'helpers/searchHelper';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import GlobalConstants from 'GlobalConstants';
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
 import LocationAutocomplete from "../../../../components/search/filters/location/LocationAutocomplete";
 import { fipsIdByStateName, stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
@@ -35,7 +34,6 @@ const LocationAutocompleteContainer = (props) => {
 
     let timeout;
     let listRequest;
-    let countyListRequest;
 
     const createLocationObjectByType = (location) => {
         if (props.activeTab === 'recipient') {
@@ -46,11 +44,16 @@ const LocationAutocompleteContainer = (props) => {
         }
     };
 
-    const addCounty = (countyList, county, state, stateAbbreviation, countryAbbreviation) => {
-        const countyObj = countyList.counties.find((item) => item.name.toLowerCase() === `${county.toLowerCase()} county`);
+    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
+
+    const loadCounties = (county, state, countryAbbreviation, countyFips) => {
+        const stateAbbreviation = getKeyByValue(
+            stateFIPSByAbbreviation,
+            countyFips.slice(0, 2)
+        ).toLowerCase();
 
         const location = {
-            identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyObj.fips}`,
+            identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyFips.slice(2)}`,
             display: {
                 title: `${county}, ${state}`,
                 entity: "County",
@@ -58,57 +61,12 @@ const LocationAutocompleteContainer = (props) => {
             },
             filter: {
                 country: countryAbbreviation,
-                county: countyObj.fips,
+                county: countyFips.slice(2),
                 state: stateAbbreviation
             }
         };
 
         createLocationObjectByType(location);
-    };
-
-    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
-
-    const loadCounties = (county, state, countryAbbreviation, countyFips) => {
-        const fipsCode = GlobalConstants.QAT ? countyFips.slice(0, 2) : fipsIdByStateName[state.toLowerCase()];
-        const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode).toLowerCase();
-
-        if (countyListRequest) {
-            countyListRequest.cancel();
-            setIsLoading(false);
-        }
-
-        if (GlobalConstants.QAT) {
-            const location = {
-                identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyFips.slice(2)}`,
-                display: {
-                    title: `${county}, ${state}`,
-                    entity: "County",
-                    standalone: county
-                },
-                filter: {
-                    country: countryAbbreviation,
-                    county: countyFips.slice(2),
-                    state: stateAbbreviation
-                }
-            };
-
-            createLocationObjectByType(location);
-        }
-        else {
-            // TODO: Delete once backend changes in DEV-11590 is complete
-            countyListRequest = fetchLocationList(`counties/${stateAbbreviation}_counties`);
-            setIsLoading(true);
-            countyListRequest.promise
-                .then((res) => {
-                    addCounty(res.data, county, state, stateAbbreviation, countryAbbreviation);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        console.log(err);
-                        setIsLoading(false);
-                    }
-                });
-        }
     };
 
     const loadCountries = () => {
