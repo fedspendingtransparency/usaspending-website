@@ -17,7 +17,8 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     height: PropTypes.number,
-    itemCount: PropTypes.object
+    itemCount: PropTypes.object,
+    filterCount: PropTypes.object
 };
 
 const CategoriesList = ({
@@ -29,7 +30,8 @@ const CategoriesList = ({
     title,
     description,
     height,
-    itemCount
+    itemCount,
+    filterCount
 }) => (
     <>
         <CategoryHeader
@@ -64,6 +66,11 @@ const CategoriesList = ({
                                             tabIndex={0}>
                                             <div className="categories-list-item">
                                                 <div style={{ float: "left" }}>{category.title}</div>
+                                                {filterCount[category.title] > 0 &&
+                                                    <div className="categories-list-item__count">
+                                                        {filterCount[category.title]} selected
+                                                    </div>
+                                                }
                                                 <div style={{ float: "right" }}><FontAwesomeIcon
                                                     className="chevron"
                                                     icon="chevron-right" />

@@ -192,6 +192,15 @@
           svg {
             cursor: pointer;
           }
+
+          .categories-list-item__count {
+            font-size: $font-size-10;
+            font-weight: normal;
+            background-color: $gray-cool-2;
+            padding: rem(2) rem(6);
+            border-radius: rem(4);
+            border: solid rem(1) $gray-cool-5;
+          }
         }
       }
 

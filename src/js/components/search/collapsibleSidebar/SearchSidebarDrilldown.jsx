@@ -122,7 +122,8 @@ const SearchSidebarDrilldown = ({
                     description={selectedCategory.description}
                     categories={list}
                     setLevel3={setLevel3}
-                    itemCount={itemCount[selectedCategory.categoryKey]} />}
+                    itemCount={itemCount[selectedCategory.categoryKey]}
+                    filterCount={filterCount} />}
 
                 {filter && categoryFilter}
             </div>
