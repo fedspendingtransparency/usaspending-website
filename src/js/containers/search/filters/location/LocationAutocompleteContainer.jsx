@@ -95,6 +95,7 @@ const LocationAutocompleteContainer = (props) => {
             createLocationObjectByType(location);
         }
         else {
+            // TODO: Delete once backend changes in DEV-11590 is complete
             countyListRequest = fetchLocationList(`counties/${stateAbbreviation}_counties`);
             setIsLoading(true);
             countyListRequest.promise
