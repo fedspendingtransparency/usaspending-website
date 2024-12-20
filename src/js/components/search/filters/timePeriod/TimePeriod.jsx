@@ -111,6 +111,9 @@ export default class TimePeriod extends React.Component {
         else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
             this.props.updateNewAwardsOnlyActive(false);
             this.props.updateNaoActiveFromFyOrDateRange(false);
+        } else if ((prevState.startDateDropdown !== this.state.startDateDropdown || prevState.endDateDropdown !== this.state.endDateDropdown) && (!this.state.startDateDropdown && !this.state.endDateDropdown)) {
+            this.props.updateNewAwardsOnlyActive(false);
+            this.props.updateNaoActiveFromFyOrDateRange(false);
         }
     }
 
@@ -199,7 +202,6 @@ export default class TimePeriod extends React.Component {
     }
 
     removeDateRange(e) {
-        console.debug("REMOVE DATE RANGE: ", this.props, e, this.state);
         this.clearHint(true);
         this.props.updateFilter({
             dateType: 'dr',

@@ -66,7 +66,6 @@ const DateRange = (props) => {
             });
 
             dateRangeDropdownTimePeriods.find((obj) => {
-                console.debug("object: ", obj, e);
                 if (obj.value === e) {
                     props.onDateChange(obj.startDate, 'startDateDropdown');
                     props.onDateChange(obj.endDate, 'endDateDropdown');
@@ -183,9 +182,7 @@ const DateRange = (props) => {
     const submitDatesDropdown = () => {
         const start = props.startDateDropdown;
         const end = props.endDateDropdown;
-        console.debug("PROPS: ", props);
         if (!props.errorState && (start || end)) {
-            console.debug("here1");
             let startValue = null;
             let endValue = null;
             if (start) {
@@ -203,7 +200,6 @@ const DateRange = (props) => {
             });
         }
         else {
-            console.debug("here2");
             // user has cleared the dates, which means we should clear the date range filter
             props.updateFilter({
                 dateType: 'dr',
@@ -233,7 +229,6 @@ const DateRange = (props) => {
     };
 
     useEffect(() => {
-        console.debug("1");
         // where we should handle setting no dates
         if (!props.startDate && !props.endDate) {
             setNoDatesDR(true);
@@ -245,7 +240,6 @@ const DateRange = (props) => {
     }, [props.endDate, props.startDate]);
 
     useEffect(() => {
-        console.debug("2");
         // where we should handle setting no dates
         if (!props.startDateDropdown && !props.endDateDropdown) {
             setNoDatesDropdown(true);
@@ -257,7 +251,6 @@ const DateRange = (props) => {
     }, [props.endDateDropdown, props.startDateDropdown]);
 
     useEffect(() => {
-        console.debug("3");
         if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
             // the start date was reset to null, clear the picker
             startPicker?.clearValue();
@@ -266,8 +259,6 @@ const DateRange = (props) => {
     }, [props?.startDate]);
 
     useEffect(() => {
-        console.debug("4");
-
         if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
             // the end date was reset to null, clear the picker
             endPicker?.clearValue();
@@ -276,7 +267,6 @@ const DateRange = (props) => {
     }, [props?.endDate]);
 
     useEffect(() => {
-        console.debug("5", props);
         // change how disabled works
         if (!noDatesDR) {
             setDRDisabled(false);
