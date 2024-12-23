@@ -49,15 +49,17 @@
           line-height: 1.5;
           color: $theme-color-headline;
         }
+      }
 
-        .search-filter__top-row-selected-container {
-          display: flex;
-          align-items: center;
-          font-size: $font-size-12;
-          font-weight: $font-semibold;
-          line-height: 1.5;
-          color: $theme-color-body;
-        }
+      .search-filter__top-row-selected-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-size: $font-size-12;
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        color: $theme-color-body;
+        width: 100%;
       }
     }
 

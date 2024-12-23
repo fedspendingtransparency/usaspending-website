@@ -27,6 +27,7 @@ const CategoryHeader = ({
     iconBackgroundColor,
     title,
     description,
+    itemCount,
     selectCategory,
     isClickable
 }) => {
@@ -45,9 +46,11 @@ const CategoryHeader = ({
                 <div className="search-filter__top-row-text-container">
                     <div className="search-filter__top-row-title">{title}</div>
                 </div>
-                {/* <div className="search-filter__top-row-selected-container">*/}
-                {/*    <div className="search-filter__top-row-selected">{itemCount} selected</div>*/}
-                {/* </div>*/}
+                <div className="search-filter__top-row-selected-container">
+                    {itemCount > 0 &&
+                        <div className="search-filter__top-row-selected">{itemCount} selected</div>
+                    }
+                </div>
             </div>
             {description &&
                 <div className="search-filter__description">{description}</div>
@@ -86,7 +89,7 @@ const CategoryHeader = ({
             setContent(filterButton);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isClickable]);
+    }, [isClickable, itemCount]);
 
 
     return (<>{ content }</>);
