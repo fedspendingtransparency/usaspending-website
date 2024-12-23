@@ -47,7 +47,9 @@ const CategoryHeader = ({
                     <div className="search-filter__top-row-title">{title}</div>
                 </div>
                 <div className="search-filter__top-row-selected-container">
-                    <div className="search-filter__top-row-selected">{itemCount} selected</div>
+                    {itemCount > 0 &&
+                        <div className="search-filter__top-row-selected">{itemCount} selected</div>
+                    }
                 </div>
             </div>
             {description &&
