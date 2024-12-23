@@ -14,11 +14,12 @@ const propTypes = {
     iconColor: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    height: PropTypes.number
+    height: PropTypes.number,
+    titleOnly: PropTypes.bool
 };
 
 const CategoryFilter = ({
-    iconBackgroundColor, iconName, iconColor, component, title, description, height
+    iconBackgroundColor, iconName, iconColor, component, title, description, height, titleOnly = false
 }) => (
     <>
         <CategoryHeader
@@ -28,7 +29,7 @@ const CategoryFilter = ({
             title={title}
             description={description} />
         {/* TODO Remove negative margin after releasing the collapsible sidebar */}
-        <div className="category-filter" style={{ height: `${height - 60}`, marginTop: "-36px" }}>
+        <div className="category-filter" style={{ height: `${height - 60}`, marginTop: `${titleOnly ? '0px' : '-36px'}` }}>
             <div>{component}</div>
         </div>
     </>
