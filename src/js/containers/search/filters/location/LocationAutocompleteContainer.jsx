@@ -34,7 +34,6 @@ const LocationAutocompleteContainer = (props) => {
 
     let timeout;
     let listRequest;
-    let countyListRequest;
 
     const createLocationObjectByType = (location) => {
         if (props.activeTab === 'recipient') {
@@ -45,11 +44,16 @@ const LocationAutocompleteContainer = (props) => {
         }
     };
 
-    const addCounty = (countyList, county, state, stateAbbreviation, countryAbbreviation) => {
-        const countyObj = countyList.counties.find((item) => item.name.toLowerCase() === `${county.toLowerCase()} county`);
+    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
+
+    const loadCounties = (county, state, countryAbbreviation, stateFips, countyFips) => {
+        const stateAbbreviation = getKeyByValue(
+            stateFIPSByAbbreviation,
+            stateFips
+        ).toLowerCase();
 
         const location = {
-            identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyObj.fips}`,
+            identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyFips}`,
             display: {
                 title: `${county}, ${state}`,
                 entity: "County",
@@ -57,37 +61,12 @@ const LocationAutocompleteContainer = (props) => {
             },
             filter: {
                 country: countryAbbreviation,
-                county: countyObj.fips,
+                county: countyFips,
                 state: stateAbbreviation
             }
         };
 
         createLocationObjectByType(location);
-    };
-
-    const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
-
-    const loadCounties = (county, state, countryAbbreviation) => {
-        const fipsCode = fipsIdByStateName[state.toLowerCase()];
-        const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode).toLowerCase();
-
-        if (countyListRequest) {
-            countyListRequest.cancel();
-            setIsLoading(false);
-        }
-
-        countyListRequest = fetchLocationList(`counties/${stateAbbreviation}_counties`);
-        setIsLoading(true);
-        countyListRequest.promise
-            .then((res) => {
-                addCounty(res.data, county, state, stateAbbreviation, countryAbbreviation);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    setIsLoading(false);
-                }
-            });
     };
 
     const loadCountries = () => {
@@ -226,7 +205,13 @@ const LocationAutocompleteContainer = (props) => {
             location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation);
         }
         else if (item.category === "county") {
-            loadCounties(item.data.county_name, item.data.state_name, countryAbbreviation);
+            loadCounties(
+                item.data.county_name,
+                item.data.state_name,
+                countryAbbreviation,
+                item.data.state_fips,
+                item.data.county_fips
+            );
         }
         else if (item.category === "state") {
             location = addState(item.data.state_name, countryAbbreviation);

@@ -19,11 +19,23 @@ const propTypes = {
     setLevel3: PropTypes.func,
     goBack: PropTypes.func,
     itemCount: PropTypes.object,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    selectedCategoryTitle: PropTypes.string,
+    titleOnly: PropTypes.bool
 };
 
 const SearchSidebarDrilldown = ({
-    list, filter, isDrilldown, selectedCategory, setLevel3, goBack, sidebarHeight, itemCount, filters, selectedCategoryTitle
+    list,
+    filter,
+    isDrilldown,
+    selectedCategory,
+    setLevel3,
+    goBack,
+    itemCount,
+    filters,
+    sidebarHeight,
+    selectedCategoryTitle,
+    titleOnly = false
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -76,26 +88,28 @@ const SearchSidebarDrilldown = ({
 
     let categoryFilter;
 
-    if (selectedCategory?.title === 'Location' || selectedCategory?.title === 'Time Period') {
+    if (titleOnly) {
         categoryFilter = (
             <CategoryFilter
                 height={sidebarHeight}
-                iconName={selectedCategory.iconName}
-                iconColor={selectedCategory.iconColor}
-                iconBackgroundColor={selectedCategory.iconBackgroundColor}
                 title={selectedCategoryTitle}
                 description={selectedCategory.description}
                 component={filter}
-                itemCount={filterCount[selectedCategory?.title]} />
+                itemCount={filterCount[selectedCategory?.title]}
+                titleOnly={titleOnly} />
         );
     }
     else {
         categoryFilter = (
             <CategoryFilter
                 height={sidebarHeight}
+                iconName={selectedCategory?.iconName}
+                iconColor={selectedCategory?.iconColor}
+                iconBackgroundColor={selectedCategory?.iconBackgroundColor}
                 title={selectedCategoryTitle}
                 component={filter}
-                itemCount={filterCount[selectedCategoryTitle]} />
+                itemCount={filterCount[selectedCategoryTitle]}
+                description={selectedCategory?.description} />
         );
     }
 
