@@ -206,7 +206,8 @@ const CollapsibleSidebar = () => {
                     selectedCategoryTitle={drilldown?.title}
                     sidebarHeight={sidebarHeight}
                     setLevel3={setLevel3}
-                    goBack={goBack} />
+                    goBack={goBack}
+                    titleOnly={drilldown?.titleOnly} />
 
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />
