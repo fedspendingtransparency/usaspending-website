@@ -176,6 +176,22 @@ const CollapsibleSidebar = () => {
     }, [windowHeight, sidebarHeight]);
 
     useEffect(() => {
+        console.log("mainContentheight", mainContentHeight);
+        console.log("window.innerHeight", window.innerHeight);
+        console.log("scrolly", window.scrollY);
+
+        if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
+            setWindowHeight((mainContentHeight));
+            setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
+        }
+        else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
+            console.log("here", window.innerHeight - fullHeader);
+            setWindowHeight((window.innerHeight - fullHeader));
+            setSidebarHeight(((window.innerHeight - fullHeader) - inPanelNonScrollableEls));
+        }
+    }, [mainContentHeight]);
+
+    useEffect(() => {
         // console.log("use effect 1");
         // console.log("footer In view", footerInView);
         // console.log("siteHeaderInView", siteHeaderInView);
@@ -185,25 +201,21 @@ const CollapsibleSidebar = () => {
         const headingInView = top + headingPadding;
         document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
 
-        console.log(window.innerHeight);
-        console.log(mainContentHeight);
-
-        if (document.querySelector(".search-sidebar").style.display === "none") {
-            if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
-                setWindowHeight((mainContentHeight));
-                setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
-            }
-            else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
-                resizeSidebarWithFullHeader(footerInView);
-                // document.querySelector(".search-sidebar").style.display = "flex";
-            }
-        }
-        else if (sidebarIsSticky) {
-            resizeSidebarWithStickyBar(footerInView);
-        }
-        else if (top !== 0) {
-            resizeSidebarWithFullHeader(footerInView);
-        }
+        // if (document.querySelector(".search-sidebar").style.display === "none") {
+        //     if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
+        //         setWindowHeight((mainContentHeight));
+        //         setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
+        //     }
+        //     else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
+        //         resizeSidebarWithFullHeader(footerInView);
+        //     }
+        // }
+        // else if (sidebarIsSticky) {
+        //     resizeSidebarWithStickyBar(footerInView);
+        // }
+        // else if (top !== 0) {
+        //     resizeSidebarWithFullHeader(footerInView);
+        // }
 
 
         // if (footerInView && siteHeaderInView) {
