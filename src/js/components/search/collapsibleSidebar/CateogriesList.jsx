@@ -16,7 +16,9 @@ const propTypes = {
     iconBackgroundColor: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    height: PropTypes.number
+    height: PropTypes.number,
+    itemCount: PropTypes.object,
+    filterCount: PropTypes.object
 };
 
 const CategoriesList = ({
@@ -27,7 +29,9 @@ const CategoriesList = ({
     iconColor,
     title,
     description,
-    height
+    height,
+    itemCount,
+    filterCount
 }) => (
     <>
         <CategoryHeader
@@ -35,7 +39,8 @@ const CategoriesList = ({
             iconColor={iconColor}
             iconBackgroundColor={iconBackgroundColor}
             title={title}
-            description={description} />
+            description={description}
+            itemCount={itemCount} />
         <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
             <div style={{ margin: "0 32px" }}>
                 {categories.map((item) => {
@@ -60,7 +65,14 @@ const CategoriesList = ({
                                             role="button"
                                             tabIndex={0}>
                                             <div className="categories-list-item">
-                                                <div style={{ float: "left" }}>{category.title}</div>
+                                                <div className="categories-list-item__text-container">
+                                                    <div className="categories-list-item__title" style={{ float: "left" }}>{category.title}</div>
+                                                    {filterCount[category.title] > 0 &&
+                                                        <div className="categories-list-item__count">
+                                                            {filterCount[category.title]} selected
+                                                        </div>
+                                                    }
+                                                </div>
                                                 <div style={{ float: "right" }}><FontAwesomeIcon
                                                     className="chevron"
                                                     icon="chevron-right" />

@@ -18,6 +18,8 @@ const propTypes = {
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
     goBack: PropTypes.func,
+    itemCount: PropTypes.object,
+    filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
     titleOnly: PropTypes.bool
 };
@@ -29,6 +31,8 @@ const SearchSidebarDrilldown = ({
     selectedCategory,
     setLevel3,
     goBack,
+    itemCount,
+    filters,
     sidebarHeight,
     selectedCategoryTitle,
     titleOnly = false
@@ -40,6 +44,48 @@ const SearchSidebarDrilldown = ({
         }
     };
 
+    const {
+        selectedAwardIDs,
+        awardAmounts,
+        awardType,
+        naicsCodes,
+        pscCodes,
+        pricingType,
+        setAside,
+        extentCompeted,
+        selectedCFDA,
+        selectedRecipients,
+        recipientType,
+        selectedAwardingAgencies,
+        selectedFundingAgencies,
+        tasCodes,
+        defCodes
+    } = filters;
+
+    // TODO: Add in Award Description, Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
+    // TODO: this can't be done until those filters are properly placed in the new advanced search
+    const filterCount = {
+        Location: itemCount.location,
+        'Time Period': itemCount.timePeriod,
+        'Award Description': 0,
+        'Award ID': selectedAwardIDs.size,
+        'Spending Amount': awardAmounts.size,
+        'Contract Award Type': awardType.size,
+        'North American Industry Classification System (NAICS)': naicsCodes.counts.length,
+        'Product and Service Code (PSC)': pscCodes.counts.length,
+        'Type of Contract Pricing': pricingType.size,
+        'Type of Set Aside': setAside.size,
+        'Extent Competed': extentCompeted.size,
+        'Financial Assistance Award Type': 0,
+        'Assistance Listing': selectedCFDA.size,
+        Recipient: selectedRecipients.size,
+        'Recipient Type': recipientType.size,
+        Agency: selectedAwardingAgencies.size + selectedFundingAgencies.size,
+        'Treasury Account Symbol (TAS)': tasCodes.counts.length,
+        'COVID-19 Spending': defCodes.counts.length,
+        'Infrastructure Spending': 0
+    };
+
     let categoryFilter;
 
     if (titleOnly) {
@@ -47,7 +93,9 @@ const SearchSidebarDrilldown = ({
             <CategoryFilter
                 height={sidebarHeight}
                 title={selectedCategoryTitle}
+                description={selectedCategory.description}
                 component={filter}
+                itemCount={filterCount[selectedCategoryTitle]}
                 titleOnly={titleOnly} />
         );
     }
@@ -59,8 +107,9 @@ const SearchSidebarDrilldown = ({
                 iconColor={selectedCategory?.iconColor}
                 iconBackgroundColor={selectedCategory?.iconBackgroundColor}
                 title={selectedCategoryTitle}
-                description={selectedCategory?.description}
-                component={filter} />
+                component={filter}
+                itemCount={filterCount[selectedCategoryTitle]}
+                description={selectedCategory?.description} />
         );
     }
 
@@ -86,7 +135,9 @@ const SearchSidebarDrilldown = ({
                     title={selectedCategory.title}
                     description={selectedCategory.description}
                     categories={list}
-                    setLevel3={setLevel3} />}
+                    setLevel3={setLevel3}
+                    itemCount={itemCount[selectedCategory.categoryKey]}
+                    filterCount={filterCount} />}
 
                 {filter && categoryFilter}
             </div>
