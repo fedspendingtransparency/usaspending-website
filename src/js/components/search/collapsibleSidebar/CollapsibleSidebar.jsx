@@ -22,6 +22,19 @@ const CollapsibleSidebar = () => {
     const [windowWidth, setWindowWidth] = useState();
     const [windowHeight, setWindowHeight] = useState();
     const [sidebarHeight, setSidebarHeight] = useState();
+    const [footerInView, setFooterInView] = useState();
+    const [siteHeaderInView, setSiteHeaderInView] = useState();
+    const [sidebarIsSticky, setSidebarIsSticky] = useState();
+    const [top, setTop] = useState();
+    const [mainContentHeight, setMainContentHeight] = useState();
+
+    const footerEl = document.querySelector("footer");
+    const siteHeaderEl = document.querySelector(".site-header__wrapper");
+    const topStickyBarEl = document.querySelector(".usda-page-header");
+    const headingPadding = 40;
+    const inPanelNonScrollableEls = 172;
+    const fullHeader = 148;
+
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -56,6 +69,78 @@ const CollapsibleSidebar = () => {
         }
     };
 
+    const checkInView = (el) => {
+        const bbox = el.getBoundingClientRect();
+
+        const intersection = {
+            top: Math.max(0, bbox.top),
+            left: Math.max(0, bbox.left),
+            bottom: Math.min(window.innerHeight, bbox.bottom),
+            right: Math.min(window.innerWidth, bbox.right)
+        };
+
+        return (intersection.bottom - intersection.top);
+    };
+
+
+    const resizeSidebarWithStickyBar = (withFooter) => {
+        const hasFooter = withFooter > 0 ? withFooter : 0;
+        const headingInView = top + headingPadding;
+
+        if (footerInView < 0) {
+            setWindowHeight((window.innerHeight - headingInView) + headingPadding);
+            setSidebarHeight(((window.innerHeight - headingInView) - inPanelNonScrollableEls) + headingPadding);
+        }
+        else {
+            // Hide side search by... if only a small part of the sidebar is in view
+            const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls) - footerInView) + headingPadding;
+            // if (newSidebarHeight < 1) {
+            //     document.querySelector(".collapsible-sidebar--header").style.display = "none";
+            // }
+            // else {
+            //     document.querySelector(".collapsible-sidebar--header").style.display = "block";
+            // }
+
+            setWindowHeight(((window.innerHeight - headingInView) - hasFooter) + headingPadding);
+            setSidebarHeight(newSidebarHeight);
+        }
+    };
+
+    const resizeSidebarWithFullHeader = (withFooter) => {
+        console.log(withFooter);
+        const hasFooter = withFooter > 0 ? withFooter : 0;
+        setWindowHeight((window.innerHeight - fullHeader - hasFooter) + window.scrollY);
+        setSidebarHeight(((window.innerHeight - fullHeader - hasFooter) - inPanelNonScrollableEls) + window.scrollY);
+    };
+
+    const handleScroll = throttle(() => {
+        if (window.scrollY === 0) {
+            setTop(148);
+        }
+        else {
+            const topStickyBarBbox = topStickyBarEl.getBoundingClientRect();
+            setTop(checkInView(topStickyBarEl) < 0 ? 0 : topStickyBarBbox.bottom);
+        }
+
+        setFooterInView(checkInView(footerEl) + 48);
+        setSiteHeaderInView(checkInView(siteHeaderEl));
+        setSidebarIsSticky(topStickyBarEl?.classList?.contains("usda-page-header--sticky"));
+    }, 50);
+
+    const keyHandler = (e, func) => {
+        if (e.key === "Enter") {
+            func(e);
+        }
+    };
+
+    const handleResize = throttle(() => {
+        const newWidth = window.innerWidth;
+        if (windowWidth !== newWidth) {
+            setWindowWidth(newWidth);
+            handleScroll();
+        }
+    }, 50);
+
     useEffect(() => {
         if (isOpened) {
             if (document.querySelector(".full-search-sidebar")) {
@@ -84,98 +169,80 @@ const CollapsibleSidebar = () => {
         }
     }, [initialPageLoad, isOpened]);
 
-    const checkInView = (el) => {
-        const bbox = el.getBoundingClientRect();
-
-        const intersection = {
-            top: Math.max(0, bbox.top),
-            left: Math.max(0, bbox.left),
-            bottom: Math.min(window.innerHeight, bbox.bottom),
-            right: Math.min(window.innerWidth, bbox.right)
-        };
-
-        return (intersection.bottom - intersection.top);
-    };
-
-    const resizeSidebarWithStickyBar = (footerInView, headingInView, headingPadding, inPanelNonScrollableEls) => {
-        if (footerInView < 0) {
-            setWindowHeight((window.innerHeight - headingInView) + headingPadding);
-            setSidebarHeight(((window.innerHeight - headingInView) - inPanelNonScrollableEls) + headingPadding);
+    useEffect(() => {
+        if (windowHeight > 0 && sidebarHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
+            document.querySelector(".search-sidebar").style.display = "flex";
         }
-        else {
-            // Hide side search by... if only a small part of the sidebar is in view
-            const newSidebarHeight = (((window.innerHeight - headingInView) - inPanelNonScrollableEls) - footerInView) + headingPadding;
-            if (newSidebarHeight < 1) {
-                document.querySelector(".collapsible-sidebar--header").style.display = "none";
-            }
-            else {
-                document.querySelector(".collapsible-sidebar--header").style.display = "block";
-            }
-
-            setWindowHeight(((window.innerHeight - headingInView) - footerInView) + headingPadding);
-            setSidebarHeight(newSidebarHeight);
-        }
-    };
-
-    const resizeSidebarWithFullHeader = (fullHeader, inPanelNonScrollableEls) => {
-        setWindowHeight((window.innerHeight - fullHeader) + window.scrollY);
-        setSidebarHeight(((window.innerHeight - fullHeader) - inPanelNonScrollableEls) + window.scrollY);
-    };
-
-    const handleScroll = throttle(() => {
-        // TODO:  Remove upon completion of sidepanel - 581.63 is the height of the footer at 1839 px browser width
-        const footerEl = document.querySelector("footer");
-        const footerInView = checkInView(footerEl) + 48;
-        const topStickyBarEl = document.querySelector(".usda-page-header");
-        const topStickyBarBbox = topStickyBarEl.getBoundingClientRect();
-        const top = checkInView(topStickyBarEl) < 0 ? 0 : topStickyBarBbox.bottom;
-        const headingPadding = 40;
-        const headingInView = top + headingPadding;
-        const fullHeader = 148;
-        const inPanelNonScrollableEls = 172;
-
-        document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
-
-        if (topStickyBarEl?.classList?.contains("usda-page-header--sticky")) {
-            resizeSidebarWithStickyBar(footerInView, headingInView, headingPadding, inPanelNonScrollableEls);
-        }
-        else if (top !== 0) {
-            resizeSidebarWithFullHeader(fullHeader, inPanelNonScrollableEls);
-        }
-    }, 50);
-
-    const keyHandler = (e, func) => {
-        if (e.key === "Enter") {
-            func(e);
-        }
-    };
-
-    const handleResize = throttle(() => {
-        const newWidth = window.innerWidth;
-        if (windowWidth !== newWidth) {
-            setWindowWidth(newWidth);
-        }
-    }, 50);
+    }, [windowHeight, sidebarHeight]);
 
     useEffect(() => {
-        handleScroll();
-        window.addEventListener('scroll', (e) => handleScroll(e));
+        // console.log("use effect 1");
+        // console.log("footer In view", footerInView);
+        // console.log("siteHeaderInView", siteHeaderInView);
+        // console.log("sidebarIsSticky", sidebarIsSticky);
+        // console.log("top", top);
 
+        const headingInView = top + headingPadding;
+        document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
+
+        console.log(window.innerHeight);
+        console.log(mainContentHeight);
+
+        if (document.querySelector(".search-sidebar").style.display === "none") {
+            if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
+                setWindowHeight((mainContentHeight));
+                setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
+            }
+            else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
+                resizeSidebarWithFullHeader(footerInView);
+                // document.querySelector(".search-sidebar").style.display = "flex";
+            }
+        }
+        else if (sidebarIsSticky) {
+            resizeSidebarWithStickyBar(footerInView);
+        }
+        else if (top !== 0) {
+            resizeSidebarWithFullHeader(footerInView);
+        }
+
+
+        // if (footerInView && siteHeaderInView) {
+        //
+        // } else if (siteHeaderInView && pageHeaderInView && sidebarIsSticky) {
+        //
+        // }
+        // else if (footerInView && sidebarIsSticky) {
+        //
+        // }
+        // else if (siteHeaderInView) {
+        //
+        // }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [footerInView, siteHeaderInView, sidebarIsSticky, top, mainContentHeight]);
+
+    useEffect(() => {
+        // create an Observer instance
+        // eslint-disable-next-line no-undef
+        const resizeObserver = new ResizeObserver((entries) => {
+            setMainContentHeight(entries[0].target.clientHeight);
+        });
+        const mainContent = document.querySelector("#main-content");
+
+        // start observing a DOM node
+        resizeObserver.observe(mainContent);
+        handleResize();
+
+        window.addEventListener('resize', (e) => handleResize(e));
+        window.addEventListener('scroll', (e) => handleScroll(e));
         return () => {
+            window.removeEventListener('resize', handleResize);
             window.removeEventListener('scroll', handleScroll);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        handleResize();
-        window.addEventListener('resize', (e) => handleResize(e));
-        return () => window.removeEventListener('resize', handleResize);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    });
 
     return (
-        <div className="search-collapsible-sidebar-container search-sidebar">
+        <div className="search-collapsible-sidebar-container search-sidebar" style={{ display: "none" }}>
             <div
                 style={{ height: windowHeight }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
