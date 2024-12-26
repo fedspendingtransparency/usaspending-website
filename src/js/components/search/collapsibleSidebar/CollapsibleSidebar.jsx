@@ -25,15 +25,21 @@ const CollapsibleSidebar = () => {
     const [footerInView, setFooterInView] = useState();
     const [siteHeaderInView, setSiteHeaderInView] = useState();
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
-    const [top, setTop] = useState();
+    const [sidebarTop, setSidebarTop] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
 
     const footerEl = document.querySelector("footer");
     const siteHeaderEl = document.querySelector(".site-header__wrapper");
     const topStickyBarEl = document.querySelector(".usda-page-header");
+
+    const sideBarXlDesktopWidth = 332;
+    const sideBarDesktopWidth = 282;
+
+    // TODO: Remove hard coded values
     const headingPadding = 40;
     const inPanelNonScrollableEls = 172;
     const fullHeader = 148;
+    const footerMargin = 48;
 
 
     const toggleOpened = (e) => {
@@ -85,7 +91,7 @@ const CollapsibleSidebar = () => {
 
     const resizeSidebarWithStickyBar = (withFooter) => {
         const hasFooter = withFooter > 0 ? withFooter : 0;
-        const headingInView = top + headingPadding;
+        const headingInView = sidebarTop + headingPadding;
 
         if (footerInView < 0) {
             setWindowHeight((window.innerHeight - headingInView) + headingPadding);
@@ -94,12 +100,12 @@ const CollapsibleSidebar = () => {
         else {
             // Hide side search by... if only a small part of the sidebar is in view
             const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls) - footerInView) + headingPadding;
-            // if (newSidebarHeight < 1) {
-            //     document.querySelector(".collapsible-sidebar--header").style.display = "none";
-            // }
-            // else {
-            //     document.querySelector(".collapsible-sidebar--header").style.display = "block";
-            // }
+            if (newSidebarHeight < 1) {
+                document.querySelector(".collapsible-sidebar--header").style.display = "none";
+            }
+            else {
+                document.querySelector(".collapsible-sidebar--header").style.display = "block";
+            }
 
             setWindowHeight(((window.innerHeight - headingInView) - hasFooter) + headingPadding);
             setSidebarHeight(newSidebarHeight);
@@ -107,7 +113,6 @@ const CollapsibleSidebar = () => {
     };
 
     const resizeSidebarWithFullHeader = (withFooter) => {
-        console.log(withFooter);
         const hasFooter = withFooter > 0 ? withFooter : 0;
         setWindowHeight((window.innerHeight - fullHeader - hasFooter) + window.scrollY);
         setSidebarHeight(((window.innerHeight - fullHeader - hasFooter) - inPanelNonScrollableEls) + window.scrollY);
@@ -115,14 +120,14 @@ const CollapsibleSidebar = () => {
 
     const handleScroll = throttle(() => {
         if (window.scrollY === 0) {
-            setTop(148);
+            setSidebarTop(fullHeader);
         }
         else {
             const topStickyBarBbox = topStickyBarEl.getBoundingClientRect();
-            setTop(checkInView(topStickyBarEl) < 0 ? 0 : topStickyBarBbox.bottom);
+            setSidebarTop(checkInView(topStickyBarEl) < 0 ? 0 : topStickyBarBbox.bottom);
         }
 
-        setFooterInView(checkInView(footerEl) + 48);
+        setFooterInView(checkInView(footerEl) + footerMargin);
         setSiteHeaderInView(checkInView(siteHeaderEl));
         setSidebarIsSticky(topStickyBarEl?.classList?.contains("usda-page-header--sticky"));
     }, 50);
@@ -146,13 +151,13 @@ const CollapsibleSidebar = () => {
             if (document.querySelector(".full-search-sidebar")) {
                 if (windowWidth < 991 && windowWidth < 1200) {
                     document.querySelector(".full-search-sidebar").style.width = "unset";
-                    document.querySelector(".full-search-sidebar").style.flexBasis = "282px";
-                    document.querySelector(".collapsible-sidebar").style.width = "282px";
+                    document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarDesktopWidth}px`;
+                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;
                 }
                 else if (windowWidth > 1199) {
                     document.querySelector(".full-search-sidebar").style.width = "unset";
-                    document.querySelector(".full-search-sidebar").style.flexBasis = "332px";
-                    document.querySelector(".collapsible-sidebar").style.width = "332px";
+                    document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarXlDesktopWidth}px`;
+                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarXlDesktopWidth}px`;
                 }
             }
         }
@@ -176,79 +181,47 @@ const CollapsibleSidebar = () => {
     }, [windowHeight, sidebarHeight]);
 
     useEffect(() => {
-        console.log("mainContentheight", mainContentHeight);
-        console.log("window.innerHeight", window.innerHeight);
-        console.log("scrolly", window.scrollY);
-
         if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
             setWindowHeight((mainContentHeight));
             setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
         }
         else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
-            console.log("here", window.innerHeight - fullHeader);
             setWindowHeight((window.innerHeight - fullHeader));
             setSidebarHeight(((window.innerHeight - fullHeader) - inPanelNonScrollableEls));
         }
     }, [mainContentHeight]);
 
     useEffect(() => {
-        // console.log("use effect 1");
-        // console.log("footer In view", footerInView);
-        // console.log("siteHeaderInView", siteHeaderInView);
-        // console.log("sidebarIsSticky", sidebarIsSticky);
-        // console.log("top", top);
-
-        const headingInView = top + headingPadding;
+        const headingInView = sidebarTop + headingPadding;
         document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
 
-        // if (document.querySelector(".search-sidebar").style.display === "none") {
-        //     if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
-        //         setWindowHeight((mainContentHeight));
-        //         setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
-        //     }
-        //     else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
-        //         resizeSidebarWithFullHeader(footerInView);
-        //     }
-        // }
-        // else if (sidebarIsSticky) {
-        //     resizeSidebarWithStickyBar(footerInView);
-        // }
-        // else if (top !== 0) {
-        //     resizeSidebarWithFullHeader(footerInView);
-        // }
-
-
-        // if (footerInView && siteHeaderInView) {
-        //
-        // } else if (siteHeaderInView && pageHeaderInView && sidebarIsSticky) {
-        //
-        // }
-        // else if (footerInView && sidebarIsSticky) {
-        //
-        // }
-        // else if (siteHeaderInView) {
-        //
-        // }
+        if (window.scrollY > 0) {
+            if (sidebarIsSticky) {
+                resizeSidebarWithStickyBar(footerInView);
+            }
+            else if (sidebarTop !== 0) {
+                resizeSidebarWithFullHeader(footerInView);
+            }
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [footerInView, siteHeaderInView, sidebarIsSticky, top, mainContentHeight]);
+    }, [footerInView, siteHeaderInView, sidebarIsSticky, sidebarTop]);
 
     useEffect(() => {
-        // create an Observer instance
         // eslint-disable-next-line no-undef
         const resizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target.clientHeight);
         });
         const mainContent = document.querySelector("#main-content");
-
-        // start observing a DOM node
         resizeObserver.observe(mainContent);
+
         handleResize();
 
         window.addEventListener('resize', (e) => handleResize(e));
         window.addEventListener('scroll', (e) => handleScroll(e));
         return () => {
-            window.removeEventListener('resize', handleResize);
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', (e) => handleResize(e));
+            window.removeEventListener('scroll', (e) => handleScroll(e));
+            resizeObserver.unobserve(mainContent);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     });
