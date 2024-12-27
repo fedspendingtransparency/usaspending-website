@@ -93,13 +93,8 @@ const Autocomplete = (props) => {
             selectedItemTitle = selection.title;
             setStaged(true);
         }
-<<<<<<< Updated upstream
 
         props.onSelect(selectedItem, isValid, selection);
-=======
-        console.log(selection);
-        onSelect(selectedItem, isValid, selection);
->>>>>>> Stashed changes
 
         if (props.retainValue && isValid) {
             autocompleteInputRef.current.value = selectedItemTitle;
@@ -318,15 +313,9 @@ const Autocomplete = (props) => {
                         aria-controls={autocompleteIdRef.current}
                         aria-activedescendant={activeDescendant}
                         aria-autocomplete="list"
-<<<<<<< Updated upstream
-                        onBlur={onBlur}
-                        onKeyDown={onKeyDown}
-                        maxLength={props.characterLimit} />
-=======
                         onBlur={() => onBlur}
                         onKeyDown={(e) => onKeyDown(e)}
-                        maxLength={characterLimit} />
->>>>>>> Stashed changes
+                        maxLength={props.characterLimit} />
                 </div>
                 <div
                     className="screen-reader-description"
