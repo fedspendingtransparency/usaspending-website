@@ -751,7 +751,7 @@ const TopFilterBarContainer = ({ updateFilterCount, compressed = false, filters 
         // prepare Extent Competed filters
         const extentCompeted = preparedExtentCompeted();
         if (extentCompeted) {
-            filters.push(extentCompeted);
+            filterArray.push(extentCompeted);
         }
 
         const selectedDefCodes = prepareSelectedDefCodes();
