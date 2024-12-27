@@ -225,6 +225,7 @@
       width: 100%;
     }
   }
+
 }
 
 .search-contents.v2 {
@@ -255,6 +256,11 @@
   .search-results-view-container {
     width: 100%;
     min-width: 0;
+  }
+
+  // TODO remove when search v2 is released and remove tooltips from filter code
+  .tooltip-popover-container {
+    display: none !important;
   }
 }
 
