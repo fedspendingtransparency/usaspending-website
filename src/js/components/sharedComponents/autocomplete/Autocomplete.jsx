@@ -313,8 +313,8 @@ const Autocomplete = (props) => {
                         aria-controls={autocompleteIdRef.current}
                         aria-activedescendant={activeDescendant}
                         aria-autocomplete="list"
-                        onBlur={onBlur}
-                        onKeyDown={onKeyDown}
+                        onBlur={() => onBlur}
+                        onKeyDown={(e) => onKeyDown(e)}
                         maxLength={props.characterLimit} />
                 </div>
                 <div
