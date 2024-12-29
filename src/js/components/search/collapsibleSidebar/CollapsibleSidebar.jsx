@@ -109,9 +109,19 @@ const CollapsibleSidebar = ({ filters }) => {
             const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls) - footerInView) + headingPadding;
             if (newSidebarHeight < 1) {
                 document.querySelector(".collapsible-sidebar--header").style.display = "none";
+                document.querySelector(".sidebar-bottom-submit").style.display = "none";
+                document.querySelector(".collapsible-sidebar--toggle").style.display = "none";
+                document.querySelector(".collapsible-sidebar--main-menu").style.display = "none";
+                document.querySelector(".collapsible-sidebar--drilldown").style.display = "none";
+                document.querySelector(".collapsible-sidebar--back-btn").style.display = "none";
             }
             else {
                 document.querySelector(".collapsible-sidebar--header").style.display = "block";
+                document.querySelector(".sidebar-bottom-submit").style.display = "block";
+                document.querySelector(".collapsible-sidebar--toggle").style.display = "flex";
+                document.querySelector(".collapsible-sidebar--main-menu").style.display = "block";
+                document.querySelector(".collapsible-sidebar--drilldown").style.display = "block";
+                document.querySelector(".collapsible-sidebar--back-btn").style.display = "block";
             }
 
             setWindowHeight(((window.innerHeight - headingInView) - hasFooter) + headingPadding);
