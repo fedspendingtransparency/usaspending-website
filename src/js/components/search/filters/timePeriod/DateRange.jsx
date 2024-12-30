@@ -395,8 +395,8 @@ const DateRange = (props) => {
                             onClick={localRemoveDateRange}
                             onKeyUp={localRemoveDateRange}>
                             {dateLabel}
-                            <span role="button" index={index} tabIndex={0} onKeyup={localRemoveDateRange} onClick={localRemoveDateRange} className="close">
-                                <FontAwesomeIcon tabIndex={0} onKeyup={localRemoveDateRange} onClick={localRemoveDateRange} index={index} icon="times" />
+                            <span className="close">
+                                <FontAwesomeIcon icon="times" />
                             </span>
                         </button>
                     )
