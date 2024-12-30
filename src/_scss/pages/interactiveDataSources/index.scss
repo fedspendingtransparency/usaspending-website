@@ -36,14 +36,9 @@
   .main-content {
     @include display(flex);
     width: 100%;
-
-    @media(min-width: $large-screen) {
-      width: 75%;
-    }
     @include flex-grow(1);
     @include flex-wrap(wrap);
-    max-width: rem(1600);
-    margin: auto;
+    max-width: rem(1400);
 
     ul {
       padding: 0;
@@ -69,14 +64,11 @@
       padding: 0px;
       margin: 0;
       background: $color-white;
-
+      margin: rem(20) rem(16) rem(20) rem(16);
       @media (min-width: $tablet-screen) {
-        width: 70%;
+        margin: rem(20) rem(32) rem(20) rem(32);
       }
 
-      @media (max-width: $medium-screen) {
-        margin: rem(20) rem(20) rem(20) rem(20);
-      }
 
       .usda-message {
         &.usda-message_error {
@@ -110,7 +102,7 @@
       .body-padded__content {
         @import "./_scrollerOverlayCard.scss";
         margin-top: 0;
-        padding: 0 10% 10% 10%;
+        padding: 0 0 10% 0;
 
         h1,
         h2,
