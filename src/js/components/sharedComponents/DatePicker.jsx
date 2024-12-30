@@ -18,14 +18,20 @@ const propTypes = {
     opposite: PropTypes.object,
     title: PropTypes.string,
     onFocus: PropTypes.func,
-    id: PropTypes.string
+    id: PropTypes.string,
+    updateFilter: PropTypes.func
 };
 
 const DatePicker = ({ type = 'startDate', ...props }) => {
     const [inputValue, setInputValue] = useState('');
 
-    const clearValue = () => {
+    const clearValue = (e) => {
         setInputValue('');
+        if (e.target.id.includes("startDate")) {
+            props.onDateChange(null, 'startDate');
+        } else if (e.target.id.includes("endDate")) {
+            props.onDateChange(null, 'endDate');
+        }
     };
 
     const parseValueForInput = () => {
@@ -42,12 +48,13 @@ const DatePicker = ({ type = 'startDate', ...props }) => {
     };
 
     const handleTypedDate = (e) => {
-        setInputValue(e.target.value);
         if (e.target.value === '') {
             // if the input is an empty string, this indicates the user wants to clear the date
-            clearValue();
+            clearValue(e);
             return;
         }
+
+        setInputValue(e.target.value);
 
         // check if this meets the MM/DD/YYYY format requirement
         let format = 'MM/DD/YYYY';
@@ -93,7 +100,8 @@ const DatePicker = ({ type = 'startDate', ...props }) => {
                         placeholder="mm/dd/yyyy"
                         aria-label={props.title}
                         value={inputValue}
-                        onChange={handleTypedDate} />
+                        onChange={handleTypedDate}
+                        onBlur={handleTypedDate} />
                 </label>
             </div>
         </div>
