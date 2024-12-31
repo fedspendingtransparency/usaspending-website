@@ -22,7 +22,7 @@ const propTypes = {
     onDateChange: PropTypes.func,
     startDate: PropTypes.object,
     endDate: PropTypes.object,
-    timePeriod: PropTypes.array,
+    timePeriod: PropTypes.object,
     selectedStart: PropTypes.string,
     selectedEnd: PropTypes.string,
     showError: PropTypes.func,
@@ -77,9 +77,9 @@ const DateRange = (props) => {
     };
 
     const localRemoveDateRange = (e) => {
-        if (e.type === 'click' || e.key === "Enter") {
+        e.stopPropagation();
+        if (e?.type === 'click' || (e.type === 'keyup' && e?.key === "Enter")) {
             setSelectedDropdownOption('select');
-            setDropdownOptionSelected(false);
             props.removeDateRange(e);
         }
     };
@@ -382,21 +382,19 @@ const DateRange = (props) => {
             <div
                 className="selected-filters"
                 id="selected-date-range"
-                aria-hidden={noDatesDR || noDatesDropdown}
                 role="status">
                 {labelArray.map((dateLabel, index) =>
                     (
                         <button
+                            key={index}
                             className="shown-filter-button"
                             title="Click to remove filter."
-                            index={index}
-                            tabIndex={0}
+                            data-index={index}
                             aria-label={`Applied date range: ${dateLabel}`}
-                            onClick={localRemoveDateRange}
-                            onKeyUp={localRemoveDateRange}>
+                            onClick={localRemoveDateRange}>
                             {dateLabel}
                             <span className="close">
-                                <FontAwesomeIcon icon="times" />
+                                <FontAwesomeIcon icon="times" data-index={index} />
                             </span>
                         </button>
                     )
