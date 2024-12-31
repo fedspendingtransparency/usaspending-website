@@ -389,12 +389,12 @@ const DateRange = (props) => {
                             key={index}
                             className="shown-filter-button"
                             title="Click to remove filter."
-                            index={index}
+                            data-index={index}
                             aria-label={`Applied date range: ${dateLabel}`}
                             onClick={localRemoveDateRange}>
                             {dateLabel}
                             <span className="close">
-                                <FontAwesomeIcon icon="times" index={index} />
+                                <FontAwesomeIcon icon="times" data-index={index} />
                             </span>
                         </button>
                     )
