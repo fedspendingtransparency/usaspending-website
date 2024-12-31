@@ -12,7 +12,7 @@ import {
     downloadAccountPageMetaTags,
     metadataDownloadPageMetaTags
 } from 'helpers/metaTagHelper';
-
+import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import MetadataDownload from 'components/bulkDownload/MetadataDownload';
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
@@ -109,14 +109,16 @@ export default class BulkDownloadPage extends React.Component {
                 title="Download Center"
                 metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
                 <main id="main-content">
-                    <div className={`bulk-download ${awardDataArchiveClass}`}>
-                        <div className="bulk-download__data">
-                            {downloadDataContent}
-                        </div>
-                        <BulkDownloadModalContainer
-                            mounted={this.state.showModal}
-                            hideModal={this.hideModal} />
-                    </div>
+                    <FlexGridRow style={{ justifyContent: 'center' }}>
+                        <FlexGridCol width={12} className={`bulk-download ${awardDataArchiveClass}`}>
+                            <div className="bulk-download__data">
+                                {downloadDataContent}
+                            </div>
+                            <BulkDownloadModalContainer
+                                mounted={this.state.showModal}
+                                hideModal={this.hideModal} />
+                        </FlexGridCol>
+                    </FlexGridRow>
                 </main>
             </PageWrapper>
         );

@@ -9,12 +9,22 @@
     $color-blue-background: #F5FBFC;
 
     .main-content {
-        @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(0, ($global-margin * 8));
-        padding: 0;
         @import "./overview/overview";
         @import "./results/searchResults";
 
+        .fed-account-content__row {
+            padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
+
+            @media (max-width: $tablet-screen) {
+                padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
+            }
+
+            .fed-account-content__col {
+                width: 100%;
+                max-width: rem(1400);
+                margin: auto;
+            }
+        }
 
         .filter-results {
             .search-sidebar {

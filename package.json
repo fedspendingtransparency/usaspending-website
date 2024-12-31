@@ -185,6 +185,7 @@
     "@jest/globals": "^29.7.0",
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
+    "@react-hook/resize-observer": "^2.0.2",
     "accounting": "^0.4.1",
     "ajv": "^8.11.0",
     "axios": "^1.7.4",

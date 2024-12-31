@@ -8,10 +8,18 @@
 export const updateDRs = (currentDates, date) => {
     let updatedSet = currentDates;
     // remove clicked index
-    if (date.removeFilter && date.event.target.getAttribute("index")) {
+    if (date.removeFilter === true && (date.event.target.getAttribute("data-index"))) {
         let i = 0;
         for (const item of updatedSet) {
-            if (i === parseInt(date.event.target.getAttribute("index"), 10)) {
+            if (i === parseInt(date.event.target.getAttribute("data-index"), 10)) {
+                updatedSet = currentDates.delete(item);
+            }
+            i++;
+        }
+    } else if (date.removeFilter === true && date.event.target.parentNode.getAttribute("data-index")) {
+        let i = 0;
+        for (const item of updatedSet) {
+            if (i === parseInt(date.event.target.parentNode.getAttribute("data-index"), 10)) {
                 updatedSet = currentDates.delete(item);
             }
             i++;
