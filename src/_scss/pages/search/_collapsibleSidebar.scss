@@ -171,21 +171,40 @@
         .categories-list-item {
           display: flex;
           align-content: center;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           justify-content: space-between;
           padding: rem(12) 0;
           cursor: pointer;
 
           div {
-            max-width: rem(250);
-            cursor: pointer;
-
             &:first-of-type {
               padding-left: rem(4);
             }
 
             &:last-of-type {
               padding-right: rem(4);
+            }
+          }
+
+          .categories-list-item__text-container {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            .categories-list-item__title {
+              padding: 0;
+            }
+
+            .categories-list-item__count {
+              font-size: $font-size-10;
+              font-weight: normal;
+              background-color: $gray-cool-2;
+              padding: rem(1) rem(5);
+              border-radius: rem(4);
+              border: solid rem(1) $gray-cool-5;
+              margin-left: $global-spacing-unit;
+              height: fit-content;
+              white-space: nowrap;
             }
           }
 
@@ -206,6 +225,7 @@
       width: 100%;
     }
   }
+
 }
 
 .search-contents.v2 {
@@ -236,6 +256,11 @@
   .search-results-view-container {
     width: 100%;
     min-width: 0;
+  }
+
+  // TODO remove when search v2 is released and remove tooltips from filter code
+  .tooltip-popover-container {
+    display: none !important;
   }
 }
 
