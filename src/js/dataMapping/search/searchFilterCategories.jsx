@@ -11,6 +11,14 @@ import AgencyContainer from "../../containers/search/filters/AgencyContainer";
 import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
 import RecipientSearchContainer from "../../containers/search/filters/recipient/RecipientSearchContainer";
 import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
+import AwardAmountSearchContainer from "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
+import AwardTypeContainer from "../../containers/search/filters/AwardTypeContainer";
+import NAICSCheckboxTree from "../../containers/search/filters/naics/NAICSCheckboxTree";
+import PSCCheckboxTreeContainer from "../../containers/search/filters/psc/PSCCheckboxTreeContainer";
+import PricingTypeContainer from "../../containers/search/filters/PricingTypeContainer";
+import SetAsideContainer from "../../containers/search/filters/SetAsideContainer";
+import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
+import CFDASearchContainer from "../../containers/search/filters/cfda/CFDASearchContainer";
 
 export const SearchFilterCategories = [
     {
@@ -70,14 +78,18 @@ export const FilterCategoryTree = {
                 categoryType: 'ALL',
                 categories: [
                     {
-                        title: 'Award Description'
+                        title: 'Award Description',
+                        titleOnly: true
                     },
                     {
                         title: 'Award ID',
-                        component: <AwardIDSearchContainer />
+                        component: <AwardIDSearchContainer />,
+                        titleOnly: true
                     },
                     {
-                        title: 'Spending Amount'
+                        title: 'Spending Amount',
+                        component: <AwardAmountSearchContainer />,
+                        titleOnly: true
                     }
                 ]
             },
@@ -85,22 +97,46 @@ export const FilterCategoryTree = {
                 categoryType: 'CONTRACTS',
                 categories: [
                     {
-                        title: 'Contract Award Type'
+                        title: 'Contract Award Type',
+                        component: <AwardTypeContainer />,
+                        titleOnly: true
                     },
                     {
-                        title: 'North American Industry Classification System (NAICS)'
+                        title: 'North American Industry Classification System (NAICS)',
+                        component: (
+                            <>
+                                <div className="search-option">
+                                    <NAICSCheckboxTree />
+                                </div>
+                            </>
+                        ),
+                        titleOnly: true
                     },
                     {
-                        title: 'Product and Service Code (PSC)'
+                        title: 'Product and Service Code (PSC)',
+                        component: (
+                            <>
+                                <div className="search-option">
+                                    <PSCCheckboxTreeContainer />
+                                </div>
+                            </>
+                        ),
+                        titleOnly: true
                     },
                     {
-                        title: 'Type of Contract Pricing'
+                        title: 'Type of Contract Pricing',
+                        component: <PricingTypeContainer />,
+                        titleOnly: true
                     },
                     {
-                        title: 'Type of Set Aside'
+                        title: 'Type of Set Aside',
+                        component: <SetAsideContainer />,
+                        titleOnly: true
                     },
                     {
-                        title: 'Extent Competed'
+                        title: 'Extent Competed',
+                        component: <ExtentCompetedContainer />,
+                        titleOnly: true
                     }
                 ]
             },
@@ -108,13 +144,17 @@ export const FilterCategoryTree = {
                 categoryType: 'FINANCIAL ASSISTANCE',
                 categories: [
                     {
-                        title: 'Financial Assistance Award Type'
+                        title: 'Financial Assistance Award Type',
+                        titleOnly: true
                     },
                     {
-                        title: 'Assistance Listing'
+                        title: 'Assistance Listing',
+                        component: <CFDASearchContainer />,
+                        titleOnly: true
                     }
                 ]
             }
+
         ]
 
     },
@@ -122,11 +162,13 @@ export const FilterCategoryTree = {
         children: [
             {
                 title: 'Recipient',
-                component: <RecipientSearchContainer />
+                component: <RecipientSearchContainer />,
+                titleOnly: true
             },
             {
                 title: 'Recipient Type',
-                component: <RecipientTypeContainer />
+                component: <RecipientTypeContainer />,
+                titleOnly: true
             }
         ]
     },
@@ -137,11 +179,13 @@ export const FilterCategoryTree = {
                 categories: [
                     {
                         title: 'Agency',
-                        component: <AgencyContainer />
+                        component: <AgencyContainer />,
+                        titleOnly: true
                     },
                     {
                         title: 'Treasury Account Symbol (TAS)',
-                        component: <TASCheckboxTreeContainer showInfo={false} />
+                        component: <TASCheckboxTreeContainer showInfo={false} />,
+                        titleOnly: true
                     }
                 ]
             },
@@ -149,10 +193,12 @@ export const FilterCategoryTree = {
                 categoryType: 'DISASTER EMERGENCY FUND CODE (DEFC)',
                 categories: [
                     {
-                        title: 'COVID-19 Spending'
+                        title: 'COVID-19 Spending',
+                        titleOnly: true
                     },
                     {
-                        title: 'Infrastructure Spending'
+                        title: 'Infrastructure Spending',
+                        titleOnly: true
                     }
                 ]
             }
