@@ -21,7 +21,8 @@ const propTypes = {
     itemCount: PropTypes.object,
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
-    titleOnly: PropTypes.bool
+    titleOnly: PropTypes.bool,
+    generateCount: PropTypes.func
 };
 
 const SearchSidebarDrilldown = ({
@@ -35,7 +36,8 @@ const SearchSidebarDrilldown = ({
     filters,
     sidebarHeight,
     selectedCategoryTitle,
-    titleOnly = false
+    titleOnly = false,
+    generateCount
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -71,8 +73,8 @@ const SearchSidebarDrilldown = ({
         'Award ID': selectedAwardIDs.size,
         'Spending Amount': awardAmounts.size,
         'Contract Award Type': awardType.size,
-        'North American Industry Classification System (NAICS)': naicsCodes.counts.length,
-        'Product and Service Code (PSC)': pscCodes.counts.length,
+        'North American Industry Classification System (NAICS)': generateCount(naicsCodes),
+        'Product and Service Code (PSC)': generateCount(pscCodes),
         'Type of Contract Pricing': pricingType.size,
         'Type of Set Aside': setAside.size,
         'Extent Competed': extentCompeted.size,

@@ -257,7 +257,7 @@ const CollapsibleSidebar = ({ filters }) => {
         awardAmounts.size +
         awardType.size +
         generateCount(naicsCodes) +
-        pscCodes.counts.length +
+        generateCount(pscCodes) +
         pricingType.size +
         setAside.size +
         extentCompeted.size +
@@ -327,7 +327,8 @@ const CollapsibleSidebar = ({ filters }) => {
                     goBack={goBack}
                     itemCount={itemCount}
                     filters={filters}
-                    titleOnly={drilldown?.titleOnly} />
+                    titleOnly={drilldown?.titleOnly}
+                    generateCount={generateCount} />
 
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />
