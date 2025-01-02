@@ -236,6 +236,17 @@ const CollapsibleSidebar = ({ filters }) => {
         defCodes
     } = filters;
 
+    const generateCount = (data) => {
+        const dataObj = data.toObject();
+        let count = 0;
+
+        dataObj.counts.forEach((naics) => {
+            count += naics.count;
+        });
+
+        return count;
+    };
+
     const sourcesCount = selectedAwardingAgencies.size +
         selectedFundingAgencies.size +
         tasCodes.counts.length +
@@ -245,7 +256,7 @@ const CollapsibleSidebar = ({ filters }) => {
     const characteristicsCount = selectedAwardIDs.size +
         awardAmounts.size +
         awardType.size +
-        naicsCodes.counts.length +
+        generateCount(naicsCodes) +
         pscCodes.counts.length +
         pricingType.size +
         setAside.size +
