@@ -119,6 +119,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 setRecipients(res.data.results);
                 setIsLoading(false);
                 sortResults(res.data.results);
+                setMaxRecipients(true);
             });
     };
 
@@ -196,7 +197,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     searchIcon />
                 {isLoading ? loadingIndicator :
                     <div className="recipient-results__container">
-                        <div className={`checkbox-type-filter ${newSearch ? 'bottom-fade' : ''}`}>
+                        <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>
                             {recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
                                 .map((recipient) => (
                                     <div className="recipient-label__container">
