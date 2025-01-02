@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import SubmitHint from "../../../../components/sharedComponents/filterSidebar/SubmitHint";
-import { EntityDropdownAutocomplete } from "../../../../components/search/filters/location/EntityDropdownAutocomplete";
+import EntityDropdownAutocomplete from "../../../../components/search/filters/location/EntityDropdownAutocomplete";
 import PrimaryCheckboxType from "../../../../components/sharedComponents/checkbox/PrimaryCheckboxType";
 import SelectedRecipients from "../../../../components/search/filters/recipient/SelectedRecipients";
 
