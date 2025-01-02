@@ -234,7 +234,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                                     Use the search bar to find recipients
                                 </div>
                                 <div className="find-recipients-text content">
-                                    The first 100 recipients are displayed by default.
+                                    The first 500 recipients are displayed by default.
                                     Please use the search bar to find additional recipients.
                                 </div>
                             </>
