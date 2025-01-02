@@ -106,7 +106,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         }
 
         const paramObj = {
-            limit: 100
+            limit: 500
         };
 
         recipientRequest.current = SearchHelper.fetchRecipients(paramObj);
@@ -128,7 +128,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
 
         const paramObj = {
             search_text: term,
-            limit: 100
+            limit: 500
         };
 
         recipientRequest.current = SearchHelper.fetchRecipientsAutocomplete(paramObj);
