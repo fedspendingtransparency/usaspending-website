@@ -26,6 +26,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const [searchString, setSearchString] = useState('');
     const [newSearch, setNewSearch] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+    const [maxRecipients, setMaxRecipients] = useState(true);
 
     const recipientRequest = useRef();
     let localSelectedRecipients = null;
@@ -140,6 +141,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 sortResults(res.data.results);
                 setRecipients(res.data.results);
                 setIsLoading(false);
+                setMaxRecipients(res.data.count === 500);
             });
     };
 
@@ -236,6 +238,16 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                                 <div className="find-recipients-text content">
                                     The first 500 recipients are displayed by default.
                                     Please use the search bar to find additional recipients.
+                                </div>
+                            </>
+                        }
+                        {!newSearch && maxRecipients &&
+                            <>
+                                <div className="find-recipients-text label">
+                                    Only 500 recipients can be displayed at once
+                                </div>
+                                <div className="find-recipients-text content">
+                                    Please use the search bar to narrow your search and find additional recipients.
                                 </div>
                             </>
                         }
