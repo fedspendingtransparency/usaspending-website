@@ -32,7 +32,7 @@ export class AgencyContainer extends React.Component {
 
     toggleAgency(agency, isValid, agencyType) {
     // If agency name exists and is valid
-        if (agency !== null && isValid) {
+        if (Object.keys(agency).length !== 0 && isValid) {
             const updateParams = {};
             updateParams.agency = agency;
 

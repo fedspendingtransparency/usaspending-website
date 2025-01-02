@@ -10,8 +10,8 @@ import { uniqueId } from 'lodash';
 import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
-    id: PropTypes.string,
     code: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     name: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     toggleCheckboxType: PropTypes.func,
     filterType: PropTypes.string,
@@ -19,14 +19,18 @@ const propTypes = {
     enableAnalytics: PropTypes.bool
 };
 
-const defaultProps = {
-    id: '',
-    filterType: '',
-    enableAnalytics: false
-};
+const SingleCheckboxType = ({
+    code,
+    value,
+    name,
+    toggleCheckboxType,
+    filterType = '',
+    selectedCheckboxes,
+    enableAnalytics = false
+}) => {
+    const checkboxValue = code || value;
 
-export default class SingleCheckboxType extends React.Component {
-    static logSingleTypeFilterEvent(type, filter) {
+    const logSingleTypeFilterEvent = (type, filter) => {
         Analytics.event({
             event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
@@ -34,9 +38,9 @@ export default class SingleCheckboxType extends React.Component {
             label: type,
             gtm: true
         });
-    }
+    };
 
-    static logDeselectSingleTypeFilterEvent(type, filter) {
+    const logDeselectSingleTypeFilterEvent = (type, filter) => {
         Analytics.event({
             event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
@@ -44,73 +48,64 @@ export default class SingleCheckboxType extends React.Component {
             label: type,
             gtm: true
         });
-    }
+    };
 
-    constructor(props) {
-        super(props);
-
-        // Bind functions
-        this.toggleFilter = this.toggleFilter.bind(this);
-        this.value = this.props.code || this.props.value;
-    }
-
-    toggleFilter() {
+    const toggleFilter = () => {
     // Analytics
-        if (this.props.enableAnalytics) {
-            if (this.props.selectedCheckboxes.has(this.value)) {
+        if (enableAnalytics) {
+            if (selectedCheckboxes.has(checkboxValue)) {
                 // already checked, log deselect event
-                SingleCheckboxType.logDeselectSingleTypeFilterEvent(this.props.name, this.props.filterType);
+                logDeselectSingleTypeFilterEvent(name, filterType);
             }
             else {
                 // not already checked, log select event
-                SingleCheckboxType.logSingleTypeFilterEvent(this.props.name, this.props.filterType);
+                logSingleTypeFilterEvent(name, filterType);
             }
         }
 
         // indicate to Redux that this field needs to toggle
-        this.props.toggleCheckboxType({ value: this.value });
+        toggleCheckboxType({ value: checkboxValue });
+    };
+
+    const elementId = `checkbox-${uniqueId()}`;
+    let checked;
+
+    // if statement specifically for recipient filter checkboxes
+    if (typeof checkboxValue === "object" && (
+        selectedCheckboxes.has(checkboxValue.name) ||
+        selectedCheckboxes.has(checkboxValue.duns) ||
+        selectedCheckboxes.has(checkboxValue.uei)
+    )) {
+        checked = true;
+    }
+    else if (typeof checkboxValue === "object") {
+        checked = false;
+    }
+    else {
+        selectedCheckboxes.has(checkboxValue);
     }
 
-    render() {
-        const elementId = `checkbox-${uniqueId()}`;
-        let checked;
-
-        // if statement specifically for recipient filter checkboxes
-        if (typeof this.value === "object" && (
-            this.props.selectedCheckboxes.has(this.value.name) ||
-            this.props.selectedCheckboxes.has(this.value.duns) ||
-            this.props.selectedCheckboxes.has(this.value.uei)
-        )) {
-            checked = true;
-        }
-        else if (typeof this.value === "object") {
-            checked = false;
-        }
-        else {
-            this.props.selectedCheckboxes.has(this.value);
-        }
-
-        return (
-            <div className="primary-checkbox-type single-item">
-                <div className="primary-checkbox-wrapper">
-                    <label
-                        className="checkbox-item-wrapper"
-                        htmlFor={elementId}>
-                        <input
-                            type="checkbox"
-                            id={elementId}
-                            value={this.value}
-                            checked={checked}
-                            onChange={this.toggleFilter} />
-                        <span className="checkbox-item-label">
-                            {this.props.name}
-                        </span>
-                    </label>
-                </div>
+    return (
+        <div className="primary-checkbox-type single-item">
+            <div className="primary-checkbox-wrapper">
+                <label
+                    className="checkbox-item-wrapper"
+                    htmlFor={elementId}>
+                    <input
+                        type="checkbox"
+                        id={elementId}
+                        value={checkboxValue}
+                        checked={checked}
+                        onChange={toggleFilter} />
+                    <span className="checkbox-item-label">
+                        {name}
+                    </span>
+                </label>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 SingleCheckboxType.propTypes = propTypes;
-SingleCheckboxType.defaultProps = defaultProps;
+
+export default SingleCheckboxType;

@@ -9,7 +9,6 @@ import Analytics from 'helpers/analytics/Analytics';
 import { Button } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { usePrevious } from "../../../../helpers/";
 import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
@@ -23,7 +22,7 @@ const propTypes = {
     onDateChange: PropTypes.func,
     startDate: PropTypes.object,
     endDate: PropTypes.object,
-    timePeriod: PropTypes.array,
+    timePeriod: PropTypes.object,
     selectedStart: PropTypes.string,
     selectedEnd: PropTypes.string,
     showError: PropTypes.func,
@@ -40,21 +39,27 @@ const DateRange = (props) => {
     const [startPicker, setStartPicker] = useState(null);
     // eslint-disable-next-line no-unused-vars
     const [endPicker, setEndPicker] = useState(null);
-    const [disabled, setDisabled] = useState(true);
+    const [dropdownDisabled, setDropdownDisabled] = useState(true);
+    const [drDisabled, setDRDisabled] = useState(true);
     const [selectedDropdownOption, setSelectedDropdownOption] = useState('select');
     const [dropdownOptionSelected, setDropdownOptionSelected] = useState(false);
-    const [noDates, setNoDates] = useState(false);
+    const [noDatesDR, setNoDatesDR] = useState(false);
+    const [noDatesDropdown, setNoDatesDropdown] = useState(false);
     const prevProps = usePrevious(props);
+    const labelArray = [];
 
     const onClick = (e) => {
         setSelectedDropdownOption(e);
 
         if (e === 'select') {
             setDropdownOptionSelected(false);
+            setNoDatesDropdown(true);
+            props.onDateChange(null, 'startDateDropdown');
+            props.onDateChange(null, 'endDateDropdown');
         }
         else {
             setDropdownOptionSelected(true);
-
+            setNoDatesDropdown(false);
             Analytics.event({
                 category: 'Date Range Dropdown',
                 action: `View ${e}`
@@ -62,8 +67,8 @@ const DateRange = (props) => {
 
             dateRangeDropdownTimePeriods.find((obj) => {
                 if (obj.value === e) {
-                    props.onDateChange(obj.startDate, 'startDate');
-                    props.onDateChange(obj.endDate, 'endDate');
+                    props.onDateChange(obj.startDate, 'startDateDropdown');
+                    props.onDateChange(obj.endDate, 'endDateDropdown');
                     return true;
                 }
                 return false;
@@ -71,10 +76,12 @@ const DateRange = (props) => {
         }
     };
 
-    const localRemoveDateRange = () => {
-        setSelectedDropdownOption('select');
-        setDropdownOptionSelected(false);
-        props.removeDateRange();
+    const localRemoveDateRange = (e) => {
+        e.stopPropagation();
+        if (e?.type === 'click' || (e.type === 'keyup' && e?.key === "Enter")) {
+            setSelectedDropdownOption('select');
+            props.removeDateRange(e);
+        }
     };
 
     const dropdownOptions = [
@@ -172,69 +179,35 @@ const DateRange = (props) => {
         }
     };
 
-    const generateStartDateDisabledDays = (earliestDate) => {
-        // handle the cutoff dates (preventing end dates from coming before
-        // start dates or vice versa)
-        const disabledDays = [earliestDate];
+    const submitDatesDropdown = () => {
+        const start = props.startDateDropdown;
+        const end = props.endDateDropdown;
+        if (!props.errorState && (start || end)) {
+            let startValue = null;
+            let endValue = null;
+            if (start) {
+                startValue = start.format('YYYY-MM-DD');
+            }
 
-        if (props.endDate) {
-            // the cutoff date represents the latest possible date
-            disabledDays.push({
-                after: props.endDate.toDate()
+            if (end) {
+                endValue = end.format('YYYY-MM-DD');
+            }
+
+            props.updateFilter({
+                dateType: 'dr',
+                startDate: startValue,
+                endDate: endValue
             });
-        }
-
-        return disabledDays;
-    };
-
-    const generateEndDateDisabledDays = (earliestDate) => {
-        const disabledDays = [earliestDate];
-
-        if (props.startDate) {
-            // cutoff date represents the earliest possible date
-            disabledDays.push({
-                before: props.startDate.toDate()
-            });
-        }
-
-        return disabledDays;
-    };
-
-    const earliestDateString =
-            FiscalYearHelper.convertFYToDateRange(FiscalYearHelper.earliestFiscalYear)[0];
-    const earliestDate = dayjs(earliestDateString, 'YYYY-MM-DD').toDate();
-
-    const startDateDisabledDays = generateStartDateDisabledDays(earliestDate);
-    const endDateDisabledDays = generateEndDateDisabledDays(earliestDate);
-    const lastInTimePeriod = props.timePeriod[props.timePeriod.length - 1];
-
-    let dateLabel = '';
-    let hideTags = 'hide';
-
-    if (props.timePeriod.length > 0) {
-        hideTags = '';
-        let start = null;
-        let end = null;
-
-        if (lastInTimePeriod.start_date) {
-            start = dayjs(lastInTimePeriod.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-        }
-        if (lastInTimePeriod.end_date) {
-            end = dayjs(lastInTimePeriod.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-        }
-        if (start && end) {
-            dateLabel = `${start} to ${end}`;
-        }
-        else if (start) {
-            dateLabel = `${start} to present`;
-        }
-        else if (end) {
-            dateLabel = `... to ${end}`;
         }
         else {
-            hideTags = 'hide';
+            // user has cleared the dates, which means we should clear the date range filter
+            props.updateFilter({
+                dateType: 'dr',
+                startDate: null,
+                endDate: null
+            });
         }
-    }
+    };
 
     const testDates = () => {
         if (props.startDate === null && props.endDate === null) {
@@ -256,16 +229,26 @@ const DateRange = (props) => {
     };
 
     useEffect(() => {
-        if (!props.startDate && !props.endDate && !dropdownOptionSelected) {
-            setNoDates(true);
-        }
-        else {
-            setNoDates(false);
-            // we need this in cases where the error message is showing and the user selects an option from the dropdown
+        // where we should handle setting no dates
+        if (!props.startDate && !props.endDate) {
+            setNoDatesDR(true);
             props.hideError();
+        } else {
+            setNoDatesDR(false);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.endDate, props.startDate, dropdownOptionSelected]);
+    }, [props.endDate, props.startDate]);
+
+    useEffect(() => {
+        // where we should handle setting no dates
+        if (!props.startDateDropdown && !props.endDateDropdown) {
+            setNoDatesDropdown(true);
+            props.hideError();
+        } else {
+            setNoDatesDropdown(false);
+        }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props.endDateDropdown, props.startDateDropdown]);
 
     useEffect(() => {
         if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
@@ -284,16 +267,50 @@ const DateRange = (props) => {
     }, [props?.endDate]);
 
     useEffect(() => {
-        if (noDates || props.errorState) {
-            setDisabled(true);
+        // change how disabled works
+        if (!noDatesDR) {
+            setDRDisabled(false);
+            testDates();
+        } else if (noDatesDR) {
+            setDRDisabled(true);
+        }
+        if (!noDatesDropdown) {
+            setDropdownDisabled(false);
         }
         else {
-            setDisabled(false);
+            setDropdownDisabled(true);
         }
-        testDates();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.errorState, noDates, props.startDate, props.endDate]);
+    }, [props.errorState, noDatesDR, noDatesDropdown, props.startDate, props.endDate, props.startDateDropdown, props.endDateDropdown, dropdownOptionSelected]);
 
+    if (props.timePeriod?.size > 0) {
+        for (const timeinput of props.timePeriod) {
+            let dateLabel = '';
+            let start = null;
+            let end = null;
+
+            if (timeinput.start_date) {
+                start = dayjs(timeinput.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+            }
+            if (timeinput.end_date) {
+                end = dayjs(timeinput.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+            }
+
+            if (start && end) {
+                dateLabel = `${start} to ${end}`;
+            }
+            else if (start) {
+                dateLabel = `${start} to present`;
+            }
+            else if (end) {
+                dateLabel = `... to ${end}`;
+            }
+
+            if (dateLabel !== '') {
+                labelArray.push(dateLabel);
+            }
+        }
+    }
     return (
         <div className="date-range-option">
             <form
@@ -308,10 +325,9 @@ const DateRange = (props) => {
                         opposite={props.endDate}
                         showError={props.showError}
                         hideError={props.hideError}
-                        disabledDays={startDateDisabledDays}
                         id="date-range__startDate"
                         onFocus={onFocus}
-                        allowClearing />
+                        updateFilter={props.updateFilter} />
                 </div>
                 <div className="date-range-column">
                     <DatePicker
@@ -322,10 +338,9 @@ const DateRange = (props) => {
                         opposite={props.startDate}
                         showError={props.showError}
                         hideError={props.hideError}
-                        disabledDays={endDateDisabledDays}
                         onFocus={onFocus}
-                        id="date-range__endDate"
-                        allowClearing />
+                        updateFilter={props.updateFilter}
+                        id="date-range__endDate" />
                 </div>
                 <Button
                     copy="Add"
@@ -333,7 +348,7 @@ const DateRange = (props) => {
                     buttonSize="sm"
                     buttonType="primary"
                     backgroundColor="light"
-                    disabled={disabled}
+                    disabled={drDisabled}
                     onClick={submitDates} />
             </form>
             <div className="date-range-option__dropdown-section">
@@ -360,25 +375,31 @@ const DateRange = (props) => {
                         buttonSize="sm"
                         buttonType="primary"
                         backgroundColor="light"
-                        disabled={disabled}
-                        onClick={submitDates} />
+                        disabled={dropdownDisabled}
+                        onClick={submitDatesDropdown} />
                 </div>
             </div>
             <div
-                className={`selected-filters ${hideTags}`}
+                className="selected-filters"
                 id="selected-date-range"
-                aria-hidden={noDates}
                 role="status">
-                <button
-                    className="shown-filter-button"
-                    title="Click to remove filter."
-                    aria-label={`Applied date range: ${dateLabel}`}
-                    onClick={localRemoveDateRange}>
-                    {dateLabel}
-                    <span className="close">
-                        <FontAwesomeIcon icon="times" />
-                    </span>
-                </button>
+                {labelArray.map((dateLabel, index) =>
+                    (
+                        <button
+                            key={index}
+                            className="shown-filter-button"
+                            title="Click to remove filter."
+                            data-index={index}
+                            aria-label={`Applied date range: ${dateLabel}`}
+                            onClick={localRemoveDateRange}>
+                            {dateLabel}
+                            <span className="close">
+                                <FontAwesomeIcon icon="times" data-index={index} />
+                            </span>
+                        </button>
+                    )
+                )}
+
             </div>
         </div>
     );

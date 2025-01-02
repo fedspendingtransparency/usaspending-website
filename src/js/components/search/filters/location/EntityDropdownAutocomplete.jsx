@@ -27,15 +27,9 @@ const propTypes = {
     searchIcon: PropTypes.bool
 };
 
-const defaultProps = {
-    enabled: true,
-    searchIcon: false
-};
-
-// eslint-disable-next-line import/prefer-default-export
-export const EntityDropdownAutocomplete = ({
+const EntityDropdownAutocomplete = ({
     searchString,
-    enabled,
+    enabled = true,
     openDropdown,
     handleTextInputChange,
     toggleDropdown,
@@ -47,7 +41,7 @@ export const EntityDropdownAutocomplete = ({
     showDisclaimer,
     onClear,
     isClearable,
-    searchIcon
+    searchIcon = false
 }) => (
     <div className="autocomplete__input">
         {searchIcon && <div className="search-icon"><FontAwesomeIcon icon="search" /></div>}
@@ -74,4 +68,5 @@ export const EntityDropdownAutocomplete = ({
 );
 
 EntityDropdownAutocomplete.propTypes = propTypes;
-EntityDropdownAutocomplete.defaultProps = defaultProps;
+
+export default EntityDropdownAutocomplete;

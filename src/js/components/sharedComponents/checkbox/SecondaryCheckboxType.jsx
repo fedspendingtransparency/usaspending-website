@@ -18,22 +18,24 @@ const propTypes = {
     filterType: PropTypes.string,
     selectedCheckboxes: PropTypes.object,
     enableAnalytics: PropTypes.bool,
-    restrictChildren: PropTypes.bool,
-    isCollapsable: PropTypes.bool
+    restrictChildren: PropTypes.bool
 };
 
-const defaultProps = {
-    id: `checkbox-${uniqueId()}`,
-    lookupName: '',
-    filterType: '',
-    selectedCheckboxes: new Set(),
-    enableAnalytics: false,
-    restrictChildren: false,
-    isCollapsable: true
-};
+const SecondaryCheckboxType = ({
+    id = `checkbox-${uniqueId()}`,
+    code,
+    name,
+    lookupName = '',
+    toggleCheckboxType,
+    filterType = '',
+    selectedCheckboxes = new Set(),
+    enableAnalytics = false,
+    restrictChildren = false
+}) => {
+    const checked = selectedCheckboxes.includes(code);
+    const elementId = `checkbox-${uniqueId()}`;
 
-export default class SecondaryCheckboxType extends React.Component {
-    static logSecondaryTypeFilterEvent(type, filter) {
+    const logSecondaryTypeFilterEvent = (type, filter) => {
         Analytics.event({
             event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
@@ -41,9 +43,9 @@ export default class SecondaryCheckboxType extends React.Component {
             label: type,
             gtm: true
         });
-    }
+    };
 
-    static logDeselectFilterEvent(type, filter) {
+    const logDeselectFilterEvent = (type, filter) => {
         Analytics.event({
             event: 'search_checkbox_selection',
             category: 'Search Filter Interaction',
@@ -51,58 +53,48 @@ export default class SecondaryCheckboxType extends React.Component {
             label: type,
             gtm: true
         });
-    }
+    };
 
-    constructor(props) {
-        super(props);
-        // bind functions
-        this.toggleFilter = this.toggleFilter.bind(this);
-    }
-
-    toggleFilter() {
+    const toggleFilter = () => {
     // indicate to Redux that this field needs to toggle
-        this.props.toggleCheckboxType({
-            value: this.props.code,
-            lookupName: this.props.lookupName
+        toggleCheckboxType({
+            value: code,
+            lookupName
         });
 
         // Analytics
-        if (this.props.enableAnalytics) {
-            const checked = this.props.selectedCheckboxes.includes(this.props.code);
-            if (checked) {
-                SecondaryCheckboxType.logDeselectFilterEvent(this.props.name,
-                    this.props.filterType);
+        if (enableAnalytics) {
+            if (selectedCheckboxes.includes(code)) {
+                logDeselectFilterEvent(name,
+                    filterType);
             }
             else {
-                SecondaryCheckboxType.logSecondaryTypeFilterEvent(this.props.name,
-                    this.props.filterType);
+                logSecondaryTypeFilterEvent(name,
+                    filterType);
             }
         }
-    }
+    };
 
-    render() {
-        const checked = this.props.selectedCheckboxes.includes(this.props.code);
-        const elementId = `checkbox-${uniqueId()}`;
-        return (
-            <li key={this.props.id} className="secondary-checkbox-type">
-                <label
-                    className="checkbox-item-wrapper"
-                    htmlFor={elementId}>
-                    <input
-                        type="checkbox"
-                        id={elementId}
-                        value={this.props.code}
-                        checked={checked}
-                        onChange={this.toggleFilter}
-                        disabled={this.props.restrictChildren} />
-                    <span className="checkbox-item-label">
-                        {this.props.name}
-                    </span>
-                </label>
-            </li>
-        );
-    }
-}
+    return (
+        <li key={id} className="secondary-checkbox-type">
+            <label
+                className="checkbox-item-wrapper"
+                htmlFor={elementId}>
+                <input
+                    type="checkbox"
+                    id={elementId}
+                    value={code}
+                    checked={checked}
+                    onChange={toggleFilter}
+                    disabled={restrictChildren} />
+                <span className="checkbox-item-label">
+                    {name}
+                </span>
+            </label>
+        </li>
+    );
+};
 
 SecondaryCheckboxType.propTypes = propTypes;
-SecondaryCheckboxType.defaultProps = defaultProps;
+
+export default SecondaryCheckboxType;

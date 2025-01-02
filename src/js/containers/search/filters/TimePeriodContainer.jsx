@@ -18,13 +18,13 @@ import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 export const startYear = FiscalYearHelper.earliestFiscalYear;
 
 const propTypes = {
-    updateTimePeriod: PropTypes.func,
     updateTimePeriodArray: PropTypes.func,
+    setTimePeriodArray: PropTypes.func,
     filterTimePeriodType: PropTypes.string,
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    filterTime_Period: PropTypes.array,
+    filterTime_Period: PropTypes.object,
     appliedFilters: PropTypes.object,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
@@ -61,33 +61,23 @@ const TimePeriodContainer = (props) => {
 
         if (activeTab === 'fy') {
             newFilters.dateType = 'fy';
-            // reset the date range values
-            newFilters.startDate = null;
-            newFilters.endDate = null;
+            props.updateTimePeriod(newFilters);
         }
         else {
             // reset the fiscal year set
             // start and end dates and datetype are in params
             newFilters.fy = [];
+            props.updateTimePeriodArray(newFilters);
         }
-
-        props.updateTimePeriod(newFilters);
-
-        // here is where the time_period array gets updated
-        props.updateTimePeriodArray(newFilters);
     };
 
     const dirtyFilters = () => {
         const appliedFields = [
             'timePeriodFY',
-            'timePeriodStart',
-            'timePeriodEnd',
             'time_period'
         ];
         const activeFields = [
             'filterTimePeriodFY',
-            'filterTimePeriodStart',
-            'filterTimePeriodEnd',
             'filterTime_Period'
         ];
 
@@ -152,9 +142,7 @@ export default connect(
     (state) => ({
         filterTimePeriodType: state.filters.timePeriodType,
         filterTimePeriodFY: state.filters.timePeriodFY,
-        filterTimePeriodStart: state.filters.timePeriodStart,
         filterTime_Period: state.filters.time_period,
-        filterTimePeriodEnd: state.filters.timePeriodEnd,
         newAwardsOnlySelected: state.filters.filterNewAwardsOnlySelected,
         newAwardsOnlyActive: state.filters.filterNewAwardsOnlyActive,
         naoActiveFromFyOrDateRange: state.filters.filterNaoActiveFromFyOrDateRange,

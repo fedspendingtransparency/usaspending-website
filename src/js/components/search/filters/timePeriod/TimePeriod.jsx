@@ -31,7 +31,7 @@ const propTypes = {
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
     filterTimePeriodType: PropTypes.string,
-    filterTime_Period: PropTypes.array,
+    filterTime_Period: PropTypes.object,
     label: PropTypes.string,
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
@@ -56,6 +56,8 @@ export default class TimePeriod extends React.Component {
         this.state = {
             startDateUI: null,
             endDateUI: null,
+            startDateDropdown: null,
+            endDateDropdown: null,
             showError: false,
             header: '',
             description: '',
@@ -98,14 +100,17 @@ export default class TimePeriod extends React.Component {
 
     determineIfNaoIsActive(prevProps, prevState) {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
-            this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY.size);
-            this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY.size);
+            this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY?.size);
+            this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY?.size);
         }
         if (this.props.dirtyFilters) {
             this.props.updateNewAwardsOnlyActive(true);
             this.props.updateNaoActiveFromFyOrDateRange(true);
         }
         else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
+            this.props.updateNewAwardsOnlyActive(false);
+            this.props.updateNaoActiveFromFyOrDateRange(false);
+        } else if ((prevState.startDateDropdown !== this.state.startDateDropdown || prevState.endDateDropdown !== this.state.endDateDropdown) && (!this.state.startDateDropdown && !this.state.endDateDropdown)) {
             this.props.updateNewAwardsOnlyActive(false);
             this.props.updateNaoActiveFromFyOrDateRange(false);
         }
@@ -123,12 +128,10 @@ export default class TimePeriod extends React.Component {
             // not filtering by a date range
             return;
         }
-
         // prepopulate the date pickers with the current filter values (in the event of remounting
         // or loading from a URL)
-        const startDate = dayjs(this.props.filterTimePeriodStart, 'YYYY-MM-DD');
-        const endDate = dayjs(this.props.filterTimePeriodEnd, 'YYYY-MM-DD');
-
+        const startDate = dayjs(null, 'YYYY-MM-DD');
+        const endDate = dayjs(null, 'YYYY-MM-DD');
         if (startDate.isValid() && endDate.isValid()) {
             this.setState({
                 startDateUI: startDate,
@@ -186,12 +189,18 @@ export default class TimePeriod extends React.Component {
         if (!date) {
             value = null;
         }
-        this.setState({
-            [`${dateType}UI`]: value
-        });
+        if (!dateType.includes("Dropdown")) {
+            this.setState({
+                [`${dateType}UI`]: value
+            });
+        } else if (dateType.includes("Dropdown")) {
+            this.setState({
+                [`${dateType}`]: value
+            });
+        }
     }
 
-    removeDateRange() {
+    removeDateRange(e) {
         this.clearHint(true);
         this.props.updateFilter({
             dateType: 'dr',
@@ -201,8 +210,20 @@ export default class TimePeriod extends React.Component {
         this.setState({
             dateRangeChipRemoved: true,
             startDateUI: null,
-            endDateUI: null
+            endDateUI: null,
+            startDateDropdown: null,
+            endDateDropdown: null
         });
+
+        if (this.props.activeTab === 'dr') {
+            this.props.updateFilter({
+                dateType: 'dr',
+                startDate: null,
+                endDate: null,
+                event: e,
+                removeFilter: true
+            });
+        }
     }
 
     showError(error, message) {
@@ -266,6 +287,8 @@ export default class TimePeriod extends React.Component {
                 startingTab={1}
                 startDate={this.state.startDateUI}
                 endDate={this.state.endDateUI}
+                startDateDropdown={this.state.startDateDropdown}
+                endDateDropdown={this.state.endDateDropdown}
                 timePeriod={this.props.filterTime_Period}
                 selectedStart={this.props.filterTimePeriodStart}
                 selectedEnd={this.props.filterTimePeriodEnd}
@@ -335,7 +358,7 @@ export default class TimePeriod extends React.Component {
 
         return (
             <div className="tab-filter-wrap">
-                <div className="filter-item-wrap location-filter">
+                <div className="filter-item-wrap">
                     <FilterTabs
                         labels={tabLabels}
                         switchTab={toggleTab}

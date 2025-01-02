@@ -7,12 +7,19 @@ import React, { useEffect, useState } from 'react';
 import { FilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
 
-const CollapsibleSidebar = () => {
+
+const propTypes = {
+    filters: PropTypes.object
+};
+
+const CollapsibleSidebar = ({ filters }) => {
     const [isOpened, setIsOpened] = useState(true);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -22,6 +29,25 @@ const CollapsibleSidebar = () => {
     const [windowWidth, setWindowWidth] = useState();
     const [windowHeight, setWindowHeight] = useState();
     const [sidebarHeight, setSidebarHeight] = useState();
+    const [footerInView, setFooterInView] = useState();
+    const [siteHeaderInView, setSiteHeaderInView] = useState();
+    const [sidebarIsSticky, setSidebarIsSticky] = useState();
+    const [sidebarTop, setSidebarTop] = useState();
+    const [mainContentHeight, setMainContentHeight] = useState();
+
+    const footerEl = document.querySelector("footer");
+    const siteHeaderEl = document.querySelector(".site-header__wrapper");
+    const topStickyBarEl = document.querySelector(".usda-page-header");
+
+    const sideBarXlDesktopWidth = 332;
+    const sideBarDesktopWidth = 282;
+
+    // TODO: Remove hard coded values
+    const headingPadding = 40;
+    const inPanelNonScrollableEls = 172;
+    const fullHeader = 148;
+    const footerMargin = 48;
+
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -51,65 +77,69 @@ const CollapsibleSidebar = () => {
             setIsDrilldown(false);
         }
         else if (currentLevel === 3) {
-            setDrilldown(selectedCategory[FilterCategoryTree[selectedCategory?.categoryKey]]);
+            setDrilldown(FilterCategoryTree[selectedCategory?.categoryKey]);
             setCurrentLevel(2);
         }
     };
 
-    useEffect(() => {
-        if (isOpened) {
-            if (document.querySelector(".full-search-sidebar")) {
-                document.querySelector(".full-search-sidebar").style.width = "25%";
-            }
-            if (document.querySelector(".search-results")) {
-                document.querySelector(".search-results").style.width = "75%";
-            }
+    const checkInView = (el) => {
+        const bbox = el.getBoundingClientRect();
+
+        const intersection = {
+            top: Math.max(0, bbox.top),
+            left: Math.max(0, bbox.left),
+            bottom: Math.min(window.innerHeight, bbox.bottom),
+            right: Math.min(window.innerWidth, bbox.right)
+        };
+
+        return (intersection.bottom - intersection.top);
+    };
+
+
+    const resizeSidebarWithStickyBar = (withFooter) => {
+        const hasFooter = withFooter > 0 ? withFooter : 0;
+        const headingInView = sidebarTop + headingPadding;
+
+        if (footerInView < 0) {
+            setWindowHeight((window.innerHeight - headingInView) + headingPadding);
+            setSidebarHeight(((window.innerHeight - headingInView) - inPanelNonScrollableEls) + headingPadding);
         }
         else {
-            if (document.querySelector(".full-search-sidebar")) {
-                document.querySelector(".full-search-sidebar").style.width = "0%";
+            // Hide side search by... if only a small part of the sidebar is in view
+            const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls) - footerInView) + headingPadding;
+            if (newSidebarHeight < 1) {
+                document.querySelector(".collapsible-sidebar--header").style.display = "none";
             }
-            if (document.querySelector(".search-results")) {
-                document.querySelector(".search-results").style.width = "99%";
+            else {
+                document.querySelector(".collapsible-sidebar--header").style.display = "block";
             }
-        }
-    }, [isOpened]);
 
-    useEffect(() => {
-        if (!isOpened && initialPageLoad) {
-            setInitialPageLoad(false);
-        }
-    }, [initialPageLoad, isOpened]);
-
-    const handleScroll = () => {
-        // 581.63 is the height of the footer at 1839 px browser width
-
-        const element = document.querySelector(".usda-page-header");
-        const header = 60;
-        const stickyHeader = 148;
-        const nonScrollableElements = 172;
-
-        const stickyEnd = document.querySelector(".stay-in-touch__section").offsetTop;
-        const scrollbarHeight = document.querySelector(".search-collapsible-sidebar-container").offsetHeight;
-
-        if (window.scrollY + scrollbarHeight > stickyEnd) {
-            document.querySelector(".search-collapsible-sidebar-container").style.top = window.scrollY + scrollbarHeight;
-        }
-
-        if (element?.classList?.contains("usda-page-header--sticky")) {
-            document.querySelector(".search-collapsible-sidebar-container").style.top = `${window.scrollY - 30}px`;
-            setWindowHeight(window.innerHeight - header);
-            setSidebarHeight(window.innerHeight - header - nonScrollableElements);
-        }
-        else {
-            // document.querySelector(".search-collapsible-sidebar-container").style.top = `${188 - window.scrollY}px`;
-            setWindowHeight((window.innerHeight - stickyHeader) + window.scrollY);
-            setSidebarHeight(((window.innerHeight - stickyHeader) - nonScrollableElements) + window.scrollY);
+            setWindowHeight(((window.innerHeight - headingInView) - hasFooter) + headingPadding);
+            setSidebarHeight(newSidebarHeight);
         }
     };
 
+    const resizeSidebarWithFullHeader = (withFooter) => {
+        const hasFooter = withFooter > 0 ? withFooter : 0;
+        setWindowHeight((window.innerHeight - fullHeader - hasFooter) + window.scrollY);
+        setSidebarHeight(((window.innerHeight - fullHeader - hasFooter) - inPanelNonScrollableEls) + window.scrollY);
+    };
+
+    const handleScroll = throttle(() => {
+        if (window.scrollY === 0) {
+            setSidebarTop(fullHeader);
+        }
+        else {
+            const topStickyBarBbox = topStickyBarEl.getBoundingClientRect();
+            setSidebarTop(checkInView(topStickyBarEl) < 0 ? 0 : topStickyBarBbox.bottom);
+        }
+
+        setFooterInView(checkInView(footerEl) + footerMargin);
+        setSiteHeaderInView(checkInView(siteHeaderEl));
+        setSidebarIsSticky(topStickyBarEl?.classList?.contains("usda-page-header--sticky"));
+    }, 50);
+
     const keyHandler = (e, func) => {
-        e.preventDefault();
         if (e.key === "Enter") {
             func(e);
         }
@@ -119,25 +149,139 @@ const CollapsibleSidebar = () => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
+            handleScroll();
         }
     }, 50);
 
     useEffect(() => {
-        handleScroll();
-        window.addEventListener('scroll', (e) => handleScroll(e));
-        return () => window.removeEventListener('scroll', handleScroll);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        if (isOpened) {
+            if (document.querySelector(".full-search-sidebar")) {
+                if (windowWidth < 991 && windowWidth < 1200) {
+                    document.querySelector(".full-search-sidebar").style.width = "unset";
+                    document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarDesktopWidth}px`;
+                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;
+                }
+                else if (windowWidth > 1199) {
+                    document.querySelector(".full-search-sidebar").style.width = "unset";
+                    document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarXlDesktopWidth}px`;
+                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarXlDesktopWidth}px`;
+                }
+            }
+        }
+        else if (document.querySelector(".full-search-sidebar")) {
+            document.querySelector(".full-search-sidebar").style.width = "0";
+            document.querySelector(".full-search-sidebar").style.flexBasis = "0";
+            document.querySelector(".collapsible-sidebar").style.width = "0";
+        }
+    }, [isOpened, windowWidth]);
 
     useEffect(() => {
-        handleResize();
-        window.addEventListener('resize', (e) => handleResize(e));
-        return () => window.removeEventListener('resize', handleResize);
+        if (!isOpened && initialPageLoad) {
+            setInitialPageLoad(false);
+        }
+    }, [initialPageLoad, isOpened]);
+
+    useEffect(() => {
+        if (windowHeight > 0 && sidebarHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
+            document.querySelector(".search-sidebar").style.display = "flex";
+        }
+    }, [windowHeight, sidebarHeight]);
+
+    useEffect(() => {
+        if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
+            setWindowHeight((mainContentHeight));
+            setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
+        }
+        else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
+            setWindowHeight((window.innerHeight - fullHeader));
+            setSidebarHeight(((window.innerHeight - fullHeader) - inPanelNonScrollableEls));
+        }
+    }, [mainContentHeight]);
+
+    useEffect(() => {
+        const headingInView = sidebarTop + headingPadding;
+        document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
+
+        if (window.scrollY > 0) {
+            if (sidebarIsSticky) {
+                resizeSidebarWithStickyBar(footerInView);
+            }
+            else if (sidebarTop !== 0) {
+                resizeSidebarWithFullHeader(footerInView);
+            }
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [footerInView, siteHeaderInView, sidebarIsSticky, sidebarTop]);
+
+    const {
+        selectedLocations,
+        selectedRecipientLocations,
+        timePeriodType,
+        time_period: timePeriod,
+        timePeriodFY,
+        selectedAwardIDs,
+        awardAmounts,
+        awardType,
+        naicsCodes,
+        pscCodes,
+        pricingType,
+        setAside,
+        extentCompeted,
+        selectedCFDA,
+        selectedRecipients,
+        recipientType,
+        selectedAwardingAgencies,
+        selectedFundingAgencies,
+        tasCodes,
+        defCodes
+    } = filters;
+
+    const sourcesCount = selectedAwardingAgencies.size +
+        selectedFundingAgencies.size +
+        tasCodes.counts.length +
+        defCodes.counts.length;
+
+    // TODO: Add Award Description (?) to count
+    const characteristicsCount = selectedAwardIDs.size +
+        awardAmounts.size +
+        awardType.size +
+        naicsCodes.counts.length +
+        pscCodes.counts.length +
+        pricingType.size +
+        setAside.size +
+        extentCompeted.size +
+        selectedCFDA.size;
+
+    const itemCount = {
+        location: selectedLocations.size + selectedRecipientLocations.size,
+        timePeriod: timePeriodType === 'dr' ? timePeriod.size : timePeriodFY.size,
+        characteristics: characteristicsCount,
+        recipients: selectedRecipients.size + recipientType.size,
+        sources: sourcesCount
+    };
+
+    useEffect(() => {
+        // eslint-disable-next-line no-undef
+        const resizeObserver = new ResizeObserver((entries) => {
+            setMainContentHeight(entries[0].target.clientHeight);
+        });
+        const mainContent = document.querySelector("#main-content");
+        resizeObserver.observe(mainContent);
+
+        handleResize();
+
+        window.addEventListener('resize', (e) => handleResize(e));
+        window.addEventListener('scroll', (e) => handleScroll(e));
+        return () => {
+            window.removeEventListener('resize', (e) => handleResize(e));
+            window.removeEventListener('scroll', (e) => handleScroll(e));
+            resizeObserver.unobserve(mainContent);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    });
 
     return (
-        <div className="search-collapsible-sidebar-container search-sidebar">
+        <div className="search-collapsible-sidebar-container search-sidebar" style={{ display: "none" }}>
             <div
                 style={{ height: windowHeight }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
@@ -146,7 +290,8 @@ const CollapsibleSidebar = () => {
                     onClick={(e) => toggleOpened(e)}
                     onKeyDown={(e) => keyHandler(e, toggleOpened)}
                     role="button"
-                    tabIndex="0">
+                    focusable="true"
+                    tabIndex={0}>
                     {isOpened ?
                         <FontAwesomeIcon className="chevron" icon="chevron-left" />
                         :
@@ -156,7 +301,8 @@ const CollapsibleSidebar = () => {
                 <SearchSidebarMainMenu
                     isDrilldown={isDrilldown}
                     sidebarHeight={sidebarHeight}
-                    setLevel2={setLevel2} />
+                    setLevel2={setLevel2}
+                    itemCount={itemCount} />
 
                 <SearchSidebarDrilldown
                     list={drilldown?.children}
@@ -164,9 +310,13 @@ const CollapsibleSidebar = () => {
                     isDrilldown={isDrilldown}
                     windowHeight={windowHeight}
                     selectedCategory={selectedCategory}
+                    selectedCategoryTitle={drilldown?.title}
                     sidebarHeight={sidebarHeight}
                     setLevel3={setLevel3}
-                    goBack={goBack} />
+                    goBack={goBack}
+                    itemCount={itemCount}
+                    filters={filters}
+                    titleOnly={drilldown?.titleOnly} />
 
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />
@@ -176,4 +326,9 @@ const CollapsibleSidebar = () => {
     );
 };
 
-export default CollapsibleSidebar;
+CollapsibleSidebar.propTypes = propTypes;
+export default connect(
+    (state) => ({
+        filters: state.filters
+    })
+)(CollapsibleSidebar);

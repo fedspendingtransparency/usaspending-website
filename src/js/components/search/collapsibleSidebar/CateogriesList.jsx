@@ -1,5 +1,7 @@
-/* CategoriesList.jsx */
-/* Created by Andrea Blackwell November 8, 2024 */
+/**
+ * CategoriesList.jsx
+ * Created by Andrea Blackwell November 8, 2024
+ */
 
 import React from "react";
 import PropTypes from 'prop-types';
@@ -7,8 +9,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CategoryHeader from "./CategoryHeader";
 
 const propTypes = {
-    categories: PropTypes.object,
-    setLevel3: PropTypes.func
+    categories: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    setLevel3: PropTypes.func,
+    iconName: PropTypes.string,
+    iconColor: PropTypes.string,
+    iconBackgroundColor: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    height: PropTypes.number,
+    itemCount: PropTypes.object,
+    filterCount: PropTypes.object
 };
 
 const CategoriesList = ({
@@ -19,7 +29,9 @@ const CategoriesList = ({
     iconColor,
     title,
     description,
-    height
+    height,
+    itemCount,
+    filterCount
 }) => (
     <>
         <CategoryHeader
@@ -27,9 +39,10 @@ const CategoriesList = ({
             iconColor={iconColor}
             iconBackgroundColor={iconBackgroundColor}
             title={title}
-            description={description} />
+            description={description}
+            itemCount={itemCount} />
         <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
-            <div style={{ margin: "0 16px 0 32px" }}>
+            <div style={{ margin: "0 32px" }}>
                 {categories.map((item) => {
                     if (item?.categoryType) {
                         return (
@@ -52,7 +65,14 @@ const CategoriesList = ({
                                             role="button"
                                             tabIndex={0}>
                                             <div className="categories-list-item">
-                                                <div style={{ float: "left" }}>{category.title}</div>
+                                                <div className="categories-list-item__text-container">
+                                                    <div className="categories-list-item__title" style={{ float: "left" }}>{category.title}</div>
+                                                    {filterCount[category.title] > 0 &&
+                                                        <div className="categories-list-item__count">
+                                                            {filterCount[category.title]} selected
+                                                        </div>
+                                                    }
+                                                </div>
                                                 <div style={{ float: "right" }}><FontAwesomeIcon
                                                     className="chevron"
                                                     icon="chevron-right" />

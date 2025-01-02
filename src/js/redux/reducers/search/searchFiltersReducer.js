@@ -14,7 +14,7 @@ import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunction
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
 import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunctions';
-
+import * as TimePeriodFilterFunctions from './filters/timePeriodFilterFunctions';
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
@@ -32,6 +32,7 @@ export const requiredTypes = {
     selectedFundingAgencies: OrderedMap,
     selectedAwardingAgencies: OrderedMap,
     selectedRecipients: Set,
+    time_period: Set,
     recipientType: Set,
     selectedRecipientLocations: OrderedMap,
     awardType: Set,
@@ -52,9 +53,37 @@ export const initialState = {
     keyword: OrderedMap(),
     timePeriodType: 'dr',
     timePeriodFY: Set(),
-    time_period: [],
-    timePeriodStart: null,
-    timePeriodEnd: null,
+    time_period: Set(),
+    filterNewAwardsOnlySelected: false,
+    filterNewAwardsOnlyActive: false,
+    filterNaoActiveFromFyOrDateRange: false,
+    selectedLocations: OrderedMap(),
+    locationDomesticForeign: 'all',
+    selectedFundingAgencies: OrderedMap(),
+    selectedAwardingAgencies: OrderedMap(),
+    selectedRecipients: Set(),
+    recipientDomesticForeign: 'all',
+    recipientType: Set(),
+    selectedRecipientLocations: OrderedMap(),
+    awardType: Set(),
+    selectedAwardIDs: OrderedMap(),
+    awardAmounts: OrderedMap(),
+    selectedCFDA: OrderedMap(),
+    naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    pricingType: Set(),
+    setAside: Set(),
+    extentCompeted: Set(),
+    treasuryAccounts: OrderedMap(),
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
+};
+
+export const initialStateFY = {
+    keyword: OrderedMap(),
+    timePeriodType: 'fy',
+    timePeriodFY: Set(),
+    time_period: Set(),
     filterNewAwardsOnlySelected: false,
     filterNewAwardsOnlyActive: false,
     filterNaoActiveFromFyOrDateRange: false,
@@ -95,19 +124,16 @@ const searchFiltersReducer = (state = initialState, action) => {
             // FY time period is stored as an ImmutableJS set
             return Object.assign({}, state, {
                 timePeriodType: action.dateType,
-                timePeriodStart: action.start,
-                timePeriodEnd: action.end,
                 timePeriodFY: new Set(action.fy)
             });
         }
 
-        // New Time Period Filter Array
+        // New Time Period Filter Item
         case 'ADD_TIME_PERIOD_OBJECT': {
             return Object.assign({}, state, {
-                time_period: state.time_period.concat({
-                    start_date: action.start,
-                    end_date: action.end
-                })
+                timePeriodType: action.dateType,
+                time_period: TimePeriodFilterFunctions.updateDRs(
+                    state.time_period, action)
             });
         }
 
@@ -308,8 +334,7 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 timePeriodType: initialState.timePeriodType,
                 timePeriodFY: initialState.timePeriodFY,
-                timePeriodStart: initialState.timePeriodStart,
-                timePeriodEnd: initialState.timePeriodEnd
+                time_period: initialState.time_period
             });
         }
         case 'RESET_TIME_PERIOD_OBJECT': {

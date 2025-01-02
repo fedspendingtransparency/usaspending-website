@@ -9,6 +9,7 @@
         @import "elements/filters/_selectedFilterBtn";
         @import "mixins/selectedFilterWrap";
         @import "../_singleSubmit";
+        @import "components/_filterTabs.scss";
 
         padding: 0 $global-padding * 2 rem(20);
 

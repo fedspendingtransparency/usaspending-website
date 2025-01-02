@@ -11,7 +11,7 @@ const propTypes = {
     searchSpecificRange: PropTypes.func
 };
 
-const SpecificAwardAmountItem = (props) => {
+const SpecificAwardAmountItem = ({ searchSpecificRange }) => {
     const [min, setMin] = useState('');
     const [max, setMax] = useState('');
     const [showWarning, setShowWarning] = useState(false);
@@ -27,8 +27,8 @@ const SpecificAwardAmountItem = (props) => {
         setMax(e.target.value);
     };
 
-    const searchSpecificRange = () => {
-        props.searchSpecificRange([min, max]);
+    const searchRange = () => {
+        searchSpecificRange([min, max]);
     };
 
     const verifyNumberLogic = () => {
@@ -63,7 +63,8 @@ const SpecificAwardAmountItem = (props) => {
         if ((numberMin > numberMax) && document.activeElement.id === 'award-amount_max') {
             setShowWarning(tempShowWarning);
             setWarningMessage(maxWarningMessage);
-        } else if ((numberMin > numberMax) && document.activeElement.id === 'award-amount_min') {
+        }
+        else if ((numberMin > numberMax) && document.activeElement.id === 'award-amount_min') {
             setShowWarning(showWarning);
             setWarningMessage(minWarningMessage);
         }
@@ -71,6 +72,7 @@ const SpecificAwardAmountItem = (props) => {
 
     useEffect(() => {
         verifyNumberLogic();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [min, max]);
 
     let disabled = (!min && min !== 0) && (!max && max !== 0);
@@ -107,7 +109,15 @@ const SpecificAwardAmountItem = (props) => {
                         onFocus={verifyNumberLogic}
                         id="award-amount_max" />
                 </div>
-                <Button additionalClassnames="award-amount-submit" copy="Add" buttonTitle="Filter by custom award amount range" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled={disabled} onClick={searchSpecificRange} />
+                <Button
+                    additionalClassnames="award-amount-submit"
+                    copy="Add"
+                    buttonTitle="Filter by custom award amount range"
+                    buttonSize="sm"
+                    buttonType="primary"
+                    backgroundColor="light"
+                    disabled={disabled}
+                    onClick={searchRange} />
             </div>
             {
                 showWarning &&
