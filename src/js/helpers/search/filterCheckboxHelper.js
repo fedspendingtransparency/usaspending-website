@@ -348,10 +348,9 @@ export const recipientTypeMapping = [
 ];
 
 export const generateCount = (data) => {
-    const dataObj = data.toObject();
     let count = 0;
 
-    dataObj.counts.forEach((item) => {
+    data.get('counts').forEach((item) => {
         count += item.count;
     });
 
