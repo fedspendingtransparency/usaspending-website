@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
+import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
 
 
 const propTypes = {
@@ -219,45 +220,16 @@ const CollapsibleSidebar = ({ filters }) => {
         timePeriodType,
         time_period: timePeriod,
         timePeriodFY,
-        selectedAwardIDs,
-        awardAmounts,
-        awardType,
-        naicsCodes,
-        pscCodes,
-        pricingType,
-        setAside,
-        extentCompeted,
-        selectedCFDA,
         selectedRecipients,
-        recipientType,
-        selectedAwardingAgencies,
-        selectedFundingAgencies,
-        tasCodes,
-        defCodes
+        recipientType
     } = filters;
-
-    const sourcesCount = selectedAwardingAgencies.size +
-        selectedFundingAgencies.size +
-        tasCodes.counts.length +
-        defCodes.counts.length;
-
-    // TODO: Add Award Description (?) to count
-    const characteristicsCount = selectedAwardIDs.size +
-        awardAmounts.size +
-        awardType.size +
-        naicsCodes.counts.length +
-        pscCodes.counts.length +
-        pricingType.size +
-        setAside.size +
-        extentCompeted.size +
-        selectedCFDA.size;
 
     const itemCount = {
         location: selectedLocations.size + selectedRecipientLocations.size,
         timePeriod: timePeriodType === 'dr' ? timePeriod.size : timePeriodFY.size,
-        characteristics: characteristicsCount,
+        characteristics: characteristicsCount(filters),
         recipients: selectedRecipients.size + recipientType.size,
-        sources: sourcesCount
+        sources: sourcesCount(filters)
     };
 
     useEffect(() => {
