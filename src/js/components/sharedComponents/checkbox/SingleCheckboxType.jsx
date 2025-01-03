@@ -82,7 +82,7 @@ const SingleCheckboxType = ({
         checked = false;
     }
     else {
-        selectedCheckboxes.has(checkboxValue);
+        checked = selectedCheckboxes.has(checkboxValue);
     }
 
     return (
