@@ -346,3 +346,14 @@ export const recipientTypeMapping = [
         filters: recipientTypeGroups.category_individuals
     }
 ];
+
+export const generateCount = (data) => {
+    const dataObj = data.toObject();
+    let count = 0;
+
+    dataObj.counts.forEach((item) => {
+        count += item.count;
+    });
+
+    return count;
+};

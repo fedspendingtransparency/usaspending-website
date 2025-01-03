@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
+import { generateCount } from "../../../helpers/search/filterCheckboxHelper";
 
 
 const propTypes = {
@@ -236,17 +237,6 @@ const CollapsibleSidebar = ({ filters }) => {
         defCodes
     } = filters;
 
-    const generateCount = (data) => {
-        const dataObj = data.toObject();
-        let count = 0;
-
-        dataObj.counts.forEach((naics) => {
-            count += naics.count;
-        });
-
-        return count;
-    };
-
     const sourcesCount = selectedAwardingAgencies.size +
         selectedFundingAgencies.size +
         tasCodes.counts.length +
@@ -327,8 +317,7 @@ const CollapsibleSidebar = ({ filters }) => {
                     goBack={goBack}
                     itemCount={itemCount}
                     filters={filters}
-                    titleOnly={drilldown?.titleOnly}
-                    generateCount={generateCount} />
+                    titleOnly={drilldown?.titleOnly} />
 
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />

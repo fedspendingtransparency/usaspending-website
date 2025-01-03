@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CategoriesList from "./CateogriesList";
 import CategoryFilter from "./CategoryFilter";
+import { generateCount } from "../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     list: PropTypes.array,
@@ -21,8 +22,7 @@ const propTypes = {
     itemCount: PropTypes.object,
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
-    titleOnly: PropTypes.bool,
-    generateCount: PropTypes.func
+    titleOnly: PropTypes.bool
 };
 
 const SearchSidebarDrilldown = ({
@@ -36,8 +36,7 @@ const SearchSidebarDrilldown = ({
     filters,
     sidebarHeight,
     selectedCategoryTitle,
-    titleOnly = false,
-    generateCount
+    titleOnly = false
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
