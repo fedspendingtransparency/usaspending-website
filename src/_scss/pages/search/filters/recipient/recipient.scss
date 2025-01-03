@@ -71,7 +71,7 @@
 
                 .recipient-checkbox__uei {
                     display: inline;
-                    font-size: $font-size-10;
+                    font-size: $font-size-12;
                     padding: rem(2.5) $global-padding * .5;
                     border-radius: 2px;
                     background-color: $gray-cool-5;
@@ -87,7 +87,7 @@
                     margin-left: rem(21);
 
                     .recipient-label__legacy-duns {
-                        font-size: $font-size-10;
+                        font-size: $font-size-12;
                         font-style: italic;
                         line-height: 1.5;
                         color: $gray-60;
