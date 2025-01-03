@@ -435,16 +435,16 @@ const MapWrapper = (props) => {
             let long = "INTPTLON";
             const district = props.singleLocationSelected.district_original || props.singleLocationSelected.district_current;
 
-            if (props.scope === "congressionalDistrict") {
+            if (props.scope === "congressionalDistrict" && district && stateFIPSByAbbreviation[props?.singleLocationSelected?.state]) {
                 filterKey = "GEOID20";
                 lat += "20";
                 long += "20";
                 value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
                 setCenterFromMapTiles(value, filterKey, lat, long);
             }
-            else if (props.scope === "county") {
+            else if (props.scope === "county" && stateFIPSByAbbreviation[props?.singleLocationSelected?.state?.toUpperCase()] && props?.singleLocationSelected?.county) {
                 filterKey = "GEOID";
-                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${props.singleLocationSelected.county}`;
+                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state.toUpperCase()]}${props.singleLocationSelected.county}`;
                 setCenterFromMapTiles(value, filterKey, lat, long);
             }
         }
