@@ -102,12 +102,14 @@ export default class TimePeriod extends React.Component {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
             this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY?.size);
             this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY?.size);
+        } else if (prevProps.filterTime_Period !== this.props.filterTime_Period) {
+            this.props.updateNewAwardsOnlyActive(false);
+            this.props.updateNaoActiveFromFyOrDateRange(false);
         }
         if (this.props.dirtyFilters) {
             this.props.updateNewAwardsOnlyActive(true);
             this.props.updateNaoActiveFromFyOrDateRange(true);
-        }
-        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
+        } else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
             this.props.updateNewAwardsOnlyActive(false);
             this.props.updateNaoActiveFromFyOrDateRange(false);
         } else if ((prevState.startDateDropdown !== this.state.startDateDropdown || prevState.endDateDropdown !== this.state.endDateDropdown) && (!this.state.startDateDropdown && !this.state.endDateDropdown)) {
