@@ -29,7 +29,20 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const [maxRecipients, setMaxRecipients] = useState(true);
 
     const recipientRequest = useRef();
+    const maxRecipientsAllowed = 500;
     let localSelectedRecipients = null;
+    let maxRecipientTitle = '';
+    let maxRecipientText = '';
+
+    if (newSearch) {
+        maxRecipientTitle = 'Use the search bar to find recipients';
+        maxRecipientText = `The first ${maxRecipientsAllowed} recipients are displayed by default. Please use the search bar to find additional recipients.`;
+    }
+
+    else {
+        maxRecipientTitle = `Only ${maxRecipientsAllowed} recipients can be displayed at once`;
+        maxRecipientText = 'Please use the search bar to narrow your search and find additional recipients.';
+    }
 
     const toggleRecipient = ({ value }) => {
         if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
@@ -107,7 +120,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         }
 
         const paramObj = {
-            limit: 500
+            limit: maxRecipientsAllowed
         };
 
         recipientRequest.current = SearchHelper.fetchRecipients(paramObj);
@@ -130,7 +143,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
 
         const paramObj = {
             search_text: term,
-            limit: 500
+            limit: maxRecipientsAllowed
         };
 
         recipientRequest.current = SearchHelper.fetchRecipientsAutocomplete(paramObj);
@@ -142,7 +155,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 sortResults(res.data.results);
                 setRecipients(res.data.results);
                 setIsLoading(false);
-                setMaxRecipients(res.data.count === 500);
+                setMaxRecipients(res.data.count === maxRecipientsAllowed);
             });
     };
 
@@ -231,24 +244,13 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                                     </div>
                                 ))}
                         </div>
-                        {newSearch &&
+                        {maxRecipients &&
                             <>
                                 <div className="find-recipients-text label">
-                                    Use the search bar to find recipients
+                                    {maxRecipientTitle}
                                 </div>
                                 <div className="find-recipients-text content">
-                                    The first 500 recipients are displayed by default.
-                                    Please use the search bar to find additional recipients.
-                                </div>
-                            </>
-                        }
-                        {!newSearch && maxRecipients &&
-                            <>
-                                <div className="find-recipients-text label">
-                                    Only 500 recipients can be displayed at once
-                                </div>
-                                <div className="find-recipients-text content">
-                                    Please use the search bar to narrow your search and find additional recipients.
+                                    {maxRecipientText}
                                 </div>
                             </>
                         }
