@@ -1,24 +1,46 @@
 .recipient-filter {
-    @import "elements/filters/_errorMessage";
-    @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
-    @import "../_singleSubmit";
 
     .filter-item-wrap {
         .autocomplete__input {
             padding-bottom: 0;
         }
+
+        .selected-filters {
+            @include selected-filter-wrap;
+        }
     }
 
     .recipient-results__container {
         margin-top: $global-margin * 2.5;
-        padding: 0 0 $global-padding * 2.5 0;
+        padding: 0 0 $global-padding * 3 0;
         height: rem(400);
         overflow-y: scroll;
         list-style: none;
 
+        .find-recipients-text {
+            text-align: center;
+            font-size: $smallest-font-size;
+            line-height: 1.5;
+            padding: 0 8px;
+
+            &.label {
+                color: $gray-90;
+                margin: ($global-spacing-unit * 3) 0 rem(4) 0;
+                font-weight: $font-semibold;
+            }
+
+            &.content {
+                color: $gray-60;
+            }
+        }
+
         .checkbox-type-filter {
+            &.bottom-fade {
+                mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
+            }
+
             .recipient-label__container {
                 display: flex;
                 flex-flow: column nowrap;
@@ -49,7 +71,7 @@
 
                 .recipient-checkbox__uei {
                     display: inline;
-                    font-size: $font-size-10;
+                    font-size: $font-size-12;
                     padding: rem(2.5) $global-padding * .5;
                     border-radius: 2px;
                     background-color: $gray-cool-5;
@@ -65,7 +87,7 @@
                     margin-left: rem(21);
 
                     .recipient-label__legacy-duns {
-                        font-size: $font-size-10;
+                        font-size: $font-size-12;
                         font-style: italic;
                         line-height: 1.5;
                         color: $gray-60;
@@ -101,59 +123,10 @@
         font-size: rem(30);
         text-align: center;
         margin-top: $global-margin;
+
         .recipient-filter-message-container__text {
-          font-size: 2rem;
-          padding-bottom: 2rem;
+            font-size: 2rem;
+            padding-bottom: 2rem;
         }
-    }
-
-    .recipient-filter-item-wrap {
-        padding: 0;
-
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-
-        .recipient-input {
-            @include flex(1 1 auto);
-            margin-right: rem(4);
-            font-size: $small-font-size;
-            color: $color-base;
-            line-height: rem(36);
-            height: rem(40);
-
-            @include placeholder {
-                color: $color-placeholder;
-            }
-        }
-
-        .recipient-submit {
-            @include flex(0 0 auto);
-            @include singleSubmit();
-        }
-    }
-
-    .shown {
-        min-height: rem(180);
-    }
-
-    .visually-hidden {
-        display: none;
-    }
-
-    .pop-typeahead {
-        .usa-da-typeahead {
-            margin-top: 0;
-        }
-
-        .funding {
-            .usa-da-typeahead {
-                margin: 0 0 rem(10);
-            }
-        }
-    }
-
-    .selected-filters {
-        @include selected-filter-wrap;
     }
 }
