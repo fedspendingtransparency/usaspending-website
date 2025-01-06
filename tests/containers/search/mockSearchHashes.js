@@ -19,7 +19,7 @@ export const mockFilters = {
             recipientType: [],
             timePeriodFY: [`${FiscalYearHelper.currentFiscalYear()}`],
             time_period: [],
-            timePeriodType: "fy",
+            timePeriodType: "dr",
             selectedAwardingAgencies: {},
             awardType: [],
             recipientDomesticForeign: "all",
