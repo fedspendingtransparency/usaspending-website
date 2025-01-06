@@ -95,8 +95,6 @@ const TimePeriodContainer = (props) => {
                 // field has changed
                 return false;
             }
-
-
             return true;
         });
 

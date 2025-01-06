@@ -183,14 +183,21 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
     // if they're provided because the date range tab isn't selected
         delete comparisonObject.time_period;
         delete referenceObject.time_period;
+        delete comparisonObject.filterNewAwardsOnlyActive;
+        delete referenceObject.filterNewAwardsOnlyActive;
+        delete comparisonObject.filterNaoActiveFromFyOrDateRange;
+        delete referenceObject.filterNaoActiveFromFyOrDateRange;
     }
-    else if (referenceObject.timePeriodEnd === 'dr') {
+    else if (referenceObject.timePeriodType === 'dr') {
     // if the time period is date range, we don't care about the fiscal year values, even
     // if they're provided because the fiscal year tab isn't selected
         delete comparisonObject.timePeriodFY;
         delete referenceObject.timePeriodFY;
+        delete comparisonObject.filterNewAwardsOnlyActive;
+        delete referenceObject.filterNewAwardsOnlyActive;
+        delete comparisonObject.filterNaoActiveFromFyOrDateRange;
+        delete referenceObject.filterNaoActiveFromFyOrDateRange;
     }
-
     // we need to iterate through each of the filter Redux keys in order to perform equality
     // comparisons on Immutable children (via the Immutable is() function)
     const immutableFilterKeys = Object
@@ -201,7 +208,9 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         const key = immutableFilterKeys[i];
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
-        if (!is(unfilteredValue, currentValue)) return false;
+        if (!is(unfilteredValue, currentValue)) {
+            return false;
+        }
     }
 
     for (let i = 0; i < checkboxTreeFilters.length; i++) {
