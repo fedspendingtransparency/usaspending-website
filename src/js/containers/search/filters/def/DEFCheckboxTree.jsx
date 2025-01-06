@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { uniqueId, flowRight } from 'lodash';
@@ -75,8 +75,8 @@ const covidCountLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Spending
 const infrastructureCountLabel = { value: 'Infrastructure', count: 0, label: 'Infrastructure Spending' };
 
 const DEFCheckboxTree = (props) => {
-    const [isError, setIsError] = useState(false);
     const hint = useRef();
+    const isError = false;
 
     // eslint-disable-next-line consistent-return
     const parseTreeCodes = (codes) => {
