@@ -22,11 +22,13 @@ const DEFCheckboxTreeTemplate = (props) => {
     const defcDataByType = (codes) => {
         console.log("codes", props);
         console.log(parseCodes(codes, "covid_19"));
+
+
         if (props.defcType === "covid_19") {
             return [{
                 id: "covid",
                 name: "COVID-19 Spending",
-                filters: [parseCodes(codes, "covid_19")]
+                filters: parseCodes(codes, "covid_19")
             }];
         }
 
@@ -34,42 +36,19 @@ const DEFCheckboxTreeTemplate = (props) => {
             return [{
                 id: 'infrastructure',
                 name: 'Infrastructure Spending',
-                filters: [parseCodes(codes, "infrastructure")] // map to codes only
+                filters: parseCodes(codes, "infrastructure") // map to codes only
             }];
         }
 
-        return [{}];
-    };
-
-    const stageFilter = (newChecked) => {
-        const newCount = newChecked.reduce((acc) => acc + 1, 0);
-        const labels = [];
-
-        if (newCount > 0) {
-            const infraCount = newChecked.filter((checked) => checked === 'Z' || checked === '1').length;
-            const covidCount = newChecked.length - infraCount;
-
-            props.stageDef(
-                newChecked,
-                [],
-                labels
-            );
-        }
-        else {
-            props.stageDef(
-                [],
-                [],
-                []
-            );
-        }
+        return [];
     };
 
     return (
         <div className="def-code-filter">
-            {props?.defCodes?.length > 0 && <AccordionCheckbox
+            {props?.defCodes?.length > 0 && props.checked && <AccordionCheckbox
                 filterCategoryMapping={defcDataByType(props.defCodes)}
                 filters={titlesByCode(props.defCodes, props.defcType)}
-                selectedFilters={props.checked}
+                selectedFilters={new Set()}
                 singleFilterChange={() => {}}
                 bulkFilterChange={() => {}} />}
             <SubmitHint ref={hint} />
@@ -82,8 +61,7 @@ DEFCheckboxTreeTemplate.propTypes = {
     defCodes: PropTypes.arrayOf(PropTypes.object),
     areDefCodesLoading: PropTypes.bool,
     defCodeFetchError: PropTypes.string,
-    checked: PropTypes.arrayOf(PropTypes.string),
-    stageDef: PropTypes.func
+    checked: PropTypes.arrayOf(PropTypes.string)
 };
 
 const mapStateToProps = (state) => ({
@@ -91,11 +69,7 @@ const mapStateToProps = (state) => ({
     checked: state.filters.defCodes.toObject().require
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    stageDef: (require, exclude, counts) => dispatch(updateDefCodes(require, exclude, counts))
-});
-
 export default flowRight(
     withDefCodes,
-    connect(mapStateToProps, mapDispatchToProps)
+    connect(mapStateToProps)
 )(DEFCheckboxTreeTemplate);
