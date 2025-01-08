@@ -11,8 +11,7 @@ import CollapsibleSidebar from "../collapsibleSidebar/CollapsibleSidebar";
 const propTypes = {
     filters: PropTypes.object,
     showMobileFilters: PropTypes.bool,
-    filterCount: PropTypes.number,
-    toggleMobileFilters: PropTypes.func
+    filterCount: PropTypes.number
 };
 
 const MobileFiltersV2 = ({ filters, showMobileFilters }) => (

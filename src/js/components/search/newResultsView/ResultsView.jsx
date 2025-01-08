@@ -22,10 +22,11 @@ const propTypes = {
 };
 
 const ResultsView = (props) => {
+    console.debug("results view props: ", props);
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
     const [waitForCheckForData, setWaitForCheckForData] = useState(true);
-
+    let mobileFilters = '';
     const filters = useSelector((state) => state.appliedFilters.filters);
     const subaward = useSelector((state) => state.searchView.subaward);
 
@@ -68,10 +69,13 @@ const ResultsView = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters, subaward]);
 
-    let mobileFilters = '';
-    if (props.showMobileFilters && props.isMobile) {
-        mobileFilters = 'behind-filters';
-    }
+
+    useEffect(() => {
+        if (props.showMobileFilters && props.isMobile) {
+            mobileFilters = 'behind-filters';
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.showMobileFilters, props.isMobile]);
 
     useEffect(() => {
         let content = null;
@@ -91,7 +95,7 @@ const ResultsView = (props) => {
 
         setResultContent(content);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.noFiltersApplied, hasResults, subaward, waitForCheckForData]);
+    }, [props.noFiltersApplied, hasResults, subaward, waitForCheckForData, props.showMobileFilters]);
     return (
         <div className="search-results-wrapper">
             <TopFilterBarContainer {...props} />
