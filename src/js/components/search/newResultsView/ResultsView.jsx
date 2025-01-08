@@ -95,7 +95,7 @@ const ResultsView = (props) => {
 
         setResultContent(content);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.noFiltersApplied, hasResults, subaward, waitForCheckForData, props.showMobileFilters, props.isMobile]);
+    }, [props.noFiltersApplied, hasResults, subaward, waitForCheckForData, props]);
     return (
         <div className="search-results-wrapper">
             <TopFilterBarContainer {...props} />
