@@ -80,12 +80,15 @@ const DEFCheckboxTree = (props) => {
 
     // eslint-disable-next-line consistent-return
     const parseTreeCodes = (codes) => {
+        console.log("here", (codes));
+
         if (props.defcType === "COVID") {
             return [parseCovidCodes(codes)];
         }
         else if (props.defcType === "INFRA") {
             return [extractInfraCodes(codes)];
         }
+
         return [parseCovidCodes(codes), extractInfraCodes(codes)];
     };
 

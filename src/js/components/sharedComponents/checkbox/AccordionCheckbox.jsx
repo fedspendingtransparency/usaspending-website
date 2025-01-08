@@ -11,7 +11,8 @@ import EntityDropdownAutocomplete from "../../search/filters/location/EntityDrop
 
 const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters) => {
     const toExpand = [];
-    filterCategoryMapping.forEach((category) => {
+    console.log(filterCategoryMapping);
+    filterCategoryMapping?.forEach((category) => {
         category.filters.forEach((type) => {
             if (selectedFilters.has(type)) {
                 toExpand.push(category.id);
