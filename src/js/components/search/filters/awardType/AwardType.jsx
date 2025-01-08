@@ -50,11 +50,6 @@ const propTypes = {
 };
 
 const AwardType = ({ awardType, toggleCheckboxType, bulkTypeChange }) => {
-    console.log(awardType, toggleCheckboxType);
-    console.log("bulk type change", bulkTypeChange);
-    console.log("award Type Codes", awardTypeCodes);
-    console.log("award Types Data", awardTypesData);
-
     return (
         <div className="award-type-filter search-filter checkbox-type-filter">
             <AccordionCheckbox

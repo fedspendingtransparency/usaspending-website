@@ -24,10 +24,9 @@ const AccordionCheckboxSecondary = ({
         const selection = {
             value: filter
         };
+
         singleFilterChange(selection);
     };
-
-    console.log(selectedFilters);
 
     const items = category.filters?.map((filter, index) => (
         <li className={`checkbox-filter__item ${filter === excludedSubFilters ? 'hidden' : ''}`} key={filters[filter]}>
