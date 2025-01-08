@@ -4,10 +4,28 @@ import { connect } from 'react-redux';
 import { flowRight } from 'lodash';
 
 import withDefCodes from 'containers/covid19/WithDefCodes';
+import { bindActionCreators } from "redux";
+import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
-import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
+import { bulkDefCodesChange, toggleDefCodes } from "../../../../redux/actions/search/searchFilterActions";
+
+const propTypes = {
+    toggleDefCodes: PropTypes.func,
+    bulkDefCodesChange: PropTypes.func,
+    defCodes: PropTypes.arrayOf(PropTypes.object)
+};
+
+// DEFCheckboxTreeTemplate.propTypes = {
+//     counts: PropTypes.arrayOf(PropTypes.shape({})),
+//     defCodes: PropTypes.arrayOf(PropTypes.object),
+//     areDefCodesLoading: PropTypes.bool,
+//     defCodeFetchError: PropTypes.string,
+//     checked: PropTypes.arrayOf(PropTypes.string),
+//     stageDef: PropTypes.func
+// };
+
 
 const DEFCheckboxTreeTemplate = (props) => {
     const hint = useRef();
@@ -72,14 +90,12 @@ const DEFCheckboxTreeTemplate = (props) => {
     };
 
     const toggleDefc = (selection) => {
-        stageDef([selection.value]);
+        toggleDefCodes(selection);
     };
 
     const bulkChangeDefc = (selection) => {
-        stageDef(selection.types);
+        bulkDefCodesChange(selection);
     };
-
-    console.log(props.checked);
 
     return (
         <div className="def-code-filter">
@@ -95,23 +111,14 @@ const DEFCheckboxTreeTemplate = (props) => {
     );
 };
 
-DEFCheckboxTreeTemplate.propTypes = {
-    counts: PropTypes.arrayOf(PropTypes.shape({})),
-    defCodes: PropTypes.arrayOf(PropTypes.object),
-    areDefCodesLoading: PropTypes.bool,
-    defCodeFetchError: PropTypes.string,
-    checked: PropTypes.arrayOf(PropTypes.string),
-    stageDef: PropTypes.func
-};
+DEFCheckboxTreeTemplate.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
     counts: state.filters.defCodes.toObject().counts,
     checked: state.filters.defCodes.toObject().require
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    stageDef: (require, exclude, counts) => dispatch(updateDefCodes(require, exclude, counts))
-});
+const mapDispatchToProps = (dispatch) => (bindActionCreators(searchFilterActions, dispatch));
 
 export default flowRight(
     withDefCodes,

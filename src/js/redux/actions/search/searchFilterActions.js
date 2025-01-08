@@ -224,6 +224,20 @@ export const updateDefCodes = (require, exclude, counts) => ({
     })
 });
 
+export const toggleDefCodes = ({ value }) => {
+    console.log(value);
+    return ({
+        type: 'TOGGLE_COVID_DEF_CODES',
+        covidDefCode: value
+    });
+}
+
+export const bulkDefCodesChange = (state) => ({
+    type: 'BULK_UPDATE_COVID_DEF_CODES',
+    covidDefCodes: state.types,
+    direction: state.direction
+});
+
 export const resetSearchOrder = () => ({
     type: 'RESET_SEARCH_ORDER'
 });

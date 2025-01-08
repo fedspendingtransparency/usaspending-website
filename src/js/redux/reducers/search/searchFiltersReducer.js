@@ -44,6 +44,8 @@ export const requiredTypes = {
     naicsCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
     defCodes: CheckboxTreeSelections,
+    covidDefCodes: Set,
+    infraDefCodes: Set,
     pricingType: Set,
     setAside: Set,
     extentCompeted: Set
@@ -72,6 +74,8 @@ export const initialState = {
     naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    covidDefCode: Set(),
+    infraDefCode: Set(),
     pricingType: Set(),
     setAside: Set(),
     extentCompeted: Set(),
@@ -102,6 +106,8 @@ export const initialStateFY = {
     naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    covidDefCode: Set(),
+    infraDefCode: Set(),
     pricingType: Set(),
     setAside: Set(),
     extentCompeted: Set(),
@@ -321,6 +327,24 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_DEF_CODES': {
             return Object.assign({}, state, {
                 defCodes: action.payload
+            });
+        }
+
+        // Search 2.0 DEFC Filters
+        case 'TOGGLE_COVID_DEF_CODES': {
+            console.log("here")
+            // this redux state is stored in an ImmutableJS set, which returns new instances
+            // whenever it is modified
+            return Object.assign({}, state, {
+                covidDefCode: AwardFilterFunctions.immutableSetToggle(
+                    state.covidDefCode, action.covidDefCode)
+            });
+        }
+        case 'BULK_UPDATE_COVID_DEF_CODES': {
+            console.log("here")
+            return Object.assign({}, state, {
+                covidDefCode: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.covidDefCode, action.covidDefCodes, action.direction)
             });
         }
 
