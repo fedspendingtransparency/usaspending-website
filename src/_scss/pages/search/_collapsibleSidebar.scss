@@ -44,6 +44,9 @@
   }
 
   .collapsible-sidebar--toggle {
+    @media(max-width: $medium-screen) {
+      display: none;
+    }
     position: relative;
     float: right;
     margin-right: -12px;
@@ -67,10 +70,19 @@
     box-shadow: none;
     border-radius: unset;
 
+    @media(max-width: $medium-screen) {
+      border: none;
+    }
+
+
     &.opened:not(.is-initial-loaded) {
       // TODO: Adjust animations next sprint
       //-webkit-animation: collapsible-sidebar-slideopen 0.25s forwards;
       //animation: collapsible-sidebar-slideopen 0.25s forwards;
+      @media(max-width: $medium-screen) {
+        left: 0;
+        width: 100%;
+      }
     }
 
     &:not(.opened) {
@@ -94,6 +106,24 @@
       line-height: 1.5;
       color: $gray-90;
       border-bottom: $gray-cool-10 1px solid;
+       
+      #collapsible-mobile-close-button {
+        @media(min-width: $medium-screen) {
+          display: none;
+        }
+        width: rem(10);
+        height: rem(10);
+        background-color: white;
+        padding: 0;
+        right: 0;
+        position: absolute;
+        svg {
+          width: rem(10);
+          height: rem(10);
+          color: $gray-90;
+          background-color: white;
+        }
+      }
     }
 
     .sidebar-bottom-submit {

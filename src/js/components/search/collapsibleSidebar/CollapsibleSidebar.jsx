@@ -157,21 +157,24 @@ const CollapsibleSidebar = ({ filters }) => {
     useEffect(() => {
         if (isOpened) {
             if (document.querySelector(".full-search-sidebar")) {
-                if (windowWidth < 991 && windowWidth < 1200) {
-                    document.querySelector(".full-search-sidebar").style.width = "unset";
-                    document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarDesktopWidth}px`;
-                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;
-                }
-                else if (windowWidth > 1199) {
+                if (windowWidth > 1199) {
                     document.querySelector(".full-search-sidebar").style.width = "unset";
                     document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarXlDesktopWidth}px`;
                     document.querySelector(".collapsible-sidebar").style.width = `${sideBarXlDesktopWidth}px`;
+                }
+            } else if (document.querySelector(".mobile-search-sidebar-v2")) {
+                if (windowWidth < 992) {
+                    document.querySelector(".mobile-search-sidebar-v2").style.width = "unset";
+                    document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = `${sideBarDesktopWidth}px`;
+                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;
                 }
             }
         }
         else if (document.querySelector(".full-search-sidebar")) {
             document.querySelector(".full-search-sidebar").style.width = "0";
             document.querySelector(".full-search-sidebar").style.flexBasis = "0";
+            document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
+            document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
             document.querySelector(".collapsible-sidebar").style.width = "0";
         }
     }, [isOpened, windowWidth]);
@@ -253,7 +256,7 @@ const CollapsibleSidebar = ({ filters }) => {
     });
 
     return (
-        <div className="search-collapsible-sidebar-container search-sidebar" style={{ display: "none" }}>
+        <div className="search-collapsible-sidebar-container search-sidebar">
             <div
                 style={{ height: windowHeight }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
@@ -274,7 +277,8 @@ const CollapsibleSidebar = ({ filters }) => {
                     isDrilldown={isDrilldown}
                     sidebarHeight={sidebarHeight}
                     setLevel2={setLevel2}
-                    itemCount={itemCount} />
+                    itemCount={itemCount}
+                    setIsOpened={setIsOpened} />
 
                 <SearchSidebarDrilldown
                     list={drilldown?.children}

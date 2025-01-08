@@ -2,6 +2,7 @@
     @import "./_sidebarTransitions";
 
     z-index: $z-header;
+
     @include media($medium-screen) {
         display: none;
     }
@@ -14,6 +15,24 @@
             margin-top: 0;
             margin-bottom: 0;
 
+            background-color: $color-white;
+        }
+    }
+}
+
+.mobile-search-sidebar-v2 {
+    @import "./_sidebarTransitions";
+
+    @include media($medium-screen) {
+        display: none;
+    }
+
+    @import "./_filterHeader";
+
+    .mobile-filter-content {
+        .search-sidebar {
+            margin-top: 0;
+            margin-bottom: 0;
             background-color: $color-white;
         }
     }
