@@ -44,8 +44,8 @@ export const requiredTypes = {
     naicsCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
     defCodes: CheckboxTreeSelections,
-    covidDefCodes: Set,
-    infraDefCodes: Set,
+    covidDefCode: Set,
+    infraDefCode: Set,
     pricingType: Set,
     setAside: Set,
     extentCompeted: Set
@@ -116,6 +116,7 @@ export const initialStateFY = {
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
+    console.log(action.type)
     switch (action.type) {
         // Free Text Search
         case 'UPDATE_TEXT_SEARCH': {
@@ -332,16 +333,15 @@ const searchFiltersReducer = (state = initialState, action) => {
 
         // Search 2.0 DEFC Filters
         case 'TOGGLE_COVID_DEF_CODES': {
-            console.log("here")
             // this redux state is stored in an ImmutableJS set, which returns new instances
             // whenever it is modified
+            console.log("reducer called");
             return Object.assign({}, state, {
                 covidDefCode: AwardFilterFunctions.immutableSetToggle(
                     state.covidDefCode, action.covidDefCode)
             });
         }
         case 'BULK_UPDATE_COVID_DEF_CODES': {
-            console.log("here")
             return Object.assign({}, state, {
                 covidDefCode: AwardFilterFunctions.bulkAwardTypeChange(
                     state.covidDefCode, action.covidDefCodes, action.direction)

@@ -19,6 +19,8 @@ export const immutableSetToggle = (set, value) => {
         updatedSet = set.add(value);
     }
     // return the new instance with updated values
+    console.log("in reducer", set, updatedSet, value);
+
     return updatedSet;
 };
 

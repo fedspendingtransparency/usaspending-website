@@ -224,15 +224,12 @@ export const updateDefCodes = (require, exclude, counts) => ({
     })
 });
 
-export const toggleDefCodes = ({ value }) => {
-    console.log(value);
-    return ({
-        type: 'TOGGLE_COVID_DEF_CODES',
-        covidDefCode: value
-    });
-}
+export const toggleDefCode = ({ value }) => ({
+    type: 'TOGGLE_COVID_DEF_CODES',
+    covidDefCode: value
+});
 
-export const bulkDefCodesChange = (state) => ({
+export const bulkDefCodeChange = (state) => ({
     type: 'BULK_UPDATE_COVID_DEF_CODES',
     covidDefCodes: state.types,
     direction: state.direction
