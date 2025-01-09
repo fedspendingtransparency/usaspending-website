@@ -108,7 +108,7 @@ const CollapsibleSidebar = ({ filters }) => {
         else {
             // Hide side search by... if only a small part of the sidebar is in view
             const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls) - footerInView) + headingPadding;
-            if (newSidebarHeight < 1) {
+            if (newSidebarHeight < 100) {
                 document.querySelector(".collapsible-sidebar--header").style.display = "none";
                 document.querySelector(".sidebar-bottom-submit").style.display = "none";
                 document.querySelector(".collapsible-sidebar--toggle").style.display = "none";
@@ -199,6 +199,7 @@ const CollapsibleSidebar = ({ filters }) => {
     }, [windowHeight, sidebarHeight]);
 
     useEffect(() => {
+        console.log(mainContentHeight);
         if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
             setWindowHeight((mainContentHeight));
             setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
