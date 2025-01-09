@@ -8,10 +8,8 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
-
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { AddFilter } from 'components/sharedComponents/icons/Icons';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
@@ -200,7 +198,8 @@ const SearchPage = ({
                         <FlexGridCol className="mobile-search-sidebar-v2">
                             <MobileFiltersV2
                                 filters={filters}
-                                showMobileFilters={showMobileFilters} />
+                                showMobileFilters={showMobileFilters}
+                                setShowMobileFilters={setShowMobileFilters} />
                         </FlexGridCol>
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
@@ -212,7 +211,6 @@ const SearchPage = ({
                                 filterCount={filterCount}
                                 showMobileFilters={showMobileFilters}
                                 updateFilterCount={updateFilterCount}
-                                toggleMobileFilters={toggleMobileFilters}
                                 requestsComplete={requestsComplete}
                                 noFiltersApplied={noFiltersApplied} />
                         </div>

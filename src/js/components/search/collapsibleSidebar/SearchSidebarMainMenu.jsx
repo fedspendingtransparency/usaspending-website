@@ -16,11 +16,11 @@ const propTypes = {
     sidebarHeight: PropTypes.number,
     setLevel2: PropTypes.func,
     itemCount: PropTypes.object,
-    setIsOpened: PropTypes.func
+    setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarMainMenu = ({
-    isDrilldown, sidebarHeight, setLevel2, itemCount, setIsOpened
+    isDrilldown, sidebarHeight, setLevel2, itemCount, setShowMobileFilters
 }) => (
     <div className={`collapsible-sidebar--main-menu ${isDrilldown ? '' : 'opened'}`}>
         <div className="collapsible-sidebar--header">
@@ -31,7 +31,7 @@ const SearchSidebarMainMenu = ({
                 aria-label="Close Mobile Filters"
                 title="Close Mobile Filters"
                 onClick={() => {
-                    setIsOpened(false);
+                    setShowMobileFilters(false);
                 }}>
                 <Icons.Close alt="Close About The Data" />
             </button>

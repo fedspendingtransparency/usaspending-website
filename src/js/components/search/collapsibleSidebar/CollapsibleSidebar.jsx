@@ -17,10 +17,11 @@ import { characteristicsCount, sourcesCount } from "../../../helpers/search/filt
 
 
 const propTypes = {
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    setShowMobileFilters: PropTypes.func
 };
 
-const CollapsibleSidebar = ({ filters }) => {
+const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     const [isOpened, setIsOpened] = useState(true);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -278,7 +279,7 @@ const CollapsibleSidebar = ({ filters }) => {
                     sidebarHeight={sidebarHeight}
                     setLevel2={setLevel2}
                     itemCount={itemCount}
-                    setIsOpened={setIsOpened} />
+                    setShowMobileFilters={setShowMobileFilters} />
 
                 <SearchSidebarDrilldown
                     list={drilldown?.children}

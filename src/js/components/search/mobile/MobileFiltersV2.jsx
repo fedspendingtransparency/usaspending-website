@@ -11,10 +11,10 @@ import CollapsibleSidebar from "../collapsibleSidebar/CollapsibleSidebar";
 const propTypes = {
     filters: PropTypes.object,
     showMobileFilters: PropTypes.bool,
-    filterCount: PropTypes.number
+    setShowMobileFilters: PropTypes.func
 };
 
-const MobileFiltersV2 = ({ filters, showMobileFilters }) => (
+const MobileFiltersV2 = ({ filters, showMobileFilters, setShowMobileFilters }) => (
     <TransitionGroup id="mobile-filter-div">
         {showMobileFilters && (
             <CSSTransition
@@ -22,7 +22,7 @@ const MobileFiltersV2 = ({ filters, showMobileFilters }) => (
                 timeout={195}
                 exit>
                 <div className="mobile-filter-content">
-                    <CollapsibleSidebar filters={filters} />
+                    <CollapsibleSidebar filters={filters} setShowMobileFilters={setShowMobileFilters} />
                 </div>
             </CSSTransition>
         )}
