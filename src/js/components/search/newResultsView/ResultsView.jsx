@@ -22,7 +22,6 @@ const propTypes = {
 };
 
 const ResultsView = (props) => {
-    console.debug("results view props: ", props);
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
     const [waitForCheckForData, setWaitForCheckForData] = useState(true);
