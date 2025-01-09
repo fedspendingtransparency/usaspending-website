@@ -30,6 +30,18 @@
   }
 }
 
+#main-content .v2 {
+  min-height: 1200px !important;
+
+  .category-filter {
+    .react-checkbox-tree {
+      overflow: unset;
+      max-height: unset;
+      height: unset;
+    }
+  }
+}
+
 .search-collapsible-sidebar-container {
   position: fixed;
   background-color: $color-white;

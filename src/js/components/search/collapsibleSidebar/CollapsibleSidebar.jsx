@@ -167,7 +167,7 @@ const CollapsibleSidebar = ({ filters }) => {
     useEffect(() => {
         if (isOpened) {
             if (document.querySelector(".full-search-sidebar")) {
-                if (windowWidth < 991 && windowWidth < 1200) {
+                if (windowWidth > 991 && windowWidth < 1200) {
                     document.querySelector(".full-search-sidebar").style.width = "unset";
                     document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarDesktopWidth}px`;
                     document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;

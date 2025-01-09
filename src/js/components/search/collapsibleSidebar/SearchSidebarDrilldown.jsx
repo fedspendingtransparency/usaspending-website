@@ -94,7 +94,6 @@ const SearchSidebarDrilldown = ({
             <CategoryFilter
                 height={sidebarHeight}
                 title={selectedCategoryTitle}
-                description={selectedCategory.description}
                 component={filter}
                 itemCount={filterCount[selectedCategoryTitle]}
                 titleOnly={titleOnly} />
