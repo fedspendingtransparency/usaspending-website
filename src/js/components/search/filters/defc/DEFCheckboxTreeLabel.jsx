@@ -14,7 +14,6 @@ const DEFCheckboxTreeLabel = ({
     value
 }) => {
     const cssLabel = label === 'COVID-19 Spending' ? 'covid' : 'notCovid';
-    console.log(label);
     if (label.includes('|')) {
         const labels = label.split('|');
         const subLabels = subLabel.split('|');
