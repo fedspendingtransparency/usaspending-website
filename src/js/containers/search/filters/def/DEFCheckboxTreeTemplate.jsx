@@ -1,12 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
-import { flowRight } from 'lodash';
-
-import withDefCodes from 'containers/covid19/WithDefCodes';
-import { bindActionCreators } from "redux";
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { bulkDefCodeChange, toggleDefCode } from 'redux/actions/search/searchFilterActions';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
 
@@ -21,16 +17,20 @@ const propTypes = {
 const DEFCheckboxTreeTemplate = (props) => {
     const [selectedDefCodes, setSelectedDefCodes] = useState({});
     const hint = useRef();
+    const dispatch = useDispatch();
+
+    const { covidDefCode, infraDefCode } = useSelector((state) => state.filters);
+    const [errorMsg, isLoading, defCodes] = useDefCodes();
 
     useEffect(() => {
         if (props.defcType === "covid_19") {
-            setSelectedDefCodes(props.covidDefCode);
+            setSelectedDefCodes(covidDefCode);
         }
 
         if (props.defcType === "infrastructure") {
-            setSelectedDefCodes(props.infraDefCode);
+            setSelectedDefCodes(infraDefCode);
         }
-    }, [props.covidDefCode, props.infraDefCode]);
+    }, [covidDefCode, infraDefCode]);
 
     const parseCodes = (codes, type) => codes.filter(((code) => code.disaster === type)).map((code) => code.code);
     const titlesByCode = (codes, type) => codes.filter(((code) => code.disaster === type)).reduce((obj, item) => {
@@ -60,20 +60,19 @@ const DEFCheckboxTreeTemplate = (props) => {
     };
 
     const toggleDefc = (selection) => {
-        searchFilterActions.toggleDefCode(selection);
+        dispatch(toggleDefCode(selection));
+
     };
 
     const bulkChangeDefc = (selection) => {
-        searchFilterActions.bulkDefCodeChange(selection);
+        dispatch(bulkDefCodeChange(selection));
     };
-
-    console.log(selectedDefCodes)
 
     return (
         <div className="def-code-filter">
-            {props?.defCodes?.length > 0 && <AccordionCheckbox
-                filterCategoryMapping={defcDataByType(props.defCodes)}
-                filters={titlesByCode(props.defCodes, props.defcType)}
+            {defCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
+                filterCategoryMapping={defcDataByType(defCodes)}
+                filters={titlesByCode(defCodes, props.defcType)}
                 selectedFilters={selectedDefCodes}
                 singleFilterChange={toggleDefc}
                 bulkFilterChange={bulkChangeDefc} />
@@ -84,15 +83,4 @@ const DEFCheckboxTreeTemplate = (props) => {
 };
 
 DEFCheckboxTreeTemplate.propTypes = propTypes;
-
-const mapStateToProps = (state) => ({
-    covidDefCode: state.filters.covidDefCode,
-    infraDefCode: state.filters.infraDefCode
-});
-
-const mapDispatchToProps = (dispatch) => (bindActionCreators(searchFilterActions, dispatch));
-
-export default flowRight(
-    withDefCodes,
-    connect(mapStateToProps, mapDispatchToProps)
-)(DEFCheckboxTreeTemplate);
+export default DEFCheckboxTreeTemplate;
