@@ -346,3 +346,44 @@ export const recipientTypeMapping = [
         filters: recipientTypeGroups.category_individuals
     }
 ];
+
+export const generateCount = (data) => {
+    let count = 0;
+
+    data.get('counts').forEach((item) => {
+        count += item.count;
+    });
+
+    return count;
+};
+
+// TODO: Add Award Description (?) to count
+export const characteristicsCount = ({
+    selectedAwardIDs,
+    awardAmounts,
+    awardType,
+    naicsCodes,
+    pscCodes,
+    pricingType,
+    setAside,
+    extentCompeted,
+    selectedCFDA
+}) => selectedAwardIDs.size +
+    awardAmounts.size +
+    awardType.size +
+    generateCount(naicsCodes) +
+    generateCount(pscCodes) +
+    pricingType.size +
+    setAside.size +
+    extentCompeted.size +
+    selectedCFDA.size;
+
+export const sourcesCount = ({
+    selectedAwardingAgencies,
+    selectedFundingAgencies,
+    tasCodes,
+    defCodes
+}) => selectedAwardingAgencies.size +
+    selectedFundingAgencies.size +
+    tasCodes.counts.length +
+    defCodes.counts.length;

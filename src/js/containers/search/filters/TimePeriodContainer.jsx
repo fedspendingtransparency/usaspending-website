@@ -24,7 +24,7 @@ const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    filterTime_Period: PropTypes.array,
+    filterTime_Period: PropTypes.object,
     appliedFilters: PropTypes.object,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
@@ -71,15 +71,6 @@ const TimePeriodContainer = (props) => {
         }
     };
 
-    const removeFilter = (toRemove) => {
-        if (toRemove.target) {
-            const indexToRemove = toRemove.target.getAttribute('index');
-            const timePeriodArray = props.filterTime_Period.toArray();
-            timePeriodArray.splice(indexToRemove, 1);
-            props.setTimePeriodArray(timePeriodArray);
-        }
-    };
-
     const dirtyFilters = () => {
         const appliedFields = [
             'timePeriodFY',
@@ -104,8 +95,6 @@ const TimePeriodContainer = (props) => {
                 // field has changed
                 return false;
             }
-
-
             return true;
         });
 
@@ -141,7 +130,6 @@ const TimePeriodContainer = (props) => {
             activeTab={activeTab}
             timePeriods={timePeriods}
             updateFilter={updateFilter}
-            removeFilter={removeFilter}
             changeTab={changeTab} />
     );
 };

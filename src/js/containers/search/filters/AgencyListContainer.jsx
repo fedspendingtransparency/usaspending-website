@@ -28,7 +28,6 @@ export default class AgencyListContainer extends React.Component {
 
         this.state = {
             agencySearchString: '',
-            autocompleteType: '',
             autocompleteAgencies: [],
             noResults: false
         };
@@ -232,9 +231,6 @@ export default class AgencyListContainer extends React.Component {
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
                 placeholder={`${this.props.agencyType} Agency`}
-                ref={(input) => {
-                    this.agencyList = input;
-                }}
                 label={`${this.props.agencyType} Agency`}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                 noResults={this.state.noResults} />

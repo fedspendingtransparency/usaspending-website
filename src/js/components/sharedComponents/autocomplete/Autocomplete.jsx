@@ -22,7 +22,9 @@ const propTypes = {
     noResults: PropTypes.bool,
     characterLimit: PropTypes.number,
     retainValue: PropTypes.bool,
+    dirtyFilters: PropTypes.symbol,
     minCharsToSearch: PropTypes.number,
+    inFlight: PropTypes.bool,
     icon: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'medium']),
     id: PropTypes.string,
@@ -313,8 +315,8 @@ const Autocomplete = ({
                         aria-controls={autocompleteIdRef.current}
                         aria-activedescendant={activeDescendant}
                         aria-autocomplete="list"
-                        onBlur={onBlur}
-                        onKeyDown={onKeyDown}
+                        onBlur={() => onBlur}
+                        onKeyDown={(e) => onKeyDown(e)}
                         maxLength={characterLimit} />
                 </div>
                 <div

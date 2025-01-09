@@ -1,12 +1,12 @@
 /**
  * @jest-environment jsdom
  */
-import { initialState, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { initialState, initialStateFY, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
 import { areFiltersEqual, isSearchHashReady } from 'helpers/searchHelper';
 
 test.each([
     ['obj1 & obj2 are both initial state', true, initialState, initialState],
-    ['obj1 is initial state and obj2 has timePeriodFY changed', false, initialState, { ...initialState, timePeriodFY: new Set(['2020']) }],
+    ['obj1 is initial state and obj2 has timePeriodFY changed', false, initialStateFY, { ...initialState, timePeriodFY: new Set(['2020']) }],
     ['empty vs defined def codes', false, initialState, {
         ...initialState,
         defCodes: CheckboxTreeSelections({ require: ['12'], counts: [], exclude: [] })

@@ -79,6 +79,36 @@ export const initialState = {
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
 };
 
+export const initialStateFY = {
+    keyword: OrderedMap(),
+    timePeriodType: 'fy',
+    timePeriodFY: Set(),
+    time_period: Set(),
+    filterNewAwardsOnlySelected: false,
+    filterNewAwardsOnlyActive: false,
+    filterNaoActiveFromFyOrDateRange: false,
+    selectedLocations: OrderedMap(),
+    locationDomesticForeign: 'all',
+    selectedFundingAgencies: OrderedMap(),
+    selectedAwardingAgencies: OrderedMap(),
+    selectedRecipients: Set(),
+    recipientDomesticForeign: 'all',
+    recipientType: Set(),
+    selectedRecipientLocations: OrderedMap(),
+    awardType: Set(),
+    selectedAwardIDs: OrderedMap(),
+    awardAmounts: OrderedMap(),
+    selectedCFDA: OrderedMap(),
+    naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    pricingType: Set(),
+    setAside: Set(),
+    extentCompeted: Set(),
+    treasuryAccounts: OrderedMap(),
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
+};
+
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
         // Free Text Search

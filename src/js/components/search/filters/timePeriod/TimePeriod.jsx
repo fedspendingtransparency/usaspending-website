@@ -31,12 +31,11 @@ const propTypes = {
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
     filterTimePeriodType: PropTypes.string,
-    filterTime_Period: PropTypes.array,
+    filterTime_Period: PropTypes.object,
     label: PropTypes.string,
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
-    removeFilter: PropTypes.func,
     updateNewAwardsOnlySelected: PropTypes.func,
     updateNewAwardsOnlyActive: PropTypes.func,
     updateNaoActiveFromFyOrDateRange: PropTypes.func,
@@ -57,6 +56,8 @@ export default class TimePeriod extends React.Component {
         this.state = {
             startDateUI: null,
             endDateUI: null,
+            startDateDropdown: null,
+            endDateDropdown: null,
             showError: false,
             header: '',
             description: '',
@@ -101,12 +102,17 @@ export default class TimePeriod extends React.Component {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
             this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY?.size);
             this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY?.size);
+        } else if (prevProps.filterTime_Period !== this.props.filterTime_Period) {
+            this.props.updateNewAwardsOnlyActive(false);
+            this.props.updateNaoActiveFromFyOrDateRange(false);
         }
         if (this.props.dirtyFilters) {
             this.props.updateNewAwardsOnlyActive(true);
             this.props.updateNaoActiveFromFyOrDateRange(true);
-        }
-        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
+        } else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
+            this.props.updateNewAwardsOnlyActive(false);
+            this.props.updateNaoActiveFromFyOrDateRange(false);
+        } else if ((prevState.startDateDropdown !== this.state.startDateDropdown || prevState.endDateDropdown !== this.state.endDateDropdown) && (!this.state.startDateDropdown && !this.state.endDateDropdown)) {
             this.props.updateNewAwardsOnlyActive(false);
             this.props.updateNaoActiveFromFyOrDateRange(false);
         }
@@ -185,9 +191,15 @@ export default class TimePeriod extends React.Component {
         if (!date) {
             value = null;
         }
-        this.setState({
-            [`${dateType}UI`]: value
-        });
+        if (!dateType.includes("Dropdown")) {
+            this.setState({
+                [`${dateType}UI`]: value
+            });
+        } else if (dateType.includes("Dropdown")) {
+            this.setState({
+                [`${dateType}`]: value
+            });
+        }
     }
 
     removeDateRange(e) {
@@ -200,7 +212,9 @@ export default class TimePeriod extends React.Component {
         this.setState({
             dateRangeChipRemoved: true,
             startDateUI: null,
-            endDateUI: null
+            endDateUI: null,
+            startDateDropdown: null,
+            endDateDropdown: null
         });
 
         if (this.props.activeTab === 'dr') {
@@ -275,6 +289,8 @@ export default class TimePeriod extends React.Component {
                 startingTab={1}
                 startDate={this.state.startDateUI}
                 endDate={this.state.endDateUI}
+                startDateDropdown={this.state.startDateDropdown}
+                endDateDropdown={this.state.endDateDropdown}
                 timePeriod={this.props.filterTime_Period}
                 selectedStart={this.props.filterTimePeriodStart}
                 selectedEnd={this.props.filterTimePeriodEnd}

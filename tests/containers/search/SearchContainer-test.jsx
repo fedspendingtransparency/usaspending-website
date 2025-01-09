@@ -104,7 +104,7 @@ test('when filters change (a) hash is generated, (b) loading is set & (c) url is
         appliedFilters: {
             filters: {
                 ...mockRedux.appliedFilters.filters,
-                timePeriodFY: Set(['2020'])
+                time_period: Set(['2020'])
             }
         }
     });
