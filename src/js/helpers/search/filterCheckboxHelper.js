@@ -382,8 +382,10 @@ export const sourcesCount = ({
     selectedAwardingAgencies,
     selectedFundingAgencies,
     tasCodes,
-    defCodes
+    covidDefCode,
+    infraDefCode
 }) => selectedAwardingAgencies.size +
     selectedFundingAgencies.size +
     tasCodes.counts.length +
-    defCodes.counts.length;
+    covidDefCode.size +
+    infraDefCode.size;

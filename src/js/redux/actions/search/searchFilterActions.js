@@ -236,13 +236,13 @@ export const bulkCovidDefCodeChange = (state) => ({
 });
 
 export const toggleInfraDefCode = ({ value }) => ({
-    type: 'TOGGLE_COVID_DEF_CODES',
-    covidDefCode: value
+    type: 'TOGGLE_INFRA_DEF_CODES',
+    infraDefCode: value
 });
 
 export const bulkInfraDefCodeChange = (state) => ({
-    type: 'BULK_UPDATE_COVID_DEF_CODES',
-    covidDefCodes: state.types,
+    type: 'BULK_UPDATE_INFRA_DEF_CODES',
+    infraDefCodes: state.types,
     direction: state.direction
 });
 

@@ -60,6 +60,7 @@ const DEFCheckboxTreeTemplate = (props) => {
     };
 
     const toggleDefc = (selection) => {
+        console.log(props.defcType);
         if (props.defcType === "covid_19") {
             dispatch(toggleCovidDefCode(selection));
         }

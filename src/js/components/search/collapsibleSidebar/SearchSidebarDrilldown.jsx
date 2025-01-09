@@ -60,7 +60,8 @@ const SearchSidebarDrilldown = ({
         selectedAwardingAgencies,
         selectedFundingAgencies,
         tasCodes,
-        defCodes
+        covidDefCode,
+        infraDefCode
     } = filters;
 
     // TODO: Add in Award Description, Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
@@ -83,8 +84,8 @@ const SearchSidebarDrilldown = ({
         'Recipient Type': recipientType.size,
         Agency: selectedAwardingAgencies.size + selectedFundingAgencies.size,
         'Treasury Account Symbol (TAS)': tasCodes.counts.length,
-        'COVID-19 Spending': defCodes.counts.length,
-        'Infrastructure Spending': 0
+        'COVID-19 Spending': covidDefCode.size,
+        'Infrastructure Spending': infraDefCode.size
     };
 
     let categoryFilter;
