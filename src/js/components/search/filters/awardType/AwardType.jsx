@@ -49,19 +49,17 @@ const propTypes = {
     bulkTypeChange: PropTypes.func
 };
 
-const AwardType = ({ awardType, toggleCheckboxType, bulkTypeChange }) => {
-    return (
-        <div className="award-type-filter search-filter checkbox-type-filter">
-            <AccordionCheckbox
-                filterCategoryMapping={awardTypesData}
-                filters={awardTypeCodes}
-                selectedFilters={awardType}
-                singleFilterChange={toggleCheckboxType}
-                bulkFilterChange={bulkTypeChange} />
-            <SubmitHint selectedFilters={awardType} />
-        </div>
-    );
-};
+const AwardType = ({ awardType, toggleCheckboxType, bulkTypeChange }) => (
+    <div className="award-type-filter search-filter checkbox-type-filter">
+        <AccordionCheckbox
+            filterCategoryMapping={awardTypesData}
+            filters={awardTypeCodes}
+            selectedFilters={awardType}
+            singleFilterChange={toggleCheckboxType}
+            bulkFilterChange={bulkTypeChange} />
+        <SubmitHint selectedFilters={awardType} />
+    </div>
+);
 
 AwardType.propTypes = propTypes;
 export default AwardType;
