@@ -19,7 +19,7 @@ import PricingTypeContainer from "../../containers/search/filters/PricingTypeCon
 import SetAsideContainer from "../../containers/search/filters/SetAsideContainer";
 import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
 import CFDASearchContainer from "../../containers/search/filters/cfda/CFDASearchContainer";
-import DEFCheckboxTreeTemplate from "../../containers/search/filters/def/DEFCheckboxTreeTemplate";
+import DEFCheckboxTreeContainer from "../../containers/search/filters/def/DEFCheckboxTreeContainer";
 
 export const SearchFilterCategories = [
     {
@@ -195,12 +195,12 @@ export const FilterCategoryTree = {
                 categories: [
                     {
                         title: 'COVID-19 Spending',
-                        component: <DEFCheckboxTreeTemplate defcType="covid_19" />,
+                        component: <DEFCheckboxTreeContainer defcType="covid_19" />,
                         titleOnly: true
                     },
                     {
                         title: 'Infrastructure Spending',
-                        component: <DEFCheckboxTreeTemplate defcType="infrastructure" />,
+                        component: <DEFCheckboxTreeContainer defcType="infrastructure" />,
                         titleOnly: true
                     }
                 ]

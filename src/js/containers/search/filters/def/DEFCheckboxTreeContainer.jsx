@@ -1,3 +1,8 @@
+/**
+ * DEFCheckboxTreeContainer.jsx
+ * Created by Andrea Blackwell 1/8/2025
+ */
+
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +19,7 @@ const propTypes = {
 
 };
 
-const DEFCheckboxTreeTemplate = (props) => {
+const DEFCheckboxTreeContainer = (props) => {
     const [selectedDefCodes, setSelectedDefCodes] = useState({});
     const hint = useRef();
     const dispatch = useDispatch();
@@ -92,5 +97,5 @@ const DEFCheckboxTreeTemplate = (props) => {
     );
 };
 
-DEFCheckboxTreeTemplate.propTypes = propTypes;
-export default DEFCheckboxTreeTemplate;
+DEFCheckboxTreeContainer.propTypes = propTypes;
+export default DEFCheckboxTreeContainer;

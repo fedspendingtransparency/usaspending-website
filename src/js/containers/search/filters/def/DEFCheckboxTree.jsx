@@ -73,22 +73,13 @@ const extractInfraCodes = (codes) => codes
 const defaultExpanded = ['COVID', 'INFRA'];
 const covidCountLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Spending' };
 const infrastructureCountLabel = { value: 'Infrastructure', count: 0, label: 'Infrastructure Spending' };
+const parseTreeCodes = (codes) => [parseCovidCodes(codes), extractInfraCodes(codes)];
 
 const DEFCheckboxTree = (props) => {
     const hint = useRef();
     const isError = false;
 
     // eslint-disable-next-line consistent-return
-    const parseTreeCodes = (codes) => {
-        if (props.defcType === "COVID") {
-            return [parseCovidCodes(codes)];
-        }
-        else if (props.defcType === "INFRA") {
-            return [extractInfraCodes(codes)];
-        }
-
-        return [parseCovidCodes(codes), extractInfraCodes(codes)];
-    };
 
     const stageFilter = (newChecked) => {
         const newCount = newChecked.reduce((acc) => acc + 1, 0);
@@ -98,19 +89,11 @@ const DEFCheckboxTree = (props) => {
             const infraCount = newChecked.filter((checked) => checked === 'Z' || checked === '1').length;
             const covidCount = newChecked.length - infraCount;
 
-            if (props.defcType === "COVID") {
+            if (covidCount) {
                 labels.push({ ...covidCountLabel, count: covidCount });
             }
-            else if (props.defcType === "INFRA") {
+            if (infraCount) {
                 labels.push({ ...infrastructureCountLabel, count: infraCount });
-            }
-            else {
-                if (covidCount) {
-                    labels.push({ ...covidCountLabel, count: covidCount });
-                }
-                if (infraCount) {
-                    labels.push({ ...infrastructureCountLabel, count: infraCount });
-                }
             }
             props.stageDef(
                 newChecked,
