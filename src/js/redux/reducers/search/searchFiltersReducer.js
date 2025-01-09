@@ -116,7 +116,6 @@ export const initialStateFY = {
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
-    console.log(action.type)
     switch (action.type) {
         // Free Text Search
         case 'UPDATE_TEXT_SEARCH': {
