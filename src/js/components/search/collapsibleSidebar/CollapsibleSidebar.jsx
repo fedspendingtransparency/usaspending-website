@@ -158,7 +158,12 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     useEffect(() => {
         if (isOpened) {
             if (document.querySelector(".full-search-sidebar")) {
-                if (windowWidth > 1199) {
+                if (windowWidth < 991 && windowWidth < 1200) {
+                    document.querySelector(".full-search-sidebar").style.width = "unset";
+                    document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarDesktopWidth}px`;
+                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;
+                }
+                else if (windowWidth > 1199) {
                     document.querySelector(".full-search-sidebar").style.width = "unset";
                     document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarXlDesktopWidth}px`;
                     document.querySelector(".collapsible-sidebar").style.width = `${sideBarXlDesktopWidth}px`;

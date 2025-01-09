@@ -73,7 +73,7 @@
     box-shadow: none;
     border-radius: unset;
 
-    @media(max-width: $medium-screen) {
+    @media(max-width: 991px) {
       border: none;
     }
 
@@ -82,10 +82,6 @@
       // TODO: Adjust animations next sprint
       //-webkit-animation: collapsible-sidebar-slideopen 0.25s forwards;
       //animation: collapsible-sidebar-slideopen 0.25s forwards;
-      @media(max-width: $medium-screen) {
-        left: 0;
-        width: 100%;
-      }
     }
 
     &:not(.opened) {
