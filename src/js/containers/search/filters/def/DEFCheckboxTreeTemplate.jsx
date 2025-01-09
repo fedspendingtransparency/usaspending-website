@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
-import { bulkDefCodeChange, toggleDefCode } from 'redux/actions/search/searchFilterActions';
+import { bulkCovidDefCodeChange, toggleCovidDefCode, bulkInfraDefCodeChange, toggleInfraDefCode } from 'redux/actions/search/searchFilterActions';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
@@ -30,7 +30,7 @@ const DEFCheckboxTreeTemplate = (props) => {
         if (props.defcType === "infrastructure") {
             setSelectedDefCodes(infraDefCode);
         }
-    }, [covidDefCode, infraDefCode]);
+    }, [covidDefCode, infraDefCode, props.defcType]);
 
     const parseCodes = (codes, type) => codes.filter(((code) => code.disaster === type)).map((code) => code.code);
     const titlesByCode = (codes, type) => codes.filter(((code) => code.disaster === type)).reduce((obj, item) => {
@@ -60,12 +60,21 @@ const DEFCheckboxTreeTemplate = (props) => {
     };
 
     const toggleDefc = (selection) => {
-        dispatch(toggleDefCode(selection));
-
+        if (props.defcType === "covid_19") {
+            dispatch(toggleCovidDefCode(selection));
+        }
+        else if (props.defcType === "infrastructure") {
+            dispatch(toggleInfraDefCode(selection));
+        }
     };
 
     const bulkChangeDefc = (selection) => {
-        dispatch(bulkDefCodeChange(selection));
+        if (props.defcType === "covid_19") {
+            dispatch(bulkCovidDefCodeChange(selection));
+        }
+        else if (props.defcType === "infrastructure") {
+            dispatch(bulkInfraDefCodeChange(selection));
+        }
     };
 
     return (

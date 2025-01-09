@@ -335,7 +335,6 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'TOGGLE_COVID_DEF_CODES': {
             // this redux state is stored in an ImmutableJS set, which returns new instances
             // whenever it is modified
-            console.log("reducer called");
             return Object.assign({}, state, {
                 covidDefCode: AwardFilterFunctions.immutableSetToggle(
                     state.covidDefCode, action.covidDefCode)
@@ -345,6 +344,21 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 covidDefCode: AwardFilterFunctions.bulkAwardTypeChange(
                     state.covidDefCode, action.covidDefCodes, action.direction)
+            });
+        }
+
+        case 'TOGGLE_INFRA_DEF_CODES': {
+            // this redux state is stored in an ImmutableJS set, which returns new instances
+            // whenever it is modified
+            return Object.assign({}, state, {
+                infraDefCode: AwardFilterFunctions.immutableSetToggle(
+                    state.infraDefCode, action.infraDefCode)
+            });
+        }
+        case 'BULK_UPDATE_INFRA_DEF_CODES': {
+            return Object.assign({}, state, {
+                infraDefCode: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.infraDefCode, action.infraDefCodes, action.direction)
             });
         }
 
