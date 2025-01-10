@@ -27,14 +27,14 @@ const FeaturedContent = () => (
         </div>
         <div className="featured-content__section--flex-row">
             <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                <ExternalLink isCard url="https://www.youtube.com/watch?v=c-bqfpWSSrI">
+                <ExternalLink isCard url="https://forms.office.com/Pages/ResponsePage.aspx?id=is1pDRKeIU2V8LRAbgZxCosrFrEyW1NFiLX9Wji-iCxUQ0FHNlZMRFdCVlcyQ0VKVFNGOVRDR0lJUi4u">
                     <CardContainer variant="outline" size="md">
-                        <CardHero fill="#59B9DE" variant="expanded" img="img/homepage-featured-content/homepage-feature-Your-Data-Your-Story@2x.webp" />
+                        <CardHero fill="#1b2b85" variant="expanded" img="img/homepage-featured-content/homepage-feature-API-Feedback-Survey@2x.webp" />
                         <CardBody
-                            overline="YOUR DATA, YOUR STORY"
+                            overline="YOUR FEEDBACK"
                             headline={
                                 <div>
-                                        Watch how people across the country navigate USASpending.gov in the "Your Data, Your Story" video series
+                                    We’re seeking your input on the USAspending API
                                 </div>
                             }>
                         </CardBody>
