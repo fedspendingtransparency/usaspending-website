@@ -34,8 +34,8 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         }
     }, [covidDefCode, infraDefCode, defcType]);
 
-    const parseCodes = (codes, type) => codes.filter(((code) => code.disaster === type)).map((code) => code.code);
-    const titlesByCode = (codes, type) => codes.filter(((code) => code.disaster === type)).reduce((obj, item) => {
+    const parseCodes = (codes) => codes.filter(((code) => code.disaster === defcType)).map((code) => code.code);
+    const titlesByCode = (codes) => codes.filter(((code) => code.disaster === defcType)).reduce((obj, item) => {
         // eslint-disable-next-line no-param-reassign
         obj[item.code] = item.title;
         return obj;
@@ -46,7 +46,7 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
             return [{
                 id: "covid",
                 name: "COVID-19 Spending",
-                filters: parseCodes(codes, "covid_19")
+                filters: parseCodes(codes)
             }];
         }
 
@@ -54,7 +54,7 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
             return [{
                 id: 'infrastructure',
                 name: 'Infrastructure Spending',
-                filters: parseCodes(codes, "infrastructure") // map to codes only
+                filters: parseCodes(codes)
             }];
         }
 
@@ -83,7 +83,7 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         <div className="def-code-filter">
             {defCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
                 filterCategoryMapping={defcDataByType(defCodes)}
-                filters={titlesByCode(defCodes, defcType)}
+                filters={titlesByCode(defCodes)}
                 selectedFilters={selectedDefCodes}
                 selectedCategory={category}
                 singleFilterChange={toggleDefc}
