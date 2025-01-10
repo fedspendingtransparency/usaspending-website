@@ -19,7 +19,6 @@ import PricingTypeContainer from "../../containers/search/filters/PricingTypeCon
 import SetAsideContainer from "../../containers/search/filters/SetAsideContainer";
 import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
 import CFDASearchContainer from "../../containers/search/filters/cfda/CFDASearchContainer";
-import DsmSlider from "../../components/search/collapsibleSidebar/DsmSlider";
 
 export const SearchFilterCategories = [
     {
