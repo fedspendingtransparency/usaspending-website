@@ -3,39 +3,36 @@
  * Created by Andrea Blackwell 1/8/2025
  */
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 import { bulkCovidDefCodeChange, toggleCovidDefCode, bulkInfraDefCodeChange, toggleInfraDefCode } from 'redux/actions/search/searchFilterActions';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
 
 const propTypes = {
-    toggleDefCodes: PropTypes.func,
-    bulkDefCodesChange: PropTypes.func,
-    covidDefCode: PropTypes.object,
-    infraDefCode: PropTypes.object
-
+    defcType: PropTypes.string
 };
 
-const DEFCheckboxTreeContainer = (props) => {
+const DEFCheckboxTreeContainer = ({ defcType }) => {
     const [selectedDefCodes, setSelectedDefCodes] = useState({});
-    const hint = useRef();
     const dispatch = useDispatch();
 
     const { covidDefCode, infraDefCode } = useSelector((state) => state.filters);
     const [errorMsg, isLoading, defCodes] = useDefCodes();
+    const [category, setCategory] = useState();
 
     useEffect(() => {
-        if (props.defcType === "covid_19") {
+        if (defcType === "covid_19") {
+            setCategory("covid");
             setSelectedDefCodes(covidDefCode);
         }
 
-        if (props.defcType === "infrastructure") {
+        if (defcType === "infrastructure") {
+            setCategory("infrastructure");
             setSelectedDefCodes(infraDefCode);
         }
-    }, [covidDefCode, infraDefCode, props.defcType]);
+    }, [covidDefCode, infraDefCode, defcType]);
 
     const parseCodes = (codes, type) => codes.filter(((code) => code.disaster === type)).map((code) => code.code);
     const titlesByCode = (codes, type) => codes.filter(((code) => code.disaster === type)).reduce((obj, item) => {
@@ -45,7 +42,7 @@ const DEFCheckboxTreeContainer = (props) => {
     }, {});
 
     const defcDataByType = (codes) => {
-        if (props.defcType === "covid_19") {
+        if (defcType === "covid_19") {
             return [{
                 id: "covid",
                 name: "COVID-19 Spending",
@@ -53,7 +50,7 @@ const DEFCheckboxTreeContainer = (props) => {
             }];
         }
 
-        if (props.defcType === "infrastructure") {
+        if (defcType === "infrastructure") {
             return [{
                 id: 'infrastructure',
                 name: 'Infrastructure Spending',
@@ -65,20 +62,19 @@ const DEFCheckboxTreeContainer = (props) => {
     };
 
     const toggleDefc = (selection) => {
-        console.log(props.defcType);
-        if (props.defcType === "covid_19") {
+        if (defcType === "covid_19") {
             dispatch(toggleCovidDefCode(selection));
         }
-        else if (props.defcType === "infrastructure") {
+        else if (defcType === "infrastructure") {
             dispatch(toggleInfraDefCode(selection));
         }
     };
 
     const bulkChangeDefc = (selection) => {
-        if (props.defcType === "covid_19") {
+        if (defcType === "covid_19") {
             dispatch(bulkCovidDefCodeChange(selection));
         }
-        else if (props.defcType === "infrastructure") {
+        else if (defcType === "infrastructure") {
             dispatch(bulkInfraDefCodeChange(selection));
         }
     };
@@ -87,12 +83,13 @@ const DEFCheckboxTreeContainer = (props) => {
         <div className="def-code-filter">
             {defCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
                 filterCategoryMapping={defcDataByType(defCodes)}
-                filters={titlesByCode(defCodes, props.defcType)}
+                filters={titlesByCode(defCodes, defcType)}
                 selectedFilters={selectedDefCodes}
+                selectedCategory={category}
                 singleFilterChange={toggleDefc}
-                bulkFilterChange={bulkChangeDefc} />
+                bulkFilterChange={bulkChangeDefc}
+                isExpanded />
             }
-            <SubmitHint ref={hint} />
         </div>
     );
 };
