@@ -87,6 +87,14 @@
       overflow-y: auto;
     }
 
+    .category-filter {
+      .react-checkbox-tree {
+        overflow: unset;
+        max-height: unset;
+        height: unset;
+      }
+    }
+
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
       font-size: 16px;

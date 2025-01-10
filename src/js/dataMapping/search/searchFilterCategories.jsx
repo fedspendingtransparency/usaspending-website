@@ -68,7 +68,8 @@ export const FilterCategoryTree = {
     location: {
         title: 'Location',
         component: <LocationSectionContainer />,
-        dsmComponent: <DsmSlider contentFile="dummy_data.md" />
+        dsmComponent: true,
+        dsmFile: "dummy_data.md"
     },
     timePeriod: {
         title: 'Time Period',

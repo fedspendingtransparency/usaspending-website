@@ -289,7 +289,8 @@ const CollapsibleSidebar = ({ filters }) => {
                     itemCount={itemCount}
                     filters={filters}
                     titleOnly={drilldown?.titleOnly}
-                    dsmComponent={drilldown?.dsmComponent} />
+                    dsmComponent={drilldown?.dsmComponent}
+                    dsmFile={drilldown?.dsmFile} />
 
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />

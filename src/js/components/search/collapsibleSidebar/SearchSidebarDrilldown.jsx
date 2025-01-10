@@ -3,13 +3,14 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React from "react";
+import React, { useState, useEffect, lazy } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CategoriesList from "./CateogriesList";
 import CategoryFilter from "./CategoryFilter";
 import { generateCount } from "../../../helpers/search/filterCheckboxHelper";
+import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     list: PropTypes.array,
@@ -23,7 +24,8 @@ const propTypes = {
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
     titleOnly: PropTypes.bool,
-    dsmComponent: PropTypes.element
+    dsmComponent: PropTypes.bool,
+    dsmFile: PropTypes.string
 };
 
 const SearchSidebarDrilldown = ({
@@ -38,8 +40,25 @@ const SearchSidebarDrilldown = ({
     sidebarHeight,
     selectedCategoryTitle,
     titleOnly = false,
-    dsmComponent
+    dsmComponent = false,
+    dsmFile = ''
 }) => {
+    const [isDsmError, setIsDsmError] = useState(false);
+    const [dsmContent, setDsmContent] = useState(null);
+    const [isDsmOpened, setIsDsmOpened] = useState(false);
+    useEffect(() => {
+        console.debug("inside useEffect", dsmFile);
+        if (dsmFile?.length > 0) {
+            console.debug("inside if");
+            // lazy load the md files
+            const Component = lazy(() => import(`../../../../content/search/${dsmFile}`).catch((err) => {
+                setIsDsmError(true);
+                console.log(err);
+            }));
+            console.debug(Component);
+            setDsmContent(<Component />);
+        }
+    }, [dsmFile]);
     const keyHandler = (e, func) => {
         e.preventDefault();
         if (e.key === "Enter") {
@@ -130,7 +149,7 @@ const SearchSidebarDrilldown = ({
                 </div>
             </div>
             <div className="collapsible-sidebar--content">
-                {list && <CategoriesList
+                {!isDsmOpened && list && <CategoriesList
                     height={sidebarHeight}
                     iconName={selectedCategory.iconName}
                     iconColor={selectedCategory.iconColor}
@@ -141,8 +160,8 @@ const SearchSidebarDrilldown = ({
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}
                     filterCount={filterCount} />}
-                {filter && categoryFilter}
-                {dsmComponent && dsmComponent}
+                {!isDsmOpened && filter && categoryFilter}
+                {dsmComponent && <DsmSlider isDsmError={isDsmError} dsmContent={dsmContent} isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} />}
             </div>
         </div>);
 };
