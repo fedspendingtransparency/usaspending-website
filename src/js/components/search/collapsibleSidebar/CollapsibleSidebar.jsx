@@ -108,21 +108,25 @@ const CollapsibleSidebar = ({ filters }) => {
         else {
             // Hide side search by... if only a small part of the sidebar is in view
             const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls) - footerInView) + headingPadding;
-            if (newSidebarHeight < 100) {
+            if (newSidebarHeight < 50) {
                 document.querySelector(".collapsible-sidebar--header").style.display = "none";
                 document.querySelector(".sidebar-bottom-submit").style.display = "none";
                 document.querySelector(".collapsible-sidebar--toggle").style.display = "none";
-                document.querySelector(".collapsible-sidebar--main-menu").style.display = "none";
-                document.querySelector(".collapsible-sidebar--drilldown").style.display = "none";
-                document.querySelector(".collapsible-sidebar--back-btn").style.display = "none";
+                document.querySelector(".collapsible-sidebar--main-menu").style.visibility = "hidden";
+                document.querySelector(".collapsible-sidebar--drilldown").style.visibility = "hidden";
+                document.querySelector(".collapsible-sidebar--header").style.visibility = "hidden";
+                document.querySelector(".collapsible-sidebar--content").style.visibility = "hidden";
+                document.querySelector(".full-search-sidebar").style.visibility = "hidden";
             }
             else {
                 document.querySelector(".collapsible-sidebar--header").style.display = "block";
                 document.querySelector(".sidebar-bottom-submit").style.display = "block";
                 document.querySelector(".collapsible-sidebar--toggle").style.display = "flex";
-                document.querySelector(".collapsible-sidebar--main-menu").style.display = "block";
-                document.querySelector(".collapsible-sidebar--drilldown").style.display = "block";
-                document.querySelector(".collapsible-sidebar--back-btn").style.display = "block";
+                document.querySelector(".collapsible-sidebar--main-menu").style.visibility = "visible";
+                document.querySelector(".collapsible-sidebar--drilldown").style.visibility = "visible";
+                document.querySelector(".collapsible-sidebar--header").style.visibility = "visible";
+                document.querySelector(".collapsible-sidebar--content").style.visibility = "visible";
+                document.querySelector(".full-search-sidebar").style.visibility = "visible";
             }
 
             setWindowHeight(((window.innerHeight - headingInView) - hasFooter) + headingPadding);
