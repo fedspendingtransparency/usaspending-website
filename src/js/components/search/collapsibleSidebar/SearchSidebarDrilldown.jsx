@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useState, useEffect, lazy } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -43,22 +43,7 @@ const SearchSidebarDrilldown = ({
     dsmComponent = false,
     dsmFile = ''
 }) => {
-    const [isDsmError, setIsDsmError] = useState(false);
-    const [dsmContent, setDsmContent] = useState(null);
     const [isDsmOpened, setIsDsmOpened] = useState(false);
-    useEffect(() => {
-        console.debug("inside useEffect", dsmFile);
-        if (dsmFile?.length > 0) {
-            console.debug("inside if");
-            // lazy load the md files
-            const Component = lazy(() => import(`../../../../content/search/${dsmFile}`).catch((err) => {
-                setIsDsmError(true);
-                console.log(err);
-            }));
-            console.debug(Component);
-            setDsmContent(<Component />);
-        }
-    }, [dsmFile]);
     const keyHandler = (e, func) => {
         e.preventDefault();
         if (e.key === "Enter") {
@@ -161,7 +146,7 @@ const SearchSidebarDrilldown = ({
                     itemCount={itemCount[selectedCategory.categoryKey]}
                     filterCount={filterCount} />}
                 {!isDsmOpened && filter && categoryFilter}
-                {dsmComponent && <DsmSlider isDsmError={isDsmError} dsmContent={dsmContent} isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} />}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} />}
             </div>
         </div>);
 };

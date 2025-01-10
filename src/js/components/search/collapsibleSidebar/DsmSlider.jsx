@@ -3,18 +3,26 @@
  * Created by Nick Torres 1/9/2025
  **/
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
-    dsmContent: PropTypes.element,
-    isDsmError: PropTypes.bool,
     isDsmOpened: PropTypes.bool,
-    setIsDsmOpened: PropTypes.func
+    setIsDsmOpened: PropTypes.func,
+    dsmFile: PropTypes.string
 };
 
 const DsmSlider = (props) => {
+    const [markdownContent, setMarkdownContent] = useState('');
+    useEffect(() => {
+        const fetchMarkdown = async () => {
+            const file = await import(`../../../../content/search/${props.dsmFile}`);
+            setMarkdownContent(file.default());
+        };
+
+        fetchMarkdown();
+    }, [props.dsmFile]);
     const clickHandler = () => {
         props.setIsDsmOpened(!props.isDsmOpened);
     };
@@ -31,9 +39,11 @@ const DsmSlider = (props) => {
             }}>
             About this filter{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
             {props.isDsmOpened &&
-            <div className="collapsible-sidebar--dsm-content">
-                {!props.isDsmError && props.dsmContent}
-            </div>}
+                <div className="collapsible-sidebar--dsm-content">
+                    <div className="collapsible-sidebar--dsm-wrapper">
+                        {markdownContent}
+                    </div>
+                </div>}
         </div>
     );
 };
