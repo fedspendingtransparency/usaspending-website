@@ -125,7 +125,10 @@
         -webkit-animation: drilldown-slidein 0.2s forwards;
         animation: drilldown-slidein 0.2s forwards;
       }
-
+      .collapsible-sidebar--content {
+        display:flex;
+        flex-direction: column;
+      }
       .collapsible-sidebar--back-btn {
         color: $blue-50;
         cursor: pointer;
@@ -216,6 +219,26 @@
 
       .categories-list {
         overflow-y: auto;
+      }
+      .collapsible-sidebar--dsm-slider {
+        color: $blue-50;
+        cursor: pointer;
+        padding: rem(16) rem(32);
+        font-size: rem(16);
+        font-weight: 600;
+        line-height: 1.5;
+        border-top: 1px solid $gray-cool-5;
+        &:hover {
+          color: $blue-70v;
+        }
+        .chevron {
+          width: 10px;
+          height: 8px;
+          margin: 2px 8px 2px 8px;
+        }
+      }
+      .collapsible-sidebar--dsm-slider:hover .chevron {
+        color: $blue-70v;
       }
     }
 

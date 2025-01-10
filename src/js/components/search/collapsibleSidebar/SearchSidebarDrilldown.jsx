@@ -22,7 +22,8 @@ const propTypes = {
     itemCount: PropTypes.object,
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
-    titleOnly: PropTypes.bool
+    titleOnly: PropTypes.bool,
+    dsmComponent: PropTypes.element
 };
 
 const SearchSidebarDrilldown = ({
@@ -36,7 +37,8 @@ const SearchSidebarDrilldown = ({
     filters,
     sidebarHeight,
     selectedCategoryTitle,
-    titleOnly = false
+    titleOnly = false,
+    dsmComponent
 }) => {
     const keyHandler = (e, func) => {
         e.preventDefault();
@@ -139,8 +141,8 @@ const SearchSidebarDrilldown = ({
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}
                     filterCount={filterCount} />}
-
                 {filter && categoryFilter}
+                {dsmComponent && dsmComponent}
             </div>
         </div>);
 };
