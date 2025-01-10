@@ -179,9 +179,9 @@ const SearchPage = ({
                                     }
                                 }}>
                                 <div className="mobile-filter-button-content">
-                                    <div className={`mobile-filter-button-count ${showCountBadge}`}>
+                                    {/* <div className={`mobile-filter-button-count ${showCountBadge}`}>
                                         {filterCount}
-                                    </div>
+                                    </div> */}
                                     <div className="mobile-filter-button-icon">
                                         <img
                                             className="usa-da-mobile-filter-icon"
