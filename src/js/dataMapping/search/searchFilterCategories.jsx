@@ -12,7 +12,7 @@ import TASCheckboxTreeContainer from "../../containers/search/filters/programSou
 import RecipientSearchContainer from "../../containers/search/filters/recipient/RecipientSearchContainer";
 import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
 import AwardAmountSearchContainer from "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
-import AwardTypeContainer from "../../containers/search/filters/AwardTypeContainer";
+import AwardTypeContainerV2 from "../../containers/search/filters/AwardTypeContainerV2";
 import NAICSCheckboxTree from "../../containers/search/filters/naics/NAICSCheckboxTree";
 import PSCCheckboxTreeContainer from "../../containers/search/filters/psc/PSCCheckboxTreeContainer";
 import PricingTypeContainer from "../../containers/search/filters/PricingTypeContainer";
@@ -100,7 +100,7 @@ export const FilterCategoryTree = {
                 categories: [
                     {
                         title: 'Contract Award Type',
-                        component: <AwardTypeContainer />,
+                        component: <AwardTypeContainerV2 isContractAwardType />,
                         titleOnly: true
                     },
                     {
@@ -147,6 +147,7 @@ export const FilterCategoryTree = {
                 categories: [
                     {
                         title: 'Financial Assistance Award Type',
+                        component: <AwardTypeContainerV2 />,
                         titleOnly: true
                     },
                     {
