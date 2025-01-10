@@ -301,7 +301,7 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
                     titleOnly={drilldown?.titleOnly} />
 
                 <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmitContainer />
+                    <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
                 </div>
             </div>
         </div>
