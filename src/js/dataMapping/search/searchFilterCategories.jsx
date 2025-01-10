@@ -102,7 +102,9 @@ export const FilterCategoryTree = {
                     {
                         title: 'Contract Award Type',
                         component: <AwardTypeContainerV2 isContractAwardType />,
-                        titleOnly: true
+                        titleOnly: true,
+                        dsmComponent: true,
+                        dsmFile: "dummy_data.md"
                     },
                     {
                         title: 'North American Industry Classification System (NAICS)',
