@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
@@ -23,6 +23,7 @@ const propTypes = {
 
 const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     const [isOpened, setIsOpened] = useState(true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -262,7 +263,7 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     });
 
     return (
-        <div className="search-collapsible-sidebar-container search-sidebar" style={{ display: "none" }}>
+        <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
             <div
                 style={{ height: windowHeight }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
