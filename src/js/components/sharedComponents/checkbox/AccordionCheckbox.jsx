@@ -11,9 +11,9 @@ import EntityDropdownAutocomplete from "../../search/filters/location/EntityDrop
 
 const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters) => {
     const toExpand = [];
-    filterCategoryMapping.forEach((category) => {
-        category.filters.forEach((type) => {
-            if (selectedFilters.has(type)) {
+    filterCategoryMapping?.forEach((category) => {
+        category?.filters?.forEach((type) => {
+            if (selectedFilters?.has(type)) {
                 toExpand.push(category.id);
             }
         });
@@ -31,7 +31,7 @@ const propTypes = {
 };
 
 const AccordionCheckbox = ({
-    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange
+    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange, selectedCategory, isExpanded
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -49,6 +49,14 @@ const AccordionCheckbox = ({
             setExpandedCategories(expandedCategories.filter((item) => item !== category.id));
         }
     };
+
+    useEffect(() => {
+        if (isExpanded) {
+            const category = filterCategoryMapping.find((item) => item.id === selectedCategory);
+            toggleExpanded(category);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterCategoryMapping, isExpanded, selectedCategory]);
 
     const handleTextInputChange = (e) => {
         setSearchString(e.target.value);
