@@ -107,7 +107,7 @@
       border-bottom: $gray-cool-10 1px solid;
        
       #collapsible-mobile-close-button {
-        @media(min-width: 992px) {
+        @media(min-width: $medium-screen) {
           display: none;
         }
         width: rem(10);
