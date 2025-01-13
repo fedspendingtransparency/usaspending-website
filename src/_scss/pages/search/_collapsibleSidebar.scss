@@ -247,15 +247,16 @@
         font-weight: 600;
         line-height: 1.5;
         border-top: 1px solid $gray-cool-5;
-
+        display:flex;
+        flex-direction: row;
+        flex-wrap:wrap;
         &:hover {
           color: $blue-70v;
         }
 
         .chevron {
-          width: 12px;
-          height: 8px;
-          margin: 2px 8px 2px 8px;
+          margin: 4px 8px 0 8px;
+          width: 10px;
         }
 
         .collapsible-sidebar--dsm-content {
