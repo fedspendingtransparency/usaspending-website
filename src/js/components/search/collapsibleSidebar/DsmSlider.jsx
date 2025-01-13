@@ -10,7 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = {
     isDsmOpened: PropTypes.bool,
     setIsDsmOpened: PropTypes.func,
-    dsmFile: PropTypes.string
+    dsmFile: PropTypes.string,
+    currentLevel: PropTypes.number,
+    selectedCategoryTitle: PropTypes.string
 };
 
 const DsmSlider = (props) => {
@@ -26,9 +28,17 @@ const DsmSlider = (props) => {
     const clickHandler = () => {
         props.setIsDsmOpened(!props.isDsmOpened);
     };
+
+    const adjustFilterLabel = () => {
+        if (props.currentLevel === 2 && props.selectedCategoryTitle) {
+            return `${props.selectedCategoryTitle} filters`;
+        }
+
+        return 'this filter';
+    };
     return (
         <div
-            className={`collapsible-sidebar--dsm-slider ${props.isDsmOpened ? `dsm-opened` : null}`}
+            className={`collapsible-sidebar--dsm-slider ${props?.isDsmOpened ? `dsm-opened` : ''}`}
             role="button"
             tabIndex="0"
             onClick={clickHandler}
@@ -37,7 +47,7 @@ const DsmSlider = (props) => {
                     props.setIsDsmOpened(!props.isDsmOpened);
                 }
             }}>
-            About this filter{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
+            About {adjustFilterLabel()}{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
             {props.isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">
                     <div className="collapsible-sidebar--dsm-wrapper">

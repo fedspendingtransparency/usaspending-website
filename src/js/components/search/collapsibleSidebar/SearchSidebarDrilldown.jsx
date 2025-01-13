@@ -25,7 +25,8 @@ const propTypes = {
     selectedCategoryTitle: PropTypes.string,
     titleOnly: PropTypes.bool,
     dsmComponent: PropTypes.bool,
-    dsmFile: PropTypes.string
+    dsmFile: PropTypes.string,
+    currentLevel: PropTypes.number
 };
 
 const SearchSidebarDrilldown = ({
@@ -41,7 +42,8 @@ const SearchSidebarDrilldown = ({
     selectedCategoryTitle,
     titleOnly = false,
     dsmComponent = false,
-    dsmFile = ''
+    dsmFile = '',
+    currentLevel
 }) => {
     const [isDsmOpened, setIsDsmOpened] = useState(false);
     const keyHandler = (e, func) => {
@@ -146,7 +148,7 @@ const SearchSidebarDrilldown = ({
                     itemCount={itemCount[selectedCategory.categoryKey]}
                     filterCount={filterCount} />}
                 {!isDsmOpened && filter && categoryFilter}
-                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} />}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} />}
             </div>
         </div>);
 };
