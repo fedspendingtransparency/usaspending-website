@@ -108,11 +108,6 @@ const SearchPage = ({
         return 'filters';
     };
 
-    // may not need this
-    // let showCountBadge = '';
-    // if (filterCount === 0) {
-    //     showCountBadge = 'hide';
-    // }
 
     useEffect(() => {
         const handleResize = throttle(() => {
