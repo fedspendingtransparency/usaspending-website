@@ -262,7 +262,7 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     });
 
     return (
-        <div className="search-collapsible-sidebar-container search-sidebar">
+        <div className="search-collapsible-sidebar-container search-sidebar" style={{ display: "none" }}>
             <div
                 style={{ height: windowHeight }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
