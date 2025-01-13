@@ -23,6 +23,7 @@ const propTypes = {
 
 const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     const [isOpened, setIsOpened] = useState(true);
+    // eslint-disable-next-line no-unused-vars
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
