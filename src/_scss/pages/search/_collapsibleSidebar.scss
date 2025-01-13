@@ -35,7 +35,7 @@
   background-color: $color-white;
   box-shadow: unset;
   border-radius: unset;
-  @media(max-width: $medium-screen-minus-one) {
+  @media(max-width: $medium-screen - 1) {
     left: 0;
     width: 100%;
   }
@@ -47,7 +47,7 @@
   }
 
   .collapsible-sidebar--toggle {
-    @media(max-width: $medium-screen-minus-one) {
+    @media(max-width: $medium-screen - 1) {
       display: none;
     }
     position: relative;
@@ -73,7 +73,7 @@
     box-shadow: none;
     border-radius: unset;
 
-    @media(max-width: $medium-screen-minus-one) {
+    @media(max-width: $medium-screen - 1) {
       border: none;
     }
 
