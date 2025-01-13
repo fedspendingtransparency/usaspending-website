@@ -83,7 +83,7 @@ const CollapsibleSidebar = ({ filters }) => {
         }
     };
 
-    //TODO move to helper
+    // TODO move to helper
     const checkInView = (el) => {
         const bbox = el.getBoundingClientRect();
 
@@ -108,9 +108,9 @@ const CollapsibleSidebar = ({ filters }) => {
         }
         else {
             // Hide side search by... if only a small part of the sidebar is in view
-            const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls) - footerInView) + headingPadding;
+            const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls)) + headingPadding;
 
-            // can use refs for all of these
+            // can use refs for all of these - This should happen at 174px
             if (newSidebarHeight < 50) {
                 document.querySelector(".collapsible-sidebar--header").style.display = "none";
                 document.querySelector(".sidebar-bottom-submit").style.display = "none";
