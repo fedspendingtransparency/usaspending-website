@@ -24,6 +24,8 @@ export default class AdditionalInfo extends React.Component {
         this.state = {
             globalToggle: false
         };
+
+        console.log(props.overview);
     }
 
     handleClick = () => {
@@ -209,6 +211,14 @@ export default class AdditionalInfo extends React.Component {
                 accordionData={overview.executiveDetails.officers} />)
         ];
 
+        if (overview.category === "grant") {
+            columnTwo.push(<Accordion
+                key="PreAwardDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Pre-Award Details"
+                accordionIcon="clipboard-list"
+                accordionData={overview?.preAwardDetails} />);
+        }
         return { columnOne, columnTwo };
     }
 
