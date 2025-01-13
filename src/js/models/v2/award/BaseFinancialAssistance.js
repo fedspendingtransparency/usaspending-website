@@ -149,7 +149,6 @@ BaseFinancialAssistance.populate = function populate(data) {
     if (this.category === "grant") {
         const preAwardDetails = Object.create(CorePreAwardDetails);
         preAwardDetails.populateCore(data.funding_opportunity);
-        console.log(preAwardDetails);
         this.preAwardDetails = preAwardDetails.preAwardDetails;
     }
 };

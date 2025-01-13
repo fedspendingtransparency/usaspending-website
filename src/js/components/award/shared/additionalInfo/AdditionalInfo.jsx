@@ -24,8 +24,6 @@ export default class AdditionalInfo extends React.Component {
         this.state = {
             globalToggle: false
         };
-
-        console.log(props.overview);
     }
 
     handleClick = () => {
