@@ -67,7 +67,9 @@ export const SearchFilterCategories = [
 export const FilterCategoryTree = {
     location: {
         title: 'Location',
-        component: <LocationSectionContainer />
+        component: <LocationSectionContainer />,
+        dsmComponent: true,
+        dsmFile: "dummy_data.md"
     },
     timePeriod: {
         title: 'Time Period',
@@ -100,7 +102,9 @@ export const FilterCategoryTree = {
                     {
                         title: 'Contract Award Type',
                         component: <AwardTypeContainerV2 isContractAwardType />,
-                        titleOnly: true
+                        titleOnly: true,
+                        dsmComponent: true,
+                        dsmFile: "dummy_data.md"
                     },
                     {
                         title: 'North American Industry Classification System (NAICS)',
