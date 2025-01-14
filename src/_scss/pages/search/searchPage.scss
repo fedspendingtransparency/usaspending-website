@@ -58,7 +58,7 @@
         padding: rem(40) rem(16) rem(16) rem(16);
         @import "components/aboutTheDataSidebar/aboutTheData";
 
-        @media (min-width: $tablet-screen) {
+        @media (min-width: $medium-screen) {
             padding: rem(40) rem(32) rem(32) rem(32);
         }
 
