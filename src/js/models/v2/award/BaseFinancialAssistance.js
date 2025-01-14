@@ -11,6 +11,7 @@ import CoreAward from './CoreAward';
 import BaseCFDA from './BaseCFDA';
 import CorePeriodOfPerformance from './CorePeriodOfPerformance';
 import CoreExecutiveDetails from '../award/CoreExecutiveDetails';
+import CorePreAwardDetails from "./CorePreAwardDetails";
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 export const emptyCfda = {
@@ -144,6 +145,12 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.biggestCfda = data.cfda_info.reduce(getLargestCfda, emptyCfda);
     this.cfdaList = data.cfda_info;
     this.recordType = data.record_type;
+
+    if (this.category === "grant") {
+        const preAwardDetails = Object.create(CorePreAwardDetails);
+        preAwardDetails.populateCore(data.funding_opportunity);
+        this.preAwardDetails = preAwardDetails.preAwardDetails;
+    }
 };
 
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {

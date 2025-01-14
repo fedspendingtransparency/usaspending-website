@@ -24,7 +24,7 @@ const AccordionCheckboxSecondary = ({
         const selection = {
             value: filter
         };
-        console.log(filter);
+
         singleFilterChange(selection);
     };
 

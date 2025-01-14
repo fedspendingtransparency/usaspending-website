@@ -63,6 +63,69 @@
         }
     }
 
+    button.mobile-filter-button-v2 {
+        @include button-unstyled;
+        width: rem(180);
+        height: rem(40);
+        border-radius: 4px;
+        color: $color-white;
+        background-color: $theme-color-1;
+        left: 0;
+        bottom: 0;
+        position: absolute;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+        &:hover, &:active {
+            background-color: $color-primary-alt;
+
+            .mobile-filter-button-count {
+                color: $color-primary-alt;
+            }
+        }
+
+        .mobile-filter-button-content {
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            position: relative;
+            padding: rem(8) rem(16);
+
+            .mobile-filter-button-count {
+                @include flex(0 0 auto);
+
+                color: $color-primary;
+                font-size: rem(14);
+                line-height: rem(24);
+                margin-right: rem(15);
+
+                width: rem(24);
+                height: rem(24);
+                border-radius: rem(12);
+
+                text-align: center;
+
+                background-color: $color-white;
+            }
+
+            .mobile-filter-button-icon {
+                @include flex(0 0 auto);
+                margin-right: rem(8);
+                height: rem(20);
+                svg {
+                    fill: $color-white;
+                    width: rem(20);
+                }
+            }
+
+            .mobile-filter-button-label {
+                @include flex(1 1 auto);
+                color: $color-white;
+                line-height: 1.5;
+                font-size: $font-size-16;
+                font-weight: $font-semibold;
+            }
+        }
+    }
+
     button.mobile-clear-all {
         @include button-unstyled;
         margin-left: rem(20);

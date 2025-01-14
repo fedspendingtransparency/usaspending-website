@@ -3,12 +3,14 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CategoriesList from "./CateogriesList";
 import CategoryFilter from "./CategoryFilter";
+import { generateCount } from "../../../helpers/search/filterCheckboxHelper";
+import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     list: PropTypes.array,
@@ -21,7 +23,10 @@ const propTypes = {
     itemCount: PropTypes.object,
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
-    titleOnly: PropTypes.bool
+    titleOnly: PropTypes.bool,
+    dsmComponent: PropTypes.bool,
+    dsmFile: PropTypes.string,
+    currentLevel: PropTypes.number
 };
 
 const SearchSidebarDrilldown = ({
@@ -35,8 +40,12 @@ const SearchSidebarDrilldown = ({
     filters,
     sidebarHeight,
     selectedCategoryTitle,
-    titleOnly = false
+    titleOnly = false,
+    dsmComponent = false,
+    dsmFile = '',
+    currentLevel
 }) => {
+    const [isDsmOpened, setIsDsmOpened] = useState(false);
     const keyHandler = (e, func) => {
         e.preventDefault();
         if (e.key === "Enter") {
@@ -59,7 +68,8 @@ const SearchSidebarDrilldown = ({
         selectedAwardingAgencies,
         selectedFundingAgencies,
         tasCodes,
-        defCodes
+        covidDefCode,
+        infraDefCode
     } = filters;
 
     // TODO: Add in Award Description, Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
@@ -71,8 +81,8 @@ const SearchSidebarDrilldown = ({
         'Award ID': selectedAwardIDs.size,
         'Spending Amount': awardAmounts.size,
         'Contract Award Type': awardType.size,
-        'North American Industry Classification System (NAICS)': naicsCodes.counts.length,
-        'Product and Service Code (PSC)': pscCodes.counts.length,
+        'North American Industry Classification System (NAICS)': generateCount(naicsCodes),
+        'Product and Service Code (PSC)': generateCount(pscCodes),
         'Type of Contract Pricing': pricingType.size,
         'Type of Set Aside': setAside.size,
         'Extent Competed': extentCompeted.size,
@@ -82,8 +92,8 @@ const SearchSidebarDrilldown = ({
         'Recipient Type': recipientType.size,
         Agency: selectedAwardingAgencies.size + selectedFundingAgencies.size,
         'Treasury Account Symbol (TAS)': tasCodes.counts.length,
-        'COVID-19 Spending': defCodes.counts.length,
-        'Infrastructure Spending': 0
+        'COVID-19 Spending': covidDefCode.size,
+        'Infrastructure Spending': infraDefCode.size
     };
 
     let categoryFilter;
@@ -127,7 +137,7 @@ const SearchSidebarDrilldown = ({
                 </div>
             </div>
             <div className="collapsible-sidebar--content">
-                {list && <CategoriesList
+                {!isDsmOpened && list && <CategoriesList
                     height={sidebarHeight}
                     iconName={selectedCategory.iconName}
                     iconColor={selectedCategory.iconColor}
@@ -138,8 +148,8 @@ const SearchSidebarDrilldown = ({
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}
                     filterCount={filterCount} />}
-
-                {filter && categoryFilter}
+                {!isDsmOpened && filter && categoryFilter}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} />}
             </div>
         </div>);
 };
