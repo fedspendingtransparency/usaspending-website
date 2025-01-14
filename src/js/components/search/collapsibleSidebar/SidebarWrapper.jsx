@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
+import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView, detectCollision } from "../../../helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
 
 const SidebarWrapper = () => {
@@ -123,7 +123,10 @@ const SidebarWrapper = () => {
         document.querySelector(sidebarElSelector).style.width = "unset";
         document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
-        document.querySelector(".sidebar-bottom-submit").style.width = "100%";
+        document.querySelector(".sidebar-bottom-submit").style.display = "block";
+        if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
+            document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "flex";
+        }
     };
 
     const closeSidebar = () => {
@@ -132,7 +135,10 @@ const SidebarWrapper = () => {
         document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
-        document.querySelector(".sidebar-bottom-submit").style.width = "0";
+        document.querySelector(".sidebar-bottom-submit").style.display = "none";
+        if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
+            document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "none";
+        }
     };
 
     useEffect(() => {
@@ -206,9 +212,10 @@ const SidebarWrapper = () => {
         const resizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target.clientHeight);
         });
+        // const fullHeader = document.querySelector("#main-content");
+        // resizeObserver.observe(mainContent);
         const mainContent = document.querySelector("#main-content");
         resizeObserver.observe(mainContent);
-
         handleResize();
 
         window.addEventListener('resize', (e) => handleResize(e));
