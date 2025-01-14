@@ -8,24 +8,17 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
-
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { AddFilter } from 'components/sharedComponents/icons/Icons';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
-import { showModal } from 'redux/actions/modal/modalActions';
-
 import NoDownloadHover from '../header/NoDownloadHover';
 import KeywordSearchLink from "../KeywordSearchLink";
-import MobileFilters from "../mobile/MobileFilters";
+import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
-import Button from "../../sharedComponents/buttons/Button";
 import CollapsibleSidebar from "./CollapsibleSidebar";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 
@@ -65,9 +58,6 @@ const SearchPage = ({
     const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
 
-
-    const dispatch = useDispatch();
-
     const getSlugWithHash = () => {
         if (hash) {
             return `${slug}?hash=${hash}`;
@@ -94,6 +84,7 @@ const SearchPage = ({
      * Toggle whether or not to show the mobile filter view
      */
     const toggleMobileFilters = () => {
+        console.debug("show mobile filters");
         setShowMobileFilters(!showMobileFilters);
     };
 
@@ -113,15 +104,11 @@ const SearchPage = ({
 
     const pluralizeFilterLabel = (count) => {
         if (count === 1) {
-            return 'Filter';
+            return 'filter';
         }
-        return 'Filters';
+        return 'filters';
     };
 
-    let showCountBadge = '';
-    if (filterCount === 0) {
-        showCountBadge = 'hide';
-    }
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -181,7 +168,7 @@ const SearchPage = ({
                         </div>
                         <div className="mobile-filter-button-wrapper">
                             <button
-                                className="mobile-filter-button"
+                                className="mobile-filter-button-v2"
                                 onClick={toggleMobileFilters}
                                 onKeyUp={(e) => {
                                     if (e.key === "Escape" && showMobileFilters) {
@@ -189,43 +176,24 @@ const SearchPage = ({
                                     }
                                 }}>
                                 <div className="mobile-filter-button-content">
-                                    <div className={`mobile-filter-button-count ${showCountBadge}`}>
-                                        {filterCount}
-                                    </div>
                                     <div className="mobile-filter-button-icon">
-                                        <AddFilter alt="Toggle filters" />
+                                        <img
+                                            className="usa-da-mobile-filter-icon"
+                                            alt="Toggle filters"
+                                            aria-label="Toggle filters"
+                                            src="img/Add-search-filters-icon.svg" />
                                     </div>
                                     <div className="mobile-filter-button-label">
-                                        {pluralizeFilterLabel(filterCount)}
+                                        {`Add search ${pluralizeFilterLabel(filterCount)}`}
                                     </div>
                                 </div>
                             </button>
                         </div>
-                        <div
-                            className="visualization-tabs__toggle-mobile">
-                            <Button
-                                onClick={(e) => {
-                                    e.persist();
-                                    dispatch(showModal(window.location.href, 'filter'));
-                                }}
-                                onKeyUp={(e) => {
-                                    e.persist();
-                                    if (e.key === 'Enter') {
-                                        dispatch(showModal(window.location.href, 'filter'));
-                                    }
-                                }}
-                                copy="Learn how active filters work"
-                                buttonTitle="filter modal"
-                                buttonSize="sm"
-                                buttonType="text"
-                                backgroundColor="light"
-                                imageAlignment="right"
-                                image={<FontAwesomeIcon icon="window-restore" />} />
-                        </div>
-                        <FlexGridCol className="mobile-search-sidebar">
-                            <MobileFilters
+                        <FlexGridCol className="mobile-search-sidebar-v2">
+                            <MobileFiltersV2
                                 filters={filters}
-                                showMobileFilters={showMobileFilters} />
+                                showMobileFilters={showMobileFilters}
+                                setShowMobileFilters={setShowMobileFilters} />
                         </FlexGridCol>
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
@@ -237,7 +205,6 @@ const SearchPage = ({
                                 filterCount={filterCount}
                                 showMobileFilters={showMobileFilters}
                                 updateFilterCount={updateFilterCount}
-                                toggleMobileFilters={toggleMobileFilters}
                                 requestsComplete={requestsComplete}
                                 noFiltersApplied={noFiltersApplied} />
                         </div>
