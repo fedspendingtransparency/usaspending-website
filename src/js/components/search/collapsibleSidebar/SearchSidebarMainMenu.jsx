@@ -5,7 +5,6 @@
 
 import React from "react";
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import { SearchFilterCategories } from "dataMapping/search/searchFilterCategories";
 import CategoryHeader from "./CategoryHeader";

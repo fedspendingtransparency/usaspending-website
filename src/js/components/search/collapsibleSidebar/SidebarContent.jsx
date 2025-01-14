@@ -12,9 +12,7 @@ import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
 
-const SidebarContent = ({
-    sidebarHeight, sidebarContentHeight
-}) => {
+const SidebarContent = ({ sidebarContentHeight }) => {
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);

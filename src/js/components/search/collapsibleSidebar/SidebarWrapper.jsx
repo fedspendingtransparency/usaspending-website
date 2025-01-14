@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView, detectCollision } from "../../../helpers/search/collapsiblesidebarHelper";
+import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
 
 const SidebarWrapper = () => {
@@ -90,7 +90,7 @@ const SidebarWrapper = () => {
     };
 
     const handleScroll = throttle(() => {
-        if (window.scrollY === 0) {
+        if (window.scrollY < 60) {
             setSidebarTop(siteHeaderHeight + topStickyBarEl.clientHeight);
         }
         else {
