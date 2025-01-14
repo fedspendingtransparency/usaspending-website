@@ -52,6 +52,20 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     const fullHeader = 148;
     const footerMargin = 48;
 
+    const panelContainerElClasses = [
+        {
+            className: "collapsible-sidebar",
+            display: "block"
+        },
+        {
+            className: "sidebar-bottom-submit",
+            display: "block"
+        },
+        {
+            className: "collapsible-sidebar--toggle",
+            display: "flex"
+        }
+    ];
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -90,30 +104,15 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
         for (let i = 0; i < removeableEls.length; i++) {
             const elClass = removeableEls[i].className;
             document.querySelector(`.${elClass}`).style.display = "none";
-        };
+        }
     };
 
     const showElements = (removeableEls) => {
         for (let i = 0; i < removeableEls.length; i++) {
             const elClass = removeableEls[i].className;
             document.querySelector(`.${elClass}`).style.display = removeableEls[i].display;
-        };
-    };
-
-    const panelContainerElClasses = [
-        {
-            className: "collapsible-sidebar",
-            display: "block"
-        },
-        {
-            className: "sidebar-bottom-submit",
-            display: "block"
-        },
-        {
-            className: "collapsible-sidebar--toggle",
-            display: "flex"
         }
-    ];
+    };
 
     // TODO move to helper
     const checkInView = (el) => {
@@ -187,13 +186,14 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
             setWindowWidth(newWidth);
             handleScroll();
         }
-    }, 150);
+    }, 30);
 
     const openSidebar = (width) => {
         const sidebarElSelector = isMobile ? ".mobile-search-sidebar-v2" : ".full-search-sidebar";
         document.querySelector(sidebarElSelector).style.width = "unset";
         document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
+        document.querySelector(".sidebar-bottom-submit").style.width = "100%";
     };
 
     const closeSidebar = () => {
@@ -202,6 +202,7 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
         document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
+        document.querySelector(".sidebar-bottom-submit").style.width = "0";
     };
 
     useEffect(() => {
@@ -213,7 +214,8 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
                 else if (windowWidth > 1199) {
                     openSidebar(sideBarXlDesktopWidth);
                 }
-            } else if (document.querySelector(".mobile-search-sidebar-v2")) {
+            }
+            else if (document.querySelector(".mobile-search-sidebar-v2")) {
                 if (isMobile) {
                     openSidebar(sideBarDesktopWidth);
                 }
@@ -222,7 +224,7 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
         else if (document.querySelector(".full-search-sidebar")) {
             closeSidebar();
         }
-    }, [isOpened, windowWidth]);
+    }, [isMobile, isOpened, openSidebar, windowWidth]);
 
     useEffect(() => {
         if (!isOpened && initialPageLoad) {
