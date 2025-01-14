@@ -12,7 +12,8 @@ const propTypes = {
     requestsComplete: PropTypes.bool,
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
-    resetFilters: PropTypes.func
+    resetFilters: PropTypes.func,
+    setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarSubmit = (props) => {
@@ -41,7 +42,12 @@ const SearchSidebarSubmit = (props) => {
                 buttonType="primary"
                 backgroundColor="light"
                 disabled={disabled}
-                onClick={props.applyStagedFilters} />
+                onClick={() => {
+                    if (props.setShowMobileFilters) {
+                        props.setShowMobileFilters();
+                    }
+                    props.applyStagedFilters();
+                }} />
             <Button
                 additionalClassnames="reset-button"
                 copy="Reset filters"

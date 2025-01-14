@@ -36,7 +36,8 @@ const propTypes = {
     resetNaicsTree: PropTypes.func,
     resetMapLegendToggle: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
-    resetAppliedFilters: PropTypes.func
+    resetAppliedFilters: PropTypes.func,
+    setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarSubmitContainer = (props) => {
@@ -105,7 +106,8 @@ const SearchSidebarSubmitContainer = (props) => {
             filtersChanged={filtersChanged}
             requestsComplete={props.requestsComplete}
             applyStagedFilters={applyStagedFilters}
-            resetFilters={resetFilters} />
+            resetFilters={resetFilters}
+            setShowMobileFilters={props.setShowMobileFilters} />
     );
 };
 

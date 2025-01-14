@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
@@ -17,11 +17,14 @@ import { characteristicsCount, sourcesCount } from "../../../helpers/search/filt
 
 
 const propTypes = {
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    setShowMobileFilters: PropTypes.func
 };
 
-const CollapsibleSidebar = ({ filters }) => {
+const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     const [isOpened, setIsOpened] = useState(true);
+    // eslint-disable-next-line no-unused-vars
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -167,11 +170,19 @@ const CollapsibleSidebar = ({ filters }) => {
                     document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarXlDesktopWidth}px`;
                     document.querySelector(".collapsible-sidebar").style.width = `${sideBarXlDesktopWidth}px`;
                 }
+            } else if (document.querySelector(".mobile-search-sidebar-v2")) {
+                if (windowWidth < 992) {
+                    document.querySelector(".mobile-search-sidebar-v2").style.width = "unset";
+                    document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = `${sideBarDesktopWidth}px`;
+                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;
+                }
             }
         }
         else if (document.querySelector(".full-search-sidebar")) {
             document.querySelector(".full-search-sidebar").style.width = "0";
             document.querySelector(".full-search-sidebar").style.flexBasis = "0";
+            document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
+            document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
             document.querySelector(".collapsible-sidebar").style.width = "0";
         }
     }, [isOpened, windowWidth]);
@@ -253,7 +264,7 @@ const CollapsibleSidebar = ({ filters }) => {
     });
 
     return (
-        <div className="search-collapsible-sidebar-container search-sidebar" style={{ display: "none" }}>
+        <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
             <div
                 style={{ height: windowHeight }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
@@ -274,7 +285,8 @@ const CollapsibleSidebar = ({ filters }) => {
                     isDrilldown={isDrilldown}
                     sidebarHeight={sidebarHeight}
                     setLevel2={setLevel2}
-                    itemCount={itemCount} />
+                    itemCount={itemCount}
+                    setShowMobileFilters={setShowMobileFilters} />
 
                 <SearchSidebarDrilldown
                     list={drilldown?.children}
@@ -294,7 +306,7 @@ const CollapsibleSidebar = ({ filters }) => {
                     currentLevel={currentLevel} />
 
                 <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmitContainer />
+                    <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
                 </div>
             </div>
         </div>

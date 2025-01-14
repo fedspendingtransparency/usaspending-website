@@ -25,7 +25,7 @@ const ResultsView = (props) => {
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
     const [waitForCheckForData, setWaitForCheckForData] = useState(true);
-
+    let mobileFilters = '';
     const filters = useSelector((state) => state.appliedFilters.filters);
     const subaward = useSelector((state) => state.searchView.subaward);
 
@@ -68,10 +68,13 @@ const ResultsView = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters, subaward]);
 
-    let mobileFilters = '';
-    if (props.showMobileFilters && props.isMobile) {
-        mobileFilters = 'behind-filters';
-    }
+
+    useEffect(() => {
+        if (props.showMobileFilters && props.isMobile) {
+            mobileFilters = 'behind-filters';
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.showMobileFilters, props.isMobile]);
 
     useEffect(() => {
         let content = null;
