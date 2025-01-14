@@ -1,38 +1,23 @@
 /**
- * CollapsibleSidebar.jsx
+ * SidebarWrapper.jsx
  * Created by Andrea Blackwell 11/05/2024
  **/
 
 import React, { useEffect, useState } from 'react';
-import { FilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
-import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
-import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
-import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
+import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
+import SidebarContent from "./SidebarContent";
 
-
-const propTypes = {
-    filters: PropTypes.object,
-    setShowMobileFilters: PropTypes.func
-};
-
-const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
+const SidebarWrapper = () => {
     const [isOpened, setIsOpened] = useState(true);
     // eslint-disable-next-line no-unused-vars
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const [drilldown, setDrilldown] = useState(null);
-    const [isDrilldown, setIsDrilldown] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [currentLevel, setCurrentLevel] = useState(1);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [windowWidth, setWindowWidth] = useState();
-    const [windowHeight, setWindowHeight] = useState(); // TODO: need to rename this
-    const [sidebarHeight, setSidebarHeight] = useState();
+    const [sidebarHeight, setSidebarHeight] = useState(); // TODO: need to rename this
+    const [sidebarContentHeight, setSidebarContentHeight] = useState();
     const [footerInView, setFooterInView] = useState();
     const [siteHeaderInView, setSiteHeaderInView] = useState();
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
@@ -43,61 +28,17 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     const siteHeaderEl = document.querySelector(".site-header__wrapper");
     const topStickyBarEl = document.querySelector(".usda-page-header");
 
-    const sideBarXlDesktopWidth = 332;
-    const sideBarDesktopWidth = 282;
+    const sidebarStaticEls = 172;
+    const footerMargin = 48;
+    const minContentHeight = 124;
 
     // TODO: Remove hard coded values
     const headingPadding = 40;
-    const inPanelNonScrollableEls = 172;
     const fullHeader = 148;
-    const footerMargin = 48;
-
-    const panelContainerElClasses = [
-        {
-            className: "collapsible-sidebar",
-            display: "block"
-        },
-        {
-            className: "sidebar-bottom-submit",
-            display: "block"
-        },
-        {
-            className: "collapsible-sidebar--toggle",
-            display: "flex"
-        }
-    ];
 
     const toggleOpened = (e) => {
         e.preventDefault();
         setIsOpened((prevState) => !prevState);
-    };
-
-    const setLevel2 = (e, item) => {
-        e.preventDefault();
-        setSelectedCategory(item);
-        setDrilldown(FilterCategoryTree[item?.categoryKey]);
-        setIsDrilldown(true);
-        setCurrentLevel(2);
-    };
-
-    const setLevel3 = (e, item) => {
-        e.preventDefault();
-        setDrilldown(item);
-        setIsDrilldown(true);
-        setCurrentLevel(3);
-    };
-
-    const goBack = (e) => {
-        if (currentLevel === 2) {
-            e.preventDefault();
-            setDrilldown(null);
-            setCurrentLevel(1);
-            setIsDrilldown(false);
-        }
-        else if (currentLevel === 3) {
-            setDrilldown(FilterCategoryTree[selectedCategory?.categoryKey]);
-            setCurrentLevel(2);
-        }
     };
 
     const hideElements = (removeableEls) => {
@@ -114,50 +55,39 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
         }
     };
 
-    // TODO move to helper
-    const checkInView = (el) => {
-        const bbox = el.getBoundingClientRect();
-
-        const intersection = {
-            top: Math.max(0, bbox.top),
-            left: Math.max(0, bbox.left),
-            bottom: Math.min(window.innerHeight, bbox.bottom),
-            right: Math.min(window.innerWidth, bbox.right)
-        };
-
-        return (intersection.bottom - intersection.top);
-    };
-
-
-    const resizeSidebarWithStickyBar = (withFooter) => {
+    // This function resizeSidebar, will resize the sidebar while only the page header (ie. top sticky bar) is visible in the viewport
+    const resizeSidebar = (withFooter) => {
         const hasFooter = withFooter > 0 ? withFooter : 0;
         const headingInView = sidebarTop + headingPadding;
 
+        const mainContentArea = (window.innerHeight - headingInView) + headingPadding;
+        const sidebarContentArea = mainContentArea - sidebarStaticEls;
+
         if (footerInView < 0) {
-            setWindowHeight((window.innerHeight - headingInView) + headingPadding);
-            setSidebarHeight(((window.innerHeight - headingInView) - inPanelNonScrollableEls) + headingPadding);
+            setSidebarHeight(mainContentArea);
+            setSidebarContentHeight(sidebarContentArea);
         }
         else {
-            // Hide side search by... if only a small part of the sidebar is in view
-            // const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls)) + headingPadding;
-            const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls)) + headingPadding;
-            // TODO This should happen at 174px - Once the DS&M panel is added
-            if (newSidebarHeight < 124) {
+            const sidebarContentAreaWFooter = sidebarContentArea - hasFooter;
+            if (sidebarContentAreaWFooter < minContentHeight) {
                 hideElements(panelContainerElClasses);
             }
             else {
                 showElements(panelContainerElClasses);
             }
 
-            setWindowHeight(((window.innerHeight - headingInView) - hasFooter) + headingPadding);
-            setSidebarHeight(newSidebarHeight);
+            setSidebarHeight(mainContentArea - hasFooter);
+            setSidebarContentHeight(sidebarContentAreaWFooter);
         }
     };
 
-    const resizeSidebarWithFullHeader = (withFooter) => {
+    // This function resizeInitialSidebar, will resize the sidebar while the full header is visible in the viewport
+    const resizeInitialSidebar = (withFooter) => {
         const hasFooter = withFooter > 0 ? withFooter : 0;
-        setWindowHeight((window.innerHeight - fullHeader - hasFooter) + window.scrollY);
-        setSidebarHeight(((window.innerHeight - fullHeader - hasFooter) - inPanelNonScrollableEls) + window.scrollY);
+        const mainContentArea = (window.innerHeight - fullHeader) - hasFooter;
+        const sidebarContentArea = mainContentArea - sidebarStaticEls;
+        setSidebarHeight(mainContentArea + window.scrollY);
+        setSidebarContentHeight(sidebarContentArea + window.scrollY);
     };
 
     const handleScroll = throttle(() => {
@@ -208,10 +138,10 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     useEffect(() => {
         if (isOpened) {
             if (document.querySelector(".full-search-sidebar")) {
-                if (windowWidth > 991 && windowWidth < 1200) {
+                if (windowWidth >= mediumScreen && windowWidth < largeScreen) {
                     openSidebar(sideBarDesktopWidth);
                 }
-                else if (windowWidth > 1199) {
+                else if (windowWidth >= largeScreen) {
                     openSidebar(sideBarXlDesktopWidth);
                 }
             }
@@ -233,10 +163,10 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     }, [initialPageLoad, isOpened]);
 
     useEffect(() => {
-        if (windowHeight > 0 && sidebarHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
+        if (sidebarHeight > 0 && sidebarContentHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
             document.querySelector(".search-sidebar").style.display = "flex";
         }
-    }, [windowHeight, sidebarHeight]);
+    }, [sidebarHeight, sidebarContentHeight]);
 
     useEffect(() => {
         if (window.scrollY === 0 && mainContentHeight) {
@@ -244,12 +174,15 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
         }
 
         if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
-            setWindowHeight((mainContentHeight));
-            setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
+            setSidebarHeight((mainContentHeight));
+            setSidebarContentHeight((mainContentHeight - sidebarStaticEls));
         }
         else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
-            setWindowHeight((window.innerHeight - fullHeader));
-            setSidebarHeight(((window.innerHeight - fullHeader) - inPanelNonScrollableEls));
+            const mainContentArea = window.innerHeight - fullHeader;
+            const sidebarContentArea = mainContentArea - sidebarStaticEls;
+
+            setSidebarHeight(mainContentArea);
+            setSidebarContentHeight(sidebarContentArea);
         }
     }, [mainContentHeight]);
 
@@ -259,32 +192,14 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
 
         if (window.scrollY > 0) {
             if (sidebarIsSticky) {
-                resizeSidebarWithStickyBar(footerInView);
+                resizeSidebar(footerInView);
             }
             else if (sidebarTop !== 0) {
-                resizeSidebarWithFullHeader(footerInView);
+                resizeInitialSidebar(footerInView);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [footerInView, siteHeaderInView, sidebarIsSticky, sidebarTop]);
-
-    const {
-        selectedLocations,
-        selectedRecipientLocations,
-        timePeriodType,
-        time_period: timePeriod,
-        timePeriodFY,
-        selectedRecipients,
-        recipientType
-    } = filters;
-
-    const itemCount = {
-        location: selectedLocations.size + selectedRecipientLocations.size,
-        timePeriod: timePeriodType === 'dr' ? timePeriod.size : timePeriodFY.size,
-        characteristics: characteristicsCount(filters),
-        recipients: selectedRecipients.size + recipientType.size,
-        sources: sourcesCount(filters)
-    };
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
@@ -309,7 +224,7 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     return (
         <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
             <div
-                style={{ height: windowHeight }}
+                style={{ height: sidebarHeight }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
@@ -324,41 +239,12 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
                     }
                 </div>
-                <SearchSidebarMainMenu
-                    isDrilldown={isDrilldown}
-                    sidebarHeight={sidebarHeight}
-                    setLevel2={setLevel2}
-                    itemCount={itemCount}
-                    setShowMobileFilters={setShowMobileFilters} />
-
-                <SearchSidebarDrilldown
-                    list={drilldown?.children}
-                    filter={drilldown?.component}
-                    isDrilldown={isDrilldown}
-                    windowHeight={windowHeight}
-                    selectedCategory={selectedCategory}
-                    selectedCategoryTitle={drilldown?.title}
-                    sidebarHeight={sidebarHeight}
-                    setLevel3={setLevel3}
-                    goBack={goBack}
-                    itemCount={itemCount}
-                    filters={filters}
-                    titleOnly={drilldown?.titleOnly}
-                    dsmComponent={drilldown?.dsmComponent}
-                    dsmFile={drilldown?.dsmFile}
-                    currentLevel={currentLevel} />
-
-                <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
-                </div>
+                <SidebarContent
+                    sidebarContentHeight={sidebarContentHeight}
+                    sidebarHeight={sidebarHeight} />
             </div>
         </div>
     );
 };
 
-CollapsibleSidebar.propTypes = propTypes;
-export default connect(
-    (state) => ({
-        filters: state.filters
-    })
-)(CollapsibleSidebar);
+export default SidebarWrapper;

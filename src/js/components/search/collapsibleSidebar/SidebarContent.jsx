@@ -1,9 +1,9 @@
 /**
- * CollapsibleSidebarWrapper.jsx
+ * SidebarContent.jsx
  * Created by Andrea Blackwell 1/10/2025
  **/
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import { FilterCategoryTree } from "dataMapping/search/searchFilterCategories";
@@ -13,9 +13,8 @@ import SearchSidebarSubmitContainer from "../../../containers/search/SearchSideb
 import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
 
 const SidebarContent = ({
-    sidebarHeight, windowHeight,
+    sidebarHeight, sidebarContentHeight
 }) => {
-
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -72,7 +71,7 @@ const SidebarContent = ({
     return (<>
         <SearchSidebarMainMenu
             isDrilldown={isDrilldown}
-            sidebarHeight={sidebarHeight}
+            sidebarContentHeight={sidebarContentHeight}
             setLevel2={setLevel2}
             itemCount={itemCount} />
 
@@ -80,15 +79,17 @@ const SidebarContent = ({
             list={drilldown?.children}
             filter={drilldown?.component}
             isDrilldown={isDrilldown}
-            windowHeight={windowHeight}
+            sidebarContentHeight={sidebarContentHeight}
             selectedCategory={selectedCategory}
             selectedCategoryTitle={drilldown?.title}
-            sidebarHeight={sidebarHeight}
             setLevel3={setLevel3}
             goBack={goBack}
             itemCount={itemCount}
             filters={filters}
-            titleOnly={drilldown?.titleOnly} />
+            titleOnly={drilldown?.titleOnly}
+            dsmComponent={drilldown?.dsmComponent}
+            dsmFile={drilldown?.dsmFile}
+            currentLevel={currentLevel} />
 
         <div className="sidebar-bottom-submit">
             <SearchSidebarSubmitContainer />

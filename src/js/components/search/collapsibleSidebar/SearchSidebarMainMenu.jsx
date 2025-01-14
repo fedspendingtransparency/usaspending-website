@@ -13,14 +13,14 @@ import CategoryHeader from "./CategoryHeader";
 
 const propTypes = {
     isDrilldown: PropTypes.bool,
-    sidebarHeight: PropTypes.number,
+    sidebarContentHeight: PropTypes.number,
     setLevel2: PropTypes.func,
     itemCount: PropTypes.object,
     setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarMainMenu = ({
-    isDrilldown, sidebarHeight, setLevel2, itemCount, setShowMobileFilters
+    isDrilldown, sidebarContentHeight, setLevel2, itemCount, setShowMobileFilters
 }) => (
     <div className={`collapsible-sidebar--main-menu ${isDrilldown ? '' : 'opened'}`}>
         <div className="collapsible-sidebar--header">
@@ -36,7 +36,7 @@ const SearchSidebarMainMenu = ({
                 <Icons.Close alt="Close About The Data" />
             </button>
         </div>
-        <div className="collapsible-sidebar--search-filters-list" style={{ height: sidebarHeight }}>
+        <div className="collapsible-sidebar--search-filters-list" style={{ height: sidebarContentHeight }}>
             {SearchFilterCategories.map((item) => (<CategoryHeader
                 item={item}
                 iconName={item.iconName}
@@ -54,8 +54,4 @@ const SearchSidebarMainMenu = ({
 );
 
 SearchSidebarMainMenu.propTypes = propTypes;
-export default connect(
-    (state) => ({
-        filters: state.filters
-    })
-)(SearchSidebarMainMenu);
+export default SearchSidebarMainMenu;
