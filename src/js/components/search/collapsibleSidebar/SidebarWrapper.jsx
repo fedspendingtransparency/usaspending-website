@@ -16,13 +16,14 @@ const SidebarWrapper = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [windowWidth, setWindowWidth] = useState();
-    const [sidebarHeight, setSidebarHeight] = useState(); // TODO: need to rename this
+    const [sidebarHeight, setSidebarHeight] = useState();
     const [sidebarContentHeight, setSidebarContentHeight] = useState();
     const [footerInView, setFooterInView] = useState();
     const [siteHeaderInView, setSiteHeaderInView] = useState();
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [sidebarTop, setSidebarTop] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
+    const [siteHeaderHeight, setSiteHeaderHeight] = useState();
 
     const footerEl = document.querySelector("footer");
     const siteHeaderEl = document.querySelector(".site-header__wrapper");
@@ -31,10 +32,7 @@ const SidebarWrapper = () => {
     const sidebarStaticEls = 172;
     const footerMargin = 48;
     const minContentHeight = 124;
-
-    // TODO: Remove hard coded values
     const headingPadding = 40;
-    const fullHeader = 148;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -56,8 +54,8 @@ const SidebarWrapper = () => {
     };
 
     // This function resizeSidebar, will resize the sidebar while only the page header (ie. top sticky bar) is visible in the viewport
-    const resizeSidebar = (withFooter) => {
-        const hasFooter = withFooter > 0 ? withFooter : 0;
+    const resizeSidebar = () => {
+        const hasFooter = footerInView > 0 ? footerInView : 0;
         const headingInView = sidebarTop + headingPadding;
 
         const mainContentArea = (window.innerHeight - headingInView) + headingPadding;
@@ -82,9 +80,10 @@ const SidebarWrapper = () => {
     };
 
     // This function resizeInitialSidebar, will resize the sidebar while the full header is visible in the viewport
-    const resizeInitialSidebar = (withFooter) => {
-        const hasFooter = withFooter > 0 ? withFooter : 0;
-        const mainContentArea = (window.innerHeight - fullHeader) - hasFooter;
+    const resizeInitialSidebar = () => {
+        const fullHeaderHeight = siteHeaderHeight + topStickyBarEl.clientHeight;
+        const hasFooter = footerInView > 0 ? footerInView : 0;
+        const mainContentArea = (window.innerHeight - fullHeaderHeight) - hasFooter;
         const sidebarContentArea = mainContentArea - sidebarStaticEls;
         setSidebarHeight(mainContentArea + window.scrollY);
         setSidebarContentHeight(sidebarContentArea + window.scrollY);
@@ -92,7 +91,7 @@ const SidebarWrapper = () => {
 
     const handleScroll = throttle(() => {
         if (window.scrollY === 0) {
-            setSidebarTop(fullHeader);
+            setSidebarTop(siteHeaderHeight + topStickyBarEl.clientHeight);
         }
         else {
             const topStickyBarBbox = topStickyBarEl.getBoundingClientRect();
@@ -175,22 +174,23 @@ const SidebarWrapper = () => {
     }, [sidebarHeight, sidebarContentHeight]);
 
     useEffect(() => {
-        if (window.scrollY === 0 && mainContentHeight) {
+        if (window.scrollY === 0 && mainContentHeight && siteHeaderHeight) {
             document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
-        }
+            setSidebarTop(siteHeaderHeight + topStickyBarEl.clientHeight);
 
-        if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
-            setSidebarHeight((mainContentHeight));
-            setSidebarContentHeight((mainContentHeight - sidebarStaticEls));
-        }
-        else if (window.scrollY === 0 && (window.innerHeight - fullHeader) < mainContentHeight) {
-            const mainContentArea = window.innerHeight - fullHeader;
-            const sidebarContentArea = mainContentArea - sidebarStaticEls;
+            const fullHeaderHeight = siteHeaderHeight + topStickyBarEl.clientHeight;
+            if (window.scrollY === 0 && ((window.innerHeight - fullHeaderHeight) >= mainContentHeight)) {
+                setSidebarHeight((mainContentHeight));
+                setSidebarContentHeight((mainContentHeight - sidebarStaticEls));
+            } else if (window.scrollY === 0 && (window.innerHeight - fullHeaderHeight) < mainContentHeight) {
+                const mainContentArea = window.innerHeight - fullHeaderHeight;
+                const sidebarContentArea = mainContentArea - sidebarStaticEls;
 
-            setSidebarHeight(mainContentArea);
-            setSidebarContentHeight(sidebarContentArea);
+                setSidebarHeight(mainContentArea);
+                setSidebarContentHeight(sidebarContentArea);
+            }
         }
-    }, [mainContentHeight]);
+    }, [mainContentHeight, siteHeaderHeight]);
 
     useEffect(() => {
         const headingInView = sidebarTop + headingPadding;
@@ -198,10 +198,10 @@ const SidebarWrapper = () => {
 
         if (window.scrollY > 0) {
             if (sidebarIsSticky) {
-                resizeSidebar(footerInView);
+                resizeSidebar();
             }
             else if (sidebarTop !== 0) {
-                resizeInitialSidebar(footerInView);
+                resizeInitialSidebar();
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -211,11 +211,15 @@ const SidebarWrapper = () => {
         // eslint-disable-next-line no-undef
         const resizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target.clientHeight);
+            setSiteHeaderHeight(entries[1].target.clientHeight);
         });
-        // const fullHeader = document.querySelector("#main-content");
-        // resizeObserver.observe(mainContent);
+
         const mainContent = document.querySelector("#main-content");
         resizeObserver.observe(mainContent);
+
+        const siteHeaderWrapper = document.querySelector(".site-header__wrapper");
+        resizeObserver.observe(siteHeaderWrapper);
+
         handleResize();
 
         window.addEventListener('resize', (e) => handleResize(e));
