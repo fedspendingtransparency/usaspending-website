@@ -119,10 +119,18 @@
       overflow-y: auto;
     }
 
+    .category-filter {
+      .react-checkbox-tree {
+        overflow: unset;
+        max-height: unset;
+        height: unset;
+      }
+    }
+
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
       font-size: 16px;
-      font-weight: 600;
+      font-weight: $font-semibold;
       line-height: 1.5;
       color: $gray-90;
       border-bottom: $gray-cool-10 1px solid;
@@ -268,6 +276,38 @@
 
       .categories-list {
         overflow-y: auto;
+      }
+
+      .collapsible-sidebar--dsm-slider {
+        color: $blue-50;
+        cursor: pointer;
+        padding: rem(16) rem(32);
+        font-size: rem(12);
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        border-top: 1px solid $gray-cool-5;
+        display:flex;
+        flex-direction: row;
+        flex-wrap:wrap;
+        &:hover {
+          color: $blue-70v;
+        }
+
+        .chevron {
+          margin: 4px 8px 0 8px;
+          width: 10px;
+        }
+
+        .collapsible-sidebar--dsm-content {
+          .collapsible-sidebar--dsm-wrapper {
+            font-size: $font-size-14;
+            color: $gray-60;
+          }
+        }
+      }
+
+      .collapsible-sidebar--dsm-slider:hover .chevron {
+        color: $blue-70v;
       }
     }
 

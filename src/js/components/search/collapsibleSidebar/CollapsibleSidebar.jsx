@@ -343,7 +343,10 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
                     goBack={goBack}
                     itemCount={itemCount}
                     filters={filters}
-                    titleOnly={drilldown?.titleOnly} />
+                    titleOnly={drilldown?.titleOnly}
+                    dsmComponent={drilldown?.dsmComponent}
+                    dsmFile={drilldown?.dsmFile}
+                    currentLevel={currentLevel} />
 
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />

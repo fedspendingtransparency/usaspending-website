@@ -3,13 +3,14 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CategoriesList from "./CateogriesList";
 import CategoryFilter from "./CategoryFilter";
 import { generateCount } from "../../../helpers/search/filterCheckboxHelper";
+import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     list: PropTypes.array,
@@ -22,7 +23,10 @@ const propTypes = {
     itemCount: PropTypes.object,
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
-    titleOnly: PropTypes.bool
+    titleOnly: PropTypes.bool,
+    dsmComponent: PropTypes.bool,
+    dsmFile: PropTypes.string,
+    currentLevel: PropTypes.number
 };
 
 const SearchSidebarDrilldown = ({
@@ -36,8 +40,12 @@ const SearchSidebarDrilldown = ({
     filters,
     sidebarHeight,
     selectedCategoryTitle,
-    titleOnly = false
+    titleOnly = false,
+    dsmComponent = false,
+    dsmFile = '',
+    currentLevel
 }) => {
+    const [isDsmOpened, setIsDsmOpened] = useState(false);
     const keyHandler = (e, func) => {
         e.preventDefault();
         if (e.key === "Enter") {
@@ -128,7 +136,7 @@ const SearchSidebarDrilldown = ({
                 </div>
             </div>
             <div className="collapsible-sidebar--content">
-                {list && <CategoriesList
+                {!isDsmOpened && list && <CategoriesList
                     height={sidebarHeight}
                     iconName={selectedCategory.iconName}
                     iconColor={selectedCategory.iconColor}
@@ -139,8 +147,8 @@ const SearchSidebarDrilldown = ({
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}
                     filterCount={filterCount} />}
-
-                {filter && categoryFilter}
+                {!isDsmOpened && filter && categoryFilter}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} />}
             </div>
         </div>);
 };
