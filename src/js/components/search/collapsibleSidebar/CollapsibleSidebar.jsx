@@ -217,7 +217,10 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     }, [windowHeight, sidebarHeight]);
 
     useEffect(() => {
-        console.log(mainContentHeight);
+        if (window.scrollY && mainContentHeight) {
+            document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
+        }
+
         if (window.scrollY === 0 && ((window.innerHeight - fullHeader) >= mainContentHeight)) {
             setWindowHeight((mainContentHeight));
             setSidebarHeight((mainContentHeight - inPanelNonScrollableEls));
