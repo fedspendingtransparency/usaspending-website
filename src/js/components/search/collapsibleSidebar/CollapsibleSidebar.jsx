@@ -31,7 +31,7 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     const [currentLevel, setCurrentLevel] = useState(1);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [windowWidth, setWindowWidth] = useState();
-    const [windowHeight, setWindowHeight] = useState();
+    const [windowHeight, setWindowHeight] = useState(); // TODO: need to rename this
     const [sidebarHeight, setSidebarHeight] = useState();
     const [footerInView, setFooterInView] = useState();
     const [siteHeaderInView, setSiteHeaderInView] = useState();
@@ -86,6 +86,35 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
         }
     };
 
+    const hideElements = (removeableEls) => {
+        for (let i = 0; i < removeableEls.length; i++) {
+            const elClass = removeableEls[i].className;
+            document.querySelector(`.${elClass}`).style.display = "none";
+        };
+    };
+
+    const showElements = (removeableEls) => {
+        for (let i = 0; i < removeableEls.length; i++) {
+            const elClass = removeableEls[i].className;
+            document.querySelector(`.${elClass}`).style.display = removeableEls[i].display;
+        };
+    };
+
+    const panelContainerElClasses = [
+        {
+            className: "collapsible-sidebar",
+            display: "block"
+        },
+        {
+            className: "sidebar-bottom-submit",
+            display: "block"
+        },
+        {
+            className: "collapsible-sidebar--toggle",
+            display: "flex"
+        }
+    ];
+
     // TODO move to helper
     const checkInView = (el) => {
         const bbox = el.getBoundingClientRect();
@@ -111,28 +140,14 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
         }
         else {
             // Hide side search by... if only a small part of the sidebar is in view
+            // const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls)) + headingPadding;
             const newSidebarHeight = (((window.innerHeight - headingInView - hasFooter) - inPanelNonScrollableEls)) + headingPadding;
-
-            // can use refs for all of these - This should happen at 174px
-            if (newSidebarHeight < 50) {
-                document.querySelector(".collapsible-sidebar--header").style.display = "none";
-                document.querySelector(".sidebar-bottom-submit").style.display = "none";
-                document.querySelector(".collapsible-sidebar--toggle").style.display = "none";
-                document.querySelector(".collapsible-sidebar--main-menu").style.visibility = "hidden";
-                document.querySelector(".collapsible-sidebar--drilldown").style.visibility = "hidden";
-                document.querySelector(".collapsible-sidebar--header").style.visibility = "hidden";
-                document.querySelector(".collapsible-sidebar--content").style.visibility = "hidden";
-                document.querySelector(".full-search-sidebar").style.visibility = "hidden";
+            // TODO This should happen at 174px - Once the DS&M panel is added
+            if (newSidebarHeight < 124) {
+                hideElements(panelContainerElClasses);
             }
             else {
-                document.querySelector(".collapsible-sidebar--header").style.display = "block";
-                document.querySelector(".sidebar-bottom-submit").style.display = "block";
-                document.querySelector(".collapsible-sidebar--toggle").style.display = "flex";
-                document.querySelector(".collapsible-sidebar--main-menu").style.visibility = "visible";
-                document.querySelector(".collapsible-sidebar--drilldown").style.visibility = "visible";
-                document.querySelector(".collapsible-sidebar--header").style.visibility = "visible";
-                document.querySelector(".collapsible-sidebar--content").style.visibility = "visible";
-                document.querySelector(".full-search-sidebar").style.visibility = "visible";
+                showElements(panelContainerElClasses);
             }
 
             setWindowHeight(((window.innerHeight - headingInView) - hasFooter) + headingPadding);
@@ -174,33 +189,38 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
         }
     }, 150);
 
+    const openSidebar = (width) => {
+        const sidebarElSelector = isMobile ? ".mobile-search-sidebar-v2" : ".full-search-sidebar";
+        document.querySelector(sidebarElSelector).style.width = "unset";
+        document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
+        document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
+    };
+
+    const closeSidebar = () => {
+        document.querySelector(".full-search-sidebar").style.width = "0";
+        document.querySelector(".full-search-sidebar").style.flexBasis = "0";
+        document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
+        document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
+        document.querySelector(".collapsible-sidebar").style.width = "0";
+    };
+
     useEffect(() => {
         if (isOpened) {
             if (document.querySelector(".full-search-sidebar")) {
                 if (windowWidth > 991 && windowWidth < 1200) {
-                    document.querySelector(".full-search-sidebar").style.width = "unset";
-                    document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarDesktopWidth}px`;
-                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;
+                    openSidebar(sideBarDesktopWidth);
                 }
                 else if (windowWidth > 1199) {
-                    document.querySelector(".full-search-sidebar").style.width = "unset";
-                    document.querySelector(".full-search-sidebar").style.flexBasis = `${sideBarXlDesktopWidth}px`;
-                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarXlDesktopWidth}px`;
+                    openSidebar(sideBarXlDesktopWidth);
                 }
             } else if (document.querySelector(".mobile-search-sidebar-v2")) {
-                if (windowWidth < 992) {
-                    document.querySelector(".mobile-search-sidebar-v2").style.width = "unset";
-                    document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = `${sideBarDesktopWidth}px`;
-                    document.querySelector(".collapsible-sidebar").style.width = `${sideBarDesktopWidth}px`;
+                if (isMobile) {
+                    openSidebar(sideBarDesktopWidth);
                 }
             }
         }
         else if (document.querySelector(".full-search-sidebar")) {
-            document.querySelector(".full-search-sidebar").style.width = "0";
-            document.querySelector(".full-search-sidebar").style.flexBasis = "0";
-            document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
-            document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
-            document.querySelector(".collapsible-sidebar").style.width = "0";
+            closeSidebar();
         }
     }, [isOpened, windowWidth]);
 
@@ -217,7 +237,7 @@ const CollapsibleSidebar = ({ filters, setShowMobileFilters }) => {
     }, [windowHeight, sidebarHeight]);
 
     useEffect(() => {
-        if (window.scrollY && mainContentHeight) {
+        if (window.scrollY === 0 && mainContentHeight) {
             document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
         }
 
