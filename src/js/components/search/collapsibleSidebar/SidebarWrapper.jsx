@@ -12,7 +12,6 @@ import SidebarContent from "./SidebarContent";
 
 const SidebarWrapper = () => {
     const [isOpened, setIsOpened] = useState(true);
-    // eslint-disable-next-line no-unused-vars
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [windowWidth, setWindowWidth] = useState();
@@ -113,6 +112,7 @@ const SidebarWrapper = () => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
+            setIsMobile(newWidth < mediumScreen);
             handleScroll();
         }
     }, 30);
