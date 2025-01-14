@@ -39,7 +39,7 @@
   box-shadow: unset;
   border-radius: unset;
 
-  @media(max-width: $medium-screen - 1) {
+  @media(max-width: $medium-screen-1) {
     left: 0;
     width: 100%;
   }
@@ -52,7 +52,7 @@
   }
 
   .collapsible-sidebar--toggle {
-    @media(max-width: $medium-screen - 1) {
+    @media(max-width: $medium-screen-1) {
       display: none;
     }
 
@@ -79,7 +79,7 @@
     box-shadow: none;
     border-radius: unset;
 
-    @media(max-width: $medium-screen - 1) {
+    @media(max-width: $medium-screen-1) {
       border: none;
     }
 
@@ -316,7 +316,7 @@
       width: 350px;
     }
 
-    @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
+    @media(min-width: $medium-screen) and (max-width: $large-screen-1) {
       width: 300px;
     }
   }
@@ -330,7 +330,7 @@
       flex-basis: 350px;
     }
 
-    @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
+    @media(min-width: $medium-screen) and (max-width: $large-screen-1) {
       display: flex;
       flex-basis: 300px;
     }
