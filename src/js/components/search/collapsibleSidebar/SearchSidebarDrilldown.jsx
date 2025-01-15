@@ -111,7 +111,6 @@ const SearchSidebarDrilldown = ({
     else {
         categoryFilter = (
             <CategoryFilter
-                className="test2"
                 height={sidebarContentHeight}
                 iconName={selectedCategory?.iconName}
                 iconColor={selectedCategory?.iconColor}

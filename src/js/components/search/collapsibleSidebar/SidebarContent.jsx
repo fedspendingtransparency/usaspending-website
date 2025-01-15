@@ -14,9 +14,10 @@ import SearchSidebarSubmitContainer from "../../../containers/search/SearchSideb
 import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
-    sidebarContentHeight: PropTypes.number
+    sidebarContentHeight: PropTypes.number,
+    setShowMobileFilters: PropTypes.func
 };
-const SidebarContent = ({ sidebarContentHeight }) => {
+const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => {
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -75,7 +76,8 @@ const SidebarContent = ({ sidebarContentHeight }) => {
             isDrilldown={isDrilldown}
             sidebarContentHeight={sidebarContentHeight}
             setLevel2={setLevel2}
-            itemCount={itemCount} />
+            itemCount={itemCount}
+            setShowMobileFilters={setShowMobileFilters} />
 
         <SearchSidebarDrilldown
             list={drilldown?.children}

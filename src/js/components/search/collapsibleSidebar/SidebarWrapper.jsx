@@ -6,11 +6,16 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
+import PropTypes from "prop-types";
 import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
 
-const SidebarWrapper = () => {
+const propTypes = {
+    setShowMobileFilters: PropTypes.func
+};
+
+const SidebarWrapper = ({ setShowMobileFilters }) => {
     const [isOpened, setIsOpened] = useState(true);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
@@ -212,7 +217,7 @@ const SidebarWrapper = () => {
         // eslint-disable-next-line no-undef
         const resizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target.clientHeight);
-            setSiteHeaderHeight(entries[1].target.clientHeight);
+            setSiteHeaderHeight(entries[1]?.target.clientHeight);
         });
 
         const mainContent = document.querySelector("#main-content");
@@ -251,10 +256,12 @@ const SidebarWrapper = () => {
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
                     }
                 </div>
-                <SidebarContent sidebarContentHeight={sidebarContentHeight} />
+                <SidebarContent sidebarContentHeight={sidebarContentHeight} setShowMobileFilters={setShowMobileFilters} />
             </div>
         </div>
     );
 };
+
+SidebarWrapper.propTypes = propTypes;
 
 export default SidebarWrapper;
