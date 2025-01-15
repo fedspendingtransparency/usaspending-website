@@ -28,8 +28,8 @@ const SidebarWrapper = () => {
     const topStickyBarEl = document.querySelector(".usda-page-header");
 
     const sidebarStaticEls = 172;
-    const footerMargin = 48;
-    const minContentHeight = 174;
+    const footerMargin = 45;
+    const minContentHeight = 124;
     const headingPadding = 40;
 
     const toggleOpened = (e) => {
@@ -55,10 +55,10 @@ const SidebarWrapper = () => {
     const resizeSidebar = () => {
         const hasFooter = footerInView > 0 ? footerInView : 0;
 
-        const mainContentArea = (window.innerHeight - sidebarTop) + headingPadding;
+        const mainContentArea = (window.innerHeight - sidebarTop);
         const sidebarContentArea = mainContentArea - sidebarStaticEls;
 
-        if (footerInView < 0) {
+        if (footerInView < 10) {
             setSidebarHeight(mainContentArea);
             setSidebarContentHeight(sidebarContentArea);
         }
@@ -71,8 +71,8 @@ const SidebarWrapper = () => {
                 showElements(panelContainerElClasses);
             }
 
-            setSidebarHeight(mainContentArea - hasFooter);
-            setSidebarContentHeight(sidebarContentAreaWFooter);
+            setSidebarHeight(mainContentArea - hasFooter - 4);
+            setSidebarContentHeight(sidebarContentAreaWFooter - 4);
         }
     };
 
@@ -100,7 +100,7 @@ const SidebarWrapper = () => {
         setFooterInView(checkInView(footerEl) + footerMargin);
         setSiteHeaderInView(checkInView(siteHeaderEl));
         setSidebarIsSticky(topStickyBarEl?.classList?.contains("usda-page-header--sticky"));
-    }, 50);
+    }, 10);
 
     const keyHandler = (e, func) => {
         if (e.key === "Enter") {
@@ -182,7 +182,8 @@ const SidebarWrapper = () => {
             if ((window.innerHeight - fullHeaderHeight) >= mainContentHeight) {
                 setSidebarHeight((mainContentHeight));
                 setSidebarContentHeight(mainContentHeight - sidebarStaticEls);
-            } else if ((window.innerHeight - fullHeaderHeight) < mainContentHeight) {
+            }
+            else if ((window.innerHeight - fullHeaderHeight) < mainContentHeight) {
                 const mainContentArea = window.innerHeight - fullHeaderHeight;
                 const sidebarContentArea = mainContentArea - sidebarStaticEls;
 
@@ -190,12 +191,7 @@ const SidebarWrapper = () => {
                 setSidebarContentHeight(sidebarContentArea);
             }
         }
-    }, [mainContentHeight, siteHeaderHeight]);
-
-    useEffect(() => {
-        handleScroll();
-        console.log("sidebarContentHeight", sidebarContentHeight);
-    }, [sidebarContentHeight]);
+    }, [mainContentHeight, siteHeaderHeight, topStickyBarEl.clientHeight]);
 
     useEffect(() => {
         const headingInView = sidebarTop + headingPadding;

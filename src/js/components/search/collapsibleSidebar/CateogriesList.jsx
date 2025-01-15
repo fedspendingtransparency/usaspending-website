@@ -33,7 +33,7 @@ const CategoriesList = ({
     itemCount,
     filterCount
 }) => (
-    <div style={{ height: `${height - 36}px`, display: "flex", flexDirection: "column" }}>
+    <div className="selected-category-item" style={{ height: `${height - 36}px` }}>
         <CategoryHeader
             iconName={iconName}
             iconColor={iconColor}

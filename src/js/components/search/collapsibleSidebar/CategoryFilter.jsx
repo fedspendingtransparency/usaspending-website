@@ -22,7 +22,7 @@ const propTypes = {
 const CategoryFilter = ({
     iconBackgroundColor, iconName, iconColor, component, title, description, height, itemCount, titleOnly = false
 }) => (
-    <div style={{ height: `${height - 36}px`, display: "flex", flexDirection: "column" }}>
+    <div className="selected-category-item" style={{ height: `${height - 36}px` }}>
         <CategoryHeader
             iconName={iconName}
             iconColor={iconColor}

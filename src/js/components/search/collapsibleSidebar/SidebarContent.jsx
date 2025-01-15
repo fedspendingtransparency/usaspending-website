@@ -15,7 +15,7 @@ import { characteristicsCount, sourcesCount } from "../../../helpers/search/filt
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number
-}
+};
 const SidebarContent = ({ sidebarContentHeight }) => {
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
