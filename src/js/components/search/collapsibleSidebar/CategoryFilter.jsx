@@ -21,27 +21,23 @@ const propTypes = {
 
 const CategoryFilter = ({
     iconBackgroundColor, iconName, iconColor, component, title, description, height, itemCount, titleOnly = false
-}) => {
-    const headerHeight = document.querySelector(`.search-filter__content`).clientHeight;
-
-    return (
-        <>
-            <CategoryHeader
-                iconName={iconName}
-                iconColor={iconColor}
-                iconBackgroundColor={iconBackgroundColor}
-                title={title}
-                description={description}
-                itemCount={itemCount} />
-            {/* TODO Remove negative margin after releasing the collapsible sidebar */}
-            <div
-                className="category-filter"
-                style={{ height: `${height - headerHeight}px`, marginTop: `${titleOnly ? '0px' : '-36px'}` }}>
-                <div>{component}</div>
-            </div>
-        </>
-    );
-};
+}) => (
+    <div style={{ height: `${height - 36}px`, display: "flex", flexDirection: "column" }}>
+        <CategoryHeader
+            iconName={iconName}
+            iconColor={iconColor}
+            iconBackgroundColor={iconBackgroundColor}
+            title={title}
+            description={description}
+            itemCount={itemCount} />
+        {/* TODO Remove negative margin after releasing the collapsible sidebar */}
+        <div
+            className="category-filter"
+            style={{ marginTop: `${titleOnly ? '0px' : '-36px'}` }}>
+            <div>{component}</div>
+        </div>
+    </div>
+);
 
 CategoryFilter.propTypes = propTypes;
 export default CategoryFilter;

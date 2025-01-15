@@ -25,12 +25,11 @@ const SidebarWrapper = () => {
     const [siteHeaderHeight, setSiteHeaderHeight] = useState();
 
     const footerEl = document.querySelector("footer");
-    const siteHeaderEl = document.querySelector(".site-header__wrapper");
     const topStickyBarEl = document.querySelector(".usda-page-header");
 
     const sidebarStaticEls = 172;
     const footerMargin = 48;
-    const minContentHeight = 124;
+    const minContentHeight = 174;
     const headingPadding = 40;
 
     const toggleOpened = (e) => {
@@ -55,9 +54,8 @@ const SidebarWrapper = () => {
     // This function resizeSidebar, will resize the sidebar while only the page header (ie. top sticky bar) is visible in the viewport
     const resizeSidebar = () => {
         const hasFooter = footerInView > 0 ? footerInView : 0;
-        const headingInView = sidebarTop + headingPadding;
 
-        const mainContentArea = (window.innerHeight - headingInView) + headingPadding;
+        const mainContentArea = (window.innerHeight - sidebarTop) + headingPadding;
         const sidebarContentArea = mainContentArea - sidebarStaticEls;
 
         if (footerInView < 0) {
@@ -89,8 +87,10 @@ const SidebarWrapper = () => {
     };
 
     const handleScroll = throttle(() => {
-        if (window.scrollY < 60) {
-            setSidebarTop(siteHeaderHeight + topStickyBarEl.clientHeight);
+        const siteHeaderEl = document.querySelector(".site-header__wrapper");
+
+        if (window.scrollY === 0) {
+            setSidebarTop(siteHeaderEl.clientHeight + topStickyBarEl.clientHeight);
         }
         else {
             const topStickyBarBbox = topStickyBarEl.getBoundingClientRect();
@@ -179,10 +179,10 @@ const SidebarWrapper = () => {
             setSidebarTop(siteHeaderHeight + topStickyBarEl.clientHeight);
 
             const fullHeaderHeight = siteHeaderHeight + topStickyBarEl.clientHeight;
-            if (window.scrollY === 0 && ((window.innerHeight - fullHeaderHeight) >= mainContentHeight)) {
+            if ((window.innerHeight - fullHeaderHeight) >= mainContentHeight) {
                 setSidebarHeight((mainContentHeight));
-                setSidebarContentHeight((mainContentHeight - sidebarStaticEls));
-            } else if (window.scrollY === 0 && (window.innerHeight - fullHeaderHeight) < mainContentHeight) {
+                setSidebarContentHeight(mainContentHeight - sidebarStaticEls);
+            } else if ((window.innerHeight - fullHeaderHeight) < mainContentHeight) {
                 const mainContentArea = window.innerHeight - fullHeaderHeight;
                 const sidebarContentArea = mainContentArea - sidebarStaticEls;
 
@@ -193,6 +193,11 @@ const SidebarWrapper = () => {
     }, [mainContentHeight, siteHeaderHeight]);
 
     useEffect(() => {
+        handleScroll();
+        console.log("sidebarContentHeight", sidebarContentHeight);
+    }, [sidebarContentHeight]);
+
+    useEffect(() => {
         const headingInView = sidebarTop + headingPadding;
         document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
 
@@ -200,7 +205,7 @@ const SidebarWrapper = () => {
             if (sidebarIsSticky) {
                 resizeSidebar();
             }
-            else if (sidebarTop !== 0) {
+            else {
                 resizeInitialSidebar();
             }
         }
@@ -230,7 +235,7 @@ const SidebarWrapper = () => {
             resizeObserver.unobserve(mainContent);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    });
+    }, []);
 
     return (
         <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
@@ -250,9 +255,7 @@ const SidebarWrapper = () => {
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
                     }
                 </div>
-                <SidebarContent
-                    sidebarContentHeight={sidebarContentHeight}
-                    sidebarHeight={sidebarHeight} />
+                <SidebarContent sidebarContentHeight={sidebarContentHeight} />
             </div>
         </div>
     );

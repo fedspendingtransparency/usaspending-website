@@ -5,6 +5,7 @@
 
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import { FilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
@@ -12,6 +13,9 @@ import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
 
+const propTypes = {
+    sidebarContentHeight: PropTypes.number
+}
 const SidebarContent = ({ sidebarContentHeight }) => {
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -94,5 +98,7 @@ const SidebarContent = ({ sidebarContentHeight }) => {
         </div>
     </>);
 };
+
+SidebarContent.propTypes = propTypes;
 
 export default SidebarContent;
