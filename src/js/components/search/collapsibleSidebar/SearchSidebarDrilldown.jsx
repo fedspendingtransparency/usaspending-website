@@ -16,7 +16,7 @@ const propTypes = {
     list: PropTypes.array,
     filter: PropTypes.object,
     isDrilldown: PropTypes.bool,
-    sidebarHeight: PropTypes.number,
+    sidebarContentHeight: PropTypes.number,
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
     goBack: PropTypes.func,
@@ -38,7 +38,7 @@ const SearchSidebarDrilldown = ({
     goBack,
     itemCount,
     filters,
-    sidebarHeight,
+    sidebarContentHeight,
     selectedCategoryTitle,
     titleOnly = false,
     dsmComponent = false,
@@ -101,9 +101,8 @@ const SearchSidebarDrilldown = ({
     if (titleOnly) {
         categoryFilter = (
             <CategoryFilter
-                height={sidebarHeight}
+                height={sidebarContentHeight}
                 title={selectedCategoryTitle}
-                description={selectedCategory.description}
                 component={filter}
                 itemCount={filterCount[selectedCategoryTitle]}
                 titleOnly={titleOnly} />
@@ -112,7 +111,7 @@ const SearchSidebarDrilldown = ({
     else {
         categoryFilter = (
             <CategoryFilter
-                height={sidebarHeight}
+                height={sidebarContentHeight}
                 iconName={selectedCategory?.iconName}
                 iconColor={selectedCategory?.iconColor}
                 iconBackgroundColor={selectedCategory?.iconBackgroundColor}
@@ -138,7 +137,7 @@ const SearchSidebarDrilldown = ({
             </div>
             <div className="collapsible-sidebar--content">
                 {!isDsmOpened && list && <CategoriesList
-                    height={sidebarHeight}
+                    height={sidebarContentHeight}
                     iconName={selectedCategory.iconName}
                     iconColor={selectedCategory.iconColor}
                     iconBackgroundColor={selectedCategory.iconBackgroundColor}

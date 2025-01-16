@@ -19,7 +19,7 @@ import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
-import CollapsibleSidebar from "./CollapsibleSidebar";
+import CollapsibleSidebar from "./SidebarWrapper";
 import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 
 require('pages/search/searchPage.scss');

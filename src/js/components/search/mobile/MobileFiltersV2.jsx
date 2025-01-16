@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import CollapsibleSidebar from "../collapsibleSidebar/CollapsibleSidebar";
+import CollapsibleSidebar from "../collapsibleSidebar/SidebarWrapper";
 
 const propTypes = {
     filters: PropTypes.object,
