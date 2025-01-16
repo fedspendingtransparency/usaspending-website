@@ -33,7 +33,7 @@ const CategoriesList = ({
     itemCount,
     filterCount
 }) => (
-    <>
+    <div className="selected-category-item" style={{ height: `${height - 36}px` }}>
         <CategoryHeader
             iconName={iconName}
             iconColor={iconColor}
@@ -41,7 +41,7 @@ const CategoriesList = ({
             title={title}
             description={description}
             itemCount={itemCount} />
-        <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
+        <div className="categories-list" style={{ marginTop: "-36px" }}>
             <div style={{ margin: "0 32px" }}>
                 {categories.map((item) => {
                     if (item?.categoryType) {
@@ -68,9 +68,9 @@ const CategoriesList = ({
                                                 <div className="categories-list-item__text-container">
                                                     <div className="categories-list-item__title" style={{ float: "left" }}>{category.title}</div>
                                                     {filterCount[category.title] > 0 &&
-                                                        <div className="categories-list-item__count">
-                                                            {filterCount[category.title]} selected
-                                                        </div>
+                                                            <div className="categories-list-item__count">
+                                                                {filterCount[category.title]} selected
+                                                            </div>
                                                     }
                                                 </div>
                                                 <div style={{ float: "right" }}><FontAwesomeIcon
@@ -102,7 +102,7 @@ const CategoriesList = ({
                 })}
             </div>
         </div>
-    </>
+    </div>
 );
 
 CategoriesList.propTypes = propTypes;
