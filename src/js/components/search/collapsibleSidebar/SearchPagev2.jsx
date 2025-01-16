@@ -84,7 +84,6 @@ const SearchPage = ({
      * Toggle whether or not to show the mobile filter view
      */
     const toggleMobileFilters = () => {
-        console.debug("show mobile filters");
         setShowMobileFilters(!showMobileFilters);
     };
 
