@@ -83,7 +83,6 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
     // This function resizeInitialSidebar, will resize the sidebar while the full header is visible in the viewport
     const resizeInitialSidebar = () => {
         const fullHeaderHeight = siteHeaderInView + topStickyBarEl.clientHeight;
-
         const hasFooter = footerInView > 0 ? footerInView : 0;
         const mainContentArea = (window.innerHeight - fullHeaderHeight) - hasFooter;
         const sidebarContentArea = mainContentArea - sidebarStaticEls;
