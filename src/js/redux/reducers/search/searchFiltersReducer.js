@@ -44,6 +44,8 @@ export const requiredTypes = {
     naicsCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
     defCodes: CheckboxTreeSelections,
+    covidDefCode: Set,
+    infraDefCode: Set,
     pricingType: Set,
     setAside: Set,
     extentCompeted: Set
@@ -72,6 +74,40 @@ export const initialState = {
     naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    covidDefCode: Set(),
+    infraDefCode: Set(),
+    pricingType: Set(),
+    setAside: Set(),
+    extentCompeted: Set(),
+    treasuryAccounts: OrderedMap(),
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
+};
+
+export const initialStateFY = {
+    keyword: OrderedMap(),
+    timePeriodType: 'fy',
+    timePeriodFY: Set(),
+    time_period: Set(),
+    filterNewAwardsOnlySelected: false,
+    filterNewAwardsOnlyActive: false,
+    filterNaoActiveFromFyOrDateRange: false,
+    selectedLocations: OrderedMap(),
+    locationDomesticForeign: 'all',
+    selectedFundingAgencies: OrderedMap(),
+    selectedAwardingAgencies: OrderedMap(),
+    selectedRecipients: Set(),
+    recipientDomesticForeign: 'all',
+    recipientType: Set(),
+    selectedRecipientLocations: OrderedMap(),
+    awardType: Set(),
+    selectedAwardIDs: OrderedMap(),
+    awardAmounts: OrderedMap(),
+    selectedCFDA: OrderedMap(),
+    naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    covidDefCode: Set(),
+    infraDefCode: Set(),
     pricingType: Set(),
     setAside: Set(),
     extentCompeted: Set(),
@@ -291,6 +327,37 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'UPDATE_DEF_CODES': {
             return Object.assign({}, state, {
                 defCodes: action.payload
+            });
+        }
+
+        // Search 2.0 DEFC Filters
+        case 'TOGGLE_COVID_DEF_CODES': {
+            // this redux state is stored in an ImmutableJS set, which returns new instances
+            // whenever it is modified
+            return Object.assign({}, state, {
+                covidDefCode: AwardFilterFunctions.immutableSetToggle(
+                    state.covidDefCode, action.covidDefCode)
+            });
+        }
+        case 'BULK_UPDATE_COVID_DEF_CODES': {
+            return Object.assign({}, state, {
+                covidDefCode: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.covidDefCode, action.covidDefCodes, action.direction)
+            });
+        }
+
+        case 'TOGGLE_INFRA_DEF_CODES': {
+            // this redux state is stored in an ImmutableJS set, which returns new instances
+            // whenever it is modified
+            return Object.assign({}, state, {
+                infraDefCode: AwardFilterFunctions.immutableSetToggle(
+                    state.infraDefCode, action.infraDefCode)
+            });
+        }
+        case 'BULK_UPDATE_INFRA_DEF_CODES': {
+            return Object.assign({}, state, {
+                infraDefCode: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.infraDefCode, action.infraDefCodes, action.direction)
             });
         }
 

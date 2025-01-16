@@ -102,7 +102,7 @@ const MapBox = forwardRef((props, ref) => {
     const centerMap = (m) => {
         m?.current?.jumpTo({
             zoom: zoom || 3.2,
-            center: props.center
+            center: props?.center
         });
     };
 
@@ -204,11 +204,11 @@ const MapBox = forwardRef((props, ref) => {
     }, [props.center, props.singleLocationSelected]);
 
     useEffect(() => {
-        if (map.current) {
+        if (map.current && props?.center?.length > 0) {
             centerMap(map);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [zoom]);
+    }, [zoom, props.center]);
 
     useEffect(() => {
         if (map.current) {

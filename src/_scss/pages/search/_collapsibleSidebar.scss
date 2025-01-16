@@ -4,6 +4,7 @@
   0% {
     width: 0%;
   }
+
   100% {
     width: 100%;
   }
@@ -13,6 +14,7 @@
   0% {
     width: 100%;
   }
+
   100% {
     width: 0%;
   }
@@ -24,6 +26,7 @@
     transform: translateX(24px);
     visibility: hidden;
   }
+
   100% {
     transform: translateX(0);
     visibility: visible;
@@ -36,6 +39,11 @@
   box-shadow: unset;
   border-radius: unset;
 
+  @media(max-width: $medium-screen - 1) {
+    left: 0;
+    width: 100%;
+  }
+
   .chevron {
     margin: auto;
     color: $blue-50;
@@ -44,6 +52,10 @@
   }
 
   .collapsible-sidebar--toggle {
+    @media(max-width: $medium-screen - 1) {
+      display: none;
+    }
+
     position: relative;
     float: right;
     margin-right: -12px;
@@ -67,6 +79,11 @@
     box-shadow: none;
     border-radius: unset;
 
+    @media(max-width: $medium-screen - 1) {
+      border: none;
+    }
+
+
     &.opened:not(.is-initial-loaded) {
       // TODO: Adjust animations next sprint
       //-webkit-animation: collapsible-sidebar-slideopen 0.25s forwards;
@@ -78,22 +95,60 @@
       //animation: collapsible-sidebar-slideclose 0.25s forwards;
       //-webkit-animation: collapsible-sidebar-slideclose 0.25s forwards;
 
-      .sidebar-bottom-submit, .search-filter__container, .collapsible-sidebar--header, .collapsible-sidebar--drilldown, .collapsible-sidebar--main-menu {
+      .sidebar-bottom-submit,
+      .search-filter__container,
+      .collapsible-sidebar--header,
+      .collapsible-sidebar--drilldown,
+      .collapsible-sidebar--main-menu {
         display: none;
       }
     }
 
-    .categories-list, .category-filter {
-      overflow-y: auto;
+    .selected-category-item {
+      display: flex;
+      flex-direction: column;
+
+      .categories-list,
+      .category-filter {
+        overflow-y: auto;
+      }
+    }
+
+    .category-filter {
+      .react-checkbox-tree {
+        overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
+        max-height: unset !important;
+        height: unset !important;
+      }
     }
 
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
       font-size: 16px;
-      font-weight: 600;
+      font-weight: $font-semibold;
       line-height: 1.5;
       color: $gray-90;
       border-bottom: $gray-cool-10 1px solid;
+
+      #collapsible-mobile-close-button {
+        @media(min-width: $medium-screen) {
+          display: none;
+        }
+
+        width: rem(10);
+        height: rem(10);
+        background-color: white;
+        padding: 0;
+        right: 0;
+        position: absolute;
+
+        svg {
+          width: rem(10);
+          height: rem(10);
+          color: $gray-90;
+          background-color: white;
+        }
+      }
     }
 
     .sidebar-bottom-submit {
@@ -217,6 +272,38 @@
       .categories-list {
         overflow-y: auto;
       }
+
+      .collapsible-sidebar--dsm-slider {
+        color: $blue-50;
+        cursor: pointer;
+        padding: rem(16) rem(32);
+        font-size: rem(12);
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        border-top: 1px solid $gray-cool-5;
+        display:flex;
+        flex-direction: row;
+        flex-wrap:wrap;
+        &:hover {
+          color: $blue-70v;
+        }
+
+        .chevron {
+          margin: 4px 8px 0 8px;
+          width: 10px;
+        }
+
+        .collapsible-sidebar--dsm-content {
+          .collapsible-sidebar--dsm-wrapper {
+            font-size: $font-size-14;
+            color: $gray-60;
+          }
+        }
+      }
+
+      .collapsible-sidebar--dsm-slider:hover .chevron {
+        color: $blue-70v;
+      }
     }
 
     .sidebar-bottom-submit {
@@ -242,6 +329,7 @@
   .full-search-sidebar {
     display: none;
     margin-right: rem(16);
+
     @media(min-width: $large-screen) {
       display: flex;
       flex-basis: 350px;
@@ -263,4 +351,3 @@
     display: none !important;
   }
 }
-

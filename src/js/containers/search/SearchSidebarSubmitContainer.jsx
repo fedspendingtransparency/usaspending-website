@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { areFiltersEqual } from 'helpers/searchHelper';
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
-import { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import { initialState, initialStateFY } from 'redux/reducers/search/searchFiltersReducer';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
 import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
@@ -36,14 +36,15 @@ const propTypes = {
     resetNaicsTree: PropTypes.func,
     resetMapLegendToggle: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
-    resetAppliedFilters: PropTypes.func
+    resetAppliedFilters: PropTypes.func,
+    setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarSubmitContainer = (props) => {
     const [filtersChanged, setFiltersChanged] = useState(false);
     const prevProps = usePrevious(props);
 
-    const areStagedFiltersEmpty = () => areFiltersEqual(props.stagedFilters, initialState);
+    const areStagedFiltersEmpty = () => areFiltersEqual(props.stagedFilters, initialState) || areFiltersEqual(props.stagedFilters, initialStateFY);
 
     const compareStores = () => {
     // we need to do a deep equality check by comparing every store key
@@ -105,7 +106,8 @@ const SearchSidebarSubmitContainer = (props) => {
             filtersChanged={filtersChanged}
             requestsComplete={props.requestsComplete}
             applyStagedFilters={applyStagedFilters}
-            resetFilters={resetFilters} />
+            resetFilters={resetFilters}
+            setShowMobileFilters={props.setShowMobileFilters} />
     );
 };
 
