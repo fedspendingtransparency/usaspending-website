@@ -6,7 +6,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 const propTypes = {
     iconName: PropTypes.string,
     iconColor: PropTypes.string,
@@ -17,9 +16,9 @@ const propTypes = {
     selectedItems: PropTypes.array,
     selectCategory: PropTypes.func,
     isClickable: PropTypes.bool,
-    showDescription: PropTypes.bool
+    showDescription: PropTypes.bool,
+    titleOnly: PropTypes.bool
 };
-
 const CategoryHeader = ({
     item,
     iconName,
@@ -29,20 +28,19 @@ const CategoryHeader = ({
     description,
     itemCount,
     selectCategory,
-    isClickable
+    isClickable,
+    titleOnly,
 }) => {
     const [content, setContent] = useState();
 
     const innerContent = (
-        <div className={`search-filter__content ${iconName ? '' : 'filter-header__title'}`}>
+        <div className={`search-filter__content ${titleOnly ?  'filter-header__title': ''}`}>
             <div className="search-filter__top-row">
-                {iconName &&
                     <div
                         className="search-filter__top-row-icon-container"
                         style={{ backgroundColor: iconBackgroundColor }}>
                         <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
                     </div>
-                }
                 <div className="search-filter__top-row-text-container">
                     <div className="search-filter__top-row-title">{title}</div>
                 </div>
