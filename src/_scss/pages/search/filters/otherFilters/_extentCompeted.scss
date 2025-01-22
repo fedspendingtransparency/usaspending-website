@@ -2,7 +2,7 @@
   .autocomplete__input {
     @include display(flex);
     width: 100%;
-    padding: 0 ($global-spacing-unit * 4) rem(20) ($global-spacing-unit * 4);
+    padding: 0 ($global-spacing-unit * 2) rem(20) ($global-spacing-unit * 2);
     position: relative;
 
     input {
@@ -29,7 +29,7 @@
       position: absolute;
       width: rem(16);
       height: rem(16);
-      left: ($global-spacing-unit * 5);
+      left: ($global-spacing-unit * 3);
       top: rem(2);
       padding: rem(2);
     }
@@ -53,5 +53,16 @@
     line-height: 1.5;
     color: $gray-60;
     text-align: center;
+  }
+}
+
+// TODO: replace the relevant padding and left properties above with those below once searchV2 releases
+&.collapsible-sidebar--drilldown {
+  .extent-competed-filter .autocomplete__input {
+    padding: 0 ($global-spacing-unit * 4) rem(20) ($global-spacing-unit * 4);
+
+    .search-icon {
+      left: ($global-spacing-unit * 5);
+    }
   }
 }
