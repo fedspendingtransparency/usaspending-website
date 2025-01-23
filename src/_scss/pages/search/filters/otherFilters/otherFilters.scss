@@ -1,11 +1,11 @@
-.cfda-filter, .psc-filter, .naics-filter {
+.cfda-filter {
     @import "elements/filters/_errorMessage";
     @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
     @import './pages/award/_moreButton';
 
-    padding-left: rem(20);
+    padding-left: rem(32);
 
     .shown {
         min-height: rem(18);

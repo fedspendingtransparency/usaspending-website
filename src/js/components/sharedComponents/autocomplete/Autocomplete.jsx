@@ -301,9 +301,7 @@ const Autocomplete = ({
             aria-expanded={shown}
             aria-haspopup="true">
             <div className="usa-da-typeahead">
-                {label &&
-                    <p>{label}</p>
-                }
+                {label && <p>{label}</p>}
                 <div className="usa-da-typeahead__input">
                     {icon && <FontAwesomeIcon icon="search" />}
                     <input
