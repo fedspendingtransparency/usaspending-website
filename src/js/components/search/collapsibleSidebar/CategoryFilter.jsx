@@ -29,8 +29,8 @@ const CategoryFilter = ({
             iconBackgroundColor={iconBackgroundColor}
             title={title}
             description={description}
-            itemCount={itemCount} 
-            titleOnly={titleOnly}/>
+            itemCount={itemCount}
+            titleOnly={titleOnly} />
         {/* TODO Remove negative margin after releasing the collapsible sidebar */}
         <div
             className="category-filter"
