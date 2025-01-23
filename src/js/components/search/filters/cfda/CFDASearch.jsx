@@ -14,11 +14,12 @@ const propTypes = {
     selectCFDA: PropTypes.func,
     removeCFDA: PropTypes.func,
     selectedCFDA: PropTypes.object,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    searchV2: PropTypes.bool
 };
 
 const CFDASearch = ({
-    selectCFDA, removeCFDA, selectedCFDA, dirtyFilters
+    selectCFDA, removeCFDA, selectedCFDA, dirtyFilters, searchV2
 }) => {
     let CFDAComponent = null;
 
@@ -29,7 +30,7 @@ const CFDASearch = ({
     }
 
     return (
-        <div className="cfda-filter">
+        <div className={`cfda-filter ${searchV2 ? 'searchV2' : ''}`}>
             <div className="filter-item-wrap">
                 <CFDAListContainer
                     selectCFDA={selectCFDA}

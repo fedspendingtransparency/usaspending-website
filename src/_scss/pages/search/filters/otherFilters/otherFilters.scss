@@ -5,7 +5,11 @@
     @import "mixins/selectedFilterWrap";
     @import './pages/award/_moreButton';
 
-    padding-left: rem(32);
+    padding-left: rem(20);
+
+    &.searchV2 {
+        padding-left: rem(32);
+    }
 
     .shown {
         min-height: rem(18);

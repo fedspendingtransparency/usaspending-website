@@ -52,7 +52,6 @@ const CFDAListContainer = ({ selectCFDA, selectedCFDA, dirtyFilters }) => {
             setCfdaSearchString(input);
 
             if (cfdaSearchRequest.current) {
-                console.log('fire');
                 // A request is currently in-flight, cancel it
                 cfdaSearchRequest.current.cancel();
             }

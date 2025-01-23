@@ -16,10 +16,13 @@ import CFDASearch from 'components/search/filters/cfda/CFDASearch';
 const propTypes = {
     selectedCFDA: PropTypes.object,
     appliedCFDA: PropTypes.object,
-    updateSelectedCFDA: PropTypes.func
+    updateSelectedCFDA: PropTypes.func,
+    searchV2: PropTypes.bool
 };
 
-const CFDASearchContainer = ({ selectedCFDA, appliedCFDA, updateSelectedCFDA }) => {
+const CFDASearchContainer = ({
+    selectedCFDA, appliedCFDA, updateSelectedCFDA, searchV2 = false
+}) => {
     const selectCFDA = (cfda, isValid) => {
         // If cfda exists and is valid
         if (cfda !== null && isValid) {
@@ -47,7 +50,8 @@ const CFDASearchContainer = ({ selectedCFDA, appliedCFDA, updateSelectedCFDA }) 
             selectedCFDA={selectedCFDA}
             dirtyFilters={dirtyFilters()}
             selectCFDA={selectCFDA}
-            removeCFDA={removeCFDA} />
+            removeCFDA={removeCFDA}
+            searchV2={searchV2} />
     );
 };
 
