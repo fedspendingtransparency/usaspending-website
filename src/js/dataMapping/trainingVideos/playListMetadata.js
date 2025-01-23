@@ -1104,63 +1104,63 @@ const metaData = {
             etag: "XWVvQJo_jCuDYpwSBt-DXYKTXpw",
             id: "5N7u7VNOYmo",
             snippet: {
-              publishedAt: "2025-01-13T19:18:19Z",
-              channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
-              title: "TESTIMONIAL: Your Data, Your Story: Maura Beatty",
-              description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Maura Beatty, Vice President of Deluxe Delivery Systems & Logisitics based out of New York City. Learn more about how Maura uses USAspending.gov to research and discover large contracts that are in the transportation or logistics industries for award opportunities.\n\nCHAPTERS:\n0:47 Tell us about yourself\n1:23 Why is federal spending data important to you?\n1:56 What features on USAspending.gov provide the most value to you?\n2:29 How do you use data from USAspending.gov?\n3:14 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n- Visit USAspending.gov: https://www.usaspending.gov/\n- Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov\n- Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed.",
-              thumbnails: {
-                default: {
-                  url: "https://i.ytimg.com/vi/5N7u7VNOYmo/default.jpg",
-                  width: 120,
-                  height: 90
+                publishedAt: "2025-01-13T19:18:19Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "TESTIMONIAL: Your Data, Your Story: Maura Beatty",
+                description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Maura Beatty, Vice President of Deluxe Delivery Systems & Logisitics based out of New York City. Learn more about how Maura uses USAspending.gov to research and discover large contracts that are in the transportation or logistics industries for award opportunities.\n\nCHAPTERS:\n0:47 Tell us about yourself\n1:23 Why is federal spending data important to you?\n1:56 What features on USAspending.gov provide the most value to you?\n2:29 How do you use data from USAspending.gov?\n3:14 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n- Visit USAspending.gov: https://www.usaspending.gov/\n- Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov\n- Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed.",
+                thumbnails: {
+                    default: {
+                        url: "https://i.ytimg.com/vi/5N7u7VNOYmo/default.jpg",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i.ytimg.com/vi/5N7u7VNOYmo/mqdefault.jpg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i.ytimg.com/vi/5N7u7VNOYmo/hqdefault.jpg",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i.ytimg.com/vi/5N7u7VNOYmo/sddefault.jpg",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i.ytimg.com/vi/5N7u7VNOYmo/maxresdefault.jpg",
+                        width: 1280,
+                        height: 720
+                    }
                 },
-                medium: {
-                  url: "https://i.ytimg.com/vi/5N7u7VNOYmo/mqdefault.jpg",
-                  width: 320,
-                  height: 180
+                channelTitle: "USAspending",
+                tags: [
+                    "#governmentspending",
+                    "#financialdata",
+                    "#data",
+                    "#customertestimonial"
+                ],
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                defaultLanguage: "en",
+                localized: {
+                    title: "Your Data, Your Story: Maura Beatty",
+                    description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Maura Beatty, Vice President of Deluxe Delivery Systems & Logisitics based out of New York City. Learn more about how Maura uses USAspending.gov to research and discover large contracts that are in the transportation or logistics industries for award opportunities.\n\nCHAPTERS:\n0:47 Tell us about yourself\n1:23 Why is federal spending data important to you?\n1:56 What features on USAspending.gov provide the most value to you?\n2:29 How do you use data from USAspending.gov?\n3:14 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n- Visit USAspending.gov: https://www.usaspending.gov/\n- Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov\n- Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed."
                 },
-                high: {
-                  url: "https://i.ytimg.com/vi/5N7u7VNOYmo/hqdefault.jpg",
-                  width: 480,
-                  height: 360
-                },
-                standard: {
-                  url: "https://i.ytimg.com/vi/5N7u7VNOYmo/sddefault.jpg",
-                  width: 640,
-                  height: 480
-                },
-                maxres: {
-                  url: "https://i.ytimg.com/vi/5N7u7VNOYmo/maxresdefault.jpg",
-                  width: 1280,
-                  height: 720
-                }
-              },
-              channelTitle: "USAspending",
-              tags: [
-                "#governmentspending",
-                "#financialdata",
-                "#data",
-                "#customertestimonial"
-              ],
-              categoryId: "27",
-              liveBroadcastContent: "none",
-              defaultLanguage: "en",
-              localized: {
-                title: "Your Data, Your Story: Maura Beatty",
-                description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Maura Beatty, Vice President of Deluxe Delivery Systems & Logisitics based out of New York City. Learn more about how Maura uses USAspending.gov to research and discover large contracts that are in the transportation or logistics industries for award opportunities.\n\nCHAPTERS:\n0:47 Tell us about yourself\n1:23 Why is federal spending data important to you?\n1:56 What features on USAspending.gov provide the most value to you?\n2:29 How do you use data from USAspending.gov?\n3:14 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n- Visit USAspending.gov: https://www.usaspending.gov/\n- Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov\n- Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed."
-              },
-              defaultAudioLanguage: "en"
+                defaultAudioLanguage: "en"
             },
             contentDetails: {
-              duration: "PT3M32S",
-              dimension: "2d",
-              definition: "hd",
-              caption: "true",
-              licensedContent: false,
-              contentRating: {},
-              projection: "rectangular"
+                duration: "PT3M32S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular"
             }
-          }
+        }
     ]
 };
 
