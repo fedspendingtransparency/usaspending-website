@@ -434,7 +434,8 @@ const LocationAutocompleteContainer = (props) => {
 LocationAutocompleteContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
-        selectedLocations: state.filters.selectedLocations
+        selectedLocations: state.filters.selectedLocations,
+        selectedRecipientLocations: state.filters.selectedRecipientLocations
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(LocationAutocompleteContainer);
