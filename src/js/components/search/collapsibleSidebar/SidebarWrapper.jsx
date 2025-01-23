@@ -12,11 +12,16 @@ import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, ch
 import SidebarContent from "./SidebarContent";
 
 const propTypes = {
-    setShowMobileFilters: PropTypes.func
+    setShowMobileFilters: PropTypes.func,
+    showMobileFilters: PropTypes.bool,
+    sidebarOpen: PropTypes.bool,
+    setSidebarOpen: PropTypes.func
 };
 
-const SidebarWrapper = ({ setShowMobileFilters }) => {
-    const [isOpened, setIsOpened] = useState(true);
+const SidebarWrapper = ({
+    // eslint-disable-next-line no-unused-vars
+    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen
+}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [windowWidth, setWindowWidth] = useState();
@@ -38,7 +43,7 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
 
     const toggleOpened = (e) => {
         e.preventDefault();
-        setIsOpened((prevState) => !prevState);
+        setSidebarOpen((prevState) => !prevState);
     };
 
     const hideElements = (removeableEls) => {
@@ -146,7 +151,7 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
     };
 
     useEffect(() => {
-        if (isOpened) {
+        if (sidebarOpen) {
             if (document.querySelector(".full-search-sidebar")) {
                 if (windowWidth >= mediumScreen && windowWidth < largeScreen) {
                     openSidebar(sideBarDesktopWidth);
@@ -164,13 +169,13 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
         else if (document.querySelector(".full-search-sidebar")) {
             closeSidebar();
         }
-    }, [isMobile, isOpened, openSidebar, windowWidth]);
+    }, [isMobile, sidebarOpen, openSidebar, windowWidth]);
 
     useEffect(() => {
-        if (!isOpened && initialPageLoad) {
+        if (!sidebarOpen && initialPageLoad) {
             setInitialPageLoad(false);
         }
-    }, [initialPageLoad, isOpened]);
+    }, [initialPageLoad, sidebarOpen]);
 
     useEffect(() => {
         if (sidebarHeight > 0 && sidebarContentHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
@@ -241,7 +246,7 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
         <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
             <div
                 style={{ height: sidebarHeight }}
-                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
+                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${sidebarOpen ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => toggleOpened(e)}
@@ -249,7 +254,7 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
                     role="button"
                     focusable="true"
                     tabIndex={0}>
-                    {isOpened ?
+                    {sidebarOpen ?
                         <FontAwesomeIcon className="chevron" icon="chevron-left" />
                         :
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
