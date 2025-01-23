@@ -19,47 +19,37 @@ const propTypes = {
     updateSelectedCFDA: PropTypes.func
 };
 
-export class CFDASearchContainer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        // Bind functions
-        this.selectCFDA = this.selectCFDA.bind(this);
-        this.removeCFDA = this.removeCFDA.bind(this);
-    }
-
-    selectCFDA(cfda, isValid) {
-    // If cfda exists and is valid
+const CFDASearchContainer = ({ selectedCFDA, appliedCFDA, updateSelectedCFDA }) => {
+    const selectCFDA = (cfda, isValid) => {
+        // If cfda exists and is valid
         if (cfda !== null && isValid) {
             const updateParams = {};
             updateParams.cfda = cfda;
-            this.props.updateSelectedCFDA(updateParams);
+            updateSelectedCFDA(updateParams);
         }
-    }
+    };
 
-    removeCFDA(cfda) {
+    const removeCFDA = (cfda) => {
         const updateParams = {};
         updateParams.cfda = cfda;
-        this.props.updateSelectedCFDA(updateParams);
-    }
+        updateSelectedCFDA(updateParams);
+    };
 
-    dirtyFilters() {
-        if (is(this.props.selectedCFDA, this.props.appliedCFDA)) {
+    const dirtyFilters = () => {
+        if (is(selectedCFDA, appliedCFDA)) {
             return null;
         }
         return Symbol('dirty CFDA');
-    }
+    };
 
-    render() {
-        return (
-            <CFDASearch
-                selectedCFDA={this.props.selectedCFDA}
-                dirtyFilters={this.dirtyFilters()}
-                selectCFDA={this.selectCFDA}
-                removeCFDA={this.removeCFDA} />
-        );
-    }
-}
+    return (
+        <CFDASearch
+            selectedCFDA={selectedCFDA}
+            dirtyFilters={dirtyFilters()}
+            selectCFDA={selectCFDA}
+            removeCFDA={removeCFDA} />
+    );
+};
 
 CFDASearchContainer.propTypes = propTypes;
 
