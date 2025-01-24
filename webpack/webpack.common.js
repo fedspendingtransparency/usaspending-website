@@ -83,6 +83,10 @@ module.exports = {
             }
         ]
     },
+    devServer: {
+        static: './dist',
+        hot: true,
+    },
     plugins: [
         new CleanWebpackPlugin(),
         new GitRevisionPlugin({

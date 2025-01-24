@@ -1,6 +1,5 @@
 import React from 'react';
 import { createRoot } from "react-dom/client";
-import { hot } from "react-hot-loader";
 
 import AppContainer from 'containers/AppContainer';
 import registerIcons from './registerIcons';
@@ -17,9 +16,7 @@ registerIcons();
 
 const appDiv = document.getElementById("app");
 const root = createRoot(appDiv);
-
 const App = root.render(
     <AppContainer />
 );
-
-export default hot(module)(App);
+export default App;
