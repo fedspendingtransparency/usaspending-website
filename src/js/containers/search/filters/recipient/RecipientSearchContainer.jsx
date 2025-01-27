@@ -15,7 +15,6 @@ import SubmitHint from "../../../../components/sharedComponents/filterSidebar/Su
 import EntityDropdownAutocomplete from "../../../../components/search/filters/location/EntityDropdownAutocomplete";
 import PrimaryCheckboxType from "../../../../components/sharedComponents/checkbox/PrimaryCheckboxType";
 import SelectedRecipients from "../../../../components/search/filters/recipient/SelectedRecipients";
-import Button from "../../../../components/sharedComponents/buttons/Button";
 
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,
@@ -180,7 +179,6 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     }
 
     const handleClearRecipients = () => {
-        console.log('selectedRecipients: ', selectedRecipients);
         const currentRecipients = selectedRecipients;
 
         currentRecipients.forEach((recipient) => {
@@ -218,14 +216,14 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     context={{}}
                     loading={false}
                     searchIcon />
-                <Button
-                    copy="Clear all Recipient filters"
-                    buttonTitle="Clear all Recipient filters"
-                    buttonSize="sm"
-                    onClick={handleClearRecipients}
-                    buttonType="text"
-                    backgroundColor="light"
-                    textAlignment="center" />
+                <button
+                    type="button"
+                    aria-label="Clear all Recipient filters"
+                    className="placeholder"
+                    tabIndex="0"
+                    onClick={handleClearRecipients} >
+                    Clear all Recipient filters
+                </button>
                 {isLoading ? loadingIndicator :
                     <div className="recipient-results__container">
                         <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>
