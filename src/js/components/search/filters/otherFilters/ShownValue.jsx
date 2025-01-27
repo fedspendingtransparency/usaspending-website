@@ -6,27 +6,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from 'data-transparency-ui';
 
 const propTypes = {
     removeValue: PropTypes.func,
     label: PropTypes.string
 };
 
-export default class ShownValue extends React.Component {
-    render() {
-        return (
-            <button
-                className="shown-filter-button"
-                value={this.props.label}
-                onClick={this.props.removeValue}
-                title="Click to remove filter."
-                aria-label={`Applied filter: ${this.props.label}`}>
-                {this.props.label}
-                <span className="close">
-                    <FontAwesomeIcon icon="times" />
-                </span>
-            </button>
-        );
-    }
-}
+const ShownValue = (props) => {
+    const { removeValue, label } = props;
+
+    return (
+        <div
+            className="shown-filter-button"
+            value={label}
+            title="Click to remove filter."
+            aria-label={`Applied filter: ${label}`}>
+            {label}
+            <Button
+                onClick={removeValue}
+                buttonSize="sm"
+                buttonType="icon"
+                backgroundColor="light"
+                buttonTitle="close"
+                additionalClassnames="shown-filter-button__shown-filter-button-icon"
+                image={<FontAwesomeIcon icon="times" />} />
+        </div>
+    );
+};
+
 ShownValue.propTypes = propTypes;
+export default ShownValue;
