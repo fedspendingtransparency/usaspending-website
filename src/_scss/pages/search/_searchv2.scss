@@ -1,5 +1,10 @@
-.usa-da-search-page.v2 #main-content {
-  .search-contents {
-    max-width: 1600px !important; //TODO: Remove after search 2.0 is released
+.usa-da-search-page.v2 {
+  &.fixed-body {
+    position: fixed;
+  }
+  #main-content {
+    .search-contents {
+      max-width: 1600px !important; //TODO: Remove after search 2.0 is released
+    }
   }
 }
