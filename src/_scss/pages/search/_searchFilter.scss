@@ -17,8 +17,13 @@
     height: rem(124);
     padding: ($global-margin * 2) 0 rem(46) 0;
 
-    &.filter-header__title {
+    &.filter-header__title-only {
       padding-bottom: $global-margin * 2;
+      height: unset;
+    }
+
+    &.filter-header__title-description {
+      padding-bottom: $global-margin;
       height: unset;
     }
 
@@ -75,6 +80,10 @@
       line-height: 1.5;
       color: $theme-color-body;
       margin-top: $global-margin * .5;
+
+      &.search-filter__description__bottom-margin {
+        margin: ($global-margin * 2) 0 $global-margin 0;
+      }
     }
 
     .search-filter__bottom-section {

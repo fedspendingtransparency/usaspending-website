@@ -9,7 +9,6 @@
 
     &.searchV2 {
         padding-left: rem(32);
-        padding-top: rem(8);
     }
 
     .shown {
@@ -25,6 +24,7 @@
 
     .selected-filters {
         @include selected-filter-wrap;
+        margin-top: rem(20);
     }
 }
 
