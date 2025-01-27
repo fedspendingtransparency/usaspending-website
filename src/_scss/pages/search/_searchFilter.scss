@@ -6,9 +6,10 @@
       border-top: solid 1px $gray-cool-10;
     }
   }
+
   padding: 0 ($global-margin * 4);
 
-  &.hover:hover{
+  &.hover:hover {
     background-color: $gray-cool-3;
   }
 
@@ -48,6 +49,10 @@
           font-weight: $font-semibold;
           line-height: 1.5;
           color: $theme-color-headline;
+
+          @media(min-width:1200px) {
+            min-width: 220px;
+          }
         }
       }
 

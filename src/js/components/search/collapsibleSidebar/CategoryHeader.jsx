@@ -37,11 +37,12 @@ const CategoryHeader = ({
     const innerContent = (
         <div className={`search-filter__content ${titleOnly ? 'filter-header__title' : ''}`}>
             <div className="search-filter__top-row">
+                {!titleOnly &&
                 <div
                     className="search-filter__top-row-icon-container"
                     style={{ backgroundColor: iconBackgroundColor }}>
                     <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
-                </div>
+                </div>}
                 <div className="search-filter__top-row-text-container">
                     <div className="search-filter__top-row-title">{title}</div>
                 </div>
