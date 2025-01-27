@@ -32,7 +32,7 @@ const SidebarWrapper = ({
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [sidebarTop, setSidebarTop] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
-
+    const [isOpened, setIsOpened] = useState(sidebarOpen);
     const footerEl = document.querySelector("footer");
     const topStickyBarEl = document.querySelector(".usda-page-header");
 
@@ -43,7 +43,7 @@ const SidebarWrapper = ({
 
     const toggleOpened = (e) => {
         e.preventDefault();
-        setSidebarOpen((prevState) => !prevState);
+        setIsOpened((prevState) => !prevState);
     };
 
     const hideElements = (removeableEls) => {
@@ -151,7 +151,7 @@ const SidebarWrapper = ({
     };
 
     useEffect(() => {
-        if (sidebarOpen) {
+        if (isOpened) {
             if (document.querySelector(".full-search-sidebar")) {
                 if (windowWidth >= mediumScreen && windowWidth < largeScreen) {
                     openSidebar(sideBarDesktopWidth);
@@ -169,13 +169,13 @@ const SidebarWrapper = ({
         else if (document.querySelector(".full-search-sidebar")) {
             closeSidebar();
         }
-    }, [isMobile, sidebarOpen, openSidebar, windowWidth]);
+    }, [isMobile, isOpened, openSidebar, windowWidth]);
 
     useEffect(() => {
-        if (!sidebarOpen && initialPageLoad) {
+        if (!isOpened && initialPageLoad) {
             setInitialPageLoad(false);
         }
-    }, [initialPageLoad, sidebarOpen]);
+    }, [initialPageLoad, isOpened]);
 
     useEffect(() => {
         if (sidebarHeight > 0 && sidebarContentHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
@@ -246,7 +246,7 @@ const SidebarWrapper = ({
         <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
             <div
                 style={{ height: sidebarHeight }}
-                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${sidebarOpen ? 'opened' : ''}`}>
+                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => toggleOpened(e)}
@@ -254,7 +254,7 @@ const SidebarWrapper = ({
                     role="button"
                     focusable="true"
                     tabIndex={0}>
-                    {sidebarOpen ?
+                    {isOpened ?
                         <FontAwesomeIcon className="chevron" icon="chevron-left" />
                         :
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
