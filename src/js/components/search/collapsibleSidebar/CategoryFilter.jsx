@@ -32,9 +32,7 @@ const CategoryFilter = ({
             itemCount={itemCount}
             titleOnly={titleOnly} />
         {/* TODO Remove negative margin after releasing the collapsible sidebar */}
-        <div
-            className="category-filter"
-            style={{ marginTop: `${titleOnly ? '0px' : '-36px'}` }}>
+        <div className="category-filter">
             <div>{component}</div>
         </div>
     </div>

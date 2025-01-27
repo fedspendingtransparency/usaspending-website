@@ -68,6 +68,10 @@
       line-height: 1.5;
       color: $theme-color-body;
       margin-top: $global-margin * .5;
+
+      &.search-filter__description__bottom-margin {
+        margin: ($global-margin * 2) 0 $global-margin 0;
+      }
     }
 
     .search-filter__bottom-section {
