@@ -11,13 +11,18 @@
             @include selected-filter-wrap;
         }
 
-        .placeholder {
-            background: none;
-            color: $theme-color-1;
-            margin: 0 0 ($global-margin * 2) 0;
-            padding: 0;
-            font-size: $smallest-font-size;
-            line-height: 1.5;
+        .clear-all__container {
+            display: flex;
+            justify-content: right;
+
+            .clear-all__button {
+                background: none;
+                color: $theme-color-1;
+                margin: ($global-margin * 2) 0 0 0;
+                padding: 0;
+                font-size: $smallest-font-size;
+                line-height: 1.5;
+            }
         }
     }
 

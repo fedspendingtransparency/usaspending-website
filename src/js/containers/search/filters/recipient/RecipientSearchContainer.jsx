@@ -216,14 +216,16 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     context={{}}
                     loading={false}
                     searchIcon />
-                <button
-                    type="button"
-                    aria-label="Clear all Recipient filters"
-                    className="placeholder"
-                    tabIndex="0"
-                    onClick={handleClearRecipients} >
-                    Clear all Recipient filters
-                </button>
+                <div className="clear-all__container">
+                    <button
+                        type="button"
+                        aria-label="Clear all Recipient filters"
+                        className="clear-all__button"
+                        tabIndex="0"
+                        onClick={handleClearRecipients} >
+                        Clear all Recipient filters
+                    </button>
+                </div>
                 {isLoading ? loadingIndicator :
                     <div className="recipient-results__container">
                         <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>
