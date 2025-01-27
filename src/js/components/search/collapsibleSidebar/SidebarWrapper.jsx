@@ -12,11 +12,16 @@ import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, ch
 import SidebarContent from "./SidebarContent";
 
 const propTypes = {
-    setShowMobileFilters: PropTypes.func
+    setShowMobileFilters: PropTypes.func,
+    showMobileFilters: PropTypes.bool,
+    sidebarOpen: PropTypes.bool,
+    setSidebarOpen: PropTypes.func
 };
 
-const SidebarWrapper = ({ setShowMobileFilters }) => {
-    const [isOpened, setIsOpened] = useState(true);
+const SidebarWrapper = ({
+    // eslint-disable-next-line no-unused-vars
+    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen
+}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [windowWidth, setWindowWidth] = useState();
@@ -27,7 +32,7 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [sidebarTop, setSidebarTop] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
-
+    const [isOpened, setIsOpened] = useState(sidebarOpen);
     const footerEl = document.querySelector("footer");
     const topStickyBarEl = document.querySelector(".usda-page-header");
 

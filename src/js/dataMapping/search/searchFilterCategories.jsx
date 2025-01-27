@@ -155,7 +155,7 @@ export const FilterCategoryTree = {
                     },
                     {
                         title: 'Assistance Listing',
-                        component: <CFDASearchContainer />,
+                        component: <CFDASearchContainer searchV2 />,
                         titleOnly: true
                     }
                 ]
