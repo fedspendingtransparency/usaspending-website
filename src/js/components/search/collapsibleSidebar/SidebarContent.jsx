@@ -96,7 +96,7 @@ const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => {
             currentLevel={currentLevel} />
 
         <div className="sidebar-bottom-submit">
-            <SearchSidebarSubmitContainer />
+            <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
         </div>
     </>);
 };
