@@ -43,8 +43,8 @@ const SearchSidebarSubmit = (props) => {
                 backgroundColor="light"
                 disabled={disabled}
                 onClick={() => {
-                    if (props.setShowMobileFilters) {
-                        props.setShowMobileFilters();
+                    if (props?.setShowMobileFilters) {
+                        props?.setShowMobileFilters();
                     }
                     props.applyStagedFilters();
                 }} />
