@@ -18,12 +18,13 @@
     padding: ($global-margin * 2) 0 rem(46) 0;
 
     &.filter-header__title {
-      padding-bottom: $global-margin;
+      padding-bottom: $global-margin * 2;
       height: unset;
     }
 
     .search-filter__top-row {
       display: flex;
+      align-items: center;
 
       .search-filter__top-row-icon-container {
         display: flex;
@@ -65,6 +66,7 @@
         line-height: 1.5;
         color: $theme-color-body;
         width: 100%;
+        white-space: nowrap;
       }
     }
 

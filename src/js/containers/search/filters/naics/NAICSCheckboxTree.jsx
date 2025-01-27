@@ -449,9 +449,6 @@ export class NAICSCheckboxTree extends React.Component {
         return (
             <div>
                 <div className="naics-search-container">
-                    <span className="checkbox-header">Search by Code or Name
-                        <CSSOnlyTooltip definition={<SearchTooltip />} heading="NAICS Search" />
-                    </span>
                     <EntityDropdownAutocomplete
                         placeholder="Type to find codes"
                         searchString={searchString}
