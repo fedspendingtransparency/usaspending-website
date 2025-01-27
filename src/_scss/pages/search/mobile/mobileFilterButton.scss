@@ -1,4 +1,6 @@
 .mobile-filter-button-wrapper {
+    // this is specifically to overlap the footer
+    z-index: 1;
     @include media($medium-screen) {
         // hide in non-mobile view
         display: none;
@@ -70,9 +72,9 @@
         border-radius: 4px;
         color: $color-white;
         background-color: $theme-color-1;
-        left: 0;
-        bottom: 0;
-        position: absolute;
+        left: rem(16);
+        bottom: rem(16);
+        position: fixed;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
         &:hover, &:active {
             background-color: $color-primary-alt;

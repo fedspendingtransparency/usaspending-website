@@ -105,7 +105,10 @@ const SearchSidebarDrilldown = ({
                 title={selectedCategoryTitle}
                 component={filter}
                 itemCount={filterCount[selectedCategoryTitle]}
-                titleOnly={titleOnly} />
+                titleOnly={titleOnly}
+                iconName={selectedCategory?.iconName}
+                iconColor={selectedCategory?.iconColor}
+                iconBackgroundColor={selectedCategory?.iconBackgroundColor} />
         );
     }
     else {
