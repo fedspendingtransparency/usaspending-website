@@ -118,8 +118,8 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
             setIsMobile(newWidth < mediumScreen);
-            handleScroll();
         }
+        handleScroll();
     }, 30);
 
     const openSidebar = (width) => {
@@ -202,16 +202,23 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
     }, [mainContentHeight, topStickyBarEl.clientHeight]);
 
     useEffect(() => {
-        const headingInView = sidebarTop + headingPadding;
-        document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
+        if (window.scrollY > 60) {
+            const headingInView = sidebarTop + headingPadding;
+            document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
+            document.querySelector(".search-collapsible-sidebar-container").style.position = `fixed`;
+            document.querySelector(".sidebar-bottom-submit").style.position = `absolute`;
 
-        if (window.scrollY > 0) {
             if (sidebarIsSticky) {
                 resizeSidebar();
             }
             else {
                 resizeInitialSidebar();
             }
+        }
+        else {
+            document.querySelector(".search-collapsible-sidebar-container").style.top = `unset`;
+            document.querySelector(".search-collapsible-sidebar-container").style.position = `static`;
+            document.querySelector(".sidebar-bottom-submit").style.position = `static`;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [footerInView, siteHeaderInView, sidebarIsSticky, sidebarTop]);
