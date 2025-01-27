@@ -59,11 +59,11 @@
 // TODO: replace the relevant padding, left, and top properties above with those below once searchV2 releases
 &.collapsible-sidebar--drilldown {
   .extent-competed-filter .autocomplete__input {
-    padding: $global-spacing-unit ($global-spacing-unit * 4) rem(20) ($global-spacing-unit * 4);
+    padding: 0 ($global-spacing-unit * 4) rem(20) ($global-spacing-unit * 4);
 
     .search-icon {
       left: ($global-spacing-unit * 5);
-      top: rem(10);
+      top: rem(2);
     }
   }
 }

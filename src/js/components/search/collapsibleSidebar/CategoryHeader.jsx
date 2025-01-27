@@ -35,7 +35,7 @@ const CategoryHeader = ({
     const [content, setContent] = useState();
 
     const innerContent = (
-        <div className={`search-filter__content ${titleOnly || !isClickable ? 'filter-header__title' : ''}`}>
+        <div className={`search-filter__content ${titleOnly ? 'filter-header__title-only' : ''} ${!isClickable && description ? 'filter-header__title-description' : ''}`}>
             <div className="search-filter__top-row">
                 <div
                     className="search-filter__top-row-icon-container"
