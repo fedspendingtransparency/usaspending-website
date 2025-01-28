@@ -127,7 +127,7 @@ const AccordionCheckbox = ({
             {noResults ?
                 <div className="no-results">No results found.</div>
                 :
-                checkboxCategories
+                <div className="checkbox-categories-wrapper">{checkboxCategories}</div>
             }
         </div>
     );

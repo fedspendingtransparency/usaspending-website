@@ -54,6 +54,12 @@
     color: $gray-60;
     text-align: center;
   }
+
+  //added for scroll bar
+  .filter-item-wrap {
+    max-height: 600px;
+    overflow-y: auto;
+  }
 }
 
 // TODO: replace the relevant padding, left, and top properties above with those below once searchV2 releases
