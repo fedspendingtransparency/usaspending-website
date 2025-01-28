@@ -2,10 +2,9 @@
     margin-bottom: rem(16);
     padding: unset !important; // TODO remove after search 2.0 is released
       li {
-        margin-bottom: rem(14) !important;
+        margin-bottom: rem(12) !important; // TODO remove after search 2.0 is released
       }
       .checkbox-tree-label {
-        width: auto;
         .checkbox-tree-label__value-container {
           background: $gray-cool-5;
           border-radius: rem(2);
@@ -22,7 +21,7 @@
       }
       .checkbox-tree-label .checkbox-tree-label__label {
         &.multiple-label {
-          padding-bottom: rem(10);
+          padding-bottom: rem(8);
           &:last-of-type {
             padding-bottom: 0;
           }
