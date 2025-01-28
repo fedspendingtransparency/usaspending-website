@@ -185,6 +185,7 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
             const headingInView = sidebarTop + headingPadding;
             document.querySelector(".search-collapsible-sidebar-container").style.top = `${headingInView}px`;
             document.querySelector(".search-collapsible-sidebar-container").style.position = `fixed`;
+            document.querySelector(".search-collapsible-sidebar-container").style.transition = `position 2s`;
             document.querySelector(".sidebar-bottom-submit").style.position = `absolute`;
 
             if (sidebarIsSticky) {
@@ -200,7 +201,7 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
             document.querySelector(".sidebar-bottom-submit").style.position = `static`;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [footerInView, sidebarIsSticky]);
+    }, [sidebarTop, footerInView, sidebarIsSticky]);
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
@@ -226,7 +227,7 @@ const SidebarWrapper = ({ setShowMobileFilters }) => {
     return (
         <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
             <div
-                style={{ height: sidebarHeight }}
+                style={{ height: sidebarHeight, overscrollBehavior: "none" }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
