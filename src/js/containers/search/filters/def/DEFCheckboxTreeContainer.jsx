@@ -46,9 +46,9 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         // eslint-disable-next-line no-param-reassign
         obj[item.code] = (
             <DEFCheckboxTreeLabelv2
-                label={item.code}
-                subLabel={item.title}
-                value={item.public_law} />);
+                label={item.title}
+                subLabel={item.public_law}
+                value={item.code} />);
         return obj;
     }, {});
 

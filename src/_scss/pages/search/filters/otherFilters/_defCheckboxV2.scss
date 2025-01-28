@@ -1,0 +1,37 @@
+.def-code-filter {
+    margin-bottom: rem(16);
+    padding: unset !important; // TODO remove after search 2.0 is released
+      li {
+        margin-bottom: rem(14) !important;
+      }
+      .checkbox-tree-label {
+        width: auto;
+        .checkbox-tree-label__value-container {
+          background: $gray-cool-5;
+          border-radius: rem(2);
+          display: inline;
+          padding: rem(2.5);
+
+          .checkbox-tree-label__value-container-value {
+            display: inline;
+            color: $gray-90;
+            font-weight: $font-semibold;
+            font-size: $font-size-10;
+          }
+        }
+      }
+      .checkbox-tree-label .checkbox-tree-label__label {
+        &.multiple-label {
+          padding-bottom: rem(10);
+          &:last-of-type {
+            padding-bottom: 0;
+          }
+        }
+        span {
+          font-size: $font-size-10;
+          font-style: italic;
+          line-height: rem(1.8);
+          color: $gray-60;
+        }
+      }
+}

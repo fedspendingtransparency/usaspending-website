@@ -13,7 +13,6 @@ const DEFCheckboxTreeLabel = ({
     subLabel,
     value
 }) => {
-    const cssLabel = label === 'COVID-19 Spending' ? 'covid' : 'notCovid';
     if (label.includes('|')) {
         const labels = label.split('|');
         const subLabels = subLabel.split('|');
@@ -44,7 +43,7 @@ const DEFCheckboxTreeLabel = ({
                     {value}
                 </div>
             </div>
-            <div className={`checkbox-tree-label__label def-checkbox-tree-label__${cssLabel}`}>
+            <div className="checkbox-tree-label__label">
                 {label}
                 {subLabel && (
                     <>
