@@ -41,6 +41,17 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         return obj;
     }, {});
 
+    const detailsDisplay = (codes) => codes.filter(((code) => code.disaster === defcType)).reduce((obj, item) => {
+        // eslint-disable-next-line no-param-reassign
+        obj[item.code] = (
+            <div>
+                <span>{item.code}</span>
+                <span>{item.title}</span>
+                <span>{item.public_law}</span>
+            </div>);
+        return obj;
+    }, {});
+
     const defcDataByType = (codes) => {
         if (defcType === "covid_19") {
             return [{
@@ -79,11 +90,14 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         }
     };
 
+    console.log(detailsDisplay(defCodes));
+
     return (
         <div className="def-code-filter">
             {defCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
                 filterCategoryMapping={defcDataByType(defCodes)}
                 filters={titlesByCode(defCodes)}
+                customLabels={detailsDisplay(defCodes)}
                 selectedFilters={selectedDefCodes}
                 selectedCategory={category}
                 singleFilterChange={toggleDefc}
