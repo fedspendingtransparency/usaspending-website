@@ -20,6 +20,7 @@ import SetAsideContainer from "../../containers/search/filters/SetAsideContainer
 import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
 import CFDASearchContainer from "../../containers/search/filters/cfda/CFDASearchContainer";
 import DEFCheckboxTreeContainer from "../../containers/search/filters/def/DEFCheckboxTreeContainer";
+import AwardDescriptionContainer from "../../containers/search/filters/AwardDescriptionContainer";
 
 export const SearchFilterCategories = [
     {
@@ -82,6 +83,7 @@ export const FilterCategoryTree = {
                 categories: [
                     {
                         title: 'Award Description',
+                        component: <AwardDescriptionContainer />,
                         titleOnly: true
                     },
                     {
