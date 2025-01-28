@@ -90,8 +90,6 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         }
     };
 
-    console.log(detailsDisplay(defCodes));
-
     return (
         <div className="def-code-filter">
             {defCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
