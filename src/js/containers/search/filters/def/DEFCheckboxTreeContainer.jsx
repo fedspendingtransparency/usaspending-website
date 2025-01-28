@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bulkCovidDefCodeChange, toggleCovidDefCode, bulkInfraDefCodeChange, toggleInfraDefCode } from 'redux/actions/search/searchFilterActions';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
+import DEFCheckboxTreeLabelv2 from "../../../../components/search/filters/defc/DEFCheckboxTreeLabelv2";
 
 const propTypes = {
     defcType: PropTypes.string
@@ -44,11 +45,10 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
     const detailsDisplay = (codes) => codes.filter(((code) => code.disaster === defcType)).reduce((obj, item) => {
         // eslint-disable-next-line no-param-reassign
         obj[item.code] = (
-            <div>
-                <span>{item.code}</span>
-                <span>{item.title}</span>
-                <span>{item.public_law}</span>
-            </div>);
+            <DEFCheckboxTreeLabelv2
+                label={item.code}
+                subLabel={item.title}
+                value={item.public_law} />);
         return obj;
     }, {});
 
