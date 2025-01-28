@@ -29,7 +29,7 @@ const ShownValue = ({ removeValue, label }) => (
                 buttonTitle="close"
                 copy="Click to remove filter."
                 additionalClassnames="shown-filter-button__shown-filter-button-icon"
-                image={<FontAwesomeIcon icon="times" />} />
+                image={<FontAwesomeIcon icon="times" style={{ cursor: "pointer" }} />} />
         </div>
 
     </div>
