@@ -13,27 +13,27 @@ const propTypes = {
     label: PropTypes.string
 };
 
-const ShownValue = (props) => {
-    const { removeValue, label } = props;
-
-    return (
+const ShownValue = ({ removeValue, label }) => (
+    <div
+        className="shown-filter-button"
+        value={label}
+        aria-label={`Applied filter: ${label}`}>
+        {label}
         <div
-            className="shown-filter-button"
-            value={label}
-            title="Click to remove filter."
-            aria-label={`Applied filter: ${label}`}>
-            {label}
+            title="Click to remove filter">
             <Button
                 onClick={removeValue}
                 buttonSize="sm"
                 buttonType="icon"
                 backgroundColor="light"
                 buttonTitle="close"
+                copy="Click to remove filter."
                 additionalClassnames="shown-filter-button__shown-filter-button-icon"
                 image={<FontAwesomeIcon icon="times" />} />
         </div>
-    );
-};
+
+    </div>
+);
 
 ShownValue.propTypes = propTypes;
 export default ShownValue;

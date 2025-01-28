@@ -22,6 +22,8 @@
         &__shown-filter-button-icon {
             border: unset;
             color:  $color-gray;
+            margin: 0;
+            padding: 0 0 0 rem(4); 
         }
 
         &:first-child {
