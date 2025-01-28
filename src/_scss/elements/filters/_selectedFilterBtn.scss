@@ -22,8 +22,20 @@
         &__shown-filter-button-icon {
             border: unset;
             color:  $color-gray;
-            margin: 0;
-            padding: 0 0 0 rem(4); 
+            margin:  0 0 0 rem(4);
+            padding: 0; 
+            cursor: pointer;
+            &:hover {
+                background: lighten($color-cool-blue-lightest, 10%);
+                border: 1px solid $color-cool-blue-lighter;
+                cursor: pointer;
+
+                @include transition(all 0.25s $ease-in-out-sine);
+                & .close {
+                    cursor: pointer;
+                    color: $color-cool-blue;
+                }
+            }
         }
 
         &:first-child {
@@ -40,15 +52,6 @@
             font-size: $small-font-size;
             padding: 0 0 0 rem(4);
         }
-        &:hover {
-            background: lighten($color-cool-blue-lightest, 10%);
-            border: 1px solid $color-cool-blue-lighter;
-            cursor: pointer;
-            @include transition(all 0.25s $ease-in-out-sine);
-            & .close {
-                cursor: pointer;
-                color: $color-cool-blue;
-            }
-        }
+      
     }
 }
