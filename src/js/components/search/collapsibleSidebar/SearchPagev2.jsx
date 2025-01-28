@@ -189,7 +189,7 @@ const SearchPage = ({
                                 </div>
                             </button>
                         </div>
-                        <FlexGridCol className="mobile-search-sidebar-v2">
+                        <FlexGridCol className={`mobile-search-sidebar-v2 ${sidebarOpen ? 'sidebar-opened' : ''}`}>
                             <MobileFiltersV2
                                 filters={filters}
                                 showMobileFilters={showMobileFilters}
