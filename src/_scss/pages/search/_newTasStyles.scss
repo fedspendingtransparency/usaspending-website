@@ -1,5 +1,6 @@
 // integrate these changes with deployment of search v2
 .tas-checkbox {
+    @import "../../core/variables";
     padding-left: 32px;
     padding-right: 32px;
     padding-top: 0;
@@ -14,8 +15,18 @@
     }
     .checkbox-tree-label__value-container-value {
         font-size: 10px !important;
+        display: flex;
+        align-items: center;
     }
     .checkbox-tree-label__label {
         font-size: 12px !important;
     }
+
+    .rct-text {
+        svg {
+            height: 10px;
+            color: $theme-color-1;
+        }
+    }
+
 }
