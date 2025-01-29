@@ -1,0 +1,21 @@
+// integrate these changes with deployment of search v2
+.naics-search-container {
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 0;
+
+  .autocomplete__input {
+      padding-top: 0;
+      padding-bottom: 20px;
+      .geo-entity-dropdown__input {
+          border: solid 1px #dfe1e2;
+          border-radius: 3px;
+      }
+  }
+  .checkbox-tree-label__value-container-value {
+      font-size: 10px !important;
+  }
+  .checkbox-tree-label__label {
+      font-size: 12px !important;
+  }
+}
