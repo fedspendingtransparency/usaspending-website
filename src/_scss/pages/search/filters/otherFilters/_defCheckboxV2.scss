@@ -4,15 +4,18 @@
       li {
         margin-bottom: rem(12) !important; // TODO remove after search 2.0 is released
       }
+      .checkbox-filter__header {
+        margin-bottom: rem(16) !important; // TODO remove after search 2.0 is released
+      }
       .checkbox-tree-label {
         .checkbox-tree-label__value-container {
           background: $gray-cool-5;
           border-radius: rem(2);
-          display: inline;
+          display: inline-block;
           padding: rem(2.5);
+          height: rem(18);
 
           .checkbox-tree-label__value-container-value {
-            display: inline;
             color: $gray-90;
             font-weight: $font-semibold;
             font-size: $font-size-10;
