@@ -19,24 +19,28 @@ const propTypes = {
     titleOnly: PropTypes.bool
 };
 
+const nonExemptions = new Set(['Contract Award Type', 'North American Industry Classification System (NAICS)', 'Product and Service Code (PSC)', 'Treasury Account Symbol (TAS)', 'Extent Competed', 'Recipient', 'Type of Contract Pricing', 'Type of Set Aside', 'COVID-19 Spending', 'Infrastructure Spending']);
 const CategoryFilter = ({
     iconBackgroundColor, iconName, iconColor, component, title, description, height, itemCount, titleOnly = false
-}) => (
-    <div className="selected-category-item" style={{ height: `${height - 36}px` }}>
-        <CategoryHeader
-            iconName={iconName}
-            iconColor={iconColor}
-            iconBackgroundColor={iconBackgroundColor}
-            title={title}
-            description={description}
-            itemCount={itemCount}
-            titleOnly={titleOnly} />
-        {/* TODO Remove negative margin after releasing the collapsible sidebar */}
-        <div className="category-filter">
-            <div>{component}</div>
+}) => {
+    console.debug("TITLE: ", title);
+    return (
+        <div className="selected-category-item" style={{ height: `${height - 36}px` }}>
+            <CategoryHeader
+                iconName={iconName}
+                iconColor={iconColor}
+                iconBackgroundColor={iconBackgroundColor}
+                title={title}
+                description={description}
+                itemCount={itemCount}
+                titleOnly={titleOnly} />
+            {/* TODO Remove negative margin after releasing the collapsible sidebar */}
+            <div className={`category-filter ${!nonExemptions.has(title) ? 'exempt' : ''}`}>
+                <div>{component}</div>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 CategoryFilter.propTypes = propTypes;
 export default CategoryFilter;

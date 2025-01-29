@@ -108,8 +108,14 @@
       display: flex;
       flex-direction: column;
 
-      .categories-list,
+      .categories-list {
+        overflow-y: auto;
+      }
+
       .category-filter {
+        overflow-y: hidden;
+      }
+      .category-filter.exempt {
         overflow-y: auto;
       }
     }

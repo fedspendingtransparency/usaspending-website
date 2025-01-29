@@ -57,9 +57,10 @@
   text-align: center;
 }
 
-//added for scroll bar
+//added for scroll bar, this is kind of a hack
 .filter-item-wrap {
   max-height: 600px;
+  height: 300px;
   overflow-y: auto;
 }
 }
