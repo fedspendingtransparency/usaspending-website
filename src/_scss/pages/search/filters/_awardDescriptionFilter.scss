@@ -1,3 +1,6 @@
+@import "mixins/selectedFilterWrap";
+@import "elements/filters/_selectedFilterBtn";
+
 .award-description-filter {
   &__form {
     display: flex;
@@ -17,6 +20,31 @@
 
     .award-desscription-filter__add-button {
       margin: 0 0 0 rem(4);
+    }
+  }
+}
+
+.selected-filters {
+  @include selected-filter-wrap;
+
+  margin: ($global-margin * 3) 0 0 0;
+  padding: 0;
+  background-color: unset;
+
+  .shown-filter-button {
+    background-color: $gray-cool-10;
+    border: none;
+    line-height: 1.5;
+    color: $gray-90;
+
+    &:hover {
+      background-color: $gray-cool-10;
+      border: none;
+    }
+
+    .shown-filter-button__shown-filter-button-icon svg {
+      height: rem(12);
+      width: rem(12);
     }
   }
 }

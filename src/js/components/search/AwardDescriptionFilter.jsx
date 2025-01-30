@@ -61,7 +61,9 @@ const AwardDescriptionFilter = ({
                         buttonTitle="Filter by award description"
                         onClick={applyAwardDescription} />
                 </form>
-                {shownAwardDescriptions}
+                <div className="selected-filters" role="status">
+                    {shownAwardDescriptions}
+                </div>
                 <SubmitHint selectedFilters={selectedAwardDescription} />
             </div>
         </div>
