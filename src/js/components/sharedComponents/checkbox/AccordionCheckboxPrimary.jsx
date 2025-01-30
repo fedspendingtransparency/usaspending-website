@@ -19,7 +19,8 @@ const propTypes = {
     singleFilterChange: PropTypes.func,
     filters: PropTypes.object,
     bulkFilterChange: PropTypes.func,
-    enableAnalytics: PropTypes.bool
+    enableAnalytics: PropTypes.bool,
+    customLabels: PropTypes.object
 };
 
 const AccordionCheckboxPrimary = ({
@@ -29,6 +30,7 @@ const AccordionCheckboxPrimary = ({
     selectedFilters,
     singleFilterChange,
     filters,
+    customLabels,
     bulkFilterChange,
     enableAnalytics = false
 }) => {
@@ -158,7 +160,8 @@ const AccordionCheckboxPrimary = ({
                 selectedFilters={selectedFilters}
                 category={category}
                 singleFilterChange={singleFilterChange}
-                filters={filters} />
+                filters={filters}
+                customLabels={customLabels} />
         </div>);
 };
 

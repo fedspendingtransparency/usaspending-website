@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bulkCovidDefCodeChange, toggleCovidDefCode, bulkInfraDefCodeChange, toggleInfraDefCode } from 'redux/actions/search/searchFilterActions';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
+import DEFCheckboxTreeLabelv2 from "../../../../components/search/filters/defc/DEFCheckboxTreeLabelv2";
 
 const propTypes = {
     defcType: PropTypes.string
@@ -38,6 +39,16 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
     const titlesByCode = (codes) => codes.filter(((code) => code.disaster === defcType)).reduce((obj, item) => {
         // eslint-disable-next-line no-param-reassign
         obj[item.code] = item.title;
+        return obj;
+    }, {});
+
+    const detailsDisplay = (codes) => codes.filter(((code) => code.disaster === defcType)).reduce((obj, item) => {
+        // eslint-disable-next-line no-param-reassign
+        obj[item.code] = (
+            <DEFCheckboxTreeLabelv2
+                label={item.title}
+                subLabel={item.public_law}
+                value={item.code} />);
         return obj;
     }, {});
 
@@ -84,6 +95,7 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
             {defCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
                 filterCategoryMapping={defcDataByType(defCodes)}
                 filters={titlesByCode(defCodes)}
+                customLabels={detailsDisplay(defCodes)}
                 selectedFilters={selectedDefCodes}
                 selectedCategory={category}
                 singleFilterChange={toggleDefc}
