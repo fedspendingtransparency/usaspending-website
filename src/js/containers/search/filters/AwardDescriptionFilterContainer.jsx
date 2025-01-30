@@ -22,7 +22,7 @@ const AwardDescriptionFilterContainer = () => {
         }));
     };
 
-    const removeAwardDescription = () => console.log('removeAwardDescription');
+    const removeAwardDescription = ({ target }) => console.log('removeAwardDescription: ', target.value);
 
     const inputChangeHandler = (e) => {
         setAwardDescription(e.target.value);
