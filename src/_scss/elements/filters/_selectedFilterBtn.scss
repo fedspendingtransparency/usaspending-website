@@ -19,6 +19,21 @@
         @include display(flex);
         @include align-items(center);
 
+        &__shown-filter-button-icon {
+            border: unset;
+            color:  $color-gray;
+            margin:  0 0 0 rem(4);
+            padding: 0; 
+            svg {
+                 :hover {
+                    cursor: pointer;
+                }
+            }
+            &:hover {
+                color: $color-cool-blue
+            }
+        }
+
         &:first-child {
             margin-top: 0;
         }
@@ -33,15 +48,15 @@
             font-size: $small-font-size;
             padding: 0 0 0 rem(4);
         }
+
         &:hover {
             background: lighten($color-cool-blue-lightest, 10%);
             border: 1px solid $color-cool-blue-lighter;
-            cursor: pointer;
             @include transition(all 0.25s $ease-in-out-sine);
             & .close {
-                cursor: pointer;
                 color: $color-cool-blue;
             }
         }
+      
     }
 }
