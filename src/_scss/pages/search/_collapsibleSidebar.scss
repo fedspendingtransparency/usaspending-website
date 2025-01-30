@@ -1,4 +1,4 @@
-@import '_searchFilter';
+@import "searchFilter";
 
 @keyframes collapsible-sidebar-slideopen {
   0% {
@@ -34,6 +34,8 @@
 }
 
 .search-collapsible-sidebar-container {
+  @import './filters/otherFilters/defCheckboxV2';
+
   position: fixed;
   background-color: $color-white;
   box-shadow: unset;
