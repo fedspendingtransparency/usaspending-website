@@ -125,6 +125,7 @@ const SidebarWrapper = ({
         document.querySelector(sidebarElSelector).style.width = "unset";
         document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
+        document.querySelector(".collapsible-sidebar").style.transition = `width 300ms cubic-bezier(0.2, 0, 0, 1)`;
         document.querySelector(".sidebar-bottom-submit").style.display = "block";
         if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
             document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "flex";
@@ -135,6 +136,7 @@ const SidebarWrapper = ({
         document.querySelector(".full-search-sidebar").style.width = "0";
         document.querySelector(".full-search-sidebar").style.flexBasis = "0";
         document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
+        document.querySelector(".collapsible-sidebar").style.transition = `width 300ms cubic-bezier(0.2, 0, 0, 1)`;
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
         document.querySelector(".sidebar-bottom-submit").style.display = "none";
