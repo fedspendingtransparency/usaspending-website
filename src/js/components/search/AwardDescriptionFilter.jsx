@@ -6,17 +6,37 @@
 import React from 'react';
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
+import ShownValue from "./filters/otherFilters/ShownValue";
 
 const propTypes = {
     applyAwardDescription: PropTypes.func,
     awardDescription: PropTypes.string,
-    inputChangeHandler: PropTypes.func
+    inputChangeHandler: PropTypes.func,
+    selectedAwardDescription: PropTypes.object,
+    removeAwardDescription: PropTypes.func
 };
 
 const AwardDescriptionFilter = ({
-    applyAwardDescription, awardDescription, inputChangeHandler
+    applyAwardDescription,
+    awardDescription,
+    inputChangeHandler,
+    selectedAwardDescription,
+    removeAwardDescription
 }) => {
-    const placeholder2 = 'placeholder2';
+    const shownAwardDescriptions = [];
+
+    selectedAwardDescription.entrySeq().forEach((description) => {
+        const key = description[0];
+        const label = description[1];
+        const chip = (
+            <ShownValue
+                label={label}
+                key={key}
+                removeValue={removeAwardDescription} />
+        );
+
+        shownAwardDescriptions.push(chip);
+    });
 
     return (
         <div className="award-description-filter">
@@ -39,6 +59,7 @@ const AwardDescriptionFilter = ({
                     buttonTitle="Filter by award description"
                     onClick={applyAwardDescription} />
             </form>
+            {shownAwardDescriptions}
         </div>
     );
 };
