@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import AwardDescriptionFilter from "../../../components/search/AwardDescription";
+import AwardDescriptionFilter from "../../../components/search/AwardDescriptionFilter";
 
 const AwardDescriptionFilterContainer = () => {
     const [awardDescription, setAwardDescription] = useState('');
