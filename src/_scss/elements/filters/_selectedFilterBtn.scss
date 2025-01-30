@@ -27,16 +27,10 @@
             svg {
                  :hover {
                     cursor: pointer;
-
                 }
             }
             &:hover {
-                background: lighten($color-cool-blue-lightest, 10%);
-                border: 1px solid $color-cool-blue-lighter;
-                @include transition(all 0.25s $ease-in-out-sine);
-                & .close {
-                    color: $color-cool-blue;
-                }
+                color: $color-cool-blue
             }
         }
 
@@ -53,6 +47,15 @@
             @include display(flex);
             font-size: $small-font-size;
             padding: 0 0 0 rem(4);
+        }
+
+        &:hover {
+            background: lighten($color-cool-blue-lightest, 10%);
+            border: 1px solid $color-cool-blue-lighter;
+            @include transition(all 0.25s $ease-in-out-sine);
+            & .close {
+                color: $color-cool-blue;
+            }
         }
       
     }
