@@ -4,14 +4,21 @@
  */
 
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateGenericFilter } from 'redux/actions/search/searchFilterActions';
 import AwardDescriptionFilter from "../../../components/search/AwardDescriptionFilter";
 
 const AwardDescriptionFilterContainer = () => {
     const [awardDescription, setAwardDescription] = useState('');
 
+    const dispatch = useDispatch();
+
     const applyAwardDescription = (e) => {
         e.preventDefault();
-        console.log('award description');
+        dispatch(updateGenericFilter({
+            type: 'awardDescription',
+            value: awardDescription
+        }));
     };
 
     const inputChangeHandler = (e) => {

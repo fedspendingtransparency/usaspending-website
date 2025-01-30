@@ -36,7 +36,8 @@ const AwardDescriptionFilter = ({
                     buttonType="primary"
                     copy="add"
                     additionalClassnames="award-desscription-filter__add-button"
-                    buttonTitle="Filter by award description" />
+                    buttonTitle="Filter by award description"
+                    onClick={applyAwardDescription} />
             </form>
         </div>
     );
