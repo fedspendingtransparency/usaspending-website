@@ -89,6 +89,21 @@ const SidebarWrapper = ({
         setSidebarContentHeight(sidebarContentArea);
     };
 
+    const updatePosition = () => {
+        if (sidebarIsSticky) {
+            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `-32px`;
+            document.querySelector(".search-collapsible-sidebar-container").style.position = `fixed`;
+            document.querySelector(".search-collapsible-sidebar-container").style.transition = `position 2s`;
+            document.querySelector(".sidebar-bottom-submit").style.position = `absolute`;
+        }
+
+        if (!sidebarIsSticky || window.scrollY < 60) {
+            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `unset`;
+            document.querySelector(".search-collapsible-sidebar-container").style.position = `absolute`;
+            document.querySelector(".sidebar-bottom-submit").style.position = `static`;
+        }
+    };
+
     const handleScroll = throttle(() => {
         if (window.scrollY < 172) {
             updatePosition();
@@ -166,37 +181,34 @@ const SidebarWrapper = ({
         }
     }, [sidebarHeight, sidebarContentHeight]);
 
+    // useEffect(() => {
+    //     const mainContentEl = document.querySelector("#main-content");
+    //     const mainContentInView = checkInView(mainContentEl);
+    //
+    //     console.log("main content height", mainContentHeight);
+    //     if (window.scrollY === 0 && mainContentHeight) {
+    //         document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
+    //         setSidebarHeight(mainContentInView);
+    //         setSidebarContentHeight(mainContentInView - sidebarStaticEls);
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [mainContentHeight]);
+
+
     useEffect(() => {
         const mainContentEl = document.querySelector("#main-content");
         const mainContentInView = checkInView(mainContentEl);
 
+        console.log("main content height", mainContentHeight);
         if (window.scrollY === 0 && mainContentHeight) {
             document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
             setSidebarHeight(mainContentInView);
             setSidebarContentHeight(mainContentInView - sidebarStaticEls);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mainContentHeight]);
 
-    const updatePosition = () => {
-        if (sidebarIsSticky) {
-            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `-32px`;
-            document.querySelector(".search-collapsible-sidebar-container").style.position = `fixed`;
-            document.querySelector(".search-collapsible-sidebar-container").style.transition = `position 2s`;
-            document.querySelector(".sidebar-bottom-submit").style.position = `absolute`;
-        }
-
-        if (!sidebarIsSticky || window.scrollY < 60) {
-            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `unset`;
-            document.querySelector(".search-collapsible-sidebar-container").style.position = `absolute`;
-            document.querySelector(".sidebar-bottom-submit").style.position = `static`;
-        }
-    };
-
-    useEffect(() => {
         updatePosition();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFooterVisible, isHeaderVisible, sidebarIsSticky]);
+    }, [isFooterVisible, isHeaderVisible, sidebarIsSticky, mainContentHeight]);
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
