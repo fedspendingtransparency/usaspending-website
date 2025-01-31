@@ -28,7 +28,9 @@
 
     .award-desscription-filter__add-button {
       margin: 0 0 0 rem(4);
-
+      padding: rem(7) rem(12);
+      font-size: $smallest-font-size;
+      line-height: 1.5;
 
       @media screen and (max-width: 320px) {
         width: auto;
