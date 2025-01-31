@@ -55,7 +55,7 @@
 .selected-filters {
   @include selected-filter-wrap;
 
-  margin: ($global-margin * 3) 0 0 0;
+  margin: ($global-margin * 2) 0 0 0;
   padding: 0;
   background-color: unset;
 
