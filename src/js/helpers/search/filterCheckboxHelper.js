@@ -367,7 +367,8 @@ export const characteristicsCount = ({
     pricingType,
     setAside,
     extentCompeted,
-    selectedCFDA
+    selectedCFDA,
+    awardDescription
 }) => selectedAwardIDs.size +
     awardAmounts.size +
     awardType.size +
@@ -376,7 +377,8 @@ export const characteristicsCount = ({
     pricingType.size +
     setAside.size +
     extentCompeted.size +
-    selectedCFDA.size;
+    selectedCFDA.size +
+    awardDescription.size;
 
 export const sourcesCount = ({
     selectedAwardingAgencies,

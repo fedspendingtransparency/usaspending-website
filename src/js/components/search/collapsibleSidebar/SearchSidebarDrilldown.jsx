@@ -69,15 +69,16 @@ const SearchSidebarDrilldown = ({
         selectedFundingAgencies,
         tasCodes,
         covidDefCode,
-        infraDefCode
+        infraDefCode,
+        awardDescription
     } = filters;
 
-    // TODO: Add in Award Description, Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
+    // TODO: Add in Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
     // TODO: this can't be done until those filters are properly placed in the new advanced search
     const filterCount = {
         Location: itemCount.location,
         'Time Period': itemCount.timePeriod,
-        'Award Description': 0,
+        'Award Description': awardDescription.size,
         'Award ID': selectedAwardIDs.size,
         'Spending Amount': awardAmounts.size,
         'Contract Award Type': awardType.size,
