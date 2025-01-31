@@ -14,6 +14,11 @@
           color: $gray-60;
         }
 
+        &:focus {
+          box-shadow: 0 0 4px $blue-50;
+          border: solid 0.5px $blue-50;
+        }
+
         max-height: rem(32);
         font-size: $smallest-font-size;
         line-height: 1.5;
