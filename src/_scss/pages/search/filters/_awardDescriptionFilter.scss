@@ -64,15 +64,20 @@
     border: none;
     line-height: 1.5;
     color: $gray-90;
+    padding: rem(4) $global-padding;
 
     &:hover {
       background-color: $gray-cool-10;
       border: none;
     }
 
-    .shown-filter-button__shown-filter-button-icon svg {
-      height: rem(12);
-      width: rem(12);
+    .shown-filter-button__shown-filter-button-icon {
+      margin-left: 8px;
+
+      svg {
+        height: rem(12);
+        width: rem(12);
+      }
     }
   }
 }
