@@ -22,11 +22,17 @@ const AwardDescriptionFilterContainer = () => {
         }));
     };
 
-    const removeAwardDescription = ({ target }) => console.log('removeAwardDescription: ', target.value);
+    const removeAwardDescription = (description) => {
+        const awardDescriptions = selectedAwardDescription.delete(description);
+
+        dispatch(updateGenericFilter({
+            type: 'awardDescription',
+            value: awardDescriptions
+        }));
+    };
 
     const inputChangeHandler = (e) => {
         setAwardDescription(e.target.value);
-        console.log(e.target.value);
     };
 
     return (

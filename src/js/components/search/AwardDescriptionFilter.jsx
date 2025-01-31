@@ -33,7 +33,7 @@ const AwardDescriptionFilter = ({
             <ShownValue
                 label={label}
                 key={key}
-                removeValue={removeAwardDescription} />
+                removeValue={() => removeAwardDescription(key)} />
         );
 
         shownAwardDescriptions.push(chip);
