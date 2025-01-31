@@ -16,10 +16,12 @@ const AwardDescriptionFilterContainer = () => {
 
     const applyAwardDescription = (e) => {
         e.preventDefault();
-        dispatch(updateGenericFilter({
-            type: 'awardDescription',
-            value: selectedAwardDescription.set(awardDescription, awardDescription)
-        }));
+        if (awardDescription.length > 0) {
+            dispatch(updateGenericFilter({
+                type: 'awardDescription',
+                value: selectedAwardDescription.set(awardDescription, awardDescription)
+            }));
+        }
     };
 
     const removeAwardDescription = (description) => {
