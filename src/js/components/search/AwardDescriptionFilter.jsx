@@ -7,7 +7,6 @@ import React from 'react';
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
 import ShownValue from "./filters/otherFilters/ShownValue";
-import SubmitHint from "../sharedComponents/filterSidebar/SubmitHint";
 
 const propTypes = {
     applyAwardDescription: PropTypes.func,
@@ -55,7 +54,6 @@ const AwardDescriptionFilter = ({
                             removeValue={removeAwardDescription} />
                 }
             </div>
-            <SubmitHint selectedFilters={selectedAwardDescription} />
         </div>
     </div>
 );
