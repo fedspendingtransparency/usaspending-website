@@ -52,7 +52,7 @@ class SearchAwardsOperation {
         this.setAside = [];
         this.extentCompeted = [];
 
-        this.awardDescription = [];
+        this.awardDescription = '';
     }
 
     fromState(state) {
@@ -105,7 +105,7 @@ class SearchAwardsOperation {
         this.setAside = state.setAside.toArray();
         this.extentCompeted = state.extentCompeted.toArray();
 
-        this.awardDescription = state.awardDescription.toArray();
+        this.awardDescription = state.awardDescription;
     }
 
     toParams() {
@@ -367,7 +367,7 @@ class SearchAwardsOperation {
         }
 
         // Add Award Descriptions
-        if (this.awardDescription?.length > 0) {
+        if (this.awardDescription) {
             filters[rootKeys.awardDescription] = this.awardDescription;
         }
 

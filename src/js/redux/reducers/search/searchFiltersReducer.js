@@ -82,7 +82,7 @@ export const initialState = {
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    awardDescription: OrderedMap()
+    awardDescription: ''
 };
 
 export const initialStateFY = {
