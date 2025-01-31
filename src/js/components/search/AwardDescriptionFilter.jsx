@@ -29,18 +29,20 @@ const AwardDescriptionFilter = ({
             <form
                 onSubmit={applyAwardDescription}
                 className="award-description-filter__form">
-                <input
-                    id="search"
-                    type="text"
-                    className="award-description-filter__text-field"
-                    placeholder="Search for a description..."
-                    value={awardDescription}
-                    onChange={inputChangeHandler} />
+                <div className="award-description-filter__text-field-wrapper">
+                    <input
+                        id="search"
+                        type="text"
+                        className="award-description-filter__text-field"
+                        placeholder="Search for a description..."
+                        value={awardDescription}
+                        onChange={inputChangeHandler} />
+                </div>
                 <Button
                     buttonSize="sm"
                     backgroundColor="light"
                     buttonType="primary"
-                    copy="add"
+                    copy="Add"
                     additionalClassnames="award-desscription-filter__add-button"
                     buttonTitle="Filter by award description"
                     onClick={applyAwardDescription} />
