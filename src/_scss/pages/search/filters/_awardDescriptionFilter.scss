@@ -10,6 +10,10 @@
       width: 100%;
 
       .award-description-filter__text-field {
+        &::placeholder {
+          color: $gray-60;
+        }
+
         max-height: rem(32);
         font-size: $smallest-font-size;
         line-height: 1.5;
