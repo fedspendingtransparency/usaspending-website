@@ -17,6 +17,10 @@
         &:focus {
           box-shadow: 0 0 4px $blue-50;
           border: solid 0.5px $blue-50;
+
+          &::placeholder {
+            color: transparent;
+          }
         }
 
         max-height: rem(32);
