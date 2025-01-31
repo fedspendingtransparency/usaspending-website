@@ -27,21 +27,17 @@ const SidebarWrapper = ({
     const [windowWidth, setWindowWidth] = useState();
     const [sidebarHeight, setSidebarHeight] = useState();
     const [sidebarContentHeight, setSidebarContentHeight] = useState();
-    const [footerInView, setFooterInView] = useState();
-    const [sidebarTop, setSidebarTop] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
     const [isOpened, setIsOpened] = useState(sidebarOpen);
-    const footerEl = document.querySelector("footer");
-    const topStickyBarEl = document.querySelector(".usda-page-header");
-    const [isHeaderVisible, setIsHeaderVisible] = useState();
-    const [sidebarIsSticky, setSidebarIsSticky] = useState();
-    const [isFooterVisible, setIsFooterVisible] = useState();
+    const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+    const [sidebarIsSticky, setSidebarIsSticky] = useState(false);
+    const [isFooterVisible, setIsFooterVisible] = useState(false);
 
+    const footerEl = document.querySelector("footer");
     const sidebarStaticEls = 172;
     const footerMargin = 46;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
-    const headingPadding = 40;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -69,12 +65,14 @@ const SidebarWrapper = ({
 
         const margins = topStickyBarHeight + footerMargin;
 
-        if (sidebarContentArea - margins < minContentHeight) {
-            hideElements(panelContainerElClasses);
-        }
-        else {
-            showElements(panelContainerElClasses);
-        }
+        // if (sidebarContentArea - margins < minContentHeight) {
+        //      hideElements(panelContainerElClasses);
+        // }
+        // else {
+        //     showElements(panelContainerElClasses);
+        // }
+
+        console.log("resize height by footer", mainContentInView);
 
         setSidebarHeight(mainContentInView - margins);
         setSidebarContentHeight(sidebarContentArea - margins);
@@ -90,22 +88,30 @@ const SidebarWrapper = ({
     };
 
     const updatePosition = () => {
-        if (sidebarIsSticky) {
+        if (!sidebarIsSticky && isHeaderVisible) {
+            console.log("static");
+            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `unset`;
+            document.querySelector(".search-collapsible-sidebar-container").style.position = `static`;
+            document.querySelector(".sidebar-bottom-submit").style.position = `static`;
+            resizeHeightByHeader();
+        }
+         else if (sidebarIsSticky) {
+             console.log("fixed")
             document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `-32px`;
             document.querySelector(".search-collapsible-sidebar-container").style.position = `fixed`;
             document.querySelector(".search-collapsible-sidebar-container").style.transition = `position 2s`;
             document.querySelector(".sidebar-bottom-submit").style.position = `absolute`;
         }
 
-        if (!sidebarIsSticky || window.scrollY < 60) {
-            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `unset`;
-            document.querySelector(".search-collapsible-sidebar-container").style.position = `absolute`;
-            document.querySelector(".sidebar-bottom-submit").style.position = `static`;
+        if (isFooterVisible) {
+            resizeHeightByFooter();
         }
     };
 
     const handleScroll = throttle(() => {
-        if (window.scrollY < 172) {
+        const footerInView = checkInView(footerEl) + footerMargin;
+        setIsFooterVisible(footerInView > 0);
+        if (window.scrollY < 172 || footerInView > 0) {
             updatePosition();
         }
     }, 30);
@@ -181,20 +187,6 @@ const SidebarWrapper = ({
         }
     }, [sidebarHeight, sidebarContentHeight]);
 
-    // useEffect(() => {
-    //     const mainContentEl = document.querySelector("#main-content");
-    //     const mainContentInView = checkInView(mainContentEl);
-    //
-    //     console.log("main content height", mainContentHeight);
-    //     if (window.scrollY === 0 && mainContentHeight) {
-    //         document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
-    //         setSidebarHeight(mainContentInView);
-    //         setSidebarContentHeight(mainContentInView - sidebarStaticEls);
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [mainContentHeight]);
-
-
     useEffect(() => {
         const mainContentEl = document.querySelector("#main-content");
         const mainContentInView = checkInView(mainContentEl);
@@ -206,6 +198,7 @@ const SidebarWrapper = ({
             setSidebarContentHeight(mainContentInView - sidebarStaticEls);
         }
 
+        console.log("is footer visible", isFooterVisible);
         updatePosition();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFooterVisible, isHeaderVisible, sidebarIsSticky, mainContentHeight]);
@@ -223,34 +216,21 @@ const SidebarWrapper = ({
 
         window.addEventListener('resize', (e) => handleResize(e));
         window.addEventListener('scroll', (e) => handleScroll(e));
-        return () => {
-            window.removeEventListener('resize', (e) => handleResize(e));
-            window.removeEventListener('scroll', (e) => handleScroll(e));
-            resizeObserver.unobserve(mainContent);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
-    useEffect(() => {
         // eslint-disable-next-line no-undef
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.target?.localName?.includes("footer")) {
                     setIsFooterVisible(entry.isIntersecting);
-                    console.log("footer visibility change", entry.isIntersecting);
-                    resizeHeightByFooter();
                 }
 
                 if (entry.target?.className?.includes("usda-page-header") && !entry.target?.className?.includes("usda-page-header--sticky")) {
                     setIsHeaderVisible(entry.isIntersecting);
                     setSidebarIsSticky(false);
-                    console.log("header visibility change", entry.isIntersecting);
-                    resizeHeightByHeader();
                 }
 
                 if (entry.target?.className?.includes("usda-page-header--sticky")) {
                     setSidebarIsSticky(entry.isIntersecting);
-                    console.log("stickybar is sticky", entry.isIntersecting);
                 }
             });
         });
@@ -258,6 +238,10 @@ const SidebarWrapper = ({
         observer.observe(document.querySelector("footer"));
         observer.observe(document.querySelector(".usda-page-header"));
         return () => {
+            window.removeEventListener('resize', (e) => handleResize(e));
+            window.removeEventListener('scroll', (e) => handleScroll(e));
+            resizeObserver.unobserve(mainContent);
+
             observer.unobserve(document.querySelector(".site-header__wrapper"));
             observer.unobserve(document.querySelector("footer"));
             observer.unobserve(document.querySelector(".usda-page-header"));
