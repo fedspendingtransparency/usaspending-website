@@ -78,7 +78,7 @@ const SearchSidebarDrilldown = ({
     const filterCount = {
         Location: itemCount.location,
         'Time Period': itemCount.timePeriod,
-        'Award Description': awardDescription.size,
+        'Award Description': awardDescription ? 1 : 0,
         'Award ID': selectedAwardIDs.size,
         'Spending Amount': awardAmounts.size,
         'Contract Award Type': awardType.size,

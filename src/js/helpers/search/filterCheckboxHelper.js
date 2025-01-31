@@ -378,7 +378,7 @@ export const characteristicsCount = ({
     setAside.size +
     extentCompeted.size +
     selectedCFDA.size +
-    awardDescription.size;
+    (awardDescription ? 1 : 0);
 
 export const sourcesCount = ({
     selectedAwardingAgencies,
