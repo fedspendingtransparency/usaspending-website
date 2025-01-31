@@ -13,6 +13,10 @@
             border-radius: 3px;
         }
     }
+
+    li {
+        margin-bottom: 12px !important;
+    }
     .checkbox-tree-label__value-container-value {
         font-size: 10px !important;
         display: flex;
@@ -46,6 +50,10 @@
             height: 10px;
             color: $theme-color-1;
         }
+        label {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
+        }
     }
-
 }
