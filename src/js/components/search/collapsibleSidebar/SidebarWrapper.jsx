@@ -29,9 +29,10 @@ const SidebarWrapper = ({
     const [sidebarContentHeight, setSidebarContentHeight] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
     const [isOpened, setIsOpened] = useState(sidebarOpen);
-    const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-    const [sidebarIsSticky, setSidebarIsSticky] = useState(false);
-    const [isFooterVisible, setIsFooterVisible] = useState(false);
+    const [isHeaderVisible, setIsHeaderVisible] = useState();
+    const [sidebarIsSticky, setSidebarIsSticky] = useState();
+    const [isFooterVisible, setIsFooterVisible] = useState();
+    const [footerInView, setFooterInView] = useState();
 
     const footerEl = document.querySelector("footer");
     const sidebarStaticEls = 172;
@@ -62,15 +63,15 @@ const SidebarWrapper = ({
         const mainContentEl = document.querySelector("#main-content");
         const mainContentInView = checkInView(mainContentEl);
         const sidebarContentArea = mainContentInView - sidebarStaticEls;
-
+        setFooterInView(checkInView(footerEl));
         const margins = topStickyBarHeight + footerMargin;
 
-        // if (sidebarContentArea - margins < minContentHeight) {
-        //      hideElements(panelContainerElClasses);
-        // }
-        // else {
-        //     showElements(panelContainerElClasses);
-        // }
+        if (sidebarContentArea - margins < minContentHeight) {
+             hideElements(panelContainerElClasses);
+        }
+        else {
+            showElements(panelContainerElClasses);
+        }
 
         console.log("resize height by footer", mainContentInView);
 
@@ -89,8 +90,8 @@ const SidebarWrapper = ({
 
     const updatePosition = () => {
         if (!sidebarIsSticky && isHeaderVisible) {
-            console.log("static");
-            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `unset`;
+            console.log("static- sticky, header, footer", sidebarIsSticky, isHeaderVisible, isFooterVisible);
+            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `0`;
             document.querySelector(".search-collapsible-sidebar-container").style.position = `static`;
             document.querySelector(".sidebar-bottom-submit").style.position = `static`;
             resizeHeightByHeader();
@@ -99,6 +100,7 @@ const SidebarWrapper = ({
              console.log("fixed")
             document.querySelector(".search-collapsible-sidebar-container").style.marginTop = `-32px`;
             document.querySelector(".search-collapsible-sidebar-container").style.position = `fixed`;
+            document.querySelector(".search-collapsible-sidebar-container").style.height = `100vh - 60`;
             document.querySelector(".search-collapsible-sidebar-container").style.transition = `position 2s`;
             document.querySelector(".sidebar-bottom-submit").style.position = `absolute`;
         }
@@ -109,9 +111,9 @@ const SidebarWrapper = ({
     };
 
     const handleScroll = throttle(() => {
-        const footerInView = checkInView(footerEl) + footerMargin;
-        setIsFooterVisible(footerInView > 0);
-        if (window.scrollY < 172 || footerInView > 0) {
+        const tmpFooterInView = checkInView(footerEl) + footerMargin;
+        setIsFooterVisible(tmpFooterInView > 0);
+        if (window.scrollY < 172 || tmpFooterInView > 0) {
             updatePosition();
         }
     }, 30);
@@ -225,12 +227,14 @@ const SidebarWrapper = ({
                 }
 
                 if (entry.target?.className?.includes("usda-page-header") && !entry.target?.className?.includes("usda-page-header--sticky")) {
+                    console.log("changing header - sticky is", entry.target?.className?.includes("usda-page-header--sticky"));
                     setIsHeaderVisible(entry.isIntersecting);
                     setSidebarIsSticky(false);
                 }
 
                 if (entry.target?.className?.includes("usda-page-header--sticky")) {
                     setSidebarIsSticky(entry.isIntersecting);
+                    setIsHeaderVisible(false);
                 }
             });
         });
@@ -247,12 +251,12 @@ const SidebarWrapper = ({
             observer.unobserve(document.querySelector(".usda-page-header"));
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    });
 
     return (
         <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
             <div
-                style={{ height: sidebarHeight, overscrollBehavior: "none" }}
+                style={{ height: sidebarIsSticky && !isFooterVisible ? 'calc(100vh - 60px)' : sidebarHeight, overscrollBehavior: "none" }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
