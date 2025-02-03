@@ -6,6 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShownValue from "../filters/otherFilters/ShownValue";
 
 const propTypes = {
     iconName: PropTypes.string,
@@ -28,11 +29,22 @@ const CategoryHeader = ({
     title,
     description,
     itemCount,
+    selectedItems,
     selectCategory,
     isClickable,
     titleOnly
 }) => {
     const [content, setContent] = useState();
+    const selectedFiltersArray = [];
+
+    selectedItems?.data.forEach((filter) => {
+        selectedFiltersArray.push(
+            <ShownValue
+                label={filter.display.title}
+                key={filter.display.title}
+                removeValue={selectedItems.removeFilter} />
+        );
+    });
 
     const innerContent = (
         <div className={`search-filter__content ${titleOnly ? 'filter-header__title-only' : ''} ${!isClickable && description ? 'filter-header__title-description' : ''}`}>
@@ -54,12 +66,9 @@ const CategoryHeader = ({
             {description &&
                 <div className={`search-filter__description ${isClickable ? '' : 'search-filter__description__bottom-margin'}`}>{description}</div>
             }
-            {/* <div*/}
-            {/*    className="search-filter__bottom-section">*/}
-            {/*    {selectedItems.map((selectedItem) => (*/}
-            {/*        <div>{selectedItem}</div>*/}
-            {/*    ))}*/}
-            {/* </div>*/}
+            {
+                isClickable && itemCount > 0 && selectedFiltersArray
+            }
         </div>
     );
 
@@ -77,7 +86,6 @@ const CategoryHeader = ({
             tabIndex={0}
             role="button">
             { innerContent }
-
         </div>);
 
     useEffect(() => {

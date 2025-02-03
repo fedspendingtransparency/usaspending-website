@@ -77,7 +77,8 @@ const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => {
             sidebarContentHeight={sidebarContentHeight}
             setLevel2={setLevel2}
             itemCount={itemCount}
-            setShowMobileFilters={setShowMobileFilters} />
+            setShowMobileFilters={setShowMobileFilters}
+            filters={filters} />
 
         <SearchSidebarDrilldown
             list={drilldown?.children}
