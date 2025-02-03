@@ -1,3 +1,6 @@
+@import "mixins/selectedFilterWrap";
+@import "elements/filters/_selectedFilterBtn";
+
 .search-filter__container {
   cursor: pointer;
 
@@ -77,6 +80,10 @@
       &.search-filter__description__bottom-margin {
         margin: ($global-margin * 2) 0 $global-margin 0;
       }
+    }
+
+    .selected-filters {
+      @include selected-filter-wrap;
     }
 
     .search-filter__bottom-section {

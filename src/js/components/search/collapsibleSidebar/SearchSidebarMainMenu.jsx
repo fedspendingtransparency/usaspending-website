@@ -29,23 +29,38 @@ const SearchSidebarMainMenu = ({
     const selectedItems = {
         location: {
             data: filters.selectedLocations.toArray(),
-            removeFilter: () => console.log('here')
+            removeFilter: (e) => {
+                e.stopPropagation();
+                console.log('here');
+            }
         },
         timePeriod: {
             data: [],
-            removeFilter: () => console.log('here')
+            removeFilter: () => (e) => {
+                e.stopPropagation();
+                console.log('here');
+            }
         },
         characteristics: {
             data: [],
-            removeFilter: () => console.log('here')
+            removeFilter: () => (e) => {
+                e.stopPropagation();
+                console.log('here');
+            }
         },
         recipients: {
             data: [],
-            removeFilter: () => console.log('here')
+            removeFilter: () => (e) => {
+                e.stopPropagation();
+                console.log('here');
+            }
         },
         sources: {
             data: [],
-            removeFilter: () => console.log('here')
+            removeFilter: () => (e) => {
+                e.stopPropagation();
+                console.log('here');
+            }
         }
     };
 

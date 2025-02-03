@@ -66,9 +66,9 @@ const CategoryHeader = ({
             {description &&
                 <div className={`search-filter__description ${isClickable ? '' : 'search-filter__description__bottom-margin'}`}>{description}</div>
             }
-            {
-                isClickable && itemCount > 0 && selectedFiltersArray
-            }
+            <div className="selected-filters">
+                { isClickable && itemCount > 0 && selectedFiltersArray }
+            </div>
         </div>
     );
 
