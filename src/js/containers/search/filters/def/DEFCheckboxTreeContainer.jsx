@@ -10,6 +10,7 @@ import { bulkCovidDefCodeChange, toggleCovidDefCode, bulkInfraDefCodeChange, tog
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
 import DEFCheckboxTreeLabelv2 from "../../../../components/search/filters/defc/DEFCheckboxTreeLabelv2";
+import { sortAlphaNumbersLast } from "../../../../helpers/search/collapsiblesidebarHelper";
 
 const propTypes = {
     defcType: PropTypes.string
@@ -35,7 +36,8 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         }
     }, [covidDefCode, infraDefCode, defcType]);
 
-    const parseCodes = (codes) => codes.filter(((code) => code.disaster === defcType)).map((code) => code.code);
+    const parseCodes = (codes) => sortAlphaNumbersLast(codes.filter(((code) => code.disaster === defcType)).map((code) => code.code));
+
     const titlesByCode = (codes) => codes.filter(((code) => code.disaster === defcType)).reduce((obj, item) => {
         // eslint-disable-next-line no-param-reassign
         obj[item.code] = item.title;
