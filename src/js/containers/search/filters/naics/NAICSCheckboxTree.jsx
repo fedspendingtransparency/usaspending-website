@@ -10,8 +10,6 @@ import { debounce, uniqueId } from 'lodash';
 import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
-
 import {
     incrementNaicsCountAndUpdateUnchecked,
     decrementNaicsCountAndUpdateUnchecked,
@@ -71,16 +69,6 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     filters: PropTypes.object
 };
-
-const SearchTooltip = () => (
-    <>
-        <p>Filter the options below by typing any of the following:</p>
-        <ul>
-            <li>Any NAICS numeric code (or part thereof)</li>
-            <li>Any NAICS label name (or part thereof)</li>
-        </ul>
-    </>
-);
 
 export class NAICSCheckboxTree extends React.Component {
     constructor(props) {
