@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import ShownValue from '../otherFilters/ShownValue';
 
 const propTypes = {
     label: PropTypes.string,
@@ -22,17 +21,7 @@ const SelectedAwardAmountBound = (props) => {
 
     const { label } = props;
     return (
-        <button
-            className="shown-filter-button"
-            value={label}
-            onClick={removeFilterFn}
-            title="Click to remove."
-            aria-label={`Applied filter: ${label}`}>
-            {label}
-            <span className="close">
-                <FontAwesomeIcon icon="times" />
-            </span>
-        </button>
+        <ShownValue label={label} removeValue={removeFilterFn} />
     );
 };
 

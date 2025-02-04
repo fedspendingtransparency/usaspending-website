@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { uniqueId, flowRight } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { flowRight } from 'lodash';
 
 import withDefCodes from 'containers/covid19/WithDefCodes';
 
@@ -10,6 +9,7 @@ import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
+import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 export const NewBadge = () => (
     <div className="new-badge">NEW</div>
@@ -137,18 +137,7 @@ const DEFCheckboxTree = (props) => {
                     {props.counts.map((node) => {
                         const label = `${node.label} (${node.count})`;
                         return (
-                            <button
-                                key={uniqueId()}
-                                className="shown-filter-button"
-                                value={label}
-                                onClick={(e) => removeSelectedFilter(e, node)}
-                                title="Click to remove."
-                                aria-label={`Applied filter: ${label}`}>
-                                {label}
-                                <span className="close">
-                                    <FontAwesomeIcon icon="times" />
-                                </span>
-                            </button>
+                            <ShownValue label={label} removeValue={(e) => removeSelectedFilter(e, node)} />
                         );
                     })}
                 </div>

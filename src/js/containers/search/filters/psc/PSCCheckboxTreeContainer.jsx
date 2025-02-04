@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep, uniqueId } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { debounce, get, flattenDeep } from 'lodash';
 import { connect } from 'react-redux';
 
 import {
@@ -38,6 +37,7 @@ import { updatePSC } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
+import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -403,18 +403,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                         {counts.map((node) => {
                             const label = `${node.value} - ${node.label} (${node.count})`;
                             return (
-                                <button
-                                    key={uniqueId()}
-                                    className="shown-filter-button"
-                                    value={label}
-                                    onClick={(e) => this.removeSelectedFilter(e, node)}
-                                    title="Click to remove."
-                                    aria-label={`Applied filter: ${label}`}>
-                                    {label}
-                                    <span className="close">
-                                        <FontAwesomeIcon icon="times" />
-                                    </span>
-                                </button>
+                                <ShownValue label={label} removeValue={(e) => this.removeSelectedFilter(e, node)} />
                             );
                         })}
                     </div>

@@ -46,6 +46,8 @@
         line-height: rem(15);
         font-size: rem(12);
         color: $color-gray;
+        width: fit-content;
+        max-width: fit-content;
         .close {
           color: $color-gray;
         }

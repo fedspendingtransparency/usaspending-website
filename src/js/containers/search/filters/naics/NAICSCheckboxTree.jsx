@@ -6,9 +6,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { debounce, uniqueId } from 'lodash';
+import { debounce } from 'lodash';
 import { isCancel } from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
     incrementNaicsCountAndUpdateUnchecked,
@@ -42,6 +41,7 @@ import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     stageNaics: PropTypes.func,
@@ -455,18 +455,7 @@ export class NAICSCheckboxTree extends React.Component {
                             {counts.map((node) => {
                                 const label = `${node.value} - ${node.label} (${node.count})`;
                                 return (
-                                    <button
-                                        key={uniqueId()}
-                                        className="shown-filter-button"
-                                        value={label}
-                                        onClick={() => this.removeStagedNaics(node)}
-                                        title="Click to remove."
-                                        aria-label={`Applied filter: ${label}`}>
-                                        {label}
-                                        <span className="close">
-                                            <FontAwesomeIcon icon="times" />
-                                        </span>
-                                    </button>
+                                    <ShownValue label={label} removeValue={() => this.removeStagedNaics(node)} />
                                 );
                             })}
                         </div>
