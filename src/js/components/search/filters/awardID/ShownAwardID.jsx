@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShownValue from '../otherFilters/ShownValue';
 
 const propTypes = {
     toggleAwardID: PropTypes.func,
@@ -16,17 +16,7 @@ const ShownAwardID = (props) => {
     const { toggleAwardID, label } = props;
 
     return (
-        <button
-            className="shown-filter-button"
-            value={label}
-            onClick={toggleAwardID}
-            title="Click to remove filter."
-            aria-label={`Applied filter: ${label}`}>
-            {label}
-            <span className="close">
-                <FontAwesomeIcon icon="times" />
-            </span>
-        </button>
+        <ShownValue label={label} removeValue={toggleAwardID} />
     );
 };
 

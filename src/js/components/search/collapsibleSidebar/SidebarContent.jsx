@@ -17,6 +17,7 @@ const propTypes = {
     sidebarContentHeight: PropTypes.number,
     setShowMobileFilters: PropTypes.func
 };
+
 const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => {
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
