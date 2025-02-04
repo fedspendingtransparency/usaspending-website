@@ -19,15 +19,15 @@
     }
     .rct-checkbox {
       .rct-icon-uncheck {
-        border: 2px solid $color-gray-lighter;
-        border-radius: 3px;
+        border: solid 1px $gray-cool-20;
+        border-radius: 2px;
         color: white;
       }
       .rct-icon-check {
-        color: $color-primary;
+        color: $theme-color-1;
       }
       .rct-icon-half-check {
-        color: $color-primary;
+        color: $theme-color-1;
       }
       svg {
         &:focus {
@@ -43,6 +43,7 @@
     .rct-icon-expand-open {
       margin-right: 0.1em;
     }
+    
     .svg-inline--fa.fa-w-14 {
       width: 1.1em;
       height: 1.1em;
@@ -152,7 +153,8 @@
             label {
               .checkbox-tree-label {
                 .checkbox-tree-label__label {
-                  font-weight: $font-normal;
+                  font-weight: $font-semibold;
+                  color: $gray-80;
                 }
               }
             }
@@ -169,6 +171,7 @@
                   .checkbox-tree-label {
                     .checkbox-tree-label__label {
                       font-weight: $font-normal;
+                      color: $gray-80;
                     }
                   }
                 }
@@ -185,6 +188,7 @@
                         .checkbox-tree-label {
                           .checkbox-tree-label__label {
                             font-weight: $font-normal;
+                            color: $gray-80;
                           }
                         }
                       }
