@@ -48,7 +48,8 @@ export const requiredTypes = {
     infraDefCode: Set,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set
+    extentCompeted: Set,
+    awardDescription: OrderedMap
 };
 
 export const initialState = {
@@ -80,7 +81,8 @@ export const initialState = {
     setAside: Set(),
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
-    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    awardDescription: ''
 };
 
 export const initialStateFY = {
