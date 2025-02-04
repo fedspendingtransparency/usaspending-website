@@ -43,6 +43,24 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
                         removeValue={removeFilter} />);
             });
         }
+
+        if (filtersData.selectedRecipientLocations?.length > 0) {
+            filtersData.selectedRecipientLocations.forEach((location) => {
+                const removeFilter = (e) => {
+                    e.stopPropagation();
+                    const newValue = filters.selectedRecipientLocations.delete(location.identifier);
+                    props.updateGenericFilter({
+                        type: 'selectedRecipientLocations',
+                        value: newValue
+                    });
+                };
+
+                chipArray.push(
+                    <ShownValue
+                        label={location.display.title}
+                        removeValue={removeFilter} />);
+            });
+        }
     };
 
     dataFromState();
