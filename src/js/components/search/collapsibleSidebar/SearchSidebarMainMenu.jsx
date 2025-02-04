@@ -27,7 +27,7 @@ const SearchSidebarMainMenu = ({
 }) => {
     const selectedItems = useRef({
         location: <SearchSidebarFilterChips category="location" />,
-        timePeriod: [],
+        timePeriod: <SearchSidebarFilterChips category="timePeriod" />,
         characteristics: [],
         recipients: [],
         sources: []
