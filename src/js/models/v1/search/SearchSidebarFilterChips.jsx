@@ -6,10 +6,10 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
 import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -65,9 +65,10 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
     };
 
     const getTimePeriodChips = () => {
-        const timePeriodArray = [];
         if (filtersData.timePeriodFY?.length > 0 || filtersData.time_period?.length > 0) {
             if (filtersData.timePeriodType === 'dr' && filtersData.time_period?.length > 0) {
+                const timePeriodArray = [];
+
                 filtersData.time_period.forEach((timePeriod, index) => {
                     const removeDateRange = (e) => {
                         e.stopPropagation();
@@ -95,17 +96,32 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
                         </button>
                     ));
                 });
+
+                chips.push((
+                    <div
+                        className="selected-filters"
+                        id="selected-date-range"
+                        role="status">
+                        {timePeriodArray}
+                    </div>
+                ));
+            }
+            else if (filtersData.timePeriodType === 'fy' && filtersData.timePeriodFY?.length > 0) {
+                filtersData.timePeriodFY.forEach((fy) => {
+                    const removeFY = (e) => {
+                        e.stopPropagation();
+                        const newFilters = filters.timePeriodFY.delete(fy);
+                        props.updateTimePeriod({ fy: newFilters, dateType: 'fy' });
+                    };
+
+                    chips.push(
+                        <ShownValue
+                            label={fy}
+                            removeValue={removeFY} />
+                    );
+                });
             }
         }
-
-        chips.push((
-            <div
-                className="selected-filters"
-                id="selected-date-range"
-                role="status">
-                {timePeriodArray}
-            </div>
-        ));
     };
 
     dataFromState();
