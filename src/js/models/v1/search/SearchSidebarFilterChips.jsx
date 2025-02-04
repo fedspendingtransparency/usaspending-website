@@ -2,25 +2,26 @@
  * SearchSidebarFilterChips.js
  * Created by Josue Aguilar on 02/03/2025.
  */
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { connect } from "react-redux";
-import {
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../redux/actions/slideouts/slideoutActions";
+import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
+import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
 
+const propTypes = {
+    filters: PropTypes.object,
+    category: PropTypes.string
+};
 
-const SearchSidebarFilterChips = ({ filters, category }) => {
+const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
     let filtersData;
     const chipArray = [];
 
     const dataFromState = () => {
         filtersData = new SearchAwardsOperation();
         filtersData.fromState(filters);
-        console.log('filtersData:', filtersData);
     };
 
     const getLocationChips = () => {
@@ -29,10 +30,9 @@ const SearchSidebarFilterChips = ({ filters, category }) => {
             filtersData.selectedLocations.forEach((location) => {
                 const removeFilter = (e) => {
                     e.stopPropagation();
-                    console.log('removeFilter:', location.identifier);
-                    const newValue = this.props.selectedLocations.delete(location.identifier);
-                    this.props.updateGenericFilter({
-                        type: 'selectedRecipientLocations',
+                    const newValue = filters.selectedLocations.delete(location.identifier);
+                    props.updateGenericFilter({
+                        type: 'selectedLocations',
                         value: newValue
                     });
                 };
@@ -52,16 +52,11 @@ const SearchSidebarFilterChips = ({ filters, category }) => {
             getLocationChips();
             break;
         default:
-            console.log('no chips');
+            console.log('ERROR: Invalid Category Type');
     }
 
     return (chipArray);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    openATD: () => dispatch(showAboutTheData()),
-    setATDTerm: (term) => dispatch(setAboutTheDataTermFromUrl(term)),
-    setSlideout: (str) => dispatch(setLastOpenedSlideout(str))
-});
-
-export default connect((state) => ({ filters: state.filters }), mapDispatchToProps)(SearchSidebarFilterChips);
+SearchSidebarFilterChips.propTypes = propTypes;
+export default connect((state) => ({ filters: state.filters }), (dispatch) => bindActionCreators(searchFilterActions, dispatch))(SearchSidebarFilterChips);

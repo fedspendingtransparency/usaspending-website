@@ -406,6 +406,7 @@ const LocationAutocompleteContainer = (props) => {
     };
 
     const removeLocation = (locationId) => {
+        console.log('locationId:', locationId);
         const type = props.activeTab === 'recipient' ? 'selectedRecipientLocations' : 'selectedLocations';
         const newValue = props[type].delete(locationId);
         props.updateGenericFilter({
