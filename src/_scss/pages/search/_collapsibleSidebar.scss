@@ -111,8 +111,8 @@
       flex-direction: column;
 
       .categories-list,
-      .category-filter {
-        &:not(:has(.time-period)){
+      .category-filter { 
+        &:not(:has(.time-period)){   // prevent overflow scroll only for time period filter but allow for other types.
           overflow-y: auto;
         }
       }
