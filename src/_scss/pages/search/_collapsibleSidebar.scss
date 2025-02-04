@@ -16,6 +16,23 @@
 .search-collapsible-sidebar-container {
   box-shadow: unset;
   border-radius: unset;
+  margin-top: 0;
+  position: relative;
+
+  .sidebar-bottom-submit {
+    position: static;
+    width: 100%;
+  }
+
+  &.sticky {
+    margin-top: -32px !important;
+    position: fixed;
+
+    .sidebar-bottom-submit {
+      position: absolute;
+      bottom: 0;
+    }
+  }
 
   @media(max-width: $medium-screen - 1) {
     left: 0;
@@ -33,11 +50,9 @@
     @media(max-width: $medium-screen - 1) {
       display: none;
     }
-
-    position: relative;
-    float: right;
-    margin-right: -12px;
-    margin-top: 16px;
+    position: absolute;
+    right: -12px;
+    top: 16px;
     border-radius: 12px;
     width: 24px;
     height: 24px;
@@ -52,10 +67,15 @@
   }
 
   .collapsible-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
+    background-color: unset;
 
     @media(max-width: $medium-screen - 1) {
       border: none;
@@ -274,11 +294,6 @@
       }
     }
 
-    .sidebar-bottom-submit {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-    }
   }
 
 }

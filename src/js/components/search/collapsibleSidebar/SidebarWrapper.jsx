@@ -32,8 +32,8 @@ const SidebarWrapper = ({
     const [isHeaderVisible, setIsHeaderVisible] = useState();
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [isFooterVisible, setIsFooterVisible] = useState();
-    const [footerInView, setFooterInView] = useState();
 
+    const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
     const sidebarStaticEls = 172;
     const footerMargin = 46;
@@ -60,10 +60,8 @@ const SidebarWrapper = ({
     };
 
     const resizeHeightByFooter = () => {
-        const mainContentEl = document.querySelector("#main-content");
         const mainContentInView = checkInView(mainContentEl);
         const sidebarContentArea = mainContentInView - sidebarStaticEls;
-        setFooterInView(checkInView(footerEl));
         const margins = topStickyBarHeight + footerMargin;
 
         if (sidebarContentArea - margins < minContentHeight) {
@@ -78,7 +76,6 @@ const SidebarWrapper = ({
     };
 
     const resizeHeightByHeader = () => {
-        const mainContentEl = document.querySelector("#main-content");
         const mainContentInView = checkInView(mainContentEl);
         const sidebarContentArea = mainContentInView - sidebarStaticEls;
 
@@ -87,32 +84,31 @@ const SidebarWrapper = ({
     };
 
     const updatePosition = () => {
+        const tmpFooterInView = checkInView(footerEl) + footerMargin;
+
         if (!sidebarIsSticky && isHeaderVisible) {
-            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = '0';
-            document.querySelector(".search-collapsible-sidebar-container").style.position = 'relative';
-            document.querySelector(".sidebar-bottom-submit").style.position = 'static';
             resizeHeightByHeader();
         }
         else if (sidebarIsSticky) {
-            document.querySelector(".search-collapsible-sidebar-container").style.marginTop = '-32px';
-            document.querySelector(".search-collapsible-sidebar-container").style.position = 'fixed';
             document.querySelector(".search-collapsible-sidebar-container").style.height = '100vh - 60';
-            document.querySelector(".search-collapsible-sidebar-container").style.transition = 'position 2s';
-            document.querySelector(".sidebar-bottom-submit").style.position = 'absolute';
         }
 
-        if (isFooterVisible) {
+        if (isFooterVisible || tmpFooterInView > 0) {
             resizeHeightByFooter();
         }
     };
 
     const handleScroll = throttle(() => {
+        document.querySelector(".search-collapsible-sidebar-container").style.opacity = "0.5";
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
         setIsFooterVisible(tmpFooterInView > 0);
-        if (window.scrollY < 172 || tmpFooterInView > 0) {
+        const tmpIsSticky = document.querySelector(".usda-page-header--sticky");
+        setSidebarIsSticky(tmpIsSticky);
+
+        if (!tmpIsSticky || window.scrollY < 172 || tmpFooterInView > 0) {
             updatePosition();
         }
-    }, 30);
+    }, 20);
 
     const keyHandler = (e, func) => {
         if (e.key === "Enter") {
@@ -127,6 +123,13 @@ const SidebarWrapper = ({
             setIsMobile(newWidth < mediumScreen);
         }
         handleScroll();
+
+        let resizeTimeout;
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            document.querySelector(".search-collapsible-sidebar-container").style.opacity = "1";
+            document.querySelector(".search-collapsible-sidebar-container").style.transition = "opacity 0.2s";
+        }, 250); // Adjust the delay (in milliseconds) as needed
     }, 30);
 
     const openSidebar = (width) => {
@@ -208,7 +211,10 @@ const SidebarWrapper = ({
 
         window.addEventListener('resize', (e) => handleResize(e));
         window.addEventListener('scroll', (e) => handleScroll(e));
-        window.addEventListener('scrollend', (e) => handleScroll(e));
+        window.addEventListener('scrollend', (e) => {
+            handleScroll(e);
+            document.querySelector(".search-collapsible-sidebar-container").style.opacity = "1";
+        });
 
         // eslint-disable-next-line no-undef
         const observer = new IntersectionObserver((entries) => {
@@ -235,6 +241,11 @@ const SidebarWrapper = ({
         return () => {
             window.removeEventListener('resize', (e) => handleResize(e));
             window.removeEventListener('scroll', (e) => handleScroll(e));
+            window.removeEventListener('scrollend', (e) => {
+                handleScroll(e);
+                document.querySelector(".search-collapsible-sidebar-container").style.opacity = "1";
+            });
+
             resizeObserver.unobserve(mainContent);
 
             observer.unobserve(document.querySelector(".site-header__wrapper"));
@@ -242,13 +253,25 @@ const SidebarWrapper = ({
             observer.unobserve(document.querySelector(".usda-page-header"));
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    });
+    }, []);
+
+    const calculateHeight = () => {
+        const tmpIsSticky = document.querySelector(".usda-page-header--sticky");
+
+        if ((sidebarIsSticky || tmpIsSticky) && !isFooterVisible) {
+            return 'calc(100vh - 60px)';
+        }
+
+        return sidebarHeight;
+    };
 
     return (
-        <div className="search-collapsible-sidebar-container search-sidebar" style={isMobile ? {} : { display: "none" }}>
+        <div
+            className={`search-collapsible-sidebar-container search-sidebar ${sidebarIsSticky ? "sticky" : ""}`}
+            style={isMobile ? {} : { display: "none" }}>
             <div
-                style={{ height: sidebarIsSticky && !isFooterVisible ? 'calc(100vh - 60px)' : sidebarHeight, overscrollBehavior: "none" }}
-                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? 'is-initial-loaded' : ''} ${isOpened ? 'opened' : ''}`}>
+                style={{ height: calculateHeight(), overscrollBehavior: "none" }}
+                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => toggleOpened(e)}

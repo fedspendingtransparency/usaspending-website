@@ -10,7 +10,7 @@ export const sideBarDesktopWidth = 282;
 export const panelContainerElClasses = [
     {
         className: "collapsible-sidebar",
-        display: "block"
+        display: "flex"
     },
     {
         className: "sidebar-bottom-submit",
