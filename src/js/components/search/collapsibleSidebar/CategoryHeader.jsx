@@ -36,12 +36,6 @@ const CategoryHeader = ({
 }) => {
     const [content, setContent] = useState();
 
-    const selectedFiltersArray = selectedItems?.map(({ title: filterTitle, removeFilter }) => (
-        <ShownValue
-            label={filterTitle}
-            removeValue={removeFilter} />
-    ));
-
     const innerContent = (
         <div className={`search-filter__content ${titleOnly ? 'filter-header__title-only' : ''} ${!isClickable && description ? 'filter-header__title-description' : ''}`}>
             <div className="search-filter__top-row">
@@ -63,8 +57,7 @@ const CategoryHeader = ({
                 <div className={`search-filter__description ${isClickable ? '' : 'search-filter__description__bottom-margin'}`}>{description}</div>
             }
             <div className="selected-filters">
-                { isClickable && itemCount > 0 && selectedFiltersArray }
-                { console.log('array:', selectedFiltersArray)}
+                { isClickable && itemCount > 0 && selectedItems }
             </div>
         </div>
     );

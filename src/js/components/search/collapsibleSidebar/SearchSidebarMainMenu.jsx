@@ -15,8 +15,7 @@ const propTypes = {
     sidebarContentHeight: PropTypes.number,
     setLevel2: PropTypes.func,
     itemCount: PropTypes.object,
-    setShowMobileFilters: PropTypes.func,
-    filters: PropTypes.object
+    setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarMainMenu = ({
@@ -24,22 +23,15 @@ const SearchSidebarMainMenu = ({
     sidebarContentHeight,
     setLevel2,
     itemCount,
-    setShowMobileFilters,
-    filters
+    setShowMobileFilters
 }) => {
     const selectedItems = useRef({
-        location: [],
+        location: <SearchSidebarFilterChips category="location" />,
         timePeriod: [],
         characteristics: [],
         recipients: [],
         sources: []
     });
-
-    const searchSidebarFilterChips = new SearchSidebarFilterChips();
-    searchSidebarFilterChips.fromState(filters);
-
-    selectedItems.current = searchSidebarFilterChips.toData();
-    console.log('selectedItems:', selectedItems.current);
 
     return (
         <div className={`collapsible-sidebar--main-menu ${isDrilldown ? '' : 'opened'}`}>
