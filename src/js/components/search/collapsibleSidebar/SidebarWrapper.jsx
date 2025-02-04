@@ -18,10 +18,7 @@ const propTypes = {
     setSidebarOpen: PropTypes.func
 };
 
-const SidebarWrapper = ({
-    // eslint-disable-next-line no-unused-vars
-    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen
-}) => {
+const SidebarWrapper = React.memo(({ setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [windowWidth, setWindowWidth] = useState();
@@ -77,6 +74,7 @@ const SidebarWrapper = ({
 
     const resizeHeightByHeader = () => {
         const mainContentInView = checkInView(mainContentEl);
+        console.log(mainContentInView);
         const sidebarContentArea = mainContentInView - sidebarStaticEls;
 
         setSidebarHeight(mainContentInView);
@@ -86,6 +84,7 @@ const SidebarWrapper = ({
     const updatePosition = () => {
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
 
+        console.log("is sticky header visible footer", sidebarIsSticky, isHeaderVisible, isFooterVisible, tmpFooterInView)
         if (!sidebarIsSticky && isHeaderVisible) {
             resizeHeightByHeader();
         }
@@ -174,7 +173,8 @@ const SidebarWrapper = ({
         else if (document.querySelector(".full-search-sidebar")) {
             closeSidebar();
         }
-    }, [isMobile, isOpened, openSidebar, windowWidth]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isMobile, isOpened, windowWidth]);
 
     useEffect(() => {
         if (!isOpened && initialPageLoad) {
@@ -239,6 +239,7 @@ const SidebarWrapper = ({
         observer.observe(document.querySelector("footer"));
         observer.observe(document.querySelector(".usda-page-header"));
         return () => {
+            console.log("unmounting")
             window.removeEventListener('resize', (e) => handleResize(e));
             window.removeEventListener('scroll', (e) => handleScroll(e));
             window.removeEventListener('scrollend', (e) => {
@@ -289,7 +290,7 @@ const SidebarWrapper = ({
             </div>
         </div>
     );
-};
+});
 
 SidebarWrapper.propTypes = propTypes;
 
