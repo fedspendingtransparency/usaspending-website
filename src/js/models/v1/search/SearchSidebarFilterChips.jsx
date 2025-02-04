@@ -124,6 +124,26 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
         }
     };
 
+    const getRecipientChips = () => {
+        if (filtersData.selectedRecipients?.length > 0) {
+            console.log(filtersData.selectedRecipients);
+            console.log(filters.selectedRecipients);
+            filters.selectedRecipients.forEach((recipient) => {
+                const removeRecipient = (e) => {
+                    e.stopPropagation();
+                    console.log(recipient);
+                    props.updateSelectedRecipients(recipient);
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={recipient}
+                        removeValue={removeRecipient} />
+                );
+            });
+        }
+    };
+
     dataFromState();
 
     switch (category) {
@@ -132,6 +152,9 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
             break;
         case 'timePeriod':
             getTimePeriodChips();
+            break;
+        case 'recipients':
+            getRecipientChips();
             break;
         default:
             console.log('ERROR: Invalid Category Type');
