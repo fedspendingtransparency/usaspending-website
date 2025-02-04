@@ -3,11 +3,12 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import { SearchFilterCategories } from "dataMapping/search/searchFilterCategories";
 import CategoryHeader from "./CategoryHeader";
+import SearchSidebarFilterChips from "../../../models/v1/search/SearchSidebarFilterChips";
 
 const propTypes = {
     isDrilldown: PropTypes.bool,
@@ -26,43 +27,19 @@ const SearchSidebarMainMenu = ({
     setShowMobileFilters,
     filters
 }) => {
-    const selectedItems = {
-        location: {
-            data: filters.selectedLocations.toArray(),
-            removeFilter: (e) => {
-                e.stopPropagation();
-                console.log('here');
-            }
-        },
-        timePeriod: {
-            data: [],
-            removeFilter: () => (e) => {
-                e.stopPropagation();
-                console.log('here');
-            }
-        },
-        characteristics: {
-            data: [],
-            removeFilter: () => (e) => {
-                e.stopPropagation();
-                console.log('here');
-            }
-        },
-        recipients: {
-            data: [],
-            removeFilter: () => (e) => {
-                e.stopPropagation();
-                console.log('here');
-            }
-        },
-        sources: {
-            data: [],
-            removeFilter: () => (e) => {
-                e.stopPropagation();
-                console.log('here');
-            }
-        }
-    };
+    const selectedItems = useRef({
+        location: [],
+        timePeriod: [],
+        characteristics: [],
+        recipients: [],
+        sources: []
+    });
+
+    const searchSidebarFilterChips = new SearchSidebarFilterChips();
+    searchSidebarFilterChips.fromState(filters);
+
+    selectedItems.current = searchSidebarFilterChips.toData();
+    console.log('selectedItems:', selectedItems.current);
 
     return (
         <div className={`collapsible-sidebar--main-menu ${isDrilldown ? '' : 'opened'}`}>
@@ -88,7 +65,7 @@ const SearchSidebarMainMenu = ({
                     title={item.title}
                     description={item.description}
                     itemCount={itemCount[item.categoryKey]}
-                    selectedItems={selectedItems[item.categoryKey]}
+                    selectedItems={selectedItems.current[item.categoryKey]}
                     selectCategory={setLevel2}
                     isClickable
                     showDescription />))}

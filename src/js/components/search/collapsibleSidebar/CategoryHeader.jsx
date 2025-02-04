@@ -35,16 +35,12 @@ const CategoryHeader = ({
     titleOnly
 }) => {
     const [content, setContent] = useState();
-    const selectedFiltersArray = [];
 
-    selectedItems?.data.forEach((filter) => {
-        selectedFiltersArray.push(
-            <ShownValue
-                label={filter.display.title}
-                key={filter.display.title}
-                removeValue={selectedItems.removeFilter} />
-        );
-    });
+    const selectedFiltersArray = selectedItems?.map(({ title: filterTitle, removeFilter }) => (
+        <ShownValue
+            label={filterTitle}
+            removeValue={removeFilter} />
+    ));
 
     const innerContent = (
         <div className={`search-filter__content ${titleOnly ? 'filter-header__title-only' : ''} ${!isClickable && description ? 'filter-header__title-description' : ''}`}>
@@ -68,6 +64,7 @@ const CategoryHeader = ({
             }
             <div className="selected-filters">
                 { isClickable && itemCount > 0 && selectedFiltersArray }
+                { console.log('array:', selectedFiltersArray)}
             </div>
         </div>
     );
