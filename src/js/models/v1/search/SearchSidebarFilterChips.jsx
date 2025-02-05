@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { recipientTypes } from 'dataMapping/search/recipientType';
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
 import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
@@ -126,12 +127,9 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
 
     const getRecipientChips = () => {
         if (filtersData.selectedRecipients?.length > 0) {
-            console.log(filtersData.selectedRecipients);
-            console.log(filters.selectedRecipients);
             filters.selectedRecipients.forEach((recipient) => {
                 const removeRecipient = (e) => {
                     e.stopPropagation();
-                    console.log(recipient);
                     props.updateSelectedRecipients(recipient);
                 };
 
@@ -139,6 +137,25 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
                     <ShownValue
                         label={recipient}
                         removeValue={removeRecipient} />
+                );
+            });
+        }
+
+        if (filtersData.recipientType?.length > 0) {
+            filtersData.recipientType.forEach((type) => {
+                const removeRecipientType = (e) => {
+                    e.stopPropagation();
+                    const newRecipientTypes = filters.recipientType.delete(type);
+                    props.updateGenericFilter({
+                        type: 'recipientType',
+                        value: newRecipientTypes
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={recipientTypes[type]}
+                        removeValue={removeRecipientType} />
                 );
             });
         }
