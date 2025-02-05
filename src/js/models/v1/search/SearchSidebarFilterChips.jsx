@@ -11,13 +11,19 @@ import { recipientTypes } from 'dataMapping/search/recipientType';
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
 import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
+import { removeStagedTasFilter } from "../../../helpers/tasHelper";
 
 const propTypes = {
     filters: PropTypes.object,
-    category: PropTypes.string
+    category: PropTypes.string,
+    tasCounts: PropTypes.object,
+    tasNodes: PropTypes.object,
+    tasChecked: PropTypes.object
 };
 
-const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
+const SearchSidebarFilterChips = ({
+    filters, category, tasCounts, tasNodes, tasChecked, ...props
+}) => {
     let filtersData;
     const chips = [];
 
@@ -191,6 +197,23 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
                 );
             });
         }
+
+        if (filtersData.tasSources?.length > 0 || filtersData.tasCheckbox.require?.length > 0) {
+            tasCounts.forEach((tas) => {
+                const removeTas = (e) => {
+                    e.stopPropagation();
+                    console.log('tas:', `${tas.value} - ${tas.label} (${tas.count})`);
+                    // TODO: This doesn't work yet. Fix.
+                    removeStagedTasFilter(tasNodes, tasChecked, tas.value);
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`${tas.value} - ${tas.label} (${tas.count})`}
+                        removeValue={removeTas} />
+                );
+            });
+        }
     };
 
     dataFromState();
@@ -216,4 +239,12 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
 };
 
 SearchSidebarFilterChips.propTypes = propTypes;
-export default connect((state) => ({ filters: state.filters }), (dispatch) => bindActionCreators(searchFilterActions, dispatch))(SearchSidebarFilterChips);
+export default connect(
+    (state) => ({
+        filters: state.filters,
+        tasCounts: state.tas.counts.toJS(),
+        tasNodes: state.tas.tas.toJS(),
+        tasChecked: state.tas.checked.toJS()
+    }),
+    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+)(SearchSidebarFilterChips);
