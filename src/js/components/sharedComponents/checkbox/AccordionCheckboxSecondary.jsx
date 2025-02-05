@@ -11,6 +11,7 @@ const propTypes = {
     selectedFilters: PropTypes.object,
     singleFilterChange: PropTypes.func,
     filters: PropTypes.object,
+    customLabels: PropTypes.object,
     expanded: PropTypes.bool
 };
 
@@ -18,7 +19,7 @@ const propTypes = {
 const excludedSubFilters = "IDV_B";
 
 const AccordionCheckboxSecondary = ({
-    category, selectedFilters, singleFilterChange, filters, expanded
+    category, selectedFilters, singleFilterChange, filters, customLabels, expanded
 }) => {
     const selectFilter = (filter) => {
         const selection = {
@@ -36,7 +37,11 @@ const AccordionCheckboxSecondary = ({
                 value={filter}
                 checked={selectedFilters?.has(filter)}
                 onChange={() => selectFilter(filter)} />
-            <div className="checkbox-filter__item-label">{filters[filter]}</div>
+            {customLabels && customLabels[filter] ?
+                <div className="checkbox-filter__item-label">{customLabels[filter]}</div>
+                :
+                <div className="checkbox-filter__item-label">{filters[filter]}</div>
+            }
         </li>
     ));
 

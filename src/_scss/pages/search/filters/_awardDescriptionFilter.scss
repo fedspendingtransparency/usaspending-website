@@ -1,0 +1,84 @@
+@import "mixins/selectedFilterWrap";
+@import "elements/filters/_selectedFilterBtn";
+
+.award-description-filter {
+  &__form {
+    display: flex;
+    justify-content: center;
+
+    .award-description-filter__text-field-wrapper {
+      width: 100%;
+
+      .award-description-filter__text-field {
+        &::placeholder {
+          color: $gray-60;
+        }
+
+        &:focus {
+          box-shadow: 0 0 4px $blue-50;
+          border: solid 0.5px $blue-50;
+
+          &::placeholder {
+            color: transparent;
+          }
+        }
+
+        max-height: rem(32);
+        font-size: $smallest-font-size;
+        line-height: 1.5;
+        color: $gray-90;
+        padding: $global-padding;
+        border-radius: 3px;
+        border: solid 1px $gray-cool-10;
+        margin: 0;
+        min-width: 100%;
+      }
+    }
+
+    .award-desscription-filter__add-button {
+      &:hover {
+        cursor: pointer;
+      }
+
+      margin: 0 0 0 rem(4);
+      padding: rem(7) rem(12);
+      font-size: $smallest-font-size;
+      line-height: 1.5;
+
+      @media screen and (max-width: 320px) {
+        width: auto;
+      }
+    }
+  }
+}
+
+.selected-filters {
+  @include selected-filter-wrap;
+
+  margin: ($global-margin * 2) 0 0 0;
+  padding: 0;
+  background-color: unset;
+
+  .shown-filter-button {
+    background-color: $gray-cool-5;
+    border: none;
+    line-height: 1.5;
+    color: $gray-90;
+    padding: rem(4) $global-padding;
+
+    &:hover {
+      background-color: $gray-cool-10;
+      border: none;
+    }
+
+    .shown-filter-button__shown-filter-button-icon {
+      margin-left: 8px;
+
+      svg {
+        height: rem(12);
+        width: rem(12);
+        color: $gray-90;
+      }
+    }
+  }
+}

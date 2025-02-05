@@ -65,5 +65,9 @@
       left: ($global-spacing-unit * 5);
       top: rem(2);
     }
+
+    .icon {
+      right: ($global-spacing-unit * 5);
+    }
   }
 }

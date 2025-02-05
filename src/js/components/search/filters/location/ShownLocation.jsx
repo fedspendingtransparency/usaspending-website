@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShownValue from '../otherFilters/ShownValue';
 
 const propTypes = {
     removeLocation: PropTypes.func,
@@ -15,17 +15,7 @@ const propTypes = {
 export default class ShownLocation extends React.Component {
     render() {
         return (
-            <button
-                className="shown-filter-button"
-                value={this.props.label}
-                onClick={this.props.removeLocation}
-                title="Click to remove."
-                aria-label={`Applied filter: ${this.props.label}`}>
-                {this.props.label}
-                <span className="close">
-                    <FontAwesomeIcon icon="times" />
-                </span>
-            </button>
+            <ShownValue label={this.props.label} removeValue={this.props.removeLocation} />
         );
     }
 }

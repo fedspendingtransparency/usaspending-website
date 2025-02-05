@@ -178,6 +178,14 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         );
     }
 
+    const handleClearRecipients = () => {
+        const currentRecipients = selectedRecipients;
+
+        currentRecipients.forEach((recipient) => {
+            updateSelectedRecipients(recipient);
+        });
+    };
+
     useEffect(() => {
         if (searchString.length >= 3) {
             setNewSearch(false);
@@ -208,6 +216,16 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     context={{}}
                     loading={false}
                     searchIcon />
+                <div className="clear-all__container">
+                    <button
+                        type="button"
+                        aria-label="Clear all Recipient filters"
+                        className="clear-all__button"
+                        tabIndex="0"
+                        onClick={handleClearRecipients} >
+                        Clear all Recipient filters
+                    </button>
+                </div>
                 {isLoading ? loadingIndicator :
                     <div className="recipient-results__container">
                         <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>

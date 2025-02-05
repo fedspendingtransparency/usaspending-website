@@ -13,7 +13,7 @@
     }
     .checkbox-tree {
       margin-bottom: rem(20);
-      border-bottom: 1px solid $color-gray-lighter;
+      border-bottom: 1px solid $gray-cool-5;
     }
     .autocomplete__input {
       @include display(flex);
@@ -46,6 +46,8 @@
         line-height: rem(15);
         font-size: rem(12);
         color: $color-gray;
+        width: fit-content;
+        max-width: fit-content;
         .close {
           color: $color-gray;
         }
