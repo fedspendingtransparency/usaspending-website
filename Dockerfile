@@ -14,7 +14,7 @@ COPY package.json package-lock.json /node-workspace/
 
 WORKDIR /node-workspace
 
-# DTUI and Usaspending-website have preinstall scripts that run npx npm-force-resolutions
+# DTUI and Usaspending-website have preinstall scripts that run npx force-resolutions
 # the command will fail unless specifically pointing to npm-force-resolution@0.0.3
 # With the current dependencies we need --legacy-peer-deps in both npm install and ci
 # The npm ci will fail without npm install --package-lock-only due to dependency differences
