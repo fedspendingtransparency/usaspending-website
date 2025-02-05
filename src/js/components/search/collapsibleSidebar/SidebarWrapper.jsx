@@ -218,7 +218,7 @@ const SidebarWrapper = React.memo(({
     useEffect(() => {
         // eslint-disable-next-line no-undef
         const resizeObserver = new ResizeObserver((entries) => {
-            setMainContentHeight(entries[0].target.clientHeight);
+            setMainContentHeight(entries[0].target?.clientHeight);
         });
 
         const mainContent = document.querySelector("#main-content");
