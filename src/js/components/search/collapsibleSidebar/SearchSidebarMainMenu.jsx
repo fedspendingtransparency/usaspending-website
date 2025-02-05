@@ -30,7 +30,7 @@ const SearchSidebarMainMenu = ({
         timePeriod: <SearchSidebarFilterChips category="timePeriod" />,
         characteristics: [],
         recipients: <SearchSidebarFilterChips category="recipients" />,
-        sources: []
+        sources: <SearchSidebarFilterChips category="sources" />
     });
 
     return (

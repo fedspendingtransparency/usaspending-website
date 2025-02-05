@@ -161,6 +161,24 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
         }
     };
 
+    const getSourcesChips = () => {
+        if (filtersData.awardingAgencies?.length > 0) {
+            filtersData.awardingAgencies.forEach((agency) => {
+                const removeAwardingAgency = (e) => {
+                    e.stopPropagation();
+                    console.log('agency:', agency);
+                    props.updateSelectedAwardingAgencies({ agency });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`Award | ${agency.subtier_agency.name}`}
+                        removeValue={removeAwardingAgency} />
+                );
+            });
+        }
+    };
+
     dataFromState();
 
     switch (category) {
@@ -172,6 +190,9 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
             break;
         case 'recipients':
             getRecipientChips();
+            break;
+        case 'sources':
+            getSourcesChips();
             break;
         default:
             console.log('ERROR: Invalid Category Type');
