@@ -199,7 +199,6 @@ const SidebarWrapper = React.memo(({
 
     const handleObserver = useCallback((entries) => {
         entries.forEach((entry) => {
-            console.log(entry.target);
             if (entry.target?.localName?.includes("footer")) {
                 setIsFooterVisible(true);
             }
