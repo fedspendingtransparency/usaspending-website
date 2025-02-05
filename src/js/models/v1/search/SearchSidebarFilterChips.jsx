@@ -133,6 +133,44 @@ const SearchSidebarFilterChips = ({
         }
     };
 
+    const getCharacteristicsChips = () => {
+        if (filtersData.awardDescription) {
+            const removeAwardsDescription = (e) => {
+                e.stopPropagation();
+                props.updateGenericFilter({
+                    type: 'awardDescription',
+                    value: ''
+                });
+            };
+
+            chips.push(
+                <ShownValue
+                    label={filtersData.awardDescription}
+                    removeValue={removeAwardsDescription} />
+            );
+        }
+
+        if (filtersData.selectedAwardIDs?.length > 0) {
+            filtersData.selectedAwardIDs.forEach((id) => {
+                const removeAwardID = (e) => {
+                    e.stopPropagation();
+                    const awardId = filters.selectedAwardIDs.delete(id);
+
+                    props.updateGenericFilter({
+                        type: 'selectedAwardIDs',
+                        value: awardId
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`${id} | Award ID`}
+                        removeValue={removeAwardID} />
+                );
+            });
+        }
+    };
+
     const getRecipientChips = () => {
         if (filtersData.selectedRecipients?.length > 0) {
             filters.selectedRecipients.forEach((recipient) => {
@@ -221,7 +259,6 @@ const SearchSidebarFilterChips = ({
             filtersData.covidDefCode.forEach((covid) => {
                 const removeCovidDefCodes = (e) => {
                     e.stopPropagation();
-                    console.log('here:', covid);
                     props.toggleCovidDefCode({ value: covid });
                 };
 
@@ -237,7 +274,6 @@ const SearchSidebarFilterChips = ({
             filtersData.infraDefCode.forEach((infra) => {
                 const removeInfraDefCodes = (e) => {
                     e.stopPropagation();
-                    console.log('here:', infra);
                     props.toggleInfraDefCode({ value: infra });
                 };
 
@@ -258,6 +294,9 @@ const SearchSidebarFilterChips = ({
             break;
         case 'timePeriod':
             getTimePeriodChips();
+            break;
+        case 'characteristics':
+            getCharacteristicsChips();
             break;
         case 'recipients':
             getRecipientChips();
