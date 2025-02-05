@@ -211,7 +211,6 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
 
     useEffect(() => {
         const handleScroll = throttle(() => {
-            console.debug("scrolling");
             const innerWrapper = document.querySelector('.recipient-results__container');
             const submitButton = document.querySelector('.sidebar-submit');
             const innerHeight = innerWrapper?.offsetHeight;
@@ -220,7 +219,6 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
             if (innerWrapper.getBoundingClientRect().bottom > (submitButtonRect.top - 51)) {
                 setInnerDivHeight(innerHeight - 34);
             } else {
-                console.debug("the else part");
                 setInnerDivHeight(selectedItemHeight);
             }
         }, 150);
