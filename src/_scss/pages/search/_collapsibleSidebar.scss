@@ -110,8 +110,14 @@
       display: flex;
       flex-direction: column;
 
-      .categories-list,
+      .categories-list {
+        overflow-y: auto;
+      }
+
       .category-filter {
+        overflow-y: hidden;
+      }
+      .category-filter.exempt {
         overflow-y: auto;
 
         @import "_newNaicsStyles";
@@ -120,13 +126,16 @@
       }
     }
 
-    .category-filter {
-      .react-checkbox-tree {
-        overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
-        max-height: unset !important;
-        height: unset !important;
-      }
-    }
+    // .category-filter {
+    //   .react-checkbox-tree {
+    //     overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
+    //     max-height: unset !important;
+    //     height: unset !important;
+    //   }
+    // }
+    @import "_newNaicsStyles";
+    @import "_newPscStyles";
+    @import "_newTasStyles";
 
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
