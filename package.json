@@ -5,7 +5,7 @@
   "repository": "fedspendingtransparency/usaspending-website",
   "main": "src/index.js",
   "scripts": {
-    "postinstall": "npx force-resolutions",
+    "preinstall": "npx npm-force-resolutions@0.0.3",
     "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js",
     "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
     "test": "./node_modules/.bin/jest; exit 0;",
