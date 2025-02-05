@@ -166,7 +166,6 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
             filtersData.awardingAgencies.forEach((agency) => {
                 const removeAwardingAgency = (e) => {
                     e.stopPropagation();
-                    console.log('agency:', agency);
                     props.updateSelectedAwardingAgencies({ agency });
                 };
 
@@ -174,6 +173,21 @@ const SearchSidebarFilterChips = ({ filters, category, ...props }) => {
                     <ShownValue
                         label={`Award | ${agency.subtier_agency.name}`}
                         removeValue={removeAwardingAgency} />
+                );
+            });
+        }
+
+        if (filtersData.fundingAgencies?.length > 0) {
+            filtersData.fundingAgencies.forEach((agency) => {
+                const removeFundingAgencies = (e) => {
+                    e.stopPropagation();
+                    props.updateSelectedFundingAgencies({ agency });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`Fund | ${agency.subtier_agency.name}`}
+                        removeValue={removeFundingAgencies} />
                 );
             });
         }
