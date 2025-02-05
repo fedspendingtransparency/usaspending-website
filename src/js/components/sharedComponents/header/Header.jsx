@@ -54,11 +54,22 @@ const Header = () => {
             </header>
             {isBannerActive() &&
                     <InfoBanner
-                        icon={<FontAwesomeIcon size="lg" icon="info-circle" color="#59b9de" />}
-                        borderTopColor="#59b9de"
-                        /* backgroundColor="#fff1d2" */
-                        backgroundColor="#e1f3f8"
-                        borderBottomColor="#97d4ea"
+                        icon={<FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FA9441" />}
+                        // GENERAL NOTIFICATION
+                        // borderTopColor="#59b9de"
+                        // backgroundColor="#e1f3f8"
+                        // borderBottomColor="#97d4ea"
+                        // color="#59B9DE" (info-circle use for fontawesomeicon above)
+                        // WARNING
+                        borderTopColor="#FA9441"
+                        backgroundColor="#FEF2E4"
+                        borderBottomColor="#FFBC78"
+                        // color="#FA9441" (exclamation-triangle use for fontawesomeicon above)
+                        // WARNING RESOLVED
+                        // borderTopColor="#21C834"
+                        // backgroundColor="#E3F5E1"
+                        // borderBottomColor="#70E17B"
+                        // color="#21C834" (check-circle use for fontawesomeicon above)
                         title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
                         content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
             <AboutTheDataContainer />
