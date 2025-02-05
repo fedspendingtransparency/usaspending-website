@@ -16,9 +16,9 @@ import { removeStagedTasFilter } from "../../../helpers/tasHelper";
 const propTypes = {
     filters: PropTypes.object,
     category: PropTypes.string,
-    tasCounts: PropTypes.object,
-    tasNodes: PropTypes.object,
-    tasChecked: PropTypes.object
+    tasCounts: PropTypes.array,
+    tasNodes: PropTypes.array,
+    tasChecked: PropTypes.array
 };
 
 const SearchSidebarFilterChips = ({
@@ -30,6 +30,8 @@ const SearchSidebarFilterChips = ({
     const dataFromState = () => {
         filtersData = new SearchAwardsOperation();
         filtersData.fromState(filters);
+        filtersData.covidDefCode = filters.covidDefCode.toArray();
+        filtersData.infraDefCode = filters.infraDefCode.toArray();
     };
 
     const getLocationChips = () => {
@@ -211,6 +213,38 @@ const SearchSidebarFilterChips = ({
                     <ShownValue
                         label={`${tas.value} - ${tas.label} (${tas.count})`}
                         removeValue={removeTas} />
+                );
+            });
+        }
+
+        if (filtersData.covidDefCode?.length > 0) {
+            filtersData.covidDefCode.forEach((covid) => {
+                const removeCovidDefCodes = (e) => {
+                    e.stopPropagation();
+                    console.log('here:', covid);
+                    props.toggleCovidDefCode({ value: covid });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`COVID-19 Spending (${covid})`}
+                        removeValue={removeCovidDefCodes} />
+                );
+            });
+        }
+
+        if (filtersData.infraDefCode?.length > 0) {
+            filtersData.infraDefCode.forEach((infra) => {
+                const removeInfraDefCodes = (e) => {
+                    e.stopPropagation();
+                    console.log('here:', infra);
+                    props.toggleInfraDefCode({ value: infra });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`Infrastructure Spending (${infra})`}
+                        removeValue={removeInfraDefCodes} />
                 );
             });
         }
