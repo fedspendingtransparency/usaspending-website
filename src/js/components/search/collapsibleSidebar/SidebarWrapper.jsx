@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 import PropTypes from "prop-types";
@@ -29,6 +29,7 @@ const SidebarWrapper = React.memo(({ setShowMobileFilters, showMobileFilters, si
     const [isHeaderVisible, setIsHeaderVisible] = useState();
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [isFooterVisible, setIsFooterVisible] = useState();
+    const [observerSupported, setObserverSupported] = useState(false);
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -37,6 +38,9 @@ const SidebarWrapper = React.memo(({ setShowMobileFilters, showMobileFilters, si
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
 
+    const observerOptions = {
+        threshold: 0.1
+    };
     const toggleOpened = (e) => {
         e.preventDefault();
         setIsOpened((prevState) => !prevState);
@@ -45,7 +49,7 @@ const SidebarWrapper = React.memo(({ setShowMobileFilters, showMobileFilters, si
     const hideElements = (removeableEls) => {
         for (let i = 0; i < removeableEls.length; i++) {
             const elClass = removeableEls[i].className;
-            document.querySelector(`.${elClass}`).style.display = "none";
+            // document.querySelector(`.${elClass}`).style.display = "none";
         }
     };
 
@@ -98,7 +102,6 @@ const SidebarWrapper = React.memo(({ setShowMobileFilters, showMobileFilters, si
     };
 
     const handleScroll = throttle(() => {
-        document.querySelector(".search-collapsible-sidebar-container").style.opacity = "0.5";
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
         setIsFooterVisible(tmpFooterInView > 0);
         const tmpIsSticky = document.querySelector(".usda-page-header--sticky");
@@ -122,13 +125,6 @@ const SidebarWrapper = React.memo(({ setShowMobileFilters, showMobileFilters, si
             setIsMobile(newWidth < mediumScreen);
         }
         handleScroll();
-
-        let resizeTimeout;
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            document.querySelector(".search-collapsible-sidebar-container").style.opacity = "1";
-            document.querySelector(".search-collapsible-sidebar-container").style.transition = "opacity 0.2s";
-        }, 250); // Adjust the delay (in milliseconds) as needed
     }, 30);
 
     const openSidebar = (width) => {
@@ -198,6 +194,34 @@ const SidebarWrapper = React.memo(({ setShowMobileFilters, showMobileFilters, si
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFooterVisible, isHeaderVisible, sidebarIsSticky, mainContentHeight]);
 
+    const handleObserver = useCallback((entries) => {
+        entries.forEach((entry) => {
+            console.log(entry.target);
+            if (entry.target?.localName?.includes("footer")) {
+                console.log("set footer", entry, entry.isIntersecting);
+                setIsFooterVisible(true);
+            }
+
+            if (entry.target?.className?.includes("usda-page-header") && !entry.target?.className?.includes("usda-page-header--sticky")) {
+                console.log("set header", entry, entry.isIntersecting);
+
+                setIsHeaderVisible(true);
+                setSidebarIsSticky(false);
+            }
+
+            if (entry.target?.className?.includes("usda-page-header--sticky")) {
+                console.log("set is sticky", entry, entry.isIntersecting);
+
+                setSidebarIsSticky(true);
+                setIsHeaderVisible(false);
+            }
+        });
+    });
+
+    useEffect(() => {
+        console.log("sidebar sticky change");
+    }, [sidebarIsSticky]);
+
     useEffect(() => {
         // eslint-disable-next-line no-undef
         const resizeObserver = new ResizeObserver((entries) => {
@@ -211,50 +235,47 @@ const SidebarWrapper = React.memo(({ setShowMobileFilters, showMobileFilters, si
 
         window.addEventListener('resize', (e) => handleResize(e));
         window.addEventListener('scroll', (e) => handleScroll(e));
-        window.addEventListener('scrollend', (e) => {
-            handleScroll(e);
-            document.querySelector(".search-collapsible-sidebar-container").style.opacity = "1";
-        });
+        window.addEventListener('scrollend', (e) => handleScroll(e));
 
         // eslint-disable-next-line no-undef
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.target?.localName?.includes("footer")) {
-                    setIsFooterVisible(entry.isIntersecting);
-                }
-
-                if (entry.target?.className?.includes("usda-page-header") && !entry.target?.className?.includes("usda-page-header--sticky")) {
-                    console.log("changing header - sticky is", entry.target?.className?.includes("usda-page-header--sticky"));
-                    setIsHeaderVisible(entry.isIntersecting);
-                    setSidebarIsSticky(false);
-                }
-
-                if (entry.target?.className?.includes("usda-page-header--sticky")) {
-                    setSidebarIsSticky(entry.isIntersecting);
-                    setIsHeaderVisible(false);
-                }
-            });
-        });
-
-        observer.observe(document.querySelector("footer"));
-        observer.observe(document.querySelector(".usda-page-header"));
+        // const observer = new IntersectionObserver(handleObserver);
+        //
+        // observer.observe(document.querySelector("footer"));
+        // observer.observe(document.querySelector(".usda-page-header"));
         return () => {
             console.log("unmounting")
             window.removeEventListener('resize', (e) => handleResize(e));
             window.removeEventListener('scroll', (e) => handleScroll(e));
-            window.removeEventListener('scrollend', (e) => {
-                handleScroll(e);
-                document.querySelector(".search-collapsible-sidebar-container").style.opacity = "1";
-            });
+            window.removeEventListener('scrollend', (e) => handleScroll(e));
 
             resizeObserver.unobserve(mainContent);
 
-            observer.unobserve(document.querySelector(".site-header__wrapper"));
-            observer.unobserve(document.querySelector("footer"));
-            observer.unobserve(document.querySelector(".usda-page-header"));
+            // observer.unobserve(document.querySelector("footer"));
+            // observer.unobserve(document.querySelector(".usda-page-header"));
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
+    });
+
+    useEffect(() => {
+        setObserverSupported('IntersectionObserver' in window);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // eslint-disable-next-line consistent-return
+    useEffect(() => {
+        if (observerSupported) {
+            const targets = document.querySelector(".usda-page-header");
+            // targets.push(document.querySelector(".usda-page-header"));
+
+            // eslint-disable-next-line no-undef
+            const observer = new IntersectionObserver(handleObserver, observerOptions);
+            observer.observe(targets);
+
+
+            return () => observer.disconnect();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [observerSupported]);
 
     const calculateHeight = () => {
         const tmpIsSticky = document.querySelector(".usda-page-header--sticky");
