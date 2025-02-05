@@ -115,6 +115,10 @@
         &:not(:has(.time-period)){   // prevent overflow scroll only for time period filter but allow for other types.
           overflow-y: auto;
         }
+        
+        @import "_newNaicsStyles";
+        @import "_newPscStyles";
+        @import "_newTasStyles";
       }
 
     }
@@ -286,9 +290,10 @@
         font-weight: $font-semibold;
         line-height: 1.5;
         border-top: 1px solid $gray-cool-5;
-        display:flex;
+        display: flex;
         flex-direction: row;
-        flex-wrap:wrap;
+        flex-wrap: wrap;
+
         &:hover {
           color: $blue-70v;
         }

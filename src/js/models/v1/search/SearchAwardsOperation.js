@@ -51,6 +51,8 @@ class SearchAwardsOperation {
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
+
+        this.awardDescription = '';
     }
 
     fromState(state) {
@@ -102,6 +104,8 @@ class SearchAwardsOperation {
         this.pricingType = state.pricingType.toArray();
         this.setAside = state.setAside.toArray();
         this.extentCompeted = state.extentCompeted.toArray();
+
+        this.awardDescription = state.awardDescription;
     }
 
     toParams() {
@@ -360,6 +364,11 @@ class SearchAwardsOperation {
             // api expects just an array of strings. Should that ever change and the DEFC data becomes more complex
             // and the checkbox tree is more like the others, we can easily migrate to the more complex request object.
             filters[rootKeys.defCodes] = this.defCodes.require;
+        }
+
+        // Add Award Descriptions
+        if (this.awardDescription) {
+            filters[rootKeys.awardDescription] = this.awardDescription;
         }
 
         return filters;
