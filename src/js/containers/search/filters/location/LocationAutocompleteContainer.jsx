@@ -223,7 +223,7 @@ const LocationAutocompleteContainer = (props) => {
             location = addDistrict(item.data.current_cd, "Current congressional district");
         }
         else if (item.category === "original_cd") {
-            location = addDistrict(item.data.current_cd, "Original congressional district");
+            location = addDistrict(item.data.original_cd, "Original congressional district");
         }
 
         if (item.category !== "county") {
@@ -434,7 +434,8 @@ const LocationAutocompleteContainer = (props) => {
 LocationAutocompleteContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
-        selectedLocations: state.filters.selectedLocations
+        selectedLocations: state.filters.selectedLocations,
+        selectedRecipientLocations: state.filters.selectedRecipientLocations
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(LocationAutocompleteContainer);

@@ -6,11 +6,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { debounce, uniqueId } from 'lodash';
+import { debounce } from 'lodash';
 import { isCancel } from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 import {
     incrementNaicsCountAndUpdateUnchecked,
@@ -44,6 +41,7 @@ import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     stageNaics: PropTypes.func,
@@ -71,16 +69,6 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     filters: PropTypes.object
 };
-
-const SearchTooltip = () => (
-    <>
-        <p>Filter the options below by typing any of the following:</p>
-        <ul>
-            <li>Any NAICS numeric code (or part thereof)</li>
-            <li>Any NAICS label name (or part thereof)</li>
-        </ul>
-    </>
-);
 
 export class NAICSCheckboxTree extends React.Component {
     constructor(props) {
@@ -449,9 +437,6 @@ export class NAICSCheckboxTree extends React.Component {
         return (
             <div>
                 <div className="naics-search-container">
-                    <span className="checkbox-header">Search by Code or Name
-                        <CSSOnlyTooltip definition={<SearchTooltip />} heading="NAICS Search" />
-                    </span>
                     <EntityDropdownAutocomplete
                         placeholder="Type to find codes"
                         searchString={searchString}
@@ -470,18 +455,7 @@ export class NAICSCheckboxTree extends React.Component {
                             {counts.map((node) => {
                                 const label = `${node.value} - ${node.label} (${node.count})`;
                                 return (
-                                    <button
-                                        key={uniqueId()}
-                                        className="shown-filter-button"
-                                        value={label}
-                                        onClick={() => this.removeStagedNaics(node)}
-                                        title="Click to remove."
-                                        aria-label={`Applied filter: ${label}`}>
-                                        {label}
-                                        <span className="close">
-                                            <FontAwesomeIcon icon="times" />
-                                        </span>
-                                    </button>
+                                    <ShownValue label={label} removeValue={() => this.removeStagedNaics(node)} />
                                 );
                             })}
                         </div>

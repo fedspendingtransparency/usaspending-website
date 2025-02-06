@@ -10,12 +10,25 @@
         .selected-filters {
             @include selected-filter-wrap;
         }
+
+        .clear-all__container {
+            display: flex;
+            justify-content: right;
+
+            .clear-all__button {
+                background: none;
+                color: $theme-color-1;
+                margin: ($global-margin * 2) 0 0 0;
+                padding: 0;
+                font-size: $smallest-font-size;
+                line-height: 1.5;
+            }
+        }
     }
 
     .recipient-results__container {
         margin-top: $global-margin * 2.5;
         padding: 0 0 $global-padding * 3 0;
-        height: rem(400);
         overflow-y: scroll;
         list-style: none;
 

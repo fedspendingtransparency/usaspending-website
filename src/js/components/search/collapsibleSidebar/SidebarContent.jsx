@@ -17,6 +17,7 @@ const propTypes = {
     sidebarContentHeight: PropTypes.number,
     setShowMobileFilters: PropTypes.func
 };
+
 const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => {
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -96,7 +97,7 @@ const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => {
             currentLevel={currentLevel} />
 
         <div className="sidebar-bottom-submit">
-            <SearchSidebarSubmitContainer />
+            <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
         </div>
     </>);
 };

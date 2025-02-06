@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep, uniqueId } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { debounce, get, flattenDeep } from 'lodash';
 import { connect } from 'react-redux';
 
 import {
@@ -38,7 +37,7 @@ import { updatePSC } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
-import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -60,16 +59,6 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({}))
 };
-
-const SearchTooltip = () => (
-    <>
-        <p>Filter the options below by typing any of the following:</p>
-        <ul>
-            <li>Any PSC numeric code (or part thereof)</li>
-            <li>Any PSC label name (or part thereof)</li>
-        </ul>
-    </>
-);
 
 export class PSCCheckboxTreeContainer extends React.Component {
     constructor(props) {
@@ -385,7 +374,6 @@ export class PSCCheckboxTreeContainer extends React.Component {
         } = this.state;
         return (
             <div className="psc-checkbox">
-                <span className="checkbox-header">Search by Code or Name <CSSOnlyTooltip definition={<SearchTooltip />} heading="PSC Search" /></span>
                 <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}
@@ -415,18 +403,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                         {counts.map((node) => {
                             const label = `${node.value} - ${node.label} (${node.count})`;
                             return (
-                                <button
-                                    key={uniqueId()}
-                                    className="shown-filter-button"
-                                    value={label}
-                                    onClick={(e) => this.removeSelectedFilter(e, node)}
-                                    title="Click to remove."
-                                    aria-label={`Applied filter: ${label}`}>
-                                    {label}
-                                    <span className="close">
-                                        <FontAwesomeIcon icon="times" />
-                                    </span>
-                                </button>
+                                <ShownValue label={label} removeValue={(e) => this.removeSelectedFilter(e, node)} />
                             );
                         })}
                     </div>
