@@ -13,7 +13,12 @@ import ShownValue from "../../../components/search/filters/otherFilters/ShownVal
 import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
 import * as naicsActions from "../../../redux/actions/search/naicsActions";
 import * as pscActions from "../../../redux/actions/search/pscActions";
-import { removeStagedTasFilter } from "../../../helpers/tasHelper";
+import * as tasActions from "../../../redux/actions/search/tasActions";
+import {
+    decrementTasCountAndUpdateUnchecked,
+    getTasAncestryPathForChecked,
+    removeStagedTasFilter
+} from "../../../helpers/tasHelper";
 import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
 import { awardTypeCodes } from "../../../dataMapping/search/awardType";
 import {
@@ -45,6 +50,7 @@ const SearchSidebarFilterChips = ({
     tasCounts,
     tasNodes,
     tasChecked,
+    tasUnchecked,
     naicsCounts,
     naicsNodes,
     naicsChecked,
@@ -466,9 +472,24 @@ const SearchSidebarFilterChips = ({
             tasCounts.forEach(({ value, label, count }) => {
                 const removeTas = (e) => {
                     e.stopPropagation();
-                    console.log('tas:', `${value} - ${label} (${count})`);
-                    // TODO: This doesn't work yet. Fix.
-                    removeStagedTasFilter(tasNodes, tasChecked, value);
+                    const newChecked = removeStagedTasFilter(tasNodes, tasChecked, value);
+                    const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
+                        {
+                            value, label, count, checked: false
+                        },
+                        tasUnchecked,
+                        tasChecked,
+                        tasCounts,
+                        tasNodes
+                    );
+                    props.setCheckedTas(newChecked);
+                    props.setTasCounts(newCounts);
+                    props.setUncheckedTas(newUnchecked);
+                    props.updateTAS(
+                        trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, tasNodes)),
+                        getTasAncestryPathForChecked(newUnchecked, tasNodes),
+                        newCounts
+                    );
                 };
 
                 chips.push(
@@ -539,7 +560,8 @@ const SearchSidebarFilterChips = ({
 const combinedActions = Object.assign({},
     searchFilterActions,
     naicsActions,
-    pscActions
+    pscActions,
+    tasActions
 );
 
 SearchSidebarFilterChips.propTypes = propTypes;
@@ -549,6 +571,7 @@ export default connect(
         tasCounts: state.tas.counts.toJS(),
         tasNodes: state.tas.tas.toJS(),
         tasChecked: state.tas.checked.toJS(),
+        tasUnchecked: state.tas.unchecked.toJS(),
         naicsCounts: state.naics.counts.toJS(),
         naicsNodes: state.naics.naics.toJS(),
         naicsChecked: state.naics.checked.toJS(),
