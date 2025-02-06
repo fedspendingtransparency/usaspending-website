@@ -12,6 +12,7 @@ import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
 import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
 import { removeStagedTasFilter } from "../../../helpers/tasHelper";
+import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -168,6 +169,47 @@ const SearchSidebarFilterChips = ({
                         removeValue={removeAwardID} />
                 );
             });
+        }
+
+        if (filtersData.awardAmounts?.length > 0 && filtersData.awardAmounts?.[0].length > 0) {
+            const firstValue = filtersData.awardAmounts[0][0];
+            const secondValue = filtersData.awardAmounts[0][1];
+            let key;
+
+            if (firstValue === null && secondValue === 1000000) {
+                key = 'range-0';
+            }
+            else if (firstValue === 1000000 && secondValue === 25000000) {
+                key = 'range-1';
+            }
+            else if (firstValue === 25000000 && secondValue === 100000000) {
+                key = 'range-2';
+            }
+            else if (firstValue === 100000000 && secondValue === 500000000) {
+                key = 'range-3';
+            }
+            else if (firstValue === 500000000 && secondValue === null) {
+                key = 'range-4';
+            }
+            else {
+                key = 'specific';
+            }
+
+            const removeAwardAmount = (e) => {
+                e.stopPropagation();
+                console.log(key);
+                const newValue = filters.awardAmounts.delete(key);
+                props.updateGenericFilter({
+                    type: 'awardAmounts',
+                    value: newValue
+                });
+            };
+
+            chips.push(
+                <ShownValue
+                    label={formatAwardAmountRange(filtersData.awardAmounts[0], 2)}
+                    removeValue={removeAwardAmount} />
+            );
         }
     };
 
