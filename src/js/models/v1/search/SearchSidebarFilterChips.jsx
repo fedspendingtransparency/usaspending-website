@@ -58,7 +58,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={location.display.title}
+                        label={`POP | ${location.display.entity} | ${location.display.title}`}
                         removeValue={removeFilter} />);
             });
         }
@@ -76,7 +76,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={location.display.title}
+                        label={`Recipient | ${location.display.entity} | ${location.display.title}`}
                         removeValue={removeFilter} />);
             });
         }
@@ -356,7 +356,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={recipient}
+                        label={`Recipient | ${recipient}`}
                         removeValue={removeRecipient} />
                 );
             });
@@ -375,7 +375,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={recipientTypes[type]}
+                        label={`Recipient Type | ${recipientTypes[type]}`}
                         removeValue={removeRecipientType} />
                 );
             });
@@ -424,7 +424,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`${value} - ${label} (${count})`}
+                        label={`TAS | ${value} - ${label} (${count})`}
                         removeValue={removeTas} />
                 );
             });
