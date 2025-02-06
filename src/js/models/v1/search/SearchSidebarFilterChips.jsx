@@ -154,7 +154,7 @@ const SearchSidebarFilterChips = ({
 
             chips.push(
                 <ShownValue
-                    label={filtersData.awardDescription}
+                    label={`Description | ${filtersData.awardDescription}`}
                     removeValue={removeAwardsDescription} />
             );
         }
@@ -173,7 +173,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`${id} | Award ID`}
+                        label={`Award ID | ${id} `}
                         removeValue={removeAwardID} />
                 );
             });
@@ -339,7 +339,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`${cfda.identifier} | ${cfda.program_title}`}
+                        label={`Assistance Listing | ${cfda.identifier} | ${cfda.program_title}`}
                         removeValue={removeCfda} />
                 );
             });
