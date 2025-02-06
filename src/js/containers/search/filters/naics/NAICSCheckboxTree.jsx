@@ -346,6 +346,7 @@ export class NAICSCheckboxTree extends React.Component {
 
     removeStagedNaics = (node) => {
         const newChecked = removeStagedNaicsFilter(this.props.nodes, this.props.checked, node.value);
+        console.log('value:', this.props.checked);
         this.onUncheck(newChecked, { ...node, checked: false });
     };
 

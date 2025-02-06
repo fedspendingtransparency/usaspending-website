@@ -11,6 +11,7 @@ import { recipientTypes } from 'dataMapping/search/recipientType';
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
 import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
+import * as naicsActions from "../../../redux/actions/search/naicsActions";
 import { removeStagedTasFilter } from "../../../helpers/tasHelper";
 import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
 import { awardTypeCodes } from "../../../dataMapping/search/awardType";
@@ -19,6 +20,7 @@ import {
     pricingTypeDefinitions,
     setAsideDefinitions
 } from "../../../dataMapping/search/contractFields";
+import { decrementNaicsCountAndUpdateUnchecked, removeStagedNaicsFilter } from "../../../helpers/naicsHelper";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -31,7 +33,17 @@ const propTypes = {
 };
 
 const SearchSidebarFilterChips = ({
-    filters, category, tasCounts, tasNodes, tasChecked, naicsCounts, pscCounts, ...props
+    filters,
+    category,
+    tasCounts,
+    tasNodes,
+    tasChecked,
+    naicsCounts,
+    naicsNodes,
+    naicsChecked,
+    naicsUnchecked,
+    pscCounts,
+    ...props
 }) => {
     let filtersData;
     const chips = [];
@@ -243,9 +255,21 @@ const SearchSidebarFilterChips = ({
             naicsCounts.forEach(({ value, label, count }) => {
                 const removeNaics = (e) => {
                     e.stopPropagation();
-                    console.log('naics:', `${value} - ${label} (${count})`);
-                    // TODO: This doesn't work yet. Fix.
-                    // removeStagedTasFilter(tasNodes, tasChecked, value);
+                    const newChecked = removeStagedNaicsFilter(naicsNodes, naicsChecked, value);
+                    const [newCounts, newUnchecked] = decrementNaicsCountAndUpdateUnchecked(
+                        {
+                            value, label, count, checked: false
+                        },
+                        naicsUnchecked,
+                        naicsChecked,
+                        naicsCounts,
+                        naicsNodes
+                    );
+
+                    props.setUncheckedNaics(newUnchecked);
+                    props.updateNaics(newChecked, newUnchecked, newCounts);
+                    props.setCheckedNaics(newChecked);
+                    props.setNaicsCounts(newCounts);
                 };
 
                 chips.push(
@@ -486,6 +510,12 @@ const SearchSidebarFilterChips = ({
     return (chips);
 };
 
+
+const combinedActions = Object.assign({},
+    searchFilterActions,
+    naicsActions
+);
+
 SearchSidebarFilterChips.propTypes = propTypes;
 export default connect(
     (state) => ({
@@ -494,7 +524,10 @@ export default connect(
         tasNodes: state.tas.tas.toJS(),
         tasChecked: state.tas.checked.toJS(),
         naicsCounts: state.naics.counts.toJS(),
+        naicsNodes: state.naics.naics.toJS(),
+        naicsChecked: state.naics.checked.toJS(),
+        naicsUnchecked: state.naics.unchecked.toJS(),
         pscCounts: state.psc.counts.toJS()
     }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(SearchSidebarFilterChips);
