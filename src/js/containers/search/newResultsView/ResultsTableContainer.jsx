@@ -485,11 +485,9 @@ const ResultsTableContainer = (props) => {
     }, 400), [isLoadingNextPage]);
 
     useEffect(throttle(() => {
-        if(initialRender?.current === true) {
-            loadColumns();
-            if (SearchHelper.isSearchHashReady(location)) {
-                pickDefaultTab();
-            }
+        loadColumns();
+        if (SearchHelper.isSearchHashReady(location)) {
+            pickDefaultTab();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), []);
