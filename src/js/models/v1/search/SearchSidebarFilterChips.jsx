@@ -14,7 +14,11 @@ import * as searchFilterActions from "../../../redux/actions/search/searchFilter
 import { removeStagedTasFilter } from "../../../helpers/tasHelper";
 import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
 import { awardTypeCodes } from "../../../dataMapping/search/awardType";
-import { pricingTypeDefinitions, setAsideDefinitions } from "../../../dataMapping/search/contractFields";
+import {
+    extentCompetedDefinitions,
+    pricingTypeDefinitions,
+    setAsideDefinitions
+} from "../../../dataMapping/search/contractFields";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -201,7 +205,6 @@ const SearchSidebarFilterChips = ({
 
             const removeAwardAmount = (e) => {
                 e.stopPropagation();
-                console.log(key);
                 const newValue = filters.awardAmounts.delete(key);
                 props.updateGenericFilter({
                     type: 'awardAmounts',
@@ -217,12 +220,9 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.awardType?.length > 0) {
-            console.log('awardType:', filters.awardType);
-
             filtersData.awardType.forEach((type) => {
                 const removeAwardType = (e) => {
                     e.stopPropagation();
-                    console.log('type:', type);
                     const newValue = filters.awardType.delete(type);
                     props.updateGenericFilter({
                         type: 'awardType',
@@ -239,7 +239,6 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.naicsCodes.require?.length > 0) {
-            console.log(filtersData.naicsCodes);
             naicsCounts.forEach(({ value, label, count }) => {
                 const removeNaics = (e) => {
                     e.stopPropagation();
@@ -257,7 +256,6 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.pscCheckbox.require?.length > 0) {
-            console.log(filtersData.pscCheckbox);
             pscCounts.forEach(({ value, label, count }) => {
                 const removePsc = (e) => {
                     e.stopPropagation();
@@ -278,7 +276,6 @@ const SearchSidebarFilterChips = ({
             filtersData.pricingType.forEach((type) => {
                 const removePricingType = (e) => {
                     e.stopPropagation();
-                    console.log('type:', type);
                     const newValue = filters.pricingType.delete(type);
                     props.updateGenericFilter({
                         type: 'pricingType',
@@ -298,7 +295,6 @@ const SearchSidebarFilterChips = ({
             filtersData.setAside.forEach((type) => {
                 const removePricingType = (e) => {
                     e.stopPropagation();
-                    console.log('type:', type);
                     const newValue = filters.setAside.delete(type);
                     props.updateGenericFilter({
                         type: 'setAside',
@@ -309,6 +305,25 @@ const SearchSidebarFilterChips = ({
                 chips.push(
                     <ShownValue
                         label={`Set Aside | ${setAsideDefinitions[type]}`}
+                        removeValue={removePricingType} />
+                );
+            });
+        }
+
+        if (filtersData.extentCompeted?.length > 0) {
+            filtersData.extentCompeted.forEach((type) => {
+                const removePricingType = (e) => {
+                    e.stopPropagation();
+                    const newValue = filters.extentCompeted.delete(type);
+                    props.updateGenericFilter({
+                        type: 'extentCompeted',
+                        value: newValue
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`Extent Competed | ${extentCompetedDefinitions[type]}`}
                         removeValue={removePricingType} />
                 );
             });
