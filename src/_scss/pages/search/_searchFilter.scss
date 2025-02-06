@@ -9,9 +9,10 @@
       border-top: solid 1px $gray-cool-10;
     }
   }
+
   padding: 0 ($global-margin * 4);
 
-  &.hover:hover{
+  &.hover:hover {
     background-color: $gray-cool-3;
   }
 
@@ -31,6 +32,7 @@
 
     .search-filter__top-row {
       display: flex;
+      align-items: center;
 
       .search-filter__top-row-icon-container {
         display: flex;
@@ -56,6 +58,10 @@
           font-weight: $font-semibold;
           line-height: 1.5;
           color: $theme-color-headline;
+
+          @media(min-width:1200px) {
+            min-width: 220px;
+          }
         }
       }
 
@@ -68,6 +74,7 @@
         line-height: 1.5;
         color: $theme-color-body;
         width: 100%;
+        white-space: nowrap;
       }
     }
 
