@@ -12,6 +12,7 @@ import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
 import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
 import * as naicsActions from "../../../redux/actions/search/naicsActions";
+import * as pscActions from "../../../redux/actions/search/pscActions";
 import { removeStagedTasFilter } from "../../../helpers/tasHelper";
 import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
 import { awardTypeCodes } from "../../../dataMapping/search/awardType";
@@ -21,6 +22,12 @@ import {
     setAsideDefinitions
 } from "../../../dataMapping/search/contractFields";
 import { decrementNaicsCountAndUpdateUnchecked, removeStagedNaicsFilter } from "../../../helpers/naicsHelper";
+import {
+    decrementPscCountAndUpdateUnchecked,
+    getPscAncestryPathForChecked,
+    removeStagedPscFilter
+} from "../../../helpers/pscHelper";
+import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -43,6 +50,9 @@ const SearchSidebarFilterChips = ({
     naicsChecked,
     naicsUnchecked,
     pscCounts,
+    pscNodes,
+    pscChecked,
+    pscUnchecked,
     ...props
 }) => {
     let filtersData;
@@ -274,7 +284,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`${value} - ${label} (${count})`}
+                        label={`NAICS | ${value} - ${label} (${count})`}
                         removeValue={removeNaics} />
                 );
             });
@@ -284,14 +294,29 @@ const SearchSidebarFilterChips = ({
             pscCounts.forEach(({ value, label, count }) => {
                 const removePsc = (e) => {
                     e.stopPropagation();
-                    console.log('psc:', `${value} - ${label} (${count})`);
-                    // TODO: This doesn't work yet. Fix.
-                    // removeStagedTasFilter(tasNodes, tasChecked, value);
+                    const newChecked = removeStagedPscFilter(pscNodes, pscChecked, value);
+                    const [newCounts, newUnchecked] = decrementPscCountAndUpdateUnchecked(
+                        {
+                            value, label, count, checked: false
+                        },
+                        pscUnchecked,
+                        pscChecked,
+                        pscCounts,
+                        pscNodes
+                    );
+                    props.setCheckedPsc(newChecked);
+                    props.setPscCounts(newCounts);
+                    props.setUncheckedPsc(newUnchecked);
+                    props.updatePSC(
+                        trimCheckedToCommonAncestors(getPscAncestryPathForChecked(newChecked, pscNodes)),
+                        getPscAncestryPathForChecked(newUnchecked, pscNodes),
+                        newCounts
+                    );
                 };
 
                 chips.push(
                     <ShownValue
-                        label={`${value} - ${label} (${count})`}
+                        label={`PSC | ${value} - ${label} (${count})`}
                         removeValue={removePsc} />
                 );
             });
@@ -513,7 +538,8 @@ const SearchSidebarFilterChips = ({
 
 const combinedActions = Object.assign({},
     searchFilterActions,
-    naicsActions
+    naicsActions,
+    pscActions
 );
 
 SearchSidebarFilterChips.propTypes = propTypes;
@@ -527,7 +553,10 @@ export default connect(
         naicsNodes: state.naics.naics.toJS(),
         naicsChecked: state.naics.checked.toJS(),
         naicsUnchecked: state.naics.unchecked.toJS(),
-        pscCounts: state.psc.counts.toJS()
+        pscCounts: state.psc.counts.toJS(),
+        pscNodes: state.psc.psc.toJS(),
+        pscChecked: state.psc.checked.toJS(),
+        pscUnchecked: state.psc.unchecked.toJS()
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(SearchSidebarFilterChips);
