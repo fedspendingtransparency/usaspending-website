@@ -77,7 +77,7 @@ const ResultsTableContainer = (props) => {
     let searchRequest = null;
     const location = useLocation();
     const [searchParams, setSearchParams] = useState(new SearchAwardsOperation());
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(true);
     const [counts, setCounts] = useState({});
     const [tableType, setTableType] = useState('contracts');
@@ -465,6 +465,7 @@ const ResultsTableContainer = (props) => {
                 pickDefaultTab();
             }
         }
+
         return () => {
             if (searchRequest) {
                 searchRequest.cancel();
@@ -484,9 +485,11 @@ const ResultsTableContainer = (props) => {
     }, 400), [isLoadingNextPage]);
 
     useEffect(throttle(() => {
-        loadColumns();
-        if (SearchHelper.isSearchHashReady(location)) {
-            pickDefaultTab();
+        if(initialRender?.current === true) {
+            loadColumns();
+            if (SearchHelper.isSearchHashReady(location)) {
+                pickDefaultTab();
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), []);
