@@ -28,7 +28,8 @@ const globalConstants = {
         isActive: true,
         title: 'Video Library References',
         content: 'Screenshots and text references in the video library may not reflect the current version of the site; copy, design, and usability improvements are consistently being deployed.',
-        page: 'training-videos'
+        page: 'training-videos',
+        type: "general" // three options "general", "warning", "warning-resolved"
     }
 };
 

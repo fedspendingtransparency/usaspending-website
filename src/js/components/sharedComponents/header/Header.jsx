@@ -12,6 +12,7 @@ import InfoBanner from './InfoBanner';
 
 const Header = () => {
     const location = useLocation();
+    const bannerType = GlobalConstants?.BANNER?.type || "";
 
     const skippedNav = (e) => {
     // don't update the URL due to potential React Router conflicts
@@ -38,6 +39,31 @@ const Header = () => {
         return false;
     };
 
+    const getIcon = (type) => {
+        let icon = "";
+
+        switch (type) {
+            case "general":
+                icon = <FontAwesomeIcon size="lg" icon="info-circle" color="#59b9de" />;
+                break;
+
+            case "warning":
+                icon = <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FA9441" />;
+                break;
+
+            case "warning-resolve":
+                icon = <FontAwesomeIcon size="lg" icon="check-circle" color="#21C834" />;
+                break;
+
+            default:
+                break;
+        }
+
+
+        return icon;
+    };
+
+
     return (
         <div className="site-header">
             <a
@@ -53,14 +79,11 @@ const Header = () => {
                 <NavbarWrapper />
             </header>
             {isBannerActive() &&
-                    <InfoBanner
-                        icon={<FontAwesomeIcon size="lg" icon="info-circle" color="#59b9de" />}
-                        borderTopColor="#59b9de"
-                        /* backgroundColor="#fff1d2" */
-                        backgroundColor="#e1f3f8"
-                        borderBottomColor="#97d4ea"
-                        title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
-                        content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
+                <InfoBanner
+                    icon={() => getIcon(bannerType)}
+                    type={bannerType}
+                    title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
+                    content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
             <AboutTheDataContainer />
             <GlossaryContainer />
             <GlobalModalContainer />
