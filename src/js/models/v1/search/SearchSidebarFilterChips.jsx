@@ -14,6 +14,7 @@ import * as searchFilterActions from "../../../redux/actions/search/searchFilter
 import { removeStagedTasFilter } from "../../../helpers/tasHelper";
 import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
 import { awardTypeCodes } from "../../../dataMapping/search/awardType";
+import { pricingTypeDefinitions } from "../../../dataMapping/search/contractFields";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -269,6 +270,26 @@ const SearchSidebarFilterChips = ({
                     <ShownValue
                         label={`${value} - ${label} (${count})`}
                         removeValue={removePsc} />
+                );
+            });
+        }
+
+        if (filtersData.pricingType?.length > 0) {
+            filtersData.pricingType.forEach((type) => {
+                const removePricingType = (e) => {
+                    e.stopPropagation();
+                    console.log('type:', type);
+                    const newValue = filters.pricingType.delete(type);
+                    props.updateGenericFilter({
+                        type: 'pricingType',
+                        value: newValue
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`Pricing Type | ${pricingTypeDefinitions[type]}`}
+                        removeValue={removePricingType} />
                 );
             });
         }
