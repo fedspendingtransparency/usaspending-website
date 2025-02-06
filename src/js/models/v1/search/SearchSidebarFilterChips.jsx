@@ -230,9 +230,10 @@ const SearchSidebarFilterChips = ({
                     });
                 };
 
+                // TODO: need to add contract/financial assistance type flag for label
                 chips.push(
                     <ShownValue
-                        label={`Contract Award Type: ${awardTypeCodes[type]}`}
+                        label={`Award Type: ${awardTypeCodes[type]}`}
                         removeValue={removeAwardType} />
                 );
             });
@@ -325,6 +326,21 @@ const SearchSidebarFilterChips = ({
                     <ShownValue
                         label={`Extent Competed | ${extentCompetedDefinitions[type]}`}
                         removeValue={removePricingType} />
+                );
+            });
+        }
+
+        if (filtersData.selectedCFDA?.length > 0) {
+            filtersData.selectedCFDA.forEach((cfda) => {
+                const removeCfda = (e) => {
+                    e.stopPropagation();
+                    props.updateSelectedCFDA({ cfda });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`${cfda.identifier} | ${cfda.program_title}`}
+                        removeValue={removeCfda} />
                 );
             });
         }
