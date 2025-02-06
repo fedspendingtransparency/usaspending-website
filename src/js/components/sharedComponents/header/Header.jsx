@@ -51,7 +51,7 @@ const Header = () => {
                 icon = <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FA9441" />;
                 break;
 
-            case "warning-resolve":
+            case "warning-resolved":
                 icon = <FontAwesomeIcon size="lg" icon="check-circle" color="#21C834" />;
                 break;
 
@@ -80,7 +80,7 @@ const Header = () => {
             </header>
             {isBannerActive() &&
                 <InfoBanner
-                    icon={() => getIcon(bannerType)}
+                    icon={getIcon(bannerType)}
                     type={bannerType}
                     title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
                     content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
