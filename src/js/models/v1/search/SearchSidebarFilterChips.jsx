@@ -13,6 +13,7 @@ import ShownValue from "../../../components/search/filters/otherFilters/ShownVal
 import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
 import { removeStagedTasFilter } from "../../../helpers/tasHelper";
 import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
+import { awardTypeCodes } from "../../../dataMapping/search/awardType";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -210,6 +211,28 @@ const SearchSidebarFilterChips = ({
                     label={formatAwardAmountRange(filtersData.awardAmounts[0], 2)}
                     removeValue={removeAwardAmount} />
             );
+        }
+
+        if (filtersData.awardType?.length > 0) {
+            console.log('awardType:', filters.awardType);
+
+            filtersData.awardType.forEach((type) => {
+                const removeAwardType = (e) => {
+                    e.stopPropagation();
+                    console.log('type:', type);
+                    const newValue = filters.awardType.delete(type);
+                    props.updateGenericFilter({
+                        type: 'awardType',
+                        value: newValue
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`Contract Award Type: ${awardTypeCodes[type]}`}
+                        removeValue={removeAwardType} />
+                );
+            });
         }
     };
 
