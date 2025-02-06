@@ -83,19 +83,19 @@
     }
 
     &.general {
-        border-top: 4px solid #59b9de;
-        background-color: #e1f3f8;
-        border-bottom: 1px solid #97d4ea;
+        border-top: 4px solid $blue-cool-30v;
+        background-color: $blue-cool-5v;
+        border-bottom: 1px solid $blue-cool-20v;
     }
     &.warning {
-        border-top: 4px solid #FA9441;
-        background-color: #FEF2E4;
-        border-bottom: 1px solid #FFBC78;
+        border-top: 4px solid $orange-30v;
+        background-color: $orange-5v;
+        border-bottom: 1px solid $orange-20v;
     }
     &.warning-resolved {
-        border-top: 4px solid #21C834;
-        background-color: #E3F5E1;
-        border-bottom: 1px solid #70E17B;
+        border-top: 4px solid $green-cool-30v;
+        background-color: $green-cool-5v;
+        border-bottom: 1px solid $green-cool-20v;
     }
 
     &.info-banner_warning {
