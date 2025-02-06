@@ -21,11 +21,12 @@ const propTypes = {
     tasCounts: PropTypes.array,
     tasNodes: PropTypes.array,
     tasChecked: PropTypes.array,
-    naicsCounts: PropTypes.array
+    naicsCounts: PropTypes.array,
+    pscCounts: PropTypes.array
 };
 
 const SearchSidebarFilterChips = ({
-    filters, category, tasCounts, tasNodes, tasChecked, naicsCounts, ...props
+    filters, category, tasCounts, tasNodes, tasChecked, naicsCounts, pscCounts, ...props
 }) => {
     let filtersData;
     const chips = [];
@@ -253,6 +254,24 @@ const SearchSidebarFilterChips = ({
                 );
             });
         }
+
+        if (filtersData.pscCheckbox.require?.length > 0) {
+            console.log(filtersData.pscCheckbox);
+            pscCounts.forEach(({ value, label, count }) => {
+                const removePsc = (e) => {
+                    e.stopPropagation();
+                    console.log('psc:', `${value} - ${label} (${count})`);
+                    // TODO: This doesn't work yet. Fix.
+                    // removeStagedTasFilter(tasNodes, tasChecked, value);
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`${value} - ${label} (${count})`}
+                        removeValue={removePsc} />
+                );
+            });
+        }
     };
 
     const getRecipientChips = () => {
@@ -402,7 +421,8 @@ export default connect(
         tasCounts: state.tas.counts.toJS(),
         tasNodes: state.tas.tas.toJS(),
         tasChecked: state.tas.checked.toJS(),
-        naicsCounts: state.naics.counts.toJS()
+        naicsCounts: state.naics.counts.toJS(),
+        pscCounts: state.psc.counts.toJS()
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(SearchSidebarFilterChips);
