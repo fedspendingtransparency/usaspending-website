@@ -20,11 +20,12 @@ const propTypes = {
     category: PropTypes.string,
     tasCounts: PropTypes.array,
     tasNodes: PropTypes.array,
-    tasChecked: PropTypes.array
+    tasChecked: PropTypes.array,
+    naicsCounts: PropTypes.array
 };
 
 const SearchSidebarFilterChips = ({
-    filters, category, tasCounts, tasNodes, tasChecked, ...props
+    filters, category, tasCounts, tasNodes, tasChecked, naicsCounts, ...props
 }) => {
     let filtersData;
     const chips = [];
@@ -234,6 +235,24 @@ const SearchSidebarFilterChips = ({
                 );
             });
         }
+
+        if (filtersData.naicsCodes.require?.length > 0) {
+            console.log(filtersData.naicsCodes);
+            naicsCounts.forEach(({ value, label, count }) => {
+                const removeNaics = (e) => {
+                    e.stopPropagation();
+                    console.log('naics:', `${value} - ${label} (${count})`);
+                    // TODO: This doesn't work yet. Fix.
+                    // removeStagedTasFilter(tasNodes, tasChecked, value);
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`${value} - ${label} (${count})`}
+                        removeValue={removeNaics} />
+                );
+            });
+        }
     };
 
     const getRecipientChips = () => {
@@ -304,17 +323,17 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.tasSources?.length > 0 || filtersData.tasCheckbox.require?.length > 0) {
-            tasCounts.forEach((tas) => {
+            tasCounts.forEach(({ value, label, count }) => {
                 const removeTas = (e) => {
                     e.stopPropagation();
-                    console.log('tas:', `${tas.value} - ${tas.label} (${tas.count})`);
+                    console.log('tas:', `${value} - ${label} (${count})`);
                     // TODO: This doesn't work yet. Fix.
-                    removeStagedTasFilter(tasNodes, tasChecked, tas.value);
+                    removeStagedTasFilter(tasNodes, tasChecked, value);
                 };
 
                 chips.push(
                     <ShownValue
-                        label={`${tas.value} - ${tas.label} (${tas.count})`}
+                        label={`${value} - ${label} (${count})`}
                         removeValue={removeTas} />
                 );
             });
@@ -382,7 +401,8 @@ export default connect(
         filters: state.filters,
         tasCounts: state.tas.counts.toJS(),
         tasNodes: state.tas.tas.toJS(),
-        tasChecked: state.tas.checked.toJS()
+        tasChecked: state.tas.checked.toJS(),
+        naicsCounts: state.naics.counts.toJS()
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(SearchSidebarFilterChips);
