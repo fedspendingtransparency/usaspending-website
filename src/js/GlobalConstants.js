@@ -26,9 +26,9 @@ const globalConstants = {
     REQUEST_VERSION: '2020-06-01',
     BANNER: {
         isActive: true,
-        title: 'Video Library References',
-        content: 'Screenshots and text references in the video library may not reflect the current version of the site; copy, design, and usability improvements are consistently being deployed.',
-        page: 'training-videos',
+        title: 'Recipient Filter',
+        content: 'There is currently a bug affecting the Recipient Filter feature of our service. We appreciate your understanding and patience as we work to fix this issue. Please contact our service desk for additional assistance.',
+        page: 'search',
         type: "general" // three options "general", "warning", "warning-resolved"
     }
 };
