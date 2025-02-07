@@ -136,9 +136,9 @@ const SearchSidebarFilterChips = ({
                             aria-label={`Applied date range: ${timePeriod.start_date} to ${timePeriod.end_date}`}
                             onClick={removeDateRange}>
                             {timePeriod.start_date} to {timePeriod.end_date}
-                            <span className="close">
+                            <div className="shown-filter-button__shown-filter-button-icon">
                                 <FontAwesomeIcon icon="times" data-index={index} />
-                            </span>
+                            </div>
                         </button>
                     ));
                 });
