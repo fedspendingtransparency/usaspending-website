@@ -28,9 +28,7 @@ const ResultsView = React.memo((props) => {
     const [tabData, setTabData] = useState();
 
     let mobileFilters = '';
-    const tempFilters = useSelector((state) => state.appliedFilters.filters);
-    const [filters, setFilters] = useState(tempFilters);
-
+    const filters = useSelector((state) => state.appliedFilters.filters);
     const subaward = useSelector((state) => state.searchView.subaward);
 
     const checkForData = () => {
@@ -40,6 +38,7 @@ const ResultsView = React.memo((props) => {
             filters: searchParamsTemp.toParams(),
             subawards: subaward
         });
+
         countRequest.promise
             .then((res) => {
                 /* eslint-disable camelcase */
@@ -67,10 +66,6 @@ const ResultsView = React.memo((props) => {
                 console.log("err: ", err);
             });
     };
-
-    useEffect(() => {
-        setFilters(tempFilters);
-    }, []);
 
     useEffect(() => {
         checkForData();
