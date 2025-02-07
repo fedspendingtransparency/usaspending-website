@@ -27,7 +27,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const [newSearch, setNewSearch] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [maxRecipients, setMaxRecipients] = useState(true);
-    const selectedItemHeight = document.querySelector('.selected-category-item').offsetHeight;
+    const selectedItemHeight = document.querySelector('.selected-category-item')?.offsetHeight;
     // subtracting to account for input box/margin/title header/clear all recipients
     const [innerDivHeight, setInnerDivHeight] = useState(selectedItemHeight - 53 - 32 - 34 - 20);
 
