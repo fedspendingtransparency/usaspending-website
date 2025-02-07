@@ -20,7 +20,7 @@ const propTypes = {
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
     goBack: PropTypes.func,
-    itemCount: PropTypes.object,
+    itemCount: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
     titleOnly: PropTypes.bool,
