@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
-import Frame from 'react-frame-component';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import * as MetaTagHelper from 'helpers/metaTagHelper';

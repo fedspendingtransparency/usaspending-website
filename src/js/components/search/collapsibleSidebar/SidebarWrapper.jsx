@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 import PropTypes from "prop-types";
@@ -39,9 +39,6 @@ const SidebarWrapper = React.memo(({
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
 
-    const observerOptions = {
-        threshold: 0.1
-    };
     const toggleOpened = (e) => {
         e.preventDefault();
         setIsOpened((prevState) => !prevState);
@@ -107,7 +104,7 @@ const SidebarWrapper = React.memo(({
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
         const isHeaderSticky = isStickyEl !== null;
 
-        if (!isHeaderSticky || sidebarIsSticky !== isHeaderSticky || tmpFooterInView > 45) {
+        if (!isHeaderSticky || sidebarIsSticky !== isHeaderSticky || window.scrollY < 170 || tmpFooterInView > 0) {
             updatePosition(isHeaderSticky);
         }
 
@@ -221,7 +218,7 @@ const SidebarWrapper = React.memo(({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     });
 
-    const calculateHeight = () => {
+    const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
         const isHeaderSticky = isStickyEl !== null;
 
@@ -237,7 +234,7 @@ const SidebarWrapper = React.memo(({
             className={`search-collapsible-sidebar-container search-sidebar ${sidebarIsSticky ? "sticky" : ""}`}
             style={isMobile ? {} : { display: "none" }}>
             <div
-                style={{ height: calculateHeight(), overscrollBehavior: "none" }}
+                style={{ height: selectHeight(), overscrollBehavior: "none" }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
