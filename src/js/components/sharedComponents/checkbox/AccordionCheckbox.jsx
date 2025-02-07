@@ -41,7 +41,7 @@ const AccordionCheckbox = ({
         expandCheckboxCategoryAccordions(filterCategoryMapping, selectedFilters)
     );
 
-    const selectedItemHeight = document.querySelector('.selected-category-item').offsetHeight;
+    const selectedItemHeight = document.querySelector('.selected-category-item')?.offsetHeight;
     // subtracting to account for input box/margin/title header
     const [innerDivHeight, setInnerDivHeight] = useState(selectedItemHeight - 66);
 

@@ -23,7 +23,7 @@ const ListCheckbox = ({
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
     const [noResults, setNoResults] = useState(false);
-    const selectedItemHeight = document.querySelector('.selected-category-item').offsetHeight;
+    const selectedItemHeight = document.querySelector('.selected-category-item')?.offsetHeight;
     // subtracting to account for input box/margin/title header
     const [innerDivHeight, setInnerDivHeight] = useState(selectedItemHeight - 53 - 52);
 
