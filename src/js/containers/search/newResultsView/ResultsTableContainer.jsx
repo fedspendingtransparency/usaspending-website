@@ -281,7 +281,6 @@ const ResultsTableContainer = (props) => {
     }, 350);
 
     const switchTab = (tab) => {
-        console.log("tab here", tab);
         const newState = {
             tableType: tab
         };
