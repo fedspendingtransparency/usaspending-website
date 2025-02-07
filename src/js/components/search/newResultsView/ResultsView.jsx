@@ -38,7 +38,8 @@ const ResultsView = React.memo((props) => {
         searchParamsTemp.fromState(filters);
         const countRequest = performSpendingByAwardTabCountSearch({
             filters: searchParamsTemp.toParams(),
-            subawards: subaward
+            subawards: subaward,
+            auditTrail: 'Results View - Tab Counts'
         });
         countRequest.promise
             .then((res) => {
