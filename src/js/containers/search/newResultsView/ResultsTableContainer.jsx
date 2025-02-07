@@ -33,7 +33,8 @@ const propTypes = {
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
     subAwardIdClicked: PropTypes.func,
-    wrapperProps: PropTypes.object
+    wrapperProps: PropTypes.object,
+    tabData: PropTypes.object
 };
 export const tableTypes = [
     {
@@ -80,7 +81,7 @@ const ResultsTableContainer = (props) => {
     const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(true);
     const [counts, setCounts] = useState({});
-    const [tableType, setTableType] = useState('contracts');
+    const [tableType, setTableType] = useState();
     const [columns, setColumns] = useState({});
     const [sort, setSort] = useState({
         field: 'Award Amount',
@@ -93,7 +94,6 @@ const ResultsTableContainer = (props) => {
     const [resultLimit, setResultLimit] = useState(100);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
-    const initialRender = useRef(true);
 
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
@@ -389,7 +389,7 @@ const ResultsTableContainer = (props) => {
         // check if more pages are available
         if (!lastPage) {
             // more pages are available, load them
-            setPage(page + 1);
+            setPage((prevState) => prevState + 1);
             setLoadNextPage(true);
         }
     };
@@ -440,30 +440,27 @@ const ResultsTableContainer = (props) => {
     }));
 
     useEffect(throttle(() => {
-        if (initialRender.current) {
-            initialRender.current = false;
+        console.log("perform search if not initial render", tableType, sort, resultLimit, page);
+
+        if (tableType) {
+            performSearch(props?.subaward);
         }
-        else if (!props.subaward) {
-            performSearch();
-        }
-        else if (props.subaward) {
-            performSearch(true);
-        }
-    }, 400), [tableType, sort]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, 400), [tableType, sort, resultLimit, page]);
 
     useEffect(throttle(() => {
-        if (initialRender.current === false) {
-            if (props.subaward && !props.noApplied) {
-                // subaward toggle changed, update the search object
-                pickDefaultTab();
-            }
-            else if (SearchHelper.isSearchHashReady(location) && location.search) {
-                // hash is (a) defined and (b) new
-                pickDefaultTab();
-            }
-            else if (!props.subaward) {
-                pickDefaultTab();
-            }
+        console.log("pickDefaultTab with initial render thing", props);
+
+        if (props.subaward && !props.noApplied) {
+            // subaward toggle changed, update the search object
+            pickDefaultTab();
+        }
+        else if (SearchHelper.isSearchHashReady(location) && location.search) {
+            // hash is (a) defined and (b) new
+            pickDefaultTab();
+        }
+        else if (!props.subaward) {
+            pickDefaultTab();
         }
 
         return () => {
@@ -475,9 +472,11 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [props]);
+    }, 400), [props.subaward, props.noApplied]);
 
     useEffect(throttle(() => {
+        console.log("perform search - next page", isLoadingNextPage);
+
         if (isLoadingNextPage) {
             performSearch();
             setLoadNextPage(false);
@@ -485,17 +484,16 @@ const ResultsTableContainer = (props) => {
     }, 400), [isLoadingNextPage]);
 
     useEffect(throttle(() => {
+        console.log("pickDefaultTab - initial load", props.tabData);
+
         loadColumns();
-        if (SearchHelper.isSearchHashReady(location)) {
+        if (SearchHelper.isSearchHashReady(location) && props.tabData) {
+            parseTabCounts(props.tabData);
+        } else if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), []);
-
-    useEffect(throttle(() => {
-        performSearch();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [tableType, resultLimit, page]);
 
     if (!columns[tableType]) {
         return null;

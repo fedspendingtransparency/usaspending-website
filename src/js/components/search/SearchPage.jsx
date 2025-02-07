@@ -45,7 +45,7 @@ const propTypes = {
 const slug = 'search/';
 const emailSubject = 'Award Search results on USAspending.gov';
 
-const SearchPage = ({
+const SearchPage = React.memo(({
     download,
     filters,
     appliedFilters,
@@ -138,11 +138,14 @@ const SearchPage = ({
     }, [hash]);
 
     useEffect(() => {
+        console.log("search page loading");
+
         setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
         dispatch(setSearchViewSubaward(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    ;
     return (
         <PageWrapper
             pageName="Advanced Search"
@@ -245,7 +248,7 @@ const SearchPage = ({
             </div>
         </PageWrapper>
     );
-};
+});
 
 SearchPage.propTypes = propTypes;
 

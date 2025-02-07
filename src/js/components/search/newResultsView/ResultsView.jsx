@@ -21,12 +21,16 @@ const propTypes = {
     noFiltersApplied: PropTypes.bool
 };
 
-const ResultsView = (props) => {
+const ResultsView = React.memo((props) => {
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
     const [waitForCheckForData, setWaitForCheckForData] = useState(true);
+    const [tabData, setTabData] = useState();
+
     let mobileFilters = '';
-    const filters = useSelector((state) => state.appliedFilters.filters);
+    const tempFilters = useSelector((state) => state.appliedFilters.filters);
+    const [filters, setFilters] = useState(tempFilters);
+
     const subaward = useSelector((state) => state.searchView.subaward);
 
     const checkForData = () => {
@@ -39,6 +43,7 @@ const ResultsView = (props) => {
         countRequest.promise
             .then((res) => {
                 /* eslint-disable camelcase */
+                setTabData(res.data);
                 const {
                     contracts, direct_payments, grants, idvs, loans, other, subgrants, subcontracts
                 } = res.data.results;
@@ -64,6 +69,10 @@ const ResultsView = (props) => {
     };
 
     useEffect(() => {
+        setFilters(tempFilters);
+    }, []);
+
+    useEffect(() => {
         checkForData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters, subaward]);
@@ -85,7 +94,7 @@ const ResultsView = (props) => {
 
         if (!props.noFiltersApplied && !waitForCheckForData) {
             if (hasResults) {
-                content = <SectionsContent subaward={subaward} />;
+                content = <SectionsContent tabData={tabData} subaward={subaward} />;
             }
             else {
                 content = <NoDataScreen />;
@@ -103,7 +112,7 @@ const ResultsView = (props) => {
             </div>
         </div>
     );
-};
+});
 
 ResultsView.propTypes = propTypes;
 export default ResultsView;
