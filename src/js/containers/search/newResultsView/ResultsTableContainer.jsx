@@ -181,7 +181,8 @@ const ResultsTableContainer = (props) => {
             limit: resultLimit,
             sort: searchOrder.field,
             order: sortDirection,
-            subawards: props.subaward
+            subawards: props.subaward,
+            auditTrail: 'Results Table - Spending by award search'
         };
         // Set the params needed for download API call
         if (!params.filters.award_type_codes) {
@@ -348,6 +349,11 @@ const ResultsTableContainer = (props) => {
             tabCountRequest.cancel();
         }
 
+        if (props.tabData) {
+            parseTabCounts(props.tabData);
+            return;
+        }
+
         setInFlight(true);
         setError(false);
 
@@ -440,6 +446,18 @@ const ResultsTableContainer = (props) => {
     }));
 
     useEffect(throttle(() => {
+        console.log("pickDefaultTab - initial load", props.tabData);
+
+        loadColumns();
+        if (SearchHelper.isSearchHashReady(location) && props.tabData) {
+            parseTabCounts(props.tabData);
+        } else if (SearchHelper.isSearchHashReady(location)) {
+            pickDefaultTab();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, 400), []);
+
+    useEffect(throttle(() => {
         console.log("perform search if not initial render", tableType, sort, resultLimit, page);
 
         if (tableType) {
@@ -449,8 +467,6 @@ const ResultsTableContainer = (props) => {
     }, 400), [tableType, sort, resultLimit, page]);
 
     useEffect(throttle(() => {
-        console.log("pickDefaultTab with initial render thing", props);
-
         if (props.subaward && !props.noApplied) {
             // subaward toggle changed, update the search object
             pickDefaultTab();
@@ -482,18 +498,6 @@ const ResultsTableContainer = (props) => {
             setLoadNextPage(false);
         }
     }, 400), [isLoadingNextPage]);
-
-    useEffect(throttle(() => {
-        console.log("pickDefaultTab - initial load", props.tabData);
-
-        loadColumns();
-        if (SearchHelper.isSearchHashReady(location) && props.tabData) {
-            parseTabCounts(props.tabData);
-        } else if (SearchHelper.isSearchHashReady(location)) {
-            pickDefaultTab();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), []);
 
     if (!columns[tableType]) {
         return null;
