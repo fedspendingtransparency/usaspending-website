@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash";
 import PropTypes from "prop-types";
@@ -29,10 +29,8 @@ const SidebarWrapper = React.memo(({
     const [sidebarContentHeight, setSidebarContentHeight] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
     const [isOpened, setIsOpened] = useState(sidebarOpen);
-    const [isHeaderVisible, setIsHeaderVisible] = useState();
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [isFooterVisible, setIsFooterVisible] = useState();
-    const [observerSupported, setObserverSupported] = useState(false);
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -41,9 +39,6 @@ const SidebarWrapper = React.memo(({
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
 
-    const observerOptions = {
-        threshold: 0.1
-    };
     const toggleOpened = (e) => {
         e.preventDefault();
         setIsOpened((prevState) => !prevState);
@@ -88,17 +83,17 @@ const SidebarWrapper = React.memo(({
         setSidebarContentHeight(sidebarContentArea);
     };
 
-    const updatePosition = () => {
+    const updatePosition = (isHeaderSticky) => {
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
 
-        if (!sidebarIsSticky && isHeaderVisible) {
+        if (!isHeaderSticky) {
             resizeHeightByHeader();
         }
-        else if (sidebarIsSticky) {
+        else if (isHeaderSticky) {
             document.querySelector(".search-collapsible-sidebar-container").style.height = '100vh - 60';
         }
 
-        if (isFooterVisible || tmpFooterInView > 0) {
+        if (tmpFooterInView > 0) {
             resizeHeightByFooter();
         }
     };
@@ -107,11 +102,14 @@ const SidebarWrapper = React.memo(({
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
         setIsFooterVisible(tmpFooterInView > 0);
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
-        const tmpIsSticky = isStickyEl !== null;
-        setSidebarIsSticky(tmpIsSticky);
+        const isHeaderSticky = isStickyEl !== null;
 
-        if (!tmpIsSticky || tmpFooterInView > 45) {
-            updatePosition();
+        if (!isHeaderSticky || sidebarIsSticky !== isHeaderSticky || window.scrollY < 170 || tmpFooterInView > 0) {
+            updatePosition(isHeaderSticky);
+        }
+
+        if (sidebarIsSticky !== isHeaderSticky) {
+            setSidebarIsSticky(isHeaderSticky);
         }
     }, 20);
 
@@ -192,28 +190,8 @@ const SidebarWrapper = React.memo(({
             document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
         }
 
-        updatePosition();
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFooterVisible, isHeaderVisible, sidebarIsSticky, mainContentHeight]);
-
-    const handleObserver = useCallback((entries) => {
-        entries.forEach((entry) => {
-            if (entry.target?.localName?.includes("footer")) {
-                setIsFooterVisible(true);
-            }
-
-            if (entry.target?.className?.includes("usda-page-header") && !entry.target?.className?.includes("usda-page-header--sticky")) {
-                setIsHeaderVisible(true);
-                setSidebarIsSticky(false);
-            }
-
-            if (entry.target?.className?.includes("usda-page-header--sticky")) {
-                setSidebarIsSticky(true);
-                setIsHeaderVisible(false);
-            }
-        });
-    });
+    }, [mainContentHeight]);
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
@@ -240,35 +218,11 @@ const SidebarWrapper = React.memo(({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     });
 
-    useEffect(() => {
-        setObserverSupported('IntersectionObserver' in window);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    // eslint-disable-next-line consistent-return
-    useEffect(() => {
-        if (observerSupported) {
-            const targets = [document.querySelector(".usda-page-header")];
-            targets.push(document.querySelector(".usda-page-header"));
-
-            // eslint-disable-next-line no-undef
-            const observer = new IntersectionObserver(handleObserver, observerOptions);
-            targets.forEach((i) => {
-                if (i.className) {
-                    observer.observe(i);
-                }
-            });
-
-            return () => observer.disconnect();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [observerSupported]);
-
-    const calculateHeight = () => {
+    const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
-        const tmpIsSticky = isStickyEl !== null;
+        const isHeaderSticky = isStickyEl !== null;
 
-        if (tmpIsSticky && !isFooterVisible) {
+        if (isHeaderSticky && !isFooterVisible) {
             return 'calc(100vh - 60px)';
         }
 
@@ -280,7 +234,7 @@ const SidebarWrapper = React.memo(({
             className={`search-collapsible-sidebar-container search-sidebar ${sidebarIsSticky ? "sticky" : ""}`}
             style={isMobile ? {} : { display: "none" }}>
             <div
-                style={{ height: calculateHeight(), overscrollBehavior: "none" }}
+                style={{ height: selectHeight(), overscrollBehavior: "none" }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
