@@ -138,8 +138,6 @@ const SearchPage = React.memo(({
     }, [hash]);
 
     useEffect(() => {
-        console.log("search page loading");
-
         setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
         dispatch(setSearchViewSubaward(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps

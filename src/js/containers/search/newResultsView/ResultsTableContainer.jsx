@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/8/16
  **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -94,6 +94,7 @@ const ResultsTableContainer = (props) => {
     const [resultLimit, setResultLimit] = useState(100);
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
 
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
@@ -445,38 +446,33 @@ const ResultsTableContainer = (props) => {
         disabled: inFlight || counts[type.internal] === 0
     }));
 
-    useEffect(throttle(() => {
-        console.log("pickDefaultTab - initial load", props.tabData);
-
+    const initialTableLoad = () => {
         loadColumns();
-        if (SearchHelper.isSearchHashReady(location) && props.tabData) {
+        if (SearchHelper.isSearchHashReady(location) && props?.tabData?.results?.length > 0) {
             parseTabCounts(props.tabData);
         } else if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), []);
+    };
 
     useEffect(throttle(() => {
-        console.log("perform search if not initial render", tableType, sort, resultLimit, page);
-
-        if (tableType) {
+        if (!isInitialLoad && tableType) {
             performSearch(props?.subaward);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), [tableType, sort, resultLimit, page]);
 
     useEffect(throttle(() => {
-        if (props.subaward && !props.noApplied) {
-            // subaward toggle changed, update the search object
-            pickDefaultTab();
-        }
-        else if (SearchHelper.isSearchHashReady(location) && location.search) {
-            // hash is (a) defined and (b) new
-            pickDefaultTab();
-        }
-        else if (!props.subaward) {
-            pickDefaultTab();
+        if (!isInitialLoad) {
+            if (props.subaward && !props.noApplied) {
+                // subaward toggle changed, update the search object
+                pickDefaultTab();
+            } else if (SearchHelper.isSearchHashReady(location) && location.search) {
+                // hash is (a) defined and (b) new
+                pickDefaultTab();
+            } else if (!props.subaward) {
+                pickDefaultTab();
+            }
         }
 
         return () => {
@@ -491,13 +487,19 @@ const ResultsTableContainer = (props) => {
     }, 400), [props.subaward, props.noApplied]);
 
     useEffect(throttle(() => {
-        console.log("perform search - next page", isLoadingNextPage);
-
         if (isLoadingNextPage) {
             performSearch();
             setLoadNextPage(false);
         }
     }, 400), [isLoadingNextPage]);
+
+    useEffect(throttle(() => {
+        if (isInitialLoad) {
+            setIsInitialLoad(false);
+            initialTableLoad();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, 400), []);
 
     if (!columns[tableType]) {
         return null;

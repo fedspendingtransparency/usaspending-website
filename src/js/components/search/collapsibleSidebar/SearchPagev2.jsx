@@ -108,6 +108,10 @@ const SearchPage = ({
         return 'filters';
     };
 
+    useEffect(() => {
+        setStateHash(hash);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hash]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -116,15 +120,10 @@ const SearchPage = ({
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
             }
-        }, 50);
+        }, 100);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
-
-    useEffect(() => {
-        setStateHash(hash);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hash]);
 
     useEffect(() => {
         setSearchv2(true);
