@@ -14,7 +14,6 @@ import { performSpendingByAwardTabCountSearch } from "helpers/searchHelper";
 import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
-import { isCancel } from "axios";
 
 require("pages/search/searchPage.scss");
 
@@ -94,7 +93,7 @@ const ResultsView = React.memo((props) => {
             countRequest.cancel();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 250), [filters, subaward]);
+    }, 400), [filters, subaward]);
 
 
     useEffect(() => {
@@ -125,6 +124,7 @@ const ResultsView = React.memo((props) => {
         setResultContent(content);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.noFiltersApplied, hasResults, subaward, inFlight, error]);
+
     return (
         <div className="search-results-wrapper">
             <TopFilterBarContainer {...props} />
