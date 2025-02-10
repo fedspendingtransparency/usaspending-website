@@ -81,7 +81,7 @@ const ResultsTableContainer = (props) => {
     const [page, setPage] = useState(0);
     const [lastPage, setLastPage] = useState(true);
     const [counts, setCounts] = useState({});
-    const [tableType, setTableType] = useState();
+    const [tableType, setTableType] = useState('contracts');
     const [columns, setColumns] = useState({});
     const [sort, setSort] = useState({
         field: 'Award Amount',
