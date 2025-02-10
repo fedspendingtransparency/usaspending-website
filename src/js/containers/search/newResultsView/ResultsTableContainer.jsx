@@ -229,7 +229,7 @@ const ResultsTableContainer = (props) => {
                     console.log(err);
                 }
             });
-    }, 250);
+    }, 400);
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -452,8 +452,18 @@ const ResultsTableContainer = (props) => {
             parseTabCounts(props.tabData);
         } else if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
+        } else {
+            pickDefaultTab();
         }
     };
+
+    useEffect(throttle(() => {
+        if (isInitialLoad) {
+            setIsInitialLoad(false);
+            initialTableLoad();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, 400), []);
 
     useEffect(throttle(() => {
         if (!isInitialLoad && tableType) {
@@ -492,14 +502,6 @@ const ResultsTableContainer = (props) => {
             setLoadNextPage(false);
         }
     }, 400), [isLoadingNextPage]);
-
-    useEffect(throttle(() => {
-        if (isInitialLoad) {
-            setIsInitialLoad(false);
-            initialTableLoad();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), []);
 
     if (!columns[tableType]) {
         return null;
