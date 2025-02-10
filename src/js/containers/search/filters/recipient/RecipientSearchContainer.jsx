@@ -248,7 +248,8 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     </button>
                 </div>
                 {isLoading ? loadingIndicator :
-                    <div className="recipient-results__container" style={{ height: innerDivHeight }}>
+                    <div className="recipient-results__container" style={{ height: "400px" }}>
+                        {/* style={{ height: innerDivHeight }} */}
                         <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>
                             {recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
                                 .map((recipient) => (
