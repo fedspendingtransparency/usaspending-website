@@ -78,10 +78,10 @@ const ResultsTableContainer = (props) => {
     let searchRequest = null;
     const location = useLocation();
     const [searchParams, setSearchParams] = useState(new SearchAwardsOperation());
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [lastPage, setLastPage] = useState(true);
     const [counts, setCounts] = useState({});
-    const [tableType, setTableType] = useState('contracts');
+    const [tableType, setTableType] = useState();
     const [columns, setColumns] = useState({});
     const [sort, setSort] = useState({
         field: 'Award Amount',
@@ -396,7 +396,7 @@ const ResultsTableContainer = (props) => {
         // check if more pages are available
         if (!lastPage) {
             // more pages are available, load them
-            setPage(page + 1);
+            setPage((prevState) => prevState + 1);
             setLoadNextPage(true);
         }
     };
@@ -484,7 +484,7 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 200), [props]);
+    }, 200), [props.subaward, props.noApplied]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
