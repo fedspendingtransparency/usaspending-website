@@ -460,7 +460,7 @@ const ResultsTableContainer = (props) => {
             performSearch(props?.subaward);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 200), [tableType, sort, resultLimit, page]);
+    }, 400), [tableType, sort, resultLimit, page]);
 
     useEffect(throttle(() => {
         if (!isInitialLoad) {
@@ -484,14 +484,14 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 200), [props.subaward, props.noApplied]);
+    }, 400), [props.subaward, props.noApplied]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
             performSearch();
             setLoadNextPage(false);
         }
-    }, 200), [isLoadingNextPage]);
+    }, 400), [isLoadingNextPage]);
 
     useEffect(throttle(() => {
         if (isInitialLoad) {
@@ -499,7 +499,7 @@ const ResultsTableContainer = (props) => {
             initialTableLoad();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 200), []);
+    }, 400), []);
 
     if (!columns[tableType]) {
         return null;
