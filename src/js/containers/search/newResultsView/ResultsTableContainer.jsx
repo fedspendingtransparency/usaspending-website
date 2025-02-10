@@ -396,7 +396,7 @@ const ResultsTableContainer = (props) => {
         // check if more pages are available
         if (!lastPage) {
             // more pages are available, load them
-            setPage((prevState) => prevState + 1);
+            setPage(page + 1);
             setLoadNextPage(true);
         }
     };
@@ -460,7 +460,7 @@ const ResultsTableContainer = (props) => {
             performSearch(props?.subaward);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [tableType, sort, resultLimit, page]);
+    }, 200), [tableType, sort, resultLimit, page]);
 
     useEffect(throttle(() => {
         if (!isInitialLoad) {
@@ -484,14 +484,14 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [props.subaward, props.noApplied]);
+    }, 200), [props]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
             performSearch();
             setLoadNextPage(false);
         }
-    }, 400), [isLoadingNextPage]);
+    }, 200), [isLoadingNextPage]);
 
     useEffect(throttle(() => {
         if (isInitialLoad) {
@@ -499,7 +499,7 @@ const ResultsTableContainer = (props) => {
             initialTableLoad();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), []);
+    }, 200), []);
 
     if (!columns[tableType]) {
         return null;
