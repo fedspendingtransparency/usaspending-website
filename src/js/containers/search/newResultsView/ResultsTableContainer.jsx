@@ -78,7 +78,7 @@ const ResultsTableContainer = (props) => {
     let searchRequest = null;
     const location = useLocation();
     const [searchParams, setSearchParams] = useState(new SearchAwardsOperation());
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [lastPage, setLastPage] = useState(true);
     const [counts, setCounts] = useState({});
     const [tableType, setTableType] = useState();
