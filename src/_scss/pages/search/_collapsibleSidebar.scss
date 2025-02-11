@@ -1,25 +1,5 @@
 @import "searchFilter";
 
-@keyframes collapsible-sidebar-slideopen {
-  0% {
-    width: 0%;
-  }
-
-  100% {
-    width: 100%;
-  }
-}
-
-@keyframes collapsible-sidebar-slideclose {
-  0% {
-    width: 100%;
-  }
-
-  100% {
-    width: 0%;
-  }
-}
-
 @keyframes drilldown-slidein {
   0% {
     display: block;
@@ -35,11 +15,26 @@
 
 .search-collapsible-sidebar-container {
   @import './filters/otherFilters/defCheckboxV2';
-
-  position: fixed;
-  background-color: $color-white;
   box-shadow: unset;
   border-radius: unset;
+  position: absolute;
+  margin-top: 0;
+  top: 0;
+
+  .sidebar-bottom-submit {
+    position: static;
+    width: 100%;
+  }
+
+  &.sticky {
+    position: fixed;
+    top: rem(92);
+
+    .sidebar-bottom-submit {
+      position: absolute;
+      bottom: 0;
+    }
+  }
 
   @media(max-width: $medium-screen - 1) {
     left: 0;
@@ -57,11 +52,9 @@
     @media(max-width: $medium-screen - 1) {
       display: none;
     }
-
-    position: relative;
-    float: right;
-    margin-right: -12px;
-    margin-top: 16px;
+    position: absolute;
+    right: -12px;
+    top: 16px;
     border-radius: 12px;
     width: 24px;
     height: 24px;
@@ -76,27 +69,21 @@
   }
 
   .collapsible-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
+    background-color: unset;
 
     @media(max-width: $medium-screen - 1) {
       border: none;
     }
 
-
-    &.opened:not(.is-initial-loaded) {
-      // TODO: Adjust animations next sprint
-      //-webkit-animation: collapsible-sidebar-slideopen 0.25s forwards;
-      //animation: collapsible-sidebar-slideopen 0.25s forwards;
-    }
-
     &:not(.opened) {
-      // TODO: Adjust animations next sprint
-      //animation: collapsible-sidebar-slideclose 0.25s forwards;
-      //-webkit-animation: collapsible-sidebar-slideclose 0.25s forwards;
-
       .sidebar-bottom-submit,
       .search-filter__container,
       .collapsible-sidebar--header,
@@ -110,12 +97,19 @@
       display: flex;
       flex-direction: column;
 
-      .categories-list,
-      .category-filter { 
+      .categories-list {
+        overflow-y: auto;
+      }
+
+      .category-filter {
         &:not(:has(.time-period)){   // prevent overflow scroll only for time period filter but allow for other types.
           overflow-y: auto;
         }
-        
+      }
+      
+      .category-filter.exempt {
+        overflow-y: auto;
+
         @import "_newNaicsStyles";
         @import "_newPscStyles";
         @import "_newTasStyles";
@@ -123,13 +117,16 @@
 
     }
 
-    .category-filter {
-      .react-checkbox-tree {
-        overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
-        max-height: unset !important;
-        height: unset !important;
-      }
-    }
+    // .category-filter {
+    //   .react-checkbox-tree {
+    //     overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
+    //     max-height: unset !important;
+    //     height: unset !important;
+    //   }
+    // }
+    @import "_newNaicsStyles";
+    @import "_newPscStyles";
+    @import "_newTasStyles";
 
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
@@ -138,6 +135,7 @@
       line-height: 1.5;
       color: $gray-90;
       border-bottom: $gray-cool-10 1px solid;
+      background-color: unset;
 
       #collapsible-mobile-close-button {
         @media(min-width: $medium-screen) {
@@ -316,11 +314,6 @@
       }
     }
 
-    .sidebar-bottom-submit {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-    }
   }
 
 }

@@ -56,54 +56,54 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
-        this.keyword = state.keyword.toArray();
+        this.keyword = state.keyword?.toArray();
         this.time_period = state.time_period?.toArray();
-        this.timePeriodFY = state.timePeriodFY.toArray();
+        this.timePeriodFY = state.timePeriodFY?.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
 
         this.dateType = state.filterNewAwardsOnlySelected;
 
-        this.awardType = state.awardType.toArray();
+        this.awardType = state.awardType?.toArray();
 
-        this.awardingAgencies = state.selectedAwardingAgencies.toArray();
-        this.fundingAgencies = state.selectedFundingAgencies.toArray();
+        this.awardingAgencies = state.selectedAwardingAgencies?.toArray();
+        this.fundingAgencies = state.selectedFundingAgencies?.toArray();
 
-        this.tasSources = state.treasuryAccounts.toArray();
+        this.tasSources = state.treasuryAccounts?.toArray();
         this.tasCheckbox = {
-            require: state.tasCodes.toObject().require,
-            exclude: state.tasCodes.toObject().exclude
+            require: state.tasCodes?.toObject().require,
+            exclude: state.tasCodes?.toObject().exclude
         };
 
-        this.selectedRecipients = state.selectedRecipients.toArray();
+        this.selectedRecipients = state.selectedRecipients?.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
-        this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
-        this.recipientType = state.recipientType.toArray();
+        this.selectedRecipientLocations = state.selectedRecipientLocations?.toArray();
+        this.recipientType = state.recipientType?.toArray();
 
-        this.selectedLocations = state.selectedLocations.toArray();
+        this.selectedLocations = state.selectedLocations?.toArray();
         this.locationDomesticForeign = state.locationDomesticForeign;
 
-        this.awardAmounts = state.awardAmounts.toArray();
+        this.awardAmounts = state.awardAmounts?.toArray();
 
-        this.selectedAwardIDs = state.selectedAwardIDs.toArray();
+        this.selectedAwardIDs = state.selectedAwardIDs?.toArray();
 
-        this.selectedCFDA = state.selectedCFDA.toArray();
+        this.selectedCFDA = state.selectedCFDA?.toArray();
         this.naicsCodes = {
-            require: state.naicsCodes.toObject().require,
-            exclude: state.naicsCodes.toObject().exclude
+            require: state.naicsCodes?.toObject().require,
+            exclude: state.naicsCodes?.toObject().exclude
         };
         this.pscCheckbox = {
-            require: state.pscCodes.toObject().require,
-            exclude: state.pscCodes.toObject().exclude
+            require: state.pscCodes?.toObject().require,
+            exclude: state.pscCodes?.toObject().exclude
         };
         this.defCodes = {
-            require: state.defCodes.toObject().require,
-            exclude: state.defCodes.toObject().exclude
+            require: state.defCodes?.toObject().require,
+            exclude: state.defCodes?.toObject().exclude
         };
 
-        this.pricingType = state.pricingType.toArray();
-        this.setAside = state.setAside.toArray();
-        this.extentCompeted = state.extentCompeted.toArray();
+        this.pricingType = state.pricingType?.toArray();
+        this.setAside = state.setAside?.toArray();
+        this.extentCompeted = state.extentCompeted?.toArray();
 
         this.awardDescription = state.awardDescription;
     }
