@@ -28,11 +28,11 @@ export const CheckboxTreeSelections = Record(defaultCheckboxTreeSelections);
 export const requiredTypes = {
     keyword: OrderedMap,
     timePeriodFY: Set,
+    time_period: Set,
     selectedLocations: OrderedMap,
     selectedFundingAgencies: OrderedMap,
     selectedAwardingAgencies: OrderedMap,
     selectedRecipients: Set,
-    time_period: Set,
     recipientType: Set,
     selectedRecipientLocations: OrderedMap,
     awardType: Set,
@@ -48,8 +48,7 @@ export const requiredTypes = {
     infraDefCode: Set,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set,
-    awardDescription: OrderedMap
+    extentCompeted: Set
 };
 
 export const initialState = {
@@ -114,7 +113,8 @@ export const initialStateFY = {
     setAside: Set(),
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
-    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    awardDescription: ''
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
