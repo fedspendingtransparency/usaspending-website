@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import { throttle } from "lodash";
 import AccordionCheckboxPrimary from "./AccordionCheckboxPrimary";
 import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
 
@@ -27,11 +27,12 @@ const propTypes = {
     filterCategoryMapping: PropTypes.arrayOf(PropTypes.object),
     selectedFilters: PropTypes.object,
     singleFilterChange: PropTypes.func,
-    bulkFilterChange: PropTypes.func
+    bulkFilterChange: PropTypes.func,
+    customLabels: PropTypes.object
 };
 
 const AccordionCheckbox = ({
-    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange, selectedCategory, isExpanded
+    filters, customLabels, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange, selectedCategory, isExpanded
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -39,6 +40,10 @@ const AccordionCheckbox = ({
     const [expandedCategories, setExpandedCategories] = useState(
         expandCheckboxCategoryAccordions(filterCategoryMapping, selectedFilters)
     );
+
+    const selectedItemHeight = document.querySelector('.selected-category-item')?.offsetHeight;
+    // subtracting to account for input box/margin/title header
+    const [innerDivHeight, setInnerDivHeight] = useState(selectedItemHeight - 66);
 
     const toggleExpanded = (category) => {
         const containsId = expandedCategories?.indexOf(category.id);
@@ -66,6 +71,26 @@ const AccordionCheckbox = ({
         setExpandedCategories([]);
         setSearchString('');
     };
+
+    useEffect(() => {
+        const handleScroll = throttle(() => {
+            const innerWrapper = document.querySelector('.checkbox-categories-wrapper');
+            const submitButton = document.querySelector('.sidebar-submit');
+            const innerHeight = innerWrapper?.offsetHeight;
+            const submitButtonRect = submitButton?.getBoundingClientRect();
+            // subtracting to account for submit button container, about this filter container
+            if (innerWrapper.getBoundingClientRect().bottom > (submitButtonRect.top - 51)) {
+                setInnerDivHeight(innerHeight - 52 - 100);
+            } else {
+                // set to original
+                setInnerDivHeight(selectedItemHeight);
+            }
+        }, 200);
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [innerDivHeight]);
+
 
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
@@ -106,6 +131,7 @@ const AccordionCheckbox = ({
             singleFilterChange={singleFilterChange}
             filters={filters}
             selectedFilters={selectedFilters}
+            customLabels={customLabels}
             expandedCategories={expandedCategories}
             toggleExpanded={toggleExpanded}
             bulkFilterChange={bulkFilterChange}
@@ -127,7 +153,10 @@ const AccordionCheckbox = ({
             {noResults ?
                 <div className="no-results">No results found.</div>
                 :
-                checkboxCategories
+                <div className="checkbox-categories-wrapper" style={{ height: "400px" }}>
+                    {/* style={{ height: innerDivHeight }} */}
+                    {checkboxCategories}
+                </div>
             }
         </div>
     );

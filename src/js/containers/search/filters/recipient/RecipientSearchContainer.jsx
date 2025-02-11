@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { throttle } from "lodash";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import SubmitHint from "../../../../components/sharedComponents/filterSidebar/SubmitHint";
@@ -27,6 +27,9 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const [newSearch, setNewSearch] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [maxRecipients, setMaxRecipients] = useState(true);
+    const selectedItemHeight = document.querySelector('.selected-category-item')?.offsetHeight;
+    // subtracting to account for input box/margin/title header/clear all recipients
+    const [innerDivHeight, setInnerDivHeight] = useState(selectedItemHeight - 53 - 32 - 34 - 20);
 
     const recipientRequest = useRef();
     const maxRecipientsAllowed = 500;
@@ -178,6 +181,14 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         );
     }
 
+    const handleClearRecipients = () => {
+        const currentRecipients = selectedRecipients;
+
+        currentRecipients.forEach((recipient) => {
+            updateSelectedRecipients(recipient);
+        });
+    };
+
     useEffect(() => {
         if (searchString.length >= 3) {
             setNewSearch(false);
@@ -198,6 +209,24 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        const handleScroll = throttle(() => {
+            const innerWrapper = document.querySelector('.recipient-results__container');
+            const submitButton = document.querySelector('.sidebar-submit');
+            const innerHeight = innerWrapper?.offsetHeight;
+            const submitButtonRect = submitButton?.getBoundingClientRect();
+            // subtracting for submit button container
+            if (innerWrapper.getBoundingClientRect().bottom > (submitButtonRect.top - 51)) {
+                setInnerDivHeight(innerHeight - 34);
+            } else {
+                setInnerDivHeight(selectedItemHeight);
+            }
+        }, 150);
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [innerDivHeight]);
+
     return (
         <div className="recipient-filter">
             <div className="filter-item-wrap">
@@ -208,8 +237,19 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     context={{}}
                     loading={false}
                     searchIcon />
+                <div className="clear-all__container">
+                    <button
+                        type="button"
+                        aria-label="Clear all Recipient filters"
+                        className="clear-all__button"
+                        tabIndex="0"
+                        onClick={handleClearRecipients} >
+                        Clear all Recipient filters
+                    </button>
+                </div>
                 {isLoading ? loadingIndicator :
-                    <div className="recipient-results__container">
+                    <div className="recipient-results__container" style={{ height: "400px" }}>
+                        {/* style={{ height: innerDivHeight }} */}
                         <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>
                             {recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
                                 .map((recipient) => (

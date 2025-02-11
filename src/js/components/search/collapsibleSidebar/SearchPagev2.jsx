@@ -57,6 +57,7 @@ const SearchPage = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -108,6 +109,10 @@ const SearchPage = ({
         return 'filters';
     };
 
+    useEffect(() => {
+        setStateHash(hash);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hash]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -116,26 +121,21 @@ const SearchPage = ({
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
             }
-        }, 50);
+        }, 100);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
 
     useEffect(() => {
-        setStateHash(hash);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hash]);
-
-    useEffect(() => {
         setSearchv2(true);
-        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} />);
+        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <PageWrapper
             pageName="Advanced Search"
-            classNames="usa-da-search-page v2"
+            classNames={`usa-da-search-page v2 ${showMobileFilters && sidebarOpen ? 'fixed-body' : ''}`}
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
@@ -188,11 +188,13 @@ const SearchPage = ({
                                 </div>
                             </button>
                         </div>
-                        <FlexGridCol className="mobile-search-sidebar-v2">
+                        <FlexGridCol className={`mobile-search-sidebar-v2 ${sidebarOpen ? 'sidebar-opened' : ''}`}>
                             <MobileFiltersV2
                                 filters={filters}
                                 showMobileFilters={showMobileFilters}
-                                setShowMobileFilters={setShowMobileFilters} />
+                                setShowMobileFilters={setShowMobileFilters}
+                                sidebarOpen={sidebarOpen}
+                                setSidebarOpen={setSidebarOpen} />
                         </FlexGridCol>
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
