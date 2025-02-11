@@ -119,7 +119,8 @@ const ListCheckbox = ({
             {noResults ?
                 <div className="no-results">No results found.</div>
                 :
-                <div className="filter-item-wrap" style={{ height: innerDivHeight }}>
+                <div className="filter-item-wrap" style={{ height: "400px" }}>
+                    {/* style={{ height: innerDivHeight }} */}
                     {checkboxCategories}
                     <SubmitHint selectedFilters={selectedFilters} />
                 </div>

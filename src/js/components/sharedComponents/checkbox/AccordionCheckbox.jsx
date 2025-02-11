@@ -153,7 +153,10 @@ const AccordionCheckbox = ({
             {noResults ?
                 <div className="no-results">No results found.</div>
                 :
-                <div className="checkbox-categories-wrapper" style={{ height: innerDivHeight }}>{checkboxCategories}</div>
+                <div className="checkbox-categories-wrapper" style={{ height: "400px" }}>
+                    {/* style={{ height: innerDivHeight }} */}
+                    {checkboxCategories}
+                </div>
             }
         </div>
     );
