@@ -5,6 +5,8 @@
 
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { isCancel } from "axios";
+import { throttle } from 'lodash';
 import { useSelector } from "react-redux";
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
@@ -21,24 +23,40 @@ const propTypes = {
     noFiltersApplied: PropTypes.bool
 };
 
-const ResultsView = (props) => {
+const ResultsView = React.memo((props) => {
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
-    const [waitForCheckForData, setWaitForCheckForData] = useState(true);
+    const [tabData, setTabData] = useState();
+    const [inFlight, setInFlight] = useState(false);
+    const [error, setError] = useState(false);
+
     let mobileFilters = '';
     const filters = useSelector((state) => state.appliedFilters.filters);
     const subaward = useSelector((state) => state.searchView.subaward);
 
+    let countRequest;
+
     const checkForData = () => {
+        if (countRequest) {
+            countRequest.cancel();
+        }
+
         const searchParamsTemp = new SearchAwardsOperation();
         searchParamsTemp.fromState(filters);
-        const countRequest = performSpendingByAwardTabCountSearch({
+
+        setInFlight(true);
+        setError(false);
+
+        countRequest = performSpendingByAwardTabCountSearch({
             filters: searchParamsTemp.toParams(),
-            subawards: subaward
+            subawards: subaward,
+            auditTrail: 'Results View - Tab Counts'
         });
+
         countRequest.promise
             .then((res) => {
                 /* eslint-disable camelcase */
+                setTabData(res.data);
                 const {
                     contracts, direct_payments, grants, idvs, loans, other, subgrants, subcontracts
                 } = res.data.results;
@@ -56,17 +74,26 @@ const ResultsView = (props) => {
                     setHasResults(false);
                 }
 
-                setWaitForCheckForData(false);
+                setInFlight(false);
+                setError(false);
             })
             .catch((err) => {
-                console.log("err: ", err);
+                if (!isCancel(err)) {
+                    setInFlight(false);
+                    setError(true);
+                    console.log(err);
+                }
             });
     };
 
-    useEffect(() => {
+    useEffect(throttle(() => {
         checkForData();
+
+        return () => {
+            countRequest.cancel();
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filters, subaward]);
+    }, 400), [filters, subaward]);
 
 
     useEffect(() => {
@@ -79,22 +106,25 @@ const ResultsView = (props) => {
     useEffect(() => {
         let content = null;
 
-        if (props.noFiltersApplied && !waitForCheckForData) {
-            content = <NewSearchScreen />;
-        }
-
-        if (!props.noFiltersApplied && !waitForCheckForData) {
-            if (hasResults) {
-                content = <SectionsContent subaward={subaward} />;
+        if (!inFlight && !error) {
+            if (props.noFiltersApplied) {
+                content = <NewSearchScreen />;
             }
-            else {
-                content = <NoDataScreen />;
+
+            if (!props.noFiltersApplied) {
+                if (hasResults) {
+                    content = <SectionsContent tabData={tabData} subaward={subaward} />;
+                }
+                else {
+                    content = <NoDataScreen />;
+                }
             }
         }
 
         setResultContent(content);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.noFiltersApplied, hasResults, subaward, waitForCheckForData]);
+    }, [props.noFiltersApplied, hasResults, subaward, inFlight, error]);
+
     return (
         <div className="search-results-wrapper">
             <TopFilterBarContainer {...props} />
@@ -103,7 +133,7 @@ const ResultsView = (props) => {
             </div>
         </div>
     );
-};
+});
 
 ResultsView.propTypes = propTypes;
 export default ResultsView;
