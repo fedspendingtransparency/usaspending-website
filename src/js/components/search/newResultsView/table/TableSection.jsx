@@ -9,10 +9,11 @@ import ResultsTableContainer from "../../../../containers/search/newResultsView/
 import TableDsm from "./TableDsm";
 
 const propTypes = {
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    tabData: PropTypes.object
 };
 
-const TableSection = ({ subaward }) => {
+const TableSection = ({ subaward, tabData }) => {
     const wrapperProps = {
         sectionTitle: subaward ? 'Subaward Results' : 'Prime Award Results',
         dsmContent: <TableDsm subaward={subaward} />,
@@ -22,6 +23,7 @@ const TableSection = ({ subaward }) => {
     return (
         <div id="search-page-component" className="awards">
             <ResultsTableContainer
+                tabData={tabData}
                 wrapperProps={wrapperProps}
                 subaward={subaward} />
         </div>
