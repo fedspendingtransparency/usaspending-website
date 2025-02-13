@@ -17,8 +17,9 @@
   @import './filters/otherFilters/defCheckboxV2';
   box-shadow: unset;
   border-radius: unset;
+  position: absolute;
   margin-top: 0;
-  position: relative;
+  top: 0;
 
   .sidebar-bottom-submit {
     position: static;
@@ -26,8 +27,8 @@
   }
 
   &.sticky {
-    margin-top: -32px !important;
     position: fixed;
+    top: rem(92);
 
     .sidebar-bottom-submit {
       position: absolute;
