@@ -251,7 +251,6 @@ const SearchContainer = ({ history }) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, stagedFilters]);
-
     return (
         <SearchPage
             hash={urlHash}

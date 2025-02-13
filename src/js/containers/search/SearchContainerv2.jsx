@@ -74,7 +74,7 @@ export const parseRemoteFilters = (data) => {
 const SearchContainerv2 = ({ history }) => {
     const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
     const query = useQueryParams();
-
+    console.log(urlHash);
     const dispatch = useDispatch();
     const {
         filters: stagedFilters,

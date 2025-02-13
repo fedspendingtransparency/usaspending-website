@@ -20,7 +20,8 @@ require("pages/search/searchPage.scss");
 const propTypes = {
     showMobileFilters: PropTypes.bool,
     isMobile: PropTypes.bool,
-    noFiltersApplied: PropTypes.bool
+    noFiltersApplied: PropTypes.bool,
+    hash: PropTypes.string
 };
 
 const ResultsView = React.memo((props) => {
@@ -113,7 +114,7 @@ const ResultsView = React.memo((props) => {
 
             if (!props.noFiltersApplied) {
                 if (hasResults) {
-                    content = <SectionsContent tabData={tabData} subaward={subaward} />;
+                    content = <SectionsContent tabData={tabData} subaward={subaward} hash={props.hash} />;
                 }
                 else {
                     content = <NoDataScreen />;

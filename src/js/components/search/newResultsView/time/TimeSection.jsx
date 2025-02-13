@@ -7,7 +7,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from "../../../../helpers/analytics/Analytics";
 import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
@@ -15,18 +15,22 @@ import TimeDsm from "./TimeDsm";
 
 const propTypes = {
     timeHasLoaded: PropTypes.bool,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    hash: PropTypes.string
 };
 
-const TimeSection = ({ timeHasLoaded, subaward }) => {
+const TimeSection = ({ timeHasLoaded, subaward, hash }) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('month');
 
     const onClick = (e) => {
         setVisualizationPeriod(e);
         Analytics.event({
             category: 'Section Time',
-            action: `View ${e}`
+            action: `View ${e}`,
+            label: hash
         });
+        console.log(hash);
+        console.log(e);
     };
 
     const wrapperProps = {
@@ -61,7 +65,8 @@ const TimeSection = ({ timeHasLoaded, subaward }) => {
                 <TimeVisualizationSectionContainer
                     wrapperProps={wrapperProps}
                     subaward={subaward}
-                    visualizationPeriod={visualizationPeriod} />
+                    visualizationPeriod={visualizationPeriod}
+                    hash={hash} />
                 :
                 <PlaceholderComponent className="time" />
             }

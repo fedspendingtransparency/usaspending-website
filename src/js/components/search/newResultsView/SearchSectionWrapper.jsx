@@ -35,7 +35,8 @@ const propTypes = {
     setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     children: PropTypes.element,
     table: PropTypes.bool,
-    sectionName: PropTypes.string
+    sectionName: PropTypes.string,
+    hash: PropTypes.string
 };
 
 const SearchSectionWrapper = ({
