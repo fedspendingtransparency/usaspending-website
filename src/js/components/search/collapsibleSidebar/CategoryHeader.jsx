@@ -6,7 +6,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ShownValue from "../filters/otherFilters/ShownValue";
 
 const propTypes = {
     iconName: PropTypes.string,

@@ -103,8 +103,8 @@
         border: none;
         line-height: 1.5;
         color: $gray-90;
-        padding: rem(3) $global-padding;
-        white-space:nowrap;
+        padding: rem(3) rem(4) rem(3) $global-padding;
+        white-space: nowrap;
         min-width: max-content;
 
         &:hover {
@@ -113,12 +113,23 @@
         }
 
         .shown-filter-button__shown-filter-button-icon {
-          margin-left: $global-margin;
+          margin-left: rem(4);
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+
+          // can be removed once time period chips updated to use ShownValue.jsx
+          text-align: center;
+
+          &:hover {
+            background-color: $gray-cool-30;
+          }
 
           svg {
             height: rem(12);
             width: rem(12);
             color: $gray-90;
+            margin: auto;
           }
         }
       }
