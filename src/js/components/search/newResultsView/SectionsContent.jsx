@@ -31,6 +31,8 @@ const SectionsContent = (props) => {
     };
 
     const logVisualizationViewEvent = (activeLabel) => {
+        console.log(props.hash);
+
         window.setTimeout(() => {
             Analytics.event({
                 event: 'search_visualization_type',
@@ -40,7 +42,6 @@ const SectionsContent = (props) => {
                 label: props.hash
             });
         }, 15 * 1000);
-        console.log(props.hash);
     };
 
     const callbackFunction = (entries) => {
@@ -89,7 +90,7 @@ const SectionsContent = (props) => {
             return () => observer.disconnect();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [observerSupported]);
+    }, [observerSupported, props.hash]);
 
     return (
         <>

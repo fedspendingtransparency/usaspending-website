@@ -65,6 +65,7 @@ const SearchPage = React.memo(({
 
     const dispatch = useDispatch();
     const getSlugWithHash = () => {
+        console.log(hash);
         if (hash) {
             return `${slug}?hash=${hash}`;
         }

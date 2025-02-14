@@ -25,6 +25,7 @@ const propTypes = {
 };
 
 const ResultsView = React.memo((props) => {
+    console.log(props.hash);
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
     const [tabData, setTabData] = useState();
@@ -124,7 +125,7 @@ const ResultsView = React.memo((props) => {
 
         setResultContent(content);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.noFiltersApplied, hasResults, subaward, inFlight, error]);
+    }, [props.noFiltersApplied, hasResults, subaward, inFlight, error, props.hash]);
 
     return (
         <div className="search-results-wrapper">
