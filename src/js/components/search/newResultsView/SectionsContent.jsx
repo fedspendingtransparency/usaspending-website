@@ -31,8 +31,6 @@ const SectionsContent = (props) => {
     };
 
     const logVisualizationViewEvent = (activeLabel) => {
-        console.log(props.hash);
-
         window.setTimeout(() => {
             Analytics.event({
                 event: 'search_visualization_type',

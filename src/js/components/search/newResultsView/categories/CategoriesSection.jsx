@@ -21,14 +21,12 @@ const propTypes = {
 };
 const CategoriesSection = (props) => {
     const onClick = (e) => {
-        console.log(e);
         props.setSelectedDropdown(e);
         Analytics.event({
             category: 'Section Categories',
             action: `View ${e}`,
             label: props.hash
         });
-        console.log(props.hash);
     };
 
     const wrapperProps = {

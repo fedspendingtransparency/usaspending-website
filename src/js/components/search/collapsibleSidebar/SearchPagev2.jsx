@@ -60,7 +60,6 @@ const SearchPage = ({
     const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const getSlugWithHash = () => {
-        console.log(hash);
         if (hash) {
             return `${slug}?hash=${hash}`;
         }

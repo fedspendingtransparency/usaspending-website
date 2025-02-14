@@ -15,7 +15,6 @@ const propTypes = {
 };
 
 const TableSection = ({ subaward, tabData, hash }) => {
-    console.log(hash);
     const wrapperProps = {
         sectionTitle: subaward ? 'Subaward Results' : 'Prime Award Results',
         dsmContent: <TableDsm subaward={subaward} />,

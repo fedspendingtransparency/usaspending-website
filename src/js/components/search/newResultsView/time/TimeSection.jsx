@@ -29,8 +29,6 @@ const TimeSection = ({ timeHasLoaded, subaward, hash }) => {
             action: `View ${e}`,
             label: hash
         });
-        console.log(hash);
-        console.log(e);
     };
 
     const wrapperProps = {
