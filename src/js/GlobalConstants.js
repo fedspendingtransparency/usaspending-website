@@ -28,7 +28,8 @@ const globalConstants = {
         isActive: false,
         title: 'Recipient Filter',
         content: 'There is currently a bug affecting the Recipient Filter feature of our service. We appreciate your understanding and patience as we work to fix this issue. Please contact our service desk for additional assistance.',
-        page: 'search'
+        page: 'search',
+        type: "warning" // three options "general", "warning", "warning-resolved"
     }
 };
 
