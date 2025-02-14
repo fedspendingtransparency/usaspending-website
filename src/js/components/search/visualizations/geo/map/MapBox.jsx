@@ -24,7 +24,7 @@ const propTypes = {
 const delta = 100;
 
 // define map sources
-const mapStyle = 'mapbox://styles/usaspending/cj18cwjh300302slllhddyynm';
+const mapStyle = 'mapbox://styles/usaspending/cm7503eul00fs01qugub70w9t';
 
 const MapBox = forwardRef((props, ref) => {
     let componentUnmounted = false;
