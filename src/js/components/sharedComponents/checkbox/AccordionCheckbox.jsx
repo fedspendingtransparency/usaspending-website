@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from "lodash";
 import AccordionCheckboxPrimary from "./AccordionCheckboxPrimary";
 import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
 
@@ -41,10 +40,6 @@ const AccordionCheckbox = ({
         expandCheckboxCategoryAccordions(filterCategoryMapping, selectedFilters)
     );
 
-    const selectedItemHeight = document.querySelector('.selected-category-item')?.offsetHeight;
-    // subtracting to account for input box/margin/title header
-    const [innerDivHeight, setInnerDivHeight] = useState(selectedItemHeight - 66);
-
     const toggleExpanded = (category) => {
         const containsId = expandedCategories?.indexOf(category.id);
         if (containsId <= -1) {
@@ -71,26 +66,6 @@ const AccordionCheckbox = ({
         setExpandedCategories([]);
         setSearchString('');
     };
-
-    useEffect(() => {
-        const handleScroll = throttle(() => {
-            const innerWrapper = document.querySelector('.checkbox-categories-wrapper');
-            const submitButton = document.querySelector('.sidebar-submit');
-            const innerHeight = innerWrapper?.offsetHeight;
-            const submitButtonRect = submitButton?.getBoundingClientRect();
-            // subtracting to account for submit button container, about this filter container
-            if (innerWrapper.getBoundingClientRect().bottom > (submitButtonRect.top - 51)) {
-                setInnerDivHeight(innerHeight - 52 - 100);
-            } else {
-                // set to original
-                setInnerDivHeight(selectedItemHeight);
-            }
-        }, 200);
-        window.addEventListener('scroll', handleScroll);
-
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [innerDivHeight]);
-
 
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
@@ -153,8 +128,7 @@ const AccordionCheckbox = ({
             {noResults ?
                 <div className="no-results">No results found.</div>
                 :
-                <div className="checkbox-categories-wrapper" style={{ height: "400px" }}>
-                    {/* style={{ height: innerDivHeight }} */}
+                <div className="checkbox-categories-wrapper">
                     {checkboxCategories}
                 </div>
             }

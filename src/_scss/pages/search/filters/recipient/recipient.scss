@@ -30,6 +30,7 @@
         margin-top: $global-margin * 2.5;
         padding: 0 0 $global-padding * 3 0;
         overflow-y: scroll;
+        height: rem(400);
         list-style: none;
 
         .find-recipients-text {
