@@ -112,6 +112,10 @@
       }
     }
 
+    @import "_newNaicsStyles";
+    @import "_newPscStyles";
+    @import "_newTasStyles";
+
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
       font-size: 16px;
