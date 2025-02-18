@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from "lodash";
 import ListCheckboxPrimary from "./ListCheckboxPrimary";
 import SubmitHint from "../filterSidebar/SubmitHint";
 import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
@@ -23,9 +22,6 @@ const ListCheckbox = ({
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
     const [noResults, setNoResults] = useState(false);
-    const selectedItemHeight = document.querySelector('.selected-category-item')?.offsetHeight;
-    // subtracting to account for input box/margin/title header
-    const [innerDivHeight, setInnerDivHeight] = useState(selectedItemHeight - 53 - 52);
 
     const handleTextInputChange = (e) => {
         setSearchString(e.target.value);
@@ -58,24 +54,6 @@ const ListCheckbox = ({
 
         setFilterCategory(filteredCategories);
     };
-
-    useEffect(() => {
-        const handleScroll = throttle(() => {
-            const innerWrapper = document.querySelector('.filter-item-wrap');
-            const submitButton = document.querySelector('.sidebar-submit');
-            const innerHeight = innerWrapper?.offsetHeight;
-            const submitButtonRect = submitButton?.getBoundingClientRect();
-            // subtracting to account for submit container
-            if (innerWrapper.getBoundingClientRect().bottom > (submitButtonRect.top - 51)) {
-                setInnerDivHeight(innerHeight - 52);
-            } else {
-                setInnerDivHeight(selectedItemHeight);
-            }
-        }, 150);
-        window.addEventListener('scroll', handleScroll);
-
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [innerDivHeight]);
 
     const checkboxCategories = filterCategory.map((category) => (
         <div className="checkbox-filter__wrapper" key={category.id}>
@@ -119,8 +97,7 @@ const ListCheckbox = ({
             {noResults ?
                 <div className="no-results">No results found.</div>
                 :
-                <div className="filter-item-wrap" style={{ height: "400px" }}>
-                    {/* style={{ height: innerDivHeight }} */}
+                <div className="filter-item-wrap">
                     {checkboxCategories}
                     <SubmitHint selectedFilters={selectedFilters} />
                 </div>

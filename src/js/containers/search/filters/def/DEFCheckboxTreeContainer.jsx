@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from 'react-redux';
 import { bulkCovidDefCodeChange, toggleCovidDefCode, bulkInfraDefCodeChange, toggleInfraDefCode } from 'redux/actions/search/searchFilterActions';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
@@ -92,8 +93,16 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         }
     };
 
+    const loadingIndicator = (
+        <div className="defc-filter-message-container">
+            <FontAwesomeIcon icon="spinner" spin />
+            <div className="defc-filter-message-container__text">Loading your data...</div>
+        </div>
+    );
+
     return (
         <div className="def-code-filter">
+            {isLoading && loadingIndicator }
             {defCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
                 filterCategoryMapping={defcDataByType(defCodes)}
                 filters={titlesByCode(defCodes)}
