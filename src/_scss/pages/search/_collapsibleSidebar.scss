@@ -13,6 +13,13 @@
   }
 }
 
+&.v2 {
+  .site-header, .usda-page-header:not(.usda-page-header--sticky) {
+    position: relative;
+    z-index: 1;
+  }
+}
+
 .search-collapsible-sidebar-container {
   @import './filters/otherFilters/defCheckboxV2';
   box-shadow: unset;
