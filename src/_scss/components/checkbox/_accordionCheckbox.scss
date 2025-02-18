@@ -6,7 +6,7 @@
     position: relative;
 
     input {
-      min-width: 100%;
+      width: 100%;
       height: rem(32);
       margin: 0;
       padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit ($global-spacing-unit * 4);
