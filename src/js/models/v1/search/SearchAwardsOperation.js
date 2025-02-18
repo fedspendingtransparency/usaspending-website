@@ -67,6 +67,18 @@ class SearchAwardsOperation {
         this.dateType = state.filterNewAwardsOnlySelected;
 
         this.awardType = state.awardType?.toArray();
+        if (state.contractAwardType) {
+            const contractTypes = state.contractAwardType?.toArray();
+            contractTypes.forEach((type) => {
+                this.awardType.push(type);
+            });
+        }
+        if (state.financialAssistanceAwardType) {
+            const financialAssistance = state.financialAssistanceAwardType?.toArray();
+            financialAssistance.forEach((type) => {
+                this.awardType.push(type);
+            });
+        }
         this.contractAwardType = state.contractAwardType?.toArray();
         this.financialAssistanceAwardType = state.financialAssistanceAwardType?.toArray();
 
@@ -187,16 +199,6 @@ class SearchAwardsOperation {
         // Add award types
         if (this.awardType?.length > 0) {
             filters[rootKeys.awardType] = this.awardType;
-        }
-
-        // Add award types
-        if (this.contractAwardType?.length > 0) {
-            filters[rootKeys.contractAwardType] = this.contractAwardType;
-        }
-
-        // Add award types
-        if (this.financialAssistanceAwardType?.length > 0) {
-            filters[rootKeys.financialAssistanceAwardType] = this.financialAssistanceAwardType;
         }
 
         // Add Agencies
