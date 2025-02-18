@@ -15,7 +15,8 @@ const propTypes = {
     dataSeries: PropTypes.array,
     labelSeries: PropTypes.array,
     descriptions: PropTypes.array,
-    linkSeries: PropTypes.array
+    linkSeries: PropTypes.array,
+    hash: PropTypes.string
 };
 
 const tickFormatter = (value, isMobile) => {
@@ -49,7 +50,8 @@ const SpendingByCategoriesChart = (props) => {
     const onClickHandler = (linkName) => {
         Analytics.event({
             category: `Section categories: ${props.scope}`,
-            action: `Clicked ${linkName}`
+            action: `Clicked ${linkName}`,
+            label: props.hash
         });
     };
 

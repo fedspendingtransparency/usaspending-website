@@ -64,7 +64,6 @@ const SearchPage = React.memo(({
     const [fullSidebar, setFullSidebar] = useState(false);
 
     const dispatch = useDispatch();
-
     const getSlugWithHash = () => {
         if (hash) {
             return `${slug}?hash=${hash}`;
@@ -143,7 +142,7 @@ const SearchPage = React.memo(({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    ;
+
     return (
         <PageWrapper
             pageName="Advanced Search"
@@ -236,7 +235,8 @@ const SearchPage = React.memo(({
                             updateFilterCount={updateFilterCount}
                             toggleMobileFilters={toggleMobileFilters}
                             requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} />
+                            noFiltersApplied={noFiltersApplied}
+                            hash={hash} />
                     </FlexGridCol>
                 </FlexGridRow>
                 <FullDownloadModalContainer
