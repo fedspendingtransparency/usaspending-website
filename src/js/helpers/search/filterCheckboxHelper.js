@@ -361,7 +361,8 @@ export const generateCount = (data) => {
 export const characteristicsCount = ({
     selectedAwardIDs,
     awardAmounts,
-    awardType,
+    contractAwardType,
+    financialAssistanceAwardType,
     naicsCodes,
     pscCodes,
     pricingType,
@@ -371,7 +372,8 @@ export const characteristicsCount = ({
     awardDescription
 }) => selectedAwardIDs.size +
     awardAmounts.size +
-    awardType.size +
+    contractAwardType.size +
+    financialAssistanceAwardType.size +
     generateCount(naicsCodes) +
     generateCount(pscCodes) +
     pricingType.size +
