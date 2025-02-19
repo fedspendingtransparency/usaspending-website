@@ -28,6 +28,7 @@ const CategoryHeader = ({
     title,
     description,
     itemCount,
+    selectedItems,
     selectCategory,
     isClickable,
     titleOnly
@@ -54,12 +55,9 @@ const CategoryHeader = ({
             {description &&
                 <div className={`search-filter__description ${isClickable ? '' : 'search-filter__description__bottom-margin'}`}>{description}</div>
             }
-            {/* <div*/}
-            {/*    className="search-filter__bottom-section">*/}
-            {/*    {selectedItems.map((selectedItem) => (*/}
-            {/*        <div>{selectedItem}</div>*/}
-            {/*    ))}*/}
-            {/* </div>*/}
+            <div className="selected-filters">
+                { isClickable && itemCount > 0 && selectedItems }
+            </div>
         </div>
     );
 
@@ -77,7 +75,6 @@ const CategoryHeader = ({
             tabIndex={0}
             role="button">
             { innerContent }
-
         </div>);
 
     useEffect(() => {
