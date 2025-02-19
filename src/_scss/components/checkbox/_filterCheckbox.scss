@@ -3,11 +3,7 @@
 
 .filter-item-wrap {
   padding: rem(20) rem(32);
-  // added for scrollbars
-  .checkbox-categories-wrapper {
-    height: 400px;
-    overflow-y: auto;
-  }
+
   .checkbox-filter__wrapper {
     .checkbox-filter__header {
       font-size: $font-size-12;

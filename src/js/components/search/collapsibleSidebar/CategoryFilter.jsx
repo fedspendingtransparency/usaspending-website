@@ -19,7 +19,6 @@ const propTypes = {
     titleOnly: PropTypes.bool
 };
 
-const nonExemptions = new Set(['Contract Award Type', 'North American Industry Classification System (NAICS)', 'Product and Service Code (PSC)', 'Treasury Account Symbol (TAS)', 'Extent Competed', 'Recipient', 'Type of Contract Pricing', 'Type of Set Aside', 'COVID-19 Spending', 'Infrastructure Spending']);
 const CategoryFilter = ({
     iconBackgroundColor, iconName, iconColor, component, title, description, height, itemCount, titleOnly = false
 }) => (
@@ -33,7 +32,7 @@ const CategoryFilter = ({
             itemCount={itemCount}
             titleOnly={titleOnly} />
         {/* TODO Remove negative margin after releasing the collapsible sidebar */}
-        <div className={`category-filter ${!nonExemptions.has(title) ? 'exempt' : ''}`}>
+        <div className="category-filter">
             <div>{component}</div>
         </div>
     </div>

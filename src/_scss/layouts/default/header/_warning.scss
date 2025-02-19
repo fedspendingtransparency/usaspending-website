@@ -79,6 +79,23 @@
             padding: rem(5) 0;
             color: $gray-cool-90;
         }
+
+    }
+
+    &.general {
+        border-top: 4px solid $blue-cool-30v;
+        background-color: $blue-cool-5v;
+        border-bottom: 1px solid $blue-cool-20v;
+    }
+    &.warning {
+        border-top: 4px solid $orange-30v;
+        background-color: $orange-5v;
+        border-bottom: 1px solid $orange-20v;
+    }
+    &.warning-resolved {
+        border-top: 4px solid $green-cool-30v;
+        background-color: $green-cool-5v;
+        border-bottom: 1px solid $green-cool-20v;
     }
 
     &.info-banner_warning {
