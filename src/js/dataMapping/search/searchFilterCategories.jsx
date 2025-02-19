@@ -70,13 +70,17 @@ export const FilterCategoryTree = {
         title: 'Location',
         component: <LocationSectionContainer />,
         dsmComponent: true,
-        dsmFile: "dummy_data.md"
+        dsmFile: "location-filter-panel.mdx"
     },
     timePeriod: {
         title: 'Time Period',
-        component: <TimePeriodContainer />
+        component: <TimePeriodContainer />,
+        dsmComponent: true,
+        dsmFile: "time-filter-panel.mdx"
     },
     characteristics: {
+        dsmComponent: true,
+        dsmFile: "characteristics-panel.mdx",
         children: [
             {
                 categoryType: 'ALL',
@@ -84,7 +88,9 @@ export const FilterCategoryTree = {
                     {
                         title: 'Award Description',
                         component: <AwardDescriptionFilterContainer />,
-                        titleOnly: true
+                        titleOnly: true,
+                        dsmComponent: true,
+                        dsmFile: "dummy_data.md"
                     },
                     {
                         title: 'Award ID',
@@ -167,6 +173,8 @@ export const FilterCategoryTree = {
 
     },
     recipients: {
+        dsmComponent: true,
+        dsmFile: "recipients-panel.mdx",
         children: [
             {
                 title: 'Recipient',
@@ -181,6 +189,8 @@ export const FilterCategoryTree = {
         ]
     },
     sources: {
+        dsmComponent: true,
+        dsmFile: "sources-panel.mdx",
         children: [
             {
                 categoryType: 'doNotDisplay',
