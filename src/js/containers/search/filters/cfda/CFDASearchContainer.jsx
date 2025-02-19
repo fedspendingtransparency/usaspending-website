@@ -33,7 +33,6 @@ const CFDASearchContainer = ({
     };
 
     const removeCFDA = (cfda) => {
-        console.log('cfda:', cfda);
         const updateParams = {};
         updateParams.cfda = cfda;
         updateSelectedCFDA(updateParams);
