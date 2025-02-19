@@ -26,6 +26,7 @@ const defaultProps = {
 
 const Suggestion = (props) => {
     const suggestion = useRef();
+    console.debug("suggestion props: ", props);
 
     useEffect(() => {
         if (suggestion.current) {

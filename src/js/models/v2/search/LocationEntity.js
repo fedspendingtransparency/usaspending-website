@@ -4,6 +4,7 @@
  */
 
 export const formatTitle = (category, item) => {
+    console.debug("category, item: ", category, item);
     if (category === "country") {
         return item.country_name;
     }
@@ -31,6 +32,7 @@ export const formatTitle = (category, item) => {
 
 const LocationEntity = {
     populate(item) {
+        console.debug("item in populate: ", item);
         this.category = item.category || '--';
         this.title = formatTitle(this.category, item);
         this.data = {

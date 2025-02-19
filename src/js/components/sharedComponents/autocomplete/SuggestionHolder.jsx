@@ -26,7 +26,7 @@ const SuggestionHolder = ({
     matchingString
 }) => {
     const suggestionsArray = [];
-
+    console.debug("suggestionholder: ", suggestions);
     // Ensure we're only showing maxSuggestions results at most
     for (let i = 0; i < Math.min(suggestions.length,
         maxSuggestions); i++) {

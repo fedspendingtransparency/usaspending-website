@@ -25,6 +25,7 @@ const propTypes = {
 };
 
 const LocationAutocomplete = (props) => {
+    console.debug("props in location autocomplete: ", props);
     const [activeTab, setActiveTab] = useState(props.activeTab);
 
     useEffect(() => {

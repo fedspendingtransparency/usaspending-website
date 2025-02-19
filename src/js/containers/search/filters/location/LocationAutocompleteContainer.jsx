@@ -159,7 +159,7 @@ const LocationAutocompleteContainer = (props) => {
                 standalone: country
             },
             filter: {
-                country: countryAbbreviation
+                country: countryAbbreviation || country
             }
         };
 
@@ -196,13 +196,13 @@ const LocationAutocompleteContainer = (props) => {
     const addLocation = () => {
         const item = selectedItem;
         let location = {};
-        const countryAbbreviation = item.data.country_name === 'UNITED STATES' ? 'USA' : countriesList?.find((country) => country.name === item.data.country_name)?.code;
-
+        let countryAbbreviation = item.data.country_name === 'UNITED STATES' ? 'USA' : countriesList?.find((country) => country.name === item.data.country_name)?.code;
         if (item.category === "zip_code") {
             location = addZip(item.data.zip_code);
         }
         else if (item.category === "city") {
-            location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation);
+            location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation = 'USA'
+            );
         }
         else if (item.category === "county") {
             loadCounties(
@@ -214,7 +214,7 @@ const LocationAutocompleteContainer = (props) => {
             );
         }
         else if (item.category === "state") {
-            location = addState(item.data.state_name, countryAbbreviation);
+            location = addState(item.data.state_name, countryAbbreviation = 'USA');
         }
         else if (item.category === "country") {
             location = addCountry(item.data.country_name, countryAbbreviation);
@@ -231,27 +231,6 @@ const LocationAutocompleteContainer = (props) => {
         }
 
         clearAutocompleteSuggestions();
-    };
-
-    const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
-
-    const citySort = (cityArray) => {
-        /* eslint-disable camelcase */
-        const newCityArray = cityArray.map((city) => {
-            if (city.country_name === 'UNITED STATES') {
-                return {
-                    ...city,
-                    city_name_update: `${city.city_name}, ${city.state_name}`
-                };
-            }
-
-            return {
-                ...city,
-                city_name_update: `${city.city_name}, ${city.country_name}`
-            };
-        });
-        /* eslint-enable camelcase */
-        return locationSort(newCityArray, 'city_name_update');
     };
 
     const parseLocations = ({
@@ -275,11 +254,11 @@ const LocationAutocompleteContainer = (props) => {
         }
 
         if (countries) {
-            locationSort(countries, 'country_name');
+            countries.sort();
             countries.map((item) => {
                 const locationItem = Object.create(LocationEntity);
                 locationItem.populate({
-                    ...item,
+                    country_name: item,
                     category: 'country'
                 });
                 return locationsList.push(locationItem);
@@ -287,11 +266,11 @@ const LocationAutocompleteContainer = (props) => {
         }
 
         if (states) {
-            locationSort(states, 'state_name');
+            states.sort();
             states.map((item) => {
                 const locationItem = Object.create(LocationEntity);
                 locationItem.populate({
-                    ...item,
+                    state_name: item,
                     category: 'state'
                 });
                 return locationsList.push(locationItem);
@@ -299,61 +278,82 @@ const LocationAutocompleteContainer = (props) => {
         }
 
         if (counties) {
-            locationSort(counties, 'county_name');
+            counties.sort();
             counties.map((item) => {
+                const countyState = item.split(",");
                 const locationItem = Object.create(LocationEntity);
-                locationItem.populate({
-                    ...item,
-                    category: 'county'
-                });
+                if (countyState.length === 2) {
+                    locationItem.populate({
+                        county_name: countyState[0].trim(),
+                        state_name: countyState[1].trim(),
+                        category: 'county'
+                    });
+                }
                 return locationsList.push(locationItem);
             });
         }
 
         if (cities) {
-            const sortedCities = citySort(cities);
-            sortedCities.map((item) => {
+            cities.sort();
+            cities.map((item) => {
+                const cityState = item.split(",");
                 const locationItem = Object.create(LocationEntity);
-                locationItem.populate({
-                    ...item,
-                    category: 'city'
-                });
+                if (cityState.length === 2) {
+                    locationItem.populate({
+                        city_name: cityState[0].trim(),
+                        state_name: cityState[1].trim(),
+                        category: 'city'
+                    });
+                }
                 return locationsList.push(locationItem);
             });
         }
 
         if (zipCodes) {
-            locationSort(zipCodes, 'zip_code');
+            zipCodes.sort();
             zipCodes.map((item) => {
+                const zipState = item.split(",");
                 const locationItem = Object.create(LocationEntity);
-                locationItem.populate({
-                    ...item,
-                    category: 'zip_code'
-                });
+                if (zipState.length === 2) {
+                    locationItem.populate({
+                        zip_code: zipState[0].trim(),
+                        state_name: zipState[1].trim(),
+                        category: 'zip_code'
+                    });
+                }
                 return locationsList.push(locationItem);
             });
         }
 
         if (districtsCurrent) {
-            locationSort(districtsCurrent, 'current_cd');
+            districtsCurrent.sort();
             districtsCurrent.map((item) => {
+                const districtState = item.split(",");
                 const locationItem = Object.create(LocationEntity);
-                locationItem.populate({
-                    ...item,
-                    category: 'current_cd'
-                });
+                if (districtState.length === 2) {
+                    locationItem.populate({
+                        current_cd: districtState[0].trim(),
+                        state_name: districtState[1].trim(),
+                        category: 'current_cd'
+                    });
+                }
+
                 return locationsList.push(locationItem);
             });
         }
 
         if (districtsOriginal) {
-            locationSort(districtsOriginal, 'original_cd');
+            districtsOriginal.sort();
             districtsOriginal.map((item) => {
+                const districtState = item.split(",");
                 const locationItem = Object.create(LocationEntity);
-                locationItem.populate({
-                    ...item,
-                    category: 'original_cd'
-                });
+                if (districtState.length === 2) {
+                    locationItem.populate({
+                        original_cd: districtState[0].trim(),
+                        state_name: districtState[1].trim(),
+                        category: 'original_cd'
+                    });
+                }
                 return locationsList.push(locationItem);
             });
         }
