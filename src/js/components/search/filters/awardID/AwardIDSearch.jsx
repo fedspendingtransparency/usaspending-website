@@ -58,17 +58,19 @@ const AwardIDSearch = (props) => {
                     Search for an individual ID or a comma-separated list of multiple IDs
                 </div>
                 <form
-                    className="award-id-filter-item-wrap"
+                    className="award-id-filter__form"
                     onSubmit={applyAwardID}>
-                    <input
-                        id="search"
-                        type="text"
-                        className="filter-text-field"
-                        placeholder="Search for an ID..."
-                        value={awardID}
-                        onChange={inputChangeHandler} />
+                    <div className="award-id-filter__text-field-wrapper">
+                        <input
+                            id="search"
+                            type="text"
+                            className="award-id-filter__text-field"
+                            placeholder="Search for an ID..."
+                            value={awardID}
+                            onChange={inputChangeHandler} />
+                    </div>
                     <Button
-                        additionalClassnames="filter-add-button"
+                        additionalClassnames="award-id-filter__add-button"
                         copy="Add"
                         buttonTitle="Filter by award ID"
                         buttonSize="sm"
