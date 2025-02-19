@@ -34,7 +34,8 @@ const propTypes = {
     subaward: PropTypes.bool,
     subAwardIdClicked: PropTypes.func,
     wrapperProps: PropTypes.object,
-    tabData: PropTypes.object
+    tabData: PropTypes.object,
+    hash: PropTypes.string
 };
 export const tableTypes = [
     {
@@ -450,9 +451,11 @@ const ResultsTableContainer = (props) => {
         loadColumns();
         if (SearchHelper.isSearchHashReady(location) && props?.tabData?.results?.length > 0) {
             parseTabCounts(props.tabData);
-        } else if (SearchHelper.isSearchHashReady(location)) {
+        }
+        else if (SearchHelper.isSearchHashReady(location)) {
             pickDefaultTab();
-        } else {
+        }
+        else {
             pickDefaultTab();
         }
     };
@@ -477,10 +480,12 @@ const ResultsTableContainer = (props) => {
             if (props.subaward && !props.noApplied) {
                 // subaward toggle changed, update the search object
                 pickDefaultTab();
-            } else if (SearchHelper.isSearchHashReady(location) && location.search) {
+            }
+            else if (SearchHelper.isSearchHashReady(location) && location.search) {
                 // hash is (a) defined and (b) new
                 pickDefaultTab();
-            } else if (!props.subaward) {
+            }
+            else if (!props.subaward) {
                 pickDefaultTab();
             }
         }
@@ -512,6 +517,7 @@ const ResultsTableContainer = (props) => {
             isError={error}
             isLoading={inFlight}
             noData={!inFlight && !error && results.length === 0}
+            hash={props.hash}
             {...props.wrapperProps}>
             <ResultsTableSection
                 error={error}

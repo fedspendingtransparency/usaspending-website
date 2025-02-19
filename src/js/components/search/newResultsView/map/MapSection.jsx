@@ -6,24 +6,26 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from "../../../../helpers/analytics/Analytics";
 import MapSectionWrapper from "../../../../containers/search/newResultsView/MapSectionWrapper";
 import MapDsm from "./MapDsm";
 import PlaceholderComponent from "../PlaceholderComponent";
 
 const propTypes = {
     subaward: PropTypes.bool,
-    mapHasLoaded: PropTypes.bool
+    mapHasLoaded: PropTypes.bool,
+    hash: PropTypes.string
 };
 
-const MapSection = ({ subaward, mapHasLoaded }) => {
+const MapSection = ({ subaward, mapHasLoaded, hash }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('place_of_performance');
 
     const onClick = (e) => {
         setSelectedDropdown(e);
         Analytics.event({
             category: 'Section Map',
-            action: `View ${e}`
+            action: `View ${e}`,
+            label: hash
         });
     };
 
@@ -54,7 +56,8 @@ const MapSection = ({ subaward, mapHasLoaded }) => {
                     subaward={subaward}
                     scope={selectedDropdown}
                     setScope={setSelectedDropdown}
-                    wrapperProps={wrapperProps} />
+                    wrapperProps={wrapperProps}
+                    hash={hash} />
                 :
                 <PlaceholderComponent classname="map" />
             }

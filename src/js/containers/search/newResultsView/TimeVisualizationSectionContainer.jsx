@@ -30,7 +30,8 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    visualizationPeriod: PropTypes.string
+    visualizationPeriod: PropTypes.string,
+    hash: PropTypes.string
 };
 
 const TimeVisualizationSectionContainer = (props) => {
@@ -326,7 +327,8 @@ const TimeVisualizationSectionContainer = (props) => {
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
             downloadComponent={<TimeFileDownload downloadData={downloadData} visualizationPeriod={visualizationPeriod} />}
-            manualSort>
+            manualSort
+            hash={props.hash}>
             <TimeVisualizationChart
                 {...parsedData}
                 visualizationPeriod={visualizationPeriod}

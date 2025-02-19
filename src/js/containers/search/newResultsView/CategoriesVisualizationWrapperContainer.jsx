@@ -39,7 +39,8 @@ const propTypes = {
     agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.bool,
     wrapperProps: PropTypes.object,
-    setSelectedDropdown: PropTypes.func
+    setSelectedDropdown: PropTypes.func,
+    hash: PropTypes.string
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
@@ -404,7 +405,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                     hasPreviousPage={hasPreviousPage}
                     recipientError={recipientError}
                     columns={columns[scope]}
-                    rows={tableRows} />}>
+                    rows={tableRows} />}
+                hash={props.hash}>
                 <CategoriesSectionWrapper
                     {...childProps}
                     changeScope={changeScope}
@@ -420,6 +422,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                         industryCodeError={props.subaward}
                         subaward={props.subaward}
                         isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
+                        hash={props.hash}
                         width="1000px" />
                 </CategoriesSectionWrapper>
             </SearchSectionWrapper>

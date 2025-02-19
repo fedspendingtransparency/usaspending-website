@@ -207,7 +207,8 @@ const SearchPage = ({
                                 showMobileFilters={showMobileFilters}
                                 updateFilterCount={updateFilterCount}
                                 requestsComplete={requestsComplete}
-                                noFiltersApplied={noFiltersApplied} />
+                                noFiltersApplied={noFiltersApplied}
+                                hash={hash} />
                         </div>
                     </div>
                     <FullDownloadModalContainer

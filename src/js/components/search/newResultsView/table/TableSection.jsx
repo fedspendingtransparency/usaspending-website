@@ -10,10 +10,11 @@ import TableDsm from "./TableDsm";
 
 const propTypes = {
     subaward: PropTypes.bool,
-    tabData: PropTypes.object
+    tabData: PropTypes.object,
+    hash: PropTypes.string
 };
 
-const TableSection = ({ subaward, tabData }) => {
+const TableSection = ({ subaward, tabData, hash }) => {
     const wrapperProps = {
         sectionTitle: subaward ? 'Subaward Results' : 'Prime Award Results',
         dsmContent: <TableDsm subaward={subaward} />,
@@ -25,7 +26,8 @@ const TableSection = ({ subaward, tabData }) => {
             <ResultsTableContainer
                 tabData={tabData}
                 wrapperProps={wrapperProps}
-                subaward={subaward} />
+                subaward={subaward}
+                hash={hash} />
         </div>
     );
 };
