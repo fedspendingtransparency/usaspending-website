@@ -30,7 +30,8 @@ const propTypes = {
     className: PropTypes.string,
     scope: PropTypes.string,
     setScope: PropTypes.func,
-    wrapperProps: PropTypes.object
+    wrapperProps: PropTypes.object,
+    hash: PropTypes.string
 };
 
 const apiScopes = {
@@ -634,7 +635,8 @@ const MapSectionWrapper = React.memo((props) => {
             sortDirection={sortDirection}
             activeField={activeField}
             mapViewType={mapViewType}
-            setMapViewType={setMapViewType} >
+            setMapViewType={setMapViewType}
+            hash={props.hash} >
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
