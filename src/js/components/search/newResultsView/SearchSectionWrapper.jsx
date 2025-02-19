@@ -35,7 +35,8 @@ const propTypes = {
     setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     children: PropTypes.element,
     table: PropTypes.bool,
-    sectionName: PropTypes.string
+    sectionName: PropTypes.string,
+    hash: PropTypes.string
 };
 
 const SearchSectionWrapper = ({
@@ -56,7 +57,8 @@ const SearchSectionWrapper = ({
     downloadComponent,
     sectionName,
     mapViewType = false,
-    setMapViewType = false
+    setMapViewType = false,
+    hash
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -142,7 +144,8 @@ const SearchSectionWrapper = ({
         if (gaRef.current) {
             Analytics.event({
                 category: `Section ${sectionName}: ${selectedDropdownOption}`,
-                action: `Viewed ${selectedDropdownOption} ${viewType}`
+                action: `Viewed ${selectedDropdownOption} ${viewType}`,
+                label: hash
             });
         }
         else {

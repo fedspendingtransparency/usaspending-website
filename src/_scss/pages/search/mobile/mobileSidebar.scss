@@ -39,5 +39,6 @@
 }
 
 .mobile-search-sidebar-v2.sidebar-opened {
-    z-index: 1;
+    // put in front of sticky column
+    z-index: 2;
 }
