@@ -105,6 +105,9 @@
     }
 
     .category-filter {
+      .search-option {
+        border-bottom: none;
+      }
       .react-checkbox-tree {
         overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
         max-height: unset !important;
