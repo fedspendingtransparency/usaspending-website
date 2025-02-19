@@ -35,7 +35,7 @@ const SidebarWrapper = React.memo(({
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
     const sidebarStaticEls = 172;
-    const footerMargin = 46;
+    const footerMargin = 0;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
 
@@ -61,7 +61,8 @@ const SidebarWrapper = React.memo(({
     const resizeHeightByFooter = () => {
         const mainContentInView = checkInView(mainContentEl);
         const sidebarContentArea = mainContentInView - sidebarStaticEls;
-        const margins = topStickyBarHeight + footerMargin;
+        const padding = 10;
+        const margins = (topStickyBarHeight + footerMargin) - padding;
 
         if (sidebarContentArea - margins < minContentHeight) {
             hideElements(panelContainerElClasses);
@@ -90,7 +91,7 @@ const SidebarWrapper = React.memo(({
             resizeHeightByHeader();
         }
         else if (isHeaderSticky) {
-            document.querySelector(".search-collapsible-sidebar-container").style.height = '100vh - 60';
+            document.querySelector(".search-collapsible-sidebar-container").style.height = `100vh - ${topStickyBarHeight}`;
         }
 
         if (tmpFooterInView > 0) {
@@ -223,7 +224,7 @@ const SidebarWrapper = React.memo(({
         const isHeaderSticky = isStickyEl !== null;
 
         if (isHeaderSticky && !isFooterVisible) {
-            return 'calc(100vh - 60px)';
+            return `calc(100vh - ${topStickyBarHeight}px)`;
         }
 
         return sidebarHeight;
