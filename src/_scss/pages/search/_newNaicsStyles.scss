@@ -1,19 +1,22 @@
 // integrate these changes with deployment of search v2
 .naics-search-container {
     @import "../../core/variables";
-    padding-left: 32px;
-    padding-right: 32px;
-    padding-top: 0;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+    padding-top: 0 !important;
 
     .autocomplete__input {
-        padding-top: 0;
-        padding-bottom: 20px;
+        padding-top: 0 !important;
+        padding-bottom: 20px !important;
         .geo-entity-dropdown__input {
             border: solid 1px $gray-cool-10;
             border-radius: 3px;
         }
     }
 
+    .checkbox-tree {
+        border-bottom: none !important;
+    }
     li {
         margin-bottom: 12px !important;
     }
