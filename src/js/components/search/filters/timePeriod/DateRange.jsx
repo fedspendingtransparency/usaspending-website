@@ -203,12 +203,14 @@ const DateRange = (props) => {
             timePeriod.forEach((item) => {
                 if (item.start_date === startValue && item.end_date === endValue) {
                     matchFound = true;
+                    setNoDatesDropdown(true);
                 }
             });
 
             timePeriodApplied.forEach((item) => {
                 if (item.start_date === startValue && item.end_date === endValue) {
                     matchFoundApplied = true;
+                    setNoDatesDropdown(true);
                 }
             });
 
@@ -288,13 +290,15 @@ const DateRange = (props) => {
     }, [props?.endDate]);
 
     useEffect(() => {
-        // change how disabled works
+        // date range disabling
         if (!noDatesDR) {
             setDRDisabled(false);
             testDates();
         } else if (noDatesDR) {
             setDRDisabled(true);
         }
+
+        // dropdown disabling
         if (!noDatesDropdown) {
             setDropdownDisabled(false);
         }
@@ -302,7 +306,7 @@ const DateRange = (props) => {
             setDropdownDisabled(true);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.errorState, noDatesDR, noDatesDropdown, props.startDate, props.endDate, props.startDateDropdown, props.endDateDropdown, dropdownOptionSelected]);
+    }, [props.errorState, noDatesDR, noDatesDropdown, props.startDate, props.endDate, props.startDateDropdown, props.endDateDropdown, props.onDateChange, dropdownOptionSelected]);
 
     if (props.timePeriod?.size > 0) {
         for (const timeinput of props.timePeriod) {
