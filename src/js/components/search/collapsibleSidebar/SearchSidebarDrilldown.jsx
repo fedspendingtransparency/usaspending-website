@@ -126,6 +126,7 @@ const SearchSidebarDrilldown = ({
         );
     }
 
+    console.log(currentLevel);
 
     return (
         <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>

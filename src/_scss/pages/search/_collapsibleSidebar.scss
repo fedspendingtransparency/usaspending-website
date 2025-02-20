@@ -282,7 +282,6 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-
         &:hover {
           color: $blue-70v;
         }
@@ -293,6 +292,8 @@
         }
 
         .collapsible-sidebar--dsm-content {
+          overflow-y: auto;
+
           .collapsible-sidebar--dsm-wrapper {
             font-size: $font-size-14;
             color: $gray-60;
@@ -301,6 +302,9 @@
             &--text-header {
               font-weight: $font-semibold;
               color: $gray-90;
+            }
+            p {
+              padding: 4;
             }
           }
         }

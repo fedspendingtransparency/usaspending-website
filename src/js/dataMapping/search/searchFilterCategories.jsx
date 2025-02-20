@@ -90,21 +90,21 @@ export const FilterCategoryTree = {
                         component: <AwardDescriptionFilterContainer />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Award ID',
                         component: <AwardIDSearchContainer />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Spending Amount',
                         component: <AwardAmountSearchContainer />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     }
                 ]
             },
@@ -116,7 +116,7 @@ export const FilterCategoryTree = {
                         component: <AwardTypeContainerV2 isContractAwardType />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'North American Industry Classification System (NAICS)',
@@ -129,7 +129,7 @@ export const FilterCategoryTree = {
                         ),
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Product and Service Code (PSC)',
@@ -142,28 +142,28 @@ export const FilterCategoryTree = {
                         ),
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Type of Contract Pricing',
                         component: <PricingTypeContainer />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Type of Set Aside',
                         component: <SetAsideContainer />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Extent Competed',
                         component: <ExtentCompetedContainer />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     }
                 ]
             },
@@ -175,14 +175,14 @@ export const FilterCategoryTree = {
                         component: <AwardTypeContainerV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Assistance Listing',
                         component: <CFDASearchContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     }
                 ]
             }
@@ -199,14 +199,14 @@ export const FilterCategoryTree = {
                 component: <RecipientSearchContainer />,
                 titleOnly: true,
                 dsmComponent: true,
-                dsmFile: "dummy_data.md"
+                dsmFile: "dummy_data.mdx"
             },
             {
                 title: 'Recipient Type',
                 component: <RecipientTypeContainer />,
                 titleOnly: true,
                 dsmComponent: true,
-                dsmFile: "dummy_data.md"
+                dsmFile: "dummy_data.mdx"
             }
         ]
     },
@@ -220,14 +220,14 @@ export const FilterCategoryTree = {
                         component: <AgencyContainer />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Treasury Account Symbol (TAS)',
                         component: <TASCheckboxTreeContainer showInfo={false} />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     }
                 ]
             },
@@ -239,14 +239,14 @@ export const FilterCategoryTree = {
                         component: <DEFCheckboxTreeContainer defcType="covid_19" />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Infrastructure Spending',
                         component: <DEFCheckboxTreeContainer defcType="infrastructure" />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.md"
+                        dsmFile: "dummy_data.mdx"
                     }
                 ]
             }
