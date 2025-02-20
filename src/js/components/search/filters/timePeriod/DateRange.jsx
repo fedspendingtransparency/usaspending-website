@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 import Analytics from 'helpers/analytics/Analytics';
 import { Button } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -46,6 +47,9 @@ const DateRange = (props) => {
     const [noDatesDR, setNoDatesDR] = useState(false);
     const [noDatesDropdown, setNoDatesDropdown] = useState(false);
     const prevProps = usePrevious(props);
+    const timePeriod = useSelector((state) => state.filters.time_period);
+    const timePeriodApplied = useSelector((state) => state.appliedFilters.filters.time_period);
+
     const labelArray = [];
 
     const onClick = (e) => {
@@ -193,11 +197,28 @@ const DateRange = (props) => {
                 endValue = end.format('YYYY-MM-DD');
             }
 
-            props.updateFilter({
-                dateType: 'dr',
-                startDate: startValue,
-                endDate: endValue
+            let matchFound = false;
+            let matchFoundApplied = false;
+            // eslint-disable-next-line camelcase
+            timePeriod.forEach((item) => {
+                if (item.start_date === startValue && item.end_date === endValue) {
+                    matchFound = true;
+                }
             });
+
+            timePeriodApplied.forEach((item) => {
+                if (item.start_date === startValue && item.end_date === endValue) {
+                    matchFoundApplied = true;
+                }
+            });
+
+            if (!matchFound && !matchFoundApplied) {
+                props.updateFilter({
+                    dateType: 'dr',
+                    startDate: startValue,
+                    endDate: endValue
+                });
+            }
         }
         else {
             // user has cleared the dates, which means we should clear the date range filter
