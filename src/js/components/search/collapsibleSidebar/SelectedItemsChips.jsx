@@ -16,9 +16,12 @@ const propTypes = {
 const SelectedItemsChips = ({
     selectedItems, isClickable, itemCount, title
 }) => {
+    const [firstChipLeft, setFirstChipLeft] = useState(0);
+    const [chipContainerLeft, setChipContainerLeft] = useState(0);
     const [lastChipRight, setLastChipRight] = useState(0);
     const [chipContainerRight, setChipContainerRight] = useState(0);
-    const [rightFade, setRightFade] = useState(false);
+    const [rightFade, setRightFade] = useState(true);
+    const [leftFade, setLeftFade] = useState(false);
     const selectedChips = useRef(null);
 
     const getLastElement = () => {
@@ -32,16 +35,16 @@ const SelectedItemsChips = ({
             `div.selected-filters.${title}`
         )?.lastChild?.getBoundingClientRect();
 
-        console.log('firstChip', firstChip?.left);
-        console.log('chipsContainer left:', chipsContainer?.left);
-        console.log('lastChip', lastChip?.right);
-        console.log('chipsContainer right:', chipsContainer?.right);
-
+        setFirstChipLeft(firstChip?.left);
+        setChipContainerLeft(chipsContainer?.left);
         setLastChipRight(lastChip?.right);
         setChipContainerRight(chipsContainer?.right);
     };
 
     useEffect(() => {
+        // if (!selectedItems) {
+        //     setRightFade(true);
+        // }
         getLastElement();
         selectedChips.current?.addEventListener('scroll', getLastElement);
         return () => selectedChips.current?.removeEventListener('scroll', getLastElement);
@@ -49,16 +52,25 @@ const SelectedItemsChips = ({
     }, [selectedItems]);
 
     useEffect(() => {
-        if (lastChipRight > chipContainerRight) {
-            setRightFade(true);
-        }
-        else {
+        if ((lastChipRight + 7) < chipContainerRight) {
             setRightFade(false);
         }
+        else {
+            setRightFade(true);
+        }
+
+        if (firstChipLeft < chipContainerLeft) {
+            setLeftFade(true);
+        }
+        else {
+            setLeftFade(false);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [lastChipRight, chipContainerRight]);
+    }, [lastChipRight, chipContainerRight, firstChipLeft, chipContainerLeft]);
     return (
-        <div className={`selected-filters ${title} ${rightFade && 'right-fade'}`} ref={selectedChips} >
+        <div
+            className={`selected-filters ${title} ${rightFade && 'right-fade'} ${leftFade && 'left-fade'}`}
+            ref={selectedChips}>
             { isClickable && itemCount > 0 && selectedItems }
         </div>
     );

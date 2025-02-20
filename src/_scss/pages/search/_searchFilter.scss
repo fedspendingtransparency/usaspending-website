@@ -103,6 +103,14 @@
         mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
       }
 
+      &.left-fade {
+        mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 16px);
+      }
+
+      &.right-fade.left-fade {
+        mask-image: linear-gradient(to left, transparent, black 8%, black 92%, transparent 100%);
+      }
+
       .shown-filter-button {
         margin: 0 rem(8) 0 0;
         background-color: $gray-cool-5;
