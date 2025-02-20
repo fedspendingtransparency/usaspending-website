@@ -97,8 +97,14 @@
       background-color: unset;
       flex-flow: nowrap;
       overflow-x: auto;
+      scrollbar-width: none;
+
+      &.right-fade {
+        mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
+      }
 
       .shown-filter-button {
+        margin: 0 rem(8) 0 0;
         background-color: $gray-cool-5;
         border: none;
         line-height: 1.5;
