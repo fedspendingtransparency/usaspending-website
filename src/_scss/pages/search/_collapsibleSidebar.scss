@@ -190,6 +190,15 @@
         padding: 0 32px;
       }
 
+      // DEV - 12074 requested that all search boxes be full width on tablet/mobile  
+      // putting this here is a overarching blanket v2 fix but does not effect original search styles. 
+      .usa-da-typeahead__input,
+      .autocomplete__input {
+        input {
+          min-width: 100% !important;
+        }
+      }
+
       &.opened {
         display: block;
         -webkit-animation: drilldown-slidein 0.2s forwards;
