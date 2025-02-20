@@ -130,7 +130,7 @@ const SearchSidebarFilterChips = ({
                     timePeriodArray.push((
                         <button
                             key={index}
-                            className="shown-filter-button"
+                            className="shown-filter-button time-period-button"
                             title="Click to remove filter."
                             data-index={index}
                             aria-label={`Applied date range: ${timePeriod.start_date} to ${timePeriod.end_date}`}

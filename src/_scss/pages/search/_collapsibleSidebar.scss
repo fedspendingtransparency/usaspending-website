@@ -99,18 +99,34 @@
 
       .categories-list,
       .category-filter {
+        &:not(:has(.time-period)){   // prevent overflow scroll only for time period filter but allow for other types.
+          overflow-y: auto;
+        }
+        &:has(.time-period .filter__dropdown-list-sm.hide) {
+          overflow-y: auto;
+        }
+      }
+      
+      .category-filter.exempt {
         overflow-y: auto;
       }
 
     }
 
     .category-filter {
+      .search-option {
+        border-bottom: none;
+      }
       .react-checkbox-tree {
         overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
         max-height: unset !important;
         height: unset !important;
       }
     }
+
+    @import "_newNaicsStyles";
+    @import "_newPscStyles";
+    @import "_newTasStyles";
 
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
