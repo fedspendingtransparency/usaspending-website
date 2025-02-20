@@ -1,6 +1,6 @@
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 
-About the Filter 
+<div className="collapsible-sidebar--dsm-wrapper--text-header">About the Filter </div>
 Search results can be filtered by <GlossaryLink term="action-date"/>action date (for example, the date of the most recent transaction or the <GlossaryLink term="base-transaction-action-date"/>base transaction action date or the period of performance (the projected date range in which the work occurs)).  
 
 Individual <GlossaryLink term="transaction" />transactions for any single award summary result may not exist within the selected time period. 
@@ -9,10 +9,10 @@ Transaction results in the Time, Map, and Categories tables will fall within the
 
 Search results filtered by action date include all awards within the selected time period, even if there are no new transactions. For example, for the selected time period of Mar. 1-31, 2022, you would see results in the Table tab for an award with a base transaction action date of Jan. 1, 2022 and a latest transaction action date of Dec. 31, 2022, even if there is no transaction activity for that award within the period of Mar. 1-31, 2022.
 
-Show New Awards Only 
+<div className="collapsible-sidebar--dsm-wrapper--text-header">Show New Awards Only </div>
 Selecting the “Show New Awards Only” checkbox will display any <GlossaryLink term="prime-award"/>prime award whose first transaction (base transaction action date) falls within the selected time period. 
 
 The "Show New Awards Only" filter does not apply to <GlossaryLink term="sub-award" /> subawards. Since there is no concept of “sub-award modification” or “sub-award summary level” in the FFATA Subaward Reporting System (FSRS) data model, all subawards are considered “new.” 
 
-Historical Data 
+<div className="collapsible-sidebar--dsm-wrapper--text-header">Historical Data </div>
 Please note that prime award and subaward data on Advanced Search begin in Fiscal Year 2008. Earlier data, starting in Fiscal Year 2001, can be found in the Custom Award Data Download.
