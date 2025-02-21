@@ -99,16 +99,18 @@
       overflow-x: auto;
       scrollbar-width: none;
 
-      &.right-fade {
-        mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
-      }
+      @media (min-width: $medium-screen) {
+        &.right-fade {
+          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 8px);
+        }
 
-      &.left-fade {
-        mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 16px);
-      }
+        &.left-fade {
+          mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 8px);
+        }
 
-      &.right-fade.left-fade {
-        mask-image: linear-gradient(to left, transparent, black 8%, black 92%, transparent 100%);
+        &.right-fade.left-fade {
+          mask-image: linear-gradient(to left, transparent, black 4%, black 96%, transparent 100%);
+        }
       }
 
       .shown-filter-button {

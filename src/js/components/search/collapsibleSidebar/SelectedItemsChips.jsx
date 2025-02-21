@@ -71,7 +71,9 @@ const SelectedItemsChips = ({
 
     return (
         <div
-            className={`selected-filters ${title} ${rightFade && 'right-fade'} ${leftFade && 'left-fade'}`}
+            className={
+                `selected-filters ${title} ${rightFade ? 'right-fade' : ''} ${leftFade ? 'left-fade' : ''}`
+            }
             ref={selectedChips}>
             { isClickable && itemCount > 0 && selectedItems }
         </div>
