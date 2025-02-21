@@ -13,6 +13,14 @@
   }
 }
 
+// .usda-page-header style is a DTUI override that's specific to the search 2.0 page
+&.v2 {
+  .site-header, .usda-page-header:not(.usda-page-header--sticky) {
+    position: relative;
+    z-index: 1;
+  }
+}
+
 .search-collapsible-sidebar-container {
   @import './filters/otherFilters/defCheckboxV2';
   box-shadow: unset;
@@ -28,7 +36,7 @@
 
   &.sticky {
     position: fixed;
-    top: rem(92);
+    top: rem(98);
 
     .sidebar-bottom-submit {
       position: absolute;
@@ -180,6 +188,15 @@
 
       .filter-item-wrap {
         padding: 0 32px;
+      }
+
+      // DEV - 12074 requested that all search boxes be full width on tablet/mobile  
+      // putting this here is a overarching blanket v2 fix but does not effect original search styles. 
+      .usa-da-typeahead__input,
+      .autocomplete__input {
+        input {
+          min-width: 100% !important;
+        }
       }
 
       &.opened {
