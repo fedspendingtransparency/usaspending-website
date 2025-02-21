@@ -144,12 +144,7 @@ const SearchSidebarFilterChips = ({
                 });
 
                 chips.push((
-                    <div
-                        className="selected-filters"
-                        id="selected-date-range"
-                        role="status">
-                        {timePeriodArray}
-                    </div>
+                    <>{timePeriodArray}</>
                 ));
             }
             else if (filtersData.timePeriodType === 'fy' && filtersData.timePeriodFY?.length > 0) {

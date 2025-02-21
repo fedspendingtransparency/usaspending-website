@@ -60,7 +60,7 @@ const CategoryHeader = ({
                 selectedItems={selectedItems}
                 itemCount={itemCount}
                 isClickable={isClickable}
-                title={title} />
+                categoryKey={item?.categoryKey} />
         </div>
     );
 

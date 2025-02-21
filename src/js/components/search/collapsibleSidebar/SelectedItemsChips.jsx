@@ -10,11 +10,11 @@ const propTypes = {
     selectedItems: PropTypes.array,
     isClickable: PropTypes.bool,
     itemCount: PropTypes.number,
-    title: PropTypes.string
+    categoryKey: PropTypes.string
 };
 
 const SelectedItemsChips = ({
-    selectedItems, isClickable, itemCount, title
+    selectedItems, isClickable, itemCount, categoryKey
 }) => {
     const [firstChipLeft, setFirstChipLeft] = useState(0);
     const [chipContainerLeft, setChipContainerLeft] = useState(0);
@@ -26,13 +26,13 @@ const SelectedItemsChips = ({
 
     const getLastElement = () => {
         const chipsContainer = document.querySelector(
-            `div.selected-filters.${title}`
+            `.selected-filters.${categoryKey}`
         )?.getBoundingClientRect();
         const firstChip = document.querySelector(
-            `div.selected-filters.${title}`
+            `.selected-filters.${categoryKey}`
         )?.firstChild?.getBoundingClientRect();
         const lastChip = document.querySelector(
-            `div.selected-filters.${title}`
+            `.selected-filters.${categoryKey}`
         )?.lastChild?.getBoundingClientRect();
 
         setFirstChipLeft(firstChip?.left);
@@ -72,7 +72,7 @@ const SelectedItemsChips = ({
     return (
         <div
             className={
-                `selected-filters ${title} ${rightFade ? 'right-fade' : ''} ${leftFade ? 'left-fade' : ''}`
+                `selected-filters ${categoryKey} ${rightFade ? 'right-fade' : ''} ${leftFade ? 'left-fade' : ''}`
             }
             ref={selectedChips}>
             { isClickable && itemCount > 0 && selectedItems }
