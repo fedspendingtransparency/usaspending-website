@@ -7,6 +7,8 @@ export const rootKeys = {
     keywords: 'keywords',
     timePeriod: 'time_period',
     awardType: 'award_type_codes',
+    contractAwardType: 'contract_award_type_codes',
+    financialAssistanceAwardType: 'financial_assistance_award_type_codes',
     agencies: 'agencies',
     tasSources: 'treasury_account_components',
     tasCheckbox: 'tas_codes',

@@ -13,44 +13,62 @@ import FinancialAssistanceAwardType from "../../../components/search/filters/awa
 
 
 const propTypes = {
-    toggleAwardType: PropTypes.func,
-    bulkAwardTypeChange: PropTypes.func,
-    awardType: PropTypes.object,
+    contractAwardType: PropTypes.object,
+    toggleContractAwardType: PropTypes.func,
+    bulkContractAwardTypeChange: PropTypes.func,
+    financialAssistanceAwardType: PropTypes.object,
+    toggleFinancialAssistanceAwardType: PropTypes.func,
+    bulkFinancialAssistanceAwardTypeChange: PropTypes.func,
     isContractAwardType: PropTypes.bool.isRequired
 };
 
 const AwardTypeContainerV2 = ({
-    toggleAwardType, bulkAwardTypeChange, awardType, isContractAwardType
+    contractAwardType,
+    toggleContractAwardType,
+    bulkContractAwardTypeChange,
+    financialAssistanceAwardType,
+    toggleFinancialAssistanceAwardType,
+    bulkFinancialAssistanceAwardTypeChange,
+    isContractAwardType
 }) => {
-    const toggleAwardTypeFunc = (selection) => {
-        toggleAwardType(selection);
+    const toggleContract = (selection) => {
+        toggleContractAwardType(selection);
     };
 
-    const bulkAwardTypeChangeFunc = (selection) => {
-        bulkAwardTypeChange(selection);
+    const bulkContract = (selection) => {
+        bulkContractAwardTypeChange(selection);
+    };
+
+    const toggleFinancialAssistance = (selection) => {
+        toggleFinancialAssistanceAwardType(selection);
+    };
+
+    const bulkFinancialAssistance = (selection) => {
+        bulkFinancialAssistanceAwardTypeChange(selection);
     };
 
     if (isContractAwardType) {
         return (
             <ContractAwardType
-                awardType={awardType}
-                toggleCheckboxType={toggleAwardTypeFunc}
-                bulkTypeChange={bulkAwardTypeChangeFunc} />
+                awardType={contractAwardType}
+                toggleCheckboxType={toggleContract}
+                bulkTypeChange={bulkContract} />
         );
     }
 
     return (
         <FinancialAssistanceAwardType
-            awardType={awardType}
-            toggleCheckboxType={toggleAwardTypeFunc}
-            bulkTypeChange={bulkAwardTypeChangeFunc} />
+            awardType={financialAssistanceAwardType}
+            toggleCheckboxType={toggleFinancialAssistance}
+            bulkTypeChange={bulkFinancialAssistance} />
     );
 };
 
 AwardTypeContainerV2.propTypes = propTypes;
 export default connect(
     (state) => ({
-        awardType: state.filters.awardType
+        contractAwardType: state.filters.contractAwardType,
+        financialAssistanceAwardType: state.filters.financialAssistanceAwardType
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AwardTypeContainerV2);

@@ -247,21 +247,20 @@ const SearchSidebarFilterChips = ({
             );
         }
 
-        if (filtersData.awardType?.length > 0) {
-            filtersData.awardType.forEach((type) => {
+        if (filtersData.contractAwardType?.length > 0) {
+            filtersData.contractAwardType.forEach((type) => {
                 const removeAwardType = (e) => {
                     e.stopPropagation();
-                    const newValue = filters.awardType.delete(type);
+                    const newValue = filters.contractAwardType.delete(type);
                     props.updateGenericFilter({
-                        type: 'awardType',
+                        type: 'contractAwardType',
                         value: newValue
                     });
                 };
 
-                // TODO: need to add contract/financial assistance type flag for label
                 chips.push(
                     <ShownValue
-                        label={`Award Type: ${awardTypeCodes[type]}`}
+                        label={`Contract Award Type: ${awardTypeCodes[type]}`}
                         removeValue={removeAwardType} />
                 );
             });
@@ -381,6 +380,25 @@ const SearchSidebarFilterChips = ({
                     <ShownValue
                         label={`Extent Competed | ${extentCompetedDefinitions[type]}`}
                         removeValue={removePricingType} />
+                );
+            });
+        }
+
+        if (filtersData.financialAssistanceAwardType?.length > 0) {
+            filtersData.financialAssistanceAwardType.forEach((type) => {
+                const removeAwardType = (e) => {
+                    e.stopPropagation();
+                    const newValue = filters.financialAssistanceAwardType.delete(type);
+                    props.updateGenericFilter({
+                        type: 'financialAssistanceAwardType',
+                        value: newValue
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`Financial Assistance Award Type: ${awardTypeCodes[type]}`}
+                        removeValue={removeAwardType} />
                 );
             });
         }

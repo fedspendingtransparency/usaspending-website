@@ -24,6 +24,8 @@ class SearchAwardsOperation {
         this.dateType = '';
 
         this.awardType = [];
+        this.contractAwardType = [];
+        this.financialAssistanceAwardType = [];
 
         this.awardingAgencies = [];
         this.fundingAgencies = [];
@@ -65,6 +67,20 @@ class SearchAwardsOperation {
         this.dateType = state.filterNewAwardsOnlySelected;
 
         this.awardType = state.awardType?.toArray();
+        if (state.contractAwardType) {
+            const contractTypes = state.contractAwardType?.toArray();
+            contractTypes.forEach((type) => {
+                this.awardType.push(type);
+            });
+        }
+        if (state.financialAssistanceAwardType) {
+            const financialAssistance = state.financialAssistanceAwardType?.toArray();
+            financialAssistance.forEach((type) => {
+                this.awardType.push(type);
+            });
+        }
+        this.contractAwardType = state.contractAwardType?.toArray();
+        this.financialAssistanceAwardType = state.financialAssistanceAwardType?.toArray();
 
         this.awardingAgencies = state.selectedAwardingAgencies?.toArray();
         this.fundingAgencies = state.selectedFundingAgencies?.toArray();
