@@ -42,14 +42,10 @@ const SelectedItemsChips = ({
     };
 
     useEffect(() => {
-        // if (!selectedItems) {
-        //     setRightFade(true);
-        // }
-        getLastElement();
         selectedChips.current?.addEventListener('scroll', getLastElement);
         return () => selectedChips.current?.removeEventListener('scroll', getLastElement);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedItems]);
+    }, []);
 
     useEffect(() => {
         if ((lastChipRight + 7) < chipContainerRight) {
@@ -67,6 +63,12 @@ const SelectedItemsChips = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastChipRight, chipContainerRight, firstChipLeft, chipContainerLeft]);
+
+    useEffect(() => {
+        getLastElement();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [itemCount]);
+
     return (
         <div
             className={`selected-filters ${title} ${rightFade && 'right-fade'} ${leftFade && 'left-fade'}`}
