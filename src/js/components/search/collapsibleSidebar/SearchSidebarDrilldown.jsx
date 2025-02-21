@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CategoriesList from "./CateogriesList";
 import CategoryFilter from "./CategoryFilter";
-import { generateCount } from "../../../helpers/search/filterCheckboxHelper";
+import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 import DsmSlider from "./DsmSlider";
 
 const propTypes = {
@@ -82,7 +82,7 @@ const SearchSidebarDrilldown = ({
         'Award Description': awardDescription ? 1 : 0,
         'Award ID': selectedAwardIDs.size,
         'Spending Amount': awardAmounts.size,
-        'Contract Award Type': contractAwardType.size,
+        'Contract Award Type': excludeIDVB(contractAwardType),
         'North American Industry Classification System (NAICS)': generateCount(naicsCodes),
         'Product and Service Code (PSC)': generateCount(pscCodes),
         'Type of Contract Pricing': pricingType.size,
