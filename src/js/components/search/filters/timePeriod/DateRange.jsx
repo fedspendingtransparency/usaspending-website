@@ -13,6 +13,7 @@ import DatePicker from 'components/sharedComponents/DatePicker';
 import { usePrevious } from "../../../../helpers/";
 import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
+import { areFiltersEqual } from "../../../../helpers/searchHelper";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -214,7 +215,14 @@ const DateRange = (props) => {
                 }
             });
 
-            if (!matchFound && !matchFoundApplied) {
+            if (timePeriodApplied.size > 0 && !matchFound) {
+                props.updateFilter({
+                    dateType: 'dr',
+                    startDate: startValue,
+                    endDate: endValue
+                });
+            }
+            else if (!matchFound && !matchFoundApplied) {
                 props.updateFilter({
                     dateType: 'dr',
                     startDate: startValue,
