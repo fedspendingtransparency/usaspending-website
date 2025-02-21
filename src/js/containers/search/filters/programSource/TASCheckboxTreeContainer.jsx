@@ -35,7 +35,9 @@ import {
 } from 'redux/actions/search/tasActions';
 import { updateTAS } from 'redux/actions/search/searchFilterActions';
 
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+// import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import CheckboxTree from 'components/sharedComponents/checkbox/checkboxTree/CheckboxTree';
+
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
@@ -115,6 +117,9 @@ export class TASCheckboxTree extends React.Component {
             this.props.showTasTree();
             return Promise.resolve();
         }
+
+        console.log(this.props.nodes);
+
         return this.fetchTas('')
             .then(() => {
                 if (checkedFromHash.length > 0) {
@@ -409,19 +414,24 @@ export class TASCheckboxTree extends React.Component {
                     loading={false}
                     onClear={this.onClear} />
                 <CheckboxTree
-                    isError={isError}
-                    errorMessage={errorMessage}
-                    isLoading={isLoading}
-                    data={nodes.sort((a, b) => a.label.localeCompare(b.label))}
-                    checked={checked}
-                    searchText={searchString}
-                    countLabel="TAS"
-                    noResults={showNoResults}
-                    expanded={isSearch ? searchExpanded : expanded}
+                    nodes={nodes.sort((a, b) => a.label.localeCompare(b.label))}
                     onUncheck={this.onUncheck}
                     onCheck={this.onCheck}
-                    onExpand={this.onExpand}
-                    onCollapse={this.onCollapse} />
+                    onExpand={this.onExpand} />
+                {/*<CheckboxTree*/}
+                {/*    isError={isError}*/}
+                {/*    errorMessage={errorMessage}*/}
+                {/*    isLoading={isLoading}*/}
+                {/*    data={nodes.sort((a, b) => a.label.localeCompare(b.label))}*/}
+                {/*    checked={checked}*/}
+                {/*    searchText={searchString}*/}
+                {/*    countLabel="TAS"*/}
+                {/*    noResults={showNoResults}*/}
+                {/*    expanded={isSearch ? searchExpanded : expanded}*/}
+                {/*    onUncheck={this.onUncheck}*/}
+                {/*    onCheck={this.onCheck}*/}
+                {/*    onExpand={this.onExpand}*/}
+                {/*    onCollapse={this.onCollapse} />*/}
                 {counts.length > 0 && (
                     <div
                         className="selected-filters"
