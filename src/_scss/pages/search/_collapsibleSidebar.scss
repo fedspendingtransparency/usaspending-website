@@ -302,10 +302,13 @@
             &--text-header {
               font-weight: $font-semibold;
               color: $gray-90;
+              margin: 16px 0px 0px;
             }
 
-            p {
-              padding: 4;
+            &--text-section {
+              p {
+                margin: 4px 0px 0px;
+              }
             }
           }
         }
