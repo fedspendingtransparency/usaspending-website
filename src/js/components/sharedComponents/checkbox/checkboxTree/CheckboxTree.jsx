@@ -11,10 +11,11 @@ const CheckboxTree = ({
     nodes, disabled, onChecked, onExpand
 }) => {
     // eslint-disable-next-line no-shadow
-    const renderTreeNodes = (nodes) => nodes.map((label) => (
+    console.log(nodes);
+    const renderTreeNodes = () => nodes.map((node) => (
         <TreeNode
-            key={label}
-            label={label}
+            key={node.label}
+            label={node.label}
             disabled={disabled}
             onExpand={onExpand}
             onChecked={onChecked} />

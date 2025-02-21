@@ -37,7 +37,7 @@ const TreeNode = ({
                     onChange={handleCheck} />
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <span onClick={handleToggle} style={{ cursor: 'pointer', marginLeft: '5px' }}>
-                    {/*{label} {loading && <span>Loading...</span>}*/}
+                    {label} {loading && <span>Loading...</span>}
                 </span>
             </div>
             {isExpanded && (

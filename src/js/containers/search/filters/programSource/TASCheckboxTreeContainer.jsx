@@ -395,6 +395,8 @@ export class TASCheckboxTree extends React.Component {
             isSearch,
             showNoResults
         } = this.state;
+
+        console.log(nodes);
         return (
             <div className="tas-checkbox">
                 {showInfo &&
