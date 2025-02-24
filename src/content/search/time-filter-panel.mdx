@@ -2,20 +2,20 @@ import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 
 <div className="collapsible-sidebar--dsm-wrapper--text-header">About the Filter </div>
 <div className="collapsible-sidebar--dsm-wrapper--text-section"> 
-    Search results can be filtered by <GlossaryLink term="action-date"/> action date (for example, the date of the most recent transaction or the <GlossaryLink term="base-transaction-action-date"/> base transaction action date or the period of performance (the projected date range in which the work occurs)).  
+    Search results can be filtered by action date <GlossaryLink term="action-date"/> (for example, the date of the most recent transaction or the base transaction action date <GlossaryLink term="base-transaction-action-date"/> or the period of performance (the projected date range in which the work occurs)).  
 
-    Individual <GlossaryLink term="transaction" /> transactions for any single award summary result may not exist within the selected time period. 
+    Individual transactions <GlossaryLink term="transaction" /> for any single award summary result may not exist within the selected time period. 
 
-    Transaction results in the Time, Map, and Categories tables will fall within the selected time period based on the <GlossaryLink term="action-date" /> action date. 
+    Transaction results in the Time, Map, and Categories tables will fall within the selected time period based on the action date <GlossaryLink term="action-date" />. 
 
     Search results filtered by action date include all awards within the selected time period, even if there are no new transactions. For example, for the selected time period of Mar. 1-31, 2022, you would see results in the Table tab for an award with a base transaction action date of Jan. 1, 2022 and a latest transaction action date of Dec. 31, 2022, even if there is no transaction activity for that award within the period of Mar. 1-31, 2022.
 </div>
 
 <div className="collapsible-sidebar--dsm-wrapper--text-header">Show New Awards Only </div>
 <div className="collapsible-sidebar--dsm-wrapper--text-section"> 
-    Selecting the “Show New Awards Only” checkbox will display any <GlossaryLink term="prime-award"/> prime award whose first transaction (base transaction action date) falls within the selected time period. 
+    Selecting the “Show New Awards Only” checkbox will display any prime award <GlossaryLink term="prime-award"/> whose first transaction (base transaction action date) falls within the selected time period. 
 
-    The "Show New Awards Only" filter does not apply to <GlossaryLink term="sub-award" /> subawards. Since there is no concept of “sub-award modification” or “sub-award summary level” in the FFATA Subaward Reporting System (FSRS) data model, all subawards are considered “new.” 
+    The "Show New Awards Only" filter does not apply to subawards <GlossaryLink term="sub-award" />. Since there is no concept of “sub-award modification” or “sub-award summary level” in the FFATA Subaward Reporting System (FSRS) data model, all subawards are considered “new.” 
 </div>
 
 <div className="collapsible-sidebar--dsm-wrapper--text-header">Historical Data </div>
