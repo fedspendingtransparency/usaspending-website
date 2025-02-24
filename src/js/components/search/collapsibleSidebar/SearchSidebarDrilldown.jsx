@@ -149,7 +149,7 @@ const SearchSidebarDrilldown = ({
                     description={selectedCategory.description}
                     categories={list}
                     setLevel3={setLevel3}
-                    itemCount={itemCount[selectedCategory.categoryKey]}
+                    itemCount={itemCount[selectedCategory]}
                     filterCount={filterCount} />}
                 {!isDsmOpened && filter && categoryFilter}
                 {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} />}
