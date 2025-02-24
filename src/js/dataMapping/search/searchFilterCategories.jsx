@@ -192,7 +192,7 @@ export const FilterCategoryTree = {
                     },
                     {
                         title: 'Treasury Account Symbol (TAS)',
-                        component: <TASCheckboxTreeContainer showInfo={false} />,
+                        component: <TASCheckboxTreeContainer showInfo={false} searchV2 />,
                         titleOnly: true
                     }
                 ]
