@@ -8,8 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { is, OrderedMap } from 'immutable';
 import { updateGenericFilter } from 'redux/actions/search/searchFilterActions';
 import AwardIDSearch from 'components/search/filters/awardID/AwardIDSearch';
+import PropTypes from "prop-types";
 
-const AwardIDSearchContainer = () => {
+const propTypes = {
+    searchV2: PropTypes.bool
+};
+
+const AwardIDSearchContainer = ({ searchV2 }) => {
     const dispatch = useDispatch();
     const { selectedAwardIDs } = useSelector((state) => state.filters);
     const { appliedAwardIDs } = useSelector((state) => state.appliedFilters.filters);
@@ -73,8 +78,10 @@ const AwardIDSearchContainer = () => {
         <AwardIDSearch
             dirtyFilters={dirtyFilters()}
             selectedAwardIDs={selectedAwardIDs}
-            toggleAwardID={toggleAwardID} />
+            toggleAwardID={toggleAwardID}
+            searchV2={searchV2} />
     );
 };
 
+AwardIDSearchContainer.PropTypes = propTypes;
 export default AwardIDSearchContainer;

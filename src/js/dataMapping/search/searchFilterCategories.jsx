@@ -88,12 +88,12 @@ export const FilterCategoryTree = {
                     },
                     {
                         title: 'Award ID',
-                        component: <AwardIDSearchContainer />,
+                        component: <AwardIDSearchContainer searchV2 />,
                         titleOnly: true
                     },
                     {
                         title: 'Spending Amount',
-                        component: <AwardAmountSearchContainer />,
+                        component: <AwardAmountSearchContainer searchV2 />,
                         titleOnly: true
                     }
                 ]
@@ -187,7 +187,7 @@ export const FilterCategoryTree = {
                 categories: [
                     {
                         title: 'Agency',
-                        component: <AgencyContainer />,
+                        component: <AgencyContainer searchV2 />,
                         titleOnly: true
                     },
                     {
