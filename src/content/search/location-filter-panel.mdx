@@ -1,4 +1,5 @@
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import { AboutTheDataMarkdownLink } from '../../js/components/aboutTheDataSidebar/AboutTheDataMarkdownLink.jsx';
 
 <div className="collapsible-sidebar--dsm-wrapper--text-header">About the filter</div>
 <div className="collapsible-sidebar--dsm-wrapper--text-section"> 
@@ -21,9 +22,12 @@ import GlossaryLink from 'components/sharedComponents/GlossaryLink';
     Please note: court-ordered redistricting might alter the time frame when a congressional district is in effect. 
 
     "Original Congressional Districts" search results find spending based on the congressional district boundaries that were in effect when an award was issued. Please note: some district boundaries have changed over time. 
+</div>
 
-    Learn more about congressional redistricting [link to "about the data" listing]. 
-    Geographical Spending Types 
+  <AboutTheDataMarkdownLink slug="congressional-district-data" openPanel={true} name='Learn more about congressional redistricting.'/>
+
+ <div className="collapsible-sidebar--dsm-wrapper--text-header">Geographical Spending Types </div>
+ <div className="collapsible-sidebar--dsm-wrapper--text-section"> 
     There are two different ways to filter spending amounts on the map: Total Spending and Per Capita Spending. 
 </div>
 

@@ -10,10 +10,11 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     name: PropTypes.string,
-    slug: PropTypes.string
+    slug: PropTypes.string,
+    openPanel: PropTypes.bool
 };
 
-export const AboutTheDataMarkdownLink = ({ name, slug }) => {
+export const AboutTheDataMarkdownLink = ({ name, slug, openPanel = false }) => {
     const dispatch = useDispatch();
     const obj = {
         name,
@@ -21,6 +22,10 @@ export const AboutTheDataMarkdownLink = ({ name, slug }) => {
     };
     const clickFunction = (e) => {
         e.preventDefault();
+        if (openPanel) {
+            dispatch(aboutTheDataActions.showAboutTheData());
+            e.stopPropagation();
+        }
         dispatch(aboutTheDataActions.setAboutTheDataTerm(obj));
     };
     return (
