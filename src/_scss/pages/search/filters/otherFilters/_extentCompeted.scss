@@ -63,6 +63,7 @@
 &.collapsible-sidebar--drilldown {
   .extent-competed-filter .autocomplete__input {
     padding: 0 ($global-spacing-unit * 4) rem(20) ($global-spacing-unit * 4);
+    min-width: 100%;
 
     .search-icon {
       left: ($global-spacing-unit * 5);
