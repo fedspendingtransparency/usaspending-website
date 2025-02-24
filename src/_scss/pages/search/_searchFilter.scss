@@ -59,9 +59,10 @@
           line-height: 1.5;
           color: $theme-color-headline;
 
-          @media(min-width:1200px) {
-            min-width: 220px;
-          }
+          // TODO: Ask Nick about this particular styling. Doesn't seem to do anything except throw off headers?
+          //@media(min-width:1200px) {
+          //  min-width: 220px;
+          //}
         }
       }
 
