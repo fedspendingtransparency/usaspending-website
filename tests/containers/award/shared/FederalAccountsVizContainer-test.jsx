@@ -5,9 +5,10 @@
 import React from 'react';
 import { render, act } from '../../../testResources/test-utils';
 import  FederalAccountsVizContainer   from "../../../../src/js/containers/award/shared/FederalAccountsVizContainer";
-import { mockAwardFundingMetaData } from "../../../models/award/mockAwardApi";
+import { mockAwardFederalAccounts, mockAwardFundingMetaData } from "../../../models/award/mockAwardApi";
 import * as idvHelper from "../../../../src/js/helpers/idvHelper";
 import * as awardHelper from "../../../../src/js/helpers/awardSummaryHelper";
+import BaseFederalAccount from 'models/v2/award/BaseFederalAccount';
 
 const mockedProps = {
     awardId: '1234',
@@ -65,8 +66,9 @@ describe('getFederalAccounts', () => {
 });
 
 
-describe('parseFEderalAccounts', () => {
+describe('parseFederalAccounts', () => {
     it('parse', () => {
+        const account = mockAwardFederalAccounts.results[0];
         const idvSpy = jest.spyOn(idvHelper, 'fetchIdvFederalAccounts').mockReturnValue({
             promise: Promise.resolve({ data: mockAwardFundingMetaData}),
             cancel: () => {
@@ -80,14 +82,14 @@ describe('parseFEderalAccounts', () => {
             }
         });
         act(()=> {
-           const container =  render(<FederalAccountsVizContainer {...mockedProps} />,
+           render(<FederalAccountsVizContainer {...mockedProps} />,
                 {initialState: {award: {id: '123', category: 'idv', totalTransactionObligatedAmount: 100}}});
+
         })
-        expect(container).toBe("Hello")
+        let federalAccount = new BaseFederalAccount(account, 271716259.64);
+        expect(federalAccount._federalAccountName).toEqual(account.account_title);
+
     });
-
-
-
 
 });
 
