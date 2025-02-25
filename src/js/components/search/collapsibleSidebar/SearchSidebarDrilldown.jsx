@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CategoriesList from "./CateogriesList";
 import CategoryFilter from "./CategoryFilter";
-import { generateCount } from "../../../helpers/search/filterCheckboxHelper";
+import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 import DsmSlider from "./DsmSlider";
 
 const propTypes = {
@@ -56,7 +56,8 @@ const SearchSidebarDrilldown = ({
     const {
         selectedAwardIDs,
         awardAmounts,
-        awardType,
+        contractAwardType,
+        financialAssistanceAwardType,
         naicsCodes,
         pscCodes,
         pricingType,
@@ -81,18 +82,18 @@ const SearchSidebarDrilldown = ({
         'Award Description': awardDescription ? 1 : 0,
         'Award ID': selectedAwardIDs.size,
         'Spending Amount': awardAmounts.size,
-        'Contract Award Type': awardType.size,
+        'Contract Award Type': excludeIDVB(contractAwardType),
         'North American Industry Classification System (NAICS)': generateCount(naicsCodes),
         'Product and Service Code (PSC)': generateCount(pscCodes),
         'Type of Contract Pricing': pricingType.size,
         'Type of Set Aside': setAside.size,
         'Extent Competed': extentCompeted.size,
-        'Financial Assistance Award Type': 0,
+        'Financial Assistance Award Type': financialAssistanceAwardType.size,
         'Assistance Listing': selectedCFDA.size,
         Recipient: selectedRecipients.size,
         'Recipient Type': recipientType.size,
         Agency: selectedAwardingAgencies.size + selectedFundingAgencies.size,
-        'Treasury Account Symbol (TAS)': tasCodes.counts.length,
+        'Treasury Account Symbol (TAS)': generateCount(tasCodes),
         'COVID-19 Spending': covidDefCode.size,
         'Infrastructure Spending': infraDefCode.size
     };
