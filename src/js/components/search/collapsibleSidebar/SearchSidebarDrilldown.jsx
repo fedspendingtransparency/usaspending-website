@@ -93,7 +93,7 @@ const SearchSidebarDrilldown = ({
         Recipient: selectedRecipients.size,
         'Recipient Type': recipientType.size,
         Agency: selectedAwardingAgencies.size + selectedFundingAgencies.size,
-        'Treasury Account Symbol (TAS)': tasCodes.counts.length,
+        'Treasury Account Symbol (TAS)': generateCount(tasCodes),
         'COVID-19 Spending': covidDefCode.size,
         'Infrastructure Spending': infraDefCode.size
     };
