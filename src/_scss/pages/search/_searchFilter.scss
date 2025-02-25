@@ -58,11 +58,6 @@
           font-weight: $font-semibold;
           line-height: 1.5;
           color: $theme-color-headline;
-
-          // TODO: Ask Nick about this particular styling. Doesn't seem to do anything except throw off headers?
-          //@media(min-width:1200px) {
-          //  min-width: 220px;
-          //}
         }
       }
 
@@ -74,7 +69,7 @@
         font-weight: $font-semibold;
         line-height: 1.5;
         color: $theme-color-body;
-        width: 100%;
+        //width: 100%;
         white-space: nowrap;
       }
     }
