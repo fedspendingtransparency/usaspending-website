@@ -74,7 +74,7 @@ export const FilterCategoryTree = {
     },
     timePeriod: {
         title: 'Time Period',
-        component: <TimePeriodContainer />
+        component: <TimePeriodContainer searchV2 />
     },
     characteristics: {
         children: [
@@ -113,7 +113,7 @@ export const FilterCategoryTree = {
                         component: (
                             <>
                                 <div className="search-option">
-                                    <NAICSCheckboxTree />
+                                    <NAICSCheckboxTree searchV2 />
                                 </div>
                             </>
                         ),
@@ -132,17 +132,17 @@ export const FilterCategoryTree = {
                     },
                     {
                         title: 'Type of Contract Pricing',
-                        component: <PricingTypeContainer />,
+                        component: <PricingTypeContainer searchV2 />,
                         titleOnly: true
                     },
                     {
                         title: 'Type of Set Aside',
-                        component: <SetAsideContainer />,
+                        component: <SetAsideContainer searchV2 />,
                         titleOnly: true
                     },
                     {
                         title: 'Extent Competed',
-                        component: <ExtentCompetedContainer />,
+                        component: <ExtentCompetedContainer searchV2 />,
                         titleOnly: true
                     }
                 ]

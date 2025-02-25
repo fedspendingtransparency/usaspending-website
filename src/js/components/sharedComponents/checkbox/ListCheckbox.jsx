@@ -13,11 +13,12 @@ const propTypes = {
     filters: PropTypes.object,
     filterCategoryMapping: PropTypes.arrayOf(PropTypes.object),
     selectedFilters: PropTypes.object,
-    singleFilterChange: PropTypes.func
+    singleFilterChange: PropTypes.func,
+    searchV2: PropTypes.bool
 };
 
 const ListCheckbox = ({
-    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange
+    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange, searchV2
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -99,7 +100,7 @@ const ListCheckbox = ({
                 :
                 <div className="filter-item-wrap">
                     {checkboxCategories}
-                    <SubmitHint selectedFilters={selectedFilters} />
+                    { !searchV2 && <SubmitHint selectedFilters={selectedFilters} /> }
                 </div>
             }
         </div>

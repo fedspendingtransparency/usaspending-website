@@ -14,15 +14,17 @@ import { extentCompetedDefinitions, extentCompetedTypeMapping } from 'dataMappin
 
 const propTypes = {
     updateExtentCompeted: PropTypes.func,
-    extentCompeted: PropTypes.object
+    extentCompeted: PropTypes.object,
+    searchV2: PropTypes.bool
 };
 
-const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted }) => (
+const ExtentCompetedContainer = ({ updateExtentCompeted, extentCompeted, searchV2 }) => (
     <ListCheckbox
         filterCategoryMapping={extentCompetedTypeMapping}
         filters={extentCompetedDefinitions}
         selectedFilters={extentCompeted}
-        singleFilterChange={updateExtentCompeted} />
+        singleFilterChange={updateExtentCompeted}
+        searchV2={searchV2} />
 );
 
 ExtentCompetedContainer.propTypes = propTypes;
