@@ -100,6 +100,16 @@ const SidebarWrapper = React.memo(({
     };
 
     const handleScroll = throttle(() => {
+        if (window.scrollY > 0) {
+            if (document.querySelector(".v2 .site-header")) {
+                document.querySelector(".v2 .site-header").style.zIndex = 1;
+            }
+
+            if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
+                document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 1;
+            }
+        }
+
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
         setIsFooterVisible(tmpFooterInView > 0);
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
@@ -152,6 +162,24 @@ const SidebarWrapper = React.memo(({
         if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
             document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "none";
         }
+    };
+
+    const handleScrollEnd = (e) => {
+        handleScroll(e);
+
+        setTimeout(() => {
+            console.log("on scroll end");
+            if (document.querySelector(".v2 .site-header")) {
+                console.log("on scroll end 1");
+                document.querySelector(".v2 .site-header").style.zIndex = 'unset';
+            }
+
+            if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
+                console.log("on scroll end 2");
+
+                document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 'unset';
+            }
+        }, 20);
     };
 
     useEffect(() => {
@@ -207,12 +235,12 @@ const SidebarWrapper = React.memo(({
 
         window.addEventListener('resize', (e) => handleResize(e));
         window.addEventListener('scroll', (e) => handleScroll(e));
-        window.addEventListener('scrollend', (e) => handleScroll(e));
+        window.addEventListener('scrollend', (e) => handleScrollEnd(e));
 
         return () => {
             window.removeEventListener('resize', (e) => handleResize(e));
             window.removeEventListener('scroll', (e) => handleScroll(e));
-            window.removeEventListener('scrollend', (e) => handleScroll(e));
+            window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
             resizeObserver.unobserve(mainContent);
         };
