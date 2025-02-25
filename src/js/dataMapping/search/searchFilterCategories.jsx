@@ -124,7 +124,7 @@ export const FilterCategoryTree = {
                         component: (
                             <>
                                 <div className="search-option">
-                                    <PSCCheckboxTreeContainer />
+                                    <PSCCheckboxTreeContainer searchV2 />
                                 </div>
                             </>
                         ),
@@ -170,7 +170,7 @@ export const FilterCategoryTree = {
         children: [
             {
                 title: 'Recipient',
-                component: <RecipientSearchContainer />,
+                component: <RecipientSearchContainer searchV2 />,
                 titleOnly: true
             },
             {
