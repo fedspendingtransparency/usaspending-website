@@ -48,7 +48,7 @@ const SelectedItemsChips = ({
     }, []);
 
     useEffect(() => {
-        if ((lastChipRight + 7) < chipContainerRight) {
+        if (lastChipRight < chipContainerRight) {
             setRightFade(false);
         }
         else {
