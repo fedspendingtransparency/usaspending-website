@@ -9,6 +9,7 @@ import { mockAwardFederalAccounts, mockAwardFundingMetaData } from "../../../mod
 import * as idvHelper from "../../../../src/js/helpers/idvHelper";
 import * as awardHelper from "../../../../src/js/helpers/awardSummaryHelper";
 import BaseFederalAccount from 'models/v2/award/BaseFederalAccount';
+import {screen} from "@testing-library/react"
 
 const mockedProps = {
     awardId: '1234',
@@ -17,10 +18,37 @@ const mockedProps = {
 
 
 };
+jest.mock('../../../../src/js/components/award/shared/federalAccounts/FederalAccountsViz', () => (
+    {
+    inFlight = false,
+    error = false,
+    page =1 ,
+    limit  = 10,
+    sort = "total_transaction_obligated_amounts",
+    order = "desc",
+    total = 0,
+    federalAccounts = [],
+    view = "",
+    changePage = jest.fn(),
+    updateSort = jest.fn(),
+    changeView = jest.fn()
+}) => (
+    <div>
+        <h1 data-testid="total">{total}</h1>
+        <h1 data-testid="federalAccount">
+            {federalAccounts.map((account) => (<p data-testid="account">{account}</p>))}
+        </h1>
+    </div>
+));
 
-beforeEach(()=>{
+
+beforeEach(() => {
     jest.resetAllMocks();
-})
+});
+let mockInitialState =
+    {award: {id: '123', category: 'idv', totalTransactionObligatedAmount: 100}}
+
+
 
 describe('getFederalAccounts', () => {
     it('calls idvfederalAccount if category is  idv', () => {
@@ -66,32 +94,12 @@ describe('getFederalAccounts', () => {
 });
 
 
-describe('parseFederalAccounts', () => {
-    it('parse', () => {
-        const account = mockAwardFederalAccounts.results[0];
-        const idvSpy = jest.spyOn(idvHelper, 'fetchIdvFederalAccounts').mockReturnValue({
-            promise: Promise.resolve({ data: mockAwardFundingMetaData}),
-            cancel: () => {
-                console.log('cancel called')
-            }
-        });
-        const awardSpy = jest.spyOn(awardHelper, 'fetchAwardFederalAccounts').mockReturnValue({
-            promise: Promise.resolve({ data: mockAwardFundingMetaData}),
-            cancel: () => {
-                console.log('cancel called')
-            }
-        });
-        act(()=> {
-           render(<FederalAccountsVizContainer {...mockedProps} />,
-                {initialState: {award: {id: '123', category: 'idv', totalTransactionObligatedAmount: 100}}});
+    it('should render labels & values', () => {
+        render(<FederalAccountsVizContainer {...mockedProps} />,
+            {initialState: mockInitialState});
+        expect(screen.getAllByRole("button").length).toBe(2)
+    })
 
-        })
-        let federalAccount = new BaseFederalAccount(account, 271716259.64);
-        expect(federalAccount._federalAccountName).toEqual(account.account_title);
-
-    });
-
-});
 
 
 

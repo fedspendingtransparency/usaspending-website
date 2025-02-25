@@ -3,8 +3,9 @@
  */
 
 import React from 'react';
-import { render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import ContractGrantActivityContainer from "../../../../src/js/containers/award/shared/ContractGrantActivityContainer";
+import { render, act } from '../../../testResources/test-utils';
 
 const mockJumpToTransactionHistoryTable = jest.fn();
 
@@ -14,16 +15,20 @@ const mockedProps = {
     dates: { },
     totalObligation: 12000,
     jumpToTransactionHistoryTable: mockJumpToTransactionHistoryTable
-
-
 };
 
-describe('ContractGrantActivityContainer', () => {
-    it('adds to Running Obligation ', () => {
-        render(<ContractGrantActivityContainer {...mockedProps} />);
-    });
+jest.mock("../../../../src/js/components/award/shared/federalAccounts/FederalAccountsViz", ()=> jest.fn(() => null))
 
-    it('creates transactions running total obligation to date and sort', () => {
+describe('ContractGrantActivityContainer', () => {
+    it('expects label and items', () => {
         render(<ContractGrantActivityContainer {...mockedProps} />);
-    });
+        expect(screen.getByLabelText("Grant Activity")).toBeTruthy();
+    })
+
+    it('view transaction table button', () => {
+        render(<ContractGrantActivityContainer {...mockedProps} />);
+        expect(screen.getByRole("button")).toHaveLength(1);
+    })
+
+
 });
