@@ -74,7 +74,8 @@ export const FilterCategoryTree = {
     },
     timePeriod: {
         title: 'Time Period',
-        component: <TimePeriodContainer searchV2 />
+        component: <TimePeriodContainer searchV2 />,
+        titleOnly: true
     },
     characteristics: {
         children: [

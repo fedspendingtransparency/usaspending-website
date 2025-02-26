@@ -147,7 +147,6 @@ const SearchSidebarDrilldown = ({
                     iconColor={selectedCategory.iconColor}
                     iconBackgroundColor={selectedCategory.iconBackgroundColor}
                     title={selectedCategory.title}
-                    description={selectedCategory.description}
                     categories={list}
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}
