@@ -6,7 +6,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import ContractGrantActivityContainer from "../../../../src/js/containers/award/shared/ContractGrantActivityContainer";
 import { render, act } from '../../../testResources/test-utils';
-
+import { areTransactionDatesOrAwardAmountsInvalid } from "../../../../src/js/helpers/contractGrantActivityHelper";
 const mockJumpToTransactionHistoryTable = jest.fn();
 
 const mockedProps = {
@@ -17,18 +17,24 @@ const mockedProps = {
     jumpToTransactionHistoryTable: mockJumpToTransactionHistoryTable
 };
 
-jest.mock("../../../../src/js/components/award/shared/federalAccounts/FederalAccountsViz", ()=> jest.fn(() => null))
+jest.mock("../../../../src/js/components/award/shared/activity/ContractGrantActivity", ()=> jest.fn(() => null))
+jest.mock("../../../../src/js/components/sharedComponents/NoResultsMessage", ()=> jest.fn(() => null))
+jest.mock("../../../../src/js/components/search/table/ResultsTableErrorMessage", ()=> jest.fn(() => null))
+jest.mock("../../../../src/js/components/search/table/ResultsTableLoadingMessage", ()=> jest.fn(() => null))
+jest.mock("../../../../src/js/helpers/contractGrantActivityHelper");
+
+
 
 describe('ContractGrantActivityContainer', () => {
-    it('expects label and items', () => {
+
+    it('has the title', () => {
         render(<ContractGrantActivityContainer {...mockedProps} />);
-        expect(screen.getByLabelText("Grant Activity")).toBeTruthy();
+        expect(screen.getByText("Grant Activity")).toBeTruthy();
     })
 
     it('view transaction table button', () => {
         render(<ContractGrantActivityContainer {...mockedProps} />);
-        expect(screen.getByRole("button")).toHaveLength(1);
-    })
-
+        expect(screen.getByText("View transactions table")).toBeTruthy()
+    });
 
 });
