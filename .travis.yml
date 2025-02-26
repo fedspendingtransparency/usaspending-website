@@ -16,7 +16,7 @@ before_install:
 install:
   - npm ci --legacy-peer-deps --timeout=90000
 script:
-  - npm run dev
+  - npm run dev --silent
   - npm run travis
   - npm run lhci:audit
 after_success:
