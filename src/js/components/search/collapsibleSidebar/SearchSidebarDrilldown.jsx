@@ -20,7 +20,7 @@ const propTypes = {
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
     goBack: PropTypes.func,
-    itemCount: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+    itemCount: PropTypes.object,
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
     titleOnly: PropTypes.bool,
@@ -127,7 +127,6 @@ const SearchSidebarDrilldown = ({
         );
     }
 
-
     return (
         <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
             <div className="collapsible-sidebar--header">
@@ -153,7 +152,7 @@ const SearchSidebarDrilldown = ({
                     itemCount={itemCount[selectedCategory.categoryKey]}
                     filterCount={filterCount} />}
                 {!isDsmOpened && filter && categoryFilter}
-                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} />}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} height={sidebarContentHeight} />}
             </div>
         </div>);
 };
