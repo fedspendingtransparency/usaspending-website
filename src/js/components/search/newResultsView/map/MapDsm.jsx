@@ -15,8 +15,8 @@ const MapDsm = ({ subaward }) => {
 
     const dispatch = useDispatch();
 
-    const openAboutTheDataSidebar = (e) => {
-        dispatch(setAboutTheDataTermFromUrl('medicare-location-data'));
+    const openAboutTheDataSidebar = (e, entry) => {
+        dispatch(setAboutTheDataTermFromUrl(entry));
         dispatch(showAboutTheData());
         dispatch(setLastOpenedSlideout('atd'));
         e.preventDefault();
@@ -41,12 +41,17 @@ const MapDsm = ({ subaward }) => {
                         your county, you will see only sub-awards with Place of Performance in your county, but you will
                         not see all sub-awards whose prime award lists Place of Performance in your county.
                     </p>
-                    <p className="award-search__body-text">
-                        Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value
-                        of all sub-award amounts for any given prime award is a subset of the Current Award Amount for
-                        that prime award; sub-award amounts generally should not exceed the Current Award Amount for
-                        their associated prime award. To avoid double-counting the overall value of a prime award, do
-                        not sum up sub-award amounts and prime award obligations or outlays.
+                    <p className="award-search__body-text">Sub-award amounts are funded by prime award obligations and outlays.
+                    In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award;
+                    sub-award amounts generally should not exceed the Current Award Amount for their associated prime award.
+                    To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
+                    <span className="award-search__subaward-note"> Note that there are several documented issues related to&nbsp;
+                        <Link
+                            to=""
+                            aria-label="Open the About the Data"
+                            onClick={(e) => openAboutTheDataSidebar(e, 'subaward-data-quality')}>subaward data quality
+                        </Link> in our About the Data module.
+                    </span>
                     </p>
                 </> :
                 <>
@@ -83,7 +88,7 @@ const MapDsm = ({ subaward }) => {
                 <Link
                     to=""
                     aria-label="Open the About the Data"
-                    onClick={(e) => openAboutTheDataSidebar(e)}>Learn about Medicare Location Data.
+                    onClick={(e) => openAboutTheDataSidebar(e, 'medicare-location-data')}>Learn about Medicare Location Data.
                 </Link>
             </p>
         </>
