@@ -17,7 +17,7 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     height: PropTypes.number,
-    itemCount: PropTypes.object,
+    itemCount: PropTypes.number,
     filterCount: PropTypes.object
 };
 
