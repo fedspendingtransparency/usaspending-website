@@ -23,8 +23,7 @@ module.exports = merge(common, {
         },
         client: {
             overlay: false
-        },
-        stats: 'minimal'
+        }
     },
     module: {
         rules: [
