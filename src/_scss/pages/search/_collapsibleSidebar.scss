@@ -1,18 +1,5 @@
 @import "searchFilter";
 
-@keyframes drilldown-slidein {
-  0% {
-    display: block;
-    transform: translateX(24px);
-    visibility: hidden;
-  }
-
-  100% {
-    transform: translateX(0);
-    visibility: visible;
-  }
-}
-
 // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
 &.v2 {
   .site-header, .usda-page-header:not(.usda-page-header--sticky) {
@@ -200,8 +187,6 @@
 
       &.opened {
         display: block;
-        -webkit-animation: drilldown-slidein 0.2s forwards;
-        animation: drilldown-slidein 0.2s forwards;
       }
 
       .collapsible-sidebar--back-btn {
