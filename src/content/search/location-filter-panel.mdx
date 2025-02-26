@@ -1,0 +1,45 @@
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import { AboutTheDataMarkdownLink } from '../../js/components/aboutTheDataSidebar/AboutTheDataMarkdownLink.jsx';
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">About the filter</div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
+    Search results are filtered by place of performance <GlossaryLink term="primary-place-of-performance" />
+    (where the work for the award is taking place) or recipient location <GlossaryLink term="recipient-location"/> (where the awardee is geographically located).
+</div>
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">Location Data</div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
+    Each prime award transaction <GlossaryLink term="transaction"/> includes separate fields for the place of
+    performance of the award as well as the business address (recipient location) of the award recipient. 
+    Each subaward <GlossaryLink term="sub-award"/> record includes these two location fields for the 
+    prime award recipient <GlossaryLink term="prime-award" /> and the subaward <GlossaryLink term="sub-award"/>. 
+</div>
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">Congressional District Data </div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
+    "Current Congressional Districts" search results will reflect current congressional districts based on redistricting as a result of the 2020 census. These districts will be in effect from 2023–2033. 
+
+    Please note: court-ordered redistricting might alter the time frame when a congressional district is in effect. 
+
+    "Original Congressional Districts" search results find spending based on the congressional district boundaries that were in effect when an award was issued. Please note: some district boundaries have changed over time. 
+</div>
+
+  <AboutTheDataMarkdownLink slug="congressional-district-data" openPanel={true} name='Learn more about congressional redistricting'/>
+
+ <div className="collapsible-sidebar--dsm-wrapper--text-header">Geographical Spending Types </div>
+ <div className="collapsible-sidebar--dsm-wrapper--text-section"> 
+    There are two different ways to filter spending amounts on the map: Total Spending and Per Capita Spending. 
+</div>
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">Total Spending</div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
+    Total Spending shows the full amount of dollars spent in each geographical unit (state/country/congressional district). 
+</div>
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">Per Capita Spending</div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
+    Per Capita Spending shows the total amount spent in each geographical unit (state/county/congressional district) divided by the population of that unit. This number makes it easier to compare numbers across geographic units, since spending usually scales by the population of a region. 
+
+    Population data for states, counties, and congressional districts is sourced from U.S. Census 2018 estimates.
+</div>
+

@@ -127,7 +127,6 @@ const SearchSidebarDrilldown = ({
         );
     }
 
-
     return (
         <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
             <div className="collapsible-sidebar--header">
@@ -152,7 +151,7 @@ const SearchSidebarDrilldown = ({
                     itemCount={itemCount[selectedCategory.categoryKey]}
                     filterCount={filterCount} />}
                 {!isDsmOpened && filter && categoryFilter}
-                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} />}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} height={sidebarContentHeight} />}
             </div>
         </div>);
 };
