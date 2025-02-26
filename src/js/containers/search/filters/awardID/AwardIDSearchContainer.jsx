@@ -83,5 +83,5 @@ const AwardIDSearchContainer = ({ searchV2 }) => {
     );
 };
 
-AwardIDSearchContainer.PropTypes = propTypes;
+AwardIDSearchContainer.propTypes = propTypes;
 export default AwardIDSearchContainer;
