@@ -366,7 +366,6 @@ export const excludeIDVB = (awardTypes) => {
     return awardTypes.size;
 };
 
-// TODO: Add Award Description (?) to count
 export const characteristicsCount = ({
     selectedAwardIDs,
     awardAmounts,

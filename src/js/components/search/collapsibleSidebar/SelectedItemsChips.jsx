@@ -7,7 +7,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 
 const propTypes = {
-    selectedItems: PropTypes.array,
+    selectedItems: PropTypes.object,
     isClickable: PropTypes.bool,
     itemCount: PropTypes.number,
     categoryKey: PropTypes.string

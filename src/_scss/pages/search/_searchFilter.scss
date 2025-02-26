@@ -40,8 +40,10 @@
         align-items: center;
         height: rem(21);
         width: rem(21);
+        min-width: rem(21);
         border-radius: 4px;
         margin-right: $global-margin;
+        align-self: flex-start;
 
         svg {
           height: rem(12);
@@ -52,28 +54,25 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
+        margin-right: rem(8);
 
         .search-filter__top-row-title {
           font-size: $font-size-14;
           font-weight: $font-semibold;
           line-height: 1.5;
           color: $theme-color-headline;
-
-          @media(min-width:1200px) {
-            min-width: 220px;
-          }
         }
       }
 
       .search-filter__top-row-selected-container {
         display: flex;
         align-items: center;
+        align-self: flex-end;
         justify-content: flex-end;
         font-size: $font-size-12;
         font-weight: $font-semibold;
         line-height: 1.5;
         color: $theme-color-body;
-        width: 100%;
         white-space: nowrap;
       }
     }

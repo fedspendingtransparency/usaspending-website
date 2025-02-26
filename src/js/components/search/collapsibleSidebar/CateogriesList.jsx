@@ -28,7 +28,6 @@ const CategoriesList = ({
     iconName,
     iconColor,
     title,
-    description,
     height,
     itemCount,
     filterCount
@@ -39,8 +38,8 @@ const CategoriesList = ({
             iconColor={iconColor}
             iconBackgroundColor={iconBackgroundColor}
             title={title}
-            description={description}
-            itemCount={itemCount} />
+            itemCount={itemCount}
+            titleOnly />
         <div className="categories-list">
             <div style={{ margin: "0 32px" }}>
                 {categories.map((item) => {

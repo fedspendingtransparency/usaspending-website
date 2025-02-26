@@ -60,7 +60,8 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({})),
     filters: PropTypes.object,
-    showInfo: PropTypes.bool
+    showInfo: PropTypes.bool,
+    searchV2: PropTypes.bool
 };
 
 const defaultProps = {
@@ -434,9 +435,11 @@ export class TASCheckboxTree extends React.Component {
                         })}
                     </div>
                 )}
-                <SubmitHint ref={(component) => {
-                    this.hint = component;
-                }} />
+                { !this.props.searchV2 &&
+                    <SubmitHint ref={(component) => {
+                        this.hint = component;
+                    }} />
+                }
             </div>
         );
     }
