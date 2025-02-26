@@ -214,7 +214,7 @@ const DateRange = (props) => {
                 }
             });
 
-            if (timePeriodApplied.size > 0 && (!matchFound && matchFoundApplied)) {
+            if (timePeriodApplied.size > 0 && !matchFound) {
                 props.updateFilter({
                     dateType: 'dr',
                     startDate: startValue,
