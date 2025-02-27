@@ -90,7 +90,7 @@ const SidebarWrapper = React.memo(({
         if (!isHeaderSticky) {
             resizeHeightByHeader();
         }
-        else if (isHeaderSticky) {
+        else if (isHeaderSticky && document.querySelector(".search-collapsible-sidebar-container")) {
             document.querySelector(".search-collapsible-sidebar-container").style.height = `100vh - ${topStickyBarHeight}`;
         }
 
