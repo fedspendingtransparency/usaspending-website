@@ -404,7 +404,10 @@ export class PSCCheckboxTreeContainer extends React.Component {
                         {counts.map((node) => {
                             const label = `${node.value} - ${node.label} (${node.count})`;
                             return (
-                                <ShownValue label={label} removeValue={(e) => this.removeSelectedFilter(e, node)} />
+                                <ShownValue
+                                    label={label}
+                                    removeValue={(e) => this.removeSelectedFilter(e, node)}
+                                    key={label} />
                             );
                         })}
                     </div>
