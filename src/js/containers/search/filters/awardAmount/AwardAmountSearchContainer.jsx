@@ -17,7 +17,8 @@ const propTypes = {
     updateAwardAmounts: PropTypes.func,
     awardAmounts: PropTypes.object,
     appliedAmounts: PropTypes.object,
-    updateGenericFilter: PropTypes.func
+    updateGenericFilter: PropTypes.func,
+    searchV2: PropTypes.bool
 };
 
 const AwardAmountSearchContainer = (props) => {
@@ -47,7 +48,8 @@ const AwardAmountSearchContainer = (props) => {
                 removeFilter={removeFilter}
                 dirtyFilters={dirtyFilters()}
                 awardAmounts={props.awardAmounts}
-                selectAwardRange={selectAwardRange} />
+                selectAwardRange={selectAwardRange}
+                searchV2={props.searchV2} />
         </div>
     );
 };

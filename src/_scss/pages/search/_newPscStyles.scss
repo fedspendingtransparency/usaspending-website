@@ -5,12 +5,16 @@
     padding-right: 32px;
     padding-top: 0;
 
+    .checkbox-tree {
+        border-bottom: none !important;
+    }
     .autocomplete__input {
         padding-top: 0;
         padding-bottom: 20px;
         .geo-entity-dropdown__input {
             border: solid 1px $gray-cool-10;
             border-radius: 3px;
+            min-width: 100%;
         }
     }
 

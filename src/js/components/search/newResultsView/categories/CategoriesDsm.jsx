@@ -1,13 +1,25 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-
+import { Link } from "react-router-dom";
+import {
+    setAboutTheDataTermFromUrl,
+    showAboutTheData
+} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 
 const CategoriesDsm = ({ subaward }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
+    const dispatch = useDispatch();
 
+    const openAboutTheDataSidebar = (e, entry) => {
+        dispatch(setAboutTheDataTermFromUrl(entry));
+        dispatch(showAboutTheData());
+        dispatch(setLastOpenedSlideout('atd'));
+        e.preventDefault();
+    };
     return (
         <>
             <h4>What's included in this view of the data?</h4>
@@ -24,12 +36,17 @@ const CategoriesDsm = ({ subaward }) => {
                         only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose
                         prime award overlaps with Fiscal Year 2019.
                     </p>
-                    <p>
-                        Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value
-                        of all sub-award amounts for any given prime award is a subset of the Current Award Amount for
-                        that prime award; sub-award amounts generally should not exceed the Current Award Amount for
-                        their associated prime award. To avoid double-counting the overall value of a prime award, do
-                        not sum up sub-award amounts and prime award obligations or outlays.
+                    <p className="award-search__body-text">Sub-award amounts are funded by prime award obligations and outlays.
+                    In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award;
+                    sub-award amounts generally should not exceed the Current Award Amount for their associated prime award.
+                    To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
+                    <span className="award-search__subaward-note"> Note that there are several documented issues related to&nbsp;
+                        <Link
+                            to=""
+                            aria-label="Open the About the Data"
+                            onClick={(e) => openAboutTheDataSidebar(e, 'subaward-data-quality')}>subaward data quality
+                        </Link> in our About the Data module.
+                    </span>
                     </p>
                 </> :
                 <>

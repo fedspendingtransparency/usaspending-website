@@ -12,7 +12,8 @@ const propTypes = {
     setIsDsmOpened: PropTypes.func,
     dsmFile: PropTypes.string,
     currentLevel: PropTypes.number,
-    selectedCategoryTitle: PropTypes.string
+    selectedCategoryTitle: PropTypes.string,
+    height: PropTypes.number
 };
 
 const DsmSlider = (props) => {
@@ -50,7 +51,7 @@ const DsmSlider = (props) => {
             About {adjustFilterLabel()}{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
             {props.isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">
-                    <div className="collapsible-sidebar--dsm-wrapper">
+                    <div className="collapsible-sidebar--dsm-wrapper" style={{ height: `${props.height - 64}px` }}>
                         {markdownContent}
                     </div>
                 </div>}
