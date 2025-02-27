@@ -38,8 +38,7 @@ module.exports = merge(common, {
                         options: {
                             sourceMap: true,
                             sassOptions: {
-                                includePaths: ["./src/_scss", "./node_modules"],
-                                quiet: true
+                                includePaths: ["./src/_scss", "./node_modules"]
                             }
                         }
                     }
