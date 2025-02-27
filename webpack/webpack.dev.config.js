@@ -7,6 +7,7 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
     mode: "development",
+    stats: "minimal",
     devtool: "eval",
     optimization: {
         splitChunks: {
