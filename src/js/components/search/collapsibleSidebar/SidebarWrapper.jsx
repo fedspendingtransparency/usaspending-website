@@ -168,15 +168,11 @@ const SidebarWrapper = React.memo(({
         handleScroll(e);
 
         setTimeout(() => {
-            console.log("on scroll end");
             if (document.querySelector(".v2 .site-header")) {
-                console.log("on scroll end 1");
                 document.querySelector(".v2 .site-header").style.zIndex = 'unset';
             }
 
             if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
-                console.log("on scroll end 2");
-
                 document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 'unset';
             }
         }, 20);
