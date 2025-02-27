@@ -16,7 +16,7 @@
     "travis": "npm audit --audit-level=high --production && ./node_modules/.bin/eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --maxWorkers=2 --silent",
     "lhci:wizard": "lhci wizard",
     "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
-    "lhci:audit": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci autorun --chrome-flags=\"--headless\"; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
+    "lhci:audit": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --chrome-flags=\"--headless\"; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
