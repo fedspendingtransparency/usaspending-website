@@ -124,7 +124,7 @@ const MobileNav = React.memo((props) => {
                     className="mobile-nav-content__list"
                     style={detailMobileNavIsHidden ? {} : { display: "none" }}>
                     {navbarConfig.map((n, index) => (
-                        <>
+                        <div key={`item: ${navbarConfig[index].title}`}>
                             <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " "}`} />
                             <li className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " "}`}>
                                 {index === 0 ?
@@ -154,7 +154,7 @@ const MobileNav = React.memo((props) => {
                                     </div>
                                 }
                             </li>
-                        </>
+                        </div>
                     ))}
                 </ul>
                 <ul

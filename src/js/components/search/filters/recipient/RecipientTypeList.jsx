@@ -20,7 +20,7 @@ const RecipientTypeList = ({
 
     return expanded &&
         category.filters?.map((type, index) => (
-            <label className="recipient-type-filter__item">
+            <label className="recipient-type-filter__item" key={recipientTypes[type]}>
                 <input
                     type="checkbox"
                     id={`primary-checkbox-${index}`}

@@ -51,7 +51,7 @@ const RecipientTypeAccordion = ({
     };
 
     const checkboxTypes = recipientTypeMapping.map((category) => (
-        <div className="recipient-type-filter">
+        <div className="recipient-type-filter" key={category.id}>
             <div
                 className="recipient-type-filter__heading"
                 onClick={() => toggleExpanded(category)}

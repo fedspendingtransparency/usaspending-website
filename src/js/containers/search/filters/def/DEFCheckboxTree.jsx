@@ -137,7 +137,10 @@ const DEFCheckboxTree = (props) => {
                     {props.counts.map((node) => {
                         const label = `${node.label} (${node.count})`;
                         return (
-                            <ShownValue label={label} removeValue={(e) => removeSelectedFilter(e, node)} />
+                            <ShownValue
+                                label={label}
+                                removeValue={(e) => removeSelectedFilter(e, node)}
+                                key={label} />
                         );
                     })}
                 </div>

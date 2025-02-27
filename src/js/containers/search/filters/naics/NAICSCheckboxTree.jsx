@@ -456,7 +456,10 @@ export class NAICSCheckboxTree extends React.Component {
                             {counts.map((node) => {
                                 const label = `${node.value} - ${node.label} (${node.count})`;
                                 return (
-                                    <ShownValue label={label} removeValue={() => this.removeStagedNaics(node)} />
+                                    <ShownValue
+                                        label={label}
+                                        removeValue={() => this.removeStagedNaics(node)}
+                                        key={label} />
                                 );
                             })}
                         </div>
