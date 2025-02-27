@@ -20,7 +20,7 @@ const propTypes = {
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
     goBack: PropTypes.func,
-    itemCount: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+    itemCount: PropTypes.object,
     filters: PropTypes.object,
     selectedCategoryTitle: PropTypes.string,
     titleOnly: PropTypes.bool,
@@ -146,7 +146,6 @@ const SearchSidebarDrilldown = ({
                     iconColor={selectedCategory.iconColor}
                     iconBackgroundColor={selectedCategory.iconBackgroundColor}
                     title={selectedCategory.title}
-                    description={selectedCategory.description}
                     categories={list}
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}

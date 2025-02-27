@@ -74,7 +74,8 @@ export const FilterCategoryTree = {
     },
     timePeriod: {
         title: 'Time Period',
-        component: <TimePeriodContainer />,
+        component: <TimePeriodContainer searchV2 />,
+        titleOnly: true,
         dsmComponent: true,
         dsmFile: "time-filter-panel.mdx"
     },
@@ -94,14 +95,14 @@ export const FilterCategoryTree = {
                     },
                     {
                         title: 'Award ID',
-                        component: <AwardIDSearchContainer />,
+                        component: <AwardIDSearchContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
                         dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Spending Amount',
-                        component: <AwardAmountSearchContainer />,
+                        component: <AwardAmountSearchContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
                         dsmFile: "dummy_data.mdx"
@@ -123,7 +124,7 @@ export const FilterCategoryTree = {
                         component: (
                             <>
                                 <div className="search-option">
-                                    <NAICSCheckboxTree />
+                                    <NAICSCheckboxTree searchV2 />
                                 </div>
                             </>
                         ),
@@ -136,7 +137,7 @@ export const FilterCategoryTree = {
                         component: (
                             <>
                                 <div className="search-option">
-                                    <PSCCheckboxTreeContainer />
+                                    <PSCCheckboxTreeContainer searchV2 />
                                 </div>
                             </>
                         ),
@@ -146,21 +147,21 @@ export const FilterCategoryTree = {
                     },
                     {
                         title: 'Type of Contract Pricing',
-                        component: <PricingTypeContainer />,
+                        component: <PricingTypeContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
                         dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Type of Set Aside',
-                        component: <SetAsideContainer />,
+                        component: <SetAsideContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
                         dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Extent Competed',
-                        component: <ExtentCompetedContainer />,
+                        component: <ExtentCompetedContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
                         dsmFile: "dummy_data.mdx"
@@ -196,14 +197,14 @@ export const FilterCategoryTree = {
         children: [
             {
                 title: 'Recipient',
-                component: <RecipientSearchContainer />,
+                component: <RecipientSearchContainer searchV2 />,
                 titleOnly: true,
                 dsmComponent: true,
                 dsmFile: "dummy_data.mdx"
             },
             {
                 title: 'Recipient Type',
-                component: <RecipientTypeContainer />,
+                component: <RecipientTypeContainer searchV2 />,
                 titleOnly: true,
                 dsmComponent: true,
                 dsmFile: "dummy_data.mdx"
@@ -217,14 +218,14 @@ export const FilterCategoryTree = {
                 categories: [
                     {
                         title: 'Agency',
-                        component: <AgencyContainer />,
+                        component: <AgencyContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
                         dsmFile: "dummy_data.mdx"
                     },
                     {
                         title: 'Treasury Account Symbol (TAS)',
-                        component: <TASCheckboxTreeContainer showInfo={false} />,
+                        component: <TASCheckboxTreeContainer showInfo={false} searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
                         dsmFile: "dummy_data.mdx"

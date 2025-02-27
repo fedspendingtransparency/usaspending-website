@@ -15,7 +15,7 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     itemCount: PropTypes.number,
-    selectedItems: PropTypes.array,
+    selectedItems: PropTypes.object,
     selectCategory: PropTypes.func,
     isClickable: PropTypes.bool,
     showDescription: PropTypes.bool,

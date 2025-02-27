@@ -28,7 +28,8 @@ const propTypes = {
     appliedFilters: PropTypes.object,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
-    naoActiveFromFyOrDateRange: PropTypes.bool
+    naoActiveFromFyOrDateRange: PropTypes.bool,
+    searchV2: PropTypes.bool
 };
 
 const TimePeriodContainer = (props) => {
@@ -130,7 +131,8 @@ const TimePeriodContainer = (props) => {
             activeTab={activeTab}
             timePeriods={timePeriods}
             updateFilter={updateFilter}
-            changeTab={changeTab} />
+            changeTab={changeTab}
+            searchV2={props.searchV2} />
     );
 };
 

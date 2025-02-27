@@ -57,7 +57,8 @@ const propTypes = {
     countsFromHash: PropTypes.arrayOf(PropTypes.shape({})),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
-    counts: PropTypes.arrayOf(PropTypes.shape({}))
+    counts: PropTypes.arrayOf(PropTypes.shape({})),
+    searchV2: PropTypes.bool
 };
 
 export class PSCCheckboxTreeContainer extends React.Component {
@@ -408,9 +409,11 @@ export class PSCCheckboxTreeContainer extends React.Component {
                         })}
                     </div>
                 )}
-                <SubmitHint ref={(component) => {
-                    this.hint = component;
-                }} />
+                { !this.props.searchV2 &&
+                    <SubmitHint ref={(component) => {
+                        this.hint = component;
+                    }} />
+                }
             </div>
         );
     }

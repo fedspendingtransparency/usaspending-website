@@ -17,10 +17,11 @@ import SelectedRecipients from "../../../../components/search/filters/recipient/
 
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,
-    selectedRecipients: PropTypes.object
+    selectedRecipients: PropTypes.object,
+    searchV2: PropTypes.bool
 };
 
-const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients }) => {
+const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients, searchV2 }) => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [newSearch, setNewSearch] = useState(true);
@@ -274,7 +275,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     </div>
                 }
                 {localSelectedRecipients}
-                <SubmitHint selectedFilters={selectedRecipients} />
+                { !searchV2 && <SubmitHint selectedFilters={selectedRecipients} /> }
             </div>
         </div>
     );

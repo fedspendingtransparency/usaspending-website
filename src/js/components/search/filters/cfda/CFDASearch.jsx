@@ -37,7 +37,9 @@ const CFDASearch = ({
                     selectedCFDA={selectedCFDA}
                     dirtyFilters={dirtyFilters} />
                 {CFDAComponent}
-                <SubmitHint selectedFilters={dirtyFilters} />
+                { !searchV2 &&
+                    <SubmitHint selectedFilters={dirtyFilters} />
+                }
             </div>
         </div>
     );
