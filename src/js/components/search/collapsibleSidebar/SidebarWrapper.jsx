@@ -34,8 +34,8 @@ const SidebarWrapper = React.memo(({
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
-    const sidebarStaticEls = 172;
-    const footerMargin = 46;
+    const sidebarStaticEls = 161;
+    const footerMargin = 0;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
 
@@ -61,7 +61,8 @@ const SidebarWrapper = React.memo(({
     const resizeHeightByFooter = () => {
         const mainContentInView = checkInView(mainContentEl);
         const sidebarContentArea = mainContentInView - sidebarStaticEls;
-        const margins = topStickyBarHeight + footerMargin;
+        const padding = 2;
+        const margins = (topStickyBarHeight + footerMargin) - padding;
 
         if (sidebarContentArea - margins < minContentHeight) {
             hideElements(panelContainerElClasses);
@@ -90,7 +91,7 @@ const SidebarWrapper = React.memo(({
             resizeHeightByHeader();
         }
         else if (isHeaderSticky) {
-            document.querySelector(".search-collapsible-sidebar-container").style.height = '100vh - 60';
+            document.querySelector(".search-collapsible-sidebar-container").style.height = `100vh - ${topStickyBarHeight}`;
         }
 
         if (tmpFooterInView > 0) {
@@ -99,6 +100,16 @@ const SidebarWrapper = React.memo(({
     };
 
     const handleScroll = throttle(() => {
+        if (window.scrollY > 0) {
+            if (document.querySelector(".v2 .site-header")) {
+                document.querySelector(".v2 .site-header").style.zIndex = 1;
+            }
+
+            if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
+                document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 1;
+            }
+        }
+
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
         setIsFooterVisible(tmpFooterInView > 0);
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
@@ -134,7 +145,7 @@ const SidebarWrapper = React.memo(({
         document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
-        document.querySelector(".sidebar-bottom-submit").style.display = "block";
+        document.querySelector(".sidebar-submit").style.display = "block";
         if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
             document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "flex";
         }
@@ -147,10 +158,24 @@ const SidebarWrapper = React.memo(({
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
-        document.querySelector(".sidebar-bottom-submit").style.display = "none";
+        document.querySelector(".sidebar-submit").style.display = "none";
         if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
             document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "none";
         }
+    };
+
+    const handleScrollEnd = (e) => {
+        handleScroll(e);
+
+        setTimeout(() => {
+            if (document.querySelector(".v2 .site-header")) {
+                document.querySelector(".v2 .site-header").style.zIndex = 'unset';
+            }
+
+            if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
+                document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 'unset';
+            }
+        }, 20);
     };
 
     useEffect(() => {
@@ -206,12 +231,12 @@ const SidebarWrapper = React.memo(({
 
         window.addEventListener('resize', (e) => handleResize(e));
         window.addEventListener('scroll', (e) => handleScroll(e));
-        window.addEventListener('scrollend', (e) => handleScroll(e));
+        window.addEventListener('scrollend', (e) => handleScrollEnd(e));
 
         return () => {
             window.removeEventListener('resize', (e) => handleResize(e));
             window.removeEventListener('scroll', (e) => handleScroll(e));
-            window.removeEventListener('scrollend', (e) => handleScroll(e));
+            window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
             resizeObserver.unobserve(mainContent);
         };
@@ -223,7 +248,7 @@ const SidebarWrapper = React.memo(({
         const isHeaderSticky = isStickyEl !== null;
 
         if (isHeaderSticky && !isFooterVisible) {
-            return 'calc(100vh - 60px)';
+            return `calc(100vh - ${topStickyBarHeight}px)`;
         }
 
         return sidebarHeight;

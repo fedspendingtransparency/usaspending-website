@@ -413,6 +413,7 @@ const LocationAutocompleteContainer = (props) => {
             value: newValue
         });
     };
+
     return (
         <LocationAutocomplete
             {...props}
