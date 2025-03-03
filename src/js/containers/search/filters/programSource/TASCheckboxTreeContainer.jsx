@@ -289,6 +289,7 @@ export class TASCheckboxTree extends React.Component {
     };
 
     fetchTas = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
+        console.log("fetchTAS", id, searchStr);
         if (this.request) this.request.cancel();
         if (id === '') {
             this.setState({ isLoading: true });
@@ -299,6 +300,8 @@ export class TASCheckboxTree extends React.Component {
         const queryParam = this.state.isSearch
             ? `?depth=2&filter=${searchStr}`
             : id;
+
+        console.log(queryParam);
         this.request = fetchTas(queryParam);
         const isPartialTree = (
             id !== '' ||

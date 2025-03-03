@@ -15,11 +15,13 @@ const TreeNode = (props) => {
     const handleToggle = async () => {
         const selectedNode = nodes.find((node) => node.description === label);
 
+        const labelText = label.split('(')[0].trim();
+
         if (!isExpanded) {
             setLoading(true);
             setIsExpanded(true);
             if (onExpand) {
-                onExpand([label], selectedNode);
+                onExpand([labelText], selectedNode);
             }
         }
     };
