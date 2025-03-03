@@ -18,7 +18,8 @@ const TreeNode = ({
             setLoading(true);
             setIsExpanded(true);
             if (onExpand) {
-                onExpand(label);
+                // onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
+                    onExpand(label);
             }
             // where to add the children data??
         }
