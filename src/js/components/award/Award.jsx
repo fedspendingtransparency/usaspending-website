@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon, DownloadIconButton } from 'data-transparency-ui';
-import { find, over, startCase, throttle } from 'lodash';
+import { find, startCase, throttle } from 'lodash';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
@@ -138,7 +138,6 @@ export default class Award extends React.Component {
 
     renderContent(overview, awardId) {
         if (!overview) return null;
-        console.log(overview);
         if (overview.category === 'contract') {
             return (
                 <ContractContent
