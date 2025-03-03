@@ -6,17 +6,11 @@
  */
 
 import React from 'react';
-import { render, waitFor, screen } from 'test-utils';
-import * as api from "apis/agency";
 import StatusOfFundsChart from "components/agency/visualizations/StatusOfFundsChart";
-// import VisualizationSection from 'components/agency/statusOfFunds/VisualizationSection';
-import { defaultState } from "../../../testResources/defaultReduxFilters";
-import { userEvent, fireEvent } from "@storybook/testing-library";
-import { level } from "chalk";
-import { mLargeScreen } from "../../../../src/js/dataMapping/shared/mobileBreakpoints";
+import { render, screen } from '../../../testResources/test-utils';
 
 const fy = '2021';
-const mockSetDrilldownLevel= jest.fn();
+const mockSetDrilldownLevel = jest.fn();
 const mockChartData = {
     page_metadata: {
         page: 1,
@@ -111,17 +105,16 @@ const mockChartDataNegative = {
     ]
 };
 const mockProps = {
-    fy: fy,
+    fy,
     results: mockChartData.results,
     level: 0,
     setDrilldownLevel: mockSetDrilldownLevel,
     toggle: false,
     maxLevel: 4
-}
+};
 // const toptierCode = '012';
 // const name = 'Department of Agriculture';
 
-let spy;
 
 beforeEach(() => {
     jest.clearAllMocks();
@@ -134,35 +127,32 @@ describe('StatusOfFundsChart', () => {
         render(<StatusOfFundsChart {...mockProps} />);
         for (let i = 0; i < mockChartData.results.length; i++) {
             expect(screen.queryAllByText(mockChartData.results[i].name)).toBeTruthy();
-
         }
     });
     it('render budgetary key', () => {
         render(<StatusOfFundsChart {...mockProps} />);
         expect(screen.getByText(`FY${fy[2]}${fy[3]} Total Budgetary Resources`)).toBeTruthy();
-    })
+    });
     it('render obligations/outlays key', () => {
-        const { rerender } = render(<StatusOfFundsChart {...mockProps}/>);
-        expect(screen.getByText(`FY${fy[2]}${fy[3]} Obligations`)).toBeTruthy()
+        const { rerender } = render(<StatusOfFundsChart {...mockProps} />);
+        expect(screen.getByText(`FY${fy[2]}${fy[3]} Obligations`)).toBeTruthy();
         expect(screen.queryByText(`FY${fy[2]}${fy[3]} Outlays`)).toBeNull();
-        rerender(<StatusOfFundsChart {...mockProps} toggle={true}/>);
-        expect(screen.getByText(`FY${fy[2]}${fy[3]} Outlays`)).toBeTruthy()
+        rerender(<StatusOfFundsChart {...mockProps} toggle />);
+        expect(screen.getByText(`FY${fy[2]}${fy[3]} Outlays`)).toBeTruthy();
         expect(screen.queryByText(`FY${fy[2]}${fy[3]} Obligations`)).toBeNull();
-
-    })
+    });
     it('should display $0 axis when positive and negative values are present', () => {
         render(<StatusOfFundsChart results={mockChartDataNegative.results} fy={fy} level={0} />);
-            expect(screen.getByText('$0')).toBeTruthy();
+        expect(screen.getByText('$0')).toBeTruthy();
     });
 
     it('should display formatted amount used for max x axis value', () => {
         render(<StatusOfFundsChart {...mockProps} />);
         expect(screen.getByText('$10B')).toBeTruthy();
-    })
+    });
 
     it('should display negative formatted amount used for max x axis value', () => {
         render(<StatusOfFundsChart {...mockProps} results={mockChartDataNegative.results} fy={fy} level={0} />);
-            expect(screen.getByText('−$10B')).toBeTruthy();
+        expect(screen.getByText('−$10B')).toBeTruthy();
     });
-
 });
