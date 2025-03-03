@@ -7,21 +7,20 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const TreeNode = (props) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [childNodes, setChildNodes] = useState([]);
-    const [loading, setLoading] = useState(false);
-
     const { label, children, disabled, onChecked, onExpand, nodes } = props;
+
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [childNodes, setChildNodes] = useState([]);
+
     const handleToggle = async () => {
         const selectedNode = nodes.find((node) => node.description === label);
-
-        const labelText = label.split('(')[0].trim();
 
         if (!isExpanded) {
             setLoading(true);
             setIsExpanded(true);
             if (onExpand) {
-                onExpand([labelText], selectedNode);
+                onExpand([selectedNode.value], selectedNode);
             }
         }
     };

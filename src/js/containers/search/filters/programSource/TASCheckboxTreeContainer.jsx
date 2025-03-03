@@ -156,9 +156,7 @@ export class TASCheckboxTree extends React.Component {
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        console.log("expanding");
         if (shouldFetchChildren && !this.state.isSearch) {
-            console.log("1");
             if (selectedNode.treeDepth === 1) {
                 const selectedAgency = this.props.nodes
                     .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
@@ -341,7 +339,6 @@ export class TASCheckboxTree extends React.Component {
                         }
                     }
                     else {
-                        console.log("TAS nodes", key, nodes);
                         this.props.setTasNodes(key, nodes);
                         this.props.setCheckedTas(newChecked);
                     }
@@ -423,7 +420,6 @@ export class TASCheckboxTree extends React.Component {
                     loading={false}
                     onClear={this.onClear} />
                 <CheckboxTree
-                    nodes={nodes.sort((a, b) => a.label.localeCompare(b.label))}
                     onUncheck={this.onUncheck}
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}

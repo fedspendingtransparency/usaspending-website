@@ -18,11 +18,9 @@ const CheckboxTree = (props) => {
     // eslint-disable-next-line no-shadow
 
     const {
-        nodes, onChecked, data
+        onChecked, data
     } = props;
     const isDisabled = false;
-
-    console.log(nodes);
 
     /**
      * expandNodeAndFetchChildren
@@ -47,7 +45,6 @@ const CheckboxTree = (props) => {
             && !isSearch
         );
 
-        console.log("do we have to props", expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
         return props.onExpand(expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
     };
 
@@ -184,22 +181,24 @@ const CheckboxTree = (props) => {
 
     const labeledNodes = createLabels(data);
 
-    const renderTreeNodes = () => nodes.map((node) => (
-        <TreeNode
-            key={node.label}
-            label={node.label}
-            onExpand={onExpand}
-            onChecked={onChecked}
-            nodes={labeledNodes}
-            disabled={isDisabled}
-            checked={props.checked}
-            expanded={props.expanded}
-            onCheck={onCheck}
-            icons={treeIcons} />
+    const renderTreeNodes = () => data.map((node) => (
+        <>
+            <TreeNode
+                key={node.label}
+                label={node.label}
+                onExpand={onExpand}
+                onChecked={onChecked}
+                nodes={labeledNodes}
+                disabled={isDisabled}
+                checked={props.checked}
+                expanded={props.expanded}
+                onCheck={onCheck}
+                icons={treeIcons} />
+        </>
     ));
 
     return (
-        <div>{renderTreeNodes(nodes)}</div>
+        <div>{renderTreeNodes(data)}</div>
     );
 };
 
