@@ -21,7 +21,7 @@ import {
     periodsPerQuarter,
     lastPeriods,
     cssOrderClassByPeriodId
-} from 'dataMapping/aboutTheData/timeFilters';
+} from 'dataMapping/agencySubmissionStats/timeFilters';
 import PeriodComponent from './PeriodComponent';
 
 const dayjs = require('dayjs');

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipComponent, TooltipWrapper } from 'data-transparency-ui';
-import { columnTooltips } from 'components/aboutTheData/componentMapping/tooltipContentMapping';
+import { columnTooltips } from 'components/agencySubmissionStats/componentMapping/tooltipContentMapping';
 
 const Tooltip = ({
     title,

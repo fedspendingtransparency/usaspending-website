@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { unlinkedDataColumns } from 'dataMapping/aboutTheData/modals';
+import { unlinkedDataColumns } from 'dataMapping/agencySubmissionStats/modals';
 import { formatUnlinkedDataRows } from 'helpers/aboutTheDataHelper';
 import { fetchUnlinkedData } from 'apis/agencyReporting';
 

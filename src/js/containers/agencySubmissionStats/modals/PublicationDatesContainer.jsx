@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 
-import { publicationDatesColumns } from 'dataMapping/aboutTheData/modals';
+import { publicationDatesColumns } from 'dataMapping/agencySubmissionStats/modals';
 import { fetchPublishDates } from 'apis/agencyReporting';
 import {
     formatPublicationDates,
