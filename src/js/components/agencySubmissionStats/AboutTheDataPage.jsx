@@ -11,13 +11,13 @@ import { Link, useLocation } from "react-router-dom";
 
 import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import AboutTheDataModal from "components/aboutTheData/AboutTheDataModal";
+import AboutTheDataModal from "components/agencySubmissionStats/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
+import AgenciesContainer from 'containers/agencySubmissionStats/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
+import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
 import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 

@@ -7,7 +7,7 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { missingAccountBalanceColumns } from 'dataMapping/aboutTheData/modals';
+import { missingAccountBalanceColumns } from 'dataMapping/agencySubmissionStats/modals';
 import { fetchMissingAccountBalances } from 'apis/agencyReporting';
 import { formatMissingAccountBalancesData } from 'helpers/aboutTheDataHelper';
 

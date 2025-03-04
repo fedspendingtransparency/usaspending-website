@@ -1,12 +1,12 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * AgencyDownloadLinkCell-test.jsx
  * Created by Lizzie Salita 1/14/21
  */
 
 import React from 'react';
-import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
+import AgencyDownloadLinkCell from 'components/agencySubmissionStats/AgencyDownloadLinkCell';
 import { render, screen } from '@test-utils';
 
 describe('AgencyDownloadLinkCell', () => {

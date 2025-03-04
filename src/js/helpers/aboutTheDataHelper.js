@@ -10,7 +10,7 @@ import { calculatePercentage, formatMoney, formatNumber, formatMoneyWithPrecisio
 import {
     periodsPerQuarter,
     lastPeriods
-} from 'dataMapping/aboutTheData/timeFilters';
+} from 'dataMapping/agencySubmissionStats/timeFilters';
 
 export const getSelectedPeriodTitle = (str) => (
     str.includes('Q')

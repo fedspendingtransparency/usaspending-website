@@ -10,8 +10,8 @@ import { throttle, isNull } from 'lodash';
 
 import { fetchAgency } from 'apis/agencyReporting';
 import BaseReportingPeriodRow from 'models/v2/aboutTheData/BaseReportingPeriodRow';
-import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
-import CellWithModal from 'components/aboutTheData/CellWithModal';
+import AgencyDownloadLinkCell from 'components/agencySubmissionStats/AgencyDownloadLinkCell';
+import CellWithModal from 'components/agencySubmissionStats/CellWithModal';
 import { agencyDetailsColumns } from './AgencyTableMapping';
 
 const propTypes = {

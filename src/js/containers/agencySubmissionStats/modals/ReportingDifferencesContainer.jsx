@@ -7,7 +7,7 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { reportingDifferencesColumns } from 'dataMapping/aboutTheData/modals';
+import { reportingDifferencesColumns } from 'dataMapping/agencySubmissionStats/modals';
 import { formatReportingDifferencesData } from 'helpers/aboutTheDataHelper';
 import { fetchReportingDifferences } from 'apis/agencyReporting';
 

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { periodToQuarterMapping } from 'dataMapping/aboutTheData/timeFilters';
+import { periodToQuarterMapping } from 'dataMapping/agencySubmissionStats/timeFilters';
 import { showQuarterText } from 'helpers/aboutTheDataHelper';
 import { modalContentMapping } from './componentMapping/modalContentMapping';
 

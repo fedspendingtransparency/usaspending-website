@@ -31,10 +31,10 @@ const AgencyProfile = React.lazy(() => import('containers/agency/AgencyContainer
 const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covid19/DataSourcesAndMethodologiesPage').then((comp) => comp));
 const OpportunityProjectPage = React.lazy(() => import('components/covid19/OpportunityProjectPage').then((comp) => comp));
 const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
-const AboutTheDataPage = React.lazy(() => import('components/aboutTheData/AboutTheDataPage').then((comp) => comp));
-const AgencyDetailsPage = React.lazy(() => import('components/aboutTheData/AgencyDetailsPage').then((comp) => comp));
+const AboutTheDataPage = React.lazy(() => import('components/agencySubmissionStats/AboutTheDataPage').then((comp) => comp));
+const AgencyDetailsPage = React.lazy(() => import('components/agencySubmissionStats/AgencyDetailsPage').then((comp) => comp));
 const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then((comp) => comp));
-const SubmissionStatisticsDataSources = React.lazy(() => import('components/aboutTheData/DataSourcesAndMethodologiesPage').then((comp) => comp));
+const SubmissionStatisticsDataSources = React.lazy(() => import('components/agencySubmissionStats/DataSourcesAndMethodologiesPage').then((comp) => comp));
 const DataDictionaryPage = React.lazy(() => import('components/dataDictionary/DataDictionaryPage').then((comp) => comp));
 const AnalystGuidePage = React.lazy(() => import('components/analystGuide/AnalystGuidePage').then((comp) => comp));
 const EquityCovidSpendingPage = React.lazy(() => import('components/dataDives/EquityCovidSpendingPage').then((comp) => comp));

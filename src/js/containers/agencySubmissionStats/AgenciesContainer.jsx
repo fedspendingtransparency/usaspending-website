@@ -4,8 +4,8 @@ import { Table, Pagination } from 'data-transparency-ui';
 import { throttle, isNull } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
-import DrilldownCell from 'components/aboutTheData/DrilldownCell';
-import CellWithModal from 'components/aboutTheData/CellWithModal';
+import DrilldownCell from 'components/agencySubmissionStats/DrilldownCell';
+import CellWithModal from 'components/agencySubmissionStats/CellWithModal';
 import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/aboutTheData';
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates } from 'apis/agencyReporting';
 import {
@@ -16,7 +16,7 @@ import {
 import { getLatestPeriod } from 'helpers/accountHelper';
 import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
-import AgencyDownloadLinkCell from 'components/aboutTheData/AgencyDownloadLinkCell';
+import AgencyDownloadLinkCell from 'components/agencySubmissionStats/AgencyDownloadLinkCell';
 import { agenciesTableColumns, parsePeriods } from './AgencyTableMapping';
 
 const propTypes = {

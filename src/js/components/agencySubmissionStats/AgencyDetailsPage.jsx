@@ -14,8 +14,8 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import Note from 'components/sharedComponents/Note';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
-import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
+import AgencyDetailsContainer from 'containers/agencySubmissionStats/AgencyDetailsContainer';
+import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';

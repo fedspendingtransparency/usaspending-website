@@ -5,7 +5,7 @@ import React from 'react';
 import { render, waitFor, fireEvent, screen } from 'test-utils';
 import { expect } from '@jest/globals';
 import * as agencyReportingAPI from 'apis/agencyReporting';
-import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
+import AgencyDetailsContainer from 'containers/agencySubmissionStats/AgencyDetailsContainer';
 import { mockReportingPeriodRow } from './mockData';
 
 const defaultProps = {
