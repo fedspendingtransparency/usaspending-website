@@ -181,6 +181,8 @@ const CheckboxTree = (props) => {
 
     const labeledNodes = createLabels(data);
 
+    console.log("expanded", props.expanded);
+
     const renderTreeNodes = () => data.map((node) => (
         <>
             <TreeNode
