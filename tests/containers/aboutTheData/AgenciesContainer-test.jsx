@@ -10,7 +10,7 @@ import * as redux from 'react-redux';
 import { List } from 'immutable';
 
 import * as agencyReportingAPI from 'apis/agencyReporting';
-import AgenciesContainer from 'containers/aboutTheData/AgenciesContainer';
+import AgenciesContainer from 'containers/agencySubmissionStats/AgenciesContainer';
 import { mockAPI } from './mockData';
 
 const defaultProps = {

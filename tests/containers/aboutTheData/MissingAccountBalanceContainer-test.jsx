@@ -4,7 +4,7 @@
 import React from 'react';
 import { render, screen, waitFor } from 'test-utils';
 import * as agencyReportingAPI from 'apis/agencyReporting';
-import MissingAccountBalanceContainer from 'containers/aboutTheData/modals/MissingAccountBalanceContainer';
+import MissingAccountBalanceContainer from 'containers/agencySubmissionStats/modals/MissingAccountBalanceContainer';
 
 const defaultProps = {
     agencyData: {

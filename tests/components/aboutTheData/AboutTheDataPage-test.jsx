@@ -5,7 +5,7 @@ import React from 'react';
 import { List } from 'immutable';
 import { render, screen, waitFor } from '@test-utils';
 
-import AboutTheDataPage from 'components/aboutTheData/AboutTheDataPage';
+import AboutTheDataPage from 'components/agencySubmissionStats/AboutTheDataPage';
 import * as accountHelpers from 'apis/account';
 import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';

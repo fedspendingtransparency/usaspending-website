@@ -4,7 +4,7 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
 import * as agencyReportingAPI from 'apis/agencyReporting';
-import ReportingDifferencesContainer from 'containers/aboutTheData/modals/ReportingDifferencesContainer';
+import ReportingDifferencesContainer from 'containers/agencySubmissionStats/modals/ReportingDifferencesContainer';
 
 const defaultProps = {
     agencyData: {

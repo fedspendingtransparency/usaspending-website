@@ -4,7 +4,7 @@
 import React from 'react';
 import { render } from 'test-utils';
 import * as agencyReportingAPI from 'apis/agencyReporting';
-import UnlinkedDataContainer from 'containers/aboutTheData/modals/UnlinkedDataContainer';
+import UnlinkedDataContainer from 'containers/agencySubmissionStats/modals/UnlinkedDataContainer';
 
 const defaultProps = {
     agencyData: {

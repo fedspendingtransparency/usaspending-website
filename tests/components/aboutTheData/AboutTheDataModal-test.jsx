@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render, screen } from 'test-utils';
-import AboutTheDataModal from 'components/aboutTheData/AboutTheDataModal';
+import AboutTheDataModal from 'components/agencySubmissionStats/AboutTheDataModal';
 window.scroll = jest.fn();
 const defaultProps = {
     mounted: true,
