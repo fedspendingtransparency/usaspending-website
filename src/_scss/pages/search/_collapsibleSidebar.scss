@@ -1,15 +1,9 @@
 @import "searchFilter";
 
-@keyframes drilldown-slidein {
-  0% {
-    display: block;
-    transform: translateX(24px);
-    visibility: hidden;
-  }
-
-  100% {
-    transform: translateX(0);
-    visibility: visible;
+// .usda-page-header style is a DTUI override that's specific to the search 2.0 page
+&.v2 {
+  .site-header, .usda-page-header:not(.usda-page-header--sticky) {
+    position: relative;
   }
 }
 
@@ -28,7 +22,7 @@
 
   &.sticky {
     position: fixed;
-    top: rem(92);
+    top: rem(98);
 
     .sidebar-bottom-submit {
       position: absolute;
@@ -97,29 +91,33 @@
       display: flex;
       flex-direction: column;
 
-      .categories-list {
-        overflow-y: auto;
-      }
-
+      .categories-list,
       .category-filter {
-        overflow-y: hidden;
+        &:not(:has(.time-period)){   // prevent overflow scroll only for time period filter but allow for other types.
+          overflow-y: auto;
+        }
+        &:has(.time-period .filter__dropdown-list-sm.hide) {
+          overflow-y: auto;
+        }
       }
+      
       .category-filter.exempt {
         overflow-y: auto;
+      }
 
-        @import "_newNaicsStyles";
-        @import "_newPscStyles";
-        @import "_newTasStyles";
+    }
+
+    .category-filter {
+      .search-option {
+        border-bottom: none;
+      }
+      .react-checkbox-tree {
+        overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
+        max-height: unset !important;
+        height: unset !important;
       }
     }
 
-    // .category-filter {
-    //   .react-checkbox-tree {
-    //     overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
-    //     max-height: unset !important;
-    //     height: unset !important;
-    //   }
-    // }
     @import "_newNaicsStyles";
     @import "_newPscStyles";
     @import "_newTasStyles";
@@ -178,10 +176,17 @@
         padding: 0 32px;
       }
 
+      // DEV - 12074 requested that all search boxes be full width on tablet/mobile  
+      // putting this here is a overarching blanket v2 fix but does not effect original search styles. 
+      .usa-da-typeahead__input,
+      .autocomplete__input {
+        input {
+          min-width: 100% !important;
+        }
+      }
+
       &.opened {
         display: block;
-        -webkit-animation: drilldown-slidein 0.2s forwards;
-        animation: drilldown-slidein 0.2s forwards;
       }
 
       .collapsible-sidebar--back-btn {
@@ -287,7 +292,6 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-
         &:hover {
           color: $blue-70v;
         }
@@ -298,9 +302,24 @@
         }
 
         .collapsible-sidebar--dsm-content {
+
           .collapsible-sidebar--dsm-wrapper {
             font-size: $font-size-14;
             color: $gray-60;
+            font-weight: $font-normal;
+            overflow-y: auto;
+
+            &--text-header {
+              font-weight: $font-semibold;
+              color: $gray-90;
+              margin: 16px 0px 0px;
+            }
+
+            &--text-section {
+              p {
+                margin: 4px 0px 0px;
+              }
+            }
           }
         }
       }

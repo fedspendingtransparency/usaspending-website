@@ -57,18 +57,13 @@
   text-align: center;
 }
 
-//added for scroll bar, this is kind of a hack
-.filter-item-wrap {
-  max-height: 600px;
-  height: 100%;
-  overflow-y: auto;
-}
 }
 
 // TODO: replace the relevant padding, left, and top properties above with those below once searchV2 releases
 &.collapsible-sidebar--drilldown {
   .extent-competed-filter .autocomplete__input {
     padding: 0 ($global-spacing-unit * 4) rem(20) ($global-spacing-unit * 4);
+    min-width: 100%;
 
     .search-icon {
       left: ($global-spacing-unit * 5);

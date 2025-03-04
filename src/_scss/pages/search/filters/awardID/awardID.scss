@@ -22,11 +22,54 @@
         line-height: $base-line-height;
     }
 
-    .award-id-filter-item-wrap {
-        width: 100%;
+    .award-id-filter__form {
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
+        
+        .award-id-filter__text-field-wrapper {
+            width: 100%;
+            
+            .award-id-filter__text-field {
+                &::placeholder {
+                    color: $gray-60;
+                }
+                
+                &:focus {
+                    box-shadow: 0 0 4px $blue-50;
+                    border: solid 0.5px $blue-50;
+                    
+                    &::placeholder {
+                        color: transparent;
+                    }
+                }
+                
+                max-height: rem(32);
+                font-size: $smallest-font-size;
+                line-height: 1.5;
+                color: $gray-90;
+                padding: $global-padding;
+                border-radius: 3px;
+                border: solid 1px $gray-cool-10;
+                margin: 0;
+                min-width: 100%;
+            }
+            
+        }
+        .award-id-filter__add-button {
+            &:hover {
+                cursor: pointer;
+            }
+            
+            margin: 0 0 0 rem(4);
+            padding: rem(7) rem(12);
+            font-size: $smallest-font-size;
+            line-height: 1.5;
+            
+            @media screen and (max-width: 320px) {
+                width: auto;
+            }
+        }
     }
 
     @media only screen and (min-width: $tablet-screen) {

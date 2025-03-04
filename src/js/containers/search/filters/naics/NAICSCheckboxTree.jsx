@@ -67,7 +67,8 @@ const propTypes = {
     nodes: PropTypes.arrayOf(PropTypes.object),
     counts: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    searchV2: PropTypes.bool
 };
 
 export class NAICSCheckboxTree extends React.Component {
@@ -460,9 +461,11 @@ export class NAICSCheckboxTree extends React.Component {
                             })}
                         </div>
                     )}
-                    <SubmitHint ref={(component) => {
-                        this.hint = component;
-                    }} />
+                    { !this.props.searchV2 &&
+                        <SubmitHint ref={(component) => {
+                            this.hint = component;
+                        }} />
+                    }
                 </div>
             </div>
         );

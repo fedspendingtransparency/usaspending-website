@@ -6,7 +6,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from "../../../../helpers/analytics/Analytics";
 import CategoriesVisualizationWrapperContainer
     from "../../../../containers/search/newResultsView/CategoriesVisualizationWrapperContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
@@ -16,15 +16,16 @@ const propTypes = {
     categoriesHasLoaded: PropTypes.bool,
     subaward: PropTypes.bool,
     setSelectedDropdown: PropTypes.func,
-    selectedDropdown: PropTypes.string
+    selectedDropdown: PropTypes.string,
+    hash: PropTypes.string
 };
-
 const CategoriesSection = (props) => {
     const onClick = (e) => {
         props.setSelectedDropdown(e);
         Analytics.event({
             category: 'Section Categories',
-            action: `View ${e}`
+            action: `View ${e}`,
+            label: props.hash
         });
     };
 
@@ -80,7 +81,8 @@ const CategoriesSection = (props) => {
                     subaward={props.subaward}
                     categoriesHasLoaded={props.categoriesHasLoaded}
                     selectedDropdown={props.selectedDropdown}
-                    setSelectedDropdown={props.setSelectedDropdown} />
+                    setSelectedDropdown={props.setSelectedDropdown}
+                    hash={props.hash} />
                 :
                 <PlaceholderComponent className="categories" />
             }
