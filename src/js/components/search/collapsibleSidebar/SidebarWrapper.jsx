@@ -31,6 +31,7 @@ const SidebarWrapper = React.memo(({
     const [isOpened, setIsOpened] = useState(sidebarOpen);
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [isFooterVisible, setIsFooterVisible] = useState();
+    const [isDsmOpened, setIsDsmOpened] = useState(false);
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -263,8 +264,14 @@ const SidebarWrapper = React.memo(({
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
-                    onClick={(e) => toggleOpened(e)}
-                    onKeyDown={(e) => keyHandler(e, toggleOpened)}
+                    onClick={(e) => {
+                        setIsDsmOpened(false);
+                        toggleOpened(e);
+                    }}
+                    onKeyDown={(e) => {
+                        setIsDsmOpened(false);
+                        keyHandler(e, toggleOpened);
+                    }}
                     role="button"
                     focusable="true"
                     tabIndex={0}>
@@ -274,7 +281,11 @@ const SidebarWrapper = React.memo(({
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
                     }
                 </div>
-                <SidebarContent sidebarContentHeight={sidebarContentHeight} setShowMobileFilters={setShowMobileFilters} />
+                <SidebarContent
+                    sidebarContentHeight={sidebarContentHeight}
+                    setShowMobileFilters={setShowMobileFilters}
+                    isDsmOpened={isDsmOpened}
+                    setIsDsmOpened={setIsDsmOpened} />
             </div>
         </div>
     );

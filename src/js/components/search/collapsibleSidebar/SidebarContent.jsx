@@ -15,10 +15,14 @@ import { characteristicsCount, sourcesCount } from "../../../helpers/search/filt
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
-    setShowMobileFilters: PropTypes.func
+    setShowMobileFilters: PropTypes.func,
+    isDsmOpened: PropTypes.bool,
+    setIsDsmOpened: PropTypes.func
 };
 
-const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => {
+const SidebarContent = ({
+    sidebarContentHeight, setShowMobileFilters, isDsmOpened, setIsDsmOpened
+}) => {
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -94,7 +98,9 @@ const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => {
             titleOnly={drilldown?.titleOnly}
             dsmComponent={drilldown?.dsmComponent}
             dsmFile={drilldown?.dsmFile}
-            currentLevel={currentLevel} />
+            currentLevel={currentLevel}
+            isDsmOpened={isDsmOpened}
+            setIsDsmOpened={setIsDsmOpened} />
 
         <div className="sidebar-bottom-submit">
             <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
