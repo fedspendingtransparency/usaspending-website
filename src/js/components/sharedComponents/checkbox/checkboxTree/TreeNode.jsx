@@ -14,23 +14,21 @@ const TreeNode = (props) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [loading, setLoading] = useState(false);
     const [childNodes, setChildNodes] = useState([]);
+    const [selectedNode, setSelectedNode] = useState();
 
     useEffect(() => {
-        console.log("loaded");
-    }, [nodes]);
+        const node = nodes.find((n) => n.description === label);
+        setSelectedNode(node);
+        setChildNodes((prevState) => prevState.push(node.value));
+
+    }, [label]);
 
     const handleToggle = async () => {
-        const selectedNode = nodes.find((node) => node.description === label);
-
-        setChildNodes((prevState) => prevState.push(selectedNode.value));
-
-        const tempChildNodes = [...childNodes].push(selectedNode.id);
-
         if (!isExpanded) {
             setLoading(true);
             setIsExpanded(true);
             if (onExpand) {
-                onExpand(tempChildNodes, selectedNode);
+                onExpand(childNodes, selectedNode);
             }
         }
     };
@@ -51,9 +49,8 @@ const TreeNode = (props) => {
                     {label} {loading && <span>Loading...</span>}
                 </span>
             </div>
-            {isExpanded && (
                 <div>
-                    {props?.childNodes?.length > 0 ? props?.childNodes?.map((childLabel) => (
+                    {childNodes?.length > 0 ? childNodes?.map((childLabel) => (
                         <TreeNode
                             key={childLabel}
                             label={childLabel}
@@ -65,7 +62,6 @@ const TreeNode = (props) => {
                             icons={props.icons} />))
                         : !loading && <div>No child nodes found.</div>}
                 </div>
-            )}
         </div>
     );
 };

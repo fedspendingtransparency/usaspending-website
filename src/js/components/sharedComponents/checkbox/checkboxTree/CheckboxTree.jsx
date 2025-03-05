@@ -62,6 +62,7 @@ const CheckboxTree = (props) => {
      * Decides whether we are expanding or collapsing the node.
      */
     const onExpand = (newExpandedArray, node) => {
+        console.log(newExpandedArray, node);
         // collapsing node
         if (newExpandedArray.length < props.expanded.length) {
             return collapseNode(newExpandedArray);
@@ -180,8 +181,6 @@ const CheckboxTree = (props) => {
     });
 
     const labeledNodes = createLabels(data);
-
-    console.log("expanded", props.expanded);
 
     const renderTreeNodes = () => data.map((node) => (
         <>

@@ -52,7 +52,6 @@ export default class CheckboxTree extends Component {
      * Decides whether we are expanding or collapsing the node.
      */
     onExpand = (newExpandedArray, node) => {
-        console.log(newExpandedArray, node);
     // collapsing node
         if (newExpandedArray.length < this.props.expanded.length) {
             return this.collapseNode(newExpandedArray);
