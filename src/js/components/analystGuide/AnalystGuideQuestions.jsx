@@ -739,21 +739,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                 </button>
                 {' '}provides information for developers on how the USAspending application works.
             </p>
-            <p className="analyst-guide__answerStyle">The USAspending&apos;s{' '}
-                <button
-                    value="https://fiscalservice.force.com/usaspending/s/"
-                    role="link"
-                    className="analyst-guide__external-link"
-                    onClick={onExternalLinkClick}>
-        FAQ page{' '}
-                    <span
-                        data-href="https://fiscalservice.force.com/usaspending/s/"
-                        className="usa-button-link__icon">
-                        <FontAwesomeIcon data-href="https://fiscalservice.force.com/usaspending/s/" icon="external-link-alt" />
-                    </span>
-        .
-                </button>
-                {' '}provides additional advice for getting the most out of the site.
+            <p className="analyst-guide__answerStyle">The USAspending&apos;s{' '}<a href="https://fiscalservice.force.com/usaspending/s/">FAQ page{' '}</a>provides additional advice for getting the most out of the site.
             </p>
             <p className="analyst-guide__answerStyle">The <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">DATA Act Information Model Schema (DAIMS) page</a> provides more information on various systems related to the data in USAspending.</p>
         </>)
