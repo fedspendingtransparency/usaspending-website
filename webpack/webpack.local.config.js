@@ -7,7 +7,6 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
     mode: "development",
-    stats: { warnings: false },
     devtool: "eval",
     optimization: {
         splitChunks: {
@@ -38,7 +37,8 @@ module.exports = merge(common, {
                         options: {
                             sourceMap: true,
                             sassOptions: {
-                                includePaths: ["./src/_scss", "./node_modules"]
+                                includePaths: ["./src/_scss", "./node_modules"],
+                                quiet: true
                             }
                         }
                     }
