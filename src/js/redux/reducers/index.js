@@ -25,7 +25,7 @@ import pscReducer from './search/pscReducer';
 import mapLegendToggleReducer from './search/mapLegendToggleReducer';
 import agencyReducer from './agency/agencyReducer';
 import covid19Reducer from './covid19/covid19Reducer';
-import aboutTheDataReducer from './aboutTheData';
+import aboutTheDataReducer from './agencySubmissionStats';
 import googleAnalyticsReducer from './googleAnalytics/googleAnalyticsReducer';
 import aboutTheDataSidebarReducer from './aboutTheDataSidebar/aboutTheDataReducer';
 import slideoutReducer from './slideouts/slideoutReducer';
