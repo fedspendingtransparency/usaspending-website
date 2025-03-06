@@ -1,17 +1,19 @@
 .hero__row {
-  background: linear-gradient(
-    to right,
-    #1b4485 0%,
-    #1b4485 50%,
-    #768eb5 50%,
-    #768eb5 100%
-  );
-  padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
+  background: #1b4485;
+  padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
   
-  @media (max-width: $tablet-screen) {
-    padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
-    background: #1b4485;
+  @media (min-width: $medium-screen) {
+    padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
+    background: linear-gradient(
+      to right,
+      #1b4485 0%,
+      #1b4485 50%,
+      #768eb5 50%,
+      #768eb5 100%
+    );
   }
+  
+
   
   .hero__col {
       display: flex;
