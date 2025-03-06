@@ -78,7 +78,12 @@
                                 outline: none;
                                 border-color: $gray-cool-20;
                                 top: rem(4);
+
+                                &:focus-visible {
+                                    outline: solid 1px $color-focus;
+                                }
                             }
+
                         }
                     }
                 }
