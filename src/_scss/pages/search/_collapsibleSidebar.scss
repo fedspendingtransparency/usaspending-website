@@ -283,26 +283,30 @@
 
       .collapsible-sidebar--dsm-slider {
         color: $blue-50;
-        cursor: pointer;
         padding: rem(16) rem(32);
         font-size: rem(12);
         font-weight: $font-semibold;
         line-height: 1.5;
         border-top: 1px solid $gray-cool-5;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        &:hover {
-          color: $blue-70v;
-        }
+        
+        span {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: center;
+          cursor: pointer;
+          &:hover {
+            color: $blue-70v;
+          }
 
-        .chevron {
-          margin: 4px 8px 0 8px;
-          width: 10px;
+          .chevron {
+            margin: 0 8px 0 8px;
+            width: 10px;
+          }
+  
         }
 
         .collapsible-sidebar--dsm-content {
-
           .collapsible-sidebar--dsm-wrapper {
             font-size: $font-size-14;
             color: $gray-60;
