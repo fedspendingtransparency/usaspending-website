@@ -37,35 +37,12 @@
         }
       }
     }
+
     @import '../../../../elements/filters/selectedFilterBtn';
+    @import "mixins/selectedFilterWrap";
+
     .selected-filters {
-      background: #E4E4E4;
-      padding: rem(10);
-      margin-bottom: rem(10);
-      .shown-filter-button {
-        line-height: rem(15);
-        font-size: rem(12);
-        color: $color-gray;
-        width: fit-content;
-        max-width: fit-content;
-        .close {
-          color: $color-gray;
-        }
-        &:hover {
-          outline: none;
-          border: rem(1) solid $color-gray-lighter;
-          & .close {
-            color: $color-gray;
-            outline: none;
-          }
-        }
-        &:focus {
-          outline: none;
-          & .close {
-            outline: none;
-          }
-        }
-      }
+      @include selected-filter-wrap;
     }
   }
 }
