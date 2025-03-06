@@ -1,14 +1,18 @@
 .psc-checkbox {
     padding: rem(12);
+
     @import '../../tooltips';
+
     .checkbox-header {
       padding-top: rem(10);
     }
+
     .autocomplete__input {
         @include display(flex);
         width: 100%;
         padding: rem(10) 0;
         position: relative;
+
         input {
             width: 100%;
             &::-ms-clear {
@@ -18,6 +22,7 @@
               width: 0;
             }
         }
+
         .icon {
           @include flex(0 0 auto);
           @include align-self(center);
@@ -26,35 +31,11 @@
           right: rem(5);
         }
     }
-    @import '../../../../elements/filters/selectedFilterBtn';
-    .selected-filters {
-      background: #E4E4E4;
-      padding: rem(10);
-      margin-bottom: rem(10);
-      width: 100%;
-      .shown-filter-button {
-        line-height: rem(15);
-        font-size: rem(12);
-        width: fit-content;
-        max-width: fit-content;
-        color: $color-gray;
-        .close {
-          color: $color-gray;
-        }
-        &:hover {
-          outline: none;
-          border: rem(1) solid $color-gray-lighter;
-          & .close {
-            color: $color-gray;
-            outline: none;
-          }
-        }
-        &:focus {
-          outline: none;
-          & .close {
-            outline: none;
-          }
-        }
-      }
-    }
+
+  @import '../../../../elements/filters/selectedFilterBtn';
+  @import "mixins/selectedFilterWrap";
+
+  .selected-filters {
+    @include selected-filter-wrap;
+  }
 }
