@@ -28,7 +28,7 @@ import {
     badMockDates
 } from '../mockData/helpers/aboutTheDataHelper';
 
-import { mockAPI } from '../containers/aboutTheData/mockData';
+import { mockAPI } from '../containers/agencySubmissionStats/mockData';
 
 const mockFederalTotals = mockAPI.totals.data.results;
 

@@ -364,7 +364,7 @@ export default class TimePeriod extends React.Component {
         };
 
         return (
-            <div className="tab-filter-wrap time-period">
+            <div className="tab-filter-wrap">
                 <div className="filter-item-wrap">
                     <FilterTabs
                         labels={tabLabels}

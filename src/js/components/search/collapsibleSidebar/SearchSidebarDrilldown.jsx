@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -26,7 +26,9 @@ const propTypes = {
     titleOnly: PropTypes.bool,
     dsmComponent: PropTypes.bool,
     dsmFile: PropTypes.string,
-    currentLevel: PropTypes.number
+    currentLevel: PropTypes.number,
+    isDsmOpened: PropTypes.bool,
+    setIsDsmOpened: PropTypes.func
 };
 
 const SearchSidebarDrilldown = ({
@@ -43,9 +45,10 @@ const SearchSidebarDrilldown = ({
     titleOnly = false,
     dsmComponent = false,
     dsmFile = '',
-    currentLevel
+    currentLevel,
+    isDsmOpened,
+    setIsDsmOpened
 }) => {
-    const [isDsmOpened, setIsDsmOpened] = useState(false);
     const keyHandler = (e, func) => {
         e.preventDefault();
         if (e.key === "Enter") {
@@ -132,8 +135,14 @@ const SearchSidebarDrilldown = ({
             <div className="collapsible-sidebar--header">
                 <div
                     className="collapsible-sidebar--back-btn"
-                    onClick={(e) => goBack(e)}
-                    onKeyDown={(e) => keyHandler(e, goBack)}
+                    onClick={(e) => {
+                        setIsDsmOpened(false);
+                        goBack(e);
+                    }}
+                    onKeyDown={(e) => {
+                        setIsDsmOpened(false);
+                        keyHandler(e, goBack);
+                    }}
                     role="button"
                     tabIndex="0">
                     <FontAwesomeIcon className="chevron" icon="chevron-left" />Back
