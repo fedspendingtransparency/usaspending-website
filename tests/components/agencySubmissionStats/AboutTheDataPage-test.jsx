@@ -11,7 +11,7 @@ import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
 import * as queryParamHelpers from 'helpers/queryParams';
 import * as agencyReportingAPI from 'apis/agencyReporting';
-import { mockAPI } from '../../containers/aboutTheData/mockData';
+import { mockAPI } from '../../containers/agencySubmissionStats/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 
 const dayjs = require('dayjs');

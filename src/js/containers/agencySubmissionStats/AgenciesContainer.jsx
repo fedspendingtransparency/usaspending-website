@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DrilldownCell from 'components/agencySubmissionStats/DrilldownCell';
 import CellWithModal from 'components/agencySubmissionStats/CellWithModal';
-import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/aboutTheData';
+import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/agencySubmissionStats';
 import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates } from 'apis/agencyReporting';
 import {
     usePagination,
@@ -14,8 +14,8 @@ import {
     getFederalBudget
 } from 'helpers/aboutTheDataHelper';
 import { getLatestPeriod } from 'helpers/accountHelper';
-import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
-import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
+import BaseAgencyRow from 'models/v2/agencySubmissionStats/BaseAgencyRow';
+import PublicationOverviewRow from 'models/v2/agencySubmissionStats/PublicationOverviewRow';
 import AgencyDownloadLinkCell from 'components/agencySubmissionStats/AgencyDownloadLinkCell';
 import { agenciesTableColumns, parsePeriods } from './AgencyTableMapping';
 

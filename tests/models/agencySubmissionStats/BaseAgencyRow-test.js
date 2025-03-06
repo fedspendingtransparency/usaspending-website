@@ -1,13 +1,13 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * BaseAgencyRow-test.js
  * Created by Lizzie Salita 11/20/20
  */
 
-import BaseAgencyRow from 'models/v2/aboutTheData/BaseAgencyRow';
-import CoreReportingRow from 'models/v2/aboutTheData/CoreReportingRow';
-import { mockAPI } from '../../containers/aboutTheData/mockData';
+import BaseAgencyRow from 'models/v2/agencySubmissionStats/BaseAgencyRow';
+import CoreReportingRow from 'models/v2/agencySubmissionStats/CoreReportingRow';
+import { mockAPI } from '../../containers/agencySubmissionStats/mockData';
 
 const mockAgencyRow = {
     ...mockAPI.submissions.data.results[0],

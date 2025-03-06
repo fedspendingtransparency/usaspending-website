@@ -21,7 +21,7 @@ import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
 import { useAgencySlugs } from "../../containers/agency/WithAgencySlugs";
 
-require('pages/aboutTheData/aboutTheData.scss');
+require('pages/agencySubmissionStats/aboutTheData.scss');
 
 const AgencyDetailsPage = () => {
     const { agencyCode } = useParams();

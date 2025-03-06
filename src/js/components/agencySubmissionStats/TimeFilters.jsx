@@ -16,7 +16,7 @@ import {
     isPeriodVisible,
     isPeriodSelectable
 } from "helpers/aboutTheDataHelper";
-import { setSearchTerm } from "redux/actions/aboutTheData";
+import { setSearchTerm } from "redux/actions/agencySubmissionStats";
 import {
     periodsPerQuarter,
     lastPeriods,

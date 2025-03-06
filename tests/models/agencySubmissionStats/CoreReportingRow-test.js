@@ -1,12 +1,12 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * CoreReportingRow-test.js
  * Created by Lizzie Salita 1/12/21
  */
 
-import CoreReportingRow from 'models/v2/aboutTheData/CoreReportingRow';
-import { mockAPI } from '../../containers/aboutTheData/mockData';
+import CoreReportingRow from 'models/v2/agencySubmissionStats/CoreReportingRow';
+import { mockAPI } from '../../containers/agencySubmissionStats/mockData';
 
 const mockReportingPeriodRow = mockAPI.submissions.data.results[0];
 

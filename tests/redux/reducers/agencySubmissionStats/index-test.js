@@ -1,11 +1,11 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * accountReducer-test.js
  * Created by Max Kendall 🍻 12/9/2020
  */
 
-import aboutTheDataReducer, { initialState } from 'redux/reducers/aboutTheData';
+import aboutTheDataReducer, { initialState } from 'redux/reducers/agencySubmissionStats';
 
 test('SET_ABOUT_THE_DATA_ALL_SUBMISSIONS', () => {
     expect(aboutTheDataReducer(initialState, {

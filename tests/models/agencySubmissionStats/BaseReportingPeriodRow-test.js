@@ -1,14 +1,14 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * BaseReportingPeriodRow-test.js
  * Created by Lizzie Salita 12/8/20
  */
 
-import BaseReportingPeriodRow from 'models/v2/aboutTheData/BaseReportingPeriodRow';
-import CoreReportingRow from 'models/v2/aboutTheData/CoreReportingRow';
+import BaseReportingPeriodRow from 'models/v2/agencySubmissionStats/BaseReportingPeriodRow';
+import CoreReportingRow from 'models/v2/agencySubmissionStats/CoreReportingRow';
 
-import { mockReportingPeriodRow } from '../../containers/aboutTheData/mockData';
+import { mockReportingPeriodRow } from '../../containers/agencySubmissionStats/mockData';
 
 const mockResult = mockReportingPeriodRow.data.results[0];
 const reportingPeriodRow = Object.create(BaseReportingPeriodRow);

@@ -21,7 +21,7 @@ import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/
 import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 
-require('pages/aboutTheData/aboutTheData.scss');
+require('pages/agencySubmissionStats/aboutTheData.scss');
 
 /*
 This page is called Agency Submission Statistics IRL

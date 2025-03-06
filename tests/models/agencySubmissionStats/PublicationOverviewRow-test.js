@@ -1,12 +1,12 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * PublicationOverviewRow-test.js
  * Created by Max Kendall 12/9/2020
  */
 
-import PublicationOverviewRow from 'models/v2/aboutTheData/PublicationOverviewRow';
-import { mockAPI } from '../../containers/aboutTheData/mockData';
+import PublicationOverviewRow from 'models/v2/agencySubmissionStats/PublicationOverviewRow';
+import { mockAPI } from '../../containers/agencySubmissionStats/mockData';
 
 const mockRow = mockAPI.publications.data.results[0];
 const mockTotal = 10000;
