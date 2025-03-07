@@ -26,7 +26,8 @@ const DsmSlider = (props) => {
 
         fetchMarkdown();
     }, [props.dsmFile]);
-    const clickHandler = () => {
+    const clickHandler = (e) => {
+        e.preventDefault();
         props.setIsDsmOpened(!props.isDsmOpened);
     };
 
@@ -39,16 +40,17 @@ const DsmSlider = (props) => {
     };
     return (
         <div
-            className={`collapsible-sidebar--dsm-slider ${props?.isDsmOpened ? `dsm-opened` : ''}`}
-            role="button"
-            tabIndex="0"
-            onClick={clickHandler}
-            onKeyUp={(e) => {
-                if (e.key === 'Enter') {
-                    props.setIsDsmOpened(!props.isDsmOpened);
-                }
-            }}>
-            About {adjustFilterLabel()}{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
+            className={`collapsible-sidebar--dsm-slider ${props?.isDsmOpened ? `dsm-opened` : ''}`}>
+            <span
+                role="button"
+                tabIndex={0}
+                onClick={clickHandler}
+                onKeyUp={(e) => {
+                    if (e.key === 'Enter') {
+                        props.setIsDsmOpened(!props.isDsmOpened);
+                    }
+                }}>About {adjustFilterLabel()}{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
+            </span>
             {props.isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">
                     <div className="collapsible-sidebar--dsm-wrapper" style={{ height: `${props.height - 64}px` }}>
