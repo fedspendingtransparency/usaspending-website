@@ -51,6 +51,10 @@
         }
 
         .checkbox-type-filter {
+            // allows for checkbox focus on v2 to not be cut off on left
+            margin-left: -32px;
+            padding-left: 32px;
+
             &.bottom-fade {
                 mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
             }
