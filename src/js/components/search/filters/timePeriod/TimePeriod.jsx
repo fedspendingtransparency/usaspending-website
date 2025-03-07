@@ -3,28 +3,25 @@
  * Created by Emily Gullo 11/03/2016
  **/
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Set } from 'immutable';
-import { isEqual } from 'lodash';
+
+import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
 import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import FilterTabs from '../../../sharedComponents/filterSidebar/FilterTabs';
+import { usePrevious } from "../../../../helpers";
 
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
 
 dayjs.extend(isSameOrAfter);
-
-const defaultProps = {
-    disableDateRange: false
-};
 
 const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Set),
@@ -36,6 +33,7 @@ const propTypes = {
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
+    updateGenericFilter: PropTypes.func,
     updateNewAwardsOnlySelected: PropTypes.func,
     updateNewAwardsOnlyActive: PropTypes.func,
     updateNaoActiveFromFyOrDateRange: PropTypes.func,
@@ -45,92 +43,49 @@ const propTypes = {
     subaward: PropTypes.bool,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
-    naoActiveFromFyOrDateRange: PropTypes.bool,
     federalAccountPage: PropTypes.bool,
     searchV2: PropTypes.bool
 };
 
-export default class TimePeriod extends React.Component {
-    constructor(props) {
-        super(props);
+const TimePeriod = ({
+    filterTimePeriodFY,
+    filterTimePeriodStart,
+    filterTimePeriodEnd,
+    filterTimePeriodType,
+    filterTime_Period: filterTimePeriod,
+    label,
+    timePeriods,
+    activeTab,
+    updateFilter,
+    updateGenericFilter,
+    updateNewAwardsOnlySelected,
+    updateNewAwardsOnlyActive,
+    updateNaoActiveFromFyOrDateRange,
+    changeTab,
+    disableDateRange = false,
+    dirtyFilters,
+    subaward,
+    newAwardsOnlySelected,
+    newAwardsOnlyActive,
+    federalAccountPage,
+    searchV2
+}) => {
+    const [startDateUI, setStartDateUI] = useState(null);
+    const [endDateUI, setEndDateUI] = useState(null);
+    const [startDateDropdown, setStartDateDropdown] = useState(null);
+    const [endDateDropdown, setEndDateDropdown] = useState(null);
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [header, setHeader] = useState('');
+    const [dateRangeChipRemoved, setDateRangeChipRemoved] = useState(false);
+    const prevProps = usePrevious({ filterTimePeriodFY, filterTimePeriod });
+    const prevState = usePrevious({
+        startDateUI, endDateUI, startDateDropdown, endDateDropdown
+    });
 
-        this.state = {
-            startDateUI: null,
-            endDateUI: null,
-            startDateDropdown: null,
-            endDateDropdown: null,
-            showError: false,
-            header: '',
-            description: '',
-            isActive: false,
-            selectedFY: new Set(),
-            allFY: false,
-            clearHint: false,
-            dateRangeChipRemoved: false
-        };
-
-        // bind functions
-        this.handleDateChange = this.handleDateChange.bind(this);
-        this.showError = this.showError.bind(this);
-        this.hideError = this.hideError.bind(this);
-        this.removeDateRange = this.removeDateRange.bind(this);
-        this.clearHint = this.clearHint.bind(this);
-        this.newAwardsClick = this.newAwardsClick.bind(this);
-        this.determineIfNaoIsActive = this.determineIfNaoIsActive.bind(this);
-    }
-
-    componentDidMount() {
-        this.prepopulateDatePickers();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (!isEqual(prevProps, this.props)) {
-            this.synchronizeDatePickers(this.props);
-        }
-        if (this.state.clearHint) {
-            this.clearHint(false);
-        }
-        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
-            if (this.hint) {
-                this.hint.showHint();
-            }
-        }
-
-        this.determineIfNaoIsActive(prevProps, prevState);
-    }
-
-    determineIfNaoIsActive(prevProps, prevState) {
-        if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
-            this.props.updateNewAwardsOnlyActive(!!this.props.filterTimePeriodFY?.size);
-            this.props.updateNaoActiveFromFyOrDateRange(!!this.props.filterTimePeriodFY?.size);
-        }
-        else if (prevProps.filterTime_Period !== this.props.filterTime_Period) {
-            this.props.updateNewAwardsOnlyActive(false);
-            this.props.updateNaoActiveFromFyOrDateRange(false);
-        }
-        if (this.props.dirtyFilters) {
-            this.props.updateNewAwardsOnlyActive(true);
-            this.props.updateNaoActiveFromFyOrDateRange(true);
-        }
-        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
-            this.props.updateNewAwardsOnlyActive(false);
-            this.props.updateNaoActiveFromFyOrDateRange(false);
-        }
-        else if ((prevState.startDateDropdown !== this.state.startDateDropdown || prevState.endDateDropdown !== this.state.endDateDropdown) && (!this.state.startDateDropdown && !this.state.endDateDropdown)) {
-            this.props.updateNewAwardsOnlyActive(false);
-            this.props.updateNaoActiveFromFyOrDateRange(false);
-        }
-    }
-
-    clearHint(val) {
-        this.setState({
-            clearHint: val
-        });
-    }
-
-    prepopulateDatePickers() {
-        if ((!this.props.filterTimePeriodStart || !this.props.filterTimePeriodEnd) &&
-            this.props.filterTimePeriodType !== 'dr') {
+    const prepopulateDatePickers = () => {
+        if ((!filterTimePeriodStart || !filterTimePeriodEnd) &&
+            filterTimePeriodType !== 'dr') {
             // not filtering by a date range
             return;
         }
@@ -139,21 +94,19 @@ export default class TimePeriod extends React.Component {
         const startDate = dayjs(null, 'YYYY-MM-DD');
         const endDate = dayjs(null, 'YYYY-MM-DD');
         if (startDate.isValid() && endDate.isValid()) {
-            this.setState({
-                startDateUI: startDate,
-                endDateUI: endDate
-            });
+            setStartDateUI(startDate);
+            setEndDateUI(endDate);
         }
-    }
+    };
 
-    synchronizeDatePickers(nextProps) {
+    const synchronizeDatePickers = (nextProps) => {
     // synchronize the date picker state to Redux controlled props
     // convert start/end date strings to dayjs objects
         let datesChanged = false;
         const newState = {};
 
         // check if the start date changed
-        if (nextProps.filterTimePeriodStart !== this.props.filterTimePeriodStart) {
+        if (nextProps.filterTimePeriodStart !== filterTimePeriodStart) {
             const startDate = dayjs(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
             // start date did change and it is a valid date (not null)
             if (startDate.isValid()) {
@@ -168,25 +121,29 @@ export default class TimePeriod extends React.Component {
         }
 
         // check if the end date changed
-        if (nextProps.filterTimePeriodEnd !== this.props.filterTimePeriodEnd) {
+        if (nextProps.filterTimePeriodEnd !== filterTimePeriodEnd) {
             const endDate = dayjs(nextProps.filterTimePeriodEnd, 'YYYY-MM-DD');
             if (endDate.isValid()) {
                 // end date did change and it is a valid date (not null)
                 datesChanged = true;
                 newState.endDateUI = endDate;
             }
-            else if (this.props.filterTimePeriodEnd) {
+            else if (filterTimePeriodEnd) {
                 // value became null
                 datesChanged = true;
                 newState.endDateUI = null;
             }
         }
-        if (datesChanged) {
-            this.setState(newState);
-        }
-    }
 
-    handleDateChange(date, dateType) {
+        if (datesChanged && newState?.startDateUI) {
+            setStartDateUI(newState.startDateUI);
+        }
+        else if (datesChanged && newState?.endDateUI) {
+            setEndDateUI(newState.endDateUI);
+        }
+    };
+
+    const handleDateChange = (date, dateType) => {
         // the component will hold values of the start/end dates for use by the UI only
         // this is because the start/end range will be incomplete during the time the user has only
         // picked one date, or if they have picked an invalid range
@@ -195,195 +152,215 @@ export default class TimePeriod extends React.Component {
         if (!date) {
             value = null;
         }
-        if (!dateType.includes("Dropdown")) {
-            this.setState({
-                [`${dateType}UI`]: value
+        switch (dateType) {
+            case 'startDate':
+                setStartDateUI(value);
+                break;
+            case 'endDate':
+                setEndDateUI(value);
+                break;
+            case 'startDateDropdown':
+                setStartDateDropdown(value);
+                break;
+            case 'endDateDropdown':
+                setEndDateDropdown(value);
+                break;
+            // no default
+        }
+    };
+
+    const removeDateRange = (newValue) => {
+        updateGenericFilter({
+            type: 'timePeriodType',
+            value: 'dr'
+        });
+
+        setDateRangeChipRemoved(true);
+        setStartDateUI(null);
+        setEndDateUI(null);
+        setStartDateDropdown(null);
+        setEndDateDropdown(null);
+
+        if (activeTab === 'dr') {
+            updateGenericFilter({
+                type: 'timePeriodType',
+                value: 'dr'
+            });
+            updateGenericFilter({
+                type: 'time_period',
+                value: newValue
             });
         }
-        else if (dateType.includes("Dropdown")) {
-            this.setState({
-                [`${dateType}`]: value
-            });
-        }
-    }
+    };
 
-    removeDateRange(e) {
-        this.clearHint(true);
-        this.props.updateFilter({
-            dateType: 'dr',
-            startDate: null,
-            endDate: null
-        });
-        this.setState({
-            dateRangeChipRemoved: true,
-            startDateUI: null,
-            endDateUI: null,
-            startDateDropdown: null,
-            endDateDropdown: null
-        });
+    const showErrorFunc = (error, message) => {
+        setShowError(true);
+        setHeader(error);
+        setErrorMessage(message);
+    };
 
-        if (this.props.activeTab === 'dr') {
-            this.props.updateFilter({
-                dateType: 'dr',
-                startDate: null,
-                endDate: null,
-                event: e,
-                removeFilter: true
-            });
-        }
-    }
+    const hideError = () => {
+        setShowError(false);
+        setHeader('');
+    };
 
-    showError(error, message) {
-        this.setState({
-            showError: true,
-            header: error,
-            errorMessage: message
-        });
-    }
+    const newAwardsClick = (e) => {
+        updateNewAwardsOnlySelected(e.target.checked);
+    };
 
-    hideError() {
-        this.setState({
-            showError: false,
-            header: '',
-            errorMessage: ''
-        });
-    }
-
-    newAwardsClick(e) {
-        this.props.updateNewAwardsOnlySelected(e.target.checked);
-        if (this.hint) {
-            this.hint.showHint();
-        }
-    }
-
-    enterKeyToggleHandler(e) {
+    const enterKeyToggleHandler = (e) => {
         if (e.key === 'Enter') {
             let isSelected = false;
-            if (!this.props.newAwardsOnlySelected) {
+            if (!newAwardsOnlySelected) {
                 isSelected = true;
             }
             else {
                 isSelected = false;
             }
-            this.props.updateNewAwardsOnlySelected(isSelected);
+            updateNewAwardsOnlySelected(isSelected);
         }
+    };
+
+    let errorDetails;
+    let showFilter;
+    let activeClassDR = '';
+
+    if (showError && activeTab === 'dr' && header !== '' && errorMessage !== '') {
+        errorDetails = (<DateRangeError
+            header={header}
+            message={errorMessage} />);
+        activeClassDR = 'inactive';
     }
 
-    render() {
-        let errorDetails;
-        let showFilter;
-        let activeClassDR = '';
+    if (activeTab === 'fy' && !dateRangeChipRemoved) {
+        showFilter = (<AllFiscalYearsWithChips
+            updateFilter={updateFilter}
+            timePeriods={timePeriods}
+            selectedFY={filterTimePeriodFY} />);
+    }
+    else {
+        showFilter = (<DateRange
+            label={label}
+            datePlaceholder=""
+            startingTab={1}
+            startDate={startDateUI}
+            endDate={endDateUI}
+            startDateDropdown={startDateDropdown}
+            endDateDropdown={endDateDropdown}
+            timePeriod={filterTimePeriod}
+            onDateChange={handleDateChange}
+            showError={showErrorFunc}
+            errorState={showError}
+            hideError={hideError}
+            removeDateRange={removeDateRange}
+            updateFilter={updateFilter}
+            header={header} />);
+        activeClassDR = '';
+    }
 
-        if (this.state.showError && this.props.activeTab === 'dr' && this.state.header !== '' && this.state.errorMessage !== '') {
-            errorDetails = (<DateRangeError
-                header={this.state.header}
-                message={this.state.errorMessage} />);
-            activeClassDR = 'inactive';
-        }
+    if (disableDateRange) {
+        activeClassDR = 'hidden';
+    }
 
-        if (this.props.activeTab === 'fy' && !this.state.dateRangeChipRemoved) {
-            showFilter = (<AllFiscalYearsWithChips
-                updateFilter={this.props.updateFilter}
-                timePeriods={this.props.timePeriods}
-                selectedFY={this.props.filterTimePeriodFY} />);
-        }
-        else {
-            showFilter = (<DateRange
-                label={this.props.label}
-                datePlaceholder=""
-                startingTab={1}
-                startDate={this.state.startDateUI}
-                endDate={this.state.endDateUI}
-                startDateDropdown={this.state.startDateDropdown}
-                endDateDropdown={this.state.endDateDropdown}
-                timePeriod={this.props.filterTime_Period}
-                selectedStart={this.props.filterTimePeriodStart}
-                selectedEnd={this.props.filterTimePeriodEnd}
-                onDateChange={this.handleDateChange}
-                showError={this.showError}
-                errorState={this.state.showError}
-                hideError={this.hideError}
-                removeDateRange={this.removeDateRange}
-                updateFilter={this.props.updateFilter}
-                header={this.state.header}
-                errorMessage={this.state.errorMessage} />);
-            activeClassDR = '';
-        }
+    const newAwardsFilter = (
+        <div className={`new-awards-wrapper ${activeClassDR}`}>
+            <label
+                htmlFor="new-awards-checkbox">
+                <input
+                    type="checkbox"
+                    className={`new-awards-checkbox ${subaward || !newAwardsOnlyActive ? 'not-active' : ''}`}
+                    id="new-awards-checkbox"
+                    value="new-awards-checkbox"
+                    disabled={subaward || !newAwardsOnlyActive}
+                    checked={newAwardsOnlySelected}
+                    onChange={newAwardsClick}
+                    onKeyUp={(e) => enterKeyToggleHandler(e)} />
+                <span className={`new-awards-label ${subaward || !newAwardsOnlyActive ? 'not-active' : ''}`}>
+                    Show New Awards Only
+                </span>
+            </label>
+            <TooltipWrapper
+                icon="info"
+                tooltipComponent={<NewAwardsTooltip />} />
+        </div>
+    );
 
-        if (this.props.disableDateRange) {
-            activeClassDR = 'hidden';
-        }
-        const newAwardsFilter = (
-            <div className={`new-awards-wrapper ${activeClassDR}`}>
-                <label
-                    htmlFor="new-awards-checkbox">
-                    <input
-                        type="checkbox"
-                        className={`new-awards-checkbox ${this.props.subaward || !this.props.newAwardsOnlyActive ? 'not-active' : ''}`}
-                        id="new-awards-checkbox"
-                        value="new-awards-checkbox"
-                        disabled={this.props.subaward || !this.props.newAwardsOnlyActive}
-                        checked={this.props.newAwardsOnlySelected}
-                        onChange={this.newAwardsClick}
-                        onKeyUp={(e) => this.enterKeyToggleHandler(e)} />
-                    <span className={`new-awards-label ${this.props.subaward || !this.props.newAwardsOnlyActive ? 'not-active' : ''}`}>
-                        Show New Awards Only
-                    </span>
-                </label>
-                <TooltipWrapper
-                    icon="info"
-                    tooltipComponent={<NewAwardsTooltip />} />
-            </div>
-        );
-
-        const tabLabels = [
-            {
-                internal: 'dr',
-                label: 'Custom dates',
-                title: 'Custom dates'
-            },
-            {
-                internal: 'fy',
-                label: (
-                    <div>
-                        Fiscal years &nbsp; <GlossaryLink term="fiscal-year-fy" />
-                    </div>
-                ),
-                title: 'Fiscal years'
-            }
-        ];
-
-        const toggleTab = (e) => {
-            this.setState({ dateRangeChipRemoved: false }, () => {
-                if ((this.props.activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal years') || (this.props.activeTab === 'dr' && e.target.textContent.trim() !== 'Custom dates')) {
-                    const nextTab = this.props.activeTab === 'fy' ? 'dr' : 'fy';
-                    this.props.changeTab(nextTab);
-                    this.clearHint(true);
-                }
-            });
-        };
-
-        return (
-            <div className="tab-filter-wrap">
-                <div className="filter-item-wrap">
-                    <FilterTabs
-                        labels={tabLabels}
-                        switchTab={toggleTab}
-                        active={this.props.activeTab} />
-                    { showFilter }
-                    { errorDetails }
-                    { !this.props.federalAccountPage && newAwardsFilter }
-                    { !this.props.searchV2 && !this.state.clearHint &&
-                        <SubmitHint
-                            ref={(component) => {
-                                this.hint = component;
-                            }} />
-                    }
+    const tabLabels = [
+        {
+            internal: 'dr',
+            label: 'Custom dates',
+            title: 'Custom dates'
+        },
+        {
+            internal: 'fy',
+            label: (
+                <div>
+                    Fiscal years &nbsp; <GlossaryLink term="fiscal-year-fy" />
                 </div>
+            ),
+            title: 'Fiscal years'
+        }
+    ];
+
+    const toggleTab = (e) => {
+        setDateRangeChipRemoved(false);
+        if ((activeTab === 'fy' && e.target.textContent.trim() !== 'Fiscal years') ||
+            (activeTab === 'dr' && e.target.textContent.trim() !== 'Custom dates')) {
+            const nextTab = activeTab === 'fy' ? 'dr' : 'fy';
+            changeTab(nextTab);
+        }
+    };
+
+    useEffect(() => {
+        prepopulateDatePickers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        synchronizeDatePickers({ filterTimePeriodStart, filterTimePeriodEnd });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterTimePeriodStart, filterTimePeriodEnd]);
+
+    useEffect(() => {
+        // determineIfNaoIsActive
+        if (prevProps?.filterTimePeriodFY !== filterTimePeriodFY) {
+            updateNewAwardsOnlyActive(!!filterTimePeriodFY?.size);
+            updateNaoActiveFromFyOrDateRange(!!filterTimePeriodFY?.size);
+        }
+        else if (prevProps?.filterTime_Period !== filterTimePeriod) {
+            updateNewAwardsOnlyActive(false);
+            updateNaoActiveFromFyOrDateRange(false);
+        }
+        if (dirtyFilters) {
+            updateNewAwardsOnlyActive(true);
+            updateNaoActiveFromFyOrDateRange(true);
+        }
+        else if ((prevState?.startDateUI !== startDateUI || prevState?.endDateUI !== endDateUI) && (!startDateUI && !endDateUI)) {
+            updateNewAwardsOnlyActive(false);
+            updateNaoActiveFromFyOrDateRange(false);
+        }
+        else if ((prevState?.startDateDropdown !== startDateDropdown || prevState?.endDateDropdown !== endDateDropdown) && (!startDateDropdown && !endDateDropdown)) {
+            updateNewAwardsOnlyActive(false);
+            updateNaoActiveFromFyOrDateRange(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterTimePeriodFY, filterTimePeriod, startDateUI, endDateUI, startDateDropdown, endDateDropdown]);
+
+    return (
+        <div className="tab-filter-wrap">
+            <div className="filter-item-wrap">
+                <FilterTabs
+                    labels={tabLabels}
+                    switchTab={toggleTab}
+                    active={activeTab} />
+                { showFilter }
+                { errorDetails }
+                { !federalAccountPage && newAwardsFilter }
+                { !searchV2 && <SubmitHint selectedFilters={dirtyFilters} />}
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 TimePeriod.propTypes = propTypes;
-TimePeriod.defaultProps = defaultProps;
+export default TimePeriod;
