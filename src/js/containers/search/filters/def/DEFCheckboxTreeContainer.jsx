@@ -26,7 +26,6 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
     const { covidDefCode, infraDefCode } = useSelector((state) => state.filters);
     const [errorMsg, isLoading, defCodes] = useDefCodes();
     const [category, setCategory] = useState();
-    console.debug("defsearch: ", defSearchString);
     useEffect(() => {
         if (defcType === "covid_19") {
             setCategory("covid");
@@ -104,7 +103,6 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
     );
 
     useEffect(() => {
-        console.debug("being called");
         detailsDisplay(defCodes);
     }, [defSearchString]);
     return (

@@ -31,7 +31,6 @@ const AccordionCheckboxSecondary = ({
         singleFilterChange(selection);
     };
     const highlightText = (text) => replaceString(text, searchString, 'highlight');
-    console.debug("CUSTOM LABELS: ", customLabels);
     const items = category.filters?.map((filter, index) => (
         <li className={`checkbox-filter__item ${filter === excludedSubFilters ? 'hidden' : ''}`} key={filters[filter]}>
             <input
