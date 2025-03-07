@@ -7,13 +7,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 import { Button } from "data-transparency-ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Analytics from 'helpers/analytics/Analytics';
 import DatePicker from 'components/sharedComponents/DatePicker';
 import { usePrevious } from "../../../../helpers/";
 import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
+import ShownValue from "../otherFilters/ShownValue";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -425,18 +425,10 @@ const DateRange = (props) => {
                 role="status">
                 {labelArray.map(({ dateLabel, startDate, endDate }, index) =>
                     (
-                        <button
+                        <ShownValue
                             key={index}
-                            className="shown-filter-button"
-                            title="Click to remove filter."
-                            data-index={index}
-                            aria-label={`Applied date range: ${dateLabel}`}
-                            onClick={(e) => localRemoveDateRange(startDate, endDate, e)}>
-                            {dateLabel}
-                            <div className="shown-filter-button__shown-filter-button-icon">
-                                <FontAwesomeIcon icon="times" data-index={index} />
-                            </div>
-                        </button>
+                            label={dateLabel}
+                            removeValue={(e) => localRemoveDateRange(startDate, endDate, e)} />
                     )
                 )}
 
