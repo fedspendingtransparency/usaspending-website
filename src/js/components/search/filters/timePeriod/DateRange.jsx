@@ -438,9 +438,9 @@ const DateRange = (props) => {
                             aria-label={`Applied date range: ${dateLabel}`}
                             onClick={(e) => localRemoveDateRange(startDate, endDate, e)}>
                             {dateLabel}
-                            <span className="close">
+                            <div className="shown-filter-button__shown-filter-button-icon">
                                 <FontAwesomeIcon icon="times" data-index={index} />
-                            </span>
+                            </div>
                         </button>
                     )
                 )}
