@@ -55,7 +55,8 @@ const AwardAmountSearch = ({
                 filterType="Award Amount"
                 types={awardRanges}
                 selectedCheckboxes={awardAmounts}
-                toggleCheckboxType={toggleSelection} />)
+                toggleCheckboxType={toggleSelection}
+                key={key} />)
         );
         return result;
     }, []);
