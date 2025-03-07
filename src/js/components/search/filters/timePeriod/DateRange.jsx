@@ -24,8 +24,6 @@ const propTypes = {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
     timePeriod: PropTypes.object,
-    selectedStart: PropTypes.string,
-    selectedEnd: PropTypes.string,
     showError: PropTypes.func,
     hideError: PropTypes.func,
     removeDateRange: PropTypes.func,
@@ -220,7 +218,8 @@ const DateRange = (props) => {
                     startDate: startValue,
                     endDate: endValue
                 });
-            } else if (!matchFound && !matchFoundApplied) {
+            }
+            else if (!matchFound && !matchFoundApplied) {
                 props.updateFilter({
                     dateType: 'dr',
                     startDate: startValue,
@@ -262,7 +261,8 @@ const DateRange = (props) => {
         if (!props.startDate && !props.endDate) {
             setNoDatesDR(true);
             props.hideError();
-        } else {
+        }
+        else {
             setNoDatesDR(false);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -273,7 +273,8 @@ const DateRange = (props) => {
         if (!props.startDateDropdown && !props.endDateDropdown) {
             setNoDatesDropdown(true);
             props.hideError();
-        } else {
+        }
+        else {
             setNoDatesDropdown(false);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -300,7 +301,8 @@ const DateRange = (props) => {
         if (!noDatesDR) {
             setDRDisabled(false);
             testDates();
-        } else if (noDatesDR) {
+        }
+        else if (noDatesDR) {
             setDRDisabled(true);
         }
 
