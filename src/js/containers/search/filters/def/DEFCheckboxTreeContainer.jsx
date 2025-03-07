@@ -19,12 +19,13 @@ const propTypes = {
 
 const DEFCheckboxTreeContainer = ({ defcType }) => {
     const [selectedDefCodes, setSelectedDefCodes] = useState({});
+    const [defSearchString, setDefSearchString] = useState('');
+
     const dispatch = useDispatch();
 
     const { covidDefCode, infraDefCode } = useSelector((state) => state.filters);
     const [errorMsg, isLoading, defCodes] = useDefCodes();
     const [category, setCategory] = useState();
-
     useEffect(() => {
         if (defcType === "covid_19") {
             setCategory("covid");
@@ -51,7 +52,8 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
             <DEFCheckboxTreeLabelv2
                 label={item.title}
                 subLabel={item.public_law}
-                value={item.code} />);
+                value={item.code}
+                defSearchString={defSearchString} />);
         return obj;
     }, {});
 
@@ -100,6 +102,9 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
         </div>
     );
 
+    useEffect(() => {
+        detailsDisplay(defCodes);
+    }, [defSearchString]);
     return (
         <div className="def-code-filter">
             {isLoading && loadingIndicator }
@@ -111,6 +116,7 @@ const DEFCheckboxTreeContainer = ({ defcType }) => {
                 selectedCategory={category}
                 singleFilterChange={toggleDefc}
                 bulkFilterChange={bulkChangeDefc}
+                setDefSearchString={setDefSearchString}
                 isExpanded />
             }
         </div>

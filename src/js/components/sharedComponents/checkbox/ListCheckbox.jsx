@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import ListCheckboxPrimary from "./ListCheckboxPrimary";
 import SubmitHint from "../filterSidebar/SubmitHint";
 import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
+import replaceString from '../../../helpers/replaceString';
 
 const propTypes = {
     filters: PropTypes.object,
@@ -32,6 +33,7 @@ const ListCheckbox = ({
         setSearchString('');
     };
 
+    const highlightText = (text) => replaceString(text, searchString, 'highlight');
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
         // eslint-disable-next-line no-unused-vars
@@ -63,7 +65,7 @@ const ListCheckbox = ({
                 role="button"
                 tabIndex="0">
                 <div className="checkbox-filter__header-label-container">
-                    <span className="checkbox-filter__header-label">{category.name}</span>
+                    <span className="checkbox-filter__header-label">{highlightText(category.name)}</span>
                     <span className="checkbox-filter__header-count">
                         {category.filters?.length}{' '}
                         {category.filters?.length === 1 ? 'type' : 'types'}
@@ -74,7 +76,8 @@ const ListCheckbox = ({
                 selectedFilters={selectedFilters}
                 category={category}
                 singleFilterChange={singleFilterChange}
-                filters={filters} />
+                filters={filters}
+                searchString={searchString} />
         </div>)
     );
 
