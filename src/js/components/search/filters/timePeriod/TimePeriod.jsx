@@ -81,29 +81,6 @@ const TimePeriod = ({
         startDateUI, endDateUI, startDateDropdown, endDateDropdown
     });
 
-    // const determineIfNaoIsActive = (prevProps, prevState) => {
-    //     if (prevProps.filterTimePeriodFY !== filterTimePeriodFY) {
-    //         updateNewAwardsOnlyActive(!!filterTimePeriodFY?.size);
-    //         updateNaoActiveFromFyOrDateRange(!!filterTimePeriodFY?.size);
-    //     }
-    //     else if (prevProps.filterTime_Period !== filterTimePeriod) {
-    //         updateNewAwardsOnlyActive(false);
-    //         updateNaoActiveFromFyOrDateRange(false);
-    //     }
-    //     if (dirtyFilters) {
-    //         updateNewAwardsOnlyActive(true);
-    //         updateNaoActiveFromFyOrDateRange(true);
-    //     }
-    //     else if ((prevState.startDateUI !== startDateUI || prevState.endDateUI !== endDateUI) && (!startDateUI && !endDateUI)) {
-    //         updateNewAwardsOnlyActive(false);
-    //         updateNaoActiveFromFyOrDateRange(false);
-    //     }
-    //     else if ((prevState.startDateDropdown !== startDateDropdown || prevState.endDateDropdown !== endDateDropdown) && (!startDateDropdown && !endDateDropdown)) {
-    //         updateNewAwardsOnlyActive(false);
-    //         updateNaoActiveFromFyOrDateRange(false);
-    //     }
-    // };
-
     const prepopulateDatePickers = () => {
         if ((!filterTimePeriodStart || !filterTimePeriodEnd) &&
             filterTimePeriodType !== 'dr') {
