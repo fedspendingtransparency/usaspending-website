@@ -33,6 +33,10 @@
         height: rem(400);
         list-style: none;
 
+        // can be removed when v2 is deployed.  this accounts for the inside scroll bar container removed in v2.
+        margin-left: -2rem;
+        padding-left: 2rem;
+
         .find-recipients-text {
             text-align: center;
             font-size: $smallest-font-size;
