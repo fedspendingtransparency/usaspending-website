@@ -14,7 +14,7 @@ const trackFeaturedSavingsBondLink = () => Analytics.event({
     event: 'homepage_featured_content_links',
     category: 'Homepage',
     action: 'Link',
-    label: 'fiscal data Interest Expense'
+    label: 'fiscal data interest expense feature content'
 });
 
 const FeaturedContent = () => (
