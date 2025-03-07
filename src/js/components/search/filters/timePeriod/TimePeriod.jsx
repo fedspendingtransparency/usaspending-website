@@ -170,15 +170,11 @@ const TimePeriod = ({
     };
 
     const removeDateRange = (newValue) => {
-        // updateFilter({
-        //     dateType: 'dr',
-        //     startDate: null,
-        //     endDate: null
-        // });
         updateGenericFilter({
             type: 'timePeriodType',
             value: 'dr'
         });
+
         setDateRangeChipRemoved(true);
         setStartDateUI(null);
         setEndDateUI(null);

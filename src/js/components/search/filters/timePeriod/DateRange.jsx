@@ -81,19 +81,14 @@ const DateRange = (props) => {
 
     const localRemoveDateRange = (startDate, endDate, e) => {
         e.stopPropagation();
-        console.log('timePeriod:', timePeriod);
         if (e?.type === 'click' || (e.type === 'keyup' && e?.key === "Enter")) {
             setSelectedDropdownOption('select');
-            const newValue = timePeriod;
-            const removedValue = { start_date: startDate, end_date: endDate };
-            // newValue.forEach((date) => {
-            //     if (date.start_date === startDate && date.end_date === endDate) {
-            //         newValue.delete(date);
-            //     }
-            // });
-            // const newValue = timePeriod.delete({ start_date: startDate, end_date: endDate });
-            newValue.delete(removedValue);
-            console.log('newValue:', newValue);
+            let newValue = timePeriod;
+            timePeriod.forEach((date) => {
+                if (date.start_date === startDate && date.end_date === endDate) {
+                    newValue = newValue.delete(date);
+                }
+            });
             props.removeDateRange(newValue);
         }
     };
