@@ -14,7 +14,6 @@ import {
     decrementNaicsCountAndUpdateUnchecked,
     getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
-    removeStagedNaicsFilter,
     autoCheckNaicsAfterExpand,
     expandNaicsAndAllDescendantParents,
     getHighestAncestorNaicsCode
@@ -41,7 +40,6 @@ import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     stageNaics: PropTypes.func,
@@ -333,11 +331,6 @@ export class NAICSCheckboxTree extends React.Component {
             });
     };
 
-    removeStagedNaics = (node) => {
-        const newChecked = removeStagedNaicsFilter(this.props.nodes, this.props.checked, node.value);
-        this.onUncheck(newChecked, { ...node, checked: false });
-    };
-
     fetchNAICS = (param = '', resolveLoading = true) => {
         if (this.request) this.request.cancel();
         const { requestType, isSearch, searchString } = this.state;
@@ -434,7 +427,6 @@ export class NAICSCheckboxTree extends React.Component {
     render() {
         const showNoResults = this.showNoResults();
         const { searchString } = this.state;
-        const { counts } = this.props;
         return (
             <div>
                 <div className="naics-search-container">
@@ -448,22 +440,6 @@ export class NAICSCheckboxTree extends React.Component {
                         isClearable
                         onClear={this.onClear} />
                     {this.checkboxDiv(showNoResults)}
-                    {counts.length !== 0 && (
-                        <div
-                            id="award-search-selected-locations"
-                            className="selected-filters"
-                            role="status">
-                            {counts.map((node) => {
-                                const label = `${node.value} - ${node.label} (${node.count})`;
-                                return (
-                                    <ShownValue
-                                        label={label}
-                                        removeValue={() => this.removeStagedNaics(node)}
-                                        key={label} />
-                                );
-                            })}
-                        </div>
-                    )}
                     { !this.props.searchV2 &&
                         <SubmitHint ref={(component) => {
                             this.hint = component;

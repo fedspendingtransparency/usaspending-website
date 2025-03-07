@@ -8,7 +8,6 @@ import {
     cleanPscData,
     incrementPscCountAndUpdateUnchecked,
     decrementPscCountAndUpdateUnchecked,
-    removeStagedPscFilter,
     autoCheckPscAfterExpand,
     expandPscNodeAndAllDescendantParents,
     getPscNodeFromTree,
@@ -26,7 +25,6 @@ import {
     setPscNodes,
     showPscTree,
     setExpandedPsc,
-    addCheckedPsc,
     setCheckedPsc,
     setUncheckedPsc,
     setSearchedPsc,
@@ -37,7 +35,6 @@ import { updatePSC } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
-import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -46,7 +43,6 @@ const propTypes = {
     setSearchedPsc: PropTypes.func,
     setPscCounts: PropTypes.func,
     stagePsc: PropTypes.func,
-    addCheckedPsc: PropTypes.func,
     showPscTree: PropTypes.func,
     setUncheckedPsc: PropTypes.func,
     expanded: PropTypes.arrayOf(PropTypes.string),
@@ -243,12 +239,6 @@ export class PSCCheckboxTreeContainer extends React.Component {
         }
     };
 
-    removeSelectedFilter = (e, node) => {
-        e.preventDefault();
-        const newChecked = removeStagedPscFilter(this.props.nodes, this.props.checked, node.value);
-        this.onUncheck(newChecked, { ...node, checked: false });
-    };
-
     autoCheckSearchResultDescendants = (checked, expanded, nodes) => {
         const newChecked = expanded
             .filter((expandedNode) => {
@@ -363,9 +353,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
             nodes,
             checked,
             expanded,
-            counts,
             searchExpanded
         } = this.props;
+
         const {
             isLoading,
             searchString,
@@ -373,6 +363,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             errorMessage,
             isSearch
         } = this.state;
+
         return (
             <div className="psc-checkbox">
                 <EntityDropdownAutocomplete
@@ -397,21 +388,6 @@ export class PSCCheckboxTreeContainer extends React.Component {
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}
                     onCollapse={this.onCollapse} />
-                {counts.length > 0 && (
-                    <div
-                        className="selected-filters"
-                        role="status">
-                        {counts.map((node) => {
-                            const label = `${node.value} - ${node.label} (${node.count})`;
-                            return (
-                                <ShownValue
-                                    label={label}
-                                    removeValue={(e) => this.removeSelectedFilter(e, node)}
-                                    key={label} />
-                            );
-                        })}
-                    </div>
-                )}
                 { !this.props.searchV2 &&
                     <SubmitHint ref={(component) => {
                         this.hint = component;
@@ -440,7 +416,6 @@ const mapDispatchToProps = (dispatch) => ({
     setPscNodes: (key, nodes) => dispatch(setPscNodes(key, nodes)),
     showPscTree: () => dispatch(showPscTree()),
     setExpandedPsc: (expanded, type) => dispatch(setExpandedPsc(expanded, type)),
-    addCheckedPsc: (nodeValue) => dispatch(addCheckedPsc(nodeValue)),
     setCheckedPsc: (nodes) => dispatch(setCheckedPsc(nodes)),
     setUncheckedPsc: (nodes) => dispatch(setUncheckedPsc(nodes)),
     setSearchedPsc: (nodes) => dispatch(setSearchedPsc(nodes)),
