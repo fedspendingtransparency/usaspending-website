@@ -9,7 +9,6 @@ import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
-import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 export const NewBadge = () => (
     <div className="new-badge">NEW</div>
@@ -110,11 +109,6 @@ const DEFCheckboxTree = (props) => {
         }
     };
 
-    const removeSelectedFilter = (e) => {
-        e.preventDefault();
-        props.stageDef([], [], []);
-    };
-
     return (
         <div className="def-code-filter">
             <CheckboxTree
@@ -130,28 +124,12 @@ const DEFCheckboxTree = (props) => {
                 labelComponent={<DEFCheckboxTreeLabel />}
                 onUncheck={stageFilter}
                 onCheck={stageFilter} />
-            {props.counts.length > 0 && (
-                <div
-                    className="selected-filters"
-                    role="status">
-                    {props.counts.map((node) => {
-                        const label = `${node.label} (${node.count})`;
-                        return (
-                            <ShownValue
-                                label={label}
-                                removeValue={(e) => removeSelectedFilter(e, node)}
-                                key={label} />
-                        );
-                    })}
-                </div>
-            )}
             <SubmitHint ref={hint} />
         </div>
     );
 };
 
 DEFCheckboxTree.propTypes = {
-    counts: PropTypes.arrayOf(PropTypes.shape({})),
     defCodes: PropTypes.arrayOf(PropTypes.object),
     areDefCodesLoading: PropTypes.bool,
     defCodeFetchError: PropTypes.string,

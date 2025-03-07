@@ -4,10 +4,47 @@
 @mixin selected-filter-wrap {
     @include display(flex);
     @include flex-flow(row wrap);
-    background-color: #E4E4E4;
-    padding: rem(5);
-    margin-top: $global-margin * 2;
-    margin-bottom: rem(10);
+
+    margin: ($global-margin * 2) 0 0 0;
+    padding: 0;
+    background-color: unset;
+
+    .shown-filter-button {
+        background-color: $gray-cool-5;
+        border: none;
+        line-height: 1.5;
+        color: $gray-90;
+        padding: rem(3) rem(4) rem(3) $global-padding;
+
+        &:hover {
+            background-color: $gray-cool-10;
+            border: none;
+        }
+
+        div {
+            align-self: flex-start;
+        }
+
+        .shown-filter-button__shown-filter-button-icon {
+            margin-left: rem(4);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $gray-cool-30;
+            }
+
+            svg {
+                height: rem(12);
+                width: rem(12);
+                color: $gray-90;
+                margin: auto;
+            }
+        }
+    }
+
     &:empty {
         display: none;
     }
