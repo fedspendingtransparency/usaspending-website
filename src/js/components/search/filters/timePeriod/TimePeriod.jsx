@@ -33,6 +33,7 @@ const propTypes = {
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
+    updateGenericFilter: PropTypes.func,
     updateNewAwardsOnlySelected: PropTypes.func,
     updateNewAwardsOnlyActive: PropTypes.func,
     updateNaoActiveFromFyOrDateRange: PropTypes.func,
@@ -56,6 +57,7 @@ const TimePeriod = ({
     timePeriods,
     activeTab,
     updateFilter,
+    updateGenericFilter,
     updateNewAwardsOnlySelected,
     updateNewAwardsOnlyActive,
     updateNaoActiveFromFyOrDateRange,
@@ -146,9 +148,6 @@ const TimePeriod = ({
         // this is because the start/end range will be incomplete during the time the user has only
         // picked one date, or if they have picked an invalid range
         // additional logic is required to keep these values in sync with Redux
-        console.log('date:', date);
-        console.log('dateType:', dateType);
-
         let value = dayjs(date);
         if (!date) {
             value = null;
@@ -170,11 +169,15 @@ const TimePeriod = ({
         }
     };
 
-    const removeDateRange = (e) => {
-        updateFilter({
-            dateType: 'dr',
-            startDate: null,
-            endDate: null
+    const removeDateRange = (newValue) => {
+        // updateFilter({
+        //     dateType: 'dr',
+        //     startDate: null,
+        //     endDate: null
+        // });
+        updateGenericFilter({
+            type: 'timePeriodType',
+            value: 'dr'
         });
         setDateRangeChipRemoved(true);
         setStartDateUI(null);
@@ -183,12 +186,13 @@ const TimePeriod = ({
         setEndDateDropdown(null);
 
         if (activeTab === 'dr') {
-            updateFilter({
-                dateType: 'dr',
-                startDate: null,
-                endDate: null,
-                event: e,
-                removeFilter: true
+            updateGenericFilter({
+                type: 'timePeriodType',
+                value: 'dr'
+            });
+            updateGenericFilter({
+                type: 'time_period',
+                value: newValue
             });
         }
     };

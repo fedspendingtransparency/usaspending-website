@@ -79,11 +79,22 @@ const DateRange = (props) => {
         }
     };
 
-    const localRemoveDateRange = (e) => {
+    const localRemoveDateRange = (startDate, endDate, e) => {
         e.stopPropagation();
+        console.log('timePeriod:', timePeriod);
         if (e?.type === 'click' || (e.type === 'keyup' && e?.key === "Enter")) {
             setSelectedDropdownOption('select');
-            props.removeDateRange(e);
+            const newValue = timePeriod;
+            const removedValue = { start_date: startDate, end_date: endDate };
+            // newValue.forEach((date) => {
+            //     if (date.start_date === startDate && date.end_date === endDate) {
+            //         newValue.delete(date);
+            //     }
+            // });
+            // const newValue = timePeriod.delete({ start_date: startDate, end_date: endDate });
+            newValue.delete(removedValue);
+            console.log('newValue:', newValue);
+            props.removeDateRange(newValue);
         }
     };
 
@@ -341,7 +352,7 @@ const DateRange = (props) => {
             }
 
             if (dateLabel !== '') {
-                labelArray.push(dateLabel);
+                labelArray.push({ dateLabel, startDate: timeinput.start_date, endDate: timeinput.end_date });
             }
         }
     }
@@ -417,7 +428,7 @@ const DateRange = (props) => {
                 className="selected-filters"
                 id="selected-date-range"
                 role="status">
-                {labelArray.map((dateLabel, index) =>
+                {labelArray.map(({ dateLabel, startDate, endDate }, index) =>
                     (
                         <button
                             key={index}
@@ -425,7 +436,7 @@ const DateRange = (props) => {
                             title="Click to remove filter."
                             data-index={index}
                             aria-label={`Applied date range: ${dateLabel}`}
-                            onClick={localRemoveDateRange}>
+                            onClick={(e) => localRemoveDateRange(startDate, endDate, e)}>
                             {dateLabel}
                             <span className="close">
                                 <FontAwesomeIcon icon="times" data-index={index} />
