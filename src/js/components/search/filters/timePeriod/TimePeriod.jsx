@@ -5,10 +5,10 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Set } from 'immutable';
 
+import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
 import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
