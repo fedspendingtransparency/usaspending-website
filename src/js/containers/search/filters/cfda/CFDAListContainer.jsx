@@ -15,7 +15,7 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 const propTypes = {
     selectCFDA: PropTypes.func,
     selectedCFDA: PropTypes.object,
-    dirtyFilters: PropTypes.func
+    dirtyFilters: PropTypes.symbol
 };
 
 const CFDAListContainer = ({ selectCFDA, selectedCFDA, dirtyFilters }) => {

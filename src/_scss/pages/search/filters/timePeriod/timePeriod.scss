@@ -149,6 +149,17 @@
 
         .selected-filters {
             @include selected-filter-wrap;
+
+            // DEV-11870 Remove this styling once time period is using the ShownValue.jsx component
+            .shown-filter-button {
+                &.time-period-button {
+                    cursor: pointer;
+                }
+
+                .shown-filter-button__shown-filter-button-icon {
+                    text-align: center;
+                }
+            }
         }
     }
 }
