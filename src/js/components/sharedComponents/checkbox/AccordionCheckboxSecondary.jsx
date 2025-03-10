@@ -5,6 +5,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import replaceString from '../../../helpers/replaceString';
 
 const propTypes = {
     category: PropTypes.object,
@@ -12,14 +13,15 @@ const propTypes = {
     singleFilterChange: PropTypes.func,
     filters: PropTypes.object,
     customLabels: PropTypes.object,
-    expanded: PropTypes.bool
+    expanded: PropTypes.bool,
+    searchString: PropTypes.string
 };
 
 // sub-filters hidden from the user, but  passed to the API when the parent filter is selected
 const excludedSubFilters = "IDV_B";
 
 const AccordionCheckboxSecondary = ({
-    category, selectedFilters, singleFilterChange, filters, customLabels, expanded
+    category, selectedFilters, singleFilterChange, filters, customLabels, expanded, searchString
 }) => {
     const selectFilter = (filter) => {
         const selection = {
@@ -28,7 +30,7 @@ const AccordionCheckboxSecondary = ({
 
         singleFilterChange(selection);
     };
-
+    const highlightText = (text) => replaceString(text, searchString, 'highlight');
     const items = category.filters?.map((filter, index) => (
         <li className={`checkbox-filter__item ${filter === excludedSubFilters ? 'hidden' : ''}`} key={filters[filter]}>
             <input
@@ -38,9 +40,9 @@ const AccordionCheckboxSecondary = ({
                 checked={selectedFilters?.has(filter)}
                 onChange={() => selectFilter(filter)} />
             {customLabels && customLabels[filter] ?
-                <div className="checkbox-filter__item-label">{customLabels[filter]}</div>
+                <div className="checkbox-filter__item-label">{highlightText(customLabels[filter])}</div>
                 :
-                <div className="checkbox-filter__item-label">{filters[filter]}</div>
+                <div className="checkbox-filter__item-label">{highlightText(filters[filter])}</div>
             }
         </li>
     ));

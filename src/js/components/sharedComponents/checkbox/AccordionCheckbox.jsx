@@ -27,11 +27,12 @@ const propTypes = {
     selectedFilters: PropTypes.object,
     singleFilterChange: PropTypes.func,
     bulkFilterChange: PropTypes.func,
-    customLabels: PropTypes.object
+    customLabels: PropTypes.object,
+    setDefSearchString: PropTypes.func
 };
 
 const AccordionCheckbox = ({
-    filters, customLabels, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange, selectedCategory, isExpanded
+    filters, customLabels, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange, selectedCategory, isExpanded, setDefSearchString
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -60,11 +61,13 @@ const AccordionCheckbox = ({
 
     const handleTextInputChange = (e) => {
         setSearchString(e.target.value);
+        setDefSearchString(e.target.value);
     };
 
     const onClear = () => {
         setExpandedCategories([]);
         setSearchString('');
+        setDefSearchString('');
     };
 
     const searchCategoryMapping = () => {
@@ -110,7 +113,8 @@ const AccordionCheckbox = ({
             expandedCategories={expandedCategories}
             toggleExpanded={toggleExpanded}
             bulkFilterChange={bulkFilterChange}
-            key={category.id} />
+            key={category.id}
+            searchString={searchString} />
     ));
 
     return (
