@@ -14,7 +14,7 @@ const trackFeaturedSavingsBondLink = () => Analytics.event({
     event: 'homepage_featured_content_links',
     category: 'Homepage',
     action: 'Link',
-    label: 'fiscal data savings bond featured content'
+    label: 'fiscal data interest expense feature content'
 });
 
 const FeaturedContent = () => (
@@ -42,14 +42,14 @@ const FeaturedContent = () => (
                 </ExternalLink>
             </FlexGridCol>
             <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                <a href="https://fiscaldata.treasury.gov/treasury-savings-bonds/" target="_blank" rel="noopener noreferrer" onClick={trackFeaturedSavingsBondLink} className="featured-content__section--link" >
+                <a href="https://fiscaldata.treasury.gov/interest-expense-avg-interest-rates/" target="_blank" rel="noopener noreferrer" onClick={trackFeaturedSavingsBondLink} className="featured-content__section--link" >
                     <CardContainer variant="outline" size="md">
-                        <CardHero fill="#864381" variant="expanded" img="img/homepage-featured-content/homepage-feature-FDG@2x.webp" />
+                        <CardHero fill="#2e8367" variant="expanded" img="img/homepage-featured-content/homepage-feature-interest-expense-2-x@2x.webp" />
                         <CardBody
                             overline="PARTNER SITES"
                             headline={
                                 <div>
-                                        Explore U.S. Treasury Savings Bonds on Fiscal Data
+                                        Fiscal Data Explores Interest Expense on National Debt
                                 </div>
                             }>
                         </CardBody>
