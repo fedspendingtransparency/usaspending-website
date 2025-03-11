@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const TreeNode = (props) => {
     const {
-        label, children, disabled, onChecked, onExpand, nodes
+        label, children, disabled, onChecked, onExpand, nodes, node
     } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -17,16 +17,21 @@ const TreeNode = (props) => {
     const [selectedNode, setSelectedNode] = useState();
 
     useEffect(() => {
+        if (childNodes.indexOf(node?.value) > 0) {
+            console.log(node);
+        }
+    }, []);
+
+    useEffect(() => {
         if (childNodes.length > 0) {
-            console.log("childNodes", childNodes);
+            console.log("childNodes", childNodes, node);
         }
     }, [childNodes]);
 
     useEffect(() => {
-        const node = nodes?.find((n) => n.description === label);
         if (node && isExpanded && loading) {
             setSelectedNode(node);
-            const newChildValue = [...childNodes, node];
+            const newChildValue = [...childNodes, node.id];
             setChildNodes(newChildValue);
             onExpand(newChildValue, node);
         }
@@ -61,16 +66,17 @@ const TreeNode = (props) => {
                 </span>
             </div>
             <div>
-                {childNodes?.length > 0 ? childNodes?.map((childLabel) => (
+                {childNodes?.length > 0 ? node.children?.map((child) => (
                     <TreeNode
-                        key={childLabel.id}
-                        label={childLabel.description}
+                        key={child.description}
+                        label={child.description}
                         onExpand={onExpand}
                         onChecked={onChecked}
                         disabled={disabled}
                         checked={props.checked}
                         expanded={props.expanded}
-                        icons={props.icons} />))
+                        icons={props.icons}
+                        node={child} />))
                     : !loading && <div>No child nodes found.</div>}
             </div>
         </div>

@@ -187,6 +187,7 @@ const CheckboxTree = (props) => {
             <TreeNode
                 key={node.label}
                 label={node.label}
+                node={node}
                 onExpand={onExpand}
                 onChecked={onChecked}
                 nodes={labeledNodes}
