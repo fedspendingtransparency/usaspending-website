@@ -107,7 +107,7 @@ const SidebarWrapper = React.memo(({
             }
 
             if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
-                document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 1;
+                document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 10;
             }
         }
 
