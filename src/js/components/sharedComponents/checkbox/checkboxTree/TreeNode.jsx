@@ -17,11 +17,22 @@ const TreeNode = (props) => {
     const [selectedNode, setSelectedNode] = useState();
 
     useEffect(() => {
-        const node = nodes.find((n) => n.description === label);
-        setSelectedNode(node);
-        setChildNodes((prevState) => prevState.push(node.value));
+        if (childNodes.length > 0) {
+            console.log("childNodes", childNodes);
+        }
+    }, [childNodes]);
 
-    }, [label]);
+    useEffect(() => {
+        const node = nodes?.find((n) => n.description === label);
+        if (node && isExpanded && loading) {
+            setSelectedNode(node);
+            const newChildValue = [...childNodes, node];
+            setChildNodes(newChildValue);
+            onExpand(newChildValue, node);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isExpanded, loading]);
 
     const handleToggle = async () => {
         if (!isExpanded) {
@@ -49,19 +60,19 @@ const TreeNode = (props) => {
                     {label} {loading && <span>Loading...</span>}
                 </span>
             </div>
-                <div>
-                    {childNodes?.length > 0 ? childNodes?.map((childLabel) => (
-                        <TreeNode
-                            key={childLabel}
-                            label={childLabel}
-                            onExpand={onExpand}
-                            onChecked={onChecked}
-                            disabled={disabled}
-                            checked={props.checked}
-                            expanded={props.expanded}
-                            icons={props.icons} />))
-                        : !loading && <div>No child nodes found.</div>}
-                </div>
+            <div>
+                {childNodes?.length > 0 ? childNodes?.map((childLabel) => (
+                    <TreeNode
+                        key={childLabel.id}
+                        label={childLabel.description}
+                        onExpand={onExpand}
+                        onChecked={onChecked}
+                        disabled={disabled}
+                        checked={props.checked}
+                        expanded={props.expanded}
+                        icons={props.icons} />))
+                    : !loading && <div>No child nodes found.</div>}
+            </div>
         </div>
     );
 };

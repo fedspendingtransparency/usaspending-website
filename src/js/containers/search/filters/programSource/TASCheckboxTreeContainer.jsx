@@ -171,7 +171,7 @@ export class TASCheckboxTree extends React.Component {
             this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
         }
         else {
-            console.log("2", newExpandedArray, selectedNode);
+            console.log("2", expandedValue, newExpandedArray, selectedNode);
             this.props.setExpandedTas(newExpandedArray);
         }
     };

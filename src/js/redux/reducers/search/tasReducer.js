@@ -76,6 +76,8 @@ export const tasReducer = (state = initialState, action) => {
             };
         }
         case 'SET_EXPANDED_TAS': {
+            console.log("state in redux", state);
+            console.log("action in redux", action);
             return {
                 ...state,
                 expanded: new List([...new Set([...action.payload])])

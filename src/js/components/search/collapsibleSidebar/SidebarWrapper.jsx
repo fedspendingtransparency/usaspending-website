@@ -66,13 +66,34 @@ const SidebarWrapper = React.memo(({
 
         if (sidebarContentArea - margins < minContentHeight) {
             hideElements(panelContainerElClasses);
-        }
-        else {
+        } else {
             showElements(panelContainerElClasses);
         }
 
-        setSidebarHeight(mainContentInView - margins);
-        setSidebarContentHeight(sidebarContentArea - margins);
+        const sidebar = document.querySelector(".collapsible-sidebar");
+        const footerBox = footerEl.getBoundingClientRect();
+        const sidebarBox = sidebar.getBoundingClientRect();
+        const tmpFooterInView = checkInView(footerEl) + footerMargin;
+
+        // if the bottom of the sidebar is >= the top of the footer, set position to absolute so sidebar doesn't obstruct the footer
+        // add a calculation to limit the height of the sidebar
+
+        if (tmpFooterInView) {
+            console.log("absolute position", sidebarBox, footerBox);
+            document.querySelector(".full-search-sidebar").style.position = "relative";
+            document.querySelector(".full-search-sidebar").style.position = "absolute";
+            document.querySelector(".full-search-sidebar").style.bottom = "0";
+        } else {
+            console.log("fixed position", sidebarBox, footerBox);
+
+            // check if the top sticky bar is sticky
+            document.querySelector(".search-contents.v2").style.position = "relative";
+            document.querySelector(".full-search-sidebar").style.position = "fixed";
+            document.querySelector(".full-search-sidebar").style.bottom = "unset";
+            setSidebarHeight(mainContentInView - margins);
+            setSidebarContentHeight(sidebarContentArea - margins);
+        }
+
     };
 
     const resizeHeightByHeader = () => {
