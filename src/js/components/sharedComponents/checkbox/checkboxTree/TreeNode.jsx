@@ -31,7 +31,9 @@ const TreeNode = (props) => {
     useEffect(() => {
         if (node && isExpanded && loading) {
             setSelectedNode(node);
-            const newChildValue = [...childNodes, node.id];
+            const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${node.id}` : node.id;
+            console.log("tree node check", childNodes, node, nodeValue);
+            const newChildValue = [...childNodes, nodeValue];
             setChildNodes(newChildValue);
             onExpand(newChildValue, node);
         }
