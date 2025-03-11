@@ -8,7 +8,7 @@
         }
 
         .selected-filters {
-            @include selected-filter-wrap;
+            display: none; 
         }
 
         .clear-all__container {
