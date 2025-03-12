@@ -21,7 +21,8 @@ const propTypes = {
     showMobileFilters: PropTypes.bool,
     isMobile: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    searchV2: PropTypes.bool
 };
 
 const ResultsView = React.memo((props) => {
@@ -132,7 +133,7 @@ const ResultsView = React.memo((props) => {
 
     return (
         <div className="search-results-wrapper">
-            <TopFilterBarContainer {...props} />
+            { !props.searchV2 && <TopFilterBarContainer {...props} /> }
             <div className={`search-results ${mobileFilters}`}>
                 {resultContent}
             </div>

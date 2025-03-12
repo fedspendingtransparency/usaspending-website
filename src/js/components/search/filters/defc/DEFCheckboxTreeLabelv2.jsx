@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
+import replaceString from '../../../../helpers/replaceString';
 
 const parseAcronym = (str) => {
     const parsedStr = str.replace("P.L.", "Public Law");
@@ -11,8 +12,11 @@ const parseAcronym = (str) => {
 const DEFCheckboxTreeLabel = ({
     label,
     subLabel,
-    value
+    value,
+    defSearchString
 }) => {
+    const highlightText = (text) => replaceString(text, defSearchString, 'highlight');
+
     if (label.includes('|')) {
         const labels = label.split('|');
         const subLabels = subLabel.split('|');
@@ -25,10 +29,10 @@ const DEFCheckboxTreeLabel = ({
                 </div>
                 {labels.map((lbl, i) => (
                     <div key={uniqueId(i)} className="checkbox-tree-label__label multiple-label">
-                        {lbl}
+                        {highlightText(lbl)}
                         <>
                             <br />
-                            <span>{parseAcronym(subLabels[i])}</span>
+                            <span>{highlightText(parseAcronym(subLabels[i]))}</span>
                             <br />
                         </>
                     </div>
@@ -44,11 +48,11 @@ const DEFCheckboxTreeLabel = ({
                 </div>
             </div>
             <div className="checkbox-tree-label__label">
-                {label}
+                {highlightText(label)}
                 {subLabel && (
                     <>
                         <br />
-                        <span>{parseAcronym(subLabel)}</span>
+                        <span>{highlightText(parseAcronym(subLabel))}</span>
                     </>
                 )}
             </div>
