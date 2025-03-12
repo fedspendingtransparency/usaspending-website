@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const TreeNode = (props) => {
     const {
@@ -20,13 +21,13 @@ const TreeNode = (props) => {
         if (childNodes.indexOf(node?.value) > 0) {
             console.log(node);
         }
-    }, []);
+    }, [childNodes, node]);
 
     useEffect(() => {
         if (childNodes.length > 0) {
             console.log("childNodes", childNodes, node);
         }
-    }, [childNodes]);
+    }, [childNodes, node]);
 
     useEffect(() => {
         if (node && isExpanded && loading) {
@@ -42,7 +43,7 @@ const TreeNode = (props) => {
     }, [isExpanded, loading]);
 
     const handleToggle = async () => {
-        if (!isExpanded) {
+        if (!isExpanded || node.children?.length > 0) {
             setLoading(true);
             setIsExpanded(true);
             if (onExpand) {
@@ -63,9 +64,54 @@ const TreeNode = (props) => {
                     disabled={disabled}
                     onChange={handleCheck} />
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                <span onClick={handleToggle} style={{ cursor: 'pointer', marginLeft: '5px' }}>
-                    {label} {loading && <span>Loading...</span>}
-                </span>
+                {node.children?.length > 0 ?
+                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                        <div className="checkbox-filter__wrapper">
+                            <div
+                                className="checkbox-filter__header accordion-checkbox"
+                                role="button"
+                                tabIndex="0">
+                                <div className="checkbox-filter__header-icon">
+                                    {!expandedCategories?.includes(category.id) &&
+                                        <FontAwesomeIcon
+                                            onClick={() => toggleExpanded(category)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") toggleExpanded(category);
+                                            }}
+                                            tabIndex={0}
+                                            icon="chevron-right" />}
+                                    {expandedCategories?.includes(category.id) &&
+                                        <FontAwesomeIcon
+                                            onClick={() => toggleExpanded(category)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") toggleExpanded(category);
+                                            }}
+                                            tabIndex={0}
+                                            icon="chevron-down" />}
+                                </div>
+                                <input
+                                    type="checkbox"
+                                    onChange={toggleChildren}
+                                    checked={allChildren}
+                                    id={`primary-checkbox__${category.id}`} />
+                                <div className="checkbox-filter__header-label-container">
+                                    <span className="checkbox-filter__header-label accordion-checkbox">{category.name}</span>
+                                    <span className="checkbox-filter__header-count">
+                                        {count}{' '}
+                                        {count === 1 ? 'type' : 'types'}
+                                    </span>
+                                </div>
+                            </div>
+                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                            <span>{label}</span>
+                            <span>{loading && <span>Loading...</span>}</span>
+                        </div>
+                    :
+                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+                    <span style={{ cursor: 'pointer', marginLeft: '5px' }}>
+                        {label}
+                    </span>
+                }
             </div>
             <div>
                 {childNodes?.length > 0 ? node.children?.map((child) => (
@@ -79,7 +125,7 @@ const TreeNode = (props) => {
                         expanded={props.expanded}
                         icons={props.icons}
                         node={child} />))
-                    : !loading && <div>No child nodes found.</div>}
+                    : ''}
             </div>
         </div>
     );
