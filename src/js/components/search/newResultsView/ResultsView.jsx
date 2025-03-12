@@ -10,7 +10,7 @@ import { throttle } from 'lodash';
 import { useSelector } from "react-redux";
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
-import { performSpendingByAwardTabCountSearch } from "helpers/searchHelper";
+import { performSpendingByAwardTabCountSearch, areFiltersEqual } from "helpers/searchHelper";
 import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
@@ -87,14 +87,18 @@ const ResultsView = React.memo((props) => {
             });
     };
 
-    useEffect(throttle(() => {
-        checkForData();
-
+    useEffect(() => {
+        if (!areFiltersEqual(filters) || !props.hash) {
+            console.log("this should fix initial load duplicates");
+            checkForData();
+        } else {
+            console.log("when is this one happening");
+        }
         return () => {
-            countRequest.cancel();
+            countRequest?.cancel();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [filters, subaward]);
+    }, [filters, subaward]);
 
 
     useEffect(() => {
