@@ -89,11 +89,9 @@ const ResultsView = React.memo((props) => {
 
     useEffect(() => {
         if (!areFiltersEqual(filters) || !props.hash) {
-            console.log("this should fix initial load duplicates");
             checkForData();
-        } else {
-            console.log("when is this one happening");
         }
+
         return () => {
             countRequest?.cancel();
         };
