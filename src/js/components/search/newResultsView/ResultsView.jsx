@@ -6,7 +6,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { isCancel } from "axios";
-import { throttle } from 'lodash';
 import { useSelector } from "react-redux";
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
