@@ -208,7 +208,8 @@ const SearchPage = ({
                                 updateFilterCount={updateFilterCount}
                                 requestsComplete={requestsComplete}
                                 noFiltersApplied={noFiltersApplied}
-                                hash={hash} />
+                                hash={hash}
+                                searchV2 />
                         </div>
                     </div>
                     <FullDownloadModalContainer
