@@ -39,6 +39,7 @@ const SidebarWrapper = React.memo(({
     const footerMargin = 0;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
+    const additionalRibbonHeight = 57;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -92,6 +93,11 @@ const SidebarWrapper = React.memo(({
             resizeHeightByHeader();
         }
         else if (isHeaderSticky && document.querySelector(".search-collapsible-sidebar-container")) {
+            const mainContentInView = checkInView(mainContentEl);
+            const sidebarContentArea = mainContentInView - (sidebarStaticEls + additionalRibbonHeight);
+
+            setSidebarContentHeight(sidebarContentArea);
+
             document.querySelector(".search-collapsible-sidebar-container").style.height = `100vh - ${topStickyBarHeight}`;
         }
 
