@@ -5,11 +5,19 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const propTypes = {
+    label: PropTypes.string,
+    disabled: PropTypes.bool,
+    onChecked: PropTypes.func,
+    onExpand: PropTypes.func,
+    node: PropTypes.arrayOf(PropTypes.object)
+};
 
 const TreeNode = (props) => {
     const {
-        label, children, disabled, onChecked, onExpand, nodes, node
+        label, disabled, onChecked, onExpand, node
     } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -65,47 +73,45 @@ const TreeNode = (props) => {
                     onChange={handleCheck} />
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 {node.children?.length > 0 ?
-                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                        <div className="checkbox-filter__wrapper">
-                            <div
-                                className="checkbox-filter__header accordion-checkbox"
-                                role="button"
-                                tabIndex="0">
-                                <div className="checkbox-filter__header-icon">
-                                    {!expandedCategories?.includes(category.id) &&
-                                        <FontAwesomeIcon
-                                            onClick={() => toggleExpanded(category)}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") toggleExpanded(category);
-                                            }}
-                                            tabIndex={0}
-                                            icon="chevron-right" />}
-                                    {expandedCategories?.includes(category.id) &&
-                                        <FontAwesomeIcon
-                                            onClick={() => toggleExpanded(category)}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") toggleExpanded(category);
-                                            }}
-                                            tabIndex={0}
-                                            icon="chevron-down" />}
-                                </div>
-                                <input
-                                    type="checkbox"
-                                    onChange={toggleChildren}
-                                    checked={allChildren}
-                                    id={`primary-checkbox__${category.id}`} />
-                                <div className="checkbox-filter__header-label-container">
-                                    <span className="checkbox-filter__header-label accordion-checkbox">{category.name}</span>
-                                    <span className="checkbox-filter__header-count">
-                                        {count}{' '}
-                                        {count === 1 ? 'type' : 'types'}
-                                    </span>
-                                </div>
+                    <div className="checkbox-filter__wrapper">
+                        <div
+                            className="checkbox-filter__header accordion-checkbox"
+                            role="button"
+                            tabIndex="0">
+                            <div className="checkbox-filter__header-icon">
+                                {!isExpanded &&
+                                    <FontAwesomeIcon
+                                        onClick={() => handleToggle()}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") handleToggle();
+                                        }}
+                                        tabIndex={0}
+                                        icon="chevron-right" />}
+                                {isExpanded &&
+                                    <FontAwesomeIcon
+                                        onClick={() => handleToggle()}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") handleToggle();
+                                        }}
+                                        tabIndex={0}
+                                        icon="chevron-down" />}
                             </div>
-                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                            <span>{label}</span>
-                            <span>{loading && <span>Loading...</span>}</span>
+                            <input
+                                type="checkbox"
+                                disabled={disabled}
+                                onChange={handleCheck} />
+                            {/*<div className="checkbox-filter__header-label-container">*/}
+                            {/*    <span className="checkbox-filter__header-label accordion-checkbox">{category.name}</span>*/}
+                            {/*    <span className="checkbox-filter__header-count">*/}
+                            {/*        {count}{' '}*/}
+                            {/*        {count === 1 ? 'type' : 'types'}*/}
+                            {/*    </span>*/}
+                            {/*</div>*/}
                         </div>
+                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                        <span>{label}</span>
+                        <span>{loading && <span>Loading...</span>}</span>
+                    </div>
                     :
                     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                     <span style={{ cursor: 'pointer', marginLeft: '5px' }}>
@@ -131,4 +137,5 @@ const TreeNode = (props) => {
     );
 };
 
+TreeNode.propTypes = propTypes;
 export default TreeNode;
