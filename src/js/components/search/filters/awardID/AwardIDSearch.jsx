@@ -13,7 +13,8 @@ import SelectedAwardIDs from './SelectedAwardIDs';
 const propTypes = {
     toggleAwardID: PropTypes.func,
     selectedAwardIDs: PropTypes.object,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    searchV2: PropTypes.bool
 };
 
 const AwardIDSearch = (props) => {
@@ -81,10 +82,12 @@ const AwardIDSearch = (props) => {
 
                 {renderSelectedAwardIDs()}
 
-                <SubmitHint
-                    ref={(component) => {
-                        setHint(component);
-                    }} />
+                { !props.searchV2 &&
+                    <SubmitHint
+                        ref={(component) => {
+                            setHint(component);
+                        }} />
+                }
             </div>
         </div>
     );

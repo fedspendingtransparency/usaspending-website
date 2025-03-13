@@ -23,7 +23,8 @@ const propTypes = {
     selectedFundingAgencies: PropTypes.object,
     agencyTypes: PropTypes.array,
     dirtyFunding: PropTypes.symbol,
-    dirtyAwarding: PropTypes.symbol
+    dirtyAwarding: PropTypes.symbol,
+    searchV2: PropTypes.bool
 };
 
 export default class Agency extends React.Component {
@@ -62,10 +63,13 @@ export default class Agency extends React.Component {
                         agencyType={type}
                         selectedAgencies={selectedAgencies}
                         toggleAgency={this.props.toggleAgency} />
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
+                    { !this.props.searchV2 &&
+                        <SubmitHint
+                            ref={(component) => {
+                                this.hint = component;
+                            }} />
+                    }
+
                 </div>
             );
         });

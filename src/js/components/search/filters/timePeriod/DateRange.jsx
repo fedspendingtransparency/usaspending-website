@@ -5,13 +5,15 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Analytics from 'helpers/analytics/Analytics';
+import { useSelector } from "react-redux";
 import { Button } from "data-transparency-ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Analytics from 'helpers/analytics/Analytics';
 import DatePicker from 'components/sharedComponents/DatePicker';
 import { usePrevious } from "../../../../helpers/";
 import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
+import ShownValue from "../otherFilters/ShownValue";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -23,8 +25,6 @@ const propTypes = {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
     timePeriod: PropTypes.object,
-    selectedStart: PropTypes.string,
-    selectedEnd: PropTypes.string,
     showError: PropTypes.func,
     hideError: PropTypes.func,
     removeDateRange: PropTypes.func,
@@ -46,6 +46,9 @@ const DateRange = (props) => {
     const [noDatesDR, setNoDatesDR] = useState(false);
     const [noDatesDropdown, setNoDatesDropdown] = useState(false);
     const prevProps = usePrevious(props);
+    const timePeriod = useSelector((state) => state.filters.time_period);
+    const timePeriodApplied = useSelector((state) => state.appliedFilters.filters.time_period);
+
     const labelArray = [];
 
     const onClick = (e) => {
@@ -76,11 +79,17 @@ const DateRange = (props) => {
         }
     };
 
-    const localRemoveDateRange = (e) => {
+    const localRemoveDateRange = (startDate, endDate, e) => {
         e.stopPropagation();
         if (e?.type === 'click' || (e.type === 'keyup' && e?.key === "Enter")) {
             setSelectedDropdownOption('select');
-            props.removeDateRange(e);
+            let newValue = timePeriod;
+            timePeriod.forEach((date) => {
+                if (date.start_date === startDate && date.end_date === endDate) {
+                    newValue = newValue.delete(date);
+                }
+            });
+            props.removeDateRange(newValue);
         }
     };
 
@@ -193,11 +202,37 @@ const DateRange = (props) => {
                 endValue = end.format('YYYY-MM-DD');
             }
 
-            props.updateFilter({
-                dateType: 'dr',
-                startDate: startValue,
-                endDate: endValue
+            let matchFound = false;
+            let matchFoundApplied = false;
+            // eslint-disable-next-line camelcase
+            timePeriod.forEach((item) => {
+                if (item.start_date === startValue && item.end_date === endValue) {
+                    matchFound = true;
+                    setNoDatesDropdown(true);
+                }
             });
+
+            timePeriodApplied.forEach((item) => {
+                if (item.start_date === startValue && item.end_date === endValue) {
+                    matchFoundApplied = true;
+                    setNoDatesDropdown(true);
+                }
+            });
+
+            if (timePeriodApplied.size > 0 && !matchFound) {
+                props.updateFilter({
+                    dateType: 'dr',
+                    startDate: startValue,
+                    endDate: endValue
+                });
+            }
+            else if (!matchFound && !matchFoundApplied) {
+                props.updateFilter({
+                    dateType: 'dr',
+                    startDate: startValue,
+                    endDate: endValue
+                });
+            }
         }
         else {
             // user has cleared the dates, which means we should clear the date range filter
@@ -233,7 +268,8 @@ const DateRange = (props) => {
         if (!props.startDate && !props.endDate) {
             setNoDatesDR(true);
             props.hideError();
-        } else {
+        }
+        else {
             setNoDatesDR(false);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -244,7 +280,8 @@ const DateRange = (props) => {
         if (!props.startDateDropdown && !props.endDateDropdown) {
             setNoDatesDropdown(true);
             props.hideError();
-        } else {
+        }
+        else {
             setNoDatesDropdown(false);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -267,13 +304,16 @@ const DateRange = (props) => {
     }, [props?.endDate]);
 
     useEffect(() => {
-        // change how disabled works
+        // date range disabling
         if (!noDatesDR) {
             setDRDisabled(false);
             testDates();
-        } else if (noDatesDR) {
+        }
+        else if (noDatesDR) {
             setDRDisabled(true);
         }
+
+        // dropdown disabling
         if (!noDatesDropdown) {
             setDropdownDisabled(false);
         }
@@ -281,7 +321,7 @@ const DateRange = (props) => {
             setDropdownDisabled(true);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.errorState, noDatesDR, noDatesDropdown, props.startDate, props.endDate, props.startDateDropdown, props.endDateDropdown, dropdownOptionSelected]);
+    }, [props.errorState, noDatesDR, noDatesDropdown, props.startDate, props.endDate, props.startDateDropdown, props.endDateDropdown, props.onDateChange, dropdownOptionSelected]);
 
     if (props.timePeriod?.size > 0) {
         for (const timeinput of props.timePeriod) {
@@ -307,7 +347,7 @@ const DateRange = (props) => {
             }
 
             if (dateLabel !== '') {
-                labelArray.push(dateLabel);
+                labelArray.push({ dateLabel, startDate: timeinput.start_date, endDate: timeinput.end_date });
             }
         }
     }
@@ -383,20 +423,12 @@ const DateRange = (props) => {
                 className="selected-filters"
                 id="selected-date-range"
                 role="status">
-                {labelArray.map((dateLabel, index) =>
+                {labelArray.map(({ dateLabel, startDate, endDate }, index) =>
                     (
-                        <button
+                        <ShownValue
                             key={index}
-                            className="shown-filter-button"
-                            title="Click to remove filter."
-                            data-index={index}
-                            aria-label={`Applied date range: ${dateLabel}`}
-                            onClick={localRemoveDateRange}>
-                            {dateLabel}
-                            <span className="close">
-                                <FontAwesomeIcon icon="times" data-index={index} />
-                            </span>
-                        </button>
+                            label={dateLabel}
+                            removeValue={(e) => localRemoveDateRange(startDate, endDate, e)} />
                     )
                 )}
 

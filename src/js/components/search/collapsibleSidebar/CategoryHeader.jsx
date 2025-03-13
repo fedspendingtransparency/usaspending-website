@@ -6,6 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SelectedItemsChips from "./SelectedItemsChips";
 
 const propTypes = {
     iconName: PropTypes.string,
@@ -14,7 +15,7 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     itemCount: PropTypes.number,
-    selectedItems: PropTypes.array,
+    selectedItems: PropTypes.object,
     selectCategory: PropTypes.func,
     isClickable: PropTypes.bool,
     showDescription: PropTypes.bool,
@@ -55,9 +56,11 @@ const CategoryHeader = ({
             {description &&
                 <div className={`search-filter__description ${isClickable ? '' : 'search-filter__description__bottom-margin'}`}>{description}</div>
             }
-            <div className="selected-filters">
-                { isClickable && itemCount > 0 && selectedItems }
-            </div>
+            <SelectedItemsChips
+                selectedItems={selectedItems}
+                itemCount={itemCount}
+                isClickable={isClickable}
+                categoryKey={item?.categoryKey} />
         </div>
     );
 

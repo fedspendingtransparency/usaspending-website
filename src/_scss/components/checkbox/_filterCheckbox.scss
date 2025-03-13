@@ -15,6 +15,10 @@
         .checkbox-filter__header-label {
           font-weight: $font-semibold;
           color: $gray-90;
+
+          span.highlight {
+            background-color: $yellow-10;
+          }
         }
 
         .checkbox-filter__header-count {
@@ -65,6 +69,10 @@
         .checkbox-filter__item-label {
           margin: rem(1) 0 0 rem(6);
           color: $gray-80;
+
+          span.highlight {
+            background-color: $yellow-10;
+          }
         }
       }
 

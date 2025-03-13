@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { isCancel } from "axios";
+
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import SubmitHint from "../../../../components/sharedComponents/filterSidebar/SubmitHint";
@@ -17,10 +19,11 @@ import SelectedRecipients from "../../../../components/search/filters/recipient/
 
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,
-    selectedRecipients: PropTypes.object
+    selectedRecipients: PropTypes.object,
+    searchV2: PropTypes.bool
 };
 
-const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients }) => {
+const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients, searchV2 }) => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [newSearch, setNewSearch] = useState(true);
@@ -132,6 +135,11 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 setIsLoading(false);
                 sortResults(res.data.results);
                 setMaxRecipients(true);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(`Recipient Request Error: ${err}`);
+                }
             });
     };
 
@@ -155,6 +163,11 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 setRecipients(res.data.results);
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(`Recipient Request Error: ${err}`);
+                }
             });
     };
 
@@ -229,8 +242,8 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     <div className="recipient-results__container">
                         <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>
                             {recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
-                                .map((recipient) => (
-                                    <div className="recipient-label__container">
+                                .map((recipient, index) => (
+                                    <div className="recipient-label__container" key={`recipient-${index}`}>
                                         <PrimaryCheckboxType
                                             name={(
                                                 <div className="recipient-checkbox__uei">
@@ -274,7 +287,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     </div>
                 }
                 {localSelectedRecipients}
-                <SubmitHint selectedFilters={selectedRecipients} />
+                { !searchV2 && <SubmitHint selectedFilters={selectedRecipients} /> }
             </div>
         </div>
     );

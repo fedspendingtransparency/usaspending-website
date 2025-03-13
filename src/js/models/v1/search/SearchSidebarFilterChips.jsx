@@ -6,7 +6,6 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { recipientTypes } from 'dataMapping/search/recipientType';
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
@@ -113,44 +112,29 @@ const SearchSidebarFilterChips = ({
     const getTimePeriodChips = () => {
         if (filtersData.timePeriodFY?.length > 0 || filtersData.time_period?.length > 0) {
             if (filtersData.timePeriodType === 'dr' && filtersData.time_period?.length > 0) {
-                const timePeriodArray = [];
-
                 filtersData.time_period.forEach((timePeriod, index) => {
-                    const removeDateRange = (e) => {
+                    const removeDateRange = (startDate, endDate, e) => {
                         e.stopPropagation();
-                        props.updateTimePeriodArray({
-                            dateType: 'dr',
-                            startDate: null,
-                            endDate: null,
-                            event: e,
-                            removeFilter: true
+
+                        const newValue = filters.time_period.delete(timePeriod);
+
+                        props.updateGenericFilter({
+                            type: 'timePeriodType',
+                            value: 'dr'
+                        });
+                        props.updateGenericFilter({
+                            type: 'time_period',
+                            value: newValue
                         });
                     };
 
-                    timePeriodArray.push((
-                        <button
+                    chips.push((
+                        <ShownValue
                             key={index}
-                            className="shown-filter-button time-period-button"
-                            title="Click to remove filter."
-                            data-index={index}
-                            aria-label={`Applied date range: ${timePeriod.start_date} to ${timePeriod.end_date}`}
-                            onClick={removeDateRange}>
-                            {timePeriod.start_date} to {timePeriod.end_date}
-                            <div className="shown-filter-button__shown-filter-button-icon">
-                                <FontAwesomeIcon icon="times" data-index={index} />
-                            </div>
-                        </button>
+                            label={`Applied date range: ${timePeriod.start_date} to ${timePeriod.end_date}`}
+                            removeValue={(e) => removeDateRange(timePeriod.start_date, timePeriod.end_date, e)} />
                     ));
                 });
-
-                chips.push((
-                    <div
-                        className="selected-filters"
-                        id="selected-date-range"
-                        role="status">
-                        {timePeriodArray}
-                    </div>
-                ));
             }
             else if (filtersData.timePeriodType === 'fy' && filtersData.timePeriodFY?.length > 0) {
                 filtersData.timePeriodFY.forEach((fy) => {
@@ -247,21 +231,20 @@ const SearchSidebarFilterChips = ({
             );
         }
 
-        if (filtersData.awardType?.length > 0) {
-            filtersData.awardType.forEach((type) => {
+        if (filtersData.contractAwardType?.length > 0) {
+            filtersData.contractAwardType.forEach((type) => {
                 const removeAwardType = (e) => {
                     e.stopPropagation();
-                    const newValue = filters.awardType.delete(type);
+                    const newValue = filters.contractAwardType.delete(type);
                     props.updateGenericFilter({
-                        type: 'awardType',
+                        type: 'contractAwardType',
                         value: newValue
                     });
                 };
 
-                // TODO: need to add contract/financial assistance type flag for label
                 chips.push(
                     <ShownValue
-                        label={`Award Type: ${awardTypeCodes[type]}`}
+                        label={`Contract Award Type: ${awardTypeCodes[type]}`}
                         removeValue={removeAwardType} />
                 );
             });
@@ -381,6 +364,25 @@ const SearchSidebarFilterChips = ({
                     <ShownValue
                         label={`Extent Competed | ${extentCompetedDefinitions[type]}`}
                         removeValue={removePricingType} />
+                );
+            });
+        }
+
+        if (filtersData.financialAssistanceAwardType?.length > 0) {
+            filtersData.financialAssistanceAwardType.forEach((type) => {
+                const removeAwardType = (e) => {
+                    e.stopPropagation();
+                    const newValue = filters.financialAssistanceAwardType.delete(type);
+                    props.updateGenericFilter({
+                        type: 'financialAssistanceAwardType',
+                        value: newValue
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label={`Financial Assistance Award Type: ${awardTypeCodes[type]}`}
+                        removeValue={removeAwardType} />
                 );
             });
         }

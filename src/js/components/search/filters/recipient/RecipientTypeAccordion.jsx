@@ -3,7 +3,7 @@
  * Created by michaelbray on 5/17/17.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -11,7 +11,6 @@ import { recipientTypes } from 'dataMapping/search/recipientType';
 import { recipientTypeMapping as defaultRecipientTypeMapping } from "helpers/search/filterCheckboxHelper";
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import RecipientTypeList from "./RecipientTypeList";
-import { usePrevious } from '../../../../helpers';
 
 const expandRecipientTypeAccordions = (recipientTypeMapping, selectedTypes) => {
     const toExpand = [];
@@ -29,19 +28,17 @@ const expandRecipientTypeAccordions = (recipientTypeMapping, selectedTypes) => {
 const propTypes = {
     recipientTypeMapping: PropTypes.arrayOf(PropTypes.object),
     selectedTypes: PropTypes.object,
-    dirtyFilters: PropTypes.symbol,
-    toggleCheckboxType: PropTypes.func
+    toggleCheckboxType: PropTypes.func,
+    searchV2: PropTypes.bool
 };
 
 const RecipientTypeAccordion = ({
     recipientTypeMapping = defaultRecipientTypeMapping,
     selectedTypes,
-    dirtyFilters,
-    toggleCheckboxType
+    toggleCheckboxType,
+    searchV2
 }) => {
     const [expanded, setExpanded] = useState(expandRecipientTypeAccordions(recipientTypeMapping, selectedTypes));
-    const [hint, setHint] = useState(null);
-    const prevDirtyFilters = usePrevious(dirtyFilters);
 
     const toggleExpanded = (category) => {
         const containsId = expanded?.indexOf(category.id);
@@ -54,7 +51,7 @@ const RecipientTypeAccordion = ({
     };
 
     const checkboxTypes = recipientTypeMapping.map((category) => (
-        <div className="recipient-type-filter">
+        <div className="recipient-type-filter" key={category.id}>
             <div
                 className="recipient-type-filter__heading"
                 onClick={() => toggleExpanded(category)}
@@ -80,24 +77,13 @@ const RecipientTypeAccordion = ({
                 recipientTypes={recipientTypes} />
         </div>));
 
-    useEffect(() => {
-        if (dirtyFilters && prevDirtyFilters !== dirtyFilters) {
-            if (hint) {
-                hint.showHint();
-            }
-        }
-    }, [dirtyFilters, hint, prevDirtyFilters]);
-
     return (
         <div className="filter-item-wrap">
             <div className="checkbox-type-filter">
                 <ul className="checkbox-types">
                     {checkboxTypes}
                 </ul>
-                <SubmitHint
-                    ref={(component) => {
-                        setHint(component);
-                    }} />
+                { !searchV2 && <SubmitHint selectedFilters={selectedTypes} /> }
             </div>
         </div>
     );

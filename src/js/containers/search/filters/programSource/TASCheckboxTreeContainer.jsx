@@ -8,7 +8,6 @@ import {
     cleanTasData,
     incrementTasCountAndUpdateUnchecked,
     decrementTasCountAndUpdateUnchecked,
-    removeStagedTasFilter,
     autoCheckTasAfterExpand,
     expandTasNodeAndAllDescendantParents,
     getTasNodeFromTree,
@@ -27,7 +26,6 @@ import {
     setTasNodes,
     showTasTree,
     setExpandedTas,
-    addCheckedTas,
     setCheckedTas,
     setUncheckedTas,
     setSearchedTas,
@@ -41,7 +39,6 @@ import CheckboxTree from 'components/sharedComponents/checkbox/checkboxTree/Chec
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
-import ShownValue from '../../../../components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     setTasNodes: PropTypes.func,
@@ -49,7 +46,6 @@ const propTypes = {
     setCheckedTas: PropTypes.func,
     setSearchedTas: PropTypes.func,
     setTasCounts: PropTypes.func,
-    addCheckedTas: PropTypes.func,
     showTasTree: PropTypes.func,
     setUncheckedTas: PropTypes.func,
     stageTas: PropTypes.func,
@@ -61,8 +57,8 @@ const propTypes = {
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({})),
-    filters: PropTypes.object,
-    showInfo: PropTypes.bool
+    showInfo: PropTypes.bool,
+    searchV2: PropTypes.bool
 };
 
 const defaultProps = {
@@ -259,12 +255,6 @@ export class TASCheckboxTree extends React.Component {
         }
     };
 
-    removeSelectedFilter = (e, node) => {
-        e.preventDefault();
-        const newChecked = removeStagedTasFilter(this.props.nodes, this.props.checked, node.value);
-        this.onUncheck(newChecked, { ...node, checked: false });
-    };
-
     autoCheckSearchResultDescendants = (checked, expanded, nodes) => {
         const newChecked = expanded
             .filter((expandedNode) => {
@@ -387,10 +377,10 @@ export class TASCheckboxTree extends React.Component {
             nodes,
             checked,
             expanded,
-            counts,
             searchExpanded,
             showInfo
         } = this.props;
+
         const {
             isLoading,
             searchString,
@@ -462,6 +452,11 @@ export class TASCheckboxTree extends React.Component {
                 <SubmitHint ref={(component) => {
                     this.hint = component;
                 }} />
+                { !this.props.searchV2 &&
+                    <SubmitHint ref={(component) => {
+                        this.hint = component;
+                    }} />
+                }
             </div>
         );
     }
@@ -487,7 +482,6 @@ const mapDispatchToProps = (dispatch) => ({
     setTasNodes: (key, nodes) => dispatch(setTasNodes(key, nodes)),
     showTasTree: () => dispatch(showTasTree()),
     setExpandedTas: (expanded, type) => dispatch(setExpandedTas(expanded, type)),
-    addCheckedTas: (nodeValue) => dispatch(addCheckedTas(nodeValue)),
     setCheckedTas: (nodes) => dispatch(setCheckedTas(nodes)),
     setUncheckedTas: (nodes) => dispatch(setUncheckedTas(nodes)),
     setSearchedTas: (nodes) => dispatch(setSearchedTas(nodes)),

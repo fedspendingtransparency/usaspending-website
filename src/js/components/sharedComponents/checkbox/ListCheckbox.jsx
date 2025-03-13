@@ -8,16 +8,18 @@ import PropTypes from 'prop-types';
 import ListCheckboxPrimary from "./ListCheckboxPrimary";
 import SubmitHint from "../filterSidebar/SubmitHint";
 import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
+import replaceString from '../../../helpers/replaceString';
 
 const propTypes = {
     filters: PropTypes.object,
     filterCategoryMapping: PropTypes.arrayOf(PropTypes.object),
     selectedFilters: PropTypes.object,
-    singleFilterChange: PropTypes.func
+    singleFilterChange: PropTypes.func,
+    searchV2: PropTypes.bool
 };
 
 const ListCheckbox = ({
-    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange
+    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange, searchV2
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -31,6 +33,7 @@ const ListCheckbox = ({
         setSearchString('');
     };
 
+    const highlightText = (text) => replaceString(text, searchString, 'highlight');
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
         // eslint-disable-next-line no-unused-vars
@@ -62,7 +65,7 @@ const ListCheckbox = ({
                 role="button"
                 tabIndex="0">
                 <div className="checkbox-filter__header-label-container">
-                    <span className="checkbox-filter__header-label">{category.name}</span>
+                    <span className="checkbox-filter__header-label">{highlightText(category.name)}</span>
                     <span className="checkbox-filter__header-count">
                         {category.filters?.length}{' '}
                         {category.filters?.length === 1 ? 'type' : 'types'}
@@ -73,7 +76,8 @@ const ListCheckbox = ({
                 selectedFilters={selectedFilters}
                 category={category}
                 singleFilterChange={singleFilterChange}
-                filters={filters} />
+                filters={filters}
+                searchString={searchString} />
         </div>)
     );
 
@@ -99,7 +103,7 @@ const ListCheckbox = ({
                 :
                 <div className="filter-item-wrap">
                     {checkboxCategories}
-                    <SubmitHint selectedFilters={selectedFilters} />
+                    { !searchV2 && <SubmitHint selectedFilters={selectedFilters} /> }
                 </div>
             }
         </div>

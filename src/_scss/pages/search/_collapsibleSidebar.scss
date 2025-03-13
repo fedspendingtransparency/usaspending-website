@@ -1,23 +1,9 @@
 @import "searchFilter";
 
-@keyframes drilldown-slidein {
-  0% {
-    display: block;
-    transform: translateX(24px);
-    visibility: hidden;
-  }
-
-  100% {
-    transform: translateX(0);
-    visibility: visible;
-  }
-}
-
 // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
 &.v2 {
   .site-header, .usda-page-header:not(.usda-page-header--sticky) {
     position: relative;
-    z-index: 1;
   }
 }
 
@@ -107,12 +93,8 @@
 
       .categories-list,
       .category-filter {
-        &:not(:has(.time-period)){   // prevent overflow scroll only for time period filter but allow for other types.
-          overflow-y: auto;
-        }
-        &:has(.time-period .filter__dropdown-list-sm.hide) {
-          overflow-y: auto;
-        }
+        overflow-y: auto;
+        height: 100%;
       }
       
       .category-filter.exempt {
@@ -201,8 +183,6 @@
 
       &.opened {
         display: block;
-        -webkit-animation: drilldown-slidein 0.2s forwards;
-        animation: drilldown-slidein 0.2s forwards;
       }
 
       .collapsible-sidebar--back-btn {
@@ -299,29 +279,47 @@
 
       .collapsible-sidebar--dsm-slider {
         color: $blue-50;
-        cursor: pointer;
         padding: rem(16) rem(32);
         font-size: rem(12);
         font-weight: $font-semibold;
         line-height: 1.5;
         border-top: 1px solid $gray-cool-5;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        
+        span {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: center;
+          cursor: pointer;
+          &:hover {
+            color: $blue-70v;
+          }
 
-        &:hover {
-          color: $blue-70v;
-        }
-
-        .chevron {
-          margin: 4px 8px 0 8px;
-          width: 10px;
+          .chevron {
+            margin: 0 8px 0 8px;
+            width: 10px;
+          }
+  
         }
 
         .collapsible-sidebar--dsm-content {
           .collapsible-sidebar--dsm-wrapper {
             font-size: $font-size-14;
             color: $gray-60;
+            font-weight: $font-normal;
+            overflow-y: auto;
+
+            &--text-header {
+              font-weight: $font-semibold;
+              color: $gray-90;
+              margin: 16px 0px 0px;
+            }
+
+            &--text-section {
+              p {
+                margin: 4px 0px 0px;
+              }
+            }
           }
         }
       }

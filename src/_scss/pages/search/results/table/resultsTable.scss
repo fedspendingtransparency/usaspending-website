@@ -16,7 +16,7 @@
                 .pager {
                     .hideLast {
                         .pager__button {
-                            display:none;
+                            display: none;
                         }
                     }
 
@@ -33,10 +33,12 @@
             p {
                 margin-bottom: 0;
             }
+
             .read-more-button {
                 @include button-link;
                 text-transform: lowercase;
                 color: $theme-color-1;
+
                 &:hover {
                     text-decoration: none;
                     color: $theme-color-1-dark;
@@ -125,6 +127,10 @@
         margin-top: 4px;
         margin-bottom: 0;
         font-size: rem(14);
+
+        .award-search__subaward-note {
+            font-weight: $font-semibold;
+        }
     }
 
     .award-search__what-title {
