@@ -1,6 +1,7 @@
 .usa-da-analyst-guide-page {
   @import 'all';
   @import "./_analystGuideHeader.scss";
+  @import "../../shareIcon-dtui-overrides";
 
   .usa-accordion__button.usa-banner__button {
     &:hover {
@@ -36,32 +37,6 @@
       }
       color: $color-primary;
       margin-top: $global-margin * 4;
-
-      .usda-share-icon .copy-confirmation {
-        @media(max-width:$medium-screen) {
-          transform: translateX(120px);
-        }
-      }
-      .usda-share-icon .usa-dt-picker__dropdown-container {
-        @include button-link;
-      }
-
-      .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-        min-width: 15rem;
-        margin-top:20px;
-        padding-top: 8px;
-        padding-bottom: 8px;
-      }
-
-      .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
-        margin: 0 0.5rem;
-      }
-
-      .usda-share-icon .usa-dt-picker__dropdown-container .usa-dt-picker__button svg {
-        &:hover {
-          color: $color-primary-darker !important; //205493 32, 84, 147
-        }
-      }
     }
 
     .analyst-guide__download-wrapper {

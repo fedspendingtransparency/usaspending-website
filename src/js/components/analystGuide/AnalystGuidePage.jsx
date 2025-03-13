@@ -73,7 +73,9 @@ const AnalystGuidePage = () => {
                                     colors={{ backgroundColor: "white", color: "#0071bc", confirmationBackgroundColor: "white" }}
                                     dropdownDirection={isMobile ? 'right' : 'left'}
                                     keepText
-                                    classNames="margin-right no-margin-left" />
+                                    classNames="margin-right no-margin-left"
+                                    pickerButtonClassNames="side-margin"
+                                    pickerListClassNames="padding top-margin min-width" />
                             </div>
                             <div className="analyst-guide__download-wrapper">
                                 <a
