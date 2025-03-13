@@ -150,11 +150,6 @@ export const agenciesTableColumns = {
             title: 'unlinked_assistance_award_count',
             displayName: 'Number of Unlinked Assistance Awards',
             icon: <Tooltip title="Number of Unlinked Assistance Awards" position="left" className="wide wide_left" />
-        },
-        {
-            title: 'assurance_statements',
-            displayName: 'Agency Comments',
-            icon: <Tooltip title="Agency Comments" position="left" />
         }
     ]
 };

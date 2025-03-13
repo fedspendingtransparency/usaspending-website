@@ -16,7 +16,6 @@ import {
 import { getLatestPeriod } from 'helpers/accountHelper';
 import BaseAgencyRow from 'models/v2/agencySubmissionStats/BaseAgencyRow';
 import PublicationOverviewRow from 'models/v2/agencySubmissionStats/PublicationOverviewRow';
-import AgencyDownloadLinkCell from 'components/agencySubmissionStats/AgencyDownloadLinkCell';
 import { agenciesTableColumns, parsePeriods } from './AgencyTableMapping';
 
 const propTypes = {
@@ -63,6 +62,7 @@ const AgenciesContainer = ({
     const { current: { publications: prevPublicationsPg, submissions: prevSubmissionsPg } } = pageRef;
     useEffect(() => {
         pageRef.current = { publications: publicationsPage, submissions: submissionsPage };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [submissionsPage, publicationsPage]);
 
     const handleScroll = throttle(() => {
@@ -186,6 +186,7 @@ const AgenciesContainer = ({
             totalsReq.current.cancel();
         }
         dispatch(setSearchTerm(''));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -193,6 +194,7 @@ const AgenciesContainer = ({
         if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab, submissionsPage, publicationsPage]);
 
     useEffect(() => {
@@ -219,6 +221,7 @@ const AgenciesContainer = ({
             // reset to pg 1, triggering a refetch
             changePublicationsPg(1);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [federalTotals,
         selectedFy,
         selectedPeriod,
@@ -256,8 +259,7 @@ const AgenciesContainer = ({
             _unlinkedContracts,
             unlinkedContracts,
             _unlinkedAssistance,
-            unlinkedAssistance,
-            assuranceStatement
+            unlinkedAssistance
         }) => [
             (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
@@ -323,8 +325,7 @@ const AgenciesContainer = ({
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id,
                         type: 'Assistance'
-                    }} />),
-            (<div className="generic-cell-content"><AgencyDownloadLinkCell file={assuranceStatement} /></div>)
+                    }} />)
         ]);
 
     const handlePageChange = (page) => {
