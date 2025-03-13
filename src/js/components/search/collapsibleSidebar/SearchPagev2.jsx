@@ -20,7 +20,6 @@ import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
-import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
 
 require('pages/search/searchPage.scss');
 
@@ -156,67 +155,66 @@ const SearchPage = ({
                     onClick={showDownloadModal} />
             ]}
             filters={appliedFilters}>
-            <PageFeatureFlag>
-                <div id="main-content">
-                    <div className="search-contents v2">
-                        <div className="full-search-sidebar">
-                            {fullSidebar}
-                            {isMobile === false && searchv2 === false ?
-                                <KeywordSearchLink />
-                                : ''}
-                        </div>
-                        <div className="mobile-filter-button-wrapper">
-                            <button
-                                className="mobile-filter-button-v2"
-                                onClick={toggleMobileFilters}
-                                onKeyUp={(e) => {
-                                    if (e.key === "Escape" && showMobileFilters) {
-                                        toggleMobileFilters();
-                                    }
-                                }}>
-                                <div className="mobile-filter-button-content">
-                                    <div className="mobile-filter-button-icon">
-                                        <img
-                                            className="usa-da-mobile-filter-icon"
-                                            alt="Toggle filters"
-                                            aria-label="Toggle filters"
-                                            src="img/Add-search-filters-icon.svg" />
-                                    </div>
-                                    <div className="mobile-filter-button-label">
-                                        {`Add search ${pluralizeFilterLabel(filterCount)}`}
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <FlexGridCol className={`mobile-search-sidebar-v2 ${sidebarOpen ? 'sidebar-opened' : ''}`}>
-                            <MobileFiltersV2
-                                filters={filters}
-                                showMobileFilters={showMobileFilters}
-                                setShowMobileFilters={setShowMobileFilters}
-                                sidebarOpen={sidebarOpen}
-                                setSidebarOpen={setSidebarOpen} />
-                        </FlexGridCol>
-                        <Helmet>
-                            <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
-                        </Helmet>
-                        <div className="search-results-view-container">
-                            <ResultsView
-                                filters={filters}
-                                isMobile={isMobile}
-                                filterCount={filterCount}
-                                showMobileFilters={showMobileFilters}
-                                updateFilterCount={updateFilterCount}
-                                requestsComplete={requestsComplete}
-                                noFiltersApplied={noFiltersApplied}
-                                hash={hash} />
-                        </div>
+            <div id="main-content">
+                <div className="search-contents v2">
+                    <div className="full-search-sidebar">
+                        {fullSidebar}
+                        {isMobile === false && searchv2 === false ?
+                            <KeywordSearchLink />
+                            : ''}
                     </div>
-                    <FullDownloadModalContainer
-                        download={download}
-                        mounted={showFullDownload}
-                        hideModal={hideDownloadModal} />
+                    <div className="mobile-filter-button-wrapper">
+                        <button
+                            className="mobile-filter-button-v2"
+                            onClick={toggleMobileFilters}
+                            onKeyUp={(e) => {
+                                if (e.key === "Escape" && showMobileFilters) {
+                                    toggleMobileFilters();
+                                }
+                            }}>
+                            <div className="mobile-filter-button-content">
+                                <div className="mobile-filter-button-icon">
+                                    <img
+                                        className="usa-da-mobile-filter-icon"
+                                        alt="Toggle filters"
+                                        aria-label="Toggle filters"
+                                        src="img/Add-search-filters-icon.svg" />
+                                </div>
+                                <div className="mobile-filter-button-label">
+                                    {`Add search ${pluralizeFilterLabel(filterCount)}`}
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <FlexGridCol className={`mobile-search-sidebar-v2 ${sidebarOpen ? 'sidebar-opened' : ''}`}>
+                        <MobileFiltersV2
+                            filters={filters}
+                            showMobileFilters={showMobileFilters}
+                            setShowMobileFilters={setShowMobileFilters}
+                            sidebarOpen={sidebarOpen}
+                            setSidebarOpen={setSidebarOpen} />
+                    </FlexGridCol>
+                    <Helmet>
+                        <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
+                    </Helmet>
+                    <div className="search-results-view-container">
+                        <ResultsView
+                            filters={filters}
+                            isMobile={isMobile}
+                            filterCount={filterCount}
+                            showMobileFilters={showMobileFilters}
+                            updateFilterCount={updateFilterCount}
+                            requestsComplete={requestsComplete}
+                            noFiltersApplied={noFiltersApplied}
+                            hash={hash}
+                            searchV2 />
+                    </div>
                 </div>
-            </PageFeatureFlag>
+                <FullDownloadModalContainer
+                    download={download}
+                    mounted={showFullDownload}
+                    hideModal={hideDownloadModal} />
+            </div>
         </PageWrapper>
     );
 };
