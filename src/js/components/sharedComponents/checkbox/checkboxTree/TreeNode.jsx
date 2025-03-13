@@ -67,56 +67,53 @@ const TreeNode = (props) => {
     return (
         <div style={{ maginLeft: '20px' }}>
             <div>
-                <input
-                    type="checkbox"
-                    disabled={disabled}
-                    onChange={handleCheck} />
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 {node.children?.length > 0 ?
-                    <div className="checkbox-filter__wrapper">
-                        <div
-                            className="checkbox-filter__header accordion-checkbox"
-                            role="button"
-                            tabIndex="0">
-                            <div className="checkbox-filter__header-icon">
-                                {!isExpanded &&
-                                    <FontAwesomeIcon
-                                        onClick={() => handleToggle()}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") handleToggle();
-                                        }}
-                                        tabIndex={0}
-                                        icon="chevron-right" />}
-                                {isExpanded &&
-                                    <FontAwesomeIcon
-                                        onClick={() => handleToggle()}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") handleToggle();
-                                        }}
-                                        tabIndex={0}
-                                        icon="chevron-down" />}
-                            </div>
-                            <input
-                                type="checkbox"
-                                disabled={disabled}
-                                onChange={handleCheck} />
-                            {/*<div className="checkbox-filter__header-label-container">*/}
-                            {/*    <span className="checkbox-filter__header-label accordion-checkbox">{category.name}</span>*/}
-                            {/*    <span className="checkbox-filter__header-count">*/}
-                            {/*        {count}{' '}*/}
-                            {/*        {count === 1 ? 'type' : 'types'}*/}
-                            {/*    </span>*/}
-                            {/*</div>*/}
+                    <div className="checkbox-filter__wrapper" style={{ display: "flex", flexDirection: "row" }}>
+                        <div className="checkbox-filter__header-icon">
+                            {!isExpanded &&
+                                <FontAwesomeIcon
+                                    onClick={() => handleToggle()}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") handleToggle();
+                                    }}
+                                    tabIndex={0}
+                                    icon="chevron-right" />}
+                            {isExpanded &&
+                                <FontAwesomeIcon
+                                    onClick={() => handleToggle()}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") handleToggle();
+                                    }}
+                                    tabIndex={0}
+                                    icon="chevron-down" />}
                         </div>
+                        <input
+                            type="checkbox"
+                            disabled={disabled}
+                            onChange={handleCheck} />
+                        {/* <div className="checkbox-filter__header-label-container">*/}
+                        {/*    <span className="checkbox-filter__header-label accordion-checkbox">{category.name}</span>*/}
+                        {/*    <span className="checkbox-filter__header-count">*/}
+                        {/*        {count}{' '}*/}
+                        {/*        {count === 1 ? 'type' : 'types'}*/}
+                        {/*    </span>*/}
+                        {/* </div>*/}
                         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                         <span>{label}</span>
                         <span>{loading && <span>Loading...</span>}</span>
                     </div>
                     :
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <span style={{ cursor: 'pointer', marginLeft: '5px' }}>
-                        {label}
-                    </span>
+                    <>
+                        <input
+                            type="checkbox"
+                            disabled={disabled}
+                            onChange={handleCheck} />
+                    {/*// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions*/}
+                        <span style={{ cursor: 'pointer', marginLeft: '5px' }}>
+                            {label}
+                        </span>
+                    </>
                 }
             </div>
             <div>

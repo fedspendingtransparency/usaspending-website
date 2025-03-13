@@ -160,7 +160,7 @@ export class TASCheckboxTree extends React.Component {
             //     this.fetchTas(agencyAndFederalAccountString);
             // }
             // else {
-                this.fetchTas(expandedValue);
+            this.fetchTas(expandedValue);
             // }
         }
         if (this.state.isSearch) {
@@ -423,7 +423,7 @@ export class TASCheckboxTree extends React.Component {
                     noResults={showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}
                     onCollapse={this.onCollapse} />
-                {/*<CheckboxTree*/}
+                {/* <CheckboxTree*/}
                 {/*    isError={isError}*/}
                 {/*    errorMessage={errorMessage}*/}
                 {/*    isLoading={isLoading}*/}
@@ -437,18 +437,18 @@ export class TASCheckboxTree extends React.Component {
                 {/*    onCheck={this.onCheck}*/}
                 {/*    onExpand={this.onExpand}*/}
                 {/*    onCollapse={this.onCollapse} />*/}
-                {counts.length > 0 && (
-                    <div
-                        className="selected-filters"
-                        role="status">
-                        {counts.map((node) => {
-                            const label = `${node.value} - ${node.label} (${node.count})`;
-                            return (
-                                <ShownValue label={label} removeValue={(e) => this.removeSelectedFilter(e, node)} />
-                            );
-                        })}
-                    </div>
-                )}
+                {/*{counts.length > 0 && (*/}
+                {/*    <div*/}
+                {/*        className="selected-filters"*/}
+                {/*        role="status">*/}
+                {/*        {counts.map((node) => {*/}
+                {/*            const label = `${node.value} - ${node.label} (${node.count})`;*/}
+                {/*            return (*/}
+                {/*                <ShownValue label={label} removeValue={(e) => this.removeSelectedFilter(e, node)} />*/}
+                {/*            );*/}
+                {/*        })}*/}
+                {/*    </div>*/}
+                {/*)}*/}
                 <SubmitHint ref={(component) => {
                     this.hint = component;
                 }} />
