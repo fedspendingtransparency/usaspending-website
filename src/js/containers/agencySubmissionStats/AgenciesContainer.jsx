@@ -32,12 +32,21 @@ const AgenciesContainer = ({
     selectedPeriod
 }) => {
     const {
-        allSubmissions, allPublications, publicationsSort, submissionsSort, federalTotals, submissionPeriods, searchTerm, submissionsSearchResults, publicationsSearchResults
-    } = useSelector((state) => ({ ...state.aboutTheData, submissionPeriods: state.account.submissionPeriods }));
+        allSubmissions, allPublications, publicationsSort,
+        submissionsSort, federalTotals, submissionPeriods,
+        searchTerm, submissionsSearchResults, publicationsSearchResults
+    } = useSelector((state) => (
+        { ...state.aboutTheData, submissionPeriods: state.account.submissionPeriods }
+    ));
     const dispatch = useDispatch();
+
     const publicationsReq = useRef(null);
     const submissionsReq = useRef(null);
     const totalsReq = useRef(null);
+    const tableRef = useRef(null);
+    const pageRef = useRef({ publications: null, submissions: null });
+    const { current: { publications: prevPublicationsPg, submissions: prevSubmissionsPg } } = pageRef;
+
     const [
         [
             { page: submissionsPage, totalItems: totalSubmissionItems, limit: submissionsLimit },
@@ -52,18 +61,13 @@ const AgenciesContainer = ({
             changePublicationsTotal
         ]
     ] = [usePagination(), usePagination()];
+
     const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
     const [[, areSubmissionsLoading, arePublicationsLoading], setLoading] = useState([true, true, true]);
     const [error, setError] = useState(null);
+
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
-    const tableRef = useRef(null);
-    const pageRef = useRef({ publications: null, submissions: null });
-    const { current: { publications: prevPublicationsPg, submissions: prevSubmissionsPg } } = pageRef;
-    useEffect(() => {
-        pageRef.current = { publications: publicationsPage, submissions: submissionsPage };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [submissionsPage, publicationsPage]);
 
     const handleScroll = throttle(() => {
         const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
@@ -171,66 +175,6 @@ const AgenciesContainer = ({
         }
         return Promise.resolve([]);
     });
-
-    useEffect(() => () => {
-        if (publicationsReq.current) {
-            console.info('canceling request on unmount');
-            publicationsReq.current.cancel();
-        }
-        if (submissionsReq.current) {
-            console.info('canceling request on unmount');
-            submissionsReq.current.cancel();
-        }
-        if (totalsReq.current) {
-            console.info('canceling request on unmount');
-            totalsReq.current.cancel();
-        }
-        dispatch(setSearchTerm(''));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-    // Active tab or page number changes
-        if (selectedFy && selectedPeriod) {
-            fetchTableData();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeTab, submissionsPage, publicationsPage]);
-
-    useEffect(() => {
-        const shouldResetPg = (
-            (prevSubmissionsPg && prevPublicationsPg) &&
-            (selectedFy && selectedPeriod)
-        );
-        if (selectedFy && selectedPeriod && !federalTotals.length) {
-            fetchTotals();
-        }
-        else if (activeTab === 'submissions' && submissionsPage === 1 && shouldResetPg) {
-            // re-fetch w/ new params
-            fetchTableData(true);
-        }
-        else if (activeTab === 'submissions' && shouldResetPg) {
-            // reset to pg 1, triggering a refetch
-            changeSubmissionsPg(1);
-        }
-        else if (activeTab === 'publications' && publicationsPage === 1 && shouldResetPg) {
-            // re-fetch w/ new params
-            fetchTableData(true);
-        }
-        else if (activeTab === 'publications' && shouldResetPg) {
-            // reset to pg 1, triggering a refetch
-            changePublicationsPg(1);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [federalTotals,
-        selectedFy,
-        selectedPeriod,
-        submissionsSort,
-        submissionsLimit,
-        publicationsSort,
-        publicationsLimit,
-        searchTerm
-    ]);
 
     const renderDates = (results = []) => results
         .map(({
@@ -345,6 +289,72 @@ const AgenciesContainer = ({
             changePublicationsLimit(limit);
         }
     };
+
+
+    useEffect(() => {
+        pageRef.current = { publications: publicationsPage, submissions: submissionsPage };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [submissionsPage, publicationsPage]);
+
+    useEffect(() => () => {
+        if (publicationsReq.current) {
+            console.info('canceling request on unmount');
+            publicationsReq.current.cancel();
+        }
+        if (submissionsReq.current) {
+            console.info('canceling request on unmount');
+            submissionsReq.current.cancel();
+        }
+        if (totalsReq.current) {
+            console.info('canceling request on unmount');
+            totalsReq.current.cancel();
+        }
+        dispatch(setSearchTerm(''));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+    // Active tab or page number changes
+        if (selectedFy && selectedPeriod) {
+            fetchTableData();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTab, submissionsPage, publicationsPage]);
+
+    useEffect(() => {
+        const shouldResetPg = (
+            (prevSubmissionsPg && prevPublicationsPg) &&
+            (selectedFy && selectedPeriod)
+        );
+        if (selectedFy && selectedPeriod && !federalTotals.length) {
+            fetchTotals();
+        }
+        else if (activeTab === 'submissions' && submissionsPage === 1 && shouldResetPg) {
+            // re-fetch w/ new params
+            fetchTableData(true);
+        }
+        else if (activeTab === 'submissions' && shouldResetPg) {
+            // reset to pg 1, triggering a refetch
+            changeSubmissionsPg(1);
+        }
+        else if (activeTab === 'publications' && publicationsPage === 1 && shouldResetPg) {
+            // re-fetch w/ new params
+            fetchTableData(true);
+        }
+        else if (activeTab === 'publications' && shouldResetPg) {
+            // reset to pg 1, triggering a refetch
+            changePublicationsPg(1);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [federalTotals,
+        selectedFy,
+        selectedPeriod,
+        submissionsSort,
+        submissionsLimit,
+        publicationsSort,
+        publicationsLimit,
+        searchTerm
+    ]);
 
     return (
         <>
