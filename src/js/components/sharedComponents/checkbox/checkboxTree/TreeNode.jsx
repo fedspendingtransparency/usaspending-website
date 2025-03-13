@@ -17,7 +17,7 @@ const propTypes = {
 
 const TreeNode = (props) => {
     const {
-        label, disabled, onChecked, onExpand, node
+        label, disabled, onChecked, onExpand, node, isLoading
     } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -32,10 +32,10 @@ const TreeNode = (props) => {
     }, [childNodes, node]);
 
     useEffect(() => {
-        if (childNodes.length > 0) {
-            console.log("childNodes", childNodes, node);
+        if (!isLoading) {
+            setLoading(false);
         }
-    }, [childNodes, node]);
+    }, [isLoading]);
 
     useEffect(() => {
         if (node && isExpanded && loading) {
@@ -65,7 +65,7 @@ const TreeNode = (props) => {
     };
 
     return (
-        <div style={{ maginLeft: '20px' }}>
+        <div style={{ marginLeft: '20px' }}>
             <div>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 {node.children?.length > 0 ?

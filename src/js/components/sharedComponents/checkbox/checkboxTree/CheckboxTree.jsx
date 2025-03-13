@@ -195,7 +195,8 @@ const CheckboxTree = (props) => {
                 checked={props.checked}
                 expanded={props.expanded}
                 onCheck={onCheck}
-                icons={treeIcons} />
+                icons={treeIcons}
+                isLoading={props.isLoading} />
         </>
     ));
 
