@@ -266,7 +266,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                                             </div>
                                             <div className="recipient-label__name-container">
                                                 <span className="recipient-label__recipient-name">
-                                                    {highlightText(recipient.name) || highlightText(recipient.recipient_name)}
+                                                    {recipient.name ? highlightText(recipient.name) : highlightText(recipient.recipient_name)}
                                                 </span>
                                                 <span className="recipient-label__recipient-level">
                                                     {levelMapping[recipient.recipient_level]}
