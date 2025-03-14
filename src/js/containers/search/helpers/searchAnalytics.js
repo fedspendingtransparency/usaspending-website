@@ -274,7 +274,6 @@ export const sendFieldCombinations = (events) => {
 
     // To get a specific parameter:
     const paramValue = urlParams?.get('hash');
-    console.log(paramValue);
 
     Analytics.event({
         event: 'search_send_all_fields',

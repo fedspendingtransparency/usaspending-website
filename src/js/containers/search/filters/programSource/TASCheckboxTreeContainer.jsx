@@ -114,8 +114,6 @@ export class TASCheckboxTree extends React.Component {
             return Promise.resolve();
         }
 
-        console.log(this.props.nodes);
-
         return this.fetchTas('')
             .then(() => {
                 if (checkedFromHash.length > 0) {
@@ -167,7 +165,6 @@ export class TASCheckboxTree extends React.Component {
             this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
         }
         else {
-            console.log("2", expandedValue, newExpandedArray, selectedNode);
             this.props.setExpandedTas(newExpandedArray);
         }
     };
@@ -277,7 +274,6 @@ export class TASCheckboxTree extends React.Component {
     };
 
     fetchTas = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
-        console.log("fetchTAS", id, searchStr);
         if (this.request) this.request.cancel();
         if (id === '') {
             this.setState({ isLoading: true });
@@ -289,7 +285,6 @@ export class TASCheckboxTree extends React.Component {
             ? `?depth=2&filter=${searchStr}`
             : id;
 
-        console.log(queryParam);
         this.request = fetchTas(queryParam);
         const isPartialTree = (
             id !== '' ||
@@ -342,7 +337,6 @@ export class TASCheckboxTree extends React.Component {
             })
             .catch((e) => {
                 if (!isCancel(e)) {
-                    console.log("error fetching TAS", e);
                     this.setState({
                         isError: true,
                         isLoading: false,
@@ -390,7 +384,6 @@ export class TASCheckboxTree extends React.Component {
             showNoResults
         } = this.state;
 
-        console.log(expanded);
         return (
             <div className="tas-checkbox">
                 {showInfo &&

@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 02/2025
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -25,11 +25,7 @@ const TreeNode = (props) => {
     const [childNodes, setChildNodes] = useState([]);
     const [selectedNode, setSelectedNode] = useState();
 
-    useEffect(() => {
-        if (childNodes.indexOf(node?.value) > 0) {
-            console.log(node);
-        }
-    }, [childNodes, node]);
+    const childNode = useRef();
 
     useEffect(() => {
         if (!isLoading) {
@@ -41,7 +37,6 @@ const TreeNode = (props) => {
         if (node && isExpanded && loading) {
             setSelectedNode(node);
             const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${node.id}` : node.id;
-            console.log("tree node check", childNodes, node, nodeValue);
             const newChildValue = [...childNodes, nodeValue];
             setChildNodes(newChildValue);
             onExpand(newChildValue, node);
@@ -51,12 +46,29 @@ const TreeNode = (props) => {
     }, [isExpanded, loading]);
 
     const handleToggle = async () => {
-        if (!isExpanded || node.children?.length > 0) {
+        if (!isExpanded && node.children?.length > 0) {
+            // check if child already exists and do something different
             setLoading(true);
             setIsExpanded(true);
-            if (onExpand) {
-                onExpand(childNodes, selectedNode);
+
+            console.log(childNodes, node, childNodes?.includes(node.id));
+            childNodes?.findIndex((element) => element.includes(node.id));
+            if (childNodes.length > 0 && childNodes?.findIndex((element) => element.includes(node.id)) > -1) {
+                console.log("here");
+                childNode.current.style.display = 'block';
+                setLoading(false);
             }
+            else {
+                setLoading(true);
+                setIsExpanded(true);
+                if (onExpand) {
+                    onExpand(childNodes, selectedNode);
+                }
+            }
+        }
+        else {
+            setIsExpanded(false);
+            childNode.current.style.display = 'none';
         }
     };
 
@@ -109,14 +121,14 @@ const TreeNode = (props) => {
                             type="checkbox"
                             disabled={disabled}
                             onChange={handleCheck} />
-                    {/*// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions*/}
+                        {/* // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions*/}
                         <span style={{ cursor: 'pointer', marginLeft: '5px' }}>
                             {label}
                         </span>
                     </>
                 }
             </div>
-            <div>
+            <div ref={childNode}>
                 {childNodes?.length > 0 ? node.children?.map((child) => (
                     <TreeNode
                         key={child.description}
