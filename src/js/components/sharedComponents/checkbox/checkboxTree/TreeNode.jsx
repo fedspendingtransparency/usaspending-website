@@ -51,10 +51,7 @@ const TreeNode = (props) => {
             setLoading(true);
             setIsExpanded(true);
 
-            console.log(childNodes, node, childNodes?.includes(node.id));
-            childNodes?.findIndex((element) => element.includes(node.id));
             if (childNodes.length > 0 && childNodes?.findIndex((element) => element.includes(node.id)) > -1) {
-                console.log("here");
                 childNode.current.style.display = 'block';
                 setLoading(false);
             }
