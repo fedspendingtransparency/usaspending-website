@@ -108,6 +108,10 @@
                     span {
                         font-weight: $font-semibold;
                     }
+
+                    span.highlight {
+                        background-color: $yellow-10;
+                    }
                 }
 
                 .recipient-label__lower-container {
@@ -143,6 +147,10 @@
                     }
                 }
             }
+        }
+
+        span.highlight {
+            background-color: $yellow-10;
         }
     }
 
