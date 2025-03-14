@@ -298,15 +298,12 @@ const AgenciesContainer = ({
 
     useEffect(() => () => {
         if (publicationsReq.current) {
-            console.info('canceling request on unmount');
             publicationsReq.current.cancel();
         }
         if (submissionsReq.current) {
-            console.info('canceling request on unmount');
             submissionsReq.current.cancel();
         }
         if (totalsReq.current) {
-            console.info('canceling request on unmount');
             totalsReq.current.cancel();
         }
         dispatch(setSearchTerm(''));
