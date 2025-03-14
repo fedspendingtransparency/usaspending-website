@@ -5,23 +5,28 @@
 
     .main-content {
         @import '../../mixins/fullSectionWrap';
-        @include fullSectionWrap(0,0);
-        @include display(flex);
         @include flex-wrap(wrap);
         @include flex-direction(column);
-        width: 94%;
-        max-width: 160rem;
-        border-radius: rem(5) rem(5) 0 0;
-        background: $color-white;
-        padding: 0 rem(20);
-        margin: rem(40) auto;
-        .heading-container {
-            width: 100%;
-            .header {
-                margin-bottom: 0;
-                font-weight: $font-semibold;
-                letter-spacing: 0;
-                line-height: rem(59);
+
+        .agency-submission-stat-row {
+            padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
+            @media (max-width: $tablet-screen) {
+                padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
+
+            }
+            .agency-submission-stat-col {
+                width: 100%;
+                max-width: rem(1400);
+                margin: auto;
+                .heading-container {
+                    width: 100%;
+                    .header {
+                        margin-bottom: 0;
+                        font-weight: $font-semibold;
+                        letter-spacing: 0;
+                        line-height: rem(59);
+                    }
+                }
             }
         }
     }
