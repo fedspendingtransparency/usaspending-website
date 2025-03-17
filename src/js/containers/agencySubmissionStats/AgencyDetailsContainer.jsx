@@ -10,7 +10,6 @@ import { throttle, isNull } from 'lodash';
 
 import { fetchAgency } from 'apis/agencyReporting';
 import BaseReportingPeriodRow from 'models/v2/agencySubmissionStats/BaseReportingPeriodRow';
-import AgencyDownloadLinkCell from 'components/agencySubmissionStats/AgencyDownloadLinkCell';
 import CellWithModal from 'components/agencySubmissionStats/CellWithModal';
 import { agencyDetailsColumns } from './AgencyTableMapping';
 
@@ -122,10 +121,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             fiscalYear: rowData.fiscalYear,
                             fiscalPeriod: rowData.fiscalPeriod,
                             type: 'Assistance'
-                        }} />,
-                <div className="generic-cell-content">
-                    <AgencyDownloadLinkCell file={rowData.assuranceStatement} />
-                </div>
+                        }} />
             ];
         });
 
@@ -160,6 +156,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
 
     useEffect(() => {
         prevPageRef.current = currentPage;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {
@@ -175,6 +172,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             // only true when sort, agency-code, or page-size changed
             changeCurrentPage(1);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, agencyCode, sortStatus, pageSize]);
 
     useEffect(() => {
@@ -182,6 +180,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             // only true when page changes.
             fetchTableData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     return (
