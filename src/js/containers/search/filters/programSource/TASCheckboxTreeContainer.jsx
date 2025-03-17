@@ -416,32 +416,6 @@ export class TASCheckboxTree extends React.Component {
                     noResults={showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}
                     onCollapse={this.onCollapse} />
-                {/* <CheckboxTree*/}
-                {/*    isError={isError}*/}
-                {/*    errorMessage={errorMessage}*/}
-                {/*    isLoading={isLoading}*/}
-                {/*    data={nodes.sort((a, b) => a.label.localeCompare(b.label))}*/}
-                {/*    checked={checked}*/}
-                {/*    searchText={searchString}*/}
-                {/*    countLabel="TAS"*/}
-                {/*    noResults={showNoResults}*/}
-                {/*    expanded={isSearch ? searchExpanded : expanded}*/}
-                {/*    onUncheck={this.onUncheck}*/}
-                {/*    onCheck={this.onCheck}*/}
-                {/*    onExpand={this.onExpand}*/}
-                {/*    onCollapse={this.onCollapse} />*/}
-                {/*{counts.length > 0 && (*/}
-                {/*    <div*/}
-                {/*        className="selected-filters"*/}
-                {/*        role="status">*/}
-                {/*        {counts.map((node) => {*/}
-                {/*            const label = `${node.value} - ${node.label} (${node.count})`;*/}
-                {/*            return (*/}
-                {/*                <ShownValue label={label} removeValue={(e) => this.removeSelectedFilter(e, node)} />*/}
-                {/*            );*/}
-                {/*        })}*/}
-                {/*    </div>*/}
-                {/*)}*/}
                 <SubmitHint ref={(component) => {
                     this.hint = component;
                 }} />

@@ -9,15 +9,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     label: PropTypes.string,
+    countLabel: PropTypes.string,
     disabled: PropTypes.bool,
     onChecked: PropTypes.func,
     onExpand: PropTypes.func,
+    onCollapse: PropTypes.func,
     node: PropTypes.arrayOf(PropTypes.object)
 };
 
 const TreeNode = (props) => {
     const {
-        label, disabled, onChecked, onExpand, node, isLoading
+        label, disabled, onChecked, onExpand, node, isLoading, onCollapse, countLabel
     } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -54,8 +56,7 @@ const TreeNode = (props) => {
             if (childNodes.length > 0 && childNodes?.findIndex((element) => element.includes(node.id)) > -1) {
                 childNode.current.style.display = 'block';
                 setLoading(false);
-            }
-            else {
+            } else {
                 setLoading(true);
                 setIsExpanded(true);
                 if (onExpand) {
@@ -66,6 +67,7 @@ const TreeNode = (props) => {
         else {
             setIsExpanded(false);
             childNode.current.style.display = 'none';
+            onCollapse(childNodes);
         }
     };
 
@@ -78,8 +80,8 @@ const TreeNode = (props) => {
             <div>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 {node.children?.length > 0 ?
-                    <div className="checkbox-filter__wrapper" style={{ display: "flex", flexDirection: "row" }}>
-                        <div className="checkbox-filter__header-icon">
+                    <div className="checkbox-treenode__wrapper" style={{ display: "flex", flexDirection: "row", alignItems: "start" }}>
+                        <div className="checkbox-treenode__header-icon">
                             {!isExpanded &&
                                 <FontAwesomeIcon
                                     onClick={() => handleToggle()}
@@ -101,16 +103,12 @@ const TreeNode = (props) => {
                             type="checkbox"
                             disabled={disabled}
                             onChange={handleCheck} />
-                        {/* <div className="checkbox-filter__header-label-container">*/}
-                        {/*    <span className="checkbox-filter__header-label accordion-checkbox">{category.name}</span>*/}
-                        {/*    <span className="checkbox-filter__header-count">*/}
-                        {/*        {count}{' '}*/}
-                        {/*        {count === 1 ? 'type' : 'types'}*/}
-                        {/*    </span>*/}
-                        {/* </div>*/}
                         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                        <span>{label}</span>
-                        <span>{loading && <span>Loading...</span>}</span>
+                        <div>
+                            <span>{node?.id} {node?.count && node.count > 0 ? `${node?.count} ${countLabel}` : ''}</span><br />
+                            <div>{label}</div>
+                            <span>{loading && <span>Loading...</span>}</span>
+                        </div>
                     </div>
                     :
                     <>
@@ -120,8 +118,10 @@ const TreeNode = (props) => {
                             onChange={handleCheck} />
                         {/* // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions*/}
                         <span style={{ cursor: 'pointer', marginLeft: '5px' }}>
-                            {label}
-                        </span>
+                            {node.id} {node?.count && node.count > 0 ? `${node?.count} ${countLabel}` : ''}
+                        </span><br />
+                        <div>{label}</div>
+                        <span>{loading && <span>Loading...</span>}</span>
                     </>
                 }
             </div>
@@ -136,7 +136,8 @@ const TreeNode = (props) => {
                         checked={props.checked}
                         expanded={props.expanded}
                         icons={props.icons}
-                        node={child} />))
+                        node={child}
+                        countLabel={props.countLabel} />))
                     : ''}
             </div>
         </div>
