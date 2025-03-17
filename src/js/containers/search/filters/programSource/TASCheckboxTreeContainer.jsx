@@ -151,6 +151,7 @@ export class TASCheckboxTree extends React.Component {
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         if (shouldFetchChildren && !this.state.isSearch) {
+            // TODO: ADD this back in
             // if (selectedNode.treeDepth === 1) {
             //     const selectedAgency = this.props.nodes
             //         .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
