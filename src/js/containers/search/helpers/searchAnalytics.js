@@ -269,12 +269,6 @@ export const sendFieldCombinations = (events) => {
         return parsed;
     }, []));
 
-    const urlString = window.location.search;
-    const urlParams = new URLSearchParams(urlString);
-
-    // To get a specific parameter:
-    const paramValue = urlParams?.get('hash');
-
     Analytics.event({
         event: 'search_send_all_fields',
         category: 'Advanced Search - Search Fields',
