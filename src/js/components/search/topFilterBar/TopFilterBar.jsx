@@ -11,9 +11,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { Button } from 'data-transparency-ui';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../../sharedComponents/buttons/Button";
 
 const propTypes = {
     filters: PropTypes.array,
