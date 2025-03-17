@@ -324,6 +324,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             })
             .catch((e) => {
                 if (!isCancel(e)) {
+                    console.log("error fetching PSC", e);
                     this.setState({
                         isError: true,
                         isLoading: false,

@@ -417,9 +417,6 @@ export class TASCheckboxTree extends React.Component {
                     noResults={showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}
                     onCollapse={this.onCollapse} />
-                <SubmitHint ref={(component) => {
-                    this.hint = component;
-                }} />
                 { !this.props.searchV2 &&
                     <SubmitHint ref={(component) => {
                         this.hint = component;
