@@ -64,7 +64,7 @@ const Header = () => {
         const siteBannerComponents = [];
         const pageBannerComponents = [];
 
-        siteBannersArray.forEach((banner) => {
+        siteBannersArray?.forEach((banner) => {
             siteBannerComponents.push(
                 <InfoBanner
                     icon={getIcon(banner.type)}
@@ -76,7 +76,7 @@ const Header = () => {
             setActiveSiteBanners(siteBannerComponents);
         });
 
-        pageBannersArray.forEach((banner) => {
+        pageBannersArray?.forEach((banner) => {
             pageBannerComponents.push(
                 <InfoBanner
                     icon={getIcon(banner.type)}
