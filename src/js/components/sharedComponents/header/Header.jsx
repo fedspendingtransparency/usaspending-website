@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -97,10 +96,6 @@ const Header = () => {
             <GlobalModalContainer />
         </div>
     );
-};
-
-Header.propTypes = {
-    showModal: PropTypes.func
 };
 
 export default Header;
