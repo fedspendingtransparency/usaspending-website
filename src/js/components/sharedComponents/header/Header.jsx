@@ -11,10 +11,16 @@ import InfoBanner from './InfoBanner';
 
 const Header = () => {
     const location = useLocation();
-    const activeBannersArray = GlobalConstants?.BANNER?.filter(
+
+    const siteBannersArray = GlobalConstants?.BANNER?.filter(
+        (banner) => banner.isActive && banner.page === "site wide"
+    );
+    const pageBannersArray = GlobalConstants?.BANNER?.filter(
         (banner) => banner.isActive && location.pathname.includes(banner.page)
     );
-    const [activeBanners, setActiveBanners] = useState([]);
+
+    const [activeSiteBanners, setActiveSiteBanners] = useState([]);
+    const [activePageBanners, setActivePageBanners] = useState([]);
 
     const skippedNav = (e) => {
     // don't update the URL due to potential React Router conflicts
@@ -55,10 +61,11 @@ const Header = () => {
     };
 
     const getBanners = () => {
-        const activeBannerComponents = [];
+        const siteBannerComponents = [];
+        const pageBannerComponents = [];
 
-        activeBannersArray.forEach((banner) => {
-            activeBannerComponents.push(
+        siteBannersArray.forEach((banner) => {
+            siteBannerComponents.push(
                 <InfoBanner
                     icon={getIcon(banner.type)}
                     type={banner.type}
@@ -66,7 +73,19 @@ const Header = () => {
                     content={banner.content} />
             );
 
-            setActiveBanners(activeBannerComponents);
+            setActiveSiteBanners(siteBannerComponents);
+        });
+
+        pageBannersArray.forEach((banner) => {
+            pageBannerComponents.push(
+                <InfoBanner
+                    icon={getIcon(banner.type)}
+                    type={banner.type}
+                    title={banner.title}
+                    content={banner.content} />
+            );
+
+            setActivePageBanners(pageBannerComponents);
         });
     };
 
@@ -90,7 +109,8 @@ const Header = () => {
                 <GovBanner />
                 <NavbarWrapper />
             </header>
-            {activeBanners}
+            {activeSiteBanners}
+            {activePageBanners}
             <AboutTheDataContainer />
             <GlossaryContainer />
             <GlobalModalContainer />
