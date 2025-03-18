@@ -1,11 +1,11 @@
 .button__sm {
-    height: 100%;
+    // height: 100%;
     border-radius: 3px;
     font-size: rem(14);
     font-weight: $font-semibold;
     padding: 5.5px 12px;
-    vertical-align: middle;
-    align-items: center;
+    // vertical-align: middle;
+    // align-items: center;
     display: flex;
 
     svg {
@@ -15,8 +15,8 @@
 }
 
 .button__md {
-    height: 100%;
-    border-radius: 4px;
+    // height: 100%;
+    // border-radius: 4px;
     font-size: rem(16);
     font-weight: $font-semibold;
     padding: 8px 16px;
@@ -31,14 +31,14 @@
 }
 
 .button__lg {
-    border: solid 1px $theme-color-1;
-    height: 100%;
+    // border: solid 1px $theme-color-1;
+    // height: 100%;
     border-radius: 6px;
     font-size: rem(20);
-    font-weight: $font-semibold;
+    // font-weight: $font-semibold;
     padding: 13px 24px;
-    vertical-align: middle;
-    align-items: center;
+    // vertical-align: middle;
+    // align-items: center;
     display: flex;
 
     svg {
