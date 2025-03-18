@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
@@ -12,7 +12,10 @@ import InfoBanner from './InfoBanner';
 
 const Header = () => {
     const location = useLocation();
-    const bannerType = GlobalConstants?.BANNER?.type || "";
+    const activeBannersArray = GlobalConstants?.BANNER?.filter(
+        (banner) => banner.isActive && location.pathname.includes(banner.page)
+    );
+    const [activeBanners, setActiveBanners] = useState([]);
 
     const skippedNav = (e) => {
     // don't update the URL due to potential React Router conflicts
@@ -26,17 +29,6 @@ const Header = () => {
         if (mainFocus) {
             mainFocus.focus();
         }
-    };
-
-    const isBannerActive = () => {
-        if (GlobalConstants?.BANNER?.isActive) {
-            if (GlobalConstants.BANNER.page && GlobalConstants.BANNER.page !== "") {
-                return location.pathname.includes(GlobalConstants.BANNER.page);
-            }
-            return true;
-        }
-
-        return false;
     };
 
     const getIcon = (type) => {
@@ -63,6 +55,27 @@ const Header = () => {
         return icon;
     };
 
+    const getBanners = () => {
+        const activeBannerComponents = [];
+
+        activeBannersArray.forEach((banner) => {
+            activeBannerComponents.push(
+                <InfoBanner
+                    icon={getIcon(banner.type)}
+                    type={banner.type}
+                    title={banner.title}
+                    content={banner.content} />
+            );
+
+            setActiveBanners(activeBannerComponents);
+        });
+    };
+
+    useEffect(() => {
+        getBanners();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
 
     return (
         <div className="site-header">
@@ -78,12 +91,7 @@ const Header = () => {
                 <GovBanner />
                 <NavbarWrapper />
             </header>
-            {isBannerActive() &&
-                <InfoBanner
-                    icon={getIcon(bannerType)}
-                    type={bannerType}
-                    title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
-                    content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
+            {activeBanners}
             <AboutTheDataContainer />
             <GlossaryContainer />
             <GlobalModalContainer />

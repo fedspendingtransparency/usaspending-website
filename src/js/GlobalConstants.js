@@ -24,13 +24,29 @@ const globalConstants = {
     ARP_RELEASED: process.env.ENV !== 'prod',
     DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01',
-    BANNER: {
-        isActive: false,
-        title: 'Recipient Filter',
-        content: 'There is currently a bug affecting the Recipient Filter feature of our service. We appreciate your understanding and patience as we work to fix this issue. Please contact our service desk for additional assistance.',
-        page: 'search',
-        type: "warning" // three options "general", "warning", "warning-resolved"
-    }
+    BANNER: [
+        {
+            isActive: true,
+            title: 'General',
+            content: 'This is a general notice.',
+            page: '/temp-page',
+            type: 'warning' // three options "general", "warning", "warning-resolved"
+        },
+        {
+            isActive: true,
+            title: 'Warning',
+            content: 'This is a warning notice.',
+            page: '/temp-page',
+            type: 'general' // three options "general", "warning", "warning-resolved"
+        },
+        {
+            isActive: true,
+            title: 'Resolved',
+            content: 'This is a warning resolved notice',
+            page: '/temp-page',
+            type: 'warning-resolved' // three options "general", "warning", "warning-resolved"
+        }
+    ]
 };
 
 module.exports = globalConstants;
