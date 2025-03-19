@@ -83,14 +83,13 @@
                         @include justify-content(space-between);
                         @include align-items(center);
                         width: 100%;
+
+                        &.bottom-spacing {
+                            margin-bottom: rem(8);
+                        }
                     }
                 }
 
-                .tooltip-body .tooltip-body-row {
-                    &.bottom-spacing {
-                        margin-bottom: rem(8);
-                    }
-                }
                 .tooltip-pointer {
                     &:after {
                         background-color: $color-white;
