@@ -18,7 +18,6 @@ const CoreReportingRow = {
         this._obligationDifference = data.obligation_difference;
         this._unlinkedContracts = data.unlinked_contract_award_count;
         this._unlinkedAssistance = data.unlinked_assistance_award_count;
-        this.assuranceStatement = data.assurance_statement_url || '';
     },
     get budgetAuthority() {
         return formatMoneyWithPrecision(this._budgetAuthority, 2, '--');
