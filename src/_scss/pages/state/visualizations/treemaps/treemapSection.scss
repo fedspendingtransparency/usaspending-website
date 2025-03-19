@@ -1,7 +1,6 @@
 .usa-da-treemap-section {
     @import "mixins/moreOptionsBtn";
     @import "mixins/fullSectionWrap";
-    @import 'treemapSource';
     background-color: #ececec;
     & .treemap-inner-wrap {
         @include fullSectionWrap(0, 0);
