@@ -4,9 +4,7 @@
     background-color: #ececec;
     & .treemap-inner-wrap {
         @include fullSectionWrap(0, 0);
-        @import 'treemapWrapper';
         @import 'treemapDescription';
-        @import 'treemapNavButtons';
         .treemap-navigation-holder {
             min-height: rem(64);
             .treemap-navigation-bar {
