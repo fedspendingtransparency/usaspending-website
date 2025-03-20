@@ -102,6 +102,10 @@
 
       .checkbox-filter__header-label.accordion-checkbox {
         margin-left: rem(6);
+
+        span.highlight {
+          background-color: $yellow-10;
+        }
       }
     }
 
