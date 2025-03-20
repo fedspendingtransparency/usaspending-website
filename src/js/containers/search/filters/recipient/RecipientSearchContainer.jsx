@@ -253,9 +253,9 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                                                 </div>
                                             )}
                                             value={{
-                                                name: recipient.name ? highlightText(recipient.name) : highlightText(recipient.recipient_name),
-                                                uei: highlightText(recipient.uei),
-                                                duns: recipient.duns ? highlightText(recipient.duns) : null
+                                                name: recipient.name ? recipient.name : recipient.recipient_name,
+                                                uei: recipient.uei,
+                                                duns: recipient.duns ? recipient.duns : null
                                             }}
                                             key={recipient.uei}
                                             toggleCheckboxType={toggleRecipient}
