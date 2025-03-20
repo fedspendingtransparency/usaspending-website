@@ -113,9 +113,8 @@ export default class MapWrapper extends React.Component {
     };
     getColors = (numQuantiles) => {
         const colors = [];
-        for (let i = 0; i < numQuantiles; i++) {
-            // get the color for the map, we use the base color and an opacity attached to it
-            // if we have n quantiles we need n distinct colors
+        for (value of numQuantiles)
+        {
             colors.push(`rgba(1, 43, 58, ${i * (1 / numQuantiles)})`);
         }
         return colors;
