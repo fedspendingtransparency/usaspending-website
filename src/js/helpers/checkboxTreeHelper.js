@@ -357,7 +357,7 @@ export const sortNodesByValue = (a, b) => {
 };
 
 // returns nodes that should go in the expanded array; meaning, no leaf nodes (as they have no reason to be considered expanded)
-export const expandNodeAndAllDescendantParents = (nodes, propForNode = 'value', isNodeParentFn) => {
+export const expandNodeAndAllDescendantParents = (nodes, isNodeParentFn, propForNode = 'value') => {
     const getValue = (acc, node) => {
         if (!isNodeParentFn(node)) return acc;
         acc.push(node[propForNode]);
@@ -546,11 +546,11 @@ export const addSearchResultsToTree = (
 */
 export const populateChildNodes = (
     tree,
-    key = '',
-    newNodes = [],
     getHighestAncestorCode,
     getImmediateAncestorCode,
-    traverseTreeByCodeFn
+    traverseTreeByCodeFn,
+    key = '',
+    newNodes = []
 ) => {
     // 1. add nodes to either branch (recursive) or leaf level of tree
     // 2. when adding nodes, don't remove any existing children that aren't placeholders as they are assumed to have and likely do have children of their own from search.
@@ -770,7 +770,7 @@ export const showTree = (treeName) => ({
     type: `SHOW_${treeName}_TREE`
 });
 
-export const setExpanded = (expanded, type = 'SET_EXPANDED', treeName) => ({
+export const setExpanded = (expanded, treeName, type = 'SET_EXPANDED') => ({
     type: `${type}_${treeName}`,
     payload: expanded
 });

@@ -79,7 +79,7 @@ const GeoVisualizationSection = (props) => {
     const addOnClickToFilters = () => Object.keys(advancedSearchFilters).reduce((acc, filter) => {
         const filterWithOnClick = {
             ...advancedSearchFilters[filter],
-            onClick: filtersOnClickHandler[filter] === 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
+            onClick: filtersOnClickHandler[filter] == 'updateAmountTypeFilter' ? updateAmountTypeFilter : updateTerritoryFilter
         };
         acc[filter] = filterWithOnClick;
         return acc;
@@ -107,7 +107,7 @@ const GeoVisualizationSection = (props) => {
         const primeAwardTitle = "Spending by Geography";
         const subAwardTitle = "Sub-Award Spending by Geography";
         const dropdownValue = document.querySelector(".filter__dropdown-button-text");
-        if (dropdownValue === "Subawards") {
+        if (dropdownValue == "Subawards") {
             setTableTitle(subAwardTitle);
         }
         else {
