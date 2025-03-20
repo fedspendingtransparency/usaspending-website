@@ -47,16 +47,16 @@ const SidebarWrapper = React.memo(({
     };
 
     const hideElements = (removeableEls) => {
-        for (let i = 0; i < removeableEls.length; i++) {
-            const elClass = removeableEls[i].className;
+        for (let value of removeableEls) {
+            const elClass = value.className;
             document.querySelector(`.${elClass}`).style.display = "none";
         }
     };
 
     const showElements = (removeableEls) => {
-        for (let i = 0; i < removeableEls.length; i++) {
-            const elClass = removeableEls[i].className;
-            document.querySelector(`.${elClass}`).style.display = removeableEls[i].display;
+        for (let value of removeableEls) {
+            const elClass = value.className;
+            document.querySelector(`.${elClass}`).style.display = value.display;
         }
     };
 
