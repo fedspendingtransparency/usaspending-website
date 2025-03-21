@@ -612,11 +612,11 @@ export const populateChildNodes = (
                 className: '',
                 children: populateChildNodes(
                     node.children,
-                    key,
-                    newNodes,
                     getHighestAncestorCode,
                     getImmediateAncestorCode,
-                    traverseTreeByCodeFn
+                    traverseTreeByCodeFn,
+                    key,
+                    newNodes
                 )
             };
         }

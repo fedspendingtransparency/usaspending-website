@@ -19,11 +19,11 @@ export const initialState = {
 
 const populatePscBranchOrLeafNodes = (nodes, key, newNodes) => populateChildNodes(
     nodes,
-    key,
-    newNodes,
     getHighestPscAncestor,
     getImmediatePscAncestor,
-    getPscNodeFromTree
+    getPscNodeFromTree,
+    key,
+    newNodes
 );
 
 const addPscSearchResultsToTree = (tree, searchResults) => addSearchResultsToTree(
