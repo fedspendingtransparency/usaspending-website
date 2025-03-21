@@ -155,7 +155,7 @@ const StateProfileMapWrapper = React.memo((props) => {
         const layers = mapRef.current.map.current.getStyle().layers;
         // Find the index of the first symbol layer in the map style
         let symbolId = null;
-        for (let value of layers) {
+        for (const value of layers) {
             if (value.type === 'symbol') {
                 symbolId = value.id;
                 break;

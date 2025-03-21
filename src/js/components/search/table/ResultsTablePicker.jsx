@@ -43,7 +43,7 @@ export default class ResultsTablePicker extends React.Component {
 
         const currentField = this.props.active;
         let label = '';
-        for (let value of this.props.types) {
+        for (const value of this.props.types) {
             if (value.internal === currentField) {
                 label = value.label;
             }
