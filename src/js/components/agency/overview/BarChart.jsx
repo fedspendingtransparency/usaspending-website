@@ -10,11 +10,11 @@ import { formatMoney } from 'helpers/moneyFormatter';
 
 export const getLastFourYears = ({ year }, selectedFy) => {
     const fy = parseInt(selectedFy, 10);
-    // Data Act reporting began in 2017. Before 2021, return true for 2017 - 2021. 
+    // Data Act reporting began in 2017. Before 2021, return true for 2017 - 2021.
     // After 2021, return true for the previous 4 years and the currently selected year.
     if ((fy <= 2021 && year <= 2021) || (fy > 2021 && year >= parseInt(selectedFy, 10) - 4 && year <= fy)) {
         return true;
-    } 
+    }
 
     return false;
 };
