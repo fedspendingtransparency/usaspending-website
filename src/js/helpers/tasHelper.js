@@ -125,7 +125,6 @@ export const expandTasNodeAndAllDescendantParents = (
     nodes,
     shouldTasNodeHaveChildren,
     'value'
-    
 );
 
 export const getTasAncestryPathForChecked = (checked, nodes) => getAncestryPathOfNodes(
