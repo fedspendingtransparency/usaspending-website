@@ -156,7 +156,7 @@ const WordOfTheDay = () => {
     useEffect(() => {
         let found = false;
         if (glossary && term) {
-            for (let value of glossary) {
+            for (const value of glossary) {
                 if (value.term?.trim().toLowerCase() === term?.trim().toLowerCase()) {
                     setGlossarySlug(value.slug);
                     found = true;

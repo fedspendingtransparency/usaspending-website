@@ -113,9 +113,8 @@ export default class MapWrapper extends React.Component {
     };
     getColors = (numQuantiles) => {
         const colors = [];
-        for (let value of numQuantiles)
-        {
-            colors.push(`rgba(1, 43, 58, ${i * (1 / numQuantiles)})`);
+        for (const value of numQuantiles) {
+            colors.push(`rgba(1, 43, 58, ${value * (1 / numQuantiles)})`);
         }
         return colors;
     };
