@@ -124,6 +124,6 @@ export const expandNaicsAndAllDescendantParents = (
     keyForValue
 ) => expandNodeAndAllDescendantParents(
     nodes,
-    keyForValue,
-    shouldNaicsNodeHaveChildren
+    shouldNaicsNodeHaveChildren,
+    keyForValue
 );

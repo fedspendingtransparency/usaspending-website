@@ -279,8 +279,8 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         it('returns an array containing all values from tree', () => {
             const result = expandNodeAndAllDescendantParents(
                 mockData.searchResults,
-                'value',
-                shouldNaicsNodeHaveChildren
+                shouldNaicsNodeHaveChildren,
+                'value'
             );
             // does not expand grand children as they have no children.
             expect(result).toEqual(["11", "1111"]);
