@@ -2,8 +2,6 @@
  * @jest-environment jsdom
  */
 import { List } from 'immutable';
-import { log } from "console";
-
 import { naicsReducer, initialState } from 'redux/reducers/search/naicsReducer';
 import * as naicsActions from 'redux/actions/search/naicsActions';
 
@@ -21,7 +19,6 @@ describe('Naics Reducer', () => {
             const actionObj = naicsActions.setNaicsNodes('11', [mockData.reallyBigTree[0]]);
             const currentState = { ...initialState, naics: new List(mockData.placeholderNodes) };
             const updatedNaics = naicsReducer(currentState, actionObj).naics.toJS();
-            log(actionObj, currentState, updatedNaics);
             // populates the children for the specified key
             expect(updatedNaics[0].children[0].label).toEqual("Oilseed and Grain Farming");
             // doesn't update other places in tree, only 11.
