@@ -58,7 +58,7 @@ const TrainingVideoModal = (props) => {
         const chapterEls = body?.getElementsByClassName("videoChapter");
 
         if (body) {
-            for (let value of chapterEls) {
+            for (const value of chapterEls) {
                 const chapterTime = value.getAttribute('data-time');
                 value.addEventListener('click', (clickEv) => updatePlayerChapter(clickEv, chapterTime));
                 value.addEventListener('keyup', (keyEv) => chapterKeypressHandler(keyEv, chapterTime));
