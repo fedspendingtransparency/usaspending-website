@@ -52,5 +52,10 @@
       line-height: rem(1.8);
       color: $gray-60;
     }
+    span.highlight {
+      background-color: $yellow-10;
+      font-style: normal;
+      font-size: $font-size-12;
+    }
   }
 }

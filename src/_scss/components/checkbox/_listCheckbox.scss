@@ -9,6 +9,9 @@
 
       .checkbox-filter__item .checkbox-filter__item-label {
         color: $gray-90;
+        span.highlight {
+          background-color: $yellow-10;
+        }
       }
     }
   }

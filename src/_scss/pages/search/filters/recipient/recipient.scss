@@ -8,7 +8,7 @@
         }
 
         .selected-filters {
-            @include selected-filter-wrap;
+            display: none; 
         }
 
         .clear-all__container {
@@ -33,6 +33,10 @@
         height: rem(400);
         list-style: none;
 
+        // can be removed when v2 is deployed.  this accounts for the inside scroll bar container removed in v2.
+        margin-left: -2rem;
+        padding-left: 2rem;
+
         .find-recipients-text {
             text-align: center;
             font-size: $smallest-font-size;
@@ -51,6 +55,10 @@
         }
 
         .checkbox-type-filter {
+            // allows for checkbox focus on v2 to not be cut off on left
+            margin-left: -32px;
+            padding-left: 32px;
+
             &.bottom-fade {
                 mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
             }
@@ -78,7 +86,12 @@
                                 outline: none;
                                 border-color: $gray-cool-20;
                                 top: rem(4);
+
+                                &:focus-visible {
+                                    outline: solid 1px $color-focus;
+                                }
                             }
+
                         }
                     }
                 }
@@ -94,6 +107,10 @@
 
                     span {
                         font-weight: $font-semibold;
+                    }
+
+                    span.highlight {
+                        background-color: $yellow-10;
                     }
                 }
 
@@ -130,6 +147,10 @@
                     }
                 }
             }
+        }
+
+        span.highlight {
+            background-color: $yellow-10;
         }
     }
 

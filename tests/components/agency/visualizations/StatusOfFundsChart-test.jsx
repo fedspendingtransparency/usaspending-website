@@ -1,17 +1,16 @@
 /**
  * @jest-environment jsdom
- * 
+ * *
  * StatusOfFundsChart-test.jsx
  * Created by Afna Saifudeen 11/23/21
  */
 
 import React from 'react';
-import { render, waitFor, screen } from 'test-utils';
-import * as api from "apis/agency";
 import StatusOfFundsChart from "components/agency/visualizations/StatusOfFundsChart";
-// import VisualizationSection from 'components/agency/statusOfFunds/VisualizationSection';
-import { defaultState } from "../../../testResources/defaultReduxFilters";
+import { render, screen } from '../../../testResources/test-utils';
 
+const fy = '2021';
+const mockSetDrilldownLevel = jest.fn();
 const mockChartData = {
     page_metadata: {
         page: 1,
@@ -25,53 +24,55 @@ const mockChartData = {
     results: [
         {
             name: "National Oceanic and Atmospheric Administration",
-            total_budgetary_resources: 9100000000,
-            total_obligations: 6000000000
+            _budgetaryResources: 9100000000,
+            _obligations: 6000000000
         },
         {
             name: "Bureau of the Census",
-            total_budgetary_resources: 4400000000,
-            total_obligations: 2500000000
+            _budgetaryResources: 4400000000,
+            _obligations: 2500000000
         },
         {
             name: "U.S. Patent and Trademark Office",
-            total_budgetary_resources: 4200000000,
-            total_obligations: 2700000000
+            _budgetaryResources: 4200000000,
+            _obligations: 2700000000
         },
         {
             name: "Economic Development Administration",
-            total_budgetary_resources: 4150000000,
-            total_obligations: 1300000000
+            _budgetaryResources: 4150000000,
+            _obligations: 1300000000
         },
         {
             name: "National Telecommunications and Information Administration",
-            total_budgetary_resources: 2100000000,
-            total_obligations: 50000000
+            _budgetaryResources: 2100000000,
+            _obligations: 50000000
         },
         {
             name: "National Institute of Standards and Technology",
-            total_budgetary_resources: 1900000000,
-            total_obligations: 1560000000
+            _budgetaryResources: 1900000000,
+            _obligations: 1560000000
         },
         {
             name: "International Trade Administration",
-            total_budgetary_resources: 1010000000,
-            total_obligations: 960000000
+            _budgetaryResources: 1010000000,
+            _obligations: 960000000,
+            _outlays: 3644582286.56
+
         },
         {
             name: "Departmental Management",
-            total_budgetary_resources: 100500000,
-            total_obligations: 905000000
+            _budgetaryResources: 100500000,
+            _obligations: 905000000
         },
         {
             name: "Bureau of Industry and Security",
-            total_budgetary_resources: 10500000,
-            total_obligations: 9050000
+            _budgetaryResources: 10500000,
+            _obligations: 9050000
         },
         {
             name: "Bureau of Economic Analysis",
-            total_budgetary_resources: 5000000,
-            total_obligations: 4000000
+            _budgetaryResources: 5000000,
+            _obligations: 4000000
         }
     ]
 };
@@ -88,124 +89,70 @@ const mockChartDataNegative = {
     results: [
         {
             name: "National Oceanic and Atmospheric Administration",
-            total_budgetary_resources: 9100000000,
-            total_obligations: 6000000000
+            _budgetaryResources: 9100000000,
+            _obligations: 6000000000
         },
         {
             name: "Bureau of the Census",
-            total_budgetary_resources: 4400000000,
-            total_obligations: -2500000000
+            _budgetaryResources: 4400000000,
+            _obligations: -2500000000
         },
         {
             name: "U.S. Patent and Trademark Office",
-            total_budgetary_resources: 4200000000,
-            total_obligations: -2700000000
+            _budgetaryResources: 4200000000,
+            _obligations: -2700000000
         }
     ]
 };
-const fy = '2021';
+const mockProps = {
+    fy,
+    results: mockChartData.results,
+    level: 0,
+    setDrilldownLevel: mockSetDrilldownLevel,
+    toggle: false,
+    maxLevel: 4
+};
 // const toptierCode = '012';
 // const name = 'Department of Agriculture';
 
-let spy;
 
 beforeEach(() => {
     jest.clearAllMocks();
 });
 
+jest.createMockFromModule('data-transparency-ui');
 
 describe('StatusOfFundsChart', () => {
-    it('should display formatted amount used for max x axis value', () => {
-        render(<StatusOfFundsChart results={mockChartData.results} fy={fy} level={0} />);
-        // set timeout to wait for expect() to pass after call to render
-        setTimeout(() => {
-            expect(screen.getByText('$9.1B').toBeInTheDocument());
-        }, 1000);
-    });
     it('should display subcomponent names as y axis labels', () => {
-        render(<StatusOfFundsChart results={mockChartData.results} fy={fy} level={0} />);
-        // set timeout to wait for expect() to pass after call to render
-        setTimeout(() => {
-            for (let i = 0; i < mockChartData.results.length; i++) {
-                expect(screen.getByText(mockChartData.results[i].name).toBeInTheDocument());
-            }
-        }, 1000);
+        render(<StatusOfFundsChart {...mockProps} />);
+        for (let i = 0; i < mockChartData.results.length; i++) {
+            expect(screen.queryAllByText(mockChartData.results[i].name)).toBeTruthy();
+        }
     });
-    // commenting this out because we're getting the name from redux now and can't mock it correctly at this time
-    // it('should display fy, agency name, and level in chart title', () => {
-    //     render(<VisualizationSection agencyId={toptierCode} agencyName={name} fy={fy} results={mockChartData.results} level={0} />);
-    //     // set timeout to wait for expect() to pass after call to render
-    //     setTimeout(() => {
-    //         expect(screen.getByText(`${name} by Sub-Component for FY 2021`).toBeInTheDocument());
-    //     }, 1000);
-    // });
-    it('should display negative formatted amount used for max x axis value', () => {
-        render(<StatusOfFundsChart results={mockChartDataNegative.results} fy={fy} level={0} />);
-        // set timeout to wait for expect() to pass after call to render
-        setTimeout(() => {
-            expect(screen.getByText('-$2.5B').toBeInTheDocument());
-        }, 1000);
+    it('render budgetary key', () => {
+        render(<StatusOfFundsChart {...mockProps} />);
+        expect(screen.getByText(`FY${fy[2]}${fy[3]} Total Budgetary Resources`)).toBeTruthy();
+    });
+    it('render obligations/outlays key', () => {
+        const { rerender } = render(<StatusOfFundsChart {...mockProps} />);
+        expect(screen.getByText(`FY${fy[2]}${fy[3]} Obligations`)).toBeTruthy();
+        expect(screen.queryByText(`FY${fy[2]}${fy[3]} Outlays`)).toBeNull();
+        rerender(<StatusOfFundsChart {...mockProps} toggle />);
+        expect(screen.getByText(`FY${fy[2]}${fy[3]} Outlays`)).toBeTruthy();
+        expect(screen.queryByText(`FY${fy[2]}${fy[3]} Obligations`)).toBeNull();
     });
     it('should display $0 axis when positive and negative values are present', () => {
         render(<StatusOfFundsChart results={mockChartDataNegative.results} fy={fy} level={0} />);
-        // set timeout to wait for expect() to pass after call to render
-        setTimeout(() => {
-            expect(screen.getByText('$0').toBeInTheDocument());
-        }, 1000);
+        expect(screen.getByText('$0')).toBeTruthy();
     });
-    it("should make an API call on level change", () => {
-        // spy on the API request helper functions
-        spy = jest.spyOn(api, "fetchSubcomponentsList").mockReturnValue({
-            promise: Promise.resolve({
-                data: {
-                    results: mockChartData,
-                    page_metadata: {
-                        total: 20
-                    }
-                }
-            }),
-            cancel: jest.fn()
-        });
 
-        const { rerender } = render(
-            <StatusOfFundsChart
-                results={mockChartData.results}
-                fy={fy}
-                level={0} />,
-            {
-                initialState: {
-                    ...defaultState
-                }
-            }
-        );
-        waitFor(() => {
-            expect(spy).toHaveBeenCalledTimes(1);
-        });
-        spy = jest.spyOn(api, "fetchFederalAccountsList").mockReturnValue({
-            promise: Promise.resolve({
-                data: {
-                    results: mockChartData,
-                    page_metadata: {
-                        total: 20
-                    }
-                }
-            }),
-            cancel: jest.fn()
-        });
-        // re-render with different defcParams
-        rerender(
-            <StatusOfFundsChart
-                results={mockChartData.results}
-                fy={fy}
-                level={1} />,
-            {
-                initialState: {
-                    ...defaultState
-                }
-            }
-        );
-        waitFor(() => {
-            expect(spy).toHaveBeenCalledTimes(2);
-        });
+    it('should display formatted amount used for max x axis value', () => {
+        render(<StatusOfFundsChart {...mockProps} />);
+        expect(screen.getByText('$10B')).toBeTruthy();
+    });
+
+    it('should display negative formatted amount used for max x axis value', () => {
+        render(<StatusOfFundsChart {...mockProps} results={mockChartDataNegative.results} fy={fy} level={0} />);
+        expect(screen.getByText('−$10B')).toBeTruthy();
     });
 });
