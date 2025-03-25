@@ -13,6 +13,7 @@ import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
 import { awardTypesData, awardingAgencyCodes, awardingAgencyResponseParse, awardingAgencyData, recipientTypeMapping } from "../helpers/search/filterCheckboxHelper";
 import { bulkAwardTypeChange, toggleAwardType, toggleRecipientType } from "../redux/actions/search/searchFilterActions";
 import ListCheckbox from "./sharedComponents/checkbox/ListCheckbox";
+import TanStackTableDemo from "./tableDemo";
 
 require("pages/search/searchPage.scss");
 
@@ -36,49 +37,7 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <div style={{ display: "flex" }} >
-                        <div
-                            style={{
-                                border: '1px solid red',
-                                margin: '8px',
-                                maxWidth: '300px',
-                                height: 'fit-content'
-                            }}>
-                            <AccordionCheckbox
-                                filterCategoryMapping={awardTypesData}
-                                filters={awardTypeCodes}
-                                selectedFilters={awardType}
-                                singleFilterChange={toggleAwardTypeChange}
-                                bulkFilterChange={bulkAwardChange} />
-                        </div>
-                        <div
-                            style={{
-                                border: '1px solid blue',
-                                margin: '8px',
-                                maxWidth: '300px',
-                                height: 'fit-content'
-                            }}>
-                            <AccordionCheckbox
-                                filterCategoryMapping={awardingAgencyResponseParse(awardingAgencyData)}
-                                filters={awardingAgencyCodes(awardingAgencyData)}
-                                selectedFilters={awardType}
-                                singleFilterChange={toggleAwardTypeChange}
-                                bulkFilterChange={bulkAwardChange} />
-                        </div>
-                        <div
-                            style={{
-                                border: '1px solid green',
-                                margin: '8px',
-                                maxWidth: '300px',
-                                height: 'fit-content'
-                            }}>
-                            <ListCheckbox
-                                filterCategoryMapping={recipientTypeMapping}
-                                filters={recipientTypes}
-                                selectedFilters={recipientType}
-                                singleFilterChange={toggleRecipientTypeChange} />
-                        </div>
-                    </div>
+                    <TanStackTableDemo />
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
                         <FlexGridCol width={3} desktop={3}>
