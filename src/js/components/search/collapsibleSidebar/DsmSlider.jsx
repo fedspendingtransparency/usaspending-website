@@ -13,7 +13,8 @@ const propTypes = {
     dsmFile: PropTypes.string,
     currentLevel: PropTypes.number,
     selectedCategoryTitle: PropTypes.string,
-    height: PropTypes.number
+    height: PropTypes.number,
+    hasChildren: PropTypes.bool
 };
 
 const DsmSlider = (props) => {
@@ -32,11 +33,10 @@ const DsmSlider = (props) => {
     };
 
     const adjustFilterLabel = () => {
-        if (props.currentLevel === 2 && props.selectedCategoryTitle) {
-            return `${props.selectedCategoryTitle} filters`;
+        if (props.hasChildren) {
+            return `filters`;
         }
-
-        return 'this filter';
+        return `filter`;
     };
     return (
         <div
@@ -49,7 +49,7 @@ const DsmSlider = (props) => {
                     if (e.key === 'Enter') {
                         props.setIsDsmOpened(!props.isDsmOpened);
                     }
-                }}>About {adjustFilterLabel()}{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
+                }}>About the {props.selectedCategoryTitle} {adjustFilterLabel()}{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
             </span>
             {props.isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">
