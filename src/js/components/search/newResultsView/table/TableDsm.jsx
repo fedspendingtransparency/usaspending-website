@@ -1,22 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
+import showSlideout from "../../../../helpers/slideoutHelper";
 
 const TableDsm = ({ subaward }) => {
-    const dispatch = useDispatch();
-
     const openAboutTheDataSidebar = (e, entry) => {
-        dispatch(setAboutTheDataTermFromUrl(entry));
-        dispatch(showAboutTheData());
-        dispatch(setLastOpenedSlideout('atd'));
+        showSlideout('atd', { url: entry });
         e.preventDefault();
     };
+
     return (
         <>
             <h4>What's included in this view of the data?</h4>

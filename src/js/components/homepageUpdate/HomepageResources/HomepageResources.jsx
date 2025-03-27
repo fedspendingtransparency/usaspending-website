@@ -4,17 +4,12 @@
  */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from '../../../helpers/analytics/Analytics';
+import showSlideout from '../../../helpers/slideoutHelper';
 
 const HomepageResources = () => {
-    const dispatch = useDispatch();
-
     const cardObjects = [
         {
             icon: (
@@ -81,8 +76,7 @@ const HomepageResources = () => {
                     action: 'Link',
                     label: 'data model card'
                 });
-                dispatch(aboutTheDataActions.showAboutTheData());
-                dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+                showSlideout('atd');
             },
             govLink: false,
             onlyPerformAction: true
@@ -109,9 +103,7 @@ const HomepageResources = () => {
                     action: 'Link',
                     label: 'glossary card'
                 });
-                dispatch(glossaryActions.clearGlossaryTerm());
-                dispatch(glossaryActions.showGlossary());
-                dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
+                showSlideout('glossary', { clear: true });
             },
             govLink: false,
             onlyPerformAction: true
