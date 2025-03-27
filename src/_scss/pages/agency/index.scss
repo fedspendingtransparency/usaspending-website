@@ -118,7 +118,7 @@
         padding-left: $global-spacing-unit * 4;
         padding-right: $global-spacing-unit * 4;
 
-        @media (max-width: $tablet-screen) {
+        @media (max-width: ($tablet-screen - 1)) {
             padding-left: $global-spacing-unit * 2;
             padding-right: $global-spacing-unit * 2;
         }
