@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { useDispatch } from 'react-redux';
+import { Button } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../sharedComponents/buttons/Button";
 import { hideModal } from "../../redux/actions/modal/modalActions";
 
 const propTypes = {
@@ -46,8 +46,8 @@ const FilterModal = (props) => {
                             copy=""
                             buttonTitle="close"
                             buttonSize="lg"
-                            buttonType="icon"
                             backgroundColor="dark"
+                            buttonType="icon"
                             image={<FontAwesomeIcon icon="times" />} />
                     </div>
                 </div>
