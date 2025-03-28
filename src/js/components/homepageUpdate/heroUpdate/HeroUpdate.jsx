@@ -7,10 +7,10 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
-import Button from './../../sharedComponents/buttons/Button';
 
 const HeroUpdate = () => {
     const [isPaused, setIsPaused] = useState(false);

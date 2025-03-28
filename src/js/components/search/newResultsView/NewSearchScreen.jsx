@@ -6,7 +6,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
-import Button from "../../sharedComponents/buttons/Button";
+import { Button } from 'data-transparency-ui';
 import { updateTimePeriod } from "../../../redux/actions/search/searchFilterActions";
 import {
     applyStagedFilters,

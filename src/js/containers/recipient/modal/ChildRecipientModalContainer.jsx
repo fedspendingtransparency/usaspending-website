@@ -60,10 +60,10 @@ export class ChildRecipientModalContainer extends React.Component {
             inFlight: true
         });
 
-        const duns = this.props.recipient.overview.duns;
+        const id = this.props.recipient.overview.uei || this.props.recipient.overview.duns;
         const year = this.props.recipient.fy;
 
-        this.request = RecipientHelper.fetchChildRecipients(duns, year);
+        this.request = RecipientHelper.fetchChildRecipients(id, year);
 
         this.request.promise
             .then((res) => {

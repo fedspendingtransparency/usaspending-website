@@ -6,12 +6,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import Button from './buttons/Button';
 
 const propTypes = {
     pageName: PropTypes.string.isRequired
