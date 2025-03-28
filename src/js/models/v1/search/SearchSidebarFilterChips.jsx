@@ -175,7 +175,7 @@ const SearchSidebarFilterChips = ({
 
             chips.push(
                 <ShownValue
-                    label={`Description | ${filtersData.awardDescription}`}
+                    label={filtersData.awardDescription}
                     removeValue={removeAwardsDescription} />
             );
         }
