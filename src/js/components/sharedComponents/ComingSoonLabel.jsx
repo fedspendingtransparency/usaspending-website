@@ -1,5 +1,5 @@
 /**
- * comingSoonLabel.jsx
+ * ComingSoonLabel.jsx
  * Created by Marco Mendoza 03/03/2017
  **/
 
@@ -7,7 +7,7 @@ import React from 'react';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-export default class comingSoonLabel extends React.Component {
+export default class ComingSoonLabel extends React.Component {
     render() {
         return (
             <div className="coming-soon-container">

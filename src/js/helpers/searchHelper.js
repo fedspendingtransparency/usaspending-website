@@ -204,8 +204,8 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         .keys(comparisonObject)
         .filter((k) => !checkboxTreeFilters.includes(k));
 
-    for (let i = 0; i < immutableFilterKeys.length; i++) {
-        const key = immutableFilterKeys[i];
+    for (const value of immutableFilterKeys) {
+        const key = value;
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
         if (!is(unfilteredValue, currentValue)) {
@@ -213,8 +213,8 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         }
     }
 
-    for (let i = 0; i < checkboxTreeFilters.length; i++) {
-        const key = checkboxTreeFilters[i];
+    for (const value of checkboxTreeFilters) {
+        const key = value;
         const unfilteredValue = comparisonObject[key].toObject();
         const currentValue = referenceObject[key].toObject();
         if (!areCheckboxSelectionsEqual(unfilteredValue, currentValue)) return false;

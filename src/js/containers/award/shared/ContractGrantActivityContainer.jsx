@@ -145,7 +145,6 @@ const ContractGrantActivityContainer = ({
                 order: 'asc',
                 limit: 5000
             };
-            // let hasNext = true;
             /**
              * paginateTransactions
              * - Generator function that fetches transactions

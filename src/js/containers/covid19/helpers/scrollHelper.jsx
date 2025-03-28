@@ -7,23 +7,22 @@ export const isElementVisible = (ref) => {
 
 const isElementVisibleAndRoomExists = (ref) => (
     isElementVisible(ref) &&
-    window.pageYOffset > 0
+    window.scrollY > 0
 );
 
 const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 
 // this function does not work in IE11
-export const scrollIntoView = (loading, error, wrapperRef, wrapperReadyRef, margin, scrollIntoViewOptions, moreOptionsTabsRef) => {
+export const scrollIntoView = (loading, error, wrapperRef, wrapperReadyRef, margin,
+    scrollIntoViewOptions, moreOptionsTabsRef) => {
     if (isIE11) {
         return;
     }
 
-    if ((loading || error) && wrapperRef.current && moreOptionsTabsRef.current && isElementVisibleAndRoomExists(wrapperRef)) {
-        moreOptionsTabsRef.current.scrollIntoView(scrollIntoViewOptions);
-        const scrollToCurrentYPos = document.documentElement.scrollTop;
-        window.scrollTo(0, scrollToCurrentYPos - margin);
-    }
-    else if (wrapperReadyRef.current && moreOptionsTabsRef.current && isElementVisibleAndRoomExists(wrapperReadyRef)) {
+    if (((loading || error) && wrapperRef.current && moreOptionsTabsRef.current &&
+    isElementVisibleAndRoomExists(wrapperRef)) ||
+    (wrapperReadyRef.current && moreOptionsTabsRef.current &&
+    isElementVisibleAndRoomExists(wrapperReadyRef))) {
         moreOptionsTabsRef.current.scrollIntoView(scrollIntoViewOptions);
         const scrollToCurrentYPos = document.documentElement.scrollTop;
         window.scrollTo(0, scrollToCurrentYPos - margin);

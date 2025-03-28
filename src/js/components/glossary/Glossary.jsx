@@ -74,7 +74,7 @@ const Glossary = (props) => {
             setLoadingContent(null);
         }
         else {
-            setContent((<GlossarySearchResults {...props} />));
+            setContent(<GlossarySearchResults {...props} />);
             setLoadingContent(null);
         }
 

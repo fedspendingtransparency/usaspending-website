@@ -431,7 +431,8 @@ export default class LocationPickerContainer extends React.Component {
                 const accessor = locationPropertyAccessorMap[prop];
                 // removes ', <State/Country>' appended to city
                 let parsedKeyValue = prop === 'city'
-                    ? this.state.city.name.split(", ").filter((str) => str !== this.state.city.code).join(", ")
+                    ? this.state.city.name.split(", ").filter((str) => str !==
+                    this.state.city.code).join(", ")
                     : this.state[prop][accessor];
 
                 let entityValue = '';
@@ -445,10 +446,11 @@ export default class LocationPickerContainer extends React.Component {
                     entityValue = 'Current congressional district';
                 }
                 else {
-                    entityValue = `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`;
+                    entityValue = `${prop.substring(0, 1).toUpperCase()}${prop.substring(1)}`;
                 }
 
-                if (parsedKeyValue === undefined && (prop === 'district_current' || prop === 'district_original')) {
+                if (parsedKeyValue === undefined && (prop === 'district_current' ||
+                    prop === 'district_original')) {
                     parsedKeyValue = this.state[prop].district;
                 }
 

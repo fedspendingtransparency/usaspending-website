@@ -64,8 +64,8 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
 
     setUpdateStateAndFetch(props) {
         this.setState({
-            hasFilteredObligated: (((props.reduxFilters.objectClass.count() > 0)
-            || (props.reduxFilters.programActivity.count() > 0)))
+            hasFilteredObligated: ((props.reduxFilters.objectClass.count() > 0)
+            || (props.reduxFilters.programActivity.count() > 0))
         }, () => {
             this.fetchData();
         });
@@ -96,7 +96,6 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
 
         const searchOperation = new AccountSearchBalanceOperation(this.props.account.id);
         searchOperation.fromState(this.props.reduxFilters);
-        // const filters = searchOperation.toParams();
         const balanceFilters = searchOperation.toParams();
         let filters = balanceFilters;
 

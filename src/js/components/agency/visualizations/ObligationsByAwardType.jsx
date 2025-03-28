@@ -187,10 +187,10 @@ export default function ObligationsByAwardType({
             if (i === 0) {
                 // Financial Assistance
                 // positions were changed with ticket 8429, now below chart
-                return [labelRadius - 188, ((chartHeight / 2)) + 28];
+                return [labelRadius - 188, (chartHeight / 2) + 28];
             }
             // Contracts
-            return [labelRadius - 188, ((chartHeight / 2)) + 4];
+            return [labelRadius - 188, (chartHeight / 2) + 4];
         };
 
         const outerLabels = outer.map((d) => d.label.join(""));

@@ -78,7 +78,8 @@ export class AccountProgramActivityContainer extends React.Component {
             ]
         };
 
-        this.searchRequest = AccountHelper.fetchProgramActivities(apiSearchParams);
+        // fetch program activities === fetchTasCategoryTotals
+        this.searchRequest = AccountHelper.fetchTasCategoryTotals(apiSearchParams);
 
         this.setState({
             inFlight: true

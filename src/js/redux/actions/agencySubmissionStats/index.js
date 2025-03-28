@@ -36,7 +36,7 @@ export const setSearchTerm = (term) => ({
     payload: term
 });
 
-export const setSearchResults = (table = 'submissions', results) => {
+export const setSearchResults = (results, table = 'submissions') => {
     if (table === 'submissions') {
         return {
             type: "SET_ABOUT_THE_DATA_SEARCH_RESULTS_SUBMISSIONS",

@@ -133,8 +133,8 @@ export default class ResultsTableContainer extends React.Component {
         let firstAvailable = '';
 
         // Set the first available award type to the first non-zero entry in the
-        for (let i = 0; i < tableTypes.length; i++) {
-            const tableType = tableTypes[i].internal;
+        for (const value of tableTypes) {
+            const tableType = value.internal;
 
             if (transactionCounts[tableType] > 0) {
                 firstAvailable = tableType;

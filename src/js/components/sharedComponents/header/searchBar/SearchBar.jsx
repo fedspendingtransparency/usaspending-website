@@ -26,7 +26,7 @@ export default class SearchBar extends React.Component {
 
     expandSearch() {
         this.setState({
-            expanded: false
+            expanded: true
         });
     }
 

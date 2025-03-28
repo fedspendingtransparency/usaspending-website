@@ -20,12 +20,6 @@ export const fetchTasBalanceTotals = (data) => apiRequest({
     data
 });
 
-export const fetchProgramActivities = (data) => apiRequest({
-    url: 'v1/tas/categories/total/',
-    method: 'post',
-    data
-});
-
 export const fetchAvailableObjectClasses = (federalAccountId) => apiRequest({
     url: `v2/federal_accounts/${federalAccountId}/available_object_classes`
 });
