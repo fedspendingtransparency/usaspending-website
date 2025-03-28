@@ -249,3 +249,12 @@ export const getObjFromQueryParams = (str) => {
     }
     return obj;
 };
+
+export const locationChipLabel = (label, location) => {
+    switch (label) {
+        case 'City': return `${location.filter.city}, ${location.filter.state}`;
+        case 'Current congressional district': return `Current ${location.display.title}`;
+        case 'Original congressional district': return `Original ${location.display.title}`;
+        default: return location.display.title;
+    }
+};

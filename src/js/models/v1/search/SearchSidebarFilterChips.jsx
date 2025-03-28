@@ -32,6 +32,7 @@ import {
     removeStagedPscFilter
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
+import { locationChipLabel } from "../../../helpers/searchHelper";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -73,6 +74,7 @@ const SearchSidebarFilterChips = ({
     const getLocationChips = () => {
         // Add Locations
         if (filtersData.selectedLocations?.length > 0) {
+            console.log('locations:', filtersData.selectedLocations);
             filtersData.selectedLocations.forEach((location) => {
                 const removeFilter = (e) => {
                     e.stopPropagation();
@@ -85,12 +87,17 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`POP | ${location.display.entity} | ${location.display.title}`}
+                        label={
+                            `Primary Place of Performance: ${
+                                locationChipLabel(location.display.entity, location)
+                            }`
+                        }
                         removeValue={removeFilter} />);
             });
         }
 
         if (filtersData.selectedRecipientLocations?.length > 0) {
+            console.log('locations:', filtersData.selectedRecipientLocations);
             filtersData.selectedRecipientLocations.forEach((location) => {
                 const removeFilter = (e) => {
                     e.stopPropagation();
@@ -103,7 +110,11 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`Recipient | ${location.display.entity} | ${location.display.title}`}
+                        label={
+                            `Recipient Location: ${
+                                locationChipLabel(location.display.entity, location)
+                            }`
+                        }
                         removeValue={removeFilter} />);
             });
         }
