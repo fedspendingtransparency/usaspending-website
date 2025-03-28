@@ -253,9 +253,10 @@ const SidebarWrapper = React.memo(({
     const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
         const isHeaderSticky = isStickyEl !== null;
+        const bufferToTouchBottom = 2;
 
         if (isHeaderSticky && !isFooterVisible) {
-            return `calc(100vh - ${topStickyBarHeight}px)`;
+            return `calc(100vh - ${topStickyBarHeight - bufferToTouchBottom}px)`;
         }
 
         return sidebarHeight;
