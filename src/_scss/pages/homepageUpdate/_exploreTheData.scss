@@ -23,10 +23,12 @@
       text-align: left;
       color: $gray-90;
       margin-bottom: $global-margin * 5;
+
       @media (min-width: $tablet-screen) {
         margin: 0 10% $global-margin * 5 10%;
         text-align: center;
       }
+
       @media (min-width: $medium-screen) {
         margin: 0 26% $global-margin * 5 26%;
       }
@@ -36,25 +38,32 @@
       .explore-data__card:last-child {
         margin-bottom: 0;
       }
+
       @media (min-width: $tablet-screen) {
         flex-direction: column;
         width: 382px;
       }
+
       @media (min-width: $medium-screen) {
         flex-direction: unset;
         width: unset;
       }
+
       .explore-data__card {
         margin-bottom: $global-margin * 4;
+
         @media (min-width: $medium-screen) {
           margin-bottom: 0;
+
           .card__button {
             margin-bottom: 0;
             justify-content: center;
+
             .card__button--borderless {
               white-space: normal;
             }
-            .button-type__text-light{
+
+            .button-type__text-light {
               margin-top: 0;
               padding-top: 0;
               width: 100%;
@@ -65,13 +74,16 @@
         .card__body {
           height: 100%;
         }
+
         .card__button {
           margin-bottom: 0;
           justify-content: center;
+          width: 100%;
           .card__button--borderless {
             white-space: normal;
           }
-          .button-type__secondary-light{
+
+          .button-type__secondary-light {
             margin-top: 0;
             padding: rem(4) $global-padding * 2;
             justify-content: center;
@@ -82,12 +94,6 @@
 
         .headline {
           margin-bottom: $global-margin;
-          @media (min-width: $medium-screen) {
-          }
-        }
-        .card__button {
-          margin-bottom: 0;
-          width: 100%;
         }
       }
     }

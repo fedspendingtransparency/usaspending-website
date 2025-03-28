@@ -33,6 +33,7 @@
             .total-budget-difference-hover {
                 fill: $color-grass-light;
                 opacity: 0.3;
+                cursor: pointer;
             }
             .today-line {
                 stroke: $color-gray-light;
@@ -61,11 +62,6 @@
             .tooltip-object-overflow {
                 overflow: visible;
             }
-
-            .total-budget-difference-hover {
-                cursor: pointer;
-            }
-
         }
     }
 
