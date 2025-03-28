@@ -38,6 +38,9 @@ const showSlideout = (type, options = {}) => {
             if (Object.hasOwn(options, 'clear')) {
                 store.dispatch(glossaryActions.clearGlossaryTerm());
             }
+            if (Object.hasOwn(options, 'term')) {
+                store.dispatch(glossaryActions.setGlossaryTerm(options.term));
+            }
             if (Object.hasOwn(options, 'url')) {
                 store.dispatch(glossaryActions.setTermFromUrl(options.url));
             }
