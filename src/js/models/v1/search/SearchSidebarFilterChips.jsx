@@ -74,7 +74,6 @@ const SearchSidebarFilterChips = ({
     const getLocationChips = () => {
         // Add Locations
         if (filtersData.selectedLocations?.length > 0) {
-            console.log('locations:', filtersData.selectedLocations);
             filtersData.selectedLocations.forEach((location) => {
                 const removeFilter = (e) => {
                     e.stopPropagation();
@@ -97,7 +96,6 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.selectedRecipientLocations?.length > 0) {
-            console.log('locations:', filtersData.selectedRecipientLocations);
             filtersData.selectedRecipientLocations.forEach((location) => {
                 const removeFilter = (e) => {
                     e.stopPropagation();
@@ -196,7 +194,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`Award ID | ${id} `}
+                        label={id}
                         removeValue={removeAwardID} />
                 );
             });
