@@ -1,4 +1,5 @@
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import DsmRelatedTerms from 'components/search/collapsibleSidebar/DsmRelatedTerms.jsx'
 
 <div className="collapsible-sidebar--dsm-wrapper--text-header">About the Filter </div>
 <div className="collapsible-sidebar--dsm-wrapper--text-section"> 
@@ -22,3 +23,5 @@ import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 <div className="collapsible-sidebar--dsm-wrapper--text-section"> 
     Please note that prime award and subaward data on Advanced Search begin in Fiscal Year 2008. Earlier data, starting in Fiscal Year 2001, can be found in the Custom Award Data Download.
 </div>
+
+<DsmRelatedTerms headingTitle={"Related Terms"} glossaryLinks={[{text: "Action Date", term:"action-date"},{text:"Fiscal Year (FY)",term:"fiscal-year-fy"},{text:"Period of Performance Start Date", term: "period-of-performance-start-date"},{text:"Period of Performance Current End Date", term:"period-of-performance-current-end-date"},{text: "Period of Performance Potential End Date", term:"period-of-performance-potential-end-date"}]} />
