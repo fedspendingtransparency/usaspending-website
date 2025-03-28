@@ -115,13 +115,6 @@
         @include flex-wrap(wrap);
         max-width: rem(1400);
         margin: 0 auto;
-        padding-left: $global-spacing-unit * 4;
-        padding-right: $global-spacing-unit * 4;
-
-        @media (max-width: ($tablet-screen - 1)) {
-            padding-left: $global-spacing-unit * 2;
-            padding-right: $global-spacing-unit * 2;
-        }
         ul {
             padding: 0;
 
@@ -138,7 +131,13 @@
             padding-bottom: 2.5%;
             background: $color-white;
             @import './overview/pageTitle';
-
+            padding-left: $global-spacing-unit * 4;
+            padding-right: $global-spacing-unit * 4;
+    
+            @media (max-width: ($tablet-screen - 1)) {
+                padding-left: $global-spacing-unit * 2;
+                padding-right: $global-spacing-unit * 2;
+            }
             .usda-message {
                 &.usda-message_error {
                     background-color: $color-white;
