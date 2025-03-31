@@ -33,7 +33,6 @@ import {
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
 import { dateRangeChipLabel, locationChipLabel } from "../../../helpers/searchHelper";
-import dayjs from "dayjs";
 
 const propTypes = {
     filters: PropTypes.object,
