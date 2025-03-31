@@ -32,7 +32,8 @@ import {
     removeStagedPscFilter
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
-import { locationChipLabel } from "../../../helpers/searchHelper";
+import { dateRangeChipLabel, locationChipLabel } from "../../../helpers/searchHelper";
+import dayjs from "dayjs";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -137,10 +138,12 @@ const SearchSidebarFilterChips = ({
                         });
                     };
 
+                    const dateLabel = dateRangeChipLabel(timePeriod);
+
                     chips.push((
                         <ShownValue
                             key={index}
-                            label={`Applied date range: ${timePeriod.start_date} to ${timePeriod.end_date}`}
+                            label={dateLabel}
                             removeValue={(e) => removeDateRange(timePeriod.start_date, timePeriod.end_date, e)} />
                     ));
                 });
