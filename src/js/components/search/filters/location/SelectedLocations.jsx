@@ -21,9 +21,11 @@ const SelectedLocations = ({
 }) => {
     const shownLocations = [];
     let selectedLocationsObj = selectedLocations;
+    let labelPrefix = 'Primary Place of Performance';
 
     if (id === "recipient" && GlobalConstants.QAT) {
         selectedLocationsObj = selectedRecipientLocations;
+        labelPrefix = 'Recipient Location';
     }
 
     if (selectedLocationsObj?.size !== 0) {
@@ -34,7 +36,7 @@ const SelectedLocations = ({
                 const value = (
                     <ShownLocation
                         location={location}
-                        label={locationChipLabel(location.display.entity, location)}
+                        label={`${labelPrefix}: ${locationChipLabel(location.display.entity, location)}`}
                         key={key}
                         removeLocation={() => removeLocation(key)} />
                 );
