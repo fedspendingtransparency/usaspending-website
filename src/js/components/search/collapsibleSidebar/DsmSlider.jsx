@@ -49,7 +49,7 @@ const DsmSlider = (props) => {
                     if (e.key === 'Enter') {
                         props.setIsDsmOpened(!props.isDsmOpened);
                     }
-                }}>About the {props.selectedCategoryTitle} {adjustFilterLabel()}{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
+                }}><div>About the {props.selectedCategoryTitle} {adjustFilterLabel()}</div><div>{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}</div>
             </span>
             {props.isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">

@@ -28,7 +28,7 @@ const DsmRelatedTerms = ({ headingTitle, glossaryLinks, aboutTheData }) => (
         <div className="collapsible-sidebar--dsm-wrapper--text-section">
             {glossaryLinks && glossaryLinks.map((glossaryLink) =>
                 <>
-                    {glossaryLink.text} <GlossaryLink term={glossaryLink.term} />
+                    <GlossaryLink term={glossaryLink.term} label={glossaryLink.text} />
                     <br />
                 </>
             )}
