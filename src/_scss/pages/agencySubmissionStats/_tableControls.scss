@@ -128,12 +128,10 @@
                                 cursor: not-allowed;
                                 span {
                                     opacity: 0.4;
+                                    color: $color-base;
                                 }
                                 &:hover {
                                     background-color: $color-white;
-                                }
-                                span {
-                                    color: $color-base;
                                 }
                             }
                         }

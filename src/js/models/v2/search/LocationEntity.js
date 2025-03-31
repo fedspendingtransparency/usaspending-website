@@ -11,7 +11,10 @@ export const formatTitle = (category, item) => {
         return `${item.county_name}, ${item.state_name}`;
     }
     else if (category === "city") {
-        return `${item.city_name}, ${item.state_name}`;
+        if (item.state_name) {
+            return `${item.city_name}, ${item.state_name}`;
+        }
+        return `${item.city_name}, ${item.country_name}`;
     }
     else if (category === "state") {
         return item.state_name;
@@ -42,7 +45,8 @@ const LocationEntity = {
             original_cd: item.original_cd || '--',
             current_cd: item.current_cd || '--',
             state_fips: item.county_fips?.slice(0, 2) || '--',
-            county_fips: item.county_fips?.slice(2) || '--'
+            county_fips: item.county_fips?.slice(2) || '--',
+            city_name_update: item.city_name_update || '--'
         };
     }
 };
