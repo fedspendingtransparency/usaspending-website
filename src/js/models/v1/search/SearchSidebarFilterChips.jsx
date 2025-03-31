@@ -155,7 +155,7 @@ const SearchSidebarFilterChips = ({
 
                     chips.push(
                         <ShownValue
-                            label={fy}
+                            label={`FY ${fy}`}
                             removeValue={removeFY} />
                     );
                 });

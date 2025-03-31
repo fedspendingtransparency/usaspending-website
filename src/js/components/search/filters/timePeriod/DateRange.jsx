@@ -336,7 +336,59 @@ const DateRange = (props) => {
                 end = dayjs(timeinput.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
             }
 
-            if (start && end) {
+            if (dayjs().isSame(timeinput.end_date, 'day')) {
+                switch (timeinput.start_date) {
+                    // current-month
+                    case dateRangeDropdownTimePeriods[5].startDate:
+                        console.log(dateRangeDropdownTimePeriods[5].label);
+                        dateLabel = dateRangeDropdownTimePeriods[5].label;
+                        break;
+                    // last-three-months
+                    case dateRangeDropdownTimePeriods[6].startDate:
+                        console.log(dateRangeDropdownTimePeriods[6].label);
+                        dateLabel = dateRangeDropdownTimePeriods[6].label;
+                        break;
+                    // last-six-months
+                    case dateRangeDropdownTimePeriods[7].startDate:
+                        console.log(dateRangeDropdownTimePeriods[7].label);
+                        dateLabel = dateRangeDropdownTimePeriods[7].label;
+                        break;
+                    // last-twelve-months
+                    case dateRangeDropdownTimePeriods[8].startDate:
+                        console.log(dateRangeDropdownTimePeriods[8].label);
+                        dateLabel = dateRangeDropdownTimePeriods[8].label;
+                        break;
+                    // year-to-date
+                    case dateRangeDropdownTimePeriods[10].startDate:
+                        console.log(dateRangeDropdownTimePeriods[10].label);
+                        dateLabel = dateRangeDropdownTimePeriods[10].label;
+                        break;
+                    // last-seven-days
+                    case dateRangeDropdownTimePeriods[1].startDate:
+                        console.log(dateRangeDropdownTimePeriods[1].label);
+                        dateLabel = dateRangeDropdownTimePeriods[1].label;
+                        break;
+                    // last-fifteen-days
+                    case dateRangeDropdownTimePeriods[2].startDate:
+                        console.log(dateRangeDropdownTimePeriods[2].label);
+                        dateLabel = dateRangeDropdownTimePeriods[2].label;
+                        break;
+                    // last-thirty-days
+                    case dateRangeDropdownTimePeriods[3].startDate:
+                        console.log(dateRangeDropdownTimePeriods[3].label);
+                        dateLabel = dateRangeDropdownTimePeriods[3].label;
+                        break;
+                    // last-sixty-days
+                    case dateRangeDropdownTimePeriods[4].startDate:
+                        console.log(dateRangeDropdownTimePeriods[4].label);
+                        dateLabel = dateRangeDropdownTimePeriods[4].label;
+                        break;
+                    default:
+                        console.log('different');
+                        dateLabel = `${start} to ${end}`;
+                }
+            }
+            else if (start && end) {
                 dateLabel = `${start} to ${end}`;
             }
             else if (start) {
