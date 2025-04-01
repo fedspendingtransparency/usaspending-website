@@ -32,7 +32,7 @@ export const showSlideout = (type, options = {}) => {
     if (lastOpenedSlideout !== '' && lastOpenedSlideout !== type) {
         closeLastOpenedSlideOut(lastOpenedSlideout);
     }
-    
+
     switch (type) {
         case 'glossary':
             if (Object.hasOwn(options, 'clear')) {
@@ -52,13 +52,11 @@ export const showSlideout = (type, options = {}) => {
                 storeSingleton.store.dispatch(aboutTheDataActions.setAboutTheDataTerm(options.term));
             }
             if (Object.hasOwn(options, 'url')) {
-                console.log( "setting url term for atd");
                 storeSingleton.store.dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(options.url));
             }
             if (Object.hasOwn(options, 'open')) {
                 open = options.open;
             }
-
             if (open){
                 storeSingleton.store.dispatch(aboutTheDataActions.showAboutTheData());
             }
