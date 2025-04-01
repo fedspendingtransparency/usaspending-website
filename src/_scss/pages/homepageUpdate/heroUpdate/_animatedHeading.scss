@@ -200,17 +200,17 @@ $green-text: $color-infrastructure-outlays;
         }
 
         @-moz-keyframes fade-in-landing-phrase {
-            0% { opacity: 0; vibility: hidden; -moz-transform: translateY(25px);}
-            40% { opacity: 0; vibility: hidden; -moz-transform: translateY(25px);}
-            90% { opacity: 1; vibility: visible; -moz-transform: translateY(0px);}
-            100% { opacity: 1; vibility: visible; }
+            0% { opacity: 0; visibility: hidden; -moz-transform: translateY(25px);}
+            40% { opacity: 0; visibility: hidden; -moz-transform: translateY(25px);}
+            90% { opacity: 1; visibility: visible; -moz-transform: translateY(0px);}
+            100% { opacity: 1; visibility: visible; }
         }
 
         @-webkit-keyframes fade-in-landing-phrase {
-            0% { opacity: 0; vibility: hidden; -webkit-transform: translateY(25px);}
-            40% { opacity: 0; vibility: hidden; -webkit-transform: translateY(25px);}
-            90% { opacity: 1; vibility: visible; -webkit-transform: translateY(0px);}
-            100% { opacity: 1; vibility: visible; }
+            0% { opacity: 0; visibility: hidden; -webkit-transform: translateY(25px);}
+            40% { opacity: 0; visibility: hidden; -webkit-transform: translateY(25px);}
+            90% { opacity: 1; visibility: visible; -webkit-transform: translateY(0px);}
+            100% { opacity: 1; visibility: visible; }
         }
 
         @keyframes long-fade-out {
