@@ -228,9 +228,18 @@
         align-items: baseline;
         justify-content: space-between;
         margin-top: rem(16);
+
         .usa-da-typeahead-wrapper {
             width: 100%;
             margin-right: rem(4);
+        }
+
+        .submit-button {
+            padding: rem(7) rem(12);
+        }
+
+        .autocomplete-md, .submit-button {
+            font-size: $smallest-font-size;
         }
 
         ul.autocomplete li {
