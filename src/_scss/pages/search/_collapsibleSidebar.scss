@@ -284,7 +284,6 @@
         font-weight: $font-semibold;
         line-height: 1.5;
         border-top: 1px solid $gray-cool-5;
-
         span {
           display: flex;
           flex-direction: row;
@@ -317,6 +316,9 @@
 
             &--text-section {
               p {
+                margin: 4px 0px 0px;
+              }
+              a {
                 margin: 4px 0px 0px;
               }
             }
