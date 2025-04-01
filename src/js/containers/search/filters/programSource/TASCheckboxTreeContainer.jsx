@@ -150,6 +150,7 @@ export class TASCheckboxTree extends React.Component {
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
+        console.log(selectedNode);
         let treeDepth = 0;
 
         if (selectedNode.id.includes("/") && selectedNode.id.includes("-")) {

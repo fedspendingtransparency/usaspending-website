@@ -19,7 +19,7 @@ const propTypes = {
 
 const TreeNode = (props) => {
     const {
-        label, disabled, onCheck, onExpand, node, isLoading, onCollapse, countLabel
+        label, disabled, onChecked, onCheck, onExpand, node, isLoading, onCollapse, countLabel
     } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -77,7 +77,7 @@ const TreeNode = (props) => {
 
     const handleCheck = () => {
         const checked = isChecked();
-        onCheck(checked, node);
+        onChecked(checked, node);
     };
 
     return (
@@ -136,7 +136,7 @@ const TreeNode = (props) => {
                         key={child.description}
                         label={child.description}
                         onExpand={onExpand}
-                        onCheck={onCheck}
+                        onChecked={onChecked}
                         disabled={disabled}
                         checked={props.checked}
                         expanded={props.expanded}

@@ -18,7 +18,7 @@ const CheckboxTree = (props) => {
     // eslint-disable-next-line no-shadow
 
     const {
-        onChecked, data
+        data
     } = props;
     const isDisabled = false;
 
@@ -99,7 +99,7 @@ const CheckboxTree = (props) => {
      * @param {object} node - the checked node
      * @returns {null}
      */
-    const onCheck = (checked, node) => {
+    const onChecked = (checked, node) => {
         if (!props.isLoading) {
             if (props.checked.length < checked.length) {
                 checkedNode(checked, node);
@@ -193,10 +193,11 @@ const CheckboxTree = (props) => {
                 disabled={isDisabled}
                 checked={props.checked}
                 expanded={props.expanded}
-                onCheck={onCheck}
+                onChecked={onChecked}
                 icons={treeIcons}
                 isLoading={props.isLoading}
-                countLabel={props.countLabel} />
+                countLabel={props.countLabel}
+                treeDepth="0" />
         </>
     ));
 
