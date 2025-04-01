@@ -26,24 +26,24 @@
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
-        
+
         .award-id-filter__text-field-wrapper {
             width: 100%;
-            
+
             .award-id-filter__text-field {
                 &::placeholder {
                     color: $gray-60;
                 }
-                
+
                 &:focus {
                     box-shadow: 0 0 4px $blue-50;
                     border: solid 0.5px $blue-50;
-                    
+
                     &::placeholder {
                         color: transparent;
                     }
                 }
-                
+
                 max-height: rem(32);
                 font-size: $smallest-font-size;
                 line-height: 1.5;
@@ -54,18 +54,19 @@
                 margin: 0;
                 min-width: 100%;
             }
-            
+
         }
         .award-id-filter__add-button {
+            @import "dtui-overrides";
+
             &:hover {
                 cursor: pointer;
             }
-            
+
             margin: 0 0 0 rem(4);
-            padding: rem(7) rem(12);
-            font-size: $smallest-font-size;
             line-height: 1.5;
-            
+            @include new-search-button;
+
             @media screen and (max-width: 320px) {
                 width: auto;
             }

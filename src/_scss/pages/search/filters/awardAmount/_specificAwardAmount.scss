@@ -88,9 +88,10 @@
         }
 
         .award-amount-submit {
-            height: rem(32);
+            @import "dtui-overrides";
+
             margin: 0;
-            font-size: $smallest-font-size;
+            @include new-search-button;
         }
 
         @media only screen and (min-width:1342px) {

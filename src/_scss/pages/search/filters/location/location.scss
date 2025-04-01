@@ -235,10 +235,11 @@
         }
 
         .submit-button {
-            padding: rem(7) rem(12);
+            @import "dtui-overrides";
+            @include new-search-button;
         }
 
-        .autocomplete-md, .submit-button {
+        .autocomplete-md {
             font-size: $smallest-font-size;
         }
 
