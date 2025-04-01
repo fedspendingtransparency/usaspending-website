@@ -33,7 +33,7 @@ const GlossaryLink = ({ term, hidden, label = "" }) => {
             aria-label="Open the Glossary"
             tabIndex={hidden ? "-1" : ""}
             onClick={stopBubble}>
-            {label && <a href={newUrl}>{label}</a>} <FontAwesomeIcon icon="book" />
+            {label ? <a href={newUrl}>{label} <FontAwesomeIcon icon="book" /></a> : <FontAwesomeIcon icon="book" />}
         </Link>
     );
 };
