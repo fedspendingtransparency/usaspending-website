@@ -1,9 +1,6 @@
 .geo-entity-list {
     @include unstyled-list;
     z-index: $z-header - 1;
-    background-color: $color-white;
-    border: 1px solid $color-gray-lighter;
-    box-shadow: $box-shadow;
     max-height: rem(680);
     margin: 0;
     list-style-type: none;

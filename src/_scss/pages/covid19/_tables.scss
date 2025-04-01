@@ -50,8 +50,6 @@
         .usda-table__row {
             .usda-table__cell:last-of-type {
                 @include grid-column(1 of 12);
-            }
-            .usda-table__cell:last-of-type {
                 margin-left: 0;
             }
         }
