@@ -5,17 +5,15 @@ import * as slideoutActions from '../redux/actions/slideouts/slideoutActions';
 import * as aboutTheDataActions from '../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as glossaryActions from '../redux/actions/glossary/glossaryActions';
 
-const store = storeSingleton.store;
-
 const closeLastOpenedSlideOut = (type) => {
     // used switch to allow for easier expandablity in the future
     switch (type) {
         case 'glossary':
-            store.dispatch(glossaryActions.hideGlossary());
+            storeSingleton.store.dispatch(glossaryActions.hideGlossary());
             break;
 
         case 'atd':
-            store.dispatch(aboutTheDataActions.hideAboutTheData());
+            storeSingleton.store.dispatch(aboutTheDataActions.hideAboutTheData());
             break;
 
         default:
@@ -28,7 +26,7 @@ const closeLastOpenedSlideOut = (type) => {
 // eslint-disable-next-line import/prefer-default-export
 export const showSlideout = (type, options = {}) => {
     // options { 'clear', 'term', 'url', 'open' } any or all can be null
-    const { lastOpenedSlideout } = store.getState().slideouts;
+    const { lastOpenedSlideout } = storeSingleton.store.getState().slideouts;
     var open = true;
 
     if (lastOpenedSlideout !== '' && lastOpenedSlideout !== type) {
@@ -38,31 +36,31 @@ export const showSlideout = (type, options = {}) => {
     switch (type) {
         case 'glossary':
             if (Object.hasOwn(options, 'clear')) {
-                store.dispatch(glossaryActions.clearGlossaryTerm());
+                storeSingleton.store.dispatch(glossaryActions.clearGlossaryTerm());
             }
             if (Object.hasOwn(options, 'term')) {
-                store.dispatch(glossaryActions.setGlossaryTerm(options.term));
+                storeSingleton.store.dispatch(glossaryActions.setGlossaryTerm(options.term));
             }
             if (Object.hasOwn(options, 'url')) {
-                store.dispatch(glossaryActions.setTermFromUrl(options.url));
+                storeSingleton.store.dispatch(glossaryActions.setTermFromUrl(options.url));
             }
-            store.dispatch(glossaryActions.showGlossary());
+            storeSingleton.store.dispatch(glossaryActions.showGlossary());
             break;
 
         case 'atd':
             if (Object.hasOwn(options, 'term')) {
-                store.dispatch(aboutTheDataActions.setAboutTheDataTerm(options.term));
+                storeSingleton.store.dispatch(aboutTheDataActions.setAboutTheDataTerm(options.term));
             }
             if (Object.hasOwn(options, 'url')) {
                 console.log( "setting url term for atd");
-                store.dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(options.url));
+                storeSingleton.store.dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(options.url));
             }
             if (Object.hasOwn(options, 'open')) {
                 open = options.open;
             }
 
             if (open){
-                store.dispatch(aboutTheDataActions.showAboutTheData());
+                storeSingleton.store.dispatch(aboutTheDataActions.showAboutTheData());
             }
             break;
 
@@ -72,7 +70,7 @@ export const showSlideout = (type, options = {}) => {
     }
 
     if(open){
-        store.dispatch(slideoutActions.setLastOpenedSlideout(type));
+        storeSingleton.store.dispatch(slideoutActions.setLastOpenedSlideout(type));
     }
     return true;
 };

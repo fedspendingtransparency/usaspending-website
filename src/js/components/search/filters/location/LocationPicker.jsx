@@ -6,7 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper, Button } from "data-transparency-ui";
@@ -14,11 +13,7 @@ import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
 import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
-import {
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
+import { showSlideout } from '../../../../helpers/slideoutHelper';
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -132,10 +127,7 @@ class LocationPicker extends React.Component {
     }
 
     atdClick() {
-        this.props.openATD();
-        // make sure it will open on top of glossary if glossary is already open
-        this.props.setSlideout('atd');
-        this.props.setATDTerm('congressional-district-data');
+        showSlideout('atd', { url:'congressional-district-data'});
     }
 
     generateDisclaimer(field) {
@@ -380,9 +372,4 @@ class LocationPicker extends React.Component {
 LocationPicker.propTypes = propTypes;
 LocationPicker.defaultProps = defaultProps;
 
-const mapDispatchToProps = (dispatch) => ({
-    openATD: () => dispatch(showAboutTheData()),
-    setATDTerm: (term) => dispatch(setAboutTheDataTermFromUrl(term)),
-    setSlideout: (str) => dispatch(setLastOpenedSlideout(str))
-});
-export default connect(null, mapDispatchToProps)(LocationPicker);
+export default LocationPicker;

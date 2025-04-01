@@ -4,15 +4,13 @@
  */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Analytics from 'helpers/analytics/Analytics';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from '../../ExternalLink';
+import { showSlideout } from '../../../../helpers/slideoutHelper';
 
 const propTypes = {
     title: PropTypes.string,
@@ -45,11 +43,9 @@ const MobileDropdownItem = ({
     hideMobileNav,
     index
 }) => {
-    const dispatch = useDispatch();
 
     const openATD = (e) => {
-        dispatch(aboutTheDataActions.showAboutTheData());
-        dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        showSlideout('atd');
         e.preventDefault();
     };
     const clickedLink = (e) => {
