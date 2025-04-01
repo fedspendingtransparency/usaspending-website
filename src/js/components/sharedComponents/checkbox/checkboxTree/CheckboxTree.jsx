@@ -189,7 +189,6 @@ const CheckboxTree = (props) => {
                 node={node}
                 onExpand={onExpand}
                 onCollapse={collapseNode}
-                onChecked={onChecked}
                 nodes={labeledNodes}
                 disabled={isDisabled}
                 checked={props.checked}

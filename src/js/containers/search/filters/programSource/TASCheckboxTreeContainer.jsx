@@ -150,16 +150,26 @@ export class TASCheckboxTree extends React.Component {
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
+        let treeDepth = 0;
+
+        if (selectedNode.id.includes("/") && selectedNode.id.includes("-")) {
+            treeDepth = 2;
+        }
+
+        if (selectedNode.id.includes("-")) {
+            treeDepth = 1;
+        }
+
         if (shouldFetchChildren && !this.state.isSearch) {
-            // if (selectedNode.treeDepth === 1) {
-            //     const selectedAgency = this.props.nodes
-            //         .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
-            //     const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
-            //     this.fetchTas(agencyAndFederalAccountString);
-            // }
-            // else {
-            this.fetchTas(expandedValue);
-            // }
+            if (treeDepth === 1) {
+                const selectedAgency = this.props.nodes
+                    .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
+                const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
+                this.fetchTas(agencyAndFederalAccountString);
+            }
+            else {
+                this.fetchTas(expandedValue);
+            }
         }
         if (this.state.isSearch) {
             this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
