@@ -252,12 +252,34 @@ export const getObjFromQueryParams = (str) => {
     return obj;
 };
 
+const convertToTitleCase = (str) => {
+    if (!str) {
+        return "";
+    }
+
+    return str.toLowerCase().replace(/\b\w/g, (s) => s.toUpperCase());
+};
+
 export const locationChipLabel = (label, location) => {
     switch (label) {
-        case 'City': return `${location.filter.city}, ${location.filter.state}`;
-        case 'Current congressional district': return `Current ${location.display.title}`;
-        case 'Original congressional district': return `Original ${location.display.title}`;
-        default: return location.display.title;
+        case 'Country':
+            return convertToTitleCase(location.display.title);
+        case 'State':
+            return convertToTitleCase(location.display.title);
+        case 'County':
+            return convertToTitleCase(location.display.title);
+        case 'City':
+            return `${convertToTitleCase(location.filter.city)}, ${
+                location.filter.state.length === 2 ?
+                    location.filter.state :
+                    convertToTitleCase(location.filter.state)
+            }`;
+        case 'Current congressional district':
+            return `Current ${location.display.title}`;
+        case 'Original congressional district':
+            return `Original ${location.display.title}`;
+        default:
+            return location.display.title;
     }
 };
 
