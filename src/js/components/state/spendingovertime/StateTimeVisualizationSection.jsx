@@ -13,6 +13,8 @@ import { SectionHeader } from 'data-transparency-ui';
 import TimeVisualizationPeriodButton from 'components/search/newResultsView/time/TimeVisualizationPeriodButton';
 import StateTimeVisualization from './StateTimeVisualization';
 import StateTimeVisualizationChart from './StateTimeVisualizationChart';
+import RoundedToggle from "../../sharedComponents/RoundedToggle";
+import Accordion from "../../sharedComponents/accordion/Accordion";
 
 const propTypes = {
     data: PropTypes.object,
@@ -72,6 +74,11 @@ export default class StateTimeVisualizationSection extends React.Component {
                     }} />
                 <div className="state-section__description">
                     The graph below shows trends over time for amounts awarded to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.
+                </div>
+                <div className="state__controls-desktop-row-two">
+                    <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
+                    <div className="state__line-div" />
+                    <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
                 </div>
                 <div className="state-visualization-period">
                     <div className="visualization-period">
