@@ -262,10 +262,6 @@ const convertToTitleCase = (str) => {
 
 export const locationChipLabel = (label, location) => {
     switch (label) {
-        case 'Country':
-            return convertToTitleCase(location.display.title);
-        case 'State':
-            return convertToTitleCase(location.display.title);
         case 'County':
             return convertToTitleCase(location.display.title);
         case 'City':
@@ -274,11 +270,16 @@ export const locationChipLabel = (label, location) => {
                     location.filter.state :
                     convertToTitleCase(location.filter.state)
             }`;
+        case 'State':
+            return convertToTitleCase(location.display.title);
+        case 'Country':
+            return convertToTitleCase(location.display.title);
         case 'Current congressional district':
             return `Current ${location.display.title}`;
         case 'Original congressional district':
             return `Original ${location.display.title}`;
         default:
+            // zip codes
             return location.display.title;
     }
 };
