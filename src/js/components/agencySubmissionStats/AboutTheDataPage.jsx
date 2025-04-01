@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Tabs, ShareIcon } from "data-transparency-ui";
+import { Tabs, ShareIcon, FlexGridCol, FlexGridRow } from "data-transparency-ui";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -82,67 +82,71 @@ const AboutTheDataPage = ({ history }) => {
                 <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
-                <div className="heading-container">
-                    <h2 className="header">About These Statistics</h2>
-                    <p className="sub-header">
+                <FlexGridRow className="agency-submission-stat-row">
+                    <FlexGridCol className="agency-submission-stat-col" >
+                        <div className="heading-container">
+                            <h2 className="header">About These Statistics</h2>
+                            <p className="sub-header">
                             In accordance with the 2014 DATA Act, federal agencies submit financial data
                             on a quarterly and/or monthly basis to USAspending.gov. The table below
                             shows information about the status and content of these submissions. It will
                             be updated as agencies publish/certify new submissions or
                             republish/recertify existing submissions. For more information about the data in this table, visit <Link to="/submission-statistics/data-sources">the Data Sources and Methodology page.</Link>
-                    </p>
-                </div>
-                <LoadingWrapper isLoading={!activeTab}>
-                    <>
-                        <div className="table-controls">
-                            <Tabs
-                                active={activeTab}
-                                switchTab={handleSwitchTab}
-                                types={[
-                                    {
-                                        internal: 'submissions',
-                                        label: "Statistics by Submission Period",
-                                        tooltip: tabTooltips["Statistics by Submission Period"]
-                                    },
-                                    {
-                                        internal: 'publications',
-                                        label: "Updates by Fiscal Year",
-                                        tooltip: tabTooltips["Updates by Fiscal Year"]
-                                    }
-                                ]} />
-                            <TimeFilters
-                                submissionPeriods={submissionPeriods}
-                                latestFy={latestFy}
-                                latestPeriod={latestPeriod}
-                                activeTab={activeTab}
-                                onTimeFilterSelection={setTime}
-                                selectedPeriod={selectedPeriod}
-                                selectedFy={selectedFy}
-                                urlPeriod={urlPeriod}
-                                urlFy={urlFy} />
+                            </p>
                         </div>
-                        <AgenciesContainer
-                            openModal={modalClick}
-                            activeTab={activeTab}
-                            selectedFy={selectedFy}
-                            selectedPeriod={selectedPeriod
-                                ? selectedPeriod.id
-                                : ''
-                            } />
-                        <AboutTheDataModal
-                            id="usa-dt-modal__agency-submission-statistics"
-                            mounted={!!showModal.length}
-                            type={showModal}
-                            className={modalClassNames[showModal]}
-                            title={modalTitles(modalData?.type)[showModal]}
-                            agencyData={{
-                                ...modalData,
-                                fiscalYear: parseInt(selectedFy, 10),
-                                fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
-                            }}
-                            closeModal={closeModal} />
-                    </>
-                </LoadingWrapper>
+                        <LoadingWrapper isLoading={!activeTab}>
+                            <>
+                                <div className="table-controls">
+                                    <Tabs
+                                        active={activeTab}
+                                        switchTab={handleSwitchTab}
+                                        types={[
+                                            {
+                                                internal: 'submissions',
+                                                label: "Statistics by Submission Period",
+                                                tooltip: tabTooltips["Statistics by Submission Period"]
+                                            },
+                                            {
+                                                internal: 'publications',
+                                                label: "Updates by Fiscal Year",
+                                                tooltip: tabTooltips["Updates by Fiscal Year"]
+                                            }
+                                        ]} />
+                                    <TimeFilters
+                                        submissionPeriods={submissionPeriods}
+                                        latestFy={latestFy}
+                                        latestPeriod={latestPeriod}
+                                        activeTab={activeTab}
+                                        onTimeFilterSelection={setTime}
+                                        selectedPeriod={selectedPeriod}
+                                        selectedFy={selectedFy}
+                                        urlPeriod={urlPeriod}
+                                        urlFy={urlFy} />
+                                </div>
+                                <AgenciesContainer
+                                    openModal={modalClick}
+                                    activeTab={activeTab}
+                                    selectedFy={selectedFy}
+                                    selectedPeriod={selectedPeriod
+                                        ? selectedPeriod.id
+                                        : ''
+                                    } />
+                                <AboutTheDataModal
+                                    id="usa-dt-modal__agency-submission-statistics"
+                                    mounted={!!showModal.length}
+                                    type={showModal}
+                                    className={modalClassNames[showModal]}
+                                    title={modalTitles(modalData?.type)[showModal]}
+                                    agencyData={{
+                                        ...modalData,
+                                        fiscalYear: parseInt(selectedFy, 10),
+                                        fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
+                                    }}
+                                    closeModal={closeModal} />
+                            </>
+                        </LoadingWrapper>
+                    </FlexGridCol>
+                </FlexGridRow>
             </main>
         </PageWrapper>
 

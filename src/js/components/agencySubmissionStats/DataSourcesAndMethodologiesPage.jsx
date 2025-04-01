@@ -256,7 +256,7 @@ const DataSourcesAndMethodologiesPage = () => {
                                     </p>
                                     <p><strong>Calculation:</strong></p>
                                     <p>
-                                        The numbers in this column are based on the difference between obligations for the agency’s TASs in File A and File B. This can be replicated by comparing obligations_incurred for the agency’s TASs in the Account Balances (File A) and Account Breakdown by Program Activity & Object Class (File B) in the Custom Account Download.
+                                        The numbers in this column are based on the difference between obligations for the agency’s TASs in File A and File B for the current reporting period. This can be replicated by comparing obligations_incurred for the agency’s TASs in the Account Balances (File A) and Account Breakdown by Program Activity & Object Class (File B) in the Custom Account Download.
                                     </p>
                                 </div>
                             </section>

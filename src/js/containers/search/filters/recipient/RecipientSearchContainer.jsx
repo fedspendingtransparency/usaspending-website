@@ -16,6 +16,7 @@ import SubmitHint from "../../../../components/sharedComponents/filterSidebar/Su
 import EntityDropdownAutocomplete from "../../../../components/search/filters/location/EntityDropdownAutocomplete";
 import PrimaryCheckboxType from "../../../../components/sharedComponents/checkbox/PrimaryCheckboxType";
 import SelectedRecipients from "../../../../components/search/filters/recipient/SelectedRecipients";
+import replaceString from '../../../../helpers/replaceString';
 
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,
@@ -35,6 +36,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     let localSelectedRecipients = null;
     let maxRecipientTitle = '';
     let maxRecipientText = '';
+    const highlightText = (text) => replaceString(text, searchString, 'highlight');
 
     if (newSearch) {
         maxRecipientTitle = 'Use the search bar to find recipients';
@@ -247,7 +249,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                                         <PrimaryCheckboxType
                                             name={(
                                                 <div className="recipient-checkbox__uei">
-                                                    <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}
+                                                    <span>UEI:</span> {recipient.uei ? highlightText(recipient.uei) : 'Not provided'}
                                                 </div>
                                             )}
                                             value={{
@@ -260,11 +262,11 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                                             selectedCheckboxes={selectedRecipients} />
                                         <div className="recipient-label__lower-container">
                                             <div className="recipient-label__legacy-duns">Legacy
-                                                DUNS: {recipient.duns ? recipient.duns : 'Not provided'}
+                                                DUNS: {recipient.duns ? highlightText(recipient.duns) : 'Not provided'}
                                             </div>
                                             <div className="recipient-label__name-container">
                                                 <span className="recipient-label__recipient-name">
-                                                    {recipient.name || recipient.recipient_name}
+                                                    {recipient.name ? highlightText(recipient.name) : highlightText(recipient.recipient_name)}
                                                 </span>
                                                 <span className="recipient-label__recipient-level">
                                                     {levelMapping[recipient.recipient_level]}

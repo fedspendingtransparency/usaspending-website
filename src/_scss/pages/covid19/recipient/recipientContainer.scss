@@ -58,14 +58,13 @@
           margin: 0;
         }
 
+        @import "pages/search/results/visualizations/geo/map/map";
+
+        // styles the legend on the covid page
         .map-container {
           height: rem(475);
           width: 100%;
-        }
 
-        @import "pages/search/results/visualizations/geo/map/map";
-        // styles the legend on the covid page
-        .map-container {
           .map-legend {
             bottom: rem(8);
             right: rem(8);
@@ -155,7 +154,6 @@
 
                     .tooltip-pointer::after {
                       background-color: $color-white;
-                      ;
                     }
                   }
                 }
