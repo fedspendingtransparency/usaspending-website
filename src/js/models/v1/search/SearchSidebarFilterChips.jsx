@@ -87,7 +87,7 @@ const SearchSidebarFilterChips = ({
                 chips.push(
                     <ShownValue
                         label={
-                            `Primary Place of Performance: ${
+                            `Place of Performance: ${
                                 locationChipLabel(location.display.entity, location)
                             }`
                         }

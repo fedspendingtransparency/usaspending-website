@@ -21,7 +21,7 @@ const SelectedLocations = ({
 }) => {
     const shownLocations = [];
     let selectedLocationsObj = selectedLocations;
-    let labelPrefix = 'Primary Place of Performance';
+    let labelPrefix = 'Place of Performance';
 
     if (id === "recipient" && GlobalConstants.QAT) {
         selectedLocationsObj = selectedRecipientLocations;
