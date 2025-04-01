@@ -132,7 +132,7 @@ const LocationAutocompleteContainer = (props) => {
     };
 
     const addState = (state, countryAbbreviation) => {
-        const fipsCode = fipsIdByStateName[state.toLowerCase()];
+        const fipsCode = fipsIdByStateName[state?.toLowerCase()];
         const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
         const location = {
             identifier: `${countryAbbreviation}_${stateAbbreviation}`,
