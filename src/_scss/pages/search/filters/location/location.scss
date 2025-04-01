@@ -236,6 +236,20 @@
         ul.autocomplete li {
             padding: rem(4) rem(12);
 
+            &:hover,
+            &.hover {
+                background-color: $gray-cool-3;
+            }
+
+            &[aria-selected="true"] {
+                background-color: $gray-cool-5;
+
+                &:hover,
+                &.hover {
+                    background-color: $gray-cool-10;
+                }
+            }
+
             span {
                 font-weight: $font-normal;
                 color: $gray-90;
