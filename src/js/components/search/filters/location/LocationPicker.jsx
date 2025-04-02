@@ -127,7 +127,7 @@ class LocationPicker extends React.Component {
     }
 
     atdClick() {
-        showSlideout('atd', { url:'congressional-district-data'});
+        showSlideout('atd', { url: 'congressional-district-data' });
     }
 
     generateDisclaimer(field) {

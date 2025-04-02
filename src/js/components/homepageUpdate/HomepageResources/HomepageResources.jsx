@@ -4,14 +4,13 @@
  */
 
 import React from 'react';
-
-import { showSlideout } from '../../../helpers/slideoutHelper';
+// eslint-disable-next-line max-len
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from '../../../helpers/analytics/Analytics';
+import { showSlideout } from '../../../helpers/slideoutHelper';
 
 const HomepageResources = () => {
-
     const cardObjects = [
         {
             icon: (

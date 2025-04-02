@@ -4,7 +4,6 @@ import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 
 const TableDsm = ({ subaward }) => {
-
     const openAboutTheDataSidebar = (e, entry) => {
         showSlideout('atd', { url: entry });
         e.preventDefault();

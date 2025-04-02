@@ -43,7 +43,6 @@ const MobileDropdownItem = ({
     hideMobileNav,
     index
 }) => {
-
     const openATD = (e) => {
         showSlideout('atd');
         e.preventDefault();

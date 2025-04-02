@@ -15,7 +15,6 @@ const ItemContent = React.memo(({
     closeDropdown,
     direction
 }) => {
-
     const openATD = (e) => {
         showSlideout('atd');
         e.preventDefault();

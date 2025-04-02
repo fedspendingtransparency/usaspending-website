@@ -24,7 +24,6 @@ export const AboutTheDataMarkdownLink = ({ name, slug, openPanel = false }) => {
         if (openPanel) {
             e.stopPropagation();
         }
-
     };
     return (
         <a href={`?about-the-data=${slug}`} onClick={clickFunction}>

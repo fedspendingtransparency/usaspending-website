@@ -27,7 +27,7 @@ const closeLastOpenedSlideOut = (type) => {
 export const showSlideout = (type, options = {}) => {
     // options { 'clear', 'term', 'url', 'open' } any or all can be null
     const { lastOpenedSlideout } = storeSingleton.store.getState().slideouts;
-    var open = true;
+    let open = true;
 
     if (lastOpenedSlideout !== '' && lastOpenedSlideout !== type) {
         closeLastOpenedSlideOut(lastOpenedSlideout);
@@ -57,7 +57,7 @@ export const showSlideout = (type, options = {}) => {
             if (Object.hasOwn(options, 'open')) {
                 open = options.open;
             }
-            if (open){
+            if (open) {
                 storeSingleton.store.dispatch(aboutTheDataActions.showAboutTheData());
             }
             break;
@@ -67,7 +67,7 @@ export const showSlideout = (type, options = {}) => {
             break;
     }
 
-    if(open){
+    if (open) {
         storeSingleton.store.dispatch(slideoutActions.setLastOpenedSlideout(type));
     }
     return true;

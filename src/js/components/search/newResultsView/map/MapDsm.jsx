@@ -10,7 +10,7 @@ const MapDsm = ({ subaward }) => {
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
 
     const openAboutTheDataSidebar = (e, entry) => {
-        showSlideout('atd', { url:entry });
+        showSlideout('atd', { url: entry });
         e.preventDefault();
     };
 
