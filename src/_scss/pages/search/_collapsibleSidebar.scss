@@ -307,7 +307,7 @@
             color: $gray-60;
             font-weight: $font-normal;
             overflow-y: auto;
-
+            
             &--text-header {
               font-weight: $font-semibold;
               color: $gray-90;
@@ -316,9 +316,6 @@
 
             &--text-section {
               p {
-                margin: 4px 0px 0px;
-              }
-              a {
                 margin: 4px 0px 0px;
               }
             }
