@@ -89,6 +89,7 @@ const StateContainer = (props) => {
         const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
 
         if (!Object.keys(props.match.params).includes('fy')) {
+            // this may be an issue on the first day of 2026 fiscal year
             // props.history.replace(`/state/${stateName}/latest`);
             props.history.replace(`/state/${stateName}/2025`);
         }
