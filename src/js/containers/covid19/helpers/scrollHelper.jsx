@@ -10,15 +10,9 @@ const isElementVisibleAndRoomExists = (ref) => (
     window.scrollY > 0
 );
 
-const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-
 // this function does not work in IE11
 export const scrollIntoView = (loading, error, wrapperRef, wrapperReadyRef, margin,
     scrollIntoViewOptions, moreOptionsTabsRef) => {
-    if (isIE11) {
-        return;
-    }
-
     if (((loading || error) && wrapperRef.current && moreOptionsTabsRef.current &&
     isElementVisibleAndRoomExists(wrapperRef)) ||
     (wrapperReadyRef.current && moreOptionsTabsRef.current &&
