@@ -265,11 +265,14 @@ export const locationChipLabel = (label, location) => {
         case 'County':
             return convertToTitleCase(location.display.title);
         case 'City':
-            return `${convertToTitleCase(location.filter.city)}, ${
-                location.filter.state.length === 2 ?
-                    location.filter.state :
-                    convertToTitleCase(location.filter.state)
-            }`;
+            if (location.filter?.state) {
+                return `${convertToTitleCase(location.filter.city)}, ${
+                    location.filter.state.length === 2 ?
+                        location.filter.state :
+                        convertToTitleCase(location.filter.state)
+                }`;
+            }
+            return `${convertToTitleCase(location.filter.city)}, ${location.filter.country}`;
         case 'State':
             return convertToTitleCase(location.display.title);
         case 'Country':
