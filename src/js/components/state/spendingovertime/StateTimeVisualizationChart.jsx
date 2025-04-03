@@ -24,7 +24,8 @@ import CustomLegend from "./chartCustomizations/CustomLegend";
 
 const stateTimeVisualizationChartPropTypes = {
     data: PropTypes.object,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    outlayToggle: PropTypes.bool
 };
 
 const StateTimeVisualizationChart = (props) => {
@@ -57,6 +58,7 @@ const StateTimeVisualizationChart = (props) => {
     };
 
     const renderChart = () => {
+        console.debug("THIS PROPS: ", props);
         if (loading) {
             return <LoadingMessage />;
         }
