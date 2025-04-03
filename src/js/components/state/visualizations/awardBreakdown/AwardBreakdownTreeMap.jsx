@@ -34,9 +34,6 @@ const AwardBreakdownTreeMap = (props) => {
     const visualizationHeight = 175;
 
     const buildVirtualCell = (data, i) => {
-        // let cellColor = TreemapHelper.stateTreemapColors[i];
-        // let textColor = labelColorFromBackground(TreemapHelper.stateTreemapColors[i]);
-
         // todo - use these two lines, along with the new arrays to return colors in treemapHelper,
         //  when finishing the toggle functionality; the two lines above will not be used
         let cellColor = amountType.current === 'total_outlays' ? TreemapHelper.stateTreemapColorsWithToggle[i] : TreemapHelper.stateTreemapColorsNoToggle[i];
