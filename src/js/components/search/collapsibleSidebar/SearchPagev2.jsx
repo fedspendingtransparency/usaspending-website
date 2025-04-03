@@ -17,7 +17,7 @@ import NoDownloadHover from '../header/NoDownloadHover';
 import KeywordSearchLink from "../KeywordSearchLink";
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
-import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
+import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
 
@@ -138,7 +138,13 @@ const SearchPage = ({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown
+                    size="sm"
+                    label="Filter by:"
+                    enabled
+                    setSearchViewSubaward={setSearchViewSubaward}
+                    selectedValue="prime"
+                    setSpendingLevel={setSpendingLevel} />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}

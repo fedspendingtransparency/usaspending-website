@@ -11,23 +11,24 @@ import Analytics from 'helpers/analytics/Analytics';
 import NewPicker from "../sharedComponents/dropdowns/NewPicker";
 
 const propTypes = {
-    size: PropTypes.string,
-    leftIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     enabled: PropTypes.bool,
-    subaward: PropTypes.bool,
     setSearchViewSubaward: PropTypes.func,
-    selectedValue: PropTypes.string
+    selectedValue: PropTypes.string,
+    setSpendingLevel: PropTypes.func
 };
 
 const SubawardDropdown = ({
     selectedValue = 'prime',
     setSearchViewSubaward,
-    enabled = 'false'
+    enabled = 'false',
+    setSpendingLevel
 }) => {
     const [selected, setSelected] = useState(selectedValue);
     const dispatch = useDispatch();
     const onClick = (e) => {
         dispatch(setSearchViewSubaward(e === 'subaward'));
+        dispatch(setSpendingLevel(e));
+
         setSelected(e === 'prime' ? 'prime' : 'subaward');
         if (e === 'subaward') {
             Analytics.event({
@@ -42,13 +43,18 @@ const SubawardDropdown = ({
     const options =
         [
             {
-                name: 'Prime Awards and Transactions',
+                name: 'Prime Awards',
                 value: 'prime',
                 onClick
             },
             {
                 name: 'Subawards',
                 value: 'subaward',
+                onClick
+            },
+            {
+                name: 'Transactions',
+                value: 'transaction',
                 onClick
             }
         ];
