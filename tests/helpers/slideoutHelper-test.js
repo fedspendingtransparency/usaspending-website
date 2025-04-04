@@ -1,35 +1,56 @@
-/* eslint-disable linebreak-style */
 /**
  * @jest-environment jsdom
- * 
+ *
  * slideoutHelper-test.js
  */
+import React from 'react';
+import { combineReducers, createStore } from 'redux';
 import * as redux from 'react-redux';
-import { createStore } from 'redux';
-import { expect, jest } from '@jest/globals';
-import * as glossaryReducer from 'redux/reducers/glossary/glossaryReducer';
-import * as slideoutReducer from 'redux/reducers/slideouts/slideoutReducer';
-import { waitFor } from '../testResources/test-utils';
+import { beforeEach, expect } from '@jest/globals';
+import { render, waitFor } from '../testResources/test-utils';
 import { showSlideout } from "../../src/js/helpers/slideoutHelper";
+import glossaryReducer from "../../src/js/redux/reducers/glossary/glossaryReducer";
+import atdReducer from "../../src/js/redux/reducers/aboutTheDataSidebar/aboutTheDataReducer";
+import slideoutReducer from "../../src/js/redux/reducers/slideouts/slideoutReducer";
+// import * as atdActions from "../../src/js/redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import * as glossaryActions from "../../src/js/redux/actions/glossary/glossaryActions";
+import * as slideoutActions from "../../src/js/redux/actions/slideouts/slideoutActions";
 
-
-const glossaryStore = createStore(glossaryReducer, glossaryReducer.initialState);
-const slideoutStore = createStore(slideoutReducer, slideoutReducer.initialState);
-
-beforeEach(() => {
-    jest.clearAllMocks();
-});
 
 describe('showSlideout', () => {
+    const mockAPPReducer = combineReducers({
+        glossary: glossaryReducer,
+        aboutTheDataSidebar: atdReducer,
+        slideouts: slideoutReducer
+    });
+
+    const mockStore = createStore(mockAPPReducer, {});
+    const mockActions = {
+        showGlossary: jest.fn(),
+        setLastOpenedSlideout: jest.fn()
+    };
+    let mockDispatch;
+
+    beforeEach(() => {
+        mockDispatch = jest.spyOn(redux, 'useDispatch').mockReturnValue(() => (fn) => fn()).mockClear();
+        jest.mock("redux/storeSingleton", () => ({
+            store: jest.fn(() => mockStore)
+        }));
+        mockStore.getState = jest.fn(() => ({}));
+    });
+
+
     it('should dispatch showGlossary and setLastOpenedSlideout when showSlideout helper function is called with no options', async () => {
-        const mockGlossaryDispatch = jest.spyOn(glossaryStore, 'dispatch');
-        const mockSlideoutDispatch = jest.spyOn(slideoutStore, 'dispatch');
+        render(<></>, { initialState: mockAPPReducer, store: mockStore });
+        const mockGlossaryAction = jest.spyOn(glossaryActions, 'showGlossary').mockClear();
+        const mocksetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
+
         showSlideout('glossary');
-        return waitFor(() => {
-            expect(mockGlossaryDispatch).toHaveBeenCalledTimes(1);
-            expect(mockGlossaryDispatch).toHaveBeenCalledWith(glossaryReducer.showGlossary('test data processed'));
-            expect(mockSlideoutDispatch).toHaveBeenCalledTimes(1);
-            expect(mockSlideoutDispatch).toHaveBeenCalledWith(slideoutReducer.setLastOpenedSlideout('test data processed'));
+
+        await waitFor(() => {
+            expect(mockDispatch).toHaveBeenCalledTimes(2);
+            expect(mockGlossaryAction).toHaveBeenCalledWith(mockActions.showGlossary);
+            expect(mocksetLastAction).toHaveBeenCalledWith(mockActions.setLastOpenedSlideout);
         });
     });
 });
