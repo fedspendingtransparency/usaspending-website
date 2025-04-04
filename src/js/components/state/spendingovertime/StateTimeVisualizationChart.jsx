@@ -68,44 +68,6 @@ const StateTimeVisualizationChart = (props) => {
         else if (transformedData.length === 0) {
             return <NoResultsMessage />;
         }
-        if (!props.outlayToggle) {
-            return (
-                <ResponsiveContainer>
-                    <BarChart
-                        height={350}
-                        data={transformedData}
-                        accessibilityLayer
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            bottom: 5
-                        }}>
-                        <XAxis dataKey="label" tick={<CustomXTick />} />
-                        <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                        <Tooltip
-                            cursor={{ fill: '#fff' }}
-                            filterNull
-                            content={<CustomTooltip />}
-                            isAnimationActive={false}
-                            onSetFocusBar={setFocusBar}
-                            onMouseLeave={onMouseLeave} />
-                        <Legend
-                            align="left"
-                            content={<CustomLegend barColor="#0081a1" label="Obligations" />}
-                            wrapperStyle={{ left: 60, bottom: 0 }} />
-                        <ReferenceLine y={0} stroke="#dfe1e2" />
-                        <Bar
-                            dataKey="value"
-                            shape={<CustomShape focusBar={focusBar} barColor="#0081a1" />}
-                            activeBar={<CustomShape isActive focusBar={focusBar} barColor="#0081a1" />}
-                            onMouseEnter={onMouseMove}
-                            onMouseOut={onMouseLeave}
-                            onMouseLeave={onMouseLeave} />
-                    </BarChart>
-                </ResponsiveContainer>
-            );
-        }
-        // outlay chart
         return (
             <ResponsiveContainer>
                 <BarChart
@@ -128,13 +90,13 @@ const StateTimeVisualizationChart = (props) => {
                         onMouseLeave={onMouseLeave} />
                     <Legend
                         align="left"
-                        content={<CustomLegend barColor="#008480" label="Outlays" />}
+                        content={<CustomLegend barColor={!props.outlayToggle ? "#0081a1" : "#008480"} label={!props.outlayToggle ? "Obligations" : "Outlays"} />}
                         wrapperStyle={{ left: 60, bottom: 0 }} />
                     <ReferenceLine y={0} stroke="#dfe1e2" />
                     <Bar
                         dataKey="value"
-                        shape={<CustomShape focusBar={focusBar} barColor="#008480" />}
-                        activeBar={<CustomShape isActive focusBar={focusBar} barColor="#008480" />}
+                        shape={<CustomShape focusBar={focusBar} barColor={!props.outlayToggle ? "#0081a1" : "#008480"} />}
+                        activeBar={<CustomShape isActive focusBar={focusBar} barColor={!props.outlayToggle ? "#0081a1" : "#008480"} />}
                         onMouseEnter={onMouseMove}
                         onMouseOut={onMouseLeave}
                         onMouseLeave={onMouseLeave} />
