@@ -5,10 +5,12 @@
 
 import { is } from 'immutable';
 import { isEqual, sortBy } from 'lodash';
+import dayjs from "dayjs";
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { checkboxTreeFilters } from 'dataMapping/shared/checkboxTree/checkboxTree';
 
 import { apiRequest } from './apiRequest';
+import dateRangeDropdownTimePeriods from "./search/dateRangeDropdownHelper";
 
 // Agency search for autocomplete
 export const fetchLocations = (req) => apiRequest({
@@ -248,4 +250,135 @@ export const getObjFromQueryParams = (str) => {
         obj[key] = value;
     }
     return obj;
+};
+
+const convertToTitleCase = (str) => {
+    if (!str) {
+        return "";
+    }
+
+    return str.toLowerCase().replace(/\b\w/g, (s) => s.toUpperCase());
+};
+
+export const locationChipLabel = (label, location) => {
+    switch (label) {
+        case 'County': {
+            const countySplit = location.display.title.split(', ');
+
+            if (countySplit[1].length === 2) {
+                return `${convertToTitleCase(countySplit[0])}, ${countySplit[1]}`;
+            }
+
+            return convertToTitleCase(location.display.title);
+        }
+        case 'City':
+            if (location.filter?.state) {
+                return `${convertToTitleCase(location.filter.city)}, ${
+                    location.filter.state.length === 2 ?
+                        location.filter.state :
+                        convertToTitleCase(location.filter.state)
+                }`;
+            }
+            return `${convertToTitleCase(location.filter.city)}, ${location.filter.country}`;
+        case 'State':
+            return convertToTitleCase(location.display.title);
+        case 'Country':
+            return convertToTitleCase(location.display.title);
+        case 'Current congressional district':
+            return `Current ${location.display.title}`;
+        case 'Original congressional district':
+            return `Original ${location.display.title}`;
+        default:
+            // zip codes
+            return location.display.title;
+    }
+};
+
+export const dateRangeChipLabel = (timeInput) => {
+    let start = null;
+    let end = null;
+    let dateLabel;
+
+    if (timeInput.start_date) {
+        start = dayjs(timeInput.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+    }
+    if (timeInput.end_date) {
+        end = dayjs(timeInput.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
+    }
+
+    if (dayjs().isSame(timeInput.end_date, 'day')) {
+        switch (timeInput.start_date) {
+            // current-month
+            case dateRangeDropdownTimePeriods[5].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[5].label;
+                break;
+            // last-three-months
+            case dateRangeDropdownTimePeriods[6].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[6].label;
+                break;
+            // last-six-months
+            case dateRangeDropdownTimePeriods[7].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[7].label;
+                break;
+            // last-twelve-months
+            case dateRangeDropdownTimePeriods[8].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[8].label;
+                break;
+            // year-to-date
+            case dateRangeDropdownTimePeriods[10].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[10].label;
+                break;
+            // last-seven-days
+            case dateRangeDropdownTimePeriods[1].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[1].label;
+                break;
+            // last-fifteen-days
+            case dateRangeDropdownTimePeriods[2].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[2].label;
+                break;
+            // last-thirty-days
+            case dateRangeDropdownTimePeriods[3].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[3].label;
+                break;
+            // last-sixty-days
+            case dateRangeDropdownTimePeriods[4].startDate:
+                dateLabel = dateRangeDropdownTimePeriods[4].label;
+                break;
+            default:
+                dateLabel = `${start} to ${end}`;
+        }
+    }
+    else if (
+        dayjs()
+            .subtract(1, 'day')
+            .isSame(timeInput.start_date, 'day') &&
+        dayjs()
+            .subtract(1, 'day')
+            .isSame(timeInput.end_date, 'day')
+    ) {
+        dateLabel = dateRangeDropdownTimePeriods[0].label;
+    }
+    else if (
+        dayjs()
+            .subtract(1, 'year')
+            .startOf('year')
+            .isSame(timeInput.start_date, 'day') &&
+        dayjs()
+            .subtract(1, 'year')
+            .endOf('year')
+            .isSame(timeInput.end_date, 'day')
+    ) {
+        dateLabel = dateRangeDropdownTimePeriods[9].label;
+    }
+    else if (start && end) {
+        dateLabel = `${start} to ${end}`;
+    }
+    else if (start) {
+        dateLabel = `${start} to present`;
+    }
+    else if (end) {
+        dateLabel = `... to ${end}`;
+    }
+
+    return dateLabel;
 };
