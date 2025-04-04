@@ -12,7 +12,8 @@ const customTooltipPropTypes = {
     payload: PropTypes.array,
     label: PropTypes.string,
     onSetFocusBar: PropTypes.func,
-    onMouseLeave: PropTypes.func
+    onMouseLeave: PropTypes.func,
+    outlayToggle: PropTypes.bool
 };
 
 const CustomTooltip = (props) => {
@@ -21,7 +22,8 @@ const CustomTooltip = (props) => {
         payload,
         label,
         onSetFocusBar,
-        onMouseLeave
+        onMouseLeave,
+        outlayToggle = false
     } = props;
 
     if (active && payload && payload.length) {
@@ -32,7 +34,7 @@ const CustomTooltip = (props) => {
                     {label}
                 </div>
                 <div className="tooltip__text">
-                    <div className="tooltip__text-label">Obligations</div>
+                    <div className="tooltip__text-label">{outlayToggle ? 'Outlays' : 'Obligations'}</div>
                     <div className="tooltip__text-amount">
                         {formatMoneyWithUnitsShortLabel(payload[0].value)}
                     </div>

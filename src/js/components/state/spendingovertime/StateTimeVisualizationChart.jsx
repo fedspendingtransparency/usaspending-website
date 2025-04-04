@@ -38,7 +38,11 @@ const StateTimeVisualizationChart = (props) => {
     for (let i = 0; i < data?.xSeries?.length; i++) {
         if (data?.ySeries[i][0] !== 0) {
             label = data?.xSeries[i][0];
-            value = data?.ySeries[i][0];
+            if (!props.outlayToggle) {
+                value = data?.ySeries[i][0];
+            } else {
+                value = data?.ySeriesOutlay[i][0];
+            }
         }
 
         transformedData.push({
@@ -58,14 +62,50 @@ const StateTimeVisualizationChart = (props) => {
     };
 
     const renderChart = () => {
-        console.debug("THIS PROPS: ", props);
         if (loading) {
             return <LoadingMessage />;
         }
         else if (transformedData.length === 0) {
             return <NoResultsMessage />;
         }
-
+        if (!props.outlayToggle) {
+            return (
+                <ResponsiveContainer>
+                    <BarChart
+                        height={350}
+                        data={transformedData}
+                        accessibilityLayer
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            bottom: 5
+                        }}>
+                        <XAxis dataKey="label" tick={<CustomXTick />} />
+                        <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                        <Tooltip
+                            cursor={{ fill: '#fff' }}
+                            filterNull
+                            content={<CustomTooltip />}
+                            isAnimationActive={false}
+                            onSetFocusBar={setFocusBar}
+                            onMouseLeave={onMouseLeave} />
+                        <Legend
+                            align="left"
+                            content={<CustomLegend barColor="#0081a1" label="Obligations" />}
+                            wrapperStyle={{ left: 60, bottom: 0 }} />
+                        <ReferenceLine y={0} stroke="#dfe1e2" />
+                        <Bar
+                            dataKey="value"
+                            shape={<CustomShape focusBar={focusBar} barColor="#0081a1" />}
+                            activeBar={<CustomShape isActive focusBar={focusBar} barColor="#0081a1" />}
+                            onMouseEnter={onMouseMove}
+                            onMouseOut={onMouseLeave}
+                            onMouseLeave={onMouseLeave} />
+                    </BarChart>
+                </ResponsiveContainer>
+            );
+        }
+        // outlay chart
         return (
             <ResponsiveContainer>
                 <BarChart
@@ -82,19 +122,19 @@ const StateTimeVisualizationChart = (props) => {
                     <Tooltip
                         cursor={{ fill: '#fff' }}
                         filterNull
-                        content={<CustomTooltip />}
+                        content={<CustomTooltip outlayToggle={props.outlayToggle} />}
                         isAnimationActive={false}
                         onSetFocusBar={setFocusBar}
                         onMouseLeave={onMouseLeave} />
                     <Legend
                         align="left"
-                        content={<CustomLegend barColor="#0081a1" label="Obligations" />}
+                        content={<CustomLegend barColor="#008480" label="Outlays" />}
                         wrapperStyle={{ left: 60, bottom: 0 }} />
                     <ReferenceLine y={0} stroke="#dfe1e2" />
                     <Bar
                         dataKey="value"
-                        shape={<CustomShape focusBar={focusBar} barColor="#0081a1" />}
-                        activeBar={<CustomShape isActive focusBar={focusBar} barColor="#0081a1" />}
+                        shape={<CustomShape focusBar={focusBar} barColor="#008480" />}
+                        activeBar={<CustomShape isActive focusBar={focusBar} barColor="#008480" />}
                         onMouseEnter={onMouseMove}
                         onMouseOut={onMouseLeave}
                         onMouseLeave={onMouseLeave} />

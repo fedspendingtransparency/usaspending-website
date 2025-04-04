@@ -17,10 +17,12 @@ import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const propTypes = {
     data: PropTypes.object,
-    xSeries: PropTypes.array,
     loading: PropTypes.bool,
     visualizationPeriod: PropTypes.string,
-    updateVisualizationPeriod: PropTypes.func
+    updateVisualizationPeriod: PropTypes.func,
+    outlayToggle: PropTypes.bool,
+    onKeyOutlaysToggle: PropTypes.func,
+    onOutlaysToggle: PropTypes.func
 };
 
 export default class StateTimeVisualizationSection extends React.Component {
@@ -30,14 +32,11 @@ export default class StateTimeVisualizationSection extends React.Component {
         this.state = {
             windowWidth: 0,
             visualizationWidth: 0,
-            outlayToggle: false,
             outlayWhatOpen: false
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.setWhatOpen = this.setWhatOpen.bind(this);
-        this.onOutlaysToggle = this.onOutlaysToggle.bind(this);
-        this.onKeyOutlaysToggle = this.onKeyOutlaysToggle.bind(this);
     }
 
     componentDidMount() {
@@ -48,20 +47,6 @@ export default class StateTimeVisualizationSection extends React.Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
     }
-
-    onOutlaysToggle = () => {
-        this.setState({
-            outlayToggle: !this.state.outlayToggle
-        });
-    };
-
-    onKeyOutlaysToggle = (event) => {
-        if (event.key === 'Enter') {
-            this.setState({
-                outlayToggle: !this.state.outlayToggle
-            });
-        }
-    };
 
     setWhatOpen = () => {
         this.setState({
@@ -100,7 +85,7 @@ export default class StateTimeVisualizationSection extends React.Component {
                     The graph below shows trends over time for amounts awarded to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.
                 </div>
                 <div className="state__controls-desktop">
-                    <RoundedToggle toggle={this.state.outlayToggle} onKeyToggle={this.onKeyOutlaysToggle} onToggle={this.onOutlaysToggle} label="View Outlays" id="state__controls-toggle" />
+                    <RoundedToggle toggle={this.props.outlayToggle} onKeyToggle={this.props.onKeyOutlaysToggle} onToggle={this.props.onOutlaysToggle} label="View Outlays" id="state__controls-toggle" />
                     <div className="state__line-div" />
                     <Accordion setOpen={this.setWhatOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
                 </div>
@@ -146,7 +131,7 @@ export default class StateTimeVisualizationSection extends React.Component {
                     loading={this.props.loading}
                     data={this.props.data}
                     width={this.state.visualizationWidth}
-                    outlayToggle={this.state.outlayToggle} />
+                    outlayToggle={this.props.outlayToggle} />
             </section>
         );
     }
