@@ -7,6 +7,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CategoryHeader from "./CategoryHeader";
+import { condenseItemCount } from "../../../helpers/search/collapsiblesidebarHelper";
 
 const propTypes = {
     categories: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -68,7 +69,7 @@ const CategoriesList = ({
                                                     <div className="categories-list-item__title" style={{ float: "left" }}>{category.title}</div>
                                                     {filterCount[category.title] > 0 &&
                                                             <div className="categories-list-item__count">
-                                                                {filterCount[category.title]} selected
+                                                                {condenseItemCount(filterCount[category.title])} selected
                                                             </div>
                                                     }
                                                 </div>

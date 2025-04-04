@@ -51,3 +51,11 @@ export const sortAlphaNumbersLast = (arr) => arr.sort((a, b) => {
 
     return String(a).localeCompare(String(b)); // Sort strings alphabetically
 });
+
+export const condenseItemCount = (itemCount) => {
+    if (itemCount >= 1000) {
+        return '999+';
+    }
+
+    return itemCount; // maybe consider string converstion here.
+};
