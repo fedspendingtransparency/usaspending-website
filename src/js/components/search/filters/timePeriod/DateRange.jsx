@@ -14,6 +14,7 @@ import { usePrevious } from "../../../../helpers/";
 import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 import ShownValue from "../otherFilters/ShownValue";
+import { dateRangeChipLabel } from "../../../../helpers/searchHelper";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -325,26 +326,7 @@ const DateRange = (props) => {
 
     if (props.timePeriod?.size > 0) {
         for (const timeinput of props.timePeriod) {
-            let dateLabel = '';
-            let start = null;
-            let end = null;
-
-            if (timeinput.start_date) {
-                start = dayjs(timeinput.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-            }
-            if (timeinput.end_date) {
-                end = dayjs(timeinput.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-            }
-
-            if (start && end) {
-                dateLabel = `${start} to ${end}`;
-            }
-            else if (start) {
-                dateLabel = `${start} to present`;
-            }
-            else if (end) {
-                dateLabel = `... to ${end}`;
-            }
+            const dateLabel = dateRangeChipLabel(timeinput);
 
             if (dateLabel !== '') {
                 labelArray.push({ dateLabel, startDate: timeinput.start_date, endDate: timeinput.end_date });
