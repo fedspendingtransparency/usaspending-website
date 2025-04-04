@@ -11,11 +11,11 @@ import {
 
 const populateTasBranchOrLeafLevelNodes = (nodes, key, newNodes) => populateChildNodes(
     nodes,
-    key,
-    newNodes,
     getHighestTasAncestorCode,
     getImmediateTasAncestorCode,
-    getTasNodeFromTree
+    getTasNodeFromTree,
+    key,
+    newNodes
 );
 
 const addTasSearchResultsToTree = (tree, searchResults) => addSearchResultsToTree(

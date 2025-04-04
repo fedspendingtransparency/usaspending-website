@@ -31,12 +31,8 @@ const getStringFromArray = (arrOfStr) => arrOfStr
     }, '');
 
 export const convertDateRange = (range) => {
-    if (range.length !== 2) {
+    if ((range.length !== 2) || (!range[0] && !range[1])) {
     // this must be an array of length 2
-        return null;
-    }
-    else if (!range[0] && !range[1]) {
-    // no start or end dates are set
         return null;
     }
 
@@ -60,7 +56,8 @@ export const parseAgency = (agency) => {
     }
     else if (agency.agencyType === 'subtier') {
         if (subtier.abbreviation) {
-            return `${subtier.name} (${subtier.abbreviation})/${subtier.subtier_code} - ${toptier.name}/${toptier.toptier_code}`;
+            return `${subtier.name} (${subtier.abbreviation})/${subtier.subtier_code} -
+            ${toptier.name}/${toptier.toptier_code}`;
         }
         return `${subtier.name}/${subtier.subtier_code} - ${toptier.name}/${toptier.toptier_code}`;
     }

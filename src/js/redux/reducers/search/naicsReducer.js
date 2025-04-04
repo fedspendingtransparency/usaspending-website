@@ -19,11 +19,11 @@ export const initialState = {
 
 const populateNaicsBranchOrLeafNodes = (nodes, key, newNodes) => populateChildNodes(
     nodes,
-    key,
-    newNodes,
     getHighestAncestorNaicsCode,
     getImmediateAncestorNaicsCode,
-    getNaicsNodeFromTree
+    getNaicsNodeFromTree,
+    key,
+    newNodes
 );
 
 const addNaicsSearchResultsToTree = (tree, searchResults) => addSearchResultsToTree(
