@@ -100,7 +100,7 @@ export default class StateTimeVisualizationSection extends React.Component {
                     The graph below shows trends over time for amounts awarded to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.
                 </div>
                 <div className="state__controls-desktop">
-                    <RoundedToggle toggle={this.state.outlayToggle} onKeyToggle={this.onKeyOutlaysToggle} onToggle={this.onOutlaysToggle} label="View Outlays" />
+                    <RoundedToggle toggle={this.state.outlayToggle} onKeyToggle={this.onKeyOutlaysToggle} onToggle={this.onOutlaysToggle} label="View Outlays" id="state__controls-toggle" />
                     <div className="state__line-div" />
                     <Accordion setOpen={this.setWhatOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
                 </div>
