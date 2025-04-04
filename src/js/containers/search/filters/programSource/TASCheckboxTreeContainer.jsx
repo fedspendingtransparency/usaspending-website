@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { debounce, get, flattenDeep } from 'lodash';
@@ -14,7 +14,7 @@ import {
     getTasAncestryPathForChecked,
     shouldTasNodeHaveChildren
 } from 'helpers/tasHelper';
-import { fetchTas } from 'helpers/searchHelper';
+import { fetchTas as fetchTasHelper } from 'helpers/searchHelper';
 import {
     removePlaceholderString,
     getUniqueAncestorPaths,
@@ -61,10 +61,6 @@ const propTypes = {
     searchV2: PropTypes.bool
 };
 
-const defaultProps = {
-    showInfo: true
-};
-
 const SearchNote = () => (
     <div className="tas-checkbox-tt">
         <p>
@@ -80,190 +76,75 @@ const SearchNote = () => (
     </div>
 );
 
-export class TASCheckboxTree extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: false,
-            searchString: '',
-            isError: false,
-            errorMessage: '',
-            showNoResults: false
-        };
-        this.request = null;
-    }
+const TASCheckboxTree = ({
+    showInfo = true, // eslint-disable-next-line no-shadow
+    setTasNodes, // eslint-disable-next-line no-shadow
+    setExpandedTas, // eslint-disable-next-line no-shadow
+    setCheckedTas, // eslint-disable-next-line no-shadow
+    setSearchedTas, // eslint-disable-next-line no-shadow
+    setTasCounts, // eslint-disable-next-line no-shadow
+    showTasTree, // eslint-disable-next-line no-shadow
+    setUncheckedTas, 
+    stageTas,
+    expanded,
+    checked,
+    unchecked,
+    checkedFromHash,
+    uncheckedFromHash,
+    nodes,
+    searchExpanded,
+    counts,
+    searchV2,
+    countsFromHash
+}) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [searchString, setSearchString] = useState('');
+    const [isError, setIsError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showNoResults, setShowNoResults] = useState(false);
+    const [isSearch, setIsSearch] = useState(false);
 
-    async componentDidMount() {
-        const {
-            checkedFromHash,
-            uncheckedFromHash,
-            countsFromHash
-        } = this.props;
-        if (this.props.nodes.length !== 0 && checkedFromHash.length) {
-            this.setCheckedStateFromUrlHash(checkedFromHash.map((ancestryPath) => ancestryPath.pop()));
-            this.props.setTasCounts(countsFromHash);
-            this.props.stageTas(
-                trimCheckedToCommonAncestors(getTasAncestryPathForChecked(this.props.checked, this.props.nodes)),
-                getTasAncestryPathForChecked(this.props.unchecked, this.props.nodes),
-                countsFromHash
-            );
-            return Promise.resolve();
-        }
-        else if (this.props.nodes.length !== 0) {
-            this.props.showTasTree();
-            return Promise.resolve();
-        }
 
-        return this.fetchTas('')
-            .then(() => {
-                if (checkedFromHash.length > 0) {
-                    this.props.setTasCounts(countsFromHash);
-                    return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
-                        .reduce((prevPromise, param) => prevPromise
-                        // fetch the all the ancestors of the checked nodes
-                            .then(() => this.fetchTas(param, null, false)), Promise.resolve([])
-                        )
-                        .then(() => {
-                            this.setCheckedStateFromUrlHash(checkedFromHash.map((ancestryPath) => ancestryPath.pop()));
-                            this.props.setExpandedTas([
-                                ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
-                            ]);
-                        })
-                        .catch((e) => {
-                            this.setState({
-                                isLoading: false,
-                                isError: true,
-                                errorMessage: get(e, 'message', 'Error fetching TAS.')
-                            });
-                        });
-                }
-                // just do this for consistent return.
-                return Promise.resolve();
-            });
-    }
+    let request = null;
+    const hint = useRef();
 
-    componentWillUnmount() {
-        if (this.request) {
-            this.request.cancel();
-        }
-        this.props.showTasTree();
-    }
+    // const {
+    //     nodes,
+    //     expanded,
+    //     searchExpanded,
+    //     checked,
+    //     unchecked,
+    //     counts
+    // } = useSelector((state) => state.tas);
 
-    onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        console.log(selectedNode);
-        let treeDepth = 0;
+    // const checkedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.require);
+    // const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.exclude);
+    // const countsFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.counts);
 
-        if (selectedNode.id.includes("/") && selectedNode.id.includes("-")) {
-            treeDepth = 2;
-        }
+    // const dispatch = useDispatch();
 
-        if (selectedNode.id.includes("-")) {
-            treeDepth = 1;
-        }
-
-        if (shouldFetchChildren && !this.state.isSearch) {
-            if (treeDepth === 1) {
-                const selectedAgency = this.props.nodes
-                    .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
-                const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
-                this.fetchTas(agencyAndFederalAccountString);
-            }
-            else {
-                this.fetchTas(expandedValue);
-            }
-        }
-        if (this.state.isSearch) {
-            this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
-        }
-        else {
-            this.props.setExpandedTas(newExpandedArray);
-        }
+    // eslint-disable-next-line react/sort-comp
+    const updateTasCountandStage = (count, stageArgs) => {
+        setTasCounts(count);
+        stageTas(...stageArgs);
     };
 
-    onSearchChange = debounce(() => {
-        if (!this.state.searchString) return this.onClear();
-        return this.fetchTas('', this.state.searchString);
-    }, 500);
-
-    onClear = () => {
-        if (this.request) this.request.cancel();
-        this.props.setExpandedTas([], 'SET_SEARCHED_EXPANDED');
-        this.props.showTasTree();
-        this.setState({
-            isSearch: false,
-            searchString: '',
-            isLoading: false,
-            isError: false,
-            errorMessage: '',
-            showNoResults: false
-        });
-    };
-
-    onUncheck = (newChecked, uncheckedNode) => {
-        const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
-            uncheckedNode,
-            this.props.unchecked,
-            this.props.checked,
-            this.props.counts,
-            this.props.nodes
-        );
-
-        this.props.setCheckedTas(newChecked);
-        this.props.setTasCounts(newCounts);
-        this.props.setUncheckedTas(newUnchecked);
-        this.props.stageTas(
-            trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, this.props.nodes)),
-            getTasAncestryPathForChecked(newUnchecked, this.props.nodes),
-            newCounts
-        );
-    };
-
-    onCheck = (newChecked) => {
-        const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
-            newChecked,
-            this.props.checked,
-            this.props.unchecked,
-            this.props.nodes,
-            this.props.counts
-        );
-
-        this.props.setCheckedTas(newChecked);
-        this.props.setTasCounts(newCounts);
-        this.props.setUncheckedTas(newUnchecked);
-
-        this.props.stageTas(
-            trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, this.props.nodes)),
-            getTasAncestryPathForChecked(newUnchecked, this.props.nodes),
-            newCounts
-        );
-
-        if (this.hint) {
-            this.hint.showHint();
-        }
-    };
-
-    onCollapse = (newExpandedArray) => {
-        if (this.state.isSearch) {
-            this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
-        }
-        else {
-            this.props.setExpandedTas(newExpandedArray);
-        }
-    };
-
-    setCheckedStateFromUrlHash = (newChecked) => {
-        if (this.props.nodes.length > 0) {
-            const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
-            this.props.setUncheckedTas(uncheckedFromHash);
+    const setCheckedStateFromUrlHash = (newChecked) => {
+        if (nodes?.length > 0) {
+            const uncheckedFromHashTmp = uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
+            setUncheckedTas(uncheckedFromHash);
             const realCheckedWithPlaceholders = flattenDeep(newChecked
-                .map((checked) => getAllDescendants(getTasNodeFromTree(this.props.nodes, checked), uncheckedFromHash))
+                .map((ch) => getAllDescendants(getTasNodeFromTree(nodes, ch), uncheckedFromHashTmp))
             );
-            this.props.setCheckedTas(realCheckedWithPlaceholders);
-            this.setState({ isLoading: false, isError: false });
+            console.log("here setCheckedStateFromUrlHash", realCheckedWithPlaceholders);
+
+            setCheckedTas(realCheckedWithPlaceholders);
+            setIsLoading(false);
+            setIsError(false);
         }
     };
 
-    autoCheckSearchResultDescendants = (checked, expanded, nodes) => {
+    const autoCheckSearchResultDescendants = () => {
         const newChecked = expanded
             .filter((expandedNode) => {
                 // if node is checked by an immediate placeholder, consider it checked.
@@ -284,164 +165,288 @@ export class TASCheckboxTree extends React.Component {
         return new Set([...checked, ...newChecked]);
     };
 
-    fetchTas = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
-        if (this.request) this.request.cancel();
-        if (id === '') {
-            this.setState({ isLoading: true });
-        }
-        if (this.state.showNoResults) {
-            this.setState({ showNoResults: false });
-        }
-        const queryParam = this.state.isSearch
-            ? `?depth=2&filter=${searchStr}`
-            : id;
 
-        this.request = fetchTas(queryParam);
-        const isPartialTree = (
-            id !== '' ||
-            this.state.isSearch
-        );
-        return this.request.promise
+    const fetchTas = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
+        console.log("here");
+        if (request) request.cancel();
+        if (id === '') {
+            setIsLoading(true);
+        }
+        if (showNoResults) {
+            setShowNoResults(false);
+        }
+        const queryParam = isSearch ? `?depth=2&filter=${searchStr}` : id;
+        request = fetchTasHelper(queryParam);
+        const isPartialTree = (id !== '' || isSearch);
+        return request.promise
             .then(({ data }) => {
                 // dynamically populating tree branches
-                const nodes = cleanTasData(data.results);
+                console.log(data.results);
+                const tmpNodes = cleanTasData(data.results);
                 if (isPartialTree) {
                     // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
                     const key = id.includes('/')
                         ? id.split('/')[1]
                         : id;
                     if (resolveLoadingIndicator) {
-                        this.setState({ isLoading: false });
+                        setIsLoading(false);
                     }
-                    const newChecked = this.props.checked.includes(`children_of_${key}`)
+                    const newChecked = checked.includes(`children_of_${key}`)
                         ? autoCheckTasAfterExpand(
-                            { children: nodes, value: key },
-                            this.props.checked,
-                            this.props.unchecked
+                            { children: tmpNodes, value: key },
+                            checked,
+                            unchecked
                         )
-                        : this.props.checked;
-                    if (this.state.isSearch) {
-                        this.props.setSearchedTas(nodes);
-                        const searchExpandedNodes = expandTasNodeAndAllDescendantParents(nodes);
-                        this.props.setExpandedTas(expandTasNodeAndAllDescendantParents(nodes), 'SET_SEARCHED_EXPANDED');
-                        const nodesCheckedByPlaceholderOrAncestor = this.autoCheckSearchResultDescendants(
-                            this.props.checked,
+                        : checked;
+                    if (isSearch) {
+                        setSearchedTas(tmpNodes);
+                        const searchExpandedNodes = expandTasNodeAndAllDescendantParents(tmpNodes);
+                        setExpandedTas(expandTasNodeAndAllDescendantParents(tmpNodes), 'SET_SEARCHED_EXPANDED');
+                        const nodesCheckedByPlaceholderOrAncestor = autoCheckSearchResultDescendants(
+                            checked,
                             searchExpandedNodes,
-                            nodes
+                            tmpNodes
                         );
-                        this.props.setCheckedTas(nodesCheckedByPlaceholderOrAncestor);
-                        if (nodes.length === 0) {
-                            this.setState({ showNoResults: true });
+                        console.log("here request1", nodesCheckedByPlaceholderOrAncestor, tmpNodes);
+
+                        setCheckedTas(nodesCheckedByPlaceholderOrAncestor);
+                        if (tmpNodes?.length === 0) {
+                            setShowNoResults(true);
                         }
                     }
                     else {
-                        this.props.setTasNodes(key, nodes);
-                        this.props.setCheckedTas(newChecked);
+                        console.log("here request2", newChecked, tmpNodes);
+                        setTasNodes(key, tmpNodes);
+                        setCheckedTas(newChecked);
                     }
                 }
                 else {
+                    console.log("here request3", tmpNodes);
                     // populating tree trunk
-                    this.props.setTasNodes('', nodes);
-                    this.setState({ isLoading: false });
+                    setTasNodes('', tmpNodes);
+                    setIsLoading(false);
                 }
-                this.request = null;
+                request = null;
             })
             .catch((e) => {
                 if (!isCancel(e)) {
-                    this.setState({
-                        isError: true,
-                        isLoading: false,
-                        errorMessage: get(e, 'message', 'Error fetching TAS.')
-                    });
+                    setIsError(true);
+                    setIsLoading(false);
+                    setErrorMessage(get(e, 'message', 'Error fetching TAS.'));
                 }
-                this.request = null;
+                request = null;
             });
     };
 
-    handleTextInputChange = (e) => {
+    const fetchTasItems = () => fetchTas('')
+        .then(() => {
+            console.log("here maybe");
+            if (checkedFromHash?.length > 0) {
+                setTasCounts(countsFromHash);
+                return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
+                    .reduce((prevPromise, param) => prevPromise
+                        // fetch the all the ancestors of the checked nodes
+                        .then(() => fetchTas(param, null, false)), Promise.resolve([])
+                    )
+                    .then(() => {
+                        setCheckedStateFromUrlHash(checkedFromHash.map((ancestryPath) => ancestryPath.pop()));
+                        setExpandedTas([
+                            ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
+                        ]);
+                    })
+                    .catch((e) => {
+                        setIsLoading(false);
+                        setIsError(true);
+                        setErrorMessage(get(e, 'message', 'Error fetching TAS.'));
+                    });
+            }
+            // just do this for consistent return.
+            return null;
+        });
+
+
+    const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
+        console.log(selectedNode);
+        let treeDepth = 0;
+
+        if (selectedNode?.id?.includes("/") && selectedNode?.id?.includes("-")) {
+            treeDepth = 2;
+        }
+
+        if (selectedNode?.id?.includes("-")) {
+            treeDepth = 1;
+        }
+
+        // if (shouldFetchChildren && !isSearch) {
+        //     if (treeDepth === 1) {
+        //         const selectedAgency = nodes
+        //             .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
+        //         const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
+        //         this.fetchTas(agencyAndFederalAccountString);
+        //     }
+        //     else {
+        fetchTas(expandedValue);
+        //     }
+        // }
+        if (isSearch) {
+            setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            setExpandedTas(newExpandedArray);
+        }
+    };
+
+    const onSearchChange = debounce(() => {
+        if (!searchString) return this.onClear();
+        return fetchTas('', searchString);
+    }, 500);
+
+    const onClear = () => {
+        if (request) request.cancel();
+        setExpandedTas([], 'SET_SEARCHED_EXPANDED');
+        showTasTree();
+        setIsSearch(false);
+        setSearchString('');
+        setIsLoading(false);
+        setIsError(false);
+        setErrorMessage('');
+        setShowNoResults(false);
+    };
+
+    const onUncheck = (newChecked, uncheckedNode) => {
+        const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
+            uncheckedNode,
+            unchecked,
+            checked,
+            counts,
+            nodes
+        );
+
+        console.log("here unchecked", newChecked, newUnchecked);
+        // setCheckedTas([newChecked.id]);
+        updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
+            getTasAncestryPathForChecked(newUnchecked, nodes),
+            newCounts);
+    };
+
+    const onCheck = (newChecked) => {
+        const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
+            newChecked,
+            checked,
+            unchecked,
+            nodes,
+            counts
+        );
+
+        console.log("here onchecked", newChecked);
+
+        setCheckedTas([newChecked.id]);
+        setUncheckedTas(newUnchecked);
+        updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
+            getTasAncestryPathForChecked(newUnchecked, nodes),
+            newCounts);
+
+        if (hint) {
+            hint.showHint();
+        }
+    };
+
+    const onCollapse = (newExpandedArray) => {
+        if (isSearch) {
+            setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            setExpandedTas(newExpandedArray);
+        }
+    };
+
+    const handleTextInputChange = (e) => {
         e.persist();
         const text = e.target.value;
         if (!text) {
-            return this.onClear();
+            return onClear();
         }
         const shouldTriggerSearch = doesMeetMinimumCharsRequiredForSearch(text);
         if (shouldTriggerSearch) {
-            return this.setState({
-                searchString: text,
-                isSearch: true,
-                isLoading: true
-            }, this.onSearchChange);
+            setSearchString(text);
+            setIsSearch(true);
+            setIsLoading(true);
+            onSearchChange();
+            // return this.setState({
+            //     searchString: text,
+            //     isSearch: true,
+            //     isLoading: true
+            // }, this.onSearchChange);
         }
-        return this.setState({
-            searchString: text
-        });
+        return setSearchString(text);
     };
 
-    render() {
-        const {
-            nodes,
-            checked,
-            expanded,
-            searchExpanded,
-            showInfo
-        } = this.props;
 
-        const {
-            isLoading,
-            searchString,
-            isError,
-            errorMessage,
-            isSearch,
-            showNoResults
-        } = this.state;
+    useEffect(() => {
+        console.log("nodes in useeffect", nodes);
+        if (nodes?.length !== 0 && checkedFromHash?.length) {
+            setCheckedStateFromUrlHash(checkedFromHash?.map((ancestryPath) => ancestryPath.pop()));
+            const stageTasArgs = [trimCheckedToCommonAncestors(getTasAncestryPathForChecked(checked, nodes)),
+                getTasAncestryPathForChecked(unchecked, nodes),
+                countsFromHash];
+            updateTasCountandStage(countsFromHash, stageTasArgs);
+        }
+        else if (nodes?.length !== 0) {
+            showTasTree();
+        }
 
-        return (
-            <div className="tas-checkbox">
-                {showInfo &&
-                <span className="checkbox-header">
-                    Search by Agency, Federal Account, or Treasury Account
-                    <CSSOnlyTooltip
-                        definition={<SearchNote />}
-                        heading="Find a Treasury Account" />
-                </span>}
-                <EntityDropdownAutocomplete
-                    placeholder="Type to filter results"
-                    searchString={searchString}
-                    enabled
-                    handleTextInputChange={this.handleTextInputChange}
-                    context={{}}
-                    isClearable
-                    loading={false}
-                    onClear={this.onClear} />
-                <CheckboxTree
-                    onUncheck={this.onUncheck}
-                    onCheck={this.onCheck}
-                    onExpand={this.onExpand}
-                    isError={isError}
-                    errorMessage={errorMessage}
-                    isLoading={isLoading}
-                    data={nodes.sort((a, b) => a.label.localeCompare(b.label))}
-                    checked={checked}
-                    searchText={searchString}
-                    countLabel="TAS"
-                    noResults={showNoResults}
-                    expanded={isSearch ? searchExpanded : expanded}
-                    onCollapse={this.onCollapse} />
-                <SubmitHint ref={(component) => {
-                    this.hint = component;
-                }} />
-                { !this.props.searchV2 &&
-                    <SubmitHint ref={(component) => {
-                        this.hint = component;
-                    }} />
-                }
-            </div>
-        );
-    }
-}
+        fetchTasItems();
+
+        return () => {
+            // if (request) {
+            //     request.cancel();
+            // }
+            // showTasTree();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nodes]);
+
+    return (
+        <div className="tas-checkbox">
+            {showInfo &&
+            <span className="checkbox-header">
+                Search by Agency, Federal Account, or Treasury Account
+                <CSSOnlyTooltip
+                    definition={<SearchNote />}
+                    heading="Find a Treasury Account" />
+            </span>}
+            <EntityDropdownAutocomplete
+                placeholder="Type to filter results"
+                searchString={searchString}
+                enabled
+                handleTextInputChange={handleTextInputChange}
+                context={{}}
+                isClearable
+                loading={false}
+                onClear={onClear} />
+            <CheckboxTree
+                onUncheck={onUncheck}
+                onCheck={onCheck}
+                onExpand={onExpand}
+                isError={isError}
+                errorMessage={errorMessage}
+                isLoading={isLoading}
+                data={nodes?.sort((a, b) => a.label.localeCompare(b.label))}
+                checked={checked}
+                searchText={searchString}
+                countLabel="TAS"
+                noResults={showNoResults}
+                expanded={isSearch ? searchExpanded : expanded}
+                onCollapse={onCollapse} />
+            {/* <SubmitHint ref={hint} />*/}
+            {/* { !searchV2 &&*/}
+            {/*    <SubmitHint ref={hint} />*/}
+            {/* }*/}
+        </div>
+    );
+};
 
 TASCheckboxTree.propTypes = propTypes;
-TASCheckboxTree.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => ({
     nodes: state.tas.tas.toJS(),

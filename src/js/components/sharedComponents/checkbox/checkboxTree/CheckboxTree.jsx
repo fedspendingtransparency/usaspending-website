@@ -20,6 +20,7 @@ const CheckboxTree = (props) => {
     const {
         data
     } = props;
+    console.log(data);
     const isDisabled = false;
 
     /**
@@ -138,7 +139,7 @@ const CheckboxTree = (props) => {
      * @returns {Array.<object>} An array of objects
      **/
     // eslint-disable-next-line no-shadow
-    const createLabels = (nodes) => nodes.map((node) => {
+    const createLabels = (nodes) => nodes?.map((node) => {
         // if label is a string, do nothing
         if (typeof node.label !== 'string') return node;
         if (node.isPlaceHolder && node.className !== 'hide') {
@@ -202,7 +203,7 @@ const CheckboxTree = (props) => {
     ));
 
     return (
-        <div>{renderTreeNodes(data)}</div>
+        <div>{data && renderTreeNodes()}</div>
     );
 };
 
