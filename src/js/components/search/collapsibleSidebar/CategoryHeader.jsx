@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectedItemsChips from "./SelectedItemsChips";
-import { condenseItemCount } from '../../../helpers/search/collapsiblesidebarHelper';
+import { truncateItemCount } from '../../../helpers/search/collapsiblesidebarHelper';
 
 const propTypes = {
     iconName: PropTypes.string,
@@ -51,7 +51,7 @@ const CategoryHeader = ({
                 </div>
                 <div className="search-filter__top-row-selected-container">
                     {itemCount > 0 &&
-                        <div className="search-filter__top-row-selected">{condenseItemCount(itemCount)} selected</div>
+                        <div className="search-filter__top-row-selected">{truncateItemCount(itemCount)} selected</div>
                     }
                 </div>
             </div>
