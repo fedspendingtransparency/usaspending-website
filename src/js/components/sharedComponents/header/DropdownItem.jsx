@@ -4,14 +4,12 @@
  */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 import DropdownComingSoon from './DropdownComingSoon';
+import { showSlideout } from '../../../helpers/slideoutHelper';
 
 const propTypes = {
     url: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ pathname: PropTypes.string, search: PropTypes.string })]),
@@ -46,11 +44,8 @@ const DropdownItem = ({
         ? getNewUrlForGlossary(pathname, url, search)
         : url;
 
-    const dispatch = useDispatch();
-
     const openATD = (e) => {
-        dispatch(aboutTheDataActions.showAboutTheData());
-        dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        showSlideout('atd');
         e.preventDefault();
     };
 
