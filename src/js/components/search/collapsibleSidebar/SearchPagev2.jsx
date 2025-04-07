@@ -143,7 +143,7 @@ const SearchPage = ({
                     label="Filter by:"
                     enabled
                     setSearchViewSubaward={setSearchViewSubaward}
-                    selectedValue="prime"
+                    selectedValue="awards"
                     setSpendingLevel={setSpendingLevel} />,
                 <ShareIcon
                     isEnabled

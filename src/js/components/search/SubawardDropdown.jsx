@@ -18,7 +18,7 @@ const propTypes = {
 };
 
 const SubawardDropdown = ({
-    selectedValue = 'prime',
+    selectedValue = 'awards',
     setSearchViewSubaward,
     enabled = 'false',
     setSpendingLevel
@@ -29,7 +29,7 @@ const SubawardDropdown = ({
         dispatch(setSearchViewSubaward(e === 'subaward'));
         dispatch(setSpendingLevel(e));
 
-        setSelected(e === 'prime' ? 'prime' : 'subaward');
+        setSelected(e === 'awards' ? 'awards' : 'subaward');
         if (e === 'subaward') {
             Analytics.event({
                 event: 'search_subaward_dropdown',
@@ -44,17 +44,17 @@ const SubawardDropdown = ({
         [
             {
                 name: 'Prime Awards',
-                value: 'prime',
+                value: 'awards',
                 onClick
             },
             {
                 name: 'Subawards',
-                value: 'subaward',
+                value: 'subawards',
                 onClick
             },
             {
                 name: 'Transactions',
-                value: 'transaction',
+                value: 'transactions',
                 onClick
             }
         ];
