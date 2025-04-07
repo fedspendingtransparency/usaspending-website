@@ -32,6 +32,7 @@ import {
     removeStagedPscFilter
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
+import { dateRangeChipLabel, locationChipLabel } from "../../../helpers/searchHelper";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -85,7 +86,11 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`POP | ${location.display.entity} | ${location.display.title}`}
+                        label={
+                            `Place of Performance: ${
+                                locationChipLabel(location.display.entity, location)
+                            }`
+                        }
                         removeValue={removeFilter} />);
             });
         }
@@ -103,7 +108,11 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`Recipient | ${location.display.entity} | ${location.display.title}`}
+                        label={
+                            `Recipient Location: ${
+                                locationChipLabel(location.display.entity, location)
+                            }`
+                        }
                         removeValue={removeFilter} />);
             });
         }
@@ -128,10 +137,12 @@ const SearchSidebarFilterChips = ({
                         });
                     };
 
+                    const dateLabel = dateRangeChipLabel(timePeriod);
+
                     chips.push((
                         <ShownValue
                             key={index}
-                            label={`Applied date range: ${timePeriod.start_date} to ${timePeriod.end_date}`}
+                            label={dateLabel}
                             removeValue={(e) => removeDateRange(timePeriod.start_date, timePeriod.end_date, e)} />
                     ));
                 });
@@ -146,7 +157,7 @@ const SearchSidebarFilterChips = ({
 
                     chips.push(
                         <ShownValue
-                            label={fy}
+                            label={`FY ${fy}`}
                             removeValue={removeFY} />
                     );
                 });
@@ -166,7 +177,7 @@ const SearchSidebarFilterChips = ({
 
             chips.push(
                 <ShownValue
-                    label={`Description | ${filtersData.awardDescription}`}
+                    label={filtersData.awardDescription}
                     removeValue={removeAwardsDescription} />
             );
         }
@@ -185,7 +196,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`Award ID | ${id} `}
+                        label={id}
                         removeValue={removeAwardID} />
                 );
             });

@@ -150,12 +150,12 @@ const WordOfTheDay = () => {
     useEffect(() => {
         let found = false;
         if (glossary && term) {
-            for (let i = 0; i < glossary.length; i++) {
-                if (glossary[i]?.term?.trim().toLowerCase() === term?.trim().toLowerCase()) {
-                    setGlossarySlug(glossary[i].slug);
+            for (const value of glossary) {
+                if (value.term?.trim().toLowerCase() === term?.trim().toLowerCase()) {
+                    setGlossarySlug(value.slug);
                     found = true;
                     setError(false);
-                    setDefinition(glossary[i].plain);
+                    setDefinition(value.plain);
                 }
             }
         }

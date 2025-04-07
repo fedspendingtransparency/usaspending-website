@@ -152,9 +152,9 @@ const MapWrapper = (props) => {
         const layers = mapRef.current.map.current.getStyle().layers;
         // Find the index of the first symbol layer in the map style
         let symbolId = null;
-        for (let i = 0; i < layers.length; i++) {
-            if (layers[i].type === 'symbol') {
-                symbolId = layers[i].id;
+        for (const value of layers) {
+            if (value.type === 'symbol') {
+                symbolId = value.id;
                 break;
             }
         }
