@@ -1,24 +1,16 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
-import {
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
+import { showSlideout } from "../../../../helpers/slideoutHelper";
 
 const MapDsm = ({ subaward }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
 
-    const dispatch = useDispatch();
-
     const openAboutTheDataSidebar = (e, entry) => {
-        dispatch(setAboutTheDataTermFromUrl(entry));
-        dispatch(showAboutTheData());
-        dispatch(setLastOpenedSlideout('atd'));
+        showSlideout('atd', { url: entry });
         e.preventDefault();
     };
 
