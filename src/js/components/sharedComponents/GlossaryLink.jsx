@@ -9,6 +9,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
+import { showSlideout } from '../../helpers/slideoutHelper';
+
 
 const propTypes = {
     term: PropTypes.string.isRequired,
@@ -24,6 +26,7 @@ const GlossaryLink = ({ term, hidden, label = "" }) => {
     }, [search]);
     const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
     const stopBubble = (e) => {
+        showSlideout('glossary');
         e.stopPropagation();
     };
     return (
