@@ -437,7 +437,7 @@ export const availableColumns = (type) => {
 };
 
 const transactionContract = [
-    { title: 'Award ID', customWidth: newCustomWidth1 },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Mod', displayName: 'Modification Number', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {

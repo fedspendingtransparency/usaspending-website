@@ -15,10 +15,11 @@ import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActio
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
 import { awardTypeGroups, subawardTypeGroups } from 'dataMapping/search/awardType';
-import { defaultColumns,
+import {
+    defaultColumns,
     defaultSort,
     apiFieldByTableColumnName
-    , transactionColumns } from 'dataMapping/search/awardTableColumns';
+} from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
 import ResultsTableSection from 'components/search/newResultsView/table/ResultsTableSection';
@@ -208,10 +209,13 @@ const ResultsTableContainer = (props) => {
         if (props.spendingLevel === 'transactions') {
             params.fields = [
                 "Award ID",
+                "Mod",
                 "Recipient Name",
                 "Transaction Amount",
-                "def_codes",
+                "Action Date",
+                "Award Type",
                 "Awarding Agency",
+                "awarding_agency_id",
                 "Awarding Sub Agency"
             ];
 
@@ -570,6 +574,7 @@ const ResultsTableContainer = (props) => {
                 updateSort={updateSort}
                 loadNextPage={loadNextPage}
                 subaward={props.subaward}
+                spendingLevel={props.spendingLevel}
                 awardIdClick={awardIdClick}
                 subAwardIdClick={subAwardIdClick}
                 page={page}
