@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import Accounting from 'accounting';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectedItemsChips from "./SelectedItemsChips";
@@ -53,7 +54,7 @@ const CategoryHeader = ({
                 </div>
                 <div className="search-filter__top-row-selected-container">
                     {itemCount > 0 &&
-                        <div className="search-filter__top-row-selected">{showFullCount ? truncateItemCount(itemCount) : itemCount} selected</div>
+                        <div className="search-filter__top-row-selected">{showFullCount ? truncateItemCount(itemCount) : Accounting.formatNumber(itemCount, 'thousand')} selected</div>
                     }
                 </div>
             </div>
