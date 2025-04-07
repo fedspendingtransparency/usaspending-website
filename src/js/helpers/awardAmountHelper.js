@@ -18,10 +18,10 @@ export const formatAwardAmountRange = (range, options = 2) => {
     const maxLabel = formatMoneyWithPrecision(range[1], options);
     let label = `${minLabel} - ${maxLabel}`;
     if (!range[0] && (range[0] !== 0)) {
-        label = `${maxLabel} & Under`;
+        label = `${maxLabel} and below`;
     }
     if (!range[1] && (range[1] !== 0)) {
-        label = `${minLabel} & Above`;
+        label = `${minLabel} and above`;
     }
     return label;
 };

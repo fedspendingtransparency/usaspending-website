@@ -19,10 +19,12 @@ const propTypes = {
     titleOnly: PropTypes.bool
 };
 
+const dsmElementHeight = 51;
+
 const CategoryFilter = ({
     iconBackgroundColor, iconName, iconColor, component, title, description, height, itemCount, titleOnly = false
 }) => (
-    <div className="selected-category-item" style={{ height: `${height - 36}px` }}>
+    <div className="selected-category-item" style={{ height: `${height - dsmElementHeight}px` }}>
         <CategoryHeader
             iconName={iconName}
             iconColor={iconColor}

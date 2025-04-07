@@ -21,11 +21,8 @@ const defaultProps = {
 
 export default class SankeyBar extends React.Component {
     render() {
-        if (this.props.height <= 0) {
+        if (this.props.height <= 0 || this.props.width <= 0) {
             // don't display anything if there's no value
-            return null;
-        }
-        else if (this.props.width <= 0) {
             return null;
         }
 

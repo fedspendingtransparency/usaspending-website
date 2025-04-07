@@ -47,16 +47,16 @@ const SidebarWrapper = React.memo(({
     };
 
     const hideElements = (removeableEls) => {
-        for (let i = 0; i < removeableEls.length; i++) {
-            const elClass = removeableEls[i].className;
+        for (const value of removeableEls) {
+            const elClass = value.className;
             document.querySelector(`.${elClass}`).style.display = "none";
         }
     };
 
     const showElements = (removeableEls) => {
-        for (let i = 0; i < removeableEls.length; i++) {
-            const elClass = removeableEls[i].className;
-            document.querySelector(`.${elClass}`).style.display = removeableEls[i].display;
+        for (const value of removeableEls) {
+            const elClass = value.className;
+            document.querySelector(`.${elClass}`).style.display = value.display;
         }
     };
 
@@ -253,9 +253,10 @@ const SidebarWrapper = React.memo(({
     const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
         const isHeaderSticky = isStickyEl !== null;
+        const bufferToTouchBottom = 2;
 
         if (isHeaderSticky && !isFooterVisible) {
-            return `calc(100vh - ${topStickyBarHeight}px)`;
+            return `calc(100vh - ${topStickyBarHeight - bufferToTouchBottom}px)`;
         }
 
         return sidebarHeight;
