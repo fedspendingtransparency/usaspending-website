@@ -163,7 +163,7 @@ const SearchSidebarDrilldown = ({
                     filterCount={filterCount}
                     showFullCount={currentLevel === 3} />}
                 {!isDsmOpened && filter && categoryFilter}
-                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} height={sidebarContentHeight} />}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle || selectedCategory.title} height={sidebarContentHeight} hasChildren={!!list} />}
             </div>
         </div>);
 };

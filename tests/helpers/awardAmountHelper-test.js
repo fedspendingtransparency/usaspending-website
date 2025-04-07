@@ -1,6 +1,6 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * awardAmountHelper-test.js
  * Created by michaelbray on 3/9/17.
  */
@@ -9,21 +9,10 @@ import {
     formatAwardAmountRange,
     generatePercentage,
     getAscendingSpendingCategoriesByAwardType,
-    determineSpendingScenarioAsstAwards,
     determineFileCSpendingScenario,
     determineSpendingScenarioByAwardType
 } from 'helpers/awardAmountHelper';
 
-const grantAwardAmounts = {
-    _totalObligation: 0,
-    _nonFederalFunding: 10,
-    _totalFunding: 100
-};
-const loanAwardAmounts = {
-    _subsidy: 0,
-    _faceValue: 10,
-    _totalOutlay: 1000
-};
 const contractAwardAmounts = {
     _totalObligation: 0,
     _baseExercisedOptions: 10,
@@ -37,9 +26,19 @@ const fileCAmounts = {
     _fileCOutlay: 0
 };
 
-const buildContract = (amounts) => ({ _totalObligation: amounts[0], _baseExercisedOptions: amounts[1], _baseAndAllOptions: amounts[2], ...fileCAmounts });
+const buildContract = (amounts) => ({
+    _totalObligation: amounts[0],
+    _baseExercisedOptions: amounts[1],
+    _baseAndAllOptions: amounts[2],
+    ...fileCAmounts
+});
 const buildLoan = (amounts) => ({ _subsidy: amounts[0], _faceValue: amounts[1], ...fileCAmounts });
-const buildAsst = (amounts) => ({ _totalObligation: amounts[0], _nonFederalFunding: amounts[1], _totalFunding: amounts[2], ...fileCAmounts });
+const buildAsst = (amounts) => ({
+    _totalObligation: amounts[0],
+    _nonFederalFunding: amounts[1],
+    _totalFunding: amounts[2],
+    ...fileCAmounts
+});
 
 describe('Award Amounts Advanced Search Filter Helper', () => {
     describe('Format Labels', () => {
@@ -49,24 +48,24 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
                 expect(mockedRange).toEqual("$0 - $0");
             });
 
-            it('should return "$0 & Above" for ranges where the min is zero and max is null', () => {
+            it('should return "$0 and above" for ranges where the min is zero and max is null', () => {
                 const mockedRange = formatAwardAmountRange([0, null], 0);
-                expect(mockedRange).toEqual("$0 & Above");
+                expect(mockedRange).toEqual("$0 and above");
             });
 
-            it('should return "$0 & Under" for ranges where the min is null and max is zero', () => {
+            it('should return "$0 and below" for ranges where the min is null and max is zero', () => {
                 const mockedRange = formatAwardAmountRange([null, 0], 0);
-                expect(mockedRange).toEqual("$0 & Under");
+                expect(mockedRange).toEqual("$0 and below");
             });
 
-            it('should return "$[Max] & Under" for ranges where the min is null', () => {
+            it('should return "$[Max] and below" for ranges where the min is null', () => {
                 const mockedRange = formatAwardAmountRange([null, 10000], 0);
-                expect(mockedRange).toEqual("$10,000 & Under");
+                expect(mockedRange).toEqual("$10,000 and below");
             });
 
-            it('should return "$[Min] & Above" for ranges where the max is null', () => {
+            it('should return "$[Min] and above" for ranges where the max is null', () => {
                 const mockedRange = formatAwardAmountRange([10000, null], 0);
-                expect(mockedRange).toEqual("$10,000 & Above");
+                expect(mockedRange).toEqual("$10,000 and above");
             });
 
             it('should return "$[Min] - $[Max]" for a range with min and max', () => {
@@ -81,24 +80,24 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
                 expect(mockedRange).toEqual("$0.00 - $0.00");
             });
 
-            it('should return "$0 & Above" for ranges where the min is 0 and max is null', () => {
+            it('should return "$0 and above" for ranges where the min is 0 and max is null', () => {
                 const mockedRange = formatAwardAmountRange([0, null], 2);
-                expect(mockedRange).toEqual("$0.00 & Above");
+                expect(mockedRange).toEqual("$0.00 and above");
             });
 
-            it('should return "$0 & Under" for ranges where the min is null and max is zero', () => {
+            it('should return "$0 and below" for ranges where the min is null and max is zero', () => {
                 const mockedRange = formatAwardAmountRange([null, 0], 2);
-                expect(mockedRange).toEqual("$0.00 & Under");
+                expect(mockedRange).toEqual("$0.00 and below");
             });
 
-            it('should return "$[Max] & Under" for ranges where the min is 0', () => {
+            it('should return "$[Max] and below" for ranges where the min is 0', () => {
                 const mockedRange = formatAwardAmountRange([null, 10000], 2);
-                expect(mockedRange).toEqual("$10,000.00 & Under");
+                expect(mockedRange).toEqual("$10,000.00 and below");
             });
 
-            it('should return "$[Min] & Above" for ranges where the max is 0', () => {
+            it('should return "$[Min] and above" for ranges where the max is 0', () => {
                 const mockedRange = formatAwardAmountRange([10000, null], 2);
-                expect(mockedRange).toEqual("$10,000.00 & Above");
+                expect(mockedRange).toEqual("$10,000.00 and above");
             });
 
             it('should return "$[Min] - $[Max]" for a range with a min and max', () => {
