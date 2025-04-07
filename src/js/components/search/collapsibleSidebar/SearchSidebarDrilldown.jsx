@@ -113,7 +113,8 @@ const SearchSidebarDrilldown = ({
                 titleOnly={titleOnly}
                 iconName={selectedCategory?.iconName}
                 iconColor={selectedCategory?.iconColor}
-                iconBackgroundColor={selectedCategory?.iconBackgroundColor} />
+                iconBackgroundColor={selectedCategory?.iconBackgroundColor}
+                showFullCount={currentLevel === 3} />
         );
     }
     else {
@@ -126,7 +127,8 @@ const SearchSidebarDrilldown = ({
                 title={selectedCategoryTitle}
                 component={filter}
                 itemCount={filterCount[selectedCategoryTitle]}
-                description={selectedCategory?.description} />
+                description={selectedCategory?.description}
+                showFullCount={currentLevel === 3} />
         );
     }
 
@@ -158,7 +160,8 @@ const SearchSidebarDrilldown = ({
                     categories={list}
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}
-                    filterCount={filterCount} />}
+                    filterCount={filterCount}
+                    showFullCount={currentLevel === 3} />}
                 {!isDsmOpened && filter && categoryFilter}
                 {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} height={sidebarContentHeight} />}
             </div>

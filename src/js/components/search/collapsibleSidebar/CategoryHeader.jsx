@@ -20,7 +20,8 @@ const propTypes = {
     selectCategory: PropTypes.func,
     isClickable: PropTypes.bool,
     showDescription: PropTypes.bool,
-    titleOnly: PropTypes.bool
+    titleOnly: PropTypes.bool,
+    showFullCount: PropTypes.bool
 };
 const CategoryHeader = ({
     item,
@@ -33,7 +34,8 @@ const CategoryHeader = ({
     selectedItems,
     selectCategory,
     isClickable,
-    titleOnly
+    titleOnly,
+    showFullCount = false
 }) => {
     const [content, setContent] = useState();
 
@@ -51,7 +53,7 @@ const CategoryHeader = ({
                 </div>
                 <div className="search-filter__top-row-selected-container">
                     {itemCount > 0 &&
-                        <div className="search-filter__top-row-selected">{truncateItemCount(itemCount)} selected</div>
+                        <div className="search-filter__top-row-selected">{showFullCount ? truncateItemCount(itemCount) : itemCount} selected</div>
                     }
                 </div>
             </div>
