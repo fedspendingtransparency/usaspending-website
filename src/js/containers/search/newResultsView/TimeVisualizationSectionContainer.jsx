@@ -236,7 +236,7 @@ const TimeVisualizationSectionContainer = (props) => {
             group: visualizationPeriod,
             filters: searchParams,
             subawards: props.subaward,
-            spendingLevel: props.spendingLevel
+            spending_level: props.spendingLevel
         };
 
         if (auditTrail) {
