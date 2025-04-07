@@ -26,11 +26,11 @@ const SubawardDropdown = ({
     const [selected, setSelected] = useState(selectedValue);
     const dispatch = useDispatch();
     const onClick = (e) => {
-        dispatch(setSearchViewSubaward(e === 'subaward'));
+        dispatch(setSearchViewSubaward(e === 'subawards'));
         dispatch(setSpendingLevel(e));
 
-        setSelected(e === 'awards' ? 'awards' : 'subaward');
-        if (e === 'subaward') {
+        setSelected(e === 'awards' ? 'awards' : 'subawards');
+        if (e === 'subawards') {
             Analytics.event({
                 event: 'search_subaward_dropdown',
                 category: 'Advanced Search - Search Fields',
