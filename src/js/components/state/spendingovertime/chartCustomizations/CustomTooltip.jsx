@@ -11,7 +11,6 @@ const customTooltipPropTypes = {
     active: PropTypes.bool,
     payload: PropTypes.array,
     label: PropTypes.string,
-    onSetFocusBar: PropTypes.func,
     onMouseLeave: PropTypes.func,
     outlayToggle: PropTypes.bool
 };
@@ -21,13 +20,11 @@ const CustomTooltip = (props) => {
         active,
         payload,
         label,
-        onSetFocusBar,
         onMouseLeave,
         outlayToggle = false
     } = props;
 
     if (active && payload && payload.length) {
-        onSetFocusBar(label);
         return (
             <div className="custom-tooltip" role="status" aria-live="assertive">
                 <div className="tooltip__title">

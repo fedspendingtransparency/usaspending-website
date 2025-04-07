@@ -59,8 +59,8 @@ const StateTimeVisualizationChart = (props) => {
         }
     };
 
-    const onMouseMove = (state) => {
-        setFocusBar(state.label);
+    const onMouseMove = () => {
+        setFocusBar(true);
     };
 
     const renderChart = () => {
@@ -88,7 +88,6 @@ const StateTimeVisualizationChart = (props) => {
                         filterNull
                         content={<CustomTooltip outlayToggle={props.outlayToggle} />}
                         isAnimationActive={false}
-                        onSetFocusBar={setFocusBar}
                         onMouseLeave={onMouseLeave} />
                     <Legend
                         align="left"
