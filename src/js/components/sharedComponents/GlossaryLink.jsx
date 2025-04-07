@@ -14,10 +14,11 @@ import { showSlideout } from '../../helpers/slideoutHelper';
 
 const propTypes = {
     term: PropTypes.string.isRequired,
-    hidden: PropTypes.bool
+    hidden: PropTypes.bool,
+    label: PropTypes.string
 };
 
-const GlossaryLink = ({ term, hidden }) => {
+const GlossaryLink = ({ term, hidden, label = "" }) => {
     const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
     useEffect(() => {
@@ -35,7 +36,7 @@ const GlossaryLink = ({ term, hidden }) => {
             aria-label="Open the Glossary"
             tabIndex={hidden ? "-1" : ""}
             onClick={stopBubble}>
-            <FontAwesomeIcon icon="book" />
+            {label ? <a href={newUrl}>{label} <FontAwesomeIcon icon="book" /></a> : <FontAwesomeIcon icon="book" />}
         </Link>
     );
 };
