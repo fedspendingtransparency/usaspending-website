@@ -23,7 +23,7 @@ const SelectedAwardIDs = (props) => {
         const value = (
             <ShownAwardID
                 awardID={awardID}
-                label={`${awardID} | Award ID `}
+                label={awardID}
                 key={key}
                 toggleAwardID={() => toggleAwardID(awardID)} />);
         shownAwardIDs.push(value);
