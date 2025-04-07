@@ -256,6 +256,7 @@ const defaultContract = [
         title: 'End Date', displayName: 'Period of Performance End', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
     }
 ];
+
 const defaultGrant = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
@@ -434,6 +435,20 @@ export const availableColumns = (type) => {
 
     return columns[type];
 };
+
+const transactionContract = [
+    { title: 'Award ID', customWidth: newCustomWidth1 },
+    { title: 'Mod', displayName: 'Modification Number', customWidth: newCustomWidth1 },
+    { title: 'Recipient Name', customWidth: newCustomWidth1 },
+    {
+        title: 'Transaction Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
+    },
+    { title: 'Action Date', customWidth: newCustomWidth1 },
+    { title: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 }
+];
+
 export const defaultColumns = (type) => {
     const columns = {
         contracts: defaultContract,
@@ -443,11 +458,13 @@ export const defaultColumns = (type) => {
         other: defaultOther,
         idvs: defaultIdvColumns,
         subcontracts: defaultSub,
-        subgrants: defaultSub
+        subgrants: defaultSub,
+        transactionContract
     };
 
     return columns[type];
 };
+
 export const defaultSort = (type) => {
     const columns = {
         contracts: 'Award Amount',
