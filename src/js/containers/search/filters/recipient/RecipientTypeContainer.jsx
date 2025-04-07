@@ -8,7 +8,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import RecipientTypeAccordion from 'components/search/filters/recipient/RecipientTypeAccordion';
+import { recipientTypeMapping } from "helpers/search/filterCheckboxHelper";
+import { recipientTypes } from 'dataMapping/search/recipientType';
+import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
 
 const propTypes = {
     toggleRecipientType: PropTypes.func,
@@ -17,16 +19,17 @@ const propTypes = {
 };
 
 const RecipientTypeContainer = ({
-    toggleRecipientType, recipientType, searchV2
+    recipientType, toggleRecipientType, searchV2
 }) => {
     const toggleRecipientTypeFunc = (selection) => {
         toggleRecipientType(selection);
     };
-
     return (
-        <RecipientTypeAccordion
-            selectedTypes={recipientType}
-            toggleCheckboxType={toggleRecipientTypeFunc}
+        <ListCheckbox
+            filterCategoryMapping={recipientTypeMapping}
+            filters={recipientTypes}
+            selectedFilters={recipientType}
+            singleFilterChange={toggleRecipientTypeFunc}
             searchV2={searchV2} />
     );
 };
