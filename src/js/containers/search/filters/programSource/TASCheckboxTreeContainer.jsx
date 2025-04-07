@@ -191,6 +191,9 @@ const TASCheckboxTree = ({
                     if (resolveLoadingIndicator) {
                         setIsLoading(false);
                     }
+
+                    // this fails because on check fails
+                    console.log("checked", checked);
                     const newChecked = checked.includes(`children_of_${key}`)
                         ? autoCheckTasAfterExpand(
                             { children: tmpNodes, value: key },
@@ -324,12 +327,18 @@ const TASCheckboxTree = ({
 
         console.log("here unchecked", newChecked, newUnchecked);
         // setCheckedTas([newChecked.id]);
-        updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
+        // updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
+        //     getTasAncestryPathForChecked(newUnchecked, nodes),
+        //     newCounts);
+
+        updateTasCountandStage(newCounts, getTasAncestryPathForChecked(newChecked, nodes),
             getTasAncestryPathForChecked(newUnchecked, nodes),
             newCounts);
     };
 
     const onCheck = (newChecked) => {
+        console.log("new checked in oncheck", newChecked);
+
         const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
             newChecked,
             checked,
@@ -404,7 +413,7 @@ const TASCheckboxTree = ({
             // showTasTree();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nodes]);
+    }, []);
 
     return (
         <div className="tas-checkbox">

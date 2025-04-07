@@ -79,6 +79,7 @@ const CheckboxTree = (props) => {
      * @returns {null}
      */
     const checkedNode = (checked, node) => {
+        console.log(" in checkbox tree", checked, node);
         props.onCheck(checked, node);
     };
     /**
@@ -102,12 +103,12 @@ const CheckboxTree = (props) => {
      */
     const onChecked = (checked, node) => {
         if (!props.isLoading) {
-            if (props.checked.length < checked.length) {
+            // if (props.checked.length < checked.length) {
                 checkedNode(checked, node);
-            }
-            else {
-                unCheckedNode(checked, node);
-            }
+            // }
+            // else {
+            //     unCheckedNode(checked, node);
+            // }
         }
     };
     /**
