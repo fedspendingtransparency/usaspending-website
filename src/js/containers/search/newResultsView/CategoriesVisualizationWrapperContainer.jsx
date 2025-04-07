@@ -327,7 +327,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             page,
             auditTrail,
             subawards: props.subaward,
-            spendingLevel: props.spendingLevel
+            spending_level: props.spendingLevel
         };
 
         apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);

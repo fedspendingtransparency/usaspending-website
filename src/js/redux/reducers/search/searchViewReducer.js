@@ -7,7 +7,7 @@ export const initialState = {
     type: 'table',
     subaward: false,
     mapHasLoaded: false,
-    spendingLevel: 'prime'
+    spendingLevel: 'awards'
 };
 
 const searchViewReducer = (state = initialState, action) => {
