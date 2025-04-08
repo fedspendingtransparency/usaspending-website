@@ -128,7 +128,13 @@ const ResultsView = React.memo((props) => {
 
             if (!props.noFiltersApplied) {
                 if (hasResults) {
-                    content = <SectionsContent tabData={tabData} subaward={subaward} hash={props.hash} />;
+                    content = (
+                        <SectionsContent
+                            tabData={tabData}
+                            subaward={subaward}
+                            hash={props.hash}
+                            spendingLevel={spendingLevel} />
+                    );
                 }
                 else {
                     content = <NoDataScreen />;
