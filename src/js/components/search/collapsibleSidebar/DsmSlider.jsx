@@ -38,6 +38,35 @@ const DsmSlider = (props) => {
         }
         return `filter`;
     };
+
+    const renderButtonLabel = () => {
+        if (props.currentLevel === 1) {
+            return (
+                <>
+                    <div>Learn how active filters work</div>
+                    <div>{props.isDsmOpened ? (
+                        <FontAwesomeIcon className="chevron" icon="chevron-up" />
+                    ) : (
+                        <FontAwesomeIcon className="chevron" icon="window-restore" />
+                    )}
+                    </div>
+                </>
+            );
+        }
+
+        return (
+            <>
+                <div>About the {props.selectedCategoryTitle} {adjustFilterLabel()}</div>
+                <div>{props.isDsmOpened ? (
+                    <FontAwesomeIcon className="chevron" icon="chevron-up" />
+                ) : (
+                    <FontAwesomeIcon className="chevron" icon="chevron-down" />
+                )}
+                </div>
+            </>
+        );
+    };
+
     return (
         <div
             className={`collapsible-sidebar--dsm-slider ${props?.isDsmOpened ? `dsm-opened` : ''}`}>
@@ -49,7 +78,7 @@ const DsmSlider = (props) => {
                     if (e.key === 'Enter') {
                         props.setIsDsmOpened(!props.isDsmOpened);
                     }
-                }}><div>About the {props.selectedCategoryTitle} {adjustFilterLabel()}</div><div>{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}</div>
+                }}>{renderButtonLabel()}
             </span>
             {props.isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">
