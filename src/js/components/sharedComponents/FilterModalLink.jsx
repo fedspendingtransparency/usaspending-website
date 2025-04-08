@@ -9,7 +9,7 @@ export default () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="filter-modal-link">
+        <div className="collapsible-sidebar--dsm-wrapper--text-section" style={{ marginTop: "1.5em" }}>
             <Button
                 onClick={(e) => {
                     e.persist();
