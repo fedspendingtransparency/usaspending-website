@@ -12,6 +12,7 @@ import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
+import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -77,14 +78,21 @@ const SidebarContent = ({
     };
 
     return (<>
-        <SearchSidebarMainMenu
+        {!isDsmOpened && <SearchSidebarMainMenu
             isDrilldown={isDrilldown}
-            sidebarContentHeight={sidebarContentHeight}
+            sidebarContentHeight={sidebarContentHeight-50}
             setLevel2={setLevel2}
             itemCount={itemCount}
-            setShowMobileFilters={setShowMobileFilters}
+            setShowMobileFilters={setShowMobileFilters} />
+        }
+        <DsmSlider
             isDsmOpened={isDsmOpened}
-            setIsDsmOpened={setIsDsmOpened} />
+            setIsDsmOpened={setIsDsmOpened}
+            dsmFile="learn-filters-panel.mdx"
+            currentLevel={1}
+            selectedCategoryTitle=""
+            height={sidebarContentHeight+50}
+            hasChildren={false} />
 
         <SearchSidebarDrilldown
             list={drilldown?.children}

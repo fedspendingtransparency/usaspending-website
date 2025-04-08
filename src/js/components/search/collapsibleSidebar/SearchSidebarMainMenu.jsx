@@ -16,9 +16,7 @@ const propTypes = {
     sidebarContentHeight: PropTypes.number,
     setLevel2: PropTypes.func,
     itemCount: PropTypes.object,
-    setShowMobileFilters: PropTypes.func,
-    isDsmOpened: PropTypes.bool,
-    setIsDsmOpened: PropTypes.func
+    setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarMainMenu = ({
@@ -26,9 +24,7 @@ const SearchSidebarMainMenu = ({
     sidebarContentHeight,
     setLevel2,
     itemCount,
-    setShowMobileFilters,
-    isDsmOpened,
-    setIsDsmOpened
+    setShowMobileFilters
 }) => {
     const selectedItems = useRef({
         location: <SearchSidebarFilterChips category="location" />,
@@ -40,47 +36,34 @@ const SearchSidebarMainMenu = ({
 
     return (
         <div className={`collapsible-sidebar--main-menu ${isDrilldown ? '' : 'opened'}`}>
-            {!isDsmOpened &&
-                <>
-                    <div className="collapsible-sidebar--header">
-                        <span>Search by...</span>
-                        <button
-                            className="close-button"
-                            id="collapsible-mobile-close-button"
-                            aria-label="Close Mobile Filters"
-                            title="Close Mobile Filters"
-                            onClick={() => {
-                                setShowMobileFilters(false);
-                            }}>
-                            <Icons.Close alt="Close About The Data" />
-                        </button>
-                    </div>
-                    <div className="collapsible-sidebar--search-filters-list" style={{ height: (sidebarContentHeight - 50)}}>
-                        {SearchFilterCategories.map((item, i) => (<CategoryHeader
-                            key={i}
-                            item={item}
-                            iconName={item.iconName}
-                            iconColor={item.iconColor}
-                            iconBackgroundColor={item.iconBackgroundColor}
-                            title={item.title}
-                            description={item.description}
-                            itemCount={itemCount[item.categoryKey]}
-                            selectedItems={selectedItems.current[item.categoryKey]}
-                            selectCategory={setLevel2}
-                            isClickable
-                            showDescription />))}
-                    </div>
-                </>
-            }
-
-            <DsmSlider
-                isDsmOpened={isDsmOpened}
-                setIsDsmOpened={setIsDsmOpened}
-                dsmFile="learn-filters-panel.mdx"
-                currentLevel={1}
-                selectedCategoryTitle=""
-                height={sidebarContentHeight}
-                hasChildren={false} />
+            <div className="collapsible-sidebar--header">
+                <span>Search by...</span>
+                <button
+                    className="close-button"
+                    id="collapsible-mobile-close-button"
+                    aria-label="Close Mobile Filters"
+                    title="Close Mobile Filters"
+                    onClick={() => {
+                        setShowMobileFilters(false);
+                    }}>
+                    <Icons.Close alt="Close About The Data" />
+                </button>
+            </div>
+            <div className="collapsible-sidebar--search-filters-list" style={{ height: (sidebarContentHeight)}}>
+                {SearchFilterCategories.map((item, i) => (<CategoryHeader
+                    key={i}
+                    item={item}
+                    iconName={item.iconName}
+                    iconColor={item.iconColor}
+                    iconBackgroundColor={item.iconBackgroundColor}
+                    title={item.title}
+                    description={item.description}
+                    itemCount={itemCount[item.categoryKey]}
+                    selectedItems={selectedItems.current[item.categoryKey]}
+                    selectCategory={setLevel2}
+                    isClickable
+                    showDescription />))}
+            </div>
         </div>
     );
 };
