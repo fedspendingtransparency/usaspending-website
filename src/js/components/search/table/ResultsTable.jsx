@@ -446,6 +446,7 @@ export default class ResultsTable extends React.Component {
                         limit={90} />,
                     obj['Action Type'] || '--',
                     obj['Award Type'] || '--',
+                    obj['Recipient UEI'] || '--',
                     <a
                         target="_blank"
                         rel="noopener noreferrer"
