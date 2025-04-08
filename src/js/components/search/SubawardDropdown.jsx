@@ -28,8 +28,8 @@ const SubawardDropdown = ({
     const onClick = (e) => {
         dispatch(setSearchViewSubaward(e === 'subawards'));
         dispatch(setSpendingLevel(e));
+        setSelected(e);
 
-        setSelected(e === 'awards' ? 'awards' : 'subawards');
         if (e === 'subawards') {
             Analytics.event({
                 event: 'search_subaward_dropdown',
