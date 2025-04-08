@@ -436,7 +436,7 @@ export const availableColumns = (type) => {
     return columns[type];
 };
 
-const defaultTransaction = [
+const defaultTransactionContract = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Mod', displayName: 'Modification Number', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
@@ -459,6 +459,28 @@ const defaultTransaction = [
     { title: 'PSC', displayName: 'Product and Service Code (PSC)', customWidth: newCustomWidth2 }
 ];
 
+const defaultTransactionFA = [
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Mod', displayName: 'Modification Number', customWidth: newDefaultWidth },
+    { title: 'Recipient Name', customWidth: newCustomWidth1 },
+    {
+        title: 'Transaction Amount',
+        right: true,
+        displayName: 'Obligations',
+        customWidth: newDefaultWidth
+    },
+    { title: 'Action Date', customWidth: newDefaultWidth },
+    { title: 'Transaction Description', customWidth: newCustomWidth2 },
+    { title: 'Action Type', customWidth: newDefaultWidth },
+    { title: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Recipient UEI', customWidth: newDefaultWidth },
+    { title: 'Recipient Location', customWidth: newCustomWidth1 },
+    { title: 'Primary Place of Performance', customWidth: newCustomWidth1 },
+    { title: 'Awarding Agency', customWidth: newCustomWidth1 },
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
+    { title: 'def_codes', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
+];
+
 export const defaultColumns = (type) => {
     const columns = {
         contracts: defaultContract,
@@ -469,12 +491,12 @@ export const defaultColumns = (type) => {
         idvs: defaultIdvColumns,
         subcontracts: defaultSub,
         subgrants: defaultSub,
-        transaction_contracts: defaultTransaction,
-        transaction_grants: defaultTransaction,
-        transaction_direct_payments: defaultTransaction,
-        transaction_loans: defaultTransaction,
-        transaction_other: defaultTransaction,
-        transaction_idvs: defaultTransaction
+        transaction_contracts: defaultTransactionContract,
+        transaction_grants: defaultTransactionFA,
+        transaction_direct_payments: defaultTransactionFA,
+        transaction_loans: defaultTransactionFA,
+        transaction_other: defaultTransactionFA,
+        transaction_idvs: defaultTransactionContract
     };
 
     return columns[type];

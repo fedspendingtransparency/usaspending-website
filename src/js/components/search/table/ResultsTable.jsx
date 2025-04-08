@@ -441,56 +441,111 @@ export default class ResultsTable extends React.Component {
 
         // check for transactions
         else if (this.props.spendingLevel === 'transactions') {
-            values = arrayOfObjects.map((obj) => {
-                const value = [];
-                value.push(
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={`/award/${obj.generated_internal_id}`}
-                        onClick={() => {
-                            this.clickHandler(obj['Award ID']);
-                        }}>{obj['Award ID']}
-                    </a> || '--',
-                    obj.Mod || '--',
-                    obj['Recipient Name'] || '--',
-                    MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--"),
-                    obj['Action Date'] || '--',
-                    <ReadMore
-                        text={obj['Transaction Description'] || '--'}
-                        limit={90} />,
-                    obj['Action Type'] || '--',
-                    obj['Award Type'] || '--',
-                    obj['Recipient UEI'] || '--',
-                    this.pickLocationFormat(
-                        obj['Recipient Location']?.city_name,
-                        obj['Recipient Location']?.state_code,
-                        obj['Recipient Location']?.zip5,
-                        obj['Recipient Location']?.location_country_code,
-                        obj['Recipient Location']?.country_name
-                    ),
-                    this.pickLocationFormat(
-                        obj['Primary Place of Performance']?.city_name,
-                        obj['Primary Place of Performance']?.state_code,
-                        obj['Primary Place of Performance']?.zip5,
-                        obj['Primary Place of Performance']?.location_country_code,
-                        obj['Primary Place of Performance']?.country_name
-                    ),
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={`/agency/${obj.agency_slug}`}
-                        onClick={() => {
-                            this.clickHandler(obj['Awarding Agency']);
-                        }}>{obj['Awarding Agency']}
-                    </a> || '--',
-                    obj['Awarding Sub Agency'] || '--',
-                    `${obj.NAICS?.code} - ${obj.NAICS?.description}` || '--',
-                    `${obj.PSC?.code} - ${obj.PSC?.description}` || '--'
-                );
+            // check for contract or contract idv
+            if (this.props.currentType === "transaction_contracts" || this.props.currentType === "transaction_idvs") {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/award/${obj.generated_internal_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Award ID']);
+                            }}>{obj['Award ID']}
+                        </a> || '--',
+                        obj.Mod || '--',
+                        obj['Recipient Name'] || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--"),
+                        obj['Action Date'] || '--',
+                        <ReadMore
+                            text={obj['Transaction Description'] || '--'}
+                            limit={90} />,
+                        obj['Action Type'] || '--',
+                        obj['Award Type'] || '--',
+                        obj['Recipient UEI'] || '--',
+                        this.pickLocationFormat(
+                            obj['Recipient Location']?.city_name,
+                            obj['Recipient Location']?.state_code,
+                            obj['Recipient Location']?.zip5,
+                            obj['Recipient Location']?.location_country_code,
+                            obj['Recipient Location']?.country_name
+                        ),
+                        this.pickLocationFormat(
+                            obj['Primary Place of Performance']?.city_name,
+                            obj['Primary Place of Performance']?.state_code,
+                            obj['Primary Place of Performance']?.zip5,
+                            obj['Primary Place of Performance']?.location_country_code,
+                            obj['Primary Place of Performance']?.country_name
+                        ),
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/agency/${obj.agency_slug}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Awarding Agency']);
+                            }}>{obj['Awarding Agency']}
+                        </a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        `${obj.NAICS?.code} - ${obj.NAICS?.description}` || '--',
+                        `${obj.PSC?.code} - ${obj.PSC?.description}` || '--'
+                    );
 
-                return value;
-            });
+                    return value;
+                });
+            }
+            else {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/award/${obj.generated_internal_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Award ID']);
+                            }}>{obj['Award ID']}
+                        </a> || '--',
+                        obj.Mod || '--',
+                        obj['Recipient Name'] || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--"),
+                        obj['Action Date'] || '--',
+                        <ReadMore
+                            text={obj['Transaction Description'] || '--'}
+                            limit={90} />,
+                        obj['Action Type'] || '--',
+                        obj['Award Type'] || '--',
+                        obj['Recipient UEI'] || '--',
+                        this.pickLocationFormat(
+                            obj['Recipient Location']?.city_name,
+                            obj['Recipient Location']?.state_code,
+                            obj['Recipient Location']?.zip5,
+                            obj['Recipient Location']?.location_country_code,
+                            obj['Recipient Location']?.country_name
+                        ),
+                        this.pickLocationFormat(
+                            obj['Primary Place of Performance']?.city_name,
+                            obj['Primary Place of Performance']?.state_code,
+                            obj['Primary Place of Performance']?.zip5,
+                            obj['Primary Place of Performance']?.location_country_code,
+                            obj['Primary Place of Performance']?.country_name
+                        ),
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/agency/${obj.agency_slug}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Awarding Agency']);
+                            }}>{obj['Awarding Agency']}
+                        </a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj.def_codes || '--'
+                    );
+
+                    return value;
+                });
+            }
+
             return values;
         }
 
