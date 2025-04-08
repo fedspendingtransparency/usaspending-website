@@ -242,6 +242,7 @@ const ResultsTableContainer = (props) => {
                 "Award Type",
                 "Recipient UEI",
                 "Recipient Location",
+                "Primary Place of Performance",
                 "Awarding Agency",
                 "awarding_agency_id",
                 "Awarding Sub Agency"

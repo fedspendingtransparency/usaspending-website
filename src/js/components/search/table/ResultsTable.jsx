@@ -93,12 +93,15 @@ export default class ResultsTable extends React.Component {
         window.removeEventListener('resize', this.measureHeight);
     }
 
-    pickLocationFormat(city, state, zip, countryCode) {
+    pickLocationFormat(city, state, zip, countryCode, countryName) {
         if (state) {
             return `${convertToTitleCase(city)}, ${state}, ${zip}`;
         }
-        else if (countryCode) {
+        else if (city && countryCode) {
             return `${convertToTitleCase(city)}, ${countryCode}`;
+        }
+        else if (countryName) {
+            return convertToTitleCase(countryName);
         }
         return '--';
     }
@@ -463,7 +466,15 @@ export default class ResultsTable extends React.Component {
                         obj['Recipient Location']?.city_name,
                         obj['Recipient Location']?.state_code,
                         obj['Recipient Location']?.zip5,
-                        obj['Recipient Location']?.country_code
+                        obj['Recipient Location']?.location_country_code,
+                        obj['Recipient Location']?.country_name
+                    ),
+                    this.pickLocationFormat(
+                        obj['Primary Place of Performance']?.city_name,
+                        obj['Primary Place of Performance']?.state_code,
+                        obj['Primary Place of Performance']?.zip5,
+                        obj['Primary Place of Performance']?.location_country_code,
+                        obj['Primary Place of Performance']?.country_name
                     ),
                     <a
                         target="_blank"

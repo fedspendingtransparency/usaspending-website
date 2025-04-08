@@ -449,6 +449,7 @@ const defaultTransaction = [
     { title: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Recipient UEI', customWidth: newCustomWidth1 },
     { title: 'Recipient Location', customWidth: newCustomWidth1 },
+    { title: 'Primary Place of Performance', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 }
 ];
