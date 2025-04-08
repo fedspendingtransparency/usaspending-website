@@ -80,20 +80,20 @@ const SidebarContent = ({
     return (<>
         {!isDsmOpened && <SearchSidebarMainMenu
             isDrilldown={isDrilldown}
-            sidebarContentHeight={sidebarContentHeight-50}
+            sidebarContentHeight={sidebarContentHeight - 50}
             setLevel2={setLevel2}
             itemCount={itemCount}
             setShowMobileFilters={setShowMobileFilters} />
         }
-        <DsmSlider
+        {currentLevel === 1 && <DsmSlider
             isDsmOpened={isDsmOpened}
             setIsDsmOpened={setIsDsmOpened}
             dsmFile="learn-filters-panel.mdx"
             currentLevel={1}
             selectedCategoryTitle=""
-            height={sidebarContentHeight+50}
+            height={sidebarContentHeight + 50}
             hasChildren={false} />
-
+        }
         <SearchSidebarDrilldown
             list={drilldown?.children}
             filter={drilldown?.component}

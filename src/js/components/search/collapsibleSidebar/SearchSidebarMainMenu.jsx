@@ -9,7 +9,6 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import { SearchFilterCategories } from "dataMapping/search/searchFilterCategories";
 import CategoryHeader from "./CategoryHeader";
 import SearchSidebarFilterChips from "../../../models/v1/search/SearchSidebarFilterChips";
-import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     isDrilldown: PropTypes.bool,
@@ -49,7 +48,7 @@ const SearchSidebarMainMenu = ({
                     <Icons.Close alt="Close About The Data" />
                 </button>
             </div>
-            <div className="collapsible-sidebar--search-filters-list" style={{ height: (sidebarContentHeight)}}>
+            <div className="collapsible-sidebar--search-filters-list" style={{ height: (sidebarContentHeight) }}>
                 {SearchFilterCategories.map((item, i) => (<CategoryHeader
                     key={i}
                     item={item}
