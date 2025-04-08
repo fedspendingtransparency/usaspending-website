@@ -136,7 +136,6 @@ const TASCheckboxTree = ({
             const realCheckedWithPlaceholders = flattenDeep(newChecked
                 .map((ch) => getAllDescendants(getTasNodeFromTree(nodes, ch), uncheckedFromHashTmp))
             );
-            console.log("here setCheckedStateFromUrlHash", realCheckedWithPlaceholders);
 
             setCheckedTas(realCheckedWithPlaceholders);
             setIsLoading(false);
@@ -167,7 +166,6 @@ const TASCheckboxTree = ({
 
 
     const fetchTas = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
-        console.log("here");
         if (request) request.cancel();
         if (id === '') {
             setIsLoading(true);
@@ -181,7 +179,6 @@ const TASCheckboxTree = ({
         return request.promise
             .then(({ data }) => {
                 // dynamically populating tree branches
-                console.log(data.results);
                 const tmpNodes = cleanTasData(data.results);
                 if (isPartialTree) {
                     // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
@@ -193,7 +190,6 @@ const TASCheckboxTree = ({
                     }
 
                     // this fails because on check fails
-                    console.log("checked", checked);
                     const newChecked = checked.includes(`children_of_${key}`)
                         ? autoCheckTasAfterExpand(
                             { children: tmpNodes, value: key },
@@ -210,7 +206,6 @@ const TASCheckboxTree = ({
                             searchExpandedNodes,
                             tmpNodes
                         );
-                        console.log("here request1", nodesCheckedByPlaceholderOrAncestor, tmpNodes);
 
                         setCheckedTas(nodesCheckedByPlaceholderOrAncestor);
                         if (tmpNodes?.length === 0) {
@@ -218,13 +213,11 @@ const TASCheckboxTree = ({
                         }
                     }
                     else {
-                        console.log("here request2", newChecked, tmpNodes);
                         setTasNodes(key, tmpNodes);
                         setCheckedTas(newChecked);
                     }
                 }
                 else {
-                    console.log("here request3", tmpNodes);
                     // populating tree trunk
                     setTasNodes('', tmpNodes);
                     setIsLoading(false);
@@ -243,7 +236,6 @@ const TASCheckboxTree = ({
 
     const fetchTasItems = () => fetchTas('')
         .then(() => {
-            console.log("here maybe");
             if (checkedFromHash?.length > 0) {
                 setTasCounts(countsFromHash);
                 return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
@@ -269,7 +261,6 @@ const TASCheckboxTree = ({
 
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        console.log(selectedNode);
         let treeDepth = 0;
 
         if (selectedNode?.id?.includes("/") && selectedNode?.id?.includes("-")) {
@@ -325,7 +316,6 @@ const TASCheckboxTree = ({
             nodes
         );
 
-        console.log("here unchecked", newChecked, newUnchecked);
         // setCheckedTas([newChecked.id]);
         // updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
         //     getTasAncestryPathForChecked(newUnchecked, nodes),
@@ -337,8 +327,6 @@ const TASCheckboxTree = ({
     };
 
     const onCheck = (newChecked) => {
-        console.log("new checked in oncheck", newChecked);
-
         const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
             newChecked,
             checked,
@@ -347,10 +335,11 @@ const TASCheckboxTree = ({
             counts
         );
 
-        console.log("here onchecked", newChecked);
+        console.log("here onchecked", newChecked, nodes);
 
-        setCheckedTas([newChecked.id]);
+        setCheckedTas(newChecked);
         setUncheckedTas(newUnchecked);
+        console.log("trim checked to common ancestors 1", checked, nodes);
         updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
             getTasAncestryPathForChecked(newUnchecked, nodes),
             newCounts);
@@ -392,7 +381,7 @@ const TASCheckboxTree = ({
 
 
     useEffect(() => {
-        console.log("nodes in useeffect", nodes);
+        console.log("trim checked to common ancestors", checked, nodes);
         if (nodes?.length !== 0 && checkedFromHash?.length) {
             setCheckedStateFromUrlHash(checkedFromHash?.map((ancestryPath) => ancestryPath.pop()));
             const stageTasArgs = [trimCheckedToCommonAncestors(getTasAncestryPathForChecked(checked, nodes)),

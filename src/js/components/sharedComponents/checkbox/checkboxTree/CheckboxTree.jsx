@@ -80,7 +80,7 @@ const CheckboxTree = (props) => {
      */
     const checkedNode = (checked, node) => {
         console.log(" in checkbox tree", checked, node);
-        props.onCheck(checked, node);
+        props.onCheck([node.id]);
     };
     /**
      * unCheckedNode
