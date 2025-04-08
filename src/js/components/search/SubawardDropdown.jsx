@@ -60,6 +60,7 @@ const SubawardDropdown = ({
         ];
 
     const sortFn = () => options;
+
     return (
         <div className="subaward-dropdown__container">
             <NewPicker
