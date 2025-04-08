@@ -61,6 +61,7 @@ const ResultsView = React.memo((props) => {
             countRequest = performSpendingByAwardTabCountSearch({
                 filters: searchParamsTemp.toParams(),
                 spendingLevel,
+                subawards: subaward,
                 auditTrail: 'Results View - Tab Counts'
             });
         }
@@ -74,7 +75,7 @@ const ResultsView = React.memo((props) => {
                 } = res.data.results;
                 let resCount = contracts + direct_payments + grants + idvs + loans + other;
 
-                if (subaward) {
+                if (spendingLevel === 'subawards') {
                     resCount = subgrants + subcontracts;
                 }
                 /* eslint-enable camelcase */
