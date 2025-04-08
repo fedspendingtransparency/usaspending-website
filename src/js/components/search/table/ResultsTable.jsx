@@ -484,7 +484,9 @@ export default class ResultsTable extends React.Component {
                             this.clickHandler(obj['Awarding Agency']);
                         }}>{obj['Awarding Agency']}
                     </a> || '--',
-                    obj['Awarding Sub Agency'] || '--'
+                    obj['Awarding Sub Agency'] || '--',
+                    `${obj.NAICS?.code} - ${obj.NAICS?.description}` || '--',
+                    `${obj.PSC?.code} - ${obj.PSC?.description}` || '--'
                 );
 
                 return value;

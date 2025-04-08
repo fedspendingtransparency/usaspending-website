@@ -437,21 +437,26 @@ export const availableColumns = (type) => {
 };
 
 const defaultTransaction = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
-    { title: 'Mod', displayName: 'Modification Number', customWidth: newCustomWidth1 },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
+    { title: 'Mod', displayName: 'Modification Number', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
-        title: 'Transaction Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
+        title: 'Transaction Amount',
+        right: true,
+        displayName: 'Obligations',
+        customWidth: newDefaultWidth
     },
-    { title: 'Action Date', customWidth: newCustomWidth1 },
+    { title: 'Action Date', customWidth: newDefaultWidth },
     { title: 'Transaction Description', customWidth: newCustomWidth2 },
-    { title: 'Action Type', customWidth: newCustomWidth1 },
-    { title: 'Award Type', customWidth: newCustomWidth1 },
-    { title: 'Recipient UEI', customWidth: newCustomWidth1 },
+    { title: 'Action Type', customWidth: newDefaultWidth },
+    { title: 'Award Type', customWidth: newDefaultWidth },
+    { title: 'Recipient UEI', customWidth: newDefaultWidth },
     { title: 'Recipient Location', customWidth: newCustomWidth1 },
     { title: 'Primary Place of Performance', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
-    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 }
+    { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
+    { title: 'NAICS', displayName: 'North American Classification System (NAICS)', customWidth: newCustomWidth2 },
+    { title: 'PSC', displayName: 'Product and Service Code (PSC)', customWidth: newCustomWidth2 }
 ];
 
 export const defaultColumns = (type) => {

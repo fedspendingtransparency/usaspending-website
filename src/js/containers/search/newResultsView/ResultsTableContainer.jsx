@@ -245,7 +245,9 @@ const ResultsTableContainer = (props) => {
                 "Primary Place of Performance",
                 "Awarding Agency",
                 "awarding_agency_id",
-                "Awarding Sub Agency"
+                "Awarding Sub Agency",
+                "NAICS",
+                "PSC"
             ];
 
             searchRequest = performKeywordSearch(params);
