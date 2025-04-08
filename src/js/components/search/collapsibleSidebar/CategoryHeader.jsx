@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectedItemsChips from "./SelectedItemsChips";
 import { truncateItemCount } from '../../../helpers/search/collapsiblesidebarHelper';
+import { formatNumber } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     iconName: PropTypes.string,
@@ -54,7 +55,7 @@ const CategoryHeader = ({
                 </div>
                 <div className="search-filter__top-row-selected-container">
                     {itemCount > 0 &&
-                        <div className="search-filter__top-row-selected">{showFullCount ? truncateItemCount(itemCount) : Accounting.formatNumber(itemCount, 'thousand')} selected</div>
+                        <div className="search-filter__top-row-selected">{showFullCount ? truncateItemCount(itemCount) : formatNumber(itemCount)} selected</div>
                     }
                 </div>
             </div>
