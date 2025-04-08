@@ -55,7 +55,7 @@ const SearchSidebarMainMenu = ({
                             <Icons.Close alt="Close About The Data" />
                         </button>
                     </div>
-                    <div className="collapsible-sidebar--search-filters-list" style={{ height: sidebarContentHeight }}>
+                    <div className="collapsible-sidebar--search-filters-list" style={{ height: (sidebarContentHeight - 50)}}>
                         {SearchFilterCategories.map((item, i) => (<CategoryHeader
                             key={i}
                             item={item}
