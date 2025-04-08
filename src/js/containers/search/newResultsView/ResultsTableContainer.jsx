@@ -248,7 +248,7 @@ const ResultsTableContainer = (props) => {
                 "Awarding Sub Agency",
                 "NAICS",
                 "PSC",
-                "def_codes"
+                "Assistance Listing"
             ];
 
             searchRequest = performKeywordSearch(params);

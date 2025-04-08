@@ -532,7 +532,7 @@ export default class ResultsTable extends React.Component {
                             }}>{obj['Awarding Agency']}
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
-                        obj.def_codes || '--'
+                        `${obj['Assistance Listing']?.cfda_number} - ${obj['Assistance Listing']?.cfda_title}` || '--'
                     );
 
                     return value;

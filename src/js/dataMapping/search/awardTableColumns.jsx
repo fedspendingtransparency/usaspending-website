@@ -478,7 +478,7 @@ const defaultTransactionFA = [
     { title: 'Primary Place of Performance', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
-    { title: 'def_codes', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
+    { title: 'Assistance Listing', customWidth: newCustomWidth2 }
 ];
 
 export const defaultColumns = (type) => {
