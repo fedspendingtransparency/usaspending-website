@@ -444,6 +444,7 @@ export default class ResultsTable extends React.Component {
                     <ReadMore
                         text={obj['Transaction Description'] || '--'}
                         limit={90} />,
+                    obj['Action Type'] || '--',
                     obj['Award Type'] || '--',
                     <a
                         target="_blank"
