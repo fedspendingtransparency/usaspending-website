@@ -14,6 +14,7 @@ import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
+import { convertToTitleCase } from "../../../helpers/searchHelper";
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
@@ -56,6 +57,7 @@ export default class ResultsTable extends React.Component {
         this.prepareTable = this.prepareTable.bind(this);
         this.measureHeight = this.measureHeight.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
+        this.pickLocationFormat = this.pickLocationFormat.bind(this);
     }
 
     componentDidMount() {
@@ -89,6 +91,16 @@ export default class ResultsTable extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.measureHeight);
+    }
+
+    pickLocationFormat(city, state, zip, countryCode) {
+        if (state) {
+            return `${convertToTitleCase(city)}, ${state}, ${zip}`;
+        }
+        else if (countryCode) {
+            return `${convertToTitleCase(city)}, ${countryCode}`;
+        }
+        return '--';
     }
 
     measureHeight() {
@@ -447,6 +459,12 @@ export default class ResultsTable extends React.Component {
                     obj['Action Type'] || '--',
                     obj['Award Type'] || '--',
                     obj['Recipient UEI'] || '--',
+                    this.pickLocationFormat(
+                        obj['Recipient Location']?.city_name,
+                        obj['Recipient Location']?.state_code,
+                        obj['Recipient Location']?.zip5,
+                        obj['Recipient Location']?.country_code
+                    ),
                     <a
                         target="_blank"
                         rel="noopener noreferrer"

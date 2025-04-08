@@ -252,7 +252,7 @@ export const getObjFromQueryParams = (str) => {
     return obj;
 };
 
-const convertToTitleCase = (str) => {
+export const convertToTitleCase = (str) => {
     if (!str) {
         return "";
     }
