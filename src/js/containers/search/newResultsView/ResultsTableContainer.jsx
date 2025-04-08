@@ -243,8 +243,6 @@ const ResultsTableContainer = (props) => {
                 "Awarding Sub Agency"
             ];
 
-            params.sort = 'Transaction Amount';
-
             searchRequest = performKeywordSearch(params);
         }
         else {
@@ -477,7 +475,7 @@ const ResultsTableContainer = (props) => {
     };
 
     const updateSort = (field, direction) => {
-        if (field === 'Action Date') {
+        if (field === 'Action Date' && props.spendingLevel !== 'transactions') {
             setSort(Object.assign({
                 field: 'Sub-Award Date',
                 direction
