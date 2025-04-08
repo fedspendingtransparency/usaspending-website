@@ -444,6 +444,7 @@ const defaultTransaction = [
         title: 'Transaction Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
     },
     { title: 'Action Date', customWidth: newCustomWidth1 },
+    { title: 'Transaction Description', customWidth: newCustomWidth2 },
     { title: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 }

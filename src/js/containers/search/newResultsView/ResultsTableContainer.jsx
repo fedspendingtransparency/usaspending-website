@@ -237,6 +237,7 @@ const ResultsTableContainer = (props) => {
                 "Recipient Name",
                 "Transaction Amount",
                 "Action Date",
+                "Transaction Description",
                 "Award Type",
                 "Awarding Agency",
                 "awarding_agency_id",
