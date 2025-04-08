@@ -4,7 +4,6 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import Accounting from 'accounting';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectedItemsChips from "./SelectedItemsChips";
