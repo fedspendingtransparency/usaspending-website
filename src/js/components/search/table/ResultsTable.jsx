@@ -478,14 +478,7 @@ export default class ResultsTable extends React.Component {
                             obj['Primary Place of Performance']?.location_country_code,
                             obj['Primary Place of Performance']?.country_name
                         ),
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={`/agency/${obj.agency_slug}`}
-                            onClick={() => {
-                                this.clickHandler(obj['Awarding Agency']);
-                            }}>{obj['Awarding Agency']}
-                        </a> || '--',
+                        obj['Awarding Agency'] || '--',
                         obj['Awarding Sub Agency'] || '--',
                         `${obj.NAICS?.code} - ${obj.NAICS?.description}` || '--',
                         `${obj.PSC?.code} - ${obj.PSC?.description}` || '--'
