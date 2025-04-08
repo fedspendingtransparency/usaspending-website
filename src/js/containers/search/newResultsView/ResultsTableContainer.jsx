@@ -14,7 +14,7 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
-import { awardTypeGroups, subawardTypeGroups } from 'dataMapping/search/awardType';
+import { awardTypeGroups, subawardTypeGroups, transactionTypeGroups } from 'dataMapping/search/awardType';
 import {
     defaultColumns,
     defaultSort,
@@ -80,7 +80,27 @@ export const subTypes = [
 const transactionTypes = [
     {
         label: 'Contracts',
-        internal: 'transactionContract'
+        internal: 'transaction_contracts'
+    },
+    {
+        label: 'Contract IDVs',
+        internal: 'transaction_idvs'
+    },
+    {
+        label: 'Grants',
+        internal: 'transaction_grants'
+    },
+    {
+        label: 'Direct Payments',
+        internal: 'transaction_direct_payments'
+    },
+    {
+        label: 'Loans',
+        internal: 'transaction_loans'
+    },
+    {
+        label: 'Other',
+        internal: 'transaction_other'
     }
 ];
 
@@ -127,8 +147,12 @@ const ResultsTableContainer = (props) => {
 
         // generate an array of award type codes representing the current table tab we're showing
         // and use a different mapping if we're showing a subaward table vs a prime award table
-        const groupsFromTableType =
+        let groupsFromTableType =
             props.subaward ? subawardTypeGroups[tableTypeTemp] : awardTypeGroups[tableTypeTemp];
+
+        if (props.spendingLevel === 'transactions') {
+            groupsFromTableType = transactionTypeGroups[tableTypeTemp];
+        }
 
         if (searchParams.awardType.length === 0) {
             searchParamsTemp.awardType = groupsFromTableType;
@@ -344,16 +368,16 @@ const ResultsTableContainer = (props) => {
             setSort(Object.assign(newState.sort));
         }
         setPage(1);
-        Analytics.event({
-            event: 'search_table_tab',
-            category: 'Advanced Search - Table Tab',
-            action: tab,
-            gtm: true
-        });
+        // Analytics.event({
+        //     event: 'search_table_tab',
+        //     category: 'Advanced Search - Table Tab',
+        //     action: tab,
+        //     gtm: true
+        // });
     };
 
     const parseTabCounts = (data) => {
-        const awardCounts = data.results;
+        let awardCounts = data.results;
         let firstAvailable = '';
         let i = 0;
         let availableTabs = tableTypes;
@@ -363,6 +387,14 @@ const ResultsTableContainer = (props) => {
         }
         else if (props.spendingLevel === 'transactions') {
             availableTabs = transactionTypes;
+            awardCounts = {
+                transaction_contracts: data.results.contracts,
+                transaction_grants: data.results.grants,
+                transaction_direct_payments: data.results.direct_payments,
+                transaction_loans: data.results.loans,
+                transaction_other: data.results.other,
+                transaction_idvs: data.results.idvs
+            };
         }
 
         // Set the first available award type to the first non-zero entry in the
@@ -482,7 +514,15 @@ const ResultsTableContainer = (props) => {
         props.subAwardIdClicked(true);
     };
 
-    const availableTypes = props.subaward ? subTypes : tableTypes;
+    let availableTypes = tableTypes;
+
+    if (props.spendingLevel === 'subawards') {
+        availableTypes = subTypes;
+    }
+    else if (props.spendingLevel === 'transactions') {
+        availableTypes = transactionTypes;
+    }
+
     const tabsWithCounts = availableTypes.map((type) => ({
         ...type,
         count: counts[type.internal],

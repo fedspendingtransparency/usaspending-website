@@ -13,6 +13,7 @@ import { performSpendingByAwardTabCountSearch, areFiltersEqual } from "helpers/s
 import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
+import { performTabCountSearch } from "../../../helpers/keywordHelper";
 
 require("pages/search/searchPage.scss");
 
@@ -34,6 +35,7 @@ const ResultsView = React.memo((props) => {
     let mobileFilters = '';
     const filters = useSelector((state) => state.appliedFilters.filters);
     const subaward = useSelector((state) => state.searchView.subaward);
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
 
     let countRequest;
 
@@ -48,11 +50,20 @@ const ResultsView = React.memo((props) => {
         setInFlight(true);
         setError(false);
 
-        countRequest = performSpendingByAwardTabCountSearch({
-            filters: searchParamsTemp.toParams(),
-            subawards: subaward,
-            auditTrail: 'Results View - Tab Counts'
-        });
+        if (spendingLevel === 'transactions') {
+            countRequest = performTabCountSearch({
+                filters: searchParamsTemp.toParams(),
+                spendingLevel,
+                auditTrail: 'Results View - Tab Counts'
+            });
+        }
+        else {
+            countRequest = performSpendingByAwardTabCountSearch({
+                filters: searchParamsTemp.toParams(),
+                spendingLevel,
+                auditTrail: 'Results View - Tab Counts'
+            });
+        }
 
         countRequest.promise
             .then((res) => {
@@ -96,7 +107,7 @@ const ResultsView = React.memo((props) => {
             countRequest?.cancel();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filters, subaward]);
+    }, [filters, subaward, spendingLevel]);
 
 
     useEffect(() => {

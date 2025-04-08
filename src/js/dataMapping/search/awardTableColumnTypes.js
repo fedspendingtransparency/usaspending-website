@@ -94,6 +94,7 @@ export const awardTableColumnTypes = {
     'Sub-Awardee Name': 'string',
     'Sub-Award Amount': 'currency',
     'Prime Award ID': 'string',
-    'Prime Recipient Name': 'string'
+    'Prime Recipient Name': 'string',
+    'Transaction Amount': 'number'
 };
 /* eslint-enable quote-props */

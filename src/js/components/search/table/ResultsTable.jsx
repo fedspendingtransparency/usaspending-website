@@ -425,7 +425,7 @@ export default class ResultsTable extends React.Component {
         }
 
         // check for transactions
-        else if (!this.props.subaward) {
+        else if (this.props.spendingLevel === 'transactions') {
             if (this.props.currentType === "loans") {
                 values = arrayOfObjects.map((obj) => {
                     const value = [];

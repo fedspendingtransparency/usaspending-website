@@ -436,7 +436,7 @@ export const availableColumns = (type) => {
     return columns[type];
 };
 
-const transactionContract = [
+const defaultTransaction = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Mod', displayName: 'Modification Number', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
@@ -459,7 +459,12 @@ export const defaultColumns = (type) => {
         idvs: defaultIdvColumns,
         subcontracts: defaultSub,
         subgrants: defaultSub,
-        transactionContract
+        transaction_contracts: defaultTransaction,
+        transaction_grants: defaultTransaction,
+        transaction_direct_payments: defaultTransaction,
+        transaction_loans: defaultTransaction,
+        transaction_other: defaultTransaction,
+        transaction_idvs: defaultTransaction
     };
 
     return columns[type];
@@ -474,7 +479,13 @@ export const defaultSort = (type) => {
         other: 'Award Amount',
         idvs: 'Award Amount',
         subcontracts: 'Sub-Award Amount',
-        subgrants: 'Sub-Award Amount'
+        subgrants: 'Sub-Award Amount',
+        transaction_contracts: 'Transaction Amount',
+        transaction_grants: 'Transaction Amount',
+        transaction_direct_payments: 'Transaction Amount',
+        transaction_loans: 'Transaction Amount',
+        transaction_other: 'Transaction Amount',
+        transaction_idvs: 'Transaction Amount'
     };
 
     return columns[type];
