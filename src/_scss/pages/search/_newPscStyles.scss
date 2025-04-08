@@ -20,6 +20,7 @@
             border-radius: 3px;
             height: 100%;
             min-width: 100%;
+            line-height: 1.5;
             @include new-search-button;
         }
     }
