@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+
 import StateTimeVisualizationSection from
     'components/state/spendingovertime/StateTimeVisualizationSection';
 
@@ -33,11 +34,15 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             error: false,
             groups: [],
             xSeries: [],
-            ySeries: []
+            ySeries: [],
+            ySeriesOutlay: [],
+            outlayToggle: false
         };
 
         this.apiRequest = null;
         this.updateVisualizationPeriod = this.updateVisualizationPeriod.bind(this);
+        this.onOutlaysToggle = this.onOutlaysToggle.bind(this);
+        this.onKeyOutlaysToggle = this.onKeyOutlaysToggle.bind(this);
     }
 
     componentDidMount() {
@@ -49,6 +54,20 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             this.fetchData();
         }
     }
+
+    onOutlaysToggle = () => {
+        this.setState({
+            outlayToggle: !this.state.outlayToggle
+        });
+    };
+
+    onKeyOutlaysToggle = (event) => {
+        if (event.key === 'Enter') {
+            this.setState({
+                outlayToggle: !this.state.outlayToggle
+            });
+        }
+    };
 
     updateVisualizationPeriod(visualizationPeriod) {
         this.setState({
@@ -90,11 +109,11 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
 
         searchParams.time_period = timePeriod;
 
-
         // Generate the API parameters
         const apiParams = {
             group: this.state.visualizationPeriod,
-            filters: searchParams
+            filters: searchParams,
+            spending_level: "awards"
         };
 
         apiParams.auditTrail = 'Spending Over Time Visualization';
@@ -137,6 +156,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         const groups = [];
         const xSeries = [];
         const ySeries = [];
+        const ySeriesOutlay = [];
         const rawLabels = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
@@ -145,12 +165,14 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             rawLabels.push(this.generateTime(group, item.time_period, "raw"));
             xSeries.push([this.generateTime(group, item.time_period, "label")]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
+            ySeriesOutlay.push([parseFloat(item.total_outlays)]);
         });
 
         this.setState({
             groups,
             xSeries,
             ySeries,
+            ySeriesOutlay,
             rawLabels,
             loading: false,
             error: false
@@ -163,7 +185,10 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
                 data={this.state}
                 loading={this.state.loading}
                 updateVisualizationPeriod={this.updateVisualizationPeriod}
-                visualizationPeriod={this.state.visualizationPeriod} />
+                visualizationPeriod={this.state.visualizationPeriod}
+                outlayToggle={this.state.outlayToggle}
+                onKeyOutlaysToggle={this.onKeyOutlaysToggle}
+                onOutlaysToggle={this.onOutlaysToggle} />
         );
     }
 }
