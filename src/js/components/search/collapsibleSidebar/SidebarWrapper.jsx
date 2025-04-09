@@ -153,8 +153,11 @@ const SidebarWrapper = React.memo(({
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
         document.querySelector(".sidebar-submit").style.display = "block";
-        if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
-            document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "flex";
+        const allDsmSliders = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
+        if (allDsmSliders.length) {
+            for (const slider of allDsmSliders.values()) {
+                slider.style.display = "flex";
+            }
         }
     };
 
