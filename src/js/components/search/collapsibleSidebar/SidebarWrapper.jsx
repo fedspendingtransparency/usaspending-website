@@ -35,7 +35,7 @@ const SidebarWrapper = React.memo(({
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
-    const sidebarStaticEls = 161;
+    const sidebarStaticEls = 212;
     const footerMargin = 0;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;

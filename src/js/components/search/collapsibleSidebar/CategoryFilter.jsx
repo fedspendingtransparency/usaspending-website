@@ -20,12 +20,10 @@ const propTypes = {
     showFullCount: PropTypes.bool
 };
 
-const dsmElementHeight = 51;
-
 const CategoryFilter = ({
     iconBackgroundColor, iconName, iconColor, component, title, description, height, itemCount, titleOnly = false, showFullCount
 }) => (
-    <div className="selected-category-item" style={{ height: `${height - dsmElementHeight}px` }}>
+    <div className="selected-category-item" style={{ height: `${height}px` }}>
         <CategoryHeader
             iconName={iconName}
             iconColor={iconColor}
