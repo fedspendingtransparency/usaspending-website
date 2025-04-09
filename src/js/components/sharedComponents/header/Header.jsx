@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import GlobalConstants from 'GlobalConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
+import { bannerContent } from 'ActiveBanners';
+
 import NavbarWrapper from './NavbarWrapper';
 import GovBanner from "./GovBanner";
 import InfoBanner from './InfoBanner';
@@ -12,10 +13,12 @@ import InfoBanner from './InfoBanner';
 const Header = () => {
     const location = useLocation();
 
-    const siteBannersArray = GlobalConstants?.BANNER?.filter(
+    console.log(bannerContent);
+
+    const siteBannersArray = bannerContent?.filter(
         (banner) => banner.isActive && banner.page === "site wide"
     );
-    const pageBannersArray = GlobalConstants?.BANNER?.filter(
+    const pageBannersArray = bannerContent?.filter(
         (banner) => banner.isActive && location.pathname.includes(banner.page)
     );
 
