@@ -69,7 +69,7 @@ const DsmSlider = (props) => {
             </span>
             {props.isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">
-                    <div className="collapsible-sidebar--dsm-wrapper" style={{ height: `${props.height - 64}px` }}>
+                    <div className="collapsible-sidebar--dsm-wrapper" style={{ height: `${props.height}px` }}>
                         {markdownContent}
                     </div>
                 </div>}

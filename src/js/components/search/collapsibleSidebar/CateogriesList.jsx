@@ -21,8 +21,6 @@ const propTypes = {
     filterCount: PropTypes.object
 };
 
-const dsmElementHeight = 51;
-
 const CategoriesList = ({
     categories,
     setLevel3,
@@ -34,7 +32,7 @@ const CategoriesList = ({
     itemCount,
     filterCount
 }) => (
-    <div className="selected-category-item" style={{ height: `${height - dsmElementHeight}px` }}>
+    <div className="selected-category-item" style={{ height: `${height}px` }}>
         <CategoryHeader
             iconName={iconName}
             iconColor={iconColor}
