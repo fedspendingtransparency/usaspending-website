@@ -31,7 +31,8 @@ const propTypes = {
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
     visualizationPeriod: PropTypes.string,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
 const TimeVisualizationSectionContainer = (props) => {
@@ -234,7 +235,8 @@ const TimeVisualizationSectionContainer = (props) => {
         const apiParams = {
             group: visualizationPeriod,
             filters: searchParams,
-            subawards: props.subaward
+            subawards: props.subaward,
+            spending_level: props.spendingLevel
         };
 
         if (auditTrail) {
@@ -291,7 +293,7 @@ const TimeVisualizationSectionContainer = (props) => {
             fetchData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward, visualizationPeriod]);
+    }, [props.reduxFilters, props.subaward, visualizationPeriod, props.spendingLevel]);
 
     useEffect(() => {
         fetchData();
@@ -343,7 +345,8 @@ export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward
+        subaward: state.searchView.subaward,
+        spendingLevel: state.searchView.spendingLevel
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(TimeVisualizationSectionContainer);
