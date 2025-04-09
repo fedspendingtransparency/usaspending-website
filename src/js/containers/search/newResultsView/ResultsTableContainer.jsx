@@ -408,14 +408,12 @@ const ResultsTableContainer = (props) => {
                 field: 'Sub-Award Date',
                 direction
             }));
-            performSearch(true);
         }
         else {
             setSort(Object.assign({
                 field,
                 direction
             }));
-            performSearch(true);
         }
     };
 
