@@ -7,6 +7,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CategoryHeader from "./CategoryHeader";
+import { truncateItemCount } from "../../../helpers/search/collapsiblesidebarHelper";
 
 const propTypes = {
     categories: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -18,7 +19,8 @@ const propTypes = {
     description: PropTypes.string,
     height: PropTypes.number,
     itemCount: PropTypes.number,
-    filterCount: PropTypes.object
+    filterCount: PropTypes.object,
+    showFullCount: PropTypes.bool
 };
 
 const dsmElementHeight = 51;
@@ -32,7 +34,8 @@ const CategoriesList = ({
     title,
     height,
     itemCount,
-    filterCount
+    filterCount,
+    showFullCount
 }) => (
     <div className="selected-category-item" style={{ height: `${height - dsmElementHeight}px` }}>
         <CategoryHeader
@@ -41,7 +44,8 @@ const CategoriesList = ({
             iconBackgroundColor={iconBackgroundColor}
             title={title}
             itemCount={itemCount}
-            titleOnly />
+            titleOnly
+            showFullCount={showFullCount} />
         <div className="categories-list">
             <div style={{ margin: "0 32px" }}>
                 {categories.map((item) => {
@@ -70,7 +74,7 @@ const CategoriesList = ({
                                                     <div className="categories-list-item__title" style={{ float: "left" }}>{category.title}</div>
                                                     {filterCount[category.title] > 0 &&
                                                             <div className="categories-list-item__count">
-                                                                {filterCount[category.title]} selected
+                                                                {truncateItemCount(filterCount[category.title])} selected
                                                             </div>
                                                     }
                                                 </div>
