@@ -50,24 +50,14 @@ const MapDsm = ({ subaward }) => {
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p className="award-search__body-text">
                         The data in the map represent
-                        <span
-                            className="award-search__glossary-term"> federal action
-                        </span>{' '}<GlossaryLink
-                            term="federal-action-obligation" /> {
-                            <span
-                                className="award-search__glossary-term"> obligation
-                            </span>}{' '}{<GlossaryLink
-                            term="obligation" />} amounts for non-loan prime award {
-                            <span
-                                className="award-search__glossary-term"> transactions
-                            </span>}{' '}{<GlossaryLink
-                            term="transaction" />} within the selected filters. Loan awards use the {
-                            <span
-                                className="award-search__glossary-term">subsidy cost
-                            </span>}{' '}{<GlossaryLink
-                            term="loan-subsidy-cost" />} rather than the obligated amount to sum up the value of the loan.
-                        Prime award transactions with the same unique award ID are grouped under a single prime award
-                        summary.
+                        {<span className="award-search__glossary-term"> federal action</span>}
+                        {' '}{<GlossaryLink term="federal-action-obligation" />}
+                        {<span className="award-search__glossary-term"> obligation</span>}
+                        {' '}{<GlossaryLink term="obligation" />} amounts for non-loan prime award summaries within the selected filters. Loan awards use the
+                        {<span className="award-search__glossary-term"> subsidy cost</span>}
+                        {' '}{<GlossaryLink term="loan-subsidy-cost" />} rather than the obligated amount to sum up the
+                        {<span className="award-search__glossary-term"> value of the loan</span>}
+                        {' '}{<GlossaryLink term="face-value-of-loan" />}.
                     </p>
                 </>
             }

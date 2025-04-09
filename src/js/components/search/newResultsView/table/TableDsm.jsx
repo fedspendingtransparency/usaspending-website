@@ -43,7 +43,7 @@ const TableDsm = ({ subaward }) => {
                     <p style={{ marginBottom: '8px' }}>
                         View a list of award summaries based on your selected filters.
                         Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on
-                        individual awards including transaction history, subawards, and more.
+                        individual awards.
                     </p>
                     <p className="award-search__body-text">The rows in the table represent award summaries for {
                         <span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink
