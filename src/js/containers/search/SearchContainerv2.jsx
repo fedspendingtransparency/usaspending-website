@@ -71,7 +71,7 @@ export const parseRemoteFilters = (data) => {
     return reduxValues;
 };
 
-const SearchContainerv2 = ({ history }) => {
+const SearchContainer = ({ history }) => {
     const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
     const query = useQueryParams();
     const dispatch = useDispatch();
@@ -264,8 +264,8 @@ const SearchContainerv2 = ({ history }) => {
     );
 };
 
-SearchContainerv2.propTypes = propTypes;
-export default SearchContainerv2;
+SearchContainer.propTypes = propTypes;
+export default SearchContainer;
 
 export const SearchContainerRedirectv2 = () => {
     const { urlHash: pathHash } = useParams();
@@ -278,6 +278,6 @@ export const SearchContainerRedirectv2 = () => {
     );
 };
 
-SearchContainerv2.propTypes = {
+SearchContainer.propTypes = {
     history: PropTypes.object.isRequired
 };
