@@ -115,7 +115,7 @@ test('when filters change (a) hash is generated, (b) loading is set & (c) url is
         expect(generateUrlHash).toHaveBeenCalledTimes(1);
         expect(mockReplace).toHaveBeenCalledTimes(1);
         expect(mockReplace).toHaveBeenLastCalledWith({
-            pathname: '/search/',
+            pathname: '/search-legacy/',
             // not ?hash=str because we aren't mocking out new URLSearchParams
             search: '?str'
         });
