@@ -6,6 +6,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
+import Accounting from 'accounting';
 import { recipientTypes } from 'dataMapping/search/recipientType';
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
@@ -284,7 +285,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`NAICS | ${value} - ${label} (${count})`}
+                        label={`NAICS | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removeNaics} />
                 );
             });
@@ -316,7 +317,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`PSC | ${value} - ${label} (${count})`}
+                        label={`PSC | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removePsc} />
                 );
             });
@@ -507,7 +508,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`TAS | ${value} - ${label} (${count})`}
+                        label={`TAS | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removeTas} />
                 );
             });

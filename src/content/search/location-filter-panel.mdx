@@ -1,5 +1,6 @@
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { AboutTheDataMarkdownLink } from '../../js/components/aboutTheDataSidebar/AboutTheDataMarkdownLink.jsx';
+import DsmRelatedTerms from 'components/search/collapsibleSidebar/DsmRelatedTerms.jsx'
 
 <div className="collapsible-sidebar--dsm-wrapper--text-header">About the filter</div>
 <div className="collapsible-sidebar--dsm-wrapper--text-section"> 
@@ -43,3 +44,4 @@ import { AboutTheDataMarkdownLink } from '../../js/components/aboutTheDataSideba
     Population data for states, counties, and congressional districts is sourced from U.S. Census 2018 estimates.
 </div>
 
+<DsmRelatedTerms headingTitle={"Related terms"} glossaryLinks={[{text:'Primary Place of Performance', term:"primary-place-of-performance"},{text: "Recipient Location", term:"recipient-location"}]} aboutTheData={[{slug:"medicare-location-data", name:"Medicare Location Data"}, {slug:"congressional-district-data", name: "Congressional District Data"} ]} />

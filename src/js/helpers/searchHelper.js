@@ -215,8 +215,8 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         }
     }
 
-    for (const value of checkboxTreeFilters) {
-        const key = value;
+    for (let i = 0; i < checkboxTreeFilters.length; i++) {
+        const key = checkboxTreeFilters[i];
         const unfilteredValue = comparisonObject[key].toObject();
         const currentValue = referenceObject[key].toObject();
         if (!areCheckboxSelectionsEqual(unfilteredValue, currentValue)) return false;

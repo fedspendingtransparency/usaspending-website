@@ -139,8 +139,8 @@ export const expandPscNodeAndAllDescendantParents = (
     nodes
 ) => expandNodeAndAllDescendantParents(
     nodes,
-    shouldPscNodeHaveChildren,
-    'value'
+    'value',
+    shouldPscNodeHaveChildren
 );
 
 export const getPscAncestryPathForChecked = (checked, nodes) => getAncestryPathOfNodes(
