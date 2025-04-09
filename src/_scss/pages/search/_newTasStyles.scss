@@ -49,12 +49,14 @@
     .checkbox-tree-label__label {
         font-size: 12px !important;
         color: $gray-90;
-        padding-top: 4px !important;
+        padding-top: 0 !important;
     }
 
     .rct-checkbox {
         color: $gray-cool-20 !important;
         padding-right: 0 !important;
+        display: flex;
+        justify-content: flex-start;
     }
 
     .rct-text {
