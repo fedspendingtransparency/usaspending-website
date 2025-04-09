@@ -166,8 +166,11 @@ const SidebarWrapper = React.memo(({
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
         document.querySelector(".sidebar-submit").style.display = "none";
-        if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
-            document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "none";
+        const allDsmSliders = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
+        if (allDsmSliders.length) {
+            for (const slider of allDsmSliders.values()) {
+                slider.style.display = "none";
+            }
         }
     };
 
