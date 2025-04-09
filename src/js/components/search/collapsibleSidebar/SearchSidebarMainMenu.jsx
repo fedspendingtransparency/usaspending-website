@@ -38,7 +38,7 @@ const SearchSidebarMainMenu = ({
         sources: <SearchSidebarFilterChips category="sources" />
     });
 
-    const dsmElHeight = sidebarContentHeight + 51; //other dsms doe not need this height due to they need room for "back" header.
+    const dsmElHeight = sidebarContentHeight + 51; // other dsms doe not need this height due to they need room for "back" header.
 
     return (
         <div className={`collapsible-sidebar--main-menu ${isDrilldown ? '' : 'opened'}`}>
