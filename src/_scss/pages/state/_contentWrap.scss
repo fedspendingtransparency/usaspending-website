@@ -147,7 +147,7 @@
 				margin-top: 32px;
 			}
 			.state__what-heading {
-				font-size: rem(16);
+				font-size: $font-size-16;
 				font-weight: $font-semibold;
 				display: inline-block;
 				margin: 0;
@@ -156,7 +156,7 @@
 			}
 	
 			.state__what-second-heading {
-				font-size: rem(16);
+				font-size: $font-size-16;
 				font-weight: $font-semibold;
 				display: inline-block;
 				color: $gray-90;
@@ -165,7 +165,7 @@
 	
 			.state__what-text {
 				margin-left: 40px;
-				font-size: rem(14);
+				font-size: $font-size-14;
 				color: $color-base;
 				margin-bottom: 0;
 				margin-top: 8px;
@@ -269,7 +269,7 @@
 					@include button-unstyled;
 					color: $blue-50;
 					margin-top: rem(16);
-					font-size: rem(14);
+					font-size: $font-size-14;
 					width: fit-content;
 
 					&:hover {
