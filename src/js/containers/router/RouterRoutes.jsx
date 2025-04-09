@@ -52,22 +52,22 @@ export const routes = [
         exact: true
     },
     {
-        path: '/search',
+        path: '/search-legacy',
         component: SearchContainer,
         exact: true
     },
     {
-        path: '/searchv2',
+        path: '/search',
         component: SearchContainerv2,
         exact: true
     },
     {
-        path: '/search/:urlHash',
+        path: '/search-legacy/:urlHash',
         component: SearchContainerRedirect,
         exact: true
     },
     {
-        path: '/searchv2/:urlHash',
+        path: '/search/:urlHash',
         component: SearchContainerRedirectv2,
         exact: true
     },
