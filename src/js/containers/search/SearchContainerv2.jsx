@@ -154,7 +154,7 @@ const SearchContainerv2 = ({ history }) => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        history.push('/searchv2');
+                        history.push('/search');
                         request.current = null;
                     }
                 });
@@ -184,7 +184,7 @@ const SearchContainerv2 = ({ history }) => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
             history.replace({
-                pathname: '/searchv2',
+                pathname: '/search',
                 search: ''
             });
             setDownloadAvailable(false);
@@ -210,7 +210,7 @@ const SearchContainerv2 = ({ history }) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
                 history.replace({
-                    pathname: `/searchv2/`,
+                    pathname: `/search/`,
                     search: getQueryParamString(newQueryParams)
                 });
                 setGenerateHashInFlight(false);
@@ -272,7 +272,7 @@ export const SearchContainerRedirectv2 = () => {
     return (
         <Redirect
             to={{
-                pathname: '/searchv2/',
+                pathname: '/search/',
                 search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
             }} />
     );
