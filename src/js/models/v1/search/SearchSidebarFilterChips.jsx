@@ -6,6 +6,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
+import Accounting from 'accounting';
 import { recipientTypes } from 'dataMapping/search/recipientType';
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
@@ -32,6 +33,7 @@ import {
     removeStagedPscFilter
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
+import { dateRangeChipLabel, locationChipLabel } from "../../../helpers/searchHelper";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -85,7 +87,11 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`POP | ${location.display.entity} | ${location.display.title}`}
+                        label={
+                            `Place of Performance: ${
+                                locationChipLabel(location.display.entity, location)
+                            }`
+                        }
                         removeValue={removeFilter} />);
             });
         }
@@ -103,7 +109,11 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`Recipient | ${location.display.entity} | ${location.display.title}`}
+                        label={
+                            `Recipient Location: ${
+                                locationChipLabel(location.display.entity, location)
+                            }`
+                        }
                         removeValue={removeFilter} />);
             });
         }
@@ -128,10 +138,12 @@ const SearchSidebarFilterChips = ({
                         });
                     };
 
+                    const dateLabel = dateRangeChipLabel(timePeriod);
+
                     chips.push((
                         <ShownValue
                             key={index}
-                            label={`Applied date range: ${timePeriod.start_date} to ${timePeriod.end_date}`}
+                            label={dateLabel}
                             removeValue={(e) => removeDateRange(timePeriod.start_date, timePeriod.end_date, e)} />
                     ));
                 });
@@ -146,7 +158,7 @@ const SearchSidebarFilterChips = ({
 
                     chips.push(
                         <ShownValue
-                            label={fy}
+                            label={`FY ${fy}`}
                             removeValue={removeFY} />
                     );
                 });
@@ -166,7 +178,7 @@ const SearchSidebarFilterChips = ({
 
             chips.push(
                 <ShownValue
-                    label={`Description | ${filtersData.awardDescription}`}
+                    label={filtersData.awardDescription}
                     removeValue={removeAwardsDescription} />
             );
         }
@@ -185,7 +197,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`Award ID | ${id} `}
+                        label={id}
                         removeValue={removeAwardID} />
                 );
             });
@@ -273,7 +285,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`NAICS | ${value} - ${label} (${count})`}
+                        label={`NAICS | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removeNaics} />
                 );
             });
@@ -305,7 +317,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`PSC | ${value} - ${label} (${count})`}
+                        label={`PSC | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removePsc} />
                 );
             });
@@ -496,7 +508,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`TAS | ${value} - ${label} (${count})`}
+                        label={`TAS | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removeTas} />
                 );
             });

@@ -8,22 +8,25 @@
     .autocomplete__input {
         padding-top: 0 !important;
         padding-bottom: 20px !important;
+
         .geo-entity-dropdown__input {
             border: solid 1px $gray-cool-10;
             border-radius: 3px;
             min-width: 100%;
+
         }
     }
 
     .checkbox-tree {
         border-bottom: none !important;
     }
+
     li {
         margin-bottom: 12px !important;
     }
     .checkbox-tree-label__value-container-value {
         font-size: 10px !important;
-        align-items: center;      
+        align-items: center;
         color: $gray-90;
         border-radius: 2px;
         background-color: $gray-cool-5 !important;
@@ -40,7 +43,7 @@
     .checkbox-tree-label__label {
         font-size: 12px !important;
         color: $gray-90;
-        padding-top: 4px !important; 
+        padding-top: 4px !important;
     }
 
     .rct-checkbox {

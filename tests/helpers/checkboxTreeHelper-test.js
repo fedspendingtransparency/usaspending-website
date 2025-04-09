@@ -279,8 +279,8 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         it('returns an array containing all values from tree', () => {
             const result = expandNodeAndAllDescendantParents(
                 mockData.searchResults,
-                shouldNaicsNodeHaveChildren,
-                'value'
+                'value',
+                shouldNaicsNodeHaveChildren
             );
             // does not expand grand children as they have no children.
             expect(result).toEqual(["11", "1111"]);
@@ -297,11 +297,11 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         it('adds new children and removes the loading placeholder if we have all the nodes', () => {
             const result = populateChildNodes(
                 mockData.placeholderNodes,
+                '11',
+                [mockData.reallyBigTree[0]],
                 getHighestAncestorNaicsCode,
                 getImmediateAncestorNaicsCode,
-                getNaicsNodeFromTree,
-                '11',
-                [mockData.reallyBigTree[0]]
+                getNaicsNodeFromTree
             );
             const lengthWithoutPlaceholderNodes = mockData.reallyBigTree[0].children.length;
             const nodeWithPlaceHolderChildren = getNaicsNodeFromTree(result, '11', 'value');
@@ -316,11 +316,11 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
 
             const result = populateChildNodes(
                 mockData.treeWithPlaceholdersAndRealData,
+                '1111',
+                [newNode],
                 getHighestAncestorNaicsCode,
                 getImmediateAncestorNaicsCode,
-                getNaicsNodeFromTree,
-                '1111',
-                [newNode]
+                getNaicsNodeFromTree
             );
 
             const node = getNaicsNodeFromTree(result, '11');
@@ -345,11 +345,11 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
 
             const result = populateChildNodes(
                 mockData.treeWithPlaceholdersAndRealDataPSCDepth,
+                '1111',
+                [newNode],
                 getHighestAncestorNaicsCode,
                 getImmediateAncestorNaicsCode,
-                getNaicsNodeFromTree,
-                '1111',
-                [newNode]
+                getNaicsNodeFromTree
             );
 
             const node = getNaicsNodeFromTree(result, '11');

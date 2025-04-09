@@ -36,14 +36,15 @@
     }
 
     .award-desscription-filter__add-button {
+      @import "dtui-overrides";
+
       &:hover {
         cursor: pointer;
       }
 
       margin: 0 0 0 rem(4);
-      padding: rem(7) rem(12);
-      font-size: $smallest-font-size;
       line-height: 1.5;
+      @include new-search-button;
 
       @media screen and (max-width: 320px) {
         width: auto;

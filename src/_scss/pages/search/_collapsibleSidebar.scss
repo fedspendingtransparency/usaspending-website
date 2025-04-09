@@ -284,11 +284,10 @@
         font-weight: $font-semibold;
         line-height: 1.5;
         border-top: 1px solid $gray-cool-5;
-        
         span {
           display: flex;
           flex-direction: row;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           align-items: center;
           cursor: pointer;
           &:hover {
@@ -308,7 +307,7 @@
             color: $gray-60;
             font-weight: $font-normal;
             overflow-y: auto;
-
+            
             &--text-header {
               font-weight: $font-semibold;
               color: $gray-90;
