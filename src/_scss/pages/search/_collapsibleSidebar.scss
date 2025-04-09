@@ -277,55 +277,60 @@
         overflow-y: auto;
       }
 
-      .collapsible-sidebar--dsm-slider {
-        color: $blue-50;
-        padding: rem(16) rem(32);
-        font-size: rem(12);
-        font-weight: $font-semibold;
-        line-height: 1.5;
-        border-top: 1px solid $gray-cool-5;
-        span {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: nowrap;
-          align-items: center;
-          cursor: pointer;
-          &:hover {
-            color: $blue-70v;
-          }
+    }
 
-          .chevron {
-            margin: 0 8px 0 8px;
-            width: 10px;
-          }
-  
+    .collapsible-sidebar--dsm-slider {
+      color: $blue-50;
+      padding: rem(16) rem(32);
+      font-size: rem(12);
+      font-weight: $font-semibold;
+      line-height: 1.5;
+      border-top: 1px solid $gray-cool-5;
+      span {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          color: $blue-70v;
         }
 
-        .collapsible-sidebar--dsm-content {
-          .collapsible-sidebar--dsm-wrapper {
-            font-size: $font-size-14;
-            color: $gray-60;
-            font-weight: $font-normal;
-            overflow-y: auto;
-            
-            &--text-header {
-              font-weight: $font-semibold;
-              color: $gray-90;
-              margin: 16px 0px 0px;
-            }
+        .chevron {
+          margin: 0 8px 0 8px;
+          width: 10px;
+        }
 
-            &--text-section {
-              p {
-                margin: 4px 0px 0px;
-              }
+      }
+
+      .collapsible-sidebar--dsm-content {
+        .collapsible-sidebar--dsm-wrapper {
+          font-size: $font-size-14;
+          color: $gray-60;
+          font-weight: $font-normal;
+          overflow-y: auto;
+          
+          &--text-header {
+            font-weight: $font-semibold;
+            color: $gray-90;
+            margin: 16px 0px 0px;
+          }
+
+          &--text-section {
+            p {
+              margin: 4px 0px 0px;
             }
           }
         }
       }
+    }
 
-      .collapsible-sidebar--dsm-slider:hover .chevron {
-        color: $blue-70v;
-      }
+    .collapsible-sidebar--dsm-slider:hover .chevron {
+      color: $blue-70v;
+    }
+
+    .dsm-opened {
+      display: block !important;
     }
 
   }

@@ -82,7 +82,9 @@ const SidebarContent = ({
             sidebarContentHeight={sidebarContentHeight}
             setLevel2={setLevel2}
             itemCount={itemCount}
-            setShowMobileFilters={setShowMobileFilters} />
+            setShowMobileFilters={setShowMobileFilters}
+            isDsmOpened={isDsmOpened}
+            setIsDsmOpened={setIsDsmOpened} />
 
         <SearchSidebarDrilldown
             list={drilldown?.children}
