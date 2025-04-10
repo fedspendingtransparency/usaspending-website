@@ -243,7 +243,8 @@
     "**/thenify": "3.3.1",
     "**/sorcery": "1.0.0",
     "**/eventsource": "3.0.5",
-    "**/shell-quote": "1.8.2"
+    "**/shell-quote": "1.8.2",
+    "*/@babel/helpers": "7.27.0"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
