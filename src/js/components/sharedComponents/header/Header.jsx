@@ -13,8 +13,6 @@ import InfoBanner from './InfoBanner';
 const Header = () => {
     const location = useLocation();
 
-    console.log(bannerContent);
-
     const siteBannersArray = bannerContent?.filter(
         (banner) => banner.isActive && banner.page === "site wide"
     );
