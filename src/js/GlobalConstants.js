@@ -4,8 +4,6 @@
 */
 
 const local = require('./LocalConstants');
-const ExternalLink = require("./components/sharedComponents/ExternalLink");
-const React = require("react");
 
 const filesServerUrlByEnv = {
     sandbox: 'https://files-nonprod.usaspending.gov',
