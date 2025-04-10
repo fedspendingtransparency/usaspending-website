@@ -196,6 +196,7 @@
     "**/@babel/parser": "7.26.10",
     "@babel/parser": "7.26.10",
     "**/@babel/runtime": "7.26.10",
+    "@babel/runtime": "7.26.10",
     "**/lodash": "4.17.21",
     "**/batch": "0.6.1",
     "**/archiver": "7.0.1",
@@ -244,7 +245,8 @@
     "**/sorcery": "1.0.0",
     "**/eventsource": "3.0.5",
     "**/shell-quote": "1.8.2",
-    "*/@babel/helpers": "7.27.0"
+    "*/@babel/helpers": "7.27.0",
+    "tar-fs": "3.0.8"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
