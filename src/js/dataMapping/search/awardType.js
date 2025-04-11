@@ -78,6 +78,15 @@ export const awardTypeGroups = {
     other: ['09', '11', '-1']
 };
 
+export const transactionTypeGroups = {
+    transaction_contracts: ['A', 'B', 'C', 'D'],
+    transaction_idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
+    transaction_grants: ['02', '03', '04', '05'],
+    transaction_direct_payments: ['10', '06'],
+    transaction_loans: ['07', '08'],
+    transaction_other: ['09', '11', '-1']
+};
+
 export const analyticsAwardTypeGroupLabels = {
     contracts: 'Contracts',
     idvs: "Indefinite Delivery Vehicle",

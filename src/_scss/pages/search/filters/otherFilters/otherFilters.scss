@@ -26,6 +26,12 @@
         @include selected-filter-wrap;
         margin-top: rem(20);
     }
+
+    .usa-da-typeahead__input .autocomplete-md {
+        @import "dtui-overrides";
+
+        @include new-search-button;
+    }
 }
 
 .award-type-filter .filter-submit-hint {

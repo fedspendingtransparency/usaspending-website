@@ -13,7 +13,8 @@ const propTypes = {
     dsmFile: PropTypes.string,
     currentLevel: PropTypes.number,
     selectedCategoryTitle: PropTypes.string,
-    height: PropTypes.number
+    height: PropTypes.number,
+    hasChildren: PropTypes.bool
 };
 
 const DsmSlider = (props) => {
@@ -32,12 +33,20 @@ const DsmSlider = (props) => {
     };
 
     const adjustFilterLabel = () => {
-        if (props.currentLevel === 2 && props.selectedCategoryTitle) {
-            return `${props.selectedCategoryTitle} filters`;
+        if (props.hasChildren) {
+            return `filters`;
+        }
+        return `filter`;
+    };
+
+    const renderButtonLabel = () => {
+        if (props.currentLevel === 1) {
+            return <div>Learn more about the Filter Categories</div>;
         }
 
-        return 'this filter';
+        return <div>About the {props.selectedCategoryTitle} {adjustFilterLabel()}</div>;
     };
+
     return (
         <div
             className={`collapsible-sidebar--dsm-slider ${props?.isDsmOpened ? `dsm-opened` : ''}`}>
@@ -49,11 +58,18 @@ const DsmSlider = (props) => {
                     if (e.key === 'Enter') {
                         props.setIsDsmOpened(!props.isDsmOpened);
                     }
-                }}>About {adjustFilterLabel()}{props.isDsmOpened ? <FontAwesomeIcon className="chevron" icon="chevron-up" /> : <FontAwesomeIcon className="chevron" icon="chevron-down" />}
+                }}>
+                {renderButtonLabel()}
+                <div>{props.isDsmOpened ? (
+                    <FontAwesomeIcon className="chevron" icon="chevron-up" />
+                ) : (
+                    <FontAwesomeIcon className="chevron" icon="chevron-down" />
+                )}
+                </div>
             </span>
             {props.isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">
-                    <div className="collapsible-sidebar--dsm-wrapper" style={{ height: `${props.height - 64}px` }}>
+                    <div className="collapsible-sidebar--dsm-wrapper" style={{ height: `${props.height}px` }}>
                         {markdownContent}
                     </div>
                 </div>}

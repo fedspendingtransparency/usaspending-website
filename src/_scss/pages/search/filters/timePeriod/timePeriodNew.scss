@@ -105,6 +105,8 @@
 
     .date-range-option {
       @include grid-container;
+      @import "dtui-overrides";
+
       margin-left: auto;
       margin-right: auto;
 
@@ -158,6 +160,7 @@
 
         button {
           margin: 0;
+          @include new-search-button;
         }
       }
 
@@ -261,6 +264,7 @@
 
           button {
             margin: 0;
+            @include new-search-button;
           }
         }
       }

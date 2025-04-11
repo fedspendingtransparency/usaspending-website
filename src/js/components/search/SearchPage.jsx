@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
@@ -26,7 +26,6 @@ import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
-import Button from "../sharedComponents/buttons/Button";
 
 require('pages/search/searchPage.scss');
 
@@ -150,7 +149,7 @@ const SearchPage = React.memo(({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="awards" />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
