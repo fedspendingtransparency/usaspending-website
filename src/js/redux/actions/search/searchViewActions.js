@@ -17,3 +17,8 @@ export const setMapHasLoaded = (state) => ({
     type: 'SET_MAP_HAS_LOADED',
     value: state
 });
+
+export const setSpendingLevel = (state) => ({
+    type: 'SET_SPENDING_LEVEL',
+    value: state
+});

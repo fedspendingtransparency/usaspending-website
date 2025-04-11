@@ -30,7 +30,9 @@ const propTypes = {
     className: PropTypes.string,
     scope: PropTypes.string,
     setScope: PropTypes.func,
-    wrapperProps: PropTypes.object
+    wrapperProps: PropTypes.object,
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
 const apiScopes = {
@@ -231,7 +233,8 @@ const MapSectionWrapper = React.memo((props) => {
             geo_layer_filters: visibleEntities,
             filters: searchParams,
             subawards: props.subaward,
-            auditTrail: 'Map Visualization'
+            auditTrail: 'Map Visualization',
+            spending_level: props.spendingLevel
         };
 
         if (apiRequest) {
@@ -564,7 +567,12 @@ const MapSectionWrapper = React.memo((props) => {
             fetchData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward, mapViewType, props.wrapperProps.selectedDropdownOption]);
+    }, [
+        props.reduxFilters,
+        props.subaward, mapViewType,
+        props.wrapperProps.selectedDropdownOption,
+        props.spendingLevel
+    ]);
 
     useEffect(() => {
         handleMapLegendToggleChange();
@@ -634,7 +642,8 @@ const MapSectionWrapper = React.memo((props) => {
             sortDirection={sortDirection}
             activeField={activeField}
             mapViewType={mapViewType}
-            setMapViewType={setMapViewType} >
+            setMapViewType={setMapViewType}
+            hash={props.hash} >
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
@@ -663,7 +672,8 @@ export default connect((state) => ({
     reduxFilters: state.appliedFilters.filters,
     noApplied: state.appliedFilters._empty,
     subaward: state.searchView.subaward,
-    mapLegendToggle: state.searchMapLegendToggle
+    mapLegendToggle: state.searchMapLegendToggle,
+    spendingLevel: state.searchView.spendingLevel
 }),
 (dispatch) => ({
     ...bindActionCreators(Object.assign({}, searchFilterActions,

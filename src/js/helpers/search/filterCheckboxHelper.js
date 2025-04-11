@@ -357,26 +357,38 @@ export const generateCount = (data) => {
     return count;
 };
 
-// TODO: Add Award Description (?) to count
+// sub-filters hidden from the user, but  passed to the API when the parent filter is selected
+export const excludeIDVB = (awardTypes) => {
+    if (awardTypes.includes("IDV_B")) {
+        return awardTypes.size - 1;
+    }
+
+    return awardTypes.size;
+};
+
 export const characteristicsCount = ({
     selectedAwardIDs,
     awardAmounts,
-    awardType,
+    contractAwardType,
+    financialAssistanceAwardType,
     naicsCodes,
     pscCodes,
     pricingType,
     setAside,
     extentCompeted,
-    selectedCFDA
+    selectedCFDA,
+    awardDescription
 }) => selectedAwardIDs.size +
     awardAmounts.size +
-    awardType.size +
+    excludeIDVB(contractAwardType) +
+    financialAssistanceAwardType.size +
     generateCount(naicsCodes) +
     generateCount(pscCodes) +
     pricingType.size +
     setAside.size +
     extentCompeted.size +
-    selectedCFDA.size;
+    selectedCFDA.size +
+    (awardDescription ? 1 : 0);
 
 export const sourcesCount = ({
     selectedAwardingAgencies,
@@ -386,6 +398,6 @@ export const sourcesCount = ({
     infraDefCode
 }) => selectedAwardingAgencies.size +
     selectedFundingAgencies.size +
-    tasCodes.counts.length +
+    generateCount(tasCodes) +
     covidDefCode.size +
     infraDefCode.size;

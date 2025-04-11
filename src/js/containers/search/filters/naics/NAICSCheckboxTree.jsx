@@ -6,18 +6,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { debounce, uniqueId } from 'lodash';
+import { debounce } from 'lodash';
 import { isCancel } from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 import {
     incrementNaicsCountAndUpdateUnchecked,
     decrementNaicsCountAndUpdateUnchecked,
     getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
-    removeStagedNaicsFilter,
     autoCheckNaicsAfterExpand,
     expandNaicsAndAllDescendantParents,
     getHighestAncestorNaicsCode
@@ -69,18 +65,9 @@ const propTypes = {
     nodes: PropTypes.arrayOf(PropTypes.object),
     counts: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    searchV2: PropTypes.bool
 };
-
-const SearchTooltip = () => (
-    <>
-        <p>Filter the options below by typing any of the following:</p>
-        <ul>
-            <li>Any NAICS numeric code (or part thereof)</li>
-            <li>Any NAICS label name (or part thereof)</li>
-        </ul>
-    </>
-);
 
 export class NAICSCheckboxTree extends React.Component {
     constructor(props) {
@@ -344,11 +331,6 @@ export class NAICSCheckboxTree extends React.Component {
             });
     };
 
-    removeStagedNaics = (node) => {
-        const newChecked = removeStagedNaicsFilter(this.props.nodes, this.props.checked, node.value);
-        this.onUncheck(newChecked, { ...node, checked: false });
-    };
-
     fetchNAICS = (param = '', resolveLoading = true) => {
         if (this.request) this.request.cancel();
         const { requestType, isSearch, searchString } = this.state;
@@ -445,13 +427,9 @@ export class NAICSCheckboxTree extends React.Component {
     render() {
         const showNoResults = this.showNoResults();
         const { searchString } = this.state;
-        const { counts } = this.props;
         return (
             <div>
                 <div className="naics-search-container">
-                    <span className="checkbox-header">Search by Code or Name
-                        <CSSOnlyTooltip definition={<SearchTooltip />} heading="NAICS Search" />
-                    </span>
                     <EntityDropdownAutocomplete
                         placeholder="Type to find codes"
                         searchString={searchString}
@@ -462,33 +440,11 @@ export class NAICSCheckboxTree extends React.Component {
                         isClearable
                         onClear={this.onClear} />
                     {this.checkboxDiv(showNoResults)}
-                    {counts.length !== 0 && (
-                        <div
-                            id="award-search-selected-locations"
-                            className="selected-filters"
-                            role="status">
-                            {counts.map((node) => {
-                                const label = `${node.value} - ${node.label} (${node.count})`;
-                                return (
-                                    <button
-                                        key={uniqueId()}
-                                        className="shown-filter-button"
-                                        value={label}
-                                        onClick={() => this.removeStagedNaics(node)}
-                                        title="Click to remove."
-                                        aria-label={`Applied filter: ${label}`}>
-                                        {label}
-                                        <span className="close">
-                                            <FontAwesomeIcon icon="times" />
-                                        </span>
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    )}
-                    <SubmitHint ref={(component) => {
-                        this.hint = component;
-                    }} />
+                    { !this.props.searchV2 &&
+                        <SubmitHint ref={(component) => {
+                            this.hint = component;
+                        }} />
+                    }
                 </div>
             </div>
         );

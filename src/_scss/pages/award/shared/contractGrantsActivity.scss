@@ -160,20 +160,11 @@
       &.start {
         stroke: $color-green-light;
       }
-      &.noOpacity {
-        opacity: 1;
-      }
       &.contract-end {
         stroke: $color-gold-light;
       }
-      &.noOpacity {
-        opacity: 1;
-      }
       &.grant-end {
         stroke: $color-secondary-dark;
-      }
-      &.noOpacity {
-        opacity: 1;
       }
       &.potential-end {
         stroke: $color-secondary-dark;

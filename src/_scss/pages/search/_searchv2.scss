@@ -1,5 +1,15 @@
-.usa-da-search-page.v2 #main-content {
-  .search-contents {
-    max-width: 1600px !important; //TODO: Remove after search 2.0 is released
+.usa-da-search-page.v2 {
+  &.fixed-body {
+    position: fixed;
+    max-width: 100vw;
+  }
+  #main-content {
+    .search-contents {
+      max-width: 1600px !important; //TODO: Remove after search 2.0 is released
+    }
+
+    .recipient-results__container{
+      overflow-y: visible !important; //TODO: Remove recipient.scss overflow-y: scroll after search 2.0 is released V2 overide for DEV-12227 
+    }
   }
 }

@@ -4,24 +4,26 @@
  */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import PropTypes from 'prop-types';
+import { showSlideout } from '../../helpers/slideoutHelper';
 
 const propTypes = {
     name: PropTypes.string,
-    slug: PropTypes.string
+    slug: PropTypes.string,
+    openPanel: PropTypes.bool
 };
 
-export const AboutTheDataMarkdownLink = ({ name, slug }) => {
-    const dispatch = useDispatch();
+export const AboutTheDataMarkdownLink = ({ name, slug, openPanel = false }) => {
     const obj = {
         name,
         slug
     };
     const clickFunction = (e) => {
         e.preventDefault();
-        dispatch(aboutTheDataActions.setAboutTheDataTerm(obj));
+        showSlideout('atd', { term: obj, open: openPanel });
+        if (openPanel) {
+            e.stopPropagation();
+        }
     };
     return (
         <a href={`?about-the-data=${slug}`} onClick={clickFunction}>

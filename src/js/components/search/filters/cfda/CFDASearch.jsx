@@ -14,39 +14,36 @@ const propTypes = {
     selectCFDA: PropTypes.func,
     removeCFDA: PropTypes.func,
     selectedCFDA: PropTypes.object,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    searchV2: PropTypes.bool
 };
 
-export default class CFDASearch extends React.Component {
-    componentDidUpdate(prevProps) {
-        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
-            if (this.hint) {
-                this.hint.showHint();
-            }
-        }
+const CFDASearch = ({
+    selectCFDA, removeCFDA, selectedCFDA, dirtyFilters, searchV2
+}) => {
+    let CFDAComponent = null;
+
+    if (selectedCFDA.size > 0) {
+        CFDAComponent = (<SelectedCFDA
+            selectedCFDA={selectedCFDA}
+            removeCFDA={removeCFDA} />);
     }
 
-    render() {
-        let selectedCFDA = null;
-        if (this.props.selectedCFDA.size > 0) {
-            selectedCFDA = (<SelectedCFDA
-                selectedCFDA={this.props.selectedCFDA}
-                removeCFDA={this.props.removeCFDA} />);
-        }
-
-        return (
-            <div className="cfda-filter">
-                <div className="filter-item-wrap">
-                    <CFDAListContainer {...this.props} selectCFDA={this.props.selectCFDA} />
-                    {selectedCFDA}
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
-                </div>
+    return (
+        <div className={`cfda-filter ${searchV2 ? 'searchV2' : ''}`}>
+            <div className="filter-item-wrap">
+                <CFDAListContainer
+                    selectCFDA={selectCFDA}
+                    selectedCFDA={selectedCFDA}
+                    dirtyFilters={dirtyFilters} />
+                {CFDAComponent}
+                { !searchV2 &&
+                    <SubmitHint selectedFilters={dirtyFilters} />
+                }
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 CFDASearch.propTypes = propTypes;
+export default CFDASearch;

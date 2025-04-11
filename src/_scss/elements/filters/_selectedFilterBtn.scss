@@ -13,14 +13,23 @@
         width: auto;
         max-width: 90%;
         line-height: 1.3;
-        margin-top: rem(2);
-        margin-bottom: 0;
-        margin-right: rem(8);
+        margin: 0 $global-margin $global-margin 0;
         @include display(flex);
         @include align-items(center);
 
-        &:first-child {
-            margin-top: 0;
+        &__shown-filter-button-icon {
+            border: unset;
+            color:  $color-gray;
+            margin:  0 0 0 rem(4);
+            padding: 0;
+            svg {
+                 :hover {
+                    cursor: pointer;
+                }
+            }
+            &:hover {
+                color: $color-cool-blue
+            }
         }
 
         // The .1 rem is to force a second line of text in the label to wrap to a third line
@@ -33,15 +42,15 @@
             font-size: $small-font-size;
             padding: 0 0 0 rem(4);
         }
+
         &:hover {
             background: lighten($color-cool-blue-lightest, 10%);
             border: 1px solid $color-cool-blue-lighter;
-            cursor: pointer;
             @include transition(all 0.25s $ease-in-out-sine);
             & .close {
-                cursor: pointer;
                 color: $color-cool-blue;
             }
         }
+
     }
 }

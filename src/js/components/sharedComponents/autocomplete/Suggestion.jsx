@@ -16,40 +16,42 @@ const propTypes = {
     matchingString: PropTypes.string
 };
 
-const defaultProps = {
-    title: '',
-    subtitle: '',
-    data: [],
-    selected: false,
-    matchingString: null
-};
-
-const Suggestion = (props) => {
+const Suggestion = ({
+    id,
+    title = '',
+    subtitle = '',
+    data = [],
+    selected = false,
+    select,
+    matchingString = null,
+    category,
+    values
+}) => {
     const suggestion = useRef();
 
     useEffect(() => {
         if (suggestion.current) {
             suggestion.current.addEventListener('mousedown', () => {
-                props.select(props.data);
+                select(data);
             });
         }
         return () => {
             if (suggestion.current) {
                 suggestion.current.removeEventListener('mousedown', () => {
-                    props.select(props.data);
+                    select(data);
                 });
             }
         };
-    }, [props, suggestion]);
+    }, [data, select, suggestion]);
 
     const isNewHeading = () => {
         let notFound = true;
-        if (props.category) {
-            const key = parseInt(props.id[props.id.length - 1], 10);
-            const prevValues = props.values.slice(0, key);
+        if (category) {
+            const key = parseInt(id[id.length - 1], 10);
+            const prevValues = values.slice(0, key);
 
             prevValues.forEach((value) => {
-                if (value.category === props.category) {
+                if (value.category === category) {
                     notFound = false;
                 }
             });
@@ -63,12 +65,12 @@ const Suggestion = (props) => {
 
         return (
             textArray.map((item, index) => (
-                <>
+                <span key={`item: ${item}-${index}`}>
                     {item}
                     {index !== textArray.length - 1 && match && (
                         <span className="semibold">{match[index]}</span>
                     )}
-                </>
+                </span>
             ))
         );
     };
@@ -77,21 +79,22 @@ const Suggestion = (props) => {
     // We need to set aria-selected to use the arrow keys to select elements
     /* eslint-disable jsx-a11y/role-supports-aria-props */
         <>
-            {isNewHeading() && props.category && <li className="autocomplete-heading">{locationDropdown[props.category]}</li>}
+            {isNewHeading() && category &&
+                <li className="autocomplete-heading">{locationDropdown[category]}</li>
+            }
             <li
-                id={props.id}
+                id={id}
                 tabIndex={-1}
-                aria-selected={props.selected}
+                aria-selected={selected}
                 role="option"
                 ref={suggestion}>
-                <span>{boldedText(props.title, props.matchingString)}</span><br />
-                {boldedText(props.subtitle, props.matchingString)}
+                <span key={id}>{boldedText(title, matchingString)}</span><br />
+                {boldedText(subtitle, matchingString)}
             </li>
         </>
     /* eslint-enable jsx-a11y/role-supports-aria-props */
     );
 };
 
-Suggestion.defaultProps = defaultProps;
 Suggestion.propTypes = propTypes;
 export default Suggestion;

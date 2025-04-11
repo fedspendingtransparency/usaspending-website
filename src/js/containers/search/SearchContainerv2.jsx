@@ -71,10 +71,9 @@ export const parseRemoteFilters = (data) => {
     return reduxValues;
 };
 
-const SearchContainerv2 = ({ history }) => {
+const SearchContainer = ({ history }) => {
     const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
     const query = useQueryParams();
-
     const dispatch = useDispatch();
     const {
         filters: stagedFilters,
@@ -155,7 +154,7 @@ const SearchContainerv2 = ({ history }) => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        history.push('/searchv2');
+                        history.push('/search');
                         request.current = null;
                     }
                 });
@@ -185,7 +184,7 @@ const SearchContainerv2 = ({ history }) => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
             history.replace({
-                pathname: '/searchv2',
+                pathname: '/search',
                 search: ''
             });
             setDownloadAvailable(false);
@@ -211,7 +210,7 @@ const SearchContainerv2 = ({ history }) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
                 history.replace({
-                    pathname: `/searchv2/`,
+                    pathname: `/search/`,
                     search: getQueryParamString(newQueryParams)
                 });
                 setGenerateHashInFlight(false);
@@ -265,20 +264,20 @@ const SearchContainerv2 = ({ history }) => {
     );
 };
 
-SearchContainerv2.propTypes = propTypes;
-export default SearchContainerv2;
+SearchContainer.propTypes = propTypes;
+export default SearchContainer;
 
 export const SearchContainerRedirectv2 = () => {
     const { urlHash: pathHash } = useParams();
     return (
         <Redirect
             to={{
-                pathname: '/searchv2/',
+                pathname: '/search/',
                 search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
             }} />
     );
 };
 
-SearchContainerv2.propTypes = {
+SearchContainer.propTypes = {
     history: PropTypes.object.isRequired
 };

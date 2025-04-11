@@ -11,25 +11,26 @@ import Analytics from 'helpers/analytics/Analytics';
 import NewPicker from "../sharedComponents/dropdowns/NewPicker";
 
 const propTypes = {
-    size: PropTypes.string,
-    leftIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     enabled: PropTypes.bool,
-    subaward: PropTypes.bool,
     setSearchViewSubaward: PropTypes.func,
-    selectedValue: PropTypes.string
+    selectedValue: PropTypes.string,
+    setSpendingLevel: PropTypes.func
 };
 
 const SubawardDropdown = ({
-    selectedValue = 'prime',
+    selectedValue = 'awards',
     setSearchViewSubaward,
-    enabled = 'false'
+    enabled = 'false',
+    setSpendingLevel
 }) => {
     const [selected, setSelected] = useState(selectedValue);
     const dispatch = useDispatch();
     const onClick = (e) => {
-        dispatch(setSearchViewSubaward(e === 'subaward'));
-        setSelected(e === 'prime' ? 'prime' : 'subaward');
-        if (e === 'subaward') {
+        dispatch(setSearchViewSubaward(e === 'subawards'));
+        dispatch(setSpendingLevel(e));
+        setSelected(e);
+
+        if (e === 'subawards') {
             Analytics.event({
                 event: 'search_subaward_dropdown',
                 category: 'Advanced Search - Search Fields',
@@ -42,18 +43,24 @@ const SubawardDropdown = ({
     const options =
         [
             {
-                name: 'Prime Awards and Transactions',
-                value: 'prime',
+                name: 'Prime Awards',
+                value: 'awards',
                 onClick
             },
             {
                 name: 'Subawards',
-                value: 'subaward',
+                value: 'subawards',
+                onClick
+            },
+            {
+                name: 'Transactions',
+                value: 'transactions',
                 onClick
             }
         ];
 
     const sortFn = () => options;
+
     return (
         <div className="subaward-dropdown__container">
             <NewPicker

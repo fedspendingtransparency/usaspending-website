@@ -13,7 +13,6 @@ import GlobalConstants from 'GlobalConstants';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
 import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     selectedRecipientLocations: PropTypes.object,
@@ -86,11 +85,9 @@ const LocationSection = (props) => {
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-            <FeatureFlag>
-                <LocationAutocompleteContainer
-                    {...props}
-                    activeTab={activeTab} />
-            </FeatureFlag>
+            <LocationAutocompleteContainer
+                {...props}
+                activeTab={activeTab} />
             {filter}
             <SubmitHint
                 ref={(component) => {

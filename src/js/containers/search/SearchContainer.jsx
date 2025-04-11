@@ -185,7 +185,7 @@ const SearchContainer = ({ history }) => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
             history.replace({
-                pathname: '/search',
+                pathname: '/search-legacy',
                 search: ''
             });
             setDownloadAvailable(false);
@@ -211,7 +211,7 @@ const SearchContainer = ({ history }) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
                 history.replace({
-                    pathname: `/search/`,
+                    pathname: `/search-legacy/`,
                     search: getQueryParamString(newQueryParams)
                 });
                 setGenerateHashInFlight(false);
@@ -251,7 +251,6 @@ const SearchContainer = ({ history }) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, stagedFilters]);
-
     return (
         <SearchPage
             hash={urlHash}

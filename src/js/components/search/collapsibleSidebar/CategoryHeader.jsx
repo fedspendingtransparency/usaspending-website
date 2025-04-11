@@ -6,6 +6,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SelectedItemsChips from "./SelectedItemsChips";
+import { truncateItemCount } from '../../../helpers/search/collapsiblesidebarHelper';
+import { formatNumber } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     iconName: PropTypes.string,
@@ -14,12 +17,13 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     itemCount: PropTypes.number,
-    selectedItems: PropTypes.array,
+    selectedItems: PropTypes.object,
     selectCategory: PropTypes.func,
     isClickable: PropTypes.bool,
-    showDescription: PropTypes.bool
+    showDescription: PropTypes.bool,
+    titleOnly: PropTypes.bool,
+    showFullCount: PropTypes.bool
 };
-
 const CategoryHeader = ({
     item,
     iconName,
@@ -28,39 +32,40 @@ const CategoryHeader = ({
     title,
     description,
     itemCount,
+    selectedItems,
     selectCategory,
-    isClickable
+    isClickable,
+    titleOnly,
+    showFullCount = false
 }) => {
     const [content, setContent] = useState();
 
+
     const innerContent = (
-        <div className={`search-filter__content ${iconName ? '' : 'filter-header__title'}`}>
+        <div className={`search-filter__content ${titleOnly ? 'filter-header__title-only' : ''} ${!isClickable && description ? 'filter-header__title-description' : ''}`}>
             <div className="search-filter__top-row">
-                {iconName &&
-                    <div
-                        className="search-filter__top-row-icon-container"
-                        style={{ backgroundColor: iconBackgroundColor }}>
-                        <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
-                    </div>
-                }
+                <div
+                    className="search-filter__top-row-icon-container"
+                    style={{ backgroundColor: iconBackgroundColor }}>
+                    <FontAwesomeIcon icon={iconName} style={{ color: iconColor }} />
+                </div>
                 <div className="search-filter__top-row-text-container">
                     <div className="search-filter__top-row-title">{title}</div>
                 </div>
                 <div className="search-filter__top-row-selected-container">
                     {itemCount > 0 &&
-                        <div className="search-filter__top-row-selected">{itemCount} selected</div>
+                        <div className="search-filter__top-row-selected">{showFullCount ? truncateItemCount(itemCount) : formatNumber(itemCount)} selected</div>
                     }
                 </div>
             </div>
             {description &&
-                <div className="search-filter__description">{description}</div>
+                <div className={`search-filter__description ${isClickable ? '' : 'search-filter__description__bottom-margin'}`}>{description}</div>
             }
-            {/* <div*/}
-            {/*    className="search-filter__bottom-section">*/}
-            {/*    {selectedItems.map((selectedItem) => (*/}
-            {/*        <div>{selectedItem}</div>*/}
-            {/*    ))}*/}
-            {/* </div>*/}
+            <SelectedItemsChips
+                selectedItems={selectedItems}
+                itemCount={itemCount}
+                isClickable={isClickable}
+                categoryKey={item?.categoryKey} />
         </div>
     );
 
@@ -78,7 +83,6 @@ const CategoryHeader = ({
             tabIndex={0}
             role="button">
             { innerContent }
-
         </div>);
 
     useEffect(() => {

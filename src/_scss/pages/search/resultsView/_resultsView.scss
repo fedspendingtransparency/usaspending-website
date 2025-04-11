@@ -1,5 +1,5 @@
 .search-contents {
-    padding-top: rem(24);
+  padding-top: rem(24);
 
   .search__sidebar {
     border: rem(1) solid purple;
@@ -36,6 +36,7 @@
         font-weight: $font-semibold;
         line-height: 1.5;
         margin: auto 0;
+
         @media(max-width: $medium-screen) {
           flex: 100%;
         }
@@ -241,6 +242,10 @@
 
         .award-search__body-text {
           margin-bottom: rem(8);
+
+          .award-search__subaward-note {
+            font-weight: $font-semibold;
+          }
         }
       }
     }
@@ -251,7 +256,9 @@
   }
 }
 
-.usda-message_no-results, .usda-message_error, .usda-message_loading {
+.usda-message_no-results,
+.usda-message_error,
+.usda-message_loading {
   padding: rem(200) 0;
 }
 

@@ -1,17 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import GlobalConstants from 'GlobalConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
+import { bannerContent } from 'ActiveBanners';
+
 import NavbarWrapper from './NavbarWrapper';
 import GovBanner from "./GovBanner";
 import InfoBanner from './InfoBanner';
 
 const Header = () => {
     const location = useLocation();
+
+    const siteBannersArray = bannerContent?.filter(
+        (banner) => banner.isActive && banner.page === "site wide"
+    );
+    const pageBannersArray = bannerContent?.filter(
+        (banner) => banner.isActive && location?.pathname?.includes(banner.page)
+    );
+
+    const [activeSiteBanners, setActiveSiteBanners] = useState([]);
+    const [activePageBanners, setActivePageBanners] = useState([]);
 
     const skippedNav = (e) => {
     // don't update the URL due to potential React Router conflicts
@@ -27,16 +37,64 @@ const Header = () => {
         }
     };
 
-    const isBannerActive = () => {
-        if (GlobalConstants?.BANNER?.isActive) {
-            if (GlobalConstants.BANNER.page && GlobalConstants.BANNER.page !== "") {
-                return location.pathname.includes(GlobalConstants.BANNER.page);
-            }
-            return true;
+    const getIcon = (type) => {
+        let icon = "";
+
+        switch (type) {
+            case "general":
+                icon = <FontAwesomeIcon size="lg" icon="info-circle" color="#59b9de" />;
+                break;
+
+            case "warning":
+                icon = <FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FA9441" />;
+                break;
+
+            case "warning-resolved":
+                icon = <FontAwesomeIcon size="lg" icon="check-circle" color="#21C834" />;
+                break;
+
+            default:
+                break;
         }
 
-        return false;
+
+        return icon;
     };
+
+    const getBanners = () => {
+        const siteBannerComponents = [];
+        const pageBannerComponents = [];
+
+        siteBannersArray?.forEach((banner) => {
+            siteBannerComponents.push(
+                <InfoBanner
+                    icon={getIcon(banner.type)}
+                    type={banner.type}
+                    title={banner.title}
+                    content={banner.content} />
+            );
+
+            setActiveSiteBanners(siteBannerComponents);
+        });
+
+        pageBannersArray?.forEach((banner) => {
+            pageBannerComponents.push(
+                <InfoBanner
+                    icon={getIcon(banner.type)}
+                    type={banner.type}
+                    title={banner.title}
+                    content={banner.content} />
+            );
+
+            setActivePageBanners(pageBannerComponents);
+        });
+    };
+
+    useEffect(() => {
+        getBanners();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
 
     return (
         <div className="site-header">
@@ -52,24 +110,13 @@ const Header = () => {
                 <GovBanner />
                 <NavbarWrapper />
             </header>
-            {isBannerActive() &&
-                    <InfoBanner
-                        icon={<FontAwesomeIcon size="lg" icon="info-circle" color="#59b9de" />}
-                        borderTopColor="#59b9de"
-                        /* backgroundColor="#fff1d2" */
-                        backgroundColor="#e1f3f8"
-                        borderBottomColor="#97d4ea"
-                        title={GlobalConstants?.BANNER?.isActive ? GlobalConstants.BANNER.title : ""}
-                        content={GlobalConstants.BANNER.isActive ? GlobalConstants.BANNER.content : ""} />}
+            {activeSiteBanners}
+            {activePageBanners}
             <AboutTheDataContainer />
             <GlossaryContainer />
             <GlobalModalContainer />
         </div>
     );
-};
-
-Header.propTypes = {
-    showModal: PropTypes.func
 };
 
 export default Header;

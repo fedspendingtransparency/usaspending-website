@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { isCancel } from "axios";
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -15,13 +16,15 @@ import SubmitHint from "../../../../components/sharedComponents/filterSidebar/Su
 import EntityDropdownAutocomplete from "../../../../components/search/filters/location/EntityDropdownAutocomplete";
 import PrimaryCheckboxType from "../../../../components/sharedComponents/checkbox/PrimaryCheckboxType";
 import SelectedRecipients from "../../../../components/search/filters/recipient/SelectedRecipients";
+import replaceString from '../../../../helpers/replaceString';
 
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,
-    selectedRecipients: PropTypes.object
+    selectedRecipients: PropTypes.object,
+    searchV2: PropTypes.bool
 };
 
-const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients }) => {
+const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients, searchV2 }) => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [newSearch, setNewSearch] = useState(true);
@@ -33,6 +36,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     let localSelectedRecipients = null;
     let maxRecipientTitle = '';
     let maxRecipientText = '';
+    const highlightText = (text) => replaceString(text, searchString, 'highlight');
 
     if (newSearch) {
         maxRecipientTitle = 'Use the search bar to find recipients';
@@ -133,6 +137,11 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 setIsLoading(false);
                 sortResults(res.data.results);
                 setMaxRecipients(true);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(`Recipient Request Error: ${err}`);
+                }
             });
     };
 
@@ -156,6 +165,11 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 setRecipients(res.data.results);
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(`Recipient Request Error: ${err}`);
+                }
             });
     };
 
@@ -177,6 +191,14 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 toggleRecipient={removeRecipient} />
         );
     }
+
+    const handleClearRecipients = () => {
+        const currentRecipients = selectedRecipients;
+
+        currentRecipients.forEach((recipient) => {
+            updateSelectedRecipients(recipient);
+        });
+    };
 
     useEffect(() => {
         if (searchString.length >= 3) {
@@ -208,16 +230,26 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     context={{}}
                     loading={false}
                     searchIcon />
+                <div className="clear-all__container">
+                    <button
+                        type="button"
+                        aria-label="Clear all Recipient filters"
+                        className="clear-all__button"
+                        tabIndex="0"
+                        onClick={handleClearRecipients} >
+                        Clear all Recipient filters
+                    </button>
+                </div>
                 {isLoading ? loadingIndicator :
                     <div className="recipient-results__container">
                         <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>
                             {recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
-                                .map((recipient) => (
-                                    <div className="recipient-label__container">
+                                .map((recipient, index) => (
+                                    <div className="recipient-label__container" key={`recipient-${index}`}>
                                         <PrimaryCheckboxType
                                             name={(
                                                 <div className="recipient-checkbox__uei">
-                                                    <span>UEI:</span> {recipient.uei ? recipient.uei : 'Not provided'}
+                                                    <span>UEI:</span> {recipient.uei ? highlightText(recipient.uei) : 'Not provided'}
                                                 </div>
                                             )}
                                             value={{
@@ -230,11 +262,11 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                                             selectedCheckboxes={selectedRecipients} />
                                         <div className="recipient-label__lower-container">
                                             <div className="recipient-label__legacy-duns">Legacy
-                                                DUNS: {recipient.duns ? recipient.duns : 'Not provided'}
+                                                DUNS: {recipient.duns ? highlightText(recipient.duns) : 'Not provided'}
                                             </div>
                                             <div className="recipient-label__name-container">
                                                 <span className="recipient-label__recipient-name">
-                                                    {recipient.name || recipient.recipient_name}
+                                                    {recipient.name ? highlightText(recipient.name) : highlightText(recipient.recipient_name)}
                                                 </span>
                                                 <span className="recipient-label__recipient-level">
                                                     {levelMapping[recipient.recipient_level]}
@@ -257,7 +289,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                     </div>
                 }
                 {localSelectedRecipients}
-                <SubmitHint selectedFilters={selectedRecipients} />
+                { !searchV2 && <SubmitHint selectedFilters={selectedRecipients} /> }
             </div>
         </div>
     );

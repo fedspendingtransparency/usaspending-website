@@ -9,12 +9,4 @@
     padding: 0;
     background-color: $color-white;
     color: $color-base;
-    margin: 0 math.div($outer-gutter, 2);
-    @include media($large-screen) {
-        margin: 0 $outer-gutter;
-    }
-    @include media($x-large-screen) {
-        max-width: $site-max-width;
-        margin: 0 auto;
-    }
 }

@@ -3,20 +3,20 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CategoriesList from "./CateogriesList";
 import CategoryFilter from "./CategoryFilter";
-import { generateCount } from "../../../helpers/search/filterCheckboxHelper";
+import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     list: PropTypes.array,
     filter: PropTypes.object,
     isDrilldown: PropTypes.bool,
-    sidebarHeight: PropTypes.number,
+    sidebarContentHeight: PropTypes.number,
     selectedCategory: PropTypes.object,
     setLevel3: PropTypes.func,
     goBack: PropTypes.func,
@@ -26,7 +26,9 @@ const propTypes = {
     titleOnly: PropTypes.bool,
     dsmComponent: PropTypes.bool,
     dsmFile: PropTypes.string,
-    currentLevel: PropTypes.number
+    currentLevel: PropTypes.number,
+    isDsmOpened: PropTypes.bool,
+    setIsDsmOpened: PropTypes.func
 };
 
 const SearchSidebarDrilldown = ({
@@ -38,14 +40,15 @@ const SearchSidebarDrilldown = ({
     goBack,
     itemCount,
     filters,
-    sidebarHeight,
+    sidebarContentHeight,
     selectedCategoryTitle,
     titleOnly = false,
     dsmComponent = false,
     dsmFile = '',
-    currentLevel
+    currentLevel,
+    isDsmOpened,
+    setIsDsmOpened
 }) => {
-    const [isDsmOpened, setIsDsmOpened] = useState(false);
     const keyHandler = (e, func) => {
         e.preventDefault();
         if (e.key === "Enter") {
@@ -56,7 +59,8 @@ const SearchSidebarDrilldown = ({
     const {
         selectedAwardIDs,
         awardAmounts,
-        awardType,
+        contractAwardType,
+        financialAssistanceAwardType,
         naicsCodes,
         pscCodes,
         pricingType,
@@ -69,29 +73,30 @@ const SearchSidebarDrilldown = ({
         selectedFundingAgencies,
         tasCodes,
         covidDefCode,
-        infraDefCode
+        infraDefCode,
+        awardDescription
     } = filters;
 
-    // TODO: Add in Award Description, Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
+    // TODO: Add in Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
     // TODO: this can't be done until those filters are properly placed in the new advanced search
     const filterCount = {
         Location: itemCount.location,
         'Time Period': itemCount.timePeriod,
-        'Award Description': 0,
+        'Award Description': awardDescription ? 1 : 0,
         'Award ID': selectedAwardIDs.size,
         'Spending Amount': awardAmounts.size,
-        'Contract Award Type': awardType.size,
+        'Contract Award Type': excludeIDVB(contractAwardType),
         'North American Industry Classification System (NAICS)': generateCount(naicsCodes),
         'Product and Service Code (PSC)': generateCount(pscCodes),
         'Type of Contract Pricing': pricingType.size,
         'Type of Set Aside': setAside.size,
         'Extent Competed': extentCompeted.size,
-        'Financial Assistance Award Type': 0,
+        'Financial Assistance Award Type': financialAssistanceAwardType.size,
         'Assistance Listing': selectedCFDA.size,
         Recipient: selectedRecipients.size,
         'Recipient Type': recipientType.size,
         Agency: selectedAwardingAgencies.size + selectedFundingAgencies.size,
-        'Treasury Account Symbol (TAS)': tasCodes.counts.length,
+        'Treasury Account Symbol (TAS)': generateCount(tasCodes),
         'COVID-19 Spending': covidDefCode.size,
         'Infrastructure Spending': infraDefCode.size
     };
@@ -101,36 +106,45 @@ const SearchSidebarDrilldown = ({
     if (titleOnly) {
         categoryFilter = (
             <CategoryFilter
-                height={sidebarHeight}
+                height={sidebarContentHeight}
                 title={selectedCategoryTitle}
-                description={selectedCategory.description}
                 component={filter}
                 itemCount={filterCount[selectedCategoryTitle]}
-                titleOnly={titleOnly} />
+                titleOnly={titleOnly}
+                iconName={selectedCategory?.iconName}
+                iconColor={selectedCategory?.iconColor}
+                iconBackgroundColor={selectedCategory?.iconBackgroundColor}
+                showFullCount={currentLevel === 3} />
         );
     }
     else {
         categoryFilter = (
             <CategoryFilter
-                height={sidebarHeight}
+                height={sidebarContentHeight}
                 iconName={selectedCategory?.iconName}
                 iconColor={selectedCategory?.iconColor}
                 iconBackgroundColor={selectedCategory?.iconBackgroundColor}
                 title={selectedCategoryTitle}
                 component={filter}
                 itemCount={filterCount[selectedCategoryTitle]}
-                description={selectedCategory?.description} />
+                description={selectedCategory?.description}
+                showFullCount={currentLevel === 3} />
         );
     }
-
 
     return (
         <div className={`collapsible-sidebar--drilldown search-filters-wrapper ${isDrilldown ? 'opened' : ''}`}>
             <div className="collapsible-sidebar--header">
                 <div
                     className="collapsible-sidebar--back-btn"
-                    onClick={(e) => goBack(e)}
-                    onKeyDown={(e) => keyHandler(e, goBack)}
+                    onClick={(e) => {
+                        setIsDsmOpened(false);
+                        goBack(e);
+                    }}
+                    onKeyDown={(e) => {
+                        setIsDsmOpened(false);
+                        keyHandler(e, goBack);
+                    }}
                     role="button"
                     tabIndex="0">
                     <FontAwesomeIcon className="chevron" icon="chevron-left" />Back
@@ -138,18 +152,18 @@ const SearchSidebarDrilldown = ({
             </div>
             <div className="collapsible-sidebar--content">
                 {!isDsmOpened && list && <CategoriesList
-                    height={sidebarHeight}
+                    height={sidebarContentHeight}
                     iconName={selectedCategory.iconName}
                     iconColor={selectedCategory.iconColor}
                     iconBackgroundColor={selectedCategory.iconBackgroundColor}
                     title={selectedCategory.title}
-                    description={selectedCategory.description}
                     categories={list}
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}
-                    filterCount={filterCount} />}
+                    filterCount={filterCount}
+                    showFullCount={currentLevel === 3} />}
                 {!isDsmOpened && filter && categoryFilter}
-                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} />}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle || selectedCategory.title} height={sidebarContentHeight} hasChildren={!!list} />}
             </div>
         </div>);
 };

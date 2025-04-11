@@ -8,16 +8,34 @@
         }
 
         .selected-filters {
-            @include selected-filter-wrap;
+            display: none; 
+        }
+
+        .clear-all__container {
+            display: flex;
+            justify-content: right;
+
+            .clear-all__button {
+                background: none;
+                color: $theme-color-1;
+                margin: ($global-margin * 2) 0 0 0;
+                padding: 0;
+                font-size: $smallest-font-size;
+                line-height: 1.5;
+            }
         }
     }
 
     .recipient-results__container {
         margin-top: $global-margin * 2.5;
         padding: 0 0 $global-padding * 3 0;
-        height: rem(400);
         overflow-y: scroll;
+        height: rem(400);
         list-style: none;
+
+        // can be removed when v2 is deployed.  this accounts for the inside scroll bar container removed in v2.
+        margin-left: -2rem;
+        padding-left: 2rem;
 
         .find-recipients-text {
             text-align: center;
@@ -37,6 +55,10 @@
         }
 
         .checkbox-type-filter {
+            // allows for checkbox focus on v2 to not be cut off on left
+            margin-left: -32px;
+            padding-left: 32px;
+
             &.bottom-fade {
                 mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
             }
@@ -64,7 +86,12 @@
                                 outline: none;
                                 border-color: $gray-cool-20;
                                 top: rem(4);
+
+                                &:focus-visible {
+                                    outline: solid 1px $color-focus;
+                                }
                             }
+
                         }
                     }
                 }
@@ -80,6 +107,10 @@
 
                     span {
                         font-weight: $font-semibold;
+                    }
+
+                    span.highlight {
+                        background-color: $yellow-10;
                     }
                 }
 
@@ -116,6 +147,10 @@
                     }
                 }
             }
+        }
+
+        span.highlight {
+            background-color: $yellow-10;
         }
     }
 

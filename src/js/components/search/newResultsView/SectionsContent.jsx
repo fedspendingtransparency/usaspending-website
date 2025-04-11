@@ -15,7 +15,9 @@ import Analytics from "../../../helpers/analytics/Analytics";
 require("pages/search/searchPage.scss");
 
 const propTypes = {
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    tabData: PropTypes.object,
+    hash: PropTypes.string
 };
 
 const SectionsContent = (props) => {
@@ -24,7 +26,6 @@ const SectionsContent = (props) => {
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
     const [mapHasLoaded, setMapHasLoaded] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
-
     const observerOptions = {
         threshold: 0.1
     };
@@ -35,7 +36,8 @@ const SectionsContent = (props) => {
                 event: 'search_visualization_type',
                 category: 'Advanced Search - Visualization Type',
                 action: activeLabel,
-                gtm: true
+                gtm: true,
+                label: props.hash
             });
         }, 15 * 1000);
     };
@@ -86,14 +88,22 @@ const SectionsContent = (props) => {
             return () => observer.disconnect();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [observerSupported]);
+    }, [observerSupported, props.hash]);
 
     return (
         <>
-            <TableSection subaward={props.subaward} />
-            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} />
-            <TimeSection subaward={props.subaward} timeHasLoaded={timeHasLoaded} />
-            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} />
+            <TableSection {...props} />
+            <CategoriesSection
+                subaward={props.subaward}
+                categoriesHasLoaded={categoriesHasLoaded}
+                setSelectedDropdown={setSelectedDropdown}
+                selectedDropdown={selectedDropdown}
+                hash={props.hash} />
+            <TimeSection
+                subaward={props.subaward}
+                timeHasLoaded={timeHasLoaded}
+                hash={props.hash} />
+            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} hash={props.hash} />
         </>
     );
 };

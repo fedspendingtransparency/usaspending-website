@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
-import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import AccordionCheckbox from "../../../sharedComponents/checkbox/AccordionCheckbox";
 
 const awardTypesData = [
@@ -47,7 +46,6 @@ const FinancialAssistanceAwardType = ({ awardType, toggleCheckboxType, bulkTypeC
             selectedFilters={awardType}
             singleFilterChange={toggleCheckboxType}
             bulkFilterChange={bulkTypeChange} />
-        <SubmitHint selectedFilters={awardType} />
     </div>
 );
 

@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import AccordionCheckboxPrimary from "./AccordionCheckboxPrimary";
 import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
 
@@ -27,11 +26,13 @@ const propTypes = {
     filterCategoryMapping: PropTypes.arrayOf(PropTypes.object),
     selectedFilters: PropTypes.object,
     singleFilterChange: PropTypes.func,
-    bulkFilterChange: PropTypes.func
+    bulkFilterChange: PropTypes.func,
+    customLabels: PropTypes.object,
+    setDefSearchString: PropTypes.func
 };
 
 const AccordionCheckbox = ({
-    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange, selectedCategory, isExpanded
+    filters, customLabels, filterCategoryMapping = [], selectedFilters, singleFilterChange, bulkFilterChange, selectedCategory, isExpanded, setDefSearchString
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -60,11 +61,13 @@ const AccordionCheckbox = ({
 
     const handleTextInputChange = (e) => {
         setSearchString(e.target.value);
+        setDefSearchString(e.target.value);
     };
 
     const onClear = () => {
         setExpandedCategories([]);
         setSearchString('');
+        setDefSearchString('');
     };
 
     const searchCategoryMapping = () => {
@@ -106,10 +109,12 @@ const AccordionCheckbox = ({
             singleFilterChange={singleFilterChange}
             filters={filters}
             selectedFilters={selectedFilters}
+            customLabels={customLabels}
             expandedCategories={expandedCategories}
             toggleExpanded={toggleExpanded}
             bulkFilterChange={bulkFilterChange}
-            key={category.id} />
+            key={category.id}
+            searchString={searchString} />
     ));
 
     return (
@@ -127,7 +132,9 @@ const AccordionCheckbox = ({
             {noResults ?
                 <div className="no-results">No results found.</div>
                 :
-                checkboxCategories
+                <div className="checkbox-categories-wrapper">
+                    {checkboxCategories}
+                </div>
             }
         </div>
     );

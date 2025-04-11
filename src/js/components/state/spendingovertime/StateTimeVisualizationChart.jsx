@@ -24,7 +24,8 @@ import CustomLegend from "./chartCustomizations/CustomLegend";
 
 const stateTimeVisualizationChartPropTypes = {
     data: PropTypes.object,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    outlayToggle: PropTypes.bool
 };
 
 const StateTimeVisualizationChart = (props) => {
@@ -34,10 +35,16 @@ const StateTimeVisualizationChart = (props) => {
 
     let label;
     let value;
+    // sort years
+    data.xSeries.sort();
     for (let i = 0; i < data?.xSeries?.length; i++) {
         if (data?.ySeries[i][0] !== 0) {
             label = data?.xSeries[i][0];
-            value = data?.ySeries[i][0];
+            if (!props.outlayToggle) {
+                value = data?.ySeries[i][0];
+            } else {
+                value = data?.ySeriesOutlay[i][0];
+            }
         }
 
         transformedData.push({
@@ -52,8 +59,8 @@ const StateTimeVisualizationChart = (props) => {
         }
     };
 
-    const onMouseMove = (state) => {
-        setFocusBar(state.label);
+    const onMouseMove = () => {
+        setFocusBar(true);
     };
 
     const renderChart = () => {
@@ -63,7 +70,6 @@ const StateTimeVisualizationChart = (props) => {
         else if (transformedData.length === 0) {
             return <NoResultsMessage />;
         }
-
         return (
             <ResponsiveContainer>
                 <BarChart
@@ -80,19 +86,18 @@ const StateTimeVisualizationChart = (props) => {
                     <Tooltip
                         cursor={{ fill: '#fff' }}
                         filterNull
-                        content={<CustomTooltip />}
+                        content={<CustomTooltip outlayToggle={props.outlayToggle} />}
                         isAnimationActive={false}
-                        onSetFocusBar={setFocusBar}
                         onMouseLeave={onMouseLeave} />
                     <Legend
                         align="left"
-                        content={<CustomLegend barColor="#0081a1" label="Obligations" />}
+                        content={<CustomLegend barColor={!props.outlayToggle ? "#0081a1" : "#008480"} label={!props.outlayToggle ? "Obligations" : "Outlays"} />}
                         wrapperStyle={{ left: 60, bottom: 0 }} />
                     <ReferenceLine y={0} stroke="#dfe1e2" />
                     <Bar
                         dataKey="value"
-                        shape={<CustomShape focusBar={focusBar} barColor="#0081a1" />}
-                        activeBar={<CustomShape isActive focusBar={focusBar} barColor="#0081a1" />}
+                        shape={<CustomShape focusBar={focusBar} barColor={!props.outlayToggle ? "#0081a1" : "#008480"} />}
+                        activeBar={<CustomShape isActive focusBar={focusBar} barColor={!props.outlayToggle ? "#0081a1" : "#008480"} />}
                         onMouseEnter={onMouseMove}
                         onMouseOut={onMouseLeave}
                         onMouseLeave={onMouseLeave} />

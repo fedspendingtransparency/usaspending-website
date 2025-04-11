@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep, uniqueId } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { debounce, get, flattenDeep } from 'lodash';
 import { connect } from 'react-redux';
 
 import {
     cleanPscData,
     incrementPscCountAndUpdateUnchecked,
     decrementPscCountAndUpdateUnchecked,
-    removeStagedPscFilter,
     autoCheckPscAfterExpand,
     expandPscNodeAndAllDescendantParents,
     getPscNodeFromTree,
@@ -27,7 +25,6 @@ import {
     setPscNodes,
     showPscTree,
     setExpandedPsc,
-    addCheckedPsc,
     setCheckedPsc,
     setUncheckedPsc,
     setSearchedPsc,
@@ -38,7 +35,6 @@ import { updatePSC } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
-import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -47,7 +43,6 @@ const propTypes = {
     setSearchedPsc: PropTypes.func,
     setPscCounts: PropTypes.func,
     stagePsc: PropTypes.func,
-    addCheckedPsc: PropTypes.func,
     showPscTree: PropTypes.func,
     setUncheckedPsc: PropTypes.func,
     expanded: PropTypes.arrayOf(PropTypes.string),
@@ -58,18 +53,9 @@ const propTypes = {
     countsFromHash: PropTypes.arrayOf(PropTypes.shape({})),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
-    counts: PropTypes.arrayOf(PropTypes.shape({}))
+    counts: PropTypes.arrayOf(PropTypes.shape({})),
+    searchV2: PropTypes.bool
 };
-
-const SearchTooltip = () => (
-    <>
-        <p>Filter the options below by typing any of the following:</p>
-        <ul>
-            <li>Any PSC numeric code (or part thereof)</li>
-            <li>Any PSC label name (or part thereof)</li>
-        </ul>
-    </>
-);
 
 export class PSCCheckboxTreeContainer extends React.Component {
     constructor(props) {
@@ -253,12 +239,6 @@ export class PSCCheckboxTreeContainer extends React.Component {
         }
     };
 
-    removeSelectedFilter = (e, node) => {
-        e.preventDefault();
-        const newChecked = removeStagedPscFilter(this.props.nodes, this.props.checked, node.value);
-        this.onUncheck(newChecked, { ...node, checked: false });
-    };
-
     autoCheckSearchResultDescendants = (checked, expanded, nodes) => {
         const newChecked = expanded
             .filter((expandedNode) => {
@@ -373,9 +353,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
             nodes,
             checked,
             expanded,
-            counts,
             searchExpanded
         } = this.props;
+
         const {
             isLoading,
             searchString,
@@ -383,9 +363,9 @@ export class PSCCheckboxTreeContainer extends React.Component {
             errorMessage,
             isSearch
         } = this.state;
+
         return (
             <div className="psc-checkbox">
-                <span className="checkbox-header">Search by Code or Name <CSSOnlyTooltip definition={<SearchTooltip />} heading="PSC Search" /></span>
                 <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}
@@ -408,32 +388,11 @@ export class PSCCheckboxTreeContainer extends React.Component {
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}
                     onCollapse={this.onCollapse} />
-                {counts.length > 0 && (
-                    <div
-                        className="selected-filters"
-                        role="status">
-                        {counts.map((node) => {
-                            const label = `${node.value} - ${node.label} (${node.count})`;
-                            return (
-                                <button
-                                    key={uniqueId()}
-                                    className="shown-filter-button"
-                                    value={label}
-                                    onClick={(e) => this.removeSelectedFilter(e, node)}
-                                    title="Click to remove."
-                                    aria-label={`Applied filter: ${label}`}>
-                                    {label}
-                                    <span className="close">
-                                        <FontAwesomeIcon icon="times" />
-                                    </span>
-                                </button>
-                            );
-                        })}
-                    </div>
-                )}
-                <SubmitHint ref={(component) => {
-                    this.hint = component;
-                }} />
+                { !this.props.searchV2 &&
+                    <SubmitHint ref={(component) => {
+                        this.hint = component;
+                    }} />
+                }
             </div>
         );
     }
@@ -457,7 +416,6 @@ const mapDispatchToProps = (dispatch) => ({
     setPscNodes: (key, nodes) => dispatch(setPscNodes(key, nodes)),
     showPscTree: () => dispatch(showPscTree()),
     setExpandedPsc: (expanded, type) => dispatch(setExpandedPsc(expanded, type)),
-    addCheckedPsc: (nodeValue) => dispatch(addCheckedPsc(nodeValue)),
     setCheckedPsc: (nodes) => dispatch(setCheckedPsc(nodes)),
     setUncheckedPsc: (nodes) => dispatch(setUncheckedPsc(nodes)),
     setSearchedPsc: (nodes) => dispatch(setSearchedPsc(nodes)),

@@ -1,71 +1,52 @@
 .tas-checkbox {
-    @import '../../../../components/_checkboxTree';
-    display: block;
-    padding-top: rem(15);
-    .checkbox-header {
-      @include display(flex);
-      .tooltip-popover-container .tooltip-popover {
-        bottom: rem(45);
-        .tas-checkbox-tt {
-          p {
-            padding: 0;
-            margin: 0;
-          }
-          ul {
-            padding-top: rem(10);
-          }
+  @import '../../../../components/_checkboxTree';
+
+  display: block;
+  padding-top: rem(15);
+
+  .checkbox-header {
+    @include display(flex);
+
+    .tooltip-popover-container .tooltip-popover {
+      bottom: rem(45);
+
+      .tas-checkbox-tt {
+        p {
+          padding: 0;
+          margin: 0;
+        }
+
+        ul {
+          padding-top: rem(10);
         }
       }
     }
-    .autocomplete__input {
-        @include display(flex);
+  }
+
+  .autocomplete__input {
+    @include display(flex);
+
+    width: 100%;
+    padding-bottom: rem(10);
+    position: relative;
+
+    input {
+        // TODO: [DEV-5732] Fix styling bug in Searchable Checkbox trees
         width: 100%;
-        padding-bottom: rem(10);
-        position: relative;
-        input {
-            // TODO: [DEV-5732] Fix styling bug in Searchable Checkbox trees
-            width: 100%;
-        }
-        .icon {
-          @include flex(0 0 auto);
-          @include align-self(center);
-          position: absolute;
-          width: rem(15);
-          right: rem(5);
-        }
     }
-    .checkbox-tree {
-        margin-bottom: rem(20);
-        border-bottom: 1px solid $color-gray-lighter;
-        width: 100%;  
+
+    .icon {
+      @include flex(0 0 auto);
+      @include align-self(center);
+
+      position: absolute;
+      width: rem(15);
+      right: rem(5);
     }
-    @import '../../../../elements/filters/selectedFilterBtn';
-    .selected-filters {
-      background: #E4E4E4;
-      padding: rem(10);
-      margin-bottom: rem(10);
-      width: 100%;
-      .shown-filter-button {
-        line-height: rem(15);
-        font-size: rem(12);
-        color: $color-gray;
-        .close {
-          color: $color-gray;
-        }
-        &:hover {
-          outline: none;
-          border: rem(1) solid $color-gray-lighter;
-          & .close {
-            color: $color-gray;
-            outline: none;
-          }
-        }
-        &:focus {
-          outline: none;
-          & .close {
-            outline: none;
-          }
-        }
-      }
-    }
+  }
+  .checkbox-tree {
+    margin-bottom: rem(20);
+    border-bottom: 1px solid $color-gray-lighter;
+    width: 100%;
+  }
 }

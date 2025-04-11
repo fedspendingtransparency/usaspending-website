@@ -15,8 +15,8 @@
 
     @import "resultsView/resultsView";
     @import "resultsView/dtuiOverrides";
+    @import "filters";
     @import "collapsibleSidebar";
-
 
     .subaward-dropdown__list {
         min-width: max-content;

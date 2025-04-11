@@ -17,10 +17,9 @@ import NoDownloadHover from '../header/NoDownloadHover';
 import KeywordSearchLink from "../KeywordSearchLink";
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
-import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
+import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
-import CollapsibleSidebar from "./CollapsibleSidebar";
-import PageFeatureFlag from "../../sharedComponents/PageFeatureFlag";
+import CollapsibleSidebar from "./SidebarWrapper";
 
 require('pages/search/searchPage.scss');
 
@@ -57,6 +56,7 @@ const SearchPage = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const getSlugWithHash = () => {
         if (hash) {
@@ -84,7 +84,6 @@ const SearchPage = ({
      * Toggle whether or not to show the mobile filter view
      */
     const toggleMobileFilters = () => {
-        console.debug("show mobile filters");
         setShowMobileFilters(!showMobileFilters);
     };
 
@@ -109,6 +108,10 @@ const SearchPage = ({
         return 'filters';
     };
 
+    useEffect(() => {
+        setStateHash(hash);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hash]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -117,30 +120,31 @@ const SearchPage = ({
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < mediumScreen);
             }
-        }, 50);
+        }, 100);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
 
     useEffect(() => {
-        setStateHash(hash);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hash]);
-
-    useEffect(() => {
         setSearchv2(true);
-        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} />);
+        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <PageWrapper
             pageName="Advanced Search"
-            classNames="usa-da-search-page v2"
+            classNames={`usa-da-search-page v2 ${showMobileFilters && sidebarOpen ? 'fixed-body' : ''}`}
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown
+                    size="sm"
+                    label="Filter by:"
+                    enabled
+                    setSearchViewSubaward={setSearchViewSubaward}
+                    selectedValue="awards"
+                    setSpendingLevel={setSpendingLevel} />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
@@ -157,64 +161,66 @@ const SearchPage = ({
                     onClick={showDownloadModal} />
             ]}
             filters={appliedFilters}>
-            <PageFeatureFlag>
-                <div id="main-content">
-                    <div className="search-contents v2">
-                        <div className="full-search-sidebar">
-                            {fullSidebar}
-                            {isMobile === false && searchv2 === false ?
-                                <KeywordSearchLink />
-                                : ''}
-                        </div>
-                        <div className="mobile-filter-button-wrapper">
-                            <button
-                                className="mobile-filter-button-v2"
-                                onClick={toggleMobileFilters}
-                                onKeyUp={(e) => {
-                                    if (e.key === "Escape" && showMobileFilters) {
-                                        toggleMobileFilters();
-                                    }
-                                }}>
-                                <div className="mobile-filter-button-content">
-                                    <div className="mobile-filter-button-icon">
-                                        <img
-                                            className="usa-da-mobile-filter-icon"
-                                            alt="Toggle filters"
-                                            aria-label="Toggle filters"
-                                            src="img/Add-search-filters-icon.svg" />
-                                    </div>
-                                    <div className="mobile-filter-button-label">
-                                        {`Add search ${pluralizeFilterLabel(filterCount)}`}
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-                        <FlexGridCol className="mobile-search-sidebar-v2">
-                            <MobileFiltersV2
-                                filters={filters}
-                                showMobileFilters={showMobileFilters}
-                                setShowMobileFilters={setShowMobileFilters} />
-                        </FlexGridCol>
-                        <Helmet>
-                            <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
-                        </Helmet>
-                        <div className="search-results-view-container">
-                            <ResultsView
-                                filters={filters}
-                                isMobile={isMobile}
-                                filterCount={filterCount}
-                                showMobileFilters={showMobileFilters}
-                                updateFilterCount={updateFilterCount}
-                                requestsComplete={requestsComplete}
-                                noFiltersApplied={noFiltersApplied} />
-                        </div>
+            <div id="main-content">
+                <div className="search-contents v2">
+                    <div className="full-search-sidebar">
+                        {fullSidebar}
+                        {isMobile === false && searchv2 === false ?
+                            <KeywordSearchLink />
+                            : ''}
                     </div>
-                    <FullDownloadModalContainer
-                        download={download}
-                        mounted={showFullDownload}
-                        hideModal={hideDownloadModal} />
+                    <div className="mobile-filter-button-wrapper">
+                        <button
+                            className="mobile-filter-button-v2"
+                            onClick={toggleMobileFilters}
+                            onKeyUp={(e) => {
+                                if (e.key === "Escape" && showMobileFilters) {
+                                    toggleMobileFilters();
+                                }
+                            }}>
+                            <div className="mobile-filter-button-content">
+                                <div className="mobile-filter-button-icon">
+                                    <img
+                                        className="usa-da-mobile-filter-icon"
+                                        alt="Toggle filters"
+                                        aria-label="Toggle filters"
+                                        src="img/Add-search-filters-icon.svg" />
+                                </div>
+                                <div className="mobile-filter-button-label">
+                                    {`Add search ${pluralizeFilterLabel(filterCount)}`}
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <FlexGridCol className={`mobile-search-sidebar-v2 ${sidebarOpen ? 'sidebar-opened' : ''}`}>
+                        <MobileFiltersV2
+                            filters={filters}
+                            showMobileFilters={showMobileFilters}
+                            setShowMobileFilters={setShowMobileFilters}
+                            sidebarOpen={sidebarOpen}
+                            setSidebarOpen={setSidebarOpen} />
+                    </FlexGridCol>
+                    <Helmet>
+                        <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
+                    </Helmet>
+                    <div className="search-results-view-container">
+                        <ResultsView
+                            filters={filters}
+                            isMobile={isMobile}
+                            filterCount={filterCount}
+                            showMobileFilters={showMobileFilters}
+                            updateFilterCount={updateFilterCount}
+                            requestsComplete={requestsComplete}
+                            noFiltersApplied={noFiltersApplied}
+                            hash={hash}
+                            searchV2 />
+                    </div>
                 </div>
-            </PageFeatureFlag>
+                <FullDownloadModalContainer
+                    download={download}
+                    mounted={showFullDownload}
+                    hideModal={hideDownloadModal} />
+            </div>
         </PageWrapper>
     );
 };

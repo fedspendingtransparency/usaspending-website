@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { uniqueId, flowRight } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { flowRight } from 'lodash';
 
 import withDefCodes from 'containers/covid19/WithDefCodes';
 
@@ -110,11 +109,6 @@ const DEFCheckboxTree = (props) => {
         }
     };
 
-    const removeSelectedFilter = (e) => {
-        e.preventDefault();
-        props.stageDef([], [], []);
-    };
-
     return (
         <div className="def-code-filter">
             <CheckboxTree
@@ -130,36 +124,12 @@ const DEFCheckboxTree = (props) => {
                 labelComponent={<DEFCheckboxTreeLabel />}
                 onUncheck={stageFilter}
                 onCheck={stageFilter} />
-            {props.counts.length > 0 && (
-                <div
-                    className="selected-filters"
-                    role="status">
-                    {props.counts.map((node) => {
-                        const label = `${node.label} (${node.count})`;
-                        return (
-                            <button
-                                key={uniqueId()}
-                                className="shown-filter-button"
-                                value={label}
-                                onClick={(e) => removeSelectedFilter(e, node)}
-                                title="Click to remove."
-                                aria-label={`Applied filter: ${label}`}>
-                                {label}
-                                <span className="close">
-                                    <FontAwesomeIcon icon="times" />
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-            )}
             <SubmitHint ref={hint} />
         </div>
     );
 };
 
 DEFCheckboxTree.propTypes = {
-    counts: PropTypes.arrayOf(PropTypes.shape({})),
     defCodes: PropTypes.arrayOf(PropTypes.object),
     areDefCodesLoading: PropTypes.bool,
     defCodeFetchError: PropTypes.string,

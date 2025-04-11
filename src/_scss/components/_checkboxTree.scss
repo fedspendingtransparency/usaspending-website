@@ -19,15 +19,21 @@
     }
     .rct-checkbox {
       .rct-icon-uncheck {
-        border: 2px solid $color-gray-lighter;
-        border-radius: 3px;
+        border: solid 1px $gray-cool-20;
+        border-radius: 2px;
         color: white;
+        width: 14px;
+        height: 14px;
+        margin: 2px 1px;
       }
       .rct-icon-check {
-        color: $color-primary;
+        color: $theme-color-1;
+        width: 14px;
+        height: 14px;
+        margin: 2px 1px;
       }
       .rct-icon-half-check {
-        color: $color-primary;
+        color: $theme-color-1;
       }
       svg {
         &:focus {
@@ -42,18 +48,22 @@
     }
     .rct-icon-expand-open {
       margin-right: 0.1em;
+      height: 16px;
+    }
+    .rct-icon-expand-close {
+      height: 16px;
     }
     .svg-inline--fa.fa-w-14 {
-      width: 1.1em;
-      height: 1.1em;
+      width: 14px;
+      height: 14px;
     }
     .rct-node-expanded {
       .rct-text {
         label {
           .rct-checkbox {
             .svg-inline--fa.fa-w-14 {
-              width: 1.1em;
-              height: 1.1em;
+              width: 14px;
+              height: 14px;
             }
           }
         }
@@ -152,7 +162,8 @@
             label {
               .checkbox-tree-label {
                 .checkbox-tree-label__label {
-                  font-weight: $font-normal;
+                  font-weight: $font-semibold;
+                  color: $gray-80;
                 }
               }
             }
@@ -169,6 +180,7 @@
                   .checkbox-tree-label {
                     .checkbox-tree-label__label {
                       font-weight: $font-normal;
+                      color: $gray-80;
                     }
                   }
                 }
@@ -185,6 +197,7 @@
                         .checkbox-tree-label {
                           .checkbox-tree-label__label {
                             font-weight: $font-normal;
+                            color: $gray-80;
                           }
                         }
                       }

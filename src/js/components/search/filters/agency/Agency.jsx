@@ -23,16 +23,14 @@ const propTypes = {
     selectedFundingAgencies: PropTypes.object,
     agencyTypes: PropTypes.array,
     dirtyFunding: PropTypes.symbol,
-    dirtyAwarding: PropTypes.symbol
+    dirtyAwarding: PropTypes.symbol,
+    searchV2: PropTypes.bool
 };
 
 export default class Agency extends React.Component {
     componentDidUpdate(prevProps) {
         let showHint = false;
-        if (this.props.dirtyFunding && prevProps.dirtyFunding !== this.props.dirtyFunding) {
-            showHint = true;
-        }
-        else if (this.props.dirtyAwarding && prevProps.dirtyAwarding !== this.props.dirtyAwarding) {
+        if ((this.props.dirtyFunding && prevProps.dirtyFunding !== this.props.dirtyFunding) || (this.props.dirtyAwarding && prevProps.dirtyAwarding !== this.props.dirtyAwarding)) {
             showHint = true;
         }
 
@@ -62,10 +60,13 @@ export default class Agency extends React.Component {
                         agencyType={type}
                         selectedAgencies={selectedAgencies}
                         toggleAgency={this.props.toggleAgency} />
-                    <SubmitHint
-                        ref={(component) => {
-                            this.hint = component;
-                        }} />
+                    { !this.props.searchV2 &&
+                        <SubmitHint
+                            ref={(component) => {
+                                this.hint = component;
+                            }} />
+                    }
+
                 </div>
             );
         });

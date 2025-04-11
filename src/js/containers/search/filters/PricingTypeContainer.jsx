@@ -14,15 +14,17 @@ import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
 
 const propTypes = {
     updatePricingType: PropTypes.func,
-    pricingType: PropTypes.object
+    pricingType: PropTypes.object,
+    searchV2: PropTypes.bool
 };
 
-const PricingTypeContainer = ({ pricingType, updatePricingType }) => (
+const PricingTypeContainer = ({ pricingType, updatePricingType, searchV2 }) => (
     <ListCheckbox
         filterCategoryMapping={pricingTypeMapping}
         filters={pricingTypeDefinitions}
         selectedFilters={pricingType}
-        singleFilterChange={updatePricingType} />
+        singleFilterChange={updatePricingType}
+        searchV2={searchV2} />
 );
 
 PricingTypeContainer.propTypes = propTypes;

@@ -28,14 +28,16 @@ export const CheckboxTreeSelections = Record(defaultCheckboxTreeSelections);
 export const requiredTypes = {
     keyword: OrderedMap,
     timePeriodFY: Set,
+    time_period: Set,
     selectedLocations: OrderedMap,
     selectedFundingAgencies: OrderedMap,
     selectedAwardingAgencies: OrderedMap,
     selectedRecipients: Set,
-    time_period: Set,
     recipientType: Set,
     selectedRecipientLocations: OrderedMap,
     awardType: Set,
+    contractAwardType: Set,
+    financialAssistanceAwardType: Set,
     selectedAwardIDs: OrderedMap,
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
@@ -68,6 +70,8 @@ export const initialState = {
     recipientType: Set(),
     selectedRecipientLocations: OrderedMap(),
     awardType: Set(),
+    contractAwardType: Set(),
+    financialAssistanceAwardType: Set(),
     selectedAwardIDs: OrderedMap(),
     awardAmounts: OrderedMap(),
     selectedCFDA: OrderedMap(),
@@ -80,7 +84,8 @@ export const initialState = {
     setAside: Set(),
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
-    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    awardDescription: ''
 };
 
 export const initialStateFY = {
@@ -112,7 +117,8 @@ export const initialStateFY = {
     setAside: Set(),
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
-    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections)
+    tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
+    awardDescription: ''
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -258,6 +264,34 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 awardType: AwardFilterFunctions.bulkAwardTypeChange(
                     state.awardType, action.awardTypes, action.direction)
+            });
+        }
+
+        // Contract Award Type Filter
+        case 'TOGGLE_SEARCH_FILTER_CONTRACT_AWARD_TYPE': {
+            return Object.assign({}, state, {
+                contractAwardType: AwardFilterFunctions.immutableSetToggle(
+                    state.contractAwardType, action.contractAwardType)
+            });
+        }
+        case 'BULK_SEARCH_FILTER_CONTRACT_AWARD_TYPE': {
+            return Object.assign({}, state, {
+                contractAwardType: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.contractAwardType, action.contractAwardTypes, action.direction)
+            });
+        }
+
+        // Financial Assistance Award Type Filter
+        case 'TOGGLE_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE': {
+            return Object.assign({}, state, {
+                financialAssistanceAwardType: AwardFilterFunctions.immutableSetToggle(
+                    state.financialAssistanceAwardType, action.financialAssistanceAwardType)
+            });
+        }
+        case 'BULK_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE': {
+            return Object.assign({}, state, {
+                financialAssistanceAwardType: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.financialAssistanceAwardType, action.financialAssistanceAwardTypes, action.direction)
             });
         }
 

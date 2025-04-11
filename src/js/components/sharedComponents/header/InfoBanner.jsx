@@ -10,7 +10,8 @@ const propTypes = {
     closeBanner: PropTypes.func,
     title: oneOfType([PropTypes.string, PropTypes.object]),
     content: oneOfType([PropTypes.string, PropTypes.object]),
-    icon: oneOfType([PropTypes.string, PropTypes.object])
+    icon: oneOfType([PropTypes.string, PropTypes.object]),
+    type: oneOfType([PropTypes.string, PropTypes.object])
 };
 
 const InfoBanner = (props) => {
@@ -33,13 +34,8 @@ const InfoBanner = (props) => {
 
     return (
         <div
-            className="info-banner"
-            style={{
-                display: `${closeBanner ? 'none' : ''}`,
-                backgroundColor: props.backgroundColor,
-                borderTop: `${props.borderTopColor !== '' ? `4px solid ${props.borderTopColor}` : ''}`,
-                borderBottom: `${props.borderBottomColor !== '' ? `1px solid ${props.borderBottomColor}` : ''}`
-            }}>
+            className={`info-banner ${props.type || ""}`}
+            style={{ display: `${closeBanner ? 'none' : ''}` }}>
             <div className="info-banner__content">
                 <div className="info-banner__icon">
                     {props.icon}

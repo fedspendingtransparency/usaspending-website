@@ -19,7 +19,8 @@ const propTypes = {
     awardAmountRanges: PropTypes.object,
     awardAmounts: PropTypes.object,
     dirtyFilters: PropTypes.symbol,
-    removeFilter: PropTypes.func
+    removeFilter: PropTypes.func,
+    searchV2: PropTypes.bool
 };
 
 const AwardAmountSearch = ({
@@ -27,7 +28,8 @@ const AwardAmountSearch = ({
     awardAmountRanges = awardRanges,
     awardAmounts,
     dirtyFilters,
-    removeFilter
+    removeFilter,
+    searchV2
 }) => {
     const [hint, setHint] = useState(null);
 
@@ -46,14 +48,15 @@ const AwardAmountSearch = ({
         const name = formatAwardAmountRange(
             value, 0);
         result.push(
-            (<PrimaryCheckboxType
+            <PrimaryCheckboxType
                 id={`award-${key}`}
                 name={name}
                 value={key}
                 filterType="Award Amount"
                 types={awardRanges}
                 selectedCheckboxes={awardAmounts}
-                toggleCheckboxType={toggleSelection} />)
+                toggleCheckboxType={toggleSelection}
+                key={key} />
         );
         return result;
     }, []);
@@ -96,10 +99,12 @@ const AwardAmountSearch = ({
                     {awardAmountRangeItems}
                     <SpecificAwardAmountItem searchSpecificRange={searchSpecificRange} />
                 </ul>
-                <SubmitHint
-                    ref={(component) => {
-                        setHint(component);
-                    }} />
+                { !searchV2 &&
+                    <SubmitHint
+                        ref={(component) => {
+                            setHint(component);
+                        }} />
+                }
                 <div
                     className="selected-filters"
                     role="status">

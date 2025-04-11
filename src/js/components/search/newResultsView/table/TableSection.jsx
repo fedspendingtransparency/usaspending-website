@@ -9,12 +9,25 @@ import ResultsTableContainer from "../../../../containers/search/newResultsView/
 import TableDsm from "./TableDsm";
 
 const propTypes = {
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    tabData: PropTypes.object,
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
-const TableSection = ({ subaward }) => {
+const TableSection = ({
+    subaward, tabData, hash, spendingLevel
+}) => {
+    const sectionTitle = () => {
+        switch (spendingLevel) {
+            case 'awards': return 'Prime Award Results';
+            case 'subawards': return 'Subaward Results';
+            default: return 'Transaction Results';
+        }
+    };
+
     const wrapperProps = {
-        sectionTitle: subaward ? 'Subaward Results' : 'Prime Award Results',
+        sectionTitle: sectionTitle(),
         dsmContent: <TableDsm subaward={subaward} />,
         sectionName: 'table'
     };
@@ -22,8 +35,10 @@ const TableSection = ({ subaward }) => {
     return (
         <div id="search-page-component" className="awards">
             <ResultsTableContainer
+                tabData={tabData}
                 wrapperProps={wrapperProps}
-                subaward={subaward} />
+                subaward={subaward}
+                hash={hash} />
         </div>
     );
 };

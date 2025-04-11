@@ -23,13 +23,7 @@ const globalConstants = {
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     ARP_RELEASED: process.env.ENV !== 'prod',
     DUNS_LABEL: 'Legacy ',
-    REQUEST_VERSION: '2020-06-01',
-    BANNER: {
-        isActive: true,
-        title: 'Video Library References',
-        content: 'Screenshots and text references in the video library may not reflect the current version of the site; copy, design, and usability improvements are consistently being deployed.',
-        page: 'training-videos'
-    }
+    REQUEST_VERSION: '2020-06-01'
 };
 
 module.exports = globalConstants;

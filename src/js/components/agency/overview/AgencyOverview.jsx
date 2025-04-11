@@ -9,9 +9,10 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { throttle } from 'lodash';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import ReadMore from 'components/sharedComponents/ReadMore';
+import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
+import ReadMore from '../../../components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
+import { showSlideout } from '../../../helpers/slideoutHelper';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -28,6 +29,11 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
 
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+
+    const openAboutTheDataSidebar = (e, entry) => {
+        showSlideout('atd', { url: entry });
+        e.preventDefault();
+    };
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
@@ -53,7 +59,12 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
             <p>
                 There is a 90 day delay in displaying contract award data, subcontract data,
                 and Account Breakdown by Award (File C) data for the Department of Defense (DOD).
-                For more information, visit our <Link to="/about?section=data-quality">About Page</Link>.
+                For more information, visit our&nbsp;
+                <Link
+                    to=""
+                    aria-label="Open the About the Data"
+                    onClick={(e) => openAboutTheDataSidebar(e, 'delay-in-dod-procurement-data')}>About the Data
+                </Link> module.
                 To see a complete list of this agency&apos;s submissions, visit our&nbsp;
                 <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.
             </p>

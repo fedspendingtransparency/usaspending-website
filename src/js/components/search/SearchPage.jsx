@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
@@ -26,7 +26,6 @@ import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
-import Button from "../sharedComponents/buttons/Button";
 
 require('pages/search/searchPage.scss');
 
@@ -45,7 +44,7 @@ const propTypes = {
 const slug = 'search/';
 const emailSubject = 'Award Search results on USAspending.gov';
 
-const SearchPage = ({
+const SearchPage = React.memo(({
     download,
     filters,
     appliedFilters,
@@ -64,7 +63,6 @@ const SearchPage = ({
     const [fullSidebar, setFullSidebar] = useState(false);
 
     const dispatch = useDispatch();
-
     const getSlugWithHash = () => {
         if (hash) {
             return `${slug}?hash=${hash}`;
@@ -143,6 +141,7 @@ const SearchPage = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+
     return (
         <PageWrapper
             pageName="Advanced Search"
@@ -150,7 +149,7 @@ const SearchPage = ({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="awards" />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
@@ -235,7 +234,8 @@ const SearchPage = ({
                             updateFilterCount={updateFilterCount}
                             toggleMobileFilters={toggleMobileFilters}
                             requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied} />
+                            noFiltersApplied={noFiltersApplied}
+                            hash={hash} />
                     </FlexGridCol>
                 </FlexGridRow>
                 <FullDownloadModalContainer
@@ -245,7 +245,7 @@ const SearchPage = ({
             </div>
         </PageWrapper>
     );
-};
+});
 
 SearchPage.propTypes = propTypes;
 

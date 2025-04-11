@@ -37,3 +37,8 @@
         }
     }
 }
+
+.mobile-search-sidebar-v2.sidebar-opened {
+    // put in front of sticky column
+    z-index: 2;
+}

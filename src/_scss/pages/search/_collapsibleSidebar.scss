@@ -1,43 +1,34 @@
-@import '_searchFilter';
+@import "searchFilter";
 
-@keyframes collapsible-sidebar-slideopen {
-  0% {
-    width: 0%;
-  }
-
-  100% {
-    width: 100%;
-  }
-}
-
-@keyframes collapsible-sidebar-slideclose {
-  0% {
-    width: 100%;
-  }
-
-  100% {
-    width: 0%;
-  }
-}
-
-@keyframes drilldown-slidein {
-  0% {
-    display: block;
-    transform: translateX(24px);
-    visibility: hidden;
-  }
-
-  100% {
-    transform: translateX(0);
-    visibility: visible;
+// .usda-page-header style is a DTUI override that's specific to the search 2.0 page
+&.v2 {
+  .site-header, .usda-page-header:not(.usda-page-header--sticky) {
+    position: relative;
   }
 }
 
 .search-collapsible-sidebar-container {
-  position: fixed;
-  background-color: $color-white;
+  @import './filters/otherFilters/defCheckboxV2';
   box-shadow: unset;
   border-radius: unset;
+  position: absolute;
+  margin-top: 0;
+  top: 0;
+
+  .sidebar-bottom-submit {
+    position: static;
+    width: 100%;
+  }
+
+  &.sticky {
+    position: fixed;
+    top: rem(98);
+
+    .sidebar-bottom-submit {
+      position: absolute;
+      bottom: 0;
+    }
+  }
 
   @media(max-width: $medium-screen - 1) {
     left: 0;
@@ -55,11 +46,9 @@
     @media(max-width: $medium-screen - 1) {
       display: none;
     }
-
-    position: relative;
-    float: right;
-    margin-right: -12px;
-    margin-top: 16px;
+    position: absolute;
+    right: -12px;
+    top: 16px;
     border-radius: 12px;
     width: 24px;
     height: 24px;
@@ -74,27 +63,21 @@
   }
 
   .collapsible-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
+    background-color: unset;
 
     @media(max-width: $medium-screen - 1) {
       border: none;
     }
 
-
-    &.opened:not(.is-initial-loaded) {
-      // TODO: Adjust animations next sprint
-      //-webkit-animation: collapsible-sidebar-slideopen 0.25s forwards;
-      //animation: collapsible-sidebar-slideopen 0.25s forwards;
-    }
-
     &:not(.opened) {
-      // TODO: Adjust animations next sprint
-      //animation: collapsible-sidebar-slideclose 0.25s forwards;
-      //-webkit-animation: collapsible-sidebar-slideclose 0.25s forwards;
-
       .sidebar-bottom-submit,
       .search-filter__container,
       .collapsible-sidebar--header,
@@ -104,18 +87,36 @@
       }
     }
 
-    .categories-list,
-    .category-filter {
-      overflow-y: auto;
+    .selected-category-item {
+      display: flex;
+      flex-direction: column;
+
+      .categories-list,
+      .category-filter {
+        overflow-y: auto;
+        height: 100%;
+      }
+      
+      .category-filter.exempt {
+        overflow-y: auto;
+      }
+
     }
 
     .category-filter {
+      .search-option {
+        border-bottom: none;
+      }
       .react-checkbox-tree {
-        overflow: unset;
-        max-height: unset;
-        height: unset;
+        overflow: unset !important; // TODO: Remove importants when removing react checkbox tree package
+        max-height: unset !important;
+        height: unset !important;
       }
     }
+
+    @import "_newNaicsStyles";
+    @import "_newPscStyles";
+    @import "_newTasStyles";
 
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
@@ -124,6 +125,7 @@
       line-height: 1.5;
       color: $gray-90;
       border-bottom: $gray-cool-10 1px solid;
+      background-color: unset;
 
       #collapsible-mobile-close-button {
         @media(min-width: $medium-screen) {
@@ -170,10 +172,17 @@
         padding: 0 32px;
       }
 
+      // DEV - 12074 requested that all search boxes be full width on tablet/mobile  
+      // putting this here is a overarching blanket v2 fix but does not effect original search styles. 
+      .usa-da-typeahead__input,
+      .autocomplete__input {
+        input {
+          min-width: 100% !important;
+        }
+      }
+
       &.opened {
         display: block;
-        -webkit-animation: drilldown-slidein 0.2s forwards;
-        animation: drilldown-slidein 0.2s forwards;
       }
 
       .collapsible-sidebar--back-btn {
@@ -268,44 +277,62 @@
         overflow-y: auto;
       }
 
-      .collapsible-sidebar--dsm-slider {
-        color: $blue-50;
-        cursor: pointer;
-        padding: rem(16) rem(32);
-        font-size: rem(12);
-        font-weight: $font-semibold;
-        line-height: 1.5;
-        border-top: 1px solid $gray-cool-5;
-        display:flex;
+    }
+
+    .collapsible-sidebar--dsm-slider {
+      color: $blue-50;
+      padding: rem(16) rem(32);
+      font-size: rem(12);
+      font-weight: $font-semibold;
+      line-height: 1.5;
+      border-top: 1px solid $gray-cool-5;
+      span {
+        display: flex;
         flex-direction: row;
-        flex-wrap:wrap;
+        flex-wrap: nowrap;
+        align-items: center;
+        cursor: pointer;
         &:hover {
           color: $blue-70v;
         }
 
         .chevron {
-          margin: 4px 8px 0 8px;
+          margin: 0 8px 0 8px;
           width: 10px;
         }
 
-        .collapsible-sidebar--dsm-content {
-          .collapsible-sidebar--dsm-wrapper {
-            font-size: $font-size-14;
-            color: $gray-60;
+      }
+
+      .collapsible-sidebar--dsm-content {
+        .collapsible-sidebar--dsm-wrapper {
+          font-size: $font-size-14;
+          color: $gray-60;
+          font-weight: $font-normal;
+          overflow-y: auto;
+          
+          &--text-header {
+            font-weight: $font-semibold;
+            color: $gray-90;
+            margin: 16px 0px 0px;
+          }
+
+          &--text-section {
+            p {
+              margin: 4px 0px 0px;
+            }
           }
         }
       }
-
-      .collapsible-sidebar--dsm-slider:hover .chevron {
-        color: $blue-70v;
-      }
     }
 
-    .sidebar-bottom-submit {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
+    .collapsible-sidebar--dsm-slider:hover .chevron {
+      color: $blue-70v;
     }
+
+    .dsm-opened {
+      display: block !important;
+    }
+
   }
 
 }

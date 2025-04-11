@@ -6,10 +6,9 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-
 import Analytics from 'helpers/analytics/Analytics';
-
 import AccordionCheckboxSecondary from "./AccordionCheckboxSecondary";
+import replaceString from '../../../helpers/replaceString';
 
 const propTypes = {
     category: PropTypes.object,
@@ -19,7 +18,9 @@ const propTypes = {
     singleFilterChange: PropTypes.func,
     filters: PropTypes.object,
     bulkFilterChange: PropTypes.func,
-    enableAnalytics: PropTypes.bool
+    enableAnalytics: PropTypes.bool,
+    customLabels: PropTypes.object,
+    searchString: PropTypes.string
 };
 
 const AccordionCheckboxPrimary = ({
@@ -29,8 +30,10 @@ const AccordionCheckboxPrimary = ({
     selectedFilters,
     singleFilterChange,
     filters,
+    customLabels,
     bulkFilterChange,
-    enableAnalytics = false
+    enableAnalytics = false,
+    searchString
 }) => {
     const [allChildren, setAllChildren] = useState(false);
 
@@ -115,7 +118,7 @@ const AccordionCheckboxPrimary = ({
         compareFiltersToChildren();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedFilters]);
-
+    const highlightText = (text) => replaceString(text, searchString, 'highlight');
     return (
         <div className="checkbox-filter__wrapper">
             <div
@@ -146,7 +149,7 @@ const AccordionCheckboxPrimary = ({
                     checked={allChildren}
                     id={`primary-checkbox__${category.id}`} />
                 <div className="checkbox-filter__header-label-container">
-                    <span className="checkbox-filter__header-label accordion-checkbox">{category.name}</span>
+                    <span className="checkbox-filter__header-label accordion-checkbox">{highlightText(category.name)}</span>
                     <span className="checkbox-filter__header-count">
                         {count}{' '}
                         {count === 1 ? 'type' : 'types'}
@@ -158,7 +161,9 @@ const AccordionCheckboxPrimary = ({
                 selectedFilters={selectedFilters}
                 category={category}
                 singleFilterChange={singleFilterChange}
-                filters={filters} />
+                filters={filters}
+                customLabels={customLabels}
+                searchString={searchString} />
         </div>);
 };
 

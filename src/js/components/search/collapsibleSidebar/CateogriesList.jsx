@@ -7,6 +7,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CategoryHeader from "./CategoryHeader";
+import { truncateItemCount } from "../../../helpers/search/collapsiblesidebarHelper";
 
 const propTypes = {
     categories: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -17,8 +18,9 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     height: PropTypes.number,
-    itemCount: PropTypes.object,
-    filterCount: PropTypes.object
+    itemCount: PropTypes.number,
+    filterCount: PropTypes.object,
+    showFullCount: PropTypes.bool
 };
 
 const CategoriesList = ({
@@ -28,20 +30,21 @@ const CategoriesList = ({
     iconName,
     iconColor,
     title,
-    description,
     height,
     itemCount,
-    filterCount
+    filterCount,
+    showFullCount
 }) => (
-    <>
+    <div className="selected-category-item" style={{ height: `${height}px` }}>
         <CategoryHeader
             iconName={iconName}
             iconColor={iconColor}
             iconBackgroundColor={iconBackgroundColor}
             title={title}
-            description={description}
-            itemCount={itemCount} />
-        <div className="categories-list" style={{ height: `${height - 100}px`, marginTop: "-36px" }}>
+            itemCount={itemCount}
+            titleOnly
+            showFullCount={showFullCount} />
+        <div className="categories-list">
             <div style={{ margin: "0 32px" }}>
                 {categories.map((item) => {
                     if (item?.categoryType) {
@@ -68,9 +71,9 @@ const CategoriesList = ({
                                                 <div className="categories-list-item__text-container">
                                                     <div className="categories-list-item__title" style={{ float: "left" }}>{category.title}</div>
                                                     {filterCount[category.title] > 0 &&
-                                                        <div className="categories-list-item__count">
-                                                            {filterCount[category.title]} selected
-                                                        </div>
+                                                            <div className="categories-list-item__count">
+                                                                {truncateItemCount(filterCount[category.title])} selected
+                                                            </div>
                                                     }
                                                 </div>
                                                 <div style={{ float: "right" }}><FontAwesomeIcon
@@ -102,7 +105,7 @@ const CategoriesList = ({
                 })}
             </div>
         </div>
-    </>
+    </div>
 );
 
 CategoriesList.propTypes = propTypes;
