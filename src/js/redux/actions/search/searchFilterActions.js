@@ -193,7 +193,7 @@ export const updateTAS = (require, exclude, counts) => ({
     type: 'UPDATE_TAS',
     payload: new CheckboxTreeSelections({
         exclude,
-        require: require.map((code) => removePlaceholderString(code)),
+        require: require?.map((code) => removePlaceholderString(code)),
         counts
     })
 });

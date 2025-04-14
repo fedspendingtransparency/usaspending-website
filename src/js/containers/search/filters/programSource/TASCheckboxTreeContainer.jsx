@@ -84,7 +84,7 @@ const TASCheckboxTree = ({
     setSearchedTas, // eslint-disable-next-line no-shadow
     setTasCounts, // eslint-disable-next-line no-shadow
     showTasTree, // eslint-disable-next-line no-shadow
-    setUncheckedTas, 
+    setUncheckedTas,
     stageTas,
     expanded,
     checked,
@@ -283,7 +283,7 @@ const TASCheckboxTree = ({
             //     fetchTas(expandedValue);
             // }
             // else {
-                fetchTas(expandedValue);
+            fetchTas(expandedValue);
             // }
         }
         if (isSearch) {
@@ -321,13 +321,13 @@ const TASCheckboxTree = ({
         );
 
         setCheckedTas(newChecked);
-        updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
+        updateTasCountandStage(newCounts, [trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
             getTasAncestryPathForChecked(newUnchecked, nodes),
-            newCounts);
+            newCounts]);
 
-        updateTasCountandStage(newCounts, getTasAncestryPathForChecked(newChecked, nodes),
+        updateTasCountandStage(newCounts, [getTasAncestryPathForChecked(newChecked, nodes),
             getTasAncestryPathForChecked(newUnchecked, nodes),
-            newCounts);
+            newCounts]);
     };
 
     const onCheck = (newChecked) => {
@@ -349,15 +349,7 @@ const TASCheckboxTree = ({
 
         setCheckedTas(newChecked);
         setUncheckedTas(newUnchecked);
-        console.log("trim checked to common ancestors 1", checked, nodes);
-        console.log("trim checked getTasAncestryPathForChecked", getTasAncestryPathForChecked(newChecked, nodes));
-        updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
-            getTasAncestryPathForChecked(newUnchecked, nodes),
-            newCounts);
-
-        if (hint) {
-            hint.showHint();
-        }
+        updateTasCountandStage(newCounts, [trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)), getTasAncestryPathForChecked(newUnchecked, nodes), newCounts]);
     };
 
     const onCollapse = (newExpandedArray) => {
