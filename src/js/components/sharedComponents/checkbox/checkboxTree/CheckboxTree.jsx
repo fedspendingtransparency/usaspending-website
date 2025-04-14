@@ -38,6 +38,7 @@ const CheckboxTree = (props) => {
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
+
         const shouldFetchChildren = (
             (
                 !selectedNode?.children

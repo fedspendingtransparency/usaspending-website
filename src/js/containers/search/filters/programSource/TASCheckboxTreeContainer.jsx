@@ -180,6 +180,7 @@ const TASCheckboxTree = ({
             .then(({ data }) => {
                 // dynamically populating tree branches
                 const tmpNodes = cleanTasData(data.results);
+                console.log("data when tas fetched", tmpNodes);
                 if (isPartialTree) {
                     // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
                     const key = id.includes('/')
@@ -261,27 +262,30 @@ const TASCheckboxTree = ({
 
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        let treeDepth = 0;
-
-        if (selectedNode?.id?.includes("/") && selectedNode?.id?.includes("-")) {
-            treeDepth = 2;
-        }
-
-        if (selectedNode?.id?.includes("-")) {
-            treeDepth = 1;
-        }
-
-        // if (shouldFetchChildren && !isSearch) {
-        //     if (treeDepth === 1) {
-        //         const selectedAgency = nodes
-        //             .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
-        //         const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
-        //         this.fetchTas(agencyAndFederalAccountString);
-        //     }
-        //     else {
-        fetchTas(expandedValue);
-        //     }
+        console.log("on expand", expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
+        // let treeDepth = 0;
+        //
+        // if (selectedNode?.id?.includes("/") && selectedNode?.id?.includes("-")) {
+        //     treeDepth = 2;
         // }
+        //
+        // if (selectedNode?.id?.includes("-")) {
+        //     treeDepth = 1;
+        // }
+
+        if (shouldFetchChildren && !isSearch) {
+            // commenting this out should be right
+            // if (treeDepth === 1) {
+            //     // const selectedAgency = nodes
+            //     //     .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
+            //     // const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
+            //
+            //     fetchTas(expandedValue);
+            // }
+            // else {
+                fetchTas(expandedValue);
+            // }
+        }
         if (isSearch) {
             setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
         }
@@ -316,10 +320,10 @@ const TASCheckboxTree = ({
             nodes
         );
 
-        // setCheckedTas([newChecked.id]);
-        // updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
-        //     getTasAncestryPathForChecked(newUnchecked, nodes),
-        //     newCounts);
+        setCheckedTas(newChecked);
+        updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
+            getTasAncestryPathForChecked(newUnchecked, nodes),
+            newCounts);
 
         updateTasCountandStage(newCounts, getTasAncestryPathForChecked(newChecked, nodes),
             getTasAncestryPathForChecked(newUnchecked, nodes),
@@ -335,11 +339,18 @@ const TASCheckboxTree = ({
             counts
         );
 
+        console.log("onCheck values", newChecked,
+            checked,
+            unchecked,
+            nodes,
+            counts);
+
         console.log("here onchecked", newChecked, nodes);
 
         setCheckedTas(newChecked);
         setUncheckedTas(newUnchecked);
         console.log("trim checked to common ancestors 1", checked, nodes);
+        console.log("trim checked getTasAncestryPathForChecked", getTasAncestryPathForChecked(newChecked, nodes));
         updateTasCountandStage(newCounts, trimCheckedToCommonAncestors(getTasAncestryPathForChecked(newChecked, nodes)),
             getTasAncestryPathForChecked(newUnchecked, nodes),
             newCounts);
@@ -436,10 +447,6 @@ const TASCheckboxTree = ({
                 noResults={showNoResults}
                 expanded={isSearch ? searchExpanded : expanded}
                 onCollapse={onCollapse} />
-            {/* <SubmitHint ref={hint} />*/}
-            {/* { !searchV2 &&*/}
-            {/*    <SubmitHint ref={hint} />*/}
-            {/* }*/}
         </div>
     );
 };
