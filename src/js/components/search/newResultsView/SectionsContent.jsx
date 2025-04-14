@@ -93,8 +93,16 @@ const SectionsContent = (props) => {
     return (
         <>
             <TableSection {...props} />
-            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} hash={props.hash} />
-            <TimeSection subaward={props.subaward} timeHasLoaded={timeHasLoaded} hash={props.hash} />
+            <CategoriesSection
+                subaward={props.subaward}
+                categoriesHasLoaded={categoriesHasLoaded}
+                setSelectedDropdown={setSelectedDropdown}
+                selectedDropdown={selectedDropdown}
+                hash={props.hash} />
+            <TimeSection
+                subaward={props.subaward}
+                timeHasLoaded={timeHasLoaded}
+                hash={props.hash} />
             <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} hash={props.hash} />
         </>
     );

@@ -1,20 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
+import { showSlideout } from "../../../../helpers/slideoutHelper";
 
 const TableDsm = ({ subaward }) => {
-    const dispatch = useDispatch();
-
     const openAboutTheDataSidebar = (e, entry) => {
-        dispatch(setAboutTheDataTermFromUrl(entry));
-        dispatch(showAboutTheData());
-        dispatch(setLastOpenedSlideout('atd'));
+        showSlideout('atd', { url: entry });
         e.preventDefault();
     };
     return (
@@ -52,7 +43,7 @@ const TableDsm = ({ subaward }) => {
                     <p style={{ marginBottom: '8px' }}>
                         View a list of award summaries based on your selected filters.
                         Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on
-                        individual awards including transaction history, subawards, and more.
+                        individual awards.
                     </p>
                     <p className="award-search__body-text">The rows in the table represent award summaries for {
                         <span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink

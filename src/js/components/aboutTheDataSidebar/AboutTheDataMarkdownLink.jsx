@@ -4,9 +4,8 @@
  */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import PropTypes from 'prop-types';
+import { showSlideout } from '../../helpers/slideoutHelper';
 
 const propTypes = {
     name: PropTypes.string,
@@ -15,18 +14,16 @@ const propTypes = {
 };
 
 export const AboutTheDataMarkdownLink = ({ name, slug, openPanel = false }) => {
-    const dispatch = useDispatch();
     const obj = {
         name,
         slug
     };
     const clickFunction = (e) => {
         e.preventDefault();
+        showSlideout('atd', { term: obj, open: openPanel });
         if (openPanel) {
-            dispatch(aboutTheDataActions.showAboutTheData());
             e.stopPropagation();
         }
-        dispatch(aboutTheDataActions.setAboutTheDataTerm(obj));
     };
     return (
         <a href={`?about-the-data=${slug}`} onClick={clickFunction}>

@@ -35,7 +35,7 @@ const SidebarWrapper = React.memo(({
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
-    const sidebarStaticEls = 161;
+    const sidebarStaticEls = 212;
     const footerMargin = 0;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
@@ -47,16 +47,16 @@ const SidebarWrapper = React.memo(({
     };
 
     const hideElements = (removeableEls) => {
-        for (let i = 0; i < removeableEls.length; i++) {
-            const elClass = removeableEls[i].className;
+        for (const value of removeableEls) {
+            const elClass = value.className;
             document.querySelector(`.${elClass}`).style.display = "none";
         }
     };
 
     const showElements = (removeableEls) => {
-        for (let i = 0; i < removeableEls.length; i++) {
-            const elClass = removeableEls[i].className;
-            document.querySelector(`.${elClass}`).style.display = removeableEls[i].display;
+        for (const value of removeableEls) {
+            const elClass = value.className;
+            document.querySelector(`.${elClass}`).style.display = value.display;
         }
     };
 
@@ -171,8 +171,11 @@ const SidebarWrapper = React.memo(({
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
         document.querySelector(".sidebar-submit").style.display = "block";
-        if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
-            document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "flex";
+        const allDsmSlidersToOpen = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
+        if (allDsmSlidersToOpen.length) {
+            for (const slider of allDsmSlidersToOpen.values()) {
+                slider.style.display = "flex";
+            }
         }
     };
 
@@ -184,8 +187,11 @@ const SidebarWrapper = React.memo(({
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
         document.querySelector(".sidebar-submit").style.display = "none";
-        if (document.querySelector(".collapsible-sidebar--dsm-slider")) {
-            document.querySelector(".collapsible-sidebar--dsm-slider").style.display = "none";
+        const allDsmSlidersToClose = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
+        if (allDsmSlidersToClose.length) {
+            for (const slider of allDsmSlidersToClose.values()) {
+                slider.style.display = "none";
+            }
         }
     };
 
@@ -271,9 +277,10 @@ const SidebarWrapper = React.memo(({
     const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
         const isHeaderSticky = isStickyEl !== null;
+        const bufferToTouchBottom = 2;
 
         if (isHeaderSticky && !isFooterVisible) {
-            return `calc(100vh - ${topStickyBarHeight}px)`;
+            return `calc(100vh - ${topStickyBarHeight - bufferToTouchBottom}px)`;
         }
 
         return sidebarHeight;

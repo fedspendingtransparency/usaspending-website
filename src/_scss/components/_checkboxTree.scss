@@ -22,9 +22,15 @@
         border: solid 1px $gray-cool-20;
         border-radius: 2px;
         color: white;
+        width: 14px;
+        height: 14px;
+        margin: 2px 1px;
       }
       .rct-icon-check {
         color: $theme-color-1;
+        width: 14px;
+        height: 14px;
+        margin: 2px 1px;
       }
       .rct-icon-half-check {
         color: $theme-color-1;
@@ -42,19 +48,22 @@
     }
     .rct-icon-expand-open {
       margin-right: 0.1em;
+      height: 16px;
     }
-    
+    .rct-icon-expand-close {
+      height: 16px;
+    }
     .svg-inline--fa.fa-w-14 {
-      width: 1.1em;
-      height: 1.1em;
+      width: 14px;
+      height: 14px;
     }
     .rct-node-expanded {
       .rct-text {
         label {
           .rct-checkbox {
             .svg-inline--fa.fa-w-14 {
-              width: 1.1em;
-              height: 1.1em;
+              width: 14px;
+              height: 14px;
             }
           }
         }

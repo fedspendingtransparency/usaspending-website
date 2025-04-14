@@ -149,7 +149,7 @@ const SearchPage = React.memo(({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="awards" />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}

@@ -228,13 +228,37 @@
         align-items: baseline;
         justify-content: space-between;
         margin-top: rem(16);
+
         .usa-da-typeahead-wrapper {
             width: 100%;
             margin-right: rem(4);
         }
 
+        .submit-button {
+            @import "dtui-overrides";
+            @include new-search-button;
+        }
+
+        .autocomplete-md {
+            font-size: $smallest-font-size;
+        }
+
         ul.autocomplete li {
             padding: rem(4) rem(12);
+
+            &:hover,
+            &.hover {
+                background-color: $gray-cool-3;
+            }
+
+            &[aria-selected="true"] {
+                background-color: $gray-cool-5;
+
+                &:hover,
+                &.hover {
+                    background-color: $gray-cool-10;
+                }
+            }
 
             span {
                 font-weight: $font-normal;
