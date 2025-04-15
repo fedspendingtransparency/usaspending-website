@@ -41,17 +41,23 @@ const TableDsm = ({ subaward, spendingLevel }) => {
                 </> :
                 <>
                     <p style={{ marginBottom: '8px' }}>
-                        View a list of award summaries based on your selected filters.
+                        View a list of {
+                            spendingLevel === 'transactions' ? ' transaction' : 'award'
+                        } summaries based on your selected filters.
                         Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on
-                        individual awards.
+                        individual {
+                            spendingLevel === 'transactions' ? ' transactions including transaction history' : 'awards'
+                        }.
                     </p>
-                    <p className="award-search__body-text">The rows in the table represent award summaries for {
+                    <p className="award-search__body-text">The rows in the table represent {
+                        spendingLevel === 'transactions' ? ' transaction' : 'award'
+                    } summaries for {
                         <span className="award-search__glossary-term"> prime awards</span>}
                     {' '}{<GlossaryLink term="prime-award" />}.
                         Award summaries contain all the individual transactions and modifications that share the same
                         unique award ID.
                         If you selected any Time Period filter, your results will include prime award{
-                        spendingLevel === 'transactions' ? ' transactions' : 's '
+                        spendingLevel === 'transactions' ? ' transactions' : 's'
                     } where the{<span className="award-search__glossary-term"> earliest </span>}
                     {' '}{<GlossaryLink term="base-transaction-action-date" />} and {<span className="award-search__glossary-term"> latest</span>}
                     {' '}{<GlossaryLink term="latest-transaction-action-date" />}{' '}
