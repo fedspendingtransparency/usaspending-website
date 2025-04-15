@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 
-const TableDsm = ({ subaward }) => {
+const TableDsm = ({ subaward, spendingLevel }) => {
     const openAboutTheDataSidebar = (e, entry) => {
         showSlideout('atd', { url: entry });
         e.preventDefault();
@@ -46,13 +46,15 @@ const TableDsm = ({ subaward }) => {
                         individual awards.
                     </p>
                     <p className="award-search__body-text">The rows in the table represent award summaries for {
-                        <span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink
-                        term="prime-award" />}.
+                        <span className="award-search__glossary-term"> prime awards</span>}
+                    {' '}{<GlossaryLink term="prime-award" />}.
                         Award summaries contain all the individual transactions and modifications that share the same
                         unique award ID.
-                        If you selected any Time Period filter, your results will include prime awards where the{<span className="award-search__glossary-term"> earliest </span>}{' '}{<GlossaryLink
-                        term="base-transaction-action-date" />} and {<span className="award-search__glossary-term"> latest</span>}{' '}{<GlossaryLink
-                        term="latest-transaction-action-date" />}{' '}
+                        If you selected any Time Period filter, your results will include prime award{
+                        spendingLevel === 'transactions' ? ' transactions' : 's '
+                    } where the{<span className="award-search__glossary-term"> earliest </span>}
+                    {' '}{<GlossaryLink term="base-transaction-action-date" />} and {<span className="award-search__glossary-term"> latest</span>}
+                    {' '}{<GlossaryLink term="latest-transaction-action-date" />}{' '}
                         transactions overlap with your selected time period (regardless of whether any transactions
                         occur within that period).
                     </p>
