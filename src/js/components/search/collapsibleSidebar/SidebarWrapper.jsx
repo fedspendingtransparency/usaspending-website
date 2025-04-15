@@ -266,8 +266,9 @@ const SidebarWrapper = React.memo(({
             window.removeEventListener('scroll', () => handleScroll());
             window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
-            mainContentResizeObserver.unobserve(mainContent);
-            headerResizeObserver.unobserve(headerHeight);
+            mainContentResizeObserver?.unobserve(mainContent);
+
+            headerResizeObserver?.unobserve(siteHeader);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
