@@ -32,6 +32,7 @@ const SidebarWrapper = React.memo(({
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [isFooterVisible, setIsFooterVisible] = useState();
     const [isDsmOpened, setIsDsmOpened] = useState(false);
+    const [headerHeight, setHeaderHeight] = useState();
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -228,17 +229,30 @@ const SidebarWrapper = React.memo(({
             document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
         }
 
+        handleScroll();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mainContentHeight]);
 
     useEffect(() => {
+        handleScroll();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [headerHeight]);
+
+    useEffect(() => {
         // eslint-disable-next-line no-undef
-        const resizeObserver = new ResizeObserver((entries) => {
+        const mainContentResizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target?.clientHeight);
         });
 
+        const headerResizeObserver = new ResizeObserver((entries) => {
+            setHeaderHeight(entries[0].target?.clientHeight);
+        });
+
         const mainContent = document.querySelector("#main-content");
-        resizeObserver.observe(mainContent);
+        mainContentResizeObserver.observe(mainContent);
+
+        const siteHeader = document.querySelector(".site-header");
+        headerResizeObserver.observe(siteHeader);
 
         handleResize();
 
@@ -251,10 +265,11 @@ const SidebarWrapper = React.memo(({
             window.removeEventListener('scroll', (e) => handleScroll(e));
             window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
-            resizeObserver.unobserve(mainContent);
+            mainContentResizeObserver.unobserve(mainContent);
+            headerResizeObserver.unobserve(headerHeight);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    });
+    }, []);
 
     const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
