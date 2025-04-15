@@ -5,11 +5,6 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import POPFilterContainer from 'containers/search/filters/location/POPFilterContainer';
-import RecipientFilterContainer from 'containers/search/filters/location/RecipientFilterContainer';
-import GlobalConstants from 'GlobalConstants';
-
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
 import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
