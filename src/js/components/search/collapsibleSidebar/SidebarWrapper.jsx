@@ -257,13 +257,13 @@ const SidebarWrapper = React.memo(({
 
         handleResize();
 
-        window.addEventListener('resize', (e) => handleResize(e));
-        window.addEventListener('scroll', (e) => handleScroll(e));
+        window.addEventListener('resize', () => handleResize());
+        window.addEventListener('scroll', () => handleScroll());
         window.addEventListener('scrollend', (e) => handleScrollEnd(e));
 
         return () => {
-            window.removeEventListener('resize', (e) => handleResize(e));
-            window.removeEventListener('scroll', (e) => handleScroll(e));
+            window.removeEventListener('resize', () => handleResize());
+            window.removeEventListener('scroll', () => handleScroll());
             window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
             mainContentResizeObserver.unobserve(mainContent);
