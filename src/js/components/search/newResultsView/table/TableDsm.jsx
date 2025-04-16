@@ -45,14 +45,14 @@ const TableDsm = ({ subaward, spendingLevel }) => {
                             spendingLevel === 'transactions' ? ' transaction' : 'award'
                         } summaries based on your selected filters.
                         Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on
-                         { spendingLevel === 'transactions' ? ' transactions including transaction history' : ' individual awards' }.
+                        { spendingLevel === 'transactions' ? ' transactions including transaction history' : ' individual awards' }.
                     </p>
                     <p className="award-search__body-text">The rows in the table represent {
                         spendingLevel === 'transactions' ? ' transaction' : 'award'
                     } summaries for {
                         <span className="award-search__glossary-term"> prime awards</span>}
                     {' '}{<GlossaryLink term="prime-award" />}.
-                        {spendingLevel === 'transactions' ? ' Transaction' : ' Award'} summaries contain all the individual transactions and modifications that share the same
+                    {spendingLevel === 'transactions' ? ' Transaction' : ' Award'} summaries contain all the individual transactions and modifications that share the same
                         unique award ID.
                         If you selected any Time Period filter, your results will include prime award{
                         spendingLevel === 'transactions' ? ' transactions' : 's'
