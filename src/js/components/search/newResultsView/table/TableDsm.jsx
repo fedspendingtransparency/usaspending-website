@@ -48,7 +48,7 @@ const TableDsm = ({ subaward, spendingLevel }) => {
                         { spendingLevel === 'transactions' ? ' transactions including transaction history' : ' individual awards' }.
                     </p>
                     <p className="award-search__body-text">The rows in the table represent {
-                        spendingLevel === 'transactions' ? ' transaction' : 'award'
+                        spendingLevel === 'transactions' ? 'transaction' : 'award'
                     } summaries for {
                         <span className="award-search__glossary-term"> prime awards</span>}
                     {' '}{<GlossaryLink term="prime-award" />}.
