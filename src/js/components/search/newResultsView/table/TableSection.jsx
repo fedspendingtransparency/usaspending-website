@@ -28,7 +28,7 @@ const TableSection = ({
 
     const wrapperProps = {
         sectionTitle: sectionTitle(),
-        dsmContent: <TableDsm subaward={subaward} />,
+        dsmContent: <TableDsm subaward={subaward} spendingLevel={spendingLevel} />,
         sectionName: 'table'
     };
 
