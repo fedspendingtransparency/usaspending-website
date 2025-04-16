@@ -51,8 +51,8 @@ const TableDsm = ({ subaward, spendingLevel }) => {
                         spendingLevel === 'transactions' ? ' transaction' : 'award'
                     } summaries for {
                         <span className="award-search__glossary-term"> prime awards</span>}
-                    {' '}{<GlossaryLink term="prime-award" />}.{' '}
-                        {spendingLevel === 'transactions' ? ' Transaction' : 'Award'} summaries contain all the individual transactions and modifications that share the same
+                    {' '}{<GlossaryLink term="prime-award" />}.
+                        {spendingLevel === 'transactions' ? ' Transaction' : ' Award'} summaries contain all the individual transactions and modifications that share the same
                         unique award ID.
                         If you selected any Time Period filter, your results will include prime award{
                         spendingLevel === 'transactions' ? ' transactions' : 's'
