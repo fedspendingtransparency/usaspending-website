@@ -48,7 +48,7 @@ const AwardAmountSearch = ({
         const name = formatAwardAmountRange(
             value, 0);
         result.push(
-            (<PrimaryCheckboxType
+            <PrimaryCheckboxType
                 id={`award-${key}`}
                 name={name}
                 value={key}
@@ -56,7 +56,7 @@ const AwardAmountSearch = ({
                 types={awardRanges}
                 selectedCheckboxes={awardAmounts}
                 toggleCheckboxType={toggleSelection}
-                key={key} />)
+                key={key} />
         );
         return result;
     }, []);

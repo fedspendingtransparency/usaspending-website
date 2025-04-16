@@ -91,21 +91,21 @@ export const FilterCategoryTree = {
                         component: <AwardDescriptionFilterContainer />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "award_description.mdx"
                     },
                     {
                         title: 'Award ID',
                         component: <AwardIDSearchContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "award_id.mdx"
                     },
                     {
                         title: 'Spending Amount',
                         component: <AwardAmountSearchContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "spending_amount.mdx"
                     }
                 ]
             },
@@ -117,7 +117,7 @@ export const FilterCategoryTree = {
                         component: <AwardTypeContainerV2 isContractAwardType />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "contract_award_type.mdx"
                     },
                     {
                         title: 'North American Industry Classification System (NAICS)',
@@ -130,7 +130,7 @@ export const FilterCategoryTree = {
                         ),
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "naics.mdx"
                     },
                     {
                         title: 'Product and Service Code (PSC)',
@@ -143,28 +143,28 @@ export const FilterCategoryTree = {
                         ),
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "psc.mdx"
                     },
                     {
                         title: 'Type of Contract Pricing',
                         component: <PricingTypeContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "contract_pricing.mdx"
                     },
                     {
                         title: 'Type of Set Aside',
                         component: <SetAsideContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "set_aside.mdx"
                     },
                     {
                         title: 'Extent Competed',
                         component: <ExtentCompetedContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "extent_competed.mdx"
                     }
                 ]
             },
@@ -176,14 +176,14 @@ export const FilterCategoryTree = {
                         component: <AwardTypeContainerV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "financial_assistance_award_type.mdx"
                     },
                     {
                         title: 'Assistance Listing',
                         component: <CFDASearchContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "assistance_listing.mdx"
                     }
                 ]
             }
@@ -200,14 +200,14 @@ export const FilterCategoryTree = {
                 component: <RecipientSearchContainer searchV2 />,
                 titleOnly: true,
                 dsmComponent: true,
-                dsmFile: "dummy_data.mdx"
+                dsmFile: "recipient.mdx"
             },
             {
                 title: 'Recipient Type',
                 component: <RecipientTypeContainer searchV2 />,
                 titleOnly: true,
                 dsmComponent: true,
-                dsmFile: "dummy_data.mdx"
+                dsmFile: "recipient_type.mdx"
             }
         ]
     },
@@ -221,14 +221,14 @@ export const FilterCategoryTree = {
                         component: <AgencyContainer searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "agency.mdx"
                     },
                     {
                         title: 'Treasury Account Symbol (TAS)',
                         component: <TASCheckboxTreeContainer showInfo={false} searchV2 />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "tas.mdx"
                     }
                 ]
             },
@@ -240,14 +240,14 @@ export const FilterCategoryTree = {
                         component: <DEFCheckboxTreeContainer defcType="covid_19" />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "covid19.mdx"
                     },
                     {
                         title: 'Infrastructure Spending',
                         component: <DEFCheckboxTreeContainer defcType="infrastructure" />,
                         titleOnly: true,
                         dsmComponent: true,
-                        dsmFile: "dummy_data.mdx"
+                        dsmFile: "infrastructure_spending.mdx"
                     }
                 ]
             }

@@ -1,13 +1,10 @@
 .usa-da-treemap-section {
     @import "mixins/moreOptionsBtn";
     @import "mixins/fullSectionWrap";
-    @import 'treemapSource';
     background-color: #ececec;
     & .treemap-inner-wrap {
         @include fullSectionWrap(0, 0);
-        @import 'treemapWrapper';
         @import 'treemapDescription';
-        @import 'treemapNavButtons';
         .treemap-navigation-holder {
             min-height: rem(64);
             .treemap-navigation-bar {
@@ -83,14 +80,13 @@
                         @include justify-content(space-between);
                         @include align-items(center);
                         width: 100%;
+
+                        &.bottom-spacing {
+                            margin-bottom: rem(8);
+                        }
                     }
                 }
 
-                .tooltip-body .tooltip-body-row {
-                    &.bottom-spacing {
-                        margin-bottom: rem(8);
-                    }
-                }
                 .tooltip-pointer {
                     &:after {
                         background-color: $color-white;

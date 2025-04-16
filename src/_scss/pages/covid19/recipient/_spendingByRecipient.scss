@@ -1,86 +1,91 @@
 .spending-by-recipient {
-  .usda-table {
-    margin-top: 0;
-    td {
-        &:first-child {
-            p {
-                a {
-                    // IE11 fix for td not having the correct width
-                    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-                        max-width: 50%;
+    .usda-table {
+        margin-top: 0;
+
+        td {
+            &:first-child {
+                p {
+                    a {
+
+                        // IE11 fix for td not having the correct width
+                        @media all and (-ms-high-contrast: none),
+                        (-ms-high-contrast: active) {
+                            max-width: 50%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .usda-table__body {
+            tr.usda-table__row {
+                td.usda-table__cell {
+                    &:first-of-type {
+                        margin-left: 0;
+                    }
+
+                    margin-left: 0;
+                    vertical-align: middle;
+                }
+
+                td.usda-table__cell_right:last-of-type {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .table-utility {
+        .table-utility__left {
+            width: auto;
+        }
+
+        .table-utility__right {
+            display: none;
+        }
+    }
+
+    @media (min-width: $tablet-screen) {
+        .table-utility {
+            @include display(flex);
+            @include flex-direction(row);
+            @include justify-content(space-between);
+
+            .table-utility__left {
+                width: 50%;
+            }
+
+            .table-utility__right {
+                @include display(flex);
+                @include align-items(center);
+
+                .download__button-wrapper {
+                    span {
+                        color: $color-primary;
+                    }
+
+                    .download__button {
+                        background-color: transparent;
+
+                        svg {
+                            color: $color-primary;
+                            margin-right: rem(10);
+                        }
                     }
                 }
             }
         }
     }
-    .usda-table__body {
-        tr.usda-table__row {
-            td.usda-table__cell {
-                &:first-of-type {
-                    margin-left: 0;
-                }
 
-                margin-left: 0;
-                vertical-align: middle;
-            }
-            td.usda-table__cell_right:last-of-type {
-                width: 100%;
-            }
+    @import 'components/Note';
+
+    .default-note {
+        margin: 0;
+
+        strong {
+            font-weight: bold;
         }
     }
 }
-    .table-utility {
 
-    .table-utility__left {
-        width: auto;
-    }
-    .table-utility__right {
-        display: none;
-    }
-  }
-    @media (min-width: $tablet-screen) {
-      .table-utility {
-        @include display(flex);
-        @include flex-direction(row);
-        @include justify-content(space-between);
-
-      .table-utility__left {
-          width: auto;
-      }
-      .table-utility__right {
-        display: none;
-      }
-
-        .table-utility__left {
-          width: 50%;
-      }
-      .table-utility__right {
-          @include display(flex);
-          @include align-items(center);
-
-          .download__button-wrapper {
-              span {
-                  color: $color-primary;
-              }
-              .download__button {
-                  background-color: transparent;
-
-                  svg {
-                      color: $color-primary;
-                      margin-right: rem(10);
-                  }
-              }
-          }
-      }
-    }
-    }
-
-    @import 'components/Note';
-    .default-note {
-      margin: 0;
-      strong {
-        font-weight: bold;
-      }
-    }
-}
 @import 'pages/covid19/_unlinkedData';

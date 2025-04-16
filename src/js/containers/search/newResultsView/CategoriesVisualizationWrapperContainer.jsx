@@ -40,7 +40,8 @@ const propTypes = {
     error: PropTypes.bool,
     wrapperProps: PropTypes.object,
     setSelectedDropdown: PropTypes.func,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
@@ -325,7 +326,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             limit: 10,
             page,
             auditTrail,
-            subawards: props.subaward
+            subawards: props.subaward,
+            spending_level: props.spendingLevel
         };
 
         apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
@@ -386,7 +388,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             newSearch();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.reduxFilters, scope, props.subaward]);
+    }, [props.reduxFilters, scope, props.subaward, props.spendingLevel]);
 
     return (
         <div
@@ -436,7 +438,8 @@ export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward
+        subaward: state.searchView.subaward,
+        spendingLevel: state.searchView.spendingLevel
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(CategoriesVisualizationWrapperContainer);

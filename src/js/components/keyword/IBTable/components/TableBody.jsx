@@ -334,10 +334,7 @@ export default class TableBody extends React.PureComponent {
         const contentBottom = (this.props.rowCount * this.props.rowHeight) -
             (this.props.rowHeight / 2);
 
-        if (visibleBottom >= contentBottom) {
-            return true;
-        }
-        return false;
+        return visibleBottom >= contentBottom;
     }
 
     _generateAllCells() {

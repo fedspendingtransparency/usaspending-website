@@ -3,3 +3,8 @@
   outline-color: #0071bc;
   -moz-outline-color: #0071bc;
 }
+
+@mixin new-search-button {
+  font-size: $smallest-font-size;
+  padding: rem(7) rem(12);
+}

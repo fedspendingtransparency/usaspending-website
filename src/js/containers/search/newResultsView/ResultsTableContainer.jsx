@@ -14,7 +14,7 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
-import { awardTypeGroups, subawardTypeGroups } from 'dataMapping/search/awardType';
+import { awardTypeGroups, subawardTypeGroups, transactionTypeGroups } from 'dataMapping/search/awardType';
 import {
     defaultColumns,
     defaultSort,
@@ -26,6 +26,7 @@ import ResultsTableSection from 'components/search/newResultsView/table/ResultsT
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import { performKeywordSearch } from "../../../helpers/keywordHelper";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -35,7 +36,8 @@ const propTypes = {
     subAwardIdClicked: PropTypes.func,
     wrapperProps: PropTypes.object,
     tabData: PropTypes.object,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 export const tableTypes = [
     {
@@ -63,6 +65,7 @@ export const tableTypes = [
         internal: 'other'
     }
 ];
+
 export const subTypes = [
     {
         label: 'Sub-Contracts',
@@ -71,6 +74,33 @@ export const subTypes = [
     {
         label: 'Sub-Grants',
         internal: 'subgrants'
+    }
+];
+
+const transactionTypes = [
+    {
+        label: 'Contracts',
+        internal: 'transaction_contracts'
+    },
+    {
+        label: 'Contract IDVs',
+        internal: 'transaction_idvs'
+    },
+    {
+        label: 'Grants',
+        internal: 'transaction_grants'
+    },
+    {
+        label: 'Direct Payments',
+        internal: 'transaction_direct_payments'
+    },
+    {
+        label: 'Loans',
+        internal: 'transaction_loans'
+    },
+    {
+        label: 'Other',
+        internal: 'transaction_other'
     }
 ];
 
@@ -117,8 +147,12 @@ const ResultsTableContainer = (props) => {
 
         // generate an array of award type codes representing the current table tab we're showing
         // and use a different mapping if we're showing a subaward table vs a prime award table
-        const groupsFromTableType =
+        let groupsFromTableType =
             props.subaward ? subawardTypeGroups[tableTypeTemp] : awardTypeGroups[tableTypeTemp];
+
+        if (props.spendingLevel === 'transactions') {
+            groupsFromTableType = transactionTypeGroups[tableTypeTemp];
+        }
 
         if (searchParams.awardType.length === 0) {
             searchParamsTemp.awardType = groupsFromTableType;
@@ -140,6 +174,7 @@ const ResultsTableContainer = (props) => {
         setError(false);
 
         let pageNumber = page;
+
         if (newSearch) {
             // a new search (vs just getting more pages of an existing search) requires resetting
             // the page number
@@ -153,6 +188,7 @@ const ResultsTableContainer = (props) => {
         if (!columnVisibility) {
             return null;
         }
+
         columnVisibility.forEach((field) => {
             if (!requestFields.includes(field) && field !== "Action Date") {
                 // Prevent duplicates in the list of fields to request
@@ -173,9 +209,11 @@ const ResultsTableContainer = (props) => {
         // parse the redux search order into the API-consumable format
         const searchOrder = sort;
         let sortDirection = searchOrder.direction;
+
         if (!sortDirection) {
             sortDirection = 'desc';
         }
+
         const params = {
             filters: searchParamsTemp.toParams(),
             fields: requestFields,
@@ -186,11 +224,39 @@ const ResultsTableContainer = (props) => {
             subawards: props.subaward,
             auditTrail: 'Results Table - Spending by award search'
         };
+
         // Set the params needed for download API call
         if (!params.filters.award_type_codes) {
             return null;
         }
-        searchRequest = SearchHelper.performSpendingByAwardSearch(params);
+
+        if (props.spendingLevel === 'transactions') {
+            params.fields = [
+                "Award ID",
+                "Mod",
+                "Recipient Name",
+                "Transaction Amount",
+                "Action Date",
+                "Transaction Description",
+                "Action Type",
+                "Award Type",
+                "Recipient UEI",
+                "Recipient Location",
+                "Primary Place of Performance",
+                "Awarding Agency",
+                "awarding_agency_id",
+                "Awarding Sub Agency",
+                "NAICS",
+                "PSC",
+                "Assistance Listing"
+            ];
+
+            searchRequest = performKeywordSearch(params);
+        }
+        else {
+            searchRequest = SearchHelper.performSpendingByAwardSearch(params);
+        }
+
         return searchRequest.promise
             .then((res) => {
                 const newState = {
@@ -255,7 +321,7 @@ const ResultsTableContainer = (props) => {
         // in the future, this will be an API call, but for now, read the local data file
         // load every possible table column up front, so we don't need to deal with this when
         // switching tabs
-        const columnsTemp = tableTypes.concat(subTypes).reduce((cols, type) => {
+        const columnsTemp = tableTypes.concat(subTypes).concat(transactionTypes).reduce((cols, type) => {
             const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
             const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
                 [data.title]: createColumn(data)
@@ -317,11 +383,25 @@ const ResultsTableContainer = (props) => {
     };
 
     const parseTabCounts = (data) => {
-        const awardCounts = data.results;
+        let awardCounts = data.results;
         let firstAvailable = '';
         let i = 0;
+        let availableTabs = tableTypes;
 
-        const availableTabs = props.subaward ? subTypes : tableTypes;
+        if (props.spendingLevel === 'subawards') {
+            availableTabs = subTypes;
+        }
+        else if (props.spendingLevel === 'transactions') {
+            availableTabs = transactionTypes;
+            awardCounts = {
+                transaction_contracts: data.results.contracts,
+                transaction_grants: data.results.grants,
+                transaction_direct_payments: data.results.direct_payments,
+                transaction_loans: data.results.loans,
+                transaction_other: data.results.other,
+                transaction_idvs: data.results.idvs
+            };
+        }
 
         // Set the first available award type to the first non-zero entry in the
         while (firstAvailable === '' && i < availableTabs.length) {
@@ -403,19 +483,17 @@ const ResultsTableContainer = (props) => {
     };
 
     const updateSort = (field, direction) => {
-        if (field === 'Action Date') {
+        if (field === 'Action Date' && props.spendingLevel !== 'transactions') {
             setSort(Object.assign({
                 field: 'Sub-Award Date',
                 direction
             }));
-            performSearch(true);
         }
         else {
             setSort(Object.assign({
                 field,
                 direction
             }));
-            performSearch(true);
         }
     };
 
@@ -440,7 +518,15 @@ const ResultsTableContainer = (props) => {
         props.subAwardIdClicked(true);
     };
 
-    const availableTypes = props.subaward ? subTypes : tableTypes;
+    let availableTypes = tableTypes;
+
+    if (props.spendingLevel === 'subawards') {
+        availableTypes = subTypes;
+    }
+    else if (props.spendingLevel === 'transactions') {
+        availableTypes = transactionTypes;
+    }
+
     const tabsWithCounts = availableTypes.map((type) => ({
         ...type,
         count: counts[type.internal],
@@ -499,7 +585,7 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [props.subaward, props.noApplied]);
+    }, 400), [props.subaward, props.noApplied, props.spendingLevel]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
@@ -532,6 +618,7 @@ const ResultsTableContainer = (props) => {
                 updateSort={updateSort}
                 loadNextPage={loadNextPage}
                 subaward={props.subaward}
+                spendingLevel={props.spendingLevel}
                 awardIdClick={awardIdClick}
                 subAwardIdClick={subAwardIdClick}
                 page={page}
@@ -550,7 +637,8 @@ export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward
+        subaward: state.searchView.subaward,
+        spendingLevel: state.searchView.spendingLevel
     }),
     (dispatch) => bindActionCreators(
         // access multiple redux actions

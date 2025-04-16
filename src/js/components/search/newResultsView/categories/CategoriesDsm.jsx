@@ -1,23 +1,16 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 import { Link } from "react-router-dom";
-import {
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
+import { showSlideout } from "../../../../helpers/slideoutHelper";
 
 const CategoriesDsm = ({ subaward }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
-    const dispatch = useDispatch();
 
     const openAboutTheDataSidebar = (e, entry) => {
-        dispatch(setAboutTheDataTermFromUrl(entry));
-        dispatch(showAboutTheData());
-        dispatch(setLastOpenedSlideout('atd'));
+        showSlideout('atd', { url: entry });
         e.preventDefault();
     };
     return (
@@ -52,25 +45,21 @@ const CategoriesDsm = ({ subaward }) => {
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p>The data in the chart represent
-                        <span className="award-search__glossary-term"> federal action
-                        </span>{' '}<GlossaryLink
-                            term="federal-action-obligation" />
-                        <span className="award-search__glossary-term"> obligation </span>{' '}<GlossaryLink
-                            term="obligation" /> amounts for prime award
-                        <span className="award-search__glossary-term"> transactions</span>{' '}<GlossaryLink
-                            term="transaction" /> within the selected filters. Loan awards use the
-                        {<span className="award-search__glossary-term"> subsidy cost</span>}{' '}{<GlossaryLink
-                            term="loan-subsidy-cost" />} rather than the obligated amount to sum up the value of the
-                        loan.
-                        Prime award transactions with the same unique award ID are grouped under a single prime award
-                        summary.
+                        {<span className="award-search__glossary-term"> federal action</span>}
+                        {' '}<GlossaryLink term="federal-action-obligation" />
+                        {<span className="award-search__glossary-term"> obligation </span>}
+                        {' '}<GlossaryLink term="obligation" /> amounts for prime award summaries within the selected filters. Loan awards use the
+                        {<span className="award-search__glossary-term"> subsidy cost</span>}
+                        {' '}{<GlossaryLink term="loan-subsidy-cost" />} rather than the obligated amount to sum up
+                        {<span className="award-search__glossary-term"> value of the loan</span>}
+                        {' '}{<GlossaryLink term="face-value-of-loan" />}.
                     </p>
                 </>
             }
-            <h4>Awarding Agency and Awarding Subagency</h4>
+            <h4>Awarding Agency</h4>
             <p>
                 View a list of the top Agencies from highest to lowest.
-                View your results by Awarding Agency or Sub Agency.
+                View your results by Awarding Agency.
             </p>
             <h4>Recipient</h4>
             <p>
@@ -80,11 +69,17 @@ const CategoriesDsm = ({ subaward }) => {
             <h4>North American Industry Classification System (NAICS) and Product or Service Code (PSC)</h4>
             <p>
                 View a list of the top Industry Codes from highest to lowest.
-                View your results by NAICS Code or PSC Code.
+                View your results by
+                {<span className="award-search__glossary-term"> NAICS Code</span> }
+                {' '}{<GlossaryLink term="naics" />} or
+                {<span className="award-search__glossary-term"> PSC Code</span> }
+                {' '}{<GlossaryLink term="product-or-service-code-psc" />}.
             </p>
             <h4>Assistance Listing</h4>
             <p>
-                View a list of the top CFDA Programs from highest to lowest.
+                View a list of the top
+                {<span className="award-search__glossary-term"> CFDA Programs</span> }
+                {' '}{<GlossaryLink term="assistance-listings-cfda-program" />} from highest to lowest.
             </p>
         </>
     );

@@ -1,20 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
+import { showSlideout } from "../../../../helpers/slideoutHelper";
 
-const TableDsm = ({ subaward }) => {
-    const dispatch = useDispatch();
-
+const TableDsm = ({ subaward, spendingLevel }) => {
     const openAboutTheDataSidebar = (e, entry) => {
-        dispatch(setAboutTheDataTermFromUrl(entry));
-        dispatch(showAboutTheData());
-        dispatch(setLastOpenedSlideout('atd'));
+        showSlideout('atd', { url: entry });
         e.preventDefault();
     };
     return (
@@ -50,18 +41,24 @@ const TableDsm = ({ subaward }) => {
                 </> :
                 <>
                     <p style={{ marginBottom: '8px' }}>
-                        View a list of award summaries based on your selected filters.
+                        View a list of {
+                            spendingLevel === 'transactions' ? ' transaction' : 'award'
+                        } summaries based on your selected filters.
                         Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on
-                        individual awards including transaction history, subawards, and more.
+                        { spendingLevel === 'transactions' ? ' transactions including transaction history' : ' individual awards' }.
                     </p>
-                    <p className="award-search__body-text">The rows in the table represent award summaries for {
-                        <span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink
-                        term="prime-award" />}.
-                        Award summaries contain all the individual transactions and modifications that share the same
+                    <p className="award-search__body-text">The rows in the table represent {
+                        spendingLevel === 'transactions' ? 'transaction' : 'award'
+                    } summaries for {
+                        <span className="award-search__glossary-term"> prime awards</span>}
+                    {' '}{<GlossaryLink term="prime-award" />}.
+                    {spendingLevel === 'transactions' ? ' Transaction' : ' Award'} summaries contain all the individual transactions and modifications that share the same
                         unique award ID.
-                        If you selected any Time Period filter, your results will include prime awards where the{<span className="award-search__glossary-term"> earliest </span>}{' '}{<GlossaryLink
-                        term="base-transaction-action-date" />} and {<span className="award-search__glossary-term"> latest</span>}{' '}{<GlossaryLink
-                        term="latest-transaction-action-date" />}{' '}
+                        If you selected any Time Period filter, your results will include prime award{
+                        spendingLevel === 'transactions' ? ' transactions' : 's'
+                    } where the{<span className="award-search__glossary-term"> earliest </span>}
+                    {' '}{<GlossaryLink term="base-transaction-action-date" />} and {<span className="award-search__glossary-term"> latest</span>}
+                    {' '}{<GlossaryLink term="latest-transaction-action-date" />}{' '}
                         transactions overlap with your selected time period (regardless of whether any transactions
                         occur within that period).
                     </p>
