@@ -45,7 +45,7 @@
     "@mdx-js/react": "^2.1.5",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.4.22",
-    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-interactions": "^8.6.12",
     "@storybook/addon-links": "^6.5.10",
     "@storybook/builder-webpack5": "^6.5.10",
     "@storybook/manager-webpack5": "^6.5.10",
