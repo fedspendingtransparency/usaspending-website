@@ -5,11 +5,6 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import POPFilterContainer from 'containers/search/filters/location/POPFilterContainer';
-import RecipientFilterContainer from 'containers/search/filters/location/RecipientFilterContainer';
-import GlobalConstants from 'GlobalConstants';
-
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
 import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
@@ -24,7 +19,6 @@ const LocationSection = (props) => {
     const { selectedRecipientLocations, selectedLocations, dirtyFilters } = props;
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
-    const [filter, setFilter] = useState(null);
 
     const openDefaultTab = () => {
         // check if the recipient or place of performance (default) tab should be enabled based
@@ -55,17 +49,6 @@ const LocationSection = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dirtyFilters]);
 
-    useEffect(() => {
-        if (!GlobalConstants.QAT) {
-            if (activeTab === 'recipient') {
-                setFilter(<RecipientFilterContainer />);
-            }
-            else {
-                setFilter(<POPFilterContainer />);
-            }
-        }
-    }, [activeTab]);
-
     const tabLabels = [
         {
             internal: 'pop',
@@ -88,7 +71,6 @@ const LocationSection = (props) => {
             <LocationAutocompleteContainer
                 {...props}
                 activeTab={activeTab} />
-            {filter}
             <SubmitHint
                 ref={(component) => {
                     setHint(component);
