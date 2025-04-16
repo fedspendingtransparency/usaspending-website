@@ -32,6 +32,7 @@ const SidebarWrapper = React.memo(({
     const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [isFooterVisible, setIsFooterVisible] = useState();
     const [isDsmOpened, setIsDsmOpened] = useState(false);
+    const [headerHeight, setHeaderHeight] = useState();
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -228,33 +229,49 @@ const SidebarWrapper = React.memo(({
             document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
         }
 
+        handleScroll();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mainContentHeight]);
 
     useEffect(() => {
+        handleScroll();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [headerHeight]);
+
+    useEffect(() => {
         // eslint-disable-next-line no-undef
-        const resizeObserver = new ResizeObserver((entries) => {
+        const mainContentResizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target?.clientHeight);
         });
 
+        // eslint-disable-next-line no-undef
+        const headerResizeObserver = new ResizeObserver((entries) => {
+            setHeaderHeight(entries[0].target?.clientHeight);
+        });
+
         const mainContent = document.querySelector("#main-content");
-        resizeObserver.observe(mainContent);
+        mainContentResizeObserver.observe(mainContent);
+
+        const siteHeader = document.querySelector(".site-header");
+        headerResizeObserver.observe(siteHeader);
 
         handleResize();
 
-        window.addEventListener('resize', (e) => handleResize(e));
-        window.addEventListener('scroll', (e) => handleScroll(e));
+        window.addEventListener('resize', () => handleResize());
+        window.addEventListener('scroll', () => handleScroll());
         window.addEventListener('scrollend', (e) => handleScrollEnd(e));
 
         return () => {
-            window.removeEventListener('resize', (e) => handleResize(e));
-            window.removeEventListener('scroll', (e) => handleScroll(e));
+            window.removeEventListener('resize', () => handleResize());
+            window.removeEventListener('scroll', () => handleScroll());
             window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
-            resizeObserver.unobserve(mainContent);
+            mainContentResizeObserver?.unobserve(mainContent);
+
+            headerResizeObserver?.unobserve(siteHeader);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    });
+    }, []);
 
     const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
