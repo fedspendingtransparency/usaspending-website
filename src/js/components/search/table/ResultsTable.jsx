@@ -94,31 +94,24 @@ export default class ResultsTable extends React.Component {
         window.removeEventListener('resize', this.measureHeight);
     }
 
-    pickLocationFormat({
-        city_name: cityName,
-        state_code: stateCode,
-        state_name: stateName,
-        zip5,
-        location_country_code: countryCode,
-        country_name: countryName
-    }) {
-        if (cityName && stateCode && zip5) {
-            return `${convertToTitleCase(cityName)}, ${stateCode}, ${zip5}`;
+    pickLocationFormat(location) {
+        if (location?.city_name && location?.state_code && location?.zip5) {
+            return `${convertToTitleCase(location.city_name)}, ${location.state_code}, ${location.zip5}`;
         }
-        else if (cityName && stateCode) {
-            return `${convertToTitleCase(cityName)}, ${stateCode}`;
+        else if (location?.city_name && location?.state_code) {
+            return `${convertToTitleCase(location.city_name)}, ${location.state_code}`;
         }
-        else if (stateName) {
-            return `${stateName}, ${countryCode}`;
+        else if (location?.state_name) {
+            return `${location.state_name}, ${location.location_country_code}`;
         }
-        else if (cityName && countryCode) {
-            return `${convertToTitleCase(cityName)}, ${countryCode}`;
+        else if (location?.city_name && location?.location_country_code) {
+            return `${convertToTitleCase(location.city_name)}, ${location.location_country_code}`;
         }
-        else if (countryName) {
-            return convertToTitleCase(countryName);
+        else if (location?.country_name) {
+            return convertToTitleCase(location.country_name);
         }
-        else if (countryCode) {
-            return countryCode;
+        else if (location?.location_country_code) {
+            return location.location_country_code;
         }
         return '--';
     }
