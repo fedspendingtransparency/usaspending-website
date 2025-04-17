@@ -31,7 +31,7 @@ const DsmSlider = (props) => {
     }, [props.dsmFile]);
 
     const clickHandler = (e) => {
-        const action = isDsmOpened === true ? 'Close' : 'Open';
+        const action = isDsmOpened ? 'Close' : 'Open';
         e.preventDefault();
         props.setIsDsmOpened(!isDsmOpened);
         Analytics.event({
