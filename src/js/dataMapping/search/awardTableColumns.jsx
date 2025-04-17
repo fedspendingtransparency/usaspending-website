@@ -266,7 +266,9 @@ const defaultContract = [
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
         customWidth: newCustomWidth1
-    }
+    },
+    { title: 'NAICS', displayName: 'North American Classification System (NAICS)', customWidth: newCustomWidth2 },
+    { title: 'PSC', displayName: 'Product and Service Code (PSC)', customWidth: newCustomWidth2 }
 ];
 
 const defaultGrant = [
@@ -362,9 +364,9 @@ const defaultIdvColumns = [
     {
         title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
     },
-    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: newCustomWidth1 }
-
-
+    { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: newCustomWidth1 },
+    { title: 'NAICS', displayName: 'North American Classification System (NAICS)', customWidth: newCustomWidth2 },
+    { title: 'PSC', displayName: 'Product and Service Code (PSC)', customWidth: newCustomWidth2 }
 ];
 
 const descriptionCol = {
