@@ -114,12 +114,12 @@ const Footer = ({
                             <ul>
                                 <li>
                                     <FooterExternalLink
-                                        link="https://fiscalservice.force.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0"
+                                        link="https://onevoicecrm.my.site.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0"
                                         title="FAQs" />
                                 </li>
                                 <li>
                                     <FooterExternalLink
-                                        link="https://fiscalservice.force.com/usaspending/s/"
+                                        link="https://onevoicecrm.my.site.com/usaspending/s/"
                                         title="Community" />
                                 </li>
                                 <li>
