@@ -93,15 +93,31 @@ export default class ResultsTable extends React.Component {
         window.removeEventListener('resize', this.measureHeight);
     }
 
-    pickLocationFormat(city, state, zip, countryCode, countryName) {
-        if (state) {
-            return `${convertToTitleCase(city)}, ${state}, ${zip}`;
+    pickLocationFormat({
+        city_name: cityName,
+        state_code: stateCode,
+        state_name: stateName,
+        zip5,
+        location_country_code: countryCode,
+        country_name: countryName
+    }) {
+        if (cityName && stateCode && zip5) {
+            return `${convertToTitleCase(cityName)}, ${stateCode}, ${zip5}`;
         }
-        else if (city && countryCode) {
-            return `${convertToTitleCase(city)}, ${countryCode}`;
+        else if (cityName && stateCode) {
+            return `${convertToTitleCase(cityName)}, ${stateCode}`;
+        }
+        else if (stateName) {
+            return `${stateName}, ${countryCode}`;
+        }
+        else if (cityName && countryCode) {
+            return `${convertToTitleCase(cityName)}, ${countryCode}`;
         }
         else if (countryName) {
             return convertToTitleCase(countryName);
+        }
+        else if (countryCode) {
+            return countryCode;
         }
         return '--';
     }
@@ -318,6 +334,9 @@ export default class ResultsTable extends React.Component {
                             text={obj.Description || '--'}
                             limit={90} />,
                         obj['Contract Award Type'] || obj['Award Type'] || '--',
+                        obj['Recipient UEI'] || 'UEI not provided',
+                        this.pickLocationFormat(obj['Recipient Location']),
+                        this.pickLocationFormat(obj['Primary Place of Performance']),
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -367,6 +386,9 @@ export default class ResultsTable extends React.Component {
                         <ReadMore
                             text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
                             limit={65} />,
+                        obj['Recipient UEI'] || 'UEI not provided',
+                        this.pickLocationFormat(obj['Recipient Location']),
+                        this.pickLocationFormat(obj['Primary Place of Performance']),
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -416,21 +438,9 @@ export default class ResultsTable extends React.Component {
                         text={obj.Description || '--'}
                         limit={90} />,
                     obj['Contract Award Type'] || obj['Award Type'] || '--',
-                    obj['Recipient UEI'] || '--',
-                    this.pickLocationFormat(
-                        obj['Recipient Location']?.city_name,
-                        obj['Recipient Location']?.state_code,
-                        obj['Recipient Location']?.zip5,
-                        obj['Recipient Location']?.location_country_code,
-                        obj['Recipient Location']?.country_name
-                    ),
-                    this.pickLocationFormat(
-                        obj['Primary Place of Performance']?.city_name,
-                        obj['Primary Place of Performance']?.state_code,
-                        obj['Primary Place of Performance']?.zip5,
-                        obj['Primary Place of Performance']?.location_country_code,
-                        obj['Primary Place of Performance']?.country_name
-                    ),
+                    obj['Recipient UEI'] || 'UEI not provided',
+                    this.pickLocationFormat(obj['Recipient Location']),
+                    this.pickLocationFormat(obj['Primary Place of Performance']),
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -478,21 +488,9 @@ export default class ResultsTable extends React.Component {
                             limit={90} />,
                         obj['Action Type'] || '--',
                         obj['Award Type'] || '--',
-                        obj['Recipient UEI'] || '--',
-                        this.pickLocationFormat(
-                            obj['Recipient Location']?.city_name,
-                            obj['Recipient Location']?.state_code,
-                            obj['Recipient Location']?.zip5,
-                            obj['Recipient Location']?.location_country_code,
-                            obj['Recipient Location']?.country_name
-                        ),
-                        this.pickLocationFormat(
-                            obj['Primary Place of Performance']?.city_name,
-                            obj['Primary Place of Performance']?.state_code,
-                            obj['Primary Place of Performance']?.zip5,
-                            obj['Primary Place of Performance']?.location_country_code,
-                            obj['Primary Place of Performance']?.country_name
-                        ),
+                        obj['Recipient UEI'] || 'UEI not provided',
+                        this.pickLocationFormat(obj['Recipient Location']),
+                        this.pickLocationFormat(obj['Primary Place of Performance']),
                         obj['Awarding Agency'] || '--',
                         obj['Awarding Sub Agency'] || '--',
                         `${obj.NAICS?.code} - ${obj.NAICS?.description}` || '--',
@@ -523,21 +521,9 @@ export default class ResultsTable extends React.Component {
                             limit={90} />,
                         obj['Action Type'] || '--',
                         obj['Award Type'] || '--',
-                        obj['Recipient UEI'] || '--',
-                        this.pickLocationFormat(
-                            obj['Recipient Location']?.city_name,
-                            obj['Recipient Location']?.state_code,
-                            obj['Recipient Location']?.zip5,
-                            obj['Recipient Location']?.location_country_code,
-                            obj['Recipient Location']?.country_name
-                        ),
-                        this.pickLocationFormat(
-                            obj['Primary Place of Performance']?.city_name,
-                            obj['Primary Place of Performance']?.state_code,
-                            obj['Primary Place of Performance']?.zip5,
-                            obj['Primary Place of Performance']?.location_country_code,
-                            obj['Primary Place of Performance']?.country_name
-                        ),
+                        obj['Recipient UEI'] || 'UEI not provided',
+                        this.pickLocationFormat(obj['Recipient Location']),
+                        this.pickLocationFormat(obj['Primary Place of Performance']),
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
