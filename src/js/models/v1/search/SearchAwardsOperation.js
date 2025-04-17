@@ -50,6 +50,9 @@ class SearchAwardsOperation {
         this.pscCheckbox = checkboxTreeKeys;
         // the defCodes don't actually send the checkboxTrees object shape to the API. See comment below.
         this.defCodes = checkboxTreeKeys;
+        this.infraDefCode = [];
+        this.covidDefCode = [];
+
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
@@ -58,6 +61,7 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
+        console.log(state);
         this.keyword = state.keyword?.toArray();
         this.time_period = state.time_period?.toArray();
         this.timePeriodFY = state.timePeriodFY?.toArray();
@@ -79,6 +83,9 @@ class SearchAwardsOperation {
                 this.awardType.push(type);
             });
         }
+
+        console.log(this.awardType);
+
         this.contractAwardType = state.contractAwardType?.toArray();
         this.financialAssistanceAwardType = state.financialAssistanceAwardType?.toArray();
 
@@ -116,7 +123,24 @@ class SearchAwardsOperation {
             require: state.defCodes?.toObject().require,
             exclude: state.defCodes?.toObject().exclude
         };
+        if ((state.infraDefCode || state.covidDefCode) && this.defCodes.require.length === 0) {
+            const infraDefCode = state.infraDefCode?.toArray();
+            const covidDefCode = state.covidDefCode?.toArray();
 
+            infraDefCode.forEach((type) => {
+                this.defCodes.require.push(type);
+            });
+
+            covidDefCode.forEach((type) => {
+                this.defCodes.require.push(type);
+            });
+        }
+        if (state.financialAssistanceAwardType) {
+            const financialAssistance = state.financialAssistanceAwardType?.toArray();
+            financialAssistance.forEach((type) => {
+                this.awardType.push(type);
+            });
+        }
         this.pricingType = state.pricingType?.toArray();
         this.setAside = state.setAside?.toArray();
         this.extentCompeted = state.extentCompeted?.toArray();
