@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Analytics from "../../../helpers/analytics/Analytics";
 
 const propTypes = {
     isDsmOpened: PropTypes.bool,
@@ -19,17 +20,26 @@ const propTypes = {
 
 const DsmSlider = (props) => {
     const [markdownContent, setMarkdownContent] = useState('');
+    const isDsmOpened = props?.isDsmOpened;
+
     useEffect(() => {
         const fetchMarkdown = async () => {
             const file = await import(`../../../../content/search/${props.dsmFile}`);
             setMarkdownContent(file.default());
         };
-
         fetchMarkdown();
     }, [props.dsmFile]);
+
     const clickHandler = (e) => {
+        const action = isDsmOpened === true ? 'Close' : 'Open';
         e.preventDefault();
-        props.setIsDsmOpened(!props.isDsmOpened);
+        props.setIsDsmOpened(!isDsmOpened);
+        Analytics.event({
+            event: 'dsm_menu_action',
+            category: 'Advanced Search - Filter DS&M',
+            action: `${action} DS&M`,
+            label: props.selectedCategoryTitle
+        });
     };
 
     const adjustFilterLabel = () => {
@@ -49,14 +59,14 @@ const DsmSlider = (props) => {
 
     return (
         <div
-            className={`collapsible-sidebar--dsm-slider ${props?.isDsmOpened ? `dsm-opened` : ''}`}>
+            className={`collapsible-sidebar--dsm-slider ${isDsmOpened ? `dsm-opened` : ''}`}>
             <span
                 role="button"
                 tabIndex={0}
                 onClick={clickHandler}
                 onKeyUp={(e) => {
                     if (e.key === 'Enter') {
-                        props.setIsDsmOpened(!props.isDsmOpened);
+                        props.setIsDsmOpened(!isDsmOpened);
                     }
                 }}>
                 {renderButtonLabel()}
