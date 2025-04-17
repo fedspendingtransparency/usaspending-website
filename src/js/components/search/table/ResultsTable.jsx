@@ -416,6 +416,21 @@ export default class ResultsTable extends React.Component {
                         text={obj.Description || '--'}
                         limit={90} />,
                     obj['Contract Award Type'] || obj['Award Type'] || '--',
+                    obj['Recipient UEI'] || '--',
+                    this.pickLocationFormat(
+                        obj['Recipient Location']?.city_name,
+                        obj['Recipient Location']?.state_code,
+                        obj['Recipient Location']?.zip5,
+                        obj['Recipient Location']?.location_country_code,
+                        obj['Recipient Location']?.country_name
+                    ),
+                    this.pickLocationFormat(
+                        obj['Primary Place of Performance']?.city_name,
+                        obj['Primary Place of Performance']?.state_code,
+                        obj['Primary Place of Performance']?.zip5,
+                        obj['Primary Place of Performance']?.location_country_code,
+                        obj['Primary Place of Performance']?.country_name
+                    ),
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),

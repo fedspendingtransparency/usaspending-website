@@ -241,19 +241,31 @@ const defaultContract = [
     { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
-        title: 'Award Amount', right: true, displayName: 'Obligations', customWidth: newDefaultWidth
+        title: 'Award Amount',
+        right: true,
+        displayName: 'Obligations',
+        customWidth: newDefaultWidth
     },
     {
-        title: 'Total Outlays', right: true, displayName: 'Outlays', customWidth: newDefaultWidth
+        title: 'Total Outlays',
+        right: true,
+        displayName: 'Outlays',
+        customWidth: newDefaultWidth
     },
     { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     { title: 'Awarding Sub Agency', displayName: 'Awarding Subagency', customWidth: newCustomWidth1 },
     {
-        title: 'Start Date', displayName: 'Period of Performance Start', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+        title: 'Start Date',
+        displayName: 'Period of Performance Start',
+        subtitle: '(Period of Performance)',
+        customWidth: newCustomWidth1
     },
     {
-        title: 'End Date', displayName: 'Period of Performance End', subtitle: '(Period of Performance)', customWidth: newCustomWidth1
+        title: 'End Date',
+        displayName: 'Period of Performance End',
+        subtitle: '(Period of Performance)',
+        customWidth: newCustomWidth1
     }
 ];
 
@@ -354,40 +366,53 @@ const defaultIdvColumns = [
 
 
 ];
-const infrastructureObligationsCol = {
-    title: 'Infrastructure Obligations',
-    background: infrastructureColor,
-    customWidth: newCustomWidth1,
-    right: true
+
+const descriptionCol = {
+    title: 'Description',
+    displayName: 'Award Description',
+    customWidth: newCustomWidth2
 };
-const infrastructureOutlaysCol = {
-    title: 'Infrastructure Outlays',
-    background: infrastructureColor,
-    customWidth: newDefaultWidth,
-    right: true
+
+const recipientUEICol = { title: 'Recipient UEI', customWidth: newDefaultWidth };
+
+const recipientLocationCol = { title: 'Recipient Location', customWidth: newCustomWidth1 };
+
+const primaryPOPCol = { title: 'Recipient UEI', customWidth: newDefaultWidth };
+
+const covidDefCCol = {
+    title: 'def_codes',
+    displayName: 'Disaster Emergency Fund Codes (DEFCs)',
+    customWidth: newCustomWidth1
 };
+
 const covidObligationsCol = {
     title: 'COVID-19 Obligations',
     background: covidColor,
     customWidth: newDefaultWidth,
     right: true
 };
+
 const covidOutlaysCol = {
     title: 'COVID-19 Outlays',
     background: covidColor,
     customWidth: newDefaultWidth,
     right: true
 };
-const covidDefCCol = {
-    title: 'def_codes',
-    displayName: 'Disaster Emergency Fund Codes (DEFCs)',
-    customWidth: newCustomWidth1
+
+const infrastructureObligationsCol = {
+    title: 'Infrastructure Obligations',
+    background: infrastructureColor,
+    customWidth: newCustomWidth1,
+    right: true
 };
-const descriptionCol = {
-    title: 'Description',
-    displayName: 'Award Description',
-    customWidth: newCustomWidth2
+
+const infrastructureOutlaysCol = {
+    title: 'Infrastructure Outlays',
+    background: infrastructureColor,
+    customWidth: newDefaultWidth,
+    right: true
 };
+
 const tabsWithAdditionalCols = [
     defaultContract,
     defaultGrant,
@@ -400,11 +425,14 @@ const tabsWithAdditionalCols = [
 // Insert COVID columns
 tabsWithAdditionalCols.forEach((tab) => {
     tab.splice(4, 0, descriptionCol);
-    tab.splice(6, 0, covidDefCCol);
-    tab.splice(7, 0, covidObligationsCol);
-    tab.splice(8, 0, covidOutlaysCol);
-    tab.splice(9, 0, infrastructureObligationsCol);
-    tab.splice(10, 0, infrastructureOutlaysCol);
+    tab.splice(6, 0, recipientUEICol);
+    tab.splice(7, 0, recipientLocationCol);
+    tab.splice(8, 0, primaryPOPCol);
+    tab.splice(9, 0, covidDefCCol);
+    tab.splice(10, 0, covidObligationsCol);
+    tab.splice(11, 0, covidOutlaysCol);
+    tab.splice(12, 0, infrastructureObligationsCol);
+    tab.splice(13, 0, infrastructureOutlaysCol);
 });
 
 const defaultSub = [
