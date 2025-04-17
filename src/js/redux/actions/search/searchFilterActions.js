@@ -189,14 +189,18 @@ export const updateTreasuryAccountComponents = (source) => ({
     source
 });
 
-export const updateTAS = (require, exclude, counts) => ({
-    type: 'UPDATE_TAS',
-    payload: new CheckboxTreeSelections({
-        exclude,
-        require: require?.map((code) => removePlaceholderString(code)),
-        counts
-    })
-});
+export const updateTAS = (require, exclude, counts) => {
+    console.log("require", require, exclude, counts);
+
+    return ({
+        type: 'UPDATE_TAS',
+        payload: new CheckboxTreeSelections({
+            exclude,
+            require: require?.map((code) => removePlaceholderString(code)),
+            counts
+        })
+    });
+}
 
 // PSC Filter
 export const updateSelectedPSC = (state) => ({

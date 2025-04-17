@@ -737,12 +737,12 @@ export const getUniqueAncestorPaths = (
         return 0;
     });
 
-export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => [
+export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => ([
     ...new Set(
         checked.map((code) => removePlaceholderString(code))
     )]
     .map((code) => traverseTreeByCodeFn(nodes, code))
-    .map((node) => ([...node.ancestors, node.value]));
+    .map((node) => ([...node.ancestors, node.value])));
 
 export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => arrayOfAncestryPaths?.sort((a, b) => a.length - b.length)
     .reduce((leanArrayOfAncestryPaths, ancestryPath) => {

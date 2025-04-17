@@ -36,7 +36,6 @@ export const initialState = {
 
 /* eslint-disable import/prefer-default-export */
 export const tasReducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
         case 'SET_TAS_NODES': {
             const { payload, key } = action;

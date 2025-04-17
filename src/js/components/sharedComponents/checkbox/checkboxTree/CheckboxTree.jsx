@@ -20,7 +20,6 @@ const CheckboxTree = (props) => {
     const {
         data
     } = props;
-    console.log(data);
     const isDisabled = false;
 
     /**
@@ -80,7 +79,6 @@ const CheckboxTree = (props) => {
      * @returns {null}
      */
     const checkedNode = (checked, node) => {
-        console.log(" in checkbox tree", checked, node);
         props.onCheck([node.id]);
     };
     /**

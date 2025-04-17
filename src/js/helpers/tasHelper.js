@@ -40,7 +40,6 @@ export const cleanTasData = (nodes) => cleanTreeData(nodes, tasKeyMap)
     });
 
 export const getTasNodeFromTree = (tree, code) => {
-    console.log("tree in getTasNodeFromTree", tree, code);
     if (!tree) return tree;
     const topLevelNode = tree.find((node) => node.value === code);
     if (topLevelNode) return topLevelNode;
@@ -129,11 +128,13 @@ export const expandTasNodeAndAllDescendantParents = (
 );
 
 export const getTasAncestryPathForChecked = (checked, nodes) => {
-    if (checked?.length > 0) {
-        getAncestryPathOfNodes(
+    if (checked && checked.length > 0) {
+        return (getAncestryPathOfNodes(
             checked,
             nodes,
             getTasNodeFromTree
-        );
+        ));
     }
+
+    return ([]);
 };
