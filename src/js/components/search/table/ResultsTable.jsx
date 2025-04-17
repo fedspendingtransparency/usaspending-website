@@ -58,6 +58,7 @@ export default class ResultsTable extends React.Component {
         this.measureHeight = this.measureHeight.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
         this.pickLocationFormat = this.pickLocationFormat.bind(this);
+        this.assistanceListingFormat = this.assistanceListingFormat.bind(this);
     }
 
     componentDidMount() {
@@ -119,6 +120,23 @@ export default class ResultsTable extends React.Component {
         else if (countryCode) {
             return countryCode;
         }
+        return '--';
+    }
+
+    assistanceListingFormat(assistanceListing) {
+        // format for spending by award api
+        if (assistanceListing?.length > 0) {
+            const listing = assistanceListing[0];
+
+            if (listing?.cfda_number && listing?.cfda_program_title) {
+                return `${listing.cfda_number} - ${listing.cfda_program_title}`;
+            }
+        }
+        // format for spending by transaction api
+        else if (assistanceListing?.cfda_number && assistanceListing?.cfda_title) {
+            return `${assistanceListing.cfda_number} - ${assistanceListing.cfda_title}`;
+        }
+
         return '--';
     }
 
@@ -351,7 +369,8 @@ export default class ResultsTable extends React.Component {
                             }}>{obj['Awarding Agency']}
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
-                        obj['Issued Date'] || '--'
+                        obj['Issued Date'] || '--',
+                        this.assistanceListingFormat(obj['Assistance Listings'])
                     );
 
                     return value;
@@ -404,7 +423,8 @@ export default class ResultsTable extends React.Component {
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
                         obj['Start Date'] || '--',
-                        obj['End Date'] || '--'
+                        obj['End Date'] || '--',
+                        this.assistanceListingFormat(obj['Assistance Listings'])
                     );
 
                     return value;
@@ -457,7 +477,8 @@ export default class ResultsTable extends React.Component {
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
                         obj['Start Date'] || '--',
-                        obj['End Date'] || obj['Last Date to Order'] || '--'
+                        obj['End Date'] || obj['Last Date to Order'] || '--',
+                        this.assistanceListingFormat(obj['Assistance Listings'])
                     );
 
                     return value;
@@ -589,7 +610,7 @@ export default class ResultsTable extends React.Component {
                             }}>{obj['Awarding Agency']}
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
-                        `${obj['Assistance Listing']?.cfda_number} - ${obj['Assistance Listing']?.cfda_title}` || '--'
+                        this.assistanceListingFormat(obj['Assistance Listing'])
                     );
 
                     return value;
