@@ -377,7 +377,7 @@ const recipientUEICol = { title: 'Recipient UEI', customWidth: newDefaultWidth }
 
 const recipientLocationCol = { title: 'Recipient Location', customWidth: newCustomWidth1 };
 
-const primaryPOPCol = { title: 'Recipient UEI', customWidth: newDefaultWidth };
+const primaryPOPCol = { title: 'Primary Place of Performance', customWidth: newCustomWidth1 };
 
 const covidDefCCol = {
     title: 'def_codes',
