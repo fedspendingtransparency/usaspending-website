@@ -52,7 +52,7 @@ exports[`AccountDataContainer tests populates the agency list 1`] = `
         "setFederalAccountList": [Function],
         "updateFilter": [Function],
       },
-      {},
+      undefined,
     ],
     [
       {
@@ -108,7 +108,7 @@ exports[`AccountDataContainer tests populates the agency list 1`] = `
         "setFederalAccountList": [Function],
         "updateFilter": [Function],
       },
-      {},
+      undefined,
     ],
   ],
   "results": [
