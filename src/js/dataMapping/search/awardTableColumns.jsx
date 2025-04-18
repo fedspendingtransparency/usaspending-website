@@ -560,6 +560,22 @@ const defaultSub = [
     }
 ];
 
+const additionalNaicsCol = {
+    title: 'NAICS',
+    displayName: 'North American Classification System (NAICS)',
+    customWidth: newCustomWidth2
+};
+
+const additionalPscCol = {
+    title: 'PSC',
+    displayName: 'Product and Service Code (PSC)',
+    customWidth: newCustomWidth2
+};
+
+const additionalAssistanceListingCol = { title: 'Assistance Listing', customWidth: newCustomWidth2 };
+
+const defaultSubContracts = defaultSub.concat([additionalNaicsCol, additionalPscCol]);
+const defaultSubGrants = defaultSub.concat([additionalAssistanceListingCol]);
 
 export const availableColumns = (type) => {
     const columns = {
@@ -641,8 +657,8 @@ export const defaultColumns = (type) => {
         loans: defaultLoan,
         other: defaultOther,
         idvs: defaultIdvColumns,
-        subcontracts: defaultSub,
-        subgrants: defaultSub,
+        subcontracts: defaultSubContracts,
+        subgrants: defaultSubGrants,
         transaction_contracts: defaultTransactionContract,
         transaction_grants: defaultTransactionFA,
         transaction_direct_payments: defaultTransactionFA,

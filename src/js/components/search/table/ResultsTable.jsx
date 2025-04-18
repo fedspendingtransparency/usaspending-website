@@ -59,6 +59,7 @@ export default class ResultsTable extends React.Component {
         this.clickHandler = this.clickHandler.bind(this);
         this.pickLocationFormat = this.pickLocationFormat.bind(this);
         this.assistanceListingFormat = this.assistanceListingFormat.bind(this);
+        this.twoVariableFormat = this.twoVariableFormat.bind(this);
     }
 
     componentDidMount() {
@@ -125,12 +126,16 @@ export default class ResultsTable extends React.Component {
                 return `${listing.cfda_number} - ${listing.cfda_program_title}`;
             }
         }
-        // format for spending by transaction api
-        else if (assistanceListing?.cfda_number && assistanceListing?.cfda_title) {
-            return `${assistanceListing.cfda_number} - ${assistanceListing.cfda_title}`;
-        }
 
         return '--';
+    }
+
+    twoVariableFormat(object, key1, key2) {
+        if (object?.[key1] && object?.[key2]) {
+            return `${object[key1]} - ${object[key2]}`;
+        }
+
+        return "--";
     }
 
     measureHeight() {
@@ -525,8 +530,8 @@ export default class ResultsTable extends React.Component {
                     obj['Awarding Sub Agency'] || '--',
                     obj['Start Date'] || '--',
                     obj['End Date'] || obj['Last Date to Order'] || '--',
-                    `${obj.NAICS?.code} - ${obj.NAICS?.description}` || '--',
-                    `${obj.PSC?.code} - ${obj.PSC?.description}` || '--'
+                    this.twoVariableFormat(obj.NAICS, 'code', 'description'),
+                    this.twoVariableFormat(obj.PSC, 'code', 'description')
                 );
 
                 return value;
@@ -563,8 +568,8 @@ export default class ResultsTable extends React.Component {
                         this.pickLocationFormat(obj['Primary Place of Performance']),
                         obj['Awarding Agency'] || '--',
                         obj['Awarding Sub Agency'] || '--',
-                        `${obj.NAICS?.code} - ${obj.NAICS?.description}` || '--',
-                        `${obj.PSC?.code} - ${obj.PSC?.description}` || '--'
+                        this.twoVariableFormat(obj.NAICS, 'code', 'description'),
+                        this.twoVariableFormat(obj.PSC, 'code', 'description')
                     );
 
                     return value;
@@ -603,7 +608,7 @@ export default class ResultsTable extends React.Component {
                             }}>{obj['Awarding Agency']}
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
-                        this.assistanceListingFormat(obj['Assistance Listing'])
+                        this.twoVariableFormat(obj['Assistance Listing'], 'cfda_number', 'cfda_title')
                     );
 
                     return value;
@@ -614,46 +619,99 @@ export default class ResultsTable extends React.Component {
         }
 
         // subaward
-        values = arrayOfObjects.map((obj) => {
-            const value = [];
-            value.push(
-                <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`/award/${obj.prime_award_generated_internal_id}`}
-                    onClick={() => {
-                        this.clickHandler(obj['Sub-Award ID']);
-                    }}>{obj['Sub-Award ID']}
-                </a> || '--',
-                obj['Sub-Awardee Name'] || '--',
-                MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
-                obj['Sub-Award Date'] || '--',
-                obj['Sub-Award Description'] || '--',
-                obj['Sub-Recipient UEI'] || 'UEI not provided',
-                obj['Sub-Award Type'] || '--',
-                <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`/award/${obj.prime_award_generated_internal_id}`}
-                    onClick={() => {
-                        this.clickHandler(obj['Prime Award ID']);
-                    }}>{obj['Prime Award ID']}
-                </a> || '--',
-                <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`/recipient/${obj.prime_award_recipient_id}`}
-                    onClick={() => {
-                        this.clickHandler(obj['Prime Recipient Name']);
-                    }}>{obj['Prime Recipient Name']}
-                </a> || '--',
-                obj['Prime Award Recipient UEI'] || 'UEI not provided',
-                obj['Awarding Agency'] || '--',
-                obj['Awarding Sub Agency'] || '--'
-            );
+        if (this.props.currentType === "subcontracts") {
+            values = arrayOfObjects.map((obj) => {
+                const value = [];
+                value.push(
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/award/${obj.prime_award_generated_internal_id}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Sub-Award ID']);
+                        }}>{obj['Sub-Award ID']}
+                    </a> || '--',
+                    obj['Sub-Awardee Name'] || '--',
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
+                    obj['Sub-Award Date'] || '--',
+                    <ReadMore
+                        text={obj['Sub-Award Description'] || '--'}
+                        limit={90} />,
+                    obj['Sub-Recipient UEI'] || 'UEI not provided',
+                    obj['Sub-Award Type'] || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/award/${obj.prime_award_generated_internal_id}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Prime Award ID']);
+                        }}>{obj['Prime Award ID']}
+                    </a> || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/recipient/${obj.prime_award_recipient_id}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Prime Recipient Name']);
+                        }}>{obj['Prime Recipient Name']}
+                    </a> || '--',
+                    obj['Prime Award Recipient UEI'] || 'UEI not provided',
+                    obj['Awarding Agency'] || '--',
+                    obj['Awarding Sub Agency'] || '--',
+                    this.twoVariableFormat(obj.NAICS, 'code', 'description'),
+                    this.twoVariableFormat(obj.PSC, 'code', 'description')
+                );
 
-            return value;
-        });
+                return value;
+            });
+        }
+
+        else {
+            values = arrayOfObjects.map((obj) => {
+                const value = [];
+                value.push(
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/award/${obj.prime_award_generated_internal_id}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Sub-Award ID']);
+                        }}>{obj['Sub-Award ID']}
+                    </a> || '--',
+                    obj['Sub-Awardee Name'] || '--',
+                    MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
+                    obj['Sub-Award Date'] || '--',
+                    <ReadMore
+                        text={obj['Sub-Award Description'] || '--'}
+                        limit={90} />,
+                    obj['Sub-Recipient UEI'] || 'UEI not provided',
+                    obj['Sub-Award Type'] || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/award/${obj.prime_award_generated_internal_id}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Prime Award ID']);
+                        }}>{obj['Prime Award ID']}
+                    </a> || '--',
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={`/recipient/${obj.prime_award_recipient_id}`}
+                        onClick={() => {
+                            this.clickHandler(obj['Prime Recipient Name']);
+                        }}>{obj['Prime Recipient Name']}
+                    </a> || '--',
+                    obj['Prime Award Recipient UEI'] || 'UEI not provided',
+                    obj['Awarding Agency'] || '--',
+                    obj['Awarding Sub Agency'] || '--',
+                    this.twoVariableFormat(obj["Assistance Listing"], 'cfda_number', 'cfda_program_title')
+                );
+
+                return value;
+            });
+        }
+
         return values;
     }
 
