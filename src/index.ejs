@@ -28,7 +28,7 @@
             ;(function (g) {
                 var d = document, am = d.createElement('script'), h = d.head || d.getElementsByTagName("head")[0], fsr = 'fsReady',
                 aex = {
-                "src": "//eex-gateway.fr011.ttecfed.com/sites/usaspending/production/gateway.min.js",
+                "src": "//gateway.fr011.ttecfed.com/sites/usaspending/production/gateway.min.js",
                 "type": "text/javascript",
                 "async": "true",
                 "data-vendor": "fs",
@@ -39,13 +39,13 @@
             // DO NOT MODIFY ABOVE THIS LINE *****************************************
 
             // Un-comment out the function below when you are ready to input your variable
-            /*fsReady(function() {
+            fsReady(function() {
                 var currentURL = window.location.href;
                 FSR.CPPS.set("url", currentURL);
-                FSR.CPPS.set('name','value'); // use single quotes when passing a static-value
-                FSR.CPPS.set('name2',somevariable); // don't use quotes for a dynamic value
-                FSR.CPPS.set('name3',othervariable); // add as many CPPs as you like in this way
-            });*/
+                // FSR.CPPS.set('name','value'); // use single quotes when passing a static-value
+                // FSR.CPPS.set('name2',somevariable); // don't use quotes for a dynamic value
+                //FSR.CPPS.set('name3',othervariable); // add as many CPPs as you like in this way
+            });
         </script>
     <% } else { %>
         <script type="text/javascript">
@@ -54,7 +54,7 @@
             ;(function (g) {
                 var d = document, am = d.createElement('script'), h = d.head || d.getElementsByTagName("head")[0], fsr = 'fsReady',
                 aex = {
-                "src": "//eex-gateway.fr011.ttecfed.com/sites/usaspending/staging/gateway.min.js",
+                "src": "//gateway.fr011.ttecfed.com/sites/usaspending/staging/gateway.min.js",
                 "type": "text/javascript",
                 "async": "true",
                 "data-vendor": "fs",
@@ -65,14 +65,14 @@
             // DO NOT MODIFY ABOVE THIS LINE *****************************************
 
             // Un-comment out the function below when you are ready to input your variable
-            /*fsReady(function() {
+            fsReady(function() {
                 var currentURL = window.location.href;
                 FSR.CPPS.set("url", currentURL);
-                    FSR.CPPS.set('name','value'); // use single quotes when passing a static-value
-                    FSR.CPPS.set('name2',somevariable); // don't use quotes for a dynamic value
-                    FSR.CPPS.set('name3',othervariable); // add as many CPPs as you like in this way
+                //FSR.CPPS.set('name','value'); // use single quotes when passing a static-value
+                //FSR.CPPS.set('name2',somevariable); // don't use quotes for a dynamic value
+                //FSR.CPPS.set('name3',othervariable); // add as many CPPs as you like in this way
                 
-            });*/
+            });
         </script>
     <% } %>
     <!-- End Verint Survey -->
