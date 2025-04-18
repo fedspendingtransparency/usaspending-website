@@ -141,12 +141,9 @@ class SearchAwardsOperation {
             }
         }
 
-        if (state.financialAssistanceAwardType) {
-            const financialAssistance = state.financialAssistanceAwardType?.toArray();
-            financialAssistance.forEach((type) => {
-                this.awardType.push(type);
-            });
-        }
+        this.infraDefCode = state.infraDefCode?.toArray();
+        this.covidDefCode = state.covidDefCode?.toArray();
+
         this.pricingType = state.pricingType?.toArray();
         this.setAside = state.setAside?.toArray();
         this.extentCompeted = state.extentCompeted?.toArray();

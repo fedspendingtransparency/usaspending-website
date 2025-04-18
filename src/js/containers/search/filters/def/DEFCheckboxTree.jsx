@@ -95,7 +95,6 @@ const DEFCheckboxTree = (props) => {
                 labels.push({ ...infrastructureCountLabel, count: infraCount });
             }
 
-            console.log("testing defc1", newChecked, labels);
             props.stageDef(
                 newChecked,
                 [],
@@ -103,8 +102,6 @@ const DEFCheckboxTree = (props) => {
             );
         }
         else {
-            console.log("testing defc2", newChecked, labels);
-
             props.stageDef(
                 [],
                 [],
