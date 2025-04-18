@@ -61,7 +61,6 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
-        console.log(state);
         this.keyword = state.keyword?.toArray();
         this.time_period = state.time_period?.toArray();
         this.timePeriodFY = state.timePeriodFY?.toArray();
@@ -83,8 +82,6 @@ class SearchAwardsOperation {
                 this.awardType.push(type);
             });
         }
-
-        console.log(this.awardType);
 
         this.contractAwardType = state.contractAwardType?.toArray();
         this.financialAssistanceAwardType = state.financialAssistanceAwardType?.toArray();
@@ -119,22 +116,31 @@ class SearchAwardsOperation {
             require: state.pscCodes?.toObject().require,
             exclude: state.pscCodes?.toObject().exclude
         };
+
         this.defCodes = {
             require: state.defCodes?.toObject().require,
             exclude: state.defCodes?.toObject().exclude
         };
-        if ((state.infraDefCode || state.covidDefCode) && this.defCodes.require.length === 0) {
+
+        if (state.infraDefCode || state.covidDefCode) {
+            const defCodes = [];
             const infraDefCode = state.infraDefCode?.toArray();
             const covidDefCode = state.covidDefCode?.toArray();
 
             infraDefCode.forEach((type) => {
-                this.defCodes.require.push(type);
+                defCodes.push(type);
             });
 
             covidDefCode.forEach((type) => {
-                this.defCodes.require.push(type);
+                defCodes.push(type);
             });
+
+            // TODO:  Temporarily added to support having both adv search pages live, need to refactor when legacy search is removed
+            if (defCodes.length > 0) {
+                this.defCodes.require = [...new Set(defCodes)];
+            }
         }
+
         if (state.financialAssistanceAwardType) {
             const financialAssistance = state.financialAssistanceAwardType?.toArray();
             financialAssistance.forEach((type) => {
