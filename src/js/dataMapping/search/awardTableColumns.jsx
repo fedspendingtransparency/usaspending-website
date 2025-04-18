@@ -547,6 +547,7 @@ const defaultSub = [
         displayName: "Prime Award Recipient Name",
         customWidth: newCustomWidth1
     },
+    { title: 'Prime Award Recipient UEI', customWidth: newCustomWidth1 },
     {
         title: 'Awarding Agency',
         displayName: "Prime Award Awarding Agency",

@@ -647,6 +647,7 @@ export default class ResultsTable extends React.Component {
                         this.clickHandler(obj['Prime Recipient Name']);
                     }}>{obj['Prime Recipient Name']}
                 </a> || '--',
+                obj['Prime Award Recipient UEI'] || 'UEI not provided',
                 obj['Awarding Agency'] || '--',
                 obj['Awarding Sub Agency'] || '--'
             );
