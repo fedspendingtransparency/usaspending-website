@@ -534,6 +534,13 @@ const defaultSub = [
         customWidth: newDefaultWidth
     },
     { title: 'Action Date', displayName: "Subaward Action Date", customWidth: newDefaultWidth },
+    {
+        title: 'Sub-Award Description',
+        displayName: 'Subaward Description',
+        customWidth: newCustomWidth2
+    },
+    { title: 'Sub-Recipient UEI', displayName: "Subrecipient UEI", customWidth: newDefaultWidth },
+    { title: 'Sub-Award Type', displayName: 'Subaward Type', customWidth: newCustomWidth1 },
     { title: 'Prime Award ID', customWidth: newCustomWidth1 },
     {
         title: 'Prime Recipient Name',

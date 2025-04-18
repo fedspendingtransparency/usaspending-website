@@ -628,6 +628,9 @@ export default class ResultsTable extends React.Component {
                 obj['Sub-Awardee Name'] || '--',
                 MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
                 obj['Sub-Award Date'] || '--',
+                obj['Sub-Award Description'] || '--',
+                obj['Sub-Recipient UEI'] || 'UEI not provided',
+                obj['Sub-Award Type'] || '--',
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
