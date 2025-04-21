@@ -56,8 +56,7 @@ const TimeDsm = ({ subaward, spendingLevel }) => {
                     If you selected any Time Period filter, your results include all awards that overlap with the selected time period,
                      even if there are no new
                         {<span className="award-search__glossary-term"> transactions </span>}
-                        {' '}{<GlossaryLink term="transaction" />}
-                     within that time period. For example, for the selected time period of Mar. 1-31, 2022, you would see results for an award with a base transaction action date of Jan. 1, 2022 and a latest transaction action date of Dec. 31, 2022, even if there is no transaction activity for that award within the period of Mar. 1-31, 2022.
+                        {' '}{<GlossaryLink term="transaction" />}{' '}within that time period. For example, for the selected time period of Mar. 1-31, 2022, you would see results for an award with a base transaction action date of Jan. 1, 2022 and a latest transaction action date of Dec. 31, 2022, even if there is no transaction activity for that award within the period of Mar. 1-31, 2022.
                     </p>
                     <p>
                         <br />Obligations across the life of the award are aggregated and displayed under the latest month, quarter, or year of the latest transaction action date for each award.
@@ -67,10 +66,9 @@ const TimeDsm = ({ subaward, spendingLevel }) => {
                     <p>
                         <br />Loan awards use the
                         {<span className="award-search__glossary-term"> subsidy cost</span>}
-                        {' '}{<GlossaryLink term="loan-subsidy-cost" />}
-                rather than the obligated amount to sum up the
-                        {<span className="award-search__glossary-term"> value of the loan.</span>}
-                        {' '}{<GlossaryLink term="face-value-of-loan" />}
+                        {' '}{<GlossaryLink term="loan-subsidy-cost" />}{' '}rather than the obligated amount to sum up the
+                        {<span className="award-search__glossary-term"> value of the loan</span>}
+                        {' '}{<GlossaryLink term="face-value-of-loan" />}.
                     </p>
                 </>}
             {spendingLevel === 'transactions' &&
