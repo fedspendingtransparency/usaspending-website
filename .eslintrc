@@ -41,7 +41,6 @@
         "comma-dangle": [2, "never"],
         // downgrade extra semicolons to warnings
         "no-extra-semi": [1],
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
         // require parens in arrow functions with single arguments for improved readability
         "arrow-parens": [2, "always"],
         // allow double-quoted strings
