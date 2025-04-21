@@ -17,7 +17,8 @@ require("pages/search/searchPage.scss");
 const propTypes = {
     subaward: PropTypes.bool,
     tabData: PropTypes.object,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
 const SectionsContent = (props) => {
@@ -102,7 +103,8 @@ const SectionsContent = (props) => {
             <TimeSection
                 subaward={props.subaward}
                 timeHasLoaded={timeHasLoaded}
-                hash={props.hash} />
+                hash={props.hash}
+                spendingLevel={props.spendingLevel} />
             <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} hash={props.hash} />
         </>
     );
