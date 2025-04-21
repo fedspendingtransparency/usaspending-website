@@ -20,7 +20,9 @@ const propTypes = {
     spendingLevel: PropTypes.string
 };
 
-const TimeSection = ({ timeHasLoaded, subaward, hash, spendingLevel }) => {
+const TimeSection = ({
+    timeHasLoaded, subaward, hash, spendingLevel
+}) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('month');
 
     const onClick = (e) => {
