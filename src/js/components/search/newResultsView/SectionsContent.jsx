@@ -102,7 +102,8 @@ const SectionsContent = (props) => {
             <TimeSection
                 subaward={props.subaward}
                 timeHasLoaded={timeHasLoaded}
-                hash={props.hash} />
+                hash={props.hash}
+                {...props} />
             <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} hash={props.hash} />
         </>
     );

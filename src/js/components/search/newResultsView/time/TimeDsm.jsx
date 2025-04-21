@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 
-const TimeDsm = ({ subaward }) => {
+const TimeDsm = ({ subaward, spendingLevel }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
 
@@ -13,12 +13,12 @@ const TimeDsm = ({ subaward }) => {
         showSlideout('atd', { url: entry });
         e.preventDefault();
     };
+    console.debug("spending level: ", spendingLevel);
     return (
         <>
             <h4>What's included in this view of the data?</h4>
             <p style={{ marginBottom: '8px' }}>
-                Spot trends in spending over your chosen time period.
-                Break down your results by years, quarters, or months.
+            Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.
             </p>
             {subaward ?
                 <>
