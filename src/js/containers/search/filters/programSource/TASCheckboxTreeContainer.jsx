@@ -150,8 +150,8 @@ export class TASCheckboxTree extends React.Component {
         if (shouldFetchChildren && !this.state.isSearch) {
             if (selectedNode.treeDepth === 1) {
                 const selectedAgency = this.props.nodes
-                    .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
-                const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
+                    .find((agency) => agency.children.some((federalAccount) => federalAccount?.value === expandedValue));
+                const agencyAndFederalAccountString = `${selectedAgency?.value}/${expandedValue}`;
                 this.fetchTas(agencyAndFederalAccountString);
             }
             else {
@@ -262,7 +262,7 @@ export class TASCheckboxTree extends React.Component {
                 if (!expandedAndChecked) return acc;
                 const node = getTasNodeFromTree(nodes, expandedAndChecked);
                 if (shouldTasNodeHaveChildren(node)) {
-                    return [...acc, ...node.children.map((tas) => tas.value)];
+                    return [...acc, ...node.children.map((tas) => tas?.value)];
                 }
                 return acc;
             }, []);
@@ -346,7 +346,7 @@ export class TASCheckboxTree extends React.Component {
 
     handleTextInputChange = (e) => {
         e.persist();
-        const text = e.target.value;
+        const text = e.target?.value;
         if (!text) {
             return this.onClear();
         }
