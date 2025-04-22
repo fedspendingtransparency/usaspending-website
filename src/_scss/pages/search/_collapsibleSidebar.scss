@@ -314,11 +314,21 @@
             font-weight: $font-semibold;
             color: $gray-90;
             margin: 16px 0px 0px;
+            ul {
+              margin: 4px 0px 0px;
+            }
           }
 
           &--text-section {
             p {
               margin: 4px 0px 0px;
+            }
+            ul {
+              margin: 4px 0px 0px;
+            }
+
+            .additional-dsm-styles {
+              margin-top: 4px;
             }
           }
         }
