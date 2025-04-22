@@ -740,7 +740,10 @@ export default class ResultsTable extends React.Component {
                         rows={limitedRows}
                         rowHeight={this.props.isMobile ? null : 58}
                         headerRowHeight={45}
-                        subAward={this.props.subaward}
+                        highlightedColumns={this.props.subaward ? {
+                            standardColumns: 9,
+                            highlightedColumns: this.props.currentType === "subcontracts" ? 7 : 6
+                        } : null}
                         currentSort={this.props.sort}
                         updateSort={this.props.updateSort}
                         isMobile={this.props.isMobile}
