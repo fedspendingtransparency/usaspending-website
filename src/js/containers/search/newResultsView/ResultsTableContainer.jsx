@@ -604,6 +604,7 @@ const ResultsTableContainer = (props) => {
             isLoading={inFlight}
             noData={!inFlight && !error && results.length === 0}
             hash={props.hash}
+            spendingLevel={props.spendingLevel}
             {...props.wrapperProps}>
             <ResultsTableSection
                 error={error}
