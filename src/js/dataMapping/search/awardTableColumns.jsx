@@ -540,6 +540,16 @@ const defaultSub = [
         customWidth: newCustomWidth2
     },
     { title: 'Sub-Recipient UEI', displayName: "Subrecipient UEI", customWidth: newDefaultWidth },
+    {
+        title: 'Sub-Recipient Location',
+        displayName: "Subrecipient Location",
+        customWidth: newCustomWidth1
+    },
+    {
+        title: 'Sub-Award Primary Place of Performance',
+        displayName: "Subaward Primary Place of Performance",
+        customWidth: newCustomWidth1
+    },
     { title: 'Sub-Award Type', displayName: 'Subaward Type', customWidth: newCustomWidth1 },
     { title: 'Prime Award ID', customWidth: newCustomWidth1 },
     {
