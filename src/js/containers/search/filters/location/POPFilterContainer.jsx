@@ -28,6 +28,7 @@ export class POPFilterContainer extends React.Component {
     }
 
     addLocation(location) {
+        console.log(this.props);
         this.props.addPOPLocationObject(location);
     }
 

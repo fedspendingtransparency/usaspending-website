@@ -10,7 +10,6 @@ import { useLocation } from 'react-router-dom';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
 import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import { RecipientFilterContainer } from "../../../../containers/search/filters/location/RecipientFilterContainer";
 import { POPFilterContainer } from "../../../../containers/search/filters/location/POPFilterContainer";
 
@@ -67,7 +66,8 @@ const LocationSection = (props) => {
             else {
                 setFilter(<POPFilterContainer />);
             }
-        } else {
+        }
+        else {
             setv2(true);
         }
     }, [activeTab, pathname]);
@@ -91,12 +91,12 @@ const LocationSection = (props) => {
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-            {v2 === true &&
+            {v2 ?
                 <LocationAutocompleteContainer
                     {...props}
                     activeTab={activeTab} />
-            }
-            {v2 === false && filter}
+                :
+                filter}
             <SubmitHint
                 ref={(component) => {
                     setHint(component);
