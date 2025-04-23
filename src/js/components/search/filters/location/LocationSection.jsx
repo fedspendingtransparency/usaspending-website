@@ -10,8 +10,8 @@ import { useLocation } from 'react-router-dom';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
 import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
-import { RecipientFilterContainer } from "../../../../containers/search/filters/location/RecipientFilterContainer";
-import { POPFilterContainer } from "../../../../containers/search/filters/location/POPFilterContainer";
+import RecipientFilterContainer from "../../../../containers/search/filters/location/RecipientFilterContainer";
+import POPFilterContainer from "../../../../containers/search/filters/location/POPFilterContainer";
 
 const propTypes = {
     selectedRecipientLocations: PropTypes.object,
@@ -24,7 +24,7 @@ const LocationSection = (props) => {
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
     const [filter, setFilter] = useState(null);
-    const [v2, setv2] = useState();
+    const [v2, setv2] = useState(false);
 
     const { pathname } = useLocation();
 
