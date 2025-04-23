@@ -96,7 +96,10 @@ export default class ResultsTable extends React.Component {
     }
 
     pickLocationFormat(location) {
-        if (location?.city_name && location?.state_code && location?.zip5) {
+        if (location?.address_line1 && location?.city_name && location?.state_code && location?.zip5) {
+            return `${convertToTitleCase(location.address_line1)}, ${convertToTitleCase(location.city_name)}, ${location.state_code}, ${location.zip5}`;
+        }
+        else if (location?.city_name && location?.state_code && location?.zip5) {
             return `${convertToTitleCase(location.city_name)}, ${location.state_code}, ${location.zip5}`;
         }
         else if (location?.city_name && location?.state_code) {
