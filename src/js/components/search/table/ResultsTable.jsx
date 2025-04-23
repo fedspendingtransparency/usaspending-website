@@ -664,7 +664,7 @@ export default class ResultsTable extends React.Component {
                     obj['Sub-Recipient UEI'] || 'UEI not provided',
                     this.pickLocationFormat(obj['Sub-Recipient Location']),
                     this.pickLocationFormat(obj['Sub-Award Primary Place of Performance']),
-                    obj['Sub-Award Type'] || '--',
+                    convertToTitleCase(obj['Sub-Award Type']) || '--',
                     <a
                         target="_blank"
                         rel="noopener noreferrer"
@@ -717,7 +717,7 @@ export default class ResultsTable extends React.Component {
                     obj['Sub-Recipient UEI'] || 'UEI not provided',
                     this.pickLocationFormat(obj['Sub-Recipient Location']),
                     this.pickLocationFormat(obj['Sub-Award Primary Place of Performance']),
-                    obj['Sub-Award Type'] || '--',
+                    convertToTitleCase(obj['Sub-Award Type']) || '--',
                     <a
                         target="_blank"
                         rel="noopener noreferrer"
