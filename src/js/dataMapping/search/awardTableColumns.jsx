@@ -238,7 +238,7 @@ const covidColor = '#6E338E';
 const infrastructureColor = '#2D6878';
 
 const defaultContract = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount',
@@ -263,13 +263,13 @@ const defaultContract = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     {
         title: 'End Date',
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     {
         title: 'NAICS',
@@ -280,7 +280,7 @@ const defaultContract = [
 ];
 
 const defaultIdvColumns = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount',
@@ -305,12 +305,12 @@ const defaultIdvColumns = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     {
         title: 'Last Date to Order',
         displayName: 'Ordering Period End Date',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     {
         title: 'NAICS',
@@ -321,7 +321,7 @@ const defaultIdvColumns = [
 ];
 
 const defaultGrant = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount',
@@ -335,7 +335,7 @@ const defaultGrant = [
         isplayName: 'Outlays',
         customWidth: newDefaultWidth
     },
-    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     {
         title: 'Awarding Sub Agency',
@@ -346,19 +346,19 @@ const defaultGrant = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     {
         title: 'End Date',
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     { title: 'Assistance Listings', customWidth: newCustomWidth2 }
 ];
 
 const defaultDirectPayment = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount',
@@ -372,7 +372,7 @@ const defaultDirectPayment = [
         displayName: 'Outlays',
         customWidth: newDefaultWidth
     },
-    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     {
         title: 'Awarding Sub Agency',
@@ -383,19 +383,19 @@ const defaultDirectPayment = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     {
         title: 'End Date',
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     { title: 'Assistance Listings', customWidth: newCustomWidth2 }
 ];
 
 const defaultLoan = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Subsidy Cost',
@@ -410,7 +410,7 @@ const defaultLoan = [
         displayName: 'Face Value of Loan',
         customWidth: newDefaultWidth
     },
-    { title: 'Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     {
         title: 'Awarding Sub Agency',
@@ -422,7 +422,7 @@ const defaultLoan = [
 ];
 
 const defaultOther = [
-    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Award ID', displayName: 'Prime Award ID', customWidth: newDefaultWidth },
     { title: 'Recipient Name', customWidth: newCustomWidth1 },
     {
         title: 'Award Amount',
@@ -436,7 +436,7 @@ const defaultOther = [
         displayName: 'Outlays',
         customWidth: newDefaultWidth
     },
-    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newCustomWidth1 },
+    { title: 'Contract Award Type', displayName: 'Award Type', customWidth: newDefaultWidth },
     { title: 'Awarding Agency', customWidth: newCustomWidth1 },
     {
         title: 'Awarding Sub Agency',
@@ -447,13 +447,13 @@ const defaultOther = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     {
         title: 'End Date',
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
-        customWidth: newCustomWidth1
+        customWidth: newDefaultWidth
     },
     { title: 'Assistance Listings', customWidth: newCustomWidth2 }
 ];
@@ -491,7 +491,7 @@ const covidOutlaysCol = {
 const infrastructureObligationsCol = {
     title: 'Infrastructure Obligations',
     background: infrastructureColor,
-    customWidth: newCustomWidth1,
+    customWidth: newDefaultWidth,
     right: true
 };
 
