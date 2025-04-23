@@ -273,7 +273,7 @@ const defaultContract = [
     },
     {
         title: 'NAICS',
-        displayName: 'North American Classification System (NAICS)',
+        displayName: 'North American Industry Classification System (NAICS)',
         customWidth: newCustomWidth2
     },
     { title: 'PSC', displayName: 'Product and Service Code (PSC)', customWidth: newCustomWidth2 }
@@ -314,7 +314,7 @@ const defaultIdvColumns = [
     },
     {
         title: 'NAICS',
-        displayName: 'North American Classification System (NAICS)',
+        displayName: 'North American Industry Classification System (NAICS)',
         customWidth: newCustomWidth2
     },
     { title: 'PSC', displayName: 'Product and Service Code (PSC)', customWidth: newCustomWidth2 }
@@ -572,7 +572,7 @@ const defaultSub = [
 
 const additionalNaicsCol = {
     title: 'NAICS',
-    displayName: 'North American Classification System (NAICS)',
+    displayName: 'North American Industry Classification System (NAICS)',
     customWidth: newCustomWidth2
 };
 
@@ -627,7 +627,7 @@ const defaultTransactionContract = [
     },
     {
         title: 'NAICS',
-        displayName: 'North American Classification System (NAICS)',
+        displayName: 'North American Industry Classification System (NAICS)',
         customWidth: newCustomWidth2
     },
     { title: 'PSC', displayName: 'Product and Service Code (PSC)', customWidth: newCustomWidth2 }
