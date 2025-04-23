@@ -25,6 +25,7 @@ const LocationSection = (props) => {
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
     const [filter, setFilter] = useState(null);
+    const [v2, setv2] = useState();
 
     const { pathname } = useLocation();
 
@@ -59,12 +60,15 @@ const LocationSection = (props) => {
 
     useEffect(() => {
         if (pathname.includes("/search-legacy")) {
+            setv2(false);
             if (activeTab === 'recipient') {
                 setFilter(<RecipientFilterContainer />);
             }
             else {
                 setFilter(<POPFilterContainer />);
             }
+        } else {
+            setv2(true);
         }
     }, [activeTab, pathname]);
 
@@ -87,12 +91,12 @@ const LocationSection = (props) => {
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-            <FeatureFlag>
+            {v2 === true &&
                 <LocationAutocompleteContainer
                     {...props}
                     activeTab={activeTab} />
-            </FeatureFlag>
-            {filter}
+            }
+            {v2 === false && filter}
             <SubmitHint
                 ref={(component) => {
                     setHint(component);
