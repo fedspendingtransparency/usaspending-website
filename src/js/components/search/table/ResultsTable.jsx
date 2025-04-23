@@ -546,8 +546,12 @@ export default class ResultsTable extends React.Component {
                     obj['Awarding Sub Agency'] || '--',
                     obj['Start Date'] || '--',
                     obj['End Date'] || obj['Last Date to Order'] || '--',
-                    this.twoVariableFormat(obj.NAICS, 'code', 'description'),
-                    this.twoVariableFormat(obj.PSC, 'code', 'description')
+                    <ReadMore
+                        text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
+                        limit={90} />,
+                    <ReadMore
+                        text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
+                        limit={90} />
                 );
 
                 return value;
@@ -584,8 +588,12 @@ export default class ResultsTable extends React.Component {
                         this.pickLocationFormat(obj['Primary Place of Performance']),
                         obj['Awarding Agency'] || '--',
                         obj['Awarding Sub Agency'] || '--',
-                        this.twoVariableFormat(obj.NAICS, 'code', 'description'),
-                        this.twoVariableFormat(obj.PSC, 'code', 'description')
+                        <ReadMore
+                            text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
+                            limit={90} />,
+                        <ReadMore
+                            text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
+                            limit={90} />
                     );
 
                     return value;
@@ -676,8 +684,12 @@ export default class ResultsTable extends React.Component {
                     obj['Prime Award Recipient UEI'] || 'UEI not provided',
                     obj['Awarding Agency'] || '--',
                     obj['Awarding Sub Agency'] || '--',
-                    this.twoVariableFormat(obj.NAICS, 'code', 'description'),
-                    this.twoVariableFormat(obj.PSC, 'code', 'description')
+                    <ReadMore
+                        text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
+                        limit={90} />,
+                    <ReadMore
+                        text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
+                        limit={90} />
                 );
 
                 return value;
