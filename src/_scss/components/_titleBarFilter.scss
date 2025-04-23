@@ -258,5 +258,37 @@
                 }
             }
         }
+
+        .filter__dropdown-explainer {
+            padding: 0 rem(16) rem(16) rem(16);
+            .filter__dropdownSeparator {
+                border-bottom: 1px solid $gray-cool-20;
+                margin-bottom: rem(16);
+            }
+            .filter__dropdown-content{
+                padding: rem(8);
+                border-radius: 3px;
+                border: 1px solid $blue-10;
+                background: $blue-5;
+                max-width: 223px;
+                display: flex;
+
+                .explainer-text__first-column {
+                    margin-right: rem(8);
+                    svg {
+                        color: $blue-50;
+                    }
+                }
+                p {
+                    font-size: $font-size-12;
+                    font-style: italic;
+                    line-height: 18px;
+                    margin: 0;
+                    &:first-of-type {
+                        margin-bottom: rem(8);
+                    }
+                }
+            }
+        }
     }
 }
