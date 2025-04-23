@@ -275,18 +275,22 @@
 
                 .explainer-text__first-column {
                     margin-right: rem(8);
-                    svg {
-                        color: $blue-50;
-                    }
+                    display: flex;
                 }
                 p {
                     font-size: $font-size-12;
+                    color: $theme-color-body;
                     font-style: italic;
                     line-height: 18px;
                     margin: 0;
                     &:first-of-type {
                         margin-bottom: rem(8);
                     }
+                }
+                svg {
+                    color: $blue-50;
+                    width: rem(12);
+                    height: rem(12);
                 }
             }
         }
