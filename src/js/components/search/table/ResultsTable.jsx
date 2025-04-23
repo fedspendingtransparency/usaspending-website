@@ -119,12 +119,19 @@ export default class ResultsTable extends React.Component {
 
     assistanceListingFormat(assistanceListing) {
         // format for spending by award api
-        if (assistanceListing?.length > 0) {
+        if (assistanceListing?.length === 1) {
             const listing = assistanceListing[0];
 
-            if (listing?.cfda_number && listing?.cfda_program_title) {
-                return `${listing.cfda_number} - ${listing.cfda_program_title}`;
-            }
+            return `${listing.cfda_number} - ${listing.cfda_program_title}`;
+        }
+        else if (assistanceListing?.length > 1) {
+            const listings = [];
+
+            assistanceListing.forEach((listing) => {
+                listings.push(`${listing.cfda_number} - ${listing.cfda_program_title}`);
+            });
+
+            return listings.join(', ');
         }
 
         return '--';
@@ -368,7 +375,9 @@ export default class ResultsTable extends React.Component {
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
                         obj['Issued Date'] || '--',
-                        this.assistanceListingFormat(obj['Assistance Listings'])
+                        <ReadMore
+                            text={this.assistanceListingFormat(obj['Assistance Listings'])}
+                            limit={90} />
                     );
 
                     return value;
@@ -422,7 +431,9 @@ export default class ResultsTable extends React.Component {
                         obj['Awarding Sub Agency'] || '--',
                         obj['Start Date'] || '--',
                         obj['End Date'] || '--',
-                        this.assistanceListingFormat(obj['Assistance Listings'])
+                        <ReadMore
+                            text={this.assistanceListingFormat(obj['Assistance Listings'])}
+                            limit={90} />
                     );
 
                     return value;
@@ -476,7 +487,9 @@ export default class ResultsTable extends React.Component {
                         obj['Awarding Sub Agency'] || '--',
                         obj['Start Date'] || '--',
                         obj['End Date'] || obj['Last Date to Order'] || '--',
-                        this.assistanceListingFormat(obj['Assistance Listings'])
+                        <ReadMore
+                            text={this.assistanceListingFormat(obj['Assistance Listings'])}
+                            limit={90} />
                     );
 
                     return value;
