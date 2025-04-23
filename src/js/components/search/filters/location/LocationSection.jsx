@@ -5,9 +5,14 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
 import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
+import { RecipientFilterContainer } from "../../../../containers/search/filters/location/RecipientFilterContainer";
+import { POPFilterContainer } from "../../../../containers/search/filters/location/POPFilterContainer";
 
 const propTypes = {
     selectedRecipientLocations: PropTypes.object,
@@ -19,6 +24,9 @@ const LocationSection = (props) => {
     const { selectedRecipientLocations, selectedLocations, dirtyFilters } = props;
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
+    const [filter, setFilter] = useState(null);
+
+    const { pathname } = useLocation();
 
     const openDefaultTab = () => {
         // check if the recipient or place of performance (default) tab should be enabled based
@@ -49,6 +57,17 @@ const LocationSection = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dirtyFilters]);
 
+    useEffect(() => {
+        if (pathname.includes("/search-legacy")) {
+            if (activeTab === 'recipient') {
+                setFilter(<RecipientFilterContainer />);
+            }
+            else {
+                setFilter(<POPFilterContainer />);
+            }
+        }
+    }, [activeTab, pathname]);
+
     const tabLabels = [
         {
             internal: 'pop',
@@ -68,9 +87,12 @@ const LocationSection = (props) => {
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-            <LocationAutocompleteContainer
-                {...props}
-                activeTab={activeTab} />
+            <FeatureFlag>
+                <LocationAutocompleteContainer
+                    {...props}
+                    activeTab={activeTab} />
+            </FeatureFlag>
+            {filter}
             <SubmitHint
                 ref={(component) => {
                     setHint(component);
