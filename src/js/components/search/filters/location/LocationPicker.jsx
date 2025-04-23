@@ -228,8 +228,8 @@ class LocationPicker extends React.Component {
             isAddFilterDisabled = false;
 
             // check to see if the location is already selected
-            const location = this.props?.createLocationObject();
-            if (location && this.props?.selectedLocations?.has(location.identifier)) {
+            const location = this.props.createLocationObject();
+            if (location && this.props.selectedLocations.has(location.identifier)) {
                 // it is already selected
                 isAddFilterDisabled = true;
             }
