@@ -42,26 +42,26 @@ const TableDsm = ({ subaward, spendingLevel }) => {
                 <>
                     <p style={{ marginBottom: '8px' }}>
                         View a list of {
-                            spendingLevel === 'transactions' ? ' transaction' : 'award'
-                        } summaries based on your selected filters.
-                        Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on
-                        { spendingLevel === 'transactions' ? ' transactions including transaction history' : ' individual awards' }.
+                            spendingLevel === 'transactions' ? ' transactions' : 'award summaries'
+                        } based on your selected filters.
+                        {
+                            spendingLevel === 'transactions' ? ' Click the Prime Award ID for additional details on the prime award that the transaction is associated with. If you selected any Time Period filter, your results include transactions with an action date within your selected time period. ' : ' Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on individual awards.'
+                        }
                     </p>
-                    <p className="award-search__body-text">The rows in the table represent {
-                        spendingLevel === 'transactions' ? 'transaction' : 'award'
-                    } summaries for {
-                        <span className="award-search__glossary-term"> prime awards</span>}
-                    {' '}{<GlossaryLink term="prime-award" />}.
-                    {spendingLevel === 'transactions' ? ' Transaction' : ' Award'} summaries contain all the individual transactions and modifications that share the same
-                        unique award ID.
-                        If you selected any Time Period filter, your results will include prime award{
-                        spendingLevel === 'transactions' ? ' transactions' : 's'
-                    } where the{<span className="award-search__glossary-term"> earliest </span>}
-                    {' '}{<GlossaryLink term="base-transaction-action-date" />} and {<span className="award-search__glossary-term"> latest</span>}
-                    {' '}{<GlossaryLink term="latest-transaction-action-date" />}{' '}
-                        transactions overlap with your selected time period (regardless of whether any transactions
-                        occur within that period).
-                    </p>
+                    {spendingLevel === 'awards' &&
+                        <p className="award-search__body-text">The rows in the table represent award summaries for {
+                            <span className="award-search__glossary-term"> prime awards</span>}
+                        {' '}{<GlossaryLink term="prime-award" />}.
+                         Award summaries contain all the individual transactions and modifications that share the same
+                                            unique award ID.
+                                            If you selected any Time Period filter, your results will include prime awards
+                        where the{<span className="award-search__glossary-term"> earliest </span>}
+                        {' '}{<GlossaryLink term="base-transaction-action-date" />} and {<span className="award-search__glossary-term"> latest</span>}
+                        {' '}{<GlossaryLink term="latest-transaction-action-date" />}{' '}
+                                            transactions overlap with your selected time period (regardless of whether any transactions
+                                            occur within that period).
+                        </p>}
+
                 </>
             }
         </>
