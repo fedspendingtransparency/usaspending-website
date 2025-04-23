@@ -525,7 +525,7 @@ tabsWithAdditionalCols.forEach((tab) => {
 });
 
 const defaultSub = [
-    { title: 'Sub-Award ID', displayName: "Subaward ID", customWidth: newCustomWidth1 },
+    { title: 'Sub-Award ID', displayName: "Subaward ID", customWidth: newDefaultWidth },
     { title: 'Sub-Awardee Name', displayName: "Subrecipient Name", customWidth: newCustomWidth1 },
     {
         title: 'Sub-Award Amount',
@@ -550,14 +550,14 @@ const defaultSub = [
         displayName: "Subaward Primary Place of Performance",
         customWidth: newCustomWidth1
     },
-    { title: 'Sub-Award Type', displayName: 'Subaward Type', customWidth: newCustomWidth1 },
-    { title: 'Prime Award ID', customWidth: newCustomWidth1 },
+    { title: 'Sub-Award Type', displayName: 'Subaward Type', customWidth: newDefaultWidth },
+    { title: 'Prime Award ID', customWidth: newDefaultWidth },
     {
         title: 'Prime Recipient Name',
         displayName: "Prime Award Recipient Name",
         customWidth: newCustomWidth1
     },
-    { title: 'Prime Award Recipient UEI', customWidth: newCustomWidth1 },
+    { title: 'Prime Award Recipient UEI', customWidth: newDefaultWidth },
     {
         title: 'Awarding Agency',
         displayName: "Prime Award Awarding Agency",
