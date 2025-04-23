@@ -330,7 +330,7 @@ const defaultGrant = [
         customWidth: newDefaultWidth
     },
     {
-        title: 'Total Outlays',
+        title: 'Outlays',
         right: true,
         isplayName: 'Outlays',
         customWidth: newDefaultWidth
@@ -367,7 +367,7 @@ const defaultDirectPayment = [
         customWidth: newDefaultWidth
     },
     {
-        title: 'Total Outlays',
+        title: 'Outlays',
         right: true,
         displayName: 'Outlays',
         customWidth: newDefaultWidth
@@ -431,7 +431,7 @@ const defaultOther = [
         customWidth: newDefaultWidth
     },
     {
-        title: 'Total Outlays',
+        title: 'Outlays',
         right: true,
         displayName: 'Outlays',
         customWidth: newDefaultWidth
