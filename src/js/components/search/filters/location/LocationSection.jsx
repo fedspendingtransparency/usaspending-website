@@ -10,7 +10,6 @@ import { useLocation } from 'react-router-dom';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
 import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import { RecipientFilterContainer } from "../../../../containers/search/filters/location/RecipientFilterContainer";
 import { POPFilterContainer } from "../../../../containers/search/filters/location/POPFilterContainer";
 
@@ -25,6 +24,7 @@ const LocationSection = (props) => {
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
     const [filter, setFilter] = useState(null);
+    const [v2, setV2] = useState();
 
     const { pathname } = useLocation();
 
@@ -58,7 +58,11 @@ const LocationSection = (props) => {
     }, [dirtyFilters]);
 
     useEffect(() => {
-        if (pathname.includes("/search-legacy")) {
+        if (pathname.includes("/searchv2")) {
+            setV2(true);
+        }
+        else {
+            setV2(false);
             if (activeTab === 'recipient') {
                 setFilter(<RecipientFilterContainer />);
             }
@@ -87,12 +91,12 @@ const LocationSection = (props) => {
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-            <FeatureFlag>
+            {v2 === true &&
                 <LocationAutocompleteContainer
                     {...props}
                     activeTab={activeTab} />
-            </FeatureFlag>
-            {filter}
+            }
+            {v2 === false && filter}
             <SubmitHint
                 ref={(component) => {
                     setHint(component);
