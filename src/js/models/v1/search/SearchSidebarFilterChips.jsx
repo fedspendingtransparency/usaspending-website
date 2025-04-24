@@ -400,20 +400,16 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.setAside?.length > 0) {
-            filtersData.setAside.forEach((type) => {
-                const removePricingType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.setAside.delete(type);
-                    props.updateGenericFilter({
-                        type: 'setAside',
-                        value: newValue
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Set Aside | ${setAsideDefinitions[type]}`}
-                        removeValue={removePricingType} />
+            filtersData.setAside.forEach((setAside) => {
+                addChip(
+                    () => {
+                        const newValue = filters.setAside.delete(setAside);
+                        props.updateGenericFilter({
+                            type: 'setAside',
+                            value: newValue
+                        });
+                    },
+                    setAsideDefinitions[setAside]
                 );
             });
         }
