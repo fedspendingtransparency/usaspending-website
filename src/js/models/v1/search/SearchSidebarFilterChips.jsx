@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
 import Accounting from 'accounting';
+import { uniqueId } from "lodash";
+
 import { recipientTypes } from 'dataMapping/search/recipientType';
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
@@ -34,7 +36,6 @@ import {
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
 import { dateRangeChipLabel, locationChipLabel } from "../../../helpers/searchHelper";
-import { uniqueId } from "lodash";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -541,15 +542,11 @@ const SearchSidebarFilterChips = ({
     const getRecipientChips = () => {
         if (filtersData.selectedRecipients?.length > 0) {
             filters.selectedRecipients.forEach((recipient) => {
-                const removeRecipient = (e) => {
-                    e.stopPropagation();
-                    props.updateSelectedRecipients(recipient);
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Recipient | ${recipient}`}
-                        removeValue={removeRecipient} />
+                addChip(
+                    () => {
+                        props.updateSelectedRecipients(recipient);
+                    },
+                    recipient
                 );
             });
         }
