@@ -60,17 +60,13 @@ const LocationSection = (props) => {
     }, [dirtyFilters]);
 
     useEffect(() => {
-        if (pathname.includes("/search-legacy")) {
-            setv2(false);
+        if (!v2) {
             if (activeTab === 'recipient') {
                 setFilter(<RecipientFilterContainer />);
             }
             else {
                 setFilter(<POPFilterContainer />);
             }
-        }
-        else {
-            setv2(true);
         }
     }, [activeTab, pathname]);
 
