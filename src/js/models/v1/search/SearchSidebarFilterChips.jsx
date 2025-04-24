@@ -552,20 +552,16 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.recipientType?.length > 0) {
-            filtersData.recipientType.forEach((type) => {
-                const removeRecipientType = (e) => {
-                    e.stopPropagation();
-                    const newRecipientTypes = filters.recipientType.delete(type);
-                    props.updateGenericFilter({
-                        type: 'recipientType',
-                        value: newRecipientTypes
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Recipient Type | ${recipientTypes[type]}`}
-                        removeValue={removeRecipientType} />
+            filtersData.recipientType.forEach((recipientType) => {
+                addChip(
+                    () => {
+                        const newRecipientTypes = filters.recipientType.delete(recipientType);
+                        props.updateGenericFilter({
+                            type: 'recipientType',
+                            value: newRecipientTypes
+                        });
+                    },
+                    recipientTypes[recipientType]
                 );
             });
         }
