@@ -164,8 +164,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
     const parseRank = () => {
         if (history) {
-            const params = history.location.search.split("&");
-            params.shift();
+            const params = history?.location?.search?.split("&");
+            params?.shift();
             if (params.length === 2 && params[0].substring(0, 8) === "section=") {
                 if (params[1].substring(0, 5) === "type=") {
                     const rankVal = params[1].substring(5);

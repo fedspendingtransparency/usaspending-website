@@ -73,8 +73,8 @@ const SearchSectionWrapper = ({
 
     const history = useNavigate();
 
-    const params = history.location.search.split("&");
-    params.shift();
+    const params = history?.location?.search?.split("&");
+    params?.shift();
     const sectionValue = params[0]?.substring(8);
     const sortFn = () => dropdownOptions;
 
