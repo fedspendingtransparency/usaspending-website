@@ -20,7 +20,7 @@ import {
     removeStagedTasFilter
 } from "../../../helpers/tasHelper";
 import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
-import { awardTypeCodes } from "../../../dataMapping/search/awardType";
+import { awardTypeCodes, awardTypeGroups } from "../../../dataMapping/search/awardType";
 import {
     extentCompetedDefinitions,
     pricingTypeDefinitions,
@@ -71,6 +71,8 @@ const SearchSidebarFilterChips = ({
         filtersData.covidDefCode = filters.covidDefCode.toArray();
         filtersData.infraDefCode = filters.infraDefCode.toArray();
     };
+
+    const isSubset = (array1, array2) => array2.every((element) => array1.includes(element));
 
     const getLocationChips = () => {
         // Add Locations
@@ -244,6 +246,43 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.contractAwardType?.length > 0) {
+            let contractsGrouped = false;
+            let contractIdvsGrouped = false;
+
+            if (isSubset(filtersData.contractAwardType, awardTypeGroups.contracts)) {
+                contractsGrouped = true;
+                const removeAwardType = (e) => {
+                    e.stopPropagation();
+                    props.bulkContractAwardTypeChange({
+                        types: awardTypeGroups.contracts,
+                        direction: 'remove'
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label="All Contracts"
+                        removeValue={removeAwardType} />
+                );
+            }
+
+            if (isSubset(filtersData.contractAwardType, awardTypeGroups.idvs)) {
+                contractIdvsGrouped = true;
+                const removeAwardType = (e) => {
+                    e.stopPropagation();
+                    props.bulkContractAwardTypeChange({
+                        types: awardTypeGroups.idvs,
+                        direction: 'remove'
+                    });
+                };
+
+                chips.push(
+                    <ShownValue
+                        label="All Contract IDVs"
+                        removeValue={removeAwardType} />
+                );
+            }
+
             filtersData.contractAwardType.forEach((type) => {
                 const removeAwardType = (e) => {
                     e.stopPropagation();
