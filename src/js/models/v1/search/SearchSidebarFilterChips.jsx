@@ -75,17 +75,21 @@ const SearchSidebarFilterChips = ({
     const isSubset = (array1, array2) => array2.every((element) => array1.includes(element));
 
     const addChip = (chipData, removeFilter, formatLabel) => {
-        chipData.forEach((chip) => {
-            const removeChip = (e) => {
-                e.stopPropagation();
-                removeFilter(chip);
-            };
+        const removeChip = (e) => {
+            e.stopPropagation();
+            removeFilter(chipData);
+        };
 
-            chips.push(
-                <ShownValue
-                    label={formatLabel(chip)}
-                    removeValue={removeChip} />
-            );
+        chips.push(
+            <ShownValue
+                label={formatLabel(chipData)}
+                removeValue={removeChip} />
+        );
+    };
+
+    const addChips = (chipsData, removeFilter, formatLabel) => {
+        chipsData.forEach((chipData) => {
+            addChip(chipData, removeFilter, formatLabel);
         });
     };
 
@@ -266,47 +270,34 @@ const SearchSidebarFilterChips = ({
 
             if (isSubset(filtersData.contractAwardType, awardTypeGroups.contracts)) {
                 contractsGrouped = true;
-                const removeAwardType = (e) => {
-                    e.stopPropagation();
-                    props.bulkContractAwardTypeChange({
-                        types: awardTypeGroups.contracts,
-                        direction: 'remove'
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label="All Contracts"
-                        removeValue={removeAwardType} />
+                addChip(
+                    "All Contracts",
+                    () => {
+                        props.bulkContractAwardTypeChange({
+                            types: awardTypeGroups.contracts,
+                            direction: 'remove'
+                        });
+                    },
+                    () => "All Contracts"
                 );
             }
 
             if (isSubset(filtersData.contractAwardType, awardTypeGroups.idvs)) {
                 contractIdvsGrouped = true;
-                const removeAwardType = (e) => {
-                    e.stopPropagation();
-                    props.bulkContractAwardTypeChange({
-                        types: awardTypeGroups.idvs,
-                        direction: 'remove'
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label="All Contract IDVs"
-                        removeValue={removeAwardType} />
+                addChip(
+                    "All Contract IDVs",
+                    () => {
+                        props.bulkContractAwardTypeChange({
+                            types: awardTypeGroups.idvs,
+                            direction: 'remove'
+                        });
+                    },
+                    () => "All Contract IDVs"
                 );
             }
 
             if (!contractsGrouped || !contractIdvsGrouped) {
                 let contractAwardTypes;
-                const removeAwardType = (type) => {
-                    const newValue = filters.contractAwardType.delete(type);
-                    props.updateGenericFilter({
-                        type: 'contractAwardType',
-                        value: newValue
-                    });
-                };
 
                 if (contractsGrouped) {
                     contractAwardTypes = filtersData.contractAwardType.filter(
@@ -322,9 +313,15 @@ const SearchSidebarFilterChips = ({
                     contractAwardTypes = filtersData.contractAwardType;
                 }
 
-                addChip(
+                addChips(
                     contractAwardTypes,
-                    removeAwardType,
+                    (type) => {
+                        const newValue = filters.contractAwardType.delete(type);
+                        props.updateGenericFilter({
+                            type: 'contractAwardType',
+                            value: newValue
+                        });
+                    },
                     (awardType) => awardTypeCodes[awardType]
                 );
             }
@@ -449,6 +446,11 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.financialAssistanceAwardType?.length > 0) {
+            // let grantsGrouped = false;
+            // let directPaymentsGrouped = false;
+            // let loansGrouped = false;
+            // let otherGrouped = false;
+
             filtersData.financialAssistanceAwardType.forEach((type) => {
                 const removeAwardType = (e) => {
                     e.stopPropagation();
