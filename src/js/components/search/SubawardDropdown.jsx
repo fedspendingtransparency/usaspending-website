@@ -14,14 +14,18 @@ const propTypes = {
     enabled: PropTypes.bool,
     setSearchViewSubaward: PropTypes.func,
     selectedValue: PropTypes.string,
-    setSpendingLevel: PropTypes.func
+    setSpendingLevel: PropTypes.func,
+    infoSection: PropTypes.bool,
+    infoSectionContent: PropTypes.string
 };
 
 const SubawardDropdown = ({
     selectedValue = 'awards',
     setSearchViewSubaward,
     enabled = 'false',
-    setSpendingLevel
+    setSpendingLevel,
+    infoSection = false,
+    infoSectionContent = ''
 }) => {
     const [selected, setSelected] = useState(selectedValue);
     const dispatch = useDispatch();
@@ -77,7 +81,9 @@ const SubawardDropdown = ({
                     ? options.find((obj) => obj.value === selected).name
                     : `${selected}`
                 }
-                sortFn={sortFn} />
+                sortFn={sortFn}
+                infoSection={infoSection}
+                infoSectionContent={infoSectionContent} />
         </div>
     );
 };

@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
@@ -58,6 +59,15 @@ const SearchPage = ({
     const [fullSidebar, setFullSidebar] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
 
+    const infoSectionContent = <>
+        <div className="explainer-text__first-column">
+            <FontAwesomeIcon icon="info-circle" className="explainer-text__info-icon" />
+        </div>
+        <div className="explainer-text__second-column">
+            <p>Please note that results displayed will vary depending on the filter that’s selected here.</p>
+            <p>For more information, read the "About" sections at the bottom of each filter or the "Data sources and methodology" sections at the bottom of each result module.</p>
+        </div>
+    </>;
     const getSlugWithHash = () => {
         if (hash) {
             return `${slug}?hash=${hash}`;
@@ -144,7 +154,9 @@ const SearchPage = ({
                     enabled
                     setSearchViewSubaward={setSearchViewSubaward}
                     selectedValue="awards"
-                    setSpendingLevel={setSpendingLevel} />,
+                    setSpendingLevel={setSpendingLevel}
+                    infoSection
+                    infoSectionContent={infoSectionContent} />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
