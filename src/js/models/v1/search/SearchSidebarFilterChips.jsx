@@ -381,20 +381,16 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.pricingType?.length > 0) {
-            filtersData.pricingType.forEach((type) => {
-                const removePricingType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.pricingType.delete(type);
-                    props.updateGenericFilter({
-                        type: 'pricingType',
-                        value: newValue
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Pricing Type | ${pricingTypeDefinitions[type]}`}
-                        removeValue={removePricingType} />
+            filtersData.pricingType.forEach((pricingType) => {
+                addChip(
+                    () => {
+                        const newValue = filters.pricingType.delete(pricingType);
+                        props.updateGenericFilter({
+                            type: 'pricingType',
+                            value: newValue
+                        });
+                    },
+                    pricingTypeDefinitions[pricingType]
                 );
             });
         }
