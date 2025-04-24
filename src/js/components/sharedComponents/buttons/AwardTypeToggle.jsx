@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 import { Button } from 'data-transparency-ui';
 import { Check } from 'components/sharedComponents/icons/Icons';
@@ -15,7 +16,7 @@ const AwardTypeToggle = ({
     onToggle
 }) => {
     const [selected, setSelected] = useState(spendingLevel);
-    const nonGroup = spendingLevel === "transactions" ? "transactions" : "subawards";
+    const nonGroup = useSelector((state) => state.searchView.spendingLevel);
     // const dispatch = useDispatch();
 
     const onToggleClick = (type) => {
@@ -35,8 +36,8 @@ const AwardTypeToggle = ({
                     buttonType={selected === nonGroup ? "primaryIcon" : "secondary"}
                     backgroundColor="light"
                     imageAlignment="left"
-                    buttonTitle={selected !== "transactions" ? "Subawards Only" : "Transactions Only"}
-                    copy={selected !== "transactions" ? "Subawards Only" : "Transactions Only"}
+                    buttonTitle={nonGroup !== "transactions" ? "Subawards Only" : "Transactions Only"}
+                    copy={nonGroup !== "transactions" ? "Subawards Only" : "Transactions Only"}
                     additionalClassnames={selected === "awards" ? "borderless" : ""}
                     image={<Check alt="check" />} />
                 <Button
