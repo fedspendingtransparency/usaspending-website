@@ -38,7 +38,8 @@ const TableSection = ({
                 tabData={tabData}
                 wrapperProps={wrapperProps}
                 subaward={subaward}
-                hash={hash} />
+                hash={hash}
+                spendingLevel={spendingLevel} />
         </div>
     );
 };
