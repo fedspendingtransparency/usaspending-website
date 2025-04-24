@@ -268,12 +268,10 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.contractAwardType, awardTypeGroups.contracts)) {
                 contractsGrouped = true;
                 addChip(
-                    () => {
-                        props.bulkContractAwardTypeChange({
-                            types: awardTypeGroups.contracts,
-                            direction: 'remove'
-                        });
-                    },
+                    () => props.bulkContractAwardTypeChange({
+                        types: awardTypeGroups.contracts,
+                        direction: 'remove'
+                    }),
                     "All Contracts"
                 );
             }
@@ -281,12 +279,10 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.contractAwardType, awardTypeGroups.idvs)) {
                 contractIdvsGrouped = true;
                 addChip(
-                    () => {
-                        props.bulkContractAwardTypeChange({
-                            types: awardTypeGroups.idvs,
-                            direction: 'remove'
-                        });
-                    },
+                    () => props.bulkContractAwardTypeChange({
+                        types: awardTypeGroups.idvs,
+                        direction: 'remove'
+                    }),
                     "All Contract IDVs"
                 );
             }
@@ -435,12 +431,10 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.grants)) {
                 grantsGrouped = true;
                 addChip(
-                    () => {
-                        props.bulkFinancialAssistanceAwardTypeChange({
-                            types: awardTypeGroups.grants,
-                            direction: 'remove'
-                        });
-                    },
+                    () => props.bulkFinancialAssistanceAwardTypeChange({
+                        types: awardTypeGroups.grants,
+                        direction: 'remove'
+                    }),
                     "All Grants"
                 );
             }
@@ -448,12 +442,10 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.direct_payments)) {
                 directPaymentsGrouped = true;
                 addChip(
-                    () => {
-                        props.bulkFinancialAssistanceAwardTypeChange({
-                            types: awardTypeGroups.direct_payments,
-                            direction: 'remove'
-                        });
-                    },
+                    () => props.bulkFinancialAssistanceAwardTypeChange({
+                        types: awardTypeGroups.direct_payments,
+                        direction: 'remove'
+                    }),
                     "All Direct Payments"
                 );
             }
@@ -461,12 +453,10 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.loans)) {
                 loansGrouped = true;
                 addChip(
-                    () => {
-                        props.bulkFinancialAssistanceAwardTypeChange({
-                            types: awardTypeGroups.loans,
-                            direction: 'remove'
-                        });
-                    },
+                    () => props.bulkFinancialAssistanceAwardTypeChange({
+                        types: awardTypeGroups.loans,
+                        direction: 'remove'
+                    }),
                     "All Loans"
                 );
             }
@@ -474,12 +464,10 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.other)) {
                 otherGrouped = true;
                 addChip(
-                    () => {
-                        props.bulkFinancialAssistanceAwardTypeChange({
-                            types: awardTypeGroups.other,
-                            direction: 'remove'
-                        });
-                    },
+                    () => props.bulkFinancialAssistanceAwardTypeChange({
+                        types: awardTypeGroups.other,
+                        direction: 'remove'
+                    }),
                     "All Other"
                 );
             }
@@ -542,12 +530,7 @@ const SearchSidebarFilterChips = ({
     const getRecipientChips = () => {
         if (filtersData.selectedRecipients?.length > 0) {
             filters.selectedRecipients.forEach((recipient) => {
-                addChip(
-                    () => {
-                        props.updateSelectedRecipients(recipient);
-                    },
-                    recipient
-                );
+                addChip(() => props.updateSelectedRecipients(recipient), recipient);
             });
         }
 
@@ -632,16 +615,7 @@ const SearchSidebarFilterChips = ({
 
         if (filtersData.covidDefCode?.length > 0) {
             filtersData.covidDefCode.forEach((covid) => {
-                const removeCovidDefCodes = (e) => {
-                    e.stopPropagation();
-                    props.toggleCovidDefCode({ value: covid });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`COVID-19 Spending (${covid})`}
-                        removeValue={removeCovidDefCodes} />
-                );
+                addChip(() => props.toggleCovidDefCode({ value: covid }), covid);
             });
         }
 
