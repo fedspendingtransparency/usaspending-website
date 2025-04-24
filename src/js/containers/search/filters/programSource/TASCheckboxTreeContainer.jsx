@@ -241,11 +241,13 @@ export class TASCheckboxTree extends React.Component {
         if (this.props.nodes.length > 0) {
             const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
             this.props.setUncheckedTas(uncheckedFromHash);
-            const realCheckedWithPlaceholders = flattenDeep(newChecked
-                .map((checked) => getAllDescendants(getTasNodeFromTree(this.props.nodes, checked), uncheckedFromHash))
-            );
-            this.props.setCheckedTas(realCheckedWithPlaceholders);
-            this.setState({ isLoading: false, isError: false });
+            setTimeout(() => {
+                const realCheckedWithPlaceholders = flattenDeep(newChecked
+                    .map((checked) => getAllDescendants(getTasNodeFromTree(this.props.nodes, checked), uncheckedFromHash))
+                );
+                this.props.setCheckedTas(realCheckedWithPlaceholders);
+                this.setState({ isLoading: false, isError: false });
+            }, 100);
         }
     };
 
@@ -262,7 +264,7 @@ export class TASCheckboxTree extends React.Component {
                 if (!expandedAndChecked) return acc;
                 const node = getTasNodeFromTree(nodes, expandedAndChecked);
                 if (shouldTasNodeHaveChildren(node)) {
-                    return [...acc, ...node?.children.map((tas) => tas?.value)];
+                    return [...acc, ...node.children.map((tas) => tas.value)];
                 }
                 return acc;
             }, []);
@@ -346,7 +348,7 @@ export class TASCheckboxTree extends React.Component {
 
     handleTextInputChange = (e) => {
         e.persist();
-        const text = e.target?.value;
+        const text = e.target.value;
         if (!text) {
             return this.onClear();
         }
