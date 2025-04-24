@@ -34,6 +34,7 @@ import {
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
 import { dateRangeChipLabel, locationChipLabel } from "../../../helpers/searchHelper";
+import { uniqueId } from "lodash";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -74,7 +75,7 @@ const SearchSidebarFilterChips = ({
 
     const isSubset = (array1, array2) => array2.every((element) => array1.includes(element));
 
-    const addChip = (chipData, removeFilter, formatLabel) => {
+    const addChip = (chipData, removeFilter, label) => {
         const removeChip = (e) => {
             e.stopPropagation();
             removeFilter(chipData);
@@ -82,15 +83,10 @@ const SearchSidebarFilterChips = ({
 
         chips.push(
             <ShownValue
-                label={formatLabel(chipData)}
-                removeValue={removeChip} />
+                label={label}
+                removeValue={removeChip}
+                key={uniqueId('selected-filter-chips__')} />
         );
-    };
-
-    const addChips = (chipsData, removeFilter, formatLabel) => {
-        chipsData.forEach((chipData) => {
-            addChip(chipData, removeFilter, formatLabel);
-        });
     };
 
     const getLocationChips = () => {
@@ -278,7 +274,7 @@ const SearchSidebarFilterChips = ({
                             direction: 'remove'
                         });
                     },
-                    () => "All Contracts"
+                    "All Contracts"
                 );
             }
 
@@ -292,38 +288,37 @@ const SearchSidebarFilterChips = ({
                             direction: 'remove'
                         });
                     },
-                    () => "All Contract IDVs"
+                    "All Contract IDVs"
                 );
             }
 
             if (!contractsGrouped || !contractIdvsGrouped) {
-                let contractAwardTypes;
+                let contractAwardTypes = filtersData.contractAwardType;
 
                 if (contractsGrouped) {
-                    contractAwardTypes = filtersData.contractAwardType.filter(
+                    contractAwardTypes = contractAwardTypes.filter(
                         (type) => !awardTypeGroups.contracts.includes(type)
                     );
                 }
                 else if (contractIdvsGrouped) {
-                    contractAwardTypes = filtersData.contractAwardType.filter(
+                    contractAwardTypes = contractAwardTypes.filter(
                         (type) => !awardTypeGroups.idvs.includes(type)
                     );
                 }
-                else {
-                    contractAwardTypes = filtersData.contractAwardType;
-                }
 
-                addChips(
-                    contractAwardTypes,
-                    (type) => {
-                        const newValue = filters.contractAwardType.delete(type);
-                        props.updateGenericFilter({
-                            type: 'contractAwardType',
-                            value: newValue
-                        });
-                    },
-                    (awardType) => awardTypeCodes[awardType]
-                );
+                contractAwardTypes.forEach((awardType) => {
+                    addChip(
+                        awardType,
+                        (type) => {
+                            const newValue = filters.contractAwardType.delete(type);
+                            props.updateGenericFilter({
+                                type: 'contractAwardType',
+                                value: newValue
+                            });
+                        },
+                        awardTypeCodes[awardType]
+                    );
+                });
             }
         }
 
@@ -446,27 +441,105 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.financialAssistanceAwardType?.length > 0) {
-            // let grantsGrouped = false;
-            // let directPaymentsGrouped = false;
-            // let loansGrouped = false;
-            // let otherGrouped = false;
+            let grantsGrouped = false;
+            let directPaymentsGrouped = false;
+            let loansGrouped = false;
+            let otherGrouped = false;
 
-            filtersData.financialAssistanceAwardType.forEach((type) => {
-                const removeAwardType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.financialAssistanceAwardType.delete(type);
-                    props.updateGenericFilter({
-                        type: 'financialAssistanceAwardType',
-                        value: newValue
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Financial Assistance Award Type: ${awardTypeCodes[type]}`}
-                        removeValue={removeAwardType} />
+            if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.grants)) {
+                grantsGrouped = true;
+                addChip(
+                    "All Grants",
+                    () => {
+                        props.bulkFinancialAssistanceAwardTypeChange({
+                            types: awardTypeGroups.grants,
+                            direction: 'remove'
+                        });
+                    },
+                    "All Grants"
                 );
-            });
+            }
+
+            if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.direct_payments)) {
+                directPaymentsGrouped = true;
+                addChip(
+                    "All Direct Payments",
+                    () => {
+                        props.bulkFinancialAssistanceAwardTypeChange({
+                            types: awardTypeGroups.direct_payments,
+                            direction: 'remove'
+                        });
+                    },
+                    "All Direct Payments"
+                );
+            }
+
+            if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.loans)) {
+                loansGrouped = true;
+                addChip(
+                    "All Loans",
+                    () => {
+                        props.bulkFinancialAssistanceAwardTypeChange({
+                            types: awardTypeGroups.loans,
+                            direction: 'remove'
+                        });
+                    },
+                    "All Loans"
+                );
+            }
+
+            if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.other)) {
+                otherGrouped = true;
+                addChip(
+                    "All Other",
+                    () => {
+                        props.bulkFinancialAssistanceAwardTypeChange({
+                            types: awardTypeGroups.other,
+                            direction: 'remove'
+                        });
+                    },
+                    "All Other"
+                );
+            }
+
+            if (!grantsGrouped || !directPaymentsGrouped || !loansGrouped || !otherGrouped) {
+                let financialAwardTypes = filtersData.financialAssistanceAwardType;
+
+                if (grantsGrouped) {
+                    financialAwardTypes = financialAwardTypes.filter(
+                        (type) => !awardTypeGroups.grants.includes(type)
+                    );
+                }
+                else if (directPaymentsGrouped) {
+                    financialAwardTypes = financialAwardTypes.filter(
+                        (type) => !awardTypeGroups.direct_payments.includes(type)
+                    );
+                }
+                else if (loansGrouped) {
+                    financialAwardTypes = financialAwardTypes.filter(
+                        (type) => !awardTypeGroups.loans.includes(type)
+                    );
+                }
+                else if (otherGrouped) {
+                    financialAwardTypes = financialAwardTypes.filter(
+                        (type) => !awardTypeGroups.other.includes(type)
+                    );
+                }
+
+                financialAwardTypes.forEach((awardType) => {
+                    addChip(
+                        awardType,
+                        (type) => {
+                            const newValue = filters.financialAssistanceAwardType.delete(type);
+                            props.updateGenericFilter({
+                                type: 'financialAssistanceAwardType',
+                                value: newValue
+                            });
+                        },
+                        awardTypeCodes[awardType]
+                    );
+                });
+            }
         }
 
         if (filtersData.selectedCFDA?.length > 0) {
