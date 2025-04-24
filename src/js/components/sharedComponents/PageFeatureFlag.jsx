@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import { Route, Navigate } from "react-router";
+import { Navigate } from "react-router";
 import GlobalConstants from "GlobalConstants";
 
 
