@@ -264,6 +264,7 @@
             .filter__dropdownSeparator {
                 border-bottom: 1px solid $gray-cool-20;
                 margin-bottom: rem(16);
+                margin-top: rem(8);
             }
             .filter__dropdown-content{
                 padding: rem(8);
@@ -291,6 +292,7 @@
                     color: $blue-50;
                     width: rem(12);
                     height: rem(12);
+                    margin-top: rem(3);
                 }
             }
         }

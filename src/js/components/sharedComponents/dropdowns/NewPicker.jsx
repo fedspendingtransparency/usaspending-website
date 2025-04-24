@@ -69,7 +69,7 @@ const NewPicker = ({
     const [isEnabled, setIsEnabled] = useState(enabled || false);
     const fontAwesomeIconId = "usa-dt-picker__button-icon--svg";
 
-    const height = infoSection ? '302px' : 'initial';
+    const height = infoSection ? '310px' : 'initial';
     useEffect(() => {
         const closeMenu = (e) => {
             if ((
