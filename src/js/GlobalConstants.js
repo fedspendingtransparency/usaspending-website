@@ -23,7 +23,11 @@ const globalConstants = {
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     ARP_RELEASED: process.env.ENV !== 'prod',
     DUNS_LABEL: 'Legacy ',
-    REQUEST_VERSION: '2020-06-01'
+    REQUEST_VERSION: '2020-06-01',
+    LIVE_SEARCH_VERSION: 'v2', // "legacy" or "v2" (the v in v2 should be lowercase)
+    SEARCH_LEGACY_PATH: '/search-legacy',
+    SEARCH_V2_PATH: '/searchv2',
+    SEARCH_PATH: this.LIVE_SEARCH_VERSION === 'legacy' ? this.SEARCH_LEGACY_PATH : this.SEARCH_V2_PATH
 };
 
 module.exports = globalConstants;

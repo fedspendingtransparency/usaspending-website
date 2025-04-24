@@ -3,12 +3,15 @@
  * Created by Nick Torres 2/26/2024
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import GlobalConstants from 'GlobalConstants';
 import { faFunnelDollar } from "@fortawesome/free-solid-svg-icons";
 import Analytics from 'helpers/analytics/Analytics';
 import NewPicker from "../sharedComponents/dropdowns/NewPicker";
+
 
 const propTypes = {
     enabled: PropTypes.bool,
@@ -28,7 +31,11 @@ const SubawardDropdown = ({
     infoSectionContent = ''
 }) => {
     const [selected, setSelected] = useState(selectedValue);
+    const [v2, setv2] = useState();
+
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
+
     const onClick = (e) => {
         dispatch(setSearchViewSubaward(e === 'subawards'));
         dispatch(setSpendingLevel(e));
@@ -45,7 +52,7 @@ const SubawardDropdown = ({
     };
 
     const options =
-        [
+        v2 ? [
             {
                 name: 'Prime Awards',
                 value: 'awards',
@@ -61,9 +68,27 @@ const SubawardDropdown = ({
                 value: 'transactions',
                 onClick
             }
-        ];
+        ]
+
+            :
+            [
+                {
+                    name: 'Prime Awards and Transactions',
+                    value: 'awards',
+                    onClick
+                },
+                {
+                    name: 'Subawards',
+                    value: 'subawards',
+                    onClick
+                }
+            ];
 
     const sortFn = () => options;
+
+    useEffect(() => {
+        setv2(pathname.includes(GlobalConstants.SEARCH_V2_PATH) || (pathname === '/search' && GlobalConstants.LIVE_SEARCH_VERSION === "v2"));
+    }, [pathname]);
 
     return (
         <div className="subaward-dropdown__container">
@@ -82,8 +107,9 @@ const SubawardDropdown = ({
                     : `${selected}`
                 }
                 sortFn={sortFn}
-                infoSection={infoSection}
+                infoSection={v2 ? infoSection : false}
                 infoSectionContent={infoSectionContent} />
+
         </div>
     );
 };
