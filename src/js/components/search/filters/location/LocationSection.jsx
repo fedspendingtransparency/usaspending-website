@@ -46,7 +46,7 @@ const LocationSection = (props) => {
 
     useEffect(() => {
         openDefaultTab();
-        setv2(pathname.includes(GlobalConstants.SEARCH_V2_PATH) || (pathname === '/search' && GlobalConstants.LIVE_SEARCH_VERSION === "v2"));
+        setv2(pathname === GlobalConstants.SEARCH_V2_PATH);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
