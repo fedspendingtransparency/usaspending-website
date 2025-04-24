@@ -74,6 +74,21 @@ const SearchSidebarFilterChips = ({
 
     const isSubset = (array1, array2) => array2.every((element) => array1.includes(element));
 
+    const addChip = (chipData, removeFilter, formatLabel) => {
+        chipData.forEach((chip) => {
+            const removeChip = (e) => {
+                e.stopPropagation();
+                removeFilter(chip);
+            };
+
+            chips.push(
+                <ShownValue
+                    label={formatLabel(chip)}
+                    removeValue={removeChip} />
+            );
+        });
+    };
+
     const getLocationChips = () => {
         // Add Locations
         if (filtersData.selectedLocations?.length > 0) {
@@ -283,9 +298,9 @@ const SearchSidebarFilterChips = ({
                 );
             }
 
-            filtersData.contractAwardType.forEach((type) => {
-                const removeAwardType = (e) => {
-                    e.stopPropagation();
+            if (!contractsGrouped || !contractIdvsGrouped) {
+                let contractAwardTypes;
+                const removeAwardType = (type) => {
                     const newValue = filters.contractAwardType.delete(type);
                     props.updateGenericFilter({
                         type: 'contractAwardType',
@@ -293,12 +308,26 @@ const SearchSidebarFilterChips = ({
                     });
                 };
 
-                chips.push(
-                    <ShownValue
-                        label={`Contract Award Type: ${awardTypeCodes[type]}`}
-                        removeValue={removeAwardType} />
+                if (contractsGrouped) {
+                    contractAwardTypes = filtersData.contractAwardType.filter(
+                        (type) => !awardTypeGroups.contracts.includes(type)
+                    );
+                }
+                else if (contractIdvsGrouped) {
+                    contractAwardTypes = filtersData.contractAwardType.filter(
+                        (type) => !awardTypeGroups.idvs.includes(type)
+                    );
+                }
+                else {
+                    contractAwardTypes = filtersData.contractAwardType;
+                }
+
+                addChip(
+                    contractAwardTypes,
+                    removeAwardType,
+                    (awardType) => awardTypeCodes[awardType]
                 );
-            });
+            }
         }
 
         if (filtersData.naicsCodes.require?.length > 0) {
