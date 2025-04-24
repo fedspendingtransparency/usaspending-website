@@ -75,10 +75,10 @@ const SearchSidebarFilterChips = ({
 
     const isSubset = (array1, array2) => array2.every((element) => array1.includes(element));
 
-    const addChip = (chipData, removeFilter, label) => {
+    const addChip = (removeFilter, label) => {
         const removeChip = (e) => {
             e.stopPropagation();
-            removeFilter(chipData);
+            removeFilter();
         };
 
         chips.push(
@@ -267,7 +267,6 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.contractAwardType, awardTypeGroups.contracts)) {
                 contractsGrouped = true;
                 addChip(
-                    "All Contracts",
                     () => {
                         props.bulkContractAwardTypeChange({
                             types: awardTypeGroups.contracts,
@@ -281,7 +280,6 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.contractAwardType, awardTypeGroups.idvs)) {
                 contractIdvsGrouped = true;
                 addChip(
-                    "All Contract IDVs",
                     () => {
                         props.bulkContractAwardTypeChange({
                             types: awardTypeGroups.idvs,
@@ -308,9 +306,8 @@ const SearchSidebarFilterChips = ({
 
                 contractAwardTypes.forEach((awardType) => {
                     addChip(
-                        awardType,
-                        (type) => {
-                            const newValue = filters.contractAwardType.delete(type);
+                        () => {
+                            const newValue = filters.contractAwardType.delete(awardType);
                             props.updateGenericFilter({
                                 type: 'contractAwardType',
                                 value: newValue
@@ -422,20 +419,16 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.extentCompeted?.length > 0) {
-            filtersData.extentCompeted.forEach((type) => {
-                const removePricingType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.extentCompeted.delete(type);
-                    props.updateGenericFilter({
-                        type: 'extentCompeted',
-                        value: newValue
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Extent Competed | ${extentCompetedDefinitions[type]}`}
-                        removeValue={removePricingType} />
+            filtersData.extentCompeted.forEach((extentCompeted) => {
+                addChip(
+                    () => {
+                        const newValue = filters.contractAwardType.delete(extentCompeted);
+                        props.updateGenericFilter({
+                            type: 'contractAwardType',
+                            value: newValue
+                        });
+                    },
+                    extentCompetedDefinitions[extentCompeted]
                 );
             });
         }
@@ -449,7 +442,6 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.grants)) {
                 grantsGrouped = true;
                 addChip(
-                    "All Grants",
                     () => {
                         props.bulkFinancialAssistanceAwardTypeChange({
                             types: awardTypeGroups.grants,
@@ -463,7 +455,6 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.direct_payments)) {
                 directPaymentsGrouped = true;
                 addChip(
-                    "All Direct Payments",
                     () => {
                         props.bulkFinancialAssistanceAwardTypeChange({
                             types: awardTypeGroups.direct_payments,
@@ -477,7 +468,6 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.loans)) {
                 loansGrouped = true;
                 addChip(
-                    "All Loans",
                     () => {
                         props.bulkFinancialAssistanceAwardTypeChange({
                             types: awardTypeGroups.loans,
@@ -491,7 +481,6 @@ const SearchSidebarFilterChips = ({
             if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.other)) {
                 otherGrouped = true;
                 addChip(
-                    "All Other",
                     () => {
                         props.bulkFinancialAssistanceAwardTypeChange({
                             types: awardTypeGroups.other,
@@ -528,9 +517,8 @@ const SearchSidebarFilterChips = ({
 
                 financialAwardTypes.forEach((awardType) => {
                     addChip(
-                        awardType,
-                        (type) => {
-                            const newValue = filters.financialAssistanceAwardType.delete(type);
+                        () => {
+                            const newValue = filters.financialAssistanceAwardType.delete(awardType);
                             props.updateGenericFilter({
                                 type: 'financialAssistanceAwardType',
                                 value: newValue
