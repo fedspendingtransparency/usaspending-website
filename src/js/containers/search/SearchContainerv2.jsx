@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { Redirect, useLocation, useParams } from 'react-router-dom';
+import { Route, useLocation, useParams } from 'react-router-dom';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -183,10 +183,10 @@ const SearchContainer = ({ history }) => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            history.replace({
+            history({
                 pathname: '/search',
                 search: ''
-            });
+            }, { replace: true });
             setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -209,10 +209,10 @@ const SearchContainer = ({ history }) => {
             .then((res) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
-                history.replace({
+                history({
                     pathname: `/search/`,
                     search: getQueryParamString(newQueryParams)
-                });
+                }, { replace: true });
                 setGenerateHashInFlight(false);
             })
             .catch((err) => {
@@ -270,7 +270,7 @@ export default SearchContainer;
 export const SearchContainerRedirectv2 = () => {
     const { urlHash: pathHash } = useParams();
     return (
-        <Redirect
+        <Route
             to={{
                 pathname: '/search/',
                 search: `?${new URLSearchParams({ hash: pathHash }).toString()}`

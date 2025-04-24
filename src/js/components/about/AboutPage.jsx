@@ -4,7 +4,7 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { find, throttle } from 'lodash';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -50,7 +50,7 @@ const aboutSections = [
 ];
 
 const AboutPage = () => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
 
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
@@ -69,10 +69,10 @@ const AboutPage = () => {
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
+            history({
                 pathname: ``,
                 search: getQueryParamString(newQueryParams)
-            });
+            }, { replace: true });
         }
 
         // update the state

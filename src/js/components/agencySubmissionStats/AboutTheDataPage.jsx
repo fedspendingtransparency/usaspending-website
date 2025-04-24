@@ -44,10 +44,10 @@ const AboutTheDataPage = ({ history }) => {
     useEffect(() => {
         if (!activeTab) {
             const paramsWithTab = combineQueryParams(params, { tab: 'submissions' });
-            history.replace({
-                pathname: '',
+            history({
+                pathname: ``,
                 search: getQueryParamString(paramsWithTab)
-            });
+            }, { replace: true });
         }
     }, [activeTab, history, params]);
 

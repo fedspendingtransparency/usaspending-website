@@ -90,11 +90,11 @@ const StateContainer = (props) => {
 
         if (!Object.keys(props.match.params).includes('fy')) {
             // this may be an issue on the first day of 2026 fiscal year
-            // props.history.replace(`/state/${stateName}/latest`);
-            props.history.replace(`/state/${stateName}/2025`);
+            // props.history(`/state/${stateName}/latest`, { replace: true });
+            props.history(`/state/${stateName}/2025`, { replace: true });
         }
         else if (!wasInputStateName) {
-            props.history.replace(`/state/${stateName}/${fy}`);
+            props.history(`/state/${stateName}/${fy}`, { replace: true });
         }
         else {
             props.setStateFiscalYear(fy);

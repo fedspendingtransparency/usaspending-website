@@ -8,7 +8,7 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
@@ -61,7 +61,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [hasNextPage, setHasNextPage] = useState(false);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [tableRows, setTableRows] = useState([]);
-    const history = useHistory();
+    const history = useNavigate();
     let apiRequest;
 
     const childProps = {

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { downloadOptions } from 'dataMapping/navigation/menuOptions';
@@ -30,7 +30,7 @@ const propTypes = {
 
 const BulkDownloadPageContainer = (props) => {
     let request = null;
-    const history = useHistory();
+    const history = useNavigate();
 
     const requestDownload = (params, type) => {
         if (request) {
@@ -89,12 +89,12 @@ const BulkDownloadPageContainer = (props) => {
 
             else {
                 // Invalid url, go to the error page
-                history.replace('/error');
+                history('/error', { replace: true });
             }
         }
         else {
             // If no type param is specified, default to award data
-            history.replace('/download_center/custom_award_data');
+            history('/download_center/custom_award_data', { replace: true });
         }
     };
 

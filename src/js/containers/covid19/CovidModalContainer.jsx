@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -17,7 +17,7 @@ const CovidModalContainer = ({
     resetFilters,
     setAppliedFilters
 }) => {
-    const history = useHistory();
+    const history = useNavigate();
     const defCodes = useSelector((state) => state.covid19.defCodes);
 
     const handleGoToAdvancedSearch = (e) => {

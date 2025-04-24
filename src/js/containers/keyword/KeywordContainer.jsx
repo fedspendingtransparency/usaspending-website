@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -34,7 +34,7 @@ const KeywordContainer = (props) => {
     const [downloadAvailable, setDownloadAvailable] = useState(false);
     let summaryRequest = null;
     let downloadRequest = null;
-    const history = useHistory();
+    const history = useNavigate();
     const dispatch = useDispatch();
 
     const downloadObject = useSelector((state) => state.bulkDownload.download);
@@ -60,7 +60,7 @@ const KeywordContainer = (props) => {
         setKeyword(keywordParam);
 
         // update the url
-        history.replace(`/keyword_search/${slug}`);
+        history(`/keyword_search/${slug}`, { replace: true });
 
         Analytics.event({
             event: 'keyword',

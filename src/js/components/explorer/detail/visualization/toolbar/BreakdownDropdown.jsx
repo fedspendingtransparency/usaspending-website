@@ -6,7 +6,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
@@ -28,7 +28,7 @@ const BreakdownDropdown = (props) => {
     const [expanded, setExpanded] = useState(false);
     const [options, setOptions] = useState([]);
     const [active, setActive] = useState(null);
-    const history = useHistory();
+    const history = useNavigate();
     const prevProps = usePrevious(props);
 
     const wrapperRef = useRef(null);

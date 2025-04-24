@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import * as explorerActions from 'redux/actions/explorer/explorerActions';
 
@@ -19,14 +19,14 @@ const propTypes = {
 };
 
 const ExplorerDetailPageContainer = (props) => {
-    const history = useHistory();
+    const history = useNavigate();
 
 
     const validateRoot = (rootValue) => {
         const allowedRoots = ['budget_function', 'agency', 'object_class'];
         if (!rootValue || allowedRoots.indexOf(rootValue) === -1) {
             // not a valid root, go to the landing page
-            history.replace('/explorer');
+            history('/explorer', { replace: true });
         }
         else {
             // set the root

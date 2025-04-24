@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
@@ -32,7 +32,7 @@ const propTypes = {
 
 const RecipientContainer = (props) => {
     const prevProps = usePrevious(props);
-    const history = useHistory();
+    const history = useNavigate();
     const [state, setState] = useState({
         loading: true,
         error: false
@@ -87,13 +87,14 @@ const RecipientContainer = (props) => {
                 loadRecipientOverview(params.recipientId, props.recipient.fy);
             }
             else {
-                history.replace(`/recipient/${props.match.params.recipientId}/${defaultFy}`);
+                history(`/recipient/${props.match.params.recipientId}/${defaultFy}`, { replace: true });
+
                 props.setRecipientFiscalYear(defaultFy);
                 loadRecipientOverview(params.recipientId, defaultFy);
             }
         }
         else {
-            history.replace(`/recipient/${props.match.params.recipientId}/${defaultFy}`);
+            history(`/recipient/${props.match.params.recipientId}/${defaultFy}`, { replace: true });
         }
 
         /* eslint-disable-next-line react-hooks/exhaustive-deps */

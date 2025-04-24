@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import replaceString from 'helpers/replaceString';
@@ -143,7 +143,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const currentModalData = useSelector((state) => state.modal);
     const dispatch = useDispatch();
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const updateSort = (field, direction) => {
         setSort(field);

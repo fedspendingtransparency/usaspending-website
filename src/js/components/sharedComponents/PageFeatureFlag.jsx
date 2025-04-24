@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import { Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import GlobalConstants from "GlobalConstants";
 
 
@@ -12,7 +12,7 @@ const PageFeatureFlag = ({ children }) => {
     const isQAT = GlobalConstants.QAT;
     return (isQAT ? <>{children}</>
         :
-        <Redirect to="/404" />);
+        <Route to="/404" />);
 };
 
 export default PageFeatureFlag;
