@@ -28,16 +28,16 @@ export const defCodes = {
         public_law: "Non-emergency P.L. 117-2"
     },
     Z: {
-        title: "Infrastructure Investment and Jobs Act",
+        title: "Infrastructure Investment and Jobs Act (Z)",
         public_law: "Emergency P.L. 117-58"
     },
     1: {
-        title: "Infrastructure Investment and Jobs Act",
+        title: "Infrastructure Investment and Jobs Act (1)",
         public_law: "Non-emergency P.L. 117-58"
     }
 };
 
 export const defCodeGroups = {
     covid: ['L', 'M', 'N', 'O', 'P', 'U', 'V'],
-    infrastructure: ['Z', 1]
+    infrastructure: ['Z', '1']
 };

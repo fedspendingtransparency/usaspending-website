@@ -641,9 +641,28 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.infraDefCode?.length > 0) {
-            filtersData.infraDefCode.forEach((infra) => {
-                addChip(() => props.toggleInfraDefCode({ value: infra }), infra);
-            });
+            if (isSubset(filtersData.infraDefCode, defCodeGroups.infrastructure)) {
+                addChip(
+                    () => props.bulkInfraDefCodeChange({
+                        types: defCodeGroups.infrastructure,
+                        direction: 'remove'
+                    }),
+                    'All Infrastructure Spending'
+                );
+            }
+            else {
+                filtersData.infraDefCode.forEach((infra) => {
+                    addChip(() => props.toggleInfraDefCode({ value: infra }),
+                        `${infra}: ${
+                            defCodes[infra].title.substring(0, 30)
+                        }... ${
+                            defCodes[infra]
+                                .public_law
+                                .includes('Non-emergency') ? '(Non-emergency)' : '(Emergency)'
+                        }`
+                    );
+                });
+            }
         }
     };
 
