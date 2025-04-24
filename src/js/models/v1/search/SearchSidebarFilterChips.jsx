@@ -621,16 +621,7 @@ const SearchSidebarFilterChips = ({
 
         if (filtersData.infraDefCode?.length > 0) {
             filtersData.infraDefCode.forEach((infra) => {
-                const removeInfraDefCodes = (e) => {
-                    e.stopPropagation();
-                    props.toggleInfraDefCode({ value: infra });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Infrastructure Spending (${infra})`}
-                        removeValue={removeInfraDefCodes} />
-                );
+                addChip(() => props.toggleInfraDefCode({ value: infra }), infra);
             });
         }
     };
