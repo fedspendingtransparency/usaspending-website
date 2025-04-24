@@ -63,11 +63,12 @@ const AppContainer = () => (
             <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
                 <Routes>
+                    {console.log("router props", routes)}
                     {routes.filter((route) => !route.hide).map(({ path, component }) => (
                         <Route
-                            exact
+                            caseSensitive
                             path={path}
-                            component={(routerProps) => WithUrlListener(component, routerProps)}
+                            Component={(routerProps) => WithUrlListener(component, routerProps)}
                             key={path} />
                     ))}
                 </Routes>

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import replaceString from 'helpers/replaceString';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';

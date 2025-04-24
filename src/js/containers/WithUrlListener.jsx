@@ -1,6 +1,7 @@
 import React from "react";
 import GlossaryListenerContainer from 'containers/glossary/GlossaryListener';
 import AboutTheDataListenerContainer from 'containers/aboutTheDataSidebar/AboutTheDataListener';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { useLocation } from 'react-router';
 
 const WithUrlListener = (component, props) => {

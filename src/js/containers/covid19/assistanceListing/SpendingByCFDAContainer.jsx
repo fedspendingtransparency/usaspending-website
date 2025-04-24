@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import replaceString from 'helpers/replaceString';
