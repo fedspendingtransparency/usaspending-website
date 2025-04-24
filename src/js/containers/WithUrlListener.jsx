@@ -1,7 +1,7 @@
 import React from "react";
 import GlossaryListenerContainer from 'containers/glossary/GlossaryListener';
 import AboutTheDataListenerContainer from 'containers/aboutTheDataSidebar/AboutTheDataListener';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 const WithUrlListener = (component, props) => {
     const { search } = useLocation();

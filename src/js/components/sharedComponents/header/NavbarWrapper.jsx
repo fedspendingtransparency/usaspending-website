@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';

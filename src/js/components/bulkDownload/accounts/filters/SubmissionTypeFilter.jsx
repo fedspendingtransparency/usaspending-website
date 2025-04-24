@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const propTypes = {
     submissionTypes: PropTypes.array,

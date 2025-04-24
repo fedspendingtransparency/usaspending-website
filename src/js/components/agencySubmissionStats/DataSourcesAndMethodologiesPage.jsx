@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { find, throttle } from 'lodash';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { ShareIcon } from 'data-transparency-ui';

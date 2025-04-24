@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import schema from "dataMapping/aboutTheDataSchema";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { getDrilldownEntrySectionAndId } from "helpers/aboutTheDataSidebarHelper";
 import { showSlideout } from '../../helpers/slideoutHelper';
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import { Glossary } from '../../sharedComponents/icons/Icons';

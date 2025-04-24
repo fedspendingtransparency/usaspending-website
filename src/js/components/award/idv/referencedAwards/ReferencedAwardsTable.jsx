@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pagination } from 'data-transparency-ui';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { referencedAwardsColumns } from 'dataMapping/award/referencedAwards';
 

@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Accordion from "../sharedComponents/accordion/Accordion";
 import GlossaryLink from '../sharedComponents/GlossaryLink';
 
