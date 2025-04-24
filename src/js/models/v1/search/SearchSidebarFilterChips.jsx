@@ -36,6 +36,7 @@ import {
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
 import { dateRangeChipLabel, locationChipLabel } from "../../../helpers/searchHelper";
+import { defCodes, defCodeGroups } from "../../../dataMapping/search/defCodes";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -614,9 +615,29 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.covidDefCode?.length > 0) {
-            filtersData.covidDefCode.forEach((covid) => {
-                addChip(() => props.toggleCovidDefCode({ value: covid }), covid);
-            });
+            if (isSubset(filtersData.covidDefCode, defCodeGroups.covid)) {
+                addChip(
+                    () => props.bulkCovidDefCodeChange({
+                        types: defCodeGroups.covid,
+                        direction: 'remove'
+                    }),
+                    'All COVID-19 Spending'
+                );
+            }
+            else {
+                filtersData.covidDefCode.forEach((covid) => {
+                    addChip(
+                        () => props.toggleCovidDefCode({ value: covid }),
+                        `${covid}: ${
+                            defCodes[covid].title.substring(0, 30)
+                        }... ${
+                            defCodes[covid]
+                                .public_law
+                                .includes('Non-emergency') ? '(Non-emergency)' : '(Emergency)'
+                        }`
+                    );
+                });
+            }
         }
 
         if (filtersData.infraDefCode?.length > 0) {
