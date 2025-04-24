@@ -5,7 +5,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchBreakdown } from 'helpers/explorerHelper';
 import { formatMoneyWithUnits } from "helpers/moneyFormatter";

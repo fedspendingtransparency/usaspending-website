@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { Route, useLocation, useParams } from 'react-router';
+import { Route, useLocation, useParams } from 'react-router-dom';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     handleExternalLinkClick: PropTypes.func,

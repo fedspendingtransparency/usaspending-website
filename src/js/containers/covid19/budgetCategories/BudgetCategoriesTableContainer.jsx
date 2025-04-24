@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 

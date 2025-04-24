@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 

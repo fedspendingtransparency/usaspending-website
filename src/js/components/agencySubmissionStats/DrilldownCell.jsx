@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import replaceString from 'helpers/replaceString';

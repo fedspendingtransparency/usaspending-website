@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 

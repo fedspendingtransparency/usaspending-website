@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 

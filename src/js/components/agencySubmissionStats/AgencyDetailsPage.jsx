@@ -3,7 +3,7 @@
  */
 
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, Link } from 'react-router';
+import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, ShareIcon, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 

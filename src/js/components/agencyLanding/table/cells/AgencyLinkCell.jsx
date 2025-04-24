@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import replaceString from 'helpers/replaceString';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default class AgencyLinkCell extends React.Component {
     static propTypes = {

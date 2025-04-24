@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const DownloadHover = () => (
     <div className="download-hover-spacer">

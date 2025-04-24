@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { find, throttle } from 'lodash';

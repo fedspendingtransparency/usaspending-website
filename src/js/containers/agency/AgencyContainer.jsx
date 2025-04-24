@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from "react";
-import { useParams, Navigate } from "react-router";
+import { useParams, Navigate } from "react-router-dom";
 import { isCancel } from "axios";
 import { useDispatch } from "react-redux";
 

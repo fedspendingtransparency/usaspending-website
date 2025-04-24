@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { throttle } from "lodash";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
