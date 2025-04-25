@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -30,8 +30,10 @@ const propTypes = {
 const StateContainer = (props) => {
     let fullRequest = null;
     const navigate = useNavigate();
-    const match = useMatch(`/state/:state/:year`);
-    const { state, fy } = match.params;
+    const match = useMatch(`/state/:state/:fyParam?`);
+    const { state, fyParam } = match.params;
+
+    const fy = fyParam || '2025';
 
     const [statusState, setStatusState] = useState({
         loading: true,
@@ -44,10 +46,10 @@ const StateContainer = (props) => {
         props.setStateFiscalYear(fy);
     };
 
-    const setStateCenter = (id) => {
+    const setStateCenter = useCallback((id) => {
         const center = stateCenterFromFips(id);
         props.setStateCenter(center);
-    };
+    });
 
     const parseOverview = (data) => {
         if (Object.keys(data).length === 0) {
@@ -58,7 +60,7 @@ const StateContainer = (props) => {
         props.setStateOverview(stateProfile);
     };
 
-    const loadStateOverview = (id, year) => {
+    const loadStateOverview = useCallback((id, year) => {
         if (fullRequest) {
             fullRequest.cancel();
         }
@@ -85,7 +87,7 @@ const StateContainer = (props) => {
                     }));
                 }
             });
-    };
+    });
 
     useEffect(() => {
         const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
@@ -107,7 +109,7 @@ const StateContainer = (props) => {
         return () => {
             props.resetState();
         };
-    }, []);
+    }, [loadStateOverview, match.params, navigate, props, setStateCenter, state]);
 
     useEffect(() => {
         const [, , stateId] = parseStateDataFromUrl(state);
@@ -116,7 +118,7 @@ const StateContainer = (props) => {
         loadStateOverview(stateId, fy);
         // Update the map center
         setStateCenter(stateId);
-    }, [state]);
+    }, [fy, loadStateOverview, props, setStateCenter, state]);
 
     useEffect(() => {
         // we just redirected the user or to the new url which includes the fy selection
@@ -126,7 +128,7 @@ const StateContainer = (props) => {
     useEffect(() => {
         const [, , stateId] = parseStateDataFromUrl(state);
         loadStateOverview(stateId, props.stateProfile.fy);
-    }, [props.stateProfile.fy]);
+    }, [loadStateOverview, props.stateProfile.fy, state]);
 
     return (
         <StatePage
