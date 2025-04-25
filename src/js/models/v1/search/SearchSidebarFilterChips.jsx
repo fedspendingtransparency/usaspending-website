@@ -412,9 +412,9 @@ const SearchSidebarFilterChips = ({
             filtersData.extentCompeted.forEach((extentCompeted) => {
                 addChip(
                     () => {
-                        const newValue = filters.contractAwardType.delete(extentCompeted);
+                        const newValue = filters.extentCompeted.delete(extentCompeted);
                         props.updateGenericFilter({
-                            type: 'contractAwardType',
+                            type: 'extentCompeted',
                             value: newValue
                         });
                     },
