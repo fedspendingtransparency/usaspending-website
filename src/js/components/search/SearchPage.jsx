@@ -24,7 +24,7 @@ import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./SubawardDropdown";
-import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
+import {setSearchViewSubaward, setSpendingLevel} from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
 
 require('pages/search/searchPage.scss');
@@ -149,7 +149,13 @@ const SearchPage = React.memo(({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="awards" />,
+                <SubawardDropdown
+                    size="sm"
+                    label="Filter by:"
+                    enabled
+                    setSearchViewSubaward={setSearchViewSubaward}
+                    setSpendingLevel={setSpendingLevel}
+                    selectedValue="awards" />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}

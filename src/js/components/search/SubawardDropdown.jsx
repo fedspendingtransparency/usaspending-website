@@ -32,11 +32,14 @@ const SubawardDropdown = ({
 }) => {
     const [selected, setSelected] = useState(selectedValue);
     const [v2, setv2] = useState();
+    const [optionsList, setOptionsList] = useState();
 
     const dispatch = useDispatch();
     const { pathname } = useLocation();
 
     const onClick = (e) => {
+        console.log(e);
+
         dispatch(setSearchViewSubaward(e === 'subawards'));
         dispatch(setSpendingLevel(e));
         setSelected(e);
@@ -51,8 +54,8 @@ const SubawardDropdown = ({
         }
     };
 
-    const options =
-        v2 ? [
+    const v2Options =
+        [
             {
                 name: 'Prime Awards',
                 value: 'awards',
@@ -68,27 +71,31 @@ const SubawardDropdown = ({
                 value: 'transactions',
                 onClick
             }
-        ]
+        ];
 
-            :
-            [
-                {
-                    name: 'Prime Awards and Transactions',
-                    value: 'awards',
-                    onClick
-                },
-                {
-                    name: 'Subawards',
-                    value: 'subawards',
-                    onClick
-                }
-            ];
+    const legacyOptions =
+        [
+            {
+                name: 'Prime Awards and Transactions',
+                value: 'awards',
+                onClick
+            },
+            {
+                name: 'Subawards',
+                value: 'subawards',
+                onClick
+            }
+        ];
 
-    const sortFn = () => options;
+    const sortFn = () => optionsList;
 
     useEffect(() => {
-        setv2(pathname === GlobalConstants.SEARCH_V2_PATH);
-    }, [pathname]);
+        const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
+        setv2(isv2);
+
+        setOptionsList(isv2 ? v2Options : legacyOptions);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="subaward-dropdown__container">
@@ -97,13 +104,13 @@ const SubawardDropdown = ({
                 leftIcon={faFunnelDollar}
                 size="sm"
                 label="Filter by:"
-                options={options}
+                options={optionsList}
                 classname="subaward-dropdown__wrapper"
                 minTextWidth="subaward-dropdown__textMinWidth"
                 dropdownClassname="subaward-dropdown__list"
                 buttonClassname="subaward-dropdown__button"
-                selectedOption={options.length
-                    ? options.find((obj) => obj.value === selected).name
+                selectedOption={optionsList?.length
+                    ? optionsList.find((obj) => obj.value === selected)?.name
                     : `${selected}`
                 }
                 sortFn={sortFn}
