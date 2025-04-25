@@ -265,11 +265,11 @@ export const locationChipLabel = (label, location) => {
         case 'County': {
             const countySplit = location.display.title.split(', ');
 
-            if (countySplit[1].length === 2) {
+            if (countySplit[1]?.length === 2) {
                 return `${convertToTitleCase(countySplit[0])}, ${countySplit[1]}`;
             }
 
-            return convertToTitleCase(location.display.title);
+            return convertToTitleCase(location?.display?.title);
         }
         case 'City':
             if (location.filter?.state) {
