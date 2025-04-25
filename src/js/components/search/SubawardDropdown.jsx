@@ -38,8 +38,6 @@ const SubawardDropdown = ({
     const { pathname } = useLocation();
 
     const onClick = (e) => {
-        console.log(e);
-
         dispatch(setSearchViewSubaward(e === 'subawards'));
         dispatch(setSpendingLevel(e));
         setSelected(e);
