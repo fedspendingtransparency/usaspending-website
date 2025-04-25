@@ -38,7 +38,7 @@ const StateContainer = (props) => {
         error: false
     });
 
-    const onClickFy = (fy) => {
+    const onClickFy = () => {
         const [, stateName] = parseStateDataFromUrl(state);
         navigate(`/state/${stateName}/${fy}`);
         props.setStateFiscalYear(fy);
