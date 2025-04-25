@@ -24,7 +24,7 @@ import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./SubawardDropdown";
-import {setSearchViewSubaward, setSpendingLevel} from "../../redux/actions/search/searchViewActions";
+import { setSearchViewSubaward, setSpendingLevel } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
 
 require('pages/search/searchPage.scss');
