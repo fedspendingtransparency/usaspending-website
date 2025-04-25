@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useMatch } from 'react-router-dom';
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
@@ -24,15 +24,14 @@ const propTypes = {
     setStateOverview: PropTypes.func,
     resetState: PropTypes.func,
     setStateFiscalYear: PropTypes.func,
-    setStateCenter: PropTypes.func,
-    match: PropTypes.object,
-    history: PropTypes.object
+    setStateCenter: PropTypes.func
 };
 
 const StateContainer = (props) => {
-    console.log("state props", props);
     let fullRequest = null;
     const navigate = useNavigate();
+    const match = useMatch(`/state/:state/:year`);
+    const { state, fy } = match.params;
 
     const [statusState, setStatusState] = useState({
         loading: true,
@@ -40,7 +39,7 @@ const StateContainer = (props) => {
     });
 
     const onClickFy = (fy) => {
-        const [, stateName] = parseStateDataFromUrl(props.match.params.state);
+        const [, stateName] = parseStateDataFromUrl(state);
         navigate(`/state/${stateName}/${fy}`);
         props.setStateFiscalYear(fy);
     };
@@ -89,10 +88,9 @@ const StateContainer = (props) => {
     };
 
     useEffect(() => {
-        const { fy, state } = props.match.params;
         const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
 
-        if (!Object.keys(props.match.params).includes('fy')) {
+        if (!Object.keys(match.params).includes('fy')) {
             // this may be an issue on the first day of 2026 fiscal year
             // props.history(`/state/${stateName}/latest`, { replace: true });
             navigate(`/state/${stateName}/2025`, { replace: true });
@@ -112,23 +110,23 @@ const StateContainer = (props) => {
     }, []);
 
     useEffect(() => {
-        const [, , stateId] = parseStateDataFromUrl(props?.match?.params?.state);
+        const [, , stateId] = parseStateDataFromUrl(state);
         // Reset the FY
-        props.setStateFiscalYear(props.match.params.fy);
-        loadStateOverview(stateId, props.match.params.fy);
+        props.setStateFiscalYear(fy);
+        loadStateOverview(stateId, fy);
         // Update the map center
         setStateCenter(stateId);
-    }, [props?.match?.params?.state]);
+    }, [state]);
 
     useEffect(() => {
         // we just redirected the user or to the new url which includes the fy selection
-        props.setStateFiscalYear(props?.match?.params?.fy);
-    }, [props?.match?.params?.fy]);
+        props.setStateFiscalYear(fy);
+    }, [fy]);
 
     useEffect(() => {
-        const [, , stateId] = parseStateDataFromUrl(props.match.params.state);
+        const [, , stateId] = parseStateDataFromUrl(state);
         loadStateOverview(stateId, props.stateProfile.fy);
-    }, [props?.stateProfile?.fy]);
+    }, [props.stateProfile.fy]);
 
     return (
         <StatePage
