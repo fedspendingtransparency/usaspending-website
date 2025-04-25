@@ -192,7 +192,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 }
             )
         ));
-        history.push('/search');
+        history('/search');
         Analytics.event({
             event: 'covid_spending_assistance_listing',
             category: `COVID-19 - Award Spending by Assistance Listing - ${activeTab}`,

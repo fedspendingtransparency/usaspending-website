@@ -36,9 +36,9 @@ const ExplorerDetailPageContainer = (props) => {
 
 
     useEffect(() => {
-        validateRoot(props.match.params.root);
+        validateRoot(props?.match?.params?.root);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.match.params.root]);
+    }, [props?.match?.params?.root]);
 
     return (
         <ExplorerDetailPage />

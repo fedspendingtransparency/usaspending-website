@@ -37,7 +37,7 @@ const StateContainer = (props) => {
 
     const onClickFy = (fy) => {
         const [, stateName] = parseStateDataFromUrl(props.match.params.state);
-        props.history.push(`/state/${stateName}/${fy}`);
+        props.history(`/state/${stateName}/${fy}`);
         props.setStateFiscalYear(fy);
     };
 

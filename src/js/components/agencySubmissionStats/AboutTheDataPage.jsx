@@ -62,7 +62,7 @@ const AboutTheDataPage = ({ history }) => {
     };
 
     const handleSwitchTab = (tab) => {
-        history.push({
+        history({
             search: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
         });
     };

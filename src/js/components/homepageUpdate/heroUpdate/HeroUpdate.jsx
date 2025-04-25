@@ -33,12 +33,12 @@ const HeroUpdate = () => {
     const handleSearch = () => {
         trackSearchLink();
         const path = `/search`;
-        history.push(path);
+        history(path);
     };
     const handleDataSources = () => {
         trackAboutLink();
         const path = `/data-sources`;
-        history.push(path);
+        history(path);
     };
 
     const keyPressHandler = (e) => {

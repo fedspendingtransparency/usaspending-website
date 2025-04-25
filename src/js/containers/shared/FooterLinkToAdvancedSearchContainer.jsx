@@ -27,7 +27,7 @@ const FooterLinkToAdvancedSearchContainer = ({
         dispatch(clearAllFilters());
         dispatch(resetAppliedFilters());
         if (onClick) onClick();
-        history.push('/search');
+        history('/search');
     };
 
     return (

@@ -63,13 +63,17 @@ const AppContainer = () => (
             <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
                 <Routes>
-                    {routes.filter((route) => !route.hide).map(({ path, component }) => (
-                        <Route
-                            caseSensitive
-                            path={path}
-                            Component={(routerProps) => WithUrlListener(component, routerProps)}
-                            key={path} />
-                    ))}
+                    {routes.filter((route) => !route.hide).map(({ path, component }) => {
+                        const Component = (routerProps) => WithUrlListener(component, routerProps);
+                        return (
+                            <Route
+                                caseSensitive
+                                path={path}
+                                element={<Component />}
+                                key={path} />
+                        );
+                    }
+                    )}
                 </Routes>
                 {window.outerWidth < 768 && <MobileMessage />}
             </Suspense>

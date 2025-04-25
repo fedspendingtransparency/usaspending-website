@@ -118,7 +118,7 @@ const BreakdownDropdown = (props) => {
         setExpanded(false);
         if (props.isRoot && item !== props.root) {
             // TODO redirect to the correct root URL
-            history.push(`/explorer/${item}`);
+            history(`/explorer/${item}`);
         }
         else if (!props.isRoot) {
             props.changeSubdivisionType(item);

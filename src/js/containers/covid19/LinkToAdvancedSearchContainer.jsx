@@ -37,7 +37,7 @@ const FooterLinkToAdvancedSearchContainer = () => {
         dispatch(clearAllFilters());
         dispatch(resetAppliedFilters());
         addDefCodesToAdvancedSearchFilter();
-        history.push('/search');
+        history('/search');
         Analytics.event({
             event: 'covid-advanced-search-click',
             category: 'COVID-19 - More Information',

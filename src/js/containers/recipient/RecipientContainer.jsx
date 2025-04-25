@@ -75,7 +75,7 @@ const RecipientContainer = (props) => {
     });
 
     const updateSelectedFy = (fy) => {
-        history.push(`/recipient/${props.recipient.id}/${fy}`);
+        history(`/recipient/${props.recipient.id}/${fy}`);
         props.setRecipientFiscalYear(fy);
     };
 

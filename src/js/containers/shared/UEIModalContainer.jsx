@@ -21,7 +21,7 @@ const CovidModalContainer = ({
         hideModal();
         clearFilters();
         resetFilters();
-        history.push('/search');
+        history('/search');
     };
 
     const handleGoToKeywordSearch = (e) => {
@@ -29,7 +29,7 @@ const CovidModalContainer = ({
         hideModal();
         clearFilters();
         resetFilters();
-        history.push('/keyword_search');
+        history('/keyword_search');
     };
 
     return (

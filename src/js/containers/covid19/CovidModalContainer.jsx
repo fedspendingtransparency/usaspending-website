@@ -34,19 +34,19 @@ const CovidModalContainer = ({
                 counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Spending" }]
             })
         });
-        history.push('/search');
+        history('/search');
     };
 
     const handleGoToCovidProfile = (e) => {
         e.preventDefault();
         hideModal();
-        history.push('/disaster/covid-19');
+        history('/disaster/covid-19');
     };
 
     const handleGoToDsm = (e) => {
         e.preventDefault();
         hideModal();
-        history.push('/disaster/covid-19/about-the-data');
+        history('/disaster/covid-19/about-the-data');
     };
 
     return (

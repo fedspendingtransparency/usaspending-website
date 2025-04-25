@@ -4,10 +4,9 @@
  */
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { Route, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -28,10 +27,6 @@ import {
 } from './helpers/searchAnalytics';
 
 require('pages/search/searchPage.scss');
-
-const propTypes = {
-    history: PropTypes.object
-};
 
 /**
  * Takes Filter Object from API and transforms it to Immutable Data Structures
@@ -71,9 +66,10 @@ export const parseRemoteFilters = (data) => {
     return reduxValues;
 };
 
-const SearchContainer = ({ history }) => {
+const SearchContainer = () => {
     const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
     const query = useQueryParams();
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const {
@@ -155,7 +151,7 @@ const SearchContainer = ({ history }) => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        history?.push('/search');
+                        navigate('/search');
                         request.current = null;
                     }
                 });
@@ -184,9 +180,8 @@ const SearchContainer = ({ history }) => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            history({
-                pathname: '/search-legacy',
-                search: ''
+            navigate({
+                path: '/search-legacy'
             }, { replace: true });
 
             setDownloadAvailable(false);
@@ -211,9 +206,8 @@ const SearchContainer = ({ history }) => {
             .then((res) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
-                history({
-                    pathname: `/search-legacy/`,
-                    search: getQueryParamString(newQueryParams)
+                navigate({
+                    path: `/search-legacy/${getQueryParamString(newQueryParams)}`
                 }, { replace: true });
 
                 setGenerateHashInFlight(false);
@@ -266,20 +260,12 @@ const SearchContainer = ({ history }) => {
     );
 };
 
-SearchContainer.propTypes = propTypes;
 export default SearchContainer;
 
 export const SearchContainerRedirect = () => {
     const { urlHash: pathHash } = useParams();
-    return (
-        <Route
-            to={{
-                pathname: '/search/',
-                search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
-            }} />
-    );
-};
+    const navigate = useNavigate();
+    navigate(`/search${new URLSearchParams({ hash: pathHash }).toString()}`);
 
-SearchContainer.propTypes = {
-    history: PropTypes.object.isRequired
+    return <></>;
 };
