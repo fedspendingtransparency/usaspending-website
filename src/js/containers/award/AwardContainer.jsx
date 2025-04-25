@@ -34,7 +34,6 @@ import {
 import withDefCodes from 'containers/covid19/WithDefCodes';
 import { getAwardHistoryCounts } from "../../helpers/awardHistoryHelper";
 import Analytics from "../../helpers/analytics/Analytics";
-import { usePrevious } from "../../helpers/";
 
 require('pages/award/awardPage.scss');
 
