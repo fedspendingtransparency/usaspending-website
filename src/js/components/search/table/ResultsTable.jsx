@@ -548,10 +548,10 @@ export default class ResultsTable extends React.Component {
                     obj['End Date'] || obj['Last Date to Order'] || '--',
                     <ReadMore
                         text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
-                        limit={70} />,
+                        limit={80} />,
                     <ReadMore
                         text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
-                        limit={70} />
+                        limit={80} />
                 );
 
                 return value;
@@ -590,10 +590,10 @@ export default class ResultsTable extends React.Component {
                         obj['Awarding Sub Agency'] || '--',
                         <ReadMore
                             text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
-                            limit={70} />,
+                            limit={80} />,
                         <ReadMore
                             text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
-                            limit={70} />
+                            limit={80} />
                     );
 
                     return value;
@@ -686,10 +686,10 @@ export default class ResultsTable extends React.Component {
                     obj['Awarding Sub Agency'] || '--',
                     <ReadMore
                         text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
-                        limit={70} />,
+                        limit={80} />,
                     <ReadMore
                         text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
-                        limit={70} />
+                        limit={80} />
                 );
 
                 return value;

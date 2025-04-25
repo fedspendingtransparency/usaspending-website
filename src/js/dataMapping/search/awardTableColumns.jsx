@@ -455,7 +455,11 @@ const defaultOther = [
         subtitle: '(Period of Performance)',
         customWidth: newDefaultWidth
     },
-    { title: 'Assistance Listings', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
+    {
+        title: 'Assistance Listings',
+        displayName: 'Assistance Listing',
+        customWidth: newCustomWidth2
+    }
 ];
 
 const descriptionCol = {
