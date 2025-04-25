@@ -481,17 +481,17 @@ const SearchSidebarFilterChips = ({
                         (type) => !awardTypeGroups.grants.includes(type)
                     );
                 }
-                else if (directPaymentsGrouped) {
+                if (directPaymentsGrouped) {
                     financialAwardTypes = financialAwardTypes.filter(
                         (type) => !awardTypeGroups.direct_payments.includes(type)
                     );
                 }
-                else if (loansGrouped) {
+                if (loansGrouped) {
                     financialAwardTypes = financialAwardTypes.filter(
                         (type) => !awardTypeGroups.loans.includes(type)
                     );
                 }
-                else if (otherGrouped) {
+                if (otherGrouped) {
                     financialAwardTypes = financialAwardTypes.filter(
                         (type) => !awardTypeGroups.other.includes(type)
                     );
