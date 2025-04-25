@@ -8,7 +8,7 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
@@ -62,6 +62,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [tableRows, setTableRows] = useState([]);
     const history = useNavigate();
+    const [searchParams] = useSearchParams();
     let apiRequest;
 
     const childProps = {
@@ -163,16 +164,12 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     };
 
     const parseRank = () => {
-        if (history) {
-            const params = history?.location?.search?.split("&");
-            params?.shift();
-            if (params.length === 2 && params[0].substring(0, 8) === "section=") {
-                if (params[1].substring(0, 5) === "type=") {
-                    const rankVal = params[1].substring(5);
-                    if (rankVal === "naics" || rankVal === "psc") {
-                        props.setSelectedDropdown(rankVal);
-                    }
-                }
+        const section = searchParams.get('section');
+        const type = searchParams.get('type');
+        if (section && type) {
+            const rankVal = type;
+            if (rankVal === "naics" || rankVal === "psc") {
+                props.setSelectedDropdown(rankVal);
             }
         }
     };
@@ -317,12 +314,12 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             delete operation.dateType;
         }
 
-        const searchParams = operation.toParams();
+        const apiSearchParams = operation.toParams();
 
         // generate the API parameters
         const apiParams = {
             category: scope,
-            filters: searchParams,
+            filters: apiSearchParams,
             limit: 10,
             page,
             auditTrail,
