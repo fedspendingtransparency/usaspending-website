@@ -87,7 +87,7 @@ const TimeDsm = ({ subaward, spendingLevel }) => {
 
         </>;
 
-    legacyCopy = <>
+    const legacyCopy = <>
         <h4>What's included in this view of the data?</h4>
         <p style={{ marginBottom: '8px' }}>
             Spot trends in spending over your chosen time period.
