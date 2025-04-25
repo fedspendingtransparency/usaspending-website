@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
@@ -29,7 +30,10 @@ const propTypes = {
 };
 
 const StateContainer = (props) => {
+    console.log("state props", props);
     let fullRequest = null;
+    const navigate = useNavigate();
+
     const [statusState, setStatusState] = useState({
         loading: true,
         error: false
@@ -37,7 +41,7 @@ const StateContainer = (props) => {
 
     const onClickFy = (fy) => {
         const [, stateName] = parseStateDataFromUrl(props.match.params.state);
-        props.history(`/state/${stateName}/${fy}`);
+        navigate(`/state/${stateName}/${fy}`);
         props.setStateFiscalYear(fy);
     };
 
@@ -91,10 +95,10 @@ const StateContainer = (props) => {
         if (!Object.keys(props.match.params).includes('fy')) {
             // this may be an issue on the first day of 2026 fiscal year
             // props.history(`/state/${stateName}/latest`, { replace: true });
-            props.history(`/state/${stateName}/2025`, { replace: true });
+            navigate(`/state/${stateName}/2025`, { replace: true });
         }
         else if (!wasInputStateName) {
-            props.history(`/state/${stateName}/${fy}`, { replace: true });
+            navigate(`/state/${stateName}/${fy}`, { replace: true });
         }
         else {
             props.setStateFiscalYear(fy);

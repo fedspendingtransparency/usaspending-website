@@ -111,7 +111,7 @@ const AccountContainer = (props) => {
 
         setLoading(true);
 
-        accountRequest = AccountHelper.fetchFederalAccount(props.match.params.accountNumber);
+        accountRequest = AccountHelper.fetchFederalAccount(props?.match?.params?.accountNumber);
 
         accountRequest.promise
             .then((res) => {

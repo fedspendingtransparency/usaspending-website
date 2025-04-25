@@ -98,10 +98,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
     const updateUrl = (newParamsAsObj) => {
         const newQueryParams = combineQueryParams(existingParams, newParamsAsObj);
         setYearAndPeriod(newParamsAsObj);
-        history({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        }, { replace: true });
+        history(`${getQueryParamString(newQueryParams)}`, { replace: true });
     };
 
     const handleTimeChange = useCallback((y, p = null) => {

@@ -70,8 +70,7 @@ const AboutPage = () => {
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
             history({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
+                path: `${getQueryParamString(newQueryParams)}`
             }, { replace: true });
         }
 

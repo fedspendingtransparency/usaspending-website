@@ -75,8 +75,7 @@ const StatePage = ({
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
         history({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
+            path: `${getQueryParamString(newQueryParams)}`
         }, { replace: true });
 
         // add offsets
