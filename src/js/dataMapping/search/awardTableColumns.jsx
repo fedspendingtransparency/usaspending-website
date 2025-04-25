@@ -354,7 +354,7 @@ const defaultGrant = [
         subtitle: '(Period of Performance)',
         customWidth: newDefaultWidth
     },
-    { title: 'Assistance Listings', customWidth: newCustomWidth2 }
+    { title: 'Assistance Listings', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
 ];
 
 const defaultDirectPayment = [
@@ -391,7 +391,7 @@ const defaultDirectPayment = [
         subtitle: '(Period of Performance)',
         customWidth: newDefaultWidth
     },
-    { title: 'Assistance Listings', customWidth: newCustomWidth2 }
+    { title: 'Assistance Listings', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
 ];
 
 const defaultLoan = [
@@ -418,7 +418,7 @@ const defaultLoan = [
         customWidth: newCustomWidth1
     },
     { title: 'Issued Date', customWidth: newDefaultWidth },
-    { title: 'Assistance Listings', customWidth: newCustomWidth2 }
+    { title: 'Assistance Listings', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
 ];
 
 const defaultOther = [
@@ -455,7 +455,7 @@ const defaultOther = [
         subtitle: '(Period of Performance)',
         customWidth: newDefaultWidth
     },
-    { title: 'Assistance Listings', customWidth: newCustomWidth2 }
+    { title: 'Assistance Listings', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
 ];
 
 const descriptionCol = {
