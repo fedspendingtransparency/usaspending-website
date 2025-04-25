@@ -523,26 +523,17 @@ const ResultsTableContainer = (props) => {
     };
 
     const toggleSpendingLevel = () => {
-        switch (spendingLevel) {
-            case "subawards":
-                setSpendingLevel("awards");
-                setIsSubaward(false);
-                setIsTransactions(false);
-                break;
-
-            case "transactions":
-                setSpendingLevel("awards");
-                setIsSubaward(false);
-                setIsTransactions(false);
-                break;
-
-            default:
-                // toggle back to subaward or transactions
-                setSpendingLevel(props.spendingLevel);
-                setIsSubaward(props.spendingLevel === "subawards");
-                setIsTransactions(props.spendingLevel === "transactions");
-                break;
+        if (spendingLevel === "awards") {
+            // returgn back to original.
+            setSpendingLevel(props.spendingLevel);
+            setIsSubaward(props.spendingLevel === "subawards");
+            setIsTransactions(props.spendingLevel === "transactions");
+            return;
         }
+
+        setSpendingLevel("awards");
+        setIsSubaward(false);
+        setIsTransactions(false);
     };
 
     let availableTypes = tableTypes;
@@ -598,7 +589,7 @@ const ResultsTableContainer = (props) => {
                 // hash is (a) defined and (b) new
                 pickDefaultTab();
             }
-            else if (!isSubaward) {
+            else if (!isSubaward || !isTransactions) {
                 pickDefaultTab();
             }
         }
@@ -612,15 +603,7 @@ const ResultsTableContainer = (props) => {
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [isSubaward, props.noApplied]);
-
-    // useEffect(() => {
-    //     if (!isInitialLoad && spendingLevel !== props.spendingLevel) {
-    //         // spendingLevel toggled reset results
-    //         performSearch(true);
-    //     }
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [spendingLevel]);
+    }, 400), [isSubaward, props.noApplied, isTransactions]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
