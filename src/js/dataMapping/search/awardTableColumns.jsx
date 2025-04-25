@@ -263,13 +263,13 @@ const defaultContract = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     {
         title: 'End Date',
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     {
         title: 'NAICS',
@@ -305,12 +305,12 @@ const defaultIdvColumns = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     {
         title: 'Last Date to Order',
         displayName: 'Ordering Period End Date',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     {
         title: 'NAICS',
@@ -346,13 +346,13 @@ const defaultGrant = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     {
         title: 'End Date',
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     { title: 'Assistance Listings', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
 ];
@@ -383,13 +383,13 @@ const defaultDirectPayment = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     {
         title: 'End Date',
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     { title: 'Assistance Listings', displayName: 'Assistance Listing', customWidth: newCustomWidth2 }
 ];
@@ -447,13 +447,13 @@ const defaultOther = [
         title: 'Start Date',
         displayName: 'Period of Performance Start',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     {
         title: 'End Date',
         displayName: 'Period of Performance End',
         subtitle: '(Period of Performance)',
-        customWidth: newDefaultWidth
+        customWidth: newCustomWidth1
     },
     {
         title: 'Assistance Listings',
@@ -481,28 +481,28 @@ const covidDefCCol = {
 const covidObligationsCol = {
     title: 'COVID-19 Obligations',
     background: covidColor,
-    customWidth: newDefaultWidth,
+    customWidth: newCustomWidth1,
     right: true
 };
 
 const covidOutlaysCol = {
     title: 'COVID-19 Outlays',
     background: covidColor,
-    customWidth: newDefaultWidth,
+    customWidth: newCustomWidth1,
     right: true
 };
 
 const infrastructureObligationsCol = {
     title: 'Infrastructure Obligations',
     background: infrastructureColor,
-    customWidth: newDefaultWidth,
+    customWidth: newCustomWidth1,
     right: true
 };
 
 const infrastructureOutlaysCol = {
     title: 'Infrastructure Outlays',
     background: infrastructureColor,
-    customWidth: newDefaultWidth,
+    customWidth: newCustomWidth1,
     right: true
 };
 
