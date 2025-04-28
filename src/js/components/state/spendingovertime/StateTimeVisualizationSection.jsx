@@ -9,7 +9,6 @@ import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader } from 'data-transparency-ui';
 
-// import TimeVisualizationPeriodButton from 'components/search/newResultsView/time/TimeVisualizationPeriodButton';
 import StateTimeVisualizationChart from './StateTimeVisualizationChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
