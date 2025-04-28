@@ -311,14 +311,14 @@ const PSCCheckboxTreeContainer = ({
                 getPscAncestryPathForChecked(unchecked, nodes),
                 counts
             );
-            return Promise.resolve();
+            // return Promise.resolve();
         }
         else if (nodes.length !== 0) {
             showPscTree();
-            return Promise.resolve();
+            // return Promise.resolve();
         }
 
-        return fetchPscLocal('', null, false)
+        fetchPscLocal('', null, false)
             .then(() => {
                 if (checkedFromHash.length > 0) {
                     setPscCounts(countsFromHash);
@@ -403,11 +403,11 @@ const mapStateToProps = (state) => ({
     countsFromHash: state.appliedFilters.filters.pscCodes.counts
 });
 
-const combiedActions = Object.assign({},
+const combinedActions = Object.assign({},
     pscActions,
-    updatePSC
+    { updatePSC }
 );
 
 export default connect(mapStateToProps,
-    (dispatch) => bindActionCreators(combiedActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(PSCCheckboxTreeContainer);
