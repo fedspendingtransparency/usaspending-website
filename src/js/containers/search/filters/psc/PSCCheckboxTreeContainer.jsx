@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { debounce, get, flattenDeep } from 'lodash';
@@ -21,20 +21,12 @@ import {
     trimCheckedToCommonAncestors
 } from 'helpers/checkboxTreeHelper';
 
-import {
-    setPscNodes,
-    showPscTree,
-    setExpandedPsc,
-    setCheckedPsc,
-    setUncheckedPsc,
-    setSearchedPsc,
-    setPscCounts
-} from 'redux/actions/search/pscActions';
+import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
-import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
+import { bindActionCreators } from "redux";
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -42,7 +34,7 @@ const propTypes = {
     setCheckedPsc: PropTypes.func,
     setSearchedPsc: PropTypes.func,
     setPscCounts: PropTypes.func,
-    stagePsc: PropTypes.func,
+    updatePSC: PropTypes.func,
     showPscTree: PropTypes.func,
     setUncheckedPsc: PropTypes.func,
     expanded: PropTypes.arrayOf(PropTypes.string),
@@ -53,40 +45,271 @@ const propTypes = {
     countsFromHash: PropTypes.arrayOf(PropTypes.shape({})),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
-    counts: PropTypes.arrayOf(PropTypes.shape({})),
-    searchV2: PropTypes.bool
+    counts: PropTypes.arrayOf(PropTypes.shape({}))
 };
 
-export class PSCCheckboxTreeContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: false,
-            isSearch: false,
-            searchString: '',
-            isError: false,
-            errorMessage: '',
-            showNoResults: false
-        };
-        this.request = null;
-    }
+const PSCCheckboxTreeContainer = ({
+    setPscNodes,
+    setExpandedPsc,
+    setCheckedPsc,
+    setSearchedPsc,
+    setPscCounts,
+    updatePSC: stagePsc,
+    showPscTree,
+    setUncheckedPsc,
+    expanded,
+    checked,
+    unchecked,
+    checkedFromHash,
+    uncheckedFromHash,
+    countsFromHash,
+    nodes,
+    searchExpanded,
+    counts
+}) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSearch, setIsSearch] = useState(false);
+    const [searchString, setSearchString] = useState('');
+    const [isError, setIsError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showNoResults, setShowNoResults] = useState(false);
 
-    componentDidMount() {
-        const {
+    let request = null;
+
+
+    const autoCheckSearchResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
+        const newChecked = expandedLocal
+            .filter((expandedNode) => {
+                // if node is checked by an immediate placeholder, consider it checked.
+                if (checkedLocal.includes(`children_of_${expandedNode}`)) return true;
+                if (checkedLocal.includes(expandedNode)) return true;
+                return false;
+            })
+            .map((node) => removePlaceholderString(node))
+            .reduce((acc, expandedAndChecked) => {
+                const node = getPscNodeFromTree(nodesLocal, expandedAndChecked);
+                return [
+                    ...acc,
+                    ...getAllDescendants(node)
+                ];
+            }, []);
+
+        return new Set([...checkedLocal, ...newChecked]);
+    };
+
+
+    const fetchPscLocal = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
+        if (request) request.cancel();
+
+        if (id === '') {
+            setIsLoading(true);
+        }
+
+        if (showNoResults) {
+            setShowNoResults(false);
+        }
+
+        const queryParam = isSearch ? `?depth=-1&filter=${searchStr}` : id;
+
+        request = fetchPsc(queryParam);
+
+        const isPartialTree = (
+            id !== '' ||
+            isSearch
+        );
+
+        return request.promise
+            .then(({ data }) => {
+                // dynamically populating tree branches
+                const pscNodes = cleanPscData(data.results);
+
+                if (isPartialTree) {
+                    // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
+                    const key = id.includes('/') ? id.split('/').pop() : id;
+
+                    if (resolveLoadingIndicator) {
+                        setIsLoading(false);
+                    }
+
+                    const newChecked = checked.includes(`children_of_${key}`)
+                        ? autoCheckPscAfterExpand(
+                            { children: pscNodes, value: key },
+                            checked,
+                            unchecked
+                        )
+                        : checked;
+
+                    if (isSearch) {
+                        setSearchedPsc(pscNodes);
+
+                        const searchExpandedNodes = expandPscNodeAndAllDescendantParents(pscNodes);
+
+                        setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED');
+
+                        const nodesCheckedByPlaceholderOrAncestor = autoCheckSearchResultDescendants(
+                            checked,
+                            searchExpandedNodes,
+                            nodes
+                        );
+
+                        setCheckedPsc(nodesCheckedByPlaceholderOrAncestor);
+
+                        if (pscNodes.length === 0) {
+                            showNoResults(true);
+                        }
+                    }
+                    else {
+                        setPscNodes(key, pscNodes);
+                        setCheckedPsc(newChecked);
+                    }
+                }
+                else {
+                    // populating tree trunk
+                    setPscNodes('', pscNodes);
+
+                    if (resolveLoadingIndicator) {
+                        setIsLoading(false);
+                    }
+                }
+                request = null;
+            })
+            .catch((e) => {
+                if (!isCancel(e)) {
+                    console.log("error fetching PSC", e);
+
+                    setIsError(true);
+                    setIsLoading(false);
+                    setErrorMessage(get(e, 'message', 'Error fetching PSC.'));
+                }
+                request = null;
+            });
+    };
+
+    const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
+        if (shouldFetchChildren && !isSearch) {
+            if (selectedNode.treeDepth >= 1) {
+                const { parent } = selectedNode;
+
+                if (selectedNode.treeDepth === 2) {
+                    fetchPscLocal(`${parent.ancestors[0]}/${parent.value}/${expandedValue}`);
+                }
+                else {
+                    fetchPscLocal(`${parent.value}/${expandedValue}`);
+                }
+            }
+            else {
+                fetchPscLocal(expandedValue);
+            }
+        }
+        if (isSearch) {
+            setExpandedPsc(newExpandedArray, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            setExpandedPsc(newExpandedArray);
+        }
+    };
+
+    const onCheck = (newChecked) => {
+        const [newCounts, newUnchecked] = incrementPscCountAndUpdateUnchecked(
+            newChecked,
+            checked,
+            unchecked,
             nodes,
-            uncheckedFromHash,
-            checkedFromHash,
-            countsFromHash
-        } = this.props;
+            counts
+        );
+
+        setCheckedPsc(newChecked);
+        setPscCounts(newCounts);
+        setUncheckedPsc(newUnchecked);
+        stagePsc(
+            trimCheckedToCommonAncestors(getPscAncestryPathForChecked(newChecked, nodes)),
+            getPscAncestryPathForChecked(newUnchecked, nodes),
+            newCounts
+        );
+    };
+
+    const onUncheck = (newChecked, uncheckedNode) => {
+        const [newCounts, newUnchecked] = decrementPscCountAndUpdateUnchecked(
+            uncheckedNode,
+            unchecked,
+            checked,
+            counts,
+            nodes
+        );
+
+        setCheckedPsc(newChecked);
+        setPscCounts(newCounts);
+        setUncheckedPsc(newUnchecked);
+        stagePsc(
+            trimCheckedToCommonAncestors(getPscAncestryPathForChecked(newChecked, nodes)),
+            getPscAncestryPathForChecked(newUnchecked, nodes),
+            newCounts
+        );
+    };
+
+    const onClear = () => {
+        if (request) request.cancel();
+        setExpandedPsc([], 'SET_SEARCHED_EXPANDED');
+        showPscTree();
+
+        setIsSearch(false);
+        setSearchString('');
+        setIsLoading(false);
+        setIsError(false);
+        setErrorMessage('');
+        setShowNoResults(false);
+    };
+
+    const onSearchChange = debounce(() => {
+        if (!searchString) return onClear();
+        return fetchPscLocal('', searchString);
+    }, 500);
+
+    const onCollapse = (newExpandedArray) => {
+        if (isSearch) {
+            setExpandedPsc(newExpandedArray, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            setExpandedPsc(newExpandedArray);
+        }
+    };
+
+    const setCheckedStateFromUrlHash = (newChecked) => {
+        const uncheckedFromHashLocal = uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
+        if (nodes.length > 0) {
+            const newCheckedWithPlaceholders = flattenDeep(newChecked
+                .map((check) => getAllDescendants(
+                    getPscNodeFromTree(nodes, check), uncheckedFromHashLocal)
+                )
+            );
+            setCheckedPsc(newCheckedWithPlaceholders);
+            setUncheckedPsc(uncheckedFromHashLocal);
+            setIsLoading(false);
+        }
+    };
+
+    const handleTextInputChange = (e) => {
+        e.persist();
+        const text = e.target.value;
+        if (!text) {
+            onClear();
+        }
+
+        setSearchString(text);
+        setIsSearch(true);
+        setIsLoading(true);
+    };
+
+    useEffect(() => {
         if (nodes.length !== 0 && checkedFromHash.length) {
-            this.setCheckedStateFromUrlHash(
+            setCheckedStateFromUrlHash(
                 checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
             );
-            this.props.setPscCounts(countsFromHash);
-            this.props.stagePsc(
-                trimCheckedToCommonAncestors(getPscAncestryPathForChecked(this.props.checked, this.props.nodes)),
-                getPscAncestryPathForChecked(this.props.unchecked, this.props.nodes),
-                this.props.counts
+            setPscCounts(countsFromHash);
+            stagePsc(
+                trimCheckedToCommonAncestors(getPscAncestryPathForChecked(checked, nodes)),
+                getPscAncestryPathForChecked(unchecked, nodes),
+                counts
             );
             return Promise.resolve();
         }
@@ -94,309 +317,77 @@ export class PSCCheckboxTreeContainer extends React.Component {
             showPscTree();
             return Promise.resolve();
         }
-        return this.fetchPsc('', null, false)
+
+        return fetchPscLocal('', null, false)
             .then(() => {
                 if (checkedFromHash.length > 0) {
-                    this.props.setPscCounts(countsFromHash);
+                    setPscCounts(countsFromHash);
                     return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
                         .reduce((prevPromise, param) => prevPromise
                         // fetch the all the ancestors of the checked nodes
-                            .then(() => this.fetchPsc(param, null, false)), Promise.resolve([])
+                            .then(() => fetchPscLocal(param, null, false)), Promise.resolve([])
                         )
                         .then(() => {
-                            this.setCheckedStateFromUrlHash(
+                            setCheckedStateFromUrlHash(
                                 checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
                             );
-                            this.props.setExpandedPsc([
+                            setExpandedPsc([
                                 ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
                             ]);
                         })
                         .catch((e) => {
-                            this.setState({
-                                isLoading: false,
-                                isError: true,
-                                errorMessage: get(e, 'message', 'Error fetching PSC.')
-                            });
+                            setIsLoading(false);
+                            setIsError(true);
+                            setErrorMessage(get(e, 'message', 'Error fetching PSC.'));
                         });
                 }
-                this.setState({ isLoading: false });
+                setIsLoading(false);
 
                 // just do this for consistent return.
                 return Promise.resolve();
             });
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    componentWillUnmount() {
-        if (this.request) {
-            this.request.cancel();
+    useEffect(() =>
+        () => {
+            if (request) request.cancel();
+            showPscTree();
         }
-        this.props.showPscTree();
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    , []);
 
-    onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        if (shouldFetchChildren && !this.state.isSearch) {
-            if (selectedNode.treeDepth >= 1) {
-                const { parent } = selectedNode;
-                if (selectedNode.treeDepth === 2) {
-                    this.fetchPsc(`${parent.ancestors[0]}/${parent.value}/${expandedValue}`);
-                }
-                else {
-                    this.fetchPsc(`${parent.value}/${expandedValue}`);
-                }
-            }
-            else {
-                this.fetchPsc(expandedValue);
-            }
-        }
-        if (this.state.isSearch) {
-            this.props.setExpandedPsc(newExpandedArray, 'SET_SEARCHED_EXPANDED');
-        }
-        else {
-            this.props.setExpandedPsc(newExpandedArray);
-        }
-    };
-
-    onCheck = (newChecked) => {
-        const [newCounts, newUnchecked] = incrementPscCountAndUpdateUnchecked(
-            newChecked,
-            this.props.checked,
-            this.props.unchecked,
-            this.props.nodes,
-            this.props.counts
-        );
-
-        this.props.setCheckedPsc(newChecked);
-        this.props.setPscCounts(newCounts);
-        this.props.setUncheckedPsc(newUnchecked);
-        this.props.stagePsc(
-            trimCheckedToCommonAncestors(getPscAncestryPathForChecked(newChecked, this.props.nodes)),
-            getPscAncestryPathForChecked(newUnchecked, this.props.nodes),
-            newCounts
-        );
-
-        if (this.hint) {
-            this.hint.showHint();
-        }
-    };
-
-    onUncheck = (newChecked, uncheckedNode) => {
-        const [newCounts, newUnchecked] = decrementPscCountAndUpdateUnchecked(
-            uncheckedNode,
-            this.props.unchecked,
-            this.props.checked,
-            this.props.counts,
-            this.props.nodes
-        );
-
-        this.props.setCheckedPsc(newChecked);
-        this.props.setPscCounts(newCounts);
-        this.props.setUncheckedPsc(newUnchecked);
-        this.props.stagePsc(
-            trimCheckedToCommonAncestors(getPscAncestryPathForChecked(newChecked, this.props.nodes)),
-            getPscAncestryPathForChecked(newUnchecked, this.props.nodes),
-            newCounts
-        );
-    };
-
-    onSearchChange = debounce(() => {
-        if (!this.state.searchString) return this.onClear();
-        return this.fetchPsc('', this.state.searchString);
-    }, 500);
-
-    onClear = () => {
-        if (this.request) this.request.cancel();
-        this.props.setExpandedPsc([], 'SET_SEARCHED_EXPANDED');
-        this.props.showPscTree();
-        this.setState({
-            isSearch: false,
-            searchString: '',
-            isLoading: false,
-            isError: false,
-            errorMessage: '',
-            showNoResults: false
-        });
-    };
-
-    onCollapse = (newExpandedArray) => {
-        if (this.state.isSearch) {
-            this.props.setExpandedPsc(newExpandedArray, 'SET_SEARCHED_EXPANDED');
-        }
-        else {
-            this.props.setExpandedPsc(newExpandedArray);
-        }
-    };
-
-    setCheckedStateFromUrlHash = (newChecked) => {
-        const { nodes } = this.props;
-        const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
-        if (nodes.length > 0) {
-            const newCheckedWithPlaceholders = flattenDeep(newChecked
-                .map((checked) => getAllDescendants(getPscNodeFromTree(nodes, checked), uncheckedFromHash))
-            );
-            this.props.setCheckedPsc(newCheckedWithPlaceholders);
-            this.props.setUncheckedPsc(uncheckedFromHash);
-            this.setState({ isLoading: false });
-        }
-    };
-
-    autoCheckSearchResultDescendants = (checked, expanded, nodes) => {
-        const newChecked = expanded
-            .filter((expandedNode) => {
-                // if node is checked by an immediate placeholder, consider it checked.
-                if (checked.includes(`children_of_${expandedNode}`)) return true;
-                if (checked.includes(expandedNode)) return true;
-                return false;
-            })
-            .map((node) => removePlaceholderString(node))
-            .reduce((acc, expandedAndChecked) => {
-                const node = getPscNodeFromTree(nodes, expandedAndChecked);
-                return [
-                    ...acc,
-                    ...getAllDescendants(node)
-                ];
-            }, []);
-
-        return new Set([...checked, ...newChecked]);
-    };
-
-    fetchPsc = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
-        if (this.request) this.request.cancel();
-        if (id === '') {
-            this.setState({ isLoading: true });
-        }
-        if (this.state.showNoResults) {
-            this.setState({ showNoResults: false });
-        }
-        const queryParam = this.state.isSearch
-            ? `?depth=-1&filter=${searchStr}`
-            : id;
-        this.request = fetchPsc(queryParam);
-        const isPartialTree = (
-            id !== '' ||
-            this.state.isSearch
-        );
-        return this.request.promise
-            .then(({ data }) => {
-                // dynamically populating tree branches
-                const nodes = cleanPscData(data.results);
-                if (isPartialTree) {
-                    // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
-                    const key = id.includes('/')
-                        ? id.split('/').pop()
-                        : id;
-                    if (resolveLoadingIndicator) {
-                        this.setState({ isLoading: false });
-                    }
-                    const newChecked = this.props.checked.includes(`children_of_${key}`)
-                        ? autoCheckPscAfterExpand(
-                            { children: nodes, value: key },
-                            this.props.checked,
-                            this.props.unchecked
-                        )
-                        : this.props.checked;
-                    if (this.state.isSearch) {
-                        this.props.setSearchedPsc(nodes);
-                        const searchExpandedNodes = expandPscNodeAndAllDescendantParents(nodes);
-                        this.props.setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED');
-                        const nodesCheckedByPlaceholderOrAncestor = this.autoCheckSearchResultDescendants(
-                            this.props.checked,
-                            searchExpandedNodes,
-                            this.props.nodes
-                        );
-                        this.props.setCheckedPsc(nodesCheckedByPlaceholderOrAncestor);
-                        if (nodes.length === 0) {
-                            this.setState({ showNoResults: true });
-                        }
-                    }
-                    else {
-                        this.props.setPscNodes(key, nodes);
-                        this.props.setCheckedPsc(newChecked);
-                    }
-                }
-                else {
-                    // populating tree trunk
-                    this.props.setPscNodes('', nodes);
-                    if (resolveLoadingIndicator) {
-                        this.setState({ isLoading: false });
-                    }
-                }
-                this.request = null;
-            })
-            .catch((e) => {
-                if (!isCancel(e)) {
-                    console.log("error fetching PSC", e);
-                    this.setState({
-                        isError: true,
-                        isLoading: false,
-                        errorMessage: get(e, 'message', 'Error fetching PSC.')
-                    });
-                }
-                this.request = null;
-            });
-    };
-
-    handleTextInputChange = (e) => {
-        e.persist();
-        const text = e.target.value;
-        if (!text) {
-            return this.onClear();
-        }
-        return this.setState({
-            searchString: text,
-            isSearch: true,
-            isLoading: true
-        }, this.onSearchChange);
-    };
-
-    render() {
-        const {
-            nodes,
-            checked,
-            expanded,
-            searchExpanded
-        } = this.props;
-
-        const {
-            isLoading,
-            searchString,
-            isError,
-            errorMessage,
-            isSearch
-        } = this.state;
-
-        return (
-            <div className="psc-checkbox">
-                <EntityDropdownAutocomplete
-                    placeholder="Type to filter results"
-                    searchString={searchString}
-                    enabled
-                    handleTextInputChange={this.handleTextInputChange}
-                    context={{}}
-                    isClearable
-                    loading={false}
-                    onClear={this.onClear} />
-                <CheckboxTree
-                    isError={isError}
-                    errorMessage={errorMessage}
-                    isLoading={isLoading}
-                    data={nodes}
-                    checked={checked}
-                    searchText={searchString}
-                    noResults={this.state.showNoResults}
-                    expanded={isSearch ? searchExpanded : expanded}
-                    onUncheck={this.onUncheck}
-                    onCheck={this.onCheck}
-                    onExpand={this.onExpand}
-                    onCollapse={this.onCollapse} />
-                { !this.props.searchV2 &&
-                    <SubmitHint ref={(component) => {
-                        this.hint = component;
-                    }} />
-                }
-            </div>
-        );
-    }
-}
+    useEffect(() => {
+        if (searchString.length > 0 || isSearch || isLoading) onSearchChange();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchString, isSearch, isLoading]);
+    return (
+        <div className="psc-checkbox">
+            <EntityDropdownAutocomplete
+                placeholder="Type to filter results"
+                searchString={searchString}
+                enabled
+                handleTextInputChange={handleTextInputChange}
+                context={{}}
+                isClearable
+                loading={false}
+                onClear={onClear} />
+            <CheckboxTree
+                isError={isError}
+                errorMessage={errorMessage}
+                isLoading={isLoading}
+                data={nodes}
+                checked={checked}
+                searchText={searchString}
+                noResults={showNoResults}
+                expanded={isSearch ? searchExpanded : expanded}
+                onUncheck={onUncheck}
+                onCheck={onCheck}
+                onExpand={onExpand}
+                onCollapse={onCollapse} />
+        </div>
+    );
+};
 
 PSCCheckboxTreeContainer.propTypes = propTypes;
 
@@ -412,15 +403,11 @@ const mapStateToProps = (state) => ({
     countsFromHash: state.appliedFilters.filters.pscCodes.counts
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setPscNodes: (key, nodes) => dispatch(setPscNodes(key, nodes)),
-    showPscTree: () => dispatch(showPscTree()),
-    setExpandedPsc: (expanded, type) => dispatch(setExpandedPsc(expanded, type)),
-    setCheckedPsc: (nodes) => dispatch(setCheckedPsc(nodes)),
-    setUncheckedPsc: (nodes) => dispatch(setUncheckedPsc(nodes)),
-    setSearchedPsc: (nodes) => dispatch(setSearchedPsc(nodes)),
-    setPscCounts: (newCounts) => dispatch(setPscCounts(newCounts)),
-    stagePsc: (require, exclude, counts) => dispatch(updatePSC(require, exclude, counts))
-});
+const combiedActions = Object.assign({},
+    pscActions,
+    updatePSC
+);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PSCCheckboxTreeContainer);
+export default connect(mapStateToProps,
+    (dispatch) => bindActionCreators(combiedActions, dispatch)
+)(PSCCheckboxTreeContainer);
