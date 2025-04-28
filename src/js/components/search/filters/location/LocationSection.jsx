@@ -6,6 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import GlobalConstants from 'GlobalConstants';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
@@ -45,6 +46,7 @@ const LocationSection = (props) => {
 
     useEffect(() => {
         openDefaultTab();
+        setv2(pathname === GlobalConstants.SEARCH_V2_PATH);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -58,17 +60,13 @@ const LocationSection = (props) => {
     }, [dirtyFilters]);
 
     useEffect(() => {
-        if (pathname.includes("/search-legacy")) {
-            setv2(false);
+        if (!v2) {
             if (activeTab === 'recipient') {
                 setFilter(<RecipientFilterContainer />);
             }
             else {
                 setFilter(<POPFilterContainer />);
             }
-        }
-        else {
-            setv2(true);
         }
     }, [activeTab, pathname]);
 

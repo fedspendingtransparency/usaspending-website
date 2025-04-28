@@ -6,7 +6,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Redirect, useNavigate, useLocation, useParams } from 'react-router-dom';
+import GlobalConstants from 'GlobalConstants';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -151,7 +152,7 @@ const SearchContainer = () => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        navigate('/search');
+                        navigate(GlobalConstants.SEARCH_LEGACY_PATH);
                         request.current = null;
                     }
                 });
@@ -181,7 +182,7 @@ const SearchContainer = () => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
             navigate({
-                path: '/search-legacy'
+                path: GlobalConstants.SEARCH_LEGACY_PATH
             }, { replace: true });
 
             setDownloadAvailable(false);
@@ -207,7 +208,8 @@ const SearchContainer = () => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
                 navigate({
-                    path: `/search-legacy/${getQueryParamString(newQueryParams)}`
+                    path: GlobalConstants.SEARCH_LEGACY_PATH,
+                    search: getQueryParamString(newQueryParams)
                 }, { replace: true });
 
                 setGenerateHashInFlight(false);
@@ -264,8 +266,14 @@ export default SearchContainer;
 
 export const SearchContainerRedirect = () => {
     const { urlHash: pathHash } = useParams();
-    const navigate = useNavigate();
-    navigate(`/search${new URLSearchParams({ hash: pathHash }).toString()}`);
+    return (
+        <Redirect
+            to={{
+                pathname: GlobalConstants.SEARCH_LEGACY_PATH,
+                search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
+            }} />
+    );
+};
 
     return <></>;
 };
