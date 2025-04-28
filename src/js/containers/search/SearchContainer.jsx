@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { Redirect, useLocation, useParams } from 'react-router-dom';
+import GlobalConstants from 'GlobalConstants';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -155,7 +156,7 @@ const SearchContainer = ({ history }) => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        history?.push('/search');
+                        history?.push(GlobalConstants.SEARCH_LEGACY_PATH);
                         request.current = null;
                     }
                 });
@@ -185,7 +186,7 @@ const SearchContainer = ({ history }) => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
             history.replace({
-                pathname: '/search-legacy',
+                pathname: GlobalConstants.SEARCH_LEGACY_PATH,
                 search: ''
             });
             setDownloadAvailable(false);
@@ -211,7 +212,7 @@ const SearchContainer = ({ history }) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
                 history.replace({
-                    pathname: `/search-legacy/`,
+                    pathname: GlobalConstants.SEARCH_LEGACY_PATH,
                     search: getQueryParamString(newQueryParams)
                 });
                 setGenerateHashInFlight(false);
@@ -272,7 +273,7 @@ export const SearchContainerRedirect = () => {
     return (
         <Redirect
             to={{
-                pathname: '/search/',
+                pathname: GlobalConstants.SEARCH_LEGACY_PATH,
                 search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
             }} />
     );
