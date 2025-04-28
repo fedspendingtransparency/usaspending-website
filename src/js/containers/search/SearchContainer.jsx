@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { Redirect, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
@@ -264,16 +264,4 @@ const SearchContainer = () => {
 
 export default SearchContainer;
 
-export const SearchContainerRedirect = () => {
-    const { urlHash: pathHash } = useParams();
-    return (
-        <Redirect
-            to={{
-                pathname: GlobalConstants.SEARCH_LEGACY_PATH,
-                search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
-            }} />
-    );
-};
-
-    return <></>;
-};
+export const SearchContainerRedirect = () => <></>;
