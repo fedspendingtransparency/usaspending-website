@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, intersection, throttle } from 'lodash';
+import GlobalConstants from 'GlobalConstants';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -129,7 +130,9 @@ const ResultsTableContainer = (props) => {
     const [spendingLevel, setSpendingLevel] = useState(props.spendingLevel);
     const [isSubaward, setIsSubaward] = useState(props.spendingLevel === 'subawards');
     const [isTransactions, setIsTransactions] = useState(props.spendingLevel === 'transactions');
-    const showToggle = props.spendingLevel !== "awards";
+    const { pathname } = useLocation();
+    const isV2 = pathname === GlobalConstants.SEARCH_V2_PATH;
+    const showToggle = isV2 && (props.spendingLevel !== "awards");
 
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
