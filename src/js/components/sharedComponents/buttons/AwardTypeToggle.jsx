@@ -17,7 +17,6 @@ const AwardTypeToggle = ({
 }) => {
     const [selected, setSelected] = useState(spendingLevel);
     const nonGroup = useSelector((state) => state.searchView.spendingLevel);
-    // const dispatch = useDispatch();
 
     const onToggleClick = (type) => {
         setSelected(type);
