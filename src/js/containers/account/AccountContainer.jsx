@@ -82,7 +82,6 @@ const AccountContainer = (props) => {
 
                 // update the redux store
                 parseFYSnapshot(res.data);
-
                 setLoading(false);
             })
             .catch((err) => {
@@ -99,7 +98,7 @@ const AccountContainer = (props) => {
         const account = new FederalAccount(data);
         props.setSelectedAccount(account);
         if (props.latestPeriod.year) {
-            loadFiscalYearSnapshot(account.id);
+            loadFiscalYearSnapshot(props.account.id);
         }
     };
 
@@ -139,7 +138,9 @@ const AccountContainer = (props) => {
     }, [props?.match?.params?.accountNumber]);
 
     useEffect(() => {
-        loadFiscalYearSnapshot(props.account.id);
+        if (props.latestPeriod?.year && props.account?.id) {
+            loadFiscalYearSnapshot(props.account.id);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.latestPeriod?.year, props.account?.id]);
 
