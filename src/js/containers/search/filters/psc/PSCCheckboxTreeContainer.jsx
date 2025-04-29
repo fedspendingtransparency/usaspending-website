@@ -392,15 +392,15 @@ const PSCCheckboxTreeContainer = ({
 PSCCheckboxTreeContainer.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-    nodes: state.psc.psc.toJS(),
-    expanded: state.psc.expanded.toJS(),
-    searchExpanded: state.psc.searchExpanded.toJS(),
-    checked: state.psc.checked.toJS(),
-    unchecked: state.psc.unchecked.toJS(),
-    counts: state.psc.counts.toJS(),
-    checkedFromHash: state.appliedFilters.filters.pscCodes.require,
-    uncheckedFromHash: state.appliedFilters.filters.pscCodes.exclude,
-    countsFromHash: state.appliedFilters.filters.pscCodes.counts
+    nodes: state.psc.psc?.toJS(),
+    expanded: state.psc.expanded?.toJS(),
+    searchExpanded: state.psc?.searchExpanded?.toJS(),
+    checked: state.psc.checked?.toJS(),
+    unchecked: state.psc.unchecked?.toJS(),
+    counts: state.psc.counts?.toJS(),
+    checkedFromHash: state.appliedFilters?.filters.pscCodes.require,
+    uncheckedFromHash: state.appliedFilters?.filters.pscCodes.exclude,
+    countsFromHash: state.appliedFilters?.filters.pscCodes.counts
 });
 
 const combinedActions = Object.assign({},

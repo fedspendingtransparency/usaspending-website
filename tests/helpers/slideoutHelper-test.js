@@ -3,9 +3,7 @@
  *
  * slideoutHelper-test.js
  */
-import React from 'react';
 import { combineReducers, createStore } from 'redux';
-import * as redux from 'react-redux';
 import storeSingleton from 'redux/storeSingleton';
 import { beforeEach, expect } from '@jest/globals';
 import { render, waitFor } from '../testResources/test-utils';
