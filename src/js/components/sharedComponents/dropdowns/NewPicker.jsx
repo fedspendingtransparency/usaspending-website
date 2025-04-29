@@ -29,7 +29,9 @@ const propTypes = {
     children: PropTypes.node,
     backgroundColor: PropTypes.string,
     enabled: PropTypes.bool,
-    parentWidth: PropTypes.number
+    parentWidth: PropTypes.number,
+    infoSection: PropTypes.bool,
+    infoSectionContent: PropTypes.string
 };
 
 const defaultSort = (a, b, selectedOption) => {
@@ -56,7 +58,9 @@ const NewPicker = ({
     minTextWidth = '',
     classname = '',
     sortFn = defaultSort,
-    parentWidth
+    parentWidth,
+    infoSection = false,
+    infoSectionContent = ''
 }) => {
     const pickerRef = useRef(null);
     const buttonRef = useRef(null);
@@ -65,6 +69,7 @@ const NewPicker = ({
     const [isEnabled, setIsEnabled] = useState(enabled || false);
     const fontAwesomeIconId = "usa-dt-picker__button-icon--svg";
 
+    const height = infoSection ? '310px' : 'initial';
     useEffect(() => {
         const closeMenu = (e) => {
             if ((
@@ -154,36 +159,47 @@ const NewPicker = ({
                         )}
                     </span>
                 </button>
-                <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'} ${dropdownClassname}`} style={{ maxWidth: `${parentWidth}px` }}>
-                    {options?.sort(handleSort)
-                        .map((option) => ({
-                            ...option,
-                            onClick: createOnClickFn(option.onClick)
-                        }))
-                        .map((option) => (
-                            <li
-                                key={uniqueId()}
-                                className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name?.trim() === selectedOption?.trim() ? 'active' : ''}`}>
-                                <button
-                                    style={{ display: "block", width: "100%" }}
-                                    tabIndex={0}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        option.onClick(option.value);
-                                    }}
-                                    onKeyUp={(e) => {
-                                        e.preventDefault();
-                                        if (e.key === "Enter") {
+                {expanded &&
+                <div className="filter__dropdown__list-info-wrapper" style={{ maxWidth: `${parentWidth}px` }}>
+                    <ul className={`filter__dropdown-list${variation} ${expanded ? '' : 'hide'} ${isEnabled ? 'enabled' : 'not-enabled'} ${dropdownClassname}`} style={{ maxWidth: `${parentWidth}px`, height }}>
+                        {options?.sort(handleSort)
+                            .map((option) => ({
+                                ...option,
+                                onClick: createOnClickFn(option.onClick)
+                            }))
+                            .map((option) => (
+                                <li
+                                    key={uniqueId()}
+                                    className={`filter__dropdown-list-item ${option?.classNames ? option.classNames : ''} ${option.name?.trim() === selectedOption?.trim() ? 'active' : ''}`}>
+                                    <button
+                                        style={{ display: "block", width: "100%" }}
+                                        tabIndex={0}
+                                        onClick={(e) => {
+                                            e.preventDefault();
                                             option.onClick(option.value);
-                                        }
-                                    }}
-                                    className="filter__dropdown-item">
-                                    {option.component ? option.component : option.name}
-                                </button>
-                            </li>
-                        ))
-                    }
-                </ul>
+                                        }}
+                                        onKeyUp={(e) => {
+                                            e.preventDefault();
+                                            if (e.key === "Enter") {
+                                                option.onClick(option.value);
+                                            }
+                                        }}
+                                        className="filter__dropdown-item">
+                                        {option.component ? option.component : option.name}
+                                    </button>
+                                </li>
+                            ))
+                        }
+                        {infoSection &&
+                        <li>
+                            <div className="filter__dropdown-explainer" style={{ width: `${parentWidth}px` }}>
+                                <div className="filter__dropdownSeparator" />
+                                <div className="filter__dropdown-content">{infoSectionContent}</div>
+                            </div>
+                        </li>}
+                    </ul>
+
+                </div>}
             </div>
         </div>
     );
