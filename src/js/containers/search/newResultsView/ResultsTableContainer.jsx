@@ -203,12 +203,17 @@ const ResultsTableContainer = (props) => {
                     requestFields.push(field);
                 }
             }
-            else if (field === "Action Date") {
+            else if (field === "Action Date" && props.spendingLevel !== 'transactions') {
                 requestFields.push('Sub-Award Date');
             }
         });
 
-        requestFields.push('recipient_id', 'prime_award_recipient_id');
+        if (props.spendingLevel === 'transactions') {
+            requestFields.push('awarding_agency_id');
+        }
+        else {
+            requestFields.push('recipient_id', 'prime_award_recipient_id');
+        }
 
         // parse the redux search order into the API-consumable format
         const searchOrder = sort;
@@ -338,6 +343,7 @@ const ResultsTableContainer = (props) => {
                 }
             });
         }, {});
+
         setColumns(Object.assign(columns, columnsTemp));
     };
 

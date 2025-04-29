@@ -13,13 +13,13 @@
     "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
     "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
-    "travis": "npm audit --audit-level=high --production && ./node_modules/.bin/eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --maxWorkers=2 --silent",
+    "travis": "npm audit --audit-level=critical --production && ./node_modules/.bin/eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --maxWorkers=2 --silent",
     "lhci:wizard": "lhci wizard",
     "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
     "lhci:audit": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --chrome-flags=\"--headless\"; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "author": "",
   "engines": {
@@ -111,6 +111,7 @@
     "sinon": "^2.3.8",
     "speed-measure-webpack-plugin": "^1.5.0",
     "sqlite3": "^5.1.5",
+    "storybook": "^8.6.12",
     "strip-ansi": "^4.0.0",
     "style-loader": "^3.3.1",
     "supports-color": "^7.2.0",
@@ -195,7 +196,8 @@
     "**/handlebars": "4.7.8",
     "**/@babel/parser": "7.26.10",
     "@babel/parser": "7.26.10",
-    "**/@babel/runtime": "7.26.10",
+    "**/@babel/runtime": "7.27.0",
+    "@babel/runtime": "7.27.0",
     "**/lodash": "4.17.21",
     "**/batch": "0.6.1",
     "**/archiver": "7.0.1",
@@ -243,7 +245,9 @@
     "**/thenify": "3.3.1",
     "**/sorcery": "1.0.0",
     "**/eventsource": "3.0.5",
-    "**/shell-quote": "1.8.2"
+    "**/shell-quote": "1.8.2",
+    "*/@babel/helpers": "7.27.0",
+    "tar-fs": "3.0.8"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -253,8 +257,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@jest/globals": "^29.7.0",
-    "@mdx-js/loader": "^2.1.5",
-    "@mdx-js/react": "^2.1.5",
     "@react-hook/resize-observer": "^2.0.2",
     "accounting": "^0.4.1",
     "ajv": "^8.11.0",
@@ -270,7 +272,7 @@
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v7.0.0",
+    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v7.0.1",
     "date-fns": "^2.16.1",
     "dayjs": "^1.11.10",
     "dompurify": "^3.2.4",
