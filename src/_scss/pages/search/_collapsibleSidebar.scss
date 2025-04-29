@@ -96,7 +96,7 @@
         overflow-y: auto;
         height: 100%;
       }
-      
+
       .category-filter.exempt {
         overflow-y: auto;
       }
@@ -172,8 +172,8 @@
         padding: 0 32px;
       }
 
-      // DEV - 12074 requested that all search boxes be full width on tablet/mobile  
-      // putting this here is a overarching blanket v2 fix but does not effect original search styles. 
+      // DEV - 12074 requested that all search boxes be full width on tablet/mobile
+      // putting this here is a overarching blanket v2 fix but does not effect original search styles.
       .usa-da-typeahead__input,
       .autocomplete__input {
         input {
@@ -309,7 +309,7 @@
           color: $gray-60;
           font-weight: $font-normal;
           overflow-y: auto;
-          
+
           &--text-header {
             font-weight: $font-semibold;
             color: $gray-90;
@@ -329,6 +329,11 @@
 
             .additional-dsm-styles {
               margin-top: 4px;
+            }
+
+            &--button {
+              margin-left: 0;
+              padding: rem(6);
             }
           }
         }

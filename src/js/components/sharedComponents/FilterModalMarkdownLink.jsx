@@ -10,7 +10,9 @@ export default () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="collapsible-sidebar--dsm-wrapper--text-section" style={{ marginTop: "1.5em" }}>
+        <div
+            className="collapsible-sidebar--dsm-wrapper--text-section"
+            style={{ margin: "1.5em 0.6em 0 0.6em" }}>
             <Button
                 onClick={(e) => {
                     e.persist();
@@ -28,7 +30,8 @@ export default () => {
                 buttonType="text"
                 backgroundColor="light"
                 imageAlignment="right"
-                image={<FontAwesomeIcon icon="window-restore" />} />
+                image={<FontAwesomeIcon icon="window-restore" />}
+                additionalClassnames="collapsible-sidebar--dsm-wrapper--text-section--button" />
         </div>
     );
 };
