@@ -22,9 +22,7 @@ function render(
         return (
             <Provider store={store}>
                 <BrowserRouter>
-                    <Routes>
-                        {children}
-                    </Routes>
+                    {children}
                 </BrowserRouter>
             </Provider>
         );
