@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import { Route } from 'react-router-dom';
+import { Route, useNavigate } from 'react-router-dom';
 import * as reactRedux from 'react-redux';
 import * as agency from 'apis/agency';
 import * as accountHooks from 'containers/account/WithLatestFy';
@@ -31,6 +31,10 @@ beforeAll(() => {
 
 beforeEach(() => {
     jest.clearAllMocks();
+    jest.mock('react-router-dom', () => ({
+        ...jest.requireActual('react-router-dom'), // Use actual implementation for other exports
+        useNavigate: () => jest.fn(), // Mock useNavigate
+    }));
     jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => [
         null,
         [],
@@ -62,7 +66,7 @@ test('an API request is made for the agency code mapped to the slug in the URL',
     };
     spy = jest.spyOn(agency, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
-        <Route path="/agency/department-of-sandwiches"
+        <Route path="/agency/:agencySlug"
                element={<AgencyContainerV2 />} />
 
     ));
@@ -76,7 +80,7 @@ test('an API request is made for the agency code mapped to the slug in the URL',
 
 test('reset agency is called when the agency slug in the URL changes', () => {
     const { rerender } = render((
-        <Route path="/agency/ministry-of-magic"
+        <Route path="/agency/:"
                element={<AgencyContainerV2 />} />
     ));
     expect(mockDispatch).not.toHaveBeenCalled();

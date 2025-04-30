@@ -19,15 +19,14 @@ function render(
     } = {}
 ) {
     function Wrapper({ children }) {
-        console.log("children", children);
         return (
-            <BrowserRouter>
-                <Provider store={store}>
+            <Provider store={store}>
+                <BrowserRouter>
                     <Routes>
                         {children}
                     </Routes>
-                </Provider>
-            </BrowserRouter>
+                </BrowserRouter>
+            </Provider>
         );
     }
     return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
