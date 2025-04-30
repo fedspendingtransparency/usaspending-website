@@ -12,7 +12,7 @@ export default () => {
     return (
         <div
             className="collapsible-sidebar--dsm-wrapper--text-section"
-            style={{ margin: "1.5em 0.6em 0 0.6em" }}>
+            style={{ marginTop: "1.5em" }}>
             <Button
                 onClick={(e) => {
                     e.persist();
