@@ -62,9 +62,9 @@ test('an API request is made for the agency code mapped to the slug in the URL',
     };
     spy = jest.spyOn(agency, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
-        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
-            <AgencyContainerV2 />
-        </Route >
+        <Route path="/agency/department-of-sandwiches"
+               element={<AgencyContainerV2 />} />
+
     ));
 
     return waitFor(() => {
@@ -76,24 +76,21 @@ test('an API request is made for the agency code mapped to the slug in the URL',
 
 test('reset agency is called when the agency slug in the URL changes', () => {
     const { rerender } = render((
-        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
-            <AgencyContainerV2 />
-        </Route >
+        <Route path="/agency/ministry-of-magic"
+               element={<AgencyContainerV2 />} />
     ));
     expect(mockDispatch).not.toHaveBeenCalled();
     rerender((
-        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/ministry-of-magic' }}>
-            <AgencyContainerV2 />
-        </Route >
+        <Route path="/agency/ministry-of-magic"
+               element={<AgencyContainerV2 />} />
     ));
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'RESET_AGENCY' });
 });
 
 test('reset agency is called on unmount', () => {
     const { unmount } = render((
-        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
-            <AgencyContainerV2 />
-        </Route >
+        <Route path="/agency/department-of-sandwiches"
+               element={<AgencyContainerV2 />} />
     ));
     unmount();
     expect(mockDispatch).toHaveBeenLastCalledWith({ type: 'RESET_AGENCY' });

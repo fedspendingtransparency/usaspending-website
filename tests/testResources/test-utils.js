@@ -5,7 +5,7 @@ import React from "react";
 import { render as rtlRender } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes } from 'react-router-dom';
 
 // Import your own reducer
 import reducer from "../../src/js/redux/reducers/index";
@@ -19,12 +19,15 @@ function render(
     } = {}
 ) {
     function Wrapper({ children }) {
+        console.log("children", children);
         return (
-            <Provider store={store}>
-                <BrowserRouter>
-                    {children}
-                </BrowserRouter>
-            </Provider>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <Routes>
+                        {children}
+                    </Routes>
+                </Provider>
+            </BrowserRouter>
         );
     }
     return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
