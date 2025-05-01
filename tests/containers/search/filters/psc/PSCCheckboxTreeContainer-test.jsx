@@ -8,23 +8,39 @@
 import React from 'react';
 import storeSingleton from "redux/storeSingleton";
 import { Provider } from "react-redux";
+import { render } from "@testing-library/react";
+import { combineReducers, createStore } from "redux";
+import { List } from "immutable";
 
 import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
 import EntityDropdownAutocomplete from "components/search/filters/location/EntityDropdownAutocomplete";
 import CheckboxTree from "components/sharedComponents/CheckboxTree";
-import { render } from "@testing-library/react";
-import { combineReducers, createStore } from "redux";
 import * as pscReducer from "../../../../../src/js/redux/reducers/search/pscReducer";
-import appliedFiltersReducer, { initialState } from "../../../../../src/js/redux/reducers/search/appliedFiltersReducer";
+import appliedFiltersReducer from "../../../../../src/js/redux/reducers/search/appliedFiltersReducer";
+import searchFiltersReducer from "../../../../../src/js/redux/reducers/search/searchFiltersReducer";
 
 const mockPSCReducers = combineReducers({
     psc: pscReducer.default,
-    appliedFilters: appliedFiltersReducer.default
+    appliedFilters: appliedFiltersReducer.default,
+    filters: searchFiltersReducer.default
 });
 
 const mockData = {
-    psc: pscReducer.initialState,
-    appliedFilters: initialState
+    appliedFilters: {
+        filters: {
+            pscCodes: { require: new Set(), exclude: new Set(), counts: new Set() }
+        },
+        _empty: true,
+        _complete: true
+    },
+    psc: {
+        psc: new List(),
+        expanded: new List(),
+        searchExpanded: new List(),
+        checked: new List(),
+        unchecked: new List(),
+        counts: new List()
+    }
 };
 
 const store = createStore(mockPSCReducers, mockData);
@@ -75,6 +91,7 @@ jest.mock('../searchHelper', () => {
 
 describe('PSCCheckboxTreeContainer', () => {
     it('should load i guess', () => {
+        console.log(store);
         render(<Provider store={store}><PSCCheckboxTreeContainer /></Provider>);
 
         expect(CheckboxTree).toBe(false);
