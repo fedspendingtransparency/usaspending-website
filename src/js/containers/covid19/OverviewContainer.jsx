@@ -27,7 +27,7 @@ const OverviewContainer = ({ publicLaw }) => {
      */
     const handleWindowResize = throttle(() => {
         if (windowWidth !== window.innerWidth) {
-            setWindowWidth(windowWidth);
+            setWindowWidth(window.innerWidth);
             setVisualizationsWidth(divReference.current.offsetWidth);
         }
     }, 50);
