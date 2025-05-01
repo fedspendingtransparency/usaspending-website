@@ -65,7 +65,7 @@ const SpecificAwardAmountItem = ({ searchSpecificRange }) => {
             setWarningMessage(maxWarningMessage);
         }
         else if ((numberMin > numberMax) && document.activeElement.id === 'award-amount_min') {
-            setShowWarning(showWarning);
+            setShowWarning(tempShowWarning);
             setWarningMessage(minWarningMessage);
         }
     };

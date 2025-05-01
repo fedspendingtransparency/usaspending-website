@@ -52,7 +52,7 @@ const ContractGrantActivity = ({
     const handleWindowResize = throttle(() => {
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
-            setWindowWidth(windowWidth);
+            setWindowWidth(wWidth);
             setVisualizationWidth(divReference.current.offsetWidth);
         }
     }, 50);
