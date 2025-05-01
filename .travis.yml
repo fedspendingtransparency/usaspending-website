@@ -9,7 +9,7 @@ cache:
   directories:
     - node_modules
 before_install:
-  - npm install -g @lhci/cli@0.9.x
+  - npm install -g @lhci/cli@0.14.x
   - npm install -g npm@10.8.3
   - npm install -g webpack@5.94.0
   - npm install -g webpack-cli@5.1.4
