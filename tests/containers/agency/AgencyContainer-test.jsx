@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import { Route, useNavigate } from 'react-router-dom';
+import { Route, Routes, MemoryRouter } from 'react-router-dom';
 import * as reactRedux from 'react-redux';
 import * as agency from 'apis/agency';
 import * as accountHooks from 'containers/account/WithLatestFy';
@@ -31,10 +31,6 @@ beforeAll(() => {
 
 beforeEach(() => {
     jest.clearAllMocks();
-    jest.mock('react-router-dom', () => ({
-        ...jest.requireActual('react-router-dom'), // Use actual implementation for other exports
-        useNavigate: () => jest.fn(), // Mock useNavigate
-    }));
     jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => [
         null,
         [],
@@ -56,7 +52,7 @@ beforeEach(() => {
     reactRedux.useDispatch.mockClear();
 });
 
-xtest('an API request is made for the agency code mapped to the slug in the URL', () => {
+test('an API request is made for the agency code mapped to the slug in the URL', () => {
     const mockResponse = {
         promise: new Promise((resolve) => {
             process.nextTick(() => (
@@ -65,14 +61,21 @@ xtest('an API request is made for the agency code mapped to the slug in the URL'
         })
     };
     spy = jest.spyOn(agency, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
+    // const navigate = useNavigate();
+
     render((
-        <Route path="/agency/:agencySlug"
-               element={<AgencyContainerV2 />} />
+        // <Navigate to="/agency/department-of-sandwiches" />
+        <MemoryRouter initialEntries={['/agency']}>
+        <Routes>
+            <Route path="/agency"
+                   element={<AgencyContainerV2 />} />
+        </Routes>
+        </MemoryRouter>
 
     ));
 
-    return waitFor(() => {
-        expect(spy).toHaveBeenCalledTimes(1);
+    return waitFor(async () => {
+        await expect(spy).toHaveBeenCalledWithBeenCalledTimes(1);
         // TODO: update expected FY param when picker is fixed
         expect(spy).toHaveBeenCalledWith('123', 2020);
     });
@@ -80,7 +83,7 @@ xtest('an API request is made for the agency code mapped to the slug in the URL'
 
 xtest('reset agency is called when the agency slug in the URL changes', () => {
     const { rerender } = render((
-        <Route path="/agency/:"
+        <Route path="/agency/:agencySlug"
                element={<AgencyContainerV2 />} />
     ));
     expect(mockDispatch).not.toHaveBeenCalled();
