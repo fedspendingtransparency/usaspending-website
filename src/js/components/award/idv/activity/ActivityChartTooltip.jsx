@@ -95,8 +95,6 @@ export default class ActivityChartTooltip extends React.Component {
     // TruncatedDivWidth / NormalDivWidth =
     // x ( Truncated character length ) / NormalCharacterLength
     truncatedCharacterLength(truncatedDivWidth, normalDivWidth, normalCharacterLength) {
-    // return Math.floor(
-    //     ((truncatedDivWidth * normalCharacterLength) / normalDivWidth) / 2);
         return Math.floor(
             ((truncatedDivWidth * normalCharacterLength) / normalDivWidth));
     }
