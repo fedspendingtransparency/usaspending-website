@@ -29,7 +29,8 @@ const DatePicker = ({ type = 'startDate', ...props }) => {
         setInputValue('');
         if (e.target.id.includes("startDate")) {
             props.onDateChange(null, 'startDate');
-        } else if (e.target.id.includes("endDate")) {
+        }
+        else if (e.target.id.includes("endDate")) {
             props.onDateChange(null, 'endDate');
         }
     };
@@ -58,9 +59,9 @@ const DatePicker = ({ type = 'startDate', ...props }) => {
 
         // check if this meets the MM/DD/YYYY format requirement
         let format = 'MM/DD/YYYY';
-        const primaryFormat = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/;
+        const primaryFormat = /\d{2}\/\d{2}\/\d{4}/;
         // secretly check for a secondary format
-        const secondaryFormat = /[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/;
+        const secondaryFormat = /\d{1,2}\/\d{1,2}\/\d{4}/;
 
         const matchedFirst = primaryFormat.test(e.target.value);
         const matchedSecond = secondaryFormat.test(e.target.value);
