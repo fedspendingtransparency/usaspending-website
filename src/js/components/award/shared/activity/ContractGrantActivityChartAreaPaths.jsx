@@ -91,8 +91,8 @@ const ContractGrantActivityChartAreaPaths = ({
         const everyLineIsAfterLastTransaction = verticalLines.every((line) => (
             lastTransaction.action_date.isBefore(dayjs(line))
         ));
-        if (everyLineIsAfterLastTransaction) return true;
-        return false;
+
+        return everyLineIsAfterLastTransaction;
     }, [
         transactions,
         todayLineValue,
