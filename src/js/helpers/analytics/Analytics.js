@@ -31,17 +31,16 @@ const Analytics = {
         if (!args.category || !args.action) {
             return;
         }
-        if (args.gtm) {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                event: args.event || 'event',
-                event_category: `${this._prefix}${args.category}`,
-                event_action: args.action,
-                event_label: args.label || undefined,
-                event_value: args.value || undefined,
-                event_nonInteraction: args.nonInteraction || undefined
-            });
-        }
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: args.event || 'event',
+            event_category: `${this._prefix}${args.category}${args.gtm ? '' : '-TEST-EVENT'}`,
+            event_action: args.action,
+            event_label: args.label || undefined,
+            event_value: args.value || undefined,
+            event_nonInteraction: args.nonInteraction || undefined
+        });
 
         this._execute(
             'send',
