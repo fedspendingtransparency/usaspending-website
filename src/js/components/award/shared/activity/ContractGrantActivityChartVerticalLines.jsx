@@ -75,7 +75,6 @@ const ContractGrantActivityChartVerticalLines = ({
         .map((line, i) => `A vertical line representing the ${lineData[i].text}, ${dayjs(lineData[i].date).format("dddd, MMMM Do YYYY") || ''}`);
     return (
         <g className="contract-grant-activity-chart__vertical-lines">
-            {/* {createAllTheLines()} */}
             {/* start line */}
             {xScale && <SVGLine
                 scale={xScale}
