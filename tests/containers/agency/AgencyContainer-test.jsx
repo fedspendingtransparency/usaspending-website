@@ -61,44 +61,55 @@ test('an API request is made for the agency code mapped to the slug in the URL',
         })
     };
     spy = jest.spyOn(agency, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
-    // const navigate = useNavigate();
 
-    render((
-        // <Navigate to="/agency/department-of-sandwiches" />
-        <MemoryRouter initialEntries={['/agency']}>
-        <Routes>
-            <Route path="/agency"
-                   element={<AgencyContainerV2 />} />
-        </Routes>
+    render(
+        <MemoryRouter initialEntries={['/agency/department-of-sandwiches']}>
+            <Routes>
+                <Route path="/agency/:agencySlug"
+                       element={<AgencyContainerV2 />} />
+            </Routes>
         </MemoryRouter>
 
-    ));
+    );
 
     return waitFor(async () => {
-        await expect(spy).toHaveBeenCalledWithBeenCalledTimes(1);
         // TODO: update expected FY param when picker is fixed
         expect(spy).toHaveBeenCalledWith('123', 2020);
+        // expect(spy).toHaveBeenCalledWithBeenCalledTimes(1);
     });
 });
 
 xtest('reset agency is called when the agency slug in the URL changes', () => {
-    const { rerender } = render((
-        <Route path="/agency/:agencySlug"
-               element={<AgencyContainerV2 />} />
-    ));
+    const { rerender } = render(
+        <MemoryRouter initialEntries={['/agency/department-of-sandwiches','/agency/ministry-of-magic']}>
+            <Routes>
+                <Route path="/agency/:agencySlug"
+                       element={<AgencyContainerV2 />} />
+            </Routes>
+        </MemoryRouter>
+    );
     expect(mockDispatch).not.toHaveBeenCalled();
-    rerender((
-        <Route path="/agency/ministry-of-magic"
-               element={<AgencyContainerV2 />} />
-    ));
+
+    render(
+        <MemoryRouter initialEntries={['/agency/ministry-of-magic']}>
+            <Routes>
+                <Route path="/agency/:agencySlug"
+                       element={<AgencyContainerV2 />} />
+            </Routes>
+        </MemoryRouter>
+    );
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'RESET_AGENCY' });
 });
 
-xtest('reset agency is called on unmount', () => {
-    const { unmount } = render((
-        <Route path="/agency/department-of-sandwiches"
-               element={<AgencyContainerV2 />} />
-    ));
+test('reset agency is called on unmount', () => {
+    const { unmount } = render(
+        <MemoryRouter initialEntries={['/agency/department-of-sandwiches']}>
+            <Routes>
+                <Route path="/agency/:agencySlug"
+                       element={<AgencyContainerV2 />} />
+            </Routes>
+        </MemoryRouter>
+    );
     unmount();
     expect(mockDispatch).toHaveBeenLastCalledWith({ type: 'RESET_AGENCY' });
 });

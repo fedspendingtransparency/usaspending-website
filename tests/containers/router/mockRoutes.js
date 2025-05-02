@@ -1,3 +1,5 @@
+import AgencyContainer from "containers/agency/AgencyContainer";
+
 const routes = {
     routes: [
         {
@@ -10,6 +12,12 @@ const routes = {
             parent: '/first',
             silentlyUpdate: true,
             component: 'first'
+        },
+        {
+            path: '/agency/department-of-sandwiches',
+            parent: '/agency',
+            silentlyUpdate: true,
+            element: '<AgencyContainer/>'
         }
     ],
     notFound: {
