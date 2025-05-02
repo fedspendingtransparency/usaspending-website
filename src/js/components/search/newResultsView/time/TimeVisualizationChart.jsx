@@ -48,11 +48,11 @@ const CustomShape = (props) => {
 
 const CustomXTick = (props) => {
     const {
-        x, y, payload, width, label
+        x, y, payload, label
     } = props;
 
     if (payload?.value === "jump" || label === "jump") {
-        return timeJumpIcon(x, y, width);
+        return timeJumpIcon(x, y);
     }
     return (
         <g transform={`translate(${x},${y})`}>
