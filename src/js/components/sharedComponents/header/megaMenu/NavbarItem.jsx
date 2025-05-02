@@ -30,9 +30,9 @@ const NavbarItem = (props) => {
                 <>
                     <button
                         className={`navbar-item-title navbar-item-title-${index} ${navChevronDirection === "chevron-up" ? "navbar-item-title-hover" : ""}`}
-                        onMouseEnter={() => onMouseEnter(index)}
+                        onMouseEnter={() => onMouseEnter()}
                         onMouseLeave={() => onMouseLeave()}
-                        onFocus={() => onMouseEnter(index)}>
+                        onFocus={() => onMouseEnter()}>
                         {title}
                         <div className="navbar-chevron-icon">
                             <FontAwesomeIcon icon={navChevronDirection} alt={iconAlt} />

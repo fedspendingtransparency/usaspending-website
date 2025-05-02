@@ -88,7 +88,7 @@ const AnimatedNavbar = React.memo(() => {
         }
         return {
             transformOrigin: "0 0",
-            animationName: getDropdownRootKeyFrame(animatingOut),
+            animationName: getDropdownRootKeyFrame(),
             animationDuration: '225ms',
             /* use 'forwards' to prevent flicker on leave animation */
             animationFillMode: "forwards",

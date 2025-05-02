@@ -389,7 +389,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             <div ref={tableRef} className={`table-wrapper spending-by-cfda ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
-                    rows={parseRows(results)}
+                    rows={parseRows()}
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }} />
             </div>}
