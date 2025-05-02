@@ -169,7 +169,7 @@ const ContractGrantActivity = ({
             transform: `translate(${data.cx + 11}px,${data.cy - 13}px)`
         },
         tooltipComponent: <PaginatedTooltipContainer
-            data={transactionTooltipInfo(data.data, 'Modification')}
+            data={transactionTooltipInfo(data.data)}
             tooltipElement={<Tooltip />} />
     });
 
@@ -196,7 +196,7 @@ const ContractGrantActivity = ({
         setHoveringOverTransactionTooltip(false);
     };
 
-    const showTransactionTooltip = (data, text) => handleTooltipDataTransaction(data, text);
+    const showTransactionTooltip = (data) => handleTooltipDataTransaction(data);
 
     const hideTooltipTransaction = () => setTimeout(() => setShowTooltipTransaction(false), 500);
 
