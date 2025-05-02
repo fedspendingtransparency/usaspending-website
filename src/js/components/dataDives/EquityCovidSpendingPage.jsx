@@ -3,7 +3,7 @@
  * Created by Brian Petway 06/16/22
  */
 
-import React, { act } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import Analytics from 'helpers/analytics/Analytics';
