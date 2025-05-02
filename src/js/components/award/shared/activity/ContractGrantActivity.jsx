@@ -37,7 +37,6 @@ const ContractGrantActivity = ({
     const [showTooltipLine, setShowTooltipLine] = useState(false);
     const [showTooltipTransaction, setShowTooltipTransaction] = useState(false);
     const [thisLineOrTextIsHovered, setThisLineOrTextIsHovered] = useState('');
-    // const [hoveringOverTransactionArrow, setHoveringOverTransactionArrow] = useState(false);
     const [isHoveringOverTransactionTooltip, setHoveringOverTransactionTooltip] = useState(false);
     /**
      * Line tooltip data e.g. { title: 'Start Date', amount: '04/24/2020' }
@@ -102,7 +101,7 @@ const ContractGrantActivity = ({
         return {
             styles: { // y position is in the middle of the line
                 position: 'absolute',
-                transform: `translate(${((data.position + 16))}px,${(height / 2) - defaultPadding.bottom}px)`
+                transform: `translate(${(data.position + 16)}px,${(height / 2) - defaultPadding.bottom}px)`
             },
             tooltipComponent: <RectanglePercentVizTooltip
                 title={`${text} Date`}
