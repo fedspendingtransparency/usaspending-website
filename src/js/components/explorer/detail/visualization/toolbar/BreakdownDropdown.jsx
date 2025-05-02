@@ -80,7 +80,7 @@ const BreakdownDropdown = (props) => {
 
 
     useEffect(() => {
-        prepareOptions(props);
+        prepareOptions();
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -89,13 +89,13 @@ const BreakdownDropdown = (props) => {
 
     useEffect(() => {
         if (prevProps?.active !== props.active) {
-            prepareOptions(props);
+            prepareOptions();
         }
         else if (prevProps?.root !== props.root) {
-            prepareOptions(props);
+            prepareOptions();
         }
         else if (prevProps?.isRoot !== props.isRoot) {
-            prepareOptions(props);
+            prepareOptions();
         }
         /* eslint-disable react-hooks/exhaustive-deps */
     }, [props.active, props.root, props.isRoot, prevProps]);
