@@ -371,7 +371,7 @@ const AgenciesContainer = ({
                 )}
                 {activeTab === 'publications' && (
                     <Table
-                        rows={searchTerm ? renderDates(publicationsSearchResults, selectedFy) : renderDates(allPublications, selectedFy)}
+                        rows={searchTerm ? renderDates(publicationsSearchResults) : renderDates(allPublications)}
                         classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
                         columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}
