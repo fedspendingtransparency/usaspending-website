@@ -3,7 +3,7 @@
  * Created by Brian Petway 06/16/22
  */
 
-import React from 'react';
+import React, { act } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import Analytics from 'helpers/analytics/Analytics';
@@ -28,11 +28,11 @@ const EquityCovidSpendingPage = () => {
     };
 
     const spotlightClickHandler = () => {
-        analyticsEvent('Spotlight on The Opportunity Project', 'Spotlight on The Opportunity Project');
+        analyticsEvent('Spotlight on The Opportunity Project');
     };
 
     const covidClickHandler = () => {
-        analyticsEvent('Spotlight on COVID Profile', 'Spotlight on COVID Profile');
+        analyticsEvent('Spotlight on COVID Profile');
     };
 
     const HeadingContentObject = {
