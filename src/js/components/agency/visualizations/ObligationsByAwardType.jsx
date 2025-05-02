@@ -225,7 +225,7 @@ export default function ObligationsByAwardType({
                 });
             // text
             svg.append('text')
-                .attr('transform', (d, i) => `translate(${labelPos(0, i * 12)})`)
+                .attr('transform', `translate(${labelPos(0)})`)
                 .attr('class', 'obligations-by-award-type__label')
                 .text(outerLabels[0])
                 // adding hover with ticket 8429
@@ -280,7 +280,7 @@ export default function ObligationsByAwardType({
                 });
             // text
             svg.append('text')
-                .attr('transform', (d, i) => `translate(${labelPos(1, i * 12)})`)
+                .attr('transform', `translate(${labelPos(1)})`)
                 .attr('class', 'obligations-by-award-type__label')
                 .text(outerLabels[1])
                 // adding hover with ticket 8429
