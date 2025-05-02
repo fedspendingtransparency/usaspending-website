@@ -948,7 +948,7 @@ const StatusOfFundsChart = ({
 
     useEffect(() => {
         if (sortedNums?.length > 0) {
-            renderChart(toggle);
+            renderChart();
         }
     }, [renderChart, sortedNums, textScale, hoverData, toggle]);
 
