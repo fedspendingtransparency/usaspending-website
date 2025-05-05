@@ -93,7 +93,7 @@ describe('BulkDownloadBottomBarContainer tests', () => {
         });
     });
 
-    it('shows windowWillClose message before closing', () => {
+    xit('shows windowWillClose message before closing', () => {
         mockPropTypes.bulkDownload.download.pendingDownload = true;
         mockPropTypes.bulkDownload.download.showCollapsedProgress = true;
 

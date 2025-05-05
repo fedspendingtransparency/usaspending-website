@@ -30,7 +30,7 @@ function render(
     return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
 
-function render2(
+function renderWithoutRouter(
     ui,
     {
         initialState,
@@ -51,4 +51,4 @@ function render2(
 // re-export everything
 export * from "@testing-library/react";
 // override render method
-export { render, render2 };
+export { render, renderWithoutRouter };
