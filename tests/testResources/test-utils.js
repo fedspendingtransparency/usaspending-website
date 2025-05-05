@@ -21,7 +21,27 @@ function render(
     function Wrapper({ children }) {
         return (
             <Provider store={store}>
+                <BrowserRouter>
                     {children}
+                </BrowserRouter>
+            </Provider>
+        );
+    }
+    return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
+}
+
+function render2(
+    ui,
+    {
+        initialState,
+        store = createStore(reducer, initialState),
+        ...renderOptions
+    } = {}
+) {
+    function Wrapper({ children }) {
+        return (
+            <Provider store={store}>
+                {children}
             </Provider>
         );
     }
@@ -31,4 +51,4 @@ function render(
 // re-export everything
 export * from "@testing-library/react";
 // override render method
-export { render };
+export { render, render2 };

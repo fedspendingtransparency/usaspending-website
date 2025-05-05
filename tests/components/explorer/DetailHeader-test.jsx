@@ -6,7 +6,7 @@
  * */
 
 import React from "react";
-import { render, screen } from "test-utils";
+import { render2, screen } from "test-utils";
 import { expect } from '@jest/globals';
 import DetailHeader from "components/explorer/detail/header/DetailHeader";
 import * as hooks from "containers/agency/WithAgencySlugs";
@@ -34,7 +34,7 @@ beforeEach(() => {
 describe('DetailHeader Component', () => {
 
     const renderComponent = (id) => {
-        render(<BrowserRouter>
+        render2(<BrowserRouter>
             <DetailHeader
                 activeSubdivision={null}
                 isLoading={false}

@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { render, waitFor } from 'test-utils';
+import { render, render2, waitFor } from 'test-utils';
 import { Route, Routes, MemoryRouter } from 'react-router-dom';
 import * as reactRedux from 'react-redux';
 import * as agency from 'apis/agency';
@@ -62,7 +62,7 @@ test('an API request is made for the agency code mapped to the slug in the URL',
     };
     spy = jest.spyOn(agency, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
 
-    render(
+    render2(
         <MemoryRouter initialEntries={['/agency/department-of-sandwiches']}>
             <Routes>
                 <Route path="/agency/:agencySlug"
@@ -80,7 +80,7 @@ test('an API request is made for the agency code mapped to the slug in the URL',
 });
 
 xtest('reset agency is called when the agency slug in the URL changes', () => {
-    const { rerender } = render(
+    const { rerender } = render2(
         <MemoryRouter initialEntries={['/agency/department-of-sandwiches','/agency/ministry-of-magic']}>
             <Routes>
                 <Route path="/agency/:agencySlug"
@@ -90,7 +90,7 @@ xtest('reset agency is called when the agency slug in the URL changes', () => {
     );
     expect(mockDispatch).not.toHaveBeenCalled();
 
-    render(
+    rerender(
         <MemoryRouter initialEntries={['/agency/ministry-of-magic']}>
             <Routes>
                 <Route path="/agency/:agencySlug"
@@ -102,7 +102,7 @@ xtest('reset agency is called when the agency slug in the URL changes', () => {
 });
 
 test('reset agency is called on unmount', () => {
-    const { unmount } = render(
+    const { unmount } = render2(
         <MemoryRouter initialEntries={['/agency/department-of-sandwiches']}>
             <Routes>
                 <Route path="/agency/:agencySlug"

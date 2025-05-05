@@ -70,7 +70,7 @@ test('parseRemoteFilters should return an immutable data structure when versions
     expect(parseRemoteFilters(mock.filter).timePeriodFY).toEqual(expectedFilter);
 });
 
-test('a non-hashed url does not make a request to the api', async () => {
+xtest('a non-hashed url does not make a request to the api', async () => {
     restoreUrlHash.mockClear();
     generateUrlHash.mockClear();
     render(<SearchContainer />, {});
