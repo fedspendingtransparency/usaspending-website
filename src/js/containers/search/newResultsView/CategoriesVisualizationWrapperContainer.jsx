@@ -61,7 +61,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [hasNextPage, setHasNextPage] = useState(false);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [tableRows, setTableRows] = useState([]);
-    const history = useNavigate();
     const [searchParams] = useSearchParams();
     let apiRequest;
 
