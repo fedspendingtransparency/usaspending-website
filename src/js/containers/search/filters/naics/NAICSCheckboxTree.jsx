@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { bindActionCreators, connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
 import { isCancel } from 'axios';
@@ -202,7 +203,9 @@ const NAICSCheckboxTree = ({
         const searchParam = (isSearch && searchString) ? `?filter=${searchString}` : null;
         setIsLoading(true);
 
-        request = naicsRequest(param || searchParam)
+        request = naicsRequest(param || searchParam);
+
+        return request.promise
             .then(({ data: { results } }) => {
                 if (isSearch) {
                     const visibleNaicsValues = naicsHelper.expandNaicsAndAllDescendantParents(results, 'naics');
