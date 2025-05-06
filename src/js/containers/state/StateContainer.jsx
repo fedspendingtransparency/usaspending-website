@@ -33,7 +33,7 @@ const StateContainer = (props) => {
     const match = useMatch(`/state/:state/:fyParam?`);
     const { state, fyParam } = match.params;
 
-    const fy = fyParam || '2025';
+    const fy = fyParam;
 
     const [statusState, setStatusState] = useState({
         loading: true,
@@ -92,7 +92,7 @@ const StateContainer = (props) => {
     useEffect(() => {
         const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
 
-        if (!Object.keys(match.params).includes('fy')) {
+        if (!fy) {
             // this may be an issue on the first day of 2026 fiscal year
             // props.history(`/state/${stateName}/latest`, { replace: true });
             navigate(`/state/${stateName}/2025`, { replace: true });
@@ -109,7 +109,8 @@ const StateContainer = (props) => {
         return () => {
             props.resetState();
         };
-    }, [loadStateOverview, match.params, navigate, props, setStateCenter, state]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         const [, , stateId] = parseStateDataFromUrl(state);
@@ -118,7 +119,8 @@ const StateContainer = (props) => {
         loadStateOverview(stateId, fy);
         // Update the map center
         setStateCenter(stateId);
-    }, [fy, loadStateOverview, props, setStateCenter, state]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state]);
 
     useEffect(() => {
         // we just redirected the user or to the new url which includes the fy selection
@@ -128,7 +130,8 @@ const StateContainer = (props) => {
     useEffect(() => {
         const [, , stateId] = parseStateDataFromUrl(state);
         loadStateOverview(stateId, props.stateProfile.fy);
-    }, [loadStateOverview, props.stateProfile.fy, state]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.stateProfile.fy]);
 
     return (
         <StatePage
