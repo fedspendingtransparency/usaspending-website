@@ -98,7 +98,7 @@ const AccountContainer = (props) => {
         const account = new FederalAccount(data);
         props.setSelectedAccount(account);
         if (props.latestPeriod.year) {
-            loadFiscalYearSnapshot(account.id);
+            loadFiscalYearSnapshot(props.account.id);
         }
     };
 
