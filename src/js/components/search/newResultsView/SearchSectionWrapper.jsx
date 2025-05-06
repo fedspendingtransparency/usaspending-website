@@ -14,6 +14,7 @@ import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
+import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -34,9 +35,12 @@ const propTypes = {
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     children: PropTypes.element,
-    table: PropTypes.bool,
+    table: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
     sectionName: PropTypes.string,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string,
+    onToggle: PropTypes.func,
+    showToggle: PropTypes.bool
 };
 
 const SearchSectionWrapper = ({
@@ -58,7 +62,10 @@ const SearchSectionWrapper = ({
     sectionName,
     mapViewType = false,
     setMapViewType = false,
-    hash
+    hash,
+    spendingLevel,
+    onToggle,
+    showToggle
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [viewType, setViewType] = useState('chart');
@@ -204,6 +211,7 @@ const SearchSectionWrapper = ({
                 :
                 <div className="search__section-wrapper-header">
                     <span className="filter__dropdown-label">{sectionTitle}</span>
+                    {showToggle && <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />}
                 </div>
             }
             {!openAccordion &&

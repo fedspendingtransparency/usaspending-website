@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import { Link } from 'react-router-dom';
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
