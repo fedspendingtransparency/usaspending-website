@@ -248,8 +248,6 @@
     "**/shell-quote": "1.8.2",
     "*/@babel/helpers": "7.27.0",
     "tar-fs": "3.0.8"
-    "**/shell-quote": "1.8.2",
-    "tar-fs": "3.0.8"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
