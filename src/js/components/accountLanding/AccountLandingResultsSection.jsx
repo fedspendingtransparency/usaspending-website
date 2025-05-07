@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -32,18 +32,16 @@ export default class AccountLandingResultsSection extends React.Component {
                             classNames="table-message-fade"
                             timeout={{ exit: 225, enter: 195 }}
                             exit>
-                            <>
-                                {this.props.error && (
-                                    <div className="results-table-message-container full">
-                                        <ResultsTableErrorMessage />
-                                    </div>
-                                )}
-                                {this.props.inFlight && (
-                                    <div className="results-table-message-container">
-                                        <ResultsTableLoadingMessage />
-                                    </div>
-                                )}
-                            </>
+                            {this.props.error && (
+                                <div className="results-table-message-container full">
+                                    <ResultsTableErrorMessage />
+                                </div>
+                            )}
+                            {this.props.inFlight && (
+                                <div className="results-table-message-container">
+                                    <ResultsTableLoadingMessage />
+                                </div>
+                            )}
                         </CSSTransition>
                     )}
                 </TransitionGroup>
