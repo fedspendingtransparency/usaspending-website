@@ -104,7 +104,7 @@ export default class ExplorerLanding extends React.Component {
                             icon="agency"
                             title="Agency"
                             description="See spending divided by all U.S. government agencies."
-                            url="//agency"
+                            url="/explorer/agency"
                             term="agency"
                             onClick={this.setShowAboutTheDataIcon} />
                         <ExplorerLandingOption
