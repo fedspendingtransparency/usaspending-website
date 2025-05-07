@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import { OrderedMap } from 'immutable';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { useHistory } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import replaceString from 'helpers/replaceString';
 import { awardTypeGroups } from 'dataMapping/search/awardType';

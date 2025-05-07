@@ -35,7 +35,8 @@ export default class ResultsTable extends React.Component {
         setPage: PropTypes.func,
         setResultLimit: PropTypes.func,
         total: PropTypes.number,
-        isMobile: PropTypes.bool
+        isMobile: PropTypes.bool,
+        federalAccountPage: PropTypes.bool
     };
 
     constructor(props) {
@@ -331,6 +332,123 @@ export default class ResultsTable extends React.Component {
         // (page - 1) * limit start
         const arrayOfObjects = this.props.results;
         let values = null;
+
+        // prop specifically for the federal account page, which uses the same results table
+        if (this.props.federalAccountPage === true) {
+            if (this.props.currentType === 'contracts') {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/award/${obj.generated_internal_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Award ID']);
+                            }}>{obj['Award ID']}
+                        </a> || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/recipient/${obj.recipient_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Recipient Name']);
+                            }}>{obj['Recipient Name']}
+                        </a> || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
+                        <ReadMore
+                            text={obj.Description || '--'}
+                            limit={90} />,
+                        obj['Contract Award Type'] || obj['Award Type'] || '--',
+                        obj['Recipient UEI'] || 'UEI not provided',
+                        this.pickLocationFormat(obj['Recipient Location']),
+                        this.pickLocationFormat(obj['Primary Place of Performance']),
+                        obj.def_codes || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/agency/${obj.agency_slug}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Awarding Agency']);
+                            }}>{obj['Awarding Agency']}
+                        </a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Start Date'] || '--',
+                        obj['End Date'] || obj['Last Date to Order'] || '--',
+                        <ReadMore
+                            text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
+                            limit={80} />,
+                        <ReadMore
+                            text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
+                            limit={80} />
+                    );
+
+                    return value;
+                });
+                return values;
+            }
+            else if (this.props.currentType === 'direct_payments') {
+                values = arrayOfObjects.map((obj) => {
+                    const value = [];
+                    value.push(
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/award/${obj.generated_internal_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Award ID']);
+                            }}>{obj['Award ID']}
+                        </a> || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/recipient/${obj.recipient_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Recipient Name']);
+                            }}>{obj['Recipient Name']}
+                        </a> || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
+                        <ReadMore
+                            text={obj.Description || '--'}
+                            limit={90} />,
+                        <ReadMore
+                            text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
+                            limit={65} />,
+                        obj['Recipient UEI'] || 'UEI not provided',
+                        this.pickLocationFormat(obj['Recipient Location']),
+                        this.pickLocationFormat(obj['Primary Place of Performance']),
+                        obj.def_codes || '--',
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
+                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/agency/${obj.agency_slug}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Awarding Agency']);
+                            }}>{obj['Awarding Agency']}
+                        </a> || '--',
+                        obj['Awarding Sub Agency'] || '--',
+                        obj['Start Date'] || '--',
+                        obj['End Date'] || '--',
+                        <ReadMore
+                            text={this.assistanceListingFormat(obj['Assistance Listings'])}
+                            limit={90} />
+                    );
+
+                    return value;
+                });
+                return values;
+            }
+        }
 
         // check for prime awards && loans
         if (this.props.spendingLevel === 'awards') {
