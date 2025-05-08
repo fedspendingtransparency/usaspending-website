@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { debounce, get, flattenDeep } from 'lodash';
@@ -74,8 +74,7 @@ const PSCCheckboxTreeContainer = ({
     const [errorMessage, setErrorMessage] = useState('');
     const [showNoResults, setShowNoResults] = useState(false);
 
-    let request = null;
-
+    const request = useRef(null);
 
     const autoCheckSearchResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
         const newChecked = expandedLocal
@@ -99,10 +98,8 @@ const PSCCheckboxTreeContainer = ({
 
 
     const fetchPscLocal = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
-        if (request) request.cancel();
-
-        if (id === '') {
-            setIsLoading(true);
+        if (request.current) {
+            request.current.cancel();
         }
 
         if (showNoResults) {
@@ -111,14 +108,14 @@ const PSCCheckboxTreeContainer = ({
 
         const queryParam = isSearch ? `?depth=-1&filter=${searchStr}` : id;
 
-        request = fetchPsc(queryParam);
+        request.current = fetchPsc(queryParam);
 
         const isPartialTree = (
             id !== '' ||
             isSearch
         );
 
-        return request.promise
+        return request.current.promise
             .then(({ data }) => {
                 // dynamically populating tree branches
                 const pscNodes = cleanPscData(data.results);
@@ -171,7 +168,7 @@ const PSCCheckboxTreeContainer = ({
                         setIsLoading(false);
                     }
                 }
-                request = null;
+                request.current = null;
             })
             .catch((e) => {
                 if (!isCancel(e)) {
@@ -181,7 +178,7 @@ const PSCCheckboxTreeContainer = ({
                     setIsLoading(false);
                     setErrorMessage(get(e, 'message', 'Error fetching PSC.'));
                 }
-                request = null;
+                request.current = null;
             });
     };
 
@@ -248,7 +245,9 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const onClear = () => {
-        if (request) request.cancel();
+        if (request.current) {
+            request.current.cancel();
+        }
         setExpandedPsc([], 'SET_SEARCHED_EXPANDED');
         showPscTree();
 
@@ -261,8 +260,11 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const onSearchChange = debounce(() => {
-        if (!searchString) return onClear();
-        return fetchPscLocal('', searchString);
+        if (!searchString) {
+            onClear();
+        }
+
+        fetchPscLocal('', searchString);
     }, 500);
 
     const onCollapse = (newExpandedArray) => {
@@ -351,16 +353,21 @@ const PSCCheckboxTreeContainer = ({
 
     useEffect(() =>
         () => {
-            if (request) request.cancel();
+            if (request.current) {
+                request.current.cancel();
+            }
             showPscTree();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     , []);
 
     useEffect(() => {
-        if (searchString.length > 0 || isSearch || isLoading) onSearchChange();
+        if (isSearch && isLoading) {
+            onSearchChange();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, isSearch, isLoading]);
+
     return (
         <div className="psc-checkbox">
             <EntityDropdownAutocomplete
