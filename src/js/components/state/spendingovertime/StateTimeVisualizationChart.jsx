@@ -36,7 +36,6 @@ const StateTimeVisualizationChart = (props) => {
     let label;
     let value;
     // sort years
-    console.debug("PROPS: ", props);
     if (props.visualizationPeriod === 'fiscal_year') {
         data.xSeries.sort();
     }
