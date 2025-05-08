@@ -15,7 +15,6 @@ import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper
 
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { Definition } from 'redux/reducers/glossary/glossaryReducer';
-import { useLocation } from "react-router-dom";
 
 require('pages/glossary/glossaryPage.scss');
 
