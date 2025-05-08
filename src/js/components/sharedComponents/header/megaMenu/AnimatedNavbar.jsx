@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
-
+import GlobalConstants from "GlobalConstants";
 import {
     spendingOptions,
     profileOptions,
@@ -21,7 +21,7 @@ import ItemContent from './ItemContent';
 const navbarConfig = [
     {
         title: "Search Award Data",
-        url: '/search'
+        url: GlobalConstants.SEARCH_V2_PATH
     },
     {
         title: "Explore the Data",
@@ -54,7 +54,7 @@ const navbarConfig = [
 const AnimatedNavbar = React.memo(() => {
     const [activeIndices, setActiveIndices] = useState([]);
     const [animatingOut, setAnimatingOut] = useState(false);
-
+    console.debug(GlobalConstants);
     let animatingOutTimeout = null;
     let direction;
 
