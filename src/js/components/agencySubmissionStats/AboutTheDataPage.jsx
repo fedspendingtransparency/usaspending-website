@@ -44,10 +44,9 @@ const AboutTheDataPage = ({ history }) => {
     useEffect(() => {
         if (!activeTab) {
             const paramsWithTab = combineQueryParams(params, { tab: 'submissions' });
-            history.replace({
-                pathname: '',
-                search: getQueryParamString(paramsWithTab)
-            });
+            history({
+                path: `${getQueryParamString(paramsWithTab)}`
+            }, { replace: true });
         }
     }, [activeTab, history, params]);
 
@@ -62,8 +61,8 @@ const AboutTheDataPage = ({ history }) => {
     };
 
     const handleSwitchTab = (tab) => {
-        history.push({
-            search: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
+        history({
+            path: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
         });
     };
 

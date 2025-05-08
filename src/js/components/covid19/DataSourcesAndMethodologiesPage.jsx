@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
 
@@ -118,7 +118,7 @@ const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.red
 }), {}));
 
 export default () => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
 
     const [errorMsg, isLoading, defCodes] = useDefCodes();
@@ -154,10 +154,9 @@ export default () => {
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
+            history({
+                path: `${getQueryParamString(newQueryParams)}`
+            }, { replace: true });
         }
     };
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { find, throttle } from 'lodash';
@@ -31,7 +31,7 @@ require('pages/interactiveDataSources/index.scss');
 const InteractiveDataSourcesPage = () => {
     const [activeSection, setActiveSection] = useState('intro-section');
     const query = useQueryParams();
-    const history = useHistory();
+    const history = useNavigate();
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
@@ -148,10 +148,10 @@ const InteractiveDataSourcesPage = () => {
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
+
         setActiveSection(section);
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
