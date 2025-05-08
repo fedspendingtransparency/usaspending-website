@@ -25,7 +25,6 @@ const ExplorerDetailPageContainer = (props) => {
 
 
     const validateRoot = (rootValue) => {
-        console.log('rootValue', rootValue);
         const allowedRoots = ['budget_function', 'agency', 'object_class'];
         if (!rootValue || allowedRoots.indexOf(rootValue) === -1) {
             // not a valid root, go to the landing page
