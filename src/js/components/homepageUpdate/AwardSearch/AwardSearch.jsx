@@ -14,7 +14,7 @@ import { initialState as defaultFilters } from 'redux/reducers/search/searchFilt
 import { throttle } from 'lodash';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
-import { REQUEST_VERSION } from "../../../GlobalConstants";
+import { REQUEST_VERSION, SEARCH_V2_PATH } from "../../../GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 /* eslint-disable */
@@ -102,11 +102,11 @@ const AwardSearch = () => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
                     // eslint-disable-next-line no-unused-expressions
-                    window.open(`/search?hash=${hashData.hash}&section=${section}&type=${rankType}`, "_self");
+                    window.open(`${SEARCH_V2_PATH}?hash=${hashData.hash}&section=${section}&type=${rankType}`, "_self");
                 }
                 else {
                     // eslint-disable-next-line no-unused-expressions
-                    window.open(`/search?hash=${hashData.hash}&section=${section}`, "_self");
+                    window.open(`${SEARCH_V2_PATH}?hash=${hashData.hash}&section=${section}`, "_self");
                 }
                 // operation has resolved
                 tempHash = null;
