@@ -54,7 +54,6 @@ const navbarConfig = [
 const AnimatedNavbar = React.memo(() => {
     const [activeIndices, setActiveIndices] = useState([]);
     const [animatingOut, setAnimatingOut] = useState(false);
-    console.debug(GlobalConstants);
     let animatingOutTimeout = null;
     let direction;
 
