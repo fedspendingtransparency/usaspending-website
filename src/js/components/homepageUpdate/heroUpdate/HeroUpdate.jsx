@@ -12,7 +12,6 @@ import { Button } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
-import { Global } from 'recharts';
 
 const HeroUpdate = () => {
     const [isPaused, setIsPaused] = useState(false);
