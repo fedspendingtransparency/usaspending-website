@@ -33,7 +33,6 @@ const GlossaryContainer = (props) => {
     const [searchLoading, setSearchLoading] = useState(false);
     const [error, setError] = useState(false);
     let request = null;
-    const location = useLocation();
 
     const parseTerms = (data) => {
         const terms = data.map((result) => new Definition(result));
