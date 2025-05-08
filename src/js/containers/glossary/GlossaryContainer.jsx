@@ -169,24 +169,24 @@ const GlossaryContainer = (props) => {
             // we have a cache set, just do a search
             performSearch();
         }
-        return () => {
-            if (request) {
-                request.cancel();
-            }
-        };
+        // return () => {
+        //     if (request) {
+        //         request.cancel();
+        //     }
+        // };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        const termFromUrl = location.search.split('?glossary=');
-        const { cache } = props.glossary;
-        if (cache.count() > 0 && termFromUrl[1]) {
-            const term = cache.get(termFromUrl[1]);
+        const { termFromUrl, cache } = props.glossary;
+
+        if (cache.count() > 0 && termFromUrl) {
+            const term = cache.get(termFromUrl);
             props.setGlossaryTerm(term);
             props.setTermFromUrl('');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location, props?.glossary?.cache]);
+    }, [props?.glossary]);
 
     return (
         <AnimatedGlossaryWrapper
