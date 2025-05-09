@@ -33,7 +33,7 @@ const HeroUpdate = () => {
     const history = useNavigate();
     const handleSearch = () => {
         trackSearchLink();
-        history.push(GlobalConstants.SEARCH_V2_PATH);
+        history(GlobalConstants.SEARCH_V2_PATH);
     };
     const handleDataSources = () => {
         trackAboutLink();
