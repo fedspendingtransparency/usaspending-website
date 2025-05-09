@@ -82,7 +82,6 @@ const TimeVisualizationChart = (props) => {
 
     let label;
     let value;
-    console.debug("props: ", props);
     for (let i = 0; i < props?.xSeries?.length; i++) {
         if (props?.ySeries[i][0] !== 0) {
             label = props?.xSeries[i][0];
