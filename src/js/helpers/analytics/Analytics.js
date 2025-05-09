@@ -34,7 +34,8 @@ const Analytics = {
 
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            event: args.event || 'event',
+            event: `${args.gtm ? args.event : 'catch_all_event'}`,
+            event_name: args.event,
             event_category: `${this._prefix}${args.category}${args.gtm ? '' : '-TEST-EVENT'}`,
             event_action: args.action,
             event_label: args.label || undefined,
