@@ -35,6 +35,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             groups: [],
             xSeries: [],
             ySeries: [],
+            combined: [],
             ySeriesOutlay: [],
             outlayToggle: false
         };
@@ -156,6 +157,8 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         const groups = [];
         const xSeries = [];
         const ySeries = [];
+        const combined = [];
+        const combinedOutlay = [];
         const ySeriesOutlay = [];
         const rawLabels = [];
 
@@ -165,13 +168,25 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             rawLabels.push(this.generateTime(group, item.time_period, "raw"));
             xSeries.push([this.generateTime(group, item.time_period, "label")]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
+            combined.push(
+                {
+                    x: this.generateTime(group, item.time_period, "label"),
+                    y: parseFloat(item.aggregated_amount)
+                }
+            );
             ySeriesOutlay.push([parseFloat(item.total_outlays)]);
+            combinedOutlay.push({
+                x: this.generateTime(group, item.time_period, "label"),
+                y: parseFloat(item.total_outlays)
+            });
         });
 
         this.setState({
             groups,
             xSeries,
             ySeries,
+            combined,
+            combinedOutlay,
             ySeriesOutlay,
             rawLabels,
             loading: false,

@@ -45,6 +45,7 @@ const TimeVisualizationSectionContainer = (props) => {
         groups: [],
         xSeries: [],
         ySeries: [],
+        combined: [],
         rawLabels: []
     });
     const [tableRows, setTableRows] = useState([]);
@@ -132,6 +133,7 @@ const TimeVisualizationSectionContainer = (props) => {
         const tempGroups = [];
         const tempXSeries = [];
         const tempYSeries = [];
+        const tempCombined = [];
         const tempRawLabels = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
@@ -140,12 +142,17 @@ const TimeVisualizationSectionContainer = (props) => {
             tempRawLabels.push(generateTimeRaw(group, item.time_period));
             tempXSeries.push([generateTimeLabel(group, item.time_period)]);
             tempYSeries.push([parseFloat(item.aggregated_amount)]);
+            tempCombined.push({
+                x: generateTimeLabel(group, item.time_period),
+                y: parseFloat(item.aggregated_amount)
+            });
         });
 
         setParsedData({
             groups: tempGroups,
             xSeries: tempXSeries,
             ySeries: tempYSeries,
+            combined: tempCombined,
             rawLabels: tempRawLabels,
             loading: false,
             error: false

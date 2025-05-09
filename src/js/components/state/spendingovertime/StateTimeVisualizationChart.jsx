@@ -36,22 +36,48 @@ const StateTimeVisualizationChart = (props) => {
     let label;
     let value;
     // sort years
-    data.xSeries.sort();
-    for (let i = 0; i < data?.xSeries?.length; i++) {
-        if (data?.ySeries[i][0] !== 0) {
-            label = data?.xSeries[i][0];
-            if (!props.outlayToggle) {
-                value = data?.ySeries[i][0];
-            } else {
-                value = data?.ySeriesOutlay[i][0];
+    if (props.visualizationPeriod === 'fiscal_year') {
+        if (!props.outlayToggle) {
+            // eslint-disable-next-line no-nested-ternary
+            data.combined.sort((a, b) => ((a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)));
+            for (let i = 0; i < data.combined.length; i++) {
+                label = data.combined[i].x;
+                value = data.combined[i].y;
+
+                transformedData.push({ label, value });
             }
         }
+        else {
+            // eslint-disable-next-line no-nested-ternary
+            data.combinedOutlay.sort((a, b) => ((a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)));
+            for (let i = 0; i < data.combinedOutlay.length; i++) {
+                label = data.combinedOutlay[i].x;
+                value = data.combinedOutlay[i].y;
 
-        transformedData.push({
-            label,
-            value
-        });
+                transformedData.push({ label, value });
+            }
+        }
     }
+    else {
+        // months and quarters
+        for (let i = 0; i < data?.xSeries?.length; i++) {
+            if (data?.ySeries[i][0] !== 0) {
+                label = data?.xSeries[i][0];
+                if (!props.outlayToggle) {
+                    value = data?.ySeries[i][0];
+                }
+                else {
+                    value = data?.ySeriesOutlay[i][0];
+                }
+            }
+
+            transformedData.push({
+                label,
+                value
+            });
+        }
+    }
+
 
     const onMouseLeave = () => {
         if (focusBar) {
