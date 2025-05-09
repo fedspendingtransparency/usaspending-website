@@ -130,7 +130,8 @@ const TableDsm = ({ subaward, spendingLevel }) => {
         else {
             setDisplayCopy(legacyCopy);
         }
-    }, [legacyCopy, pathname, v2Copy]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (<>{displayCopy}</>);
 };

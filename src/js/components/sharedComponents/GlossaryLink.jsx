@@ -26,7 +26,7 @@ const GlossaryLink = ({ term, hidden, label = "" }) => {
     }, [search]);
     const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
     const stopBubble = (e) => {
-        showSlideout('glossary');
+        showSlideout('glossary', { url: term });
         e.stopPropagation();
     };
     return (
