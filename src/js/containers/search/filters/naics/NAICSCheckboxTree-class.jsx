@@ -69,7 +69,7 @@ const propTypes = {
     searchV2: PropTypes.bool
 };
 
-export class NAICSCheckboxTree extends React.Component {
+export class NAICSCheckboxTreeClass extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -452,7 +452,7 @@ export class NAICSCheckboxTree extends React.Component {
     }
 }
 
-NAICSCheckboxTree.propTypes = propTypes;
+NAICSCheckboxTreeClass.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -477,4 +477,4 @@ export default connect(
         showNaicsTree: () => dispatch(showNaicsTree()),
         setUncheckedNaics: (unchecked) => dispatch(setUncheckedNaics(unchecked)),
         setNaicsCounts: (newCounts) => dispatch(setNaicsCounts(newCounts))
-    }))(NAICSCheckboxTree);
+    }))(NAICSCheckboxTreeClass);
