@@ -5,6 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from "react-transitioning";
+import GlobalConstants from "GlobalConstants";
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
@@ -35,7 +36,7 @@ const propTypes = {
 const navbarConfig = [
     {
         title: "Search Award Data",
-        url: '/search'
+        url: GlobalConstants.SEARCH_V2_PATH
     },
     {
         title: "Explore the Data",
@@ -130,9 +131,9 @@ const MobileNav = React.memo((props) => {
                                 {index === 0 ?
                                     <Link
                                         className="mobile-nav-content__link"
-                                        to="/search"
-                                        title="Spending Explorer"
-                                        name="explorer"
+                                        to={GlobalConstants.SEARCH_V2_PATH}
+                                        title="Search"
+                                        name="search"
                                         onClick={clickedLink}>
                                         Search Award Data
                                     </Link>
