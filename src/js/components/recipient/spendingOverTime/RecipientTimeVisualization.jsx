@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
 import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
 import ChartLoadingMessage from 'components/sharedComponents/ChartLoadingMessage';

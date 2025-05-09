@@ -4,7 +4,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import GlobalConstants from "GlobalConstants";
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from 'data-transparency-ui';
@@ -29,16 +30,15 @@ const HeroUpdate = () => {
         action: 'Link',
         label: 'about'
     });
-    const history = useHistory();
+    const history = useNavigate();
     const handleSearch = () => {
         trackSearchLink();
-        const path = `/search`;
-        history.push(path);
+        history(GlobalConstants.SEARCH_V2_PATH);
     };
     const handleDataSources = () => {
         trackAboutLink();
         const path = `/data-sources`;
-        history.push(path);
+        history(path);
     };
 
     const keyPressHandler = (e) => {

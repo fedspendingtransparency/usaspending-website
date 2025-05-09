@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { flowRight } from 'lodash';
+import { useMatch } from 'react-router-dom';
+
 
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
 
@@ -29,7 +31,6 @@ require('pages/account/accountPage.scss');
 
 const propTypes = {
     account: PropTypes.object,
-    match: PropTypes.object,
     setSelectedAccount: PropTypes.func,
     submissionPeriods: SUBMISSION_PERIOD_PROPS,
     latestPeriod: LATEST_PERIOD_PROPS,
@@ -44,6 +45,8 @@ const combinedActions = Object.assign({},
 const AccountContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [validAccount, setValidAccount] = useState(true);
+    const match = useMatch('/federal_account/:accountNumber');
+    const { accountNumber } = match.params;
 
     let accountRequest = null;
     let fiscalYearSnapshotRequest = null;
@@ -82,7 +85,6 @@ const AccountContainer = (props) => {
 
                 // update the redux store
                 parseFYSnapshot(res.data);
-
                 setLoading(false);
             })
             .catch((err) => {
@@ -111,7 +113,7 @@ const AccountContainer = (props) => {
 
         setLoading(true);
 
-        accountRequest = AccountHelper.fetchFederalAccount(props.match.params.accountNumber);
+        accountRequest = AccountHelper.fetchFederalAccount(accountNumber);
 
         accountRequest.promise
             .then((res) => {
@@ -136,10 +138,12 @@ const AccountContainer = (props) => {
     useEffect(() => {
         loadData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props?.match?.params?.accountNumber]);
+    }, [accountNumber]);
 
     useEffect(() => {
-        loadFiscalYearSnapshot(props.account.id);
+        if (props.latestPeriod?.year && props.account?.id) {
+            loadFiscalYearSnapshot(props.account.id);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.latestPeriod?.year, props.account?.id]);
 
