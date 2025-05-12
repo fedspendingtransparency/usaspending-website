@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import GlobalConstants from "GlobalConstants";
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from 'data-transparency-ui';

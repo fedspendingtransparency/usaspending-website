@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
-import GlobalConstants from "GlobalConstants";
 import {
     spendingOptions,
     profileOptions,
