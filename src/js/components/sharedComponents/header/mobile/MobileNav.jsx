@@ -131,8 +131,8 @@ const MobileNav = React.memo((props) => {
                                     <Link
                                         className="mobile-nav-content__link"
                                         to="/search"
-                                        title="Spending Explorer"
-                                        name="explorer"
+                                        title="Search"
+                                        name="search"
                                         onClick={clickedLink}>
                                         Search Award Data
                                     </Link>
