@@ -36,7 +36,7 @@ const propTypes = {
 const navbarConfig = [
     {
         title: "Search Award Data",
-        url: GlobalConstants.SEARCH_V2_PATH
+        url: '/search'
     },
     {
         title: "Explore the Data",
@@ -131,7 +131,7 @@ const MobileNav = React.memo((props) => {
                                 {index === 0 ?
                                     <Link
                                         className="mobile-nav-content__link"
-                                        to={GlobalConstants.SEARCH_V2_PATH}
+                                        to='/search'
                                         title="Search"
                                         name="search"
                                         onClick={clickedLink}>
