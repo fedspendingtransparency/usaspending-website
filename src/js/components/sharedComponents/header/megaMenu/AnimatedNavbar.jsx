@@ -21,7 +21,7 @@ import ItemContent from './ItemContent';
 const navbarConfig = [
     {
         title: "Search Award Data",
-        url: GlobalConstants.SEARCH_V2_PATH
+        url: '/search'
     },
     {
         title: "Explore the Data",

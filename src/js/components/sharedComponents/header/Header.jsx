@@ -17,7 +17,7 @@ const Header = () => {
         (banner) => banner.isActive && banner.page === "site wide"
     );
     const pageBannersArray = bannerContent?.filter(
-        (banner) => banner.isActive && location?.pathname?.includes(banner.page)
+        (banner) => banner.isActive && location?.pathname === banner.page
     );
 
     const [activeSiteBanners, setActiveSiteBanners] = useState([]);
