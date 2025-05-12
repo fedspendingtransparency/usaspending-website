@@ -180,9 +180,7 @@ const SearchContainer = () => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            navigate({
-                path: GlobalConstants.SEARCH_V2_PATH
-            }, { replace: true });
+            navigate(GlobalConstants.SEARCH_V2_PATH);
             setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

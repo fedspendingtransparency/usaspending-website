@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { throttle } from "lodash";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
@@ -79,8 +79,8 @@ const SearchSectionWrapper = ({
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const history = useNavigate();
-
-    const params = history?.location?.search?.split("&");
+    const location = useLocation();
+    const params = location.search?.split("&");
     params?.shift();
     const sectionValue = params?.length > 0 ? params[0]?.substring(8) : null;
     const sortFn = () => dropdownOptions;
@@ -111,9 +111,7 @@ const SearchSectionWrapper = ({
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history({
-                path: `${getQueryParamString(newQueryParams)}`
-            }, { replace: true });
+            history(getQueryParamString(newQueryParams));
         }
 
         let rectTopOffset = 0;
