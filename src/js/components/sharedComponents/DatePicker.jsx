@@ -29,7 +29,8 @@ const DatePicker = ({ type = 'startDate', ...props }) => {
         setInputValue('');
         if (e.target.id.includes("startDate")) {
             props.onDateChange(null, 'startDate');
-        } else if (e.target.id.includes("endDate")) {
+        }
+        else if (e.target.id.includes("endDate")) {
             props.onDateChange(null, 'endDate');
         }
     };
@@ -39,6 +40,9 @@ const DatePicker = ({ type = 'startDate', ...props }) => {
         if (props.value != null) {
             const iV = props.value.format('MM/DD/YYYY');
             setInputValue(iV);
+        }
+        else {
+            clearValue({ target: { id: ['startDate', 'endDate'] } });
         }
     };
 

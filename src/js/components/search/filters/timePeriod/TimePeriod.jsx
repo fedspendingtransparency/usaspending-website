@@ -100,15 +100,15 @@ const TimePeriod = ({
     };
 
     const synchronizeDatePickers = (nextProps) => {
-    // synchronize the date picker state to Redux controlled props
-    // convert start/end date strings to dayjs objects
+        // synchronize the date picker state to Redux controlled props
+        // convert start/end date strings to dayjs objects
         let datesChanged = false;
         const newState = {};
 
         // check if the start date changed
         if (nextProps.filterTimePeriodStart !== filterTimePeriodStart) {
             const startDate = dayjs(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
-            // start date did change and it is a valid date (not null)
+            // start date did change, and it is a valid date (not null)
             if (startDate.isValid()) {
                 datesChanged = true;
                 newState.startDateUI = startDate;
@@ -254,7 +254,9 @@ const TimePeriod = ({
             hideError={hideError}
             removeDateRange={removeDateRange}
             updateFilter={updateFilter}
-            header={header} />);
+            header={header}
+            setStartDate={setStartDateUI}
+            setEndDate={setEndDateUI} />);
         activeClassDR = '';
     }
 
