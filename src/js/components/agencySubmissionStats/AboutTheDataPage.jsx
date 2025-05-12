@@ -4,10 +4,9 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Tabs, ShareIcon, FlexGridCol, FlexGridRow } from "data-transparency-ui";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -28,8 +27,9 @@ This page is called Agency Submission Statistics IRL
 https://www.usaspending.gov/submission-statistics?tab=submissions&fy=2024&period=2
  */
 
-const AboutTheDataPage = ({ history }) => {
+const AboutTheDataPage = () => {
     const { search } = useLocation();
+    const navigate = useNavigate();
     const params = useQueryParams();
     const {
         fy: urlFy,
@@ -44,11 +44,12 @@ const AboutTheDataPage = ({ history }) => {
     useEffect(() => {
         if (!activeTab) {
             const paramsWithTab = combineQueryParams(params, { tab: 'submissions' });
-            history({
-                path: `${getQueryParamString(paramsWithTab)}`
+            navigate({
+                pathname: ``,
+                search: `${getQueryParamString(paramsWithTab)}`
             }, { replace: true });
         }
-    }, [activeTab, history, params]);
+    }, [activeTab, navigate, params]);
 
     // Modal Logic
     const modalClick = (modalType, agencyData) => {
@@ -61,7 +62,7 @@ const AboutTheDataPage = ({ history }) => {
     };
 
     const handleSwitchTab = (tab) => {
-        history({
+        navigate({
             path: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
         });
     };
@@ -150,10 +151,6 @@ const AboutTheDataPage = ({ history }) => {
         </PageWrapper>
 
     );
-};
-
-AboutTheDataPage.propTypes = {
-    history: PropTypes.object
 };
 
 export default AboutTheDataPage;
