@@ -88,6 +88,30 @@ const mockResponse = {
     }
 };
 
+const mockResponseSearch = {
+    data: {
+        results: [
+            {
+                id: "Product",
+                ancestors: [],
+                description: "",
+                count: 695,
+                children: [
+                    {
+                        id: "37",
+                        ancestors: [
+                            "Product"
+                        ],
+                        description: "AGRICULTURAL MACHINERY AND EQPT",
+                        count: 7,
+                        children: null
+                    }
+                ]
+            }
+        ]
+    }
+};
+
 describe('PSCCheckboxTreeContainer', () => {
     it('should load', () => {
         render(<PSCCheckboxTreeContainer />);
