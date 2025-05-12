@@ -741,7 +741,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             </p>
             <p className="analyst-guide__answerStyle">The USAspending&apos;s{' '}<a href="https://fiscalservice.force.com/usaspending/s/">FAQ page{' '}</a>provides additional advice for getting the most out of the site.
             </p>
-            <p className="analyst-guide__answerStyle">The <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">DATA Act Information Model Schema (DAIMS) page</a> provides more information on various systems related to the data in USAspending.</p>
+            <p className="analyst-guide__answerStyle">The <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">Governmentwide Spending Data Model (GSDM) page</a> provides more information on various systems related to the data in USAspending.</p>
         </>)
     }];
     return (
