@@ -16,7 +16,7 @@ const cardObjects = [
         overline: 'SEARCH AWARD DATA',
         headline: 'Find details on federal awards',
         buttonText: 'Go to Award Search',
-        buttonLink: GlobalConstants.SEARCH_V2_PATH,
+        buttonLink: '/search',
         action: () => Analytics.event({
             event: 'homepage_ready-to-get-started',
             category: 'Homepage',
