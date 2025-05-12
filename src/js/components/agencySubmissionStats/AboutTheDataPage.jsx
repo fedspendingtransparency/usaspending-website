@@ -63,7 +63,7 @@ const AboutTheDataPage = () => {
 
     const handleSwitchTab = (tab) => {
         navigate({
-            path: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
+            search: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
         });
     };
 
