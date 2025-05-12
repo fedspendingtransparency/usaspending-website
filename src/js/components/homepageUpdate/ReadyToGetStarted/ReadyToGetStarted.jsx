@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton } from 'data-transparency-ui';
-import GlobalConstants from "GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 const cardObjects = [

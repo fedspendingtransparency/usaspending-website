@@ -5,7 +5,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from "react-transitioning";
-import GlobalConstants from "GlobalConstants";
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
