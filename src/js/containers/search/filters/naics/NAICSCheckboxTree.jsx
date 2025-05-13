@@ -251,7 +251,9 @@ const NAICSCheckboxTree = ({
         if (!nodes || nodes.length === 0) {
             fetchNAICS('', false)
                 .then(() => {
+                    console.debug("1");
                     if (checkedFromHash.length > 0) {
+                        console.debug("1.1");
                         setNaicsCounts(countsFromHash);
                         setUncheckedNaics(uncheckedFromHash);
                         // Loading the checkbox tree from a url hash...
@@ -259,6 +261,7 @@ const NAICSCheckboxTree = ({
                             ...checkedFromHash,
                             ...uncheckedFromHash
                         ].reduce((uniqueAncestors, code) => {
+                            console.debug("1.2");
                             const highestAncestor = naicsHelper.getHighestAncestorNaicsCode(code);
                             const immediateAncestor = naicsHelper.getImmediateAncestorNaicsCode(code);
                             if (uniqueAncestors.includes(highestAncestor)) {
@@ -273,6 +276,7 @@ const NAICSCheckboxTree = ({
                                         if (uniqueAncestors.includes(ancestor)) {
                                             return false;
                                         }
+                                        console.debug("1.3");
                                         return true;
                                     })
                             );
@@ -288,6 +292,7 @@ const NAICSCheckboxTree = ({
                                 .then(() => fetchNAICS(ancestor, false)), Promise.resolve())
                         // Then populate the checked array w/ the real checked-nodes descendants
                             .then(() => {
+                                console.debug("2");
                                 setIsLoading(false);
                                 const newChecked = checkedFromHash
                                     .reduce((acc, item) => {
