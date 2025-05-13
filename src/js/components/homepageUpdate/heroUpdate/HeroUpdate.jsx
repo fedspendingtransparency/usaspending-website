@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import GlobalConstants from "GlobalConstants";
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from 'data-transparency-ui';
@@ -33,7 +32,7 @@ const HeroUpdate = () => {
     const history = useNavigate();
     const handleSearch = () => {
         trackSearchLink();
-        history(GlobalConstants.SEARCH_V2_PATH);
+        history('/search');
     };
     const handleDataSources = () => {
         trackAboutLink();

@@ -68,6 +68,7 @@ const SearchSectionWrapper = ({
     showToggle
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
+    const [trackDSMEvent, setTrackDSMEvent] = useState(false);
     const [viewType, setViewType] = useState('chart');
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const gaRef = useRef(false);
@@ -160,6 +161,44 @@ const SearchSectionWrapper = ({
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [viewType]);
+
+    useEffect(() => {
+        const action = openAccordion ? "open DS&M" : "close DS&M";
+        let prefix = 'Prime Awards Table';
+
+        switch (sectionName) {
+            case 'categories':
+                prefix = `Categories ${selectedDropdownOption}`;
+                break;
+            case 'time':
+                prefix = `Time ${selectedDropdownOption}`;
+                break;
+            case 'map':
+                prefix = `Map ${selectedDropdownOption}`;
+                break;
+            default:
+                if (spendingLevel === 'subawards') {
+                    prefix = 'Subawards Table';
+                    break;
+                }
+                else if (spendingLevel === 'transactions') {
+                    prefix = 'Transactions Table ';
+                    break;
+                }
+                break;
+        }
+
+        if (trackDSMEvent) {
+            Analytics.event({
+                category: 'Advanced Search - Results View DSM',
+                action,
+                label: `${prefix} DS&M`
+            });
+        }
+        setTrackDSMEvent(true);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openAccordion]);
 
     const Message = () => {
         if (isLoading) {

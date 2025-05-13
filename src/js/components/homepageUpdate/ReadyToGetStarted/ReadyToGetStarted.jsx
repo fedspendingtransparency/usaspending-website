@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton } from 'data-transparency-ui';
-import GlobalConstants from "GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 const cardObjects = [
@@ -16,7 +15,7 @@ const cardObjects = [
         overline: 'SEARCH AWARD DATA',
         headline: 'Find details on federal awards',
         buttonText: 'Go to Award Search',
-        buttonLink: GlobalConstants.SEARCH_V2_PATH,
+        buttonLink: '/search',
         action: () => Analytics.event({
             event: 'homepage_ready-to-get-started',
             category: 'Homepage',

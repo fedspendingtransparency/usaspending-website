@@ -10,7 +10,7 @@ export const bannerContent = [
             <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Advanced%20Search%20Questions">
                 usaspending.help@fiscal.treasury.gov
             </a></>,
-        page: '/searchv2', // use 'site wide' to display a banner across the entire site
+        page: GlobalConstants.SEARCH_V2_PATH, // use 'site wide' to display a banner across the entire site
         type: 'warning' // three options "general", "warning", "warning-resolved"
     },
     {
