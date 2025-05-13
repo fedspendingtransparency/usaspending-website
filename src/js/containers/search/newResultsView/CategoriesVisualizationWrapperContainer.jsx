@@ -8,10 +8,11 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import GlobalConstants from 'GlobalConstants';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -63,6 +64,9 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [tableRows, setTableRows] = useState([]);
     const history = useHistory();
     let apiRequest;
+
+    const { pathname } = useLocation();
+    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const childProps = {
         spendingBy,
@@ -326,9 +330,14 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             limit: 10,
             page,
             auditTrail,
-            subawards: props.subaward,
-            spending_level: props.spendingLevel
+            subawards: props.subaward
+            // spending_level: props.spendingLevel
+
         };
+
+        if (isv2) {
+            apiParams.spending_level = props.spendingLevel;
+        }
 
         apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         apiRequest.promise
