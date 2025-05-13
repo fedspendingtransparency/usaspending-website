@@ -36,7 +36,7 @@ const Analytics = {
         window.dataLayer.push({
             event: 'catch_all_event',
             event_name: args.event,
-            event_category: args.category ? `${this._prefix}${args.category}` : 'n/a',
+            event_category: `${this._prefix}${args.category}`,
             event_action: args.action,
             event_label: args.label || undefined,
             event_value: args.value || undefined,
