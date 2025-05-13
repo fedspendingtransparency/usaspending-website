@@ -288,7 +288,7 @@ export default () => {
                                         </p>
                                     </div>
                                     <h3 className="about-subtitle">
-                                        <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"><strong>Data Accountability Broker Submission (DABS, also known as &quot;Broker&quot;)</strong></a>
+                                        <a href="https://tfx.treasury.gov/data-transparency/gsdm"><strong>Data Accountability Broker Submission (DABS, also known as &quot;Broker&quot;)</strong></a>
                                     </h3>
                                     <div className="about-section-content">
                                         <ul>
@@ -304,7 +304,7 @@ export default () => {
                                         </ul>
                                     </div>
                                     <h3 className="about-subtitle">
-                                        <strong><a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">Financial Assistance Broker Submission (FABS)</a></strong>
+                                        <strong><a href="https://tfx.treasury.gov/data-transparency/gsdm">Financial Assistance Broker Submission (FABS)</a></strong>
                                     </h3>
                                     <div className="about-section-content">
                                         <ul>
