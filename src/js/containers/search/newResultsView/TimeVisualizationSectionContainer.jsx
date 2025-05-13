@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { useLocation } from "react-router-dom";
+import GlobalConstants from 'GlobalConstants';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
@@ -52,6 +54,9 @@ const TimeVisualizationSectionContainer = (props) => {
     const [downloadData, setDownloadDataRows] = useState([]);
 
     let apiRequest = null;
+
+    const { pathname } = useLocation();
+    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const columns = {
         month: [
@@ -235,9 +240,13 @@ const TimeVisualizationSectionContainer = (props) => {
         const apiParams = {
             group: visualizationPeriod,
             filters: searchParams,
-            subawards: props.subaward,
-            spending_level: props.spendingLevel
+            subawards: props.subaward
+            // spending_level: props.spendingLevel
         };
+
+        if (isv2) {
+            apiParams.spending_level = props.spendingLevel;
+        }
 
         if (auditTrail) {
             apiParams.auditTrail = auditTrail;
