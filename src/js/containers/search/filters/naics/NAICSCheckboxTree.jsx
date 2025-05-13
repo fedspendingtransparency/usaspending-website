@@ -39,12 +39,6 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string)
 };
 
-// const combinedActions = Object.assign(
-//     {},
-//     naicsActions,
-//     { updateNaics }
-// );
-
 const NAICSCheckboxTree = ({
     nodes,
     checked,
@@ -254,10 +248,6 @@ const NAICSCheckboxTree = ({
     };
 
     useEffect(() => {
-        // if (isLoading && nodes.length) {
-        //     setIsLoading(false);
-        // }
-
         if (!nodes || nodes.length === 0) {
             fetchNAICS('', false)
                 .then(() => {
@@ -429,14 +419,12 @@ export default connect(
         countsFromHash: state.appliedFilters.filters.naicsCodes.counts,
         filters: state.appliedFilters.filters
     }),
-    (dispatch) => ({
-        stageNaics: (checked, unchecked, counts) => dispatch(updateNaics(checked, unchecked, counts)),
-        setNaicsNodes: (key, naics) => dispatch(naicsActions.setNaicsNodes(key, naics)),
-        setExpandedNaics: (expanded, type) => dispatch(naicsActions.setExpandedNaics(expanded, type)),
-        setCheckedNaics: (checkedNodes) => dispatch(naicsActions.setCheckedNaics(checkedNodes)),
-        addCheckedNaics: (newCheckedNode) => dispatch(naicsActions.addCheckedNaics(newCheckedNode)),
-        setSearchedNaics: (nodes) => dispatch(naicsActions.setSearchedNaics(nodes)),
-        showNaicsTree: () => dispatch(naicsActions.showNaicsTree()),
-        setUncheckedNaics: (unchecked) => dispatch(naicsActions.setUncheckedNaics(unchecked)),
-        setNaicsCounts: (newCounts) => dispatch(naicsActions.setNaicsCounts(newCounts))
-    }))(NAICSCheckboxTree);
+    (dispatch) => bindActionCreators(
+        Object.assign(
+            {},
+            naicsActions,
+            { updateNaics }
+        ),
+        dispatch
+    )
+)(NAICSCheckboxTree);
