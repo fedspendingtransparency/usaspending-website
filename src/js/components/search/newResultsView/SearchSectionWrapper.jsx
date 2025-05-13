@@ -188,18 +188,12 @@ const SearchSectionWrapper = ({
                 break;
         }
 
-
         if (trackDSMEvent) {
-            console.log(`Section NAme =====>   ${sectionName}`);
-            console.log(`action =====>   ${action}`);
-            // console.log(`Section NAme =====>   ${sectionName}`);
-            console.log(`LABEL =====>   ${prefix} DS&M`);
-
-            // Analytics.event({
-            //     category: 'Advanced Search - Results View DSM',
-            //     action,
-            //     label: `${prefix} DS&M`
-            // });
+            Analytics.event({
+                category: 'Advanced Search - Results View DSM',
+                action,
+                label: `${prefix} DS&M`
+            });
         }
         setTrackDSMEvent(true);
 
