@@ -331,9 +331,9 @@ const defaultGrant = [
         customWidth: defaultWidth20
     },
     {
-        title: 'Outlays',
+        title: 'Total Outlays',
         right: true,
-        isplayName: 'Outlays',
+        displayName: 'Outlays',
         customWidth: defaultWidth20
     },
     { title: 'Award Type', displayName: 'Award Type', customWidth: defaultWidth20 },
@@ -368,7 +368,7 @@ const defaultDirectPayment = [
         customWidth: defaultWidth20
     },
     {
-        title: 'Outlays',
+        title: 'Total Outlays',
         right: true,
         displayName: 'Outlays',
         customWidth: defaultWidth20
@@ -432,7 +432,7 @@ const defaultOther = [
         customWidth: defaultWidth20
     },
     {
-        title: 'Outlays',
+        title: 'Total Outlays',
         right: true,
         displayName: 'Outlays',
         customWidth: defaultWidth20
