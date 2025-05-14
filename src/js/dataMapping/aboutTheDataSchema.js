@@ -236,8 +236,8 @@ const schema = {
                 slug: "omb-circular-a-11"
             },
             {
-                name: "DATA Act Information Model Schema (DAIMS)",
-                slug: "daims"
+                name: "Governmentwide Spending Data Model (GSDM)",
+                slug: "gsdm"
             }
         ]
     }

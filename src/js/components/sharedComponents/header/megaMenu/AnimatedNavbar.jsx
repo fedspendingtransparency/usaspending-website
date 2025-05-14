@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
-import GlobalConstants from "GlobalConstants";
 import {
     spendingOptions,
     profileOptions,
@@ -21,7 +20,7 @@ import ItemContent from './ItemContent';
 const navbarConfig = [
     {
         title: "Search Award Data",
-        url: GlobalConstants.SEARCH_V2_PATH
+        url: '/search'
     },
     {
         title: "Explore the Data",
