@@ -8,7 +8,6 @@
 import React from 'react';
 
 import { render, screen, fireEvent, act } from '../../../../testResources/test-utils';
-// import DateRange from "../../../../../src/js/components/search/filters/timePeriod/DateRange";
 import TimePeriodContainer from "../../../../../src/js/containers/search/filters/TimePeriodContainer";
 
 describe('DateRange', () => {
