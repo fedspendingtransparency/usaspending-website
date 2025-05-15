@@ -3,13 +3,14 @@
   * Created by Kevin Li 7/25/16
   **/
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
 const dayjs = require('dayjs');
 
 const propTypes = {
+    value: PropTypes.string,
     type: PropTypes.string,
     onDateChange: PropTypes.func,
     hideError: PropTypes.func,
@@ -18,6 +19,7 @@ const propTypes = {
 };
 
 const DatePicker = ({
+    value,
     type = 'startDate',
     onDateChange,
     hideError,
@@ -25,6 +27,8 @@ const DatePicker = ({
     id
 }) => {
     const [inputValue, setInputValue] = useState('');
+
+    const labelId = `picker-${uniqueId()}`;
 
     const clearValue = (e) => {
         setInputValue('');
@@ -58,7 +62,12 @@ const DatePicker = ({
         }
     };
 
-    const labelId = `picker-${uniqueId()}`;
+    useEffect(() => {
+        if (value === '' || value === null) {
+            clearValue({ target: { id: '' } });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value]);
 
     return (
         <div className="generate-datepicker-wrap">

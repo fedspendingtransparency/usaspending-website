@@ -344,6 +344,7 @@ const DateRange = (props) => {
                 onSubmit={submitDates}>
                 <div className="date-range-column">
                     <DatePicker
+                        value={props.startDate}
                         type="startDate"
                         onDateChange={props.onDateChange}
                         hideError={props.hideError}
@@ -352,6 +353,7 @@ const DateRange = (props) => {
                 </div>
                 <div className="date-range-column">
                     <DatePicker
+                        value={props.endDate}
                         type="endDate"
                         onDateChange={props.onDateChange}
                         hideError={props.hideError}
