@@ -63,8 +63,8 @@ const NAICSCheckboxTree = ({
     const [isLoading, setIsLoading] = useState(true);
     const [isSearch, setIsSearch] = useState(false);
     const [searchString, setSearchString] = useState('');
-    const [requestType, setRequestType] = useState('');
-    const fetchRequest = useRef(null);
+    const [requestType, setRequestType] = useState('initial');
+    const requestRef = useRef(null);
 
     const autoCheckSearchedResultDescendants = (visibleNaicsValues) => {
         const placeholderNodes = checked
@@ -112,13 +112,14 @@ const NAICSCheckboxTree = ({
     };
 
     const fetchNAICS = (param = '', resolveLoading = true) => {
-        // if (fetchRequest.current) fetchRequest.current.cancel();
+        if (requestRef.current) requestRef.current.cancel();
         const searchParam = (isSearch && searchString) ? `?filter=${searchString}` : null;
+
         if (requestType === 'initial' || requestType === 'search') setIsLoading(true);
 
-        fetchRequest.current = naicsRequest(param || searchParam);
+        requestRef.current = naicsRequest(param || searchParam);
 
-        return fetchRequest.current.promise
+        return requestRef.current.promise
             .then(({ data: { results } }) => {
                 if (isSearch) {
                     const visibleNaicsValues = naicsHelper.expandNaicsAndAllDescendantParents(results, 'naics');
@@ -142,16 +143,19 @@ const NAICSCheckboxTree = ({
                 setIsLoading(resolveLoading ? false : isLoading);
                 setErrorMessage('');
                 setRequestType('');
-                fetchRequest.current = null;
+
+                requestRef.current = null;
+                return results;
             })
             .catch((e) => {
                 if (!isCancel(e)) {
-                    // console.log('Error NAICS Reponse : ', e);
+                    console.log('Error NAICS Reponse : ', e);
                     setErrorMessage(e.message);
                     setIsLoading(false);
                     setRequestType('');
                 }
-                fetchRequest.current = null;
+                requestRef.current = null;
+                throw e;
             });
     };
 
@@ -191,7 +195,7 @@ const NAICSCheckboxTree = ({
     };
 
     const onClear = () => {
-        if (fetchRequest.current) fetchRequest.current.cancel();
+        if (requestRef.current) requestRef.current.cancel();
         setExpandedNaics([], 'SET_SEARCHED_EXPANDED');
         showNaicsTree();
         setIsSearch(false);
@@ -228,112 +232,18 @@ const NAICSCheckboxTree = ({
         setIsSearch(true);
         setIsLoading(true);
         return fetchNAICS();
-        // return this.setState({ requestType: 'search' }, fetchNAICS);
     }, 500);
 
     const handleTextInputChange = (e) => {
         e.persist();
         const text = e.target.value;
-
-        if (!text) {
-            return onClear();
-        }
+        if (!text) return onClear();
 
         setSearchString(text);
-        if (text.length >= 2) {
-            return onSearchChange();
-        }
+        if (text.length >= 2) return onSearchChange();
 
         return null;
     };
-
-    useEffect(() => {
-        if (!nodes || nodes.length === 0) {
-            fetchNAICS('', false)
-                .then(() => {
-                    console.debug("1");
-                    if (checkedFromHash.length > 0) {
-                        console.debug("1.1");
-                        setNaicsCounts(countsFromHash);
-                        setUncheckedNaics(uncheckedFromHash);
-                        // Loading the checkbox tree from a url hash...
-                        const allUniqueAncestors = [
-                            ...checkedFromHash,
-                            ...uncheckedFromHash
-                        ].reduce((uniqueAncestors, code) => {
-                            console.debug("1.2");
-                            const highestAncestor = naicsHelper.getHighestAncestorNaicsCode(code);
-                            const immediateAncestor = naicsHelper.getImmediateAncestorNaicsCode(code);
-                            if (uniqueAncestors.includes(highestAncestor)) {
-                                if (!uniqueAncestors.includes(immediateAncestor)) {
-                                    return uniqueAncestors.concat([immediateAncestor]);
-                                }
-                                return uniqueAncestors;
-                            }
-                            return uniqueAncestors.concat(
-                                [highestAncestor, immediateAncestor]
-                                    .filter((ancestor) => {
-                                        if (uniqueAncestors.includes(ancestor)) {
-                                            return false;
-                                        }
-                                        console.debug("1.3");
-                                        return true;
-                                    })
-                            );
-                        }, []).sort((a, b) => {
-                            if (b.length > a.length) return -1;
-                            if (a.length > b.length) return 1;
-                            return 0;
-                        });
-
-                        // Sequentially populate tree.
-                        return allUniqueAncestors
-                            .reduce((prevPromise, ancestor) => prevPromise
-                                .then(() => fetchNAICS(ancestor, false)), Promise.resolve())
-                        // Then populate the checked array w/ the real checked-nodes descendants
-                            .then(() => {
-                                console.debug("2");
-                                setIsLoading(false);
-                                const newChecked = checkedFromHash
-                                    .reduce((acc, item) => {
-                                        if (item.length === 6 && !uncheckedFromHash.includes(item)) {
-                                            return [...acc, item];
-                                        }
-                                        const node = naicsHelper.getNaicsNodeFromTree(nodes, item);
-                                        return [
-                                            ...acc,
-                                            ...getAllDescendants(node, uncheckedFromHash)
-                                        ];
-                                    }, []);
-                                setCheckedNaics(newChecked);
-                            });
-                    }
-                    console.log("Marko.");
-
-                    if (nodes.length > 0) {
-                        console.log("I should be seen.");
-                        showNaicsTree();
-                    }
-                    setIsLoading(false);
-                    setErrorMessage("");
-
-                    console.log("end of getNaicsData ==> showing tree now", nodes);
-
-                    // consistent return.
-                    return Promise.resolve();
-                })
-                .catch((e) => {
-                    setErrorMessage(e.message);
-                    setIsLoading(false);
-                });
-        }
-
-        return () => {
-            if (fetchRequest.current) fetchRequest.current.cancel();
-            // showNaicsTree();
-        };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nodes]);
 
     useEffect(() => {
         if (nodes.length !== 0 && checkedFromHash.length) {
@@ -352,19 +262,99 @@ const NAICSCheckboxTree = ({
             setCheckedNaics(newChecked);
             setNaicsCounts(countsFromHash);
             stageNaics(newChecked, [], countsFromHash);
+            return;
         }
         else if (nodes.length !== 0) {
             showNaicsTree();
+            return;
         }
+
+        fetchNAICS()
+            .then(() => {
+                if (checkedFromHash.length > 0) {
+                    setNaicsCounts(countsFromHash);
+                    setUncheckedNaics(uncheckedFromHash);
+                    // Loading the checkbox tree from a url hash...
+                    const allUniqueAncestors = [
+                        ...checkedFromHash,
+                        ...uncheckedFromHash
+                    ].reduce((uniqueAncestors, code) => {
+                        const highestAncestor = naicsHelper.getHighestAncestorNaicsCode(code);
+                        const immediateAncestor = naicsHelper.getImmediateAncestorNaicsCode(code);
+                        if (uniqueAncestors.includes(highestAncestor)) {
+                            if (!uniqueAncestors.includes(immediateAncestor)) {
+                                return uniqueAncestors.concat([immediateAncestor]);
+                            }
+                            return uniqueAncestors;
+                        }
+                        return uniqueAncestors.concat(
+                            [highestAncestor, immediateAncestor]
+                                .filter((ancestor) => {
+                                    if (uniqueAncestors.includes(ancestor)) {
+                                        return false;
+                                    }
+                                    return true;
+                                })
+                        );
+                    }, []).sort((a, b) => {
+                        if (b.length > a.length) return -1;
+                        if (a.length > b.length) return 1;
+                        return 0;
+                    });
+
+                    // Sequentially populate tree.
+                    return allUniqueAncestors
+                        .reduce((prevPromise, ancestor) => prevPromise
+                            .then(() => fetchNAICS(ancestor, false)), Promise.resolve())
+                    // Then populate the checked array w/ the real checked-nodes descendants
+                        .then(() => {
+                            setIsLoading(false);
+                            const newChecked = checkedFromHash
+                                .reduce((acc, item) => {
+                                    if (item.length === 6 && !uncheckedFromHash.includes(item)) {
+                                        return [...acc, item];
+                                    }
+                                    const node = naicsHelper.getNaicsNodeFromTree(nodes, item);
+                                    return [
+                                        ...acc,
+                                        ...getAllDescendants(node, uncheckedFromHash)
+                                    ];
+                                }, []);
+                            setCheckedNaics(newChecked);
+                        });
+                }
+                console.log("Marko.");
+
+                if (nodes.length > 0) {
+                    console.log("I should be seen.");
+                    showNaicsTree();
+                }
+
+                console.log("end of getNaicsData ==> showing tree now", nodes);
+
+                // consistent return.
+                return Promise.resolve();
+            })
+            .catch((e) => {
+                setErrorMessage(e.message);
+                setIsLoading(false);
+            });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checkedFromHash, uncheckedFromHash, countsFromHash]);
+    }, []);
 
     useEffect(() => {
         if (checked.length === 0 && counts.length !== 0) {
             setNaicsCounts([]);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checked]);
+    }, [checked.length, counts.length]);
+
+    useEffect(() => () => {
+        if (requestRef.current) requestRef.current.cancel();
+        showNaicsTree();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const showNoResults = () => {
         if (isLoading) return false;
