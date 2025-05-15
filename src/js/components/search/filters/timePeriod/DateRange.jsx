@@ -262,10 +262,28 @@ const DateRange = (props) => {
             props.showError('Invalid Dates',
                 'The end date cannot be earlier than the start date.');
         }
-    };
 
-    const onFocus = () => {
-        testDates();
+        const format = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+
+        if (props.startDate !== null) {
+            const newDateFormat = dayjs(props.startDate).format('YYYY-MM-DD');
+            const formatTest = format.test(newDateFormat);
+
+            if (!formatTest) {
+                setNoDatesDR(true);
+                props.showError('Invalid Dates', 'Please enter a valid date in MM/DD/YYYY format.');
+            }
+        }
+
+        if (props.endDate !== null) {
+            const newDateFormat = dayjs(props.endDate).format('YYYY-MM-DD');
+            const formatTest = format.test(newDateFormat);
+
+            if (!formatTest) {
+                setNoDatesDR(true);
+                props.showError('Invalid Dates', 'Please enter a valid date in MM/DD/YYYY format.');
+            }
+        }
     };
 
     useEffect(() => {

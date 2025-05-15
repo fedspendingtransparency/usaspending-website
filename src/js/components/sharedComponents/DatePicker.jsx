@@ -55,7 +55,7 @@ const DatePicker = ({
         setInputValue(e.target.value);
 
         // determine if this is a parseable date
-        const date = dayjs(e.target.value, 'MM/DD/YYYY');
+        const date = dayjs(e.target.value, 'YYYY-MM-DD');
         if (date.isValid()) {
             // it's a valid date
             handleDatePick(date.toDate());
