@@ -12,20 +12,19 @@ import TimePeriodContainer from "../../../../../src/js/containers/search/filters
 
 describe('DateRange', () => {
     it('should clear input field after submitting', async () => {
-        // render(<DateRange {...mockProps} />);
         render(<TimePeriodContainer />);
 
         act(() => {
             fireEvent.change(screen.getByLabelText('start date'), {
-                target: { value: '01/01/2025' }
+                target: { value: '2025-01-01' }
             });
             fireEvent.change(screen.getByLabelText('end date'), {
-                target: { value: '02/01/2025' }
+                target: { value: '2025-02-01' }
             });
         });
 
-        expect(screen.getByLabelText('start date')).toHaveValue('01/01/2025');
-        expect(screen.getByLabelText('end date')).toHaveValue('02/01/2025');
+        expect(screen.getByLabelText('start date')).toHaveValue('2025-01-01');
+        expect(screen.getByLabelText('end date')).toHaveValue('2025-02-01');
 
         act(() => {
             fireEvent.click(screen.getAllByText('Add')[0]);
