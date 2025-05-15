@@ -1,13 +1,17 @@
 import React from 'react';
-import ExternalLink from "./components/sharedComponents/ExternalLink";
+import { Link } from 'react-router-dom';
+import GlobalConstants from './GlobalConstants';
 
 export const bannerContent = [
     {
         isActive: true,
-        title: 'Updates to the Advanced Search experience',
-        content: <>Results can now be viewed individually by Prime Award, Transaction, and Subaward using the filter at the top of the page. Additionally, filters are now grouped by category in a collapsible module, allowing you to expand tables and visualizations. For a more detailed breakdown of the filter updates, please visit the <ExternalLink url="https://github.com/fedspendingtransparency/usaspending-website/wiki">release notes</ExternalLink>.</>,
-        page: '/search', // use 'site wide' to display a banner across the entire site
-        type: 'general' // three options "general", "warning", "warning-resolved"
+        title: 'Notice: This page is currently in beta mode.',
+        content: <>For Advanced Search features, please visit <Link to={GlobalConstants.SEARCH_LEGACY_PATH}>https://usaspending.gov/search</Link>. If you have any questions, please reach out to:{` `}
+            <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Advanced%20Search%20Questions">
+                usaspending.help@fiscal.treasury.gov
+            </a></>,
+        page: GlobalConstants.SEARCH_V2_PATH, // use 'site wide' to display a banner across the entire site
+        type: 'warning' // three options "general", "warning", "warning-resolved"
     },
     {
         isActive: true,

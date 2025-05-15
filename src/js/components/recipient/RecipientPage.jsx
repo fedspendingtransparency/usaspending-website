@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { find, throttle } from 'lodash';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
@@ -37,7 +37,7 @@ export const RecipientPage = ({
     error,
     pickedFy
 }) => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
     const [isChildModalVisible, showChildModal] = useState(false);
     const [isAlternateModalVisible, showAlternateRecipientModal] = useState(false);
@@ -86,10 +86,9 @@ export const RecipientPage = ({
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
 
         // add offsets
         let conditionalOffset;
