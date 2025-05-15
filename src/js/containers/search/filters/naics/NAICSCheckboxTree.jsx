@@ -145,7 +145,6 @@ const NAICSCheckboxTree = ({
                 setRequestType('');
 
                 requestRef.current = null;
-                return results;
             })
             .catch((e) => {
                 if (!isCancel(e)) {
