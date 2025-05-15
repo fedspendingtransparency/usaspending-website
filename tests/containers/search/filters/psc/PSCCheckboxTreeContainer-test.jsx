@@ -10,7 +10,7 @@ import storeSingleton from "redux/storeSingleton";
 import { combineReducers, createStore } from "redux";
 import { List } from "immutable";
 import { expect } from "@jest/globals";
-import { waitFor } from "@testing-library/react";
+import { getDefaultNormalizer, waitFor } from "@testing-library/react";
 
 import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
 import { render, screen } from '../../../../testResources/test-utils';
@@ -46,34 +46,6 @@ const mockData = {
 const store = createStore(mockPSCReducers, mockData);
 storeSingleton.setStore(store);
 
-// mocking the child component to stringify the props being passed down.
-// This allows us to search the string for proper props
-jest.mock('../../../../../src/js/components/sharedComponents/CheckboxTree', () => (childProps) => (
-    <div>{JSON.stringify(childProps)}</div>
-));
-
-// jest.mock('../searchHelper', () => {
-//     const originalModule = jest.requireActual('../searchHelper');
-//
-//     return {
-//         __esModule: true,
-//         ...originalModule,
-//         fetchPSC: jest.fn(() => ({
-//             data: {
-//                 results: [
-//                     {
-//                         id: "Research and Development",
-//                         ancestors: [],
-//                         description: "",
-//                         count: 868,
-//                         children: null
-//                     }
-//                 ]
-//             }
-//         }))
-//     };
-// });
-
 const mockResponse = {
     data: {
         results: [
@@ -83,30 +55,20 @@ const mockResponse = {
                 description: "",
                 count: 868,
                 children: null
-            }
-        ]
-    }
-};
-
-const mockResponseSearch = {
-    data: {
-        results: [
+            },
+            {
+                id: "Service",
+                ancestors: [],
+                description: "",
+                count: 2048,
+                children: null
+            },
             {
                 id: "Product",
                 ancestors: [],
                 description: "",
                 count: 695,
-                children: [
-                    {
-                        id: "37",
-                        ancestors: [
-                            "Product"
-                        ],
-                        description: "AGRICULTURAL MACHINERY AND EQPT",
-                        count: 7,
-                        children: null
-                    }
-                ]
+                children: null
             }
         ]
     }
@@ -127,11 +89,20 @@ describe('PSCCheckboxTreeContainer', () => {
         render(<PSCCheckboxTreeContainer />);
 
         await waitFor(() => {
-            expect(screen.getByText('"Research and Development",', { exact: false })).toBeTruthy();
+            const testRandD = screen.getByText('Research and Development', {
+                exact: false,
+                normalizer: (str) => getDefaultNormalizer()(str).replace(/<span class="highlight"><\/span>/, '')
+            });
+            expect(testRandD).toBeTruthy();
         });
 
-        const test = screen.getByText('{"isError":false,"errorMessage":"","isLoading":false,"data":[{"id":"Research and Development","ancestors":[],"description":"","count":868,"children":[{"isPlaceHolder":true,"label":"Placeholder Child","value":"children_of_Research and Development"}],"label":"","value":"Research and Development"}],"checked":[],"searchText":"","noResults":false,"expanded":[]}', { exact: false });
+        const testService = screen.getByText('2048 codes', { exact: false });
+        const testProduct = screen.getByText('Product', {
+            exact: false,
+            normalizer: (str) => getDefaultNormalizer()(str).replace(/<span class="highlight"><\/span>/, '')
+        });
 
-        expect(test).toBeTruthy();
+        expect(testService).toBeTruthy();
+        expect(testProduct).toBeTruthy();
     });
 });
