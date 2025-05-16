@@ -22,7 +22,7 @@ describe('PSCCheckboxTreeContainer', () => {
 
         await waitFor(() => {
             const rAndDTest = screen.getByText('Research and Development', { exact: false });
-            expect(rAndDTest).toBeTruthy();
+            expect(rAndDTest).toBeInTheDocument();
         });
     });
 
@@ -34,7 +34,7 @@ describe('PSCCheckboxTreeContainer', () => {
         await waitFor(() => {
             const rAndDTest = screen.getByText('Research and Development', { exact: false });
 
-            expect(rAndDTest).toBeTruthy();
+            expect(rAndDTest).toBeInTheDocument();
         });
 
         jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(agriMockResponse) });
@@ -43,14 +43,14 @@ describe('PSCCheckboxTreeContainer', () => {
             const searchBar = screen.getByPlaceholderText('Type to filter results');
 
             fireEvent.change(searchBar, { target: { value: 'agri' } });
-            expect(searchBar).toBeTruthy();
+            expect(searchBar).toBeInTheDocument();
             expect(searchBar).toHaveValue('agri');
         });
 
         await waitFor(() => {
             const agriTest = screen.getByText('CULTURE R&D SERVICES', { exact: false });
 
-            expect(agriTest).toBeTruthy();
+            expect(agriTest).toBeInTheDocument();
         });
     });
 
@@ -62,7 +62,7 @@ describe('PSCCheckboxTreeContainer', () => {
         await waitFor(() => {
             const rAndDTest = screen.getByText('Research and Development', { exact: false });
 
-            expect(rAndDTest).toBeTruthy();
+            expect(rAndDTest).toBeInTheDocument();
         });
 
         jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
@@ -76,7 +76,7 @@ describe('PSCCheckboxTreeContainer', () => {
         await waitFor(() => {
             const test = screen.getByText('SPECIAL STUDIES/ANALYSIS, NOT R&D');
 
-            expect(test).toBeTruthy();
+            expect(test).toBeInTheDocument();
         });
     });
 
@@ -87,7 +87,7 @@ describe('PSCCheckboxTreeContainer', () => {
     //
     //     await waitFor(() => {
     //         const rAndDTest = screen.getByText('Research and Development', { exact: false });
-    //         expect(rAndDTest).toBeTruthy();
+    //         expect(rAndDTest).toBeInTheDocument();
     //     });
     //
     //     const checkbox = document.getElementsByClassName('rct-checkbox');
