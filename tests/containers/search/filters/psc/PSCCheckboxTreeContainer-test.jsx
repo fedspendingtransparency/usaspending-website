@@ -26,14 +26,14 @@ describe('PSCCheckboxTreeContainer', () => {
         });
     });
 
-    it('should populate the checkbox tree search results', async () => {
+    it('should populate the checkbox tree search results and clear', async () => {
         jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
 
         await waitFor(() => {
-            const rAndDTest = screen.getByText('Research and Development', { exact: false });
-            expect(rAndDTest).toBeInTheDocument();
+            const rAndDElement = screen.getByText('Research and Development', { exact: false });
+            expect(rAndDElement).toBeInTheDocument();
         });
 
         jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(agriMockResponse) });
@@ -45,8 +45,18 @@ describe('PSCCheckboxTreeContainer', () => {
         });
 
         await waitFor(() => {
-            const agriTest = screen.getByText('CULTURE R&D SERVICES', { exact: false });
-            expect(agriTest).toBeInTheDocument();
+            const agriEl = screen.getByText('CULTURE R&D SERVICES', { exact: false });
+            expect(agriEl).toBeInTheDocument();
+        });
+
+        act(() => {
+            const searchBar = screen.getByPlaceholderText('Type to filter results');
+            fireEvent.change(searchBar, { target: { value: '' } });
+        });
+
+        await waitFor(() => {
+            const agriEl = screen.queryByText('CULTURE R&D SERVICES', { exact: false });
+            expect(agriEl).not.toBeInTheDocument();
         });
     });
 
