@@ -78,6 +78,18 @@ describe('PSCCheckboxTreeContainer', () => {
 
             expect(test).toBeInTheDocument();
         });
+
+        act(() => {
+            const accordionChevron = screen.getAllByRole('button', 'Toggle');
+
+            fireEvent.click(accordionChevron[1]);
+        });
+
+        await waitFor(() => {
+            const test = screen.queryByText('SPECIAL STUDIES/ANALYSIS, NOT R&D');
+
+            expect(test).not.toBeInTheDocument();
+        });
     });
 
     // it('check/uncheck based on parent child relationship', async () => {
