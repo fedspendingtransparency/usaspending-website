@@ -33,7 +33,6 @@ describe('PSCCheckboxTreeContainer', () => {
 
         await waitFor(() => {
             const rAndDTest = screen.getByText('Research and Development', { exact: false });
-
             expect(rAndDTest).toBeInTheDocument();
         });
 
@@ -41,15 +40,12 @@ describe('PSCCheckboxTreeContainer', () => {
 
         act(() => {
             const searchBar = screen.getByPlaceholderText('Type to filter results');
-
             fireEvent.change(searchBar, { target: { value: 'agri' } });
-            expect(searchBar).toBeInTheDocument();
             expect(searchBar).toHaveValue('agri');
         });
 
         await waitFor(() => {
             const agriTest = screen.getByText('CULTURE R&D SERVICES', { exact: false });
-
             expect(agriTest).toBeInTheDocument();
         });
     });
@@ -61,7 +57,6 @@ describe('PSCCheckboxTreeContainer', () => {
 
         await waitFor(() => {
             const rAndDTest = screen.getByText('Research and Development', { exact: false });
-
             expect(rAndDTest).toBeInTheDocument();
         });
 
@@ -69,47 +64,74 @@ describe('PSCCheckboxTreeContainer', () => {
 
         act(() => {
             const accordionChevron = screen.getAllByRole('button', 'Toggle');
-
             fireEvent.click(accordionChevron[1]);
         });
 
         await waitFor(() => {
             const test = screen.getByText('SPECIAL STUDIES/ANALYSIS, NOT R&D');
-
             expect(test).toBeInTheDocument();
         });
 
         act(() => {
             const accordionChevron = screen.getAllByRole('button', 'Toggle');
-
             fireEvent.click(accordionChevron[1]);
         });
 
         await waitFor(() => {
             const test = screen.queryByText('SPECIAL STUDIES/ANALYSIS, NOT R&D');
-
             expect(test).not.toBeInTheDocument();
         });
     });
 
-    // it('check/uncheck based on parent child relationship', async () => {
-    //     jest.spyOn(searchHelper, 'fetchPsc').mockReturnValue({ promise: Promise.resolve(initialMockResponse) });
-    //
-    //     render(<PSCCheckboxTreeContainer />);
-    //
-    //     await waitFor(() => {
-    //         const rAndDTest = screen.getByText('Research and Development', { exact: false });
-    //         expect(rAndDTest).toBeInTheDocument();
-    //     });
-    //
-    //     const checkbox = document.getElementsByClassName('rct-checkbox');
-    //
-    //     act(() => {
-    //         fireEvent.click(checkbox[0]);
-    //     });
-    //
-    //     await waitFor(() => {
-    //         expect(checkbox[0]).toBe('here');
-    //     });
-    // });
+    it('check/uncheck based on parent child relationship', async () => {
+        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
+
+        render(<PSCCheckboxTreeContainer />);
+
+        await waitFor(() => {
+            const rAndDTest = screen.getByText('Research and Development', { exact: false });
+            expect(rAndDTest).toBeInTheDocument();
+        });
+
+        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
+
+        act(() => {
+            const accordionChevron = screen.getAllByRole('button', 'Toggle');
+            fireEvent.click(accordionChevron[1]);
+        });
+
+        await waitFor(() => {
+            const test = screen.getByText('SPECIAL STUDIES/ANALYSIS, NOT R&D');
+            expect(test).toBeInTheDocument();
+        });
+
+        const checkboxes = document.getElementsByClassName('rct-checkbox');
+
+        // parent checked
+        act(() => {
+            fireEvent.click(checkboxes[1]);
+        });
+
+        expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'check-square');
+        expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'check-square');
+        expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'check-square');
+
+        // one child unchecked
+        act(() => {
+            fireEvent.click(checkboxes[2]);
+        });
+
+        expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'minus-square');
+        expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'square');
+        expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'check-square');
+
+        // both children unchecked
+        act(() => {
+            fireEvent.click(checkboxes[3]);
+        });
+
+        expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'square');
+        expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'square');
+        expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'square');
+    });
 });
