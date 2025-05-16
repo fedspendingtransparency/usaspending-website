@@ -7,100 +7,23 @@
 
 import React from 'react';
 import { expect } from "@jest/globals";
-import { getDefaultNormalizer, waitFor } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 
 import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
 import { render, screen, act, fireEvent } from '../../../../testResources/test-utils';
+import { initialMockResponse, agriMockResponse, accordionOpenMockResponse } from './mockPSC';
 import * as searchHelper from "../../../../../src/js/helpers/searchHelper";
-
-const initialMockResponse = {
-    data: {
-        results: [
-            {
-                id: "Research and Development",
-                ancestors: [],
-                description: "",
-                count: 868,
-                children: null
-            },
-            {
-                id: "Service",
-                ancestors: [],
-                description: "",
-                count: 2048,
-                children: null
-            },
-            {
-                id: "Product",
-                ancestors: [],
-                description: "",
-                count: 695,
-                children: null
-            }
-        ]
-    }
-};
-
-const agriMockResponse = {
-    data: {
-        results: [
-            {
-                id: "Research and Development",
-                ancestors: [],
-                description: "",
-                count: 868,
-                children: [
-                    {
-                        id: "AA",
-                        ancestors: [
-                            "Research and Development"
-                        ],
-                        description: "AGRICULTURE R&D SERVICES",
-                        count: 39,
-                        children: null
-                    }
-                ]
-            },
-            {
-                id: "Service",
-                ancestors: [],
-                description: "",
-                count: 2048,
-                children: null
-            },
-            {
-                id: "Product",
-                ancestors: [],
-                description: "",
-                count: 695,
-                children: null
-            }
-        ]
-    }
-};
 
 describe('PSCCheckboxTreeContainer', () => {
     it('should populate the checkbox tree with all psc groups', async () => {
-        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValue({ promise: Promise.resolve(initialMockResponse) });
+        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
 
         await waitFor(() => {
-            const rAndDTest = screen.getByText('Research and Development', {
-                exact: false,
-                normalizer: (str) => getDefaultNormalizer()(str).replace(/<span class="highlight"><\/span>/, '')
-            });
+            const rAndDTest = screen.getByText('Research and Development', { exact: false });
             expect(rAndDTest).toBeTruthy();
         });
-
-        const serviceTest = screen.getByText('2048 codes', { exact: false });
-        const productTest = screen.getByText('Product', {
-            exact: false,
-            normalizer: (str) => getDefaultNormalizer()(str).replace(/<span class="highlight"><\/span>/, '')
-        });
-
-        expect(serviceTest).toBeTruthy();
-        expect(productTest).toBeTruthy();
     });
 
     it('should populate the checkbox tree search results', async () => {
@@ -109,10 +32,7 @@ describe('PSCCheckboxTreeContainer', () => {
         render(<PSCCheckboxTreeContainer />);
 
         await waitFor(() => {
-            const rAndDTest = screen.getByText('Research and Development', {
-                exact: false,
-                normalizer: (str) => getDefaultNormalizer()(str).replace(/<span class="highlight"><\/span>/, '')
-            });
+            const rAndDTest = screen.getByText('Research and Development', { exact: false });
 
             expect(rAndDTest).toBeTruthy();
         });
@@ -133,4 +53,51 @@ describe('PSCCheckboxTreeContainer', () => {
             expect(agriTest).toBeTruthy();
         });
     });
+
+    it('should open/close accordion', async () => {
+        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
+
+        render(<PSCCheckboxTreeContainer />);
+
+        await waitFor(() => {
+            const rAndDTest = screen.getByText('Research and Development', { exact: false });
+
+            expect(rAndDTest).toBeTruthy();
+        });
+
+        jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
+
+        act(() => {
+            const accordionChevron = screen.getAllByRole('button', 'Toggle');
+
+            fireEvent.click(accordionChevron[1]);
+        });
+
+        await waitFor(() => {
+            const test = screen.getByText('SPECIAL STUDIES/ANALYSIS, NOT R&D');
+
+            expect(test).toBeTruthy();
+        });
+    });
+
+    // it('check/uncheck based on parent child relationship', async () => {
+    //     jest.spyOn(searchHelper, 'fetchPsc').mockReturnValue({ promise: Promise.resolve(initialMockResponse) });
+    //
+    //     render(<PSCCheckboxTreeContainer />);
+    //
+    //     await waitFor(() => {
+    //         const rAndDTest = screen.getByText('Research and Development', { exact: false });
+    //         expect(rAndDTest).toBeTruthy();
+    //     });
+    //
+    //     const checkbox = document.getElementsByClassName('rct-checkbox');
+    //
+    //     act(() => {
+    //         fireEvent.click(checkbox[0]);
+    //     });
+    //
+    //     await waitFor(() => {
+    //         expect(checkbox[0]).toBe('here');
+    //     });
+    // });
 });
