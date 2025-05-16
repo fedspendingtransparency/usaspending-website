@@ -32,7 +32,9 @@ const propTypes = {
     updateFilter: PropTypes.func,
     errorState: PropTypes.bool,
     header: PropTypes.string,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    setStartDate: PropTypes.func,
+    setEndDate: PropTypes.func
 };
 
 const DateRange = (props) => {
@@ -187,6 +189,8 @@ const DateRange = (props) => {
                 endDate: null
             });
         }
+        props.setStartDate(null);
+        props.setEndDate(null);
     };
 
     const submitDatesDropdown = () => {
