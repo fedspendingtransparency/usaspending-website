@@ -73,7 +73,10 @@ const PSCCheckboxTreeContainer = ({
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [showNoResults, setShowNoResults] = useState(false);
+    const [newCheck, setNewCheck] = useState([]);
+    const [uncheckedFromHashLocal, setUncheckedFromHashLocal] = useState([]);
 
+    const nodesRef = useRef(true);
     const request = useRef(null);
 
     const autoCheckSearchResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
@@ -278,17 +281,8 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const setCheckedStateFromUrlHash = (newChecked) => {
-        const uncheckedFromHashLocal = uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
-        if (nodes.length > 0) {
-            const newCheckedWithPlaceholders = flattenDeep(newChecked
-                .map((check) => getAllDescendants(
-                    getPscNodeFromTree(nodes, check), uncheckedFromHashLocal)
-                )
-            );
-            setCheckedPsc(newCheckedWithPlaceholders);
-            setUncheckedPsc(uncheckedFromHashLocal);
-            setIsLoading(false);
-        }
+        setNewCheck(newChecked);
+        setUncheckedFromHashLocal(uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
     };
 
     const handleTextInputChange = (e) => {
@@ -368,6 +362,26 @@ const PSCCheckboxTreeContainer = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, isSearch, isLoading]);
+
+    // for properly setting checked state from hash
+    useEffect(() => {
+        if (nodes.length > 0 && nodesRef.current) {
+            const newCheckedWithPlaceholders = flattenDeep(newCheck
+                .map((check) => getAllDescendants(
+                    getPscNodeFromTree(nodes, check), uncheckedFromHashLocal)
+                )
+            );
+
+            if (newCheckedWithPlaceholders.length > 0) {
+                setCheckedPsc(newCheckedWithPlaceholders);
+                setUncheckedPsc(uncheckedFromHashLocal);
+                nodesRef.current = false;
+            }
+
+            setIsLoading(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nodes]);
 
     return (
         <div className="psc-checkbox">
