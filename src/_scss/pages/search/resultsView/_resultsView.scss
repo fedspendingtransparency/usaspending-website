@@ -64,7 +64,7 @@
         }
 
         .button-type__primary-left-icon-light svg {
-          fill: $gray-cool-1 
+          fill: $gray-cool-1
         }
       }
 
@@ -78,6 +78,7 @@
           padding-top: rem(8);
         }
 
+        // DTUI NewPicker.jsx override
         .filter__dropdown-button-list-container {
           .advanced-search-dropdown__button {
             max-width: 100%;
