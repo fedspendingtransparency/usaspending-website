@@ -4,7 +4,7 @@
   **/
 
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
 import { isCancel } from 'axios';
@@ -76,11 +76,20 @@ const NAICSCheckboxTree = (props) => {
     const [isSearch, setIsSearch] = useState(false);
     const [searchString, setSearchString] = useState('');
     const [requestType, setRequestType] = useState('initial');
+    const nodes = useSelector((state) => state.naics.naics.toJS());
+    const expanded = useSelector((state) => state.naics.expanded.toJS());
+    const searchExpanded = useSelector((state) => state.naics.searchExpanded.toJS());
+    const checked = useSelector((state) => state.naics.checked.toJS());
+    const counts = useSelector((state) => state.naics.counts.toJS());
+    const unchecked = useSelector((state) => state.naics.unchecked.toJS());
+    const checkedFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.require);
+    const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.exclude);
+    const countsFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.counts);
 
     let requestRef = null;
 
     const autoCheckSearchedResultDescendants = (visibleNaicsValues) => {
-        const placeholderNodes = props.checked
+        const placeholderNodes = checked
             .filter((node) => node.includes('children_of_'))
             .map((node) => node.split('children_of_')[1]);
 
@@ -93,7 +102,7 @@ const NAICSCheckboxTree = (props) => {
                     placeholderNodes.includes(naicsCode) // ie 1123
                 );
                 const isUnchecked = (
-                    props.unchecked.includes(naicsCode)
+                    unchecked.includes(naicsCode)
                 );
                 return (isCheckedByPlaceholder && !isUnchecked);
             });
@@ -101,24 +110,24 @@ const NAICSCheckboxTree = (props) => {
         expandedNodesWithMockAncestorChecked
             .forEach((expandedNode) => {
                 // use reusable recursive fn here...?
-                const node = getNaicsNodeFromTree(props.nodes, expandedNode);
+                const node = getNaicsNodeFromTree(nodes, expandedNode);
                 if (node.children) {
                     node.children.forEach((child) => {
                         if (!child.children) {
-                            if (!props.unchecked.includes(child.value)) {
+                            if (!unchecked.includes(child.value)) {
                                 props.addCheckedNaics(child.value);
                             }
                         }
                         if (child.children) {
                             child.children.forEach((grandChild) => {
-                                if (!props.unchecked.includes(grandChild.value)) {
+                                if (!unchecked.includes(grandChild.value)) {
                                     props.addCheckedNaics(grandChild.value);
                                 }
                             });
                         }
                     });
                 }
-                else if (expandedNode.length === 6 && !props.unchecked.includes(expandedNode)) {
+                else if (expandedNode.length === 6 && !unchecked.includes(expandedNode)) {
                     props.addCheckedNaics(node.value);
                 }
             });
@@ -147,11 +156,11 @@ const NAICSCheckboxTree = (props) => {
                     props.setNaicsNodes(param, results);
                 }
                 // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
-                if (props.checked.includes(`children_of_${param}`)) {
+                if (checked.includes(`children_of_${param}`)) {
                     const newChecked = autoCheckNaicsAfterExpand(
                         results[0],
-                        props.checked,
-                        props.unchecked
+                        checked,
+                        unchecked
                     );
                     props.setCheckedNaics(newChecked);
                 }
@@ -175,21 +184,21 @@ const NAICSCheckboxTree = (props) => {
     };
 
     const loadCheckedFromHash = () => {
-        const newChecked = props.checkedFromHash
-            .reduce((acc, checked) => {
-                if (checked.length === 6 && !props.uncheckedFromHash.includes(checked)) {
-                    return [...acc, checked];
+        const newChecked = checkedFromHash
+            .reduce((acc, hashChecked) => {
+                if (hashChecked.length === 6 && !uncheckedFromHash.includes(hashChecked)) {
+                    return [...acc, hashChecked];
                 }
-                const node = getNaicsNodeFromTree(props.nodes, checked);
+                const node = getNaicsNodeFromTree(nodes, hashChecked);
                 return [
                     ...acc,
-                    ...getAllDescendants(node, props.uncheckedFromHash)
+                    ...getAllDescendants(node, uncheckedFromHash)
                 ];
             }, []);
         props.setCheckedNaics(newChecked);
 
-        props.setNaicsCounts(props.countsFromHash);
-        props.stageNaics(newChecked, [], props.countsFromHash);
+        props.setNaicsCounts(countsFromHash);
+        props.stageNaics(newChecked, [], countsFromHash);
         return Promise.resolve();
     };
 
@@ -215,10 +224,10 @@ const NAICSCheckboxTree = (props) => {
     const onCheck = (newChecked) => {
         const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
             newChecked,
-            props.checked,
-            props.unchecked,
-            props.nodes,
-            props.counts
+            checked,
+            unchecked,
+            nodes,
+            counts
         );
 
         props.setNaicsCounts(newCounts);
@@ -234,10 +243,10 @@ const NAICSCheckboxTree = (props) => {
         else {
             const [newCounts, newUnchecked] = decrementNaicsCountAndUpdateUnchecked(
                 uncheckedNode,
-                props.unchecked,
-                props.checked,
-                props.counts,
-                props.nodes
+                unchecked,
+                checked,
+                counts,
+                nodes
             );
 
             props.setUncheckedNaics(newUnchecked);
@@ -247,24 +256,24 @@ const NAICSCheckboxTree = (props) => {
         }
     };
 
-    const onExpand = (value, expanded, fetch) => {
+    const onExpand = (value, expandedArr, fetch) => {
         if (fetch && !isSearch) {
             fetchNAICS(value);
         }
         if (isSearch) {
-            props.setExpandedNaics(expanded, 'SET_SEARCHED_EXPANDED');
+            props.setExpandedNaics(expandedArr, 'SET_SEARCHED_EXPANDED');
         }
         else {
-            props.setExpandedNaics(expanded);
+            props.setExpandedNaics(expandedArr);
         }
     };
 
-    const onCollapse = (expanded) => {
+    const onCollapse = (expandedArr) => {
         if (isSearch) {
-            props.setExpandedNaics(expanded, 'SET_SEARCHED_EXPANDED');
+            props.setExpandedNaics(expandedArr, 'SET_SEARCHED_EXPANDED');
         }
         else {
-            props.setExpandedNaics(expanded);
+            props.setExpandedNaics(expandedArr);
         }
     };
 
@@ -285,28 +294,30 @@ const NAICSCheckboxTree = (props) => {
 
     const showNoResults = () => {
         if (isLoading) return false;
-        return props.nodes.length === 0;
+        return nodes.length === 0;
     };
 
     useEffect(() => {
-        if (props.nodes.length !== 0 && props.checkedFromHash.length) {
+        console.log("nodes  ::::::::: ", nodes);
+
+        if (nodes.length !== 0 && checkedFromHash.length) {
             loadCheckedFromHash();
         }
-        else if (props.nodes.length !== 0) {
+        else if (nodes.length !== 0) {
             props.showNaicsTree();
             // return Promise.resolve();
         }
-
-        if (props.nodes.length === 0) {
+        if (nodes.length === 0) {
+            console.log("nodes.lenth === 0");
             fetchNAICS()
                 .then(() => {
-                    if (props.checkedFromHash.length > 0) {
-                        props.setNaicsCounts(props.countsFromHash);
-                        props.setUncheckedNaics(props.uncheckedFromHash);
+                    if (checkedFromHash.length > 0) {
+                        props.setNaicsCounts(countsFromHash);
+                        props.setUncheckedNaics(uncheckedFromHash);
                         // Loading the checkbox tree from a url hash...
                         const allUniqueAncestors = [
-                            ...props.checkedFromHash,
-                            ...props.uncheckedFromHash
+                            ...checkedFromHash,
+                            ...uncheckedFromHash
                         ].reduce((uniqueAncestors, code) => {
                             const highestAncestor = getHighestAncestorNaicsCode(code);
                             const immediateAncestor = getImmediateAncestorNaicsCode(code);
@@ -341,7 +352,8 @@ const NAICSCheckboxTree = (props) => {
                                 loadCheckedFromHash();
                             });
                     }
-                    if (props.nodes.length > 0) {
+                    console.log("nodes.length :::::: 0", props);
+                    if (nodes.length > 0) {
                         props.showNaicsTree();
                     }
                     // consistent return.
@@ -361,28 +373,23 @@ const NAICSCheckboxTree = (props) => {
     }, []);
 
     useEffect(() => {
-        if (props.checked.length === 0 && props.counts.length !== 0) {
+        if (checked.length === 0 && counts.length !== 0) {
             props.setNaicsCounts([]);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.checked.length, props.counts.length]);
+    }, [checked.length, counts.length]);
 
-    useEffect(() => () => {
-        if (requestRef) requestRef.cancel();
-        props.showNaicsTree();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const checkboxDiv = () => (
         <CheckboxTree
             limit={3}
-            data={props.nodes}
+            data={nodes}
             isError={isError}
             errorMessage={errorMessage}
             isLoading={isLoading}
             noResults={showNoResults}
-            checked={props.checked}
-            expanded={isSearch ? props.searchExpanded : props.expanded}
+            checked={checked}
+            expanded={isSearch ? searchExpanded : expanded}
             searchText={searchString}
             onExpand={onExpand}
             onCollapse={onCollapse}
@@ -410,19 +417,7 @@ const NAICSCheckboxTree = (props) => {
 
 NAICSCheckboxTree.propTypes = propTypes;
 
-export default connect(
-    (state) => ({
-        nodes: state.naics.naics.toJS(),
-        expanded: state.naics.expanded.toJS(),
-        searchExpanded: state.naics.searchExpanded.toJS(),
-        checked: state.naics.checked.toJS(),
-        unchecked: state.naics.unchecked.toJS(),
-        counts: state.naics.counts.toJS(),
-        checkedFromHash: state.appliedFilters.filters.naicsCodes.require,
-        uncheckedFromHash: state.appliedFilters.filters.naicsCodes.exclude,
-        countsFromHash: state.appliedFilters.filters.naicsCodes.counts,
-        filters: state.appliedFilters.filters
-    }),
+export default connect(null,
     (dispatch) => ({
         stageNaics: (checked, unchecked, counts) => dispatch(updateNaics(checked, unchecked, counts)),
         setNaicsNodes: (key, naics) => dispatch(setNaicsNodes(key, naics)),
