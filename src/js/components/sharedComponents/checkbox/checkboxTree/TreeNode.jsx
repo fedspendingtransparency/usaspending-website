@@ -73,43 +73,32 @@ const TreeNode = (props) => {
         }
     };
 
-    function flattenChildren(items) {
+    const flattenChildren = (items) => {
         const result = [];
 
         if (!items || items.length === 0) {
-            console.log("single item 1", node, items);
             result.push(node.value);
         }
 
         items.forEach((item) => {
-            console.log("item1", item.children);
             if (item.children && item.children.length > 1) {
-                // result.push(item.children[0].value);
                 flattenChildren(item.children);
-            } else if (item.children?.length === 1) {
-                console.log("one child", item);
+            }
+            else if (item.children?.length === 1) {
                 result.push(item?.children[0].value);
-            } else {
-                console.log("single item 2", item);
+            }
+            else {
                 result.push(item?.value);
             }
         });
 
         return result;
-    }
-
-    const isChecked = () => {
-        return childNodes?.findIndex((element) => element.includes(node.id)) > -1;
     };
 
-    const checkedValues = () => {
-        const tmpChildNodeValues = node?.children.map((child) => child.value);
-        setChildNodeValues(tmpChildNodeValues);
-        return tmpChildNodeValues;
-    };
+    // const isChecked = () => childNodes?.findIndex((element) => element.includes(node.id)) > -1;
 
     const handleCheck = () => {
-        const checked = checkedValues();
+        const checked = flattenChildren(node.children);
         onChecked(checked, node);
     };
 
