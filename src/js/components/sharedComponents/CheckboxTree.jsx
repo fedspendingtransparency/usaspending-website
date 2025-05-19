@@ -46,6 +46,8 @@ const defaultProps = {
 };
 
 export default class CheckboxTree extends Component {
+
+
     /**
      * onExpand
      * (react-checkbox-tree calls this function when a user expands a node)
@@ -96,6 +98,7 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     checkedNode = (checked, node) => {
+        console.log("checked node", checked, node);
         this.props.onCheck(checked, node);
     };
     /**
@@ -210,6 +213,8 @@ export default class CheckboxTree extends Component {
     });
 
     render() {
+        console.log("checked", this.props);
+
         const {
             data,
             checked,

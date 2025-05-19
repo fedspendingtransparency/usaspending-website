@@ -25,6 +25,7 @@ const TreeNode = (props) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [loading, setLoading] = useState(false);
     const [childNodes, setChildNodes] = useState([]);
+    const [childNodeValues, setChildNodeValues] = useState([]);
     const [selectedNode, setSelectedNode] = useState();
 
     const childNode = useRef();
@@ -56,7 +57,8 @@ const TreeNode = (props) => {
             if (childNodes.length > 0 && childNodes?.findIndex((element) => element.includes(node.id)) > -1) {
                 childNode.current.style.display = 'block';
                 setLoading(false);
-            } else {
+            }
+            else {
                 setLoading(true);
                 setIsExpanded(true);
                 if (onExpand) {
@@ -71,12 +73,43 @@ const TreeNode = (props) => {
         }
     };
 
+    function flattenChildren(items) {
+        const result = [];
+
+        if (!items || items.length === 0) {
+            console.log("single item 1", node, items);
+            result.push(node.value);
+        }
+
+        items.forEach((item) => {
+            console.log("item1", item.children);
+            if (item.children && item.children.length > 1) {
+                // result.push(item.children[0].value);
+                flattenChildren(item.children);
+            } else if (item.children?.length === 1) {
+                console.log("one child", item);
+                result.push(item?.children[0].value);
+            } else {
+                console.log("single item 2", item);
+                result.push(item?.value);
+            }
+        });
+
+        return result;
+    }
+
     const isChecked = () => {
         return childNodes?.findIndex((element) => element.includes(node.id)) > -1;
     };
 
+    const checkedValues = () => {
+        const tmpChildNodeValues = node?.children.map((child) => child.value);
+        setChildNodeValues(tmpChildNodeValues);
+        return tmpChildNodeValues;
+    };
+
     const handleCheck = () => {
-        const checked = isChecked();
+        const checked = checkedValues();
         onChecked(checked, node);
     };
 
