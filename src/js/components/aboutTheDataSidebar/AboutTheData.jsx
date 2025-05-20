@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { isEqual } from "lodash";
@@ -29,7 +29,7 @@ const propTypes = {
 };
 
 const AboutTheData = (props) => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
     const [height, setHeight] = useState(0);
     const [drilldown, setDrilldown] = useState(null);

@@ -150,7 +150,7 @@ export const routes = [
     },
     {
     // could be state name or fips code
-        path: '/state/:state/:fy',
+        path: '/state/:state/:fy?',
         component: StateContainer,
         exact: true
     },

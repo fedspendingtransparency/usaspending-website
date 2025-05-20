@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { throttle } from "lodash";
-import { useHistory } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
@@ -68,6 +68,7 @@ const SearchSectionWrapper = ({
     showToggle
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
+    const [trackDSMEvent, setTrackDSMEvent] = useState(false);
     const [viewType, setViewType] = useState('chart');
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const gaRef = useRef(false);
@@ -78,11 +79,11 @@ const SearchSectionWrapper = ({
     const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
-    const history = useHistory();
-
-    const params = history.location.search.split("&");
-    params.shift();
-    const sectionValue = params[0]?.substring(8);
+    const history = useNavigate();
+    const location = useLocation();
+    const params = location.search?.split("&");
+    params?.shift();
+    const sectionValue = params?.length > 0 ? params[0]?.substring(8) : null;
     const sortFn = () => dropdownOptions;
 
     const changeView = (label) => {
@@ -111,10 +112,7 @@ const SearchSectionWrapper = ({
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
+            history(getQueryParamString(newQueryParams));
         }
 
         let rectTopOffset = 0;
@@ -137,7 +135,7 @@ const SearchSectionWrapper = ({
     };
 
     const parseSection = () => {
-        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
+        if ((params?.length === 1 || params?.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
             jumpToSection(sectionValue);
         }
     };
@@ -161,6 +159,44 @@ const SearchSectionWrapper = ({
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [viewType]);
+
+    useEffect(() => {
+        const action = openAccordion ? "open DS&M" : "close DS&M";
+        let prefix = 'Prime Awards Table';
+
+        switch (sectionName) {
+            case 'categories':
+                prefix = `Categories ${selectedDropdownOption}`;
+                break;
+            case 'time':
+                prefix = `Time ${selectedDropdownOption}`;
+                break;
+            case 'map':
+                prefix = `Map ${selectedDropdownOption}`;
+                break;
+            default:
+                if (spendingLevel === 'subawards') {
+                    prefix = 'Subawards Table';
+                    break;
+                }
+                else if (spendingLevel === 'transactions') {
+                    prefix = 'Transactions Table ';
+                    break;
+                }
+                break;
+        }
+
+        if (trackDSMEvent) {
+            Analytics.event({
+                category: 'Advanced Search - Results View DSM',
+                action,
+                label: `${prefix} DS&M`
+            });
+        }
+        setTrackDSMEvent(true);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openAccordion]);
 
     const Message = () => {
         if (isLoading) {

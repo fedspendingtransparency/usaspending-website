@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 
@@ -22,7 +22,7 @@ const propTypes = {
 };
 
 const Glossary = (props) => {
-    const history = useHistory();
+    const history = useNavigate();
     const [contentHeight, setContentHeight] = useState(0);
     const [content, setContent] = useState(null);
     const [loadingContent, setLoadingContent] = useState(null);
@@ -48,7 +48,7 @@ const Glossary = (props) => {
 
             // remove search param from url
             if (window.location.href.includes('glossary')) {
-                history.replace(`${history.location.pathname}`);
+                history(`${history.location.pathname}`, { replace: true });
             }
 
             // move focus back to the main content
