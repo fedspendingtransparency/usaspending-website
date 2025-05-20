@@ -244,7 +244,6 @@ const NAICSCheckboxTree = () => {
         if (text.length >= 2) {
             setIsSearch(true);
             setIsLoading(true);
-            onSearchChange();
         }
     };
 
@@ -347,7 +346,7 @@ const NAICSCheckboxTree = () => {
             onSearchChange();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchString, isSearch, isLoading]);
+    }, [isSearch, isLoading]);
 
     useEffect(() => {
         if (checked.length === 0 && counts.length !== 0) {
