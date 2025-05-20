@@ -12,13 +12,10 @@ import {
     expandNaicsAndAllDescendantParents,
     getHighestAncestorNaicsCode
 } from 'helpers/naicsHelper';
-
 import {
     getAllDescendants
 } from 'helpers/checkboxTreeHelper';
-
 import { naicsRequest } from 'helpers/searchHelper';
-
 import {
     setNaicsNodes,
     setExpandedNaics,
@@ -30,7 +27,6 @@ import {
     setNaicsCounts
 } from 'redux/actions/search/naicsActions';
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
-
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 
@@ -42,6 +38,7 @@ const NAICSCheckboxTree = () => {
     const [isSearch, setIsSearch] = useState(false);
     const [searchString, setSearchString] = useState('');
     const [requestType, setRequestType] = useState('initial');
+    const [showNoResults, setShowNoResults] = useState(false);
 
     const nodes = useSelector((state) => state.naics.naics.toJS());
     const expanded = useSelector((state) => state.naics.expanded.toJS());
@@ -140,7 +137,6 @@ const NAICSCheckboxTree = () => {
                     dispatch(setCheckedNaics(newChecked));
                 }
                 setIsLoading(resolveLoading ? false : isLoading);
-                // setShowNoResults(!nodes || nodes.length === 0)
                 setIsError(false);
                 setErrorMessage('');
                 setRequestType('');
@@ -169,7 +165,6 @@ const NAICSCheckboxTree = () => {
         setSearchString('');
         setIsLoading(false);
         setRequestType('');
-        // setShowNoResults(false);
         dispatch(showNaicsTree());
     };
 
@@ -253,11 +248,6 @@ const NAICSCheckboxTree = () => {
         }
     };
 
-    const showNoResults = () => {
-        if (isLoading) return false;
-        return nodes.length === 0;
-    };
-
     useEffect(() => {
         if (nodes.length !== 0 && checkedFromHash.length) {
             const newChecked = checkedFromHash
@@ -339,11 +329,14 @@ const NAICSCheckboxTree = () => {
             .catch((e) => {
                 console.log("Error: fetching naics on didMount", e);
             });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() =>
         () => {
-            if (request) request.cancel();
+            if (request) {
+                request.current.cancel();
+            }
             dispatch(showNaicsTree());
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -355,6 +348,23 @@ const NAICSCheckboxTree = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, isSearch, isLoading]);
+
+    useEffect(() => {
+        if (checked.length === 0 && counts.length !== 0) {
+            dispatch(setNaicsCounts([]));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checked, counts]);
+
+    useEffect(() => {
+        if (nodes.length !== 0) {
+            setShowNoResults(false);
+        }
+        else {
+            setShowNoResults(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nodes]);
 
     return (
         <div>
@@ -386,7 +396,5 @@ const NAICSCheckboxTree = () => {
         </div>
     );
 };
-
-// NAICSCheckboxTree.propTypes = propTypes;
 
 export default NAICSCheckboxTree;
