@@ -2315,3 +2315,81 @@ export const partialSearchResults = {
         }
     ]
 };
+
+// used in PSCCheckboxTreeContainer-test.jsx
+export const initialMockResponse = {
+    data: {
+        results: [
+            {
+                id: "Research and Development",
+                ancestors: [],
+                description: "",
+                count: 868,
+                children: null
+            },
+            {
+                id: "Service",
+                ancestors: [],
+                description: "",
+                count: 2048,
+                children: null
+            },
+            {
+                id: "Product",
+                ancestors: [],
+                description: "",
+                count: 695,
+                children: null
+            }
+        ]
+    }
+};
+
+export const agriMockResponse = {
+    data: {
+        results: [
+            {
+                id: "Research and Development",
+                ancestors: [],
+                description: "",
+                count: 868,
+                children: [
+                    {
+                        id: "AA",
+                        ancestors: [
+                            "Research and Development"
+                        ],
+                        description: "AGRICULTURE R&D SERVICES",
+                        count: 39,
+                        children: null
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+export const accordionOpenMockResponse = {
+    data: {
+        results: [
+            {
+                "id": "B",
+                "ancestors": [
+                    "Service"
+                ],
+                "description": "SPECIAL STUDIES/ANALYSIS, NOT R&D",
+                "count": 46,
+                "children": null
+            },
+            {
+                "id": "C",
+                "ancestors": [
+                    "Service"
+                ],
+                "description": "ARCHITECT/ENGINEER SERVICES",
+                "count": 101,
+                "children": null
+            }
+        ]
+    }
+};
