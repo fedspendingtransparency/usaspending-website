@@ -31,8 +31,6 @@ const TreeNode = (props) => {
     const childNode = useRef();
     const childNodeRef = useRef();
 
-    console.log(props.ref);
-
     const handleToggle = async () => {
         if (!isExpanded && node.children?.length > 0) {
             // check if child already exists and do something different
@@ -122,13 +120,15 @@ const TreeNode = (props) => {
     // }, [isChecked]);
 
     useEffect(() => {
-        console.log("checked in tree node", checked);
         // const checked = flattenChildren(node.children);
         // console.log(checked, node);
         // setChildNodeValues(checked);
-        // setIsChecked(checked?.findIndex((element) => element?.includes(node?.children[0]?.value)) > -1);
+        const nodeValue = node.children && node.children.length > 0 ? node?.children[0]?.value : node?.value;
+        // add a check for value (instead of children_of)
+        console.log("checked in tree node", checked, checked?.findIndex((element) => element?.includes(nodeValue)) > -1);
+        setIsChecked(checked?.findIndex((element) => element?.includes(nodeValue)) > -1);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [checked, node]);
 
     return (
         <div style={{ marginLeft: '20px' }}>
@@ -157,7 +157,8 @@ const TreeNode = (props) => {
                         <input
                             type="checkbox"
                             disabled={disabled}
-                            onChange={handleCheck} />
+                            onChange={handleCheck}
+                            checked={isChecked} />
                         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                         <div>
                             <span>{node?.id} {node?.count && node.count > 0 ? `${node?.count} ${countLabel}` : ''}</span><br />
@@ -170,7 +171,8 @@ const TreeNode = (props) => {
                         <input
                             type="checkbox"
                             disabled={disabled}
-                            onChange={handleCheck} />
+                            onChange={handleCheck}
+                            checked={isChecked} />
                         {/* // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions*/}
                         <span style={{ cursor: 'pointer', marginLeft: '5px' }}>
                             {node.id} {node?.count && node.count > 0 ? `${node?.count} ${countLabel}` : ''}
