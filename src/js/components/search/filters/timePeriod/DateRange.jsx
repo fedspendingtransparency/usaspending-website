@@ -6,12 +6,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-import { Button } from "data-transparency-ui";
+import { Button, NewPicker } from "data-transparency-ui";
 
 import Analytics from 'helpers/analytics/Analytics';
 import DatePicker from 'components/sharedComponents/DatePicker';
 import { usePrevious } from "../../../../helpers/";
-import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 import ShownValue from "../otherFilters/ShownValue";
 import { dateRangeChipLabel } from "../../../../helpers/searchHelper";
