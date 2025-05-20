@@ -308,11 +308,9 @@ const PSCCheckboxTreeContainer = ({
                 getPscAncestryPathForChecked(unchecked, nodes),
                 counts
             );
-            // return Promise.resolve();
         }
         else if (nodes.length !== 0) {
             showPscTree();
-            // return Promise.resolve();
         }
 
         fetchPscLocal('', null, false)
@@ -343,25 +341,22 @@ const PSCCheckboxTreeContainer = ({
                 // just do this for consistent return.
                 return Promise.resolve();
             });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
-    useEffect(() =>
-        () => {
+        return () => {
             if (request.current) {
                 request.current.cancel();
             }
             showPscTree();
-        }
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    , []);
+    }, []);
 
     useEffect(() => {
         if (isSearch && isLoading) {
             onSearchChange();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchString, isSearch, isLoading]);
+    }, [isSearch, isLoading]);
 
     // for properly setting checked state from hash
     useEffect(() => {
