@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 import { isCancel } from 'axios';
 
@@ -20,42 +19,7 @@ import {
 
 import { naicsRequest } from 'helpers/searchHelper';
 
-import * as naicsActions from 'redux/actions/search/naicsActions';
-import { updateNaics } from 'redux/actions/search/searchFilterActions';
-
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
-import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
-import { bindActionCreators } from 'redux';
-
-
-const propTypes = {
-    updateNaics: PropTypes.func,
-    setNaicsNodes: PropTypes.func,
-    setExpandedNaics: PropTypes.func,
-    setCheckedNaics: PropTypes.func,
-    setSearchedNaics: PropTypes.func,
-    addCheckedNaics: PropTypes.func,
-    showNaicsTree: PropTypes.func,
-    setUncheckedNaics: PropTypes.func,
-    setNaicsCounts: PropTypes.func,
-    expanded: PropTypes.arrayOf(PropTypes.string),
-    checked: PropTypes.arrayOf(PropTypes.string),
-    unchecked: PropTypes.arrayOf(PropTypes.string),
-    checkedFromHash: PropTypes.arrayOf(PropTypes.string),
-    uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
-    countsFromHash: PropTypes.arrayOf(PropTypes.shape({
-        label: PropTypes.string,
-        subLabel: PropTypes.string,
-        count: PropTypes.string,
-        value: PropTypes.string
-    })),
-    nodes: PropTypes.arrayOf(PropTypes.object),
-    counts: PropTypes.arrayOf(PropTypes.object),
-    searchExpanded: PropTypes.arrayOf(PropTypes.string)
-};
-
-const NAICSCheckboxTree = ({
-    updateNaics: stageNaics,
+import {
     setNaicsNodes,
     setExpandedNaics,
     setCheckedNaics,
@@ -63,37 +27,36 @@ const NAICSCheckboxTree = ({
     addCheckedNaics,
     showNaicsTree,
     setUncheckedNaics,
-    setNaicsCounts,
-    expanded,
-    checked,
-    unchecked,
-    checkedFromHash,
-    uncheckedFromHash,
-    countsFromHash,
-    nodes,
-    counts,
-    searchExpanded
-}) => {
+    setNaicsCounts
+} from 'redux/actions/search/naicsActions';
+import { updateNaics } from 'redux/actions/search/searchFilterActions';
+
+import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
+
+
+const NAICSCheckboxTree = () => {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isSearch, setIsSearch] = useState(false);
     const [searchString, setSearchString] = useState('');
     const [requestType, setRequestType] = useState('initial');
-    let request = null;
 
-    // componentDidUpdate(prevProps) {
-    //     if (checked.length === 0 && prevProps.checked.length !== 0 && counts.length !== 0) {
-    //         setNaicsCounts([]);
-    //     }
-    // }
+    const nodes = useSelector((state) => state.naics.naics.toJS());
+    const expanded = useSelector((state) => state.naics.expanded.toJS());
+    const searchExpanded = useSelector((state) => state.naics.searchExpanded.toJS());
+    const checked = useSelector((state) => state.naics.checked.toJS());
+    const unchecked = useSelector((state) => state.naics.unchecked.toJS());
+    const counts = useSelector((state) => state.naics.counts.toJS());
+    const checkedFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.require);
+    const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.exclude);
+    const countsFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.counts);
 
-    // componentWillUnmount() {
-    //     if (this.request) {
-    //         this.request.cancel();
-    //     }
-    //     showNaicsTree();
-    // }
+    const dispatch = useDispatch();
+
+    // const nodesRef = useRef(true);
+    const request = useRef(null);
 
     const autoCheckSearchedResultDescendants = (visibleNaicsValues) => {
         const placeholderNodes = checked
@@ -122,26 +85,28 @@ const NAICSCheckboxTree = ({
                     node.children.forEach((child) => {
                         if (!child.children) {
                             if (!unchecked.includes(child.value)) {
-                                addCheckedNaics(child.value);
+                                dispatch(addCheckedNaics(child.value));
                             }
                         }
                         if (child.children) {
                             child.children.forEach((grandChild) => {
                                 if (!unchecked.includes(grandChild.value)) {
-                                    addCheckedNaics(grandChild.value);
+                                    dispatch(addCheckedNaics(grandChild.value));
                                 }
                             });
                         }
                     });
                 }
                 else if (expandedNode.length === 6 && !unchecked.includes(expandedNode)) {
-                    addCheckedNaics(node.value);
+                    dispatch(addCheckedNaics(node.value));
                 }
             });
     };
 
     const fetchNAICS = (param = '', resolveLoading = true) => {
-        if (request) request.cancel();
+        if (request.current) {
+            request.current.cancel();
+        }
 
         const searchParam = (isSearch && searchString)
             ? `?filter=${searchString}`
@@ -151,19 +116,19 @@ const NAICSCheckboxTree = ({
             setIsLoading(true);
         }
 
-        request = naicsRequest(param || searchParam);
+        request.current = naicsRequest(param || searchParam);
 
-        return request.promise
+        return request.current.promise
             .then(({ data: { results } }) => {
                 if (isSearch) {
                     const visibleNaicsValues = expandNaicsAndAllDescendantParents(results, 'naics');
-                    setSearchedNaics(results);
+                    dispatch(setSearchedNaics(results));
                     autoCheckSearchedResultDescendants(checked, visibleNaicsValues);
-                    setExpandedNaics(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
+                    dispatch(setExpandedNaics(visibleNaicsValues, 'SET_SEARCHED_EXPANDED'));
                 }
                 else {
                     console.log("fetchNaics fxn called else statement to setNaicsNodes");
-                    setNaicsNodes(param, results);
+                    dispatch(setNaicsNodes(param, results));
                 }
                 // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
                 if (checked.includes(`children_of_${param}`)) {
@@ -172,14 +137,15 @@ const NAICSCheckboxTree = ({
                         checked,
                         unchecked
                     );
-                    setCheckedNaics(newChecked);
+                    dispatch(setCheckedNaics(newChecked));
                 }
                 setIsLoading(resolveLoading ? false : isLoading);
+                // setShowNoResults(!nodes || nodes.length === 0)
                 setIsError(false);
                 setErrorMessage('');
                 setRequestType('');
 
-                request = null;
+                request.current = null;
             })
             .catch((e) => {
                 if (!isCancel(e)) {
@@ -189,26 +155,32 @@ const NAICSCheckboxTree = ({
                     setIsLoading(false);
                     setRequestType('');
                 }
-                request = null;
+                request.current = null;
             });
     };
 
-    const onSearchChange = debounce(() => {
-        if (!this.state.searchString) return this.onClear();
-        setRequestType('search');
-        return fetchNAICS();
-    }, 500);
-
     const onClear = () => {
-        if (request) request.cancel();
+        if (request.current) {
+            request.current.cancel();
+        }
 
-        setExpandedNaics([], 'SET_SEARCHED_EXPANDED');
+        dispatch(setExpandedNaics([], 'SET_SEARCHED_EXPANDED'));
         setIsSearch(false);
         setSearchString('');
         setIsLoading(false);
         setRequestType('');
-        showNaicsTree();
+        // setShowNoResults(false);
+        dispatch(showNaicsTree());
     };
+
+    const onSearchChange = debounce(() => {
+        if (!searchString) {
+            onClear();
+        }
+
+        setRequestType('search');
+        fetchNAICS();
+    }, 500);
 
     const onCheck = (newChecked) => {
         const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
@@ -219,10 +191,10 @@ const NAICSCheckboxTree = ({
             counts
         );
 
-        setNaicsCounts(newCounts);
-        setCheckedNaics(newChecked);
-        setUncheckedNaics(newUnchecked);
-        stageNaics(newChecked, newUnchecked, newCounts);
+        dispatch(setNaicsCounts(newCounts));
+        dispatch(setCheckedNaics(newChecked));
+        dispatch(setUncheckedNaics(newUnchecked));
+        dispatch(updateNaics(newChecked, newUnchecked, newCounts));
     };
 
     const onUncheck = (newChecked, uncheckedNode) => {
@@ -238,10 +210,10 @@ const NAICSCheckboxTree = ({
                 nodes
             );
 
-            setUncheckedNaics(newUnchecked);
-            stageNaics(newChecked, newUnchecked, newCounts);
-            setCheckedNaics(newChecked);
-            setNaicsCounts(newCounts);
+            dispatch(setUncheckedNaics(newUnchecked));
+            dispatch(updateNaics(newChecked, newUnchecked, newCounts));
+            dispatch(setCheckedNaics(newChecked));
+            dispatch(setNaicsCounts(newCounts));
         }
     };
 
@@ -250,19 +222,19 @@ const NAICSCheckboxTree = ({
             fetchNAICS(value);
         }
         if (isSearch) {
-            setExpandedNaics(expandedArr, 'SET_SEARCHED_EXPANDED');
+            dispatch(setExpandedNaics(expandedArr, 'SET_SEARCHED_EXPANDED'));
         }
         else {
-            setExpandedNaics(expandedArr);
+            dispatch(setExpandedNaics(expandedArr));
         }
     };
 
     const onCollapse = (expandedArr) => {
         if (isSearch) {
-            setExpandedNaics(expandedArr, 'SET_SEARCHED_EXPANDED');
+            dispatch(setExpandedNaics(expandedArr, 'SET_SEARCHED_EXPANDED'));
         }
         else {
-            setExpandedNaics(expandedArr);
+            dispatch(setExpandedNaics(expandedArr));
         }
     };
 
@@ -299,21 +271,19 @@ const NAICSCheckboxTree = ({
                         ...getAllDescendants(node, uncheckedFromHash)
                     ];
                 }, []);
-            setCheckedNaics(newChecked);
-            setNaicsCounts(countsFromHash);
-            stageNaics(newChecked, [], countsFromHash);
-            return Promise.resolve();
+            dispatch(setCheckedNaics(newChecked));
+            dispatch(setNaicsCounts(countsFromHash));
+            dispatch(updateNaics(newChecked, [], countsFromHash));
         }
         else if (nodes.length !== 0) {
-            showNaicsTree();
-            return Promise.resolve();
+            dispatch(showNaicsTree());
         }
 
-        return fetchNAICS()
+        fetchNAICS()
             .then(() => {
                 if (checkedFromHash.length > 0) {
-                    setNaicsCounts(countsFromHash);
-                    setUncheckedNaics(uncheckedFromHash);
+                    dispatch(setNaicsCounts(countsFromHash));
+                    dispatch(setUncheckedNaics(uncheckedFromHash));
                     // Loading the checkbox tree from a url hash...
                     const allUniqueAncestors = [
                         ...checkedFromHash,
@@ -360,11 +330,8 @@ const NAICSCheckboxTree = ({
                                         ...getAllDescendants(node, uncheckedFromHash)
                                     ];
                                 }, []);
-                            setCheckedNaics(newChecked);
+                            dispatch(setCheckedNaics(newChecked));
                         });
-                }
-                if (nodes.length > 0) {
-                    showNaicsTree();
                 }
                 // consistent return.
                 return Promise.resolve();
@@ -377,10 +344,17 @@ const NAICSCheckboxTree = ({
     useEffect(() =>
         () => {
             if (request) request.cancel();
-            showNaicsTree();
+            dispatch(showNaicsTree());
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     , []);
+
+    useEffect(() => {
+        if (isSearch && isLoading) {
+            onSearchChange();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchString, isSearch, isLoading]);
 
     return (
         <div>
@@ -413,20 +387,6 @@ const NAICSCheckboxTree = ({
     );
 };
 
-NAICSCheckboxTree.propTypes = propTypes;
+// NAICSCheckboxTree.propTypes = propTypes;
 
-export default connect(
-    (state) => ({
-        nodes: state.naics.naics.toJS(),
-        expanded: state.naics.expanded.toJS(),
-        searchExpanded: state.naics.searchExpanded.toJS(),
-        checked: state.naics.checked.toJS(),
-        unchecked: state.naics.unchecked.toJS(),
-        counts: state.naics.counts.toJS(),
-        checkedFromHash: state.appliedFilters.filters.naicsCodes.require,
-        uncheckedFromHash: state.appliedFilters.filters.naicsCodes.exclude,
-        countsFromHash: state.appliedFilters.filters.naicsCodes.counts
-    }),
-    (dispatch) => ({
-        ...bindActionCreators(Object.assign({}, naicsActions, { updateNaics }), dispatch)
-    }))(NAICSCheckboxTree);
+export default NAICSCheckboxTree;
