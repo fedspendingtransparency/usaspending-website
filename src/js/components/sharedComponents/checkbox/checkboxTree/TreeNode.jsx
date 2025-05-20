@@ -19,34 +19,19 @@ const propTypes = {
 
 const TreeNode = (props) => {
     const {
-        label, disabled, onChecked, onCheck, onExpand, node, isLoading, onCollapse, countLabel
+        label, disabled, onChecked, checked, onCheck, onExpand, node, isLoading, onCollapse, countLabel
     } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [loading, setLoading] = useState(false);
     const [childNodes, setChildNodes] = useState([]);
     const [childNodeValues, setChildNodeValues] = useState([]);
-    const [selectedNode, setSelectedNode] = useState();
+    const [isChecked, setIsChecked] = useState(false);
 
     const childNode = useRef();
+    const childNodeRef = useRef();
 
-    useEffect(() => {
-        if (!isLoading) {
-            setLoading(false);
-        }
-    }, [isLoading]);
-
-    useEffect(() => {
-        if (node && isExpanded && loading) {
-            setSelectedNode(node);
-            const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${node.id}` : node.id;
-            const newChildValue = [...childNodes, nodeValue];
-            setChildNodes(newChildValue);
-            onExpand(newChildValue, node);
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isExpanded, loading]);
+    console.log(props.ref);
 
     const handleToggle = async () => {
         if (!isExpanded && node.children?.length > 0) {
@@ -62,7 +47,7 @@ const TreeNode = (props) => {
                 setLoading(true);
                 setIsExpanded(true);
                 if (onExpand) {
-                    onExpand(childNodes, selectedNode);
+                    onExpand(childNodes, node);
                 }
             }
         }
@@ -95,12 +80,55 @@ const TreeNode = (props) => {
         return result;
     };
 
-    // const isChecked = () => childNodes?.findIndex((element) => element.includes(node.id)) > -1;
+    // const isChecked = (checked) => {
+    //     const childIds = checked?.findIndex((element) => element?.includes(node?.children[0]?.value)) > -1;
+    //     console.log(childIds, checked, node);
+    //     return childIds;
+    // };
 
     const handleCheck = () => {
-        const checked = flattenChildren(node.children);
-        onChecked(checked, node);
+        const tempChecked = flattenChildren(node.children);
+        console.log(tempChecked);
+        // isChecked(checked);
+        // setChildNodeValues(tempChecked);
+        onChecked(tempChecked, node);
     };
+
+
+    useEffect(() => {
+        if (!isLoading) {
+            setLoading(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading]);
+
+    useEffect(() => {
+        if (node && isExpanded && loading) {
+            // setSelectedNode(node);
+            const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${node.id}` : node.id;
+            const newChildValue = [...childNodes, nodeValue];
+            setChildNodes(newChildValue);
+            onExpand(newChildValue, node);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isExpanded, loading]);
+
+    // useEffect(() => {
+    //     const checked = flattenChildren(node.children);
+    //     setChildNodeValues(checked);
+    //     setIsChecked(checked?.findIndex((element) => element?.includes(node?.children[0]?.value)) > -1);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [isChecked]);
+
+    useEffect(() => {
+        console.log("checked in tree node", checked);
+        // const checked = flattenChildren(node.children);
+        // console.log(checked, node);
+        // setChildNodeValues(checked);
+        // setIsChecked(checked?.findIndex((element) => element?.includes(node?.children[0]?.value)) > -1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div style={{ marginLeft: '20px' }}>
@@ -155,6 +183,7 @@ const TreeNode = (props) => {
             <div ref={childNode}>
                 {childNodes?.length > 0 ? node.children?.map((child) => (
                     <TreeNode
+                        ref={childNodeRef}
                         key={child.description}
                         label={child.description}
                         onExpand={onExpand}

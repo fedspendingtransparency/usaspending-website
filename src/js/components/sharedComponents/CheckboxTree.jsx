@@ -213,7 +213,7 @@ export default class CheckboxTree extends Component {
     });
 
     render() {
-        console.log("checked", this.props);
+        console.log("checked", this.props.checked);
 
         const {
             data,

@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 02/2025
  */
 
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useRef } from 'react';
 // import React, { useState, useEffect, cloneElement } from 'react';
 // import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +16,8 @@ import CheckboxTreeLabel from "../../CheckboxTreeLabel";
 
 const CheckboxTree = (props) => {
     // eslint-disable-next-line no-shadow
+
+    const treeRef = useRef();
 
     const {
         data
@@ -78,9 +80,10 @@ const CheckboxTree = (props) => {
      * @param {object} node - the checked node
      * @returns {null}
      */
-    const checkedNode = (checked, node) => {
-        console.log("checked node", checked, node);
-        props.onCheck([node.id]);
+    const checkedNode = (newCheckedNode, node) => {
+        console.log("checked node", newCheckedNode, node);
+        // combine newly checked and previously checked
+        props.onCheck(newCheckedNode);
     };
     /**
      * unCheckedNode
@@ -102,12 +105,18 @@ const CheckboxTree = (props) => {
      * @returns {null}
      */
     const onChecked = (checked, node) => {
+        console.log("on checked", checked, props.isLoading, props.checked);
+
+        const prevCheckedItems = [...props.checked, ...checked];
+        const checkedSet = new Set(prevCheckedItems);
+        const allCheckedItems = [...checkedSet];
+
         if (!props.isLoading) {
             // if (props.checked.length < checked.length) {
-                checkedNode(checked, node);
+            checkedNode(allCheckedItems, node);
             // }
             // else {
-            //     unCheckedNode(checked, node);
+            // unCheckedNode(checked, node);
             // }
         }
     };
@@ -186,6 +195,7 @@ const CheckboxTree = (props) => {
     const renderTreeNodes = () => data.map((node) => (
         <>
             <TreeNode
+                ref={treeRef}
                 key={node.label}
                 label={node.label}
                 node={node}
