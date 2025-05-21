@@ -38,7 +38,7 @@ const TreeNode = (props) => {
             setIsExpanded(true);
 
             if (childNodes.length > 0 && childNodes?.findIndex((element) => element.includes(node.id)) > -1) {
-                console.log(childNodes);
+                console.log("child nodes", childNodes);
                 childNode.current.style.display = 'block';
                 setLoading(false);
             }
@@ -129,7 +129,7 @@ const TreeNode = (props) => {
         // setChildNodeValues(checked);
         const nodeValue = node.children && node.children.length > 0 ? node?.children[0]?.value : node?.value;
         // add a check for value (instead of children_of, maybe)
-        console.log("checked in tree node", checked, checked?.findIndex((element) => element?.includes(nodeValue)) > -1);
+        // console.log("checked in tree node", checked, checked?.findIndex((element) => element?.includes(nodeValue)) > -1);
         setIsChecked(checked?.findIndex((element) => element?.includes(nodeValue)) > -1);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checked, node]);

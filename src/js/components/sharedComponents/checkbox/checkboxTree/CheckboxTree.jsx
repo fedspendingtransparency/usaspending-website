@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 02/2025
  */
 
-import React, { cloneElement, useRef } from 'react';
+import React, { cloneElement, useRef, useState } from 'react';
 // import React, { useState, useEffect, cloneElement } from 'react';
 // import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +15,7 @@ import replaceString from "../../../../helpers/replaceString";
 import CheckboxTreeLabel from "../../CheckboxTreeLabel";
 
 const CheckboxTree = (props) => {
+    const [childNodes, setChildNodes] = useState([]);
     // eslint-disable-next-line no-shadow
 
     const treeRef = useRef();
@@ -30,10 +31,9 @@ const CheckboxTree = (props) => {
      * with a loading object if we have no child data for that node.
      * @param {array} newExpandedArray - array with the newly expanded value
      */
-    const expandNodeAndFetchChildren = async (newExpandedArray, selectedNode) => {
-        // newly expanded node.code
+    const expandNodeAndFetchChildren = async (newNodeArray, selectedNode) => {
         const { expanded, isSearch } = props;
-        const expandedValue = difference(newExpandedArray, expanded)[0];
+        const expandedValue = difference(newNodeArray, expanded)[0];
         /**
          * When there are no children or there is an empty object in the children property (since we
          * do this to get the caret to show when there is a count)
@@ -48,7 +48,7 @@ const CheckboxTree = (props) => {
             && !isSearch
         );
 
-        return props.onExpand(expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
+        return props.onExpand(expandedValue, newNodeArray, shouldFetchChildren, selectedNode);
     };
 
     /**
@@ -65,7 +65,9 @@ const CheckboxTree = (props) => {
      * Decides whether we are expanding or collapsing the node.
      */
     const onExpand = (newExpandedArray, node) => {
+        // create an array of the child values here
         // collapsing node
+        console.log(" in checkbox tree onexpand", newExpandedArray);
         if (newExpandedArray.length < props.expanded.length) {
             return collapseNode(newExpandedArray);
         }
@@ -81,7 +83,6 @@ const CheckboxTree = (props) => {
      * @returns {null}
      */
     const checkedNode = (newCheckedNode, node) => {
-        console.log("checked node", newCheckedNode, node);
         // combine newly checked and previously checked
         props.onCheck(newCheckedNode);
     };
@@ -105,19 +106,20 @@ const CheckboxTree = (props) => {
      * @returns {null}
      */
     const onChecked = (checked, node) => {
-        console.log("on checked", checked, props.isLoading, props.checked);
+        const prevCheckedItems = new Set(...props.checked);
+        const unCheckedItems = checked.filter((item) => props.checked.includes(item));
+        const allCheckedItems = [...checked, ...props.checked];
+        const checkedItems = !unCheckedItems || unCheckedItems.length === 0 ? allCheckedItems : allCheckedItems.filter((item) => !unCheckedItems.includes(item));
+        // const checkedItems = allCheckedItems;
 
-        const prevCheckedItems = [...props.checked, ...checked];
-        const checkedSet = new Set(prevCheckedItems);
-        const allCheckedItems = [...checkedSet];
-
+        console.log("checked vs unchecked", props.checked, checked, checkedItems, unCheckedItems, !unCheckedItems || unCheckedItems.length === 0);
         if (!props.isLoading) {
-            // if (props.checked.length < checked.length) {
-            checkedNode(allCheckedItems, node);
-            // }
-            // else {
-            // unCheckedNode(checked, node);
-            // }
+            if (checkedItems.length > 0) {
+                checkedNode(checkedItems, node);
+            }
+            else if (unCheckedItems.length > 0) {
+                unCheckedNode(unCheckedItems, node);
+            }
         }
     };
     /**

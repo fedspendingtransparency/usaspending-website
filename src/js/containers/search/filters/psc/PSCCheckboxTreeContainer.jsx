@@ -205,6 +205,7 @@ const PSCCheckboxTreeContainer = ({
             setExpandedPsc(newExpandedArray, 'SET_SEARCHED_EXPANDED');
         }
         else {
+            console.log("setExpandedPsc", newExpandedArray);
             setExpandedPsc(newExpandedArray);
         }
     };

@@ -55,9 +55,12 @@ export default class CheckboxTree extends Component {
      */
     onExpand = (newExpandedArray, node) => {
     // collapsing node
+        console.log(" in checkbox tree onexpand", newExpandedArray);
+
         if (newExpandedArray.length < this.props.expanded.length) {
             return this.collapseNode(newExpandedArray);
         }
+
         // expanding node
         return this.expandNodeAndFetchChildren(newExpandedArray, node);
     };
@@ -136,6 +139,7 @@ export default class CheckboxTree extends Component {
             && !isSearch
         );
 
+        console.log("on expand", expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
         return this.props.onExpand(expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
     };
     /**
