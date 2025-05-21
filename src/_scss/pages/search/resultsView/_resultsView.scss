@@ -61,9 +61,7 @@
           height: rem(26);
           margin: 0 !important;
           padding: rem(3) rem(12);
-          gap: rem(3);
           line-height: rem(16.5);
-          
         }
 
         .borderless{
@@ -78,8 +76,8 @@
           svg {
             fill: $color-white;
             margin-right: rem(3);
-            width: rem(9);
-            height: rem(7);
+            width: rem(10);
+            // height: rem(7);
           }
         }
       }
