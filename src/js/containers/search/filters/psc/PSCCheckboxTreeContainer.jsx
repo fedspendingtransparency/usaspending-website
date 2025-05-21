@@ -137,6 +137,7 @@ const PSCCheckboxTreeContainer = ({
                         )
                         : checked;
 
+                    console.log("psc fetch", newChecked, checked);
                     if (isSearch) {
                         setSearchedPsc(pscNodes);
 
@@ -157,6 +158,7 @@ const PSCCheckboxTreeContainer = ({
                         }
                     }
                     else {
+                        console.log("checked in psc container", pscNodes, newChecked);
                         setPscNodes(key, pscNodes);
                         setCheckedPsc(newChecked);
                     }
