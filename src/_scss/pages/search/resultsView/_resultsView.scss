@@ -45,7 +45,7 @@
       .award-type-toggle {
         display: inline-flex;
         height: rem(32);
-        padding: 0 rem(3);
+        padding: rem(3);
         justify-content: center;
         align-items: center;
         flex-shrink: 0;
@@ -73,13 +73,13 @@
 
         .button-type__primary-left-icon-light {
           color: $color-white;
-          border: rem(2) solid $blue-60;
+          border: rem(2);
           
           svg {
             fill: $color-white;
             margin-right: rem(3);
             width: rem(9);
-            height: auto;
+            height: rem(7);
           }
         }
       }
