@@ -41,6 +41,7 @@ const SidebarWrapper = React.memo(({
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
     const additionalRibbonHeight = 57;
+    const shortRibbonHeight = 73;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -285,12 +286,18 @@ const SidebarWrapper = React.memo(({
         return sidebarHeight;
     };
 
+    const getFooterHeight = () => `${mainContentHeight - shortRibbonHeight - footerEl.getBoundingClientRect().top}px`;
+
     return (
         <div
             className={`search-collapsible-sidebar-container search-sidebar ${sidebarIsSticky ? "sticky" : ""}`}
             style={isMobile ? {} : { display: "none" }}>
             <div
-                style={{ height: selectHeight(), overscrollBehavior: "none" }}
+                style={isFooterVisible ? {
+                    height: selectHeight(), overscrollBehavior: "none", position: "fixed", bottom: getFooterHeight()
+                } : {
+                    height: selectHeight(), overscrollBehavior: "none"
+                }}
                 className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}>
                 <div
                     className="collapsible-sidebar--toggle"
