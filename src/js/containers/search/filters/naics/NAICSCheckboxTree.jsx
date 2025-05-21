@@ -51,8 +51,6 @@ const NAICSCheckboxTree = () => {
     const countsFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.counts);
 
     const dispatch = useDispatch();
-
-    // const nodesRef = useRef(true);
     const request = useRef(null);
 
     const autoCheckSearchedResultDescendants = (visibleNaicsValues) => {
