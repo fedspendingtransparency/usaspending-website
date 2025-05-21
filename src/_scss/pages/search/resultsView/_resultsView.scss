@@ -54,15 +54,16 @@
         background: $gray-cool-2;
         position: absolute;
         right: 0;
-        font-size: rem(11);
-        line-height: rem(16.5);
         font-family: $font-sans;
-
+        
         button {
+          font-size: rem(11);
           height: rem(26);
           margin: 0 !important;
           padding: rem(3) rem(12);
           gap: rem(3);
+          line-height: rem(16.5);
+          
         }
 
         .borderless{
@@ -72,11 +73,13 @@
 
         .button-type__primary-left-icon-light {
           color: $color-white;
-          border: rem(2);
+          border: rem(2) solid $blue-60;
           
           svg {
             fill: $color-white;
             margin-right: rem(3);
+            width: rem(9);
+            height: auto;
           }
         }
       }
