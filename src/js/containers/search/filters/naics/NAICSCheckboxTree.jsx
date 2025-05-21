@@ -124,7 +124,6 @@ const NAICSCheckboxTree = () => {
                     dispatch(setExpandedNaics(visibleNaicsValues, 'SET_SEARCHED_EXPANDED'));
                 }
                 else {
-                    console.log("fetchNaics fxn called else statement to setNaicsNodes");
                     dispatch(setNaicsNodes(param, results));
                 }
                 // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
@@ -333,7 +332,7 @@ const NAICSCheckboxTree = () => {
 
     useEffect(() =>
         () => {
-            if (request) {
+            if (request.current) {
                 request.current.cancel();
             }
             dispatch(showNaicsTree());
@@ -346,7 +345,7 @@ const NAICSCheckboxTree = () => {
             onSearchChange();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSearch, isLoading]);
+    }, [searchString, isSearch, isLoading]);
 
     useEffect(() => {
         if (checked.length === 0 && counts.length !== 0) {
