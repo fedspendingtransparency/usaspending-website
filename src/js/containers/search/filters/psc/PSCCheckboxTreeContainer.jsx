@@ -118,6 +118,8 @@ const PSCCheckboxTreeContainer = ({
 
         return request.current.promise
             .then(({ data }) => {
+                setIsLoading(true);
+
                 // dynamically populating tree branches
                 const pscNodes = cleanPscData(data.results);
 

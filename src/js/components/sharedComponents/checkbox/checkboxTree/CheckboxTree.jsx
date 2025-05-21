@@ -106,13 +106,10 @@ const CheckboxTree = (props) => {
      * @returns {null}
      */
     const onChecked = (checked, node) => {
-        const prevCheckedItems = new Set(...props.checked);
         const unCheckedItems = checked.filter((item) => props.checked.includes(item));
         const allCheckedItems = [...checked, ...props.checked];
         const checkedItems = !unCheckedItems || unCheckedItems.length === 0 ? allCheckedItems : allCheckedItems.filter((item) => !unCheckedItems.includes(item));
-        // const checkedItems = allCheckedItems;
 
-        console.log("checked vs unchecked", props.checked, checked, checkedItems, unCheckedItems, !unCheckedItems || unCheckedItems.length === 0);
         if (!props.isLoading) {
             if (checkedItems.length > 0) {
                 checkedNode(checkedItems, node);

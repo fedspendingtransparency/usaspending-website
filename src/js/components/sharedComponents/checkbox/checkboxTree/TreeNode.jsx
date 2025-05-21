@@ -31,6 +31,7 @@ const TreeNode = (props) => {
     const childNode = useRef();
     const childNodeRef = useRef();
 
+    console.log(isLoading);
     const handleToggle = async () => {
         if (!isExpanded && node.children?.length > 0) {
             // check if child already exists and do something different
@@ -165,9 +166,14 @@ const TreeNode = (props) => {
                             checked={isChecked} />
                         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                         <div>
-                            <span>{node?.id} {node?.count && node.count > 0 ? `${node?.count} ${countLabel}` : ''}</span><br />
+                            <span>{node?.id} {node?.count && node.count > 0 ? `${node?.count} codes` : ''}</span><br />
                             <div>{label}</div>
-                            <span>{loading && <span>Loading...</span>}</span>
+                            {isLoading &&
+                                <div className="checkbox-tree-filter-message-container">
+                                    <FontAwesomeIcon icon="spinner" spin />
+                                    <div className="checkbox-tree-filter-message-container__text">Loading your data...</div>
+                                </div>
+                            }
                         </div>
                     </div>
                     :
@@ -182,9 +188,37 @@ const TreeNode = (props) => {
                             {node.id} {node?.count && node.count > 0 ? `${node?.count} ${countLabel}` : ''}
                         </span><br />
                         <div>{label}</div>
-                        <span>{loading && <span>Loading...</span>}</span>
+                        {isLoading &&
+                            <div className="checkbox-tree-filter-message-container">
+                                <FontAwesomeIcon icon="spinner" spin />
+                                <div className="checkbox-tree-filter-message-container__text">Loading your data...</div>
+                            </div>
+                        }
                     </>
                 }
+
+            {/*            else if (isError && errorMessage) {*/}
+            {/*                return (*/}
+            {/*                <div className="checkbox-tree-filter-message-container">*/}
+            {/*                <div className="checkbox-tree-filter-message-container__text">*/}
+            {/*            {errorMessage}*/}
+            {/*        </div>*/}
+            {/*        </div>*/}
+            {/*        );*/}
+            {/*    }*/}
+            {/*//     else if (noResults) {*/}
+            {/*//     return (*/}
+            {/*//     <div className="checkbox-tree-filter-message-container">*/}
+            {/*//     <FontAwesomeIcon icon="ban" />*/}
+            {/*//     <div className="checkbox-tree-filter-message-container__text">*/}
+            {/*//     No Results*/}
+            {/*//     </div>*/}
+            {/*//     </div>*/}
+            {/*//     );*/}
+            {/*// }*/}
+            {/*//         /!*    <span>{loading && <span>Loading...</span>}</span>*!/*/}
+            {/*//         /!*</>*!/*/}
+            {/*//     }*/}
             </div>
             <div ref={childNode}>
                 {childNodes?.length > 0 ? node.children?.map((child) => (
