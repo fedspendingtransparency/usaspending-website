@@ -9,8 +9,8 @@ import { throttle } from "lodash";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
-import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
-import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
+import { ErrorMessage, LoadingMessage, NoResultsMessage, NewPicker } from "data-transparency-ui";
+
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";

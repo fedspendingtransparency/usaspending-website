@@ -89,7 +89,8 @@ const StatusOfFundsTable = ({
             onClickHandler={onClickHandler}
             isMobile={isMobile}
             atMaxLevel={atMaxLevel}
-            isStacked />
+            isStacked
+            newMobileView />
     );
 };
 

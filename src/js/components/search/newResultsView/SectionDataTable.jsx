@@ -61,6 +61,7 @@ const SectionDataTable = (props) => {
                 columns={columns}
                 isMobile={isMobile}
                 isStacked
+                newResultsView
                 rows={rows} />
             <Pagination
                 resultsText

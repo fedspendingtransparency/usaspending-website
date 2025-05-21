@@ -77,7 +77,6 @@
             fill: $color-white;
             margin-right: rem(3);
             width: rem(10);
-            // height: rem(7);
           }
         }
       }
@@ -92,6 +91,7 @@
           padding-top: rem(8);
         }
 
+        // DTUI NewPicker.jsx override
         .filter__dropdown-button-list-container {
           .advanced-search-dropdown__button {
             max-width: 100%;
