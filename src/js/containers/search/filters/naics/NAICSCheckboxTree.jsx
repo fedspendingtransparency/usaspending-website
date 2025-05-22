@@ -244,6 +244,56 @@ const NAICSCheckboxTree = () => {
         }
     };
 
+    const populateCheckeUnChecked = (checkedArr, uncheckedArr) => {
+        const allUniqueAncestors = [
+            ...checkedArr,
+            ...uncheckedArr
+        ].reduce((uniqueAncestors, code) => {
+            const highestAncestor = getHighestAncestorNaicsCode(code);
+            const immediateAncestor = getImmediateAncestorNaicsCode(code);
+            if (uniqueAncestors.includes(highestAncestor)) {
+                if (!uniqueAncestors.includes(immediateAncestor)) {
+                    return uniqueAncestors.concat([immediateAncestor]);
+                }
+                return uniqueAncestors;
+            }
+            return uniqueAncestors.concat(
+                [highestAncestor, immediateAncestor]
+                    .filter((ancestor) => {
+                        if (uniqueAncestors.includes(ancestor)) {
+                            return false;
+                        }
+                        return true;
+                    })
+            );
+        }, []).sort((a, b) => {
+            if (b.length > a.length) return -1;
+            if (a.length > b.length) return 1;
+            return 0;
+        });
+
+        // Sequentially populate tree.
+        return allUniqueAncestors
+            .reduce((prevPromise, ancestor) => prevPromise
+                .then(() => fetchNAICS(ancestor, false)), Promise.resolve())
+        // Then populate the checked array w/ the real checked-nodes descendants
+            .then(() => {
+                setIsLoading(false);
+                const newChecked = checkedArr
+                    .reduce((acc, checkedNaic) => {
+                        if (checkedNaic.length === 6 && !uncheckedArr.includes(checkedNaic)) {
+                            return [...acc, checkedNaic];
+                        }
+                        const node = getNaicsNodeFromTree(nodes, checkedNaic);
+                        return [
+                            ...acc,
+                            ...getAllDescendants(node, uncheckedArr)
+                        ];
+                    }, []);
+                dispatch(setCheckedNaics(newChecked));
+            });
+    };
+
     useEffect(() => {
         if (nodes.length !== 0 && checkedFromHash.length) {
             const newChecked = checkedFromHash
@@ -271,53 +321,7 @@ const NAICSCheckboxTree = () => {
                     dispatch(setNaicsCounts(countsFromHash));
                     dispatch(setUncheckedNaics(uncheckedFromHash));
                     // Loading the checkbox tree from a url hash...
-                    const allUniqueAncestors = [
-                        ...checkedFromHash,
-                        ...uncheckedFromHash
-                    ].reduce((uniqueAncestors, code) => {
-                        const highestAncestor = getHighestAncestorNaicsCode(code);
-                        const immediateAncestor = getImmediateAncestorNaicsCode(code);
-                        if (uniqueAncestors.includes(highestAncestor)) {
-                            if (!uniqueAncestors.includes(immediateAncestor)) {
-                                return uniqueAncestors.concat([immediateAncestor]);
-                            }
-                            return uniqueAncestors;
-                        }
-                        return uniqueAncestors.concat(
-                            [highestAncestor, immediateAncestor]
-                                .filter((ancestor) => {
-                                    if (uniqueAncestors.includes(ancestor)) {
-                                        return false;
-                                    }
-                                    return true;
-                                })
-                        );
-                    }, []).sort((a, b) => {
-                        if (b.length > a.length) return -1;
-                        if (a.length > b.length) return 1;
-                        return 0;
-                    });
-
-                    // Sequentially populate tree.
-                    return allUniqueAncestors
-                        .reduce((prevPromise, ancestor) => prevPromise
-                            .then(() => fetchNAICS(ancestor, false)), Promise.resolve())
-                    // Then populate the checked array w/ the real checked-nodes descendants
-                        .then(() => {
-                            setIsLoading(false);
-                            const newChecked = checkedFromHash
-                                .reduce((acc, checkedNaic) => {
-                                    if (checkedNaic.length === 6 && !uncheckedFromHash.includes(checkedNaic)) {
-                                        return [...acc, checkedNaic];
-                                    }
-                                    const node = getNaicsNodeFromTree(nodes, checkedNaic);
-                                    return [
-                                        ...acc,
-                                        ...getAllDescendants(node, uncheckedFromHash)
-                                    ];
-                                }, []);
-                            dispatch(setCheckedNaics(newChecked));
-                        });
+                    populateCheckeUnChecked(checkedFromHash, uncheckedFromHash);
                 }
                 // consistent return.
                 return Promise.resolve();
@@ -325,10 +329,17 @@ const NAICSCheckboxTree = () => {
             .catch((e) => {
                 console.log("Error: fetching naics on didMount", e);
             });
+
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+            dispatch(showNaicsTree());
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() =>
+    useEffect(() => (
         () => {
             if (request.current) {
                 request.current.cancel();
@@ -336,7 +347,7 @@ const NAICSCheckboxTree = () => {
             dispatch(showNaicsTree());
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    , []);
+    ), []);
 
     useEffect(() => {
         if (isSearch && isLoading) {
@@ -349,12 +360,16 @@ const NAICSCheckboxTree = () => {
         if (checked.length === 0 && counts.length !== 0) {
             dispatch(setNaicsCounts([]));
         }
+
+        if (checked.length && requestType === 'initial') {
+            populateCheckeUnChecked(checked, unchecked);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checked, counts]);
 
     useEffect(() => {
         if (nodes.length !== 0) {
-            setShowNoResults(false);
+            setShowNoResults(false);;
         }
         else {
             setShowNoResults(true);
