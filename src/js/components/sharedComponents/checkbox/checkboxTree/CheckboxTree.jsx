@@ -106,9 +106,14 @@ const CheckboxTree = (props) => {
      * @returns {null}
      */
     const onChecked = (checked, node) => {
+        // if partial selection
+
+
         const unCheckedItems = checked.filter((item) => props.checked.includes(item));
         const allCheckedItems = [...checked, ...props.checked];
         const checkedItems = !unCheckedItems || unCheckedItems.length === 0 ? allCheckedItems : allCheckedItems.filter((item) => !unCheckedItems.includes(item));
+
+        console.log("checked items", unCheckedItems, allCheckedItems, checkedItems);
 
         if (!props.isLoading) {
             if (checkedItems.length > 0) {

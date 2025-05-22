@@ -31,7 +31,6 @@ const TreeNode = (props) => {
     const childNode = useRef();
     const childNodeRef = useRef();
 
-    console.log(isLoading);
     const handleToggle = async () => {
         if (!isExpanded && node.children?.length > 0) {
             // check if child already exists and do something different
@@ -39,7 +38,6 @@ const TreeNode = (props) => {
             setIsExpanded(true);
 
             if (childNodes.length > 0 && childNodes?.findIndex((element) => element.includes(node.id)) > -1) {
-                console.log("child nodes", childNodes);
                 childNode.current.style.display = 'block';
                 setLoading(false);
             }
