@@ -48,6 +48,29 @@ export const placeholderNodes = [
         ]
     }
 ];
+export const searchResults = [{
+    value: '11',
+    naics: '11',
+    label: 'Agriculture, Forestry, Fishing and Hunting',
+    count: 64,
+    children: [
+        {
+            value: "1111",
+            naics: "1111",
+            naics_description: "Oilseed and Grain Farming",
+            count: 8,
+            children: [
+                {
+                    value: "111110",
+                    naics: "111110",
+                    naics_description: "Soybean Farming",
+                    count: 0
+                }
+            ]
+        }
+    ]
+
+}];
 
 export const naicsSearchMockResponse = {
     data: {
