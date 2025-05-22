@@ -143,7 +143,7 @@ const SearchSectionWrapper = ({
         setContentHeight(content);
         parseSection();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 500), [content, sectionName]);
+    }, 100), [content, sectionName]);
 
     useEffect(() => {
         if (gaRef.current) {
