@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { find, throttle } from 'lodash';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { ShareIcon } from 'data-transparency-ui';
@@ -26,7 +26,7 @@ const DataSourcesAndMethodologiesPage = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [activeSection, setActiveSection] = useState('using_this_table');
     const query = useQueryParams();
-    const history = useHistory();
+    const history = useNavigate();
     const sections = [
         {
             label: 'Using this Table',
@@ -79,10 +79,10 @@ const DataSourcesAndMethodologiesPage = () => {
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
+
         setActiveSection(section);
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
