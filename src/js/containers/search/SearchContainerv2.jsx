@@ -180,7 +180,7 @@ const SearchContainer = () => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            navigate("/search");
+            navigate(GlobalConstants.SEARCH_V2_PATH);
             setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -203,7 +203,7 @@ const SearchContainer = () => {
             .then((res) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
-                navigate(`/search${getQueryParamString(newQueryParams)}`, { replace: true });
+                navigate(`${GlobalConstants.SEARCH_V2_PATH}${getQueryParamString(newQueryParams)}`, { replace: true });
 
                 setGenerateHashInFlight(false);
             })
