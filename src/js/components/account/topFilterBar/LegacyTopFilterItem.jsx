@@ -14,11 +14,6 @@ const propTypes = {
     compressed: PropTypes.bool
 };
 
-const defaultProps = {
-    title: 'Filter',
-    compressed: false
-};
-
 const LegacyTopFilterItem = ({
     title = 'Filter', compressed = false, removeFilter, value
 }) => {
@@ -64,6 +59,5 @@ const LegacyTopFilterItem = ({
 };
 
 LegacyTopFilterItem.propTypes = propTypes;
-LegacyTopFilterItem.defaultProps = defaultProps;
 
 export default LegacyTopFilterItem;
