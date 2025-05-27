@@ -16,10 +16,6 @@ const propTypes = {
     style: PropTypes.object
 };
 
-const defaultProps = {
-    description: ''
-};
-
 const SankeyFlowVertical = ({
     startX, endX, width, length, description = '', style
 }) => {
@@ -81,5 +77,4 @@ const SankeyFlowVertical = ({
 };
 
 SankeyFlowVertical.propTypes = propTypes;
-SankeyFlowVertical.defaultProps = defaultProps;
 export default SankeyFlowVertical;
