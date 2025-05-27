@@ -151,7 +151,7 @@ const SearchContainer = () => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        navigate(GlobalConstants);
+                        navigate(GlobalConstants.SEARCH_V2_PATH);
                         request.current = null;
                     }
                 });
