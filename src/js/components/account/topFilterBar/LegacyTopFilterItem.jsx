@@ -59,5 +59,4 @@ const LegacyTopFilterItem = ({
 };
 
 LegacyTopFilterItem.propTypes = propTypes;
-
 export default LegacyTopFilterItem;
