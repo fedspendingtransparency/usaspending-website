@@ -246,10 +246,17 @@ const SearchSectionWrapper = ({
                     <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
                 </div>
                 :
-                <div className="search__section-wrapper-header">
-                    <span className="filter__dropdown-label">{sectionTitle}</span>
-                    {showToggle && <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />}
-                </div>
+                <>
+                    <div className="search__section-wrapper-header">
+                        <span className="filter__dropdown-label">{sectionTitle}</span>
+                        {showToggle && <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />}
+                    </div>
+                    {showToggle &&
+                        <div className="award-type-toggle__mobile">
+                            <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />
+                        </div>
+                    }
+                </>
             }
             {!openAccordion &&
                 <div className={`search__section-wrapper-content new-results-view search__${sectionName}`}>
