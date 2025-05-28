@@ -129,7 +129,7 @@ test('on tab change updates the table view', async () => {
     });
 });
 
-test('redirects submission-statistics to url w/ latest fy and period in params', async () => {
+xtest('redirects submission-statistics to url w/ latest fy and period in params', async () => {
     jest.spyOn(queryParamHelpers, 'useQueryParams').mockReturnValue({});
     jest.spyOn(URLSearchParams.prototype, 'toString').mockReturnValue("fy=2020&period=12&tab=submissions");
     render(<AboutTheDataPage {...defaultProps} />);

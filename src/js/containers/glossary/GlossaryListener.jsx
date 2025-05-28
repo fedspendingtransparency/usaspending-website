@@ -26,7 +26,7 @@ const GlossaryListener = ({
             setLastOpenedSlideout('glossary');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [history.location.search]);
+    }, [history?.location?.search]);
 
     return <Child {...{ history, match, location }} />;
 };

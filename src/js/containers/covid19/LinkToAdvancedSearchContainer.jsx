@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { resetAppliedFilters, applyStagedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
@@ -14,7 +14,7 @@ import Analytics from 'helpers/analytics/Analytics';
 
 const FooterLinkToAdvancedSearchContainer = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useNavigate();
     const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
 
     const addDefCodesToAdvancedSearchFilter = () => {
@@ -37,7 +37,7 @@ const FooterLinkToAdvancedSearchContainer = () => {
         dispatch(clearAllFilters());
         dispatch(resetAppliedFilters());
         addDefCodesToAdvancedSearchFilter();
-        history.push('/search');
+        history('/search');
         Analytics.event({
             event: 'covid-advanced-search-click',
             category: 'COVID-19 - More Information',

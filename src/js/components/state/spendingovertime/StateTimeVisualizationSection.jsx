@@ -7,13 +7,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SectionHeader } from 'data-transparency-ui';
+import { SectionHeader, NewPicker } from 'data-transparency-ui';
 
 import StateTimeVisualizationChart from './StateTimeVisualizationChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
-import NewPicker from '../../sharedComponents/dropdowns/NewPicker';
 
 const propTypes = {
     data: PropTypes.object,
@@ -82,7 +81,7 @@ const StateTimeVisualizationSection = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     return (
         <section

@@ -11,7 +11,7 @@ import {
     ShareIcon
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { throttle } from "lodash";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 
@@ -50,7 +50,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
 
     const { pathname, search } = useLocation();
@@ -117,10 +117,9 @@ export const AgencyProfileV2 = ({
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
+            history({
+                path: `${getQueryParamString(newQueryParams)}`
+            }, { replace: true });
         }
 
         // update the state

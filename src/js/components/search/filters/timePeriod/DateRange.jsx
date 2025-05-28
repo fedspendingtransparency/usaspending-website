@@ -6,12 +6,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-import { Button } from "data-transparency-ui";
+import { Button, NewPicker } from "data-transparency-ui";
 
 import Analytics from 'helpers/analytics/Analytics';
 import DatePicker from 'components/sharedComponents/DatePicker';
 import { usePrevious } from "../../../../helpers/";
-import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 import ShownValue from "../otherFilters/ShownValue";
 import { dateRangeChipLabel } from "../../../../helpers/searchHelper";
@@ -32,7 +31,9 @@ const propTypes = {
     updateFilter: PropTypes.func,
     errorState: PropTypes.bool,
     header: PropTypes.string,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    setStartDate: PropTypes.func,
+    setEndDate: PropTypes.func
 };
 
 const DateRange = (props) => {
@@ -187,6 +188,8 @@ const DateRange = (props) => {
                 endDate: null
             });
         }
+        props.setStartDate(null);
+        props.setEndDate(null);
     };
 
     const submitDatesDropdown = () => {
@@ -258,10 +261,28 @@ const DateRange = (props) => {
             props.showError('Invalid Dates',
                 'The end date cannot be earlier than the start date.');
         }
-    };
 
-    const onFocus = () => {
-        testDates();
+        const format = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+
+        if (props.startDate !== null) {
+            const newDateFormat = dayjs(props.startDate).format('YYYY-MM-DD');
+            const formatTest = format.test(newDateFormat);
+
+            if (!formatTest) {
+                setNoDatesDR(true);
+                props.showError('Invalid Dates', 'Please enter a valid date in MM/DD/YYYY format.');
+            }
+        }
+
+        if (props.endDate !== null) {
+            const newDateFormat = dayjs(props.endDate).format('YYYY-MM-DD');
+            const formatTest = format.test(newDateFormat);
+
+            if (!formatTest) {
+                setNoDatesDR(true);
+                props.showError('Invalid Dates', 'Please enter a valid date in MM/DD/YYYY format.');
+            }
+        }
     };
 
     useEffect(() => {
@@ -340,28 +361,20 @@ const DateRange = (props) => {
                 onSubmit={submitDates}>
                 <div className="date-range-column">
                     <DatePicker
-                        type="startDate"
-                        title="start date"
-                        onDateChange={props.onDateChange}
                         value={props.startDate}
-                        opposite={props.endDate}
-                        showError={props.showError}
+                        type="startDate"
+                        onDateChange={props.onDateChange}
                         hideError={props.hideError}
-                        id="date-range__startDate"
-                        onFocus={onFocus}
-                        updateFilter={props.updateFilter} />
+                        title="start date"
+                        id="date-range__startDate" />
                 </div>
                 <div className="date-range-column">
                     <DatePicker
-                        type="endDate"
-                        title="end date"
-                        onDateChange={props.onDateChange}
                         value={props.endDate}
-                        opposite={props.startDate}
-                        showError={props.showError}
+                        type="endDate"
+                        onDateChange={props.onDateChange}
                         hideError={props.hideError}
-                        onFocus={onFocus}
-                        updateFilter={props.updateFilter}
+                        title="end date"
                         id="date-range__endDate" />
                 </div>
                 <Button

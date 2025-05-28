@@ -6,10 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
+import { NewPicker } from "data-transparency-ui";
+
 import { mapFilterSortOrderByValue } from 'dataMapping/covid19/covid19';
 import { handleSort } from 'helpers/covid19Helper';
 import MapFiltersTitle from './MapFiltersTitle';
-import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
 
 const propTypes = {
     filters: PropTypes.object,
