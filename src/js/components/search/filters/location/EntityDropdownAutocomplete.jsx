@@ -34,7 +34,6 @@ const EntityDropdownAutocomplete = ({
     handleTextInputChange,
     toggleDropdown,
     placeholder,
-    context, // the $this variable
     loading,
     handleOnKeyDown,
     handleOnKeyUp,
@@ -54,11 +53,7 @@ const EntityDropdownAutocomplete = ({
             onKeyDown={handleOnKeyDown}
             onKeyUp={handleOnKeyUp}
             onChange={handleTextInputChange}
-            placeholder={placeholder}
-            ref={(dropdown) => {
-                const self = context;
-                self.dropdown = dropdown;
-            }} />
+            placeholder={placeholder} />
         <div className="icon">
             {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
             {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}
