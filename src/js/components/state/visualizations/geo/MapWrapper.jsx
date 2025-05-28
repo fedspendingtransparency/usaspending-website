@@ -70,29 +70,21 @@ const mapLegendToggleData = [
 ];
 
 const mapboxSources = {
-    country: {
-        label: 'country',
-        url: 'mapbox://usaspendingfrbkc.9cuxupvr',
-        layer: 'genc-countries-precision-25-5hjvw2',
-        filterKey: 'GENC0' // three digit country code
-    },
-    state: {
-        label: 'state',
-        url: 'mapbox://usaspendingfrbkc.2kdrjq7z',
-        layer: 'cb_2023_us_state_500k-b3ar5z',
-        filterKey: 'STUSPS' // state abbreviation
-    },
     county: {
         label: 'county',
         url: 'mapbox://usaspendingfrbkc.68mwkzct',
         layer: 'tl_2024_us_county-d4whpa',
-        filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
+        filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
     },
     congressionalDistrict: {
         label: 'congressional district',
         url: 'mapbox://usaspendingfrbkc.7h6nmseg',
         layer: '118-CD-1nnkof',
-        filterKey: 'GEOID20' // the GEOID is state FIPS + district
+        filterKey: 'GEOID20', // the GEOID is state FIPS + district
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
     }
 };
 
