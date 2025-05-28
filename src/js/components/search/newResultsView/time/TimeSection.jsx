@@ -16,10 +16,13 @@ import TimeDsm from "./TimeDsm";
 const propTypes = {
     timeHasLoaded: PropTypes.bool,
     subaward: PropTypes.bool,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
-const TimeSection = ({ timeHasLoaded, subaward, hash }) => {
+const TimeSection = ({
+    timeHasLoaded, subaward, hash, spendingLevel
+}) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('month');
 
     const onClick = (e) => {
@@ -38,19 +41,19 @@ const TimeSection = ({ timeHasLoaded, subaward, hash }) => {
                 name: 'By Month',
                 value: 'month',
                 onClick,
-                dsmContent: <TimeDsm subaward={subaward} />
+                dsmContent: <TimeDsm subaward={subaward} spendingLevel={spendingLevel} />
             },
             {
                 name: 'By Fiscal Quarter',
                 value: 'quarter',
                 onClick,
-                dsmContent: <TimeDsm subaward={subaward} />
+                dsmContent: <TimeDsm subaward={subaward} spendingLevel={spendingLevel} />
             },
             {
                 name: 'By Year',
                 value: 'fiscal_year',
                 onClick,
-                dsmContent: <TimeDsm subaward={subaward} />
+                dsmContent: <TimeDsm subaward={subaward} spendingLevel={spendingLevel} />
             }
         ],
         selectedDropdownOption: visualizationPeriod,

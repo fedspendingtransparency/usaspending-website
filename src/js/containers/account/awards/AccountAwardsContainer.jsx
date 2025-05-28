@@ -8,9 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId } from 'lodash';
-
 import { measureTableHeader } from 'helpers/textMeasurement';
-
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -96,7 +94,8 @@ const AccountAwardsContainer = (props) => {
         searchRequest.promise
             .then((res) => {
                 const newState = {
-                    inFlight: false
+                    inFlight: false,
+                    accountAwardsPage: true
                 };
                 const parsedResults = res.data.results.map((result) => ({
                     ...result,
@@ -242,7 +241,8 @@ const AccountAwardsContainer = (props) => {
             subtitle: col.subtitle || '',
             width,
             background: col.background || '',
-            defaultDirection: direction
+            defaultDirection: direction,
+            right: col.right || false
         };
     };
 
@@ -347,7 +347,8 @@ const AccountAwardsContainer = (props) => {
                 total={total}
                 resultsLimit={resultLimit}
                 setResultLimit={setResultLimit}
-                resultsCount={counts[tableType]} />
+                resultsCount={counts[tableType]}
+                federalAccountPage />
         </>
     );
 };

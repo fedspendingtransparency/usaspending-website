@@ -11,13 +11,24 @@ import TableDsm from "./TableDsm";
 const propTypes = {
     subaward: PropTypes.bool,
     tabData: PropTypes.object,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
-const TableSection = ({ subaward, tabData, hash }) => {
+const TableSection = ({
+    subaward, tabData, hash, spendingLevel
+}) => {
+    const sectionTitle = () => {
+        switch (spendingLevel) {
+            case 'awards': return 'Prime Award Results';
+            case 'subawards': return 'Subaward Results';
+            default: return 'Transaction Results';
+        }
+    };
+
     const wrapperProps = {
-        sectionTitle: subaward ? 'Subaward Results' : 'Prime Award Results',
-        dsmContent: <TableDsm subaward={subaward} />,
+        sectionTitle: sectionTitle(),
+        dsmContent: <TableDsm subaward={subaward} spendingLevel={spendingLevel} />,
         sectionName: 'table'
     };
 
@@ -27,7 +38,8 @@ const TableSection = ({ subaward, tabData, hash }) => {
                 tabData={tabData}
                 wrapperProps={wrapperProps}
                 subaward={subaward}
-                hash={hash} />
+                hash={hash}
+                spendingLevel={spendingLevel} />
         </div>
     );
 };

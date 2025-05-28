@@ -82,10 +82,14 @@ const TimeVisualizationChart = (props) => {
 
     let label;
     let value;
-    for (let i = 0; i < props?.xSeries?.length; i++) {
-        if (props?.ySeries[i][0] !== 0) {
-            label = props?.xSeries[i][0];
-            value = props?.ySeries[i][0];
+    if (props.visualizationPeriod === 'fiscal_year') {
+        // eslint-disable-next-line no-nested-ternary
+        props.combined.sort((a, b) => ((a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)));
+    }
+    for (let i = 0; i < props?.combined.length; i++) {
+        if (props?.combined[i].y !== 0) {
+            label = props?.combined[i].x;
+            value = props?.combined[i].y;
         }
         else if (transformedData[transformedData?.length - 1]?.value !== "jump") {
             label = "jump";

@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
@@ -17,7 +18,7 @@ import NoDownloadHover from '../header/NoDownloadHover';
 import KeywordSearchLink from "../KeywordSearchLink";
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
-import { setSearchViewSubaward } from "../../../redux/actions/search/searchViewActions";
+import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
 
@@ -58,6 +59,15 @@ const SearchPage = ({
     const [fullSidebar, setFullSidebar] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
 
+    const infoSectionContent = <>
+        <div className="explainer-text__first-column">
+            <FontAwesomeIcon icon="info-circle" className="explainer-text__info-icon" />
+        </div>
+        <div className="explainer-text__second-column">
+            <p>Please note that results displayed will vary depending on the filter that’s selected here.</p>
+            <p>For more information, read the "About" sections at the bottom of each filter or the "Data sources and methodology" sections at the bottom of each result module.</p>
+        </div>
+    </>;
     const getSlugWithHash = () => {
         if (hash) {
             return `${slug}?hash=${hash}`;
@@ -138,7 +148,15 @@ const SearchPage = ({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown
+                    size="sm"
+                    label="Filter by:"
+                    enabled
+                    setSearchViewSubaward={setSearchViewSubaward}
+                    selectedValue="awards"
+                    setSpendingLevel={setSpendingLevel}
+                    infoSection
+                    infoSectionContent={infoSectionContent} />,
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}

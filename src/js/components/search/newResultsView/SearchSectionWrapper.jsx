@@ -6,14 +6,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { throttle } from "lodash";
-import { useHistory } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
-import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
-import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
+import { ErrorMessage, LoadingMessage, NoResultsMessage, NewPicker } from "data-transparency-ui";
+
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
+import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -34,9 +35,12 @@ const propTypes = {
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     children: PropTypes.element,
-    table: PropTypes.bool,
+    table: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
     sectionName: PropTypes.string,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string,
+    onToggle: PropTypes.func,
+    showToggle: PropTypes.bool
 };
 
 const SearchSectionWrapper = ({
@@ -58,9 +62,13 @@ const SearchSectionWrapper = ({
     sectionName,
     mapViewType = false,
     setMapViewType = false,
-    hash
+    hash,
+    spendingLevel,
+    onToggle,
+    showToggle
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
+    const [trackDSMEvent, setTrackDSMEvent] = useState(false);
     const [viewType, setViewType] = useState('chart');
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const gaRef = useRef(false);
@@ -71,11 +79,11 @@ const SearchSectionWrapper = ({
     const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
-    const history = useHistory();
-
-    const params = history.location.search.split("&");
-    params.shift();
-    const sectionValue = params[0]?.substring(8);
+    const history = useNavigate();
+    const location = useLocation();
+    const params = location.search?.split("&");
+    params?.shift();
+    const sectionValue = params?.length > 0 ? params[0]?.substring(8) : null;
     const sortFn = () => dropdownOptions;
 
     const changeView = (label) => {
@@ -104,10 +112,7 @@ const SearchSectionWrapper = ({
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
+            history(getQueryParamString(newQueryParams));
         }
 
         let rectTopOffset = 0;
@@ -130,7 +135,7 @@ const SearchSectionWrapper = ({
     };
 
     const parseSection = () => {
-        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
+        if ((params?.length === 1 || params?.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
             jumpToSection(sectionValue);
         }
     };
@@ -154,6 +159,44 @@ const SearchSectionWrapper = ({
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [viewType]);
+
+    useEffect(() => {
+        const action = openAccordion ? "open DS&M" : "close DS&M";
+        let prefix = 'Prime Awards Table';
+
+        switch (sectionName) {
+            case 'categories':
+                prefix = `Categories ${selectedDropdownOption}`;
+                break;
+            case 'time':
+                prefix = `Time ${selectedDropdownOption}`;
+                break;
+            case 'map':
+                prefix = `Map ${selectedDropdownOption}`;
+                break;
+            default:
+                if (spendingLevel === 'subawards') {
+                    prefix = 'Subawards Table';
+                    break;
+                }
+                else if (spendingLevel === 'transactions') {
+                    prefix = 'Transactions Table ';
+                    break;
+                }
+                break;
+        }
+
+        if (trackDSMEvent) {
+            Analytics.event({
+                category: 'Advanced Search - Results View DSM',
+                action,
+                label: `${prefix} DS&M`
+            });
+        }
+        setTrackDSMEvent(true);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openAccordion]);
 
     const Message = () => {
         if (isLoading) {
@@ -205,6 +248,7 @@ const SearchSectionWrapper = ({
                 :
                 <div className="search__section-wrapper-header">
                     <span className="filter__dropdown-label">{sectionTitle}</span>
+                    {showToggle && <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />}
                 </div>
             }
             {!openAccordion &&

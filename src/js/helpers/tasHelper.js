@@ -47,7 +47,7 @@ export const getTasNodeFromTree = (tree, code) => {
         .reduce((acc, node) => {
             if (acc) return acc;
             if (node.value === code) return node;
-            return getTasNodeFromTree(node.children, code);
+            return getTasNodeFromTree(node?.children, code);
         }, undefined);
 };
 
@@ -123,8 +123,8 @@ export const expandTasNodeAndAllDescendantParents = (
     nodes
 ) => expandNodeAndAllDescendantParents(
     nodes,
-    shouldTasNodeHaveChildren,
-    'value'
+    'value',
+    shouldTasNodeHaveChildren
 );
 
 export const getTasAncestryPathForChecked = (checked, nodes) => getAncestryPathOfNodes(

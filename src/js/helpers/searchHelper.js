@@ -215,8 +215,8 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         }
     }
 
-    for (const value of checkboxTreeFilters) {
-        const key = value;
+    for (let i = 0; i < checkboxTreeFilters.length; i++) {
+        const key = checkboxTreeFilters[i];
         const unfilteredValue = comparisonObject[key].toObject();
         const currentValue = referenceObject[key].toObject();
         if (!areCheckboxSelectionsEqual(unfilteredValue, currentValue)) return false;
@@ -252,7 +252,7 @@ export const getObjFromQueryParams = (str) => {
     return obj;
 };
 
-const convertToTitleCase = (str) => {
+export const convertToTitleCase = (str) => {
     if (!str) {
         return "";
     }
@@ -265,11 +265,11 @@ export const locationChipLabel = (label, location) => {
         case 'County': {
             const countySplit = location.display.title.split(', ');
 
-            if (countySplit[1].length === 2) {
+            if (countySplit[1]?.length === 2) {
                 return `${convertToTitleCase(countySplit[0])}, ${countySplit[1]}`;
             }
 
-            return convertToTitleCase(location.display.title);
+            return convertToTitleCase(location?.display?.title);
         }
         case 'City':
             if (location.filter?.state) {
@@ -371,13 +371,13 @@ export const dateRangeChipLabel = (timeInput) => {
         dateLabel = dateRangeDropdownTimePeriods[9].label;
     }
     else if (start && end) {
-        dateLabel = `${start} to ${end}`;
+        dateLabel = `${start} - ${end}`;
     }
     else if (start) {
-        dateLabel = `${start} to present`;
+        dateLabel = `${start} - present`;
     }
     else if (end) {
-        dateLabel = `... to ${end}`;
+        dateLabel = `Start of data - ${end}`;
     }
 
     return dateLabel;

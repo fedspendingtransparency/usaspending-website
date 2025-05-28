@@ -105,6 +105,8 @@
 
     .date-range-option {
       @include grid-container;
+      @import "dtui-overrides";
+
       margin-left: auto;
       margin-right: auto;
 
@@ -158,6 +160,7 @@
 
         button {
           margin: 0;
+          @include new-search-button;
         }
       }
 
@@ -185,6 +188,7 @@
             width: 100%;
             margin-right: $global-margin * .5;
 
+            // DTUI NewPicker.jsx override
             .filter__dropdown-container {
               height: rem(32);
 
@@ -261,6 +265,7 @@
 
           button {
             margin: 0;
+            @include new-search-button;
           }
         }
       }

@@ -1,8 +1,8 @@
 class MockRouter {
     constructor() {
         this.state = {
-            path: '/path',
-            parent: '/parent',
+            path: '/agency/department-of-sandwiches',
+            parent: '/agency',
             params: {},
             query: {},
             silentlyUpdate: false

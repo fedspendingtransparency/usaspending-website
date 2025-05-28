@@ -14,7 +14,7 @@ import Error from 'components/sharedComponents/Error';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -36,7 +36,7 @@ const StatePage = ({
     stateProfile = { fy: '' },
     pickedFy
 }) => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const [windowWidth, setWindowWidth] = useState(0);
@@ -55,7 +55,7 @@ const StatePage = ({
         },
         {
             section: 'transactions-over-time',
-            label: 'Transactions Over Time'
+            label: 'Awards Over Time'
         },
         {
             section: 'top-five',
@@ -74,10 +74,9 @@ const StatePage = ({
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
 
         // add offsets
         let conditionalOffset;

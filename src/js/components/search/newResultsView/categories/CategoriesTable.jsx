@@ -44,7 +44,8 @@ const CategoriesTable = (props) => {
                 columns={props.columns}
                 rows={props.rows}
                 isStacked
-                isMobile={isMobile} />
+                isMobile={isMobile}
+                newMobileView />
             <CategoriesPagination
                 nextPage={props.nextPage}
                 previousPage={props.previousPage}

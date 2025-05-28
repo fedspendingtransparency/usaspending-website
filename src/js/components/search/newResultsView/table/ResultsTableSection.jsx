@@ -26,7 +26,8 @@ const propTypes = {
     subAwardIdClick: PropTypes.func,
     page: PropTypes.number,
     setPage: PropTypes.func,
-    total: PropTypes.number
+    total: PropTypes.number,
+    federalAccountPage: PropTypes.bool
 };
 
 const ResultsTableSection = (props) => {
@@ -59,7 +60,6 @@ const ResultsTableSection = (props) => {
             window.removeEventListener('resize', setTableWidthFn);
         };
     }, [handleResize]);
-
     return (
         <div className="search-results-table-section" id="results-section-table">
             <Tabs
@@ -73,7 +73,9 @@ const ResultsTableSection = (props) => {
                         visibleWidth={tableWidth}
                         awardIdClick={props.awardIdClick}
                         subAwardIdClick={props.subAwardIdClick}
-                        isMobile={isMobile} />
+                        isMobile={isMobile}
+                        federalAccountPage
+                        newMobileView />
                 )
                     :
                     <NoResultsMessage />

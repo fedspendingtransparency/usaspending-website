@@ -16,6 +16,9 @@ import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 
+import { useLocation } from "react-router-dom";
+import GlobalConstants from 'GlobalConstants';
+
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
@@ -31,7 +34,8 @@ const propTypes = {
     scope: PropTypes.string,
     setScope: PropTypes.func,
     wrapperProps: PropTypes.object,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
 const apiScopes = {
@@ -90,6 +94,9 @@ const MapSectionWrapper = React.memo((props) => {
     const [mapViewType, setMapViewType] = useState('chart');
     let apiRequest = null;
     const mapListeners = [];
+
+    const { pathname } = useLocation();
+    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
@@ -233,7 +240,12 @@ const MapSectionWrapper = React.memo((props) => {
             filters: searchParams,
             subawards: props.subaward,
             auditTrail: 'Map Visualization'
+            // spending_level: props.spendingLevel
         };
+
+        if (isv2) {
+            apiParams.spending_level = props.spendingLevel;
+        }
 
         if (apiRequest) {
             apiRequest.cancel();
@@ -565,7 +577,12 @@ const MapSectionWrapper = React.memo((props) => {
             fetchData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward, mapViewType, props.wrapperProps.selectedDropdownOption]);
+    }, [
+        props.reduxFilters,
+        props.subaward, mapViewType,
+        props.wrapperProps.selectedDropdownOption,
+        props.spendingLevel
+    ]);
 
     useEffect(() => {
         handleMapLegendToggleChange();
@@ -665,7 +682,8 @@ export default connect((state) => ({
     reduxFilters: state.appliedFilters.filters,
     noApplied: state.appliedFilters._empty,
     subaward: state.searchView.subaward,
-    mapLegendToggle: state.searchMapLegendToggle
+    mapLegendToggle: state.searchMapLegendToggle,
+    spendingLevel: state.searchView.spendingLevel
 }),
 (dispatch) => ({
     ...bindActionCreators(Object.assign({}, searchFilterActions,

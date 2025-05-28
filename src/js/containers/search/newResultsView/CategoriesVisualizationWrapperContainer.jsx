@@ -8,10 +8,11 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useHistory } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import GlobalConstants from 'GlobalConstants';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -40,7 +41,8 @@ const propTypes = {
     error: PropTypes.bool,
     wrapperProps: PropTypes.object,
     setSelectedDropdown: PropTypes.func,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
@@ -60,8 +62,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [hasNextPage, setHasNextPage] = useState(false);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [tableRows, setTableRows] = useState([]);
-    const history = useHistory();
+    const [searchParams] = useSearchParams();
     let apiRequest;
+
+    const { pathname } = useLocation();
+    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const childProps = {
         spendingBy,
@@ -162,16 +167,12 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     };
 
     const parseRank = () => {
-        if (history) {
-            const params = history.location.search.split("&");
-            params.shift();
-            if (params.length === 2 && params[0].substring(0, 8) === "section=") {
-                if (params[1].substring(0, 5) === "type=") {
-                    const rankVal = params[1].substring(5);
-                    if (rankVal === "naics" || rankVal === "psc") {
-                        props.setSelectedDropdown(rankVal);
-                    }
-                }
+        const section = searchParams.get('section');
+        const type = searchParams.get('type');
+        if (section && type) {
+            const rankVal = type;
+            if (rankVal === "naics" || rankVal === "psc") {
+                props.setSelectedDropdown(rankVal);
             }
         }
     };
@@ -316,17 +317,23 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             delete operation.dateType;
         }
 
-        const searchParams = operation.toParams();
+        const apiSearchParams = operation.toParams();
 
         // generate the API parameters
         const apiParams = {
             category: scope,
-            filters: searchParams,
+            filters: apiSearchParams,
             limit: 10,
             page,
             auditTrail,
             subawards: props.subaward
+            // spending_level: props.spendingLevel
+
         };
+
+        if (isv2) {
+            apiParams.spending_level = props.spendingLevel;
+        }
 
         apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         apiRequest.promise
@@ -386,7 +393,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             newSearch();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.reduxFilters, scope, props.subaward]);
+    }, [props.reduxFilters, scope, props.subaward, props.spendingLevel]);
 
     return (
         <div
@@ -436,7 +443,8 @@ export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward
+        subaward: state.searchView.subaward,
+        spendingLevel: state.searchView.spendingLevel
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(CategoriesVisualizationWrapperContainer);
