@@ -195,7 +195,7 @@ export const mapboxSources = {
     state: {
         label: 'state',
         url: 'mapbox://usaspendingfrbkc.2kdrjq7z',
-        layer: 'cb_2016_us_state_500k-ckeyb7',
+        layer: 'cb_2023_us_state_500k-b3ar5z',
         filterKey: 'STUSPS' // state abbreviation
     },
     county: {
@@ -209,12 +209,6 @@ export const mapboxSources = {
         url: 'mapbox://usaspendingfrbkc.7h6nmseg',
         layer: '118-CD-1nnkof',
         filterKey: 'GEOID20' // the GEOID is state FIPS + district
-    },
-    zip: {
-        label: 'ZIP Code Tabulation Area',
-        url: 'mapbox://usaspending.3lk61l9t',
-        layer: 'tl_2024_us_zcta510_500k',
-        filterKey: 'ZCTA5CE10' // zip code
     }
 };
 

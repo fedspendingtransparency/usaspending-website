@@ -72,37 +72,27 @@ const mapLegendToggleData = [
 const mapboxSources = {
     country: {
         label: 'country',
-        url: 'mapbox://usaspending.9t5zlf5z',
-        layer: 'Countries-shp-9bdce0',
+        url: 'mapbox://usaspendingfrbkc.9cuxupvr',
+        layer: 'genc-countries-precision-25-5hjvw2',
         filterKey: 'GENC0' // three digit country code
     },
     state: {
         label: 'state',
-        url: 'mapbox://usaspending.9cse49bi',
-        layer: 'cb_2016_us_state_500k-ckeyb7',
+        url: 'mapbox://usaspendingfrbkc.2kdrjq7z',
+        layer: 'cb_2023_us_state_500k-b3ar5z',
         filterKey: 'STUSPS' // state abbreviation
     },
     county: {
         label: 'county',
-        url: 'mapbox://usaspending.29sdfmwu',
-        layer: 'tl_2019_us_county',
-        filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
+        url: 'mapbox://usaspendingfrbkc.68mwkzct',
+        layer: 'tl_2024_us_county-d4whpa',
+        filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     congressionalDistrict: {
         label: 'congressional district',
-        url: 'mapbox://usaspending.118-CD-tiles',
-        layer: '118-CD',
-        filterKey: 'GEOID20', // the GEOID is state FIPS + district
-        lat: 'INTPTLAT20',
-        long: 'INTPTLON20'
-    },
-    zip: {
-        label: 'ZIP Code Tabulation Area',
-        url: 'mapbox://usaspending.3lk61l9t',
-        layer: 'cb_2016_us_zcta510_500k-4se882',
-        filterKey: 'ZCTA5CE10' // zip code
+        url: 'mapbox://usaspendingfrbkc.7h6nmseg',
+        layer: '118-CD-1nnkof',
+        filterKey: 'GEOID20' // the GEOID is state FIPS + district
     }
 };
 
