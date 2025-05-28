@@ -194,26 +194,26 @@ export const filtersOnClickHandler = {
 export const mapboxSources = {
     state: {
         label: 'state',
-        url: 'mapbox://usaspending.9cse49bi',
+        url: 'mapbox://usaspendingfrbkc.2kdrjq7z',
         layer: 'cb_2016_us_state_500k-ckeyb7',
         filterKey: 'STUSPS' // state abbreviation
     },
     county: {
         label: 'county',
-        url: 'mapbox://usaspending.29sdfmwu',
-        layer: 'tl_2019_us_county',
+        url: 'mapbox://usaspendingfrbkc.68mwkzct',
+        layer: 'tl_2024_us_county-d4whpa',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     district: {
         label: 'congressional district',
-        url: 'mapbox://usaspending.118-CD-tiles',
-        layer: '118-CD',
+        url: 'mapbox://usaspendingfrbkc.7h6nmseg',
+        layer: '118-CD-1nnkof',
         filterKey: 'GEOID20' // the GEOID is state FIPS + district
     },
     zip: {
         label: 'ZIP Code Tabulation Area',
         url: 'mapbox://usaspending.3lk61l9t',
-        layer: 'cb_2016_us_zcta510_500k-4se882',
+        layer: 'tl_2024_us_zcta510_500k',
         filterKey: 'ZCTA5CE10' // zip code
     }
 };
