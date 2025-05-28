@@ -312,35 +312,36 @@ const PSCCheckboxTreeContainer = ({
         else if (nodes.length !== 0) {
             showPscTree();
         }
+        else {
+            fetchPscLocal('', null, false)
+                .then(() => {
+                    if (checkedFromHash.length > 0) {
+                        setPscCounts(countsFromHash);
+                        return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
+                            .reduce((prevPromise, param) => prevPromise
+                            // fetch the all the ancestors of the checked nodes
+                                .then(() => fetchPscLocal(param, null, false)), Promise.resolve([])
+                            )
+                            .then(() => {
+                                setCheckedStateFromUrlHash(
+                                    checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
+                                );
+                                setExpandedPsc([
+                                    ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
+                                ]);
+                            })
+                            .catch((e) => {
+                                setIsLoading(false);
+                                setIsError(true);
+                                setErrorMessage(get(e, 'message', 'Error fetching PSC.'));
+                            });
+                    }
+                    setIsLoading(false);
 
-        fetchPscLocal('', null, false)
-            .then(() => {
-                if (checkedFromHash.length > 0) {
-                    setPscCounts(countsFromHash);
-                    return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
-                        .reduce((prevPromise, param) => prevPromise
-                        // fetch the all the ancestors of the checked nodes
-                            .then(() => fetchPscLocal(param, null, false)), Promise.resolve([])
-                        )
-                        .then(() => {
-                            setCheckedStateFromUrlHash(
-                                checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
-                            );
-                            setExpandedPsc([
-                                ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
-                            ]);
-                        })
-                        .catch((e) => {
-                            setIsLoading(false);
-                            setIsError(true);
-                            setErrorMessage(get(e, 'message', 'Error fetching PSC.'));
-                        });
-                }
-                setIsLoading(false);
-
-                // just do this for consistent return.
-                return Promise.resolve();
-            });
+                    // just do this for consistent return.
+                    return Promise.resolve();
+                });
+        }
 
         return () => {
             if (request.current) {
@@ -356,7 +357,7 @@ const PSCCheckboxTreeContainer = ({
             onSearchChange();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSearch, isLoading]);
+    }, [isSearch, isLoading, searchString]);
 
     // for properly setting checked state from hash
     useEffect(() => {
