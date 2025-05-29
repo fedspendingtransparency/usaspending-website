@@ -66,12 +66,26 @@
       @import "components/_defaultPicker";
       @include defaultPicker;
 
-      .default-picker {
-        width: 100%;
+      //new picker styles
+      .idv__picker-wrapper {
+        .default-picker {
+          width: fit-content;
 
-        .default-picker__header {
+          .filter__dropdown-label {
+            font-weight: $font-normal;
+          }
+
           .default-picker__button {
-            border-bottom: 2px solid $color-link;
+              @include button-unstyled;
+              @include display(inline-flex);
+              border-bottom: 1px solid $color-link;
+            .filter__dropdown-button-text {
+              margin-right: rem(5);
+              margin-left: rem(5);
+              color: $color-base;
+              font-weight: $font-semibold;
+              font-size: rem(16);
+            }
           }
         }
       }

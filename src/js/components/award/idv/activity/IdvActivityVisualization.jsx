@@ -212,12 +212,18 @@ export default class IdvActivityVisualization extends React.Component {
                     menuData={menuData}
                     defaultSelection={this.props.limit}
                     selectedItemFunc={this.props.selectedItemFunc} />
-                <NewPicker
-                    label="Show"
-                    enabled
-                    selectedOption={menuData.find((option) => option.value === this.props.limit).name}
-                    options={menuData}
-                    sortFn={(a, b) => a - b} />
+                <div className="idv__picker-wrapper">
+                    <NewPicker
+                        label="Show"
+                        size="sm"
+                        classname="default-picker"
+                        dropdownClassname="default-picker__list"
+                        buttonClassname="default-picker__button"
+                        enabled
+                        selectedOption={menuData.length ? menuData.find((option) => option.value === this.props.limit).name : this.props.limit}
+                        options={menuData}
+                        sortFn={(a, b) => a - b} /> per page
+                </div>
                 <div className="activity-visualization-note">
                     <Note message={message} />
                 </div>
