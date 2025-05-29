@@ -112,19 +112,22 @@ export default class IdvActivityVisualization extends React.Component {
 
     createMenuData = () => [
         {
-            key: "10",
+            name: "10",
             value: 10,
-            label: "10"
+            key: "10",
+            onClick: this.props.selectedItemFunc
         },
         {
-            key: "50",
+            name: "50",
             value: 50,
-            label: "50"
+            key: "50",
+            onClick: this.props.selectedItemFunc
         },
         {
-            key: "100",
+            name: "100",
             value: 100,
-            label: "100"
+            key: "100",
+            onClick: this.props.selectedItemFunc
         }
     ];
 
@@ -209,6 +212,12 @@ export default class IdvActivityVisualization extends React.Component {
                     menuData={menuData}
                     defaultSelection={this.props.limit}
                     selectedItemFunc={this.props.selectedItemFunc} />
+                <NewPicker
+                    label="Show"
+                    enabled
+                    selectedOption={menuData.find((option) => option.value === this.props.limit).name}
+                    options={menuData}
+                    sortFn={(a, b) => a - b} />
                 <div className="activity-visualization-note">
                     <Note message={message} />
                 </div>
