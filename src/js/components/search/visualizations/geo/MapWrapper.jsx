@@ -72,8 +72,8 @@ const mapLegendToggleData = [
 const mapboxSources = {
     country: {
         label: 'country',
-        url: 'mapbox://usaspendingfrbkc.9cuxupvr',
-        layer: 'genc-countries-precision-25-5hjvw2',
+        url: 'mapbox://usaspendingfrbkc.countries-tileset',
+        layer: 'genc-countries',
         filterKey: 'GENC0', // three digit country code
         lat: 'INTPTLAT',
         long: 'INTPTLON'
@@ -88,16 +88,16 @@ const mapboxSources = {
     },
     county: {
         label: 'county',
-        url: 'mapbox://usaspendingfrbkc.68mwkzct',
-        layer: 'tl_2024_us_county-d4whpa',
+        url: 'mapbox://usaspendingfrbkc.county-tileset',
+        layer: 'tl_2024_us_county',
         filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
         lat: 'INTPTLAT',
         long: 'INTPTLON'
     },
     congressionalDistrict: {
         label: 'congressional district',
-        url: 'mapbox://usaspendingfrbkc.7h6nmseg',
-        layer: '118-CD-1nnkof',
+        url: 'mapbox://usaspendingfrbkc.district-tileset',
+        layer: '118-CD',
         filterKey: 'GEOID20', // the GEOID is state FIPS + district
         lat: 'INTPTLAT',
         long: 'INTPTLON'

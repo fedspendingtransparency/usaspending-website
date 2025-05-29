@@ -200,15 +200,15 @@ export const mapboxSources = {
     },
     county: {
         label: 'county',
-        url: 'mapbox://usaspendingfrbkc.68mwkzct',
-        layer: 'tl_2024_us_county-d4whpa',
+        url: 'mapbox://usaspendingfrbkc.county-tileset',
+        layer: 'tl_2024_us_county',
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     district: {
         label: 'congressional district',
-        url: 'mapbox://usaspendingfrbkc.7h6nmseg',
-        layer: '118-CD-1nnkof',
-        filterKey: 'GEOID20' // the GEOID is state FIPS + district
+        url: 'mapbox://usaspendingfrbkc.district-tileset',
+        layer: '118-CD',
+        filterKey: 'GEOID20', // the GEOID is state FIPS + district
     }
 };
 
