@@ -16,7 +16,6 @@ import * as RecipientHelper from 'helpers/recipientHelper';
 import { isFyValid } from 'helpers/fiscalYearHelper';
 
 import RecipientPage from 'components/recipient/RecipientPage';
-import { usePrevious } from "../../helpers";
 
 require('pages/recipient/recipientPage.scss');
 
@@ -30,7 +29,6 @@ const propTypes = {
 };
 
 const RecipientContainer = (props) => {
-    const prevProps = usePrevious(props);
     const history = useNavigate();
     const match = useMatch(`/recipient/:recipientId/:fy`);
     const { recipientId, fy } = match.params;
@@ -75,9 +73,9 @@ const RecipientContainer = (props) => {
             });
     });
 
-    const updateSelectedFy = () => {
-        history(`/recipient/${props.recipient.id}/${fy}`);
-        props.setRecipientFiscalYear(fy);
+    const updateSelectedFy = (newFy) => {
+        history(`/recipient/${props.recipient.id}/${newFy}`);
+        props.setRecipientFiscalYear(newFy);
     };
 
     useEffect(() => {
@@ -109,21 +107,20 @@ const RecipientContainer = (props) => {
     }, []);
 
     useEffect(() => {
-        if (prevProps) {
-            if (recipientId !== prevProps.recipientId) {
-                // Reset the FY
-                props.setRecipientFiscalYear(fy);
-                loadRecipientOverview(recipientId, defaultFy);
-            }
-            if (prevProps.fy !== fy) {
-                props.setRecipientFiscalYear(fy);
-            }
-            if (props.recipient.fy !== prevProps.recipient.fy) {
-                loadRecipientOverview(recipientId, props.recipient.fy);
-            }
-        }
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [recipientId, fy]);
+        props.setRecipientFiscalYear(fy);
+        loadRecipientOverview(recipientId, defaultFy);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [recipientId]);
+
+    useEffect(() => {
+        props.setRecipientFiscalYear(fy);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fy]);
+
+    useEffect(() => {
+        loadRecipientOverview(recipientId, props.recipient.fy);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.recipient.fy]);
 
     return (
         <RecipientPage

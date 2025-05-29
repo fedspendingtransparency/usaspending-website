@@ -40,10 +40,10 @@ const StateContainer = (props) => {
         error: false
     });
 
-    const onClickFy = () => {
+    const onClickFy = (newFy) => {
         const [, stateName] = parseStateDataFromUrl(state);
-        navigate(`/state/${stateName}/${fy}`);
-        props.setStateFiscalYear(fy);
+        navigate(`/state/${stateName}/${newFy}`);
+        props.setStateFiscalYear(newFy);
     };
 
     const setStateCenter = useCallback((id) => {
@@ -125,6 +125,7 @@ const StateContainer = (props) => {
     useEffect(() => {
         // we just redirected the user or to the new url which includes the fy selection
         props.setStateFiscalYear(fy);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fy]);
 
     useEffect(() => {
