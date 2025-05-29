@@ -3,11 +3,11 @@
  * Created by Kevin Li 8/8/17
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { ExclamationCircle, CheckCircle } from 'components/sharedComponents/icons/Icons';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const propTypes = {
     showError: PropTypes.bool,
@@ -18,11 +18,6 @@ const propTypes = {
     download: PropTypes.object
 };
 
-const defaultProps = {
-    showError: false,
-    showSuccess: false
-};
-
 const Spinner = () => (
     <div className="spinner">
         <div className="double-bounce1" />
@@ -30,64 +25,60 @@ const Spinner = () => (
     </div>
 );
 
-export default class DownloadBottomBar extends React.Component {
-    constructor(props) {
-        super(props);
+const DownloadBottomBar = ({
+    showError = false,
+    showSuccess = false,
+    title,
+    descriptionOne,
+    descriptionTwo,
+    download
+}) => {
+    const [copied, setCopied] = useState(false);
 
-        this.onCopy = this.onCopy.bind(this);
+    let leftIcon = <Spinner />;
 
-        this.state = {
-            copied: false
-        };
+    if (showError) {
+        leftIcon = <ExclamationCircle alt="Error" />;
+    }
+    else if (showSuccess) {
+        leftIcon = <CheckCircle alt="Ready for Download" />;
     }
 
-    onCopy() {
-        this.setState({
-            copied: true
-        });
-    }
+    const icon = (
+        <div className="icon valid">
+            <CheckCircle />
+        </div>
+    );
 
-    render() {
-        let leftIcon = <Spinner />;
-        if (this.props.showError) {
-            leftIcon = <ExclamationCircle alt="Error" />;
-        }
-        else if (this.props.showSuccess) {
-            leftIcon = <CheckCircle alt="Ready for Download" />;
-        }
+    const onCopy = () => {
+        setCopied(true);
+    };
 
-        const icon = (
-            <div className="icon valid">
-                <CheckCircle />
-            </div>
-        );
-
-        return (
-            <div className="floating-download-bottom-bar">
-                <div className="bottom-bar-content">
-                    <div className="left-icon">
-                        {leftIcon}
+    return (
+        <div className="floating-download-bottom-bar">
+            <div className="bottom-bar-content">
+                <div className="left-icon">
+                    {leftIcon}
+                </div>
+                <div className="text-content">
+                    <div className="title">
+                        {title}
                     </div>
-                    <div className="text-content">
-                        <div className="title">
-                            {this.props.title}
-                        </div>
-                        <p>
-                            {`${this.props.descriptionOne} `}
-                            {this.state.copied ? <span>{icon}</span> : null}
-                            <CopyToClipboard
-                                text={this.props.download.expectedUrl}
-                                onCopy={this.onCopy}>
-                                <button>{this.state.copied ? 'copied' : 'download link'}</button>
-                            </CopyToClipboard>
-                            {` ${this.props.descriptionTwo}`}
-                        </p>
-                    </div>
+                    <p>
+                        {`${descriptionOne} `}
+                        {copied ? <span>{icon}</span> : null}
+                        <CopyToClipboard
+                            text={download.expectedUrl}
+                            onCopy={onCopy}>
+                            <button>{copied ? 'copied' : 'download link'}</button>
+                        </CopyToClipboard>
+                        {` ${descriptionTwo}`}
+                    </p>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 DownloadBottomBar.propTypes = propTypes;
-DownloadBottomBar.defaultProps = defaultProps;
+export default DownloadBottomBar;
