@@ -65,6 +65,8 @@
       width: 100%;
       //new picker styles
       .idv__picker-wrapper {
+        display: inline-flex;
+        align-items: center;
         .default-picker {
           width: fit-content;
 
