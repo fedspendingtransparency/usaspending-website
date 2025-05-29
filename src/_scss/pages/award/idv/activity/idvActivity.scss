@@ -63,22 +63,23 @@
 
     .activity-visualization {
       width: 100%;
-      @import "components/_defaultPicker";
-      @include defaultPicker;
-
       //new picker styles
       .idv__picker-wrapper {
         .default-picker {
           width: fit-content;
 
-          .filter__dropdown-label {
+          .filter__dropdown-label-sm {
             font-weight: $font-normal;
+            font-size: $font-size-16;
+            margin-right: 0;
+            padding-right: rem(4);
           }
 
           .default-picker__button {
               @include button-unstyled;
               @include display(inline-flex);
               border-bottom: 1px solid $color-link;
+              height: auto;
             .filter__dropdown-button-text {
               margin-right: rem(5);
               margin-left: rem(5);
@@ -86,7 +87,16 @@
               font-weight: $font-semibold;
               font-size: rem(16);
             }
+            .filter__dropdown-chevron {
+              width: rem(18);
+              svg {
+                color: $color-link;
+              }
+            }
           }
+        }
+        .default-picker__append {
+          padding-left: rem(4);
         }
       }
 

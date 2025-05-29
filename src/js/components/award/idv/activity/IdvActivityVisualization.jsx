@@ -10,7 +10,6 @@ import { Pagination, NewPicker } from 'data-transparency-ui';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculatePageRange } from 'helpers/paginationHelper';
 import Note from 'components/sharedComponents/Note';
-import DefaultPicker from 'components/sharedComponents/pickers/DefaultPicker';
 import ActivityChart from './chart/ActivityChart';
 import ActivityChartTooltip from './ActivityChartTooltip';
 
@@ -206,12 +205,6 @@ export default class IdvActivityVisualization extends React.Component {
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
                     resultsText={resultsText} />
-                <DefaultPicker
-                    prepend="Show"
-                    append="per page"
-                    menuData={menuData}
-                    defaultSelection={this.props.limit}
-                    selectedItemFunc={this.props.selectedItemFunc} />
                 <div className="idv__picker-wrapper">
                     <NewPicker
                         label="Show"
@@ -222,7 +215,7 @@ export default class IdvActivityVisualization extends React.Component {
                         enabled
                         selectedOption={menuData.length ? menuData.find((option) => option.value === this.props.limit).name : this.props.limit}
                         options={menuData}
-                        sortFn={(a, b) => a - b} /> per page
+                        sortFn={(a, b) => a - b} /><span className="default-picker__append">per page</span>
                 </div>
                 <div className="activity-visualization-note">
                     <Note message={message} />
