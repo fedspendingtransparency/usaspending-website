@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from "data-transparency-ui";
+
 import { defaultLocationValues }
     from "containers/search/filters/location/LocationPickerContainer";
-
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import EntityDropdownAutocomplete from './EntityDropdownAutocomplete';
@@ -107,7 +107,9 @@ const EntityDropdown = ({
             const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
             if (currentIndex + 1 <= options.length) {
                 // we're not at the end of the list
-                const nextItem = document.querySelector(`.geo-entity-list li:nth-child(${currentIndex + 1}) .list-item`);
+                const nextItem = document.querySelector(
+                    `.geo-entity-list li:nth-child(${currentIndex + 1}) .list-item`
+                );
                 if (nextItem) {
                     nextItem.focus();
                 }
@@ -125,7 +127,9 @@ const EntityDropdown = ({
             const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
             if (currentIndex - 1 > 0) {
                 // we're not at the start of the list
-                const prevItem = document.querySelector(`.geo-entity-list li:nth-child(${currentIndex - 1}) .list-item`);
+                const prevItem = document.querySelector(
+                    `.geo-entity-list li:nth-child(${currentIndex - 1}) .list-item`
+                );
                 if (prevItem) {
                     prevItem.focus();
                 }
@@ -247,7 +251,7 @@ const EntityDropdown = ({
 
     const mouseEnter = () => {
         const shouldShowWarning = (!enabled || showDisclaimer);
-        // If field is disabled, show the warning as to why if its not already showing
+        // If field is disabled, show the warning as to why if it's not already showing
         if (shouldShowWarning && !showWarning) {
             setShowWarning(true);
         }
@@ -320,8 +324,12 @@ const EntityDropdown = ({
                                 {label}
                             </div>
                             <div className="icon">
-                                {expanded && <FontAwesomeIcon onClick={toggleDropdown} icon="chevron-up" />}
-                                {!expanded && <FontAwesomeIcon onClick={toggleDropdown} icon="chevron-down" />}
+                                {expanded &&
+                                    <FontAwesomeIcon onClick={toggleDropdown} icon="chevron-up" />
+                                }
+                                {!expanded &&
+                                    <FontAwesomeIcon onClick={toggleDropdown} icon="chevron-down" />
+                                }
                             </div>
                         </button>
                 }

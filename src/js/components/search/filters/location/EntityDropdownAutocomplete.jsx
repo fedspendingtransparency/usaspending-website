@@ -17,8 +17,6 @@ const propTypes = {
     handleOnKeyDown: PropTypes.func,
     handleOnKeyUp: PropTypes.func,
     toggleDropdown: PropTypes.func,
-    context: PropTypes.shape({}), // the $this variable of the parent, used to create a ref
-    expanded: PropTypes.bool,
     enabled: PropTypes.bool,
     loading: PropTypes.bool,
     showDisclaimer: PropTypes.bool,
