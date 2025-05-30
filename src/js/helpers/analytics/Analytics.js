@@ -6,6 +6,10 @@
 import kGlobalConstants from 'GlobalConstants';
 import doParamsContainInitialApplicationLoadForDAPGoogleAnalytics from './doParamsContainInitialApplicationLoadForDAPGoogleAnalytics';
 
+const generateUniqueId = () => {
+    return Math.random().toString(36).substring(2, 15);
+};
+
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
@@ -28,6 +32,8 @@ const Analytics = {
         return Boolean(window.ga && typeof window.ga === 'function');
     },
     event(args) {
+        const uniqueId = generateUniqueId();
+
         if (!args.category || !args.action) {
             return;
         }
@@ -36,6 +42,7 @@ const Analytics = {
         window.dataLayer.push({
             event: 'catch_all_event',
             event_name: args.event,
+            event_id: `${uniqueId}`,
             event_category: `${this._prefix}${args.category}`,
             event_action: args.action,
             event_label: args.label || undefined,
@@ -46,6 +53,7 @@ const Analytics = {
         this._execute(
             'send',
             'event',
+            `${uniqueId}`,
             `${this._prefix}${args.category}`,
             args.action,
             args.label || undefined,
