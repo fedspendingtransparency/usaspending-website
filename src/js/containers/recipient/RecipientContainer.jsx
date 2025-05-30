@@ -30,7 +30,7 @@ const propTypes = {
 
 const RecipientContainer = (props) => {
     const history = useNavigate();
-    const match = useMatch(`/recipient/:recipientId/:fy`);
+    const match = useMatch(`/recipient/:recipientId/:fy?`);
     const { recipientId, fy } = match.params;
     const [state, setState] = useState({
         loading: true,
