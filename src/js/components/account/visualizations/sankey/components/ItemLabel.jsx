@@ -14,38 +14,32 @@ const propTypes = {
     value: PropTypes.string
 };
 
-const defaultProps = {
-    x: 0,
-    y: 0,
-    hide: false
+const ItemLabel = ({
+    x = 0, y = 0, hide = false, title, value
+}) => {
+    if (hide) {
+        return null;
+    }
+
+    return (
+        <g
+            className="item-label"
+            transform={`translate(${x},${y})`}>
+            <text
+                className="title"
+                x={0}
+                y={0}>
+                {title}
+            </text>
+            <text
+                className="value"
+                x={0}
+                y={16}>
+                {value}
+            </text>
+        </g>
+    );
 };
 
-export default class ItemLabel extends React.Component {
-    render() {
-        if (this.props.hide) {
-            return null;
-        }
-
-        return (
-            <g
-                className="item-label"
-                transform={`translate(${this.props.x},${this.props.y})`}>
-                <text
-                    className="title"
-                    x={0}
-                    y={0}>
-                    {this.props.title}
-                </text>
-                <text
-                    className="value"
-                    x={0}
-                    y={16}>
-                    {this.props.value}
-                </text>
-            </g>
-        );
-    }
-}
-
 ItemLabel.propTypes = propTypes;
-ItemLabel.defaultProps = defaultProps;
+export default ItemLabel;

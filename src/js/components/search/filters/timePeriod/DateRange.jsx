@@ -246,6 +246,8 @@ const DateRange = (props) => {
                 endDate: null
             });
         }
+        // clean up picker with "add" click
+        setSelectedDropdownOption('select');
     };
 
     const testDates = () => {
