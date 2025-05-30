@@ -14,59 +14,49 @@ const propTypes = {
     compressed: PropTypes.bool
 };
 
-const defaultProps = {
-    title: 'Filter',
-    compressed: false
-};
-
-export default class LegacyTopFilterItem extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.clickedButton = this.clickedButton.bind(this);
-    }
-
-    clickedButton() {
-        if (this.props.compressed) {
+const LegacyTopFilterItem = ({
+    title = 'Filter', compressed = false, removeFilter, value
+}) => {
+    const clickedButton = () => {
+        if (compressed) {
             return;
         }
-        this.props.removeFilter(this.props.value);
+        removeFilter(value);
+    };
+
+    const accessibleLabel = `Remove filter for ${title}`;
+
+    let hideCompressed = '';
+
+    if (compressed) {
+        hideCompressed = 'hide';
     }
 
-    render() {
-        const accessibleLabel = `Remove filter for ${this.props.title}`;
-
-        let hideCompressed = '';
-        if (this.props.compressed) {
-            hideCompressed = 'hide';
-        }
-
-        return (
-            <div className="filter-item-container">
-                <button
-                    className="filter-item"
-                    aria-label={accessibleLabel}
-                    title={accessibleLabel}
-                    onClick={this.clickedButton}
-                    disabled={this.props.compressed}>
-                    <div className="filter-item-title">
-                        {this.props.title}
+    return (
+        <div className="filter-item-container">
+            <button
+                className="filter-item"
+                aria-label={accessibleLabel}
+                title={accessibleLabel}
+                onClick={clickedButton}
+                disabled={compressed}>
+                <div className="filter-item-title">
+                    {title}
+                </div>
+                <div className={`filter-item-remove-container ${hideCompressed}`}>
+                    <div className="filter-remove">
+                        <span className="sr-only">
+                            {accessibleLabel}
+                        </span>
+                        <span className="close-icon">
+                            <Icons.Close alt={accessibleLabel} />
+                        </span>
                     </div>
-                    <div className={`filter-item-remove-container ${hideCompressed}`}>
-                        <div className="filter-remove">
-                            <span className="sr-only">
-                                {accessibleLabel}
-                            </span>
-                            <span className="close-icon">
-                                <Icons.Close alt={accessibleLabel} />
-                            </span>
-                        </div>
-                    </div>
-                </button>
-            </div>
-        );
-    }
-}
+                </div>
+            </button>
+        </div>
+    );
+};
 
 LegacyTopFilterItem.propTypes = propTypes;
-LegacyTopFilterItem.defaultProps = defaultProps;
+export default LegacyTopFilterItem;
