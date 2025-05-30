@@ -100,6 +100,7 @@ const FilterOption = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [defaultExpand]);
+
     return (
         <div
             className={`search-option${statusClass}`}
