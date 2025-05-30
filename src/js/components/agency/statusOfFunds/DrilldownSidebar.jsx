@@ -24,9 +24,7 @@ const DrilldownSidebar = ({
     fy,
     dropdownSelection
 }) => {
-    const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
-    const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
-    const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
+    const { agencyBudgetShort, agencyObligatedShort, agencyOutlayedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const agencyName = useSelector((state) => state.agency.overview.name);
 
     const subComponentName = useSelector((state) => state.agency.selectedSubcomponent?.name);
@@ -64,7 +62,7 @@ const DrilldownSidebar = ({
                     </div>
                 )}
                 toggle={toggle}
-                outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(outlay, 2)} />
+                outlay={agencyOutlayedShort} />
             {level >= 1 &&
                 <DrilldownSidebarLevel
                     key="Sub-Component"
