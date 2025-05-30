@@ -11,22 +11,17 @@ const propTypes = {
     message: PropTypes.string
 };
 
-const defaultProps = {
-    title: "Error",
-    message: "We're sorry, there has been an unexpected error.  Please try again in a few moments."
-};
+const Error = ({
+    title = 'Error',
+    message = "We're sorry, there has been an unexpected error.  Please try again in a few moments."
+}) => (
+    <main className="main-content" id="main-content">
+        <div className="error-container">
+            <h4>{title}</h4>
+            <p>{message}</p>
+        </div>
+    </main>
+);
 
-export default class Error extends React.Component {
-    render() {
-        return (
-            <main className="main-content" id="main-content">
-                <div className="error-container">
-                    <h4>{this.props.title}</h4>
-                    <p>{this.props.message}</p>
-                </div>
-            </main>
-        );
-    }
-}
 Error.propTypes = propTypes;
-Error.defaultProps = defaultProps;
+export default Error;

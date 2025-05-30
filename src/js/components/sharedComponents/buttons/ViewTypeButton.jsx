@@ -16,45 +16,41 @@ const propTypes = {
     changeView: PropTypes.func
 };
 
-const defaultProps = {
-    disabled: false
+const ViewTypeButton = ({
+    active,
+    value,
+    label,
+    icon,
+    disabled = false,
+    changeView
+}) => {
+    let activeClass = '';
+    let description = `Show results in a ${label.toLowerCase()}`;
+
+    if (active) {
+        activeClass = ' active';
+    }
+
+    if (active) {
+        description += ' (currently selected)';
+    }
+
+    const clickedButton = () => {
+        changeView(value);
+    };
+
+    return (
+        <button
+            className={`view-button${activeClass}`}
+            value={value}
+            title={description}
+            aria-label={description}
+            onClick={clickedButton}
+            disabled={disabled}>
+            <FontAwesomeIcon icon={icon} />
+        </button>
+    );
 };
 
-export default class ViewTypeButton extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.clickedButton = this.clickedButton.bind(this);
-    }
-
-    clickedButton() {
-        this.props.changeView(this.props.value);
-    }
-
-    render() {
-        let activeClass = '';
-        if (this.props.active) {
-            activeClass = ' active';
-        }
-
-        let description = `Show results in a ${this.props.label.toLowerCase()}`;
-        if (this.props.active) {
-            description += ' (currently selected)';
-        }
-
-        return (
-            <button
-                className={`view-button${activeClass}`}
-                value={this.props.value}
-                title={description}
-                aria-label={description}
-                onClick={this.clickedButton}
-                disabled={this.props.disabled}>
-                <FontAwesomeIcon icon={this.props.icon} />
-            </button>
-        );
-    }
-}
-
 ViewTypeButton.propTypes = propTypes;
-ViewTypeButton.defaultProps = defaultProps;
+export default ViewTypeButton;
