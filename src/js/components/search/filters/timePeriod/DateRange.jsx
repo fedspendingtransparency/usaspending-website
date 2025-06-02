@@ -274,8 +274,16 @@ const DateRange = (props) => {
             return;
         }
 
-        if (props.startDate.isSameOrBefore('2007-10-01')) {
+        if (props.startDate !== null && props.startDate.isBefore('2007-10-01')) {
             props.showError('Invalid Start Date',
+                'Please select a date after 10/01/2007.'
+            );
+            setNoDatesDR(true);
+            return;
+        }
+
+        if (props.endDate !== null && props.endDate.isBefore('2007-10-01')) {
+            props.showError('Invalid End Date',
                 'Please select a date after 10/01/2007.'
             );
             setNoDatesDR(true);
