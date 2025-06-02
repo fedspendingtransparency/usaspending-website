@@ -208,7 +208,7 @@ export const mapboxSources = {
         label: 'congressional district',
         url: 'mapbox://usaspendingfrbkc.district-tileset',
         layer: '118-CD',
-        filterKey: 'GEOID20', // the GEOID is state FIPS + district
+        filterKey: 'GEOID20' // the GEOID is state FIPS + district
     }
 };
 
