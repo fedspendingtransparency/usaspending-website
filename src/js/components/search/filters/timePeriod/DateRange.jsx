@@ -33,7 +33,9 @@ const propTypes = {
     header: PropTypes.string,
     errorMessage: PropTypes.string,
     setStartDate: PropTypes.func,
-    setEndDate: PropTypes.func
+    setEndDate: PropTypes.func,
+    startDateDropdown: PropTypes.object,
+    endDateDropdown: PropTypes.object
 };
 
 const DateRange = (props) => {
@@ -257,11 +259,27 @@ const DateRange = (props) => {
             }
             return;
         }
-        if (props.startDate !== null && props.endDate !== null && props.startDate.isValid() && props.endDate.isValid() && !props.endDate.isSameOrAfter(props.startDate)) {
+
+        if (props.startDate !== null &&
+            props.endDate !== null &&
+            props.startDate.isValid() &&
+            props.endDate.isValid() &&
+            !props.endDate.isSameOrAfter(props.startDate)
+        ) {
             // end date comes before start date, invalid
             // show an error message
             props.showError('Invalid Dates',
-                'The end date cannot be earlier than the start date.');
+                'The end date cannot be earlier than the start date.'
+            );
+            return;
+        }
+
+        if (props.startDate.isSameOrBefore('2007-10-01')) {
+            props.showError('Invalid Start Date',
+                'Please select a date after 10/01/2007.'
+            );
+            setNoDatesDR(true);
+            return;
         }
 
         const format = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
@@ -345,14 +363,26 @@ const DateRange = (props) => {
             setDropdownDisabled(true);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.errorState, noDatesDR, noDatesDropdown, props.startDate, props.endDate, props.startDateDropdown, props.endDateDropdown, props.onDateChange, dropdownOptionSelected]);
+    }, [
+        props.errorState,
+        noDatesDR,
+        noDatesDropdown,
+        props.startDate,
+        props.endDate,
+        props.startDateDropdown,
+        props.endDateDropdown,
+        props.onDateChange,
+        dropdownOptionSelected
+    ]);
 
     if (props.timePeriod?.size > 0) {
         for (const timeinput of props.timePeriod) {
             const dateLabel = dateRangeChipLabel(timeinput);
 
             if (dateLabel !== '') {
-                labelArray.push({ dateLabel, startDate: timeinput.start_date, endDate: timeinput.end_date });
+                labelArray.push({
+                    dateLabel, startDate: timeinput.start_date, endDate: timeinput.end_date
+                });
             }
         }
     }
@@ -402,7 +432,8 @@ const DateRange = (props) => {
                             options={dropdownOptions}
                             enabled
                             selectedOption={dropdownOptions?.length
-                                ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
+                                ? dropdownOptions?.find(
+                                    (obj) => obj.value === selectedDropdownOption)?.name
                                 : `${selectedDropdownOption}`}
                             sortFn={sortFn} />
                     </div>
