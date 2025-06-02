@@ -13,6 +13,69 @@ const metaData = {
     items: [
         {
             kind: "youtube#video",
+            etag: "5F3t5EN3tLUcLUF2KDQThhwkM5M",
+            id: "zqGDGY2Qzko",
+            snippet: {
+                publishedAt: "2025-05-08T19:52:13Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "TESTIMONIAL: Your Data, Your Story: John Ullrich",
+                description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from John Ullrich, a lecturer in the Systems and Engineering Department at the University of Arizona. Learn more about how John uses USAspending.gov to explore government spending dependencies.\n\nCHAPTERS:\n0:41 Tell us about yourself\n1:17 Why is federal spending data important to you?\n1:43 What features on USAspending.gov provide the most value to you?\n2:25 How do you use data from USAspending.gov?\n2:50 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\nVisit USAspending.gov: https://www.usaspending.gov/\nSign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov\nAsk questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed.",
+                thumbnails: {
+                    default: {
+                        url: "https://i.ytimg.com/vi/zqGDGY2Qzko/default.jpg",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i.ytimg.com/vi/zqGDGY2Qzko/mqdefault.jpg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i.ytimg.com/vi/zqGDGY2Qzko/hqdefault.jpg",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i.ytimg.com/vi/zqGDGY2Qzko/sddefault.jpg",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i.ytimg.com/vi/zqGDGY2Qzko/maxresdefault.jpg",
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                channelTitle: "USAspending",
+                tags: [
+                    "#governmentspending",
+                    "#financialdata",
+                    "#data",
+                    "#customertestimonial"
+                ],
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                defaultLanguage: "en",
+                localized: {
+                    title: "TESTIMONIAL: Your Data, Your Story: John Ullrich",
+                    description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from John Ullrich, a lecturer in the Systems and Engineering Department at the University of Arizona. Learn more about how John uses USAspending.gov to explore government spending dependencies.\n\nCHAPTERS:\n0:41 Tell us about yourself\n1:17 Why is federal spending data important to you?\n1:43 What features on USAspending.gov provide the most value to you?\n2:25 How do you use data from USAspending.gov?\n2:50 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\nVisit USAspending.gov: https://www.usaspending.gov/\nSign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov\nAsk questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed."
+                },
+                defaultAudioLanguage: "en-US"
+            },
+            contentDetails: {
+                duration: "PT3M20S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular",
+                hasCustomThumbnail: true
+            }
+        },
+        {
+            kind: "youtube#video",
             etag: "DhXW8xzOOxLGkQ-CZ6DG2ee9GnY",
             id: "5gMp2kyzEoo",
             snippet: {
