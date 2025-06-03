@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { generateCount } from "../../src/js/helpers/search/filterCheckboxHelper";
+import { excludeIDVB, generateCount } from "../../src/js/helpers/search/filterCheckboxHelper";
 
 describe('filterCheckboxHelper tests', () => {
     describe('generateCount', () => {
@@ -21,6 +21,14 @@ describe('filterCheckboxHelper tests', () => {
             const dataCount = generateCount(data);
 
             expect(dataCount).toBe(100);
+        });
+    });
+
+    describe('excludeIDVB', () => {
+        it('removes IDVB', () => {
+            const test = new Set([["IDV_B", 'test 1']]);
+
+            expect(excludeIDVB(test)).toBe(1);
         });
     });
 });
