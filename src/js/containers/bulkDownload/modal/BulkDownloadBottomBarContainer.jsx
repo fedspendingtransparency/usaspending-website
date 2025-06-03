@@ -33,8 +33,8 @@ export class BulkDownloadBottomBarContainer extends React.Component {
             showError: false,
             showSuccess: false,
             title: 'We\'re preparing your download(s)...',
-            descriptionOne: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. If you plan to close this page, copy your',
-            descriptionTwo: 'before you go.'
+            descriptionOne: 'Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ',
+            descriptionTwo: ' in your browser\'s address bar before closing this page.'
         };
 
         this.request = null;
@@ -76,8 +76,8 @@ export class BulkDownloadBottomBarContainer extends React.Component {
             showError: false,
             showSuccess: false,
             title: 'We\'re preparing your download(s)...',
-            descriptionOne: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. If you plan to close this page, copy your',
-            descriptionTwo: 'before you go.'
+            descriptionOne: 'Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ',
+            descriptionTwo: ' in your browser\'s address bar before closing this page.'
         }, this.checkStatus);
     }
 
