@@ -25,11 +25,22 @@ describe('collapsiblesidebarHelper', () => {
         it('should return element in view', () => {
             const mockElement = document.createElement('div');
 
-            console.log(mockElement.getBoundingClientRect());
-            console.log(mockElement.getBoundingClientRect().top);
-            console.log(window.innerHeight);
-
             expect(checkInView(mockElement)).toBe(0);
+        });
+
+        it('should return element not in view', async () => {
+            const mockElement = document.createElement('div');
+
+            jest.spyOn(mockElement, "getBoundingClientRect").mockImplementation(() => ({
+                top: 1,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                height: 0,
+                width: 0
+            }));
+
+            expect(checkInView(mockElement)).toBe(-1);
         });
     });
 });
