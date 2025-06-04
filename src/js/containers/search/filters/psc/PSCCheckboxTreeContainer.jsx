@@ -357,7 +357,7 @@ const PSCCheckboxTreeContainer = ({
             onSearchChange();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSearch, isLoading, searchString]);
+    }, [isSearch, searchString]);
 
     // for properly setting checked state from hash
     useEffect(() => {
