@@ -20,7 +20,7 @@ const globalConstants = {
     QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     STAGING: (process.env.ENV === 'staging'),
     PERF_LOG: false,
-    MAPBOX_TOKEN: local?.localConstants?.MAPBOX_TOKEN || process.env.MAPBOX_TOKEN,
+    MAPBOX_TOKEN: local?.localConstants?.MAPBOX_TOKEN || process.env.REACT_APP_MAPBOX_TOKEN,
     PROD: process.env.ENV === 'prod',
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     ARP_RELEASED: process.env.ENV !== 'prod',
