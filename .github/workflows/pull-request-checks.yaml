@@ -41,4 +41,4 @@ jobs:
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-unit.yaml
     with:
-      working-directory: usaspending-website
+      path: usaspending-website
