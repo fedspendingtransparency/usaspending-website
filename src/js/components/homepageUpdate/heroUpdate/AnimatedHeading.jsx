@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState } from "react";
+import { throttle } from "lodash";
 
 const AnimatedHeading = ({ paused }) => {
     const wordPairs = [['Explore', 'by industry', 75], ['Search', 'by agency', 75], ['Track', 'over time', 75], ['Download', 'to communities', 0], ['Analyze', 'by recipient', 75]];
