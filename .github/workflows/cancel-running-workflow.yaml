@@ -6,7 +6,7 @@ on:
 jobs:
   Run:
     name: Run
-    runs-on: ${{ vars.RUNNER_VERSION }}
+    runs-on: ubuntu-latest
     steps:
       - name: Cancel Workflow
         uses: actions/github-script@v7
