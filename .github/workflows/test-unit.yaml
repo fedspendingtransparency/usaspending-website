@@ -6,7 +6,7 @@ on:
 jobs:
   Run:
     name: Run test suite
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     steps:
      - name: Run Audit command
        run: npm run travis
