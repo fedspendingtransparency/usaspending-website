@@ -1,0 +1,15 @@
+name: Unit Tests
+
+on:
+  workflow_call:
+
+jobs:
+  Run:
+    name: Run test suite
+    runs-on: ubuntu latest
+    steps:
+     - name: Run Audit command
+       run: npm run travis
+     
+     - name: Run Lighthouse command
+       run: npm run lhci:audit
