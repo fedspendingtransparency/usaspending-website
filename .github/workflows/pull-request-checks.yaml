@@ -37,12 +37,10 @@ jobs:
   # and the time that it takes to run tests for that group.
   Run-Unit-Tests:
     name: Run Jest, Audit, Eslint
-    needs: Run-Setup-Install
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-unit.yaml
 
   Run-Lighthouse:
     name: Run Lighthouse
-    needs: Run-Unit-Tests
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-lighthouse.yaml
