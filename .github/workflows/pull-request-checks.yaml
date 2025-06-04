@@ -28,6 +28,8 @@ jobs:
   Run-Setup-Install:
     name: Test npm install
     needs: Cancel-If-Draft-Pull-Request
+    strategy:
+      fail-fast: true
     if: |
       always() &&
       needs.Cancel-If-Draft-Pull-Request.result == 'skipped'
@@ -38,11 +40,15 @@ jobs:
   Run-Unit-Tests:
     name: Run Jest, Audit, Eslint
     needs: Cancel-If-Draft-Pull-Request
+    strategy:
+      fail-fast: true
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-unit.yaml
 
   Run-Lighthouse:
     name: Run Lighthouse
+    strategy:
+      fail-fast: true    
     needs: Cancel-If-Draft-Pull-Request
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-lighthouse.yaml
