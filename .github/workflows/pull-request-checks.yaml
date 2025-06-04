@@ -49,6 +49,6 @@ jobs:
     name: Run Lighthouse
     strategy:
       fail-fast: true    
-    needs: Run-Unit-Tests
+    needs: Cancel-If-Draft-Pull-Request
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-lighthouse.yaml
