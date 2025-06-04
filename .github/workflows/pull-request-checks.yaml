@@ -39,7 +39,7 @@ jobs:
   # and the time that it takes to run tests for that group.
   Run-Unit-Tests:
     name: Run Jest, Audit, Eslint
-    needs: Cancel-If-Draft-Pull-Request
+    needs: Run-Setup-Install
     strategy:
       fail-fast: true
     if: ${{ !failure() && !cancelled() }}
@@ -49,6 +49,6 @@ jobs:
     name: Run Lighthouse
     strategy:
       fail-fast: true    
-    needs: Cancel-If-Draft-Pull-Request
+    needs: Run-Setup-Install
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-lighthouse.yaml
