@@ -10,6 +10,7 @@ jobs:
     steps:
      - name: Run Audit command
        run: npm run travis
+       uses: ./
      
      - name: Run Lighthouse command
        run: npm run lhci:audit

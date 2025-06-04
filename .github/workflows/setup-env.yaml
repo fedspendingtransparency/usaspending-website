@@ -38,3 +38,9 @@ jobs:
 
       - name: NPM run dev
         run: npm run dev
+
+      - name: Run Audit command
+        run: npm run travis
+     
+      - name: Run Lighthouse command
+        run: npm run lhci:audit
