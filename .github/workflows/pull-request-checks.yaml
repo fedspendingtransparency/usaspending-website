@@ -25,18 +25,24 @@ jobs:
 
   # The conditional in each of the workflows below is required. Without these checks they will be skipped
   # when the "Cancel-If-Draft-Pull-Request" workflow is skipped.
-  Run-Setup-Env:
-    name: Run Setup Environment
+  Run-Setup-Install:
+    name: Test npm install
     needs: Cancel-If-Draft-Pull-Request
     if: |
       always() &&
       needs.Cancel-If-Draft-Pull-Request.result == 'skipped'
-    uses: ./.github/workflows/setup-env.yaml
+    uses: ./.github/workflows/test-install.yaml
 
   # The test suite is broken into multiple groups based on a combination of what is under test
   # and the time that it takes to run tests for that group.
-#  Run-Unit-Tests:
-#    name: Run Unit Tests
-#    needs: Run-Setup-Env
-#    if: ${{ !failure() && !cancelled() }}
-#    uses: ./.github/workflows/test-unit.yaml
+  Run-Unit-Tests:
+    name: Run Jest, Audit, Eslint
+    needs: Run-Setup-Install
+    if: ${{ !failure() && !cancelled() }}
+    uses: ./.github/workflows/test-unit.yaml
+
+  Run-Lighthouse:
+    name: Run Lighthouse
+    needs: Run-Unit-Tests
+    if: ${{ !failure() && !cancelled() }}
+    uses: ./.github/workflows/test-lighthouse.yaml

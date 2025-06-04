@@ -1,4 +1,4 @@
-name: Setup environment, run install, check webpack
+name: Run install, check webpack
 
 on:
   workflow_call:
