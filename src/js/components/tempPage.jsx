@@ -10,7 +10,7 @@ import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 
 import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
 
-import { awardTypesData, awardingAgencyCodes, awardingAgencyResponseParse, awardingAgencyData, recipientTypeMapping } from "../helpers/search/filterCheckboxHelper";
+import { awardTypesData, recipientTypeMapping } from "../helpers/search/filterCheckboxHelper";
 import { bulkAwardTypeChange, toggleAwardType, toggleRecipientType } from "../redux/actions/search/searchFilterActions";
 import ListCheckbox from "./sharedComponents/checkbox/ListCheckbox";
 
@@ -47,20 +47,6 @@ const tempPage = () => {
                             <AccordionCheckbox
                                 filterCategoryMapping={awardTypesData}
                                 filters={awardTypeCodes}
-                                selectedFilters={awardType}
-                                singleFilterChange={toggleAwardTypeChange}
-                                bulkFilterChange={bulkAwardChange} />
-                        </div>
-                        <div
-                            style={{
-                                border: '1px solid blue',
-                                margin: '8px',
-                                maxWidth: '300px',
-                                height: 'fit-content'
-                            }}>
-                            <AccordionCheckbox
-                                filterCategoryMapping={awardingAgencyResponseParse(awardingAgencyData)}
-                                filters={awardingAgencyCodes(awardingAgencyData)}
                                 selectedFilters={awardType}
                                 singleFilterChange={toggleAwardTypeChange}
                                 bulkFilterChange={bulkAwardChange} />
