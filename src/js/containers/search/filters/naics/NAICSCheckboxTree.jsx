@@ -341,7 +341,7 @@ const NAICSCheckboxTree = () => {
             onSearchChange();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchString, isSearch, isLoading]);
+    }, [searchString, isSearch]);
 
     useEffect(() => {
         if (checked.length === 0 && counts.length !== 0) {
@@ -351,14 +351,17 @@ const NAICSCheckboxTree = () => {
     }, [checked, counts]);
 
     useEffect(() => {
-        if (nodes.length !== 0) {
+        if (
+            (nodes.length !== 0 && !isSearch) ||
+            searchExpanded.length !== 0
+        ) {
             setShowNoResults(false);
         }
         else {
             setShowNoResults(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nodes]);
+    }, [nodes, searchExpanded]);
 
     return (
         <div>
