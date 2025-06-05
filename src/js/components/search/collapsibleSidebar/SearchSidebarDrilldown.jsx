@@ -77,8 +77,6 @@ const SearchSidebarDrilldown = ({
         awardDescription
     } = filters;
 
-    // TODO: Add in Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
-    // TODO: this can't be done until those filters are properly placed in the new advanced search
     const filterCount = {
         Location: itemCount.location,
         'Time Period': itemCount.timePeriod,

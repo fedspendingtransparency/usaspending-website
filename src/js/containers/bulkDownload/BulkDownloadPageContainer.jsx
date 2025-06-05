@@ -56,7 +56,7 @@ const BulkDownloadPageContainer = (props) => {
             request = BulkDownloadHelper.requestAwardsDownload(bulkParams);
         }
 
-        else if (type === 'accounts') {
+        else if (requestType === 'accounts') {
             request = BulkDownloadHelper.requestAccountsDownload(bulkParams);
         }
 
@@ -218,6 +218,7 @@ const BulkDownloadPageContainer = (props) => {
 
     useEffect(() => {
         validateDataType(type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [type]);
 
     return (

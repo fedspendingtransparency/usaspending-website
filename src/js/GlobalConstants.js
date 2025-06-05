@@ -5,7 +5,7 @@
 
 const local = require('./LocalConstants');
 
-const LIVE_SEARCH_VERSION = process.env.ENV === 'qat' || process.env.ENV === 'sandbox' || process.env.ENV === 'staging' ? 'v2' : 'legacy'; // // "legacy" or "v2" (the v in v2 should be lowercase)
+const LIVE_SEARCH_VERSION = process.env.ENV === 'qat' || process.env.ENV === 'sandbox' ? 'v2' : 'legacy'; // // "legacy" or "v2" (the v in v2 should be lowercase)
 
 const filesServerUrlByEnv = {
     sandbox: 'https://files-nonprod.usaspending.gov',
