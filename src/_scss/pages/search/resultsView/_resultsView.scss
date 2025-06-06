@@ -44,27 +44,44 @@
 
       .award-type-toggle {
         display: inline-flex;
-        height: 32px;
+        height: rem(32);
         padding: rem(3);
         justify-content: center;
         align-items: center;
-        flex-shrink: 0;
-        border-radius: 4px;
+        border-radius: rem(3);
         border: rem(1) solid $gray-cool-10;
         background: $gray-cool-2;
         position: absolute;
         right: 0;
+        font-family: $font-sans;
+
+        @media(max-width: 497px) {
+          // set px used instead of variables due to specific width needed in this case
+          display: none;
+        }
 
         button {
+          font-size: rem(11);
+          height: rem(26);
           margin: 0 !important;
+          padding: rem(3) rem(12);
+          line-height: rem(16.5);
         }
 
         .borderless{
           border: none;
+          color: $gray-80;
         }
 
-        .button-type__primary-left-icon-light svg {
-          fill: $gray-cool-1 
+        .button-type__primary-left-icon-light {
+          color: $color-white;
+          border: rem(2);
+          
+          svg {
+            fill: $color-white;
+            margin-right: rem(3);
+            width: rem(10);
+          }
         }
       }
 
@@ -78,6 +95,7 @@
           padding-top: rem(8);
         }
 
+        // DTUI NewPicker.jsx override
         .filter__dropdown-button-list-container {
           .advanced-search-dropdown__button {
             max-width: 100%;
@@ -159,6 +177,64 @@
         svg {
           width: rem(16);
         }
+      }
+    }
+
+    .award-type-toggle__mobile {
+      display: none;
+
+      @media(max-width: 497px) { 
+        // set px used instead of variables due to specific width needed in this case
+        display: flex;
+        margin-bottom: rem(16);
+        margin-top: rem(-16);
+
+        .award-type-toggle {
+          display: inline-flex;
+          height: rem(32);
+          padding: rem(3);
+          justify-content: center;
+          align-items: center;
+          border-radius: rem(3);
+          border: rem(1) solid $gray-cool-10;
+          background: $gray-cool-2;
+          font-family: $font-sans;
+
+          button {
+            font-size: rem(11);
+            height: rem(26);
+            margin: 0 !important;
+            padding: rem(3) rem(12);
+            line-height: rem(16.5);
+            
+          }
+          
+          @media(max-width: 348px) {
+            // set px used instead of variables due to specific width needed in this case
+            height: rem(42);
+
+            button {
+              height: rem(36);
+            }
+          }
+          .borderless{
+            border: none;
+            color: $gray-80;
+          }
+  
+          .button-type__primary-left-icon-light {
+            color: $color-white;
+            border: rem(2);
+            
+            svg {
+              fill: $color-white;
+              margin-right: rem(3);
+              width: rem(10);
+            }
+          }
+        }
+
+
       }
     }
 

@@ -893,7 +893,8 @@ export default class ResultsTable extends React.Component {
                         currentSort={this.props.sort}
                         updateSort={this.props.updateSort}
                         isMobile={this.props.isMobile}
-                        isStacked />
+                        isStacked
+                        newMobileView />
                 </div>
                 <Pagination
                     resultsText

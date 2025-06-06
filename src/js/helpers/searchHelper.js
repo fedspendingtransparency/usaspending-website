@@ -371,13 +371,13 @@ export const dateRangeChipLabel = (timeInput) => {
         dateLabel = dateRangeDropdownTimePeriods[9].label;
     }
     else if (start && end) {
-        dateLabel = `${start} to ${end}`;
+        dateLabel = `${start} - ${end}`;
     }
     else if (start) {
-        dateLabel = `${start} to present`;
+        dateLabel = `${start} - present`;
     }
     else if (end) {
-        dateLabel = `... to ${end}`;
+        dateLabel = `Start of data - ${end}`;
     }
 
     return dateLabel;

@@ -7,102 +7,62 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LoadingMessage, ErrorMessage, NoResultsMessage } from 'data-transparency-ui';
 import SpendingByCategoriesChart from '../../../search/newResultsView/categories/SpendingByCategoriesChart';
-import RankVisualizationTooltip from './RankVisualizationTooltip';
-
-const defaultProps = {
-    labelSeries: [],
-    dataSeries: [],
-    linkSeries: [],
-    descriptions: [],
-    width: 0,
-    loading: true,
-    error: false,
-    disableTooltip: false,
-    urlRoot: ''
-};
 
 const propTypes = {
+    labelSeries: PropTypes.array,
     dataSeries: PropTypes.array,
     linkSeries: PropTypes.array,
     descriptions: PropTypes.array,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    meta: PropTypes.object,
-    disableTooltip: PropTypes.bool,
     industryCodeError: PropTypes.bool,
     recipientError: PropTypes.bool
 };
 
-export default class RankVisualization extends React.Component {
-    constructor(props) {
-        super(props);
+const RankVisualization = ({
+    labelSeries = [],
+    dataSeries = [],
+    linkSeries = [],
+    descriptions = [],
+    loading = true,
+    error = false,
+    industryCodeError,
+    recipientError
+}) => {
+    let chart = (<NoResultsMessage />);
 
-        this.state = {
-            showTooltip: false,
-            selectedItem: {}
-        };
-
-        this.selectItem = this.selectItem.bind(this);
-        this.deselectItem = this.deselectItem.bind(this);
+    if (loading) {
+        chart = (<LoadingMessage />);
     }
-
-    selectItem(data) {
-        if (this.props.disableTooltip) {
-            return;
+    else if (error) {
+        chart = (<ErrorMessage description="An error has occurred." />);
+        if (industryCodeError) {
+            chart = (<ErrorMessage description="Industry codes are unavailable for Sub-Awards." />);
         }
-
-        this.setState({
-            showTooltip: true,
-            selectedItem: data
-        });
+        else if (recipientError) {
+            chart = (
+                <ErrorMessage description="Paging to 10,000 records and above is not available for Spending by Recipient." />
+            );
+        }
     }
-
-    deselectItem() {
-        if (this.props.disableTooltip) {
-            return;
-        }
-
-        this.setState({
-            showTooltip: false
-        });
-    }
-
-    render() {
-        let chart = (<NoResultsMessage />);
-
-        if (this.props.loading) {
-            chart = (<LoadingMessage />);
-        }
-        else if (this.props.error) {
-            chart = (<ErrorMessage description="An error has occurred." />);
-            if (this.props.industryCodeError) {
-                chart = (<ErrorMessage description="Industry codes are unavailable for Sub-Awards." />);
-            }
-            else if (this.props.recipientError) {
-                chart = (<ErrorMessage description="Paging to 10,000 records and above is not available for Spending by Recipient." />);
-            }
-        }
-        else if (this.props.dataSeries.length > 0) {
-            chart = (<SpendingByCategoriesChart {...this.props} />);
-        }
-
-        let tooltip = null;
-        if (this.state.showTooltip) {
-            tooltip = (<RankVisualizationTooltip
-                {...this.state.selectedItem}
-                {...this.props.meta} />);
-        }
-
-        return (
-            <section
-                className="results-visualization-rank-container"
-                aria-label="Spending by Category">
-                {chart}
-                {tooltip}
-            </section>
+    else if (dataSeries.length > 0) {
+        chart = (
+            <SpendingByCategoriesChart
+                dataSeries={dataSeries}
+                labelSeries={labelSeries}
+                descriptions={descriptions}
+                linkSeries={linkSeries} />
         );
     }
-}
+
+    return (
+        <section
+            className="results-visualization-rank-container"
+            aria-label="Spending by Category">
+            {chart}
+        </section>
+    );
+};
 
 RankVisualization.propTypes = propTypes;
-RankVisualization.defaultProps = defaultProps;
+export default RankVisualization;
