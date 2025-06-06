@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 02/2025
  */
 
-import React, { cloneElement, useRef, useState } from 'react';
+import React, { cloneElement, useRef, useState, useEffect } from 'react';
 // import React, { useState, useEffect, cloneElement } from 'react';
 // import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +15,15 @@ import replaceString from "../../../../helpers/replaceString";
 import CheckboxTreeLabel from "../../CheckboxTreeLabel";
 
 const CheckboxTree = (props) => {
+    const [expandedItems, setExpandedItems] = useState([]);
+    useEffect(() => {
+        console.log("checkbox tree useEffect", props.expanded);
+        if (props?.expanded?.length > 0) {
+            setExpandedItems([...expandedItems, props.expanded]);
+        }
+    }, [props.expanded]);
+
+    console.log(props);
     const [childNodes, setChildNodes] = useState([]);
     // eslint-disable-next-line no-shadow
 
@@ -33,6 +42,8 @@ const CheckboxTree = (props) => {
      */
     const expandNodeAndFetchChildren = async (newNodeArray, selectedNode) => {
         const { expanded, isSearch } = props;
+        console.log("expanded node", newNodeArray, selectedNode, props);
+
         const expandedValue = difference(newNodeArray, expanded)[0];
         /**
          * When there are no children or there is an empty object in the children property (since we
@@ -67,12 +78,13 @@ const CheckboxTree = (props) => {
     const onExpand = (newExpandedArray, node) => {
         // create an array of the child values here
         // collapsing node
-        console.log(" in checkbox tree onexpand", newExpandedArray);
+        const newArray = [node.id, ...props.expanded];
+        console.log("on expand internal", newExpandedArray, node, props.expanded, expandedItems, newArray);
         if (newExpandedArray.length < props.expanded.length) {
-            return collapseNode(newExpandedArray);
+            // return collapseNode(newExpandedArray);
         }
         // expanding node
-        return expandNodeAndFetchChildren(newExpandedArray, node);
+        return expandNodeAndFetchChildren(newArray, node);
     };
 
     /**
@@ -107,8 +119,6 @@ const CheckboxTree = (props) => {
      */
     const onChecked = (checked, node) => {
         // if partial selection
-
-
         const unCheckedItems = checked.filter((item) => props.checked.includes(item));
         const allCheckedItems = [...checked, ...props.checked];
         const checkedItems = !unCheckedItems || unCheckedItems.length === 0 ? allCheckedItems : allCheckedItems.filter((item) => !unCheckedItems.includes(item));

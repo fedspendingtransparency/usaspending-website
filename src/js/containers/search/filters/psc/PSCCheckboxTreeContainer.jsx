@@ -142,7 +142,6 @@ const PSCCheckboxTreeContainer = ({
                         )
                         : checked;
 
-                    console.log("psc fetch", newChecked, checked);
                     if (isSearch) {
                         setSearchedPsc(pscNodes);
 
@@ -163,7 +162,7 @@ const PSCCheckboxTreeContainer = ({
                         }
                     }
                     else {
-                        console.log("checked in psc container", pscNodes, newChecked);
+                        console.log("prior to set psc in psc container", pscNodes, key);
                         setPscNodes(key, pscNodes);
                         setCheckedPsc(newChecked);
                     }
@@ -191,6 +190,7 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
+        console.log("on expand args", expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
         if (shouldFetchChildren && !isSearch) {
             if (selectedNode.treeDepth >= 1) {
                 const { parent } = selectedNode;
@@ -210,8 +210,9 @@ const PSCCheckboxTreeContainer = ({
             setExpandedPsc(newExpandedArray, 'SET_SEARCHED_EXPANDED');
         }
         else {
-            console.log("setExpandedPsc", newExpandedArray);
-            setExpandedPsc(newExpandedArray);
+            const newArray = [...expanded, ...newExpandedArray];
+            console.log("setExpandedPsc", newExpandedArray, newArray, expandedValue, selectedNode);
+            setExpandedPsc(newArray);
         }
     };
 
