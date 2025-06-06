@@ -23,6 +23,7 @@ import { setMapHasLoaded } from "../../../../redux/actions/search/searchViewActi
 const propTypes = {
     filters: PropTypes.object,
     activeFilters: PropTypes.object,
+    setActiveFilters: PropTypes.func,
     awardTypeFilters: PropTypes.array,
     data: PropTypes.object,
     scope: PropTypes.string,
@@ -31,15 +32,31 @@ const propTypes = {
     selectedItem: PropTypes.object,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
+    tooltip: PropTypes.func,
+    availableLayers: PropTypes.array,
+    changeMapLayer: PropTypes.func,
+    showLayerToggle: PropTypes.bool,
     children: PropTypes.node,
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
+    className: PropTypes.string,
     stateInfo: PropTypes.object,
     onMapLoaded: PropTypes.func.isRequired,
-    amountTypeEnabled: PropTypes.bool,
-    singleLocationSelected: PropTypes.object
+    amountTypeEnabled: PropTypes.bool
+};
+
+const defaultProps = {
+    data: {
+        locations: [],
+        values: []
+    },
+    scope: 'state',
+    availableLayers: ['state'],
+    showLayerToggle: false,
+    children: null,
+    amountTypeEnabled: true
 };
 
 const mapLegendToggleData = [
@@ -83,35 +100,20 @@ const mapboxSources = {
         url: 'mapbox://usaspendingfrbkc.district-tileset',
         layer: '118-CD',
         filterKey: 'GEOID20', // the GEOID is state FIPS + district
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
+        lat: 'INTPTLAT20',
+        long: 'INTPTLON20'
+    },
+    zip: {
+        label: 'ZIP Code Tabulation Area',
+        url: 'mapbox://usaspending.3lk61l9t',
+        layer: 'cb_2016_us_zcta510_500k-4se882',
+        filterKey: 'ZCTA5CE10' // zip code
     }
 };
 
-const MapWrapper = ({
-    filters,
-    activeFilters,
-    awardTypeFilters,
-    data = {
-        locations: [],
-        values: []
-    },
-    scope = 'state',
-    renderHash,
-    showHover,
-    selectedItem,
-    showTooltip,
-    hideTooltip,
-    children = null,
-    center: centerProp,
-    stateProfile,
-    mapLegendToggle,
-    updateMapLegendToggle,
-    stateInfo,
-    onMapLoaded,
-    amountTypeEnabled = true,
-    singleLocationSelected
-}) => {
+const MapWrapper = (props) => {
+    const mapRef = useRef();
+    const scopeRef = useRef(props.scope);
     const [mapLayers, setMapLayers] = useState({});
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
@@ -119,12 +121,8 @@ const MapWrapper = ({
         segments: [],
         units: {}
     });
-    const [center, setCenter] = useState(centerProp);
+    const [center, setCenter] = useState(props.center);
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
-
-    const mapRef = useRef();
-    const scopeRef = useRef(scope);
-
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
@@ -169,17 +167,17 @@ const MapWrapper = ({
     };
 
     const mouseOverLayer = (e) => {
-        const source = mapboxSources[scope];
+        const source = mapboxSources[props.scope];
         // grab the filter ID from the GeoJSON feature properties
         const entityId = e.features[0].properties[source.filterKey];
-        showTooltip(entityId, {
+        props.showTooltip(entityId, {
             x: e.originalEvent.offsetX,
             y: e.originalEvent.offsetY
         });
     };
 
     const mouseExitLayer = () => {
-        hideTooltip();
+        props.hideTooltip();
     };
 
     const loadSource = (type) => {
@@ -263,19 +261,19 @@ const MapWrapper = ({
             reject();
         }
 
-        const source = mapboxSources[scope];
+        const source = mapboxSources[props.scope];
         if (!source) {
             reject();
         }
 
         // hide all the other layers
         Object.keys(mapboxSources).forEach((type) => {
-            if (type !== scope) {
+            if (type !== props.scope) {
                 hideSource(type);
             }
         });
 
-        showSource(scope);
+        showSource(props.scope);
 
         // check if we need to zoom in to show the layer
         if (source.minZoom) {
@@ -346,7 +344,7 @@ const MapWrapper = ({
                 // we depend on the state shapes to process the state fills, so the operation
                 // queue must wait for the state shapes to load first
                 runMapOperationQueue();
-                if (!stateProfile) {
+                if (!props.stateProfile) {
                     prepareChangeListeners();
                 }
 
@@ -359,7 +357,7 @@ const MapWrapper = ({
         // map has mounted, load the state shapes
         setMapReady(true);
         // and set the redux property used for jumpTo function in searchSectionWrapper
-        onMapLoaded(true);
+        props.onMapLoaded(true);
     };
 
     const measureMap = (forced = false) => {
@@ -387,9 +385,7 @@ const MapWrapper = ({
 
         if (scopeRef.current === 'country') {
             // prepend USA to account for prohibited country codes
-            const filteredArray = visibleEntities.filter(
-                (value) => prohibitedCountryCodes?.includes(value)
-            );
+            const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
 
             if (filteredArray?.length > 0) {
                 visibleEntities.push('USA');
@@ -421,7 +417,7 @@ const MapWrapper = ({
 
     const setCenterFromMapTiles = (value, filterKey, lat, long) => {
         const entities = mapRef.current.map.current.queryRenderedFeatures({
-            layers: [`base_${scope}`]
+            layers: [`base_${props.scope}`]
         });
 
         const found = entities.find((element) => element.properties[filterKey] === value);
@@ -437,40 +433,23 @@ const MapWrapper = ({
     };
 
     const reCenterMap = () => {
-        if (
-            mapReady &&
-            singleLocationSelected &&
-            Object.keys(singleLocationSelected).length > 0 &&
-            (scope === "county" || scope === "congressionalDistrict")
-        ) {
+        if (mapReady && {}.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props.singleLocationSelected).length > 0 && (props.scope === "county" || props.scope === "congressionalDistrict")) {
             let value;
             let filterKey;
             let lat = "INTPTLAT";
             let long = "INTPTLON";
-            const district = singleLocationSelected.district_original ||
-                singleLocationSelected.district_current;
+            const district = props.singleLocationSelected.district_original || props.singleLocationSelected.district_current;
 
-            if (
-                scope === "congressionalDistrict" &&
-                district && stateFIPSByAbbreviation[singleLocationSelected?.state]
-            ) {
+            if (props.scope === "congressionalDistrict" && district && stateFIPSByAbbreviation[props?.singleLocationSelected?.state]) {
                 filterKey = "GEOID20";
                 lat += "20";
                 long += "20";
-                value = `${stateFIPSByAbbreviation[singleLocationSelected.state]}${district}`;
+                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
                 setCenterFromMapTiles(value, filterKey, lat, long);
             }
-            else if (
-                scope === "county" &&
-                stateFIPSByAbbreviation[singleLocationSelected?.state?.toUpperCase()] &&
-                singleLocationSelected?.county
-            ) {
+            else if (props.scope === "county" && stateFIPSByAbbreviation[props?.singleLocationSelected?.state?.toUpperCase()] && props?.singleLocationSelected?.county) {
                 filterKey = "GEOID";
-                value = `${
-                    stateFIPSByAbbreviation[singleLocationSelected.state.toUpperCase()]
-                }${
-                    singleLocationSelected.county
-                }`;
+                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state.toUpperCase()]}${props.singleLocationSelected.county}`;
                 setCenterFromMapTiles(value, filterKey, lat, long);
             }
         }
@@ -484,17 +463,17 @@ const MapWrapper = ({
             return;
         }
 
-        const source = mapboxSources[scope];
+        const source = mapboxSources[props.scope];
 
         // calculate the range of data
-        const scale = MapHelper.calculateRange(data.values);
+        const scale = MapHelper.calculateRange(props.data.values);
         const colors = MapHelper.visualizationColors;
         // prepare a set of blank (false) filters
         const filterValues = colors.map(() => (
             []
         ));
-        data.locations.forEach((location, index) => {
-            let value = data.values[index];
+        props.data.locations.forEach((location, index) => {
+            let value = props.data.values[index];
             if (isNaN(value)) value = 0;
             // determine the group index
             const group = scale.scale(value);
