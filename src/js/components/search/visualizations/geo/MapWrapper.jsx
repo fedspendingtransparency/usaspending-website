@@ -7,12 +7,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { uniq, cloneDeep } from 'lodash';
-import GlobalConstants from 'GlobalConstants';
-import { TooltipComponent } from "data-transparency-ui";
-
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
+import GlobalConstants from 'GlobalConstants';
+
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
@@ -483,7 +482,7 @@ const MapWrapper = (props) => {
 
         // generate Mapbox filters from the values
         filterValues.forEach((valueSet, index) => {
-            const layerName = `highlight_${scope}_group_${index}`;
+            const layerName = `highlight_${props.scope}_group_${index}`;
             // by default set up the filter to not include anything
             let filter = ['in', source.filterKey, ''];
             if (valueSet.length > 0) {
@@ -503,30 +502,35 @@ const MapWrapper = (props) => {
      * @returns {string}
      */
     const tooltipDescription = () => {
+        const { stateProfile, mapLegendToggle } = props;
         // state page
         if (stateProfile) return 'Obligations';
         // per capita toggle
         return (mapLegendToggle === 'totalSpending' ? 'Obligations' : 'Per Capita');
     };
 
-    const tooltipFunc = () => {
-        let selecetedItemlabel = selectedItem.label;
-
+    const tooltip = () => {
+        const {
+            tooltip: TooltipComponent, selectedItem, showHover, scope
+        } = props;
         if (scope === "country" && selectedItem.label === "United States") {
-            selecetedItemlabel = `${selectedItem.label} and Territories`;
+            selectedItem.label += " and Territories";
         }
 
         if (showHover) {
             return (
                 <TooltipComponent
                     description={tooltipDescription()}
-                    selectedItem={{ label: selecetedItemlabel, ...selectedItem }} />
+                    {...selectedItem} />
             );
         }
         return null;
     };
 
     const legend = () => {
+        const {
+            stateProfile, updateMapLegendToggle, mapLegendToggle, scope
+        } = props;
         if (stateProfile) return null; // no legend for state profile pages
         return (
             <MapLegend
@@ -545,36 +549,25 @@ const MapWrapper = (props) => {
             setIsFiltersOpen(!isFiltersOpen);
         }
     };
-    const filtersFunc = () => {
-        let mapFilters = cloneDeep(filters);
-        let active = cloneDeep(activeFilters);
-
+    const filters = () => {
+        const { activeFilters } = props;
+        let mapFilters = cloneDeep(props.filters);
+        let active = cloneDeep(props.activeFilters);
         if (!mapFilters || !activeFilters) return null;
-
-        const awardTypeFiltersArray = awardTypeFilters?.map((filter) => filter.internal)
-            .filter((filter) => filter !== 'all')
-            .filter((filter) => filter !== 'loans');
-
-        if (awardTypeFiltersArray?.includes(activeFilters.awardType)) {
+        const awardTypeFilters = props.awardTypeFilters?.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
+        if (awardTypeFilters?.includes(activeFilters.awardType)) {
             mapFilters.spendingType.options.pop();
         }
 
-        if (activeFilters?.territory === 'country') {
-            mapFilters = Object.assign({}, {
-                territory: mapFilters.territory,
-                amountType: { ...mapFilters.amountType, enabled: false }
-            });
-
+        if (props.activeFilters?.territory === 'country') {
+            mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: false } });
             active = Object.assign({}, { ...active, amountType: 'totalSpending' });
         }
-        else if (amountTypeEnabled === false) {
+        else if (props.amountTypeEnabled === false) {
             mapFilters = Object.assign({}, { territory: mapFilters.territory });
         }
         else {
-            mapFilters = Object.assign({}, {
-                territory: mapFilters.territory,
-                amountType: { ...mapFilters.amountType, enabled: true }
-            });
+            mapFilters = Object.assign({}, { territory: mapFilters.territory, amountType: { ...mapFilters.amountType, enabled: true } });
         }
 
         return (
@@ -587,7 +580,7 @@ const MapWrapper = (props) => {
 
     useEffect(() => {
         displayData();
-        if (!stateProfile) {
+        if (!props.stateProfile) {
             prepareBroadcastReceivers();
         }
         return () => {
@@ -601,16 +594,16 @@ const MapWrapper = (props) => {
     }, []);
 
     useEffect(() => {
-        if (scopeRef.current !== scope) {
+        if (scopeRef.current !== props.scope) {
             queueMapOperation('displayData', displayData);
             prepareMap();
-            scopeRef.current = scope;
+            scopeRef.current = props.scope;
         }
         else {
             displayData();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [renderHash, data]);
+    }, [props.renderHash, props.data]);
 
     useEffect(() => {
         if (mapReady) {
@@ -620,8 +613,8 @@ const MapWrapper = (props) => {
     }, [mapReady]);
 
     useEffect(() => {
-        setCenter(centerProp);
-    }, [centerProp]);
+        setCenter(props.center);
+    }, [props.center]);
 
     return (
         <div className="map-container">
@@ -629,19 +622,16 @@ const MapWrapper = (props) => {
                 loadedMap={mapReadyPrep}
                 unloadedMap={mapRemoved}
                 center={center}
-                mapType={scope}
-                stateInfo={stateInfo}
-                stateProfile={stateProfile}
+                mapType={props.scope}
+                stateInfo={props.stateInfo}
+                stateProfile={props.stateProfile}
                 ref={mapRef}
-                singleLocationSelected={singleLocationSelected} />}
-            <MapFiltersToggle
-                onKeyDown={onKeyDown}
-                onClick={toggleFilters}
-                isOpen={isFiltersOpen} />
-            {filtersFunc()}
+                singleLocationSelected={props.singleLocationSelected} />}
+            <MapFiltersToggle onKeyDown={onKeyDown} onClick={toggleFilters} isOpen={isFiltersOpen} />
+            {filters()}
             {legend()}
-            {tooltipFunc()}
-            {children}
+            {tooltip()}
+            {props.children}
         </div>
     );
 };
@@ -652,4 +642,5 @@ export default connect((state) => ({
 }),
 (dispatch) => ({
     onMapLoaded: (bool) => dispatch(setMapHasLoaded(bool))
-}))(MapWrapper);
+})
+)(MapWrapper);
