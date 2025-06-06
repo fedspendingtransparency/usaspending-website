@@ -231,7 +231,7 @@ const SearchPage = React.memo(({
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
-                    <FlexGridCol desktop={9} tablet={12} mobile={12}>
+                    <FlexGridCol desktop={9} tablet={12} mobile={12} className="search-page__results-view">
                         <ResultsView
                             filters={filters}
                             isMobile={isMobile}
