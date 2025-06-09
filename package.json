@@ -246,8 +246,8 @@
     "**/eventsource": "3.0.5",
     "**/shell-quote": "1.8.2",
     "*/@babel/helpers": "7.27.0",
-    "tar-fs": "3.0.8",
-    "**/tar-fs": "3.0.8",
+    "tar-fs": "3.0.9",
+    "**/tar-fs": "3.0.9",
     "**/http-proxy-middleware": "2.0.9"
   },
   "dependencies": {
@@ -271,7 +271,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "commander": "4.1.1",
     "commonmark": "^0.27.0",
-    "core-js": "^3.0.1",
+    "core-js": "^3.43.0",
     "d3": "^7.6.1",
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
