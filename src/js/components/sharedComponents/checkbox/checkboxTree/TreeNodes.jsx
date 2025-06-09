@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -10,7 +10,7 @@ const propTypes = {
     onCheck: PropTypes.func,
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func,
-    isLoadingNodeIds: PropTypes.arrayOf(PropTypes.string)
+    isLoading: PropTypes.bool
 };
 
 const TreeNodes = ({
@@ -21,15 +21,21 @@ const TreeNodes = ({
     onCheck,
     onExpand,
     onCollapse,
-    isLoadingNodeIds = []
+    isLoading
 }) => {
     const [localChecked, setLocalChecked] = useState(checked);
     const [localExpanded, setLocalExpanded] = useState(expanded);
-    const [loadingNodes, setLoadingNodes] = useState([]);
+    const [localNodes, setLocalNodes] = useState();
+    const [loadingParentId, setLoadingParentId] = useState();
 
     useEffect(() => {
         setLocalChecked(checked);
     }, [checked]);
+
+    useEffect(() => {
+        setLoadingParentId(null);
+        setLocalNodes(nodes);
+    }, [nodes]);
 
     useEffect(() => {
         setLocalExpanded(expanded);
@@ -80,77 +86,63 @@ const TreeNodes = ({
 
         if (!isExpanded && hasChildren) {
             const node = findNodeById(id);
-            const hasStoredChildren = node && node.children && node.children.length > 0;
+            // TODO:  Add caching for stored children
+            // const hasStoredChildren = node && node.children && node.children.length > 1;
 
             setLocalExpanded((prev) => [...prev, id]);
-
-            if (hasStoredChildren) {
-                setLoadingNodes((prev) => prev.filter((nid) => nid !== id));
-                console.log("on onExpand");
-                onExpand([id], node);
-            }
+            setLoadingParentId(id);
+            // TODO:  Add caching for stored children
+            // if (hasStoredChildren) {
+            //     setLoadingNodes((prev) => prev.filter((nid) => nid !== id));
+            // } else {
+            onExpand([id], node);
+            // }
         }
         else {
             setLocalExpanded((prev) => prev.filter((eid) => eid !== id));
             if (onCollapse) {
-                console.log("on collapse");
                 onCollapse(id);
             }
         }
     };
-
-    const renderTree = () => {
-        const flatNodes = [];
-        const stack = nodes.map((n) => ({ node: n, level: 0 }));
-
-        while (stack.length > 0) {
-            const { node, level } = stack.shift();
-            flatNodes.push({ node, level });
-
-            if (localExpanded.includes(node.id) && node.children?.length > 0) {
-                node.children.forEach((child) => {
-                    stack.push({ node: child, level: level + 1 });
-                });
-            }
-        }
-
-        return flatNodes.map(({ node, level }) => {
-            const isChecked = localChecked.includes(node.id);
-            const isExpanded = localExpanded.includes(node.id);
-            // const isLoading = loadingNodes.includes(node.id) || isLoadingNodeIds.includes(node.id);
-            const isLoading = loadingNodes.includes(node.id);
-
-            // eslint-disable-next-line react/react-in-jsx-scope
-            return (<div key={node.id} style={{ marginLeft: level * 20, display: 'flex', alignItems: 'center' }}>
-                {node.children && (
-                    // eslint-disable-next-line react/react-in-jsx-scope
-                    <FontAwesomeIcon
-                        icon={isExpanded ? 'chevron-down' : 'chevron-right'}
-                        onClick={() => handleToggle(node.id, !!node.children)}
-                        style={{ cursor: 'pointer', marginRight: '5px' }} />
-                )}
-                {/* eslint-disable-next-line react/react-in-jsx-scope */}
-                <input
-                    type="checkbox"
-                    disabled={disabled}
-                    checked={isChecked}
-                    onChange={() => handleCheck(node.id, node.children || [])}
-                    style={{ marginRight: '5px' }} />
-                {/* eslint-disable-next-line react/react-in-jsx-scope */}
-                <span>{node.label || node.id}</span>
-                {/*{isLoading && (*/}
-                {/*    // eslint-disable-next-line react/react-in-jsx-scope*/}
-                {/*    <span style={{ marginLeft: '10px' }}>*/}
-                {/*        /!* eslint-disable-next-line react/react-in-jsx-scope *!/*/}
-                {/*        <FontAwesomeIcon icon="spinner" spin /> Loading...*/}
-                {/*    </span>*/}
-                {/*)}*/}
-            </div>);
-        });
-    };
-
-    // eslint-disable-next-line react/react-in-jsx-scope
-    return (<div>{renderTree()}</div>);
+    const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
+        console.log("level", level);
+        const isChecked = localChecked.includes(node.id);
+        const isExpanded = localExpanded.includes(node.id);
+        // const isLoading = loadingNodes.includes(node.id) || isLoadingNodeIds.includes(node.id);
+        const hasChildren = node.children && node.children.length > 0;
+        return (
+            <div key={node.id}>
+                {isLoading && loadingParentId === node.id ? (
+                    <div style={{ marginLeft: '10px' }}>
+                        <br />
+                        <FontAwesomeIcon icon="spinner" spin /> Loading your data...
+                    </div>
+                )
+                    :
+                    (
+                        <div style={{ marginLeft: level * 20, display: 'flex', alignItems: 'center' }}>
+                            {hasChildren && (
+                                <FontAwesomeIcon
+                                    icon={isExpanded ? 'chevron-down' : 'chevron-right'}
+                                    onClick={() => handleToggle(node.id, true)}
+                                    style={{ cursor: 'pointer', marginRight: '5px' }} />
+                            )}
+                            <input
+                                type="checkbox"
+                                disabled={disabled}
+                                checked={isChecked}
+                                onChange={() => handleCheck(node.id, node.children || [])}
+                                style={{ marginRight: '5px' }} />
+                            <span>{node.label || node.id}</span>
+                        </div>
+                    )
+                }
+                {level < 3 && isExpanded && hasChildren && renderNestedNodes(node.children, level + 1)}
+            </div>
+        );
+    });
+    return <div>{renderNestedNodes(nodes, 0)}</div>;
 };
 
 TreeNodes.propTypes = propTypes;

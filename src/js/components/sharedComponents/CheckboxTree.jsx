@@ -62,10 +62,6 @@ const CheckboxTree = ({
 }) => {
     const checkboxTreeClass = className ? ` ${className}` : '';
 
-    useEffect(() => {
-        console.log("is loading", data, checked);
-    }, [isLoading]);
-
     /**
      * collapseNode
      * updates state with the new expanded array and calls onCollapse if passed in
@@ -106,7 +102,6 @@ const CheckboxTree = ({
      * Decides whether we are expanding or collapsing the node.
      */
     const onExpand = (newExpandedArray, node) => {
-        console.log("on expand", newExpandedArray, node);
         // collapsing node
         if (newExpandedArray.length < expanded.length) {
             return collapseNode(newExpandedArray);
@@ -245,7 +240,7 @@ const CheckboxTree = ({
             <div className="checkbox-tree-filter-message-container">
                 <FontAwesomeIcon icon="spinner" spin />
                 <div className="checkbox-tree-filter-message-container__text">
-                    Loading your data...
+                    Loading your dataLoading your data...
                 </div>
             </div>
         );
@@ -280,7 +275,8 @@ const CheckboxTree = ({
                 checked={checked}
                 expanded={expanded}
                 onCheck={onCheck}
-                onExpand={onExpand} />
+                onExpand={onExpand}
+                isLoading />
         </div>
     );
 };
