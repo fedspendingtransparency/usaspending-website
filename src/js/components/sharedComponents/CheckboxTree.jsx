@@ -7,8 +7,9 @@
  * Upgrading it causes bugs in the checkbox trees.
  */
 
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useEffect } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
+import TreeNodes from 'components/sharedComponents/checkbox/checkboxTree/TreeNodes';
 import PropTypes from 'prop-types';
 import { difference } from 'lodash';
 import replaceString from 'helpers/replaceString';
@@ -61,6 +62,10 @@ const CheckboxTree = ({
 }) => {
     const checkboxTreeClass = className ? ` ${className}` : '';
 
+    useEffect(() => {
+        console.log("is loading", data, checked);
+    }, [isLoading]);
+
     /**
      * collapseNode
      * updates state with the new expanded array and calls onCollapse if passed in
@@ -101,7 +106,8 @@ const CheckboxTree = ({
      * Decides whether we are expanding or collapsing the node.
      */
     const onExpand = (newExpandedArray, node) => {
-    // collapsing node
+        console.log("on expand", newExpandedArray, node);
+        // collapsing node
         if (newExpandedArray.length < expanded.length) {
             return collapseNode(newExpandedArray);
         }
@@ -267,14 +273,14 @@ const CheckboxTree = ({
 
     return (
         <div className={`checkbox-tree${checkboxTreeClass}`}>
-            <CheckBoxTree
+            {/* <CheckBoxTree*/}
+            <TreeNodes
                 nodes={labeledNodes}
                 disabled={isDisabled}
                 checked={checked}
                 expanded={expanded}
                 onCheck={onCheck}
-                onExpand={onExpand}
-                icons={treeIcons} />
+                onExpand={onExpand} />
         </div>
     );
 };
