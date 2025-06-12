@@ -14,45 +14,36 @@ const propTypes = {
     changeScope: PropTypes.func
 };
 
-const defaultProps = {
-    disabled: false
+const RankVisualizationScopeButton = ({
+    active, value, label, disabled = false, changeScope
+}) => {
+    let activeClass = '';
+    let description = `Rank results by ${label.toLowerCase()}`;
+
+    if (active) {
+        activeClass = 'active';
+    }
+
+    if (active) {
+        description += ' (currently selected)';
+    }
+
+    const clickedButton = () => {
+        changeScope(value);
+    };
+
+    return (
+        <button
+            className={`visualization-scope__button ${activeClass}`}
+            value={value}
+            title={description}
+            aria-label={description}
+            onClick={clickedButton}
+            disabled={disabled}>
+            {label}
+        </button>
+    );
 };
 
-export default class RankVisualizationScopeButton extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.clickedButton = this.clickedButton.bind(this);
-    }
-
-    clickedButton() {
-        this.props.changeScope(this.props.value);
-    }
-
-    render() {
-        let activeClass = '';
-        if (this.props.active) {
-            activeClass = 'active';
-        }
-
-        let description = `Rank results by ${this.props.label.toLowerCase()}`;
-        if (this.props.active) {
-            description += ' (currently selected)';
-        }
-
-        return (
-            <button
-                className={`visualization-scope__button ${activeClass}`}
-                value={this.props.value}
-                title={description}
-                aria-label={description}
-                onClick={this.clickedButton}
-                disabled={this.props.disabled}>
-                {this.props.label}
-            </button>
-        );
-    }
-}
-
 RankVisualizationScopeButton.propTypes = propTypes;
-RankVisualizationScopeButton.defaultProps = defaultProps;
+export default RankVisualizationScopeButton;
