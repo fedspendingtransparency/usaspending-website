@@ -138,12 +138,16 @@
 
              line-height: 1.5;
              border-radius: 3px;
-             border: solid 1px $gray-cool-10 !important;
+             border: solid 1px $gray-cool-10;
              padding: rem(7) rem(2);
              margin-top: 0;
              height: rem(32);
              width: 100%;
-            }
+          }
+
+          .date-picker__input-field:invalid {
+            outline: rem(2) solid $color-secondary-vivid;
+          }
          }
 
         .date-range-column {

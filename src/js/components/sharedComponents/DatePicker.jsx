@@ -75,6 +75,7 @@ const DatePicker = ({
                 <label htmlFor={labelId}>
                     <span className="generate-datepicker__label">{title}</span>
                     <input
+                        className="date-picker__input-field"
                         id={id}
                         type="date"
                         placeholder="mm/dd/yyyy"
