@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
@@ -151,7 +152,6 @@ const FinancialAssistanceContent = ({
         </AwardPageWrapper>
     );
 };
-FinancialAssistanceContent.defaultProps = { uniqueGeneratedAwardId: '' };
-FinancialAssistanceContent.propTypes = propTypes;
 
+FinancialAssistanceContent.propTypes = propTypes;
 export default FinancialAssistanceContent;
