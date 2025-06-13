@@ -15,6 +15,7 @@ import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import { convertToTitleCase } from "../../../helpers/searchHelper";
+import ExpandableTable from '../../sharedComponents/table/ExpandableTable';
 
 const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
 
@@ -36,7 +37,9 @@ export default class ResultsTable extends React.Component {
         setResultLimit: PropTypes.func,
         total: PropTypes.number,
         isMobile: PropTypes.bool,
-        federalAccountPage: PropTypes.bool
+        federalAccountPage: PropTypes.bool,
+        showToggle: PropTypes.bool,
+        referenceData: PropTypes.array
     };
 
     constructor(props) {
@@ -879,6 +882,24 @@ export default class ResultsTable extends React.Component {
                     className="advanced-search__table-wrapper"
                     id="advanced-search__table-wrapper"
                     style={this.props.resultsCount >= this.props.resultsLimit ? { height: '638px' } : {}}>
+                    {(this.props.showToggle && this.props.spendingLevel === 'awards') ? (
+                        <ExpandableTable
+                            classNames="table-for-new-search-page award-results-table-dtui"
+                            stickyFirstColumn={!this.props.isMobile}
+                            columns={cols}
+                            rows={limitedRows}
+                            rowHeight={this.props.isMobile ? null : 58}
+                            headerRowHeight={45}
+                            highlightedColumns={this.props.subaward ? {
+                                standardColumns: 9,
+                                highlightedColumns: this.props.currentType === "subcontracts" ? 7 : 6
+                            } : null}
+                            currentSort={this.props.sort}
+                            updateSort={this.props.updateSort}
+                            isMobile={this.props.isMobile}
+                            isStacked
+                            newMobileView />
+                    ) : (
                     <Table
                         classNames="table-for-new-search-page award-results-table-dtui"
                         stickyFirstColumn={!this.props.isMobile}
@@ -895,6 +916,7 @@ export default class ResultsTable extends React.Component {
                         isMobile={this.props.isMobile}
                         isStacked
                         newMobileView />
+                    )}
                 </div>
                 <Pagination
                     resultsText

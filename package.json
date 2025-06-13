@@ -260,6 +260,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@jest/globals": "^29.7.0",
     "@react-hook/resize-observer": "^2.0.2",
+    "@tanstack/react-table": "^8.21.3",
     "accounting": "^0.4.1",
     "ajv": "^8.11.0",
     "axios": "^1.8.4",

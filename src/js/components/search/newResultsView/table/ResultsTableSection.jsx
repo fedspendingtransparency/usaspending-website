@@ -27,13 +27,15 @@ const propTypes = {
     page: PropTypes.number,
     setPage: PropTypes.func,
     total: PropTypes.number,
-    federalAccountPage: PropTypes.bool
+    federalAccountPage: PropTypes.bool,
+    showToggle: PropTypes.bool
 };
 
 const ResultsTableSection = (props) => {
     const [tableWidth, setTableWidth] = useState(0);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+
     const setTableWidthFn = () => {
         const table = document.querySelector('.results-table-content');
         if (table) {
@@ -75,7 +77,8 @@ const ResultsTableSection = (props) => {
                         subAwardIdClick={props.subAwardIdClick}
                         isMobile={isMobile}
                         federalAccountPage
-                        newMobileView />
+                        newMobileView
+                        showToggle={props.showToggle} />
                 )
                     :
                     <NoResultsMessage />

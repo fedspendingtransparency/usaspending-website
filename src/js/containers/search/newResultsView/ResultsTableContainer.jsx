@@ -130,6 +130,7 @@ const ResultsTableContainer = (props) => {
     const [spendingLevel, setSpendingLevel] = useState(props.spendingLevel);
     const [isSubaward, setIsSubaward] = useState(props.spendingLevel === 'subawards');
     const [isTransactions, setIsTransactions] = useState(props.spendingLevel === 'transactions');
+    const [expandableData, setExpandableData] = useState([]);
     const { pathname } = useLocation();
     const isV2 = pathname === GlobalConstants.SEARCH_V2_PATH;
     const showToggle = isV2 && (props.spendingLevel !== "awards");
@@ -543,6 +544,8 @@ const ResultsTableContainer = (props) => {
         setSpendingLevel("awards");
         setIsSubaward(false);
         setIsTransactions(false);
+        // get expandable data
+        setExpandableData([]);
     };
 
     let availableTypes = tableTypes;
@@ -656,7 +659,9 @@ const ResultsTableContainer = (props) => {
                 total={total}
                 resultsLimit={resultLimit}
                 setResultLimit={setResultLimit}
-                resultsCount={counts[tableType]} />
+                resultsCount={counts[tableType]}
+                showToggle={showToggle}
+                expandableData={expandableData} />
         </SearchSectionWrapper>
     );
 };

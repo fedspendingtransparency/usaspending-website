@@ -51,3 +51,169 @@ table {
         border-right: 0;
     }
 }
+
+
+.expandable-table {
+    margin-top: 0;
+    margin-bottom: 0;
+
+
+    th {
+        border: none;
+        border-top: rem(1) solid $gray-cool-10;
+        border-right: rem(1) solid $gray-cool-10;;
+        border-bottom: rem(1) solid $gray-cool-10;
+        text-align: right;
+    }
+
+    td {
+        border: none;
+        border-right: rem(1) solid $gray-cool-10;
+        border-bottom: rem(1) solid $gray-cool-10;
+        text-align: right;
+    }
+
+
+    td:first-of-type {
+        border-left:rem(1) solid $gray-cool-10;
+        text-align: left;
+    }
+    th:first-of-type {
+        border-left:rem(1) solid $gray-cool-10;
+        text-align: left;
+    }
+
+    
+    thead.usda-table__head {
+        th.table-header {
+            color: $theme-color-headline;
+            &:first-of-type {
+                border-top-left-radius: rem(4);
+            }
+            &:last-of-type {
+                border-top-right-radius: rem(4);
+            }
+
+            .table-header__content {
+                padding: rem(12) rem(16);
+            }
+        }
+    }
+
+    tbody.usda-table__body {
+        color: $gray-90;
+        line-height: 1.5;
+
+        tr:last-of-type {
+            td:first-of-type {
+                border-bottom-left-radius: rem(4);
+            }
+
+            td:last-of-type {
+                border-bottom-right-radius: rem(4);
+            }
+        }
+
+        .usda-table__row {
+            &:hover {
+                background-color: $gray-cool-2;
+
+                &.special-hover-color-7 td:nth-last-of-type(-n + 7) {
+                    background-color: $blue-warm-10;
+                }
+
+                &.special-hover-color-6 td:nth-last-of-type(-n + 6) {
+                    background-color: $blue-warm-10;
+                }
+
+                &.special-hover-color-5 td:nth-last-of-type(-n + 5) {
+                    background-color: $blue-warm-10;
+                }
+
+                &.special-hover-color-4 td:nth-last-of-type(-n + 4) {
+                    background-color: $blue-warm-10;
+                }
+
+                &.special-hover-color-3 td:nth-last-of-type(-n + 3) {
+                    background-color: $blue-warm-10;
+                }
+
+                &.special-hover-color-2 td:nth-last-of-type(-n + 2) {
+                    background-color: $blue-warm-10;
+                }
+
+                &.special-hover-color-1 td:nth-last-of-type(-n + 1) {
+                    background-color: $blue-warm-10;
+                }
+            }
+
+            td.usda-table__cell {
+                padding: rem(8) rem(16);
+                height: inherit;
+
+                @media (max-width: ($tablet-screen - 1)) {
+                    padding: 0 rem(16) rem(12);
+                }
+            }
+
+            // if the td contains an a tag, we want the entire cell to be clickable
+            // so we move the padding into the a tag
+            td.usda-table__cell:has(a) {
+                padding: 0;
+
+                a {
+                    padding: rem(8) rem(16);
+                    display: block;
+                    width: 100%;
+                    height: inherit;
+                    color: $theme-color-1;
+
+                    &:hover {
+                        color: $blue-vivid-70;
+                    }
+
+                    &:visited {
+                        color: $violet-70v;
+                    }
+                }
+
+                svg {
+                    display: none;
+                }
+
+                @media (max-width: ($tablet-screen - 1)) {
+                    padding: 0 rem(16) rem(12);
+
+                    a {
+                        padding: 0;
+                    }
+
+                    svg {
+                        display: unset;
+                        padding-left: rem(4);
+                    }
+                }
+            }
+        }
+    }
+
+ 
+    // this is needed to make the right border and the box shadow appear on the sticky column
+    border-collapse: separate;
+
+    td {
+        vertical-align: top;
+        // because of overlapping css rules, we need to delete the borders here
+        // to avoid double borders
+        // and add the bottom border
+
+        &:last-of-type {
+            border-right: rem(1) solid $gray-cool-10;
+        }
+    }
+
+    &:hover {
+        background-color: $gray-cool-2;
+
+    }
+}
