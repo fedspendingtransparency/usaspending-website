@@ -661,7 +661,8 @@ const ResultsTableContainer = (props) => {
                 setResultLimit={setResultLimit}
                 resultsCount={counts[tableType]}
                 showToggle={showToggle}
-                expandableData={expandableData} />
+                expandableData={expandableData}
+                filters={props.filters} />
         </SearchSectionWrapper>
     );
 };

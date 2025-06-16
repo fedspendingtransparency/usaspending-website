@@ -1,9 +1,10 @@
-import React, { use, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 // import PropTypes, { shape, oneOf, oneOfType } from 'prop-types';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { isCancel } from 'axios';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as SearchHelper from 'helpers/searchHelper';
+import { subawardTypeGroups, transactionTypeGroups } from 'dataMapping/search/awardType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     createColumnHelper,
@@ -89,7 +90,7 @@ const ExpandableTable = (props) => {
     const [data, setData] = useState(mockRows);
     const [subData, setSubData] = useState([]);
     const [isSubLoading, setIsSubLoading] = useState(false);
-    const [expanded, setExpanded] = useState(ExpandedState);
+    const [expanded, setExpanded] = useState({});
     const [inFlight, setInFlight] = useState(false);
     const [error, setError] = useState(false);
     const [showSubRow, setShowSubRow] = useState(null);
@@ -97,7 +98,6 @@ const ExpandableTable = (props) => {
     let searchRequest = null;
 
     const getSubTable = (awardId, rowId) => {
-        
         // get subRow Data
         setIsSubLoading(true);
         if (searchRequest) {
@@ -114,44 +114,44 @@ const ExpandableTable = (props) => {
         setError(false);
 
         const requestFields = [
-            "Award ID",
-            "Recipient Name",
-            "Award Amount",
-            "Total Outlays",
-            "Description",
-            "Contract Award Type",
-            "Recipient UEI",
-            "Recipient Location",
-            "Primary Place of Performance",
-            "def_codes",
-            "COVID-19 Obligations",
-            "COVID-19 Outlays",
-            "Infrastructure Obligations",
-            "Infrastructure Outlays",
+            "Sub-Award ID",
+            "Sub-Awardee Name",
+            "Sub-Award Amount",
+            "Sub-Award Date",
+            "Sub-Award Description",
+            "Sub-Recipient UEI",
+            "Sub-Recipient Location",
+            "Sub-Award Primary Place of Performance",
+            "Sub-Award Type",
+            "Prime Award ID",
+            "Prime Recipient Name",
+            "Prime Award Recipient UEI",
             "Awarding Agency",
             "Awarding Sub Agency",
-            "Start Date",
-            "End Date",
             "NAICS",
             "PSC",
             "recipient_id",
             "prime_award_recipient_id"
         ];
 
+        // needs to be dynamic but for now we will go with defaults
+        searchParamsTemp.awardType =
+            props.isTransactions ? transactionTypeGroups.transaction_contracts : subawardTypeGroups.subcontracts;
+
         const filters = searchParamsTemp;
-        if (filters.award_ids?.length < 1) {
-            filters.award_ids = [];
+        if (!Object.prototype.hasOwnProperty.call(filters, "selectedAwardIDs")) {
+            filters.selectedAwardIDs = [];
         }
-        filters.award_ids.push(awardId);
+        filters.selectedAwardIDs.push(awardId);
 
         const params = {
             filters: filters.toParams(),
             fields: requestFields,
             page: 1,
             limit: 100,
-            sort: props.isSubaward ? "Sub-Award Amount" : "Transaction Amount",
+            sort: props.isTransactions ? "Transaction Amount" : "Sub-Award Amount",
             order: "desc",
-            subawards: props.isSubaward,
+            subawards: true,
             auditTrail: 'Results Table - Spending by award search'
         };
 
@@ -209,7 +209,7 @@ const ExpandableTable = (props) => {
                 setInFlight(newState.inFlight);
                 setSubData(newState.results);
 
-                props.setAppliedFilterCompletion(true);
+                // props.setAppliedFilterCompletion(true);
                 setShowSubRow(rowId);
             })
             .catch((err) => {
@@ -259,14 +259,14 @@ const ExpandableTable = (props) => {
         columnHelper.accessor('award_id', {
             header: 'Prime Award ID',
             id: uniqueId(),
-            cell: ({row, getValue}) => (
+            cell: ({ row, getValue }) => (
                 <button
-                    onClick={() => getSubTable(row.award_id, row.id)}
-                    onKeyDown={() => getSubTable(row.award_id, row.id)}
+                    onClick={() => getSubTable(getValue(), row.id)}
+                    onKeyDown={() => getSubTable(getValue(), row.id)}
                     role="link"
                     className="usa-button-link" >
                     <FontAwesomeIcon
-                        icon={`${expanded ? "chevron-down" : "chevron-right" }`} />
+                        icon={`${expanded ? "chevron-down" : "chevron-right"}`} />
                     {' '}
                     {getValue()}
                 </button>
@@ -290,13 +290,13 @@ const ExpandableTable = (props) => {
                 columnHelper.accessor('Award ID', {
                     header: 'Prime Award ID',
                     id: uniqueId(),
-                    cell: ({row, getValue}) => (
+                    cell: ({ row, getValue }) => (
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
                             href={`/award/${row.generated_internal_id}`}
                             onClick={() => {
-                                props.clickHandler(row['Award ID']);
+                                props.clickHandler(getValue());
                             }}>{getValue()}
                         </a>
                     )
@@ -391,7 +391,7 @@ const ExpandableTable = (props) => {
                         rel="noopener noreferrer"
                         href={`/award/${row.prime_award_generated_internal_id}`}
                         onClick={() => {
-                            props.clickHandler(row['Sub-Award ID']);
+                            props.clickHandler(getValue());
                         }}>{getValue()}
                     </a>
                 )
@@ -486,7 +486,7 @@ const ExpandableTable = (props) => {
                             </td>
                         ))}
 
-                        {(showSubRow && showSubRow === row.id) && 
+                        {(showSubRow && showSubRow === row.id) &&
                             <table className="usda-table table-for-new-search-page expandable-table">
                                 <thead>
                                     {subTable.getHeaderGroups().map((headerGroup) => (
@@ -505,9 +505,9 @@ const ExpandableTable = (props) => {
                                     ))}
                                 </thead>
                                 <tbody className="usda-table__body">
-                                    {subTable.getRowModel().rows.map((row) => (
-                                        <tr key={row.id}>
-                                            {row.getVisibleCells().map((cell) => (
+                                    {subTable.getRowModel().rows.map((r) => (
+                                        <tr key={r.id}>
+                                            {r.getVisibleCells().map((cell) => (
                                                 <td key={cell.id}>
                                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                 </td>
