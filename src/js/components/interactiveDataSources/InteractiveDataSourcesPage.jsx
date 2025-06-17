@@ -222,6 +222,7 @@ const InteractiveDataSourcesPage = () => {
                     onShareOptionClick={handleShare}
                     classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadStaticFile
+                    key={uniqueId()}
                     path="/data/data-sources-download.pdf" />
             ]}
             sections={sections}
