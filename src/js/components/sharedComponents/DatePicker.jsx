@@ -80,6 +80,7 @@ const DatePicker = ({
                         placeholder="mm/dd/yyyy"
                         aria-label={title}
                         value={inputValue}
+                        min="2007-10-01"
                         onChange={handleTypedDate}
                         onBlur={handleTypedDate} />
                 </label>

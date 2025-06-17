@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/13/17
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -25,8 +25,6 @@ const propTypes = {
 };
 
 const AccountAwardsContainer = (props) => {
-    let tabCountRequest = null;
-    let searchRequest = null;
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [columns, setColumns] = useState({});
     const [sort, setSort] = useState({
@@ -46,10 +44,13 @@ const AccountAwardsContainer = (props) => {
     // eslint-disable-next-line no-unused-vars
     const [searchParams, setSearchParams] = useState(new AccountAwardSearchOperation());
 
+    const tabCountRequest = useRef(null);
+    const searchRequest = useRef(null);
+
     const performSearch = useCallback((newSearch = false) => {
-        if (searchRequest) {
+        if (searchRequest.current) {
             // a request is currently in-flight, cancel it
-            searchRequest.cancel();
+            searchRequest.current.cancel();
         }
 
         // create a search operation instance from the Redux filters using the account ID
@@ -90,8 +91,8 @@ const AccountAwardsContainer = (props) => {
         newParams.sort = sort.field;
 
         // Set the params needed for download API call
-        searchRequest = SearchHelper.performSpendingByAwardSearch(newParams);
-        searchRequest.promise
+        searchRequest.current = SearchHelper.performSpendingByAwardSearch(newParams);
+        searchRequest.current.promise
             .then((res) => {
                 const newState = {
                     inFlight: false,
@@ -109,7 +110,7 @@ const AccountAwardsContainer = (props) => {
                 }
 
                 // request is done
-                searchRequest = null;
+                searchRequest.current = null;
                 newState.page = res.data.page_metadata.page;
                 newState.lastPage = !res.data.page_metadata.hasNext;
                 setInFlight(newState.inFlight);
@@ -122,7 +123,7 @@ const AccountAwardsContainer = (props) => {
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
-                    searchRequest = null;
+                    searchRequest.current = null;
                     console.log(err);
                 }
             });
@@ -197,8 +198,8 @@ const AccountAwardsContainer = (props) => {
 
     const pickDefaultTab = () => {
         // get the award counts for the current filter set
-        if (tabCountRequest) {
-            tabCountRequest.cancel();
+        if (tabCountRequest.current) {
+            tabCountRequest.current.cancel();
         }
         setInFlight(true);
 
@@ -207,21 +208,21 @@ const AccountAwardsContainer = (props) => {
         searchOperation.awardType = awardTypeGroups[tableType];
         const searchParamsTemp = searchOperation.spendingByAwardTableParams(props);
         const filters = { ...searchParamsTemp.filters };
-        tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
+        tabCountRequest.current = SearchHelper.performSpendingByAwardTabCountSearch({
             filters,
             subawards: false
         });
 
-        tabCountRequest.promise
+        tabCountRequest.current.promise
             .then((res) => {
                 parseTabCounts(res.data);
-                tabCountRequest = null;
+                tabCountRequest.current = null;
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
-                    tabCountRequest = null;
+                    tabCountRequest.current = null;
                     console.log(err);
                 }
             });

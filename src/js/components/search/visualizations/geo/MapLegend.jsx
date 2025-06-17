@@ -5,20 +5,35 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
 import MapLegendItem from './MapLegendItem';
 
-export default function MapLegend(props) {
+const propTypes = {
+    mapLegendToggle: PropTypes.string,
+    units: PropTypes.shape({
+        unit: PropTypes.number,
+        precision: PropTypes.number,
+        unitLabel: PropTypes.string
+    }),
+    segments: PropTypes.arrayOf(PropTypes.number)
+};
+
+const MapLegend = ({
+    mapLegendToggle,
+    units = {
+        unit: 1,
+        precision: 0,
+        unitLabel: ''
+    },
+    segments
+}) => {
     const [items, setItems] = useState([]);
 
     const prepareItems = () => {
-        const {
-            segments,
-            units
-        } = props;
         const itemsCopy = segments.map((segment, i, array) => {
-            let label = '';
+            let label;
 
             const color = MapHelper.visualizationColors[i];
 
@@ -65,7 +80,7 @@ export default function MapLegend(props) {
     useEffect(() => {
         prepareItems();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.segments, props.mapLegendToggle]);
+    }, [segments, mapLegendToggle]);
 
     return (
         <div className="map-legend">
@@ -74,30 +89,7 @@ export default function MapLegend(props) {
             </ul>
         </div>
     );
-}
-
-const propTypes = {
-    mapLegendToggleData: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string,
-        value: PropTypes.string
-    })),
-    mapLegendToggle: PropTypes.string,
-    updateMapLegendToggle: PropTypes.func,
-    units: PropTypes.shape({
-        unit: PropTypes.number,
-        precision: PropTypes.number,
-        unitLabel: PropTypes.string
-    }),
-    segments: PropTypes.arrayOf(PropTypes.number)
-};
-
-const defaultProps = {
-    units: {
-        unit: 1,
-        precision: 0,
-        unitLabel: ''
-    }
 };
 
 MapLegend.propTypes = propTypes;
-MapLegend.defaultProps = defaultProps;
+export default MapLegend;

@@ -15,40 +15,33 @@ const propTypes = {
     value: PropTypes.string
 };
 
-const defaultProps = {
-    color: '#000000',
-    x: 0,
-    y: 0,
-    hide: false
+const ItemLegend = ({
+    color = '#000000', x = 0, y = 0, hide = false, title, value
+}) => {
+    if (hide) {
+        return null;
+    }
+
+    return (
+        <g
+            className="item-label"
+            transform={`translate(${x},${y})`}>
+            <circle r="5" fill={color} />
+            <text
+                className="title"
+                x={20}
+                y={0}>
+                {title}
+            </text>
+            <text
+                className="value"
+                x={20}
+                y={16}>
+                {value}
+            </text>
+        </g>
+    );
 };
 
-export default class ItemLegend extends React.Component {
-    render() {
-        if (this.props.hide) {
-            return null;
-        }
-
-        return (
-            <g
-                className="item-label"
-                transform={`translate(${this.props.x},${this.props.y})`}>
-                <circle r="5" fill={this.props.color} />
-                <text
-                    className="title"
-                    x={20}
-                    y={0}>
-                    {this.props.title}
-                </text>
-                <text
-                    className="value"
-                    x={20}
-                    y={16}>
-                    {this.props.value}
-                </text>
-            </g>
-        );
-    }
-}
-
 ItemLegend.propTypes = propTypes;
-ItemLegend.defaultProps = defaultProps;
+export default ItemLegend;
