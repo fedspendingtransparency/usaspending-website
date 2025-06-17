@@ -52,7 +52,7 @@ export default class DownloadProgress extends React.Component {
                         This may take a little while &mdash; wait times vary based on site traffic and file size.
                     </div>
                     <div className="link-box">
-                        <p>Once your download is ready, you can use this link to access it anytime.</p>
+                        <p>Action Required: Once your download is ready, the link below is required to access your file. Be sure to copy your link; this download link is temporary and will expire.</p>
                         <div className="link">{this.props.expectedUrl}</div>
 
                         <CopyToClipboard
@@ -65,7 +65,7 @@ export default class DownloadProgress extends React.Component {
                         </CopyToClipboard>
                     </div>
                     <div className="sub-details">
-                        To keep browsing, close this box; your download status will appear at the bottom of the screen.
+                        To keep browsing, copy the download link and close this window; your download status will appear at the bottom of the screen.
                     </div>
                     <button className="finish-button" onClick={this.props.hideModal}>Close</button>
                 </div>

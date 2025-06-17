@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 // import PropTypes, { shape, oneOf, oneOfType } from 'prop-types';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { isCancel } from 'axios';
@@ -18,73 +18,7 @@ import { uniqueId } from 'lodash';
 import { performKeywordSearch } from "../../../helpers/keywordHelper";
 import { convertToTitleCase } from "../../../helpers/searchHelper";
 import ReadMore from '../../../components/sharedComponents/ReadMore';
-
-
-const mockRows = [
-    {
-        award_id: "0001",
-        subaward_count: 1510,
-        award_generated_internal_id: "CONT_AWD_0001_9700_FA870215D0001_9700",
-        subaward_obligation: 409303652.12
-    },
-    {
-        award_id: "N0001923C0003",
-        subaward_count: 1723,
-        award_generated_internal_id: "CONT_AWD_N0001923C0003_9700_-NONE-_-NONE-",
-        subaward_obligation: 2406096453.7
-    },
-    {
-        award_id: "N0002416C2229",
-        subaward_count: 1871,
-        award_generated_internal_id: "CONT_AWD_N0002416C2229_9700_-NONE-_-NONE-",
-        subaward_obligation: 552408209.26
-    },
-    {
-        award_id: "N0002415C4301",
-        subaward_count: 1974,
-        award_generated_internal_id: "CONT_AWD_N0002415C4301_9700_-NONE-_-NONE-",
-        subaward_obligation: 658930044.09
-    },
-    {
-        award_id: "N0001921C0020",
-        subaward_count: 2545,
-        award_generated_internal_id: "CONT_AWD_N0001921C0020_9700_-NONE-_-NONE-",
-        subaward_obligation: 492379269.3
-    },
-    {
-        award_id: "W56HZV15C0095",
-        subaward_count: 2676,
-        award_generated_internal_id: "CONT_AWD_W56HZV15C0095_9700_-NONE-_-NONE-",
-        subaward_obligation: 304424719.1
-    },
-    {
-        award_id: "DENA0001942",
-        subaward_count: 2976,
-        award_generated_internal_id: "CONT_AWD_DENA0001942_8900_-NONE-_-NONE-",
-        subaward_obligation: 1572986547.25
-    },
-    {
-        award_id: "N0001920C0009",
-        subaward_count: 4345,
-        award_generated_internal_id: "CONT_AWD_N0001920C0009_9700_-NONE-_-NONE-",
-        subaward_obligation: 419902669.32
-    },
-    {
-        award_id: "N0002418C2106",
-        subaward_count: 12407,
-        award_generated_internal_id: "CONT_AWD_N0002418C2106_9700_-NONE-_-NONE-",
-        subaward_obligation: 918283598.01
-    },
-    {
-        award_id: "N0002416C2116",
-        subaward_count: 45608,
-        award_generated_internal_id: "CONT_AWD_N0002416C2116_9700_-NONE-_-NONE-",
-        subaward_obligation: 2666421624.76
-    }
-];
-
-const columnHelper = createColumnHelper();
-
+import { mockRows } from './mockData';
 
 const ExpandableTable = (props) => {
     const [data, setData] = useState(mockRows);
@@ -94,10 +28,11 @@ const ExpandableTable = (props) => {
     const [inFlight, setInFlight] = useState(false);
     const [error, setError] = useState(false);
     const [showSubRow, setShowSubRow] = useState(null);
+    const columnHelper = createColumnHelper();
 
     let searchRequest = null;
 
-    const getSubTable = (awardId, rowId) => {
+    const getSubTable = useCallback((awardId, rowId) => {
         // get subRow Data
         setIsSubLoading(true);
         if (searchRequest) {
@@ -220,7 +155,7 @@ const ExpandableTable = (props) => {
                     console.log(err);
                 }
             });
-    };
+    });
 
     const pickLocationFormat = (location) => {
         if (location?.address_line1 && location?.city_name && location?.state_code && location?.zip5) {
@@ -255,34 +190,76 @@ const ExpandableTable = (props) => {
         return "--";
     };
 
-    const columns = useMemo(() => [
-        columnHelper.accessor('award_id', {
-            header: 'Prime Award ID',
-            id: uniqueId(),
-            cell: ({ row, getValue }) => (
-                <button
-                    onClick={() => getSubTable(getValue(), row.id)}
-                    onKeyDown={() => getSubTable(getValue(), row.id)}
-                    role="link"
-                    className="usa-button-link" >
-                    <FontAwesomeIcon
-                        icon={`${expanded ? "chevron-down" : "chevron-right"}`} />
-                    {' '}
-                    {getValue()}
-                </button>
-            )
-        }),
-        columnHelper.accessor('subaward_count', {
+    const mockColumns = [
+        {
+            header: "Prime Award ID",
+            key: "award_id",
+            type: "expandableButton",
+            className: "",
+            element: null
+        },
+        {
             header: 'Count of Subwards that Match Search Criteria',
-            id: uniqueId(),
-            cell: (info) => info.getValue()
-        }),
-        columnHelper.accessor('subaward_obligation', {
+            key: 'subaward_count',
+            type: "alphaNumeric",
+            className: "",
+            element: null
+        },
+        {
             header: 'Obligations that Match Search Criteria',
-            id: uniqueId(),
-            cell: (info) => MoneyFormatter.formatMoneyWithPrecision(info.getValue(), 2, "--")
-        })
-    ], []);
+            key: 'subaward_obligation',
+            type: "formatted",
+            className: "",
+            element: (info) => MoneyFormatter.formatMoneyWithPrecision(info.getValue(), 2, "--")
+        }
+    ];
+
+    const columns = useMemo(() => mockColumns.map((col) => {
+        switch (col.type) {
+            case "expandedButton":
+                return columnHelper.accessor(col.key, {
+                    header: col.header,
+                    id: uniqueId(),
+                    cell: ({ row, getValue }) => (
+                        <button
+                            onClick={() => getSubTable(getValue(), row.id)}
+                            onKeyDown={() => getSubTable(getValue(), row.id)}
+                            role="link"
+                            className={`usa-button-link ${col.className ? col.className : ''}`} >
+                            <FontAwesomeIcon
+                                icon={`${expanded ? "chevron-down" : "chevron-right"}`} />
+                            {' '}
+                            {getValue()}
+                        </button>
+                    )
+                });
+            case "formatted":
+                return columnHelper.accessor(col.key, {
+                    header: col.header,
+                    id: uniqueId(),
+                    cell: col.element
+                });
+            case "link":
+                return columnHelper.accessor(col.key, {
+                    header: col.header,
+                    id: uniqueId(),
+                    cell: ({ row, getValue }) => (
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={col.link}
+                            onClick={col.onClick}>{getValue()}
+                        </a>
+                    )
+                });
+            default:
+                return columnHelper.accessor(col.key, {
+                    header: col.header,
+                    id: uniqueId(),
+                    cell: (info) => info.getValue()
+                });
+        }
+    }), [mockColumns, columnHelper, expanded, getSubTable]);
 
     const subColumns = useMemo(() => {
         if (props.isTransactions) {
@@ -441,7 +418,7 @@ const ExpandableTable = (props) => {
                 cell: (info) => convertToTitleCase(info.getValue())
             })
         ];
-    }, []);
+    }, [columnHelper, props]);
 
     const table = useReactTable({
         data,

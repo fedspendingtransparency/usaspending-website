@@ -17,8 +17,6 @@ const propTypes = {
     handleOnKeyDown: PropTypes.func,
     handleOnKeyUp: PropTypes.func,
     toggleDropdown: PropTypes.func,
-    context: PropTypes.shape({}), // the $this variable of the parent, used to create a ref
-    expanded: PropTypes.bool,
     enabled: PropTypes.bool,
     loading: PropTypes.bool,
     showDisclaimer: PropTypes.bool,
@@ -34,7 +32,6 @@ const EntityDropdownAutocomplete = ({
     handleTextInputChange,
     toggleDropdown,
     placeholder,
-    context, // the $this variable
     loading,
     handleOnKeyDown,
     handleOnKeyUp,
@@ -54,11 +51,7 @@ const EntityDropdownAutocomplete = ({
             onKeyDown={handleOnKeyDown}
             onKeyUp={handleOnKeyUp}
             onChange={handleTextInputChange}
-            placeholder={placeholder}
-            ref={(dropdown) => {
-                const self = context;
-                self.dropdown = dropdown;
-            }} />
+            placeholder={placeholder} />
         <div className="icon">
             {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
             {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}

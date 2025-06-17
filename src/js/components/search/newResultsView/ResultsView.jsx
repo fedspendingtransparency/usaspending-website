@@ -122,7 +122,7 @@ const ResultsView = React.memo((props) => {
         let content = null;
 
         if (!inFlight && !error) {
-            if (props.noFiltersApplied) {
+            if (!props.hash && props.noFiltersApplied) {
                 content = <NewSearchScreen />;
             }
 

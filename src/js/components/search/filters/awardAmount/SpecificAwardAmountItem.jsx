@@ -29,6 +29,8 @@ const SpecificAwardAmountItem = ({ searchSpecificRange }) => {
 
     const searchRange = () => {
         searchSpecificRange([min, max]);
+        setMin('');
+        setMax('');
     };
 
     const verifyNumberLogic = () => {
