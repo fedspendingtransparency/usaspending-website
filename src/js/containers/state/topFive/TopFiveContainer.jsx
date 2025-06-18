@@ -22,7 +22,9 @@ const propTypes = {
 };
 
 const TopFiveContainer = (props) => {
-    const [categoryState, setCategoryState] = useState({ loading: true, error: false, results: [] });
+    const [categoryState, setCategoryState] = useState(
+        { loading: true, error: false, results: [] }
+    );
     const [noResultState, setNoResultState] = useState(false);
 
     const dataParams = () => {
@@ -76,13 +78,22 @@ const TopFiveContainer = (props) => {
             params.subawards = false;
         }
 
+        if (props.category === 'defc') {
+            params.spending_level = 'award_financial';
+            params.filters = {
+                def_codes: ["L", "M", "N", "O", "P", "U", "V", "Z", "1"],
+                ...filters
+            };
+        }
+
         return params;
     };
 
     const parseResults = (data, type) => {
         if (data.length < 1) {
             setNoResultState(true);
-        } else {
+        }
+        else {
             const parsed = data.map((item, index) => {
                 const result = Object.create(BaseStateCategoryResult);
                 if (props.category === 'awards') {
