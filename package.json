@@ -248,7 +248,9 @@
     "*/@babel/helpers": "7.27.0",
     "tar-fs": "3.0.9",
     "**/tar-fs": "3.0.9",
-    "**/http-proxy-middleware": "2.0.9"
+    "**/http-proxy-middleware": "2.0.9",
+    "**/brace-expansion": "1.1.12",
+    "brace-expansion": "1.1.12"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
