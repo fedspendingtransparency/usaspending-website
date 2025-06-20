@@ -36,7 +36,6 @@ export default class StateOverview extends React.PureComponent {
             toggle: false
         };
 
-        this.detailsHeight = document.getElementById("award")?.offsetHeight;
         this.showTooltip = this.showTooltip.bind(this);
         this.closeTooltip = this.closeTooltip.bind(this);
         this.setOpen = this.setOpen.bind(this);

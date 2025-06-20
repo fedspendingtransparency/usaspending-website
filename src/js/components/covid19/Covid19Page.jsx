@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { find, throttle } from 'lodash';
+import { find, throttle, uniqueId } from 'lodash';
 import { ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
@@ -157,6 +157,7 @@ const Covid19Page = ({ loading }) => {
             title="COVID-19 Spending"
             toolBarComponents={[
                 <ShareIcon
+                    key={uniqueId()}
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare}
                     classNames={!isMobile ? "margin-right" : ""} />,

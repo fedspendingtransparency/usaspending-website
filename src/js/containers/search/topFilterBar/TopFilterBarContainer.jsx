@@ -79,7 +79,7 @@ const TopFilterBarContainer = ({ updateFilterCount, compressed = false, filters 
         }
         else if (filters?.timePeriodType === 'dr') {
             // const lastInTimePeriod = filters.time_period[filters.time_period.length - 1];
-            // // check to see if any date ranges are selected
+            // check to see if any date ranges are selected
             if (filters.time_period.size > 0) {
                 // start and end dates are provided
                 selected = true;

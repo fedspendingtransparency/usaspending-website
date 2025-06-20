@@ -7,7 +7,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import CategoriesList from "./CateogriesList";
+import CategoriesList from "./CategoriesList";
 import CategoryFilter from "./CategoryFilter";
 import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 import DsmSlider from "./DsmSlider";

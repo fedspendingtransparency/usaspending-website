@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle, uniqueId } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
@@ -157,6 +157,7 @@ const SearchPage = React.memo(({
                     setSpendingLevel={setSpendingLevel}
                     selectedValue="awards" />,
                 <ShareIcon
+                    key={uniqueId()}
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
                     onShareOptionClick={handleShare}

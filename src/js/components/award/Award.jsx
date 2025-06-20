@@ -6,9 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon, DownloadIconButton } from 'data-transparency-ui';
-import { find, startCase, throttle } from 'lodash';
+import { find, startCase, throttle, uniqueId } from 'lodash';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
@@ -202,10 +201,12 @@ export default class Award extends React.Component {
                 title={isLoading ? '--' : title}
                 toolBarComponents={[
                     <ShareIcon
+                        key={uniqueId()}
                         url={getBaseUrl(slug)}
                         onShareOptionClick={this.onShareClick}
                         classNames={!this.state.isMobile ? "margin-right" : ""} />,
                     <DownloadIconButton
+                        key={uniqueId()}
                         isEnabled={!this.props.noAward}
                         downloadInFlight={this.props.isDownloadPending}
                         onClick={this.props.downloadData} />

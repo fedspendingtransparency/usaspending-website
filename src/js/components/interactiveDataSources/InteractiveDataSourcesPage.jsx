@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { find, throttle } from 'lodash';
+import { find, throttle, uniqueId } from 'lodash';
 import { ComingSoon, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -217,10 +217,12 @@ const InteractiveDataSourcesPage = () => {
             title="Data Sources"
             toolBarComponents={[
                 <ShareIcon
+                    key={uniqueId()}
                     url={getBaseUrl('data-sources')}
                     onShareOptionClick={handleShare}
                     classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadStaticFile
+                    key={uniqueId()}
                     path="/data/data-sources-download.pdf" />
             ]}
             sections={sections}
