@@ -406,7 +406,8 @@ const DateRange = (props) => {
                         onDateChange={props.onDateChange}
                         hideError={props.hideError}
                         title="start date"
-                        id="date-range__startDate" />
+                        id="date-range__startDate"
+                        min="2007-10-01" />
                 </div>
                 <div className="date-range-column">
                     <DatePicker
@@ -415,7 +416,8 @@ const DateRange = (props) => {
                         onDateChange={props.onDateChange}
                         hideError={props.hideError}
                         title="end date"
-                        id="date-range__endDate" />
+                        id="date-range__endDate"
+                        min="2007-10-01" />
                 </div>
                 <Button
                     copy="Add"
