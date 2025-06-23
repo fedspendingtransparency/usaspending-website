@@ -109,6 +109,26 @@ export const learnResourceOptions = [
         enabled: true,
         externalLink: false,
         isNewTab: false
+    },
+    {
+        label: 'Training Videos',
+        type: 'training-videos',
+        description: 'Tutorials for how to use the data and features on USAspending.gov',
+        url: '/training-videos',
+        shouldOpenNewTab: false,
+        enabled: true,
+        externalLink: false,
+        isNewTab: false
+    },
+    {
+        label: 'Training Videos',
+        type: 'training-videos',
+        description: 'Tutorials for how to use the data and features on USAspending.gov',
+        url: '/training-videos',
+        shouldOpenNewTab: false,
+        enabled: true,
+        externalLink: false,
+        isNewTab: false
     }
 ];
 export const referenceMaterialsOptions = [

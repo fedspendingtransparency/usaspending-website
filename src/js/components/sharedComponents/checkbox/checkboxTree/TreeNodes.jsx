@@ -25,7 +25,7 @@ const TreeNodes = ({
 }) => {
     const [localChecked, setLocalChecked] = useState(checked);
     const [localExpanded, setLocalExpanded] = useState(expanded);
-    const [localNodes, setLocalNodes] = useState();
+    const [localNodes, setLocalNodes] = useState(nodes);
     const [loadingParentId, setLoadingParentId] = useState();
 
     useEffect(() => {
@@ -33,12 +33,14 @@ const TreeNodes = ({
     }, [checked]);
 
     useEffect(() => {
+        console.log("nodes changed", nodes);
         setLoadingParentId(null);
         setLocalNodes(nodes);
     }, [nodes]);
 
     useEffect(() => {
-        setLocalExpanded(expanded);
+        console.log("expanded changed", expanded, localExpanded);
+        // setLocalExpanded(expanded);
     }, [expanded]);
 
 
@@ -82,34 +84,23 @@ const TreeNodes = ({
     };
 
     const handleToggle = (id, hasChildren) => {
+        console.log("handle toggle", id, hasChildren);
         const isExpanded = localExpanded.includes(id);
 
         if (!isExpanded && hasChildren) {
             const node = findNodeById(id);
-            // TODO:  Add caching for stored children
-            // const hasStoredChildren = node && node.children && node.children.length > 1;
-
+            console.log("node", node);
+            onExpand([id, ...localExpanded], node);
             setLocalExpanded((prev) => [...prev, id]);
             setLoadingParentId(id);
-            // TODO:  Add caching for stored children
-            // if (hasStoredChildren) {
-            //     setLoadingNodes((prev) => prev.filter((nid) => nid !== id));
-            // } else {
-            onExpand([id], node);
-            // }
-        }
-        else {
+        } else {
             setLocalExpanded((prev) => prev.filter((eid) => eid !== id));
-            if (onCollapse) {
-                onCollapse(id);
-            }
+            onCollapse(id);
         }
     };
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
-        console.log("level", level);
         const isChecked = localChecked.includes(node.id);
         const isExpanded = localExpanded.includes(node.id);
-        // const isLoading = loadingNodes.includes(node.id) || isLoadingNodeIds.includes(node.id);
         const hasChildren = node.children && node.children.length > 0;
         return (
             <div key={node.id}>
@@ -128,21 +119,21 @@ const TreeNodes = ({
                                     onClick={() => handleToggle(node.id, true)}
                                     style={{ cursor: 'pointer', marginRight: '5px' }} />
                             )}
-                            <input
+                            {node.label && <input
                                 type="checkbox"
                                 disabled={disabled}
                                 checked={isChecked}
                                 onChange={() => handleCheck(node.id, node.children || [])}
-                                style={{ marginRight: '5px' }} />
-                            <span>{node.label || node.id}</span>
+                                style={{ marginRight: '5px' }} />}
+                            <span>{node.label}</span>
                         </div>
                     )
                 }
-                {level < 3 && isExpanded && hasChildren && renderNestedNodes(node.children, level + 1)}
+                {level < 4 && isExpanded && hasChildren && renderNestedNodes(node.children, level + 1)}
             </div>
         );
     });
-    return <div>{renderNestedNodes(nodes, 0)}</div>;
+    return <div>{renderNestedNodes(localNodes, 0)}</div>;
 };
 
 TreeNodes.propTypes = propTypes;
