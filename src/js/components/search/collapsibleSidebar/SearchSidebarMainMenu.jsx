@@ -59,7 +59,8 @@ const SearchSidebarMainMenu = ({
                     </div>
                     <div className="collapsible-sidebar--search-filters-list" style={{ height: (sidebarContentHeight) }}>
                         {SearchFilterCategories.map((item, i) => (<CategoryHeader
-                            key={i}
+                            // eslint-disable-next-line react/no-array-index-key
+                            key={`${item.title}-${i}`}
                             item={item}
                             iconName={item.iconName}
                             iconColor={item.iconColor}
