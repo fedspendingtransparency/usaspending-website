@@ -15,7 +15,8 @@ const propTypes = {
     onDateChange: PropTypes.func,
     hideError: PropTypes.func,
     title: PropTypes.string,
-    id: PropTypes.string
+    id: PropTypes.string,
+    min: PropTypes.string
 };
 
 const DatePicker = ({
@@ -24,7 +25,8 @@ const DatePicker = ({
     onDateChange,
     hideError,
     title,
-    id
+    id,
+    min
 }) => {
     const [inputValue, setInputValue] = useState('');
 
@@ -81,7 +83,7 @@ const DatePicker = ({
                         placeholder="mm/dd/yyyy"
                         aria-label={title}
                         value={inputValue}
-                        min="2007-10-01"
+                        min={min}
                         onChange={handleTypedDate}
                         onBlur={handleTypedDate} />
                 </label>
