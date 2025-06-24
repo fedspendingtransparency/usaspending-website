@@ -17,10 +17,10 @@ import {
 import { uniqueId } from 'lodash';
 import { performKeywordSearch } from "../../../helpers/keywordHelper";
 import { convertToTitleCase } from "../../../helpers/searchHelper";
-import ReadMore from '../../../components/sharedComponents/ReadMore';
+import ReadMore from '../ReadMore';
 import { mockRows } from './mockData';
 
-const ExpandableTable = (props) => {
+const TanStackTable = (props) => {
     const [data, setData] = useState(mockRows);
     const [subData, setSubData] = useState([]);
     const [isSubLoading, setIsSubLoading] = useState(false);
@@ -216,7 +216,7 @@ const ExpandableTable = (props) => {
 
     const columns = useMemo(() => mockColumns.map((col) => {
         switch (col.type) {
-            case "expandedButton":
+            case "expandableButton":
                 return columnHelper.accessor(col.key, {
                     header: col.header,
                     id: uniqueId(),
@@ -243,7 +243,7 @@ const ExpandableTable = (props) => {
                 return columnHelper.accessor(col.key, {
                     header: col.header,
                     id: uniqueId(),
-                    cell: ({ row, getValue }) => (
+                    cell: ({ getValue }) => (
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
@@ -259,7 +259,36 @@ const ExpandableTable = (props) => {
                     cell: (info) => info.getValue()
                 });
         }
-    }), [mockColumns, columnHelper, expanded, getSubTable]);
+    }), []);
+
+    // const columns = useMemo(() => [
+    //     columnHelper.accessor('award_id', {
+    //         header: 'Prime Award ID',
+    //         id: uniqueId(),
+    //         cell: ({ row, getValue }) => (
+    //             <button
+    //                 onClick={() => getSubTable(getValue(), row.id)}
+    //                 onKeyDown={() => getSubTable(getValue(), row.id)}
+    //                 role="link"
+    //                 className="usa-button-link" >
+    //                 <FontAwesomeIcon
+    //                     icon={`${expanded ? "chevron-down" : "chevron-right"}`} />
+    //                 {' '}
+    //                 {getValue()}
+    //             </button>
+    //         )
+    //     }),
+    //     columnHelper.accessor('subaward_count', {
+    //         header: 'Count of Subwards that Match Search Criteria',
+    //         id: uniqueId(),
+    //         cell: (info) => info.getValue()
+    //     }),
+    //     columnHelper.accessor('subaward_obligation', {
+    //         header: 'Obligations that Match Search Criteria',
+    //         id: uniqueId(),
+    //         cell: (info) => MoneyFormatter.formatMoneyWithPrecision(info.getValue(), 2, "--")
+    //     })
+    // ], []);
 
     const subColumns = useMemo(() => {
         if (props.isTransactions) {
@@ -503,5 +532,5 @@ const ExpandableTable = (props) => {
 
 // ExpandableTable.propTypes = propTypes;
 
-export default ExpandableTable;
+export default TanStackTable;
 
