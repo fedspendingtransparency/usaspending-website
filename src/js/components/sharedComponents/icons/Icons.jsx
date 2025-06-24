@@ -26,18 +26,6 @@ export const AddFilter = ({
 );
 AddFilter.propTypes = propTypes;
 
-export const Agency = ({
-    iconName = "usa-da-agency",
-    iconClass = "usa-da-agency",
-    alt = "Icon Depicting a Building Representing an Agency"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-Agency.propTypes = propTypes;
-
 export const AngleDown = ({
     iconName = "usa-da-icon-angle-down",
     iconClass = "usa-da-icon-angle-down",
@@ -49,18 +37,6 @@ export const AngleDown = ({
         alt={alt} />
 );
 AngleDown.propTypes = propTypes;
-
-export const AngleDownCircle = ({
-    iconName = "usa-da-icon-angle-down-circle",
-    iconClass = "usa-da-icon-angle-down-circle",
-    alt = "Arrow Pointing Down Icon in Circle"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-AngleDownCircle.propTypes = propTypes;
 
 export const AngleLeft = ({
     iconName = "usa-da-icon-angle-left",
@@ -74,18 +50,6 @@ export const AngleLeft = ({
 );
 AngleLeft.propTypes = propTypes;
 
-export const AngleLeftCircle = ({
-    iconName = "usa-da-icon-angle-left-circle",
-    iconClass = "usa-da-icon-angle-left-circle",
-    alt = "Arrow Pointing Left Icon in a Circle"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-AngleLeftCircle.propTypes = propTypes;
-
 export const AngleRight = ({
     iconName = "usa-da-icon-angle-right",
     iconClass = "usa-da-icon-angle-right",
@@ -98,18 +62,6 @@ export const AngleRight = ({
 );
 AngleRight.propTypes = propTypes;
 
-export const AngleRightCircle = ({
-    iconName = "usa-da-icon-angle-right-circle",
-    iconClass = "usa-da-icon-angle-right-circle",
-    alt = "Arrow Pointing Right Icon in a Circle"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-AngleRightCircle.propTypes = propTypes;
-
 export const AngleUp = ({
     iconName = "usa-da-icon-angle-up",
     iconClass = "usa-da-icon-angle-up",
@@ -121,18 +73,6 @@ export const AngleUp = ({
         alt={alt} />
 );
 AngleUp.propTypes = propTypes;
-
-export const AngleUpCircle = ({
-    iconName = "usa-da-icon-angle-up-circle",
-    iconClass = "usa-da-icon-angle-up-circle",
-    alt = "Arrow Pointing Up Icon in a Circle"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-AngleUpCircle.propTypes = propTypes;
 
 export const ArrowDown = ({
     iconName = "usa-da-icon-arrow-down",
@@ -158,18 +98,6 @@ export const ArrowUp = ({
 );
 ArrowUp.propTypes = propTypes;
 
-export const Award = ({
-    iconName = "usa-da-award",
-    iconClass = "usa-da-award",
-    alt = "Icon Depicting Paper Currency Representing Awards"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-Award.propTypes = propTypes;
-
 export const AwardLoop = ({
     iconName = "usa-da-award-history",
     iconClass = "usa-da-award-history",
@@ -181,6 +109,223 @@ export const AwardLoop = ({
         alt={alt} />
 );
 AwardLoop.propTypes = propTypes;
+
+export const Check = ({
+    iconName = "usa-da-icon-check",
+    iconClass = "usa-da-icon-check",
+    alt = "Checkmark Icon"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Check.propTypes = propTypes;
+
+export const CheckCircle = ({
+    iconName = "usa-da-icon-check-circle",
+    iconClass = "usa-da-icon-check-circle",
+    alt = "Checkmark or Successful Icon"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+CheckCircle.propTypes = propTypes;
+
+export const CircleArrowUp = ({
+    iconName = "usa-da-circle-arrow-up",
+    iconClass = "usa-da-circle-arrow-up",
+    alt = "Icon Depicting an Arrow in a Circle Pointing Up"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+CircleArrowUp.propTypes = propTypes;
+
+export const Close = ({
+    iconName = 'usa-da-icon-close',
+    iconClass = 'usa-da-icon-close',
+    alt = 'Icon Depicting an X'
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Close.propTypes = propTypes;
+
+export const ExclamationCircle = ({
+    iconName = "usa-da-icon-exclamation-circle",
+    iconClass = "usa-da-icon-exclamation-circle",
+    alt = "Exclamation Mark Icon"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+ExclamationCircle.propTypes = propTypes;
+
+export const ExclamationTriangle = ({
+    iconName = "usa-da-icon-exclamation-triangle",
+    iconClass = "usa-da-icon-exclamation-triangle",
+    alt = "Exclamation Mark Icon"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+ExclamationTriangle.propTypes = propTypes;
+
+export const Filter = ({
+    iconName = "usa-da-icon-filter",
+    iconClass = "usa-da-icon-filter",
+    alt = "Icon Depicting a Filter"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Filter.propTypes = propTypes;
+
+export const Glossary = ({
+    iconName = "usa-da-icon-guide",
+    iconClass = "usa-da-icon-guide",
+    alt = "Icon Depicting a Glossary Book"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Glossary.propTypes = propTypes;
+
+export const Home = ({
+    iconName = "usa-da-home",
+    iconClass = "usa-da-home",
+    alt = "Icon Depicting a Building Representing Home"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Home.propTypes = propTypes;
+
+export const InfoCircle = ({
+    iconName = "usa-da-icon-info-circle",
+    iconClass = "usa-da-icon-info-circle",
+    alt = "Information"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+InfoCircle.propTypes = propTypes;
+
+export const Search = ({
+    iconName = 'usa-da-icon-search',
+    iconClass = 'usa-da-icon-search',
+    alt = 'Icon Depicting a Magnifying Glass'
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Search.propTypes = propTypes;
+
+export const SpeechBubble = ({
+    iconName = "usa-da-speech-bubble",
+    iconClass = "usa-da-speech-bubble",
+    alt = "Icon Depicting a Speech Bubble"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+SpeechBubble.propTypes = propTypes;
+
+// TODO: All the icons listed below are not currently being used in this project (6/24/2025)
+export const Agency = ({
+    iconName = "usa-da-agency",
+    iconClass = "usa-da-agency",
+    alt = "Icon Depicting a Building Representing an Agency"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Agency.propTypes = propTypes;
+
+export const AngleDownCircle = ({
+    iconName = "usa-da-icon-angle-down-circle",
+    iconClass = "usa-da-icon-angle-down-circle",
+    alt = "Arrow Pointing Down Icon in Circle"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+AngleDownCircle.propTypes = propTypes;
+
+export const AngleLeftCircle = ({
+    iconName = "usa-da-icon-angle-left-circle",
+    iconClass = "usa-da-icon-angle-left-circle",
+    alt = "Arrow Pointing Left Icon in a Circle"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+AngleLeftCircle.propTypes = propTypes;
+
+export const AngleRightCircle = ({
+    iconName = "usa-da-icon-angle-right-circle",
+    iconClass = "usa-da-icon-angle-right-circle",
+    alt = "Arrow Pointing Right Icon in a Circle"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+AngleRightCircle.propTypes = propTypes;
+
+export const AngleUpCircle = ({
+    iconName = "usa-da-icon-angle-up-circle",
+    iconClass = "usa-da-icon-angle-up-circle",
+    alt = "Arrow Pointing Up Icon in a Circle"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+AngleUpCircle.propTypes = propTypes;
+
+export const Award = ({
+    iconName = "usa-da-award",
+    iconClass = "usa-da-award",
+    alt = "Icon Depicting Paper Currency Representing Awards"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Award.propTypes = propTypes;
 
 export const Bar = ({
     iconName = "usa-da-icon-bar",
@@ -242,30 +387,6 @@ export const CaretRight = ({
 );
 CaretRight.propTypes = propTypes;
 
-export const Check = ({
-    iconName = "usa-da-icon-check",
-    iconClass = "usa-da-icon-check",
-    alt = "Checkmark Icon"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-Check.propTypes = propTypes;
-
-export const CheckCircle = ({
-    iconName = "usa-da-icon-check-circle",
-    iconClass = "usa-da-icon-check-circle",
-    alt = "Checkmark or Successful Icon"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-CheckCircle.propTypes = propTypes;
-
 export const CircleArrowLeft = ({
     iconName = "usa-da-circle-arrow-left",
     iconClass = "usa-da-circle-arrow-left",
@@ -277,30 +398,6 @@ export const CircleArrowLeft = ({
         alt={alt} />
 );
 CircleArrowLeft.propTypes = propTypes;
-
-export const CircleArrowUp = ({
-    iconName = "usa-da-circle-arrow-up",
-    iconClass = "usa-da-circle-arrow-up",
-    alt = "Icon Depicting an Arrow in a Circle Pointing Up"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-CircleArrowUp.propTypes = propTypes;
-
-export const Close = ({
-    iconName = 'usa-da-icon-close',
-    iconClass = 'usa-da-icon-close',
-    alt = 'Icon Depicting an X'
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-Close.propTypes = propTypes;
 
 export const CloseCircle = ({
     iconName = "usa-da-icon-close-circle",
@@ -362,30 +459,6 @@ export const Envelope = ({
 );
 Envelope.propTypes = propTypes;
 
-export const ExclamationCircle = ({
-    iconName = "usa-da-icon-exclamation-circle",
-    iconClass = "usa-da-icon-exclamation-circle",
-    alt = "Exclamation Mark Icon"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-ExclamationCircle.propTypes = propTypes;
-
-export const ExclamationTriangle = ({
-    iconName = "usa-da-icon-exclamation-triangle",
-    iconClass = "usa-da-icon-exclamation-triangle",
-    alt = "Exclamation Mark Icon"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-ExclamationTriangle.propTypes = propTypes;
-
 export const FederalAccount = ({
     iconName = "usa-da-federal-account",
     iconClass = "usa-da-federal-account",
@@ -409,18 +482,6 @@ export const File = ({
         alt={alt} />
 );
 File.propTypes = propTypes;
-
-export const Filter = ({
-    iconName = "usa-da-icon-filter",
-    iconClass = "usa-da-icon-filter",
-    alt = "Icon Depicting a Filter"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-Filter.propTypes = propTypes;
 
 export const FlagLogo = ({
     iconName = "usa-da-flag-logo",
@@ -446,18 +507,6 @@ export const Globe = ({
 );
 Globe.propTypes = propTypes;
 
-export const Glossary = ({
-    iconName = "usa-da-icon-guide",
-    iconClass = "usa-da-icon-guide",
-    alt = "Icon Depicting a Glossary Book"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-Glossary.propTypes = propTypes;
-
 export const HandDrawnArrow = ({
     iconName = "usa-da-hand-drawn-arrow",
     iconClass = "usa-da-hand-drawn-arrow",
@@ -470,18 +519,6 @@ export const HandDrawnArrow = ({
 );
 HandDrawnArrow.propTypes = propTypes;
 
-export const Home = ({
-    iconName = "usa-da-home",
-    iconClass = "usa-da-home",
-    alt = "Icon Depicting a Building Representing Home"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-Home.propTypes = propTypes;
-
 export const Info = ({
     iconName = "usa-da-icon-info",
     iconClass = "usa-da-icon-info",
@@ -493,18 +530,6 @@ export const Info = ({
         alt={alt} />
 );
 Info.propTypes = propTypes;
-
-export const InfoCircle = ({
-    iconName = "usa-da-icon-info-circle",
-    iconClass = "usa-da-icon-info-circle",
-    alt = "Information"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-InfoCircle.propTypes = propTypes;
 
 export const Line = ({
     iconName = "usa-da-icon-line",
@@ -638,18 +663,6 @@ export const Refresh = ({
 );
 Refresh.propTypes = propTypes;
 
-export const Search = ({
-    iconName = 'usa-da-icon-search',
-    iconClass = 'usa-da-icon-search',
-    alt = 'Icon Depicting a Magnifying Glass'
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-Search.propTypes = propTypes;
-
 export const Sort = ({
     iconName = "usa-da-icon-sort",
     iconClass = "usa-da-icon-sort",
@@ -661,18 +674,6 @@ export const Sort = ({
         alt={alt} />
 );
 Sort.propTypes = propTypes;
-
-export const SpeechBubble = ({
-    iconName = "usa-da-speech-bubble",
-    iconClass = "usa-da-speech-bubble",
-    alt = "Icon Depicting a Speech Bubble"
-}) => (
-    <BaseIcon
-        iconName={iconName}
-        iconClass={iconClass}
-        alt={alt} />
-);
-SpeechBubble.propTypes = propTypes;
 
 export const Table = ({
     iconName = "usa-da-icon-table",
