@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState } from 'react';
 // import PropTypes, { shape, oneOf, oneOfType } from 'prop-types';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { isCancel } from 'axios';
@@ -12,7 +12,9 @@ import {
     getCoreRowModel,
     getPaginationRowModel,
     getFilteredRowModel,
-    flexRender
+    flexRender,
+    getSortedRowModel,
+    useExpanded
 } from '@tanstack/react-table';
 import { uniqueId } from 'lodash';
 import { performKeywordSearch } from "../../../helpers/keywordHelper";
@@ -21,18 +23,27 @@ import ReadMore from '../ReadMore';
 import { mockRows } from './mockData';
 
 const TanStackTable = (props) => {
-    const [data, setData] = useState(mockRows);
+    const data = mockRows;
+    // const [data, setData] = useState(mockRows);
     const [subData, setSubData] = useState([]);
     const [isSubLoading, setIsSubLoading] = useState(false);
     const [expanded, setExpanded] = useState({});
     const [inFlight, setInFlight] = useState(false);
     const [error, setError] = useState(false);
-    const [showSubRow, setShowSubRow] = useState(null);
     const columnHelper = createColumnHelper();
 
     let searchRequest = null;
 
-    const getSubTable = useCallback((awardId, rowId) => {
+    const getSubTable = (awardId, rowId) => {
+        if (Object.hasOwn(expanded, rowId)) {
+            // assume row is expanded and needs unexpanded
+            const newExpanded = { ...expanded };
+            delete newExpanded[rowId];
+
+            setExpanded(newExpanded);
+            return null;
+        }
+
         // get subRow Data
         setIsSubLoading(true);
         if (searchRequest) {
@@ -145,7 +156,11 @@ const TanStackTable = (props) => {
                 setSubData(newState.results);
 
                 // props.setAppliedFilterCompletion(true);
-                setShowSubRow(rowId);
+                // setShowSubRow(rowId);
+                setExpanded((prevState) => ({
+                    ...prevState,
+                    [rowId]: true
+                }));
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -155,7 +170,7 @@ const TanStackTable = (props) => {
                     console.log(err);
                 }
             });
-    });
+    };
 
     const pickLocationFormat = (location) => {
         if (location?.address_line1 && location?.city_name && location?.state_code && location?.zip5) {
@@ -227,7 +242,7 @@ const TanStackTable = (props) => {
                             role="link"
                             className={`usa-button-link ${col.className ? col.className : ''}`} >
                             <FontAwesomeIcon
-                                icon={`${expanded ? "chevron-down" : "chevron-right"}`} />
+                                icon={`${expanded[row.id] ? "chevron-down" : "chevron-right"}`} />
                             {' '}
                             {getValue()}
                         </button>
@@ -259,36 +274,7 @@ const TanStackTable = (props) => {
                     cell: (info) => info.getValue()
                 });
         }
-    }), []);
-
-    // const columns = useMemo(() => [
-    //     columnHelper.accessor('award_id', {
-    //         header: 'Prime Award ID',
-    //         id: uniqueId(),
-    //         cell: ({ row, getValue }) => (
-    //             <button
-    //                 onClick={() => getSubTable(getValue(), row.id)}
-    //                 onKeyDown={() => getSubTable(getValue(), row.id)}
-    //                 role="link"
-    //                 className="usa-button-link" >
-    //                 <FontAwesomeIcon
-    //                     icon={`${expanded ? "chevron-down" : "chevron-right"}`} />
-    //                 {' '}
-    //                 {getValue()}
-    //             </button>
-    //         )
-    //     }),
-    //     columnHelper.accessor('subaward_count', {
-    //         header: 'Count of Subwards that Match Search Criteria',
-    //         id: uniqueId(),
-    //         cell: (info) => info.getValue()
-    //     }),
-    //     columnHelper.accessor('subaward_obligation', {
-    //         header: 'Obligations that Match Search Criteria',
-    //         id: uniqueId(),
-    //         cell: (info) => MoneyFormatter.formatMoneyWithPrecision(info.getValue(), 2, "--")
-    //     })
-    // ], []);
+    }), [data, expanded]);
 
     const subColumns = useMemo(() => {
         if (props.isTransactions) {
@@ -447,14 +433,19 @@ const TanStackTable = (props) => {
                 cell: (info) => convertToTitleCase(info.getValue())
             })
         ];
-    }, [columnHelper, props]);
+    }, [subData, expanded]);
 
     const table = useReactTable({
         data,
         columns,
+        state: {
+            expanded
+        },
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        getFilteredRowModel: getFilteredRowModel()
+        getFilteredRowModel: getFilteredRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        useExpanded
     });
 
     const subTable = useReactTable({
@@ -485,45 +476,54 @@ const TanStackTable = (props) => {
             </thead>
             <tbody className="usda-table__body">
                 {table.getRowModel().rows.map((row) => (
-                    <tr key={row.id}>
-                        {row.getVisibleCells().map((cell) => (
-                            <td key={cell.id}>
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </td>
-                        ))}
+                    <React.Fragment key={uniqueId()}>
+                        <tr key={row.id}>
+                            {row.getVisibleCells().map((cell) => (
+                                <td key={cell.id}>
+                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                </td>
+                            ))}
+                        </tr>
 
-                        {(showSubRow && showSubRow === row.id) &&
-                            <table className="usda-table table-for-new-search-page expandable-table">
-                                <thead>
-                                    {subTable.getHeaderGroups().map((headerGroup) => (
-                                        <tr key={headerGroup.id} className="usda-table__row">
-                                            {headerGroup.headers.map((header) => (
-                                                <th key={header.id}>
-                                                    {header.isPlaceholder
-                                                        ? null
-                                                        : flexRender(
-                                                            header.column.columnDef.header,
-                                                            header.getContext()
-                                                        )}
-                                                </th>
+                        {row.getIsExpanded() && (
+                            <tr>
+                                <td colSpan={row.getAllCells().length}>
+                                    <table className="usda-table table-for-new-search-page expandable-table">
+                                        <thead>
+                                            {subTable.getHeaderGroups().map((subHeaderGroup) => (
+                                                <tr key={subHeaderGroup.id} className="usda-table__row">
+                                                    {subHeaderGroup.headers.map((subHeader) => (
+                                                        <th key={subHeader.id}>
+                                                            {subHeader.isPlaceholder
+                                                                ? null
+                                                                : flexRender(
+                                                                    subHeader.column.columnDef.header,
+                                                                    subHeader.getContext()
+                                                                )}
+                                                        </th>
+                                                    ))}
+                                                </tr>
                                             ))}
-                                        </tr>
-                                    ))}
-                                </thead>
-                                <tbody className="usda-table__body">
-                                    {subTable.getRowModel().rows.map((r) => (
-                                        <tr key={r.id}>
-                                            {r.getVisibleCells().map((cell) => (
-                                                <td key={cell.id}>
-                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                </td>
+                                        </thead>
+                                        <tbody className="usda-table__body">
+                                            {subTable.getRowModel().rows.map((r) => (
+                                                <tr key={r.id}>
+                                                    {r.getVisibleCells().map((subCell) => (
+                                                        <td key={subCell.id}>
+                                                            {flexRender(
+                                                                subCell.column.columnDef.cell,
+                                                                subCell.getContext()
+                                                            )}
+                                                        </td>
+                                                    ))}
+                                                </tr>
                                             ))}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        }
-                    </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        )}
+                    </React.Fragment>
                 ))}
             </tbody>
         </table>
