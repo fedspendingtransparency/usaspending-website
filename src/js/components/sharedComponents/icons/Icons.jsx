@@ -26,6 +26,18 @@ export const AddFilter = ({
 );
 AddFilter.propTypes = propTypes;
 
+export const Agency = ({
+    iconName = "usa-da-agency",
+    iconClass = "usa-da-agency",
+    alt = "Icon Depicting a Building Representing an Agency"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Agency.propTypes = propTypes;
+
 export const AngleDown = ({
     iconName = "usa-da-icon-angle-down",
     iconClass = "usa-da-icon-angle-down",
@@ -98,6 +110,18 @@ export const ArrowUp = ({
 );
 ArrowUp.propTypes = propTypes;
 
+export const Award = ({
+    iconName = "usa-da-award",
+    iconClass = "usa-da-award",
+    alt = "Icon Depicting Paper Currency Representing Awards"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Award.propTypes = propTypes;
+
 export const AwardLoop = ({
     iconName = "usa-da-award-history",
     iconClass = "usa-da-award-history",
@@ -109,6 +133,18 @@ export const AwardLoop = ({
         alt={alt} />
 );
 AwardLoop.propTypes = propTypes;
+
+export const BudgetFunction = ({
+    iconName = "usa-da-budget-function",
+    iconClass = "usa-da-budget-function",
+    alt = "Icon Depicting a List Representing Budget Function"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+BudgetFunction.propTypes = propTypes;
 
 export const Check = ({
     iconName = "usa-da-icon-check",
@@ -182,6 +218,18 @@ export const ExclamationTriangle = ({
 );
 ExclamationTriangle.propTypes = propTypes;
 
+export const FederalAccount = ({
+    iconName = "usa-da-federal-account",
+    iconClass = "usa-da-federal-account",
+    alt = "Icon Depicting a Credit Card Representing a Federal Account"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+FederalAccount.propTypes = propTypes;
+
 export const Filter = ({
     iconName = "usa-da-icon-filter",
     iconClass = "usa-da-icon-filter",
@@ -229,6 +277,42 @@ export const InfoCircle = ({
         alt={alt} />
 );
 InfoCircle.propTypes = propTypes;
+
+export const ObjectClass = ({
+    iconName = "usa-da-object-class",
+    iconClass = "usa-da-object-class",
+    alt = "Icon Depicting Shapes Representing Object Class"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+ObjectClass.propTypes = propTypes;
+
+export const ProgramActivity = ({
+    iconName = "usa-da-program-activity",
+    iconClass = "usa-da-program-activity",
+    alt = "Icon Depicting Shapes Representing a Program Activity"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+ProgramActivity.propTypes = propTypes;
+
+export const Recipient = ({
+    iconName = "usa-da-recipient",
+    iconClass = "usa-da-recipient",
+    alt = "Icon Depicting a Person Representing Recipients"
+}) => (
+    <BaseIcon
+        iconName={iconName}
+        iconClass={iconClass}
+        alt={alt} />
+);
+Recipient.propTypes = propTypes;
 
 export const Search = ({
     iconName = 'usa-da-icon-search',
