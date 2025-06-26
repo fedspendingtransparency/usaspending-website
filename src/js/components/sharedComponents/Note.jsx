@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 07/09/19
  **/
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -12,19 +12,15 @@ const propTypes = {
     message: oneOfType([PropTypes.string, PropTypes.element])
 };
 
-export default class Note extends Component {
-    render() {
-        const { title, message } = this.props;
-        return (
-            <p className="default-note">
-                <strong>{title || 'NOTE:'}</strong>&nbsp;
-                {message}
-            </p>
-        );
-    }
-}
+const Note = ({ title, message }) => (
+    <p className="default-note">
+        <strong>{title || 'NOTE:'}</strong>&nbsp;
+        {message}
+    </p>
+);
 
 Note.propTypes = propTypes;
+export default Note;
 
 export const dodNote = (
     <>
