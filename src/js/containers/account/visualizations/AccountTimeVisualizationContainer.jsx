@@ -367,7 +367,6 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
 
         Promise.all(promises)
             .then((res) => {
-                console.log(res);
                 parseBalances(res);
 
                 setLoading(false);
