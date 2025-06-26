@@ -210,7 +210,7 @@ export default class StateOverview extends React.PureComponent {
                                     <div className="state-overview__heading-right-side">
                                         <RoundedToggle toggle={this.state.toggle} onKeyToggle={this.onKeyToggle} onToggle={this.onToggle} label="View Outlays" />
                                         <div className="state-overview__line-div" />
-                                        <Accordion setOpen={this.setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+                                        <Accordion setOpen={this.setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="About Outlays" />
                                     </div>
                                 </div>
                                 {this.state.open &&
@@ -223,9 +223,11 @@ export default class StateOverview extends React.PureComponent {
                                         </p>
                                         <p className="state-overview__what-text">
                                             The chart below can be filtered to view outlayed amounts for each award type.
-                                            Please note that outlay amounts displayed below may have been paying off
-                                            obligations that occurred in a prior year, which is why obligations and outlays
-                                            from a single year are not comparable.
+                                            Outlay amounts displayed below may have been paying off obligations that
+                                            occurred in a prior year, which is why obligations and outlays from a single year
+                                            are not comparable.
+                                            The award types above add up to more than 100% due to negative values not
+                                            shown here.
                                         </p>
                                     </div>}
                             </div>
