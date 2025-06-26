@@ -95,9 +95,8 @@ export default class AccountRankVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            View a list of the top Program Activities from highest to lowest. Filter
-                            your results more (at left) and watch this graph update automatically.
-                             View your results in a bar graph or a tree map.
+                            View a list of the top categories from highest to lowest. Filter your results more (at
+                            left) and watch this graph update automatically.
                         </div>
                     </div>
                     <div className="visualization-period">

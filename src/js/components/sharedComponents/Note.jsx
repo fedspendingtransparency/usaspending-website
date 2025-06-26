@@ -28,7 +28,7 @@ Note.propTypes = propTypes;
 
 export const dodNote = (
     <>
-        There is a 90 day delay in displaying contract award data, subcontract data,
+        There is a 90-day delay in displaying contract award data, subcontract data,
         and Account Breakdown by Award (File C) data for the Department of Defense (DOD).
         For more information, visit our <Link to="/about?section=data-quality">About Page</Link>.
     </>
