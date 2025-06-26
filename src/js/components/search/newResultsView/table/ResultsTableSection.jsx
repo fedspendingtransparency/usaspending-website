@@ -75,7 +75,6 @@ const ResultsTableSection = (props) => {
                         awardIdClick={props.awardIdClick}
                         subAwardIdClick={props.subAwardIdClick}
                         isMobile={isMobile}
-                        federalAccountPage
                         newMobileView />
                 )
                     :
