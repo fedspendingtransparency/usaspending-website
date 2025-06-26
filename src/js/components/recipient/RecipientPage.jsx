@@ -164,21 +164,19 @@ export const RecipientPage = ({
             activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav>
-            <>
-                <main id="main-content" className="main-content">
-                    <LoadingWrapper isLoading={loading}>
-                        {content}
-                        <ChildRecipientModalContainer
-                            mounted={isChildModalVisible}
-                            hideModal={hideChildRecipientModal}
-                            recipient={recipient} />
-                        <AlternateNamesRecipientModalContainer
-                            mounted={isAlternateModalVisible}
-                            hideModal={hideAlternateModal}
-                            recipient={recipient} />
-                    </LoadingWrapper>
-                </main>
-            </>
+            <main id="main-content" className="main-content">
+                <LoadingWrapper isLoading={loading}>
+                    {content}
+                    <ChildRecipientModalContainer
+                        mounted={isChildModalVisible}
+                        hideModal={hideChildRecipientModal}
+                        recipient={recipient} />
+                    <AlternateNamesRecipientModalContainer
+                        mounted={isAlternateModalVisible}
+                        hideModal={hideAlternateModal}
+                        recipient={recipient} />
+                </LoadingWrapper>
+            </main>
         </PageWrapper>
     );
 };
