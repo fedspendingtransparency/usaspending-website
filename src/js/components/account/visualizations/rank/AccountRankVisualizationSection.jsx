@@ -16,30 +16,27 @@ import RankVisualizationScopeButton from
 const propTypes = {
     labelSeries: PropTypes.array,
     dataSeries: PropTypes.array,
-    linkSeries: PropTypes.array,
     descriptions: PropTypes.array,
     categoryScope: PropTypes.string,
-    changeScope: PropTypes.func,
-    nextPage: PropTypes.func,
-    previousPage: PropTypes.func,
     hasNextPage: PropTypes.bool,
     hasPreviousPage: PropTypes.bool,
-    page: PropTypes.number,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    changeScope: PropTypes.func,
+    nextPage: PropTypes.func,
+    previousPage: PropTypes.func
 };
 
 const AccountRankVisualizationSection = ({
     labelSeries,
     dataSeries,
-    linkSeries,
     descriptions,
     categoryScope,
-    changeScope,
-    nextPage,
-    previousPage,
     hasNextPage,
     hasPreviousPage,
-    loading
+    loading,
+    changeScope,
+    nextPage,
+    previousPage
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [visualizationWidth, setVisualizationWidth] = useState(0);
@@ -128,7 +125,6 @@ const AccountRankVisualizationSection = ({
             <RankVisualization
                 labelSeries={labelSeries}
                 dataSeries={dataSeries}
-                linkSeries={linkSeries}
                 descriptions={descriptions}
                 loading={loading}
                 width={visualizationWidth}
