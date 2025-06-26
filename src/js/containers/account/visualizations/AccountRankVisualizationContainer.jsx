@@ -25,6 +25,7 @@ const propTypes = {
 
 const AccountRankVisualizationContainer = ({ reduxFilters, account }) => {
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
     const [labelSeries, setLabelSeries] = useState([]);
     const [dataSeries, setDataSeries] = useState([]);
     const [descriptions, setDescriptions] = useState([]);
@@ -93,6 +94,8 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
             apiRequest.current.cancel();
         }
 
+        setLoading(true);
+
         const searchOperation = new AccountSearchOperation(account.id);
         searchOperation.fromState(reduxFilters);
 
@@ -111,12 +114,14 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
             .then((res) => {
                 apiRequest.current = null;
 
+                setError(false);
                 setLoading(false);
 
                 parseData(res.data);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
+                    setError(true);
                     setLoading(false);
                     apiRequest.current = null;
                 }
@@ -141,6 +146,7 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
             hasNextPage={hasNextPage}
             hasPreviousPage={hasPreviousPage}
             loading={loading}
+            error={error}
             changeScope={changeScope}
             nextPage={nextPage}
             previousPage={previousPage} />

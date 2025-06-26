@@ -21,6 +21,7 @@ const propTypes = {
     hasNextPage: PropTypes.bool,
     hasPreviousPage: PropTypes.bool,
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     changeScope: PropTypes.func,
     nextPage: PropTypes.func,
     previousPage: PropTypes.func
@@ -34,6 +35,7 @@ const AccountRankVisualizationSection = ({
     hasNextPage,
     hasPreviousPage,
     loading,
+    error,
     changeScope,
     nextPage,
     previousPage
@@ -127,6 +129,7 @@ const AccountRankVisualizationSection = ({
                 dataSeries={dataSeries}
                 descriptions={descriptions}
                 loading={loading}
+                error={error}
                 width={visualizationWidth}
                 labelWidth={labelWidth} />
 
