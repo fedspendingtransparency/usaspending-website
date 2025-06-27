@@ -15,6 +15,7 @@ import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
 import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
+import MobileSort from '../mobile/MobileSort';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -29,6 +30,7 @@ const propTypes = {
     rows: PropTypes.array,
     sortBy: PropTypes.func,
     sortDirection: PropTypes.string,
+    setsortDirection: PropTypes.func,
     activeField: PropTypes.string,
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     section: PropTypes.string,
@@ -65,7 +67,8 @@ const SearchSectionWrapper = ({
     hash,
     spendingLevel,
     onToggle,
-    showToggle
+    showToggle,
+    setsortDirection
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [trackDSMEvent, setTrackDSMEvent] = useState(false);
@@ -85,6 +88,7 @@ const SearchSectionWrapper = ({
     params?.shift();
     const sectionValue = params?.length > 0 ? params[0]?.substring(8) : null;
     const sortFn = () => dropdownOptions;
+    const mobileDropdownOptions = [];
 
     const changeView = (label) => {
         setViewType(label);
@@ -225,6 +229,8 @@ const SearchSectionWrapper = ({
             sortDirection={sortDirection}
             manualSort />);
     };
+    console.debug("sectionname: ", sectionName);
+    console.debug("dropdown options: ", dropdownOptions, columns);
 
     return (
         <div className="search__section-wrapper">
@@ -266,6 +272,8 @@ const SearchSectionWrapper = ({
                             <Message />
                             :
                             <>
+                                {viewType === "table" || sectionName === "table" ?
+                                    <MobileSort columns={columns} options={mobileDropdownOptions} sortDirection={sortDirection} setsortDirection={setsortDirection} /> : null}
                                 {downloadComponent}
                                 {viewType === "table" ?
                                     <Content />

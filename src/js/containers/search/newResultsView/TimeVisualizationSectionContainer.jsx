@@ -331,16 +331,18 @@ const TimeVisualizationSectionContainer = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.visualizationPeriod]);
-
+    console.debug("section container wrapper: ", props.wrapperProps, parsedData, columns, sortDirection, activeField);
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
+            {...parsedData}
             data={parsedData}
             sortBy={sortBy}
             sortDirection={sortDirection}
+            setSortDirection={setSortDirection}
             activeField={activeField}
-            columns={columns[visualizationPeriod]}
             rows={tableRows}
+            columns={columns[visualizationPeriod]}
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}

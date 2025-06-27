@@ -252,7 +252,15 @@
       .usda-table.search-results {
         margin-bottom: rem(16);
       }
-
+      .mobile__sort {
+        margin-bottom: rem(16);
+        .mobile-sort__picker {
+          height: rem(32);
+          .filter__dropdown-button-sm {
+            margin: 0;
+          }
+        }
+      }
       .download {
         display: flex;
         justify-content: end;
