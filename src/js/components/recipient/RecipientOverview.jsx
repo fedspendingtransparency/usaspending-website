@@ -221,7 +221,11 @@ const RecipientOverview = (props) => {
                             <tbody>
                                 <tr>
                                     <th className="recipient-section__details-table-first-th">Recipient Identifier</th>
-                                    <td className="recipient-section__details-table-first-td">{idList(recipient.duns, recipient.uei).map((i) => <>{i}<br /></>)}</td>
+                                    <td className="recipient-section__details-table-first-td">
+                                        {
+                                            idList(recipient.duns, recipient.uei).map((i) => i)
+                                        }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Address</th>

@@ -3,6 +3,10 @@
     margin: rem(35) 0;
     @import "./_trailAnimations";
 
+    li.trail-item {
+        margin: 0;
+    }
+
     button.item {
         @include button-unstyled;
         @include display(flex);
@@ -59,7 +63,7 @@
             @include flex(1 1 auto);
             margin-right: rem(50);
             line-height: $heading-line-height;
-            
+
             .type {
                 color: $color-primary-alt-light;
                 font-size: $font-size-14;

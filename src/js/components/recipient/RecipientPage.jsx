@@ -155,30 +155,30 @@ export const RecipientPage = ({
                     backgroundColor={backgroundColor}
                     selectedFy={recipient?.fy}
                     handleFyChange={pickedFy}
-                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())}
+                    key="page-wrapper__fiscal-year-picker" />,
                 <ShareIcon
                     onShareOptionClick={handleShare}
-                    url={getBaseUrl(slug)} />
+                    url={getBaseUrl(slug)}
+                    key="page-wrapper__share-icon" />
             ]}
             sections={recipientSections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav>
-            <>
-                <main id="main-content" className="main-content">
-                    <LoadingWrapper isLoading={loading}>
-                        {content}
-                        <ChildRecipientModalContainer
-                            mounted={isChildModalVisible}
-                            hideModal={hideChildRecipientModal}
-                            recipient={recipient} />
-                        <AlternateNamesRecipientModalContainer
-                            mounted={isAlternateModalVisible}
-                            hideModal={hideAlternateModal}
-                            recipient={recipient} />
-                    </LoadingWrapper>
-                </main>
-            </>
+            <main id="main-content" className="main-content">
+                <LoadingWrapper isLoading={loading}>
+                    {content}
+                    <ChildRecipientModalContainer
+                        mounted={isChildModalVisible}
+                        hideModal={hideChildRecipientModal}
+                        recipient={recipient} />
+                    <AlternateNamesRecipientModalContainer
+                        mounted={isAlternateModalVisible}
+                        hideModal={hideAlternateModal}
+                        recipient={recipient} />
+                </LoadingWrapper>
+            </main>
         </PageWrapper>
     );
 };
