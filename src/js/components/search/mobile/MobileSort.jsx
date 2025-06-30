@@ -30,7 +30,7 @@ const MobileSort = (props) => {
                 label="Sort by:"
                 enabled
                 classname="mobile-sort__picker" />
-            <MobileSortDirectionToggle sortDirection={props.sortDirection} />
+            <MobileSortDirectionToggle sortDirection={props.sortDirection} setSortDirection={props.setSortDirection} />
         </div>
     );
 };

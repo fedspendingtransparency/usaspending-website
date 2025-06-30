@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ViewTypeButton from '../../sharedComponents/buttons/ViewTypeButton';
 
 const propTypes = {
@@ -8,21 +7,16 @@ const propTypes = {
 };
 
 const MobileSortDirectionToggle = ({
-    onToggle,
-    sortDirection
+    sortDirection,
+    setSortDirection
 }) => {
-    const onToggleClick = () => {
-        if (onToggle) {
-            onToggle();
-        }
-    };
     console.debug("sort direction: ", sortDirection);
     return (
         <div className="mobile-sort-direction-toggle mobile-sort-toggle" >
             <ViewTypeButton
                 value="desc"
                 label="descending order"
-                changeView={onToggleClick}
+                changeView={setSortDirection}
                 active={sortDirection === 'desc'}
                 icon="long-arrow-alt-down">
             </ViewTypeButton>
@@ -30,7 +24,7 @@ const MobileSortDirectionToggle = ({
                 value="asc"
                 label="ascending order"
                 active={sortDirection === 'asc'}
-                changeView={onToggleClick}
+                changeView={setSortDirection}
                 icon="long-arrow-alt-up">
             </ViewTypeButton>
         </div>

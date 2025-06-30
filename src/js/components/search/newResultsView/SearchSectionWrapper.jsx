@@ -30,7 +30,7 @@ const propTypes = {
     rows: PropTypes.array,
     sortBy: PropTypes.func,
     sortDirection: PropTypes.string,
-    setsortDirection: PropTypes.func,
+    setSortDirection: PropTypes.func,
     activeField: PropTypes.string,
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     section: PropTypes.string,
@@ -68,7 +68,7 @@ const SearchSectionWrapper = ({
     spendingLevel,
     onToggle,
     showToggle,
-    setsortDirection
+    setSortDirection
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [trackDSMEvent, setTrackDSMEvent] = useState(false);
@@ -273,7 +273,7 @@ const SearchSectionWrapper = ({
                             :
                             <>
                                 {viewType === "table" || sectionName === "table" ?
-                                    <MobileSort columns={columns} options={mobileDropdownOptions} sortDirection={sortDirection} setsortDirection={setsortDirection} /> : null}
+                                    <MobileSort columns={columns} options={mobileDropdownOptions} sortDirection={sortDirection} setSortDirection={setSortDirection} /> : null}
                                 {downloadComponent}
                                 {viewType === "table" ?
                                     <Content />
