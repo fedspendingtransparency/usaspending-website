@@ -8,13 +8,18 @@ const propTypes = {
 
 const MobileSortDirectionToggle = ({
     sortDirection,
-    setSortDirection
+    setSortDirection,
+    activeField,
+    sortBy
 }) => (
     <div className="mobile-sort-direction-toggle mobile-sort-toggle" >
         <ViewTypeButton
             value="desc"
             label="descending order"
-            changeView={setSortDirection}
+            changeView={(e) => {
+                sortBy(activeField, e);
+                setSortDirection(e);
+            }}
             active={sortDirection === 'desc'}
             icon="long-arrow-alt-down">
         </ViewTypeButton>
@@ -22,7 +27,10 @@ const MobileSortDirectionToggle = ({
             value="asc"
             label="ascending order"
             active={sortDirection === 'asc'}
-            changeView={setSortDirection}
+            changeView={(e) => {
+                sortBy(activeField, e);
+                setSortDirection(e);
+            }}
             icon="long-arrow-alt-up">
         </ViewTypeButton>
     </div>

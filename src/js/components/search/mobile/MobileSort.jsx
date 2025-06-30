@@ -12,6 +12,7 @@ const MobileSort = (props) => {
     const mobileDropdownOptions = [];
     const onClick = (e) => {
         props.setActiveField(e);
+        props.sortBy(e, props.sortDirection);
     };
     if (props.columns) {
     // eslint-disable-next-line array-callback-return
@@ -37,7 +38,7 @@ const MobileSort = (props) => {
                 enabled
                 sortFn={() => mobileDropdownOptions}
                 classname="mobile-sort__picker" />
-            <MobileSortDirectionToggle sortDirection={props.sortDirection} setSortDirection={props.setSortDirection} />
+            <MobileSortDirectionToggle sortDirection={props.sortDirection} setSortDirection={props.setSortDirection} sortBy={props.sortBy} activeField={props.activeField} />
         </div>
     );
 };
