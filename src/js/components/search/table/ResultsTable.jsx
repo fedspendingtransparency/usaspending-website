@@ -627,7 +627,6 @@ export default class ResultsTable extends React.Component {
                     { showTanStackTable ? (
                         <TanStackTable
                             {...this.props}
-                            classNames="table-for-new-search-page award-results-table-dtui"
                             columns={cols}
                             data={this.props.expandableData}
                             currentSort={this.props.sort}

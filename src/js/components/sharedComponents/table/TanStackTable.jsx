@@ -8,8 +8,7 @@ import {
     getPaginationRowModel,
     getFilteredRowModel,
     flexRender,
-    getSortedRowModel,
-    useExpanded
+    getSortedRowModel
 } from '@tanstack/react-table';
 import { uniqueId } from 'lodash';
 import NestedTanStackTable from './NestedTanStackTable';
@@ -99,12 +98,11 @@ const TanStackTable = (props) => {
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        useExpanded
+        getSortedRowModel: getSortedRowModel()
     });
 
     return (
-        <table className="usda-table table-for-new-search-page expandable-table">
+        <table className="usda-table table-for-new-search-page expandable-table award-results-table-dtu">
             <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                     <tr key={headerGroup.id} className="usda-table__row">
