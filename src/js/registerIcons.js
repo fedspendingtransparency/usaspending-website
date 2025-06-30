@@ -185,8 +185,6 @@ export default function registerIcons() {
         faServer,
         faGraduationCap,
         faCodeBranch,
-        faArrowDown,
-        faArrowUp,
         faLongArrowAltUp,
         faLongArrowAltDown
     );
