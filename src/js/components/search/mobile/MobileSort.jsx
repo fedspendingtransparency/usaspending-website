@@ -3,7 +3,7 @@
  * Created by Nick Torres 6/26/2025
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import { NewPicker } from "data-transparency-ui";
 import MobileSortDirectionToggle from './MobileSortDirectionToggle';
@@ -11,8 +11,13 @@ import MobileSortDirectionToggle from './MobileSortDirectionToggle';
 const MobileSort = (props) => {
     const mobileDropdownOptions = [];
     const onClick = (e) => {
-        props.setActiveField(e);
-        props.sortBy(e, props.sortDirection);
+        if (props?.setActiveField && props?.sortBy) {
+            props.setActiveField(e);
+            props.sortBy(e, props.sortDirection);
+        }
+        else if (props?.sort && props?.setSort) {
+            props.setSort({ field: e, direction: props.sort.direction });
+        }
     };
     if (props.columns) {
     // eslint-disable-next-line array-callback-return
@@ -38,7 +43,11 @@ const MobileSort = (props) => {
                 enabled
                 sortFn={() => mobileDropdownOptions}
                 classname="mobile-sort__picker" />
-            <MobileSortDirectionToggle sortDirection={props.sortDirection} setSortDirection={props.setSortDirection} sortBy={props.sortBy} activeField={props.activeField} />
+            <MobileSortDirectionToggle
+                sortDirection={props.sortDirection}
+                setSortDirection={props.setSortDirection}
+                sortBy={props.sortBy}
+                activeField={props.activeField} />
         </div>
     );
 };

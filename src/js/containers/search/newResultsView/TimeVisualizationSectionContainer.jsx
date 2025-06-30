@@ -331,6 +331,7 @@ const TimeVisualizationSectionContainer = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.visualizationPeriod]);
+    console.debug(columns, columns[visualizationPeriod]);
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}

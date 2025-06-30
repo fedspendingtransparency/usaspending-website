@@ -10,15 +10,22 @@ const MobileSortDirectionToggle = ({
     sortDirection,
     setSortDirection,
     activeField,
-    sortBy
+    sortBy,
+    sort,
+    setSort
 }) => (
     <div className="mobile-sort-direction-toggle mobile-sort-toggle" >
         <ViewTypeButton
             value="desc"
             label="descending order"
             changeView={(e) => {
-                sortBy(activeField, e);
-                setSortDirection(e);
+                if (sortBy && setSortDirection) {
+                    sortBy(activeField, e);
+                    setSortDirection(e);
+                }
+                else if (sort && setSort) {
+                    setSort({ field: sort.field, direction: e });
+                }
             }}
             active={sortDirection === 'desc'}
             icon="long-arrow-alt-down">

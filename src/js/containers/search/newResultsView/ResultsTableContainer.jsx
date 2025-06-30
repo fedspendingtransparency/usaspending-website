@@ -624,7 +624,6 @@ const ResultsTableContainer = (props) => {
     if (!columns[tableType]) {
         return null;
     }
-
     return (
         <SearchSectionWrapper
             isError={error}
@@ -632,9 +631,12 @@ const ResultsTableContainer = (props) => {
             noData={!inFlight && !error && results.length === 0}
             hash={props.hash}
             spendingLevel={spendingLevel}
+            sort={sort}
+            setSort={setSort}
             onToggle={toggleSpendingLevel}
             showToggle={showToggle}
-            {...props.wrapperProps}>
+            {...props.wrapperProps}
+            manualSort>
             <ResultsTableSection
                 error={error}
                 inFlight={inFlight}

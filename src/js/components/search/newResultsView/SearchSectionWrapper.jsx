@@ -10,13 +10,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage, NewPicker } from "data-transparency-ui";
-
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
 import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
 import MobileSort from '../mobile/MobileSort';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -32,6 +31,8 @@ const propTypes = {
     sortBy: PropTypes.func,
     sortDirection: PropTypes.string,
     setSortDirection: PropTypes.func,
+    sort: PropTypes.object,
+    setSort: PropTypes.func,
     activeField: PropTypes.string,
     setActiveField: PropTypes.func,
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
@@ -71,7 +72,9 @@ const SearchSectionWrapper = ({
     spendingLevel,
     onToggle,
     showToggle,
-    setSortDirection
+    setSortDirection,
+    sort,
+    setSort
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [trackDSMEvent, setTrackDSMEvent] = useState(false);
@@ -217,7 +220,7 @@ const SearchSectionWrapper = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     const Message = () => {
         if (isLoading) {
@@ -288,7 +291,17 @@ const SearchSectionWrapper = ({
                             :
                             <>
                                 {((viewType === "table" || sectionName === "table") && isMobile) ?
-                                    <MobileSort columns={columns} options={mobileDropdownOptions} sortDirection={sortDirection} setSortDirection={setSortDirection} activeField={activeField} setActiveField={setActiveField} sortBy={sortBy} /> : null}
+                                    <MobileSort
+                                        columns={columns}
+                                        options={mobileDropdownOptions}
+                                        sortDirection={sortDirection}
+                                        setSortDirection={setSortDirection}
+                                        activeField={activeField}
+                                        field={sort?.field}
+                                        setActiveField={setActiveField}
+                                        sortBy={sortBy}
+                                        sort={sort}
+                                        setSort={setSort} /> : null}
                                 {downloadComponent}
                                 {viewType === "table" ?
                                     <Content />
