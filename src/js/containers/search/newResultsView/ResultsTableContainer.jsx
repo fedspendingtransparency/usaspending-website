@@ -134,6 +134,8 @@ const ResultsTableContainer = (props) => {
     const { pathname } = useLocation();
     const isV2 = pathname === GlobalConstants.SEARCH_V2_PATH;
     const showToggle = isV2 && (props.spendingLevel !== "awards");
+    const [isMobile, setIsMobile] = useState(false);
+    const [columnType, setColumnType] = useState(null);
 
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
@@ -227,14 +229,13 @@ const ResultsTableContainer = (props) => {
             sortDirection = 'desc';
         }
 
-        const params = {
+        const loadExpandableData = (showToggle && spendingLevel === "awards" && !isMobile);
+        let params = {
             filters: searchParamsTemp.toParams(),
-            fields: requestFields,
             page: pageNumber,
             limit: resultLimit,
-            sort: searchOrder.field,
+            sort: "award_id",
             order: sortDirection,
-            subawards: isSubaward,
             auditTrail: 'Results Table - Spending by award search'
         };
 
@@ -243,31 +244,50 @@ const ResultsTableContainer = (props) => {
             return null;
         }
 
-        if (isTransactions) {
-            params.fields = [
-                "Award ID",
-                "Mod",
-                "Recipient Name",
-                "Transaction Amount",
-                "Action Date",
-                "Transaction Description",
-                "Action Type",
-                "Award Type",
-                "Recipient UEI",
-                "Recipient Location",
-                "Primary Place of Performance",
-                "Awarding Agency",
-                "awarding_agency_id",
-                "Awarding Sub Agency",
-                "NAICS",
-                "PSC",
-                "Assistance Listing"
-            ];
-
-            searchRequest = performKeywordSearch(params);
+        if (loadExpandableData) {
+            if (props.spendingLevel === 'transactions') {
+                setColumnType('transactions');
+                searchRequest = SearchHelper.performSpendingByTransactionsGrouped(params);
+            }
+            else {
+                setColumnType('subawards');
+                searchRequest = SearchHelper.performSpendingBySubawardGrouped(params);
+            }
         }
         else {
-            searchRequest = SearchHelper.performSpendingByAwardSearch(params);
+            params = {
+                ...params,
+                fields: requestFields,
+                subawards: isSubaward,
+                sort: searchOrder.field
+            };
+
+            if (isTransactions) {
+                params.fields = [
+                    "Award ID",
+                    "Mod",
+                    "Recipient Name",
+                    "Transaction Amount",
+                    "Action Date",
+                    "Transaction Description",
+                    "Action Type",
+                    "Award Type",
+                    "Recipient UEI",
+                    "Recipient Location",
+                    "Primary Place of Performance",
+                    "Awarding Agency",
+                    "awarding_agency_id",
+                    "Awarding Sub Agency",
+                    "NAICS",
+                    "PSC",
+                    "Assistance Listing"
+                ];
+
+                searchRequest = performKeywordSearch(params);
+            }
+            else {
+                searchRequest = SearchHelper.performSpendingByAwardSearch(params);
+            }
         }
 
         return searchRequest.promise
@@ -295,9 +315,14 @@ const ResultsTableContainer = (props) => {
                 newState.lastPage = !res.data.page_metadata.hasNext;
                 setInFlight(newState.inFlight);
                 setTableInstance(newState.tableInstance);
-                setResults(newState.results);
                 setPage(newState.page);
                 setLastPage(newState.lastPage);
+                if (loadExpandableData) {
+                    setExpandableData(newState.results);
+                }
+                else {
+                    setResults(newState.results);
+                }
 
                 props.setAppliedFilterCompletion(true);
             })
@@ -532,22 +557,6 @@ const ResultsTableContainer = (props) => {
         props.subAwardIdClicked(true);
     };
 
-    const toggleSpendingLevel = () => {
-        if (spendingLevel === "awards") {
-            // returgn back to original.
-            setSpendingLevel(props.spendingLevel);
-            setIsSubaward(props.spendingLevel === "subawards");
-            setIsTransactions(props.spendingLevel === "transactions");
-            return;
-        }
-
-        setSpendingLevel("awards");
-        setIsSubaward(false);
-        setIsTransactions(false);
-        // get expandable data
-        setExpandableData([]);
-    };
-
     let availableTypes = tableTypes;
 
     if (isSubaward) {
@@ -574,6 +583,20 @@ const ResultsTableContainer = (props) => {
         else {
             pickDefaultTab();
         }
+    };
+
+    const toggleSpendingLevel = () => {
+        if (spendingLevel === "awards") {
+            // returgn back to original.
+            setSpendingLevel(props.spendingLevel);
+            setIsSubaward(props.spendingLevel === "subawards");
+            setIsTransactions(props.spendingLevel === "transactions");
+            return;
+        }
+
+        setSpendingLevel("awards");
+        setIsSubaward(false);
+        setIsTransactions(false);
     };
 
     useEffect(throttle(() => {
@@ -662,7 +685,9 @@ const ResultsTableContainer = (props) => {
                 resultsCount={counts[tableType]}
                 showToggle={showToggle}
                 expandableData={expandableData}
-                filters={props.filters} />
+                filters={props.filters}
+                checkMobile={(isMobileState) => setIsMobile(isMobileState)}
+                columnType={columnType} />
         </SearchSectionWrapper>
     );
 };

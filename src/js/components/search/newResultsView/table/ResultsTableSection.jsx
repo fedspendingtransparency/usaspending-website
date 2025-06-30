@@ -63,6 +63,14 @@ const ResultsTableSection = (props) => {
         };
     }, [handleResize]);
 
+    useEffect(() => {
+        // mobile check
+        if (isMobile && props.checkMobile && props.showToggle) {
+            console.log("calling check mobile");
+            props.checkMobile(isMobile);
+        }
+    }, [isMobile]);
+
     return (
         <div className="search-results-table-section" id="results-section-table">
             <Tabs
@@ -77,7 +85,6 @@ const ResultsTableSection = (props) => {
                         awardIdClick={props.awardIdClick}
                         subAwardIdClick={props.subAwardIdClick}
                         isMobile={isMobile}
-                        federalAccountPage
                         newMobileView
                         showToggle={props.showToggle} />
                 )
