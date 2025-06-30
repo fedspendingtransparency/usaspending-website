@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
-import { Button } from 'data-transparency-ui';
-import { ArrowDown, ArrowUp } from 'components/sharedComponents/icons/Icons';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ViewTypeButton from '../../sharedComponents/buttons/ViewTypeButton';
 
 const propTypes = {
     onToggle: PropTypes.func
@@ -18,27 +16,23 @@ const MobileSortDirectionToggle = ({
             onToggle();
         }
     };
-
+    console.debug("sort direction: ", sortDirection);
     return (
-        <div className="mobile-sort-direction-toggle" >
-            <Button
-                onClick={() => onToggleClick()}
-                buttonSize="sm"
-                buttonType={sortDirection === 'asc' ? "primaryIcon" : "secondary"}
-                backgroundColor="light"
-                imageAlignment="left"
-                buttonTitle="Ascending"
-                additionalClassnames={sortDirection === 'asc' ? "borderless" : ""}
-                image={<ArrowDown alt="arrow down" />} />
-            <Button
-                onClick={() => onToggleClick()}
-                buttonSize="sm"
-                buttonType={sortDirection === 'desc' ? "primaryIcon" : 'secondary'}
-                backgroundColor="light"
-                imageAlignment="left"
-                buttonTitle="Descending"
-                additionalClassnames={sortDirection === 'desc' ? "" : "borderless"}
-                image={<ArrowUp alt="arrow up" />} />
+        <div className="mobile-sort-direction-toggle mobile-sort-toggle" >
+            <ViewTypeButton
+                value="desc"
+                label="descending order"
+                changeView={onToggleClick}
+                active={sortDirection === 'desc'}
+                icon="long-arrow-alt-down">
+            </ViewTypeButton>
+            <ViewTypeButton
+                value="asc"
+                label="ascending order"
+                active={sortDirection === 'asc'}
+                changeView={onToggleClick}
+                icon="long-arrow-alt-up">
+            </ViewTypeButton>
         </div>
     );
 };

@@ -42,7 +42,7 @@
         }
       }
 
-      .award-type-toggle {
+      .award-type-toggle.mobile-sort-direction-toggle {
         display: inline-flex;
         height: rem(32);
         padding: rem(3);
@@ -180,7 +180,7 @@
       }
     }
 
-    .award-type-toggle__mobile {
+    .award-type-toggle__mobile.mobile__sort{
       display: none;
 
       @media(max-width: 497px) { 
@@ -189,7 +189,7 @@
         margin-bottom: rem(16);
         margin-top: rem(-16);
 
-        .award-type-toggle {
+        .award-type-toggle.mobile-sort-direction-toggle {
           display: inline-flex;
           height: rem(32);
           padding: rem(3);
@@ -253,13 +253,51 @@
         margin-bottom: rem(16);
       }
       .mobile__sort {
+        display:flex;
+        @import "../../../components/chartTableToggle";
         margin-bottom: rem(16);
         .mobile-sort__picker {
           height: rem(32);
           .filter__dropdown-button-sm {
             margin: 0;
           }
+
+          .filter__dropdown-list-sm {
+            width: auto;
+            .filter__dropdown-list-item {
+              padding: rem(5.5) rem(12);
+              .filter__dropdown-item {
+                white-space: nowrap;
+              }
+            }
+          }
         }
+        .mobile-sort-toggle {
+        border: rem(1) solid $gray-cool-10;
+        height: fit-content;
+        position: absolute;
+        right: 0;
+
+        .view-button {
+          border: none;
+          color: $theme-color-1;
+          padding: rem(6) rem(8);
+
+          &.active {
+            background-color: $blue-50;
+            color: $color-white;
+          }
+        }
+
+        button {
+          height: rem(30);
+          width: rem(31);
+        }
+
+        svg {
+          width: rem(16);
+        }
+      }
       }
       .download {
         display: flex;

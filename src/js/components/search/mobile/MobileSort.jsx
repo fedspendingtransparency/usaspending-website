@@ -5,9 +5,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NewPicker } from "data-transparency-ui";
-
+import MobileSortDirectionToggle from './MobileSortDirectionToggle';
 
 const MobileSort = (props) => {
     const mobileDropdownOptions = [];
@@ -31,6 +30,7 @@ const MobileSort = (props) => {
                 label="Sort by:"
                 enabled
                 classname="mobile-sort__picker" />
+            <MobileSortDirectionToggle sortDirection={props.sortDirection} />
         </div>
     );
 };
