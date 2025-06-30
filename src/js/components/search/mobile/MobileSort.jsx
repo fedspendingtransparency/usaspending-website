@@ -9,7 +9,6 @@ import { NewPicker } from "data-transparency-ui";
 import MobileSortDirectionToggle from './MobileSortDirectionToggle';
 
 const MobileSort = (props) => {
-    
     const mobileDropdownOptions = [];
     const onClick = (e) => {
         props.setActiveField(e);
