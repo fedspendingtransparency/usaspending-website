@@ -246,8 +246,6 @@ const SearchSectionWrapper = ({
             sortDirection={sortDirection}
             manualSort />);
     };
-    console.debug("sectionname: ", sectionName);
-    console.debug("dropdown options: ", dropdownOptions, columns);
 
     return (
         <div className="search__section-wrapper">
