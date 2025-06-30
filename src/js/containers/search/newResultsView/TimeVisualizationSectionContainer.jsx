@@ -331,11 +331,9 @@ const TimeVisualizationSectionContainer = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.visualizationPeriod]);
-    console.debug("section container wrapper: ", props.wrapperProps, parsedData, columns, sortDirection, activeField);
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
-            {...parsedData}
             data={parsedData}
             sortBy={sortBy}
             sortDirection={sortDirection}
@@ -348,7 +346,8 @@ const TimeVisualizationSectionContainer = (props) => {
             hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
             downloadComponent={<TimeFileDownload downloadData={downloadData} visualizationPeriod={visualizationPeriod} />}
             manualSort
-            hash={props.hash}>
+            hash={props.hash}
+            setActiveField={setActiveField}>
             <TimeVisualizationChart
                 {...parsedData}
                 visualizationPeriod={visualizationPeriod}

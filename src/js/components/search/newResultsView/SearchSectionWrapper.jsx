@@ -16,6 +16,7 @@ import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
 import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
 import MobileSort from '../mobile/MobileSort';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -32,6 +33,7 @@ const propTypes = {
     sortDirection: PropTypes.string,
     setSortDirection: PropTypes.func,
     activeField: PropTypes.string,
+    setActiveField: PropTypes.func,
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     section: PropTypes.string,
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
@@ -60,6 +62,7 @@ const SearchSectionWrapper = ({
     sortBy,
     sortDirection,
     activeField,
+    setActiveField,
     downloadComponent,
     sectionName,
     mapViewType = false,
@@ -73,6 +76,8 @@ const SearchSectionWrapper = ({
     const [openAccordion, setOpenAccordion] = useState(false);
     const [trackDSMEvent, setTrackDSMEvent] = useState(false);
     const [viewType, setViewType] = useState('chart');
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [windowWidth, setWindowWidth] = useState(0);
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const gaRef = useRef(false);
 
@@ -202,6 +207,18 @@ const SearchSectionWrapper = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openAccordion]);
 
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const Message = () => {
         if (isLoading) {
             return <LoadingMessage />;
@@ -272,8 +289,8 @@ const SearchSectionWrapper = ({
                             <Message />
                             :
                             <>
-                                {viewType === "table" || sectionName === "table" ?
-                                    <MobileSort columns={columns} options={mobileDropdownOptions} sortDirection={sortDirection} setSortDirection={setSortDirection} /> : null}
+                                {((viewType === "table" || sectionName === "table") && isMobile) ?
+                                    <MobileSort columns={columns} options={mobileDropdownOptions} sortDirection={sortDirection} setSortDirection={setSortDirection} activeField={activeField} setActiveField={setActiveField} sortBy={sortBy} /> : null}
                                 {downloadComponent}
                                 {viewType === "table" ?
                                     <Content />

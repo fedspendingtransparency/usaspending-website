@@ -9,14 +9,18 @@ import { NewPicker } from "data-transparency-ui";
 import MobileSortDirectionToggle from './MobileSortDirectionToggle';
 
 const MobileSort = (props) => {
+    
     const mobileDropdownOptions = [];
-    console.debug("mobile sort", props);
+    const onClick = (e) => {
+        props.setActiveField(e);
+    };
     if (props.columns) {
     // eslint-disable-next-line array-callback-return
         props.columns.map((column) => {
             const option = {
                 name: column.displayName[0],
-                value: column.title
+                value: column.title,
+                onClick
             };
             mobileDropdownOptions.push(option);
         });
@@ -26,9 +30,13 @@ const MobileSort = (props) => {
             <NewPicker
                 options={mobileDropdownOptions}
                 leftIcon=""
+                selectedOption={mobileDropdownOptions?.length
+                    ? mobileDropdownOptions?.find((obj) => obj.value === props.activeField)?.name
+                    : `${props.activeField}`}
                 size="sm"
                 label="Sort by:"
                 enabled
+                sortFn={() => mobileDropdownOptions}
                 classname="mobile-sort__picker" />
             <MobileSortDirectionToggle sortDirection={props.sortDirection} setSortDirection={props.setSortDirection} />
         </div>
