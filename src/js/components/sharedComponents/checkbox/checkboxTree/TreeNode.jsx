@@ -22,6 +22,8 @@ const TreeNode = (props) => {
         label, disabled, onChecked, checked, onExpand, node, isLoading, onCollapse, countLabel
     } = props;
 
+    console.log(node);
+
     const [isExpanded, setIsExpanded] = useState(false);
     const [loading, setLoading] = useState(false);
     const [childNodes, setChildNodes] = useState([]);
@@ -194,29 +196,6 @@ const TreeNode = (props) => {
                         }
                     </>
                 }
-
-            {/*            else if (isError && errorMessage) {*/}
-            {/*                return (*/}
-            {/*                <div className="checkbox-tree-filter-message-container">*/}
-            {/*                <div className="checkbox-tree-filter-message-container__text">*/}
-            {/*            {errorMessage}*/}
-            {/*        </div>*/}
-            {/*        </div>*/}
-            {/*        );*/}
-            {/*    }*/}
-            {/*//     else if (noResults) {*/}
-            {/*//     return (*/}
-            {/*//     <div className="checkbox-tree-filter-message-container">*/}
-            {/*//     <FontAwesomeIcon icon="ban" />*/}
-            {/*//     <div className="checkbox-tree-filter-message-container__text">*/}
-            {/*//     No Results*/}
-            {/*//     </div>*/}
-            {/*//     </div>*/}
-            {/*//     );*/}
-            {/*// }*/}
-            {/*//         /!*    <span>{loading && <span>Loading...</span>}</span>*!/*/}
-            {/*//         /!*</>*!/*/}
-            {/*//     }*/}
             </div>
             <div ref={childNode}>
                 {childNodes?.length > 0 ? node.children?.map((child) => (
