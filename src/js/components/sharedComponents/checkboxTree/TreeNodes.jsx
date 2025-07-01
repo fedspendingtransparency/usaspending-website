@@ -44,7 +44,8 @@ const TreeNodes = ({
 
     useEffect(() => {
         setLocalExpanded(expanded);
-    }, [expanded, localExpanded]);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [expanded]);
 
 
     const findNodeById = (id) => {
@@ -102,7 +103,6 @@ const TreeNodes = ({
         }
     };
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
-        console.log("localchecked", localChecked, localExpanded, node.id);
         const isChecked = localChecked.some((item) => item.includes(node.id));
         const isExpanded = localExpanded.includes(node.id);
         const hasChildren = node.children && node.children.length > 0;
