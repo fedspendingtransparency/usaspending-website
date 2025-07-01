@@ -292,7 +292,7 @@ const SearchSectionWrapper = ({
                             <Message />
                             :
                             <>
-                                {((viewType === "table" || sectionName === "table") && isMobile) ?
+                                {((viewType === "table" || sectionName === "table") && isMobile && sectionName !== 'categories') ?
                                     <MobileSort
                                         columns={columns}
                                         options={mobileDropdownOptions}
@@ -331,6 +331,6 @@ const SearchSectionWrapper = ({
         </div>
     );
 };
-
+// TODO: sectionName !== 'categories' needs to be removed once we do the categories sort
 SearchSectionWrapper.propTypes = propTypes;
 export default SearchSectionWrapper;
