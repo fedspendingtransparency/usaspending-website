@@ -624,6 +624,7 @@ const ResultsTableContainer = (props) => {
     if (!columns[tableType]) {
         return null;
     }
+
     return (
         <SearchSectionWrapper
             isError={error}
@@ -635,6 +636,7 @@ const ResultsTableContainer = (props) => {
             setSort={setSort}
             onToggle={toggleSpendingLevel}
             showToggle={showToggle}
+            tableColumns={columns[tableType]}
             {...props.wrapperProps}
             manualSort>
             <ResultsTableSection

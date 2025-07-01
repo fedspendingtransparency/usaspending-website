@@ -9,6 +9,7 @@ import { NewPicker } from "data-transparency-ui";
 import MobileSortDirectionToggle from './MobileSortDirectionToggle';
 
 const MobileSort = (props) => {
+    console.debug("mobile sort props: ", props);
     const mobileDropdownOptions = [];
     const onClick = (e) => {
         if (props?.setActiveField && props?.sortBy) {
@@ -16,7 +17,7 @@ const MobileSort = (props) => {
             props.sortBy(e, props.sortDirection);
         }
         else if (props?.sort && props?.setSort) {
-            props.setSort({ field: e, direction: props.sort.direction });
+            props.setSort({ field: e, direction: props?.sort?.direction });
         }
     };
     if (props.columns) {
@@ -29,6 +30,17 @@ const MobileSort = (props) => {
             };
             mobileDropdownOptions.push(option);
         });
+    } else if (props.tableColumns) {
+        const result = Object.values(props.tableColumns).map((value) => value);
+        // eslint-disable-next-line array-callback-return
+        result.map((column) => {
+            const option = {
+                name: column.displayName,
+                value: column.columnName,
+                onClick
+            };
+            mobileDropdownOptions.push(option);
+        });
     }
     return (
         <div className="mobile__sort">
@@ -36,8 +48,8 @@ const MobileSort = (props) => {
                 options={mobileDropdownOptions}
                 leftIcon=""
                 selectedOption={mobileDropdownOptions?.length
-                    ? mobileDropdownOptions?.find((obj) => obj.value === props.activeField)?.name
-                    : `${props.activeField}`}
+                    ? mobileDropdownOptions?.find((obj) => obj.value === props?.activeField || obj.value === props?.sort?.field)?.name
+                    : `${props?.activeField || props.sort?.field}`}
                 size="sm"
                 label="Sort by:"
                 enabled
@@ -47,7 +59,9 @@ const MobileSort = (props) => {
                 sortDirection={props.sortDirection}
                 setSortDirection={props.setSortDirection}
                 sortBy={props.sortBy}
-                activeField={props.activeField} />
+                activeField={props?.activeField}
+                sort={props?.sort}
+                setSort={props?.setSort} />
         </div>
     );
 };

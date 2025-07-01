@@ -45,7 +45,8 @@ const propTypes = {
     hash: PropTypes.string,
     spendingLevel: PropTypes.string,
     onToggle: PropTypes.func,
-    showToggle: PropTypes.bool
+    showToggle: PropTypes.bool,
+    tableColumns: PropTypes.object
 };
 
 const SearchSectionWrapper = ({
@@ -58,6 +59,7 @@ const SearchSectionWrapper = ({
     hasNoData,
     isError,
     columns,
+    tableColumns,
     rows,
     table,
     sortBy,
@@ -301,6 +303,7 @@ const SearchSectionWrapper = ({
                                         setActiveField={setActiveField}
                                         sortBy={sortBy}
                                         sort={sort}
+                                        tableColumns={tableColumns?.data}
                                         setSort={setSort} /> : null}
                                 {downloadComponent}
                                 {viewType === "table" ?
