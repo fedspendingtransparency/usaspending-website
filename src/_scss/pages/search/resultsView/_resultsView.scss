@@ -254,7 +254,7 @@
       }
       .mobile__sort {
         display:flex;
-        @import "../../../components/chartTableToggle";
+        @import "../../../components/mobileSortToggle";
         margin-bottom: rem(16);
         .mobile-sort__picker {
           height: rem(32);
