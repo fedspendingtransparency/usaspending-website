@@ -9,7 +9,6 @@ import {
     createColumnHelper,
     useReactTable,
     getCoreRowModel,
-    getPaginationRowModel,
     getFilteredRowModel,
     flexRender,
     getSortedRowModel
@@ -20,12 +19,20 @@ import { performKeywordSearch } from "../../../helpers/keywordHelper";
 import { convertToTitleCase } from "../../../helpers/searchHelper";
 import ReadMore from '../ReadMore';
 
-const NestedTanStackTable = ({ columnType, awardId, filters }) => {
+const NestedTanStackTable = ({
+    columnType,
+    awardId,
+    filters,
+    screenReaderCaption,
+    highlightedColumns = {
+        standardColumns: 9,
+        highlightedColumns: 7
+    }
+}) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
     const columnHelper = createColumnHelper();
-
     let searchRequest = null;
 
     // consider pull out to helper file
@@ -187,7 +194,11 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
     // pull out to helper file
     const getTransactionColumns = () => [
         columnHelper.accessor('Award ID', {
-            header: 'Prime Award ID',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Prime Award ID</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: ({ row, getValue }) => (
                 <a
@@ -199,27 +210,47 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
             )
         }),
         columnHelper.accessor('Mod', {
-            header: 'Modification Number',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Modification Number</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Recipient Name', {
-            header: 'Recipient Name',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Recipient Name</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Transaction Amount', {
-            header: 'Obligations',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Obligations</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => MoneyFormatter.formatMoneyWithPrecision(info.getValue(), 2, "--")
         }),
         columnHelper.accessor('Action Date', {
-            header: 'Action Date',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Action Date</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Transaction Description', {
-            header: 'Transaction Description',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Transaction Description</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => (
                 <ReadMore
@@ -232,37 +263,65 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
             )
         }),
         columnHelper.accessor('Action Type', {
-            header: 'Action Type',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Action Type</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Award Type', {
-            header: 'Award Type',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Award Type</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Recipient Location', {
-            header: 'Recipient Location',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Recipient Location</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => pickLocationFormat(info.getValue())
         }),
         columnHelper.accessor('Primary Place of Performance', {
-            header: 'Primary Place of Performance',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Primary Place of Performance</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => pickLocationFormat(info.getValue())
         }),
         columnHelper.accessor('Awarding Agency', {
-            header: 'Awarding Agency',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Awarding Agency</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Awarding Sub Agency', {
-            header: 'Awarding Sub Agency',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Awarding Sub Agency</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('NAICS', {
-            header: 'North American Industry Classification System (NAICS)',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">North American Industry Classification System (NAICS)</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => (
                 <ReadMore
@@ -275,7 +334,11 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
             )
         }),
         columnHelper.accessor('PSC', {
-            header: 'Product and Service Code (PSC)',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Product and Service Code (PSC)</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => (
                 <ReadMore
@@ -292,7 +355,11 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
     // pull out to helper file
     const getSubawardColumns = () => [
         columnHelper.accessor('Sub-Award ID', {
-            header: 'Subaward ID',
+            header: () => (
+                <div className="table-header__content">
+                    <div className="table-header__label">Subaward ID</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: ({ row, getValue }) => (
                 <a
@@ -304,22 +371,38 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
             )
         }),
         columnHelper.accessor('Sub-Awardee Name', {
-            header: 'Subrecipient Name',
+            header: () => (
+                <div className="table-header__content">
+                    <div className="table-header__label">Subrecipient Name</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Sub-Award Amount', {
-            header: 'Subaward Obligations',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Subaward Obligations</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => MoneyFormatter.formatMoneyWithPrecision(info.getValue(), 2, "--")
         }),
         columnHelper.accessor('Sub-Award Date', {
-            header: 'Subaward Action Date',
+            header: () => (
+                <div className="table-header__content">
+                    <div className="table-header__label">Subaward Action Date</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Sub-Award Description', {
-            header: 'Subaward Description',
+            header: () => (
+                <div className="table-header__content">
+                    <div className="table-header__label">Subaward Description</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => (
                 <ReadMore
@@ -332,22 +415,38 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
             )
         }),
         columnHelper.accessor('Sub-Recipient UEI', {
-            header: 'Subrecipient UEI',
+            header: () => (
+                <div className="table-header__content">
+                    <div className="table-header__label">Subrecipient UEI</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => info.getValue()
         }),
         columnHelper.accessor('Sub-Recipient Location', {
-            header: 'Subrecipient Location',
+            header: () => (
+                <div className="table-header__content">
+                    <div className="table-header__label">Subrecipient Location</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => pickLocationFormat(info.getValue())
         }),
         columnHelper.accessor('Sub-Award Primary Place of Performance', {
-            header: 'Subaward Primary Place of Performance',
+            header: () => (
+                <div className="table-header__content table-header__content_right">
+                    <div className="table-header__label">Subaward Primary Place of Performance</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => pickLocationFormat(info.getValue())
         }),
         columnHelper.accessor('Sub-Award Type', {
-            header: 'Subaward Type',
+            header: () => (
+                <div className="table-header__content">
+                    <div className="table-header__label">Subaward Type</div>
+                </div>
+            ),
             id: uniqueId(),
             cell: (info) => convertToTitleCase(info.getValue())
         })
@@ -365,7 +464,6 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel()
     });
@@ -382,35 +480,50 @@ const NestedTanStackTable = ({ columnType, awardId, filters }) => {
     }
 
     return (
-        <table className="usda-table table-for-new-search-page expandable-table">
-            <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id} className="usda-table__row">
-                        {headerGroup.headers.map((header) => (
-                            <th key={header.id}>
-                                {header.isPlaceholder
-                                    ? null
-                                    : flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext()
-                                    )}
-                            </th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody className="usda-table__body">
-                {table.getRowModel().rows.map((row) => (
-                    <tr key={row.id}>
-                        {row.getVisibleCells().map((cell) => (
-                            <td key={cell.id}>
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <>
+            <span className="table-title">{awardId}</span>
+            <br />
+            <span className="table-subTitle">Subawards that match search criteria</span>
+            <table className="usda-table table-for-new-search-page award-results-table-dtui nested-table">
+                {screenReaderCaption && (
+                    <caption className="usa-dt-sr-only">{screenReaderCaption}</caption>
+                )}
+                {highlightedColumns
+                && (
+                    <colgroup>
+                        <col span={highlightedColumns.standardColumns} />
+                        <col span={highlightedColumns.highlightedColumns} className="usda-table__body-special-color" />
+                    </colgroup>
+                )}
+                <thead className="usda-table__head">
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <tr key={headerGroup.id} className="usda-table__row" style={{ height: 45 }}>
+                            {headerGroup.headers.map((header, h) => (
+                                <th key={header.id} colSpan={header.colSpan} className={`table-header ${h === 0 ? ' stickyColumn' : ''}`}>
+                                    {header.isPlaceholder
+                                        ? null
+                                        : flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                        )}
+                                </th>
+                            ))}
+                        </tr>
+                    ))}
+                </thead>
+                <tbody className="usda-table__body">
+                    {table.getRowModel().rows.map((row) => (
+                        <tr key={row.id} className="usda-table__row-item usda-table__row">
+                            {row.getVisibleCells().map((cell, c) => (
+                                <td key={cell.id} className={`usda-table__cell ${c === 0 ? ' stickyColumn' : ''}`}>
+                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </>
     );
 };
 

@@ -5,7 +5,6 @@ import {
     createColumnHelper,
     useReactTable,
     getCoreRowModel,
-    getPaginationRowModel,
     getFilteredRowModel,
     flexRender,
     getSortedRowModel
@@ -96,18 +95,17 @@ const TanStackTable = (props) => {
             expanded
         },
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel()
     });
 
     return (
-        <table className="usda-table table-for-new-search-page expandable-table award-results-table-dtu">
-            <thead>
+        <table className="usda-table table-for-new-search-page award-results-table-dtui">
+            <thead className="usda-table__head">
                 {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id} className="usda-table__row">
-                        {headerGroup.headers.map((header) => (
-                            <th key={header.id}>
+                    <tr key={headerGroup.id} className="usda-table__row" style={{ height: 45 }}>
+                        {headerGroup.headers.map((header, h) => (
+                            <th key={header.id} className={`table-header ${h === 0 ? ' stickyColumn' : ''}`}>
                                 {header.isPlaceholder
                                     ? null
                                     : flexRender(
@@ -122,17 +120,17 @@ const TanStackTable = (props) => {
             <tbody className="usda-table__body">
                 {table.getRowModel().rows.map((row) => (
                     <React.Fragment key={uniqueId()}>
-                        <tr key={row.id}>
-                            {row.getVisibleCells().map((cell) => (
-                                <td key={cell.id}>
+                        <tr key={row.id} className={`usda-table__row-item usda-table__row ${row.getIsExpanded() ? "expaned-table-parent__sticky" : ""}`}>
+                            {row.getVisibleCells().map((cell, c) => (
+                                <td key={cell.id} className={`usda-table__cell ${c === 0 ? ' stickyColumn' : ''}`}>
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                 </td>
                             ))}
                         </tr>
 
                         {row.getIsExpanded() && (
-                            <tr>
-                                <td colSpan={row.getAllCells().length}>
+                            <tr className="expaned-table-container">
+                                <td colSpan={row.getAllCells().length} className="expaned-table-container__outer-cell">
 
                                     <NestedTanStackTable
                                         {...props}
