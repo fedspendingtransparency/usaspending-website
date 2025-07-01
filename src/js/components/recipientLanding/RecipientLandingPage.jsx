@@ -35,7 +35,8 @@ export default class RecipientLandingPage extends React.Component {
                 toolBarComponents={[
                     <ShareIcon
                         onShareOptionClick={this.handleShare}
-                        url={getBaseUrl(slug)} />
+                        url={getBaseUrl(slug)}
+                        key="page-wrapper__share-icon" />
                 ]}>
                 <main id="main-content" className="main-content">
                     <RecipientLandingContainer />
