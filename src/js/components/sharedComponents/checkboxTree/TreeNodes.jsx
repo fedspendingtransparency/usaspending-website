@@ -1,3 +1,8 @@
+/**
+ * TreeNodes.jsx
+ * Created by Andrea Blackwell June 2025
+ **/
+
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,18 +35,16 @@ const TreeNodes = ({
 
     useEffect(() => {
         setLocalChecked(checked);
-    }, [checked]);
+    }, [checked, nodes]);
 
     useEffect(() => {
-        console.log("nodes changed", nodes);
         setLoadingParentId(null);
         setLocalNodes(nodes);
     }, [nodes]);
 
     useEffect(() => {
-        console.log("expanded changed", expanded, localExpanded);
-        // setLocalExpanded(expanded);
-    }, [expanded]);
+        setLocalExpanded(expanded);
+    }, [expanded, localExpanded]);
 
 
     const findNodeById = (id) => {
@@ -84,22 +87,23 @@ const TreeNodes = ({
     };
 
     const handleToggle = (id, hasChildren) => {
-        console.log("handle toggle", id, hasChildren);
         const isExpanded = localExpanded.includes(id);
 
         if (!isExpanded && hasChildren) {
             const node = findNodeById(id);
-            console.log("node", node);
             onExpand([id, ...localExpanded], node);
             setLocalExpanded((prev) => [...prev, id]);
+            // if the parent is checked, update local checked
             setLoadingParentId(id);
-        } else {
+        }
+        else {
             setLocalExpanded((prev) => prev.filter((eid) => eid !== id));
             onCollapse(id);
         }
     };
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
-        const isChecked = localChecked.includes(node.id);
+        console.log("localchecked", localChecked, localExpanded, node.id);
+        const isChecked = localChecked.some((item) => item.includes(node.id));
         const isExpanded = localExpanded.includes(node.id);
         const hasChildren = node.children && node.children.length > 0;
         return (

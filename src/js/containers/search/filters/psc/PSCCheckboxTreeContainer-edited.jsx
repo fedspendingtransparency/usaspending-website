@@ -23,7 +23,7 @@ import {
 
 import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";
 
@@ -160,7 +160,6 @@ const PSCCheckboxTreeContainer = ({
                         }
                     }
                     else {
-                        console.log("prior to set psc in psc container", pscNodes, key);
                         setPscNodes(key, pscNodes);
                         setCheckedPsc(newChecked);
                     }
@@ -188,7 +187,6 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        console.log("on expand args", expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
         if (shouldFetchChildren && !isSearch) {
             if (selectedNode.treeDepth >= 1) {
                 const { parent } = selectedNode;
@@ -208,9 +206,7 @@ const PSCCheckboxTreeContainer = ({
             setExpandedPsc(newExpandedArray, 'SET_SEARCHED_EXPANDED');
         }
         else {
-            const newArray = [...expanded, ...newExpandedArray];
-            console.log("setExpandedPsc", newExpandedArray, newArray, expandedValue, selectedNode);
-            setExpandedPsc(newArray);
+            setExpandedPsc(newExpandedArray);
         }
     };
 
