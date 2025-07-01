@@ -60,6 +60,7 @@ const ResultsTableSection = (props) => {
             window.removeEventListener('resize', setTableWidthFn);
         };
     }, [handleResize]);
+
     return (
         <div className="search-results-table-section" id="results-section-table">
             <Tabs
@@ -74,7 +75,6 @@ const ResultsTableSection = (props) => {
                         awardIdClick={props.awardIdClick}
                         subAwardIdClick={props.subAwardIdClick}
                         isMobile={isMobile}
-                        federalAccountPage
                         newMobileView />
                 )
                     :

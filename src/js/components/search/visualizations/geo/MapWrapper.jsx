@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { uniq, cloneDeep } from 'lodash';
 import GlobalConstants from 'GlobalConstants';
-import { TooltipComponent } from "data-transparency-ui";
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -110,7 +109,8 @@ const MapWrapper = ({
     stateInfo,
     onMapLoaded,
     amountTypeEnabled = true,
-    singleLocationSelected
+    singleLocationSelected,
+    tooltip: TooltipComponent
 }) => {
     const [mapLayers, setMapLayers] = useState({});
     const [mapReady, setMapReady] = useState(false);
@@ -531,17 +531,17 @@ const MapWrapper = ({
     };
 
     const tooltipFunc = () => {
-        let selecetedItemlabel = selectedItem.label;
+        const selectedItemObj = selectedItem;
 
         if (scope === "country" && selectedItem.label === "United States") {
-            selecetedItemlabel = `${selectedItem.label} and Territories`;
+            selectedItemObj.label = `${selectedItem.label} and Territories`;
         }
 
         if (showHover) {
             return (
                 <TooltipComponent
                     description={tooltipDescription()}
-                    selectedItem={{ label: selecetedItemlabel, ...selectedItem }} />
+                    {...selectedItemObj} />
             );
         }
         return null;

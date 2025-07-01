@@ -108,7 +108,7 @@ const PSCCheckboxTreeContainer = ({
             setShowNoResults(false);
         }
 
-        const queryParam = isSearch ? `?depth=-1&filter=${searchStr}` : id;
+        const queryParam = (isSearch && searchStr.length > 0) ? `?depth=-1&filter=${searchStr}` : id;
 
         request.current = fetchPsc(queryParam);
 
@@ -156,7 +156,7 @@ const PSCCheckboxTreeContainer = ({
                         setCheckedPsc(nodesCheckedByPlaceholderOrAncestor);
 
                         if (pscNodes.length === 0) {
-                            showNoResults(true);
+                            setShowNoResults(true);
                         }
                     }
                     else {
@@ -358,7 +358,7 @@ const PSCCheckboxTreeContainer = ({
             onSearchChange();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSearch, isLoading, searchString]);
+    }, [isSearch, searchString]);
 
     // for properly setting checked state from hash
     useEffect(() => {
