@@ -16,7 +16,8 @@ const propTypes = {
     columns: PropTypes.array,
     sortDirection: PropTypes.string,
     tableColumns: PropTypes.object,
-    setSortDirection: PropTypes.func
+    setSortDirection: PropTypes.func,
+    activeField: PropTypes.string
 };
 
 const MobileSort = (props) => {
@@ -41,7 +42,8 @@ const MobileSort = (props) => {
             };
             mobileDropdownOptions.push(option);
         });
-    } else if (props.tableColumns) {
+    }
+    else if (props.tableColumns) {
         const result = Object.values(props.tableColumns).map((value) => value);
         // eslint-disable-next-line array-callback-return
         result.map((column) => {

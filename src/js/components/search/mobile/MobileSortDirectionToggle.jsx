@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import ViewTypeButton from '../../sharedComponents/buttons/ViewTypeButton';
 
 const propTypes = {
-    onToggle: PropTypes.func
+    sortBy: PropTypes.func,
+    sort: PropTypes.object,
+    setSort: PropTypes.func,
+    sortDirection: PropTypes.string,
+    setSortDirection: PropTypes.func,
+    activeField: PropTypes.string
 };
 
 const MobileSortDirectionToggle = ({
