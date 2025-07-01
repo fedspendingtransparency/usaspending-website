@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import ViewTypeButton from '../../sharedComponents/buttons/ViewTypeButton';
 
@@ -14,20 +14,12 @@ const MobileSortDirectionToggle = ({
     sort,
     setSort
 }) => {
-    console.debug("props: ", sortDirection, setSortDirection, activeField, sortBy, sort, setSort);
-    // const [sortedBy, setSortedBy] = useState('desc');
-
-    // useEffect(() => {
-
-    // }, sort, sortDirection);
     const onClick = (e) => {
         if (sortBy && setSortDirection) {
-            console.debug("E1a: ", e);
             sortBy(activeField, e);
             setSortDirection(e);
         }
         else if (sort && setSort) {
-            console.debug("E1b: ", e);
             setSort(Object.assign({ field: sort?.field, direction: e }));
         }
     };

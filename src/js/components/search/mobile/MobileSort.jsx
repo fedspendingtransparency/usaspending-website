@@ -8,8 +8,18 @@ import PropTypes from "prop-types";
 import { NewPicker } from "data-transparency-ui";
 import MobileSortDirectionToggle from './MobileSortDirectionToggle';
 
+const propTypes = {
+    setActiveField: PropTypes.func,
+    sortBy: PropTypes.func,
+    sort: PropTypes.object,
+    setSort: PropTypes.func,
+    columns: PropTypes.array,
+    sortDirection: PropTypes.string,
+    tableColumns: PropTypes.object,
+    setSortDirection: PropTypes.func
+};
+
 const MobileSort = (props) => {
-    console.debug("mobile sort props: ", props);
     const mobileDropdownOptions = [];
     const onClick = (e) => {
         if (props?.setActiveField && props?.sortBy) {
@@ -17,6 +27,7 @@ const MobileSort = (props) => {
             props.sortBy(e, props.sortDirection);
         }
         else if (props?.sort && props?.setSort) {
+            // eslint-disable-next-line react/prop-types
             props.setSort({ field: e, direction: props?.sort?.direction });
         }
     };
@@ -48,6 +59,7 @@ const MobileSort = (props) => {
                 options={mobileDropdownOptions}
                 leftIcon=""
                 selectedOption={mobileDropdownOptions?.length
+                    // eslint-disable-next-line max-len, react/prop-types
                     ? mobileDropdownOptions?.find((obj) => obj.value === props?.activeField || obj.value === props?.sort?.field)?.name
                     : `${props?.activeField || props.sort?.field}`}
                 size="sm"
@@ -66,5 +78,5 @@ const MobileSort = (props) => {
     );
 };
 
-// MobileSort.propTypes = propTypes;
+MobileSort.propTypes = propTypes;
 export default MobileSort;

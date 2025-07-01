@@ -91,8 +91,6 @@ import {
     faServer,
     faGraduationCap,
     faCodeBranch,
-    faArrowDown,
-    faArrowUp,
     faLongArrowAltUp,
     faLongArrowAltDown
 } from "@fortawesome/free-solid-svg-icons";
