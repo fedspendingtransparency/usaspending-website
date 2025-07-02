@@ -255,19 +255,27 @@
       .mobile__sort {
         display:flex;
         @import "../../../components/mobileSortToggle";
-        margin-bottom: rem(16);
+        margin-bottom: rem(32);
         .mobile-sort__picker {
           height: rem(32);
+          .filter__dropdown-label-sm {
+            color: $gray-cool-90;
+          }
           .filter__dropdown-button-sm {
             margin: 0;
+            // if this is not set, ellipsis will not work
+            max-width: rem(144);
           }
 
           .filter__dropdown-list-sm {
             width: auto;
+            max-width: rem(240);
             .filter__dropdown-list-item {
               padding: rem(5.5) rem(12);
               .filter__dropdown-item {
                 white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
               }
             }
           }

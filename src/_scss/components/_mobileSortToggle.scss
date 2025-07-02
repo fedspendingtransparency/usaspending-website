@@ -2,7 +2,8 @@
   display: flex;
   border-radius: 4px;
   border: 1px solid $gray-cool-10;
-  margin-left: rem(8);
+  right: rem(24);
+  position:absolute;
 
   @media(min-width: $tablet-screen) {
     max-height: rem(46);
