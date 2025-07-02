@@ -89,10 +89,12 @@ const TreeNodes = ({
 
     const handleToggle = (id, hasChildren) => {
         const isExpanded = localExpanded.includes(id);
+        console.log("is expanded", isExpanded, hasChildren);
 
         if (!isExpanded && hasChildren) {
             const node = findNodeById(id);
-            const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${node.id}` : node.id;
+            const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${id}` : id;
+            console.log("node value", nodeValue);
             onExpand([...localExpanded, nodeValue], node);
             setLocalExpanded((prev) => [...prev, nodeValue]);
             // if the parent is checked, update local checked

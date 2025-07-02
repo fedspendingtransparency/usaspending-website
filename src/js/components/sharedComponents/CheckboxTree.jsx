@@ -92,6 +92,7 @@ const CheckboxTree = ({
             && !isSearch
         );
 
+        console.log("on expand prop", expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
         return onExpandProp(expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
     };
 
