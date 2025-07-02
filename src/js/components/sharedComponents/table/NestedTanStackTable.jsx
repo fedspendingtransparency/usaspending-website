@@ -1,5 +1,10 @@
+/**
+ * NestedTanStackTable.jsx
+ * Created by JD House July 2, 2025
+ */
+
 import React, { useEffect, useMemo, useState } from 'react';
-// import PropTypes, { shape, oneOf, oneOfType } from 'prop-types';
+import PropTypes from 'prop-types';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { isCancel } from 'axios';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -18,6 +23,14 @@ import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparenc
 import { performKeywordSearch } from "../../../helpers/keywordHelper";
 import { convertToTitleCase } from "../../../helpers/searchHelper";
 import ReadMore from '../ReadMore';
+
+const propTypes = {
+    columnType: PropTypes.string,
+    awardId: PropTypes.string,
+    filters: PropTypes.object,
+    screenReaderCaption: PropTypes.string,
+    highlightedColumns: PropTypes.object
+};
 
 const NestedTanStackTable = ({
     columnType,
@@ -527,7 +540,7 @@ const NestedTanStackTable = ({
     );
 };
 
-// ExpandableTable.propTypes = propTypes;
+NestedTanStackTable.propTypes = propTypes;
 
 export default NestedTanStackTable;
 

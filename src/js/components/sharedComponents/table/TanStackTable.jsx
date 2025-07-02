@@ -1,5 +1,10 @@
+/**
+ * TanStackTable.jsx
+ * Created by JD House July 2, 2025
+ */
+
 import React, { useMemo, useState } from 'react';
-// import PropTypes, { shape, oneOf, oneOfType } from 'prop-types';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     createColumnHelper,
@@ -12,6 +17,12 @@ import {
 import { uniqueId } from 'lodash';
 import NestedTanStackTable from './NestedTanStackTable';
 import { subAwardDefaultColumns, transactionsDefaultColumns } from '../../../dataMapping/search/tanStackTableColumns';
+
+
+const propTypes = {
+    columnType: PropTypes.string,
+    data: PropTypes.array
+};
 
 const TanStackTable = (props) => {
     const [awardId, setAwardId] = useState(null);
@@ -145,7 +156,7 @@ const TanStackTable = (props) => {
     );
 };
 
-// ExpandableTable.propTypes = propTypes;
+TanStackTable.propTypes = propTypes;
 
 export default TanStackTable;
 

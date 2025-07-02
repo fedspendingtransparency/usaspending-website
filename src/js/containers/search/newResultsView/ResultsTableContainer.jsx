@@ -587,7 +587,7 @@ const ResultsTableContainer = (props) => {
 
     const toggleSpendingLevel = () => {
         if (spendingLevel === "awards") {
-            // returgn back to original.
+            // return back to original.
             setSpendingLevel(props.spendingLevel);
             setIsSubaward(props.spendingLevel === "subawards");
             setIsTransactions(props.spendingLevel === "transactions");

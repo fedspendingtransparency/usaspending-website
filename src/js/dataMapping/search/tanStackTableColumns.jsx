@@ -1,3 +1,8 @@
+/**
+ * tanStackTableColumns.jsx
+ * Created by JD House July 2, 2025
+ */
+
 import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
