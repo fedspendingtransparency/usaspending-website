@@ -23,8 +23,8 @@ import {
 
 import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
-// import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+// import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";

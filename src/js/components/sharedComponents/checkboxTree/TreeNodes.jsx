@@ -92,8 +92,9 @@ const TreeNodes = ({
 
         if (!isExpanded && hasChildren) {
             const node = findNodeById(id);
-            onExpand([id, ...localExpanded], node);
-            setLocalExpanded((prev) => [...prev, id]);
+            const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${node.id}` : node.id;
+            onExpand([...localExpanded, nodeValue], node);
+            setLocalExpanded((prev) => [...prev, nodeValue]);
             // if the parent is checked, update local checked
             setLoadingParentId(id);
         }
@@ -103,7 +104,7 @@ const TreeNodes = ({
         }
     };
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
-        const isChecked = localChecked.some((item) => item.includes(node.id));
+        const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
         const isExpanded = localExpanded.includes(node.id);
         const hasChildren = node.children && node.children.length > 0;
         return (
