@@ -10,7 +10,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage, NewPicker } from "data-transparency-ui";
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
@@ -81,7 +81,7 @@ const SearchSectionWrapper = ({
     const [openAccordion, setOpenAccordion] = useState(false);
     const [trackDSMEvent, setTrackDSMEvent] = useState(false);
     const [viewType, setViewType] = useState('chart');
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [windowWidth, setWindowWidth] = useState(0);
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const gaRef = useRef(false);
@@ -217,7 +217,7 @@ const SearchSectionWrapper = ({
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
+                setIsMobile(newWidth < tabletScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
