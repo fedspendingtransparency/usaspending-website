@@ -42,7 +42,7 @@
         }
       }
 
-      .award-type-toggle.mobile-sort-direction-toggle {
+      .award-type-toggle {
         display: inline-flex;
         height: rem(32);
         padding: rem(3);
@@ -180,7 +180,7 @@
       }
     }
 
-    .award-type-toggle__mobile.mobile__sort{
+    .award-type-toggle__mobile {
       display: none;
 
       @media(max-width: 497px) { 
@@ -189,7 +189,7 @@
         margin-bottom: rem(16);
         margin-top: rem(-16);
 
-        .award-type-toggle.mobile-sort-direction-toggle {
+        .award-type-toggle {
           display: inline-flex;
           height: rem(32);
           padding: rem(3);
@@ -233,8 +233,6 @@
             }
           }
         }
-
-
       }
     }
 
