@@ -632,9 +632,13 @@ const ResultsTableContainer = (props) => {
             noData={!inFlight && !error && results.length === 0}
             hash={props.hash}
             spendingLevel={spendingLevel}
+            sort={sort}
+            setSort={setSort}
             onToggle={toggleSpendingLevel}
             showToggle={showToggle}
-            {...props.wrapperProps}>
+            tableColumns={columns[tableType]}
+            {...props.wrapperProps}
+            manualSort>
             <ResultsTableSection
                 error={error}
                 inFlight={inFlight}

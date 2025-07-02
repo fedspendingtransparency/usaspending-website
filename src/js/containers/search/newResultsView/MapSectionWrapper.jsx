@@ -650,10 +650,13 @@ const MapSectionWrapper = React.memo((props) => {
             sectionName="map"
             sortBy={sortBy}
             sortDirection={sortDirection}
+            setSortDirection={setSortDirection}
             activeField={activeField}
             mapViewType={mapViewType}
             setMapViewType={setMapViewType}
-            hash={props.hash} >
+            hash={props.hash}
+            setActiveField={setActiveField}
+            manualSort>
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
