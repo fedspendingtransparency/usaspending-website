@@ -33,7 +33,7 @@ import {
 } from 'redux/actions/search/tasActions';
 import { updateTAS } from 'redux/actions/search/searchFilterActions';
 
-import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';

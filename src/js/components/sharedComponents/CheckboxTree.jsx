@@ -92,7 +92,6 @@ const CheckboxTree = ({
             && !isSearch
         );
 
-        console.log("on expand prop", expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
         return onExpandProp(expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
     };
 
@@ -102,7 +101,7 @@ const CheckboxTree = ({
      * Decides whether we are expanding or collapsing the node.
      */
     const onExpand = (newExpandedArray, node) => {
-        // collapsing node
+    // collapsing node
         if (newExpandedArray.length < expanded.length) {
             return collapseNode(newExpandedArray);
         }
@@ -240,7 +239,7 @@ const CheckboxTree = ({
             <div className="checkbox-tree-filter-message-container">
                 <FontAwesomeIcon icon="spinner" spin />
                 <div className="checkbox-tree-filter-message-container__text">
-                    Loading your dataLoading your data...
+                    Loading your data...
                 </div>
             </div>
         );
