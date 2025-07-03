@@ -6,11 +6,10 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { difference } from 'lodash';
-import replaceString from 'helpers/replaceString';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import replaceString from 'helpers/replaceString';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
-// import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
-import TreeNodes from './TreeNodes';
+import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodes';
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
