@@ -142,6 +142,18 @@ export const performSpendingByAwardSearch = (params) => apiRequest({
     data: params
 });
 
+export const performSpendingBySubawardGrouped = (params) => apiRequest({
+    url: 'v2/search/spending_by_subaward_grouped/',
+    method: 'post',
+    data: params
+});
+
+export const performSpendingByTransactionsGrouped = (params) => apiRequest({
+    url: 'v2/search/spending_by_transaction_grouped',
+    method: 'post',
+    data: params
+});
+
 export const performSubawardSearch = (data) => apiRequest({
     url: 'v2/subawards/',
     method: 'post',
