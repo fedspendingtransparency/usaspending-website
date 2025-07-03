@@ -66,7 +66,6 @@ const ResultsTableSection = (props) => {
     useEffect(() => {
         // mobile check
         if (isMobile && props.checkMobile && props.showToggle) {
-            console.log("calling check mobile");
             props.checkMobile(isMobile);
         }
     }, [isMobile]);
