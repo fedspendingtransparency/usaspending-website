@@ -36,16 +36,16 @@ const MobileSortDirectionToggle = ({
     return (
         <div className="mobile-sort-direction-toggle mobile-sort-toggle" >
             <ViewTypeButton
-                value="asc"
-                label="ascending order"
+                value="desc"
+                label="descending order"
                 changeView={onClick}
-                active={sortDirection === 'asc' || sort?.direction === 'asc'}
+                active={sortDirection === 'desc' || sort?.direction === 'desc'}
                 icon="long-arrow-alt-down">
             </ViewTypeButton>
             <ViewTypeButton
-                value="desc"
-                label="descending order"
-                active={sortDirection === 'desc' || sort?.direction === 'desc'}
+                value="asc"
+                label="ascending order"
+                active={sortDirection === 'asc' || sort?.direction === 'asc'}
                 changeView={onClick}
                 icon="long-arrow-alt-up">
             </ViewTypeButton>
