@@ -56,8 +56,10 @@ const CategoriesList = ({
                                     {item.categoryType}
                                 </div>
                                 {
-                                    item.categories.map((category) => (
+                                    item.categories.map((category, i) => (
                                         <div
+                                            // eslint-disable-next-line react/no-array-index-key
+                                            key={`${category.title}-${i}`}
                                             className="categories-list-item-container"
                                             onClick={(e) => setLevel3(e, category)}
                                             onKeyUp={

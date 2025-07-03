@@ -18,7 +18,6 @@ const SectionDataTable = (props) => {
     const pageSize = 10;
     const maxRows = props.rows;
     const columns = props.columns;
-
     const changePage = (page) => {
         if (props.manualSort) {
             setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));

@@ -32,6 +32,41 @@ table {
         border: 1px solid $color-gray;
         padding: 1.5rem;
     }
+
+    .usda-table__body {   
+        .expaned-table-parent__sticky.td {
+            border-bottom: none;
+        }
+            
+        .expaned-table-container {
+            position: sticky;
+            position: -webkit-sticky;
+            z-index: 12;
+            overflow-x: scroll;
+            border: none;
+            
+            .expaned-table-container__outer-cell {
+                border: rem(1) solid $gray-cool-10;
+                border-radius: rem(4);
+                background-color: $color-white;
+                padding: rem(16);
+                margin-left: rem(8);
+                
+                .table-title {
+                    color: $gray-90;
+                    font-weight: $font-semibold;
+                    font-size: $font-size-16;
+                    line-height: 1.5;
+                    margin: auto 0;
+                }
+                
+                .table-subTitle {
+                    font-size: $small-font-size;
+                    line-height: 1.2;
+                }
+            }
+        }
+    }
 }
 
 .usa-table-borderless {

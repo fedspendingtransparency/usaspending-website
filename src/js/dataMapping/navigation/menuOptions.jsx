@@ -88,7 +88,8 @@ export const learnResourceOptions = [
         description: 'Questions and answers about federal spending concepts',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: 'Data Sources',
@@ -98,7 +99,8 @@ export const learnResourceOptions = [
         url: '/data-sources',
         callToAction: 'Explore the Data Sources',
         shouldOpenNewTab: false,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: 'Training Videos',
@@ -108,7 +110,8 @@ export const learnResourceOptions = [
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false,
-        isNewTab: false
+        isNewTab: false,
+        icon: ''
     }
 ];
 export const referenceMaterialsOptions = [
@@ -117,14 +120,16 @@ export const referenceMaterialsOptions = [
         url: '?glossary',
         description: 'Definitions for commonly used terms',
         enabled: true,
-        appendToExistingUrl: true
+        appendToExistingUrl: true,
+        icon: ''
     },
     {
         label: 'About the Data',
         url: '?about-the-data',
         description: 'Sitewide data disclosures and descriptions',
         enabled: true,
-        appendToExistingUrl: true
+        appendToExistingUrl: true,
+        icon: ''
     },
     {
         label: 'Data Dictionary',
@@ -135,7 +140,8 @@ export const referenceMaterialsOptions = [
         callToAction: 'Explore the Data Dictionary',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: "Agency Submission Statistics",
@@ -144,7 +150,8 @@ export const referenceMaterialsOptions = [
             search: '?tab=submissions'
         },
         description: 'Status of agency financial submissions to USAspending.gov',
-        enabled: true
+        enabled: true,
+        icon: ''
     }
 ];
 export const developerOptions = [
@@ -154,7 +161,8 @@ export const developerOptions = [
         enabled: true,
         shouldOpenNewTab: true,
         description: 'API endpoints and how they power the data on USAspending.gov',
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: 'USAspending GitHub',
@@ -162,7 +170,8 @@ export const developerOptions = [
         enabled: true,
         shouldOpenNewTab: true,
         description: 'Open-source code for USAspending.gov',
-        externalLink: true
+        externalLink: true,
+        icon: ''
     },
     {
         label: 'Release Notes',
@@ -170,7 +179,8 @@ export const developerOptions = [
         enabled: true,
         shouldOpenNewTab: true,
         description: 'Summary of the latest changes on USAspending.gov',
-        externalLink: true
+        externalLink: true,
+        icon: ''
     }
 ];
 
@@ -251,7 +261,8 @@ export const downloadOptions = [
         callToAction: 'Grab Award Files',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: 'Custom Award Data',
@@ -262,7 +273,8 @@ export const downloadOptions = [
         callToAction: 'Download Award Data',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: 'Custom Account Data',
@@ -273,7 +285,8 @@ export const downloadOptions = [
         callToAction: 'Download Account Data',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: 'Database Download',
@@ -285,7 +298,8 @@ export const downloadOptions = [
         shouldOpenNewTab: true,
         enabled: true,
         internalDomain: true,
-        externalLink: true
+        externalLink: true,
+        icon: ''
     },
     {
         label: 'Dataset Metadata',
@@ -296,7 +310,8 @@ export const downloadOptions = [
         callToAction: 'Explore Dataset Metadata',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     }
 ];
 export const resourceOptions = [
@@ -304,13 +319,15 @@ export const resourceOptions = [
         label: 'Glossary',
         url: '?glossary',
         enabled: true,
-        appendToExistingUrl: true
+        appendToExistingUrl: true,
+        icon: ''
     },
     {
         label: 'About the Data',
         url: '?about-the-data',
         enabled: true,
-        appendToExistingUrl: true
+        appendToExistingUrl: true,
+        icon: ''
     },
     {
         label: 'Training Videos',
@@ -319,7 +336,8 @@ export const resourceOptions = [
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false,
-        isNewTab: false
+        isNewTab: false,
+        icon: ''
 
     },
     {
@@ -331,7 +349,8 @@ export const resourceOptions = [
         callToAction: 'Explore the Data Dictionary',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: 'Federal Spending Guide',
@@ -339,7 +358,8 @@ export const resourceOptions = [
         url: '/federal-spending-guide',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
 
     },
     {
@@ -349,7 +369,8 @@ export const resourceOptions = [
         url: '/data-sources',
         callToAction: 'Explore the Data Sources',
         shouldOpenNewTab: false,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     },
     {
         label: "Agency Submission Statistics",
@@ -357,14 +378,16 @@ export const resourceOptions = [
             pathname: '/submission-statistics',
             search: '?tab=submissions'
         },
-        enabled: true
+        enabled: true,
+        icon: ''
     },
     {
         label: 'API Tutorial',
         url: 'https://api.usaspending.gov/docs/intro-tutorial',
         enabled: true,
         shouldOpenNewTab: true,
-        externalLink: true
+        externalLink: true,
+        icon: ''
     }
 ];
 

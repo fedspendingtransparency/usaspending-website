@@ -383,9 +383,6 @@ const TopFive = (props) => {
                                 className="congressional-district__tt"
                                 icon="info"
                                 tooltipPosition="bottom"
-                                styles={{
-                                    position: 'relative'
-                                }}
                                 tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
                         </> : categoryTitles[props.category]}
                 </div>

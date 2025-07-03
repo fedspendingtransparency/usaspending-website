@@ -12,6 +12,7 @@ import TimeVisualizationSectionContainer
     from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
 import TimeDsm from "./TimeDsm";
+import { useQueryParams } from '../../../../helpers/queryParams';
 
 const propTypes = {
     timeHasLoaded: PropTypes.bool,
@@ -23,7 +24,8 @@ const propTypes = {
 const TimeSection = ({
     timeHasLoaded, subaward, hash, spendingLevel
 }) => {
-    const [visualizationPeriod, setVisualizationPeriod] = useState('month');
+    const query = useQueryParams();
+    const [visualizationPeriod, setVisualizationPeriod] = useState(query.by || 'month');
 
     const onClick = (e) => {
         setVisualizationPeriod(e);

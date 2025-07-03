@@ -10,11 +10,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage, NewPicker } from "data-transparency-ui";
-
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
 import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
+import MobileSort from '../mobile/MobileSort';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -29,7 +30,11 @@ const propTypes = {
     rows: PropTypes.array,
     sortBy: PropTypes.func,
     sortDirection: PropTypes.string,
+    setSortDirection: PropTypes.func,
+    sort: PropTypes.object,
+    setSort: PropTypes.func,
     activeField: PropTypes.string,
+    setActiveField: PropTypes.func,
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     section: PropTypes.string,
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
@@ -40,7 +45,8 @@ const propTypes = {
     hash: PropTypes.string,
     spendingLevel: PropTypes.string,
     onToggle: PropTypes.func,
-    showToggle: PropTypes.bool
+    showToggle: PropTypes.bool,
+    tableColumns: PropTypes.object
 };
 
 const SearchSectionWrapper = ({
@@ -53,11 +59,13 @@ const SearchSectionWrapper = ({
     hasNoData,
     isError,
     columns,
+    tableColumns,
     rows,
     table,
     sortBy,
     sortDirection,
     activeField,
+    setActiveField,
     downloadComponent,
     sectionName,
     mapViewType = false,
@@ -65,11 +73,16 @@ const SearchSectionWrapper = ({
     hash,
     spendingLevel,
     onToggle,
-    showToggle
+    showToggle,
+    setSortDirection,
+    sort,
+    setSort
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [trackDSMEvent, setTrackDSMEvent] = useState(false);
     const [viewType, setViewType] = useState('chart');
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [windowWidth, setWindowWidth] = useState(0);
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const gaRef = useRef(false);
 
@@ -85,6 +98,7 @@ const SearchSectionWrapper = ({
     params?.shift();
     const sectionValue = params?.length > 0 ? params[0]?.substring(8) : null;
     const sortFn = () => dropdownOptions;
+    const mobileDropdownOptions = [];
 
     const changeView = (label) => {
         setViewType(label);
@@ -198,6 +212,18 @@ const SearchSectionWrapper = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openAccordion]);
 
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     const Message = () => {
         if (isLoading) {
             return <LoadingMessage />;
@@ -266,6 +292,19 @@ const SearchSectionWrapper = ({
                             <Message />
                             :
                             <>
+                                {((viewType === "table" || sectionName === "table") && isMobile && sectionName !== 'categories') ?
+                                    <MobileSort
+                                        columns={columns}
+                                        options={mobileDropdownOptions}
+                                        sortDirection={sortDirection}
+                                        setSortDirection={setSortDirection}
+                                        activeField={activeField}
+                                        field={sort?.field}
+                                        setActiveField={setActiveField}
+                                        sortBy={sortBy}
+                                        sort={sort}
+                                        tableColumns={tableColumns?.data}
+                                        setSort={setSort} /> : null}
                                 {downloadComponent}
                                 {viewType === "table" ?
                                     <Content />
@@ -292,6 +331,6 @@ const SearchSectionWrapper = ({
         </div>
     );
 };
-
+// TODO: sectionName !== 'categories' needs to be removed once we do the categories sort
 SearchSectionWrapper.propTypes = propTypes;
 export default SearchSectionWrapper;

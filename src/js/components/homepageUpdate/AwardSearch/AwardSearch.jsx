@@ -103,6 +103,8 @@ const AwardSearch = () => {
                 if (rankType === "naics" || rankType === "psc") {
                     // eslint-disable-next-line no-unused-expressions
                     window.open(`/search?hash=${hashData.hash}&section=${section}&type=${rankType}`, "_self");
+                } else if (section === "time") {
+                    window.open(`/search?hash=${hashData.hash}&section=${section}&by=fiscal_year`, "_self");
                 }
                 else {
                     // eslint-disable-next-line no-unused-expressions
