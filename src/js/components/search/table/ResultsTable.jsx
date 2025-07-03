@@ -6,17 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
-import { isAwardAggregate } from 'helpers/awardSummaryHelper';
-import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import Analytics from 'helpers/analytics/Analytics';
-import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
-import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
-import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import { convertToTitleCase } from "../../../helpers/searchHelper";
-
-const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
+import TanStackTable from '../../sharedComponents/table/TanStackTable';
 
 export default class ResultsTable extends React.Component {
     static propTypes = {
@@ -36,7 +30,9 @@ export default class ResultsTable extends React.Component {
         setResultLimit: PropTypes.func,
         total: PropTypes.number,
         isMobile: PropTypes.bool,
-        federalAccountPage: PropTypes.bool
+        federalAccountPage: PropTypes.bool,
+        showToggle: PropTypes.bool,
+        referenceData: PropTypes.array
     };
 
     constructor(props) {
@@ -51,11 +47,8 @@ export default class ResultsTable extends React.Component {
             windowWidth: 0
         };
 
-        this.headerCellRender = this.headerCellRender.bind(this);
-        this.bodyCellRender = this.bodyCellRender.bind(this);
         this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
-        this.prepareTable = this.prepareTable.bind(this);
         this.measureHeight = this.measureHeight.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
         this.pickLocationFormat = this.pickLocationFormat.bind(this);
@@ -155,148 +148,6 @@ export default class ResultsTable extends React.Component {
             tableHeight,
             windowHeight: window.innerHeight
         });
-    }
-
-    headerCellRender(columnIndex) {
-        const columnId = this.props.columns.visibleOrder[columnIndex];
-        const column = this.props.columns.data[columnId];
-        const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.length;
-        let isActive = this.props.sort.field === column.columnName;
-
-        if (!isActive && column.columnName === 'Action Date' && this.props.sort.field === 'Sub-Award Date') {
-            isActive = true;
-        }
-        return (
-            <ResultsTableHeaderCell
-                isLast={isLast}
-                isActive={isActive}
-                title={column.columnName}
-                displayName={column.displayName}
-                subtitle={column.subtitle}
-                background={column.background}
-                defaultDirection={column.defaultDirection}
-                currentSort={this.props.sort}
-                updateSort={this.props.updateSort}
-                headerHeight={headerHeight} />
-        );
-    }
-
-    bodyCellRender(columnIndex, rowIndex) {
-        const columnId = this.props.columns.visibleOrder[columnIndex];
-        const column = this.props.columns.data[columnId];
-        let cellClass = ResultsTableFormattedCell;
-        const props = {
-            rowIndex,
-            columnIndex,
-            value: this.props.results[rowIndex][columnId],
-            dataType: awardTableColumnTypes[columnId]
-        };
-
-        if (column.columnName === 'Award ID') {
-            cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].generated_internal_id;
-            props.column = 'award';
-            if (this.props.awardIdClick) {
-                props.onClick = () => this.props.awardIdClick(props.id);
-            }
-        }
-        else if (column.columnName === 'Total Outlays') {
-            if (!this.props.results[rowIndex]['Total Outlays']) {
-                props.value = '--';
-            }
-        }
-        else if ((column.columnName === 'Sub-Award ID') && this.props.subaward) {
-            const row = this.props.results[rowIndex];
-            cellClass = ResultsTableLinkCell;
-            props.column = 'award';
-            props.id = row.prime_award_generated_internal_id;
-            props.onClick = this.props.subAwardIdClick.bind(null, `${row['Sub-Award ID']} (${props.id})`);
-        }
-        else if ((column.columnName === 'Action Date') && this.props.subaward) {
-            props.value = this.props.results[rowIndex]['Sub-Award Date'];
-        }
-        else if (column.columnName === 'Recipient Name' && this.props.results[rowIndex].recipient_id) {
-            cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].recipient_id;
-            props.column = 'recipient';
-        }
-        else if (column.columnName === 'Prime Recipient Name' && this.props.results[rowIndex].prime_award_recipient_id) {
-            // for Sub-Awards
-            cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].prime_award_recipient_id;
-            props.column = 'recipient';
-        }
-        else if (column.columnName === 'Awarding Agency' && this.props.results[rowIndex].awarding_agency_id) {
-            cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].agency_slug || this.props.results[rowIndex].awarding_agency_id;
-            props.column = 'agency';
-        }
-        else if (column.columnName === 'Prime Award ID') {
-            const primeAwardId = this.props.results[rowIndex].prime_award_generated_internal_id;
-            if (primeAwardId) {
-                cellClass = ResultsTableLinkCell;
-                props.id = primeAwardId;
-                props.column = 'award';
-                props.value = isAwardAggregate(primeAwardId)
-                    ? primeAwardId
-                    : props.value;
-            }
-            else {
-                // primeAwardId null case
-                props.value = '- -';
-            }
-        }
-        else if (
-            (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays')
-            && !this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
-            props.value = '--';
-        }
-        else if (column.columnName === 'def_codes') {
-            if (!this.props.results[rowIndex].def_codes) {
-                props.value = '--';
-            }
-            else {
-                props.value = this.props.results[rowIndex].def_codes.join(", ");
-            }
-        }
-        else if (column.columnName === 'Description') {
-            if (!this.props.results[rowIndex].Description) {
-                props.value = '--';
-            }
-            else {
-                props.value = this.props.results[rowIndex].Description;
-            }
-        }
-        else if (column.columnName === 'Infrastructure Obligations' || column.columnName === 'Infrastructure Outlays') {
-            if (!this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
-                props.value = '--';
-            }
-        }
-        return React.createElement(
-            cellClass,
-            props
-        );
-    }
-
-    prepareTable() {
-        let totalWidth = 0;
-
-        const columnOrder = this.props.columns.visibleOrder;
-        const columns = columnOrder.map((columnTitle) => {
-            const column = this.props.columns.data[columnTitle];
-            const columnX = totalWidth;
-            totalWidth += column.width;
-
-            return {
-                x: columnX,
-                width: column.width
-            };
-        });
-
-        return {
-            columns,
-            width: totalWidth
-        };
     }
 
     prepareDTUIColumns() {
@@ -752,8 +603,16 @@ export default class ResultsTable extends React.Component {
     }
 
     render() {
-        const cols = this.prepareDTUIColumns();
-        const limitedRows = this.prepareDTUIRows();
+        let showTanStackTable = false;
+        let cols = [];
+        let limitedRows = [];
+        if (this.props.showToggle && this.props.spendingLevel === 'awards' && !this.props.isMobile) {
+            showTanStackTable = true;
+        }
+        else {
+            cols = this.prepareDTUIColumns();
+            limitedRows = this.prepareDTUIRows();
+        }
         // for table height take the height of the viewport
         // subtract the sticky header part on the top of the page
         // tab height for the tables
@@ -765,22 +624,31 @@ export default class ResultsTable extends React.Component {
                     className="advanced-search__table-wrapper"
                     id="advanced-search__table-wrapper"
                     style={this.props.resultsCount >= this.props.resultsLimit ? { height: '638px' } : {}}>
-                    <Table
-                        classNames="table-for-new-search-page award-results-table-dtui"
-                        stickyFirstColumn={!this.props.isMobile}
-                        columns={cols}
-                        rows={limitedRows}
-                        rowHeight={this.props.isMobile ? null : 58}
-                        headerRowHeight={45}
-                        highlightedColumns={this.props.subaward ? {
-                            standardColumns: 9,
-                            highlightedColumns: this.props.currentType === "subcontracts" ? 7 : 6
-                        } : null}
-                        currentSort={this.props.sort}
-                        updateSort={this.props.updateSort}
-                        isMobile={this.props.isMobile}
-                        isStacked
-                        newMobileView />
+                    { showTanStackTable ? (
+                        <TanStackTable
+                            {...this.props}
+                            columns={cols}
+                            data={this.props.expandableData}
+                            currentSort={this.props.sort}
+                            updateSort={this.props.updateSort} />
+                    ) : (
+                        <Table
+                            classNames="table-for-new-search-page award-results-table-dtui"
+                            stickyFirstColumn={!this.props.isMobile}
+                            columns={cols}
+                            rows={limitedRows}
+                            rowHeight={this.props.isMobile ? null : 58}
+                            headerRowHeight={45}
+                            highlightedColumns={this.props.subaward ? {
+                                standardColumns: 9,
+                                highlightedColumns: this.props.currentType === "subcontracts" ? 7 : 6
+                            } : null}
+                            currentSort={this.props.sort}
+                            updateSort={this.props.updateSort}
+                            isMobile={this.props.isMobile}
+                            isStacked
+                            newMobileView />
+                    )}
                 </div>
                 <Pagination
                     resultsText

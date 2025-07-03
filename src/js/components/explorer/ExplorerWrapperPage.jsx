@@ -38,11 +38,11 @@ const ExplorerWrapperPage = (props) => {
             classNames="usa-da-explorer-page"
             title="Spending Explorer"
             metaTagProps={explorerPageMetaTags}
-            toolBarComponents={[
-                props.showShareIcon ? <ShareIcon
+            toolBarComponents={props.showShareIcon ? [
+                <ShareIcon
                     onShareOptionClick={handleShare}
-                    url={getBaseUrl(slug)} /> : <></>
-            ]}>
+                    url={getBaseUrl(slug)} />
+            ] : []}>
             <main
                 id="main-content"
                 className="main-content">

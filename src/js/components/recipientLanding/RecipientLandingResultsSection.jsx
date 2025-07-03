@@ -32,7 +32,7 @@ export default class RecipientLandingResultsSection extends React.Component {
                             classNames="table-message-fade"
                             timeout={{ exit: 225, enter: 195 }}
                             exit>
-                            <>
+                            <div>
                                 {this.props.inFlight && (
                                     <div className="results-table-message-container">
                                         <ResultsTableLoadingMessage />
@@ -43,7 +43,7 @@ export default class RecipientLandingResultsSection extends React.Component {
                                         <ResultsTableErrorMessage />
                                     </div>
                                 )}
-                            </>
+                            </div>
                         </CSSTransition>
                     )}
                 </TransitionGroup>
