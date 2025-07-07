@@ -1,8 +1,8 @@
-on:
-  schedule:
-    - cron: 0 0 1 * * # run monthly
+name: Run Broken Link Checker
 
-name: Broken Link Check
+on:
+  workflow_call:
+
 jobs:
   check:
     name: Broken Link Check
