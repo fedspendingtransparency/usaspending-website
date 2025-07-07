@@ -47,7 +47,7 @@ Our site makes use of certain environment variables. Defaults are provided, but 
 | ENV VAR           | DEFAULT VALUE (if not set)       | PURPOSE 
 |-------------------|----------------------------------|-----------------------------------------------------|
 | `ENV`             | prod                             | Determine bundling optimizations and feature flags  | 
-| `USASPENDING_API` | https://api.usaspending.gov/api/ | API URL to get backend data                         |
+| `USASPENDING_API` | https://api.usaspending.gov      | API URL to get backend data                         |
 | `MAPBOX_TOKEN`    | ''                               | Product key for use of MapBox features              |
 | `GA_TRACKING_ID`  | ''                               | Google Analytics key for anonymously tracking usage |
 
