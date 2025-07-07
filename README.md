@@ -1,6 +1,7 @@
 # USAspending Website
 
-[![Build Status](https://travis-ci.com/fedspendingtransparency/usaspending-website.svg?branch=qat)](https://app.travis-ci.com/github/fedspendingtransparency/usaspending-website) [![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
+[![Pull Request Checks](https://github.com/fedspendingtransparency/usaspending-website/actions/workflows/pull-request-checks.yaml/badge.svg?branch=staging)](https://github.com/fedspendingtransparency/usaspending-website/actions/workflows/pull-request-checks.yaml)
+[![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
 
 [The USAspending website](https://www.usaspending.gov/) is the public-facing site offering information on Government spending for the United States. It utilizes the [Data Transparency User Interface Library](https://github.com/fedspendingtransparency/data-transparency-ui).
 
