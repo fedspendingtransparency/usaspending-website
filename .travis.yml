@@ -1,7 +1,7 @@
 language: node_js
 dist: focal
 node_js:
-  - 20.12.2
+  - 20.18.2
 # Need a C++ compiler
 addons:
   chrome: stable
