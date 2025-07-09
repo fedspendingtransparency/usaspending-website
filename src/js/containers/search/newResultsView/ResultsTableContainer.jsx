@@ -259,7 +259,8 @@ const ResultsTableContainer = (props) => {
                 ...params,
                 fields: requestFields,
                 subawards: isSubaward,
-                sort: searchOrder.field
+                sort: searchOrder.field,
+                page
             };
 
             if (isTransactions) {
