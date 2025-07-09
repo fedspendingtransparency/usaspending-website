@@ -25,7 +25,6 @@ import SearchSectionWrapper from "../../../components/search/newResultsView/Sear
 import SpendingByCategoriesChart
     from "../../../components/search/newResultsView/categories/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
-import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
@@ -63,6 +62,10 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [tableRows, setTableRows] = useState([]);
     const [searchParams] = useSearchParams();
+    const [sortDirection, setSortDirection] = useState('desc');
+    const [activeField, setActiveField] = useState('obligations');
+    const [tableData, setTableData] = useState([]);
+
     let apiRequest;
 
     const { pathname } = useLocation();
@@ -160,6 +163,52 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         ]
     };
 
+    const createTableRows = (rows) => {
+        const rowsArray = [];
+        rows.forEach((row) => {
+            const rowArray = [];
+            Object.keys(row).forEach((key) => {
+                if (key === 'obligations') {
+                    rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
+                }
+                else {
+                    rowArray.push(row[key]);
+                }
+            });
+            rowsArray.push(rowArray);
+        });
+        setTableRows(rowsArray);
+    };
+    const sortBy = (field, direction) => {
+        console.debug(field, direction);
+        const updatedTable = [...tableData];
+        if (direction === 'asc') {
+            updatedTable.sort((a, b) => {
+                if (a[field] < b[field]) {
+                    return -1;
+                }
+                if (a[field] > b[field]) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
+        else if (direction === 'desc') {
+            updatedTable.sort((a, b) => {
+                if (a[field] < b[field]) {
+                    return 1;
+                }
+                if (a[field] > b[field]) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+
+        setSortDirection(direction);
+        setActiveField(field);
+        createTableRows(updatedTable);
+    };
     const changeScope = (newScope) => {
         setScope(newScope);
         setPage(1);
@@ -201,7 +250,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         const tempDataSeries = [];
         const tempDescriptions = [];
         const tempLinkSeries = [];
-        const tableData = [];
+        const temptableData = [];
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             const tableDataRow = [];
@@ -277,7 +326,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
-            tableData.push(tableDataRow);
+            temptableData.push(tableDataRow);
         });
 
 
@@ -292,7 +341,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setHasPreviousPage(data.page_metadata.hasPrevious);
         setLoading(false);
         setError(false);
-        setTableRows(tableData);
+        setTableRows(temptableData);
+        setTableData(temptableData);
     };
 
     const fetchData = () => {
@@ -395,6 +445,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.reduxFilters, scope, props.subaward, props.spendingLevel]);
 
+    useEffect(() => {
+        sortBy("obligations", "desc");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tableData]);
+
     return (
         <div
             className="results-visualization-rank-section"
@@ -404,16 +459,13 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
-                table={<CategoriesTable
-                    {...childProps}
-                    nextPage={nextPage}
-                    previousPage={previousPage}
-                    hasNextPage={hasNextPage}
-                    hasPreviousPage={hasPreviousPage}
-                    recipientError={recipientError}
-                    columns={columns[scope]}
-                    rows={tableRows} />}
-                hash={props.hash}>
+                columns={columns[scope]}
+                rows={tableRows}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                activeField={activeField}
+                hash={props.hash}
+                setActiveField={setActiveField}>
                 <CategoriesSectionWrapper
                     {...childProps}
                     changeScope={changeScope}
