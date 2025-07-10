@@ -69,7 +69,7 @@ export const AwardSpendingTT = () => (
         <h2 className="tooltip__title">Award Spending</h2>
         <div className="tooltip__text">
             <p>
-                Award Spending refers to money given through contracts or financial assistance to individuals, organizations, businesses, or state, local, or tribal governments.
+                Award Spending refers to money given through contracts or financial assistance to individuals, organizations, businesses, or governments (state, local, or tribal).
             </p><br />
             <p>
                 Award Spending is a portion of Total Spending, also known as Account Spending, which refers to the totality of agency obligations and outlays, including agency expenses.
