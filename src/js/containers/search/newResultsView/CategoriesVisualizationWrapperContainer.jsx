@@ -45,6 +45,7 @@ const propTypes = {
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
+    console.debug("PROPS: ", props);
     // eslint-disable-next-line no-unused-vars
     const [spendingBy, setSpendingBy] = useState('awardingAgency');
     const [loading, setLoading] = useState(true);
@@ -165,9 +166,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
     const createTableRows = (rows) => {
         const rowsArray = [];
+        console.debug("rows: ", rows);
         rows.forEach((row) => {
             const rowArray = [];
             Object.keys(row).forEach((key) => {
+                console.debug("row/key: ", row, key);
                 if (key === 'obligations') {
                     rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
                 }
@@ -180,31 +183,33 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setTableRows(rowsArray);
     };
     const sortBy = (field, direction) => {
-        console.debug(field, direction);
+        console.debug("field: ", field, direction);
         const updatedTable = [...tableData];
         if (direction === 'asc') {
+            // eslint-disable-next-line array-callback-return, consistent-return
             updatedTable.sort((a, b) => {
-                if (a[field] < b[field]) {
-                    return -1;
+                if (a.length === 2 && b.length === 2) {
+                    if (field === 'obligations') {
+                        return a[1] - b[1];
+                    }
+                    return a[0] - b[0];
                 }
-                if (a[field] > b[field]) {
-                    return 1;
-                }
-                return 0;
-            });
-        }
-        else if (direction === 'desc') {
-            updatedTable.sort((a, b) => {
-                if (a[field] < b[field]) {
-                    return 1;
-                }
-                if (a[field] > b[field]) {
-                    return -1;
-                }
-                return 0;
             });
         }
 
+        if (direction === 'desc') {
+            // eslint-disable-next-line array-callback-return, consistent-return
+            updatedTable.sort((a, b) => {
+                if (a.length === 2 && b.length === 2) {
+                    console.debug('making it here?');
+                    if (field === 'obligations') {
+                        return b[1] - a[1];
+                    }
+                    return b[0] - a[0];
+                }
+            });
+        }
+        console.debug("updated table: ", updatedTable);
         setSortDirection(direction);
         setActiveField(field);
         createTableRows(updatedTable);
