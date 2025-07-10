@@ -64,7 +64,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [searchParams] = useSearchParams();
     const [sortDirection, setSortDirection] = useState('desc');
     const [activeField, setActiveField] = useState('obligations');
-    const [tableData, setTableData] = useState([]);
 
     let apiRequest;
 
@@ -330,6 +329,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
             temptableData.push(tableDataRow);
+            console.debug("TABLE DATA ROW: ", tableDataRow);
         });
 
 
@@ -344,7 +344,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setHasPreviousPage(data.page_metadata.hasPrevious);
         setLoading(false);
         setError(false);
-        setTableData(temptableData);
     };
 
     const fetchData = () => {
