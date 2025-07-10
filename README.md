@@ -63,7 +63,7 @@ _Custom and life-cycle scripts to execute, as defined under the `scripts` proper
 | `npm lint`   | executes linter                                             |
 | `npm test`   | executes unit tests                                         |
 | `npm sass`   | dev server w/ scss source maps                              |
-| `npm travis` | executes travis validation script                           |
+| `npm travis` | executes linting and auditing                            |
 | `npm ci`     | clean existing Node dependencies and install dependencies   |
 | `npm run build-storybook`     | builds storybook files                         |
 | `npm run storybook`     | starts storybook server so you can interact with stories   |
