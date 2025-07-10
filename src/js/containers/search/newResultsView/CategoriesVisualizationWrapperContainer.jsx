@@ -61,7 +61,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [previous, setPrevious] = useState('');
     const [hasNextPage, setHasNextPage] = useState(false);
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
-    const [tableRows, setTableRows] = useState([]);
     const [searchParams] = useSearchParams();
     const [sortDirection, setSortDirection] = useState('desc');
     const [activeField, setActiveField] = useState('obligations');
@@ -166,7 +165,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
     const createTableRows = (rows) => {
         const rowsArray = [];
-        console.debug("rows: ", rows);
         rows.forEach((row) => {
             const rowArray = [];
             Object.keys(row).forEach((key) => {
@@ -180,11 +178,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             });
             rowsArray.push(rowArray);
         });
-        setTableRows(rowsArray);
     };
     const sortBy = (field, direction) => {
-        console.debug("field: ", field, direction);
+        // console.debug("field: ", field, direction);
         const updatedTable = [...tableData];
+        console.debug("unsorted: ", updatedTable);
         if (direction === 'asc') {
             // eslint-disable-next-line array-callback-return, consistent-return
             updatedTable.sort((a, b) => {
@@ -201,7 +199,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             // eslint-disable-next-line array-callback-return, consistent-return
             updatedTable.sort((a, b) => {
                 if (a.length === 2 && b.length === 2) {
-                    console.debug('making it here?');
                     if (field === 'obligations') {
                         return b[1] - a[1];
                     }
@@ -209,10 +206,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 }
             });
         }
-        console.debug("updated table: ", updatedTable);
+
+        console.debug("THIS MF SHOULD BE SORTED: ", updatedTable);
         setSortDirection(direction);
         setActiveField(field);
-        createTableRows(updatedTable);
+        // createTableRows(updatedTable);
     };
     const changeScope = (newScope) => {
         setScope(newScope);
@@ -346,7 +344,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setHasPreviousPage(data.page_metadata.hasPrevious);
         setLoading(false);
         setError(false);
-        setTableRows(temptableData);
         setTableData(temptableData);
     };
 
