@@ -45,9 +45,9 @@ const propTypes = {
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
-    // eslint-disable-next-line no-unused-vars
     const [sortDirection, setSortDirection] = useState('desc');
     const [activeField, setActiveField] = useState('obligations');
+    // eslint-disable-next-line no-unused-vars
     const [spendingBy, setSpendingBy] = useState('awardingAgency');
     const [labeledtableData, setlabeledTableData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -243,10 +243,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         const tempDescriptions = [];
         const tempLinkSeries = [];
         const tableData = [];
-
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            console.debug("item: ", item);
             const tableDataRow = [];
             const result = Object.create(BaseSpendingByCategoryResult);
             result.populate(item);
@@ -322,7 +320,10 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 };
             }
             else {
-                tableDataRow.name = (result.name);
+                tableDataRow.name = {
+                    value: result.name,
+                    title: result.name
+                };
             }
 
             tableDataRow.obligations = result._amount;
@@ -415,7 +416,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     useEffect(() => {
         sortBy("obligations", "desc");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [labeledtableData]);
+    }, [labeledtableData, scope]);
 
     useEffect(() => {
         // fetch data when scope or page changes
@@ -449,7 +450,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.reduxFilters, scope, props.subaward, props.spendingLevel]);
-
     return (
         <div
             className="results-visualization-rank-section"
