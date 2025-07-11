@@ -227,6 +227,11 @@
   }
 }
 
+.naics-search-container, .checkbox-tree {
+  margin-bottom: rem(20);
+  border-bottom: 1px solid $gray-cool-5;
+}
+
 // searchV2
 .collapsible-sidebar {
   .naics-search-container {
