@@ -232,6 +232,11 @@
   border-bottom: 1px solid $gray-cool-5;
 }
 
+.tas-checkbox, .checkbox-tree {
+  border-bottom: 1px solid $color-gray-lighter;
+  width: 100%;
+}
+
 // searchV2
 .collapsible-sidebar {
   .naics-search-container {
@@ -316,6 +321,14 @@
 
   .tas-checkbox {
     @extend .psc-checkbox;
+
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+
+    .checkbox-tree {
+      border-bottom: none !important;
+    }
 
     .checkbox-tree-label__label {
       padding-top: 0 !important;
