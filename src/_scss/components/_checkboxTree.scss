@@ -575,6 +575,7 @@
                 width: 1.5rem;
                 height: 2.2rem;
                 opacity: 1;
+                margin: 0;
 
                 &:focus {
                   outline: none;
@@ -590,6 +591,7 @@
               width: 100%;
               @include display(flex);
               margin-bottom: rem(8);
+              margin-left: 0;
 
               .rct-checkbox {
                 @include display(flex);
@@ -618,6 +620,8 @@
                 }
 
                 svg {
+                  margin: rem(2) rem(1);
+
                   &:focus {
                     outline: none;
                   }
