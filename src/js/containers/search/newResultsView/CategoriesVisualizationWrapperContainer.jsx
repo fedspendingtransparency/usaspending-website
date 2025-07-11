@@ -179,28 +179,23 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     };
     const sortBy = (field, direction) => {
         const updatedTable = [...labeledtableData];
-        console.debug("updated table unsorted: ", updatedTable, field, direction);
         if (direction === 'asc') {
             updatedTable.sort((a, b) => {
-                console.debug("asc, a, b: ", a, b, a[field] > b[field]);
-
                 if (field === 'obligations') {
                     return a[field] - b[field];
                 }
-                return a.name.title - b.name.title;
+                return a.name.title.localeCompare(b.name.title);
             });
         }
 
         if (direction === 'desc') {
             updatedTable.sort((a, b) => {
-                console.debug("desc, a, b: ", a, b, b[field] > a[field]);
                 if (field === 'obligations') {
                     return b[field] - a[field];
                 }
-                return b.name.title - a.name.title;
+                return b.name.title.localeCompare(a.name.title);
             });
         }
-        console.debug("THIS MF SHOULD BE SORTED: ", updatedTable);
         setSortDirection(direction);
         setActiveField(field);
         createTableRows(updatedTable);
@@ -251,6 +246,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
+            console.debug("item: ", item);
             const tableDataRow = [];
             const result = Object.create(BaseSpendingByCategoryResult);
             result.populate(item);
