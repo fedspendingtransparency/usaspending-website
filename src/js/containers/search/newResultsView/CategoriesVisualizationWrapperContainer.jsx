@@ -25,7 +25,6 @@ import SearchSectionWrapper from "../../../components/search/newResultsView/Sear
 import SpendingByCategoriesChart
     from "../../../components/search/newResultsView/categories/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
-import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
@@ -47,6 +46,8 @@ const propTypes = {
 
 const CategoriesVisualizationWrapperContainer = (props) => {
     // eslint-disable-next-line no-unused-vars
+    const [sortDirection, setSortDirection] = useState('desc');
+    const [activeField, setActiveField] = useState('obligations');
     const [spendingBy, setSpendingBy] = useState('awardingAgency');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -158,6 +159,21 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 right: true
             }
         ]
+    };
+
+    const sortBy = (field, direction) => {
+        const updatedTable = [...tableRows];
+        if (direction === 'asc') {
+            updatedTable.sort((a, b) => a[field] - b[field]);
+        }
+
+        if (direction === 'desc') {
+            updatedTable.sort((a, b) => b[field] - a[field]);
+        }
+
+        setSortDirection(direction);
+        setActiveField(field);
+        // createTableRows(updatedTable);
     };
 
     const changeScope = (newScope) => {
@@ -363,6 +379,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     };
 
     useEffect(() => {
+        sortBy("obligations", "desc");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
         // fetch data when scope or page changes
         fetchData();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -401,18 +422,15 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             id="results-section-rank">
             <SearchSectionWrapper
                 {...props.wrapperProps}
+                columns={columns[scope]}
+                sortBy={sortBy}
+                rows={tableRows}
+                sortDirection={sortDirection}
+                activeField={activeField}
+                setActiveField={setActiveField}
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
-                table={<CategoriesTable
-                    {...childProps}
-                    nextPage={nextPage}
-                    previousPage={previousPage}
-                    hasNextPage={hasNextPage}
-                    hasPreviousPage={hasPreviousPage}
-                    recipientError={recipientError}
-                    columns={columns[scope]}
-                    rows={tableRows} />}
                 hash={props.hash}>
                 <CategoriesSectionWrapper
                     {...childProps}
