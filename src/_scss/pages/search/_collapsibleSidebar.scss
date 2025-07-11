@@ -62,6 +62,8 @@
     z-index: 2;
   }
 
+  @import "../../components/checkboxTree";
+
   .collapsible-sidebar {
     display: flex;
     flex-direction: column;
@@ -113,10 +115,6 @@
         height: unset !important;
       }
     }
-
-    @import "_newNaicsStyles";
-    @import "_newPscStyles";
-    @import "_newTasStyles";
 
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
