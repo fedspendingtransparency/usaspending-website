@@ -64,7 +64,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [searchParams] = useSearchParams();
     const [sortDirection, setSortDirection] = useState('desc');
     const [activeField, setActiveField] = useState('obligations');
-
+    const [tableRows, setTableRows] = useState([]);
+    const [tableData, setTableData] = useState([]);
     let apiRequest;
 
     const { pathname } = useLocation();
@@ -161,7 +162,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             }
         ]
     };
-
+    console.debug("CHILDPROPS: ", childProps);
     const createTableRows = (rows) => {
         const rowsArray = [];
         rows.forEach((row) => {
@@ -180,7 +181,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     };
     const sortBy = (field, direction) => {
         // console.debug("field: ", field, direction);
-        const updatedTable = [...tableData];
+        const updatedTable = [];
         console.debug("unsorted: ", updatedTable);
         if (direction === 'asc') {
             // eslint-disable-next-line array-callback-return, consistent-return
@@ -252,7 +253,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         const tempDataSeries = [];
         const tempDescriptions = [];
         const tempLinkSeries = [];
-        const temptableData = [];
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             const tableDataRow = [];
@@ -328,8 +328,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
-            temptableData.push(tableDataRow);
-            console.debug("TABLE DATA ROW: ", tableDataRow);
         });
 
 
@@ -390,6 +388,14 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         apiRequest.promise
             .then((res) => {
                 parseData(res.data);
+                const tempTableData = [];
+                res.data.results.map((d) => {
+                    const row = Object.create(BaseSpendingByCategoryResult);
+                    row.populate(d);
+                    tempTableData.push(row);
+                    return row;
+                });
+                setTableData(tempTableData);
                 apiRequest = null;
             })
             .catch((err) => {
@@ -449,7 +455,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     useEffect(() => {
         sortBy("obligations", "desc");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tableData]);
+    }, []);
 
     return (
         <div
@@ -461,8 +467,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
                 columns={columns[scope]}
-                rows={tableRows}
                 sortBy={sortBy}
+                rows={tableRows}
                 sortDirection={sortDirection}
                 activeField={activeField}
                 hash={props.hash}

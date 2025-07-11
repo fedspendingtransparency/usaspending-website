@@ -187,7 +187,6 @@ const TimeVisualizationSectionContainer = (props) => {
             });
             rowsArray.push(rowArray);
         });
-
         setTableRows(rowsArray);
 
         const downloadDataRows = [];
