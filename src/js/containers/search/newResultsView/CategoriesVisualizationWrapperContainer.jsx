@@ -49,6 +49,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [sortDirection, setSortDirection] = useState('desc');
     const [activeField, setActiveField] = useState('obligations');
     const [spendingBy, setSpendingBy] = useState('awardingAgency');
+    const [labeledtableData, setlabeledTableData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [recipientError, setRecipientError] = useState(false);
@@ -160,20 +161,49 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             }
         ]
     };
-
+    const createTableRows = (rows) => {
+        const rowsArray = [];
+        rows.forEach((row) => {
+            const rowArray = [];
+            Object.keys(row).forEach((key) => {
+                if (key === 'obligations') {
+                    rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
+                }
+                else {
+                    rowArray.push(row[key].value);
+                }
+            });
+            rowsArray.push(rowArray);
+        });
+        setTableRows(rowsArray);
+    };
     const sortBy = (field, direction) => {
-        const updatedTable = [...tableRows];
+        const updatedTable = [...labeledtableData];
+        console.debug("updated table unsorted: ", updatedTable, field, direction);
         if (direction === 'asc') {
-            updatedTable.sort((a, b) => a[field] - b[field]);
+            updatedTable.sort((a, b) => {
+                console.debug("asc, a, b: ", a, b, a[field] > b[field]);
+
+                if (field === 'obligations') {
+                    return a[field] - b[field];
+                }
+                return a.name.title - b.name.title;
+            });
         }
 
         if (direction === 'desc') {
-            updatedTable.sort((a, b) => b[field] - a[field]);
+            updatedTable.sort((a, b) => {
+                console.debug("desc, a, b: ", a, b, b[field] > a[field]);
+                if (field === 'obligations') {
+                    return b[field] - a[field];
+                }
+                return b.name.title - a.name.title;
+            });
         }
-
+        console.debug("THIS MF SHOULD BE SORTED: ", updatedTable);
         setSortDirection(direction);
         setActiveField(field);
-        // createTableRows(updatedTable);
+        createTableRows(updatedTable);
     };
 
     const changeScope = (newScope) => {
@@ -218,6 +248,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         const tempDescriptions = [];
         const tempLinkSeries = [];
         const tableData = [];
+
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             const tableDataRow = [];
@@ -245,58 +276,66 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 tempLinkSeries.push(recipientLink);
 
                 if (recipientLink !== "") {
-                    tableDataRow.push(
-                        <a
-                            href={recipientLink}
-                            onClick={() => {
-                                onClickHandler(result.name);
-                            }}>
-                            {result.name}
-                        </a>
-                    );
+                    tableDataRow.name = {
+                        value: (
+                            <a
+                                href={recipientLink}
+                                onClick={() => {
+                                    onClickHandler(result.name);
+                                }}>
+                                {result.name}
+                            </a>
+                        ),
+                        title: result.name
+                    };
                 }
                 else {
-                    tableDataRow.push(result.name);
+                    tableDataRow.name = (result.name);
                 }
             }
             else if (scope === 'awarding_agency' && !props.subaward) {
                 const awardingLink = `agency/${result._agencySlug}`;
                 tempLinkSeries.push(awardingLink);
-                tableDataRow.push(
-                    <a
-                        href={awardingLink}
-                        onClick={() => {
-                            onClickHandler(result.name);
-                        }} >
-                        {result.name}
-                    </a>);
+                tableDataRow.name = {
+                    value: (
+                        <a
+                            href={awardingLink}
+                            onClick={() => {
+                                onClickHandler(result.name);
+                            }} >
+                            {result.name}
+                        </a>),
+                    title: result.name
+                };
             }
             else if (scope === 'awarding_agency' && props.subaward && props.agencyIds) {
                 // this properly pulls in the slug from withAgencySlugs, as it is not provided though the API request for subawards
                 const agencyIdentifier = !props.error ? props.agencyIds[item.id] : '';
                 const awardingLink = `agency/${agencyIdentifier}`;
                 tempLinkSeries.push(awardingLink);
-                tableDataRow.push(
-                    <a
-                        href={awardingLink}
-                        onClick={() => {
-                            onClickHandler(result.name);
-                        }} >
-                        {result.name}
-                    </a>);
+                tableDataRow.name = {
+                    value: (
+                        <a
+                            href={awardingLink}
+                            onClick={() => {
+                                onClickHandler(result.name);
+                            }} >
+                            {result.name}
+                        </a>),
+                    title: result.name
+                };
             }
             else {
-                tableDataRow.push(result.name);
+                tableDataRow.name = (result.name);
             }
 
-            tableDataRow.push(MoneyFormatter.formatMoneyWithPrecision(result._amount, 0));
-
+            tableDataRow.obligations = result._amount;
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
             tableData.push(tableDataRow);
         });
 
-
+        setlabeledTableData(tableData);
         // set the state with the new values
         setLabelSeries(tempLabelSeries);
         setDataSeries(tempDataSeries);
@@ -308,7 +347,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setHasPreviousPage(data.page_metadata.hasPrevious);
         setLoading(false);
         setError(false);
-        setTableRows(tableData);
     };
 
     const fetchData = () => {
@@ -381,7 +419,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     useEffect(() => {
         sortBy("obligations", "desc");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [labeledtableData]);
 
     useEffect(() => {
         // fetch data when scope or page changes
