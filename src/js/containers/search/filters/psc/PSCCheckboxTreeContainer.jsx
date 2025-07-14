@@ -24,10 +24,11 @@ import {
 import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
-// import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+import NewCheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";
+import GlobalConstants from "../../../../GlobalConstants";
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -126,6 +127,7 @@ const PSCCheckboxTreeContainer = ({
                 // dynamically populating tree branches
                 const pscNodes = cleanPscData(data.results);
 
+                console.log("is partial tree", isPartialTree, id);
                 if (isPartialTree) {
                     // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
                     const key = id.includes('/') ? id.split('/').pop() : id;
@@ -393,19 +395,34 @@ const PSCCheckboxTreeContainer = ({
                 isClearable
                 loading={false}
                 onClear={onClear} />
-            <CheckboxTree
-                isError={isError}
-                errorMessage={errorMessage}
-                isLoading={isLoading}
-                data={nodes}
-                checked={checked}
-                searchText={searchString}
-                noResults={showNoResults}
-                expanded={isSearch ? searchExpanded : expanded}
-                onUncheck={onUncheck}
-                onCheck={onCheck}
-                onExpand={onExpand}
-                onCollapse={onCollapse} />
+            {GlobalConstants.QAT ?
+                <NewCheckboxTree
+                    isError={isError}
+                    errorMessage={errorMessage}
+                    isLoading={isLoading}
+                    data={nodes}
+                    checked={checked}
+                    searchText={searchString}
+                    noResults={showNoResults}
+                    expanded={isSearch ? searchExpanded : expanded}
+                    onUncheck={onUncheck}
+                    onCheck={onCheck}
+                    onExpand={onExpand}
+                    onCollapse={onCollapse} />
+                :
+                <CheckboxTree
+                    isError={isError}
+                    errorMessage={errorMessage}
+                    isLoading={isLoading}
+                    data={nodes}
+                    checked={checked}
+                    searchText={searchString}
+                    noResults={showNoResults}
+                    expanded={isSearch ? searchExpanded : expanded}
+                    onUncheck={onUncheck}
+                    onCheck={onCheck}
+                    onExpand={onExpand}
+                    onCollapse={onCollapse} />}
         </div>
     );
 };
