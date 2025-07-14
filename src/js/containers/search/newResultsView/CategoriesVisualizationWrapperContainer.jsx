@@ -461,6 +461,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 setPage={setPage}
                 columns={columns[scope]}
                 sortBy={sortBy}
+                setSortDirection={setSortDirection}
                 rows={tableRows}
                 sortDirection={sortDirection}
                 activeField={activeField}
