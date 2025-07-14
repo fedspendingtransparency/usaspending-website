@@ -352,5 +352,24 @@
         }
       }
     }
+
+    
+    .recipient-spending-notes__header {
+      text-decoration: underline;
+    }
+
+    .recipient-spending-notes__list {
+      padding-left: 2%;
+      font-size: rem(14);
+  
+      li {
+        list-style: disc;
+
+        a {
+          word-break: break-word;
+        }
+      }
+    
+    }
   }
 }
