@@ -3,9 +3,12 @@
  * Created by Kevin Li 12/19/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
+import * as SearchHelper from 'helpers/searchHelper';
+import Analytics from '../../helpers/analytics/Analytics';
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -19,6 +22,9 @@ const propTypes = {
 const SearchSidebarSubmit = (props) => {
     let disabled = false;
     let title = 'Click to submit your search.';
+    const [timer, setTimer] = useState(null);
+    const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
+    const [hasTimerEventFired, setHasTimerEventFired] = useState(false);
 
     if (props.stagedFiltersAreEmpty) {
         title = 'Add or update a filter to submit.';
@@ -28,6 +34,23 @@ const SearchSidebarSubmit = (props) => {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
+
+    useEffect(() => {
+        setTimer(new Date().getTime()); // set initial timer in state.
+    }, []);
+
+    const fireSearchEvent = () => {
+        const now = new Date().getTime() - timer;
+        if (!urlHash && !hasTimerEventFired) {
+            setHasTimerEventFired(true);
+            Analytics.event({
+                event: 'search_timer_event',
+                category: 'Advanced Search - Filter - Time',
+                action: 'filter submit',
+                label: `first time to query took ${Math.floor(now / 1000)} seconds`
+            });
+        }
+    };
 
     return (
         <div
@@ -46,6 +69,7 @@ const SearchSidebarSubmit = (props) => {
                     if (props?.setShowMobileFilters) {
                         props?.setShowMobileFilters();
                     }
+                    fireSearchEvent();
                     props.applyStagedFilters();
                 }} />
             <Button
