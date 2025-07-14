@@ -4,8 +4,10 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
+import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from '../../helpers/analytics/Analytics';
 
 const propTypes = {
@@ -21,6 +23,8 @@ const SearchSidebarSubmit = (props) => {
     let disabled = false;
     let title = 'Click to submit your search.';
     const [timer, setTimer] = useState(null);
+    const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
+    const [hasTimerEventFired, setHasTimerEventFired] = useState(false);
 
     if (props.stagedFiltersAreEmpty) {
         title = 'Add or update a filter to submit.';
@@ -37,15 +41,15 @@ const SearchSidebarSubmit = (props) => {
 
     const fireSearchEvent = () => {
         const now = new Date().getTime() - timer;
-        // console.log(`this time: ${Math.floor(now / 1000)} would be sent to GA`);
-        console.log(`this time: ${now} would be sent to GA`);
-
-        Analytics.event({
-            event: 'search_timer_event',
-            category: 'Advanced Search - Filter - Time',
-            action: 'filter submit',
-            value: `${now} - milliseconds`
-        });
+        if (!urlHash && !hasTimerEventFired) {
+            setHasTimerEventFired(true);
+            Analytics.event({
+                event: 'search_timer_event',
+                category: 'Advanced Search - Filter - Time',
+                action: 'filter submit',
+                label: `first time to query took ${Math.floor(now / 1000)} seconds`
+            });
+        }
     };
 
     return (
