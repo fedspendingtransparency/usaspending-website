@@ -204,7 +204,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const changeScope = (newScope) => {
         setScope(newScope);
         setPage(1);
-        setHasNextPage(false);
+        setHasNextPage(true);
     };
 
     const parseRank = () => {
@@ -409,7 +409,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
     const newSearch = () => {
         setPage(1);
-        setHasNextPage(false);
+        setHasNextPage(true);
         fetchData();
     };
 
@@ -456,6 +456,9 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             id="results-section-rank">
             <SearchSectionWrapper
                 {...props.wrapperProps}
+                {...childProps}
+                page={page}
+                setPage={setPage}
                 columns={columns[scope]}
                 sortBy={sortBy}
                 rows={tableRows}
@@ -465,7 +468,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
-                hash={props.hash}>
+                hash={props.hash}
+                hasNextPage={hasNextPage}
+                hasPreviousPage={hasPreviousPage}
+                nextPage={nextPage}
+                previousPage={previousPage}>
                 <CategoriesSectionWrapper
                     {...childProps}
                     changeScope={changeScope}

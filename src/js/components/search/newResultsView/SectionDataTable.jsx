@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Pagination, Table } from "data-transparency-ui";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
+import CategoriesPagination from './categories/CategoriesPagination';
 
 const SectionDataTable = (props) => {
     const { sortDirection, activeField } = props;
@@ -18,6 +19,7 @@ const SectionDataTable = (props) => {
     const pageSize = 10;
     const maxRows = props.rows;
     const columns = props.columns;
+    console.debug("section data table props: ", props);
     const changePage = (page) => {
         if (props.manualSort) {
             setRows(maxRows.slice((page - 1) * pageSize, page * pageSize));
@@ -40,7 +42,7 @@ const SectionDataTable = (props) => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     useEffect(() => {
         if (pageSize) {
@@ -62,12 +64,17 @@ const SectionDataTable = (props) => {
                 isStacked
                 newResultsView
                 rows={rows} />
-            <Pagination
-                resultsText
-                totalItems={maxRows.length}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                changePage={changePage} />
+            {props.sectionName === 'categories' ?
+                <CategoriesPagination
+                    nextPage={props.nextPage}
+                    previousPage={props.previousPage}
+                    hasNextPage={props.hasNextPage}
+                    hasPreviousPage={props.hasPreviousPage} /> : <Pagination
+                    resultsText
+                    totalItems={maxRows.length}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    changePage={changePage} />}
         </>
     );
 };
