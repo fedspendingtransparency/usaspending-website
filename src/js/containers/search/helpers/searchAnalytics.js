@@ -77,9 +77,19 @@ export const convertReducibleValue = (value, type, parser) => (
 
 export const convertTimePeriod = (value) => {
     if (Set.isSet(value)) {
+        // find out what time it is.
+        if (value.type === 'fy') {
+            return convertReducibleValue(
+                value,
+                'Time Period - Fiscal Year'
+            );
+        }
+
+        // custom date range.
         return convertReducibleValue(
             value,
-            'Time Period - Fiscal Year'
+            'Time Period - Date Range',
+            (date) => `${date.start_date || '...'} - ${date.end_date || 'present'}`
         );
     }
     else if (Array.isArray(value)) {
@@ -233,6 +243,8 @@ export const unifyDateFields = (redux) => {
     else {
         clonedRedux.timePeriod = clonedRedux.time_period;
     }
+    clonedRedux.timePeriod.type = clonedRedux.timePeriodType;
+
     return clonedRedux;
 };
 
