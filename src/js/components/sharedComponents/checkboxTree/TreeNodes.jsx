@@ -34,11 +34,6 @@ const TreeNodes = ({
     const [loadingParentId, setLoadingParentId] = useState();
 
     useEffect(() => {
-        setLocalChecked(checked);
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [checked]);
-
-    useEffect(() => {
         setLoadingParentId(null);
         setLocalNodes(nodes);
     }, [nodes]);
@@ -69,23 +64,32 @@ const TreeNodes = ({
         }
         return ids;
     };
+
     const handleCheck = (id, children = []) => {
         const isChecked = localChecked.includes(id);
         const descendantIds = getDescendantIds(children);
+        const modifiedNode = findNodeById(id);
         let newChecked;
 
         if (isChecked) {
             // Uncheck node and its descendants
             newChecked = localChecked.filter((cid) => cid !== id && !descendantIds.includes(cid));
+            setLocalChecked(newChecked);
+            if (onCheck) onCheck(newChecked, modifiedNode);
         }
         else {
-            // Check node and its descendants
-            newChecked = [...new Set([...localChecked, id, ...descendantIds])];
-        }
+            if ((descendantIds.length > 0)) {
+                // Check node's descendants
+                newChecked = [...new Set([...localChecked, ...descendantIds])];
+            }
+            else {
+                // Check node
+                newChecked = [...new Set([...localChecked, id])];
+            }
 
-        setLocalChecked(newChecked);
-        const modifiedNode = findNodeById(id);
-        if (onCheck) onCheck(newChecked, modifiedNode);
+            setLocalChecked([...new Set([...localChecked, id, ...descendantIds])]);
+            if (onCheck) onCheck(newChecked, modifiedNode);
+        }
     };
 
     const handleToggle = (id, hasChildren) => {
@@ -93,7 +97,7 @@ const TreeNodes = ({
         if (!isExpanded && hasChildren) {
             const node = findNodeById(id);
             const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${id}` : id;
-            // this is confusing, the onexpand function need to be sent the id but the local expand needs to take the nodeValue
+            // TODO: this is confusing, the onexpand function need to be sent the id but the local expand needs to take the nodeValue
             onExpand([...localExpanded, id], node);
             setLocalExpanded((prev) => [...prev, nodeValue]);
             // if the parent is checked, update local checked
@@ -107,6 +111,7 @@ const TreeNodes = ({
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
         const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
         const isExpanded = localExpanded.find((obj) => obj.includes(node.id));
+        // const isExpanded = localExpanded.includes(node.id);
         const hasChildren = node.children && node.children.length > 0;
         return (
             <div key={node.id}>
