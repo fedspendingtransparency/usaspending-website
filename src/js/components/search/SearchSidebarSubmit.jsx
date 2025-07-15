@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
 import * as SearchHelper from 'helpers/searchHelper';
-// import Analytics from '../../helpers/analytics/Analytics';
+import Analytics from '../../helpers/analytics/Analytics';
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -33,7 +33,6 @@ const SearchSidebarSubmit = ({
     let title = 'Click to submit your search.';
     const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
 
-    console.log("initial timer ", timerRef.current);
     if (stagedFiltersAreEmpty) {
         title = 'Add or update a filter to submit.';
         disabled = true;
@@ -48,13 +47,12 @@ const SearchSidebarSubmit = ({
             const now = new Date().getTime() - timerRef.current.time;
             // eslint-disable-next-line no-param-reassign
             timerRef.current.hasFired = true;
-            console.log("timer value", now);
-            // Analytics.event({
-            //     event: 'search_timer_event',
-            //     category: 'Advanced Search - Filter - Time',
-            //     action: 'filter submit',
-            //     label: `first time to query took ${Math.floor(now / 1000)} seconds`
-            // });
+            Analytics.event({
+                event: 'search_timer_event',
+                category: 'Advanced Search - Filter - Time',
+                action: 'filter submit',
+                label: `first time to query took ${Math.floor(now / 1000)} seconds`
+            });
         }
     };
 
