@@ -195,7 +195,7 @@ const PSCCheckboxTreeContainer = ({
         if (shouldFetchChildren && !isSearch) {
             if (treeDepth >= 1) {
                 if (treeDepth === 2) {
-                    fetchPscLocal(`${selectedNode.ancestors[1]}/${selectedNode.ancestors[0]}/${expandedValue}`);
+                    fetchPscLocal(`${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`);
                 }
                 else {
                     fetchPscLocal(`${selectedNode.ancestors[0]}/${expandedValue}`);
