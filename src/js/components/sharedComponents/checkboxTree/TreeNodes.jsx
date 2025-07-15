@@ -34,10 +34,6 @@ const TreeNodes = ({
     const [loadingParentId, setLoadingParentId] = useState();
 
     useEffect(() => {
-        setLocalChecked(checked);
-    }, [checked, nodes]);
-
-    useEffect(() => {
         setLoadingParentId(null);
         setLocalNodes(nodes);
     }, [nodes]);
@@ -68,23 +64,32 @@ const TreeNodes = ({
         }
         return ids;
     };
+
     const handleCheck = (id, children = []) => {
         const isChecked = localChecked.includes(id);
         const descendantIds = getDescendantIds(children);
+        const modifiedNode = findNodeById(id);
         let newChecked;
 
         if (isChecked) {
             // Uncheck node and its descendants
             newChecked = localChecked.filter((cid) => cid !== id && !descendantIds.includes(cid));
+            setLocalChecked(newChecked);
+            if (onCheck) onCheck(newChecked, modifiedNode);
         }
         else {
-            // Check node and its descendants
-            newChecked = [...new Set([...localChecked, id, ...descendantIds])];
-        }
+            if ((descendantIds.length > 0)) {
+                // Check node's descendants
+                newChecked = [...new Set([...localChecked, ...descendantIds])];
+            }
+            else {
+                // Check node
+                newChecked = [...new Set([...localChecked, id])];
+            }
 
-        setLocalChecked(newChecked);
-        const modifiedNode = findNodeById(id);
-        if (onCheck) onCheck(newChecked, modifiedNode);
+            setLocalChecked([...new Set([...localChecked, id, ...descendantIds])]);
+            if (onCheck) onCheck(newChecked, modifiedNode);
+        }
     };
 
     const handleToggle = (id, hasChildren) => {
