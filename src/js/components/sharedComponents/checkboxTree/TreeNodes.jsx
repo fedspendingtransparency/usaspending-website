@@ -35,7 +35,8 @@ const TreeNodes = ({
 
     useEffect(() => {
         setLocalChecked(checked);
-    }, [checked, nodes]);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [checked]);
 
     useEffect(() => {
         setLoadingParentId(null);
@@ -89,13 +90,11 @@ const TreeNodes = ({
 
     const handleToggle = (id, hasChildren) => {
         const isExpanded = localExpanded.includes(id);
-        console.log("is expanded", isExpanded, hasChildren);
-
         if (!isExpanded && hasChildren) {
             const node = findNodeById(id);
             const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${id}` : id;
-            console.log("node value", nodeValue);
-            onExpand([...localExpanded, nodeValue], node);
+            // this is confusing, the onexpand function need to be sent the id but the local expand needs to take the nodeValue
+            onExpand([...localExpanded, id], node);
             setLocalExpanded((prev) => [...prev, nodeValue]);
             // if the parent is checked, update local checked
             setLoadingParentId(id);
@@ -107,7 +106,7 @@ const TreeNodes = ({
     };
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
         const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
-        const isExpanded = localExpanded.includes(node.id);
+        const isExpanded = localExpanded.find((obj) => obj.includes(node.id));
         const hasChildren = node.children && node.children.length > 0;
         return (
             <div key={node.id}>

@@ -127,7 +127,6 @@ const PSCCheckboxTreeContainer = ({
                 // dynamically populating tree branches
                 const pscNodes = cleanPscData(data.results);
 
-                console.log("is partial tree", isPartialTree, id);
                 if (isPartialTree) {
                     // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
                     const key = id.includes('/') ? id.split('/').pop() : id;
@@ -191,15 +190,15 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        if (shouldFetchChildren && !isSearch) {
-            if (selectedNode.treeDepth >= 1) {
-                const { parent } = selectedNode;
+        const treeDepth = selectedNode.ancestors.length;
 
-                if (selectedNode.treeDepth === 2) {
-                    fetchPscLocal(`${parent.ancestors[0]}/${parent.value}/${expandedValue}`);
+        if (shouldFetchChildren && !isSearch) {
+            if (treeDepth >= 1) {
+                if (treeDepth === 2) {
+                    fetchPscLocal(`${selectedNode.ancestors[1]}/${selectedNode.ancestors[0]}/${expandedValue}`);
                 }
                 else {
-                    fetchPscLocal(`${parent.value}/${expandedValue}`);
+                    fetchPscLocal(`${selectedNode.ancestors[0]}/${expandedValue}`);
                 }
             }
             else {

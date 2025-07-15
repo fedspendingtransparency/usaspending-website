@@ -96,7 +96,6 @@ const CheckboxTree = ({
      * Decides whether we are expanding or collapsing the node.
      */
     const onExpand = (newExpandedArray, node) => {
-        console.log("in on expand", newExpandedArray, node);
         // collapsing node
         if (newExpandedArray.length < expanded.length) {
             return collapseNode(newExpandedArray);

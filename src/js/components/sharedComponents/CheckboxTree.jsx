@@ -78,6 +78,8 @@ const CheckboxTree = ({
      */
     const expandNodeAndFetchChildren = async (newExpandedArray, selectedNode) => {
         // newly expanded node.code
+        console.log("exapnded node and fetch children", newExpandedArray, selectedNode);
+
         const expandedValue = difference(newExpandedArray, expanded)[0];
         /**
          * When there are no children or there is an empty object in the children property (since we
@@ -102,6 +104,8 @@ const CheckboxTree = ({
      */
     const onExpand = (newExpandedArray, node) => {
     // collapsing node
+        console.log("on expand", newExpandedArray, node);
+
         if (newExpandedArray.length < expanded.length) {
             return collapseNode(newExpandedArray);
         }
