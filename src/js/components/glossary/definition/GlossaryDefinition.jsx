@@ -30,12 +30,13 @@ const GlossaryDefinition = (props) => {
     const [hasOfficial, setHasOfficial] = useState(true);
     // eslint-disable-next-line no-unused-vars
     const [showCopiedConfirmation, setShowCopiedConfirmation] = useState(false);
-    let copyConfirmation = null;
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
     // preserving in case it is needed
+    // let copyConfirmation = null;
+
     // const getCopyFn = () => {
     //     const separator = window.location.href.includes('?') ? '&' : '?';
     //     const slug = `${separator}glossary=${props.glossary.term.toJS().slug}`;
