@@ -7,9 +7,6 @@ export const socialUrls = {
     linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`
 };
 
-const openShareWindow = (url) => {
-    window.open(url, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
-};
 const openShareWindowExternal = (url, handleShareDispatch) => {
     handleShareDispatch(url);
     // window.open(url, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
