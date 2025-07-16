@@ -134,7 +134,7 @@ const Covid19Page = ({ loading }) => {
     };
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, slug, getEmailSocialShareData);
+        handleShareOptionClick(name, slug, getEmailSocialShareData, handleExternalLinkClick);
     };
 
     useEffect(() => {
