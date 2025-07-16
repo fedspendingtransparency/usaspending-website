@@ -353,20 +353,28 @@
       }
     }
 
+    .recipient-spending-notes {
+      h4 {
+        // margin: 0;
+        padding: 0;
+        text-align: left;
+      }
+
+      p {
+        margin-top: 0;
+      }
+
+      ul {
+        padding-left: rem(16);
+        font-size: rem(14);
+        margin-left: rem(16);
     
-    .recipient-spending-notes__header {
-      text-decoration: underline;
-    }
+        li {
+          list-style: disc;
 
-    .recipient-spending-notes__list {
-      padding-left: 2%;
-      font-size: rem(14);
-  
-      li {
-        list-style: disc;
-
-        a {
-          word-break: break-word;
+          a {
+            word-break: break-word;
+          }
         }
       }
     

@@ -96,11 +96,12 @@ const RecipientSection = ({ publicLaw }) => {
                         )} />
                     </>
                 ) : (
-                    <>
-                        <p className="recipient-spending-notes__header" >
+                    <div className="recipient-spending-notes">
+                        <h4 className="body__narrative">Recipient Spending Notes</h4>
+                        <p>
                             The following notes provide additional clarity and context for our chart(s).
                         </p>
-                        <ul className="recipient-spending-notes__list" >
+                        <ul>
                             <li>
                                 Amounts reported for Utah reflect an award by HHS from the Provider Relief
                                 Fund (PRF) to a single entity in Utah which will make payments to recipients
@@ -127,7 +128,7 @@ const RecipientSection = ({ publicLaw }) => {
                             </li>
                             <li>For 'All Awards' we are showing the unique count of recipients across all award types, since some recipients receive multiple awards.</li>
                         </ul>
-                    </>
+                    </div>
                 ) }
 
 
