@@ -49,6 +49,8 @@ const GlossaryDefinition = (props) => {
     //         }, 1750);
     //     }
     // };
+    // useEffect(() => window.clearTimeout(copyConfirmation), []);
+
 
     const checkDefinitions = () => {
         let hasPlainLocal = false;
@@ -109,7 +111,6 @@ const GlossaryDefinition = (props) => {
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props]);
 
-    useEffect(() => window.clearTimeout(copyConfirmation), []);
     return (
         <div className="glossary-definition">
             <DefinitionTabs
