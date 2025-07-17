@@ -17,11 +17,12 @@ const propTypes = {
     sidebarContentHeight: PropTypes.number,
     setShowMobileFilters: PropTypes.func,
     isDsmOpened: PropTypes.bool,
-    setIsDsmOpened: PropTypes.func
+    setIsDsmOpened: PropTypes.func,
+    timerRef: PropTypes.object
 };
 
 const SidebarContent = ({
-    sidebarContentHeight, setShowMobileFilters, isDsmOpened, setIsDsmOpened
+    sidebarContentHeight, setShowMobileFilters, isDsmOpened, setIsDsmOpened, timerRef
 }) => {
     const [drilldown, setDrilldown] = useState(null);
     const [isDrilldown, setIsDrilldown] = useState(false);
@@ -105,7 +106,7 @@ const SidebarContent = ({
             setIsDsmOpened={setIsDsmOpened} />
 
         <div className="sidebar-bottom-submit">
-            <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
+            <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} timerRef={timerRef} />
         </div>
     </>);
 };

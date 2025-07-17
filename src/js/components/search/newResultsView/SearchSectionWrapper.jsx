@@ -46,7 +46,11 @@ const propTypes = {
     spendingLevel: PropTypes.string,
     onToggle: PropTypes.func,
     showToggle: PropTypes.bool,
-    tableColumns: PropTypes.object
+    tableColumns: PropTypes.object,
+    hasNextPage: PropTypes.bool,
+    hasPreviousPage: PropTypes.bool,
+    nextPage: PropTypes.func,
+    previousPage: PropTypes.func
 };
 
 const SearchSectionWrapper = ({
@@ -76,7 +80,11 @@ const SearchSectionWrapper = ({
     showToggle,
     setSortDirection,
     sort,
-    setSort
+    setSort,
+    hasNextPage,
+    hasPreviousPage,
+    nextPage,
+    previousPage
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
     const [trackDSMEvent, setTrackDSMEvent] = useState(false);
@@ -249,7 +257,12 @@ const SearchSectionWrapper = ({
             sortBy={sortBy}
             activeField={activeField}
             sortDirection={sortDirection}
-            manualSort />);
+            manualSort
+            sectionName={sectionName}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage} />);
     };
 
     return (
@@ -292,7 +305,7 @@ const SearchSectionWrapper = ({
                             <Message />
                             :
                             <>
-                                {((viewType === "table" || sectionName === "table") && isMobile && sectionName !== 'categories') ?
+                                {((viewType === "table" || sectionName === "table") && isMobile) ?
                                     <MobileSort
                                         columns={columns}
                                         options={mobileDropdownOptions}
@@ -331,6 +344,5 @@ const SearchSectionWrapper = ({
         </div>
     );
 };
-// TODO: sectionName !== 'categories' needs to be removed once we do the categories sort
 SearchSectionWrapper.propTypes = propTypes;
 export default SearchSectionWrapper;
