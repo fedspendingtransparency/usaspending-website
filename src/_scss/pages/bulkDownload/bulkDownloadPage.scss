@@ -22,7 +22,7 @@
         .bulk-download__data {
             @import "downloadData";
             @import "archive/archive";
-            @import "defCheckbox";
+            @import "../../components/checkboxTree/checkboxTree";
             @import "metadataPage";
             background-color: $color-white;
             padding: rem(30) 0;
