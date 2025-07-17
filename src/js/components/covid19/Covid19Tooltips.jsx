@@ -128,15 +128,15 @@ export const SpendingByRecipientMapTT = () => (
 );
 
 export const SpendingTypesTT = () => (
-    <div className="spending_types-tt">
-        <h2 className="tooltip__title">Spending Types</h2>
+    <div className="covid-profile-tt">
+        <h2 className="tooltip__title"> Spending Types</h2>
         <div className="tooltip__text">
             <p>
                 <strong>Total Spending:</strong> all agency spending, including agency expenses.
-            </p><br />
+            </p>
             <p>
                 <strong>Award Spending:</strong> a subset of Total Spending that refers to money given through contracts or financial assistance to individuals, organizations, businesses, or governments (state, local, or tribal).
-            </p><br />
+            </p>
             <p>
                 <strong>Loan spending:</strong> includes Face Value of Loans and Loan Subsidy Cost.
             </p>
