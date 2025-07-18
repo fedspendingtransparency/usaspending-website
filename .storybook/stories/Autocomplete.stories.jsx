@@ -9,14 +9,12 @@ export default {
 
 const Template = (args) => {
     const [values, setValues] = useState([]);
-    const [noResults, setNoResults] = useState(false);
     const [notice, setNotice] = useState(null);
 
     const handleTextInput = (e) => {
         if (e.target.value.length > 0) {
             const newValues = autocompleteDummyValues.filter(state => state.title.toLowerCase().includes(e.target.value.toLowerCase()))
             setValues(newValues);
-            setNoResults(newValues.length === 0);
         }
         else {
             setValues([])
@@ -33,14 +31,13 @@ const Template = (args) => {
 
     return (
         <>
-            <Autocomplete
-            values={values}
-            handleTextInput={handleTextInput}
-            clearAutocompleteSuggestions={clearAutocompleteSuggestions}
-            noResults={noResults}
-            onSelect={onSelect}
-            {...args} />
             <div>{notice}</div>
+            <Autocomplete
+                values={values}
+                handleTextInput={handleTextInput}
+                clearAutocompleteSuggestions={clearAutocompleteSuggestions}
+                onSelect={onSelect}
+                {...args} />
         </>
         )
 };
@@ -49,6 +46,7 @@ export const Primary = Template.bind({});
 
 Primary.args = {
     placeholder: 'PLACEHOLDER',
+    noResults: false,
     errorHeader: 'NO RESULTS FOUND',
     errorMessage: 'AN ERROR HAS OCCURRED',
     maxSuggestions: 1000,
