@@ -157,6 +157,39 @@
 
       .collapsible-sidebar--search-filters-list {
         overflow-y: auto;
+
+        .search-filters-list--category-header {
+          display: flex;
+
+          &--icon {
+            height: rem(21);
+            width: rem(21);
+            border-radius: rem(4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+              max-height: rem(12);
+              max-width: rem(12);
+            }
+          }
+
+          &--title {
+            font-size: $font-size-10;
+            line-height: 1.5;
+            color: $gray-60;
+            align-content: center;
+            margin-left: rem(4);
+            border-bottom: rem(1) solid $gray-cool-10;
+            width: 100%;
+          }
+        }
+
+        .accordion-container .accordion .heading {
+          padding: ($global-padding / 2) $global-padding;
+          border: none;
+        }
       }
     }
 

@@ -70,6 +70,7 @@ export const searchFilterCategoryTree = [
         categoryKey: 'location',
         iconName: 'map-marked-alt',
         iconColor: '#34a37e',
+        iconBackgroundColor: '#dbf6ed',
         title: 'Location',
         children: [
             {
@@ -82,6 +83,7 @@ export const searchFilterCategoryTree = [
         categoryKey: 'timePeriod',
         iconName: 'calendar-alt',
         iconColor: '#1A4480',
+        iconBackgroundColor: '#edf5ff',
         title: 'Time Period',
         children: [
             {
@@ -94,6 +96,7 @@ export const searchFilterCategoryTree = [
         categoryKey: 'characteristics',
         iconName: 'cubes',
         iconColor: '#ff580a',
+        iconBackgroundColor: '#fff3ea',
         title: 'Characteristics',
         children: [
             {
@@ -158,6 +161,7 @@ export const searchFilterCategoryTree = [
         categoryKey: 'recipients',
         iconName: 'building',
         iconColor: '#1b2b85',
+        iconBackgroundColor: '#edf0ff',
         title: 'Recipients',
         children: [
             {
@@ -174,6 +178,7 @@ export const searchFilterCategoryTree = [
         categoryKey: 'sources',
         iconName: 'university',
         iconColor: '#009ec1',
+        iconBackgroundColor: '#e5faff',
         title: 'Sources',
         children: [
             {

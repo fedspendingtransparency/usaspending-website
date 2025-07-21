@@ -51,11 +51,14 @@ const SidebarContent = ({
 
     const filtersArray = searchFilterCategoryTree.map((category) => (
         <>
-            <div style={{ height: "15px", width: "15px" }}>
-                <FontAwesomeIcon icon={category.iconName} style={{ color: category.iconColor }} />
+            <div className="search-filters-list--category-header">
+                <div className="search-filters-list--category-header--icon" style={{ backgroundColor: category.iconBackgroundColor }}>
+                    <FontAwesomeIcon
+                        icon={category.iconName}
+                        style={{ color: category.iconColor }} />
+                </div>
+                <div className="search-filters-list--category-header--title">{category.title.toUpperCase()}</div>
             </div>
-            <div>{category.title}</div>
-            <hr />
             {category.children.map((filter) => (
                 <Accordion
                     title={filter.title}
