@@ -256,3 +256,167 @@ export const FilterCategoryTree = {
         dsmFile: "sources-panel.mdx"
     }
 };
+
+export const filterList = [
+    {
+        title: "Location",
+        component: <LocationSectionContainer />,
+        dsmComponent: true,
+        dsmFile: "location-filter-panel.mdx",
+        category: "location"
+    },
+    {
+        title: "Time Period",
+        component: <TimePeriodContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "time-filter-panel.mdx",
+        category: "time_period"
+    },
+    {
+        title: "Award Description",
+        component: <AwardDescriptionFilterContainer />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "award_description.mdx",
+        category: "characteristics"
+    },
+    {
+        title: "Award ID",
+        component: <AwardIDSearchContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "award_id.mdx",
+        category: "characteristics"
+    },
+    {
+        title: "Spending Amount",
+        component: <AwardAmountSearchContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "spending_amount.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'Contract Award Type',
+        component: <AwardTypeContainerV2 isContractAwardType />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "contract_award_type.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'North American Industry Classification System (NAICS)',
+        component: (
+            <>
+                <div className="search-option">
+                    <NAICSCheckboxTree searchV2 />
+                </div>
+            </>
+        ),
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "naics.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'Product and Service Code (PSC)',
+        component: (
+            <>
+                <div className="search-option">
+                    <PSCCheckboxTreeContainer searchV2 />
+                </div>
+            </>
+        ),
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "psc.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'Type of Contract Pricing',
+        component: <PricingTypeContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "contract_pricing.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'Type of Set Aside',
+        component: <SetAsideContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "set_aside.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'Extent Competed',
+        component: <ExtentCompetedContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "extent_competed.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'Financial Assistance Award Type',
+        component: <AwardTypeContainerV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "financial_assistance_award_type.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'Assistance Listing',
+        component: <CFDASearchContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "assistance_listing.mdx",
+        category: "characteristics"
+    },
+    {
+        title: 'Recipient',
+        component: <RecipientSearchContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "recipient.mdx",
+        category: "recipient"
+    },
+    {
+        title: 'Recipient Type',
+        component: <RecipientTypeContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "recipient_type.mdx",
+        category: "recipient"
+    },
+    {
+        title: 'Agency',
+        component: <AgencyContainer searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "agency.mdx",
+        category: "sources"
+    },
+    {
+        title: 'Treasury Account Symbol (TAS)',
+        component: <TASCheckboxTreeContainer showInfo={false} searchV2 />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "tas.mdx",
+        category: "sources"
+    },
+    {
+        title: 'COVID-19 Spending',
+        component: <DEFCheckboxTreeContainer defcType="covid_19" />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "covid19.mdx"
+    },
+    {
+        title: 'Infrastructure Spending',
+        component: <DEFCheckboxTreeContainer defcType="infrastructure" />,
+        titleOnly: true,
+        dsmComponent: true,
+        dsmFile: "infrastructure_spending.mdx"
+    }
+];

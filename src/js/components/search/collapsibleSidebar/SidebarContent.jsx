@@ -7,11 +7,12 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-import { FilterCategoryTree } from "dataMapping/search/searchFilterCategories";
+import { FilterCategoryTree, filterList } from "dataMapping/search/searchFilterCategories";
 import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
 import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
+import Accordion from "../../sharedComponents/accordion/Accordion";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -24,91 +25,58 @@ const propTypes = {
 const SidebarContent = ({
     sidebarContentHeight, setShowMobileFilters, isDsmOpened, setIsDsmOpened, timerRef
 }) => {
-    const [drilldown, setDrilldown] = useState(null);
-    const [isDrilldown, setIsDrilldown] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [currentLevel, setCurrentLevel] = useState(1);
+    const [open, setOpen] = useState({
+        Location: false,
+        "Time Period": false,
+        "Award Description": false,
+        "Award ID": false,
+        "Spending Amount": false,
+        "Contract Award Type": false,
+        "North American Industry Classification System (NAICS)": false,
+        "Product and Service Code (PSC)": false,
+        "Type of Contract Pricing": false,
+        "Type of Set Aside": false,
+        "Extent Competed": false,
+        "Financial Assistance Award Type": false,
+        "Assistance Listing": false,
+        Recipient: false,
+        "Recipient Type": false,
+        Agency: false,
+        "Treasury Account Symbol (TAS)": false,
+        "COVID-19 Spending": false,
+        "Infrastructure Spending": false
+    });
 
-    const filters = useSelector((state) => state.filters);
+    // const filters = useSelector((state) => state.filters);
 
-    const {
-        selectedLocations,
-        selectedRecipientLocations,
-        timePeriodType,
-        time_period: timePeriod,
-        timePeriodFY,
-        selectedRecipients,
-        recipientType
-    } = filters;
+    const filtersArray = filterList.map((filter) => (
+        <>
+            <div>{filter.title}</div>
+            <Accordion title={filter.title} setOpen={(set) => setOpen({ [filter.title]: set, ...open })}>
+                {filter.component}
+            </Accordion>
+        </>
+    ));
 
-    const itemCount = {
-        location: selectedLocations.size + selectedRecipientLocations.size,
-        timePeriod: timePeriodType === 'dr' ? timePeriod.size : timePeriodFY.size,
-        characteristics: characteristicsCount(filters),
-        recipients: selectedRecipients.size + recipientType.size,
-        sources: sourcesCount(filters)
-    };
+    // const {
+    //     selectedLocations,
+    //     selectedRecipientLocations,
+    //     timePeriodType,
+    //     time_period: timePeriod,
+    //     timePeriodFY,
+    //     selectedRecipients,
+    //     recipientType
+    // } = filters;
 
-    const setLevel2 = (e, item) => {
-        e.preventDefault();
-        setSelectedCategory(item);
-        setDrilldown(FilterCategoryTree[item?.categoryKey]);
-        setIsDrilldown(true);
-        setCurrentLevel(2);
-    };
-
-    const setLevel3 = (e, item) => {
-        e.preventDefault();
-        setDrilldown(item);
-        setIsDrilldown(true);
-        setCurrentLevel(3);
-    };
-
-    const goBack = (e) => {
-        if (currentLevel === 2) {
-            e.preventDefault();
-            setDrilldown(null);
-            setCurrentLevel(1);
-            setIsDrilldown(false);
-        }
-        else if (currentLevel === 3) {
-            setDrilldown(FilterCategoryTree[selectedCategory?.categoryKey]);
-            setCurrentLevel(2);
-        }
-    };
-
-    return (<>
-        <SearchSidebarMainMenu
-            isDrilldown={isDrilldown}
-            sidebarContentHeight={sidebarContentHeight}
-            setLevel2={setLevel2}
-            itemCount={itemCount}
-            setShowMobileFilters={setShowMobileFilters}
-            isDsmOpened={isDsmOpened}
-            setIsDsmOpened={setIsDsmOpened} />
-
-        <SearchSidebarDrilldown
-            list={drilldown?.children}
-            filter={drilldown?.component}
-            isDrilldown={isDrilldown}
-            sidebarContentHeight={sidebarContentHeight}
-            selectedCategory={selectedCategory}
-            selectedCategoryTitle={drilldown?.title}
-            setLevel3={setLevel3}
-            goBack={goBack}
-            itemCount={itemCount}
-            filters={filters}
-            titleOnly={drilldown?.titleOnly}
-            dsmComponent={drilldown?.dsmComponent}
-            dsmFile={drilldown?.dsmFile}
-            currentLevel={currentLevel}
-            isDsmOpened={isDsmOpened}
-            setIsDsmOpened={setIsDsmOpened} />
-
-        <div className="sidebar-bottom-submit">
-            <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} timerRef={timerRef} />
-        </div>
-    </>);
+    return (
+        <>
+            {filtersArray}
+            <div className="sidebar-bottom-submit">
+                <SearchSidebarSubmitContainer
+                    setShowMobileFilters={setShowMobileFilters}
+                    timerRef={timerRef} />
+            </div>
+        </>);
 };
 
 SidebarContent.propTypes = propTypes;
