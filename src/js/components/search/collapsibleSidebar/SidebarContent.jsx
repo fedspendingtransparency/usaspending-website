@@ -50,14 +50,14 @@ const SidebarContent = ({
     const dsmElHeight = sidebarContentHeight + 51;
 
     const filtersArray = searchFilterCategoryTree.map((category) => (
-        <>
-            <div className="search-filters-list--category-header">
-                <div className="search-filters-list--category-header--icon" style={{ backgroundColor: category.iconBackgroundColor }}>
+        <div className="search-filters-list">
+            <div className="category-header">
+                <div className="category-header--icon" style={{ backgroundColor: category.iconBackgroundColor }}>
                     <FontAwesomeIcon
                         icon={category.iconName}
                         style={{ color: category.iconColor }} />
                 </div>
-                <div className="search-filters-list--category-header--title">{category.title.toUpperCase()}</div>
+                <div className="category-header--title">{category.title.toUpperCase()}</div>
             </div>
             {category.children.map((filter) => (
                 <Accordion
@@ -68,7 +68,7 @@ const SidebarContent = ({
                     {filter.component}
                 </Accordion>
             ))}
-        </>
+        </div>
     ));
 
     // const {
