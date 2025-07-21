@@ -190,7 +190,7 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        const treeDepth = selectedNode.ancestors.length;
+        const treeDepth = selectedNode.ancestors?.length;
 
         if (shouldFetchChildren && !isSearch) {
             if (treeDepth >= 1) {

@@ -105,7 +105,6 @@ const TreeNodes = ({
         }
         else {
             setLocalExpanded((prev) => prev.filter((eid) => eid !== id));
-            onCollapse(id);
         }
     };
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
@@ -124,10 +123,15 @@ const TreeNodes = ({
                     (
                         <div style={{ marginLeft: level * 20, display: 'flex', alignItems: 'center' }}>
                             {hasChildren && (
-                                <FontAwesomeIcon
-                                    icon={isExpanded ? 'chevron-down' : 'chevron-right'}
-                                    onClick={() => handleToggle(node.id, true)}
-                                    style={{ cursor: 'pointer', marginRight: '5px' }} />
+                                <button
+                                    aria-label="Toggle"
+                                    title="Toggle"
+                                    type="button"
+                                    onClick={() => handleToggle(node.id, true)}>
+                                    <FontAwesomeIcon
+                                        icon={isExpanded ? 'chevron-down' : 'chevron-right'}
+                                        style={{ cursor: 'pointer', marginRight: '5px' }} />
+                                </button>
                             )}
                             {node.label && <input
                                 type="checkbox"

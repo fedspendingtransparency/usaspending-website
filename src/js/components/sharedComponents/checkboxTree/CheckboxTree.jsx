@@ -262,7 +262,6 @@ const CheckboxTree = ({
 
     return (
         <div className={`checkbox-tree${checkboxTreeClass}`}>
-            {/* <CheckBoxTree*/}
             <TreeNodes
                 nodes={labeledNodes}
                 disabled={isDisabled}

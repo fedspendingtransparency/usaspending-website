@@ -115,7 +115,7 @@ describe('PSCCheckboxTreeContainer', () => {
             expect(test).toBeInTheDocument();
         });
 
-        const checkboxes = document.getElementsByClassName('rct-checkbox');
+        const checkboxes = screen.getAllByRole('checkbox');
 
         // parent checked
         act(() => {
