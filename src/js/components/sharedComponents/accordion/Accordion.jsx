@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
 
 const Accordion = ({
-    title, children, closedIcon, openIcon, iconClassName, setOpen
+    title, children, closedIcon, openIcon, iconClassName, setOpen, contentClassName = ''
 }) => {
     const [closed, setClosed] = useState(true);
 
@@ -40,7 +40,7 @@ const Accordion = ({
                             className={iconClassName || "minus"} />
                     </button>
                 </div>
-                <div className="content">{children}</div>
+                <div className={`content ${contentClassName}`}>{children}</div>
             </section>
         </div>
     );
@@ -56,8 +56,8 @@ backgroundColor: background of collapsed box
 Accordion.propTypes = {
     title: PropTypes.any.isRequired,
     children: PropTypes.element || PropTypes.string,
-    icon: PropTypes.element || PropTypes.string,
     iconClassName: PropTypes.string,
+    contentClassName: PropTypes.string,
     closedIcon: PropTypes.string,
     openIcon: PropTypes.string,
     setOpen: PropTypes.func

@@ -64,7 +64,8 @@ const SidebarContent = ({
                     title={filter.title}
                     setOpen={(set) => setOpen({ [filter.title]: set, ...open })}
                     closedIcon="chevron-down"
-                    openIcon="chevron-up">
+                    openIcon="chevron-up"
+                    contentClassName={open[filter.title] ? '' : 'hidden'}>
                     {filter.component}
                 </Accordion>
             ))}
