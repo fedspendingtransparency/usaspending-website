@@ -6,12 +6,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { FilterCategoryTree, filterList } from "dataMapping/search/searchFilterCategories";
-import SearchSidebarMainMenu from "./SearchSidebarMainMenu";
-import SearchSidebarDrilldown from "./SearchSidebarDrilldown";
+import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
-import { characteristicsCount, sourcesCount } from "../../../helpers/search/filterCheckboxHelper";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 
 const propTypes = {
@@ -49,12 +47,22 @@ const SidebarContent = ({
 
     // const filters = useSelector((state) => state.filters);
 
-    const filtersArray = filterList.map((filter) => (
+    const filtersArray = searchFilterCategoryTree.map((category) => (
         <>
-            <div>{filter.title}</div>
-            <Accordion title={filter.title} setOpen={(set) => setOpen({ [filter.title]: set, ...open })}>
-                {filter.component}
-            </Accordion>
+            <div style={{ height: "15px", width: "15px" }}>
+                <FontAwesomeIcon icon={category.iconName} style={{ color: category.iconColor }} />
+            </div>
+            <div>{category.title}</div>
+            <hr />
+            {category.children.map((filter) => (
+                <Accordion
+                    title={filter.title}
+                    setOpen={(set) => setOpen({ [filter.title]: set, ...open })}
+                    closedIcon="chevron-down"
+                    openIcon="chevron-up">
+                    {filter.component}
+                </Accordion>
+            ))}
         </>
     ));
 
