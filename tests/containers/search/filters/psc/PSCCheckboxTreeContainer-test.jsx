@@ -60,7 +60,7 @@ describe('PSCCheckboxTreeContainer', () => {
         });
     });
 
-    xit('should open/close accordion', async () => {
+    it('should open/close accordion', async () => {
         jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
@@ -93,7 +93,7 @@ describe('PSCCheckboxTreeContainer', () => {
         });
     });
 
-    xit('check/uncheck based on parent child relationship', async () => {
+    it('check/uncheck based on parent child relationship', async () => {
         jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
