@@ -5,9 +5,7 @@
 
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    createColumnHelper,
     useReactTable,
     getCoreRowModel,
     getFilteredRowModel,
@@ -15,8 +13,8 @@ import {
     getSortedRowModel
 } from '@tanstack/react-table';
 import { uniqueId } from 'lodash';
+import { ColumnBuilder } from 'models/v2/search/table/ColumnBuilder';
 import NestedTanStackTable from './NestedTanStackTable';
-import { subAwardDefaultColumns, transactionsDefaultColumns } from '../../../dataMapping/search/tanStackTableColumns';
 
 
 const propTypes = {
@@ -27,12 +25,6 @@ const propTypes = {
 const TanStackTable = (props) => {
     const [awardId, setAwardId] = useState(null);
     const [expanded, setExpanded] = useState({});
-    const columnHelper = createColumnHelper();
-    let columnArray = subAwardDefaultColumns;
-
-    if (props.columnType === "transactions") {
-        columnArray = transactionsDefaultColumns;
-    }
 
     const togglePrimeAward = (primeAwardId, rowId) => {
         if (Object.hasOwn(expanded, rowId)) {
@@ -51,53 +43,11 @@ const TanStackTable = (props) => {
         return true;
     };
 
-
-    const columns = useMemo(() => columnArray.map((col) => {
-        switch (col.type) {
-            case "expandableButton":
-                return columnHelper.accessor(col.key, {
-                    header: col.header,
-                    id: uniqueId(),
-                    cell: ({ row, getValue }) => (
-                        <button
-                            onClick={() => togglePrimeAward(getValue(), row.id)}
-                            onKeyDown={() => togglePrimeAward(getValue(), row.id)}
-                            role="link"
-                            className={`usa-button-link ${col.className ? col.className : ''}`} >
-                            <FontAwesomeIcon
-                                icon={`${expanded[row.id] ? "chevron-down" : "chevron-right"}`} />
-                            {' '}
-                            {getValue()}
-                        </button>
-                    )
-                });
-            case "formatted":
-                return columnHelper.accessor(col.key, {
-                    header: col.header,
-                    id: uniqueId(),
-                    cell: col.element
-                });
-            case "link":
-                return columnHelper.accessor(col.key, {
-                    header: col.header,
-                    id: uniqueId(),
-                    cell: ({ getValue }) => (
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={col.link}
-                            onClick={col.onClick}>{getValue()}
-                        </a>
-                    )
-                });
-            default:
-                return columnHelper.accessor(col.key, {
-                    header: col.header,
-                    id: uniqueId(),
-                    cell: (info) => info.getValue()
-                });
-        }
-    }), [props.data, expanded]);
+    const columns = useMemo(() => ColumnBuilder(
+        props.columnType,
+        togglePrimeAward,
+        expanded
+    ), [props.data, props.columnType]);
 
     const table = useReactTable({
         data: props.data,

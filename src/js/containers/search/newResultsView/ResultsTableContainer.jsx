@@ -135,7 +135,7 @@ const ResultsTableContainer = (props) => {
     const isV2 = pathname === GlobalConstants.SEARCH_V2_PATH;
     const showToggle = isV2 && (props.spendingLevel !== "awards");
     const [isMobile, setIsMobile] = useState(false);
-    const [columnType, setColumnType] = useState(null);
+    const [columnType, setColumnType] = useState(props.spendingLevel);
 
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {

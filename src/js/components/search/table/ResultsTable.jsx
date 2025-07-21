@@ -8,9 +8,11 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import Analytics from 'helpers/analytics/Analytics';
-import ReadMore from '../../../components/sharedComponents/ReadMore';
-import { convertToTitleCase } from "../../../helpers/searchHelper";
-import TanStackTable from '../../sharedComponents/table/TanStackTable';
+import { pickLocationFormat } from 'helpers/locationFormatter';
+import { convertToTitleCase } from "helpers/searchHelper";
+import { twoVariableFormat } from 'helpers/search/tables/tableUtilsHelper';
+import ReadMore from 'components/sharedComponents/ReadMore';
+import TanStackTable from './TanStackTable';
 
 export default class ResultsTable extends React.Component {
     static propTypes = {
@@ -51,9 +53,7 @@ export default class ResultsTable extends React.Component {
         this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
         this.measureHeight = this.measureHeight.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
-        this.pickLocationFormat = this.pickLocationFormat.bind(this);
         this.assistanceListingFormat = this.assistanceListingFormat.bind(this);
-        this.twoVariableFormat = this.twoVariableFormat.bind(this);
     }
 
     componentDidMount() {
@@ -89,31 +89,6 @@ export default class ResultsTable extends React.Component {
         window.removeEventListener('resize', this.measureHeight);
     }
 
-    pickLocationFormat(location) {
-        if (location?.address_line1 && location?.city_name && location?.state_code && location?.zip5) {
-            return `${convertToTitleCase(location.address_line1)}, ${convertToTitleCase(location.city_name)}, ${location.state_code}, ${location.zip5}`;
-        }
-        else if (location?.city_name && location?.state_code && location?.zip5) {
-            return `${convertToTitleCase(location.city_name)}, ${location.state_code}, ${location.zip5}`;
-        }
-        else if (location?.city_name && location?.state_code) {
-            return `${convertToTitleCase(location.city_name)}, ${location.state_code}`;
-        }
-        else if (location?.state_name) {
-            return `${location.state_name}, ${location.location_country_code}`;
-        }
-        else if (location?.city_name && location?.location_country_code) {
-            return `${convertToTitleCase(location.city_name)}, ${location.location_country_code}`;
-        }
-        else if (location?.country_name) {
-            return convertToTitleCase(location.country_name);
-        }
-        else if (location?.location_country_code) {
-            return location.location_country_code;
-        }
-        return '--';
-    }
-
     assistanceListingFormat(assistanceListing) {
         // format for spending by award api
         if (assistanceListing?.length === 1) {
@@ -132,14 +107,6 @@ export default class ResultsTable extends React.Component {
         }
 
         return '--';
-    }
-
-    twoVariableFormat(object, key1, key2) {
-        if (object?.[key1] && object?.[key2]) {
-            return `${object[key1]} - ${object[key2]}`;
-        }
-
-        return "--";
     }
 
     measureHeight() {
@@ -216,8 +183,8 @@ export default class ResultsTable extends React.Component {
                             limit={90} />,
                         obj['Contract Award Type'] || obj['Award Type'] || '--',
                         obj['Recipient UEI'] || 'UEI not provided',
-                        this.pickLocationFormat(obj['Recipient Location']),
-                        this.pickLocationFormat(obj['Primary Place of Performance']),
+                        pickLocationFormat(obj['Recipient Location']),
+                        pickLocationFormat(obj['Primary Place of Performance']),
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -271,8 +238,8 @@ export default class ResultsTable extends React.Component {
                             text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
                             limit={65} />,
                         obj['Recipient UEI'] || 'UEI not provided',
-                        this.pickLocationFormat(obj['Recipient Location']),
-                        this.pickLocationFormat(obj['Primary Place of Performance']),
+                        pickLocationFormat(obj['Recipient Location']),
+                        pickLocationFormat(obj['Primary Place of Performance']),
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -327,8 +294,8 @@ export default class ResultsTable extends React.Component {
                             limit={90} />,
                         obj['Contract Award Type'] || obj['Award Type'] || '--',
                         obj['Recipient UEI'] || 'UEI not provided',
-                        this.pickLocationFormat(obj['Recipient Location']),
-                        this.pickLocationFormat(obj['Primary Place of Performance']),
+                        pickLocationFormat(obj['Recipient Location']),
+                        pickLocationFormat(obj['Primary Place of Performance']),
                         obj.def_codes || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                         MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -383,8 +350,8 @@ export default class ResultsTable extends React.Component {
                         limit={90} />,
                     obj['Contract Award Type'] || obj['Award Type'] || '--',
                     obj['Recipient UEI'] || 'UEI not provided',
-                    this.pickLocationFormat(obj['Recipient Location']),
-                    this.pickLocationFormat(obj['Primary Place of Performance']),
+                    pickLocationFormat(obj['Recipient Location']),
+                    pickLocationFormat(obj['Primary Place of Performance']),
                     obj.def_codes || '--',
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
                     MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
@@ -402,10 +369,10 @@ export default class ResultsTable extends React.Component {
                     obj['Start Date'] || '--',
                     obj['End Date'] || obj['Last Date to Order'] || '--',
                     <ReadMore
-                        text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
+                        text={twoVariableFormat(obj.NAICS, 'code', 'description')}
                         limit={80} />,
                     <ReadMore
-                        text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
+                        text={twoVariableFormat(obj.PSC, 'code', 'description')}
                         limit={80} />
                 );
 
@@ -439,15 +406,15 @@ export default class ResultsTable extends React.Component {
                         obj['Action Type'] || '--',
                         obj['Award Type'] || '--',
                         obj['Recipient UEI'] || 'UEI not provided',
-                        this.pickLocationFormat(obj['Recipient Location']),
-                        this.pickLocationFormat(obj['Primary Place of Performance']),
+                        pickLocationFormat(obj['Recipient Location']),
+                        pickLocationFormat(obj['Primary Place of Performance']),
                         obj['Awarding Agency'] || '--',
                         obj['Awarding Sub Agency'] || '--',
                         <ReadMore
-                            text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
+                            text={twoVariableFormat(obj.NAICS, 'code', 'description')}
                             limit={80} />,
                         <ReadMore
-                            text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
+                            text={twoVariableFormat(obj.PSC, 'code', 'description')}
                             limit={80} />
                     );
 
@@ -476,8 +443,8 @@ export default class ResultsTable extends React.Component {
                         obj['Action Type'] || '--',
                         obj['Award Type'] || '--',
                         obj['Recipient UEI'] || 'UEI not provided',
-                        this.pickLocationFormat(obj['Recipient Location']),
-                        this.pickLocationFormat(obj['Primary Place of Performance']),
+                        pickLocationFormat(obj['Recipient Location']),
+                        pickLocationFormat(obj['Primary Place of Performance']),
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
@@ -487,7 +454,7 @@ export default class ResultsTable extends React.Component {
                             }}>{obj['Awarding Agency']}
                         </a> || '--',
                         obj['Awarding Sub Agency'] || '--',
-                        this.twoVariableFormat(obj['Assistance Listing'], 'cfda_number', 'cfda_title')
+                        twoVariableFormat(obj['Assistance Listing'], 'cfda_number', 'cfda_title')
                     );
 
                     return value;
@@ -517,8 +484,8 @@ export default class ResultsTable extends React.Component {
                         text={obj['Sub-Award Description'] || '--'}
                         limit={90} />,
                     obj['Sub-Recipient UEI'] || 'UEI not provided',
-                    this.pickLocationFormat(obj['Sub-Recipient Location']),
-                    this.pickLocationFormat(obj['Sub-Award Primary Place of Performance']),
+                    pickLocationFormat(obj['Sub-Recipient Location']),
+                    pickLocationFormat(obj['Sub-Award Primary Place of Performance']),
                     convertToTitleCase(obj['Sub-Award Type']) || '--',
                     <a
                         target="_blank"
@@ -540,10 +507,10 @@ export default class ResultsTable extends React.Component {
                     obj['Awarding Agency'] || '--',
                     obj['Awarding Sub Agency'] || '--',
                     <ReadMore
-                        text={this.twoVariableFormat(obj.NAICS, 'code', 'description')}
+                        text={twoVariableFormat(obj.NAICS, 'code', 'description')}
                         limit={80} />,
                     <ReadMore
-                        text={this.twoVariableFormat(obj.PSC, 'code', 'description')}
+                        text={twoVariableFormat(obj.PSC, 'code', 'description')}
                         limit={80} />
                 );
 
@@ -570,8 +537,8 @@ export default class ResultsTable extends React.Component {
                         text={obj['Sub-Award Description'] || '--'}
                         limit={90} />,
                     obj['Sub-Recipient UEI'] || 'UEI not provided',
-                    this.pickLocationFormat(obj['Sub-Recipient Location']),
-                    this.pickLocationFormat(obj['Sub-Award Primary Place of Performance']),
+                    pickLocationFormat(obj['Sub-Recipient Location']),
+                    pickLocationFormat(obj['Sub-Award Primary Place of Performance']),
                     convertToTitleCase(obj['Sub-Award Type']) || '--',
                     <a
                         target="_blank"
@@ -592,7 +559,7 @@ export default class ResultsTable extends React.Component {
                     obj['Prime Award Recipient UEI'] || 'UEI not provided',
                     obj['Awarding Agency'] || '--',
                     obj['Awarding Sub Agency'] || '--',
-                    this.twoVariableFormat(obj["Assistance Listing"], 'cfda_number', 'cfda_program_title')
+                    twoVariableFormat(obj["Assistance Listing"], 'cfda_number', 'cfda_program_title')
                 );
 
                 return value;
@@ -630,7 +597,8 @@ export default class ResultsTable extends React.Component {
                             columns={cols}
                             data={this.props.expandableData}
                             currentSort={this.props.sort}
-                            updateSort={this.props.updateSort} />
+                            updateSort={this.props.updateSort}
+                            columnType={this.props.columnType || this.props.subaward ? "subawards" : "transactions"} />
                     ) : (
                         <Table
                             classNames="table-for-new-search-page award-results-table-dtui"
