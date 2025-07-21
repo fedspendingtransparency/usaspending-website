@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import Accordion from "../../sharedComponents/accordion/Accordion";
+import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -46,6 +47,7 @@ const SidebarContent = ({
     });
 
     // const filters = useSelector((state) => state.filters);
+    const dsmElHeight = sidebarContentHeight + 51;
 
     const filtersArray = searchFilterCategoryTree.map((category) => (
         <>
@@ -78,7 +80,21 @@ const SidebarContent = ({
 
     return (
         <>
-            {filtersArray}
+            <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
+                {!isDsmOpened && (
+                    <div className="collapsible-sidebar--search-filters-list" style={{ height: (sidebarContentHeight) }}>
+                        {filtersArray}
+                    </div>
+                )}
+                <DsmSlider
+                    isDsmOpened={isDsmOpened}
+                    setIsDsmOpened={setIsDsmOpened}
+                    dsmFile="learn-filters-panel.mdx"
+                    currentLevel={1}
+                    selectedCategoryTitle=""
+                    height={dsmElHeight}
+                    hasChildren={false} />
+            </div>
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer
                     setShowMobileFilters={setShowMobileFilters}
