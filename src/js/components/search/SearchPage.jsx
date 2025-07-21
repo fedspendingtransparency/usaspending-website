@@ -73,12 +73,14 @@ const SearchPage = React.memo(({
         }
         return slug;
     };
-
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (name) => {
         handleShareOptionClick(name, getSlugWithHash(), {
             subject: emailSubject,
             body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(getSlugWithHash())}`
-        });
+        }, handleShareDispatch);
     };
 
     /**
