@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { find, throttle } from 'lodash';
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { statePageMetaTags } from 'helpers/metaTagHelper';
+import { useDispatch } from 'react-redux';
+
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { Helmet } from 'react-helmet';
 import Error from 'components/sharedComponents/Error';
@@ -20,6 +22,7 @@ import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import StateContent from './StateContent';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -41,7 +44,10 @@ const StatePage = ({
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const slug = `state/${id}/${stateProfile.fy}`;
     const emailArgs = {
         subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
@@ -125,7 +131,7 @@ const StatePage = ({
     }
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, slug, emailArgs);
+        handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
     };
 
     const backgroundColor = "#1a4480";

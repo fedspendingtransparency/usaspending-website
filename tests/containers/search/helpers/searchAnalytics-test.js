@@ -1,6 +1,6 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * searchAnalytics-test.js
  * Created by Kevin Li 2/5/18
  */
@@ -88,7 +88,7 @@ describe('searchAnalytics', () => {
     });
 
     describe('convertReducibleValue', () => {
-        it('should return an array of objects of equal length to the inbound value count',() => {
+        it('should return an array of objects of equal length to the inbound value count', () => {
             const data = Set([1, 2, 3, 4]);
             expect(data.count()).toEqual(4);
 
@@ -100,17 +100,12 @@ describe('searchAnalytics', () => {
             const data = [1, 2, 3, 4, 5];
             const reduced = searchAnalytics.convertReducibleValue(data, 'action');
 
-            expect(reduced.every(
-                (result) => ({}.hasOwnProperty.call(result, 'action') && {}.hasOwnProperty.call(result, 'label'))
-            )).toBeTruthy();
+            expect(reduced.every((result) => ({}.hasOwnProperty.call(result, 'action') && {}.hasOwnProperty.call(result, 'label')))).toBeTruthy();
         });
         it('should return an array of objects with an `action` of the specified type', () => {
             const data = [1, 2, 3, 4, 5];
             const reduced = searchAnalytics.convertReducibleValue(data, 'action');
-            
-            expect(reduced.every(
-                (result) => result.action === 'action'
-            )).toBeTruthy();
+            expect(reduced.every((result) => result.action === 'action')).toBeTruthy();
         });
         it('should return an array of objects with a `label` value that is the result of the iterated value item passed through the parser function', () => {
             const data = [1, 2, 3, 4, 5];
@@ -121,24 +116,21 @@ describe('searchAnalytics', () => {
             );
 
             const expected = [2, 4, 6, 8, 10];
-            expect(reduced.every(
-                (result, index) => result.label === expected[index]
-            )).toBeTruthy();
+            expect(reduced.every((result, index) => result.label === expected[index])).toBeTruthy();
         });
         it('should return an array of objects with a `label` value equal to the iterated value item when no parser function is provided', () => {
             const data = [1, 2, 3, 4, 5];
             const reduced = searchAnalytics.convertReducibleValue(data, 'action', undefined);
 
             const expected = [1, 2, 3, 4, 5];
-            expect(reduced.every(
-                (result, index) => result.label === expected[index]
-            )).toBeTruthy();
+            expect(reduced.every((result, index) => result.label === expected[index])).toBeTruthy();
         });
     });
 
     describe('convertTimePeriod', () => {
         it('should assume an Immutable Set is a fiscal year', () => {
             const data = new Set(['1900']);
+            data.type = 'fy'; // required for differentiation now.
             const converted = searchAnalytics.convertTimePeriod(data);
             expect(Array.isArray(converted)).toBeTruthy();
             expect(converted[0].action).toEqual('Time Period - Fiscal Year');
@@ -159,7 +151,7 @@ describe('searchAnalytics', () => {
     describe('convertLocation', () => {
         it('should parse locations into strings with the location level and name', () => {
             const data = new OrderedMap({
-                '123': {
+                123: {
                     display: {
                         entity: 'County',
                         standalone: 'Orange County, CA'
@@ -173,17 +165,17 @@ describe('searchAnalytics', () => {
 
     describe('combineAwardTypeGroups', () => {
         it('should combine award types into a single `All` item when an entire group is selected', () => {
-            const data = new Set(['A', 'B', 'C', 'D'])
+            const data = new Set(['A', 'B', 'C', 'D']);
             const combined = searchAnalytics.combineAwardTypeGroups(data);
             expect(combined).toEqual(['All Contracts']);
         });
         it('should not combine award types into a single `All` item when some members of the group are not selected', () => {
-            const data = new Set(['A', 'B', 'C'])
+            const data = new Set(['A', 'B', 'C']);
             const combined = searchAnalytics.combineAwardTypeGroups(data);
             expect(combined).toEqual(['A', 'B', 'C']);
         });
         it('when some full groups are selected and some incomplete groups are selected, the incomplete items should be reported individually', () => {
-            const data = new Set(['A', 'B', 'C', 'D', '01'])
+            const data = new Set(['A', 'B', 'C', 'D', '01']);
             const combined = searchAnalytics.combineAwardTypeGroups(data);
             expect(combined).toEqual(['All Contracts', '01']);
         });

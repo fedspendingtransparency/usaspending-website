@@ -124,13 +124,9 @@
     .tooltip__text p {
         color: $color-base;
     }
-    &.homepage__covid-19-tt {
-        h2, .tooltip__title {
-            text-align: center;
-        }
-    }
     h2.tooltip__title {
         font-size: rem(16);
+        text-align: center;
     }
 
     .tooltip__text p {
@@ -138,6 +134,16 @@
         a {
             color: $color-primary;
             font-weight: $font-semibold;
+        }
+    }
+
+    ol {
+        padding-left: rem(16);
+        margin: rem(8) 0 rem(8) rem(8);
+    }
+    .tooltip_list {
+        li::marker {
+            font-weight: $font-bold
         }
     }
 }
@@ -160,6 +166,7 @@
         font-size: rem(14);
         margin: 0;
     }
+
 }
 
 .cd-tt {

@@ -8,7 +8,6 @@
 }
 
 .search-collapsible-sidebar-container {
-  @import './filters/otherFilters/defCheckboxV2';
   box-shadow: unset;
   border-radius: unset;
   position: absolute;
@@ -62,6 +61,8 @@
     z-index: 2;
   }
 
+  @import "../../components/checkboxTree/checkboxTree";
+
   .collapsible-sidebar {
     display: flex;
     flex-direction: column;
@@ -113,10 +114,6 @@
         height: unset !important;
       }
     }
-
-    @import "_newNaicsStyles";
-    @import "_newPscStyles";
-    @import "_newTasStyles";
 
     .collapsible-sidebar--header {
       padding: rem(16) rem(32);
