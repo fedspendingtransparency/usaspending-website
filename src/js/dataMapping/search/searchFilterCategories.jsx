@@ -67,6 +67,19 @@ export const SearchFilterCategories = [
 
 export const searchFilterCategoryTree = [
     {
+        categoryKey: 'timePeriod',
+        iconName: 'calendar-alt',
+        iconColor: '#1A4480',
+        iconBackgroundColor: '#edf5ff',
+        title: 'Time Period',
+        children: [
+            {
+                title: "Time Period",
+                component: <TimePeriodContainer searchV2 />
+            }
+        ]
+    },
+    {
         categoryKey: 'location',
         iconName: 'map-marked-alt',
         iconColor: '#34a37e',
@@ -80,15 +93,44 @@ export const searchFilterCategoryTree = [
         ]
     },
     {
-        categoryKey: 'timePeriod',
-        iconName: 'calendar-alt',
-        iconColor: '#1A4480',
-        iconBackgroundColor: '#edf5ff',
-        title: 'Time Period',
+        categoryKey: 'sources',
+        iconName: 'university',
+        iconColor: '#009ec1',
+        iconBackgroundColor: '#e5faff',
+        title: 'Sources',
         children: [
             {
-                title: "Time Period",
-                component: <TimePeriodContainer searchV2 />
+                title: 'Agency',
+                component: <AgencyContainer searchV2 />
+            },
+            {
+                title: 'Treasury Account Symbol (TAS)',
+                component: <TASCheckboxTreeContainer showInfo={false} searchV2 />
+            },
+            {
+                title: 'COVID-19 Spending',
+                component: <DEFCheckboxTreeContainer defcType="covid_19" />
+            },
+            {
+                title: 'Infrastructure Spending',
+                component: <DEFCheckboxTreeContainer defcType="infrastructure" />
+            }
+        ]
+    },
+    {
+        categoryKey: 'recipients',
+        iconName: 'building',
+        iconColor: '#1b2b85',
+        iconBackgroundColor: '#edf0ff',
+        title: 'Recipients',
+        children: [
+            {
+                title: 'Recipient',
+                component: <RecipientSearchContainer searchV2 />
+            },
+            {
+                title: 'Recipient Type',
+                component: <RecipientTypeContainer searchV2 />
             }
         ]
     },
@@ -154,48 +196,6 @@ export const searchFilterCategoryTree = [
             {
                 title: 'Assistance Listing',
                 component: <CFDASearchContainer searchV2 />
-            }
-        ]
-    },
-    {
-        categoryKey: 'recipients',
-        iconName: 'building',
-        iconColor: '#1b2b85',
-        iconBackgroundColor: '#edf0ff',
-        title: 'Recipients',
-        children: [
-            {
-                title: 'Recipient',
-                component: <RecipientSearchContainer searchV2 />
-            },
-            {
-                title: 'Recipient Type',
-                component: <RecipientTypeContainer searchV2 />
-            }
-        ]
-    },
-    {
-        categoryKey: 'sources',
-        iconName: 'university',
-        iconColor: '#009ec1',
-        iconBackgroundColor: '#e5faff',
-        title: 'Sources',
-        children: [
-            {
-                title: 'Agency',
-                component: <AgencyContainer searchV2 />
-            },
-            {
-                title: 'Treasury Account Symbol (TAS)',
-                component: <TASCheckboxTreeContainer showInfo={false} searchV2 />
-            },
-            {
-                title: 'COVID-19 Spending',
-                component: <DEFCheckboxTreeContainer defcType="covid_19" />
-            },
-            {
-                title: 'Infrastructure Spending',
-                component: <DEFCheckboxTreeContainer defcType="infrastructure" />
             }
         ]
     }
