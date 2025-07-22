@@ -9,10 +9,58 @@ import { pickLocationFormat } from 'helpers/locationFormatter';
 import { twoVariableFormat } from 'helpers/search/tables/tableUtilsHelper';
 import { convertToTitleCase } from 'helpers/searchHelper';
 import ReadMore from 'components/sharedComponents/ReadMore';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// const SortIcon = ({
+//     clickedSort,
+//     displayName,
+//     currentSort,
+//     title
+// }) => {
+//     // highlight the active arrow
+//     const activeAsc = (currentSort?.field === title && currentSort?.direction === 'asc')
+//         ? ' table-header__icon_active' : '';
+//     const activeDesc = (currentSort?.field === title && currentSort?.direction === 'desc')
+//         ? ' table-header__icon_active' : '';
+
+//     return (
+//         <div className="table-header__sort">
+//             <button
+//                 type="button"
+//                 onClick={clickedSort}
+//                 className={`table-header__icon${activeAsc}`}
+//                 value="asc"
+//                 title={`Sort table by ascending ${displayName}`}
+//                 aria-label={`Sort table by ascending ${displayName}`}>
+//                 <FontAwesomeIcon size="2x" icon="caret-up" />
+//             </button>
+//             <button
+//                 type="button"
+//                 onClick={clickedSort}
+//                 className={`table-header__icon${activeDesc}`}
+//                 value="desc"
+//                 title={`Sort table by descending ${displayName}`}
+//                 aria-label={`Sort table by descending ${displayName}`}>
+//                 <FontAwesomeIcon size="2x" icon="caret-down" />
+//             </button>
+//         </div>
+//     );
+// };
 
 export const subAwardDefaultColumns = [
     {
         header: () => (
+            // <div className="table-header__content">
+            //     <div className="table-header__label">
+            //         Prime Award ID
+            //         <SortIcon
+            //             clickedSort={updateSort}
+            //             currentSort={sort}
+            //             title="Prime Award ID"
+            //             displayName="Prime Award ID" />
+
+            //     </div>
+            // </div>
             <div className="table-header__content">
                 <div className="table-header__label">
                     Prime Award ID
@@ -92,7 +140,7 @@ export const expandedTransactionColumns = [
     {
         key: 'Award ID',
         header: () => (
-            <div className="table-header__content table-header__content_right">
+            <div className="table-header__content">
                 <div className="table-header__label">Prime Award ID</div>
             </div>
         ),

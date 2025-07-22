@@ -12,7 +12,6 @@ import { pickLocationFormat } from 'helpers/locationFormatter';
 import { convertToTitleCase } from "helpers/searchHelper";
 import { twoVariableFormat } from 'helpers/search/tables/tableUtilsHelper';
 import ReadMore from 'components/sharedComponents/ReadMore';
-import TanStackTable from './TanStackTable';
 
 export default class ResultsTable extends React.Component {
     static propTypes = {
@@ -33,7 +32,6 @@ export default class ResultsTable extends React.Component {
         total: PropTypes.number,
         isMobile: PropTypes.bool,
         federalAccountPage: PropTypes.bool,
-        showToggle: PropTypes.bool,
         referenceData: PropTypes.array
     };
 
@@ -151,6 +149,8 @@ export default class ResultsTable extends React.Component {
         const arrayOfObjects = this.props.results;
         let values = null;
 
+        console.log("checking props..............", this.props.results);
+        console.log("checking current type props", this.props);
         // check for prime awards && loans
         if (
             this.props.spendingLevel === 'awards' ||
@@ -570,16 +570,8 @@ export default class ResultsTable extends React.Component {
     }
 
     render() {
-        let showTanStackTable = false;
-        let cols = [];
-        let limitedRows = [];
-        if (this.props.showToggle && this.props.spendingLevel === 'awards' && !this.props.isMobile) {
-            showTanStackTable = true;
-        }
-        else {
-            cols = this.prepareDTUIColumns();
-            limitedRows = this.prepareDTUIRows();
-        }
+        const cols = this.prepareDTUIColumns();
+        const limitedRows = this.prepareDTUIRows();
         // for table height take the height of the viewport
         // subtract the sticky header part on the top of the page
         // tab height for the tables
@@ -591,32 +583,23 @@ export default class ResultsTable extends React.Component {
                     className="advanced-search__table-wrapper"
                     id="advanced-search__table-wrapper"
                     style={this.props.resultsCount >= this.props.resultsLimit ? { height: '638px' } : {}}>
-                    { showTanStackTable ? (
-                        <TanStackTable
-                            {...this.props}
-                            columns={cols}
-                            data={this.props.expandableData}
-                            currentSort={this.props.sort}
-                            updateSort={this.props.updateSort}
-                            columnType={this.props.columnType || this.props.subaward ? "subawards" : "transactions"} />
-                    ) : (
-                        <Table
-                            classNames="table-for-new-search-page award-results-table-dtui"
-                            stickyFirstColumn={!this.props.isMobile}
-                            columns={cols}
-                            rows={limitedRows}
-                            rowHeight={this.props.isMobile ? null : 58}
-                            headerRowHeight={45}
-                            highlightedColumns={this.props.subaward ? {
-                                standardColumns: 9,
-                                highlightedColumns: this.props.currentType === "subcontracts" ? 7 : 6
-                            } : null}
-                            currentSort={this.props.sort}
-                            updateSort={this.props.updateSort}
-                            isMobile={this.props.isMobile}
-                            isStacked
-                            newMobileView />
-                    )}
+                    <Table
+                        classNames="table-for-new-search-page award-results-table-dtui"
+                        stickyFirstColumn={!this.props.isMobile}
+                        columns={cols}
+                        rows={limitedRows}
+                        rowHeight={this.props.isMobile ? null : 58}
+                        headerRowHeight={45}
+                        highlightedColumns={this.props.subaward ? {
+                            standardColumns: 9,
+                            highlightedColumns: this.props.currentType === "subcontracts" ? 7 : 6
+                        } : null}
+                        currentSort={this.props.sort}
+                        updateSort={this.props.updateSort}
+                        isMobile={this.props.isMobile}
+                        isStacked
+                        newMobileView />
+
                 </div>
                 <Pagination
                     resultsText

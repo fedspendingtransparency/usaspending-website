@@ -32,6 +32,8 @@ const getColumnArray = (type) => {
 };
 
 export const ColumnBuilder = (columnType, onButtonClick, expanded) => {
+    console.log("checking column type ====> ", columnType);
+
     if (!columnType) {
         return null;
     };

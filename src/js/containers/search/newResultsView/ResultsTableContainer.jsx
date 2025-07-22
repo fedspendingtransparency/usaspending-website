@@ -592,6 +592,7 @@ const ResultsTableContainer = (props) => {
             setSpendingLevel(props.spendingLevel);
             setIsSubaward(props.spendingLevel === "subawards");
             setIsTransactions(props.spendingLevel === "transactions");
+            setExpandableData([]);
             return;
         }
 
@@ -692,7 +693,8 @@ const ResultsTableContainer = (props) => {
                 expandableData={expandableData}
                 filters={props.filters}
                 checkMobile={(isMobileState) => setIsMobile(isMobileState)}
-                columnType={columnType} />
+                columnType={columnType}
+                subColumnOptions={columns} />
         </SearchSectionWrapper>
     );
 };
