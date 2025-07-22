@@ -215,11 +215,12 @@
             }
 
             .content {
-              padding: 0;
               border: none;
+              padding: $global-padding ($global-padding / 2);;
 
               &.hidden {
                 overflow: hidden;
+                padding: 0;
               }
 
               .filter-item-wrap {

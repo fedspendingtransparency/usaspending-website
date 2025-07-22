@@ -62,7 +62,8 @@ const SidebarContent = ({
             {category.children.map((filter) => (
                 <Accordion
                     title={filter.title}
-                    setOpen={(set) => setOpen({ [filter.title]: set, ...open })}
+                    setOpen={() => setOpen({ ...open, [filter.title]: !open[filter.title] })}
+                    openObject
                     closedIcon="chevron-down"
                     openIcon="chevron-up"
                     contentClassName={open[filter.title] ? '' : 'hidden'}>

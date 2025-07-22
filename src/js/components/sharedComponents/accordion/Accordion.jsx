@@ -4,14 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
 
 const Accordion = ({
-    title, children, closedIcon, openIcon, iconClassName, setOpen, contentClassName = ''
+    title, children, closedIcon, openIcon, iconClassName, setOpen, contentClassName = '', openObject = false
 }) => {
     const [closed, setClosed] = useState(true);
 
     const toggleOpen = (e) => {
         e.stopPropagation();
         setClosed((prevClosed) => !prevClosed);
-        setOpen((prevOpen) => !prevOpen);
+        if (openObject) {
+            setOpen();
+        }
+        else {
+            setOpen((prevOpen) => !prevOpen);
+        }
     };
 
     const keyClickToggle = (e) => {
@@ -21,6 +26,7 @@ const Accordion = ({
         }
     };
 
+    console.log('contentClassName:', contentClassName);
     return (
         <div className="accordion-container">
             <section data-testid="accordion" className={!closed ? `open accordion--open accordion` : `accordion`}>
