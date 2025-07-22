@@ -25,7 +25,6 @@ const TreeNodes = ({
     expanded = [],
     onCheck,
     onExpand,
-    onCollapse,
     isLoading
 }) => {
     const [localChecked, setLocalChecked] = useState(checked);
