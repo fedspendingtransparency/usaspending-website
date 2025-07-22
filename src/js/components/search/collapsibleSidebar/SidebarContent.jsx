@@ -4,7 +4,6 @@
  **/
 
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -47,6 +46,17 @@ const SidebarContent = ({
     });
 
     // const filters = useSelector((state) => state.filters);
+
+    // const {
+    //     selectedLocations,
+    //     selectedRecipientLocations,
+    //     timePeriodType,
+    //     time_period: timePeriod,
+    //     timePeriodFY,
+    //     selectedRecipients,
+    //     recipientType
+    // } = filters;
+
     const dsmElHeight = sidebarContentHeight + 51;
 
     const filtersArray = searchFilterCategoryTree.map((category) => (
@@ -72,16 +82,6 @@ const SidebarContent = ({
             ))}
         </div>
     ));
-
-    // const {
-    //     selectedLocations,
-    //     selectedRecipientLocations,
-    //     timePeriodType,
-    //     time_period: timePeriod,
-    //     timePeriodFY,
-    //     selectedRecipients,
-    //     recipientType
-    // } = filters;
 
     return (
         <>
