@@ -4,7 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
 
 const Accordion = ({
-    title, children, closedIcon, openIcon, iconClassName, setOpen, contentClassName = '', openObject = false
+    title,
+    children,
+    closedIcon,
+    openIcon,
+    iconClassName,
+    setOpen,
+    contentClassName = '',
+    openObject = false
 }) => {
     const [closed, setClosed] = useState(true);
 

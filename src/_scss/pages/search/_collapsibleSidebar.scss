@@ -157,6 +157,7 @@
 
       .collapsible-sidebar--search-filters-list {
         overflow-y: auto;
+        scrollbar-gutter: stable;
 
         .search-filters-list {
           padding: ($global-padding * 2) ($global-padding * 4) 0 ($global-padding * 4);
