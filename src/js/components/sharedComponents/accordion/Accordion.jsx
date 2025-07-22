@@ -26,7 +26,6 @@ const Accordion = ({
         }
     };
 
-    console.log('contentClassName:', contentClassName);
     return (
         <div className="accordion-container">
             <section data-testid="accordion" className={!closed ? `open accordion--open accordion` : `accordion`}>
@@ -66,5 +65,6 @@ Accordion.propTypes = {
     contentClassName: PropTypes.string,
     closedIcon: PropTypes.string,
     openIcon: PropTypes.string,
-    setOpen: PropTypes.func
+    setOpen: PropTypes.func,
+    openObject: PropTypes.bool
 };
