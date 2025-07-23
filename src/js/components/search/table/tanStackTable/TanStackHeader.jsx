@@ -61,7 +61,7 @@ const TanStackHeader = ({
     };
 
     return (
-        <div className={`table-header__content${index > 0 ? ' table-header__content_right' : ''}`}>
+        <div className={`table-header__content${index > 0 ? ' table-header__content_right' : ''}`} >
             <div className="table-header__label">
                 { flexRender(
                     header.column.columnDef.header,

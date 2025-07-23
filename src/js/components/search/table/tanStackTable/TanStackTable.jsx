@@ -98,8 +98,8 @@ const TanStackTable = (props) => {
         const params = {
             filters: newFilters.toParams(),
             fields: requestFields,
-            page: 1,
-            limit: 10,
+            page: props.page,
+            limit: props.resultsLimit,
             sort: props.columnType === "subawards" ? "Sub-Award Amount" : "Transaction Amount",
             order: "desc",
             subawards: true,
@@ -228,7 +228,9 @@ const TanStackTable = (props) => {
         },
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        getSortedRowModel: getSortedRowModel()
+        getSortedRowModel: getSortedRowModel(),
+        filterFromLeafRows: true, // search through the expanded rows
+        maxLeafRowFilterDepth: 1
     });
 
     useEffect(() => {
@@ -282,7 +284,7 @@ const TanStackTable = (props) => {
 
                                 {row.getIsExpanded() && (
                                     <tr className="expaned-table-container">
-                                        <td colSpan={row.getAllCells().length} className="expaned-table-container__outer-cell">
+                                        <td colSpan={row.getVisibleCells().length} className="expaned-table-container__outer-cell">
                                             {/* <NestedTanStackTable
                                                 {...props}
                                                 awardId={awardId} /> */}
@@ -298,7 +300,7 @@ const TanStackTable = (props) => {
                                                     columns={props.subColumnOptions[columnSubType]}
                                                     isLoading={isLoading}
                                                     error={error}
-                                                    resultsLimit={10} />
+                                                    resultsCount={subData.length} />
                                             </>
                                         </td>
                                     </tr>
@@ -313,7 +315,7 @@ const TanStackTable = (props) => {
                 limitSelector
                 hideLast={props.resultsCount >= 50000}
                 currentPage={props.page}
-                pageSize={10}
+                pageSize={props.resultsLimit}
                 changePage={props.setPage}
                 changeLimit={props.setResultLimit}
                 totalItems={props.data.length} />

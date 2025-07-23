@@ -13,50 +13,18 @@ import ReadMore from 'components/sharedComponents/ReadMore';
 export const subAwardDefaultColumns = [
     {
         header: "Prime Award Id",
-        // header: () => (
-        // <div className="table-header__content">
-        //     <div className="table-header__label">
-        //         Prime Award ID
-        //         <SortIcon
-        //             clickedSort={updateSort}
-        //             currentSort={sort}
-        //             title="Prime Award ID"
-        //             displayName="Prime Award ID" />
-
-        //     </div>
-        // </div>
-        // <div className="table-header__content">
-        //     <div className="table-header__label">
-        //         Prime Award ID
-        //     </div>
-        // </div>
-        // ),
         key: "award_id",
         type: "expandableButton",
         element: null
     },
     {
         header: "Count of Subwards that Match Search Criteria",
-        // header: () => (
-        //     <div className="table-header__content table-header__content_right">
-        //         <div className="table-header__label">
-        //             Count of Subwards that Match Search Criteria
-        //         </div>
-        //     </div>
-        // ),
         key: 'subaward_count',
         type: "alphaNumeric",
         element: null
     },
     {
         header: "Obligations that Match Search Criteria",
-        // header: () => (
-        //     <div className="table-header__content table-header__content_right">
-        //         <div className="table-header__label">
-        //             Obligations that Match Search Criteria
-        //         </div>
-        //     </div>
-        // ),
         key: 'subaward_obligation',
         type: "formatted",
         element: (info) => MoneyFormatter.formatMoneyWithPrecision(info.getValue(), 2, "--")
@@ -65,37 +33,19 @@ export const subAwardDefaultColumns = [
 
 export const transactionsDefaultColumns = [
     {
-        header: () => (
-            <div className="table-header__content">
-                <div className="table-header__label">
-                    Prime Award ID
-                </div>
-            </div>
-        ),
+        header: "Prime Award Id",
         key: "award_id",
         type: "expandableButton",
         element: null
     },
     {
-        header: () => (
-            <div className="table-header__content table-header__content_right">
-                <div className="table-header__label">
-                    Count of Transactions that Match Search Criteria
-                </div>
-            </div>
-        ),
+        header: "Count of Transactions that Match Search Criteria",
         key: 'transaction_count',
         type: "alphaNumeric",
         element: null
     },
     {
-        header: () => (
-            <div className="table-header__content table-header__content_right">
-                <div className="table-header__label">
-                    Obligations that Match Search Criteria
-                </div>
-            </div>
-        ),
+        header: "Obligations that Match Search Criteria",
         key: 'transaction_obligation',
         type: "formatted",
         element: (info) => MoneyFormatter.formatMoneyWithPrecision(info.getValue(), 2, "--")
