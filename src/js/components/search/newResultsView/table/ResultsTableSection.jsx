@@ -80,7 +80,7 @@ const ResultsTableSection = (props) => {
             return (
                 <TanStackTable
                     {...props}
-                    data={props.expandableData}
+                    expandableData={props.expandableData}
                     columnType={props.columnType}
                     isMobile={isMobile}
                     visibleWidth={tableWidth}
