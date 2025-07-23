@@ -32,18 +32,12 @@ const getColumnArray = (type) => {
 };
 
 export const ColumnBuilder = (columnType, onButtonClick, expanded) => {
-    console.log("checking column type ====> ", columnType);
-
-    if (!columnType) {
-        return null;
-    };
+    if (!columnType) return null;
 
     const columnHelper = createColumnHelper();
     const columnArray = getColumnArray(columnType);
 
-    if (!columnArray) {
-        return null;
-    }
+    if (!columnArray) return null;
 
     const columns = columnArray.map((col) => {
         switch (col.type) {

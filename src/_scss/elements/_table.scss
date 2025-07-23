@@ -3,13 +3,6 @@ table {
     margin: 2em 0;
     min-width: 100%;
 
-    &.table-for-new-search-page {
-        td {
-            // this is necessary to make the usda-table__row class hover work correctly
-            background-color: unset;
-        }
-    }
-
     thead {
         th {
             background-color: $color-gray-lightest;
@@ -33,6 +26,26 @@ table {
         padding: 1.5rem;
     }
 
+    &.expandable-table__show-expanded{
+        overflow: unset !important;   
+    }
+
+    &.table-for-new-search-page {
+
+
+        .table-header__content_right {
+            text-align: right;
+        }
+        td {
+            // this is necessary to make the usda-table__row class hover work correctly
+            background-color: unset;
+        }
+
+        &.expanded {
+          overflow: hidden;
+        }
+    }
+
     .usda-table__body {   
         .expaned-table-parent__sticky.td {
             border-bottom: none;
@@ -41,16 +54,18 @@ table {
         .expaned-table-container {
             position: sticky;
             position: -webkit-sticky;
-            z-index: 12;
-            overflow-x: scroll;
-            border: none;
+            z-index: 1;
+            border: none;                
+            padding: rem(16);
+            margin: 0 rem(8);
+            position: absolute;
             
             .expaned-table-container__outer-cell {
                 border: rem(1) solid $gray-cool-10;
                 border-radius: rem(4);
                 background-color: $color-white;
-                padding: rem(16);
-                margin-left: rem(8);
+                // max-width: 100%;
+                // overflow: auto;
                 
                 .table-title {
                     color: $gray-90;
@@ -84,5 +99,11 @@ table {
     td {
         border-left: 0;
         border-right: 0;
+    }
+}
+
+.advanced-search__table-wrapper{
+    &.expandable-table__show-expanded{
+        overflow: unset !important;   
     }
 }

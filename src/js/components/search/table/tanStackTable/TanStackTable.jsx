@@ -21,8 +21,8 @@ import { uniqueId } from 'lodash';
 import { ColumnBuilder } from 'models/v2/search/table/ColumnBuilder';
 import { Pagination } from "data-transparency-ui";
 import ResultsTable from '../ResultsTable';
+import TanStackHeader from './TanStackHeader';
 // import NestedTanStackTable from './NestedTanStackTable';
-
 
 const propTypes = {
     columnType: PropTypes.string,
@@ -185,6 +185,7 @@ const TanStackTable = (props) => {
             setExpanded(newExpanded);
             return null;
         }
+
         setAwardId(id);
         setExpanded((prevState) => ({
             ...prevState,
@@ -217,7 +218,7 @@ const TanStackTable = (props) => {
         // togglePrimeAward,
         toggleSubData,
         expanded
-    ), [props.columnType, expanded]);
+    ), [props.columnType, toggleSubData, expanded]);
 
     const table = useReactTable({
         data: props.data,
@@ -237,7 +238,8 @@ const TanStackTable = (props) => {
                 columnSubType = 'subgrants';
             }
             columnSubType = 'subcontracts';
-        } else {
+        }
+        else {
             columnSubType = [`transaction_${props.currentType}`];
         }
     }, [subData]);
@@ -245,21 +247,23 @@ const TanStackTable = (props) => {
     return (
         <>
             <div
-                className="advanced-search__table-wrapper expandable"
+                className="advanced-search__table-wrapper"
                 id="advanced-search__table-wrapper"
                 style={props.resultsCount >= props.resultsLimit ? { height: '638px' } : {}}>
-                <table className="usda-table table-for-new-search-page award-results-table-dtui">
-                    <thead className="usda-table__head">
+                <table className={`usda-table table-for-new-search-page award-results-table-dtui expandable ${Object.keys(expanded).length ? ' expandable-table__show-expanded' : ''}`}>
+                    <thead className="usda-table__head" style={{ maxWidth: '100%' }}>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <tr key={headerGroup.id} className="usda-table__row" style={{ height: 45 }}>
                                 {headerGroup.headers.map((header, h) => (
                                     <th key={header.id} className={`table-header ${h === 0 ? ' stickyColumn' : ''}`}>
                                         {header.isPlaceholder
                                             ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
+                                            : <TanStackHeader
+                                                index={h}
+                                                updateSort={props.updateSort}
+                                                currentSort={props.sort}
+                                                header={header} />
+                                        }
                                     </th>
                                 ))}
                             </tr>
@@ -309,10 +313,10 @@ const TanStackTable = (props) => {
                 limitSelector
                 hideLast={props.resultsCount >= 50000}
                 currentPage={props.page}
-                pageSize={props.resultsLimit}
+                pageSize={10}
                 changePage={props.setPage}
                 changeLimit={props.setResultLimit}
-                totalItems={props.resultsCount} />
+                totalItems={props.data.length} />
         </>
     );
 };

@@ -149,8 +149,6 @@ export default class ResultsTable extends React.Component {
         const arrayOfObjects = this.props.results;
         let values = null;
 
-        console.log("checking props..............", this.props.results);
-        console.log("checking current type props", this.props);
         // check for prime awards && loans
         if (
             this.props.spendingLevel === 'awards' ||
