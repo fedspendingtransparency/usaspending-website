@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import * as SearchHelper from 'helpers/searchHelper';
 import { performKeywordSearch } from 'helpers/keywordHelper';
 import { subawardTypeGroups, transactionTypeGroups } from 'dataMapping/search/awardType';
-import { uniqueId } from 'lodash';
+import { uniqueId, throttle } from 'lodash';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import ResultsTable from '../ResultsTable';
 
@@ -27,7 +27,12 @@ const NestedTanStackTable = (props) => {
     const [subColumns, setSubColumns] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [subSort, setSubSort] = useState(props.sort);
+    const [subSort, setSubSort] = useState({
+        field: props.columnType === "subawards" ? "Sub-Award Amount" : "Transaction Amount",
+        direction: 'desc'
+    });
+    const [subPage, setSubPage] = useState(props.page);
+    const [subResultsLimit, setSubResultsLimit] = useState(props.resultsLimit);
     let columnSubType = props.currentType;
     let searchRequest = null;
 
@@ -81,10 +86,10 @@ const NestedTanStackTable = (props) => {
         const params = {
             filters: newFilters.toParams(),
             fields: requestFields,
-            page: props.page,
-            limit: props.resultsLimit,
-            sort: subSort?.field || props.columnType === "subawards" ? "Sub-Award Amount" : "Transaction Amount",
-            order: subSort?.direction || "desc",
+            page: subPage,
+            limit: subResultsLimit,
+            sort: subSort.field,
+            order: subSort.direction,
             subawards: true,
             auditTrail: 'Results Table - Spending by award search'
         };
@@ -140,6 +145,7 @@ const NestedTanStackTable = (props) => {
                 searchRequest = null;
                 newState.page = res.data.page_metadata.page;
                 newState.lastPage = !res.data.page_metadata.hasNext;
+                setSubPage(newState.page);
                 setSubData(newState.results);
                 setIsLoading(false);
             })
@@ -168,7 +174,7 @@ const NestedTanStackTable = (props) => {
         }
     };
 
-    useEffect(() => {
+    useEffect(throttle(() => {
         // need to pull out of here to helper or up to Container lv
         if (props.columnType === "subawards") {
             if (props.currentType === "grants") {
@@ -181,7 +187,14 @@ const NestedTanStackTable = (props) => {
         }
         setSubColumns(props.subColumnOptions[columnSubType]);
         getSubData();
-    }, [props.awardId, subSort]);
+
+        return () => {
+            if (searchRequest) {
+                // a request is currently in-flight, cancel it
+                searchRequest.cancel();
+            }
+        };
+    }, 400), [props.awardId, subSort, subPage, subResultsLimit]);
 
     if (isLoading) {
         return <LoadingMessage />;
@@ -209,7 +222,11 @@ const NestedTanStackTable = (props) => {
                 error={error}
                 resultsCount={props.resultsCount}
                 updateSort={updateSort}
-                sort={subSort} />
+                sort={subSort}
+                page={subPage}
+                setPage={setSubPage}
+                resultsLimit={subResultsLimit}
+                setResultLimit={setSubResultsLimit} />
         </>
     );
 };
