@@ -1,6 +1,4 @@
-import { useEffect, useRef, useLayoutEffect } from "react";
-
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+import { useEffect } from "react";
 
 const useEventListener = (
     eventName,
@@ -8,25 +6,17 @@ const useEventListener = (
     element,
     options
 ) => {
-    const savedHandler = useRef(handler);
-
-    useIsomorphicLayoutEffect(() => {
-        savedHandler.current = handler;
-    }, [handler]);
-
     useEffect(() => {
         const targetElement = element?.current ?? window;
 
         if (!(targetElement && targetElement.addEventListener)) return {};
 
-        const listener = savedHandler.current(typeof handler);
-
-        targetElement.addEventListener(eventName, listener, options);
+        targetElement.addEventListener(eventName, handler, options);
 
         return () => {
-            targetElement.removeEventListener(eventName, listener, options);
+            targetElement.removeEventListener(eventName, handler, options);
         };
     }, [handler, eventName, element, options]);
 };
 
-export { useEventListener, useIsomorphicLayoutEffect };
+export { useEventListener };

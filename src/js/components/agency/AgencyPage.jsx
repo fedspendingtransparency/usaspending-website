@@ -29,6 +29,7 @@ import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
 import { showModal } from '../../redux/actions/modal/modalActions';
+import { useEventListener } from "../../hooks";
 
 require('pages/agency/index.scss');
 
@@ -146,6 +147,15 @@ export const AgencyProfileV2 = ({
         });
     };
 
+    const handleResize = throttle(() => {
+        const newWidth = window.innerWidth;
+        console.log('resize:', newWidth);
+        if (windowWidth !== newWidth) {
+            setWindowWidth(newWidth);
+            setIsMobile(newWidth < mediumScreen);
+        }
+    }, 50);
+
     useEffect(() => {
         if (isStatusOfFundsChartLoaded && query.section) {
             jumpToSection(query.section);
@@ -153,17 +163,7 @@ export const AgencyProfileV2 = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section, isStatusOfFundsChartLoaded]);
 
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    useEventListener('resize', handleResize);
 
     return (
         <PageWrapper
