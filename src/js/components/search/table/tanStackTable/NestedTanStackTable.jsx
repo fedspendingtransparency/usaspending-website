@@ -160,7 +160,7 @@ const NestedTanStackTable = (props) => {
 
     // need to pull out of here to helper or up to Container lv
     const updateSort = (field, direction) => {
-        if (field === 'Action Date' && props.spendingLevel !== 'transactions') {
+        if (field === 'Action Date' && props.columnType !== 'transactions') {
             setSubSort(Object.assign({
                 field: 'Sub-Award Date',
                 direction
