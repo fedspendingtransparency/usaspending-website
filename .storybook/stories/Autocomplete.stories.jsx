@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { within, userEvent, expect } from '@storybook/test';
+
 import Autocomplete from "../../src/js/components/sharedComponents/autocomplete/Autocomplete";
 import { autocompleteDummyValues } from "../../src/js/helpers/storybookHelper";
 
@@ -42,9 +44,9 @@ const Template = (args) => {
         )
 };
 
-export const Primary = Template.bind({});
+export const Default = Template.bind({});
 
-Primary.args = {
+Default.args = {
     placeholder: 'PLACEHOLDER',
     noResults: false,
     errorHeader: 'NO RESULTS FOUND',
@@ -62,3 +64,13 @@ Primary.args = {
     selectedItemsDisplayNames: false,
     type: null
 };
+
+Default.play = async({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step('Enter text', async () => {
+        await userEvent.type(canvas.getByPlaceholderText("PLACEHOLDER"), 'alabama', { delay: 500 });
+
+        await expect(canvas.getByText('Alabama (1 of 1)')).toBeTruthy();
+    })
+}
