@@ -157,6 +157,79 @@
 
       .collapsible-sidebar--search-filters-list {
         overflow-y: auto;
+        scrollbar-gutter: stable;
+
+        .search-filters-list {
+          padding: ($global-padding * 2) ($global-padding * 4) 0 ($global-padding * 4);
+
+          .category-header {
+            display: flex;
+
+            &--icon {
+              height: rem(21);
+              width: rem(21);
+              border-radius: rem(4);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              svg {
+                max-height: rem(12);
+                max-width: rem(12);
+              }
+            }
+
+            &--title {
+              font-size: $font-size-10;
+              line-height: 1.5;
+              color: $gray-60;
+              align-content: center;
+              margin-left: rem(4);
+              border-bottom: rem(1) solid $gray-cool-10;
+              width: 100%;
+            }
+          }
+        }
+
+        .accordion-container {
+           &.open {
+             padding: 0;
+           }
+
+          .accordion {
+            .heading {
+              padding: $global-padding ($global-padding / 2);
+              border: none;
+              font-size: $smallest-font-size;
+              line-height: 1.5;
+
+              button {
+                padding: 0;
+                margin: 0;
+                max-height: rem(18);
+                max-width: rem(18);
+
+                svg {
+                  color: $blue-50;
+                }
+              }
+            }
+
+            .content {
+              border: none;
+              padding: $global-padding ($global-padding / 2);;
+
+              &.hidden {
+                overflow: hidden;
+                padding: 0;
+              }
+
+              .filter-item-wrap {
+                padding: 0;
+              }
+            }
+          }
+        }
       }
     }
 
