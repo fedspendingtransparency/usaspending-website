@@ -7,8 +7,10 @@ const useEventListener = (
     options
 ) => {
     useEffect(() => {
+        // check to see if there is a target element provided, if not use window
         const targetElement = element?.current ?? window;
 
+        // if there is no target element or if it already has an event listener, return
         if (!(targetElement && targetElement.addEventListener)) return {};
 
         targetElement.addEventListener(eventName, handler, options);
