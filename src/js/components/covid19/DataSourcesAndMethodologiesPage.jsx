@@ -163,7 +163,6 @@ export default () => {
     };
 
     const handleShareDispatch = (url) => {
-        console.debug("URL: ", url);
         dispatch(showModal(url));
     };
     const handleShare = (name) => {
