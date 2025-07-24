@@ -37,6 +37,7 @@ const TanStackTable = (props) => {
     const [awardId, setAwardId] = useState(null);
     const [expanded, setExpanded] = useState({});
     let resultsCount = props.resultsCount;
+    let top = 45;
 
     const toggleSubData = (id, rowId) => {
         if (props.toggleSubData) {
@@ -118,6 +119,8 @@ const TanStackTable = (props) => {
                                             // very hacky, but works for now.
                                             const countKey = Object.keys(row.original).find((key) => key.endsWith('count'));
                                             resultsCount = row.original[countKey];
+                                            const addTo = 45 * c;
+                                            top += addTo;
                                         }
 
                                         return (
@@ -130,7 +133,7 @@ const TanStackTable = (props) => {
 
                                 {row.getIsExpanded() && (
                                     <tr className="expaned-table-container">
-                                        <td colSpan={row.getVisibleCells().length} className="expaned-table-container__outer-cell">
+                                        <td colSpan={row.getVisibleCells().length} className="expaned-table-container__outer-cell" style={{ top: `${top}px` }}>
                                             <NestedTanStackTable
                                                 {...props}
                                                 awardId={awardId}
