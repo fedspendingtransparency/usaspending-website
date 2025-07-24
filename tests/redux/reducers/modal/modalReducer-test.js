@@ -1,11 +1,12 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * redirectModalReducer-test.js
  * Created by Lizzie Salita 2/22/18
  */
 
 import redirectModalReducer, { initialState } from 'redux/reducers/modal/modalReducer';
+import { socialUrls } from '../../../../src/js/helpers/socialShare';
 
 describe('redirectModalReducer', () => {
     describe('SHOW_MODAL', () => {
@@ -39,8 +40,22 @@ describe('redirectModalReducer', () => {
 
             expect(state.url).toEqual(mockUrl);
         });
-    });
+        it('should set the facebook url', () => {
+            let state = redirectModalReducer(undefined, {});
+            const mockUrl = socialUrls.facebook;
 
+            expect(state.display).toBeFalsy();
+
+            const action = {
+                type: 'SHOW_MODAL',
+                url: mockUrl
+            };
+
+            state = redirectModalReducer(state, action);
+
+            expect(state.url).toEqual(mockUrl);
+        });
+    });
     describe('HIDE_MODAL', () => {
         it('should set the display value to false', () => {
             const mockUrl = 'www.google.com';

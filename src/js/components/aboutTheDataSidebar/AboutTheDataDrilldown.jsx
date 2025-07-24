@@ -5,10 +5,13 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { handleShareOptionClick } from 'helpers/socialShare';
+import { useDispatch } from 'react-redux';
+
 import { ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingWrapper } from "../sharedComponents/Loading";
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
     section: PropTypes.string,
@@ -20,6 +23,8 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
+    const dispatch = useDispatch();
+
     // figure out if there is a param
     const stripUrl = () => {
         const url = new URL(window.location.href);
@@ -33,6 +38,10 @@ const AboutTheDataDrilldown = ({
     };
     const value = stripUrl();
 
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
+
     const onShareClick = (optionName) => {
         const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
         const emailArgs = {
@@ -40,7 +49,7 @@ const AboutTheDataDrilldown = ({
             body: `View this statement about the data on USAspending.gov: ${`${value}${slug}`}`
         };
         const placeHolder = `${value}${slug}`;
-        handleShareOptionClick(optionName, placeHolder, emailArgs);
+        handleShareOptionClick(optionName, placeHolder, emailArgs, handleShareDispatch);
     };
 
     const [drilldownComponent, setDrilldownComponent] = useState(null);

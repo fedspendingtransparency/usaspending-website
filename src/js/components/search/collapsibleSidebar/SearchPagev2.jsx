@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch } from 'react-redux';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
@@ -21,6 +22,7 @@ import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../newResultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
+import { showModal } from '../../../redux/actions/modal/modalActions';
 
 require('pages/search/searchPage.scss');
 
@@ -58,6 +60,7 @@ const SearchPage = ({
     const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
+    const dispatch = useDispatch();
     const timerRef = useRef({
         time: new Date().getTime(),
         hasFired: false
@@ -79,11 +82,14 @@ const SearchPage = ({
         return slug;
     };
 
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (name) => {
         handleShareOptionClick(name, getSlugWithHash(), {
             subject: emailSubject,
             body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(getSlugWithHash())}`
-        });
+        }, handleShareDispatch);
     };
 
     /**
