@@ -4,14 +4,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
 
 const Accordion = ({
-    title, children, closedIcon, openIcon, iconClassName, setOpen
+    title,
+    children,
+    closedIcon,
+    openIcon,
+    iconClassName,
+    setOpen,
+    contentClassName = '',
+    openObject = false
 }) => {
     const [closed, setClosed] = useState(true);
 
     const toggleOpen = (e) => {
         e.stopPropagation();
         setClosed((prevClosed) => !prevClosed);
-        setOpen((prevOpen) => !prevOpen);
+        if (openObject) {
+            setOpen();
+        }
+        else {
+            setOpen((prevOpen) => !prevOpen);
+        }
     };
 
     const keyClickToggle = (e) => {
@@ -40,7 +52,7 @@ const Accordion = ({
                             className={iconClassName || "minus"} />
                     </button>
                 </div>
-                <div className="content">{children}</div>
+                <div className={`content ${contentClassName}`}>{children}</div>
             </section>
         </div>
     );
@@ -56,9 +68,10 @@ backgroundColor: background of collapsed box
 Accordion.propTypes = {
     title: PropTypes.any.isRequired,
     children: PropTypes.element || PropTypes.string,
-    icon: PropTypes.element || PropTypes.string,
     iconClassName: PropTypes.string,
+    contentClassName: PropTypes.string,
     closedIcon: PropTypes.string,
     openIcon: PropTypes.string,
-    setOpen: PropTypes.func
+    setOpen: PropTypes.func,
+    openObject: PropTypes.bool
 };
