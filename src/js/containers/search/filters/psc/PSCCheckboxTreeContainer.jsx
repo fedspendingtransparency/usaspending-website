@@ -23,10 +23,12 @@ import {
 
 import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
-
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import NewCheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";
+import GlobalConstants from "../../../../GlobalConstants";
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -120,6 +122,8 @@ const PSCCheckboxTreeContainer = ({
 
         return request.current.promise
             .then(({ data }) => {
+                setIsLoading(true);
+
                 // dynamically populating tree branches
                 const pscNodes = cleanPscData(data.results);
 
@@ -186,15 +190,15 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        if (shouldFetchChildren && !isSearch) {
-            if (selectedNode.treeDepth >= 1) {
-                const { parent } = selectedNode;
+        const treeDepth = selectedNode.ancestors?.length;
 
-                if (selectedNode.treeDepth === 2) {
-                    fetchPscLocal(`${parent.ancestors[0]}/${parent.value}/${expandedValue}`);
+        if (shouldFetchChildren && !isSearch) {
+            if (treeDepth >= 1) {
+                if (treeDepth === 2) {
+                    fetchPscLocal(`${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`);
                 }
                 else {
-                    fetchPscLocal(`${parent.value}/${expandedValue}`);
+                    fetchPscLocal(`${selectedNode.ancestors[0]}/${expandedValue}`);
                 }
             }
             else {
@@ -390,19 +394,34 @@ const PSCCheckboxTreeContainer = ({
                 isClearable
                 loading={false}
                 onClear={onClear} />
-            <CheckboxTree
-                isError={isError}
-                errorMessage={errorMessage}
-                isLoading={isLoading}
-                data={nodes}
-                checked={checked}
-                searchText={searchString}
-                noResults={showNoResults}
-                expanded={isSearch ? searchExpanded : expanded}
-                onUncheck={onUncheck}
-                onCheck={onCheck}
-                onExpand={onExpand}
-                onCollapse={onCollapse} />
+            {GlobalConstants.QAT ?
+                <NewCheckboxTree
+                    isError={isError}
+                    errorMessage={errorMessage}
+                    isLoading={isLoading}
+                    data={nodes}
+                    checked={checked}
+                    searchText={searchString}
+                    noResults={showNoResults}
+                    expanded={isSearch ? searchExpanded : expanded}
+                    onUncheck={onUncheck}
+                    onCheck={onCheck}
+                    onExpand={onExpand}
+                    onCollapse={onCollapse} />
+                :
+                <CheckboxTree
+                    isError={isError}
+                    errorMessage={errorMessage}
+                    isLoading={isLoading}
+                    data={nodes}
+                    checked={checked}
+                    searchText={searchString}
+                    noResults={showNoResults}
+                    expanded={isSearch ? searchExpanded : expanded}
+                    onUncheck={onUncheck}
+                    onCheck={onCheck}
+                    onExpand={onExpand}
+                    onCollapse={onCollapse} />}
         </div>
     );
 };

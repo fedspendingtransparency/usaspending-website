@@ -52,3 +52,11 @@ jobs:
     needs: Cancel-If-Draft-Pull-Request
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-lighthouse.yaml
+
+  Run-Broken-Link-Check:
+    name: Run Broken Link Checker
+    strategy:
+      fail-fast: true    
+    needs: Cancel-If-Draft-Pull-Request
+    if: ${{ !failure() && !cancelled() }}
+    uses: ./.github/workflows/broken-link-check.yaml

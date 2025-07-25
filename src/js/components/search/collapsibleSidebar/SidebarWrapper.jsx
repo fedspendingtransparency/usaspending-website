@@ -15,12 +15,13 @@ const propTypes = {
     setShowMobileFilters: PropTypes.func,
     showMobileFilters: PropTypes.bool,
     sidebarOpen: PropTypes.bool,
-    setSidebarOpen: PropTypes.func
+    setSidebarOpen: PropTypes.func,
+    timerRef: PropTypes.object
 };
 
 const SidebarWrapper = React.memo(({
     // eslint-disable-next-line no-unused-vars
-    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen
+    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen, timerRef
 }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
@@ -36,7 +37,7 @@ const SidebarWrapper = React.memo(({
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
-    const sidebarStaticEls = 212;
+    const sidebarStaticEls = 155;
     const footerMargin = 0;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
@@ -322,7 +323,8 @@ const SidebarWrapper = React.memo(({
                     sidebarContentHeight={sidebarContentHeight}
                     setShowMobileFilters={setShowMobileFilters}
                     isDsmOpened={isDsmOpened}
-                    setIsDsmOpened={setIsDsmOpened} />
+                    setIsDsmOpened={setIsDsmOpened}
+                    timerRef={timerRef} />
             </div>
         </div>
     );

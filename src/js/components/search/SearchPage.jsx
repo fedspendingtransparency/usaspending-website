@@ -3,7 +3,7 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { throttle, uniqueId } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
@@ -61,6 +61,10 @@ const SearchPage = React.memo(({
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [fullSidebar, setFullSidebar] = useState(false);
+    const timerRef = useRef({
+        time: new Date().getTime(),
+        hasFired: false
+    });
 
     const dispatch = useDispatch();
     const getSlugWithHash = () => {
@@ -69,12 +73,14 @@ const SearchPage = React.memo(({
         }
         return slug;
     };
-
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (name) => {
         handleShareOptionClick(name, getSlugWithHash(), {
             subject: emailSubject,
             body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(getSlugWithHash())}`
-        });
+        }, handleShareDispatch);
     };
 
     /**
@@ -136,7 +142,7 @@ const SearchPage = React.memo(({
     }, [hash]);
 
     useEffect(() => {
-        setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
+        setFullSidebar(<SearchSidebar filters={filters} hash={hash} timerRef={timerRef} />);
         dispatch(setSearchViewSubaward(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -227,7 +233,8 @@ const SearchPage = React.memo(({
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
-                            showMobileFilters={showMobileFilters} />
+                            showMobileFilters={showMobileFilters}
+                            timerRef={timerRef} />
                     </FlexGridCol>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
