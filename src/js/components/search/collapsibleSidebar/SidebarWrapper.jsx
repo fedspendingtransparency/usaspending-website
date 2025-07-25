@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
+import { useEventListener } from "../../../hooks";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func,
@@ -180,8 +181,8 @@ const SidebarWrapper = React.memo(({
         }
     };
 
-    const handleScrollEnd = (e) => {
-        handleScroll(e);
+    const handleScrollEnd = () => {
+        handleScroll();
 
         setTimeout(() => {
             if (document.querySelector(".v2 .site-header")) {
@@ -259,21 +260,17 @@ const SidebarWrapper = React.memo(({
 
         handleResize();
 
-        window.addEventListener('resize', () => handleResize());
-        window.addEventListener('scroll', () => handleScroll());
-        window.addEventListener('scrollend', (e) => handleScrollEnd(e));
-
         return () => {
-            window.removeEventListener('resize', () => handleResize());
-            window.removeEventListener('scroll', () => handleScroll());
-            window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
-
             mainContentResizeObserver?.unobserve(mainContent);
 
             headerResizeObserver?.unobserve(siteHeader);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEventListener('resize', handleResize);
+    useEventListener('scroll', handleScroll);
+    useEventListener('scrollend', handleScrollEnd);
 
     const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
