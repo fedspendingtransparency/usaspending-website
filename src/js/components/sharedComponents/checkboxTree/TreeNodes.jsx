@@ -25,7 +25,6 @@ const TreeNodes = ({
     expanded = [],
     onCheck,
     onExpand,
-    onCollapse,
     isLoading
 }) => {
     const [localChecked, setLocalChecked] = useState(checked);
@@ -94,20 +93,17 @@ const TreeNodes = ({
 
     const handleToggle = (id, hasChildren) => {
         const isExpanded = localExpanded.includes(id);
-        console.log("is expanded", isExpanded, hasChildren);
-
         if (!isExpanded && hasChildren) {
             const node = findNodeById(id);
             const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${id}` : id;
-            console.log("node value", nodeValue);
-            onExpand([...localExpanded, nodeValue], node);
+            // TODO: this is confusing, the onexpand function need to be sent the id but the local expand needs to take the nodeValue
+            onExpand([...localExpanded, id], node);
             setLocalExpanded((prev) => [...prev, nodeValue]);
             // if the parent is checked, update local checked
             setLoadingParentId(id);
         }
         else {
             setLocalExpanded((prev) => prev.filter((eid) => eid !== id));
-            onCollapse(id);
         }
     };
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
@@ -126,10 +122,15 @@ const TreeNodes = ({
                     (
                         <div style={{ marginLeft: level * 20, display: 'flex', alignItems: 'center' }}>
                             {hasChildren && (
-                                <FontAwesomeIcon
-                                    icon={isExpanded ? 'chevron-down' : 'chevron-right'}
-                                    onClick={() => handleToggle(node.id, true)}
-                                    style={{ cursor: 'pointer', marginRight: '5px' }} />
+                                <button
+                                    aria-label="Toggle"
+                                    title="Toggle"
+                                    type="button"
+                                    onClick={() => handleToggle(node.id, true)}>
+                                    <FontAwesomeIcon
+                                        icon={isExpanded ? 'chevron-down' : 'chevron-right'}
+                                        style={{ cursor: 'pointer', marginRight: '5px' }} />
+                                </button>
                             )}
                             {node.label && <input
                                 type="checkbox"
