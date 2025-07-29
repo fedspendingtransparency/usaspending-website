@@ -955,7 +955,7 @@ describe('searchFiltersReducer', () => {
                 };
 
                 const expectedSecond = {
-                    timePeriodType: 'dr',
+                    timePeriodType: 'fy',
                     timePeriodFY: new Set()
                 };
 
