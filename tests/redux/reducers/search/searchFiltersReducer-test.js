@@ -991,13 +991,7 @@ describe('searchFiltersReducer', () => {
                 };
 
                 const expectedFirst = {
-                    timePeriodType: 'fy',
-                    timePeriodFY: new Set(),
-                    time_period: new Set()
-                };
-
-                const expectedSecond = {
-                    timePeriodType: 'fy',
+                    timePeriodType: 'dr',
                     timePeriodFY: new Set(),
                     time_period: new Set()
                 };
@@ -1012,9 +1006,7 @@ describe('searchFiltersReducer', () => {
                 // reset the time period filters
                 updatedState = searchFiltersReducer(updatedState, resetAction);
                 // validate that the search filters reset
-                Object.keys(expectedSecond).forEach((key) => {
-                    expect(updatedState[key]).toEqual(expectedSecond[key]);
-                });
+                expect(updatedState).toEqual(initialState);
             }
         );
     });
