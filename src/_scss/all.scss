@@ -40,6 +40,7 @@ $output-bourbon-deprecation-warnings: false !default;
 @import 'components/baseModal';
 @import 'components/cards/cards';
 @import 'components/buttons';
+@import "components/_glossaryLink";
 
 // Mixins ------------------ //
 @import 'mixins/background';
