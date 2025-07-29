@@ -991,13 +991,13 @@ describe('searchFiltersReducer', () => {
                 };
 
                 const expectedFirst = {
-                    timePeriodType: 'dr',
+                    timePeriodType: 'fy',
                     timePeriodFY: new Set(),
                     time_period: new Set()
                 };
 
                 const expectedSecond = {
-                    timePeriodType: 'dr',
+                    timePeriodType: 'fy',
                     timePeriodFY: new Set(),
                     time_period: new Set()
                 };
