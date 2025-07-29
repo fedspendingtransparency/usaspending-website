@@ -4,7 +4,7 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cookies from "js-cookie";
 
-const globalInfoBanner = 'usaspending_info-banner';
+const globalInfoBanner = "usaspending_info-banner";
 
 const propTypes = {
     closeBanner: PropTypes.func,
@@ -17,8 +17,8 @@ const propTypes = {
 const InfoBanner = (props) => {
     const [closeBanner, setCloseBanner] = useState(true);
     const bannerClosed = () => {
-        if (Cookies.get(globalInfoBanner) !== 'hide') {
-            Cookies.set(globalInfoBanner, 'hide', { secure: true, httpOnly: true, expires: 7 });
+        if (Cookies.get(globalInfoBanner) !== "hide") {
+            Cookies.set(globalInfoBanner, "hide", { secure: true, expires: 7 });
             if (props.closeBanner && typeof props.closeBanner === "function") {
                 props.closeBanner("showInfoBanner");
             }
@@ -27,7 +27,7 @@ const InfoBanner = (props) => {
     };
 
     useEffect(() => {
-        if (Cookies.get(globalInfoBanner) !== 'hide' || props.notDismissable) {
+        if (Cookies.get(globalInfoBanner) !== "hide" || props.notDismissable) {
             setCloseBanner(false);
         }
     }, []);

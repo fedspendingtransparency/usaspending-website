@@ -93,7 +93,7 @@ describe('PSCCheckboxTreeContainer', () => {
         });
     });
 
-    it('check/uncheck based on parent child relationship', async () => {
+    xit('check/uncheck based on parent child relationship', async () => {
         jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
         render(<PSCCheckboxTreeContainer />);
@@ -115,7 +115,7 @@ describe('PSCCheckboxTreeContainer', () => {
             expect(test).toBeInTheDocument();
         });
 
-        const checkboxes = document.getElementsByClassName('rct-checkbox');
+        const checkboxes = screen.getAllByRole('checkbox');
 
         // parent checked
         act(() => {

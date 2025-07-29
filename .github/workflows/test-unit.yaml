@@ -32,5 +32,5 @@ jobs:
         run: npm ci --legacy-peer-deps --timeout=90000
 
       - name: Run Audit command
-        run: npm run travis
+        run: npm run auditLintTest
      

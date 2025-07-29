@@ -1,5 +1,5 @@
 .search-option {
-  @import '../../../../components/_checkboxTree';
+  @import '../../../../components/checkboxTree/checkboxTree';
 
   .naics-search-container {
     @import "../../tooltips";
@@ -14,11 +14,6 @@
     .children-are-loading {
       font-size: rem(15);
       text-align: center;
-    }
-
-    .checkbox-tree {
-      margin-bottom: rem(20);
-      border-bottom: 1px solid $gray-cool-5;
     }
 
     .autocomplete__input {

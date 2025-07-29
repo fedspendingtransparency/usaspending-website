@@ -37,7 +37,8 @@ const propTypes = {
     resetMapLegendToggle: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
     resetAppliedFilters: PropTypes.func,
-    setShowMobileFilters: PropTypes.func
+    setShowMobileFilters: PropTypes.func,
+    timerRef: PropTypes.object
 };
 
 const SearchSidebarSubmitContainer = (props) => {
@@ -107,7 +108,8 @@ const SearchSidebarSubmitContainer = (props) => {
             requestsComplete={props.requestsComplete}
             applyStagedFilters={applyStagedFilters}
             resetFilters={resetFilters}
-            setShowMobileFilters={props.setShowMobileFilters} />
+            setShowMobileFilters={props.setShowMobileFilters}
+            timerRef={props.timerRef} />
     );
 };
 

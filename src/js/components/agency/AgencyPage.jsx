@@ -10,7 +10,7 @@ import {
     ErrorMessage,
     ShareIcon
 } from 'data-transparency-ui';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { throttle } from "lodash";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
@@ -28,6 +28,7 @@ import StatusOfFunds from './statusOfFunds/StatusOfFunds';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/agency/index.scss');
 
@@ -52,7 +53,10 @@ export const AgencyProfileV2 = ({
 }) => {
     const history = useNavigate();
     const query = useQueryParams();
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const { pathname, search } = useLocation();
     const path = `${pathname.substring(1)}${search}`;
 
@@ -72,7 +76,7 @@ export const AgencyProfileV2 = ({
         handleShareOptionClick(optionName, path, {
             subject: `USAspending.gov Agency Profile: ${name}`,
             body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
-        });
+        }, handleShareDispatch);
     };
 
     const sections = [

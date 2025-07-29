@@ -25,7 +25,6 @@ import SearchSectionWrapper from "../../../components/search/newResultsView/Sear
 import SpendingByCategoriesChart
     from "../../../components/search/newResultsView/categories/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
-import CategoriesTable from "../../../components/search/newResultsView/categories/CategoriesTable";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
@@ -46,8 +45,11 @@ const propTypes = {
 };
 
 const CategoriesVisualizationWrapperContainer = (props) => {
+    const [sortDirection, setSortDirection] = useState('desc');
+    const [activeField, setActiveField] = useState('obligations');
     // eslint-disable-next-line no-unused-vars
     const [spendingBy, setSpendingBy] = useState('awardingAgency');
+    const [labeledtableData, setlabeledTableData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [recipientError, setRecipientError] = useState(false);
@@ -159,11 +161,50 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             }
         ]
     };
+    const createTableRows = (rows) => {
+        const rowsArray = [];
+        rows.forEach((row) => {
+            const rowArray = [];
+            Object.keys(row).forEach((key) => {
+                if (key === 'obligations') {
+                    rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
+                }
+                else {
+                    rowArray.push(row[key].value);
+                }
+            });
+            rowsArray.push(rowArray);
+        });
+        setTableRows(rowsArray);
+    };
+    const sortBy = (field, direction) => {
+        const updatedTable = [...labeledtableData];
+        if (direction === 'asc') {
+            updatedTable.sort((a, b) => {
+                if (field === 'obligations') {
+                    return a[field] - b[field];
+                }
+                return a.name.title.localeCompare(b.name.title);
+            });
+        }
+
+        if (direction === 'desc') {
+            updatedTable.sort((a, b) => {
+                if (field === 'obligations') {
+                    return b[field] - a[field];
+                }
+                return b.name.title.localeCompare(a.name.title);
+            });
+        }
+        setSortDirection(direction);
+        setActiveField(field);
+        createTableRows(updatedTable);
+    };
 
     const changeScope = (newScope) => {
         setScope(newScope);
         setPage(1);
-        setHasNextPage(false);
+        setHasNextPage(true);
     };
 
     const parseRank = () => {
@@ -229,58 +270,69 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 tempLinkSeries.push(recipientLink);
 
                 if (recipientLink !== "") {
-                    tableDataRow.push(
-                        <a
-                            href={recipientLink}
-                            onClick={() => {
-                                onClickHandler(result.name);
-                            }}>
-                            {result.name}
-                        </a>
-                    );
+                    tableDataRow.name = {
+                        value: (
+                            <a
+                                href={recipientLink}
+                                onClick={() => {
+                                    onClickHandler(result.name);
+                                }}>
+                                {result.name}
+                            </a>
+                        ),
+                        title: result.name
+                    };
                 }
                 else {
-                    tableDataRow.push(result.name);
+                    tableDataRow.name = (result.name);
                 }
             }
             else if (scope === 'awarding_agency' && !props.subaward) {
                 const awardingLink = `agency/${result._agencySlug}`;
                 tempLinkSeries.push(awardingLink);
-                tableDataRow.push(
-                    <a
-                        href={awardingLink}
-                        onClick={() => {
-                            onClickHandler(result.name);
-                        }} >
-                        {result.name}
-                    </a>);
+                tableDataRow.name = {
+                    value: (
+                        <a
+                            href={awardingLink}
+                            onClick={() => {
+                                onClickHandler(result.name);
+                            }} >
+                            {result.name}
+                        </a>),
+                    title: result.name
+                };
             }
             else if (scope === 'awarding_agency' && props.subaward && props.agencyIds) {
                 // this properly pulls in the slug from withAgencySlugs, as it is not provided though the API request for subawards
                 const agencyIdentifier = !props.error ? props.agencyIds[item.id] : '';
                 const awardingLink = `agency/${agencyIdentifier}`;
                 tempLinkSeries.push(awardingLink);
-                tableDataRow.push(
-                    <a
-                        href={awardingLink}
-                        onClick={() => {
-                            onClickHandler(result.name);
-                        }} >
-                        {result.name}
-                    </a>);
+                tableDataRow.name = {
+                    value: (
+                        <a
+                            href={awardingLink}
+                            onClick={() => {
+                                onClickHandler(result.name);
+                            }} >
+                            {result.name}
+                        </a>),
+                    title: result.name
+                };
             }
             else {
-                tableDataRow.push(result.name);
+                tableDataRow.name = {
+                    value: result.name,
+                    title: result.name
+                };
             }
 
-            tableDataRow.push(MoneyFormatter.formatMoneyWithPrecision(result._amount, 0));
-
+            tableDataRow.obligations = result._amount;
             const description = `Spending by ${result.name}: ${result.amount}`;
             tempDescriptions.push(description);
             tableData.push(tableDataRow);
         });
 
-
+        setlabeledTableData(tableData);
         // set the state with the new values
         setLabelSeries(tempLabelSeries);
         setDataSeries(tempDataSeries);
@@ -292,7 +344,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setHasPreviousPage(data.page_metadata.hasPrevious);
         setLoading(false);
         setError(false);
-        setTableRows(tableData);
     };
 
     const fetchData = () => {
@@ -358,9 +409,14 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
     const newSearch = () => {
         setPage(1);
-        setHasNextPage(false);
+        setHasNextPage(true);
         fetchData();
     };
+
+    useEffect(() => {
+        sortBy("obligations", "desc");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [labeledtableData, scope]);
 
     useEffect(() => {
         // fetch data when scope or page changes
@@ -394,26 +450,30 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [props.reduxFilters, scope, props.subaward, props.spendingLevel]);
-
     return (
         <div
             className="results-visualization-rank-section"
             id="results-section-rank">
             <SearchSectionWrapper
                 {...props.wrapperProps}
+                {...childProps}
+                page={page}
+                setPage={setPage}
+                columns={columns[scope]}
+                sortBy={sortBy}
+                setSortDirection={setSortDirection}
+                rows={tableRows}
+                sortDirection={sortDirection}
+                activeField={activeField}
+                setActiveField={setActiveField}
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
-                table={<CategoriesTable
-                    {...childProps}
-                    nextPage={nextPage}
-                    previousPage={previousPage}
-                    hasNextPage={hasNextPage}
-                    hasPreviousPage={hasPreviousPage}
-                    recipientError={recipientError}
-                    columns={columns[scope]}
-                    rows={tableRows} />}
-                hash={props.hash}>
+                hash={props.hash}
+                hasNextPage={hasNextPage}
+                hasPreviousPage={hasPreviousPage}
+                nextPage={nextPage}
+                previousPage={previousPage}>
                 <CategoriesSectionWrapper
                     {...childProps}
                     changeScope={changeScope}

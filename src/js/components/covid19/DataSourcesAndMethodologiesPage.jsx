@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
+import { useDispatch } from 'react-redux';
 
 import { covidDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -21,6 +22,7 @@ import { useQueryParams, combineQueryParams, getQueryParamString } from "helpers
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 const getEmailSocialShareData = {
     subject: "COVID-19 Spending: Data Sources and Methodology",
@@ -120,7 +122,7 @@ const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.red
 export default () => {
     const history = useNavigate();
     const query = useQueryParams();
-
+    const dispatch = useDispatch();
     const [errorMsg, isLoading, defCodes] = useDefCodes();
     const [activeSection, setActiveSection] = useState(sections[0].section);
     const dataDisclaimerBannerRef = useRef(null);
@@ -140,7 +142,7 @@ export default () => {
     });
 
     const handleCloseBanner = () => {
-        Cookies.set('usaspending_data_disclaimer', 'hide', { secure: true, httpOnly: true, expires: 7 });
+        Cookies.set('usaspending_data_disclaimer', 'hide', { secure: true, expires: 7 });
         setDataDisclaimerBanner('hide');
     };
 
@@ -160,8 +162,11 @@ export default () => {
         }
     };
 
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (name) => {
-        handleShareOptionClick(name, "disaster/covid-19/data-sources", getEmailSocialShareData);
+        handleShareOptionClick(name, "disaster/covid-19/data-sources", getEmailSocialShareData, handleShareDispatch);
     };
 
     return (
