@@ -53,7 +53,7 @@ const AwardPageWrapper = ({
                 <div className="award__info">
                     <h2 className="award__heading-text">{title}</h2>
                     <div className="award__heading-icon">
-                        <GlossaryLink alt={glossaryTitleText} term={glossaryLinks[overviewType]} />
+                        <GlossaryLink alt={glossaryTitleText} term={glossaryLinks[overviewType]} showHoverText />
                     </div>
                     <div className="award__heading-id">
                         <h3>{idLabel}</h3>
