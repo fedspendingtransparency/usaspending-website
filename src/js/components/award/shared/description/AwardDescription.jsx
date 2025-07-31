@@ -47,6 +47,7 @@ const AwardDescription = ({
                                     Code
                                     <GlossaryLink
                                         alt="View glossary definition of NAICS"
+                                        showHoverText
                                         term="naics" />
                                 </span>
                             </div>
@@ -59,6 +60,7 @@ const AwardDescription = ({
                                     {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
                                     (PSC)
                                     <GlossaryLink
+                                        showHoverText
                                         alt="View glossary definition of Product or Service Code (PSC)"
                                         term="product-or-service-code-psc" />
                                 </span>
