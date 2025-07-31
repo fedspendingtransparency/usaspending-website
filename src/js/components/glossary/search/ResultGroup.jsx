@@ -15,28 +15,27 @@ const propTypes = {
     selectTerm: PropTypes.func
 };
 
-export default class ResultGroup extends React.Component {
-    render() {
-        const items = this.props.items.map((item) => (
-            <ResultItem
-                item={item}
-                search={this.props.search}
-                selectTerm={this.props.selectTerm}
-                key={item.term} />
-        ));
+const ResultGroup = (props) => {
+    const items = props.items.map((item) => (
+        <ResultItem
+            item={item}
+            search={props.search}
+            selectTerm={props.selectTerm}
+            key={item.term} />
+    ));
 
-        return (
-            <div className="glossary-result-group">
-                <h2 className="group-title">
-                    {this.props.title}
-                </h2>
-                <hr className="group-divider" />
-                <ul className="group-items">
-                    {items}
-                </ul>
-            </div>
-        );
-    }
-}
+    return (
+        <div className="glossary-result-group">
+            <h2 className="group-title">
+                {props.title}
+            </h2>
+            <hr className="group-divider" />
+            <ul className="group-items">
+                {items}
+            </ul>
+        </div>
+    );
+};
 
 ResultGroup.propTypes = propTypes;
+export default ResultGroup;

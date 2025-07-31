@@ -17,38 +17,36 @@ const propTypes = {
     resources: PropTypes.string
 };
 
-export default class ItemDefinition extends React.Component {
-    render() {
-        let resources = null;
-        if (this.props.resources && this.props.resources !== '') {
-            resources = (<MoreResources
-                resources={this.props.resources}
-                transformLink={this.transformLink} />);
-        }
-
-        let term = this.props.term;
-        if (this.props.type === 'official' && this.props.data_act_term !== '') {
-            term = this.props.data_act_term;
-        }
-
-        return (
-            <div className="definition-wrapper">
-                <h2 className="term">
-                    {term}
-                </h2>
-
-                <div className="definition-content">
-                    <ReactMarkdown
-                        source={this.props[this.props.type]}
-                        renderers={Object.assign({}, ReactMarkdown.renderers, {
-                            Link: SmartLink
-                        })} />
-                </div>
-
-                {resources}
-            </div>
-        );
+const ItemDefinition = (props) => {
+    let resources = null;
+    if (props.resources && props.resources !== '') {
+        resources = (<MoreResources
+            resources={props.resources} />);
     }
-}
+
+    let term = props.term;
+    if (props.type === 'official' && props.data_act_term !== '') {
+        term = props.data_act_term;
+    }
+
+    return (
+        <div className="definition-wrapper">
+            <h2 className="term">
+                {term}
+            </h2>
+
+            <div className="definition-content">
+                <ReactMarkdown
+                    source={props[props.type]}
+                    renderers={Object.assign({}, ReactMarkdown.renderers, {
+                        Link: SmartLink
+                    })} />
+            </div>
+
+            {resources}
+        </div>
+    );
+};
 
 ItemDefinition.propTypes = propTypes;
+export default ItemDefinition;
