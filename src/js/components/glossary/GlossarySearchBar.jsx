@@ -14,31 +14,16 @@ const propTypes = {
     performSearch: PropTypes.func
 };
 
-export default class GlossarySearchBar extends React.Component {
-    constructor(props) {
-        super(props);
+const GlossarySearchBar = (props) => {
+    let searchTimer = null;
 
-        this.searchTimer = null;
-        this.changedSearchValue = this.changedSearchValue.bind(this);
-        this.submitSearch = this.submitSearch.bind(this);
-    }
-
-    changedSearchValue(e) {
-        this.performSearch(e.target.value);
-    }
-
-    submitSearch(e) {
-        e.preventDefault();
-        this.performSearch(this.props.glossary.search.input);
-    }
-
-    performSearch(term) {
-        if (this.searchTimer) {
+    const performSearch = (term) => {
+        if (searchTimer) {
             // clear any existing timers, it's old data
-            window.clearTimeout(this.searchTimer);
+            window.clearTimeout(searchTimer);
         }
 
-        this.props.setSearchValue(term);
+        props.setSearchValue(term);
 
         if (term.length > 0 && term.length < 3) {
             // do not perform a search because the search term is too short
@@ -47,31 +32,39 @@ export default class GlossarySearchBar extends React.Component {
         }
 
         // wait for typing to stop 300ms before performing search
-        this.searchTimer = window.setTimeout(() => {
-            this.props.performSearch();
+        searchTimer = window.setTimeout(() => {
+            props.performSearch();
         }, 300);
-    }
+    };
 
-    render() {
-        return (
-            <div className="glossary-search-bar">
-                <form onSubmit={this.submitSearch}>
-                    <input
-                        className="search-field"
-                        type="text"
-                        value={this.props.glossary.search.input}
-                        placeholder="Search for a term..."
-                        onChange={this.changedSearchValue} />
-                    <button
-                        aria-label="Search"
-                        className="search-button"
-                        type="submit">
-                        <Search alt="Search" />
-                    </button>
-                </form>
-            </div>
-        );
-    }
-}
+    const changedSearchValue = (e) => {
+        performSearch(e.target.value);
+    };
+
+    const submitSearch = (e) => {
+        e.preventDefault();
+        performSearch(props.glossary.search.input);
+    };
+
+    return (
+        <div className="glossary-search-bar">
+            <form onSubmit={submitSearch}>
+                <input
+                    className="search-field"
+                    type="text"
+                    value={props.glossary.search.input}
+                    placeholder="Search for a term..."
+                    onChange={changedSearchValue} />
+                <button
+                    aria-label="Search"
+                    className="search-button"
+                    type="submit">
+                    <Search alt="Search" />
+                </button>
+            </form>
+        </div>
+    );
+};
 
 GlossarySearchBar.propTypes = propTypes;
+export default GlossarySearchBar;
