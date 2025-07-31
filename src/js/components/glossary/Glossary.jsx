@@ -48,7 +48,7 @@ const Glossary = (props) => {
 
             // remove search param from url
             if (window.location.href.includes('glossary')) {
-                history(`${history.location.pathname}`, { replace: true });
+                history(`${history.location?.pathname}`, { replace: true });
             }
 
             // move focus back to the main content

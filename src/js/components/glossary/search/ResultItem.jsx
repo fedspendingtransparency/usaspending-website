@@ -3,9 +3,8 @@
  * Created by Kevin Li 5/1/17
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
 import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
@@ -14,34 +13,16 @@ const propTypes = {
     selectTerm: PropTypes.func
 };
 
-export default class ResultItem extends React.Component {
-    constructor(props) {
-        super(props);
+const ResultItem = (props) => {
+    const [label, setLabel] = useState(null);
 
-        this.state = {
-            label: null
-        };
-
-        this.clickedLink = this.clickedLink.bind(this);
-    }
-
-    componentDidMount() {
-        this.prepareLabel(this.props);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps, this.props)) {
-            this.prepareLabel(this.props);
-        }
-    }
-
-    prepareLabel(props) {
+    const prepareLabel = () => {
         const value = props.item.term.toLowerCase();
-        let label = null;
+        let labelLocal = null;
         if (!props.search || value.indexOf(props.search.toLowerCase()) === -1) {
             // nothing is being searched (or there are no matches), so nothing needs to be
             // highlighted
-            label = props.item.term;
+            labelLocal = props.item.term;
         }
 
         else {
@@ -80,34 +61,37 @@ export default class ResultItem extends React.Component {
                 position = unmatchedPos + search.length;
             });
 
-            label = output;
+            labelLocal = output;
         }
 
-        this.setState({
-            label
-        });
-    }
+        setLabel(labelLocal);
+    };
 
-    clickedLink(term) {
-        this.props.selectTerm(this.props.item);
+    const clickedLink = (term) => {
+        props.selectTerm(props.item);
         Analytics.event({
             event: 'glossary-link',
             category: 'Glossary',
             action: `Clicked ${term.target.innerText}`
         });
-    }
+    };
 
-    render() {
-        return (
-            <li>
-                <button
-                    className="glossary-link"
-                    onClick={this.clickedLink}>
-                    {this.state.label}
-                </button>
-            </li>
-        );
-    }
-}
+
+    useEffect(() => {
+        prepareLabel(props);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props]);
+
+    return (
+        <li>
+            <button
+                className="glossary-link"
+                onClick={clickedLink}>
+                {label}
+            </button>
+        </li>
+    );
+};
 
 ResultItem.propTypes = propTypes;
+export default ResultItem;
