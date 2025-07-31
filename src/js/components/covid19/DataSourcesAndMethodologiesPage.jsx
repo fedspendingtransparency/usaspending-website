@@ -142,7 +142,7 @@ export default () => {
     });
 
     const handleCloseBanner = () => {
-        Cookies.set('usaspending_data_disclaimer', 'hide', { secure: true, httpOnly: true, expires: 7 });
+        Cookies.set('usaspending_data_disclaimer', 'hide', { secure: true, expires: 7 });
         setDataDisclaimerBanner('hide');
     };
 
@@ -163,7 +163,6 @@ export default () => {
     };
 
     const handleShareDispatch = (url) => {
-        console.debug("URL: ", url);
         dispatch(showModal(url));
     };
     const handleShare = (name) => {

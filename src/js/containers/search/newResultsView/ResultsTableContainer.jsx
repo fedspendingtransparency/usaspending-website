@@ -135,7 +135,7 @@ const ResultsTableContainer = (props) => {
     const isV2 = pathname === GlobalConstants.SEARCH_V2_PATH;
     const showToggle = isV2 && (props.spendingLevel !== "awards");
     const [isMobile, setIsMobile] = useState(false);
-    const [columnType, setColumnType] = useState(null);
+    const [columnType, setColumnType] = useState(props.spendingLevel);
 
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
@@ -592,6 +592,7 @@ const ResultsTableContainer = (props) => {
             setSpendingLevel(props.spendingLevel);
             setIsSubaward(props.spendingLevel === "subawards");
             setIsTransactions(props.spendingLevel === "transactions");
+            setExpandableData([]);
             return;
         }
 
@@ -692,7 +693,8 @@ const ResultsTableContainer = (props) => {
                 expandableData={expandableData}
                 filters={props.filters}
                 checkMobile={(isMobileState) => setIsMobile(isMobileState)}
-                columnType={columnType} />
+                columnType={columnType}
+                subColumnOptions={columns} />
         </SearchSectionWrapper>
     );
 };
