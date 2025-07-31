@@ -111,10 +111,6 @@ const SidebarWrapper = React.memo(({
 
     const handleScroll = throttle(() => {
         if (window.scrollY > 0) {
-            // if (document.querySelector(".v2 .site-header")) {
-            //     document.querySelector(".v2 .site-header").style.zIndex = 1;
-            // }
-
             if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
                 document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 10;
             }
