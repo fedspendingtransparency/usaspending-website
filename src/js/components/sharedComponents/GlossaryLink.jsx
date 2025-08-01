@@ -16,7 +16,9 @@ import { Glossary } from './icons/Icons';
 const propTypes = {
     term: PropTypes.string.isRequired,
     hidden: PropTypes.bool,
-    label: PropTypes.string
+    label: PropTypes.string,
+    alt: PropTypes.string,
+    showHoverText: PropTypes.bool
 };
 
 const GlossaryLink = ({
