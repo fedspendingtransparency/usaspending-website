@@ -60,8 +60,7 @@ export default class RedirectModal extends React.Component {
                                 </a>
                             </div>
                             <div className="usa-dt-modal__explanation">
-                            You&apos;re going to a website that is not managed or controlled by the Federal Government.
-                                <br /> Its privacy policies may differ from ours.
+                            You&apos;re going to a website that is not managed or controlled by the Federal Government. Its privacy policies may differ from ours.
                             </div>
                         </div>
                     </div>
