@@ -3,11 +3,12 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle, uniqueId } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
+import Cookies from 'js-cookie';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -61,10 +62,6 @@ const SearchPage = React.memo(({
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [fullSidebar, setFullSidebar] = useState(false);
-    const timerRef = useRef({
-        time: new Date().getTime(),
-        hasFired: false
-    });
 
     const dispatch = useDispatch();
     const getSlugWithHash = () => {
@@ -137,12 +134,18 @@ const SearchPage = React.memo(({
     }, [windowWidth]);
 
     useEffect(() => {
+        // ok to rewrite with each page reload
+        // may need to check if timer already logged.
+        Cookies.set('advanced_search_to_query_time', new Date().getTime());
+    }, []);
+
+    useEffect(() => {
         setStateHash(hash);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hash]);
 
     useEffect(() => {
-        setFullSidebar(<SearchSidebar filters={filters} hash={hash} timerRef={timerRef} />);
+        setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
         dispatch(setSearchViewSubaward(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -233,8 +236,7 @@ const SearchPage = React.memo(({
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
-                            showMobileFilters={showMobileFilters}
-                            timerRef={timerRef} />
+                            showMobileFilters={showMobileFilters} />
                     </FlexGridCol>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
