@@ -26,7 +26,7 @@ const GlossaryLink = ({
     hidden,
     label = "",
     alt = "",
-    showHoverText
+    showHoverText = false
 }) => {
     const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
