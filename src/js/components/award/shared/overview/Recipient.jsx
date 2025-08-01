@@ -61,7 +61,7 @@ const Recipient = ({
                     className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
                     {recipientTitle}
                     <div className="award__heading-icon">
-                        <GlossaryLink alt={glossaryLinkText} term={glossaryLink} />
+                        <GlossaryLink alt={glossaryLinkText} term={glossaryLink} showHoverText />
                     </div>
                 </h5>
             );
