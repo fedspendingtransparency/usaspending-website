@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-
+import { Button } from 'data-transparency-ui';
 import { Close, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
@@ -61,6 +61,36 @@ export default class RedirectModal extends React.Component {
                             </div>
                             <div className="usa-dt-modal__explanation">
                             You&apos;re going to a website that is not managed or controlled by the Federal Government. Its privacy policies may differ from ours.
+                            </div>
+                            <div className="usa-dt-modal__button-container">
+                                <Button
+                                    copy="Cancel"
+                                    buttonTitle="Cancel"
+                                    buttonSize="lg"
+                                    buttonType="secondary"
+                                    backgroundColor="light"
+                                    onClick={this.props.hideModal}
+                                    onKeyUp={(e) => {
+                                        if (e.key === 'Enter') {
+                                            this.props.hideModal();
+                                        }
+                                    }} />
+                                <Button
+                                    copy="Continue"
+                                    buttonTitle="Continue"
+                                    buttonSize="lg"
+                                    buttonType="primary"
+                                    backgroundColor="light"
+                                    onClick={() => {
+                                        window.open(this.props.url, "_blank");
+                                        this.props.hideModal();
+                                    }}
+                                    onKeyUp={(e) => {
+                                        if (e.key === 'Enter') {
+                                            window.open(this.props.url, "_blank");
+                                            this.props.hideModal();
+                                        }
+                                    }} />
                             </div>
                         </div>
                     </div>
