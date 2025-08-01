@@ -114,6 +114,7 @@ const NestedTanStackTable = (props) => {
                 "Primary Place of Performance",
                 "Awarding Agency",
                 "awarding_agency_id",
+                "recipient_id",
                 "Awarding Sub Agency",
                 "NAICS",
                 "PSC",
