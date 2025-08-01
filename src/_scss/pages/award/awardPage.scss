@@ -4,6 +4,7 @@
   @import "layouts/default/stickyHeader/header";
   @import "layouts/tabbedSearch/header/downloadButton";
   @import "components/pageLoading";
+  @import "components/_glossaryLink";
 
   @include display(flex);
   @include flex-direction(column);
