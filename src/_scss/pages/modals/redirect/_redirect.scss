@@ -43,7 +43,10 @@
         }
         .usa-dt-modal__text-wrapper {
             flex: 1 1 auto;
-            width: 100%;
+            width: 89%;
+            @media(min-width: 820px) {
+                width: 100%;
+            }
             .usa-dt-modal__title {
             display: flex;
             align-items: center;
