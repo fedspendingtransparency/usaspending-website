@@ -229,6 +229,10 @@ const ResultsTableContainer = (props) => {
             sortDirection = 'desc';
         }
 
+        if (searchOrder?.field === 'Action Date' && props.spendingLevel !== 'transactions') {
+            searchOrder.field = 'Sub-Award Date';
+        }
+
         const loadExpandableData = (showToggle && spendingLevel === "awards" && !isMobile);
         let params = {
             filters: searchParamsTemp.toParams(),
@@ -601,6 +605,15 @@ const ResultsTableContainer = (props) => {
         setIsTransactions(false);
     };
 
+    const formattedSubSort = () => {
+        const formattedSort = sort;
+        if (formattedSort?.field === 'Sub-Award Date') {
+            formattedSort.field = "Action Date";
+        }
+
+        return formattedSort;
+    };
+
     useEffect(throttle(() => {
         if (isInitialLoad) {
             setIsInitialLoad(false);
@@ -672,7 +685,7 @@ const ResultsTableContainer = (props) => {
                 inFlight={inFlight}
                 results={results}
                 columns={columns[tableType]}
-                sort={sort}
+                sort={props.spendingLevel !== 'transactions' ? formattedSubSort() : sort}
                 tableTypes={tabsWithCounts}
                 currentType={tableType}
                 tableInstance={tableInstance}
