@@ -41,7 +41,10 @@
                 fill: $color-gray;
             }
         }
-        .usa-dt-modal__title {
+        .usa-dt-modal__text-wrapper {
+            flex: 1 1 auto;
+            width: 100%;
+            .usa-dt-modal__title {
             display: flex;
             align-items: center;
             .usa-dt-modal__title-text {
@@ -50,29 +53,29 @@
                 font-size: rem(32);
                 line-height: rem(40);
             }
-        }
-        .usa-dt-modal__explanation {
+            }
+            .usa-dt-modal__explanation {
             padding-top: rem(16);
             padding-bottom: rem(16);
             font-size: $font-size-16;
             font-weight: $font-semibold;
             line-height: rem(20);
             text-align: left;
-        }
-        .usa-dt-modal__directions {
+            }
+            .usa-dt-modal__directions {
             font-size: $font-size-16;
             line-height: rem(24);
             margin-top: rem(16);
             text-align: left;
-        }
-        .usa-dt-modal__link {
+            }
+            .usa-dt-modal__link {
             font-weight: $font-semibold;
             font-size: rem(16);
             line-height: rem(24);
             margin-top: rem(8);
             text-align: left;
-        }
-        .usa-dt-modal__button-container {
+            }
+            .usa-dt-modal__button-container {
             padding-top: rem(16);
             padding-bottom: rem(16);
             justify-content: flex-end;
@@ -86,6 +89,7 @@
                 &:first-of-type {
                     margin-right: rem(32);
                 }
+            }
             }
         }
     }
