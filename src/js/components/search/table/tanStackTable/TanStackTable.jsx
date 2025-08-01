@@ -96,7 +96,7 @@ const TanStackTable = (props) => {
                         {table.getHeaderGroups().map((headerGroup) => (
                             <tr key={headerGroup.id} className="usda-table__row" style={{ height: 45 }}>
                                 {headerGroup.headers.map((header, h) => (
-                                    <th key={header.id} className={`table-header ${h === 0 ? ' stickyColumn' : ''}`}>
+                                    <th key={header.id} className="table-header stickyColumn">
                                         {header.isPlaceholder
                                             ? null
                                             : <TanStackHeader
@@ -124,7 +124,7 @@ const TanStackTable = (props) => {
                                         }
 
                                         return (
-                                            <td key={cell.id} className={`usda-table__cell ${c === 0 ? ' stickyColumn' : ''}`}>
+                                            <td key={cell.id} className="usda-table__cell">
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                             </td>
                                         );
