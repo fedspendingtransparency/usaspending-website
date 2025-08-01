@@ -16,9 +16,9 @@ import {
     aggregateGlossaryLinks,
     aggregateGlossaryText
 } from 'dataMapping/award/awardOverview';
+import { Glossary } from 'components/sharedComponents/icons/Icons';
 import AwardSection from '../AwardSection';
 import RecipientAddress from './RecipientAddress';
-import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 
 
 const propTypes = {
@@ -31,7 +31,8 @@ const propTypes = {
 const Recipient = ({
     recipient,
     awardType,
-    recordType
+    recordType,
+    awardId
 }) => {
     const isFinancialAssistance = isAwardFinancialAssistance(awardType);
 
@@ -50,7 +51,7 @@ const Recipient = ({
         recordType
     );
     const recipientComponent = () => {
-        const glossaryLink = aggregateGlossaryLinks[aggregateRecordType()];
+        const glossaryLink = `/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
         const glossaryLinkText = `View glossary definition of ${aggregateGlossaryText[aggregateRecordType()]}`;
         if (isFinancialAssistance && recordType !== 2) {
             let recipientTitle = '';
@@ -61,7 +62,9 @@ const Recipient = ({
                     className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
                     {recipientTitle}
                     <div className="award__heading-icon">
-                        <GlossaryLink alt={glossaryLinkText} term={glossaryLink} />
+                        <Link to={glossaryLink}>
+                            <Glossary alt={glossaryLinkText} />
+                        </Link>
                     </div>
                 </h5>
             );
