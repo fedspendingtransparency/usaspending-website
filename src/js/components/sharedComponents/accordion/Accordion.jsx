@@ -11,7 +11,8 @@ const Accordion = ({
     iconClassName,
     setOpen,
     contentClassName = '',
-    openObject = false
+    openObject = false,
+    selectedChipCount = 0
 }) => {
     const [closed, setClosed] = useState(true);
 
@@ -39,6 +40,7 @@ const Accordion = ({
                 {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
                 <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading">
                     {title}
+                    {(selectedChipCount > 0) && ` ${selectedChipCount} selected`}
                     <button
                         onClick={toggleOpen}
                         onKeyDown={keyClickToggle}
@@ -73,5 +75,6 @@ Accordion.propTypes = {
     closedIcon: PropTypes.string,
     openIcon: PropTypes.string,
     setOpen: PropTypes.func,
-    openObject: PropTypes.bool
+    openObject: PropTypes.bool,
+    selectedChipCount: PropTypes.number
 };
