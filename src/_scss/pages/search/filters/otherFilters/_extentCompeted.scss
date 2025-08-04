@@ -60,18 +60,18 @@
 }
 
 // TODO: replace the relevant padding, left, and top properties above with those below once searchV2 releases
-&.collapsible-sidebar--drilldown {
+&.collapsible-sidebar--main-menu {
   .extent-competed-filter .autocomplete__input {
-    padding: 0 ($global-spacing-unit * 4) rem(20) ($global-spacing-unit * 4);
+    padding: 0 0 rem(20) 0;
     min-width: 100%;
 
     .search-icon {
-      left: ($global-spacing-unit * 5);
-      top: rem(2);
+      left: $global-spacing-unit;
+      top: rem(3);
     }
 
     .icon {
-      right: ($global-spacing-unit * 5);
+      right: $global-spacing-unit;
     }
   }
 }
