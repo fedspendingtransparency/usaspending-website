@@ -98,7 +98,6 @@ const SidebarContent = ({
         </div>
     ));
 
-    console.log(filters);
     return (
         <>
             <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
