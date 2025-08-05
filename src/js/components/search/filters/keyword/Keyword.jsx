@@ -76,7 +76,7 @@ export default class Keyword extends React.Component {
                 <form onSubmit={this.searchKeyword}>
                     <div className="filter-item-wrap">
                         { this.props.searchV2 &&
-                            <>
+                            <div className="category-header">
                                 <div
                                     className="category-header--icon"
                                     style={{ backgroundColor: '#E7F6F8' }}>
@@ -84,11 +84,11 @@ export default class Keyword extends React.Component {
                                         icon="search"
                                         style={{ color: '#168092' }} />
                                 </div>
-                                <div className="keyword-filter--title">
+                                <div className="category-header--title">
                                     Keyword
                                 </div>
                                 <TooltipWrapper icon="info" tooltipComponent={<KeyWordTooltip />} />
-                            </>
+                            </div>
                         }
                         <div className="keyword-input-wrapper">
                             <input
@@ -108,10 +108,12 @@ export default class Keyword extends React.Component {
                                 accessibility={accessibility} />
                         </div>
                         {selectedKeywords}
+                        { !this.props.searchV2 &&
                         <SubmitHint
                             ref={(component) => {
                                 this.hint = component;
                             }} />
+                        }
                     </div>
                 </form>
             </div>
