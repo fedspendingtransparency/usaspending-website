@@ -395,7 +395,14 @@ export default class ResultsTable extends React.Component {
                             }}>{obj['Award ID']}
                         </a> || '--',
                         obj.Mod || '--',
-                        obj['Recipient Name'] || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/recipient/${obj.recipient_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Recipient Name']);
+                            }}>{obj['Recipient Name']}
+                        </a> || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--"),
                         obj['Action Date'] || '--',
                         <ReadMore
@@ -432,7 +439,14 @@ export default class ResultsTable extends React.Component {
                             }}>{obj['Award ID']}
                         </a> || '--',
                         obj.Mod || '--',
-                        obj['Recipient Name'] || '--',
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`/recipient/${obj.recipient_id}`}
+                            onClick={() => {
+                                this.clickHandler(obj['Recipient Name']);
+                            }}>{obj['Recipient Name']}
+                        </a> || '--',
                         MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--"),
                         obj['Action Date'] || '--',
                         <ReadMore
