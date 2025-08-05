@@ -6,11 +6,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
 
 import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import DsmSlider from "./DsmSlider";
+import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -45,17 +47,29 @@ const SidebarContent = ({
         "Infrastructure Spending": false
     });
 
-    // const filters = useSelector((state) => state.filters);
+    const filters = useSelector((state) => state.filters);
 
-    // const {
-    //     selectedLocations,
-    //     selectedRecipientLocations,
-    //     timePeriodType,
-    //     time_period: timePeriod,
-    //     timePeriodFY,
-    //     selectedRecipients,
-    //     recipientType
-    // } = filters;
+    const filterCount = {
+        Location: filters.selectedLocations.size + filters.selectedRecipientLocations.size,
+        'Time Period': filters.timePeriodType === 'dr' ? filters.time_period.size : filters.timePeriodFY.size,
+        'Award Description': filters.awardDescription ? 1 : 0,
+        'Award ID': filters.selectedAwardIDs.size,
+        'Spending Amount': filters.awardAmounts.size,
+        'Contract Award Type': excludeIDVB(filters.contractAwardType),
+        'North American Industry Classification System (NAICS)': generateCount(filters.naicsCodes),
+        'Product and Service Code (PSC)': generateCount(filters.pscCodes),
+        'Type of Contract Pricing': filters.pricingType.size,
+        'Type of Set Aside': filters.setAside.size,
+        'Extent Competed': filters.extentCompeted.size,
+        'Financial Assistance Award Type': filters.financialAssistanceAwardType.size,
+        'Assistance Listing': filters.selectedCFDA.size,
+        Recipient: filters.selectedRecipients.size,
+        'Recipient Type': filters.recipientType.size,
+        Agency: filters.selectedAwardingAgencies.size + filters.selectedFundingAgencies.size,
+        'Treasury Account Symbol (TAS)': generateCount(filters.tasCodes),
+        'COVID-19 Spending': filters.covidDefCode.size,
+        'Infrastructure Spending': filters.infraDefCode.size
+    };
 
     const dsmElHeight = sidebarContentHeight + 51;
 
@@ -76,7 +90,8 @@ const SidebarContent = ({
                     openObject
                     closedIcon="chevron-down"
                     openIcon="chevron-up"
-                    contentClassName={open[filter.title] ? '' : 'hidden'}>
+                    contentClassName={open[filter.title] ? '' : 'hidden'}
+                    selectedChipCount={filterCount[filter.title]}>
                     {filter.component}
                 </Accordion>
             ))}

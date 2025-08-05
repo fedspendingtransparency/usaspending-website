@@ -11,7 +11,8 @@ const Accordion = ({
     iconClassName,
     setOpen,
     contentClassName = '',
-    openObject = false
+    openObject = false,
+    selectedChipCount = 0
 }) => {
     const [closed, setClosed] = useState(true);
 
@@ -39,18 +40,25 @@ const Accordion = ({
                 {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
                 <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading">
                     {title}
-                    <button
-                        onClick={toggleOpen}
-                        onKeyDown={keyClickToggle}
-                        className="toggle"
-                        aria-label={closed ? 'Open toggle' : 'Close toggle'}>
-                        <FontAwesomeIcon
-                            icon={closedIcon || "plus"}
-                            className={iconClassName || "plus"} />
-                        <FontAwesomeIcon
-                            icon={openIcon || "minus"}
-                            className={iconClassName || "minus"} />
-                    </button>
+                    <div className="heading--chip-container">
+                        {(selectedChipCount > 0) && (
+                            <div className="selected-chip-count">
+                                {` ${selectedChipCount} selected`}
+                            </div>
+                        )}
+                        <button
+                            onClick={toggleOpen}
+                            onKeyDown={keyClickToggle}
+                            className="toggle"
+                            aria-label={closed ? 'Open toggle' : 'Close toggle'}>
+                            <FontAwesomeIcon
+                                icon={closedIcon || "plus"}
+                                className={iconClassName || "plus"} />
+                            <FontAwesomeIcon
+                                icon={openIcon || "minus"}
+                                className={iconClassName || "minus"} />
+                        </button>
+                    </div>
                 </div>
                 <div className={`content ${contentClassName}`}>{children}</div>
             </section>
@@ -73,5 +81,6 @@ Accordion.propTypes = {
     closedIcon: PropTypes.string,
     openIcon: PropTypes.string,
     setOpen: PropTypes.func,
-    openObject: PropTypes.bool
+    openObject: PropTypes.bool,
+    selectedChipCount: PropTypes.number
 };
