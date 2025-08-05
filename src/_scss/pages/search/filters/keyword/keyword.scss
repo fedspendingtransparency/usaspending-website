@@ -33,3 +33,38 @@
         @include selected-filter-wrap;
     }
 }
+
+// searchV2
+.collapsible-sidebar--search-filters-list .keyword-filter {
+    .category-header {
+        display: flex;
+        margin-bottom: $global-margin;
+
+        &--icon {
+            height: rem(21);
+            width: rem(21);
+            border-radius: rem(4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                max-height: rem(12);
+                max-width: rem(12);
+            }
+        }
+
+        &--title {
+            font-size: $small-font-size;
+            font-weight: $font-semibold;
+            line-height: 1.5;
+            color: $gray-90;
+            align-content: center;
+            margin-left: $global-margin;
+        }
+    }
+
+    .filter-item-wrap {
+        padding: ($global-padding * 2) ($global-padding * 4) $global-padding ($global-padding * 4);
+    }
+}
