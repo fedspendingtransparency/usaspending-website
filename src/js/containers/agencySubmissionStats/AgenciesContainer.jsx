@@ -139,7 +139,7 @@ const AgenciesContainer = ({
                     dispatch(setSearchResults(parsedResults, activeTab));
                 }
                 else {
-                    dispatch(setTableData(parsedResults, activeTab));
+                    dispatch(setTableData(activeTab, parsedResults));
                 }
                 setLoading([false, false, false]);
                 setError(false);
