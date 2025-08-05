@@ -20,10 +20,12 @@
         color: $color-base;
         line-height: rem(36);
         height: rem(40);
+
         @include placeholder {
             color: $color-placeholder;
         }
     }
+
     .keyword-submit {
         @include flex(0 0 auto);
         @include singleSubmit();
@@ -63,6 +65,20 @@
             color: $gray-90;
             align-content: center;
             margin-left: $global-margin;
+        }
+    }
+
+    .keyword-input {
+        @include flex(1 1 auto);
+        margin-right: rem(4);
+        font-size: $smallest-font-size;
+        line-height: 1.5;
+        height: rem(32);
+        border-radius: rem(3);
+        border: rem(1) solid $gray-cool-10;
+
+        @include placeholder {
+            color: $gray-60;
         }
     }
 

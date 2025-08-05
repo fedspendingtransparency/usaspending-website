@@ -91,7 +91,11 @@ export default class Keyword extends React.Component {
                                 id="search"
                                 type="text"
                                 className="keyword-input"
-                                placeholder="Search by Keyword"
+                                placeholder={
+                                    this.props.searchV2 ?
+                                        "Search using keywords..." :
+                                        "Search by Keyword"
+                                }
                                 value={this.state.value}
                                 onChange={this.changedInput}
                                 ref={(input) => {
