@@ -34,10 +34,11 @@
         padding: rem(24);
         display: flex;
         .usa-dt-modal__title-icon {
-            margin-right: rem(10);
+            margin-right: rem(8);
+            padding-top: rem(7.5);
             svg {
                 width: rem(32);
-                height: rem(32);
+                height: rem(24);
                 fill: $color-gray;
             }
         }
@@ -55,6 +56,7 @@
                 font-weight: 600;
                 font-size: rem(32);
                 line-height: rem(40);
+                color: $gray-90;
             }
             }
             .usa-dt-modal__explanation {
@@ -64,12 +66,14 @@
             font-weight: $font-semibold;
             line-height: rem(20);
             text-align: left;
+            color: $gray-80;
             }
             .usa-dt-modal__directions {
             font-size: $font-size-16;
             line-height: rem(24);
             margin-top: rem(16);
             text-align: left;
+            color: $gray-80;
             }
             .usa-dt-modal__link {
             font-weight: $font-semibold;
