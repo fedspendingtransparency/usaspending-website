@@ -8,6 +8,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { pickLocationFormat } from 'helpers/locationFormatter';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import { twoVariableFormat } from '../../../helpers/search/tables/tableUtilsHelper';
+import { convertToTitleCase } from "../../../helpers/searchHelper";
 
 const ResultsTableRow = {
     clickHandler(linkName) {
@@ -244,7 +245,7 @@ const ResultsTableRow = {
             limit={80} />);
     },
     populateTransactionContract(data) {
-        this.generated_internal_id =
+        this.awardId =
         <a
             target="_blank"
             rel="noopener noreferrer"
@@ -278,38 +279,135 @@ const ResultsTableRow = {
             limit={80} />);
     },
     populateTransactionDefault(data) {
+        this.generated_internal_id =
         <a
             target="_blank"
             rel="noopener noreferrer"
-            href={`/award/${obj.generated_internal_id}`}
+            href={`/award/${data.generated_internal_id}`}
             onClick={() => {
-                this.clickHandler(obj['Award ID']);
-            }}>{obj['Award ID']}
+                this.clickHandler(data['Award ID']);
+            }}>{data['Award ID']}
         </a> || '--';
-        obj.Mod || '--';
-        obj['Recipient Name'] || '--';
-        MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--");
-        obj['Action Date'] || '--';
-        <ReadMore
-            text={obj['Transaction Description'] || '--'}
-            limit={90} />;
-        obj['Action Type'] || '--';
-        obj['Award Type'] || '--';
-        obj['Recipient UEI'] || 'UEI not provided';
-        pickLocationFormat(obj['Recipient Location']);
-        pickLocationFormat(obj['Primary Place of Performance']);
+        this.mod = data.Mod || '--';
+        this.recipientName = data['Recipient Name'] || '--';
+        this.transactionAmount = MoneyFormatter.formatMoneyWithPrecision(data['Transaction Amount'], 2, "--");
+        this.actionDate = data['Action Date'] || '--';
+        this.transactionDescription =
+        (<ReadMore
+            text={data['Transaction Description'] || '--'}
+            limit={90} />);
+        this.actionType = data['Action Type'] || '--';
+        this.awardType = data['Award Type'] || '--';
+        this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
+        this.recipientLocation = pickLocationFormat(data['Recipient Location']);
+        this.primaryPlaceOfPerformance = pickLocationFormat(data['Primary Place of Performance']);
+        this.awardingAgency =
         <a
             target="_blank"
             rel="noopener noreferrer"
-            href={`/agency/${obj.agency_slug}`}
+            href={`/agency/${data.agency_slug}`}
             onClick={() => {
-                this.clickHandler(obj['Awarding Agency']);
-            }}>{obj['Awarding Agency']}
+                this.clickHandler(data['Awarding Agency']);
+            }}>{data['Awarding Agency']}
         </a> || '--';
-        obj['Awarding Sub Agency'] || '--';
-        twoVariableFormat(obj['Assistance Listing'], 'cfda_number', 'cfda_title');
+        this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
+        this.cfda = twoVariableFormat(data['Assistance Listing'], 'cfda_number', 'cfda_title');
+    },
+    populateSubcontract(data) {
+        this.subawardId =
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/award/${data.prime_award_generated_internal_id}`}
+            onClick={() => {
+                this.clickHandler(data['Sub-Award ID']);
+            }}>{data['Sub-Award ID']}
+        </a> || '--';
+        this.subawardeeName = data['Sub-Awardee Name'] || '--';
+        this.subawardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Sub-Award Amount'], 2, "--");
+        this.subawardDate = data['Sub-Award Date'] || '--';
+        this.subawardDesc =
+        (<ReadMore
+            text={data['Sub-Award Description'] || '--'}
+            limit={90} />);
+        this.subrecipientUEI = data['Sub-Recipient UEI'] || 'UEI not provided';
+        this.subrecipientLocation = pickLocationFormat(data['Sub-Recipient Location']);
+        this.subawardPPOP = pickLocationFormat(data['Sub-Award Primary Place of Performance']);
+        this.subawardType = convertToTitleCase(data['Sub-Award Type']) || '--';
+        this.prime_award_generated_internal_id =
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/award/${data.prime_award_generated_internal_id}`}
+            onClick={() => {
+                this.clickHandler(data['Prime Award ID']);
+            }}>{data['Prime Award ID']}
+        </a> || '--';
+        this.prime_award_recipient_id =
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/recipient/${data.prime_award_recipient_id}`}
+            onClick={() => {
+                this.clickHandler(data['Prime Recipient Name']);
+            }}>{data['Prime Recipient Name']}
+        </a> || '--';
+        this.primeUEI = data['Prime Award Recipient UEI'] || 'UEI not provided';
+        this.awardingAgency = data['Awarding Agency'] || '--';
+        this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
+        this.naics =
+        (<ReadMore
+            text={twoVariableFormat(data.NAICS, 'code', 'description')}
+            limit={80} />);
+        this.psc =
+        (<ReadMore
+            text={twoVariableFormat(data.PSC, 'code', 'description')}
+            limit={80} />);
+    },
+    populateDefault(data) {
+        this.subawardId =
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/award/${data.prime_award_generated_internal_id}`}
+            onClick={() => {
+                this.clickHandler(data['Sub-Award ID']);
+            }}>{data['Sub-Award ID']}
+        </a> || '--';
+        this.subawardeeName = data['Sub-Awardee Name'] || '--';
+        this.subawardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Sub-Award Amount'], 2, "--");
+        this.subawardDate = data['Sub-Award Date'] || '--';
+        this.subawardDesc =
+        (<ReadMore
+            text={data['Sub-Award Description'] || '--'}
+            limit={90} />);
+        this.subrecipientUEI = data['Sub-Recipient UEI'] || 'UEI not provided';
+        this.subrecipientLocation = pickLocationFormat(data['Sub-Recipient Location']);
+        this.subawardPPOP = pickLocationFormat(data['Sub-Award Primary Place of Performance']);
+        this.subawardType = convertToTitleCase(data['Sub-Award Type']) || '--';
+        this.prime_award_generated_internal_id =
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/award/${data.prime_award_generated_internal_id}`}
+            onClick={() => {
+                this.clickHandler(data['Prime Award ID']);
+            }}>{data['Prime Award ID']}
+        </a> || '--';
+        this.prime_award_recipient_id =
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/recipient/${data.prime_award_recipient_id}`}
+            onClick={() => {
+                this.clickHandler(data['Prime Recipient Name']);
+            }}>{data['Prime Recipient Name']}
+        </a> || '--';
+        this.prime_award_recipient_UEI = data['Prime Award Recipient UEI'] || 'UEI not provided';
+        this.awardingAgency = data['Awarding Agency'] || '--';
+        this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
+        this.assistanceListing = twoVariableFormat(data["Assistance Listing"], 'cfda_number', 'cfda_program_title');
     }
-
 };
 
 export default ResultsTableRow;
