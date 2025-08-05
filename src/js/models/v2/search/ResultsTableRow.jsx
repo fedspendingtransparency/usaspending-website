@@ -242,6 +242,72 @@ const ResultsTableRow = {
         (<ReadMore
             text={twoVariableFormat(data.PSC, 'code', 'description')}
             limit={80} />);
+    },
+    populateTransactionContract(data) {
+        this.generated_internal_id =
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/award/${data.generated_internal_id}`}
+            onClick={() => {
+                this.clickHandler(data['Award ID']);
+            }}>{data['Award ID']}
+        </a> || '--';
+        this.mod = data.Mod || '--';
+        this.recipientName = data['Recipient Name'] || '--';
+        this.transactionAmount = MoneyFormatter.formatMoneyWithPrecision(data['Transaction Amount'], 2, "--");
+        this.actionDate = data['Action Date'] || '--';
+        this.transactionDescription =
+        (<ReadMore
+            text={data['Transaction Description'] || '--'}
+            limit={90} />);
+        this.actionType = data['Action Type'] || '--';
+        this.awardType = data['Award Type'] || '--';
+        this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
+        this.recipientLocation = pickLocationFormat(data['Recipient Location']);
+        this.primaryPlaceOfPerformance = pickLocationFormat(data['Primary Place of Performance']);
+        this.awardingAgency = data['Awarding Agency'] || '--';
+        this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
+        this.naics =
+        (<ReadMore
+            text={twoVariableFormat(data.NAICS, 'code', 'description')}
+            limit={80} />);
+        this.psc =
+        (<ReadMore
+            text={twoVariableFormat(data.PSC, 'code', 'description')}
+            limit={80} />);
+    },
+    populateTransactionDefault(data) {
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/award/${obj.generated_internal_id}`}
+            onClick={() => {
+                this.clickHandler(obj['Award ID']);
+            }}>{obj['Award ID']}
+        </a> || '--';
+        obj.Mod || '--';
+        obj['Recipient Name'] || '--';
+        MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--");
+        obj['Action Date'] || '--';
+        <ReadMore
+            text={obj['Transaction Description'] || '--'}
+            limit={90} />;
+        obj['Action Type'] || '--';
+        obj['Award Type'] || '--';
+        obj['Recipient UEI'] || 'UEI not provided';
+        pickLocationFormat(obj['Recipient Location']);
+        pickLocationFormat(obj['Primary Place of Performance']);
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/agency/${obj.agency_slug}`}
+            onClick={() => {
+                this.clickHandler(obj['Awarding Agency']);
+            }}>{obj['Awarding Agency']}
+        </a> || '--';
+        obj['Awarding Sub Agency'] || '--';
+        twoVariableFormat(obj['Assistance Listing'], 'cfda_number', 'cfda_title');
     }
 
 };

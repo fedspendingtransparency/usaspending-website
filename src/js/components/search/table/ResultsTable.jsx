@@ -192,88 +192,25 @@ export default class ResultsTable extends React.Component {
             return values;
         }
 
-        // // check for transactions
-        // else if (this.props.spendingLevel === 'transactions') {
-        //     // check for contract or contract idv
-        //     if (this.props.currentType === "transaction_contracts" || this.props.currentType === "transaction_idvs") {
-        //         values = arrayOfObjects.map((obj) => {
-        //             const value = [];
-        //             value.push(
-        //                 <a
-        //                     target="_blank"
-        //                     rel="noopener noreferrer"
-        //                     href={`/award/${obj.generated_internal_id}`}
-        //                     onClick={() => {
-        //                         this.clickHandler(obj['Award ID']);
-        //                     }}>{obj['Award ID']}
-        //                 </a> || '--',
-        //                 obj.Mod || '--',
-        //                 obj['Recipient Name'] || '--',
-        //                 MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--"),
-        //                 obj['Action Date'] || '--',
-        //                 <ReadMore
-        //                     text={obj['Transaction Description'] || '--'}
-        //                     limit={90} />,
-        //                 obj['Action Type'] || '--',
-        //                 obj['Award Type'] || '--',
-        //                 obj['Recipient UEI'] || 'UEI not provided',
-        //                 pickLocationFormat(obj['Recipient Location']),
-        //                 pickLocationFormat(obj['Primary Place of Performance']),
-        //                 obj['Awarding Agency'] || '--',
-        //                 obj['Awarding Sub Agency'] || '--',
-        //                 <ReadMore
-        //                     text={twoVariableFormat(obj.NAICS, 'code', 'description')}
-        //                     limit={80} />,
-        //                 <ReadMore
-        //                     text={twoVariableFormat(obj.PSC, 'code', 'description')}
-        //                     limit={80} />
-        //             );
+        // check for transactions
+        else if (this.props.spendingLevel === 'transactions') {
+            // check for contract or contract idv
+            if (this.props.currentType === "transaction_contracts" || this.props.currentType === "transaction_idvs") {
+                values = arrayOfObjects.map((obj) => {
+                    const transactionContractRow = Object.create(ResultsTableRow);
+                    return Object.values(transactionContractRow);
+                });
+            }
+            else {
+                values = arrayOfObjects.map((obj) => {
+                    const transactionContractRow = Object.create(ResultsTableRow);
+                    transactionContractRow.populateTransactionDefault(obj);
+                    return transactionContractRow;
+                });
+            }
 
-        //             return value;
-        //         });
-        //     }
-        //     else {
-        //         values = arrayOfObjects.map((obj) => {
-        //             const value = [];
-        //             value.push(
-        //                 <a
-        //                     target="_blank"
-        //                     rel="noopener noreferrer"
-        //                     href={`/award/${obj.generated_internal_id}`}
-        //                     onClick={() => {
-        //                         this.clickHandler(obj['Award ID']);
-        //                     }}>{obj['Award ID']}
-        //                 </a> || '--',
-        //                 obj.Mod || '--',
-        //                 obj['Recipient Name'] || '--',
-        //                 MoneyFormatter.formatMoneyWithPrecision(obj['Transaction Amount'], 2, "--"),
-        //                 obj['Action Date'] || '--',
-        //                 <ReadMore
-        //                     text={obj['Transaction Description'] || '--'}
-        //                     limit={90} />,
-        //                 obj['Action Type'] || '--',
-        //                 obj['Award Type'] || '--',
-        //                 obj['Recipient UEI'] || 'UEI not provided',
-        //                 pickLocationFormat(obj['Recipient Location']),
-        //                 pickLocationFormat(obj['Primary Place of Performance']),
-        //                 <a
-        //                     target="_blank"
-        //                     rel="noopener noreferrer"
-        //                     href={`/agency/${obj.agency_slug}`}
-        //                     onClick={() => {
-        //                         this.clickHandler(obj['Awarding Agency']);
-        //                     }}>{obj['Awarding Agency']}
-        //                 </a> || '--',
-        //                 obj['Awarding Sub Agency'] || '--',
-        //                 twoVariableFormat(obj['Assistance Listing'], 'cfda_number', 'cfda_title')
-        //             );
-
-        //             return value;
-        //         });
-        //     }
-
-        //     return values;
-        // }
+            return values;
+        }
 
         // // subaward
         // if (this.props.currentType === "subcontracts") {
