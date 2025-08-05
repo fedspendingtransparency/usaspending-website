@@ -13,6 +13,7 @@ import SearchSidebarSubmitContainer from "../../../containers/search/SearchSideb
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import DsmSlider from "./DsmSlider";
 import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
+import KeywordContainer from "../../../containers/search/filters/KeywordContainer";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -51,7 +52,8 @@ const SidebarContent = ({
 
     const filterCount = {
         Location: filters.selectedLocations.size + filters.selectedRecipientLocations.size,
-        'Time Period': filters.timePeriodType === 'dr' ? filters.time_period.size : filters.timePeriodFY.size,
+        'Time Period':
+            filters.timePeriodType === 'dr' ? filters.time_period.size : filters.timePeriodFY.size,
         'Award Description': filters.awardDescription ? 1 : 0,
         'Award ID': filters.selectedAwardIDs.size,
         'Spending Amount': filters.awardAmounts.size,
@@ -76,7 +78,9 @@ const SidebarContent = ({
     const filtersArray = searchFilterCategoryTree.map((category) => (
         <div className="search-filters-list">
             <div className="category-header">
-                <div className="category-header--icon" style={{ backgroundColor: category.iconBackgroundColor }}>
+                <div
+                    className="category-header--icon"
+                    style={{ backgroundColor: category.iconBackgroundColor }}>
                     <FontAwesomeIcon
                         icon={category.iconName}
                         style={{ color: category.iconColor }} />
@@ -102,7 +106,10 @@ const SidebarContent = ({
         <>
             <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
                 {!isDsmOpened && (
-                    <div className="collapsible-sidebar--search-filters-list" style={{ height: (sidebarContentHeight) }}>
+                    <div
+                        className="collapsible-sidebar--search-filters-list"
+                        style={{ height: sidebarContentHeight }}>
+                        <KeywordContainer searchV2 />
                         {filtersArray}
                     </div>
                 )}

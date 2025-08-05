@@ -13,7 +13,8 @@ import SelectedKeywords from './SelectedKeywords';
 const propTypes = {
     selectedKeywords: PropTypes.array,
     toggleKeyword: PropTypes.func,
-    dirtyFilter: PropTypes.symbol
+    dirtyFilter: PropTypes.symbol,
+    searchV2: PropTypes.bool
 };
 
 export default class Keyword extends React.Component {
@@ -71,6 +72,11 @@ export default class Keyword extends React.Component {
             <div className="keyword-filter search-filter">
                 <form onSubmit={this.searchKeyword}>
                     <div className="filter-item-wrap">
+                        { this.props.searchV2 &&
+                            <div className="keyword-filter--title">
+                                Keyword
+                            </div>
+                        }
                         <div className="keyword-input-wrapper">
                             <input
                                 id="search"
