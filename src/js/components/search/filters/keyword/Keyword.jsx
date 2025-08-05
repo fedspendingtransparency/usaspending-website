@@ -77,12 +77,8 @@ export default class Keyword extends React.Component {
                     <div className="filter-item-wrap">
                         { this.props.searchV2 &&
                             <div className="category-header">
-                                <div
-                                    className="category-header--icon"
-                                    style={{ backgroundColor: '#E7F6F8' }}>
-                                    <FontAwesomeIcon
-                                        icon="search"
-                                        style={{ color: '#168092' }} />
+                                <div className="category-header--icon">
+                                    <FontAwesomeIcon icon="search" />
                                 </div>
                                 <div className="category-header--title">
                                     Keyword

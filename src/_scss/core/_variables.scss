@@ -57,6 +57,7 @@ $mint-cool-30v: #1dc2ae;
 $mint-cool-40v: #00a398;
 $mint-cool-50v: #008480;
 $mint-cool-60v: #0f6460;
+$cyan-5: #e7f6f8;
 $cyan-5v: #e5faff;
 $cyan-10: #ccecf2;
 $cyan-20: #88b4c0;
@@ -168,7 +169,7 @@ $color-primary-alt:          #02bfe7;
 $color-primary-alt-dark:     #00a6d2;
 $color-primary-alt-darkest:  #046b99;
 $color-primary-alt-light:    #9bdaf1;
-$color-primary-alt-lightest: #e7f6f8;
+$color-primary-alt-lightest: $cyan-5;
 
 $color-secondary:            #e31c3d;
 $color-secondary-dark:       #cd2026;
