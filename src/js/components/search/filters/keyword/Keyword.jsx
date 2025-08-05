@@ -5,10 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TooltipWrapper } from "data-transparency-ui";
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import SelectedKeywords from './SelectedKeywords';
+import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
     selectedKeywords: PropTypes.array,
@@ -73,9 +76,19 @@ export default class Keyword extends React.Component {
                 <form onSubmit={this.searchKeyword}>
                     <div className="filter-item-wrap">
                         { this.props.searchV2 &&
-                            <div className="keyword-filter--title">
-                                Keyword
-                            </div>
+                            <>
+                                <div
+                                    className="category-header--icon"
+                                    style={{ backgroundColor: '#E7F6F8' }}>
+                                    <FontAwesomeIcon
+                                        icon="search"
+                                        style={{ color: '#168092' }} />
+                                </div>
+                                <div className="keyword-filter--title">
+                                    Keyword
+                                </div>
+                                <TooltipWrapper icon="info" tooltipComponent={<KeyWordTooltip />} />
+                            </>
                         }
                         <div className="keyword-input-wrapper">
                             <input
