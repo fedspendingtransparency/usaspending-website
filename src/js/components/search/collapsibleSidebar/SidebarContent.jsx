@@ -85,7 +85,7 @@ const SidebarContent = ({
                         icon={category.iconName}
                         style={{ color: category.iconColor }} />
                 </div>
-                <div className="category-header--title">{category.title.toUpperCase()}</div>
+                <div className="category-header--title">{category.title}</div>
             </div>
             {category.children.map((filter) => (
                 <Accordion
