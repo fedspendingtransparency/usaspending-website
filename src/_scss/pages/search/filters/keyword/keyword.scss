@@ -39,6 +39,8 @@
 // searchV2
 .collapsible-sidebar--search-filters-list .keyword-filter {
     .category-header {
+        @import '../../_tooltips.scss';
+
         display: flex;
         margin-bottom: $global-margin * 2;
 
