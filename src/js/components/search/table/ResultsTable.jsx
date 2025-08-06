@@ -6,40 +6,40 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
-import Analytics from 'helpers/analytics/Analytics';
 import ResultsTableRow from '../../../models/v2/search/ResultsTableRow';
 
 const propTypes = {
-        results: PropTypes.array,
-        columns: PropTypes.object,
-        visibleWidth: PropTypes.number,
-        loadNextPage: PropTypes.func,
-        subaward: PropTypes.bool,
-        spendingLevel: PropTypes.string,
-        tableInstance: PropTypes.string,
-        sort: PropTypes.object,
-        updateSort: PropTypes.func,
-        awardIdClick: PropTypes.func,
-        subAwardIdClick: PropTypes.func,
-        page: PropTypes.number,
-        setPage: PropTypes.func,
-        setResultLimit: PropTypes.func,
-        total: PropTypes.number,
-        isMobile: PropTypes.bool,
-        federalAccountPage: PropTypes.bool,
-        referenceData: PropTypes.array
+    results: PropTypes.array,
+    columns: PropTypes.object,
+    visibleWidth: PropTypes.number,
+    loadNextPage: PropTypes.func,
+    subaward: PropTypes.bool,
+    spendingLevel: PropTypes.string,
+    tableInstance: PropTypes.string,
+    sort: PropTypes.object,
+    updateSort: PropTypes.func,
+    awardIdClick: PropTypes.func,
+    subAwardIdClick: PropTypes.func,
+    page: PropTypes.number,
+    setPage: PropTypes.func,
+    setResultLimit: PropTypes.func,
+    total: PropTypes.number,
+    isMobile: PropTypes.bool,
+    federalAccountPage: PropTypes.bool,
+    referenceData: PropTypes.array
 };
 
 const ResultsTable = (props) => {
-    const [currentRows, setCurrentRows] = useState([]);
+    // eslint-disable-next-line no-unused-vars
     const [windowHeight, setWindowHeight] = useState(0);
-    const [windowWidth, setWindowWidth] = useState(0);
+    // eslint-disable-next-line no-unused-vars
     const [tableHeight, setTableHeight] = useState(0);
+    // eslint-disable-next-line no-unused-vars
     const [activateRightFade, setActivateRightFade] = useState(!props.isMobile);
 
     const measureHeight = () => {
-        const tableHeight = document.getElementById("advanced-search__table-wrapper").offsetHeight;
-        setTableHeight(tableHeight);
+        const tableHeightlocal = document.getElementById("advanced-search__table-wrapper").offsetHeight;
+        setTableHeight(tableHeightlocal);
         setWindowHeight(window.innerHeight);
     };
     const prepareDTUIColumns = () => {
@@ -161,52 +161,53 @@ const ResultsTable = (props) => {
     useEffect(() => {
         if (props.isMobile) {
             setActivateRightFade(false);
-        } else {
+        }
+        else {
             setActivateRightFade(true);
         }
     }, [props.isMobile]);
-        const cols = prepareDTUIColumns();
-        const limitedRows = prepareDTUIRows();
-        // for table height take the height of the viewport
-        // subtract the sticky header part on the top of the page
-        // tab height for the tables
-        // 16 pixel space between the tabs
-        // pagination on the bottom, so you can actually see the pages
-        return (
-            <>
-                <div
-                    className="advanced-search__table-wrapper"
-                    id="advanced-search__table-wrapper"
-                    style={props.resultsCount >= props.resultsLimit ? { height: '638px' } : {}}>
-                    <Table
-                        classNames="table-for-new-search-page award-results-table-dtui"
-                        stickyFirstColumn={!props.isMobile}
-                        columns={cols}
-                        rows={limitedRows}
-                        rowHeight={props.isMobile ? null : 58}
-                        headerRowHeight={45}
-                        highlightedColumns={props.subaward ? {
-                            standardColumns: 9,
-                            highlightedColumns: props.currentType === "subcontracts" ? 7 : 6
-                        } : null}
-                        currentSort={props.sort}
-                        updateSort={props.updateSort}
-                        isMobile={props.isMobile}
-                        isStacked
-                        newMobileView />
+    const cols = prepareDTUIColumns();
+    const limitedRows = prepareDTUIRows();
+    // for table height take the height of the viewport
+    // subtract the sticky header part on the top of the page
+    // tab height for the tables
+    // 16 pixel space between the tabs
+    // pagination on the bottom, so you can actually see the pages
+    return (
+        <>
+            <div
+                className="advanced-search__table-wrapper"
+                id="advanced-search__table-wrapper"
+                style={props.resultsCount >= props.resultsLimit ? { height: '638px' } : {}}>
+                <Table
+                    classNames="table-for-new-search-page award-results-table-dtui"
+                    stickyFirstColumn={!props.isMobile}
+                    columns={cols}
+                    rows={limitedRows}
+                    rowHeight={props.isMobile ? null : 58}
+                    headerRowHeight={45}
+                    highlightedColumns={props.subaward ? {
+                        standardColumns: 9,
+                        highlightedColumns: props.currentType === "subcontracts" ? 7 : 6
+                    } : null}
+                    currentSort={props.sort}
+                    updateSort={props.updateSort}
+                    isMobile={props.isMobile}
+                    isStacked
+                    newMobileView />
 
-                </div>
-                <Pagination
-                    resultsText
-                    limitSelector
-                    hideLast={props.resultsCount >= 50000}
-                    currentPage={props.page}
-                    pageSize={props.resultsLimit}
-                    changePage={props.setPage}
-                    changeLimit={props.setResultLimit}
-                    totalItems={props.resultsCount} />
-            </>
-        );
+            </div>
+            <Pagination
+                resultsText
+                limitSelector
+                hideLast={props.resultsCount >= 50000}
+                currentPage={props.page}
+                pageSize={props.resultsLimit}
+                changePage={props.setPage}
+                changeLimit={props.setResultLimit}
+                totalItems={props.resultsCount} />
+        </>
+    );
 };
 
 ResultsTable.propTypes = propTypes;
