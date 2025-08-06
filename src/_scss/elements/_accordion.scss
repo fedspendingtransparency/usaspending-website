@@ -39,7 +39,7 @@
         border-radius: 4px;
         background-color: #F7F9FAFF;
         white-space: nowrap;
-        margin-right: 4px;
+        margin: 0 4px;
       }
 
       .toggle {
@@ -102,3 +102,7 @@
   }
 }
 
+// searchV2
+.collapsible-sidebar--search-filters-list .search-filters-list .accordion-container:last-of-type .accordion {
+  padding-bottom: 0;
+}
