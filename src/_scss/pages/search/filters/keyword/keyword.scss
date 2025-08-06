@@ -40,7 +40,7 @@
 .collapsible-sidebar--search-filters-list .keyword-filter {
     .category-header {
         display: flex;
-        margin-bottom: $global-margin;
+        margin-bottom: $global-margin * 2;
 
         &--icon {
             height: rem(21);
