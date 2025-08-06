@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TooltipWrapper } from "data-transparency-ui";
+import { Button, TooltipWrapper } from "data-transparency-ui";
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
@@ -101,11 +101,22 @@ export default class Keyword extends React.Component {
                                 ref={(input) => {
                                     this.searchInput = input;
                                 }} />
-                            <IndividualSubmit
-                                className="keyword-submit"
-                                onClick={this.searchKeyword}
-                                label="Filter by keyword"
-                                accessibility={accessibility} />
+                            { this.props.searchV2 ?
+                                <Button
+                                    copy="Add"
+                                    buttonTitle="Add"
+                                    buttonSize="sm"
+                                    buttonType="primary"
+                                    backgroundColor="light"
+                                    disabled={this.state.value.length === 0}
+                                    onClick={this.searchKeyword} />
+                                :
+                                <IndividualSubmit
+                                    className="keyword-submit"
+                                    onClick={this.searchKeyword}
+                                    label="Filter by keyword"
+                                    accessibility={accessibility} />
+                            }
                         </div>
                         {selectedKeywords}
                         { !this.props.searchV2 &&

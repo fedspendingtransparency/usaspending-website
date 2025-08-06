@@ -70,7 +70,7 @@
 
     .keyword-input {
         @include flex(1 1 auto);
-        margin-right: rem(4);
+        margin: 0 rem(4) 0 0;
         font-size: $smallest-font-size;
         line-height: 1.5;
         height: rem(32);
@@ -82,7 +82,17 @@
         }
     }
 
+    .keyword-input-wrapper .button__sm {
+        font-size: $smallest-font-size;
+        padding: rem(7) rem(12);
+        margin: 0;
+    }
+
+    .shown-filter-button {
+        margin-bottom: 0;
+    }
+
     .filter-item-wrap {
-        padding: ($global-padding * 2) ($global-padding * 4) $global-padding ($global-padding * 4);
+        padding: ($global-padding * 2) ($global-padding * 4);
     }
 }
