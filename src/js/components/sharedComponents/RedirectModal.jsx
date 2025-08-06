@@ -55,7 +55,8 @@ export default class RedirectModal extends React.Component {
                                 <a
                                     href={this.props.url}
                                     target="_blank"
-                                    rel="noopener noreferrer">
+                                    rel="noopener noreferrer"
+                                    tabIndex="-1">
                                     {this.props.url}
                                 </a>
                             </div>
