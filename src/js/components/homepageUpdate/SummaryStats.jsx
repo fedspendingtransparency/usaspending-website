@@ -4,13 +4,19 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
+import { isCancel } from "axios";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { fetchBreakdown } from 'helpers/explorerHelper';
 import { formatMoneyWithUnits } from "helpers/moneyFormatter";
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import Analytics from 'helpers/analytics/Analytics';
+import { generateUrlHash } from "helpers/searchHelper";
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
+import { REQUEST_VERSION } from "GlobalConstants";
+
 
 const SummaryStats = () => {
     const [loading, setLoading] = useState(true);
@@ -39,9 +45,43 @@ const SummaryStats = () => {
 
     const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
-    const performSearch = (title) => {
+    const performSearch = (title, e) => {
+        e.preventDefault();
         console.log(title);
+
+        const filterValue = {
+            filters: {
+                ...defaultFilters,
+                keyword: { [title]: title }
+            },
+            version: REQUEST_VERSION
+        };
+
+        let tempHash = generateUrlHash(filterValue);
+        tempHash.promise
+            .then((results) => {
+                const hashData = results.data;
+                window.open(`/search/?hash=${hashData.hash}`, '_blank');
+                // operation has resolved
+                tempHash = null;
+            })
+            .catch((error) => {
+                console.log(error);
+                if (isCancel(error)) {
+                    // Got cancelled
+                }
+                else if (error.response) {
+                    // Errored out but got response, toggle noAward flag
+                    this.hash = null;
+                }
+                else {
+                    // Request failed
+                    tempHash = null;
+                    console.log(error);
+                }
+            });
     };
+
     const fetchBudgetFunctions = () => {
         if (request.current) {
             request.current.cancel();
@@ -93,10 +133,10 @@ const SummaryStats = () => {
             aria-label="View awards"
             onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                    performSearch(name);
+                    performSearch(name, e);
                 }
             }}
-            onClick={() => performSearch(name)}>
+            onClick={(e) => performSearch(name, e)}>
             {name}
         </a>);
 
