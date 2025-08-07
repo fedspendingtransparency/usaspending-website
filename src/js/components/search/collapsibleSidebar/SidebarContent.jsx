@@ -19,12 +19,11 @@ const propTypes = {
     sidebarContentHeight: PropTypes.number,
     setShowMobileFilters: PropTypes.func,
     isDsmOpened: PropTypes.bool,
-    setIsDsmOpened: PropTypes.func,
-    timerRef: PropTypes.object
+    setIsDsmOpened: PropTypes.func
 };
 
 const SidebarContent = ({
-    sidebarContentHeight, setShowMobileFilters, isDsmOpened, setIsDsmOpened, timerRef
+    sidebarContentHeight, setShowMobileFilters, isDsmOpened, setIsDsmOpened
 }) => {
     const [open, setOpen] = useState({
         Location: false,
@@ -124,8 +123,7 @@ const SidebarContent = ({
             </div>
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer
-                    setShowMobileFilters={setShowMobileFilters}
-                    timerRef={timerRef} />
+                    setShowMobileFilters={setShowMobileFilters} />
             </div>
         </>);
 };

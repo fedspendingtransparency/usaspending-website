@@ -3,10 +3,11 @@
  * Created by Kevin Li 12/19/17
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
+import Cookies from 'js-cookie';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from '../../helpers/analytics/Analytics';
 
@@ -16,8 +17,7 @@ const propTypes = {
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     resetFilters: PropTypes.func,
-    setShowMobileFilters: PropTypes.func,
-    timerRef: PropTypes.object
+    setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarSubmit = ({
@@ -26,8 +26,7 @@ const SearchSidebarSubmit = ({
     filtersChanged,
     setShowMobileFilters,
     applyStagedFilters,
-    resetFilters,
-    timerRef
+    resetFilters
 }) => {
     let disabled = false;
     let title = 'Click to submit your search.';
@@ -43,27 +42,54 @@ const SearchSidebarSubmit = ({
     }
 
     const fireSearchEvent = () => {
-        if (!urlHash && !timerRef.current?.hasFired) {
-            const now = new Date().getTime() - timerRef.current.time;
-            // eslint-disable-next-line no-param-reassign
-            timerRef.current.hasFired = true;
-            Analytics.event({
-                event: 'search_timer_event',
-                category: 'Advanced Search - Filter - Time',
-                action: 'filter submit',
-                label: `first time to query took ${Math.floor(now / 1000)} seconds`
-            });
-        }
-    };
+        if (!urlHash && !Cookies.get('has_logged_query_timer')) {
+            const now = new Date().getTime();
+            if (Cookies.get("advanced_search_to_query_time")) {
+                const timer = now - Cookies.get("advanced_search_to_query_time");
+                const timerInSeconds = Math.floor(timer / 1000);
 
-    useEffect(() => {
-        if (urlHash) {
-            // eslint-disable-next-line no-param-reassign
-            timerRef.current.hasFired = true;
-            // if hash user has already searched once.  no need to capture event
+                if (timerInSeconds < 3600) {
+                    // console.log("send ga event with ", {
+                    //     category: 'Advanced Search - Time to First Query',
+                    //     action: 'query_submit',
+                    //     label: `${timerInSeconds} seconds`,
+                    //     time_to_query: timerInSeconds
+                    // });
+                    Analytics.event({
+                        category: 'Advanced Search - Time to First Query',
+                        action: 'query_submit',
+                        label: `${timerInSeconds} seconds`,
+                        time_to_query: timerInSeconds
+                    });
+                }
+                // Cleanup
+                Cookies.remove("advanced_search_to_query_time");
+            }
+            if (Cookies.get("homepage_to_query_time")) {
+                const timerHomePage = now - Cookies.get("homepage_to_query_time");
+                const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
+
+                if (timerHomePageInSeconds < 3600) {
+                    // console.log("send ga event with ", {
+                    //     category: 'Homepage - Time to First Query',
+                    //     action: 'homepage_query_submit',
+                    //     label: `${timerHomePageInSeconds} seconds`,
+                    //     time_to_query: timerHomePageInSeconds
+                    // });
+                    Analytics.event({
+                        category: 'Homepage - Time to First Query',
+                        action: 'homepage_query_submit',
+                        label: `${timerHomePageInSeconds} seconds`,
+                        time_to_query: timerHomePageInSeconds
+                    });
+                }
+                // Cleanup
+                Cookies.remove("homepage_to_query_time");
+            }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        // Sanity check
+        Cookies.set("has_logged_query_timer", true);
+    };
 
     return (
         <div
