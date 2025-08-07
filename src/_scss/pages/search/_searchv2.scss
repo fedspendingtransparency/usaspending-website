@@ -7,9 +7,5 @@
     .search-contents {
       max-width: 1600px !important; //TODO: Remove after search 2.0 is released
     }
-
-    .recipient-results__container{
-      overflow-y: visible !important; //TODO: Remove recipient.scss overflow-y: scroll after search 2.0 is released V2 overide for DEV-12227 
-    }
   }
 }

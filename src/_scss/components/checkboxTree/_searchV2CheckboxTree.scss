@@ -1,9 +1,7 @@
 .collapsible-sidebar {
   .naics-search-container {
     @import "../../core/variables";
-    padding-left: 32px !important;
-    padding-right: 32px !important;
-    padding-top: 0 !important;
+    padding: 0 !important;
 
     .checkbox-tree {
       border-bottom: none !important;
@@ -101,7 +99,6 @@
   }
 
   .def-code-filter {
-    margin-bottom: rem(16);
     padding: unset !important; // TODO remove after search 2.0 is released
 
     .defc-filter-message-container {
