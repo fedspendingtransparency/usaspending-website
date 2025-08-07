@@ -19,7 +19,15 @@ const SummaryStats = () => {
     const [budgetData, setBudgetData] = useState([]);
     const [budgetTotal, setBudgetTotal] = useState([]);
     const [randomIndex, setRandomIndex] = useState(0);
-    const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name: "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
+    const budgetCategories = [
+        { name: "Medicare" },
+        { name: "National Defense" },
+        { name: "Social Security" },
+        { name: "Transportation" },
+        { name: "Agriculture" },
+        { name: "Veterans Benefits and Services", label: "Veterans Benefits" },
+        { name: "Energy" }, { name: "Net Interest" }
+    ];
     const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
     const trackExplorerLink = () => Analytics.event({
@@ -31,6 +39,9 @@ const SummaryStats = () => {
 
     const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
+    const performSearch = (title) => {
+        console.log(title);
+    };
     const fetchBudgetFunctions = () => {
         if (request.current) {
             request.current.cancel();
@@ -155,7 +166,15 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">
+                                        {!error ? 'on ' : ''}
+                                        <strong>
+                                            <span
+                                                onClick={() => performSearch(budgetData[randomIndex % budgetData?.length]?.name)}>
+                                                {budgetData[randomIndex % budgetData?.length]?.name}
+                                            </span>
+                                        </strong>
+                                    </span>
                                 </>
                             }
                         </div>
@@ -163,7 +182,15 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">
+                                        {!error ? 'on ' : ''}
+                                        <strong>
+                                            <span
+                                                onClick={() => performSearch(budgetData[(randomIndex + 1) % budgetData?.length]?.name)}>
+                                                {budgetData[(randomIndex + 1) % budgetData?.length]?.name}
+                                            </span>
+                                        </strong>
+                                    </span>
                                 </>
                             }
                         </div>
@@ -171,7 +198,24 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">
+                                        {!error ? 'on ' : ''}
+                                        <strong>
+
+                                            <span
+                                                role="button"
+                                                tabIndex={0}
+                                                aria-label="View awards"
+                                                onKeyDown={(e) => {
+                                                    if (e.key === "Enter") {
+                                                        performSearch(budgetData[(randomIndex + 2) % budgetData?.length]?.name);
+                                                    }
+                                                }}
+                                                onClick={() => performSearch(budgetData[(randomIndex + 2) % budgetData?.length]?.name)}>
+                                                {budgetData[(randomIndex + 2) % budgetData?.length]?.name}
+                                            </span>
+                                        </strong>
+                                    </span>
                                 </>
                             }
                         </div>
