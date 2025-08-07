@@ -43,11 +43,17 @@ const SummaryStats = () => {
         label: 'explorer'
     });
 
+    const trackBudgetFunctionLink = (title) => Analytics.event({
+        event: 'homepage-summary-stats',
+        category: 'Homepage - Summary Stats Budget Function Click',
+        action: 'Link',
+        label: `clicked - ${title}`
+    });
+
     const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
     const performSearch = (title, e) => {
         e.preventDefault();
-        console.log(title);
 
         const filterValue = {
             filters: {
@@ -61,13 +67,14 @@ const SummaryStats = () => {
         tempHash.promise
             .then((results) => {
                 const hashData = results.data;
+                trackBudgetFunctionLink(title);
                 window.open(`/search/?hash=${hashData.hash}`, '_blank');
                 // operation has resolved
                 tempHash = null;
             })
-            .catch((error) => {
-                console.log(error);
-                if (isCancel(error)) {
+            .catch((hashError) => {
+                console.log(hashError);
+                if (isCancel(hashError)) {
                     // Got cancelled
                 }
                 else if (error.response) {
