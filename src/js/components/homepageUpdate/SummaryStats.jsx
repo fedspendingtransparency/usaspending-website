@@ -86,6 +86,36 @@ const SummaryStats = () => {
             });
     };
 
+    const renderLink = (name) => (
+        <a
+            role="button"
+            tabIndex={0}
+            aria-label="View awards"
+            onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    performSearch(name);
+                }
+            }}
+            onClick={() => performSearch(name)}>
+            {name}
+        </a>);
+
+    const loadBudgetItem = (index) => {
+        if (loading) {
+            return (<span className="dot-pulse" />);
+        }
+        return (
+            <>
+                <span
+                    className="budget-item__amount">{formatMoneyWithUnits(budgetData[index % budgetData?.length]?.amount)}
+                </span><br />
+                <span className="budget-item__name">
+                    {!error ? 'on ' : ''}
+                    {renderLink(budgetData[index % budgetData?.length]?.name)}
+                </span>
+            </>);
+    };
+
     useEffect(() => {
         if (latestFy && latestPeriod) {
             fetchBudgetFunctions();
@@ -99,32 +129,20 @@ const SummaryStats = () => {
                 <FlexGridRow className="grid-content">
                     <FlexGridCol width={4} className="summary-stats__budget-total-container">
                         <span>So far this year, the federal government</span><br />
-                        <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
+                        <span>plans to spend {loading ? <span className="dot-pulse" />
+                            :
+                            <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…
+                        </span>
                     </FlexGridCol>
                     <FlexGridCol className="summary-stats__budget-items">
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex)}
                         </div>
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex + 1)}
                         </div>
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex + 2)}
                         </div>
                     </FlexGridCol>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
@@ -163,61 +181,13 @@ const SummaryStats = () => {
                         width={12}
                         className="summary-stats__budget-items">
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">
-                                        {!error ? 'on ' : ''}
-                                        <strong>
-                                            <span
-                                                onClick={() => performSearch(budgetData[randomIndex % budgetData?.length]?.name)}>
-                                                {budgetData[randomIndex % budgetData?.length]?.name}
-                                            </span>
-                                        </strong>
-                                    </span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex)}
                         </div>
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">
-                                        {!error ? 'on ' : ''}
-                                        <strong>
-                                            <span
-                                                onClick={() => performSearch(budgetData[(randomIndex + 1) % budgetData?.length]?.name)}>
-                                                {budgetData[(randomIndex + 1) % budgetData?.length]?.name}
-                                            </span>
-                                        </strong>
-                                    </span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex + 1)}
                         </div>
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">
-                                        {!error ? 'on ' : ''}
-                                        <strong>
-
-                                            <span
-                                                role="button"
-                                                tabIndex={0}
-                                                aria-label="View awards"
-                                                onKeyDown={(e) => {
-                                                    if (e.key === "Enter") {
-                                                        performSearch(budgetData[(randomIndex + 2) % budgetData?.length]?.name);
-                                                    }
-                                                }}
-                                                onClick={() => performSearch(budgetData[(randomIndex + 2) % budgetData?.length]?.name)}>
-                                                {budgetData[(randomIndex + 2) % budgetData?.length]?.name}
-                                            </span>
-                                        </strong>
-                                    </span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex + 2)}
                         </div>
                     </FlexGridCol>
                     <FlexGridCol width={12} className="summary-stats__spending-link">
