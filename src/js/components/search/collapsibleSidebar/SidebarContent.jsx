@@ -20,11 +20,17 @@ const propTypes = {
     setShowMobileFilters: PropTypes.func,
     isDsmOpened: PropTypes.bool,
     setIsDsmOpened: PropTypes.func,
-    timerRef: PropTypes.object
+    timerRef: PropTypes.object,
+    renderSidebarContent: PropTypes.bool
 };
 
 const SidebarContent = ({
-    sidebarContentHeight, setShowMobileFilters, isDsmOpened, setIsDsmOpened, timerRef
+    sidebarContentHeight,
+    setShowMobileFilters,
+    isDsmOpened,
+    setIsDsmOpened,
+    timerRef,
+    renderSidebarContent
 }) => {
     const [open, setOpen] = useState({
         Location: false,
@@ -96,7 +102,7 @@ const SidebarContent = ({
                     openIcon="chevron-up"
                     contentClassName={open[filter.title] ? '' : 'hidden'}
                     selectedChipCount={filterCount[filter.title]}>
-                    {filter.component}
+                    {renderSidebarContent && open[filter.title] && filter.component}
                 </Accordion>
             ))}
         </div>
