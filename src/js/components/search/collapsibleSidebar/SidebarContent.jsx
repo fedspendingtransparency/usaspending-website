@@ -102,7 +102,7 @@ const SidebarContent = ({
                     openIcon="chevron-up"
                     contentClassName={open[filter.title] ? '' : 'hidden'}
                     selectedChipCount={filterCount[filter.title]}>
-                    {renderSidebarContent && filter.component}
+                    {renderSidebarContent && open[filter.title] && filter.component}
                 </Accordion>
             ))}
         </div>

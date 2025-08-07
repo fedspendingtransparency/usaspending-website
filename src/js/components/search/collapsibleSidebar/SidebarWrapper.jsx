@@ -337,7 +337,7 @@ const SidebarWrapper = React.memo(({
                         isDsmOpened={isDsmOpened}
                         setIsDsmOpened={setIsDsmOpened}
                         timerRef={timerRef}
-                        renderSidebarContent={renderSidebarContent} />
+                        renderSidebarContent={isMobile || renderSidebarContent} />
                 }
             </div>
         </div>
