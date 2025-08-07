@@ -16,7 +16,8 @@ import Keyword from 'components/search/filters/keyword/Keyword';
 const propTypes = {
     keyword: PropTypes.object,
     appliedFilter: PropTypes.object,
-    updateTextSearchInput: PropTypes.func
+    updateTextSearchInput: PropTypes.func,
+    searchV2: PropTypes.bool
 };
 
 export class KeywordContainer extends React.Component {
@@ -42,7 +43,8 @@ export class KeywordContainer extends React.Component {
             <Keyword
                 dirtyFilter={this.dirtyFilter()}
                 selectedKeywords={this.props.keyword.toArray()}
-                toggleKeyword={this.toggleKeyword} />
+                toggleKeyword={this.toggleKeyword}
+                searchV2={this.props.searchV2} />
         );
     }
 }
