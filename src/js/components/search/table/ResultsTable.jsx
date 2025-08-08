@@ -132,7 +132,9 @@ const ResultsTable = (props) => {
         }
 
         // subaward
-        if (props.currentType === "subcontracts" || (props.columnType === "subawards" && props.currentType === "contracts")) {
+        // TODO: i have a feeling this will need to be adjusted in the future for some group by options for subawards
+        // the same may be true for transactions
+        if (props.currentType === "subcontracts" || (props.columnType === "subawards" && (props.currentType === "contracts" || props.currentType === "idvs"))) {
             values = arrayOfObjects.map((obj) => {
                 const subcontractRow = Object.create(ResultsTableRow);
                 subcontractRow.populateSubcontract(obj);
