@@ -45,7 +45,7 @@ const SummaryStats = () => {
 
     const trackBudgetFunctionLink = (title) => Analytics.event({
         event: 'homepage-summary-stats',
-        category: 'Homepage - Summary Stats Budget Function Click',
+        category: 'Homepage - Summary Stats Budget Function Title Click',
         action: 'Link',
         label: `clicked - ${title}`
     });
