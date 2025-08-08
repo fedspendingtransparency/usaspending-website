@@ -157,12 +157,21 @@ $largeMobile: 576px;
         }
 
         .budget-item__amount {
+          font-size: rem(16);
           font-weight: $font-semibold;
         }
 
         .budget-item__name {
           font-size: rem(16);
           line-height: rem(25);
+
+          a {
+            color: unset;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: $font-semibold;
+            font-size: rem(20);
+          }
         }
       }
     }
