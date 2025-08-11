@@ -49,12 +49,6 @@ const SearchSidebarSubmit = ({
                 const timerInSeconds = Math.floor(timer / 1000);
 
                 if (timerInSeconds < 3600) {
-                    // console.log("send ga event with ", {
-                    //     category: 'Advanced Search - Time to First Query',
-                    //     action: 'query_submit',
-                    //     label: `${timerInSeconds} seconds`,
-                    //     time_to_query: timerInSeconds
-                    // });
                     Analytics.event({
                         category: 'Advanced Search - Time to First Query',
                         action: 'query_submit',
@@ -70,12 +64,6 @@ const SearchSidebarSubmit = ({
                 const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
 
                 if (timerHomePageInSeconds < 3600) {
-                    // console.log("send ga event with ", {
-                    //     category: 'Homepage - Time to First Query',
-                    //     action: 'homepage_query_submit',
-                    //     label: `${timerHomePageInSeconds} seconds`,
-                    //     time_to_query: timerHomePageInSeconds
-                    // });
                     Analytics.event({
                         category: 'Homepage - Time to First Query',
                         action: 'homepage_query_submit',
