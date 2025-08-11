@@ -31,7 +31,6 @@ const Analytics = {
         if (!args.category || !args.action) {
             return;
         }
-        console.log("testing event args ========>", args);
 
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
