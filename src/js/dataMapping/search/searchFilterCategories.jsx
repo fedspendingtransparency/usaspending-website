@@ -71,7 +71,7 @@ export const searchFilterCategoryTree = [
         iconName: 'calendar-alt',
         iconColor: '#1A4480',
         iconBackgroundColor: '#edf5ff',
-        title: 'Time Period',
+        title: 'TIME PERIOD',
         children: [
             {
                 title: "Time Period",
@@ -84,7 +84,7 @@ export const searchFilterCategoryTree = [
         iconName: 'map-marked-alt',
         iconColor: '#34a37e',
         iconBackgroundColor: '#dbf6ed',
-        title: 'Location',
+        title: 'LOCATION',
         children: [
             {
                 title: "Location",
@@ -97,7 +97,7 @@ export const searchFilterCategoryTree = [
         iconName: 'university',
         iconColor: '#009ec1',
         iconBackgroundColor: '#e5faff',
-        title: 'Sources',
+        title: 'SOURCES',
         children: [
             {
                 title: 'Agency',
@@ -122,7 +122,7 @@ export const searchFilterCategoryTree = [
         iconName: 'building',
         iconColor: '#1b2b85',
         iconBackgroundColor: '#edf0ff',
-        title: 'Recipients',
+        title: 'RECIPIENTS',
         children: [
             {
                 title: 'Recipient',
@@ -139,7 +139,7 @@ export const searchFilterCategoryTree = [
         iconName: 'cubes',
         iconColor: '#ff580a',
         iconBackgroundColor: '#fff3ea',
-        title: 'Characteristics',
+        title: 'CHARACTERISTICS',
         children: [
             {
                 title: "Award Description",

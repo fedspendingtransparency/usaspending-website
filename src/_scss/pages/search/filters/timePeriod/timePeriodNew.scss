@@ -145,6 +145,16 @@
              width: 100%;
           }
 
+           .date-picker__input-field {
+             @media (min-width: $tablet-screen) {
+               width: rem(70);
+             }
+
+             @media(min-width: $large-screen) {
+               width: rem(95);
+             }
+           }
+
           .date-picker__input-field:invalid {
             outline: rem(1) solid $color-secondary-vivid;
           }
