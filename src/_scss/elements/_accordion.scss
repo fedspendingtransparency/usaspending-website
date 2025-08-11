@@ -1,3 +1,4 @@
+// TODO: CSS variables do not work in this file. Will be addressed in follow up ticket.
 .accordion-container {
   button {
     margin-right: 0;
@@ -23,6 +24,33 @@
     flex-wrap: nowrap;
     border: 1px solid #eee;
     color: #1b1b1b;
+
+    &--chip-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+
+      .selected-chip-count {
+        font-size: 10px;
+        font-weight: normal;
+        line-height: 1.5;
+        padding: 2px 6px;
+        border: 1px solid #EDEFF0FF;
+        border-radius: 4px;
+        background-color: #F7F9FAFF;
+        white-space: nowrap;
+        margin: 0 4px;
+      }
+
+      .toggle {
+        font-size: 1.125rem;
+        background: transparent;
+        border: none;
+        float: right;
+        cursor: pointer;
+      }
+    }
   }
 
   .content {
@@ -32,14 +60,6 @@
     text-align: left;
     visibility: hidden;
     transition: ease-in-out max-height 50ms, visibility 50ms;
-  }
-
-  .toggle {
-    font-size: 1.125rem;
-    background: transparent;
-    border: none;
-    float: right;
-    cursor: pointer;
   }
 
   .plus {
@@ -83,3 +103,7 @@
   }
 }
 
+// searchV2
+.collapsible-sidebar--search-filters-list .search-filters-list .accordion-container:last-of-type .accordion {
+  padding-bottom: 0;
+}

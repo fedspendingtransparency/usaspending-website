@@ -80,8 +80,8 @@ export const expandedTransactionColumns = [
                 <div className="table-header__label">Recipient Name</div>
             </div>
         ),
-        type: "alphaNumeric",
-        element: null
+        type: "link",
+        element: (row) => (`/recipient/${row.recipient_id}`)
     },
     {
         key: 'Transaction Amount',

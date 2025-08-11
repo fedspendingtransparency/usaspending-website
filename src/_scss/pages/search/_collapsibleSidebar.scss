@@ -227,6 +227,10 @@
               .filter-item-wrap {
                 padding: 0;
               }
+
+              .agency-filter .filter-item-wrap:first-of-type {
+                padding-bottom: rem(16);
+              }
             }
           }
         }
