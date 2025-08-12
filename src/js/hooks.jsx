@@ -66,9 +66,8 @@ const extractSize = (entry, box, sizeType) => {
         return undefined;
     }
 
-    return Array.isArray(entry[box])
-        ? entry[box][0][sizeType]
-        : // @ts-ignore Support Firefox's non-standard behavior
+    return Array.isArray(entry[box]) ?
+        entry[box][0][sizeType] :
         (entry[box][sizeType]);
 };
 
@@ -91,6 +90,8 @@ export const useResizeObserver = (options) => {
         const observer = new ResizeObserver(([entry]) => {
             let boxProp;
 
+            // this is for .observe() options
+            // https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver/observe
             switch (box) {
                 case 'border-box':
                     boxProp = 'borderBoxSize';
