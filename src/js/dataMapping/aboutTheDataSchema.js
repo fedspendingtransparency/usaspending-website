@@ -34,10 +34,6 @@ const schema = {
             {
                 name: "File F (Subaward Attributes)",
                 slug: "file-f"
-            },
-            {
-                name: "Program Activity Reporting Key (PARK)",
-                slug: "park"
             }
         ]
     },
@@ -68,6 +64,10 @@ const schema = {
             {
                 name: "Financing Accounts",
                 slug: "financing-accounts"
+            },
+            {
+                name: "Program Activity Reporting Key (PARK)",
+                slug: "park"
             }
         ]
     },
