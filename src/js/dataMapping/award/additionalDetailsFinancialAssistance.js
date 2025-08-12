@@ -39,7 +39,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                 ? 'Financial Assistance, Aggregated'
                 : 'Financial Assistance, Non-Aggregated',
             ...getUriOrFain(awardData),
-            'Awarding Sub-Agency Code': getSubmittingAgencyId(awardData.generatedId)
+            'Awarding Agency Code': getSubmittingAgencyId(awardData.generatedId)
         },
         agencyDetails: {
             'Awarding Agency': {

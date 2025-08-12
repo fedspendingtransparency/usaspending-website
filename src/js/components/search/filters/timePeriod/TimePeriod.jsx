@@ -289,11 +289,6 @@ const TimePeriod = ({
 
     const tabLabels = [
         {
-            internal: 'dr',
-            label: 'Custom dates',
-            title: 'Custom dates'
-        },
-        {
             internal: 'fy',
             label: (
                 <div>
@@ -301,6 +296,11 @@ const TimePeriod = ({
                 </div>
             ),
             title: 'Fiscal years'
+        },
+        {
+            internal: 'dr',
+            label: 'Custom dates',
+            title: 'Custom dates'
         }
     ];
 

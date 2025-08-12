@@ -11,13 +11,13 @@ const cookie = 'usaspending_mobile_view_disclaimer';
 const MobileMessage = () => {
     const [hideMessage, setHideMessage] = useState(Cookies.get(cookie));
     const onClick = () => {
-        Cookies.set(cookie, { secure: true, httpOnly: true, expires: 1 });
+        Cookies.set(cookie, { secure: true, expires: 1 });
         setHideMessage('hide');
     };
     // remove disclaimer if user switches out of mobile viewport
     const watchWidth = () => {
         if (window.outerWidth >= 568) {
-            Cookies.set(cookie, { secure: true, httpOnly: true, expires: 1 });
+            Cookies.set(cookie, { secure: true, expires: 1 });
             setHideMessage('hide');
         }
     };
@@ -25,7 +25,7 @@ const MobileMessage = () => {
     useEffect(() => {
         if (Cookies.get(cookie) !== 'hide') {
             setTimeout(() => {
-                Cookies.set(cookie, { secure: true, httpOnly: true, expires: 1 });
+                Cookies.set(cookie, { secure: true, expires: 1 });
                 setHideMessage('hide');
             }, 10000);
         }
