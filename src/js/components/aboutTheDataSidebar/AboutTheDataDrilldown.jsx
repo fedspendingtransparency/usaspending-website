@@ -32,7 +32,6 @@ const AboutTheDataDrilldown = ({
         const newUrlString = searchParams ? `?${searchParams?.toString()}` : '';
         const url = window.location.href.split("?");
         const path = url[0];
-        console.log(searchParams, newUrlString);
         if (path) {
             if (searchParams?.size > 0) {
                 return `${path}${newUrlString}&about-the-data=`;
