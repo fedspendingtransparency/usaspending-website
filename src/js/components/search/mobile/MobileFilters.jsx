@@ -13,10 +13,11 @@ const propTypes = {
     filters: PropTypes.object,
     showMobileFilters: PropTypes.bool,
     filterCount: PropTypes.number,
+    timerRef: PropTypes.object,
     toggleMobileFilters: PropTypes.func
 };
 
-const MobileFilters = ({ filters, showMobileFilters }) => (
+const MobileFilters = ({ filters, showMobileFilters, timerRef }) => (
     <TransitionGroup>
         {showMobileFilters && (
             <CSSTransition
@@ -24,7 +25,7 @@ const MobileFilters = ({ filters, showMobileFilters }) => (
                 timeout={195}
                 exit>
                 <div className="mobile-filter-content">
-                    <SearchSidebar filters={filters} />
+                    <SearchSidebar filters={filters} timerRef={timerRef} />
                 </div>
             </CSSTransition>
         )}

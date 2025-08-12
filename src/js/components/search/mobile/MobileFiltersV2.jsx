@@ -13,11 +13,12 @@ const propTypes = {
     showMobileFilters: PropTypes.bool,
     setShowMobileFilters: PropTypes.func,
     sidebarOpen: PropTypes.bool,
+    timerRef: PropTypes.object,
     setSidebarOpen: PropTypes.func
 };
 
 const MobileFiltersV2 = ({
-    filters, showMobileFilters, setShowMobileFilters, sidebarOpen, setSidebarOpen
+    filters, showMobileFilters, setShowMobileFilters, sidebarOpen, setSidebarOpen, timerRef
 }) => (
     <TransitionGroup id="mobile-filter-div">
         {showMobileFilters && (
@@ -26,7 +27,7 @@ const MobileFiltersV2 = ({
                 timeout={195}
                 exit>
                 <div className="mobile-filter-content">
-                    <CollapsibleSidebar filters={filters} setShowMobileFilters={setShowMobileFilters} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+                    <CollapsibleSidebar filters={filters} setShowMobileFilters={setShowMobileFilters} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} timerRef={timerRef} />
                 </div>
             </CSSTransition>
         )}
