@@ -3,7 +3,8 @@
  * Created by Brian Petway 08/22/22
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import Cookies from 'js-cookie';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import HeroUpdate from './heroUpdate/HeroUpdate';
@@ -16,22 +17,30 @@ import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
 
 require('pages/homepageUpdate/homepageUpdate.scss');
 
-const HomepageUpdate = () => (
-    <PageWrapper
-        pageName="Homepage"
-        classNames="usa-da-home-page"
-        noHeader
-        metaTagProps={{ ...homePageMetaTags }}>
-        <main id="main-content" className="main-content homepage-update-content">
-            <HeroUpdate />
-            <SummaryStats />
-            <HomepageFirstRow />
-            <AwardSearch />
-            <HomepageExploreToggle />
-            <HomepageResources />
-            <ReadyToGetStarted />
-        </main>
-    </PageWrapper>
-);
+const HomepageUpdate = () => {
+    useEffect(() => {
+        // ok to rewrite with each page reload
+        // may need to check if timer already logged.
+        Cookies.set('homepage_to_query_time', new Date().getTime());
+    }, []);
+
+    return (
+        <PageWrapper
+            pageName="Homepage"
+            classNames="usa-da-home-page"
+            noHeader
+            metaTagProps={{ ...homePageMetaTags }}>
+            <main id="main-content" className="main-content homepage-update-content">
+                <HeroUpdate />
+                <SummaryStats />
+                <HomepageFirstRow />
+                <AwardSearch />
+                <HomepageExploreToggle />
+                <HomepageResources />
+                <ReadyToGetStarted />
+            </main>
+        </PageWrapper>
+    );
+};
 
 export default HomepageUpdate;
