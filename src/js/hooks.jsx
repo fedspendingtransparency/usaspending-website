@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-const useEventListener = (
+// useEventListener: https://usehooks-ts.com/react-hook/use-event-listener
+export const useEventListener = (
     eventName,
     handler,
     element,
@@ -21,4 +22,113 @@ const useEventListener = (
     }, [handler, eventName, element, options]);
 };
 
-export { useEventListener };
+// useUnmount: https://usehooks-ts.com/react-hook/use-unmount
+export const useUnmount = (func) => {
+    const funcRef = useRef(func);
+
+    funcRef.current = func;
+
+    useEffect(
+        () => () => {
+            funcRef.current();
+        },
+        []
+    );
+};
+
+// useIsMounted: https://usehooks-ts.com/react-hook/use-is-mounted
+export const useIsMounted = () => {
+    const isMounted = useRef(false);
+
+    useEffect(() => {
+        isMounted.current = true;
+
+        return () => {
+            isMounted.current = false;
+        };
+    }, []);
+
+    return useCallback(() => isMounted.current, []);
+};
+
+
+// useResizeObserver: https://usehooks-ts.com/react-hook/use-resize-observer
+const initialSize = {
+    width: undefined,
+    height: undefined
+};
+
+const extractSize = (entry, box, sizeType) => {
+    if (!entry[box]) {
+        if (box === 'contentBoxSize') {
+            return entry.contentRect[sizeType === 'inlineSize' ? 'width' : 'height'];
+        }
+        return undefined;
+    }
+
+    return Array.isArray(entry[box])
+        ? entry[box][0][sizeType]
+        : // @ts-ignore Support Firefox's non-standard behavior
+        (entry[box][sizeType]);
+};
+
+export const useResizeObserver = (options) => {
+    const { ref, box = 'content-box' } = options;
+
+    const [{ width, height }, setSize] = useState(initialSize);
+    const isMounted = useIsMounted();
+    const previousSize = useRef({ ...initialSize });
+    const onResize = useRef(undefined);
+
+    onResize.current = options.onResize;
+
+    useEffect(() => {
+        if (!ref.current) return;
+
+        if (typeof window === 'undefined' || !('ResizeObserver' in window)) return;
+
+        // eslint-disable-next-line no-undef
+        const observer = new ResizeObserver(([entry]) => {
+            let boxProp;
+
+            switch (box) {
+                case 'border-box':
+                    boxProp = 'borderBoxSize';
+                    break;
+                case 'device-pixel-content-box':
+                    boxProp = 'devicePixelContentBoxSize';
+                    break;
+                default: boxProp = 'contentBoxSize';
+            }
+
+            const newWidth = extractSize(entry, boxProp, 'inlineSize');
+            const newHeight = extractSize(entry, boxProp, 'blockSize');
+
+            const hasChanged =
+                previousSize.current.width !== newWidth ||
+                previousSize.current.height !== newHeight;
+
+            if (hasChanged) {
+                const newSize = { width: newWidth, height: newHeight };
+                previousSize.current.width = newWidth;
+                previousSize.current.height = newHeight;
+
+                if (onResize.current) {
+                    onResize.current(newSize);
+                }
+                else if (isMounted()) {
+                    setSize(newSize);
+                }
+            }
+        });
+
+        observer.observe(ref.current, { box });
+
+        // eslint-disable-next-line consistent-return
+        return () => {
+            observer.disconnect();
+        };
+    }, [box, ref, isMounted]);
+
+    return { width, height };
+};
