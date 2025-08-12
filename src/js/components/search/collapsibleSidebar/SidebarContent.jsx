@@ -55,7 +55,7 @@ const SidebarContent = ({
         "COVID-19 Spending": false,
         "Infrastructure Spending": false
     });
-    const [isTablet, setIsTablet] = useState(window.innerWidth < mediumScreen);
+    const [isSmall, setIsSmall] = useState(window.innerWidth < mediumScreen);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const filters = useSelector((state) => state.filters);
@@ -89,7 +89,7 @@ const SidebarContent = ({
         if (windowWidth !== windowWidthTemp) {
             // width changed, update the visualization width
             setWindowWidth(window.innerWidth);
-            setIsTablet(window.innerWidth < mediumScreen);
+            setIsSmall(window.innerWidth < mediumScreen);
         }
     }, [windowWidth]);
 
@@ -125,7 +125,7 @@ const SidebarContent = ({
     return (
         <>
             <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
-                {isTablet &&
+                {isSmall &&
                 <div className="collapsible-sidebar--header">
                     <button
                         className="close-button"
