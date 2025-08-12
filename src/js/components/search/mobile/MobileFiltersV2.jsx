@@ -13,8 +13,8 @@ const propTypes = {
     showMobileFilters: PropTypes.bool,
     setShowMobileFilters: PropTypes.func,
     sidebarOpen: PropTypes.bool,
-    timerRef: PropTypes.object,
-    setSidebarOpen: PropTypes.func
+    setSidebarOpen: PropTypes.func,
+    timerRef: PropTypes.object
 };
 
 const MobileFiltersV2 = ({

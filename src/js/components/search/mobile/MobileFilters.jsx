@@ -13,8 +13,8 @@ const propTypes = {
     filters: PropTypes.object,
     showMobileFilters: PropTypes.bool,
     filterCount: PropTypes.number,
-    timerRef: PropTypes.object,
-    toggleMobileFilters: PropTypes.func
+    toggleMobileFilters: PropTypes.func,
+    timerRef: PropTypes.object
 };
 
 const MobileFilters = ({ filters, showMobileFilters, timerRef }) => (
