@@ -161,10 +161,14 @@ const staticFilters = {
 };
 
 const propTypes = {
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    timerRef: PropTypes.object
 };
 
-const SearchSidebar = ({ filters }) => {
+const SearchSidebar = ({
+    filters,
+    timerRef
+}) => {
     const indexOfUnreleased = staticFilters.options.findIndex((option) => (
         Object.keys(option).includes('isReleased') &&
         !option.isReleased
@@ -215,13 +219,13 @@ const SearchSidebar = ({ filters }) => {
                     </div>
                 </div>
                 <div className="sidebar-top-submit">
-                    <SearchSidebarSubmitContainer />
+                    <SearchSidebarSubmitContainer timerRef={timerRef} />
                 </div>
                 <FilterSidebar
                     {...releasedFilters}
                     expanded={expanded} />
                 <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmitContainer />
+                    <SearchSidebarSubmitContainer timerRef={timerRef} />
                     {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
                     <KeywordSearchLink />

@@ -3,10 +3,9 @@
  * * Created by Andrea Blackwell November 4, 2024
  * **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { throttle } from 'lodash';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
@@ -62,7 +61,10 @@ const SearchPage = ({
     const [fullSidebar, setFullSidebar] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const dispatch = useDispatch();
-
+    const timerRef = useRef({
+        time: new Date().getTime(),
+        hasFired: false
+    });
 
     const infoSectionContent = <>
         <div className="explainer-text__first-column">
@@ -127,12 +129,6 @@ const SearchPage = ({
     };
 
     useEffect(() => {
-        // ok to rewrite with each page reload
-        // may need to check if timer already logged.
-        Cookies.set('advanced_search_to_query_time', new Date().getTime());
-    }, []);
-
-    useEffect(() => {
         setStateHash(hash);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hash]);
@@ -151,7 +147,7 @@ const SearchPage = ({
 
     useEffect(() => {
         setSearchv2(true);
-        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />);
+        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} timerRef={timerRef} />);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -224,7 +220,8 @@ const SearchPage = ({
                             showMobileFilters={showMobileFilters}
                             setShowMobileFilters={setShowMobileFilters}
                             sidebarOpen={sidebarOpen}
-                            setSidebarOpen={setSidebarOpen} />
+                            setSidebarOpen={setSidebarOpen}
+                            timerRef={timerRef} />
                     </FlexGridCol>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
