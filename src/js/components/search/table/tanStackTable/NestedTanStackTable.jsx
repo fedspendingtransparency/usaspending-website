@@ -83,12 +83,17 @@ const NestedTanStackTable = (props) => {
         }
         newFilters.selectedAwardIDs.push(props.awardId);
 
+        let subSortField = subSort.field;
+        if (subSortField === 'Action Date' && props.columnType === "subawards") {
+            subSortField = 'Sub-Award Date';
+        }
+
         const params = {
             filters: newFilters.toParams(),
             fields: requestFields,
             page: subPage,
             limit: subResultsLimit,
-            sort: subSort.field,
+            sort: subSortField,
             order: subSort.direction,
             subawards: true,
             auditTrail: 'Results Table - Spending by award search'
@@ -175,6 +180,15 @@ const NestedTanStackTable = (props) => {
         }
     };
 
+    const formattedSubSort = () => {
+        const formattedSort = subSort;
+        if (formattedSort?.field === 'Sub-Award Date') {
+            formattedSort.field = "Action Date";
+        }
+
+        return formattedSort;
+    };
+
     useEffect(throttle(() => {
         // need to pull out of here to helper or up to Container lv
         if (props.columnType === "subawards") {
@@ -223,7 +237,7 @@ const NestedTanStackTable = (props) => {
                 error={error}
                 resultsCount={props.resultsCount}
                 updateSort={updateSort}
-                sort={subSort}
+                sort={formattedSubSort()}
                 page={subPage}
                 setPage={setSubPage}
                 resultsLimit={subResultsLimit}
