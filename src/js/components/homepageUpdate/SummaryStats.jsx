@@ -68,7 +68,7 @@ const SummaryStats = () => {
             .then((results) => {
                 const hashData = results.data;
                 trackBudgetFunctionLink(title);
-                window.open(`/search/?hash=${hashData.hash}`, '_blank');
+                window.open(`/search?hash=${hashData.hash}`, '_blank');
                 // operation has resolved
                 tempHash = null;
             })
