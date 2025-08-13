@@ -82,7 +82,9 @@ const AboutTheDataPage = () => {
             classNames="about-the-data about-the-data_agencies-page"
             title="Agency Submission Statistics"
             toolBarComponents={[
-                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+                <ShareIcon
+                    url={getBaseUrl(slug)}
+                    onShareOptionClick={() => handleShare} />
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">

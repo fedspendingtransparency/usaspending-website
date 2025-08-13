@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 1/10/2025
  **/
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
@@ -14,6 +14,8 @@ import Accordion from "../../sharedComponents/accordion/Accordion";
 import DsmSlider from "./DsmSlider";
 import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 import KeywordContainer from "../../../containers/search/filters/KeywordContainer";
+import * as Icons from '../../../components/sharedComponents/icons/Icons';
+import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -53,6 +55,8 @@ const SidebarContent = ({
         "COVID-19 Spending": false,
         "Infrastructure Spending": false
     });
+    const [isSmall, setIsSmall] = useState(window.innerWidth < mediumScreen);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const filters = useSelector((state) => state.filters);
 
@@ -78,6 +82,16 @@ const SidebarContent = ({
         'COVID-19 Spending': filters.covidDefCode.size,
         'Infrastructure Spending': filters.infraDefCode.size
     };
+
+    useEffect(() => {
+    // determine if the width changed
+        const windowWidthTemp = window.innerWidth;
+        if (windowWidth !== windowWidthTemp) {
+            // width changed, update the visualization width
+            setWindowWidth(window.innerWidth);
+            setIsSmall(window.innerWidth < mediumScreen);
+        }
+    }, [windowWidth]);
 
     const dsmElHeight = sidebarContentHeight + 51;
 
@@ -111,6 +125,19 @@ const SidebarContent = ({
     return (
         <>
             <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
+                {isSmall &&
+                <div className="collapsible-sidebar--header">
+                    <button
+                        className="close-button"
+                        id="collapsible-mobile-close-button"
+                        aria-label="Close Mobile Filters"
+                        title="Close Mobile Filters"
+                        onClick={() => {
+                            setShowMobileFilters(false);
+                        }}>
+                        <Icons.Close alt="Close About The Data" />
+                    </button>
+                </div>}
                 {!isDsmOpened && (
                     <div
                         className="collapsible-sidebar--search-filters-list"

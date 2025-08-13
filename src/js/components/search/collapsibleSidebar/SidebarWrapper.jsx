@@ -249,8 +249,8 @@ const SidebarWrapper = React.memo(({
         // eslint-disable-next-line no-undef
         const sidebarResizeObserver = new ResizeObserver((entries) => {
             if (
-                (entries[0].contentRect.width === sideBarDesktopWidth - 2) ||
-                (entries[0].contentRect.width === sideBarXlDesktopWidth - 2)
+                (Math.round(entries[0].contentRect.width) === sideBarDesktopWidth - 2) ||
+                (Math.round(entries[0].contentRect.width) === sideBarXlDesktopWidth - 2)
             ) {
                 setRenderSidebarContent(true);
             }
