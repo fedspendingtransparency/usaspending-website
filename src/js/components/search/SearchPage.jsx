@@ -166,7 +166,7 @@ const SearchPage = React.memo(({
                     key={uniqueId()}
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
-                    onShareOptionClick={() => handleShare}
+                    onShareOptionClick={handleShare}
                     classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadIconButton
                     tooltipPosition="left"

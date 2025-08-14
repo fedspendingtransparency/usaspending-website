@@ -84,7 +84,7 @@ const AboutTheDataPage = () => {
             toolBarComponents={[
                 <ShareIcon
                     url={getBaseUrl(slug)}
-                    onShareOptionClick={() => handleShare} />
+                    onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">
