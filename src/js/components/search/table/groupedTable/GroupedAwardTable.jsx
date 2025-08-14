@@ -13,7 +13,7 @@ import {
     getSortedRowModel
 } from '@tanstack/react-table';
 import { uniqueId } from 'lodash';
-import { ColumnBuilder } from 'models/v2/search/table/ColumnBuilder';
+import { ColumnBuilder } from 'models/v2/search/table/groupedTable/ColumnBuilder';
 import { Pagination } from "data-transparency-ui";
 import GroupedTableHeader from './GroupedTableHeader';
 import NestedAwardTable from './NestedAwardTable';

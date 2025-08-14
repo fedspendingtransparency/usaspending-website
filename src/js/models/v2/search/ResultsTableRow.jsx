@@ -7,7 +7,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { pickLocationFormat } from 'helpers/locationFormatter';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
-import { twoVariableFormat } from '../../../helpers/search/tables/tableUtilsHelper';
+import { twoVariableFormat } from '../../../helpers/search/table/tableUtilsHelper';
 import { convertToTitleCase } from "../../../helpers/searchHelper";
 
 const ResultsTableRow = {
