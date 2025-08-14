@@ -22,7 +22,7 @@ const propTypes = {
     highlightedColumns: PropTypes.object
 };
 
-const NestedTanStackTable = (props) => {
+const NestedAwardTable = (props) => {
     const [subData, setSubData] = useState([]);
     const [subColumns, setSubColumns] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -232,7 +232,7 @@ const NestedTanStackTable = (props) => {
     );
 };
 
-NestedTanStackTable.propTypes = propTypes;
+NestedAwardTable.propTypes = propTypes;
 
-export default NestedTanStackTable;
+export default NestedAwardTable;
 
