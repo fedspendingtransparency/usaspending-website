@@ -99,7 +99,7 @@ const AboutTheDataDrilldown = ({
             <div className="atd__share__icon">
                 <ShareIcon
                     url={`${value}${slug}`}
-                    onShareOptionClick={() => onShareClick}
+                    onShareOptionClick={onShareClick}
                     onKeyUp={(e) => {
                         if (e.key === 'Enter') {
                             onShareClick();
