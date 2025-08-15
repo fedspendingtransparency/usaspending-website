@@ -15,7 +15,7 @@ export const defaultFilters = {
     keyword: new OrderedMap(),
     awardType: new Set(),
     time_period: new Set(),
-    timePeriodType: 'dr',
+    timePeriodType: 'fy',
     timePeriodFY: new Set([`${FiscalYearHelper.currentFiscalYear()}`]),
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all',

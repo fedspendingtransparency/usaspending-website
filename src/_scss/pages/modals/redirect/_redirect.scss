@@ -13,8 +13,9 @@
     background-color: $color-white;
     // Overrides the default library max width of 100%
     max-width: rem(1200); 
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.15);
     .usa-dt-modal__header {
-        background-color: $color-primary;
+        background-color: $blue-60v;
         @include display(flex);
         @include justify-content(flex-end);
         .usa-dt-modal__close-button {
@@ -30,39 +31,74 @@
     }
     .usa-dt-modal__body {
         text-align: center;
-        padding: rem(30) rem(45) rem(45) rem(45);
-        .usa-dt-modal__title {
-            @include display(flex);
-            @include align-items(center);
-            @include justify-content(center);
-            .usa-dt-modal__title-icon {
-                @include flex(0 0 rem(35));
-                padding-right: rem(10);
-                svg {
-                    width: rem(25);
-                    height: rem(25);
-                    fill: $color-gray;
+        padding: rem(24);
+        display: flex;
+        .usa-dt-modal__title-icon {
+            margin-right: rem(8);
+            padding-top: rem(7.5);
+            svg {
+                width: rem(32);
+                height: rem(24);
+                fill: $color-gray;
+            }
+        }
+        .usa-dt-modal__text-wrapper {
+            flex: 1 1 auto;
+            width: 89%;
+            @media(min-width: 820px) {
+                width: 100%;
+            }
+            .usa-dt-modal__title {
+            display: flex;
+            align-items: center;
+            .usa-dt-modal__title-text {
+                text-align: left;
+                font-weight: 600;
+                font-size: rem(32);
+                line-height: rem(40);
+                color: $gray-90;
+            }
+            }
+            .usa-dt-modal__explanation {
+            padding-top: rem(16);
+            padding-bottom: rem(16);
+            font-size: $font-size-16;
+            font-weight: $font-semibold;
+            line-height: rem(20);
+            text-align: left;
+            color: $gray-80;
+            }
+            .usa-dt-modal__directions {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            margin-top: rem(16);
+            text-align: left;
+            color: $gray-80;
+            }
+            .usa-dt-modal__link {
+            font-weight: $font-semibold;
+            font-size: rem(16);
+            line-height: rem(24);
+            margin-top: rem(8);
+            text-align: left;
+            pointer-events: none;
+            }
+            .usa-dt-modal__button-container {
+            padding-top: rem(16);
+            padding-bottom: rem(16);
+            justify-content: flex-end;
+            display: flex;
+
+            .button__lg {
+                margin-top: 0;
+                margin-bottom: 0;
+                margin-right: 0;
+                height: rem(40);
+                &:first-of-type {
+                    margin-right: rem(32);
                 }
             }
-            .usa-dt-modal__title-text {
-                @include flex(1 1 auto);
-                font-weight: 600;
-                font-size: rem(34);
             }
-        }
-        .usa-dt-modal__explanation {
-            padding-top: rem(30);
-            padding-bottom: rem(30);
-            font-size: rem(18);
-        }
-        .usa-dt-modal__directions {
-            font-size: $small-font-size;
-            padding-bottom: rem(20);
-            font-weight: 600;
-        }
-        .usa-dt-modal__link {
-            font-weight: 600;
-            font-size: rem(21);
         }
     }
 }

@@ -10,15 +10,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 import { showSlideout } from '../../helpers/slideoutHelper';
+import { Glossary } from './icons/Icons';
 
 
 const propTypes = {
     term: PropTypes.string.isRequired,
     hidden: PropTypes.bool,
-    label: PropTypes.string
+    label: PropTypes.string,
+    alt: PropTypes.string,
+    showHoverText: PropTypes.bool
 };
 
-const GlossaryLink = ({ term, hidden, label = "" }) => {
+const GlossaryLink = ({
+    term,
+    hidden,
+    label = "",
+    alt = "",
+    showHoverText = false
+}) => {
     const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
     useEffect(() => {
@@ -29,6 +38,23 @@ const GlossaryLink = ({ term, hidden, label = "" }) => {
         showSlideout('glossary', { url: term });
         e.stopPropagation();
     };
+
+    const innerContent = () => {
+        if (showHoverText) {
+            if (label) {
+                return <a href={newUrl}>{label} <Glossary alt={alt} /></a>;
+            }
+
+            return <Glossary alt={alt} />;
+        }
+
+        if (label) {
+            return <a href={newUrl}>{label} <FontAwesomeIcon icon="book" /></a>;
+        }
+
+        return <FontAwesomeIcon icon="book" />;
+    };
+
     return (
         <Link
             className="usda-glossary-link"
@@ -36,7 +62,7 @@ const GlossaryLink = ({ term, hidden, label = "" }) => {
             aria-label="Open the Glossary"
             tabIndex={hidden ? "-1" : ""}
             onClick={stopBubble}>
-            {label ? <a href={newUrl}>{label} <FontAwesomeIcon icon="book" /></a> : <FontAwesomeIcon icon="book" />}
+            {innerContent()}
         </Link>
     );
 };

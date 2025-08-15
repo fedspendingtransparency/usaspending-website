@@ -135,7 +135,7 @@ const ResultsTableContainer = (props) => {
     const isV2 = pathname === GlobalConstants.SEARCH_V2_PATH;
     const showToggle = isV2 && (props.spendingLevel !== "awards");
     const [isMobile, setIsMobile] = useState(false);
-    const [columnType, setColumnType] = useState(null);
+    const [columnType, setColumnType] = useState(props.spendingLevel);
 
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
@@ -229,6 +229,10 @@ const ResultsTableContainer = (props) => {
             sortDirection = 'desc';
         }
 
+        if (searchOrder?.field === 'Action Date' && props.spendingLevel !== 'transactions') {
+            searchOrder.field = 'Sub-Award Date';
+        }
+
         const loadExpandableData = (showToggle && spendingLevel === "awards" && !isMobile);
         let params = {
             filters: searchParamsTemp.toParams(),
@@ -278,6 +282,7 @@ const ResultsTableContainer = (props) => {
                     "Primary Place of Performance",
                     "Awarding Agency",
                     "awarding_agency_id",
+                    "recipient_id",
                     "Awarding Sub Agency",
                     "NAICS",
                     "PSC",
@@ -592,12 +597,22 @@ const ResultsTableContainer = (props) => {
             setSpendingLevel(props.spendingLevel);
             setIsSubaward(props.spendingLevel === "subawards");
             setIsTransactions(props.spendingLevel === "transactions");
+            setExpandableData([]);
             return;
         }
 
         setSpendingLevel("awards");
         setIsSubaward(false);
         setIsTransactions(false);
+    };
+
+    const formattedSubSort = () => {
+        const formattedSort = sort;
+        if (formattedSort?.field === 'Sub-Award Date') {
+            formattedSort.field = "Action Date";
+        }
+
+        return formattedSort;
     };
 
     useEffect(throttle(() => {
@@ -671,7 +686,7 @@ const ResultsTableContainer = (props) => {
                 inFlight={inFlight}
                 results={results}
                 columns={columns[tableType]}
-                sort={sort}
+                sort={props.spendingLevel !== 'transactions' ? formattedSubSort() : sort}
                 tableTypes={tabsWithCounts}
                 currentType={tableType}
                 tableInstance={tableInstance}
@@ -692,7 +707,8 @@ const ResultsTableContainer = (props) => {
                 expandableData={expandableData}
                 filters={props.filters}
                 checkMobile={(isMobileState) => setIsMobile(isMobileState)}
-                columnType={columnType} />
+                columnType={columnType}
+                subColumnOptions={columns} />
         </SearchSectionWrapper>
     );
 };

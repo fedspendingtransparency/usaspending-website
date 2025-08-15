@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { Link } from 'react-router-dom';
-import { awardTypeCodes } from 'dataMapping/search/awardType';
+import { awardTypeCodes, glossaryLinks } from 'dataMapping/search/awardType';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
 import { CovidFlagTooltip, UnlinkedTooltip } from '../shared/InfoTooltipContent';
+import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const AwardPageWrapper = ({
     allDefCodes,
     awardType,
     title,
-    glossaryLink,
     overviewType,
     identifier,
     idLabel = "PIID",
@@ -55,9 +53,7 @@ const AwardPageWrapper = ({
                 <div className="award__info">
                     <h2 className="award__heading-text">{title}</h2>
                     <div className="award__heading-icon">
-                        <Link to={glossaryLink}>
-                            <Glossary alt={glossaryTitleText} />
-                        </Link>
+                        <GlossaryLink alt={glossaryTitleText} term={glossaryLinks[overviewType]} showHoverText />
                     </div>
                     <div className="award__heading-id">
                         <h3>{idLabel}</h3>

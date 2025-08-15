@@ -4,13 +4,19 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
+import { isCancel } from "axios";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { fetchBreakdown } from 'helpers/explorerHelper';
 import { formatMoneyWithUnits } from "helpers/moneyFormatter";
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import Analytics from 'helpers/analytics/Analytics';
+import { generateUrlHash } from "helpers/searchHelper";
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
+import { REQUEST_VERSION } from "GlobalConstants";
+
 
 const SummaryStats = () => {
     const [loading, setLoading] = useState(true);
@@ -19,7 +25,15 @@ const SummaryStats = () => {
     const [budgetData, setBudgetData] = useState([]);
     const [budgetTotal, setBudgetTotal] = useState([]);
     const [randomIndex, setRandomIndex] = useState(0);
-    const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name: "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
+    const budgetCategories = [
+        { name: "Medicare" },
+        { name: "National Defense" },
+        { name: "Social Security" },
+        { name: "Transportation" },
+        { name: "Agriculture" },
+        { name: "Veterans Benefits and Services", label: "Veterans Benefits" },
+        { name: "Energy" }, { name: "Net Interest" }
+    ];
     const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
     const trackExplorerLink = () => Analytics.event({
@@ -29,7 +43,51 @@ const SummaryStats = () => {
         label: 'explorer'
     });
 
+    const trackBudgetFunctionLink = (title) => Analytics.event({
+        event: 'homepage-summary-stats',
+        category: 'Homepage - Summary Stats Budget Function Title Click',
+        action: 'Link',
+        label: `clicked - ${title}`
+    });
+
     const selectRandomIndex = () => Math.floor(Math.random() * 10);
+
+    const performSearch = (title, e) => {
+        e.preventDefault();
+
+        const filterValue = {
+            filters: {
+                ...defaultFilters,
+                keyword: { [title]: title }
+            },
+            version: REQUEST_VERSION
+        };
+
+        let tempHash = generateUrlHash(filterValue);
+        tempHash.promise
+            .then((results) => {
+                const hashData = results.data;
+                trackBudgetFunctionLink(title);
+                window.open(`/search?hash=${hashData.hash}`, '_blank');
+                // operation has resolved
+                tempHash = null;
+            })
+            .catch((hashError) => {
+                console.log(hashError);
+                if (isCancel(hashError)) {
+                    // Got cancelled
+                }
+                else if (error.response) {
+                    // Errored out but got response, toggle noAward flag
+                    this.hash = null;
+                }
+                else {
+                    // Request failed
+                    tempHash = null;
+                    console.log(error);
+                }
+            });
+    };
 
     const fetchBudgetFunctions = () => {
         if (request.current) {
@@ -75,6 +133,36 @@ const SummaryStats = () => {
             });
     };
 
+    const renderLink = (name) => (
+        <a
+            role="button"
+            tabIndex={0}
+            aria-label="View awards"
+            onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    performSearch(name, e);
+                }
+            }}
+            onClick={(e) => performSearch(name, e)}>
+            {name}
+        </a>);
+
+    const loadBudgetItem = (index) => {
+        if (loading) {
+            return (<span className="dot-pulse" />);
+        }
+        return (
+            <>
+                <span
+                    className="budget-item__amount">{formatMoneyWithUnits(budgetData[index % budgetData?.length]?.amount)}
+                </span><br />
+                <span className="budget-item__name">
+                    {!error ? 'on ' : ''}
+                    {renderLink(budgetData[index % budgetData?.length]?.name)}
+                </span>
+            </>);
+    };
+
     useEffect(() => {
         if (latestFy && latestPeriod) {
             fetchBudgetFunctions();
@@ -88,32 +176,20 @@ const SummaryStats = () => {
                 <FlexGridRow className="grid-content">
                     <FlexGridCol width={4} className="summary-stats__budget-total-container">
                         <span>So far this year, the federal government</span><br />
-                        <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
+                        <span>plans to spend {loading ? <span className="dot-pulse" />
+                            :
+                            <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…
+                        </span>
                     </FlexGridCol>
                     <FlexGridCol className="summary-stats__budget-items">
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex)}
                         </div>
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex + 1)}
                         </div>
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex + 2)}
                         </div>
                     </FlexGridCol>
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
@@ -152,28 +228,13 @@ const SummaryStats = () => {
                         width={12}
                         className="summary-stats__budget-items">
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex)}
                         </div>
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex + 1)}
                         </div>
                         <div className="summary-stats__budget-item">
-                            {loading ? <span className="dot-pulse" /> :
-                                <>
-                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
-                                </>
-                            }
+                            {loadBudgetItem(randomIndex + 2)}
                         </div>
                     </FlexGridCol>
                     <FlexGridCol width={12} className="summary-stats__spending-link">
