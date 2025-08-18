@@ -10,7 +10,7 @@ import { renderWithoutRouter, screen } from "test-utils";
 import { expect } from '@jest/globals';
 import DetailHeader from "components/explorer/detail/header/DetailHeader";
 import * as hooks from "containers/agency/WithAgencySlugs";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 const mockAPIResponse = {
     results: [
