@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
-import { flowRight } from 'lodash';
+import { flowRight } from 'lodash-es';
 import { useMatch } from 'react-router-dom';
 
 import Award from 'components/award/Award';

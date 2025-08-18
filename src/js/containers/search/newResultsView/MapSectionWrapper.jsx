@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, keyBy } from 'lodash';
+import { uniqueId, keyBy } from 'lodash-es';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import { stateFIPSByAbbreviation, stateNameFromFips } from 'dataMapping/state/stateNames';
 

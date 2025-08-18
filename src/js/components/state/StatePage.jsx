@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { find, throttle } from 'lodash';
+import { find, throttle } from 'lodash-es';
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { statePageMetaTags } from 'helpers/metaTagHelper';
 import { useDispatch } from 'react-redux';

@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 
 import Analytics from 'helpers/analytics/Analytics';
 

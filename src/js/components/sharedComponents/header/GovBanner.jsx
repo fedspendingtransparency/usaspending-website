@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 

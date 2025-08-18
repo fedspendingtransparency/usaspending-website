@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
 import kGlobalConstants from 'GlobalConstants';

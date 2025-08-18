@@ -12,7 +12,7 @@ import {
 } from 'data-transparency-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';

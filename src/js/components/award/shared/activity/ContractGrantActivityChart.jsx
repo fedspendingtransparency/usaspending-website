@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { cloneDeep, compact, sum } from 'lodash';
+import { cloneDeep, compact, sum } from 'lodash-es';
 import { scaleLinear } from 'd3-scale';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';

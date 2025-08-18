@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { map } from 'lodash-es';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
 
