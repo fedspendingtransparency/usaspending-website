@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
 import GlobalConstants from 'GlobalConstants';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';

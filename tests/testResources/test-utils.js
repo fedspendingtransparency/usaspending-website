@@ -5,7 +5,7 @@ import React from "react";
 import { render as rtlRender } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { BrowserRouter, Routes, MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, MemoryRouter } from 'react-router';
 
 // Import your own reducer
 import reducer from "../../src/js/redux/reducers/index";

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { errorPageMetaTags } from 'helpers/metaTagHelper';
 

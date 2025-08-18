@@ -5,7 +5,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setInitialAppLoadForDAP } from 'redux/actions/googleAnalytics/googleAnalytics';
