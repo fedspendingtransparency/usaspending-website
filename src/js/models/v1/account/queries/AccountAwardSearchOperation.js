@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/13/17
  */
 
-import { concat, map } from 'lodash';
+import { concat, map } from 'lodash-es';
 
 import * as AwardTypeQuery from 'models/v1/search/queryBuilders/AwardTypeQuery';
 import { convertFYToDateRange } from 'helpers/fiscalYearHelper';

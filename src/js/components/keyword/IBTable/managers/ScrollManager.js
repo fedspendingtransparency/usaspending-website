@@ -3,7 +3,7 @@
  * Created by Kevin Li 12/9/17
  */
 
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 
 const ScrollManager = () => {
     let _state = {

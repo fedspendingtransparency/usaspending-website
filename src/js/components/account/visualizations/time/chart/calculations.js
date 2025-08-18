@@ -3,7 +3,7 @@
  * Created by Kevin Li 7/26/17
  */
 
-import { min, max } from 'lodash';
+import { min, max } from 'lodash-es';
 
 export const buildYRange = (allY) => {
     const yRange = [];

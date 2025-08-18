@@ -3,7 +3,7 @@
 * Created by Emily Gullo
 **/
 
-import { concat } from 'lodash';
+import { concat } from 'lodash-es';
 
 import * as FilterFields from 'dataMapping/search/filterFields';
 
