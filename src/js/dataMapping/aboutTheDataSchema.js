@@ -64,6 +64,10 @@ const schema = {
             {
                 name: "Financing Accounts",
                 slug: "financing-accounts"
+            },
+            {
+                name: "Program Activity Reporting Key (PARK)",
+                slug: "park"
             }
         ]
     },

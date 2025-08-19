@@ -20,36 +20,34 @@ const defaultProps = {
     hasOfficial: true
 };
 
-export default class DefinitionTabs extends React.Component {
-    render() {
-        const items = [];
+const DefinitionTabs = (props) => {
+    const items = [];
 
-        if (this.props.hasPlain) {
-            items.push(<TabItem
-                key="plain"
-                label="Plain Language"
-                type="plain"
-                active={this.props.activeTab === "plain"}
-                clickedTab={this.props.clickedTab} />);
-        }
-
-        if (this.props.hasOfficial) {
-            items.push(<TabItem
-                key="official"
-                label="Official Definition"
-                type="official"
-                active={this.props.activeTab === "official"}
-                clickedTab={this.props.clickedTab} />);
-        }
-
-
-        return (
-            <ul className="definition-tabs">
-                {items}
-            </ul>
-        );
+    if (props.hasPlain) {
+        items.push(<TabItem
+            key="plain"
+            label="Plain Language"
+            type="plain"
+            active={props.activeTab === "plain"}
+            clickedTab={props.clickedTab} />);
     }
-}
+
+    if (props.hasOfficial) {
+        items.push(<TabItem
+            key="official"
+            label="Official Definition"
+            type="official"
+            active={props.activeTab === "official"}
+            clickedTab={props.clickedTab} />);
+    }
+
+    return (
+        <ul className="definition-tabs">
+            {items}
+        </ul>
+    );
+};
 
 DefinitionTabs.propTypes = propTypes;
 DefinitionTabs.defaultProps = defaultProps;
+export default DefinitionTabs;

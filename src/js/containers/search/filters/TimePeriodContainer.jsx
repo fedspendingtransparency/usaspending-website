@@ -34,7 +34,7 @@ const propTypes = {
 
 const TimePeriodContainer = (props) => {
     const [timePeriods, setTimePeriods] = useState([]);
-    const [activeTab, setActiveTab] = useState('dr');
+    const [activeTab, setActiveTab] = useState('fy');
 
     const setUpdateState = (prop) => {
         setActiveTab(prop.filterTimePeriodType);

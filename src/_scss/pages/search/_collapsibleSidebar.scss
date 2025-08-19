@@ -116,14 +116,12 @@
     }
 
     .collapsible-sidebar--header {
-      padding: rem(16) rem(32);
-      font-size: 16px;
-      font-weight: $font-semibold;
+      padding: rem(20) rem(20) 0 rem(32);
       line-height: 1.5;
       color: $gray-90;
-      border-bottom: $gray-cool-10 1px solid;
       background-color: unset;
-
+      display: flex;
+      justify-content: flex-end;
       #collapsible-mobile-close-button {
         @media(min-width: $medium-screen) {
           display: none;
@@ -132,10 +130,9 @@
         width: rem(10);
         height: rem(10);
         background-color: white;
+        margin: 0;
+        stroke-width: rem(2);
         padding: 0;
-        right: 0;
-        position: absolute;
-
         svg {
           width: rem(10);
           height: rem(10);
@@ -226,6 +223,10 @@
 
               .filter-item-wrap {
                 padding: 0;
+              }
+
+              .agency-filter .filter-item-wrap:first-of-type {
+                padding-bottom: rem(16);
               }
             }
           }

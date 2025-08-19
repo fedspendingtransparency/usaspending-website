@@ -106,7 +106,7 @@ const AgenciesContainer = ({
                         return row;
                     });
                     if (searchTerm) {
-                        dispatch(setSearchResults(activeTab, parsedResults));
+                        dispatch(setSearchResults(parsedResults, activeTab));
                     }
                     else {
                         dispatch(setTableData(activeTab, parsedResults));
@@ -136,7 +136,7 @@ const AgenciesContainer = ({
                 });
                 changePublicationsTotal(totalItems);
                 if (searchTerm) {
-                    dispatch(setSearchResults(activeTab, parsedResults));
+                    dispatch(setSearchResults(parsedResults, activeTab));
                 }
                 else {
                     dispatch(setTableData(activeTab, parsedResults));

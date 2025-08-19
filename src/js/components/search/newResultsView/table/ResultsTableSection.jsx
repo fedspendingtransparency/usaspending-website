@@ -9,6 +9,7 @@ import { Tabs, NoResultsMessage } from 'data-transparency-ui';
 import { throttle } from "lodash";
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
+import TanStackTable from '../../table/tanStackTable/TanStackTable';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -68,7 +69,35 @@ const ResultsTableSection = (props) => {
         if (isMobile && props.checkMobile && props.showToggle) {
             props.checkMobile(isMobile);
         }
-    }, [isMobile]);
+    }, [isMobile, props]);
+
+    const renderContent = () => {
+        if (!props.results.length) {
+            return <NoResultsMessage />;
+        }
+
+        if (props.expandableData?.length) {
+            return (
+                <TanStackTable
+                    {...props}
+                    expandableData={props.expandableData}
+                    columnType={props.columnType}
+                    isMobile={isMobile}
+                    visibleWidth={tableWidth}
+                    newMobileView />
+            );
+        }
+
+        return (
+            <ResultsTable
+                {...props}
+                visibleWidth={tableWidth}
+                awardIdClick={props.awardIdClick}
+                subAwardIdClick={props.subAwardIdClick}
+                isMobile={isMobile}
+                newMobileView />
+        );
+    };
 
     return (
         <div className="search-results-table-section" id="results-section-table">
@@ -77,19 +106,7 @@ const ResultsTableSection = (props) => {
                 active={props.currentType}
                 switchTab={props.switchTab} />
             <div className="results-table-content">
-                {props.results.length ? (
-                    <ResultsTable
-                        {...props}
-                        visibleWidth={tableWidth}
-                        awardIdClick={props.awardIdClick}
-                        subAwardIdClick={props.subAwardIdClick}
-                        isMobile={isMobile}
-                        newMobileView
-                        showToggle={props.showToggle} />
-                )
-                    :
-                    <NoResultsMessage />
-                }
+                {renderContent()}
             </div>
         </div>
     );

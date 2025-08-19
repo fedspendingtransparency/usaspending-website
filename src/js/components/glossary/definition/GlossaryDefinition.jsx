@@ -120,6 +120,7 @@ const GlossaryDefinition = (props) => {
                 clickedTab={clickedTab} />
             <div className="glossary-definition__column-share-icon">
                 <ShareIcon
+                    isSidePanel
                     url={value + slug}
                     tabIndex={0}
                     onShareOptionClick={onShareClick}

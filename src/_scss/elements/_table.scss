@@ -3,13 +3,6 @@ table {
     margin: 2em 0;
     min-width: 100%;
 
-    &.table-for-new-search-page {
-        td {
-            // this is necessary to make the usda-table__row class hover work correctly
-            background-color: unset;
-        }
-    }
-
     thead {
         th {
             background-color: $color-gray-lightest;
@@ -33,24 +26,37 @@ table {
         padding: 1.5rem;
     }
 
+
+    &.table-for-new-search-page {
+        .table-header__content_right {
+            text-align: right;
+        }
+        td {
+            // this is necessary to make the usda-table__row class hover work correctly
+            background-color: unset;
+        }
+
+    }
+
     .usda-table__body {   
-        .expaned-table-parent__sticky.td {
-            border-bottom: none;
+        .expaned-table-parent__sticky{
+            .td {
+                border-bottom: none;
+            }
         }
             
         .expaned-table-container {
             position: sticky;
             position: -webkit-sticky;
-            z-index: 12;
-            overflow-x: scroll;
-            border: none;
+            border: none;                
+            padding: rem(16);
+            margin: auto rem(8);
+            top: 50px;
             
             .expaned-table-container__outer-cell {
                 border: rem(1) solid $gray-cool-10;
                 border-radius: rem(4);
                 background-color: $color-white;
-                padding: rem(16);
-                margin-left: rem(8);
                 
                 .table-title {
                     color: $gray-90;
@@ -85,4 +91,9 @@ table {
         border-left: 0;
         border-right: 0;
     }
+}
+
+.expandable-table__show-expanded{
+    table-layout: fixed;
+    width: 500px; 
 }

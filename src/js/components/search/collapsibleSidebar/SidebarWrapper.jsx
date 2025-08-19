@@ -34,6 +34,7 @@ const SidebarWrapper = React.memo(({
     const [isFooterVisible, setIsFooterVisible] = useState();
     const [isDsmOpened, setIsDsmOpened] = useState(false);
     const [headerHeight, setHeaderHeight] = useState();
+    const [renderSidebarContent, setRenderSidebarContent] = useState(true);
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -111,10 +112,6 @@ const SidebarWrapper = React.memo(({
 
     const handleScroll = throttle(() => {
         if (window.scrollY > 0) {
-            if (document.querySelector(".v2 .site-header")) {
-                document.querySelector(".v2 .site-header").style.zIndex = 1;
-            }
-
             if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
                 document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 10;
             }
@@ -155,7 +152,6 @@ const SidebarWrapper = React.memo(({
         document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
-        document.querySelector(".sidebar-submit").style.display = "block";
         const allDsmSlidersToOpen = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
         if (allDsmSlidersToOpen.length) {
             for (const slider of allDsmSlidersToOpen.values()) {
@@ -171,7 +167,6 @@ const SidebarWrapper = React.memo(({
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
-        document.querySelector(".sidebar-submit").style.display = "none";
         const allDsmSlidersToClose = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
         if (allDsmSlidersToClose.length) {
             for (const slider of allDsmSlidersToClose.values()) {
@@ -251,11 +246,27 @@ const SidebarWrapper = React.memo(({
             setHeaderHeight(entries[0].target?.clientHeight);
         });
 
+        // eslint-disable-next-line no-undef
+        const sidebarResizeObserver = new ResizeObserver((entries) => {
+            if (
+                (Math.round(entries[0].contentRect.width) === sideBarDesktopWidth - 2) ||
+                (Math.round(entries[0].contentRect.width) === sideBarXlDesktopWidth - 2)
+            ) {
+                setRenderSidebarContent(true);
+            }
+            else {
+                setRenderSidebarContent(false);
+            }
+        });
+
         const mainContent = document.querySelector("#main-content");
         mainContentResizeObserver.observe(mainContent);
 
         const siteHeader = document.querySelector(".site-header");
         headerResizeObserver.observe(siteHeader);
+
+        const sidebar = document.querySelector(".collapsible-sidebar");
+        sidebarResizeObserver.observe(sidebar);
 
         handleResize();
 
@@ -269,8 +280,8 @@ const SidebarWrapper = React.memo(({
             window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
             mainContentResizeObserver?.unobserve(mainContent);
-
             headerResizeObserver?.unobserve(siteHeader);
+            sidebarResizeObserver?.unobserve(sidebar);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -319,12 +330,15 @@ const SidebarWrapper = React.memo(({
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
                     }
                 </div>
-                <SidebarContent
-                    sidebarContentHeight={sidebarContentHeight}
-                    setShowMobileFilters={setShowMobileFilters}
-                    isDsmOpened={isDsmOpened}
-                    setIsDsmOpened={setIsDsmOpened}
-                    timerRef={timerRef} />
+                { isOpened &&
+                    <SidebarContent
+                        sidebarContentHeight={sidebarContentHeight}
+                        setShowMobileFilters={setShowMobileFilters}
+                        isDsmOpened={isDsmOpened}
+                        setIsDsmOpened={setIsDsmOpened}
+                        timerRef={timerRef}
+                        renderSidebarContent={isMobile || renderSidebarContent} />
+                }
             </div>
         </div>
     );
