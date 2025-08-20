@@ -76,7 +76,7 @@ const ResultsTableSection = (props) => {
             return <NoResultsMessage />;
         }
 
-        if (props.expandableData.length) {
+        if (props.expandableData?.length) {
             return (
                 <TanStackTable
                     {...props}
