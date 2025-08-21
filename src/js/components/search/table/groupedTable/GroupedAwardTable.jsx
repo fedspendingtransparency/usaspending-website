@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /**
  * TanStackTable.jsx
  * Created by JD House July 2, 2025
@@ -149,7 +150,7 @@ const GroupedAwardTable = (props) => {
             <Pagination
                 resultsText
                 limitSelector
-                hideLast={props.resultsCount >= 50000}
+                hideLast={props.expandableData.length >= 50000}
                 currentPage={props.page}
                 pageSize={props.resultsLimit}
                 changePage={props.setPage}

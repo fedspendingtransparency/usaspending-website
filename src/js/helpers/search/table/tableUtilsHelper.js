@@ -64,12 +64,11 @@ export const getSubawardDataByPrimeId = (awardId, filters, paramsOptions) => {
 
     // needs to be dynamic but for now we will go with defaults
     searchParamsTemp.awardType = subawardTypeGroups.subcontracts;
-
-    const newFilters = searchParamsTemp;
-    if (!Object.prototype.hasOwnProperty.call(newFilters, "selectedAwardIDs")) {
-        newFilters.selectedAwardIDs = [];
+    if (!Object.prototype.hasOwnProperty.call(searchParamsTemp, "selectedAwardIDs")) {
+        searchParamsTemp.selectedAwardIDs = [];
     }
-    newFilters.selectedAwardIDs.push(awardId);
+
+    searchParamsTemp.selectedAwardIDs.push(awardId);
 
     const subSort = paramsOptions.subSort || {
         field: "Sub-Award Amount",
@@ -77,7 +76,7 @@ export const getSubawardDataByPrimeId = (awardId, filters, paramsOptions) => {
     };
 
     const params = {
-        filters: newFilters.toParams(),
+        filters: searchParamsTemp.toParams(),
         fields: requestFields,
         page: paramsOptions?.subPage || 1,
         limit: paramsOptions.subResultsLimit || 100,
@@ -124,11 +123,10 @@ export const getTransactionDataByPrimeId = (awardId, filters, paramsOptions) => 
     // needs to be dynamic but for now we will go with defaults
     searchParamsTemp.awardType = transactionTypeGroups.transaction_contracts;
 
-    const newFilters = searchParamsTemp;
-    if (!Object.prototype.hasOwnProperty.call(newFilters, "selectedAwardIDs")) {
-        newFilters.selectedAwardIDs = [];
+    if (!Object.prototype.hasOwnProperty.call(searchParamsTemp, "selectedAwardIDs")) {
+        searchParamsTemp.selectedAwardIDs = [];
     }
-    newFilters.selectedAwardIDs.push(awardId);
+    searchParamsTemp.selectedAwardIDs.push(awardId);
 
     const subSort = paramsOptions.subSort || {
         field: "Transaction Amount",
@@ -136,7 +134,7 @@ export const getTransactionDataByPrimeId = (awardId, filters, paramsOptions) => 
     };
 
     const params = {
-        filters: newFilters.toParams(),
+        filters: searchParamsTemp.toParams(),
         fields: requestFields,
         page: paramsOptions?.subPage || 1,
         limit: paramsOptions.subResultsLimit || 100,
@@ -166,4 +164,4 @@ export const getNestedTableData = (type, awardId, filters, paramsOptions) => {
         default:
             return null;
     }
-}
+};

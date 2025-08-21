@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { uniqueId, throttle } from 'lodash';
+import { throttle } from 'lodash';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import ResultsTable from '../ResultsTable';
 import { getNestedTableData } from '../../../../helpers/search/table/tableUtilsHelper';
@@ -34,7 +34,7 @@ const NestedAwardTable = (props) => {
     let searchRequest = null;
 
     // consider pull out to helper fileor up to Container lv
-    const getSubData = () => {
+    const getSubData = async () => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
             searchRequest.cancel();
@@ -50,29 +50,19 @@ const NestedAwardTable = (props) => {
             subResultsLimit
         };
 
-        searchRequest = getNestedTableData(props.columnType, props.awardId, props.filters, paramsOptions);
+        searchRequest = await getNestedTableData(props.columnType, props.awardId, props.filters, paramsOptions);
 
         return searchRequest.promise
             .then((res) => {
-                const newState = {
-                    inFlight: false
-                };
-
                 const parsedResults = res.data.results.map((result) => ({
                     ...result,
                     generated_internal_id: encodeURIComponent(result.generated_internal_id)
                 }));
 
-                // don't clear records if we're appending (not the first page)
-                newState.tableInstance = `${uniqueId()}`;
-                newState.results = parsedResults;
-
                 // request is done
                 searchRequest = null;
-                newState.page = res.data.page_metadata.page;
-                newState.lastPage = !res.data.page_metadata.hasNext;
-                setSubPage(newState.page);
-                setSubData(newState.results);
+                setSubPage(res.data.page_metadata.page);
+                setSubData(parsedResults);
                 setIsLoading(false);
             })
             .catch((err) => {
