@@ -11,7 +11,7 @@ import {
     ShareIcon
 } from 'data-transparency-ui';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
 import { throttle } from "lodash-es";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash-es';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { formatMoney } from 'helpers/moneyFormatter';
 

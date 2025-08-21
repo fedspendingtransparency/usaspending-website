@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { startCase } from 'lodash-es';
 
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const TruncationWarning = ({
     activeSubdivision = 'award'

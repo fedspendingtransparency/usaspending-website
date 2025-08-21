@@ -8,7 +8,7 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useSearchParams, useLocation } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router";
 import { max, get } from 'lodash-es';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
