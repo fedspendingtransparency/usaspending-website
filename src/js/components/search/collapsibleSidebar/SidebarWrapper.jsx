@@ -43,7 +43,7 @@ const SidebarWrapper = React.memo(({
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
     const additionalRibbonHeight = 57;
-    const shortRibbonHeight = 73;
+    // const shortRibbonHeight = 73;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -298,7 +298,7 @@ const SidebarWrapper = React.memo(({
         return sidebarHeight;
     };
 
-    const getFooterHeight = () => `${mainContentHeight - shortRibbonHeight - footerEl.getBoundingClientRect().top}px`;
+    // const getFooterHeight = () => `${mainContentHeight - shortRibbonHeight - footerEl.getBoundingClientRect().top}px`;
 
     return (
         <div
@@ -306,7 +306,7 @@ const SidebarWrapper = React.memo(({
             style={isMobile ? {} : { display: "none" }}>
             <div
                 style={isFooterVisible ? {
-                    height: selectHeight(), overscrollBehavior: "none", position: "fixed", bottom: getFooterHeight()
+                    height: selectHeight(), overscrollBehavior: "none", position: "fixed"
                 } : {
                     height: selectHeight(), overscrollBehavior: "none"
                 }}
