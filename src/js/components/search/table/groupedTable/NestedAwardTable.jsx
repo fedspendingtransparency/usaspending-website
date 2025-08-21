@@ -134,13 +134,10 @@ const NestedAwardTable = (props) => {
 
     return (
         <>
-            {props.title && <span className="table-title">{props.title}</span>}
-            {props.subTitle && (
-                <>
-                    <br />
-                    <span className="table-subTitle">{props.subTitle}</span>
-                </>
-            )}
+            <span className="table-title">{props.awardId}</span>
+            <br />
+            <span className="table-subTitle">{`${props.columnType === "subawards" ? 'Subawards' : 'Transacitions'} that match search criteria`}</span>
+
             <ResultsTable
                 {...props}
                 results={subData}
