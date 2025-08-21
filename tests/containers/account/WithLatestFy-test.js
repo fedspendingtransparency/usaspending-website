@@ -11,7 +11,7 @@
 */
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { Router, useNavigate, useLocation } from 'react-router-dom';
+import { Router, useNavigate, useLocation } from 'react-router';
 import { List } from 'immutable';
 import { renderHook } from '@testing-library/react-hooks';
 import * as redux from 'react-redux';

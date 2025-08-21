@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { map, uniqueId } from 'lodash';
 import { Pagination } from 'data-transparency-ui';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import tableMapping from 'dataMapping/award/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';

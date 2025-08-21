@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import GlobalConstants from 'GlobalConstants';
 import { faFunnelDollar } from "@fortawesome/free-solid-svg-icons";
 import { NewPicker } from 'data-transparency-ui';

@@ -10,7 +10,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import { useDispatch } from 'react-redux';
 
 import { ShareIcon } from 'data-transparency-ui';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import MainCards from "./shared/MainCards";

@@ -6,7 +6,7 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { useDispatch } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import { ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
