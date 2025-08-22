@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { throttle } from "lodash";
 import { tabletScreen, mLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 

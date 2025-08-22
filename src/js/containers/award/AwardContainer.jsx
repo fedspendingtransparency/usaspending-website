@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
 import { flowRight } from 'lodash';
-import { useMatch } from 'react-router-dom';
+import { useMatch } from 'react-router';
 
 import Award from 'components/award/Award';
 import * as SearchHelper from 'helpers/searchHelper';

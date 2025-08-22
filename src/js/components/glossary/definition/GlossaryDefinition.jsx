@@ -123,7 +123,7 @@ const GlossaryDefinition = (props) => {
                     isSidePanel
                     url={value + slug}
                     tabIndex={0}
-                    onShareOptionClick={() => onShareClick}
+                    onShareOptionClick={onShareClick}
                     colors={{ backgroundColor: "#215493", color: "#e2e2e2" }}
                     dropDownDirection="left"
                     noShareText />

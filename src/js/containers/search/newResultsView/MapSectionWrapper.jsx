@@ -16,7 +16,7 @@ import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import GlobalConstants from 'GlobalConstants';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
