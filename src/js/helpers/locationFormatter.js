@@ -3,7 +3,7 @@
  * Created by michaelbray on 2/23/17.
  */
 
-import { startCase, toLower } from 'lodash';
+import { startCase, toLower } from 'lodash-es';
 import { convertToTitleCase } from './searchHelper';
 
 export const formatLocation = (location) => {

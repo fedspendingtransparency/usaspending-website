@@ -4,7 +4,7 @@
  * This is EXTREMELY TEMPORARY - DO NOT DEPEND ON THIS
  */
 
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 
 const exchangeTemplate = {
     labelsToFrontend: {},

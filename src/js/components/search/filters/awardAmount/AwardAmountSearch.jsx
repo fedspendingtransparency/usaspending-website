@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { awardRanges } from 'dataMapping/search/awardAmount';
-import { reduce, each } from 'lodash';
+import { reduce, each } from 'lodash-es';
 import { formatAwardAmountRange } from 'helpers/awardAmountHelper';
 import SelectedAwardAmountBound from
     'components/search/filters/awardAmount/SelectedAwardAmountBound';

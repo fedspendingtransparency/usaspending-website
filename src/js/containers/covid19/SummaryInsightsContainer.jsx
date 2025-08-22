@@ -12,7 +12,7 @@ import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardT
 import { fetchAwardAmounts } from 'apis/disaster';
 import { InformationBoxes } from "data-transparency-ui";
 import { useInFlightList } from 'helpers/covid19Helper';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 
 const propTypes = {
     activeTab: PropTypes.string,

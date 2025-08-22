@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Picker } from 'data-transparency-ui';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import SingleCFDA from 'components/award/financialAssistance/SingleCFDA';
 import CFDATree from './CFDATree';

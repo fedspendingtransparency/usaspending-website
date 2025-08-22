@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
 import { fetchDEFCodes } from 'apis/disaster';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 export const useDefCodes = () => {
     const dispatch = useDispatch();

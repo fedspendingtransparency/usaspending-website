@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { isEqual, pick, findKey } from 'lodash';
+import { isEqual, pick, findKey } from 'lodash-es';
 
 import * as IdvHelper from 'helpers/idvHelper';
 import BaseReferencedAwardResult from 'models/v2/award/BaseReferencedAwardResult';

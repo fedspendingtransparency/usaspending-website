@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map, uniqueId } from 'lodash';
+import { map, uniqueId } from 'lodash-es';
 import { Pagination } from 'data-transparency-ui';
 import { Link } from 'react-router';
 

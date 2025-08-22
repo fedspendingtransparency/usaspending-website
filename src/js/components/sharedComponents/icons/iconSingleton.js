@@ -5,7 +5,7 @@
 
 import Axios from 'axios';
 import xmldoc from 'xmldoc';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 
 export class IconSingleton {
     constructor() {

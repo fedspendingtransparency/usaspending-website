@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { isCancel } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 import { getLatestPeriodAsDayjs, getLatestPeriod } from 'helpers/accountHelper';

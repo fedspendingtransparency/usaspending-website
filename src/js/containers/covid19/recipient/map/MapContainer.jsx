@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, keyBy, isEqual } from 'lodash';
+import { uniqueId, keyBy, isEqual } from 'lodash-es';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { LoadingMessage, Tabs } from 'data-transparency-ui';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';

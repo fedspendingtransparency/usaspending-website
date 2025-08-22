@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
-import { throttle, isNull } from 'lodash';
+import { throttle, isNull } from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
 
 import DrilldownCell from 'components/agencySubmissionStats/DrilldownCell';

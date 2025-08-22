@@ -12,7 +12,7 @@ import {
     flexRender,
     getSortedRowModel
 } from '@tanstack/react-table';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import { ColumnBuilder } from 'models/v2/search/table/ColumnBuilder';
 import { Pagination } from "data-transparency-ui";
 import TanStackHeader from './TanStackHeader';
