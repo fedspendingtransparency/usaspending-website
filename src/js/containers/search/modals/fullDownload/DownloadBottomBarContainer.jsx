@@ -57,7 +57,6 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log("testing update filters  =======  ", this.props.filters);
         if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
             !this.state.visible && this.props.download?.type && !isEmpty(this.props.filters)) {
             this.requestDownload(this.props.filters,
@@ -86,7 +85,6 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     requestDownload(filters, columns, type) {
-        console.log("firing download request");
         if (this.request) {
             this.request.cancel();
         }
