@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
-import { find, throttle } from 'lodash';
+import { find, throttle } from 'lodash-es';
 import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';

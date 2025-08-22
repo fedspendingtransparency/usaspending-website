@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { largeScreen, mediumScreen, smallScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
 

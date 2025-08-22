@@ -2,7 +2,7 @@
  * Created by michaelbray on 2/17/17.
  */
 
-import { concat } from 'lodash';
+import { concat } from 'lodash-es';
 
 import * as FilterFields from 'dataMapping/search/filterFields';
 

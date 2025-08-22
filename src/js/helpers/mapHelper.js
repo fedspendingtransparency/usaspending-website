@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/15/17
  */
 
-import { min, max } from 'lodash';
+import { min, max } from 'lodash-es';
 import { scaleQuantize } from 'd3-scale';
 import kGlobalConstants from 'GlobalConstants';
 import { apiRequest } from './apiRequest';

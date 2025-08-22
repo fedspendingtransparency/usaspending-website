@@ -4,7 +4,7 @@
  */
 
 import Accounting from 'accounting';
-import { max, min, mean, startCase } from 'lodash';
+import { max, min, mean, startCase } from 'lodash-es';
 
 // convert monetary values to currency strings
 const accountingOptions = {

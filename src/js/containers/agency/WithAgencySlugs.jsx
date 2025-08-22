@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { fetchAgencySlugs } from 'apis/agency';
 import { setAgencySlugs } from 'redux/actions/agency/agencyActions';
 

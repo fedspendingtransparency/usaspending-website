@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
 import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { useDispatch } from "react-redux";

@@ -5,7 +5,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { SectionHeader } from "data-transparency-ui";
 import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
