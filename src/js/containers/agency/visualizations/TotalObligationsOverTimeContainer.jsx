@@ -6,7 +6,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import {
     LoadingMessage,
     ErrorMessage,

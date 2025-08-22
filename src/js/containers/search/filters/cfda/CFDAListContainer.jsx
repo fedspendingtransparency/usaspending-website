@@ -4,7 +4,7 @@
 **/
 
 import React, { useState, useRef } from 'react';
-import { isEqual, omit, differenceWith } from 'lodash';
+import { isEqual, omit, differenceWith } from 'lodash-es';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 

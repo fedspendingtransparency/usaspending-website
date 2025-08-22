@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sortBy } from 'lodash';
+import { sortBy } from 'lodash-es';
 import DetailHeader from './header/DetailHeader';
 
 const FakeScreen = () => {

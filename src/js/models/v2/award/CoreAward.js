@@ -2,7 +2,7 @@
  * CoreAward.js
  * Created by David Trinh 10/9/18
  */
-import { upperFirst } from 'lodash';
+import { upperFirst } from 'lodash-es';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { descriptionsForAwardTypes }
     from 'dataMapping/award/descriptionsForAwardTypes';

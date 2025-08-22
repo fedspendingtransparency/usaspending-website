@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { orderBy, isEqual } from 'lodash';
+import { orderBy, isEqual } from 'lodash-es';
 
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';

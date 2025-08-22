@@ -9,7 +9,7 @@ import { ShareIcon, CardContainer, CardHero, CardBody } from 'data-transparency-
 import { useDispatch } from 'react-redux';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
 import { showModal } from '../../../redux/actions/modal/modalActions';
 

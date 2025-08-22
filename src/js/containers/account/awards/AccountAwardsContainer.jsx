@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import { measureTableHeader } from 'helpers/textMeasurement';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { awardTypeGroups } from 'dataMapping/search/awardType';

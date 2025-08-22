@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { max } from 'lodash';
+import { max } from 'lodash-es';
 
 import { categoryLabelFields } from 'dataMapping/accounts/accountFields';
 import AccountRankVisualizationSection from

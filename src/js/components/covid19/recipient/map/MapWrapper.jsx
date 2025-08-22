@@ -5,7 +5,7 @@
 
 import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
-import { uniq, cloneDeep } from 'lodash';
+import { uniq, cloneDeep } from 'lodash-es';
 import { scaleQuantile, scaleLinear } from 'd3-scale';
 import GlobalConstants from 'GlobalConstants';
 
