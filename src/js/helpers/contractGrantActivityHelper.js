@@ -2,7 +2,7 @@
  * Created By Jonathan Hill 03/26/20
  */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { isAwardFinancialAssistance } from 'helpers/awardSummaryHelper';
 import { badPotentialEndDate } from '../../../tests/testResources/mockContractGrantActivityHelper';
 

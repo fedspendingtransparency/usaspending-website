@@ -4,7 +4,7 @@
   **/
 
 import { is } from 'immutable';
-import { isEqual, sortBy } from 'lodash';
+import { isEqual, sortBy } from 'lodash-es';
 import dayjs from "dayjs";
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { checkboxTreeFilters } from 'dataMapping/shared/checkboxTree/checkboxTree';

@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { orderBy, difference, concat, indexOf } from 'lodash';
+import { orderBy, difference, concat, indexOf } from 'lodash-es';
 
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';

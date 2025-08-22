@@ -7,7 +7,7 @@ import React from 'react';
 import { isCancel } from 'axios';
 
 import { Search } from 'js-search';
-import { orderBy } from 'lodash';
+import { orderBy } from 'lodash-es';
 
 import * as StateHelper from 'helpers/stateHelper';
 import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';

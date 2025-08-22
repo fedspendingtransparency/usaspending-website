@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { throttle, compact } from 'lodash';
+import { throttle, compact } from 'lodash-es';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';

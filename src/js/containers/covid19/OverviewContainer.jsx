@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import AmountsVisualization from 'components/covid19/amountsVisualization/AmountsVisualization';
 import DateNote from 'components/covid19/DateNote';
 

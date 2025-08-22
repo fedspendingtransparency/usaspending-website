@@ -2,7 +2,7 @@
  * Created by michaelbray on 12/12/16.
  */
 
-import { sortBy } from 'lodash';
+import { sortBy } from 'lodash-es';
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other query modules

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import { ErrorMessage, LoadingMessage } from 'data-transparency-ui';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import DataDictionaryTableSorter from './DataDictionaryTableSorter';

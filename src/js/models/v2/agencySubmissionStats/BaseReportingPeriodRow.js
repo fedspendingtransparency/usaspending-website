@@ -2,7 +2,7 @@
  * BaseReportingPeriodRow.js
  * Created by Lizzie Salita 12/8/20
  */
-import { isNull } from 'lodash';
+import { isNull } from 'lodash-es';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { getPeriodWithTitleById } from 'helpers/aboutTheDataHelper';
 import CoreReportingRow from './CoreReportingRow';

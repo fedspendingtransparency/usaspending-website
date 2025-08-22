@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { concat, sortBy } from 'lodash';
+import { concat, sortBy } from 'lodash-es';
 import Analytics from 'helpers/analytics/Analytics';
 
 import ResultGroup from './ResultGroup';

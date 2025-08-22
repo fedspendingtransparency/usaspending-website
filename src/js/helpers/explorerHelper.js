@@ -2,7 +2,7 @@
  * explorerHelper.js
  * Created by Kevin Li 8/16/17
  */
-import { startCase } from 'lodash';
+import { startCase } from 'lodash-es';
 
 import { apiRequest } from './apiRequest';
 

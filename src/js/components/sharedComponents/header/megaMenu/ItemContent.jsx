@@ -2,7 +2,7 @@ import React from "react";
 import { FlexGridRow } from 'data-transparency-ui';
 import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import FadeContents from "./FadeContents";
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from "../../ExternalLink";

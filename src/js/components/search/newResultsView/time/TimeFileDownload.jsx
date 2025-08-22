@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { words, upperFirst } from "lodash";
+import { words, upperFirst } from "lodash-es";
 import { TooltipWrapper } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

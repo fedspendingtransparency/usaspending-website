@@ -3,7 +3,7 @@
   * Created by Jonathan Hill 10/01/2019
 */
 
-import { difference, cloneDeep, isEqual } from 'lodash';
+import { difference, cloneDeep, isEqual } from 'lodash-es';
 
 export const doesMeetMinimumCharsRequiredForSearch = (str = '', charMinimum = 3) => (
     str &&
