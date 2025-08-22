@@ -43,7 +43,6 @@ const SidebarWrapper = React.memo(({
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
     const additionalRibbonHeight = 57;
-    // const shortRibbonHeight = 73;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -297,8 +296,6 @@ const SidebarWrapper = React.memo(({
 
         return sidebarHeight;
     };
-
-    // const getFooterHeight = () => `${mainContentHeight - shortRibbonHeight - footerEl.getBoundingClientRect().top}px`;
 
     return (
         <div
