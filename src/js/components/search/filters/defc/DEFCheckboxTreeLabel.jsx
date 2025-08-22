@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 
 const parseAcronym = (str) => {
     const parsedStr = str.replace("P.L.", "Public Law");

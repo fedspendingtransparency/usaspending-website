@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import * as SearchHelper from 'helpers/searchHelper';
 import { performKeywordSearch } from 'helpers/keywordHelper';
 import { subawardTypeGroups, transactionTypeGroups } from 'dataMapping/search/awardType';
-import { uniqueId, throttle } from 'lodash';
+import { uniqueId, throttle } from 'lodash-es';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import ResultsTable from '../ResultsTable';
 

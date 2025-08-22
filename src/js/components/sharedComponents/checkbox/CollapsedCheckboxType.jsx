@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import CheckboxExpandButton from './CheckboxExpandButton';
 
 const propTypes = {

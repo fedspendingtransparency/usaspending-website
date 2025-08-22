@@ -5,10 +5,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 
-import { find, throttle } from 'lodash';
+import { find, throttle } from 'lodash-es';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { ShareIcon } from 'data-transparency-ui';
 import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';

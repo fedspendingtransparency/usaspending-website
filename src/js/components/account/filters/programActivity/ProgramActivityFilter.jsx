@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { OrderedSet } from 'immutable';
-import { sortBy, keyBy } from 'lodash';
+import { sortBy, keyBy } from 'lodash-es';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';

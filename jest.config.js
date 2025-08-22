@@ -31,7 +31,8 @@ module.exports = {
         "\\.(css|less|scss)$": "<rootDir>/tests/testResources/stylesStub.js",
         ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js",
         '@test-utils': "<rootDir>/tests/testResources/test-utils.js",
-        d3: '<rootDir>/node_modules/d3/dist/d3.min.js'
+        d3: '<rootDir>/node_modules/d3/dist/d3.min.js',
+        "lodash-es": "lodash"
     },
     setupFiles: ["<rootDir>/tests/rejection.js"],
     setupFilesAfterEnv: [

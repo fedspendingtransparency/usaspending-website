@@ -4,7 +4,7 @@
  */
 
 import { formatNumber, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { isNull } from 'lodash';
+import { isNull } from 'lodash-es';
 import { format } from 'date-fns';
 
 const CoreReportingRow = {

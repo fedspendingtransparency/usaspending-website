@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import Cookies from 'js-cookie';
 import { globalBannerHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { globalCovidBannerCookie } from 'dataMapping/covid19/covid19';

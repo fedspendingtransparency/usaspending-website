@@ -6,7 +6,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
-import { remove, find } from 'lodash';
+import { remove, find } from 'lodash-es';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';

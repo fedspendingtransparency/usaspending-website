@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import reactStringReplace from 'react-string-replace';
 
 const replaceString = (data, query, className) => (

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const propTypes = {
     title: PropTypes.string,

@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { reduce } from 'lodash';
+import { reduce } from 'lodash-es';
 
 import * as StateHelper from 'helpers/stateHelper';
 

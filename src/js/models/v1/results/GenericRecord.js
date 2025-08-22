@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/16/16
   **/
 
-import { isObject, uniqueId } from 'lodash';
+import { isObject, uniqueId } from 'lodash-es';
 
 class GenericRecord {
     constructor(recordType, fieldNames, data, excludedFields = new Set()) {

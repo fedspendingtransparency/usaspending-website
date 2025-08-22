@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import { Tabs, SectionHeader } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import { categories as topCategories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'containers/state/topFive/TopFiveContainer';

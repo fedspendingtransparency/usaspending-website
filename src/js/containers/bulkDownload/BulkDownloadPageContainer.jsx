@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useNavigate, useMatch } from 'react-router-dom';
+import { useNavigate, useMatch } from 'react-router';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { downloadOptions } from 'dataMapping/navigation/menuOptions';
