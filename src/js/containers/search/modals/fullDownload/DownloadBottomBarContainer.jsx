@@ -57,7 +57,7 @@ export class DownloadBottomBarContainer extends React.Component {
 
     componentDidMount() {
         if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
-            !this.state.visible) {
+            !this.state.visible && this.props.download?.type) {
             this.requestDownload(this.props.filters,
                 this.props.download.columns, this.props.download.type);
             this.displayBar();
@@ -66,7 +66,7 @@ export class DownloadBottomBarContainer extends React.Component {
 
     componentDidUpdate() {
         if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
-            !this.state.visible) {
+            !this.state.visible && this.props.download?.type) {
             this.requestDownload(this.props.filters,
                 this.props.download.columns, this.props.download.type);
             this.displayBar();
@@ -145,7 +145,7 @@ export class DownloadBottomBarContainer extends React.Component {
         Analytics.event({
             event: 'advanced_search_download',
             category: 'Advanced Search - Download',
-            action: this.props.download.type,
+            action: this.props.download?.type,
             label: uniqueFilterFields(filters),
             gtm: true
         });
