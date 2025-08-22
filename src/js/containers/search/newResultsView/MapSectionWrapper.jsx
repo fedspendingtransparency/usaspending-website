@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, keyBy } from 'lodash';
+import { uniqueId, keyBy } from 'lodash-es';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import { stateFIPSByAbbreviation, stateNameFromFips } from 'dataMapping/state/stateNames';
 
@@ -16,7 +16,7 @@ import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import GlobalConstants from 'GlobalConstants';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';

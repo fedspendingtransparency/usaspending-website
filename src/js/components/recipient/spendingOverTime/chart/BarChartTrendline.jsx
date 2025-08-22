@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { scaleBand, scaleLinear } from 'd3-scale';
-import { isEqual, flattenDeep, min, max, mean, forEach, sum } from 'lodash';
+import { isEqual, flattenDeep, min, max, mean, forEach, sum } from 'lodash-es';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 

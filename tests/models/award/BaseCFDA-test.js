@@ -5,7 +5,7 @@
  * Created by Jonathan Hill 03/18/20
  */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { calculatePercentage } from 'helpers/moneyFormatter';
 import BaseCFDA from 'models/v2/award/BaseCFDA';
 import { mockLoan } from './mockAwardApi';

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep } from 'lodash';
+import { debounce, get, flattenDeep } from 'lodash-es';
 import { connect } from 'react-redux';
 
 import {

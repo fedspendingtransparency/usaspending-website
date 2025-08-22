@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toLower } from 'lodash';
+import { toLower } from 'lodash-es';
 import ShownAgency from './ShownAgency';
 
 const propTypes = {

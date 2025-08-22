@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { snakeCase } from 'lodash';
+import { snakeCase } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionWrapper } from 'data-transparency-ui';
 

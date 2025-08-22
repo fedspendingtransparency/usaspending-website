@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { Pagination, NewPicker } from 'data-transparency-ui';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculatePageRange } from 'helpers/paginationHelper';

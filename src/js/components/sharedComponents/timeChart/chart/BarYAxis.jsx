@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 
 import BarYAxisItem from './BarYAxisItem';
 

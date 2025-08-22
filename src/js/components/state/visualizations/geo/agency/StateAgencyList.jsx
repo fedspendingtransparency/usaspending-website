@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { filter, sortBy, slice, concat } from 'lodash';
+import { filter, sortBy, slice, concat } from 'lodash-es';
 import { Search } from 'js-search';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 import * as SearchHelper from 'helpers/searchHelper';

@@ -6,7 +6,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { uniq, cloneDeep } from 'lodash';
+import { uniq, cloneDeep } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
 
 import * as MapHelper from 'helpers/mapHelper';

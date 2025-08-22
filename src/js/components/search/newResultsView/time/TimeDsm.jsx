@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 import GlobalConstants from "../../../../GlobalConstants";

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import Scroller from "../scroller/Scroller";
 import ScrollerOverlay from "../scroller/scrollerOverlay/ScrollerOverlay";
 import LottieAnimation from '../lottieAnimation/LottieAnimation';
