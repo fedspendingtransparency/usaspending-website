@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { indexOf, difference, concat } from 'lodash';
+import { indexOf, difference, concat } from 'lodash-es';
 
 import { Set } from 'immutable';
 

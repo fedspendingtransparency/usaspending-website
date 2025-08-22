@@ -3,7 +3,7 @@
  * Created by Emily Gullo on 07/10/2017
  */
 
-import { startCase, toLower } from 'lodash';
+import { startCase, toLower } from 'lodash-es';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formatValue = (value, description) => {

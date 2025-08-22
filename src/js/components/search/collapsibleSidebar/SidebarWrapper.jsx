@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 import PropTypes from "prop-types";
 import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";

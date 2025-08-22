@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { pickBy, debounce } from 'lodash';
+import { pickBy, debounce } from 'lodash-es';
 import { programSourceInfo } from 'dataMapping/search/programSourceInfoTooltipContent';
 
 import * as ProgramSourceHelper from 'helpers/programSourceHelper';

@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 03/17/20
  */
 
-import { truncate, isNumber } from 'lodash';
+import { truncate, isNumber } from 'lodash-es';
 import {
     calculatePercentage,
     formatMoney,

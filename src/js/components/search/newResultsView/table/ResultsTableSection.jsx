@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, NoResultsMessage } from 'data-transparency-ui';
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
 import TanStackTable from '../../table/tanStackTable/TanStackTable';
@@ -48,7 +48,7 @@ const ResultsTableSection = (props) => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
-            setIsMobile(newWidth < (tabletScreen - 1));
+            setIsMobile(newWidth < tabletScreen);
         }
     }, 50);
 

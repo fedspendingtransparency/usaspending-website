@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
 import { convertDatesToRange } from 'helpers/timeRangeHelper';

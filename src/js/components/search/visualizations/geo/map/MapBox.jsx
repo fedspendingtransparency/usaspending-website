@@ -6,7 +6,7 @@
 import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import statesBySqMile from "dataMapping/state/statesBySqMile";
 import kGlobalConstants from 'GlobalConstants';
