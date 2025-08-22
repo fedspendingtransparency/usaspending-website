@@ -55,8 +55,7 @@
         right: 0;
         font-family: $font-sans;
 
-        @media(max-width: $medium-screen) {
-          // set px used instead of variables due to specific width needed in this case
+        @media(max-width: $tablet-screen - 1) {
           display: none;
         }
 
