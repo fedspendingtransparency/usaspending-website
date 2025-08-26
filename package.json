@@ -19,10 +19,7 @@
     "lhci:audit": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --chrome-flags=\"--headless\"; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "stats": "webpack --profile --json > stats.json",
-    "analyze": "webpack-bundle-analyzer stats.json"
-
+    "build-storybook": "storybook build"
   },
   "author": "",
   "engines": {
@@ -122,7 +119,6 @@
     "trim-newlines": "^4.0.2",
     "webidl-conversions": "^6.1.0",
     "webpack": "^5.97.1",
-    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.2.0",
     "webpack-merge": "^6.0.1"
