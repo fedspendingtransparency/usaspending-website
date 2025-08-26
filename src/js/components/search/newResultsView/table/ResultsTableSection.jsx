@@ -48,7 +48,7 @@ const ResultsTableSection = (props) => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
-            setIsMobile(newWidth < (tabletScreen - 1));
+            setIsMobile(newWidth < tabletScreen);
         }
     }, 50);
 
