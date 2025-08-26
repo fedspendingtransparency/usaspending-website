@@ -458,6 +458,22 @@
               height: 100%;
             }
           }
+
+          &--icon-section {
+            display: flex;
+            margin: rem(4) 0 ($global-margin * 2) 0;
+
+            &--icon {
+              margin: $global-margin rem(12) $global-margin 0;
+              height: rem(21);
+              width: rem(21);
+              border-radius: rem(4);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: $global-padding 0;
+            }
+          }
         }
       }
     }
