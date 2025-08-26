@@ -30,9 +30,12 @@ const GlossaryLink = ({
 }) => {
     const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
+    // TODO: use useNaviate() instead?
+
     useEffect(() => {
         setUrlSearchParam(search.includes('glossary') ? '' : search);
     }, [search]);
+
     const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
     const stopBubble = (e) => {
         showSlideout('glossary', { url: term });
