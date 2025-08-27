@@ -133,6 +133,7 @@
         margin: 0;
         stroke-width: rem(2);
         padding: 0;
+        padding-bottom: 20px;
         svg {
           width: rem(10);
           height: rem(10);
@@ -468,6 +469,7 @@
 
     .dsm-opened {
       display: block !important;
+      padding-bottom: 20px;
     }
 
   }
