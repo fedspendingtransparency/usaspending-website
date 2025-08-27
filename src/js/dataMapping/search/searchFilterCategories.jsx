@@ -73,7 +73,7 @@ export const searchFilterCategoryTree = [
         iconBackgroundColor: '#edf5ff',
         title: 'TIME PERIOD',
         titleCapital: 'Time Period',
-        slug: 'time-filter-panel',
+        slug: 'time-period-category',
         children: [
             {
                 title: "Time Period",
@@ -88,7 +88,7 @@ export const searchFilterCategoryTree = [
         iconBackgroundColor: '#dbf6ed',
         title: 'LOCATION',
         titleCapital: 'Location',
-        slug: 'location-filter-panel',
+        slug: 'location-category',
         children: [
             {
                 title: "Location",
@@ -103,7 +103,7 @@ export const searchFilterCategoryTree = [
         iconBackgroundColor: '#e5faff',
         title: 'SOURCES',
         titleCapital: 'Sources',
-        slug: 'sources-panel',
+        slug: 'sources-category',
         children: [
             {
                 title: 'Agency',
@@ -130,7 +130,7 @@ export const searchFilterCategoryTree = [
         iconBackgroundColor: '#edf0ff',
         title: 'RECIPIENTS',
         titleCapital: 'Recipients',
-        slug: 'recipients-panel',
+        slug: 'recipients-category',
         children: [
             {
                 title: 'Recipient',
@@ -149,7 +149,7 @@ export const searchFilterCategoryTree = [
         iconBackgroundColor: '#fff3ea',
         title: 'CHARACTERISTICS',
         titleCapital: 'Characteristics',
-        slug: 'characteristics-panel',
+        slug: 'characteristics-category',
         children: [
             {
                 title: "Award Description",

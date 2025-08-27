@@ -197,23 +197,23 @@ const schema = {
         fields: [
             {
                 name: "Time Period",
-                slug: "time-filter-panel"
+                slug: "time-period-category"
             },
             {
                 name: "Location",
-                slug: "location-filter-panel"
+                slug: "location-category"
             },
             {
                 name: "Sources",
-                slug: "sources-panel"
+                slug: "sources-category"
             },
             {
                 name: "Recipients",
-                slug: "recipients-panel"
+                slug: "recipients-category"
             },
             {
                 name: "Characteristics",
-                slug: "characteristics-panel"
+                slug: "characteristics-category"
             }
         ]
     },
