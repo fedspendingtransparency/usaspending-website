@@ -474,6 +474,17 @@
               padding: $global-padding 0;
             }
           }
+
+          &--atd-links {
+            margin-top: rem(12);
+
+            .collapsible-sidebar--dsm-wrapper--atd-link {
+              font-size: $smallest-font-size;
+              font-weight: 600;
+              line-height: 1.75;
+              margin: rem(4) $global-margin;
+            }
+          }
         }
       }
     }

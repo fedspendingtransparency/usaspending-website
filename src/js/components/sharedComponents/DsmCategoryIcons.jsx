@@ -19,11 +19,16 @@ const DsmCategoryIcons = ({ searchFilterCategoryTree }) => (
         <div className="collapsible-sidebar--dsm-wrapper--text-section">
             Click on a filter category below to learn more about it:
         </div>
-        {searchFilterCategoryTree.map((category) => (
-            <div className="collapsible-sidebar--dsm-wrapper--text-header">
-                <AboutTheDataMarkdownLink name={category.title} slug={category.slug} openPanel />
-            </div>
-        ))}
+        <div className="collapsible-sidebar--dsm-wrapper--atd-links">
+            {searchFilterCategoryTree.map((category) => (
+                <div className="collapsible-sidebar--dsm-wrapper--atd-link">
+                    <AboutTheDataMarkdownLink
+                        name={category.titleCapital}
+                        slug={category.slug}
+                        openPanel />
+                </div>
+            ))}
+        </div>
     </>
 );
 
