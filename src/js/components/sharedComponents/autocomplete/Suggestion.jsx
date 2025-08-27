@@ -60,11 +60,11 @@ const Suggestion = ({
     };
 
     const boldedText = (text, shouldBeBold) => {
-        const textArray = text.split(RegExp(shouldBeBold, "ig"));
-        const match = text.match(RegExp(shouldBeBold, "ig"));
+        const textArray = text?.split(RegExp(shouldBeBold, "ig"));
+        const match = text?.match(RegExp(shouldBeBold, "ig"));
 
         return (
-            textArray.map((item, index) => (
+            textArray?.map((item, index) => (
                 <span key={`item: ${item}-${index}`}>
                     {item}
                     {index !== textArray.length - 1 && match && (
