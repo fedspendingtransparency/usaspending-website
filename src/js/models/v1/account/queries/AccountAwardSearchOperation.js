@@ -142,8 +142,7 @@ export default class AccountAwardSearchOperation {
         return timePeriod;
     }
 
-    spendingByAwardTableParams(state) {
-        const { account, filters } = state;
+    spendingByAwardTableParams({ account, filters }) {
         const tasCodes = [{ aid: account.agency_identifier, main: account.main_account_code }];
         // Time Period Param
         const timePeriod = this.timePeriodFormatted(filters.fy.toArray());
@@ -156,7 +155,7 @@ export default class AccountAwardSearchOperation {
             filters: {
                 tas_codes: tasCodes
             },
-            subawards: false
+            spending_level: 'awards'
         };
         // Add filters to query object?
         // add time_period?

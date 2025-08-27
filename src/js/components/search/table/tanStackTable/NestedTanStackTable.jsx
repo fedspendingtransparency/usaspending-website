@@ -95,7 +95,7 @@ const NestedTanStackTable = (props) => {
             limit: subResultsLimit,
             sort: subSortField,
             order: subSort.direction,
-            subawards: true,
+            spending_level: 'subawards',
             auditTrail: 'Results Table - Spending by award search'
         };
 
