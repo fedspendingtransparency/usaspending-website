@@ -26,7 +26,10 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx", ".md", ".mdx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
-        fallback: { querystring: require.resolve("querystring-es3") }
+        fallback: { querystring: require.resolve("querystring-es3") },
+        alias: {
+            lodash: 'lodash-es'
+        }
     },
     optimization: {
         splitChunks: { chunks: 'all' },
@@ -85,7 +88,7 @@ module.exports = {
     },
     devServer: {
         static: './dist',
-        hot: true,
+        hot: true
     },
     plugins: [
         new CleanWebpackPlugin(),
