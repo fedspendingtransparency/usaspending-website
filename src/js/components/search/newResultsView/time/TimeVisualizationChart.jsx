@@ -19,11 +19,9 @@ const timeJumpIcon = (x, y) => {
     );
 };
 
-const CustomShape = (props) => {
-    const {
-        x, y, width, height, focusBar, label
-    } = props;
-
+const CustomShape = ({
+    x, y, width, height, focusBar, label, ...props
+}) => {
     const fill = "#1B2B85";
     let fillOpacity = "1";
     if (focusBar && !props?.isActive && label !== "jump") {
@@ -46,11 +44,9 @@ const CustomShape = (props) => {
     );
 };
 
-const CustomXTick = (props) => {
-    const {
-        x, y, payload, width, label
-    } = props;
-
+const CustomXTick = ({
+    x, y, payload, width, label
+}) => {
     if (payload?.value === "jump" || label === "jump") {
         return timeJumpIcon(x, y, width);
     }
@@ -62,18 +58,12 @@ const CustomXTick = (props) => {
         </g>);
 };
 
-const CustomYTick = (props) => {
-    const {
-        x, y, payload
-    } = props;
-
-    return (
-        <g transform={`translate(${x},${y})`}>
-            <text x={0} y={0} dy={0} textAnchor="end" fill="#5C5C5C" fontSize={12} width="48px">
-                {formatMoneyWithUnitsShortLabel(payload.value)}
-            </text>
-        </g>);
-};
+const CustomYTick = ({ x, y, payload }) => (
+    <g transform={`translate(${x},${y})`}>
+        <text x={0} y={0} dy={0} textAnchor="end" fill="#5C5C5C" fontSize={12} width="48px">
+            {formatMoneyWithUnitsShortLabel(payload.value)}
+        </text>
+    </g>);
 
 
 const TimeVisualizationChart = (props) => {
@@ -127,7 +117,9 @@ const TimeVisualizationChart = (props) => {
                     </div>
                     <div className="tooltip__text">
                         <div className="tooltip__text-label">Obligations</div>
-                        <div className="tooltip__text-amount">{formatMoneyWithUnitsShortLabel(payload[0].value)}</div>
+                        <div className="tooltip__text-amount">
+                            {formatMoneyWithUnitsShortLabel(payload[0].value)}
+                        </div>
                     </div>
                 </div>);
         }
@@ -170,9 +162,19 @@ const TimeVisualizationChart = (props) => {
                         }}>
                         <XAxis dataKey="label" tick={<CustomXTick />} />
                         <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                        <Tooltip cursor={{ fill: '#fff' }} filterNull content={<CustomTooltip />} isAnimationActive={false} />
+                        <Tooltip
+                            cursor={{ fill: '#fff' }}
+                            filterNull
+                            content={<CustomTooltip />}
+                            isAnimationActive={false} />
                         <ReferenceLine y={0} stroke="#dfe1e2" />
-                        <Bar dataKey="value" shape={<CustomShape focusBar={focusBar} />} activeBar={<CustomShape isActive focusBar={focusBar} />} onMouseEnter={onMouseMove} onMouseOut={onMouseLeave} onMouseLeave={onMouseLeave} />
+                        <Bar
+                            dataKey="value"
+                            shape={<CustomShape focusBar={focusBar} />}
+                            activeBar={<CustomShape isActive focusBar={focusBar} />}
+                            onMouseEnter={onMouseMove}
+                            onMouseOut={onMouseLeave}
+                            onMouseLeave={onMouseLeave} />
                     </BarChart>
                 </ResponsiveContainer>}
         </div>);
