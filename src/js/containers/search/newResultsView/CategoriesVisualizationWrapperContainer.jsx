@@ -8,11 +8,10 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useSearchParams, useLocation } from "react-router";
+import { useSearchParams } from "react-router";
 import { max, get } from 'lodash-es';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
-import GlobalConstants from 'GlobalConstants';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -66,9 +65,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [tableRows, setTableRows] = useState([]);
     const [searchParams] = useSearchParams();
     let apiRequest;
-
-    const { pathname } = useLocation();
-    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const childProps = {
         spendingBy,
@@ -201,12 +197,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         createTableRows(updatedTable);
     };
 
-    const changeScope = (newScope) => {
-        setScope(newScope);
-        setPage(1);
-        setHasNextPage(true);
-    };
-
     const parseRank = () => {
         const section = searchParams.get('section');
         const type = searchParams.get('type');
@@ -243,6 +233,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         const tempDescriptions = [];
         const tempLinkSeries = [];
         const tableData = [];
+
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
             const tableDataRow = [];
@@ -265,8 +256,12 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             tempLabelSeries.push(result.name);
             tempDataSeries.push(result._amount);
 
-            if (scope === 'recipient' && !props.subaward) {
-                const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
+            if (scope === 'recipient' && props.spendingLevel !== 'subawards') {
+                const recipientLink = result.recipientId ?
+                    `recipient/${result.recipientId}/latest`
+                    :
+                    '';
+
                 tempLinkSeries.push(recipientLink);
 
                 if (recipientLink !== "") {
@@ -287,7 +282,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                     tableDataRow.name = (result.name);
                 }
             }
-            else if (scope === 'awarding_agency' && !props.subaward) {
+            else if (scope === 'awarding_agency' && props.spendingLevel !== 'subawards') {
                 const awardingLink = `agency/${result._agencySlug}`;
                 tempLinkSeries.push(awardingLink);
                 tableDataRow.name = {
@@ -302,11 +297,18 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                     title: result.name
                 };
             }
-            else if (scope === 'awarding_agency' && props.subaward && props.agencyIds) {
-                // this properly pulls in the slug from withAgencySlugs, as it is not provided though the API request for subawards
+            else if (
+                scope === 'awarding_agency' &&
+                props.spendingLevel === 'subawards' &&
+                props.agencyIds
+            ) {
+                // this properly pulls in the slug from withAgencySlugs,
+                // as it is not provided though the API request for subawards
                 const agencyIdentifier = !props.error ? props.agencyIds[item.id] : '';
                 const awardingLink = `agency/${agencyIdentifier}`;
+
                 tempLinkSeries.push(awardingLink);
+
                 tableDataRow.name = {
                     value: (
                         <a
@@ -364,7 +366,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
         // if subawards is true, newAwardsOnly cannot be true, so we remove
         // dateType for this request
-        if (props.subaward && operation.dateType) {
+        if (props.spendingLevel === 'subawards' && operation.dateType) {
             delete operation.dateType;
         }
 
@@ -377,14 +379,9 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             limit: 10,
             page,
             auditTrail,
-            subawards: props.subaward
-            // spending_level: props.spendingLevel
+            spending_level: props.spendingLevel
 
         };
-
-        if (isv2) {
-            apiParams.spending_level = props.spendingLevel;
-        }
 
         apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
         apiRequest.promise
@@ -449,7 +446,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             newSearch();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.reduxFilters, scope, props.subaward, props.spendingLevel]);
+    }, [props.reduxFilters, scope, props.spendingLevel]);
+
     return (
         <div
             className="results-visualization-rank-section"
@@ -476,21 +474,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 previousPage={previousPage}>
                 <CategoriesSectionWrapper
                     {...childProps}
-                    changeScope={changeScope}
                     nextPage={nextPage}
-                    previousPage={previousPage}
-                    subaward={props.subaward}
-                    isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}>
+                    previousPage={previousPage}>
                     <SpendingByCategoriesChart
                         {...childProps}
-                        changeScope={changeScope}
-                        nextPage={nextPage}
-                        previousPage={previousPage}
-                        industryCodeError={props.subaward}
-                        subaward={props.subaward}
-                        isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
-                        hash={props.hash}
-                        width="1000px" />
+                        hash={props.hash} />
                 </CategoriesSectionWrapper>
             </SearchSectionWrapper>
         </div>
