@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import { Search } from 'js-search';
-import { orderBy } from 'lodash';
+import { orderBy } from 'lodash-es';
 
 import AgenciesTableFields from 'dataMapping/agencyLanding/agenciesTableFields';
 import * as AgencyLandingHelper from 'helpers/agencyLandingHelper';

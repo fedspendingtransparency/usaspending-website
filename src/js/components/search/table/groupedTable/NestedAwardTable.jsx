@@ -90,6 +90,15 @@ const NestedAwardTable = (props) => {
         }
     };
 
+    const formattedSubSort = () => {
+        const formattedSort = subSort;
+        if (formattedSort?.field === 'Sub-Award Date') {
+            formattedSort.field = "Action Date";
+        }
+
+        return formattedSort;
+    };
+
     useEffect(throttle(() => {
         // need to pull out of here to helper or up to Container lv
         if (props.columnType === "subawards") {
@@ -138,7 +147,7 @@ const NestedAwardTable = (props) => {
                 error={error}
                 resultsCount={props.resultsCount}
                 updateSort={updateSort}
-                sort={subSort}
+                sort={formattedSubSort()}
                 page={subPage}
                 setPage={setSubPage}
                 resultsLimit={subResultsLimit}

@@ -13,7 +13,7 @@ import {
     flexRender,
     getSortedRowModel
 } from '@tanstack/react-table';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import { ColumnBuilder } from 'models/v2/search/table/groupedTable/ColumnBuilder';
 import { Pagination } from "data-transparency-ui";
 import GroupedTableHeader from './GroupedTableHeader';

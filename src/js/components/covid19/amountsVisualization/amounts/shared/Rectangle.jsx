@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { upperFirst } from 'lodash';
+import { upperFirst } from 'lodash-es';
 import PropTypes from 'prop-types';
 
 import {

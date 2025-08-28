@@ -36,7 +36,7 @@ import {
     cleanPscData,
     getPscAncestryPathForChecked
 } from 'helpers/pscHelper';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 
 import * as mockData from '../containers/search/filters/naics/mockNAICS';
 import * as pscMockData from '../containers/search/filters/psc/mockPSC';

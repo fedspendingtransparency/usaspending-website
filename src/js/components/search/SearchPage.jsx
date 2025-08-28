@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { throttle, uniqueId } from 'lodash';
+import { throttle, uniqueId } from 'lodash-es';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
@@ -166,7 +166,7 @@ const SearchPage = React.memo(({
                     key={uniqueId()}
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
-                    onShareOptionClick={() => handleShare}
+                    onShareOptionClick={handleShare}
                     classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadIconButton
                     tooltipPosition="left"

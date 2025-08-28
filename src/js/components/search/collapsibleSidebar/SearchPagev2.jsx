@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
@@ -170,7 +170,7 @@ const SearchPage = ({
                 <ShareIcon
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
-                    onShareOptionClick={() => handleShare}
+                    onShareOptionClick={handleShare}
                     classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadIconButton
                     tooltipPosition="left"

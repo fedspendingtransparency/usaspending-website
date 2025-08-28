@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { Pagination, Table } from "data-transparency-ui";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 import CategoriesPagination from './categories/CategoriesPagination';
 
 const SectionDataTable = (props) => {

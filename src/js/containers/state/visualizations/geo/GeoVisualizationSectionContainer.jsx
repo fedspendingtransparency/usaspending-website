@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 
 import GeoVisualizationSection from 'components/state/visualizations/geo/GeoVisualizationSection';
 

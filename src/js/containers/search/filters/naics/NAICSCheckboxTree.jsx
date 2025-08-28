@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import { isCancel } from 'axios';
 
 import {

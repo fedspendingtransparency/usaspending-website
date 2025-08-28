@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { useSelector } from 'react-redux';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
 import { fetchAwardAmounts, fetchDisasterSpendingCount } from 'apis/disaster';
 import { useInFlightList } from 'helpers/covid19Helper';

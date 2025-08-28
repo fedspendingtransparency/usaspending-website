@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { flowRight } from 'lodash';
+import { flowRight } from 'lodash-es';
 
 import withDefCodes from 'containers/covid19/WithDefCodes';
 

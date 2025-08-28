@@ -6,7 +6,7 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createColumnHelper } from '@tanstack/react-table';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import {
     subAwardDefaultColumns,
     transactionsDefaultColumns,

@@ -18,43 +18,44 @@ const propTypes = {
     hasChildren: PropTypes.bool
 };
 
-const DsmSlider = (props) => {
+const DsmSlider = ({
+    isDsmOpened, setIsDsmOpened, dsmFile, currentLevel, selectedCategoryTitle, height, hasChildren
+}) => {
     const [markdownContent, setMarkdownContent] = useState('');
-    const isDsmOpened = props?.isDsmOpened;
 
     useEffect(() => {
         const fetchMarkdown = async () => {
-            const file = await import(`../../../../content/search/${props.dsmFile}`);
+            const file = await import(`../../../../content/search/${dsmFile}`);
             setMarkdownContent(file.default());
         };
         fetchMarkdown();
-    }, [props.dsmFile]);
+    }, [dsmFile]);
 
     const clickHandler = (e) => {
         const action = isDsmOpened ? 'Close' : 'Open';
         e.preventDefault();
-        props.setIsDsmOpened(!isDsmOpened);
+        setIsDsmOpened(!isDsmOpened);
         Analytics.event({
             event: 'dsm_menu_action',
             category: 'Advanced Search - Filter DS&M',
             action: `${action} DS&M`,
-            label: props.selectedCategoryTitle
+            label: selectedCategoryTitle
         });
     };
 
     const adjustFilterLabel = () => {
-        if (props.hasChildren) {
+        if (hasChildren) {
             return `filters`;
         }
         return `filter`;
     };
 
     const renderButtonLabel = () => {
-        if (props.currentLevel === 1) {
+        if (currentLevel === 1) {
             return <div>Learn more about the Filter Categories</div>;
         }
 
-        return <div>About the {props.selectedCategoryTitle} {adjustFilterLabel()}</div>;
+        return <div>About the {selectedCategoryTitle} {adjustFilterLabel()}</div>;
     };
 
     return (
@@ -66,20 +67,20 @@ const DsmSlider = (props) => {
                 onClick={clickHandler}
                 onKeyUp={(e) => {
                     if (e.key === 'Enter') {
-                        props.setIsDsmOpened(!isDsmOpened);
+                        setIsDsmOpened(!isDsmOpened);
                     }
                 }}>
                 {renderButtonLabel()}
-                <div>{props.isDsmOpened ? (
+                <div>{isDsmOpened ? (
                     <FontAwesomeIcon className="chevron" icon="chevron-up" />
                 ) : (
                     <FontAwesomeIcon className="chevron" icon="chevron-down" />
                 )}
                 </div>
             </span>
-            {props.isDsmOpened &&
+            {isDsmOpened &&
                 <div className="collapsible-sidebar--dsm-content">
-                    <div className="collapsible-sidebar--dsm-wrapper" style={{ height: `${props.height}px` }}>
+                    <div className="collapsible-sidebar--dsm-wrapper" style={{ height: `${height}px` }}>
                         {markdownContent}
                     </div>
                 </div>}

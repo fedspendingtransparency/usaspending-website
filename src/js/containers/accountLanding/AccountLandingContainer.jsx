@@ -6,7 +6,7 @@
 import React from 'react';
 
 import { isCancel } from 'axios';
-import { flowRight, inRange } from 'lodash';
+import { flowRight, inRange } from 'lodash-es';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
 import * as AccountLandingHelper from 'helpers/accountLandingHelper';

@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { startCase } from "lodash";
+import { startCase } from "lodash-es";
 import { useDispatch } from 'react-redux';
 
 import { handleShareOptionClick } from 'helpers/socialShare';
@@ -123,7 +123,7 @@ const GlossaryDefinition = (props) => {
                     isSidePanel
                     url={value + slug}
                     tabIndex={0}
-                    onShareOptionClick={() => onShareClick}
+                    onShareOptionClick={onShareClick}
                     colors={{ backgroundColor: "#215493", color: "#e2e2e2" }}
                     dropDownDirection="left"
                     noShareText />

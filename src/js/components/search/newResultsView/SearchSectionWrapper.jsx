@@ -5,8 +5,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import { throttle } from "lodash";
-import { useNavigate, useLocation } from "react-router-dom";
+import { throttle } from "lodash-es";
+import { useNavigate, useLocation } from "react-router";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
 import { ErrorMessage, LoadingMessage, NoResultsMessage, NewPicker } from "data-transparency-ui";
@@ -290,11 +290,14 @@ const SearchSectionWrapper = ({
                         <span className="filter__dropdown-label">{sectionTitle}</span>
                         {showToggle && <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />}
                     </div>
+                    {/*
+                    bring back when grouped tables are ready for mobile
+
                     {showToggle &&
                         <div className="award-type-toggle__mobile">
                             <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />
                         </div>
-                    }
+                    } */}
                 </>
             }
             {!openAccordion &&

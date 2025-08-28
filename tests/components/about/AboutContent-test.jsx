@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Route, Routes, MemoryRouter } from 'react-router-dom';
+import { Route, Routes, MemoryRouter } from 'react-router';
 import AboutPage from 'components/about/AboutPage';
 import { expect } from '@jest/globals';
 import { renderWithoutRouter, screen } from '../../testResources/test-utils';
