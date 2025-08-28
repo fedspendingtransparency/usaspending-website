@@ -93,7 +93,7 @@ const SidebarContent = ({
         }
     }, [windowWidth]);
 
-    const dsmElHeight = sidebarContentHeight + 51;
+    const dsmElHeight = sidebarContentHeight;
 
     const filtersArray = searchFilterCategoryTree.map((category) => (
         <div className="search-filters-list">
