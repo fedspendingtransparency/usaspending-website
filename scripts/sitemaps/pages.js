@@ -72,7 +72,7 @@ const awardPageInfo = {
         limit: 100,
         sort: "Award Amount",
         order: "desc",
-        subawards: false
+        spending_level: 'awards'
     },
     accessor: 'generated_internal_id',
     clientRoute: `${siteUrl}/award`
