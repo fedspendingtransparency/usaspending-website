@@ -144,26 +144,34 @@ export default class AccountAwardSearchOperation {
 
     spendingByAwardTableParams({ account, filters }) {
         const tasCodes = [{ aid: account.agency_identifier, main: account.main_account_code }];
+
         // Time Period Param
         const timePeriod = this.timePeriodFormatted(filters.fy.toArray());
+
         // Object Class Param
         const objectClass = filters.objectClass.toArray();
+
         // Program Activity Param
         const programActivity = map(ProgramActivityQuery
             .buildAwardsProgramActivityQuery(this.programActivity).value, (pa) => parseInt(pa, 10));
+
         const awardTableParams = {
             filters: {
                 tas_codes: tasCodes
             },
             spending_level: 'awards'
         };
+
         // Add filters to query object?
         // add time_period?
         if (timePeriod) awardTableParams.filters.time_period = timePeriod;
+
         // add object_class?
         if (objectClass.length) awardTableParams.filters.object_class = objectClass;
+
         // add program_activity?
         if (programActivity.length) awardTableParams.filters.program_activity = programActivity;
+
         return awardTableParams;
     }
 }

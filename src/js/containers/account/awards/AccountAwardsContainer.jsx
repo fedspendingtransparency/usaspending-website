@@ -24,7 +24,7 @@ const propTypes = {
     spendingLevel: PropTypes.string
 };
 
-const AccountAwardsContainer = ({ account, filters, spendingLevel = 'subawards' }) => {
+const AccountAwardsContainer = ({ account, filters, spendingLevel = 'awards' }) => {
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [columns, setColumns] = useState({});
     const [sort, setSort] = useState({
@@ -57,12 +57,15 @@ const AccountAwardsContainer = ({ account, filters, spendingLevel = 'subawards' 
         const searchOperation = new AccountAwardSearchOperation(account.id);
         searchOperation.fromState(filters);
         searchOperation.awardType = awardTypeGroups[tableType];
+
         const newParams = searchOperation.spendingByAwardTableParams(
             { account, filters }
         );
+
         // indicate the request is about to start
         setInFlight(true);
         setError(false);
+
         let pageNumber = page;
         if (newSearch) {
             // a new search (vs just getting more pages of an existing search) requires resetting
@@ -89,8 +92,10 @@ const AccountAwardsContainer = ({ account, filters, spendingLevel = 'subawards' 
         newParams.limit = resultLimit;
         newParams.order = sort.direction;
         newParams.page = pageNumber;
+
         // sort field
         newParams.sort = sort.field;
+
 
         // Set the params needed for download API call
         searchRequest.current = SearchHelper.performSpendingByAwardSearch(newParams);
@@ -210,9 +215,11 @@ const AccountAwardsContainer = ({ account, filters, spendingLevel = 'subawards' 
         searchOperation.awardType = awardTypeGroups[tableType];
         const searchParamsTemp = searchOperation.spendingByAwardTableParams({ account, filters });
         const filtersLocal = { ...searchParamsTemp.filters };
+
+        // spending_by_award_count will not work without subawards
         tabCountRequest.current = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: filtersLocal,
-            spending_level: 'subawards'
+            subawards: false
         });
 
         tabCountRequest.current.promise
