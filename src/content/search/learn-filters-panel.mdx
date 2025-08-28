@@ -1,62 +1,12 @@
 import FilterModalLink from '../../js/components/sharedComponents/FilterModalMarkdownLink.jsx';
+import { searchFilterCategoryTree } from "../../js/dataMapping/search/searchFilterCategories";
+import DsmCategoryIcons from "../../js/components/sharedComponents/DsmCategoryIcons";
 
 <div className="collapsible-sidebar--dsm-wrapper--text-header">Learn more about the Filter Categories</div>
-<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
-    To help users understand the variety of filters available on USAspending.gov, 
-    we have grouped filters by 5 main categories. Below you will see what filters are included in each category. 
-    When you select a filter category, you will also be able to learn more about the individual filters within that category. 
+<div className="collapsible-sidebar--dsm-wrapper--text-section">
+    Filter categories group similar filters together and make the groupings easily recognizable by associating each grouping with a colored icon like this:
 </div>
 
-<div className="collapsible-sidebar--dsm-wrapper--text-header">Location:</div>
-<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
-    <ul>
-        <li>Place of Performance</li>
-        <li>Recipient Location</li>
-    </ul> 
-</div>
-
-<div className="collapsible-sidebar--dsm-wrapper--text-header">Time Period:</div>
-<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
-    <ul>
-        <li>Custom Dates</li>
-        <li>Fiscal Years</li>
-    </ul> 
-</div>
-
-<div className="collapsible-sidebar--dsm-wrapper--text-header">Characteristics:</div>
-<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
-    <ul>
-        <li>Award Description</li>
-        <li>Award ID</li>
-        <li>Spending Amount</li>
-        <li>Contract Award Type</li>
-        <li>North American Industry Classification System (NAICS)</li>
-        <li>Product and Service Code (PSC)</li>
-        <li>Type of Contract Pricing</li>
-        <li>Type of Set Aside</li>
-        <li>Extent Competed</li>
-        <li>Financial Assistance Award Type</li>
-        <li>Assistance Listing</li>
-    </ul> 
-</div>
-
-<div className="collapsible-sidebar--dsm-wrapper--text-header">Recipients:</div>
-<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
-    <ul>
-        <li>Recipient</li>
-        <li>Recipient Type</li>
-    </ul> 
-</div>
-
-<div className="collapsible-sidebar--dsm-wrapper--text-header">Sources:</div>
-<div className="collapsible-sidebar--dsm-wrapper--text-section"> 
-    <ul>
-        <li>Agency</li>
-        <li>Treasury Account Symbol (TAS)</li>
-        <li>Disaster Emergency Fund Code (DEFC)</li>
-    </ul> 
-</div>
+<DsmCategoryIcons searchFilterCategoryTree={searchFilterCategoryTree} />
 
 <FilterModalLink />
-
-
