@@ -1,4 +1,4 @@
-import '../src/_scss/all.scss';
+import '../src/_scss/_global.scss';
 export const parameters = {
   actions: {}
 }
