@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueFilterFields } from 'containers/search/helpers/searchAnalytics';
