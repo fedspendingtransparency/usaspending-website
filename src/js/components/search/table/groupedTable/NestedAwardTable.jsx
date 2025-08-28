@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import ResultsTable from '../ResultsTable';
 import { getNestedTableData } from '../../../../helpers/search/table/tableUtilsHelper';
