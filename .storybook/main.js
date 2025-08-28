@@ -5,7 +5,8 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-webpack5-compiler-babel",
     "@chromatic-com/storybook",
-    "@storybook/addon-docs"
+    "@storybook/addon-docs",
+    "@storybook/addon-styling-webpack"
   ],
 
   "framework": {

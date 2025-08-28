@@ -43,7 +43,9 @@
     "@lhci/server": "^0.14.0",
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
+    "@storybook/addon-docs": "^9.1.3",
     "@storybook/addon-links": "^9.1.3",
+    "@storybook/addon-styling-webpack": "^2.0.0",
     "@storybook/react-webpack5": "^9.1.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.1.4",
@@ -116,8 +118,7 @@
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.2.0",
-    "webpack-merge": "^6.0.1",
-    "@storybook/addon-docs": "^9.1.3"
+    "webpack-merge": "^6.0.1"
   },
   "resolutions": {
     "serve-static": "1.16.0",
