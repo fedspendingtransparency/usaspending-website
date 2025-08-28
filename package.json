@@ -298,7 +298,6 @@
     "js-search": "^1.4.2",
     "linkify-html": "^4.1.0",
     "linkifyjs": "^4.3.2",
-    "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "lottie-web": "^5.9.6",
     "mapbox-gl": "^2.11.1",
