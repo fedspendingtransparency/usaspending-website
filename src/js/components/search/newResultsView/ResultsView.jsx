@@ -53,15 +53,14 @@ const ResultsView = React.memo((props) => {
         if (spendingLevel === 'transactions') {
             countRequest = performTabCountSearch({
                 filters: searchParamsTemp.toParams(),
-                spendingLevel,
+                spending_level: spendingLevel,
                 auditTrail: 'Results View - Tab Counts'
             });
         }
         else {
             countRequest = performSpendingByAwardTabCountSearch({
                 filters: searchParamsTemp.toParams(),
-                spendingLevel,
-                subawards: subaward,
+                spending_level: spendingLevel,
                 auditTrail: 'Results View - Tab Counts'
             });
         }
