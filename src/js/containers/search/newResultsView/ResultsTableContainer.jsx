@@ -492,10 +492,9 @@ const ResultsTableContainer = (props) => {
             delete searchParamsTemp.dateType;
         }
 
-        // spending_by_award_count will not work without subawards
         tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParamsTemp.toParams(),
-            subawards: isSubaward,
+            spending_level: spendingLevel,
             auditTrail: 'Award Table - Tab Counts'
         });
 
