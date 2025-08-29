@@ -34,7 +34,6 @@ const propTypes = {
     reduxFilters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subaward: PropTypes.bool,
     agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.bool,
     wrapperProps: PropTypes.object,
@@ -491,7 +490,6 @@ export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward,
         spendingLevel: state.searchView.spendingLevel
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)

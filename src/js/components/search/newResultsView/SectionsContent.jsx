@@ -95,7 +95,7 @@ const SectionsContent = (props) => {
         <>
             <TableSection {...props} />
             <CategoriesSection
-                subaward={props.subaward}
+                spendingLevel={props.spendingLevel}
                 categoriesHasLoaded={categoriesHasLoaded}
                 setSelectedDropdown={setSelectedDropdown}
                 selectedDropdown={selectedDropdown}

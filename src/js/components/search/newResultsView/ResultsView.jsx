@@ -34,7 +34,6 @@ const ResultsView = React.memo((props) => {
 
     let mobileFilters = '';
     const filters = useSelector((state) => state.appliedFilters.filters);
-    const subaward = useSelector((state) => state.searchView.subaward);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
 
     let countRequest;
@@ -107,7 +106,7 @@ const ResultsView = React.memo((props) => {
             countRequest?.cancel();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filters, subaward, spendingLevel]);
+    }, [filters, spendingLevel]);
 
 
     useEffect(() => {
@@ -130,7 +129,6 @@ const ResultsView = React.memo((props) => {
                     content = (
                         <SectionsContent
                             tabData={tabData}
-                            subaward={subaward}
                             hash={props.hash}
                             spendingLevel={spendingLevel} />
                     );
@@ -143,7 +141,7 @@ const ResultsView = React.memo((props) => {
 
         setResultContent(content);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.noFiltersApplied, hasResults, subaward, inFlight, error, props.hash]);
+    }, [props.noFiltersApplied, hasResults, inFlight, error, props.hash]);
 
     return (
         <div className="search-results-wrapper">

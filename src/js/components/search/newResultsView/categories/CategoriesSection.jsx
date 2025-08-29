@@ -14,18 +14,24 @@ import CategoriesDsm from "./CategoriesDsm";
 
 const propTypes = {
     categoriesHasLoaded: PropTypes.bool,
-    subaward: PropTypes.bool,
+    spendingLevel: PropTypes.string,
     setSelectedDropdown: PropTypes.func,
     selectedDropdown: PropTypes.string,
     hash: PropTypes.string
 };
-const CategoriesSection = (props) => {
+const CategoriesSection = ({
+    categoriesHasLoaded,
+    spendingLevel,
+    setSelectedDropdown,
+    selectedDropdown,
+    hash
+}) => {
     const onClick = (e) => {
-        props.setSelectedDropdown(e);
+        setSelectedDropdown(e);
         Analytics.event({
             category: 'Section Categories',
             action: `View ${e}`,
-            label: props.hash
+            label: hash
         });
     };
 
@@ -36,53 +42,52 @@ const CategoriesSection = (props) => {
                 name: 'Awarding Agency',
                 value: 'awarding_agency',
                 onClick,
-                dsmContent: <CategoriesDsm subaward={props.subaward} />
+                dsmContent: <CategoriesDsm spendingLevel={spendingLevel} />
             },
             {
                 name: 'Awarding Subagency',
                 value: 'awarding_subagency',
                 onClick,
-                dsmContent: <CategoriesDsm subaward={props.subaward} />
+                dsmContent: <CategoriesDsm spendingLevel={spendingLevel} />
             },
             {
                 name: 'Recipient',
                 value: 'recipient',
                 onClick,
-                dsmContent: <CategoriesDsm subaward={props.subaward} />
+                dsmContent: <CategoriesDsm spendingLevel={spendingLevel} />
             },
             {
                 name: 'North American Industry Classification System (NAICS)',
                 value: 'naics',
                 onClick,
-                dsmContent: <CategoriesDsm subaward={props.subaward} />
+                dsmContent: <CategoriesDsm spendingLevel={spendingLevel} />
             },
             {
                 name: 'Product and Service Code (PSC)',
                 value: 'psc',
                 onClick,
-                dsmContent: <CategoriesDsm subaward={props.subaward} />
+                dsmContent: <CategoriesDsm spendingLevel={spendingLevel} />
             },
             {
                 name: 'Assistance Listing',
                 value: 'cfda',
                 onClick,
-                dsmContent: <CategoriesDsm subaward={props.subaward} />
+                dsmContent: <CategoriesDsm spendingLevel={spendingLevel} />
             }
         ],
-        selectedDropdownOption: props.selectedDropdown,
+        selectedDropdownOption: selectedDropdown,
         sectionName: 'categories'
 
     };
     return (
         <div id="search-page-component" className="categories">
-            {props.categoriesHasLoaded ?
+            {categoriesHasLoaded ?
                 <CategoriesVisualizationWrapperContainer
                     wrapperProps={wrapperProps}
-                    subaward={props.subaward}
-                    categoriesHasLoaded={props.categoriesHasLoaded}
-                    selectedDropdown={props.selectedDropdown}
-                    setSelectedDropdown={props.setSelectedDropdown}
-                    hash={props.hash} />
+                    categoriesHasLoaded={categoriesHasLoaded}
+                    selectedDropdown={selectedDropdown}
+                    setSelectedDropdown={setSelectedDropdown}
+                    hash={hash} />
                 :
                 <PlaceholderComponent className="categories" />
             }
