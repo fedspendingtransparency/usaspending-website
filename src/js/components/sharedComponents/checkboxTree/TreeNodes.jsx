@@ -34,6 +34,7 @@ const TreeNodes = ({
 
     useEffect(() => {
         setLoadingParentId(null);
+        // must reform the data 
         setLocalNodes(nodes);
     }, [nodes]);
 
@@ -106,44 +107,48 @@ const TreeNodes = ({
             setLocalExpanded((prev) => prev.filter((eid) => eid !== id));
         }
     };
-    const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
+
+    const renderNestedNodes = (renderNodes, level) => renderNodes.map((node, i) => {
         const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
         const isExpanded = localExpanded.includes(node.id);
         const hasChildren = node.children && node.children.length > 0;
+        console.log(i, renderNodes.length);
         return (
-            <div key={node.id}>
+            <ul>
                 {isLoading && loadingParentId === node.id ? (
-                    <div style={{ marginLeft: '10px' }}>
-                        <br />
-                        <FontAwesomeIcon icon="spinner" spin /> Loading your data...
-                    </div>
-                )
+                        <li className="loading">
+                            <br />
+                            <FontAwesomeIcon icon="spinner" spin /> Loading your data...
+                        </li>
+                    )
                     :
                     (
-                        <div style={{ marginLeft: level * 20, display: 'flex', alignItems: 'center' }}>
-                            {hasChildren && (
-                                <button
-                                    aria-label="Toggle"
-                                    title="Toggle"
-                                    type="button"
-                                    onClick={() => handleToggle(node.id, true)}>
-                                    <FontAwesomeIcon
-                                        icon={isExpanded ? 'chevron-down' : 'chevron-right'}
-                                        style={{ cursor: 'pointer', marginRight: '5px' }} />
-                                </button>
-                            )}
-                            {node.label && <input
-                                type="checkbox"
-                                disabled={disabled}
-                                checked={isChecked}
-                                onChange={() => handleCheck(node.id, node.children || [])}
-                                style={{ marginRight: '5px' }} />}
-                            <span>{node.label}</span>
-                        </div>
+                        <li className="level" style={{ marginLeft: level * 20 }}>
+                            <div style={{ display: "flex", marginTop: "6px" }}>
+                                {hasChildren && (
+                                    <button
+                                        aria-label="Toggle"
+                                        title="Toggle"
+                                        type="button"
+                                        onClick={() => handleToggle(node.id, true)}>
+                                        <FontAwesomeIcon
+                                            icon={isExpanded ? 'chevron-down' : 'chevron-right'}
+                                            style={{ cursor: 'pointer' }} />
+                                    </button>
+                                )}
+
+                                {node.label && <input
+                                    type="checkbox"
+                                    disabled={disabled}
+                                    checked={isChecked}
+                                    onChange={() => handleCheck(node.id, node.children || [])} />}
+                            </div>
+                            {node.label}
+                        </li>
                     )
                 }
                 {level < 4 && isExpanded && hasChildren && renderNestedNodes(node.children, level + 1)}
-            </div>
+            </ul>
         );
     });
     return <div>{renderNestedNodes(localNodes, 0)}</div>;

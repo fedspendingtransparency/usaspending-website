@@ -213,12 +213,8 @@ const CheckboxTree = ({
                         count={node.count}
                         displayId={displayId}
                         subLabel={node.subLabel}
-                        value={node?.isSearchable === false
-                            ? node.value
-                            : highlightText(node.value)}
-                        label={node?.isSearchable === false
-                            ? node.label
-                            : highlightText(node.label)}
+                        value={node?.value}
+                        label={node?.label}
                         countLabel={countLabel} />
                 ),
             children: node.children

@@ -277,6 +277,62 @@
   width: 100%;
 }
 
+// New nested checkbox tree
+.psc-checkbox .checkbox-tree {
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li.loading {
+      margin-left: 10px;
+    }
+
+    li.level {
+      display: flex;
+      align-items: start;
+    }
+  }
+
+  button {
+    width: unset;
+    background-color: unset;
+    margin: unset;
+    padding: unset;
+    color: $color_gray;
+    margin-right: 4px;
+    svg {
+      width: 10px;
+      height: 10px;
+      color: $blue-50;
+    }
+  }
+
+  input[type="checkbox"] {
+    margin: 2px 4px 0 0;
+    cursor: pointer;
+  }
+
+  .checkbox-tree-label {
+    &__value-container {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &__value-container-value {
+      font-weight: $font-semibold;
+    }
+
+    &__value-container-count {
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    &__label {
+      color: $gray-80;
+    }
+  }
+}
+
 // searchV2
 @import "./searchV2CheckboxTree";
 
@@ -286,5 +342,3 @@
 // def code bulk account download
 @import "./defCodeBulkDownload";
 
-// tree nodes scss
-@import "treeNodes";
