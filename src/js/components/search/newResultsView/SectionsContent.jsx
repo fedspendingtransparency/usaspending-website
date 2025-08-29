@@ -104,7 +104,10 @@ const SectionsContent = (props) => {
                 timeHasLoaded={timeHasLoaded}
                 hash={props.hash}
                 spendingLevel={props.spendingLevel} />
-            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} hash={props.hash} />
+            <MapSection
+                spendingLevel={props.spendingLevel}
+                mapHasLoaded={mapHasLoaded}
+                hash={props.hash} />
         </>
     );
 };
