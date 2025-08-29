@@ -62,8 +62,7 @@ const awardPageInfo = {
             page: 1,
             limit: 100,
             sort: "Award Amount",
-            order: "desc",
-            subawards: false
+            order: "desc"
         },
         fields: [
             "Award ID",
@@ -72,8 +71,7 @@ const awardPageInfo = {
         page: 1,
         limit: 100,
         sort: "Award Amount",
-        order: "desc",
-        spending_level: 'awards'
+        order: "desc"
     },
     accessor: 'generated_internal_id',
     clientRoute: `${siteUrl}/award`
