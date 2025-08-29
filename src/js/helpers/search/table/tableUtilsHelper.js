@@ -82,7 +82,7 @@ export const getSubawardDataByPrimeId = (awardId, filters, paramsOptions) => {
         limit: paramsOptions.subResultsLimit || 100,
         sort: subSort.field,
         order: subSort.direction,
-        subawards: true, // removing soon.
+        spending_level: 'subawards',
         auditTrail: 'Results Table - Spending by award search'
     };
 
@@ -140,7 +140,7 @@ export const getTransactionDataByPrimeId = (awardId, filters, paramsOptions) => 
         limit: paramsOptions.subResultsLimit || 100,
         sort: subSort.field,
         order: subSort.direction,
-        subawards: true, // removing soon.
+        spending_level: 'subawards',
         auditTrail: 'Results Table - Spending by award search'
     };
 

@@ -50,7 +50,12 @@ const NestedAwardTable = (props) => {
             subResultsLimit
         };
 
-        searchRequest = await getNestedTableData(props.columnType, props.awardId, props.filters, paramsOptions);
+        searchRequest = await getNestedTableData(
+            props.columnType,
+            props.awardId,
+            props.filters,
+            paramsOptions
+        );
 
         return searchRequest.promise
             .then((res) => {
