@@ -9,14 +9,13 @@ import ResultsTableContainer from "../../../../containers/search/newResultsView/
 import TableDsm from "./TableDsm";
 
 const propTypes = {
-    subaward: PropTypes.bool,
     tabData: PropTypes.object,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
 };
 
 const TableSection = ({
-    subaward, tabData, hash, spendingLevel
+    tabData, hash, spendingLevel
 }) => {
     const sectionTitle = () => {
         switch (spendingLevel) {
@@ -28,7 +27,7 @@ const TableSection = ({
 
     const wrapperProps = {
         sectionTitle: sectionTitle(),
-        dsmContent: <TableDsm subaward={subaward} spendingLevel={spendingLevel} />,
+        dsmContent: <TableDsm spendingLevel={spendingLevel} />,
         sectionName: 'table'
     };
 
@@ -37,7 +36,6 @@ const TableSection = ({
             <ResultsTableContainer
                 tabData={tabData}
                 wrapperProps={wrapperProps}
-                subaward={subaward}
                 hash={hash}
                 spendingLevel={spendingLevel} />
         </div>

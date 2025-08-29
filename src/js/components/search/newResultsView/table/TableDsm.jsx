@@ -5,7 +5,7 @@ import GlobalConstants from 'GlobalConstants';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 
-const TableDsm = ({ subaward, spendingLevel }) => {
+const TableDsm = ({ spendingLevel }) => {
     const [displayCopy, setDisplayCopy] = useState();
     const { pathname } = useLocation();
 
@@ -17,7 +17,7 @@ const TableDsm = ({ subaward, spendingLevel }) => {
     const v2Copy =
         <>
             <h4>What's included in this view of the data?</h4>
-            {subaward ?
+            { spendingLevel === "subawards" ?
                 <>
                     <p style={{ marginBottom: '8px' }}>
                         View a list of sub-award transactions based on your selected filters.
@@ -74,7 +74,7 @@ const TableDsm = ({ subaward, spendingLevel }) => {
     const legacyCopy =
         <>
             <h4>What's included in this view of the data?</h4>
-            {subaward ?
+            { spendingLevel === 'subawards' ?
                 <>
                     <p style={{ marginBottom: '8px' }}>
                         View a list of sub-award transactions based on your selected filters.
