@@ -16,13 +16,12 @@ import { useQueryParams } from '../../../../helpers/queryParams';
 
 const propTypes = {
     timeHasLoaded: PropTypes.bool,
-    subaward: PropTypes.bool,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
 };
 
 const TimeSection = ({
-    timeHasLoaded, subaward, hash, spendingLevel
+    timeHasLoaded, hash, spendingLevel
 }) => {
     const query = useQueryParams();
     const [visualizationPeriod, setVisualizationPeriod] = useState(query.by || 'month');
@@ -43,19 +42,19 @@ const TimeSection = ({
                 name: 'By Month',
                 value: 'month',
                 onClick,
-                dsmContent: <TimeDsm subaward={subaward} spendingLevel={spendingLevel} />
+                dsmContent: <TimeDsm spendingLevel={spendingLevel} />
             },
             {
                 name: 'By Fiscal Quarter',
                 value: 'quarter',
                 onClick,
-                dsmContent: <TimeDsm subaward={subaward} spendingLevel={spendingLevel} />
+                dsmContent: <TimeDsm spendingLevel={spendingLevel} />
             },
             {
                 name: 'By Year',
                 value: 'fiscal_year',
                 onClick,
-                dsmContent: <TimeDsm subaward={subaward} spendingLevel={spendingLevel} />
+                dsmContent: <TimeDsm spendingLevel={spendingLevel} />
             }
         ],
         selectedDropdownOption: visualizationPeriod,
@@ -67,7 +66,6 @@ const TimeSection = ({
             {timeHasLoaded ?
                 <TimeVisualizationSectionContainer
                     wrapperProps={wrapperProps}
-                    subaward={subaward}
                     visualizationPeriod={visualizationPeriod}
                     hash={hash} />
                 :

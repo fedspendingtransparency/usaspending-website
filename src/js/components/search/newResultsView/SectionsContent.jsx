@@ -101,7 +101,6 @@ const SectionsContent = (props) => {
                 selectedDropdown={selectedDropdown}
                 hash={props.hash} />
             <TimeSection
-                subaward={props.subaward}
                 timeHasLoaded={timeHasLoaded}
                 hash={props.hash}
                 spendingLevel={props.spendingLevel} />
