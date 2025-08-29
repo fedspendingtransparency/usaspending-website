@@ -216,10 +216,8 @@ const AccountAwardsContainer = ({ account, filters, spendingLevel = 'awards' }) 
         const searchParamsTemp = searchOperation.spendingByAwardTableParams({ account, filters });
         const filtersLocal = { ...searchParamsTemp.filters };
 
-        // spending_by_award_count will not work without subawards
         tabCountRequest.current = SearchHelper.performSpendingByAwardTabCountSearch({
-            filters: filtersLocal,
-            subawards: false
+            filters: filtersLocal
         });
 
         tabCountRequest.current.promise
