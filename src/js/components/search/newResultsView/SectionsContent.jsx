@@ -15,7 +15,6 @@ import Analytics from "../../../helpers/analytics/Analytics";
 require("pages/search/searchPage.scss");
 
 const propTypes = {
-    subaward: PropTypes.bool,
     tabData: PropTypes.object,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
