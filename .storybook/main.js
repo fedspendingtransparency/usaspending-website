@@ -52,7 +52,7 @@ export default {
         {
             test: /\.scss$/,
             use: [
-                { loader: MiniCssExtractPlugin.loader },
+                "style-loader",
                 { loader: "css-loader", options: { url: false, sourceMap: true } },
                 {
                     loader: "sass-loader",
