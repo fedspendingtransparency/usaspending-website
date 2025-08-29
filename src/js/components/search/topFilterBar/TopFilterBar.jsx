@@ -18,8 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = {
     filters: PropTypes.array,
     filterCount: PropTypes.number,
-    groupGenerator: PropTypes.func,
-    subaward: PropTypes.bool
+    groupGenerator: PropTypes.func
 };
 
 const TopFilterBar = (props) => {
@@ -70,7 +69,9 @@ const TopFilterBar = (props) => {
                 </div>
                 <div className="search-top-filters">
                     <div
-                        className={`search-top-filters-content ${newAwardsOnlyPresent ? 'newAwardsOnlyPresent' : ''} ${props.subaward ? 'subAward' : ''}`}>
+                        className={`search-top-filters-content ${
+                            newAwardsOnlyPresent ? 'newAwardsOnlyPresent' : ''
+                        }`}>
                         {filters}
                     </div>
                 </div>
