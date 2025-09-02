@@ -230,7 +230,7 @@ const CheckboxTree = ({
             <div className="checkbox-tree-filter-message-container">
                 <FontAwesomeIcon icon="spinner" spin />
                 <div className="checkbox-tree-filter-message-container__text">
-                    Loading your dataLoading your data...
+                    Loading your data...
                 </div>
             </div>
         );
