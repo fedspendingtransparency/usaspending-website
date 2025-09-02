@@ -30,13 +30,23 @@ const GlossaryLink = ({
 }) => {
     const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
-    // TODO: use useNaviate() instead?
 
     useEffect(() => {
         setUrlSearchParam(search.includes('glossary') ? '' : search);
     }, [search]);
 
-    const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
+    let newUrl;
+
+    // there is already a search query
+    if (search && !search.includes('glossary')) {
+        // url with original search &glossary={term}
+        newUrl = `${pathname}${search}&glossary=${term}`;
+    }
+    else {
+        // url with search term as query
+        newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
+    }
+
     const stopBubble = (e) => {
         showSlideout('glossary', { url: term });
         e.stopPropagation();
