@@ -146,8 +146,7 @@ export default connect(
         newAwardsOnlySelected: state.filters.filterNewAwardsOnlySelected,
         newAwardsOnlyActive: state.filters.filterNewAwardsOnlyActive,
         naoActiveFromFyOrDateRange: state.filters.filterNaoActiveFromFyOrDateRange,
-        appliedFilters: state.appliedFilters.filters,
-        subaward: state.searchView.subaward
+        appliedFilters: state.appliedFilters.filters
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TimePeriodContainer);

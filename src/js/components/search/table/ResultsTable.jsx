@@ -13,7 +13,6 @@ const propTypes = {
     columns: PropTypes.object,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
-    subaward: PropTypes.bool,
     spendingLevel: PropTypes.string,
     tableInstance: PropTypes.string,
     sort: PropTypes.object,
@@ -188,7 +187,7 @@ const ResultsTable = (props) => {
                     rows={limitedRows}
                     rowHeight={props.isMobile ? null : 58}
                     headerRowHeight={45}
-                    highlightedColumns={props.subaward ? {
+                    highlightedColumns={props.spendingLevel === 'subawards' ? {
                         standardColumns: 9,
                         highlightedColumns: props.currentType === "subcontracts" ? 7 : 6
                     } : null}
