@@ -75,7 +75,7 @@ const TopFiveContainer = (props) => {
             params.fields = ['Award ID', 'Award Amount', 'generated_internal_id'];
             params.order = 'desc';
             params.sort = 'Award Amount';
-            params.subawards = false;
+            params.spending_level = 'awards';
         }
 
         if (props.category === 'defc') {

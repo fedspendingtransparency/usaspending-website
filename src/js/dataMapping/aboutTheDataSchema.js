@@ -191,6 +191,32 @@ const schema = {
             }
         ]
     },
+    "filter-category-descriptions": {
+        heading: "Filter Category Descriptions",
+        path: 'content/about-the-data/filter-category-descriptions',
+        fields: [
+            {
+                name: "Time Period",
+                slug: "time-period-category"
+            },
+            {
+                name: "Location",
+                slug: "location-category"
+            },
+            {
+                name: "Sources",
+                slug: "sources-category"
+            },
+            {
+                name: "Recipients",
+                slug: "recipients-category"
+            },
+            {
+                name: "Characteristics",
+                slug: "characteristics-category"
+            }
+        ]
+    },
     "legal-disclosures": {
         heading: "Legal and Policy Documentation",
         path: 'content/about-the-data/legal-disclosures',

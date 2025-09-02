@@ -1,0 +1,41 @@
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import DsmRelatedTerms from 'components/search/collapsibleSidebar/DsmRelatedTerms.jsx'
+
+<div className="collapsible-sidebar--dsm-wrapper--text-section">
+    To help users understand the variety of filters available on USAspending.gov, we have grouped filters by five main categories. Below you will see what filters are included in each category.
+</div>
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">
+    About the Filter
+</div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section">
+    Search results are filtered against action dates <GlossaryLink term="action-date"/> (for example, the date of the latest transaction action date <GlossaryLink term="latest-transaction-action-date"/> or the base transaction action date <GlossaryLink term="base-transaction-action-date"/>).
+</div>
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">
+    Selecting a time period for prime award, subaward, and transaction results
+</div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section">
+    Search results using the time period filters will vary depending on the page-wide filter (i.e., Prime Awards, Subawards, or Transactions) that is selected:
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header additional-dsm-styles">Prime Award results</div>
+    * <div className="collapsible-sidebar--dsm-wrapper--text-section">When using the “Prime Award” page-wide filter, search results filtered by the time period filter include all awards that overlap with the selected time period, even if there are no new transactions <GlossaryLink term="transaction" /> in that time period. For example, for the selected time period of Mar. 1-31, 2022, you would see results for an award with a base transaction action date of Jan. 1, 2022 and a latest transaction action date of Dec. 31, 2022, even if there is no transaction activity for that award within the period of Mar. 1-31, 2022.</div>
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header additional-dsm-styles">Subaward or Transaction results</div>
+    * <div className="collapsible-sidebar--dsm-wrapper--text-section">When using the “Subaward” or “Transactions” page-wide filters, search results filtered by the time period filter include all subawards or transactions with an action date in the selected time period. For example, for the selected time period of Mar. 1-31, 2022, you would see results for subawards or transactions that specifically have an action date between March 1-31, 2022. </div>
+    Please note that results displayed in the different results modules (Table, Category, Time, Geography) will also vary depending on the page-wide filter selected. For more information, read the Data sources and methodology sections in each results module.
+</div>
+
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">Show New Awards Only </div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section">
+    Selecting the “Show New Awards Only” checkbox will display any prime award <GlossaryLink term="prime-award"/> whose first transaction (base transaction action date) falls within the selected time period.
+    The "Show New Awards Only" filter does not apply to subawards <GlossaryLink term="sub-award" />. Since there is no concept of “sub-award modification” or “sub-award summary level” in the FFATA Subaward Reporting System (FSRS) data model, all subawards are considered “new.”
+</div>
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">Historical Data </div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section">
+    Please note that prime award and subaward data on Advanced Search begin in Fiscal Year 2008. Earlier data, starting in Fiscal Year 2001, can be found in the Custom Award Data Download.
+</div>
+
+<DsmRelatedTerms headingTitle={"Related terms"} glossaryLinks={[{text: "Action Date", term:"action-date"},{text:"Fiscal Year (FY)",term:"fiscal-year-fy"}]} />

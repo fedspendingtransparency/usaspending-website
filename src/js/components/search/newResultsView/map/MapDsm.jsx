@@ -6,7 +6,7 @@ import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 import GlobalConstants from "../../../../GlobalConstants";
 
-const MapDsm = ({ subaward }) => {
+const MapDsm = ({ spendingLevel }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
     const [displayCopy, setDisplayCopy] = useState();
@@ -22,7 +22,7 @@ const MapDsm = ({ subaward }) => {
         <p style={{ marginBottom: '8px' }}>
             Use the map to break down spending by state, county, or congressional district.
         </p>
-        {subaward ?
+        { spendingLevel === 'subawards' ?
             <>
                 {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                 <p className="award-search__body-text">
@@ -82,7 +82,7 @@ const MapDsm = ({ subaward }) => {
         <p style={{ marginBottom: '8px' }}>
             Use the map to break down spending by state, county, or congressional district.
         </p>
-        {subaward ?
+        { spendingLevel === 'subawards' ?
             <>
                 {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                 <p className="award-search__body-text">

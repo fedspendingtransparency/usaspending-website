@@ -9,7 +9,7 @@ import { Tabs, NoResultsMessage } from 'data-transparency-ui';
 import { throttle } from "lodash-es";
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
-import TanStackTable from '../../table/tanStackTable/TanStackTable';
+import GroupedAwardTable from '../../table/groupedTable/GroupedAwardTable';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -22,7 +22,6 @@ const propTypes = {
     toggleColumnVisibility: PropTypes.func,
     updateSort: PropTypes.func,
     reorderColumns: PropTypes.func,
-    subaward: PropTypes.bool,
     awardIdClick: PropTypes.func,
     subAwardIdClick: PropTypes.func,
     page: PropTypes.number,
@@ -78,7 +77,7 @@ const ResultsTableSection = (props) => {
 
         if (props.expandableData?.length) {
             return (
-                <TanStackTable
+                <GroupedAwardTable
                     {...props}
                     expandableData={props.expandableData}
                     columnType={props.columnType}

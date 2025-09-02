@@ -6,7 +6,7 @@ import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 import GlobalConstants from "../../../../GlobalConstants";
 
-const TimeDsm = ({ subaward, spendingLevel }) => {
+const TimeDsm = ({ spendingLevel }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
     const [displayCopy, setDisplayCopy] = useState();
@@ -23,7 +23,7 @@ const TimeDsm = ({ subaward, spendingLevel }) => {
             <p style={{ marginBottom: '8px' }}>
             Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.
             </p>
-            {subaward &&
+            { spendingLevel === 'subawards' &&
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p className="award-search__body-text">The data represent
@@ -93,7 +93,7 @@ const TimeDsm = ({ subaward, spendingLevel }) => {
             Spot trends in spending over your chosen time period.
             Break down your results by years, quarters, or months.
         </p>
-        {subaward ?
+        { spendingLevel === 'subawards' ?
             <>
                 {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                 <p className="award-search__body-text">The data represent

@@ -7,8 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash-es";
 import PropTypes from "prop-types";
-import { mediumScreen, largeScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { sideBarDesktopWidth, sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
 
 const propTypes = {
@@ -43,7 +43,6 @@ const SidebarWrapper = React.memo(({
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
     const additionalRibbonHeight = 57;
-    const shortRibbonHeight = 73;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -192,15 +191,10 @@ const SidebarWrapper = React.memo(({
     useEffect(() => {
         if (isOpened) {
             if (document.querySelector(".full-search-sidebar")) {
-                if (windowWidth >= mediumScreen && windowWidth < largeScreen) {
-                    openSidebar(sideBarDesktopWidth);
-                }
-                else {
-                    openSidebar(sideBarXlDesktopWidth);
-                }
+                openSidebar(sideBarXlDesktopWidth);
             }
             else if (document.querySelector(".mobile-search-sidebar-v2") && isMobile) {
-                openSidebar(sideBarDesktopWidth);
+                openSidebar(sideBarXlDesktopWidth);
             }
         }
         else if (document.querySelector(".full-search-sidebar")) {
@@ -249,8 +243,7 @@ const SidebarWrapper = React.memo(({
         // eslint-disable-next-line no-undef
         const sidebarResizeObserver = new ResizeObserver((entries) => {
             if (
-                (Math.round(entries[0].contentRect.width) === sideBarDesktopWidth - 2) ||
-                (Math.round(entries[0].contentRect.width) === sideBarXlDesktopWidth - 2)
+                Math.round(entries[0].contentRect.width) === sideBarXlDesktopWidth - 2
             ) {
                 setRenderSidebarContent(true);
             }
@@ -298,15 +291,13 @@ const SidebarWrapper = React.memo(({
         return sidebarHeight;
     };
 
-    const getFooterHeight = () => `${mainContentHeight - shortRibbonHeight - footerEl.getBoundingClientRect().top}px`;
-
     return (
         <div
             className={`search-collapsible-sidebar-container search-sidebar ${sidebarIsSticky ? "sticky" : ""}`}
             style={isMobile ? {} : { display: "none" }}>
             <div
                 style={isFooterVisible ? {
-                    height: selectHeight(), overscrollBehavior: "none", position: "fixed", bottom: getFooterHeight()
+                    height: selectHeight(), overscrollBehavior: "none", position: "fixed"
                 } : {
                     height: selectHeight(), overscrollBehavior: "none"
                 }}

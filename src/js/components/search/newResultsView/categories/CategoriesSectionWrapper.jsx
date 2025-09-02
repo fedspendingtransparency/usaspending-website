@@ -18,17 +18,26 @@ const propTypes = {
     recipientError: PropTypes.bool
 };
 
-const CategoriesSectionWrapper = (props) => (
+const CategoriesSectionWrapper = ({
+    nextPage,
+    previousPage,
+    loading,
+    error,
+    hasNextPage,
+    hasPreviousPage,
+    children,
+    recipientError
+}) => (
     <>
-        {props.children}
+        {children}
         <CategoriesPagination
-            nextPage={props.nextPage}
-            previousPage={props.previousPage}
-            loading={props.loading}
-            error={props.error}
-            hasNextPage={props.hasNextPage}
-            hasPreviousPage={props.hasPreviousPage}
-            recipientError={props.recipientError} />
+            nextPage={nextPage}
+            previousPage={previousPage}
+            loading={loading}
+            error={error}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage}
+            recipientError={recipientError} />
     </>
 );
 
