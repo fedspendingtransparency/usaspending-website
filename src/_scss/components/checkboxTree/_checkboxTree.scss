@@ -283,14 +283,23 @@
     margin: 0;
     padding: 0;
 
-    li.loading {
-      margin-left: 10px;
+    li {
+      list-style-type: none;
+
+      .label {
+        display: flex;
+      }
     }
 
-    li.level {
-      display: flex;
-      align-items: start;
+    .loading {
+      margin-left: 10px;
     }
+  }
+
+  div.open {
+    margin-left: 4px;
+    padding-left: 24px;
+    border-left: 1.5px solid $gray-cool-20;
   }
 
   button {
