@@ -191,7 +191,8 @@ const SearchPage = ({
                             <KeywordSearchLink />
                             : ''}
                     </div>
-                    <div className="mobile-filter-button-wrapper">
+                    <div className={`mobile-filter-button-wrapper 
+                        ${showMobileFilters && sidebarOpen ? 'hidden' : ''}`} >
                         <button
                             className="mobile-filter-button-v2"
                             onClick={toggleMobileFilters}
