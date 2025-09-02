@@ -42,6 +42,10 @@ const TreeNodesWrapper = ({
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [expanded]);
 
+    useEffect(() => {
+        setLocalChecked(checked);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [checked]);
 
     const findNodeById = (id) => {
         const stack = [...nodes];
