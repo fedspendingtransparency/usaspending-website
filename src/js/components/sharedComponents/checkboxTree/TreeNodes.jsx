@@ -34,7 +34,8 @@ const TreeNodes = ({
 
     useEffect(() => {
         setLoadingParentId(null);
-        // must reform the data 
+        // must reformat the data
+        console.log(nodes);
         setLocalNodes(nodes);
     }, [nodes]);
 
@@ -116,11 +117,11 @@ const TreeNodes = ({
         return (
             <ul>
                 {isLoading && loadingParentId === node.id ? (
-                        <li className="loading">
-                            <br />
-                            <FontAwesomeIcon icon="spinner" spin /> Loading your data...
-                        </li>
-                    )
+                    <li className="loading">
+                        <br />
+                        <FontAwesomeIcon icon="spinner" spin /> Loading your data...
+                    </li>
+                )
                     :
                     (
                         <li className="level" style={{ marginLeft: level * 20 }}>
