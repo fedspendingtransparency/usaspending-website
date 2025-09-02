@@ -58,7 +58,6 @@ export class MapContainer extends React.Component {
                 awardType: 'all'
             },
             selectedItem: {},
-            subAward: false,
             visibleEntities: [],
             showHover: false,
             renderHash: `geo-${uniqueId()}`,

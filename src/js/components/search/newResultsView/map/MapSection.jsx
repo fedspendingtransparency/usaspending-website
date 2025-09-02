@@ -12,12 +12,12 @@ import MapDsm from "./MapDsm";
 import PlaceholderComponent from "../PlaceholderComponent";
 
 const propTypes = {
-    subaward: PropTypes.bool,
+    spendingLevel: PropTypes.string,
     mapHasLoaded: PropTypes.bool,
     hash: PropTypes.string
 };
 
-const MapSection = ({ subaward, mapHasLoaded, hash }) => {
+const MapSection = ({ spendingLevel, mapHasLoaded, hash }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('place_of_performance');
 
     const onClick = (e) => {
@@ -36,13 +36,13 @@ const MapSection = ({ subaward, mapHasLoaded, hash }) => {
                 name: 'Place of Performance',
                 value: 'place_of_performance',
                 onClick,
-                dsmContent: <MapDsm subaward={subaward} />
+                dsmContent: <MapDsm spendingLevel={spendingLevel} />
             },
             {
                 name: 'Recipient Location',
                 value: 'recipient_location',
                 onClick,
-                dsmContent: <MapDsm subaward={subaward} />
+                dsmContent: <MapDsm spendingLevel={spendingLevel} />
             }
         ],
         selectedDropdownOption: selectedDropdown,
@@ -53,7 +53,6 @@ const MapSection = ({ subaward, mapHasLoaded, hash }) => {
         <div id="search-page-component" className="map">
             {mapHasLoaded ?
                 <MapSectionWrapper
-                    subaward={subaward}
                     scope={selectedDropdown}
                     setScope={setSelectedDropdown}
                     wrapperProps={wrapperProps}
