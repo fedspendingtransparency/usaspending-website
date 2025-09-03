@@ -35,7 +35,6 @@ const TreeNodes = ({
     useEffect(() => {
         setLoadingParentId(null);
         // must reformat the data
-        console.log(nodes);
         setLocalNodes(nodes);
     }, [nodes]);
 
@@ -109,11 +108,11 @@ const TreeNodes = ({
         }
     };
 
-    const renderNestedNodes = (renderNodes, level) => renderNodes.map((node, i) => {
+    const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
         const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
         const isExpanded = localExpanded.includes(node.id);
         const hasChildren = node.children && node.children.length > 0;
-        console.log(i, renderNodes.length);
+
         return (
             <ul>
                 {isLoading && loadingParentId === node.id ? (

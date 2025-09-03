@@ -21,7 +21,7 @@ const propTypes = {
     isDisabled: PropTypes.bool,
     errorMessage: PropTypes.string,
     isSearch: PropTypes.bool,
-    searchText: PropTypes.string,
+    searchString: PropTypes.string,
     modifyLabelTextClassname: PropTypes.string,
     labelComponent: PropTypes.element,
     onExpand: PropTypes.func,
@@ -42,7 +42,7 @@ const CheckboxTree = ({
     isDisabled = false,
     errorMessage,
     isSearch,
-    searchText,
+    searchString,
     modifyLabelTextClassname,
     labelComponent,
     onExpand: onExpandProp,
@@ -177,7 +177,7 @@ const CheckboxTree = ({
      * or string if no match is found.
      */
     const highlightText = (text) => replaceString(
-        text, searchText, modifyLabelTextClassname || 'highlight'
+        text, searchString, modifyLabelTextClassname || 'highlight'
     );
 
     /**
@@ -187,7 +187,7 @@ const CheckboxTree = ({
       * @returns {Array.<object>} An array of objects
     **/
     const createLabels = (nodes) => nodes.map((node) => {
-    // if label is a string, do nothing
+    // if label is not a string, do nothing
         if (typeof node.label !== 'string') return node;
         if (node.isPlaceHolder && node.className !== 'hide') {
             return {
@@ -213,9 +213,14 @@ const CheckboxTree = ({
                         count={node.count}
                         displayId={displayId}
                         subLabel={node.subLabel}
-                        value={node?.value}
-                        label={node?.label}
-                        countLabel={countLabel} />
+                        value={node?.isSearchable === false
+                            ? node.value
+                            : highlightText(node.value)}
+                        label={node?.isSearchable === false
+                            ? node.label
+                            : highlightText(node.label)}
+                        countLabel={countLabel}
+                        searchString={searchString} />
                 ),
             children: node.children
                 ? createLabels(node.children)
