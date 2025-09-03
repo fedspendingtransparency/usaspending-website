@@ -338,6 +338,18 @@
 
     &__label {
       color: $gray-80;
+
+      span {
+        font-size: $font-size-10;
+        font-style: italic;
+        line-height: rem(1.8);
+        color: $gray-60;
+      }
+      span.highlight {
+        background-color: $yellow-10;
+        font-style: normal;
+        font-size: $font-size-12;
+      }
     }
   }
 }
