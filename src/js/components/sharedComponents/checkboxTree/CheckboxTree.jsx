@@ -9,7 +9,7 @@ import { difference } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import replaceString from 'helpers/replaceString';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
-import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodes';
+import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodesWrapper';
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
