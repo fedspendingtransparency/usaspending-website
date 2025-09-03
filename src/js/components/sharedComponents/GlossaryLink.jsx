@@ -55,14 +55,14 @@ const GlossaryLink = ({
     const innerContent = () => {
         if (showHoverText) {
             if (label) {
-                return <a href={newUrl}>{label} <Glossary alt={alt} /></a>;
+                return <>{label} <Glossary alt={alt} /></>;
             }
 
             return <Glossary alt={alt} />;
         }
 
         if (label) {
-            return <a href={newUrl}>{label} <FontAwesomeIcon icon="book" /></a>;
+            return <>{label} <FontAwesomeIcon icon="book" /></>;
         }
 
         return <FontAwesomeIcon icon="book" />;
