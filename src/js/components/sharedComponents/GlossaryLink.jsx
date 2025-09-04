@@ -30,10 +30,23 @@ const GlossaryLink = ({
 }) => {
     const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
+
     useEffect(() => {
         setUrlSearchParam(search.includes('glossary') ? '' : search);
     }, [search]);
-    const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
+
+    let newUrl;
+
+    // there is already a search query
+    if (search && !search.includes('glossary')) {
+        // url with original search &glossary={term}
+        newUrl = `${pathname}${search}&glossary=${term}`;
+    }
+    else {
+        // url with search term as query
+        newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
+    }
+
     const stopBubble = (e) => {
         showSlideout('glossary', { url: term });
         e.stopPropagation();
@@ -42,14 +55,14 @@ const GlossaryLink = ({
     const innerContent = () => {
         if (showHoverText) {
             if (label) {
-                return <a href={newUrl}>{label} <Glossary alt={alt} /></a>;
+                return <>{label} <Glossary alt={alt} /></>;
             }
 
             return <Glossary alt={alt} />;
         }
 
         if (label) {
-            return <a href={newUrl}>{label} <FontAwesomeIcon icon="book" /></a>;
+            return <>{label} <FontAwesomeIcon icon="book" /></>;
         }
 
         return <FontAwesomeIcon icon="book" />;
