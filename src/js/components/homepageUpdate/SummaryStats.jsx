@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isCancel } from "axios";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { fetchBreakdown } from 'helpers/explorerHelper';

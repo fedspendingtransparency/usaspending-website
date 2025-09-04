@@ -10,7 +10,7 @@
 import React, { cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import PropTypes from 'prop-types';
-import { difference } from 'lodash';
+import { difference } from 'lodash-es';
 import replaceString from 'helpers/replaceString';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';

@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 
 const propTypes = {
     scale: PropTypes.func, // function to set line position

@@ -2,7 +2,7 @@
  * SearchAwardsOperation.js
  * Created by michaelbray on 8/7/17.
  */
-import { pickBy } from 'lodash';
+import { pickBy } from 'lodash-es';
 import {
     rootKeys,
     timePeriodKeys,

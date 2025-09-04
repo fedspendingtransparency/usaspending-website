@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { setDataThroughDates,

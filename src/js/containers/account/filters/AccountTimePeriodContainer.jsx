@@ -9,7 +9,7 @@ import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
-import { flowRight } from 'lodash';
+import { flowRight } from 'lodash-es';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from "propTypes";

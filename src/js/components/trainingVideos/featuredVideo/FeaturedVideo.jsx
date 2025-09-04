@@ -10,7 +10,7 @@ import PropTypes, { oneOfType } from "prop-types";
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { handleShareOptionClick } from 'helpers/socialShare';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import VideoThumbnail from '../videoThumbnails/VideoThumbnail';
 
 

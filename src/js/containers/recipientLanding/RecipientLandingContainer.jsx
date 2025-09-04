@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { isCancel } from 'axios';
-import { inRange } from 'lodash';
+import { inRange } from 'lodash-es';
 
 
 import * as RecipientLandingHelper from 'helpers/recipientLandingHelper';

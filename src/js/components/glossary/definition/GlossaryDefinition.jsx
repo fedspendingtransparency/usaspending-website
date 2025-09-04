@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { startCase } from "lodash";
+import { startCase } from "lodash-es";
 import { useDispatch } from 'react-redux';
 
 import { handleShareOptionClick } from 'helpers/socialShare';
@@ -15,6 +15,7 @@ import { handleShareOptionClick } from 'helpers/socialShare';
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
 import { showModal } from '../../../redux/actions/modal/modalActions';
+import { useQueryParams } from "../../../helpers/queryParams";
 
 const propTypes = {
     glossary: PropTypes.object,
@@ -25,6 +26,7 @@ const getGlossaryEmailSubject = (slug) => `USAspending.gov Glossary Term: ${star
 const getGlossaryEmailBody = (url) => `View the definition of this federal spending term on USAspending.gov: ${url}`;
 
 const GlossaryDefinition = (props) => {
+    const query = useQueryParams();
     const [tab, setTab] = useState('plain');
     const [hasPlain, setHasPlain] = useState(true);
     const [hasOfficial, setHasOfficial] = useState(true);
@@ -86,13 +88,38 @@ const GlossaryDefinition = (props) => {
     const slug = props.glossary.term.toJS().slug;
 
     const stripUrl = () => {
-        const query = new URL(window.location.href);
-        if (query.search !== '') {
-            const test = window.location.href.includes("?");
-            if (test) {
-                return `${window.location.href}&glossary=`;
-            }
+        const url = new URL(window.location.href);
+
+        // if the search query is glossary already, just replace it
+        if (window.location.href.includes('?glossary=')) {
+            return `${url.origin}${url.pathname}?glossary=`;
         }
+        else if (url.search !== '') {
+            // if glossary is already part of the query
+            if (window.location.href.includes('&glossary=')) {
+                // remove the old glossary term
+                delete query.glossary;
+
+                // add back in all other queries
+                const queryArray = [];
+                Object.entries(query).forEach(([key, value], i) => {
+                    if (i === 0) {
+                        queryArray.push(`?${key}=${value}`);
+                    }
+                    else {
+                        queryArray.push(`&${key}=${value}`);
+                    }
+                });
+
+                // append new glossary term to other queries
+                return `${url.origin}${url.pathname}${queryArray}&glossary=`;
+            }
+
+            // if glossary wasn't previously in the query, add the glossary term
+            return `${window.location.href}&glossary=`;
+        }
+
+        // if there are no existing search query, make glossary the query
         return `${window.location.href}?glossary=`;
     };
 

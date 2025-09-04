@@ -4,8 +4,7 @@
  **/
 
 
-export const sideBarXlDesktopWidth = 332;
-export const sideBarDesktopWidth = 282;
+export const sideBarXlDesktopWidth = 352;
 
 export const panelContainerElClasses = [
     {

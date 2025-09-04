@@ -7,7 +7,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { pickLocationFormat } from 'helpers/locationFormatter';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
-import { twoVariableFormat } from '../../../helpers/search/tables/tableUtilsHelper';
+import { twoVariableFormat } from '../../../helpers/search/table/tableUtilsHelper';
 import { convertToTitleCase } from "../../../helpers/searchHelper";
 
 const ResultsTableRow = {
@@ -64,7 +64,7 @@ const ResultsTableRow = {
         this.uei = data['Recipient UEI'] || 'UEI not provided';
         this.recipientLocation = pickLocationFormat(data['Recipient Location']);
         this.primaryPlaceOfPerformance = pickLocationFormat(data['Primary Place of Performance']);
-        this.defc = data.def_codes || '--';
+        this.defc = data.def_codes?.toString() || '--';
         this.covid19obligations = MoneyFormatter.formatMoneyWithPrecision(data['COVID-19 Obligations'], 2, "--");
         this.covid19outlays = MoneyFormatter.formatMoneyWithPrecision(data['COVID-19 Outlays'], 2, "--");
         this.infObligations = MoneyFormatter.formatMoneyWithPrecision(data['Infrastructure Obligations'], 2, "--");
@@ -116,7 +116,7 @@ const ResultsTableRow = {
         this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
         this.recipientLocation = pickLocationFormat(data['Recipient Location']);
         this.primaryPlaceOfPerformance = pickLocationFormat(data['Primary Place of Performance']);
-        this.defc = data.def_codes || '--';
+        this.defc = data.def_codes?.toString() || '--';
         this.covid19obligations = MoneyFormatter.formatMoneyWithPrecision(data['COVID-19 Obligations'], 2, "--");
         this.covid19outlays = MoneyFormatter.formatMoneyWithPrecision(data['COVID-19 Outlays'], 2, "--");
         this.infObligations = MoneyFormatter.formatMoneyWithPrecision(data['Infrastructure Obligations'], 2, "--");
@@ -167,7 +167,7 @@ const ResultsTableRow = {
         this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
         this.recipientLocation = pickLocationFormat(data['Recipient Location']);
         this.primaryPlaceOfPerformance = pickLocationFormat(data['Primary Place of Performance']);
-        this.defc = data.def_codes || '--';
+        this.defc = data.def_codes?.toString() || '--';
         this.covid19obligations = MoneyFormatter.formatMoneyWithPrecision(data['COVID-19 Obligations'], 2, "--");
         this.covid19outlays = MoneyFormatter.formatMoneyWithPrecision(data['COVID-19 Outlays'], 2, "--");
         this.infObligations = MoneyFormatter.formatMoneyWithPrecision(data['Infrastructure Obligations'], 2, "--");
@@ -218,7 +218,7 @@ const ResultsTableRow = {
         this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
         this.recipientLocation = pickLocationFormat(data['Recipient Location']);
         this.primaryPlaceOfPerformance = pickLocationFormat(data['Primary Place of Performance']);
-        this.defc = data.def_codes || '--';
+        this.defc = data.def_codes?.toString() || '--';
         this.covid19obligations = MoneyFormatter.formatMoneyWithPrecision(data['COVID-19 Obligations'], 2, "--");
         this.covid19outlays = MoneyFormatter.formatMoneyWithPrecision(data['COVID-19 Outlays'], 2, "--");
         this.infObligations = MoneyFormatter.formatMoneyWithPrecision(data['Infrastructure Obligations'], 2, "--");

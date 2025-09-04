@@ -4,7 +4,7 @@
  */
 
 import { Set } from 'immutable';
-import { uniq } from 'lodash';
+import { uniq } from 'lodash-es';
 import {
     awardTypeCodes,
     awardTypeGroups,
