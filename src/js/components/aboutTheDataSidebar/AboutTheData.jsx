@@ -17,7 +17,7 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
-import { useQueryParams, combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
+import { useQueryParams, getQueryParamString } from '../../helpers/queryParams';
 
 
 const propTypes = {
@@ -53,6 +53,7 @@ const AboutTheData = (props) => {
             setFirstMount(false);
         }
     }, [props.aboutTheDataSidebar.display]);
+
     const clearDrilldown = () => {
         setDrilldownItemId(null);
         setDrilldownSection(null);
@@ -140,8 +141,11 @@ const AboutTheData = (props) => {
             // remove search param from url
             if (window.location.href.includes('about-the-data')) {
                 delete query['about-the-data'];
-                const newQueryParams = combineQueryParams(query, '');
-                window.history.pushState({}, null, `${history.location.pathname}${getQueryParamString(newQueryParams)}`);
+                const newQueryParams = getQueryParamString(query);
+                history({
+                    pathname: '',
+                    search: newQueryParams
+                }, { replace: true });
             }
 
             // move focus back to the main content
