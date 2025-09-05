@@ -4,7 +4,7 @@
  * Created by Jonathan Hill 03/26/20
  */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { scaleLinear } from 'd3-scale';
 import {
     areTransactionDatesOrAwardAmountsInvalid,

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import { useQueryParams } from 'helpers/queryParams';

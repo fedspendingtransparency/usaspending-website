@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isCancel } from "axios";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { fetchBreakdown } from 'helpers/explorerHelper';
@@ -68,7 +68,7 @@ const SummaryStats = () => {
             .then((results) => {
                 const hashData = results.data;
                 trackBudgetFunctionLink(title);
-                window.open(`/search/?hash=${hashData.hash}`, '_blank');
+                window.open(`/search?hash=${hashData.hash}`, '_blank');
                 // operation has resolved
                 tempHash = null;
             })

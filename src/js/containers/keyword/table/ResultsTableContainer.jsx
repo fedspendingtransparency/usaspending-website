@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { uniqueId, map } from 'lodash';
+import { uniqueId, map } from 'lodash-es';
 import * as KeywordHelper from 'helpers/keywordHelper';
 import { availableColumns, defaultSort } from 'dataMapping/keyword/resultsTableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';

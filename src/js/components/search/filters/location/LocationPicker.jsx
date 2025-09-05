@@ -6,7 +6,7 @@
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper, Button } from "data-transparency-ui";
 import EntityDropdown from './EntityDropdown';

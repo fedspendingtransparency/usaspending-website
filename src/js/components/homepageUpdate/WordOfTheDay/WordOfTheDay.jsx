@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { isCancel } from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { fetchAllTerms } from "helpers/glossaryHelper";
 import Analytics from '../../../helpers/analytics/Analytics';
 import { LoadingWrapper } from "../../sharedComponents/Loading";

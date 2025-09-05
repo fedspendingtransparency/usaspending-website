@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { render, renderWithoutRouter, waitFor } from 'test-utils';
-import { Route, Routes, MemoryRouter } from 'react-router-dom';
+import { Route, Routes, MemoryRouter } from 'react-router';
 import * as reactRedux from 'react-redux';
 import * as agency from 'apis/agency';
 import * as accountHooks from 'containers/account/WithLatestFy';

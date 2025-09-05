@@ -7,7 +7,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Set } from 'immutable';
-import { MemoryRouter, Router, Route, useLocation } from 'react-router-dom';
+import { MemoryRouter, Router, Route, useLocation } from 'react-router';
 import * as redux from 'react-redux';
 
 import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainer';
@@ -39,9 +39,9 @@ jest.mock('react-redux', () => {
     };
 });
 
-jest.mock('react-router-dom', () => {
+jest.mock('react-router', () => {
     return {
-        ...jest.requireActual('react-router-dom'),
+        ...jest.requireActual('react-router'),
         useLocation: jest.fn().mockReturnValue({search: ''}),
         useNavigate: jest.fn()
     };

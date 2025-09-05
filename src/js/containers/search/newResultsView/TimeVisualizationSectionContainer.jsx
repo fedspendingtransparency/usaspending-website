@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import GlobalConstants from 'GlobalConstants';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
@@ -31,7 +31,6 @@ const propTypes = {
     reduxFilters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subaward: PropTypes.bool,
     visualizationPeriod: PropTypes.string,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
@@ -237,7 +236,7 @@ const TimeVisualizationSectionContainer = (props) => {
 
         // if subawards is true, newAwardsOnly cannot be true, so we remove
         // dateType for this request
-        if (props.subaward && operation.dateType) {
+        if (props.spendingLevel === 'subawards' && operation.dateType) {
             delete operation.dateType;
         }
 
@@ -247,8 +246,7 @@ const TimeVisualizationSectionContainer = (props) => {
         const apiParams = {
             group: visualizationPeriod,
             filters: searchParams,
-            subawards: props.subaward
-            // spending_level: props.spendingLevel
+            spending_level: props.spendingLevel
         };
 
         if (isv2) {
@@ -309,7 +307,7 @@ const TimeVisualizationSectionContainer = (props) => {
             fetchData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward, visualizationPeriod, props.spendingLevel]);
+    }, [props.reduxFilters, visualizationPeriod, props.spendingLevel]);
 
     useEffect(() => {
         fetchData();
@@ -343,15 +341,21 @@ const TimeVisualizationSectionContainer = (props) => {
             columns={columns[visualizationPeriod]}
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
-            hasNoData={parsedData?.ySeries?.flat()?.reduce((partialSum, a) => partialSum + a, 0) === 0}
-            downloadComponent={<TimeFileDownload downloadData={downloadData} visualizationPeriod={visualizationPeriod} />}
+            hasNoData={parsedData
+                ?.ySeries
+                ?.flat()
+                ?.reduce((partialSum, a) => partialSum + a, 0) === 0}
+            downloadComponent={
+                <TimeFileDownload
+                    downloadData={downloadData}
+                    visualizationPeriod={visualizationPeriod} />
+            }
             manualSort
             hash={props.hash}
             setActiveField={setActiveField}>
             <TimeVisualizationChart
                 {...parsedData}
-                visualizationPeriod={visualizationPeriod}
-                subaward={props.subaward} />
+                visualizationPeriod={visualizationPeriod} />
         </SearchSectionWrapper>
     );
 };
@@ -362,7 +366,6 @@ export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward,
         spendingLevel: state.searchView.spendingLevel
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)

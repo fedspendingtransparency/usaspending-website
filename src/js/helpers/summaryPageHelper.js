@@ -3,7 +3,7 @@
  * Created by Kevin Li 3/15/17
  */
 
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
 

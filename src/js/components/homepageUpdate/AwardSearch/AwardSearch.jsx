@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Keyboard, A11y } from "swiper";
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
@@ -192,7 +192,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending to Communities"
                                                 text={placeOfPerformance} >
                                                 <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-communities-2x.svg" alt="" role="presentation" />
+                                                    <img src="img/homepage-award-search/award-search-communities.svg" alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction
@@ -302,7 +302,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending to Communities"
                                                 text={placeOfPerformance}>
                                                 <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-communities-2x.svg" alt="" role="presentation" />
+                                                    <img src="img/homepage-award-search/award-search-communities.svg" alt="" role="presentation" />
                                                 </div>
                                                 <CardButton
                                                     onlyPerformAction

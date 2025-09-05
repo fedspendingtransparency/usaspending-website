@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, min, max } from 'lodash';
+import { isEqual, min, max } from 'lodash-es';
 import { scaleLinear } from 'd3-scale';
 import { calculatePercentage } from 'helpers/moneyFormatter';
 import { nearestQuarterDate } from 'helpers/fiscalYearHelper';

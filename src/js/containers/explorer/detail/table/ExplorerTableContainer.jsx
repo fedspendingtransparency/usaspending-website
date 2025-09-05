@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { orderBy } from 'lodash';
+import { orderBy } from 'lodash-es';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as explorerActions from 'redux/actions/explorer/explorerActions';

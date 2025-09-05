@@ -10,7 +10,7 @@ import * as redux from 'react-redux';
 import { createStore } from 'redux';
 import covid19Reducer from 'redux/reducers/covid19/covid19Reducer';
 import { render, fireEvent, screen } from '@testing-library/react';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import * as downloadHelper from 'helpers/downloadHelper';
 import { mockDefcParams } from '../../mockData/helpers/disasterHelper';

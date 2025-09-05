@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { TooltipWrapper, Tabs } from 'data-transparency-ui';
-import { flowRight } from 'lodash';
+import { flowRight } from 'lodash-es';
 
 import * as IdvHelper from 'helpers/idvHelper';
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';

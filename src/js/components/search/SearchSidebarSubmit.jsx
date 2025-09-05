@@ -3,10 +3,11 @@
  * Created by Kevin Li 12/19/17
  */
 
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
+import Cookies from 'js-cookie';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from '../../helpers/analytics/Analytics';
 
@@ -43,27 +44,47 @@ const SearchSidebarSubmit = ({
     }
 
     const fireSearchEvent = () => {
-        if (!urlHash && !timerRef.current?.hasFired) {
-            const now = new Date().getTime() - timerRef.current.time;
-            // eslint-disable-next-line no-param-reassign
-            timerRef.current.hasFired = true;
-            Analytics.event({
-                event: 'search_timer_event',
-                category: 'Advanced Search - Filter - Time',
-                action: 'filter submit',
-                label: `first time to query took ${Math.floor(now / 1000)} seconds`
-            });
-        }
-    };
+        if (!urlHash) {
+            const now = new Date().getTime();
+            if (!timerRef.current?.hasFired) {
+                const timer = now - timerRef.current.time;
+                const timerInSeconds = Math.floor(timer / 1000);
 
-    useEffect(() => {
-        if (urlHash) {
-            // eslint-disable-next-line no-param-reassign
-            timerRef.current.hasFired = true;
-            // if hash user has already searched once.  no need to capture event
+                if (timerInSeconds < 3600) {
+                    Analytics.event({
+                        category: 'Advanced Search - Time to First Query',
+                        action: 'query_submit',
+                        label: `${timerInSeconds} seconds`,
+                        time_to_query: timerInSeconds
+                    });
+                }
+                // Cleanup
+                // eslint-disable-next-line no-param-reassign
+                timerRef.current.hasFired = true;
+            }
+
+            if (Cookies.get("homepage_to_query_time") && !Cookies.get('has_logged_query_timer')) {
+                const timerHomePage = now - Cookies.get("homepage_to_query_time");
+                const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
+
+                if (timerHomePageInSeconds < 3600) {
+                    Analytics.event({
+                        category: 'Homepage - Time to First Query',
+                        action: 'homepage_query_submit',
+                        label: `${timerHomePageInSeconds} seconds`,
+                        time_to_query: timerHomePageInSeconds
+                    });
+                }
+                // Cleanup
+                Cookies.remove("homepage_to_query_time");
+            }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+
+        // Sanity check
+        Cookies.set("has_logged_query_timer", true);
+        // eslint-disable-next-line no-param-reassign
+        if (timerRef.current) timerRef.current.hasFired = true;
+    };
 
     return (
         <div

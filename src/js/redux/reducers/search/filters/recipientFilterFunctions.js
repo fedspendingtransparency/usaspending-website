@@ -2,7 +2,7 @@
  * Created by michaelbray on 2/17/17.
  */
 
-import { sortBy } from 'lodash';
+import { sortBy } from 'lodash-es';
 import { Set } from 'immutable';
 
 export const updateSelectedRecipients = (state, searchText) => {

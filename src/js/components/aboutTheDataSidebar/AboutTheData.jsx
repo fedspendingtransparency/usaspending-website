@@ -6,10 +6,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import { getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
@@ -17,7 +17,7 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
-import { useQueryParams, combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
+import { useQueryParams, getQueryParamString } from '../../helpers/queryParams';
 
 
 const propTypes = {
@@ -53,6 +53,7 @@ const AboutTheData = (props) => {
             setFirstMount(false);
         }
     }, [props.aboutTheDataSidebar.display]);
+
     const clearDrilldown = () => {
         setDrilldownItemId(null);
         setDrilldownSection(null);
@@ -140,8 +141,11 @@ const AboutTheData = (props) => {
             // remove search param from url
             if (window.location.href.includes('about-the-data')) {
                 delete query['about-the-data'];
-                const newQueryParams = combineQueryParams(query, '');
-                window.history.pushState({}, null, `${history.location.pathname}${getQueryParamString(newQueryParams)}`);
+                const newQueryParams = getQueryParamString(query);
+                history({
+                    pathname: '',
+                    search: newQueryParams
+                }, { replace: true });
             }
 
             // move focus back to the main content

@@ -6,7 +6,7 @@ import React, { useCallback, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { Table, Pagination } from 'data-transparency-ui';
-import { throttle, isNull } from 'lodash';
+import { throttle, isNull } from 'lodash-es';
 
 import { fetchAgency } from 'apis/agencyReporting';
 import BaseReportingPeriodRow from 'models/v2/agencySubmissionStats/BaseReportingPeriodRow';

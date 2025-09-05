@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
+import { isEmpty } from 'lodash-es';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueFilterFields } from 'containers/search/helpers/searchAnalytics';
@@ -55,18 +56,9 @@ export class DownloadBottomBarContainer extends React.Component {
         this.windowWillClose = this.windowWillClose.bind(this);
     }
 
-    componentDidMount() {
-        if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
-            !this.state.visible) {
-            this.requestDownload(this.props.filters,
-                this.props.download.columns, this.props.download.type);
-            this.displayBar();
-        }
-    }
-
     componentDidUpdate() {
         if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
-            !this.state.visible) {
+            !this.state.visible && this.props.download?.type && !isEmpty(this.props.filters)) {
             this.requestDownload(this.props.filters,
                 this.props.download.columns, this.props.download.type);
             this.displayBar();
@@ -145,7 +137,7 @@ export class DownloadBottomBarContainer extends React.Component {
         Analytics.event({
             event: 'advanced_search_download',
             category: 'Advanced Search - Download',
-            action: this.props.download.type,
+            action: this.props.download?.type,
             label: uniqueFilterFields(filters),
             gtm: true
         });

@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs, ShareIcon, FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { useDispatch } from 'react-redux';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router";
 import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import AboutTheDataModal from "components/agencySubmissionStats/AboutTheDataModal";
@@ -82,7 +82,9 @@ const AboutTheDataPage = () => {
             classNames="about-the-data about-the-data_agencies-page"
             title="Agency Submission Statistics"
             toolBarComponents={[
-                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+                <ShareIcon
+                    url={getBaseUrl(slug)}
+                    onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">

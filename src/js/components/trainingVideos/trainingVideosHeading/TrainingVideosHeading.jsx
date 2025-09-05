@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { showModal } from '../../../redux/actions/modal/modalActions';
 
 const TrainingVideosHeading = () => {

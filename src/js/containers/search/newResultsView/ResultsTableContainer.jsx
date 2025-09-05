@@ -4,12 +4,12 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, intersection, throttle } from 'lodash';
+import { uniqueId, intersection, throttle } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
@@ -33,7 +33,6 @@ const propTypes = {
     filters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subaward: PropTypes.bool,
     subAwardIdClicked: PropTypes.func,
     wrapperProps: PropTypes.object,
     tabData: PropTypes.object,
@@ -262,7 +261,7 @@ const ResultsTableContainer = (props) => {
             params = {
                 ...params,
                 fields: requestFields,
-                subawards: isSubaward,
+                spending_level: spendingLevel,
                 sort: searchOrder.field,
                 page
             };
@@ -495,7 +494,7 @@ const ResultsTableContainer = (props) => {
 
         tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParamsTemp.toParams(),
-            subawards: isSubaward,
+            spending_level: spendingLevel,
             auditTrail: 'Award Table - Tab Counts'
         });
 
@@ -625,7 +624,7 @@ const ResultsTableContainer = (props) => {
 
     useEffect(throttle(() => {
         if (!isInitialLoad && tableType) {
-            performSearch(props?.subaward);
+            performSearch(props?.spendingLevel === "subawards");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, 400), [tableType, sort, resultLimit, page]);
@@ -693,7 +692,6 @@ const ResultsTableContainer = (props) => {
                 switchTab={switchTab}
                 updateSort={updateSort}
                 loadNextPage={loadNextPage}
-                subaward={isSubaward}
                 spendingLevel={spendingLevel}
                 awardIdClick={awardIdClick}
                 subAwardIdClick={subAwardIdClick}
@@ -719,7 +717,6 @@ export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward,
         spendingLevel: state.searchView.spendingLevel
     }),
     (dispatch) => bindActionCreators(

@@ -4,7 +4,7 @@
 
 import { awardRanges } from 'dataMapping/search/awardAmount';
 import { OrderedMap } from 'immutable';
-import { isEqual, flatten, map, compact, each } from 'lodash';
+import { isEqual, flatten, map, compact, each } from 'lodash-es';
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other files
