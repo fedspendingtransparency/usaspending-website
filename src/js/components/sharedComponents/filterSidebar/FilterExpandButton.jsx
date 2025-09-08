@@ -39,7 +39,11 @@ const FilterExpandButton = (props) => {
                 {props.name}
                 {props.tooltip && <TooltipWrapper icon="info" tooltipComponent={props.tooltip} /> }
             </button>
-            {props.glossarySlug && <div className="filter-toggle__glossary"><GlossaryLink term={props.glossarySlug} /></div>}
+            {props.glossarySlug &&
+                <div className="filter-toggle__glossary">
+                    <GlossaryLink term={props.glossarySlug} />
+                </div>
+            }
             {props.accessory && (
                 <div
                     className="filter-toggle__accessory"

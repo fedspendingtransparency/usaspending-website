@@ -17,7 +17,7 @@ const propTypes = {
     header: PropTypes.object
 };
 
-const TanStackHeader = ({
+const GroupedTableHeader = ({
     index,
     updateSort,
     currentSort,
@@ -76,7 +76,7 @@ const TanStackHeader = ({
     );
 };
 
-TanStackHeader.propTypes = propTypes;
+GroupedTableHeader.propTypes = propTypes;
 
-export default TanStackHeader;
+export default GroupedTableHeader;
 

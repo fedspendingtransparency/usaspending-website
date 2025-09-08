@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /**
  * TanStackTable.jsx
  * Created by JD House July 2, 2025
@@ -13,10 +14,10 @@ import {
     getSortedRowModel
 } from '@tanstack/react-table';
 import { uniqueId } from 'lodash-es';
-import { ColumnBuilder } from 'models/v2/search/table/ColumnBuilder';
+import { ColumnBuilder } from 'models/v2/search/table/groupedTable/ColumnBuilder';
 import { Pagination } from "data-transparency-ui";
-import TanStackHeader from './TanStackHeader';
-import NestedTanStackTable from './NestedTanStackTable';
+import GroupedTableHeader from './GroupedTableHeader';
+import NestedAwardTable from './NestedAwardTable';
 
 const propTypes = {
     columnType: PropTypes.string,
@@ -33,7 +34,7 @@ const propTypes = {
     currentType: PropTypes.string
 };
 
-const TanStackTable = (props) => {
+const GroupedAwardTable = (props) => {
     const [awardId, setAwardId] = useState(null);
     const [expanded, setExpanded] = useState({});
     let resultsCount = props.resultsCount;
@@ -99,7 +100,7 @@ const TanStackTable = (props) => {
                                     <th key={header.id} className="table-header stickyColumn">
                                         {header.isPlaceholder
                                             ? null
-                                            : <TanStackHeader
+                                            : <GroupedTableHeader
                                                 index={h}
                                                 updateSort={props.updateSort}
                                                 currentSort={props.sort}
@@ -134,7 +135,7 @@ const TanStackTable = (props) => {
                                 {row.getIsExpanded() && (
                                     <tr className="expaned-table-container">
                                         <td colSpan={row.getVisibleCells().length} className="expaned-table-container__outer-cell" style={{ top: `${top}px` }}>
-                                            <NestedTanStackTable
+                                            <NestedAwardTable
                                                 {...props}
                                                 awardId={awardId}
                                                 resultsCount={resultsCount} />
@@ -149,7 +150,7 @@ const TanStackTable = (props) => {
             <Pagination
                 resultsText
                 limitSelector
-                hideLast={props.resultsCount >= 50000}
+                hideLast={props.expandableData.length >= 50000}
                 currentPage={props.page}
                 pageSize={props.resultsLimit}
                 changePage={props.setPage}
@@ -159,7 +160,7 @@ const TanStackTable = (props) => {
     );
 };
 
-TanStackTable.propTypes = propTypes;
+GroupedAwardTable.propTypes = propTypes;
 
-export default TanStackTable;
+export default GroupedAwardTable;
 

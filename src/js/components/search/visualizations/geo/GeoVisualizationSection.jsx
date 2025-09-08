@@ -40,7 +40,7 @@ const propTypes = {
     noResults: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
-    subaward: PropTypes.bool,
+    spendingLevel: PropTypes.string,
     className: PropTypes.string,
     center: PropTypes.array,
     singleLocationSelected: PropTypes.object,
@@ -165,12 +165,12 @@ const GeoVisualizationSection = (props) => {
             elem?.classList.add("line-clamp");
         }
 
-        if (props.subaward !== prevProps?.subaward) {
+        if (props.spendingLevel !== prevProps?.spendingLevel) {
             handleUpdateTitle();
             handleUpdateBody();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [expanded, prevProps?.subaward, props.subaward]);
+    }, [expanded, prevProps?.spendingLevel, props.spendingLevel]);
 
     useEffect(() => {
         updateTerritoryFilter(props.mapLayer);
