@@ -236,19 +236,7 @@ const SidebarWrapper = React.memo(({
     }, [headerHeight]);
 
     useEffect(() => {
-        // eslint-disable-next-line no-undef
-        // const headerResizeObserver = new ResizeObserver((entries) => {
-        //     setHeaderHeight(entries[0].target?.clientHeight);
-        // });
-
-        // const siteHeader = document.querySelector(".site-header");
-        // headerResizeObserver.observe(siteHeader);
-
         handleResize();
-
-        // return () => {
-        //     headerResizeObserver?.unobserve(siteHeader);
-        // };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
