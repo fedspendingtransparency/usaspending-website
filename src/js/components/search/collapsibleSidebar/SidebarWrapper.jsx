@@ -39,6 +39,7 @@ const SidebarWrapper = React.memo(({
     const [renderSidebarContent, setRenderSidebarContent] = useState(true);
 
     const sidebarRef = useRef(null);
+    const headerRef = useRef(document.querySelector(".site-header"));
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -236,26 +237,26 @@ const SidebarWrapper = React.memo(({
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
-        const headerResizeObserver = new ResizeObserver((entries) => {
-            setHeaderHeight(entries[0].target?.clientHeight);
-        });
+        // const headerResizeObserver = new ResizeObserver((entries) => {
+        //     setHeaderHeight(entries[0].target?.clientHeight);
+        // });
 
-        const siteHeader = document.querySelector(".site-header");
-        headerResizeObserver.observe(siteHeader);
+        // const siteHeader = document.querySelector(".site-header");
+        // headerResizeObserver.observe(siteHeader);
 
         handleResize();
 
-        return () => {
-            headerResizeObserver?.unobserve(siteHeader);
-        };
+        // return () => {
+        //     headerResizeObserver?.unobserve(siteHeader);
+        // };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // custom hooks POC
     // TODO: noticed maincontent resize not working as intended?
-    const mainContentOnResize = (entries) => {
+    const mainContentOnResize = debounce((entries) => {
         setMainContentHeight(entries.height);
-    };
+    }, 100);
     const sidebarOnResize = debounce(({ width }) => {
         if (Math.round(width) === sideBarXlDesktopWidth - 2) {
             setRenderSidebarContent(true);
@@ -263,10 +264,14 @@ const SidebarWrapper = React.memo(({
         else {
             setRenderSidebarContent(false);
         }
-    }, 150);
+    }, 100);
+    const headerOnResize = debounce(({ height }) => {
+        setHeaderHeight(height);
+    }, 100);
 
-    useResizeObserver({ ref: mainContentRef, onResize: mainContentOnResize, box: 'border-box' });
+    useResizeObserver({ ref: mainContentRef, onResize: mainContentOnResize });
     useResizeObserver({ ref: sidebarRef, onResize: sidebarOnResize });
+    useResizeObserver({ ref: headerRef, onResize: headerOnResize });
 
     useEventListener('resize', handleResize);
     useEventListener('scroll', handleScroll);
