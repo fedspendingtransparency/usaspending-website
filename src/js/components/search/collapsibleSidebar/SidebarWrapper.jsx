@@ -3,14 +3,14 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { throttle } from "lodash-es";
+import { debounce, throttle } from "lodash-es";
 import PropTypes from "prop-types";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
-import { useEventListener } from "../../../hooks";
+import { useEventListener, useResizeObserver } from "../../../hooks";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func,
@@ -241,36 +241,32 @@ const SidebarWrapper = React.memo(({
             setHeaderHeight(entries[0].target?.clientHeight);
         });
 
-        // eslint-disable-next-line no-undef
-        const sidebarResizeObserver = new ResizeObserver((entries) => {
-            if (
-                Math.round(entries[0].contentRect.width) === sideBarXlDesktopWidth - 2
-            ) {
-                setRenderSidebarContent(true);
-            }
-            else {
-                setRenderSidebarContent(false);
-            }
-        });
-
         const mainContent = document.querySelector("#main-content");
         mainContentResizeObserver.observe(mainContent);
 
         const siteHeader = document.querySelector(".site-header");
         headerResizeObserver.observe(siteHeader);
 
-        const sidebar = document.querySelector(".collapsible-sidebar");
-        sidebarResizeObserver.observe(sidebar);
-
         handleResize();
 
         return () => {
             mainContentResizeObserver?.unobserve(mainContent);
             headerResizeObserver?.unobserve(siteHeader);
-            sidebarResizeObserver?.unobserve(sidebar);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // custom hooks POC
+    const sidebarOnResize = debounce(({ width }) => {
+        if (Math.round(width) === sideBarXlDesktopWidth - 2) {
+            setRenderSidebarContent(true);
+        }
+        else {
+            setRenderSidebarContent(false);
+        }
+    }, 150);
+    const sidebarRef = useRef(null);
+    useResizeObserver({ ref: sidebarRef, onResize: sidebarOnResize });
 
     useEventListener('resize', handleResize);
     useEventListener('scroll', handleScroll);
@@ -298,7 +294,8 @@ const SidebarWrapper = React.memo(({
                 } : {
                     height: selectHeight(), overscrollBehavior: "none"
                 }}
-                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}>
+                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}
+                ref={sidebarRef}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => {
