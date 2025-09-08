@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { debounce } from "lodash-es";
 
 // useEventListener: https://usehooks-ts.com/react-hook/use-event-listener
 export const useEventListener = (
@@ -132,4 +133,39 @@ export const useResizeObserver = (options) => {
     }, [box, ref, isMounted]);
 
     return { width, height };
+};
+
+// useDebounce: https://usehooks-ts.com/react-hook/use-debounce-callback
+
+export const useDebounceCallback = (func, delay = 500, options) => {
+    const debouncedFunc = useRef();
+
+    useUnmount(() => {
+        if (debouncedFunc.current) {
+            debouncedFunc.current.cancel();
+        }
+    });
+
+    const debounced = useMemo(() => {
+        const debouncedFuncInstance = debounce(func, delay, options);
+
+        const wrappedFunc = (...args) => debouncedFuncInstance(...args);
+
+        wrappedFunc.cancel = () => {
+            debouncedFuncInstance.cancel();
+        };
+
+        wrappedFunc.isPending = () => !!debouncedFunc.current;
+
+        wrappedFunc.flush = () => debouncedFuncInstance.flush();
+
+        return wrappedFunc;
+    }, [func, delay, options]);
+
+    // Update the debounced function ref whenever func, wait, or options change
+    useEffect(() => {
+        debouncedFunc.current = debounce(func, delay, options);
+    }, [func, delay, options]);
+
+    return debounced;
 };

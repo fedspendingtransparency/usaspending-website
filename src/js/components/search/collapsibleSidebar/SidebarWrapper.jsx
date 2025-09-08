@@ -241,7 +241,7 @@ const SidebarWrapper = React.memo(({
     }, []);
 
     // custom hooks POC
-    // TODO: noticed maincontent resize not working as intended?
+    // TODO: noticed maincontent resize not working as intended? Is it just supposed to happen on load?
     const mainContentOnResize = debounce((entries) => {
         setMainContentHeight(entries.height);
     }, 100);
