@@ -60,7 +60,10 @@ const SearchPage = ({
     const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
+
     const dispatch = useDispatch();
+
+    const mainContentRef = useRef(null);
     const timerRef = useRef({
         time: new Date().getTime(),
         hasFired: false
@@ -147,7 +150,16 @@ const SearchPage = ({
 
     useEffect(() => {
         setSearchv2(true);
-        setFullSidebar(<CollapsibleSidebar filters={filters} hash={hash} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} timerRef={timerRef} />);
+        setFullSidebar(
+            <CollapsibleSidebar
+                filters={filters}
+                hash={hash}
+                showMobileFilters={showMobileFilters}
+                sidebarOpen={sidebarOpen}
+                setSidebarOpen={setSidebarOpen}
+                timerRef={timerRef}
+                mainContentRef={mainContentRef} />
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -183,7 +195,7 @@ const SearchPage = ({
                     onClick={showDownloadModal} />
             ]}
             filters={appliedFilters}>
-            <div id="main-content">
+            <div id="main-content" ref={mainContentRef}>
                 <div className="search-contents v2">
                     <div className="full-search-sidebar">
                         {fullSidebar}

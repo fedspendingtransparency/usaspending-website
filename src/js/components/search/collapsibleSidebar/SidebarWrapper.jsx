@@ -17,12 +17,13 @@ const propTypes = {
     showMobileFilters: PropTypes.bool,
     sidebarOpen: PropTypes.bool,
     setSidebarOpen: PropTypes.func,
-    timerRef: PropTypes.object
+    timerRef: PropTypes.object,
+    mainContentRef: PropTypes.object
 };
 
 const SidebarWrapper = React.memo(({
     // eslint-disable-next-line no-unused-vars
-    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen, timerRef
+    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen, timerRef, mainContentRef
 }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
@@ -37,8 +38,11 @@ const SidebarWrapper = React.memo(({
     const [headerHeight, setHeaderHeight] = useState();
     const [renderSidebarContent, setRenderSidebarContent] = useState(true);
 
+    const sidebarRef = useRef(null);
+
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
+
     const sidebarStaticEls = 190;
     const footerMargin = 0;
     const topStickyBarHeight = 60;
@@ -232,17 +236,17 @@ const SidebarWrapper = React.memo(({
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
-        const mainContentResizeObserver = new ResizeObserver((entries) => {
-            setMainContentHeight(entries[0].target?.clientHeight);
-        });
+        // const mainContentResizeObserver = new ResizeObserver((entries) => {
+        //     setMainContentHeight(entries[0].target?.clientHeight);
+        // });
 
         // eslint-disable-next-line no-undef
         const headerResizeObserver = new ResizeObserver((entries) => {
             setHeaderHeight(entries[0].target?.clientHeight);
         });
 
-        const mainContent = document.querySelector("#main-content");
-        mainContentResizeObserver.observe(mainContent);
+        // const mainContent = document.querySelector("#main-content");
+        // mainContentResizeObserver.observe(mainContent);
 
         const siteHeader = document.querySelector(".site-header");
         headerResizeObserver.observe(siteHeader);
@@ -250,13 +254,17 @@ const SidebarWrapper = React.memo(({
         handleResize();
 
         return () => {
-            mainContentResizeObserver?.unobserve(mainContent);
+            // mainContentResizeObserver?.unobserve(mainContent);
             headerResizeObserver?.unobserve(siteHeader);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // custom hooks POC
+    // TODO: noticed maincontent resize not working as intended?
+    const mainContentOnResize = (entries) => {
+        setMainContentHeight(entries.height);
+    };
     const sidebarOnResize = debounce(({ width }) => {
         if (Math.round(width) === sideBarXlDesktopWidth - 2) {
             setRenderSidebarContent(true);
@@ -265,7 +273,8 @@ const SidebarWrapper = React.memo(({
             setRenderSidebarContent(false);
         }
     }, 150);
-    const sidebarRef = useRef(null);
+
+    useResizeObserver({ ref: mainContentRef, onResize: mainContentOnResize, box: 'border-box' });
     useResizeObserver({ ref: sidebarRef, onResize: sidebarOnResize });
 
     useEventListener('resize', handleResize);

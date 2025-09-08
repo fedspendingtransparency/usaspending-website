@@ -82,7 +82,7 @@ export const useResizeObserver = (options) => {
     onResize.current = options.onResize;
 
     useEffect(() => {
-        if (!ref.current) return;
+        if (!ref?.current) return;
 
         if (typeof window === 'undefined' || !('ResizeObserver' in window)) return;
 
