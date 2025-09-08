@@ -136,7 +136,6 @@ export const useResizeObserver = (options) => {
 };
 
 // useDebounce: https://usehooks-ts.com/react-hook/use-debounce-callback
-
 export const useDebounceCallback = (func, delay = 500, options) => {
     const debouncedFunc = useRef();
 
@@ -168,4 +167,31 @@ export const useDebounceCallback = (func, delay = 500, options) => {
     }, [func, delay, options]);
 
     return debounced;
+};
+
+// https://usehooks-ts.com/react-hook/use-copy-to-clipboard
+export const useCopyToClipboard = () => {
+    const [copiedText, setCopiedText] = useState(null);
+
+    /* global navigator */
+    const copy = useCallback(async (text) => {
+        if (!navigator?.clipboard) {
+            console.warn('Clipboard not supported');
+            return false;
+        }
+
+        // Try to save to clipboard then save it in the state if worked
+        try {
+            await navigator.clipboard.writeText(text);
+            setCopiedText(text);
+            return true;
+        }
+        catch (error) {
+            console.warn('Copy failed', error);
+            setCopiedText(null);
+            return false;
+        }
+    }, []);
+
+    return [copiedText, copy];
 };
