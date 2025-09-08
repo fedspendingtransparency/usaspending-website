@@ -236,17 +236,9 @@ const SidebarWrapper = React.memo(({
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
-        // const mainContentResizeObserver = new ResizeObserver((entries) => {
-        //     setMainContentHeight(entries[0].target?.clientHeight);
-        // });
-
-        // eslint-disable-next-line no-undef
         const headerResizeObserver = new ResizeObserver((entries) => {
             setHeaderHeight(entries[0].target?.clientHeight);
         });
-
-        // const mainContent = document.querySelector("#main-content");
-        // mainContentResizeObserver.observe(mainContent);
 
         const siteHeader = document.querySelector(".site-header");
         headerResizeObserver.observe(siteHeader);
@@ -254,7 +246,6 @@ const SidebarWrapper = React.memo(({
         handleResize();
 
         return () => {
-            // mainContentResizeObserver?.unobserve(mainContent);
             headerResizeObserver?.unobserve(siteHeader);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
