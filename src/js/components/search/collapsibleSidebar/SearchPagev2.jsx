@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
@@ -191,7 +191,8 @@ const SearchPage = ({
                             <KeywordSearchLink />
                             : ''}
                     </div>
-                    <div className="mobile-filter-button-wrapper">
+                    <div className={`mobile-filter-button-wrapper 
+                        ${showMobileFilters && sidebarOpen ? 'hidden' : ''}`} >
                         <button
                             className="mobile-filter-button-v2"
                             onClick={toggleMobileFilters}

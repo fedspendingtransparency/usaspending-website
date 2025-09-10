@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { flowRight } from 'lodash';
-import { useMatch } from 'react-router-dom';
+import { flowRight } from 'lodash-es';
+import { useMatch } from 'react-router';
 
 
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';

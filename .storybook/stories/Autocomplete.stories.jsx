@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { within, userEvent, expect } from '@storybook/test';
+import { within, userEvent, expect } from 'storybook/test';
 
 import Autocomplete from "../../src/js/components/sharedComponents/autocomplete/Autocomplete";
 import { autocompleteDummyValues } from "../../src/js/helpers/storybookHelper";

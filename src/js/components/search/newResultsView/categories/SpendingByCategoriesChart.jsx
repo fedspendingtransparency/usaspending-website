@@ -9,14 +9,15 @@ import PropTypes from "prop-types";
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 import Analytics from 'helpers/analytics/Analytics';
 import { tabletScreen, smTabletScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 
 const propTypes = {
     dataSeries: PropTypes.array,
     labelSeries: PropTypes.array,
     descriptions: PropTypes.array,
     linkSeries: PropTypes.array,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    scope: PropTypes.string
 };
 
 const tickFormatter = (value, isMobile) => {
@@ -27,21 +28,28 @@ const tickFormatter = (value, isMobile) => {
     return { text: `${newValue.substring(0, limit)}...`, isOneLine: false };
 };
 
-const SpendingByCategoriesChart = (props) => {
+const SpendingByCategoriesChart = ({
+    dataSeries,
+    labelSeries,
+    descriptions,
+    linkSeries,
+    hash,
+    scope
+}) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [isSmMobile, setIsSmMobile] = useState(window.innerWidth < smTabletScreen);
     const labelWidthVar = isMobile ? 400 : 175;
 
     const dataStuff = [];
-    if (props.dataSeries?.length === props.labelSeries?.length) {
-        for (let i = 0; i < props.dataSeries.length; i++) {
-            const formattedValue = formatMoneyWithUnitsShortLabel(props.dataSeries[i], 2);
+    if (dataSeries?.length === labelSeries?.length) {
+        for (let i = 0; i < dataSeries.length; i++) {
+            const formattedValue = formatMoneyWithUnitsShortLabel(dataSeries[i], 2);
             dataStuff.push({
-                value: props.dataSeries[i],
-                label: props.labelSeries[i],
-                desc: props.descriptions[i],
-                link: props.linkSeries[i],
+                value: dataSeries[i],
+                label: labelSeries[i],
+                desc: descriptions[i],
+                link: linkSeries[i],
                 barLabel: formattedValue
             });
         }
@@ -49,9 +57,9 @@ const SpendingByCategoriesChart = (props) => {
 
     const onClickHandler = (linkName) => {
         Analytics.event({
-            category: `Section categories: ${props.scope}`,
+            category: `Section categories: ${scope}`,
             action: `Clicked ${linkName}`,
-            label: props.hash
+            label: hash
         });
     };
 

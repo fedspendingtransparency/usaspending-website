@@ -6,8 +6,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Analytics from 'helpers/analytics/Analytics';
-import { uniqueId } from 'lodash';
-import { Link } from "react-router-dom";
+import { uniqueId } from 'lodash-es';
+import { Link } from "react-router";
 import PropTypes from 'prop-types';
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from '../../ExternalLink';

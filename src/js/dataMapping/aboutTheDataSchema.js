@@ -68,6 +68,10 @@ const schema = {
             {
                 name: "Program Activity Reporting Key (PARK)",
                 slug: "park"
+            },
+            {
+                name: "Unique Award Key Methodology for Financial Assistance",
+                slug: "unique-award-key-methodology"
             }
         ]
     },
@@ -184,6 +188,32 @@ const schema = {
             {
                 name: "Statement from the Department of Agriculture (USDA)",
                 slug: "usda-outlays"
+            }
+        ]
+    },
+    "filter-category-descriptions": {
+        heading: "Filter Category Descriptions",
+        path: 'content/about-the-data/filter-category-descriptions',
+        fields: [
+            {
+                name: "Time Period",
+                slug: "time-period-category"
+            },
+            {
+                name: "Location",
+                slug: "location-category"
+            },
+            {
+                name: "Sources",
+                slug: "sources-category"
+            },
+            {
+                name: "Recipients",
+                slug: "recipients-category"
+            },
+            {
+                name: "Characteristics",
+                slug: "characteristics-category"
             }
         ]
     },

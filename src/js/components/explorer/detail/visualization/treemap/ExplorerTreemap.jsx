@@ -14,7 +14,7 @@ import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasureme
 
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 
 const propTypes = {
     isLoading: PropTypes.bool,

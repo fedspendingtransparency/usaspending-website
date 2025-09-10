@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import replaceString from 'helpers/replaceString';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const propTypes = {
     name: PropTypes.string,

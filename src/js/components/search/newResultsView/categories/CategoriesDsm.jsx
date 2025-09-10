@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 import GlobalConstants from "../../../../GlobalConstants";
 
-const CategoriesDsm = ({ subaward }) => {
+const CategoriesDsm = ({ spendingLevel }) => {
     const [displayCopy, setDisplayCopy] = useState();
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
@@ -19,7 +19,7 @@ const CategoriesDsm = ({ subaward }) => {
 
     const v2Copy = <>
         <h4>What's included in this view of the data?</h4>
-        {subaward ?
+        { spendingLevel === 'subawards' ?
             <>
                 {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                 <p className="award-search__body-text">The data represent
@@ -89,7 +89,7 @@ const CategoriesDsm = ({ subaward }) => {
     const legacyCopy =
         <>
             <h4>What's included in this view of the data?</h4>
-            {subaward ?
+            { spendingLevel === 'subawards' ?
                 <>
                     <p style={{ marginBottom: '8px' }}>
                         View a list of sub-award transactions based on your selected filters.

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import { render, screen } from '@testing-library/react';
 import AwardingAgency from '../../../../src/js/components/award/shared/overview/AwardingAgency';
 

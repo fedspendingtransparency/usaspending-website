@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { ShareIcon, DownloadIconButton } from 'data-transparency-ui';
-import { find, startCase, throttle, uniqueId } from 'lodash';
+import { find, startCase, throttle, uniqueId } from 'lodash-es';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';

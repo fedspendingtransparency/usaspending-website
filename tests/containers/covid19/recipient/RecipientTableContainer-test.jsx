@@ -8,7 +8,7 @@
 import React from 'react';
 import { render, waitFor, screen, fireEvent, act } from 'test-utils';
 import { expect } from '@jest/globals';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import RecipientTableContainer, { parseRows } from 'containers/covid19/recipient/RecipientTableContainer';
 import * as api from 'apis/disaster';
 import * as redux from 'react-redux';

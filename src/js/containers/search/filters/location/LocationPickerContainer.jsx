@@ -6,7 +6,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { isCancel } from "axios";
-import { concat, debounce } from "lodash";
+import { concat, debounce } from "lodash-es";
 
 import {
     fetchLocationList,

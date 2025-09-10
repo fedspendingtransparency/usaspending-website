@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
-import { remove, cloneDeep } from 'lodash';
+import { remove, cloneDeep } from 'lodash-es';
 import Note from 'components/sharedComponents/Note';
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
