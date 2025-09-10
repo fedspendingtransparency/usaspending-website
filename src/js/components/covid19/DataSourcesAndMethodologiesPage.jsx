@@ -398,10 +398,10 @@ export default () => {
                                                 Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; <strong>linked data only*</strong>)
                                             </li>
                                             <li>
-                                                Contract Subawards (sourced from FSRS)
+                                                Contract Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)
                                             </li>
                                             <li>
-                                                Assistance Subawards (sourced from FSRS)
+                                                Assistance Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)
                                             </li>
                                             <li>
                                                 COVID-19_download_readme.txt
