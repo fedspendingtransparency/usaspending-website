@@ -372,6 +372,22 @@ export default () => {
                                             </li>
                                         </ul>
                                     </div>
+                                    <h3 className="about-subtitle">
+                                        <strong>System for Award Management (<a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)</strong>
+                                    </h3>
+                                    <div className="about-section-content">
+                                        <ul>
+                                            <li>
+                                                <strong>Responsible party:</strong> prime recipients of federal awards
+                                            </li>
+                                            <li>
+                                                <strong>Frequency of updates:</strong> monthly
+                                            </li>
+                                            <li>
+                                                <strong>Details:</strong> <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a> is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div className="about-section-wrapper" id="data-sources-download_instructions">
                                     <h2 className="about-section-title">
