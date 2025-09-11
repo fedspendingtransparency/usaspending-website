@@ -373,7 +373,7 @@ export default () => {
                                         </ul>
                                     </div>
                                     <h3 className="about-subtitle">
-                                        <strong>FFATA Subaward Reporting System (FSRS)</strong>
+                                        <strong>System for Award Management (<a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)</strong>
                                     </h3>
                                     <div className="about-section-content">
                                         <ul>
@@ -384,7 +384,7 @@ export default () => {
                                                 <strong>Frequency of updates:</strong> monthly
                                             </li>
                                             <li>
-                                                <strong>Details:</strong> FSRS is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
+                                                <strong>Details:</strong> <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a> is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
                                             </li>
                                         </ul>
                                     </div>
@@ -414,10 +414,10 @@ export default () => {
                                                 Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; <strong>linked data only*</strong>)
                                             </li>
                                             <li>
-                                                Contract Subawards (sourced from FSRS)
+                                                Contract Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)
                                             </li>
                                             <li>
-                                                Assistance Subawards (sourced from FSRS)
+                                                Assistance Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)
                                             </li>
                                             <li>
                                                 COVID-19_download_readme.txt
