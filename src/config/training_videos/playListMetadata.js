@@ -3,8 +3,20 @@
  * Created by Andrea Blackwell 12/20/22
  **/
 
-/** Pulled from URL - https://developers.google.com/youtube/v3/docs/videos/list?apix_params=%7B%22part%22%3A%5B%22snippet%2CcontentDetails%22%5D%2C%22id%22%3A%5B%22AEKL2LOkRZY%2C%208-r7aSvl8tY%2C%20apPBqcy6F1k%2C%20jYs3zq3Tvs0%2CFzl4OIjP73A%2C%20b7SDGhSZ5wM%2Cb8l-ZBhQ900%2Cb9ABwzIyCNI%2Chct0oHSGVHA%2C%20ZuvZQ33ZvAE%22%5D%7D
- * Using parts - Snippet and Content Details
+/** Pulled from URL - https://developers.google.com/youtube/v3/docs/videos/list?apix_params=%7B%22part%22%3A%5B%22snippet%2CcontentDetails%22%5D%2C%22id%22%3A%5B%223oJCWiGfl04%22%5D%7D
+ *
+ * STEPS TO ADD TO THE LIST
+ * Go to the URL above
+ * Once the URL loads, replace the string in id with the video id from the new video you want to add
+ * The video id is what is found at the end of the youtube url - for example if your video url is https://www.youtube.com/watch?v=3oJCWiGfl04 the video id = 3oJCWiGfl04
+ * scroll down and click execute, you may have to log in to your google account (use your frb email)
+ * you will receive a JSON response
+ * you'll see a section in the response titled "items": [there will be more json here]
+ * copy everything in between [] including the {}
+ * scroll down to the comment towards the end of this file and follow the instructions
+ * paste the video id at the end of the list in this top section of comments
+ *
+ * (Dev note, Using parts - Snippet and Content Details)
  * Video IDs:
  * 5gMp2kyzEoo
  * AEKL2LOkRZY
@@ -1307,6 +1319,7 @@ const metaData = {
                 projection: "rectangular"
             }
         }
+        // put a comma at the end of the brace above this line, then paste what you copied from the response above this comment
     ]
 };
 
