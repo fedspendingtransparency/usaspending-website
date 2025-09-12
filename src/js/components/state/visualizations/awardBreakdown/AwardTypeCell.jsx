@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, truncate } from 'lodash';
+import { isEqual, truncate } from 'lodash-es';
 
 const propTypes = {
     label: PropTypes.string,

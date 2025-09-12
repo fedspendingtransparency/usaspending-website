@@ -3,16 +3,19 @@
  * Created by Kevin Li 5/1/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { startCase, isEqual } from "lodash";
+import { startCase } from "lodash-es";
+import { useDispatch } from 'react-redux';
 
 import { handleShareOptionClick } from 'helpers/socialShare';
 
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
+import { showModal } from '../../../redux/actions/modal/modalActions';
+import { useQueryParams } from "../../../helpers/queryParams";
 
 const propTypes = {
     glossary: PropTypes.object,
@@ -22,143 +25,152 @@ const propTypes = {
 const getGlossaryEmailSubject = (slug) => `USAspending.gov Glossary Term: ${startCase(slug)}`;
 const getGlossaryEmailBody = (url) => `View the definition of this federal spending term on USAspending.gov: ${url}`;
 
-export default class GlossaryDefinition extends React.Component {
-    constructor(props) {
-        super(props);
+const GlossaryDefinition = (props) => {
+    const query = useQueryParams();
+    const [tab, setTab] = useState('plain');
+    const [hasPlain, setHasPlain] = useState(true);
+    const [hasOfficial, setHasOfficial] = useState(true);
+    // eslint-disable-next-line no-unused-vars
+    const [showCopiedConfirmation, setShowCopiedConfirmation] = useState(false);
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
+    // preserving in case it is needed
+    // let copyConfirmation = null;
 
-        this.state = {
-            tab: 'plain',
-            hasPlain: true,
-            hasOfficial: true,
-            showCopiedConfirmation: false
-        };
+    // const getCopyFn = () => {
+    //     const separator = window.location.href.includes('?') ? '&' : '?';
+    //     const slug = `${separator}glossary=${props.glossary.term.toJS().slug}`;
+    //     const value = window.location.href.includes("glossary") ? window.location.href : window.location.href + slug;
+    //     if (window.navigator && window.navigator.clipboard && window.navigator.clipboard.writeText) {
+    //         window.navigator.clipboard.writeText(value);
+    //         setShowCopiedConfirmation(true);
+    //         copyConfirmation = window.setTimeout(() => {
+    //             setShowCopiedConfirmation(false);
+    //         }, 1750);
+    //     }
+    // };
+    // useEffect(() => window.clearTimeout(copyConfirmation), []);
 
-        this.clickedTab = this.clickedTab.bind(this);
-        this.clickedBack = this.clickedBack.bind(this);
-        this.getCopyFn = this.getCopyFn.bind(this);
-        this.showCopiedConfirmation = null;
-    }
 
-    componentDidMount() {
-        this.checkDefinitions(this.props);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps, this.props)) {
-            this.checkDefinitions(this.props);
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.showCopiedConfirmation) {
-            window.clearTimeout(this.showCopiedConfirmation);
-        }
-    }
-
-    getCopyFn() {
-        const separator = window.location.href.includes('?') ? '&' : '?';
-        const slug = `${separator}glossary=${this.props.glossary.term.toJS().slug}`;
-        const value = window.location.href.includes("glossary") ? window.location.href : window.location.href + slug;
-        if (window.navigator && window.navigator.clipboard && window.navigator.clipboard.writeText) {
-            window.navigator.clipboard.writeText(value);
-            this.setState({ showCopiedConfirmation: true });
-            this.showCopiedConfirmation = window.setTimeout(() => {
-                this.setState({ showCopiedConfirmation: false });
-            }, 1750);
-        }
-    }
-
-    checkDefinitions(props) {
-        let hasPlain = false;
-        let hasOfficial = false;
-        let tab = this.state.tab;
+    const checkDefinitions = () => {
+        let hasPlainLocal = false;
+        let hasOfficialLocal = false;
+        let tabLocal = tab;
 
         if (props.glossary.term.plain && props.glossary.term.plain !== '') {
-            hasPlain = true;
+            hasPlainLocal = true;
         }
         if (props.glossary.term.official && props.glossary.term.official !== '') {
-            hasOfficial = true;
-            if (tab === 'plain' && !hasPlain) {
-                tab = 'official';
+            hasOfficialLocal = true;
+            if (tabLocal === 'plain' && !hasPlain) {
+                tabLocal = 'official';
             }
         }
-        if (tab === 'official' && !hasOfficial) {
-            tab = 'plain';
+        if (tabLocal === 'official' && !hasOfficial) {
+            tabLocal = 'plain';
         }
 
-        this.setState({
-            hasPlain,
-            hasOfficial,
-            tab
-        });
-    }
+        setHasPlain(hasPlainLocal);
+        setHasOfficial(hasOfficialLocal);
+        setTab(tabLocal);
+    };
 
-    clickedTab(tab) {
-        this.setState({
-            tab
-        });
-    }
+    const clickedTab = (local) => {
+        setTab(local);
+    };
 
-    clickedBack() {
-        this.props.clearGlossaryTerm();
-    }
+    const clickedBack = () => {
+        props.clearGlossaryTerm();
+    };
 
-    render() {
-        const slug = this.props.glossary.term.toJS().slug;
+    const slug = props.glossary.term.toJS().slug;
 
-        const stripUrl = () => {
-            const query = new URL(window.location.href);
-            if (query.search !== '') {
-                const test = window.location.href.includes("?");
-                if (test) {
-                    return `${window.location.href}&glossary=`;
-                }
+    const stripUrl = () => {
+        const url = new URL(window.location.href);
+
+        // if the search query is glossary already, just replace it
+        if (window.location.href.includes('?glossary=')) {
+            return `${url.origin}${url.pathname}?glossary=`;
+        }
+        else if (url.search !== '') {
+            // if glossary is already part of the query
+            if (window.location.href.includes('&glossary=')) {
+                // remove the old glossary term
+                delete query.glossary;
+
+                // add back in all other queries
+                const queryArray = [];
+                Object.entries(query).forEach(([key, value], i) => {
+                    if (i === 0) {
+                        queryArray.push(`?${key}=${value}`);
+                    }
+                    else {
+                        queryArray.push(`&${key}=${value}`);
+                    }
+                });
+
+                // append new glossary term to other queries
+                return `${url.origin}${url.pathname}${queryArray}&glossary=`;
             }
-            return `${window.location.href}?glossary=`;
+
+            // if glossary wasn't previously in the query, add the glossary term
+            return `${window.location.href}&glossary=`;
+        }
+
+        // if there are no existing search query, make glossary the query
+        return `${window.location.href}?glossary=`;
+    };
+
+    const value = stripUrl();
+
+    const onShareClick = (name) => {
+        const emailArgs = {
+            subject: getGlossaryEmailSubject(slug),
+            body: getGlossaryEmailBody(value + slug)
         };
+        handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
+    };
 
-        const value = stripUrl();
+    useEffect(() => {
+        checkDefinitions(props);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [props]);
 
-        const onShareClick = (name) => {
-            const emailArgs = {
-                subject: getGlossaryEmailSubject(slug),
-                body: getGlossaryEmailBody(value + slug)
-            };
-            handleShareOptionClick(name, slug, emailArgs);
-        };
-
-        return (
-            <div className="glossary-definition">
-                <DefinitionTabs
-                    hasPlain={this.state.hasPlain}
-                    hasOfficial={this.state.hasOfficial}
-                    activeTab={this.state.tab}
-                    clickedTab={this.clickedTab} />
-                <div className="glossary-definition__column-share-icon">
-                    <ShareIcon
-                        url={value + slug}
-                        tabIndex={0}
-                        onShareOptionClick={onShareClick}
-                        colors={{ backgroundColor: "#215493", color: "#e2e2e2" }}
-                        dropDownDirection="left"
-                        noShareText />
-                </div>
-                <ItemDefinition
-                    {...this.props.glossary.term.toJS()}
-                    type={this.state.tab} />
-                <button
-                    className="glossary-back"
-                    onClick={this.clickedBack}>
-                    <div className="back-content">
-                        <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
-                        <div className="label">
-                            Back
-                        </div>
-                    </div>
-                </button>
+    return (
+        <div className="glossary-definition">
+            <DefinitionTabs
+                hasPlain={hasPlain}
+                hasOfficial={hasOfficial}
+                activeTab={tab}
+                clickedTab={clickedTab} />
+            <div className="glossary-definition__column-share-icon">
+                <ShareIcon
+                    isSidePanel
+                    url={value + slug}
+                    tabIndex={0}
+                    onShareOptionClick={onShareClick}
+                    colors={{ backgroundColor: "#215493", color: "#e2e2e2" }}
+                    dropDownDirection="left"
+                    noShareText />
             </div>
-        );
-    }
-}
+            <ItemDefinition
+                {...props.glossary.term.toJS()}
+                type={tab} />
+            <button
+                className="glossary-back"
+                onClick={clickedBack}>
+                <div className="back-content">
+                    <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
+                    <div className="label">
+                            Back
+                    </div>
+                </div>
+            </button>
+        </div>
+    );
+};
 
 GlossaryDefinition.propTypes = propTypes;
+export default GlossaryDefinition;

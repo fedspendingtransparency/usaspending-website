@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectedItemsChips from "./SelectedItemsChips";
+import { truncateItemCount } from '../../../helpers/search/collapsiblesidebarHelper';
+import { formatNumber } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     iconName: PropTypes.string,
@@ -19,7 +21,8 @@ const propTypes = {
     selectCategory: PropTypes.func,
     isClickable: PropTypes.bool,
     showDescription: PropTypes.bool,
-    titleOnly: PropTypes.bool
+    titleOnly: PropTypes.bool,
+    showFullCount: PropTypes.bool
 };
 const CategoryHeader = ({
     item,
@@ -32,9 +35,11 @@ const CategoryHeader = ({
     selectedItems,
     selectCategory,
     isClickable,
-    titleOnly
+    titleOnly,
+    showFullCount = false
 }) => {
     const [content, setContent] = useState();
+
 
     const innerContent = (
         <div className={`search-filter__content ${titleOnly ? 'filter-header__title-only' : ''} ${!isClickable && description ? 'filter-header__title-description' : ''}`}>
@@ -49,7 +54,7 @@ const CategoryHeader = ({
                 </div>
                 <div className="search-filter__top-row-selected-container">
                     {itemCount > 0 &&
-                        <div className="search-filter__top-row-selected">{itemCount} selected</div>
+                        <div className="search-filter__top-row-selected">{showFullCount ? truncateItemCount(itemCount) : formatNumber(itemCount)} selected</div>
                     }
                 </div>
             </div>

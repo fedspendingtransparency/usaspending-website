@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 import { TooltipWrapper, SectionHeader, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
 
@@ -221,7 +221,11 @@ const RecipientOverview = (props) => {
                             <tbody>
                                 <tr>
                                     <th className="recipient-section__details-table-first-th">Recipient Identifier</th>
-                                    <td className="recipient-section__details-table-first-td">{idList(recipient.duns, recipient.uei).map((i) => <>{i}<br /></>)}</td>
+                                    <td className="recipient-section__details-table-first-td">
+                                        {
+                                            idList(recipient.duns, recipient.uei).map((i) => i)
+                                        }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Address</th>

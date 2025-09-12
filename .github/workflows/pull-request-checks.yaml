@@ -1,0 +1,62 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    types:
+      - opened
+      - ready_for_review
+      - reopened
+      - synchronize
+
+# Only allow a single run of the PR checks for each branch. This means that in the case of multiple
+# PRs opened from a single branch into multiple others (e.g., hotfixes) a single run of the PR checks
+# will occur. However, additional runs of the PR checks will be triggered when the source branch
+# is re-synced with the target branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # There isn't a good way to avoid running a workflow when a Draft PR is opened. As a result, we
+  # first check if a Draft PR triggered this workflow and cancel the workflow if that is the case.
+  Cancel-If-Draft-Pull-Request:
+    if: github.event.pull_request.draft == true
+    uses: ./.github/workflows/cancel-running-workflow.yaml
+
+  # The conditional in each of the workflows below is required. Without these checks they will be skipped
+  # when the "Cancel-If-Draft-Pull-Request" workflow is skipped.
+  Run-Setup-Install:
+    name: Test npm install
+    needs: Cancel-If-Draft-Pull-Request
+    strategy:
+      fail-fast: true
+    if: |
+      always() &&
+      needs.Cancel-If-Draft-Pull-Request.result == 'skipped'
+    uses: ./.github/workflows/test-install.yaml
+
+  # The test suite is broken into multiple groups based on a combination of what is under test
+  # and the time that it takes to run tests for that group.
+  Run-Unit-Tests:
+    name: Run Jest, Audit, Eslint
+    needs: Run-Setup-Install
+    strategy:
+      fail-fast: true
+    if: ${{ !failure() && !cancelled() }}
+    uses: ./.github/workflows/test-unit.yaml
+
+  Run-Lighthouse:
+    name: Run Lighthouse
+    strategy:
+      fail-fast: true    
+    needs: Cancel-If-Draft-Pull-Request
+    if: ${{ !failure() && !cancelled() }}
+    uses: ./.github/workflows/test-lighthouse.yaml
+
+  Run-Broken-Link-Check:
+    name: Run Broken Link Checker
+    strategy:
+      fail-fast: true    
+    needs: Cancel-If-Draft-Pull-Request
+    if: ${{ !failure() && !cancelled() }}
+    uses: ./.github/workflows/broken-link-check.yaml

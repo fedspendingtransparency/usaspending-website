@@ -63,48 +63,46 @@ const metaData = {
     ]
 };
 
-const testResult = {
-    featuredVideo: {
-        id: metaData.items[0].id,
-        title: metaData.items[0].snippet.title,
-        description: metaData.items[0].snippet.description,
-        _publishedAt: metaData.items[0].snippet.publishedAt,
-        _duration: metaData.items[0].contentDetails.duration,
-        thumbnails: metaData.items[0].snippet.thumbnails
+const result = {
+    videos: [{
+        _duration: "infinite",
+        _publishedAt: "Lofi Girl",
+        description: "synthwave radio",
+        id: "123abc",
+        thumbnails: "synthwave boy gaming",
+        title: "beats to chill/game to"
     },
-    videos: [
-        {
-            id: metaData.items[1].id,
-            title: metaData.items[1].snippet.title,
-            description: metaData.items[1].snippet.description,
-            _publishedAt: metaData.items[1].snippet.publishedAt,
-            _duration: metaData.items[1].contentDetails.duration,
-            thumbnails: metaData.items[1].snippet.thumbnails
-        },
-        {
-            id: metaData.items[2].id,
-            title: metaData.items[2].snippet.title,
-            description: metaData.items[2].snippet.description,
-            _publishedAt: metaData.items[2].snippet.publishedAt,
-            _duration: metaData.items[2].contentDetails.duration,
-            thumbnails: metaData.items[2].snippet.thumbnails
-        },
-        {
-            id: metaData.items[3].id,
-            title: metaData.items[3].snippet.title,
-            description: metaData.items[3].snippet.description,
-            _publishedAt: metaData.items[3].snippet.publishedAt,
-            _duration: metaData.items[3].contentDetails.duration,
-            thumbnails: metaData.items[3].snippet.thumbnails
-        }
-    ]
+    {
+        _duration: "infinite",
+        _publishedAt: "Lofi Girl",
+        description: "lofi hip hop radio",
+        id: "456def",
+        thumbnails: "lofi girl chillin",
+        title: "beats to sleep/chill to"
+    },
+    {
+        _duration: "october",
+        _publishedAt: "Lofi Girl",
+        description: "Halloween lofi radio",
+        id: "789ghi",
+        thumbnails: "spooky lofi girl studying",
+        title: "spooky beats to get chills to"
+    }],
+    featuredVideo: {
+        _duration: "infinite",
+        _publishedAt: "Lofi Girl",
+        description: "lofi hip hop radio",
+        id: "b7SDGhSZ5wM",
+        thumbnails: "lofi girl studying",
+        title: "beats to relax/study to"
+    }
 };
 
-// Mock the child component, so that we can isolate functionality of the container
-jest.mock('../../../src/js/components/trainingVideos/TrainingVideosPage', () => jest.fn(() => null));
-jest.mock('../../../src/js/dataMapping/trainingVideos/playListMetadata', () => ({
+// // Mock the child component, so that we can isolate functionality of the container
+jest.mock('../../../src/config/training_videos/playListMetadata', () => ({
     items: metaData.items
 }));
+jest.mock('../../../src/js/components/trainingVideos/TrainingVideosPage', () => jest.fn(() => null));
 
 
 describe('TrainingVideosContainer', () => {
@@ -114,6 +112,6 @@ describe('TrainingVideosContainer', () => {
 
     it('renders container and page with mock data', () => {
         render(<TrainingVideosContainer />);
-        expect(TrainingVideosPage).toHaveBeenCalledWith(testResult, {});
+        expect(TrainingVideosPage).toHaveBeenCalledWith(result, undefined);
     });
 });

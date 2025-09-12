@@ -5,17 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import AgencyListContainer from 'containers/search/filters/AgencyListContainer';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-
 import SelectedAgencies from './SelectedAgencies';
-
-const defaultProps = {
-    agencyTypes: [
-        "Awarding",
-        "Funding"
-    ]
-};
 
 const propTypes = {
     toggleAgency: PropTypes.func,
@@ -27,60 +20,51 @@ const propTypes = {
     searchV2: PropTypes.bool
 };
 
-export default class Agency extends React.Component {
-    componentDidUpdate(prevProps) {
-        let showHint = false;
-        if (this.props.dirtyFunding && prevProps.dirtyFunding !== this.props.dirtyFunding) {
-            showHint = true;
+const Agency = ({
+    toggleAgency,
+    selectedAwardingAgencies,
+    selectedFundingAgencies,
+    agencyTypes = [
+        "Awarding",
+        "Funding"
+    ],
+    dirtyFunding,
+    dirtyAwarding,
+    searchV2
+}) => {
+    const agencies = agencyTypes.map((type) => {
+        let selectedAgencies = {};
+
+        if (type === 'Funding') {
+            selectedAgencies = selectedFundingAgencies;
         }
-        else if (this.props.dirtyAwarding && prevProps.dirtyAwarding !== this.props.dirtyAwarding) {
-            showHint = true;
+        else {
+            selectedAgencies = selectedAwardingAgencies;
         }
-
-        if (showHint && this.hint) {
-            this.hint.showHint();
-        }
-    }
-
-    render() {
-        const agencies = this.props.agencyTypes.map((type) => {
-            let selectedAgencies = {};
-
-            if (type === 'Funding') {
-                selectedAgencies = this.props.selectedFundingAgencies;
-            }
-            else {
-                selectedAgencies = this.props.selectedAwardingAgencies;
-            }
-
-            return (
-                <div className="filter-item-wrap" key={`holder-${type}`}>
-                    <AgencyListContainer
-                        agencyType={type}
-                        toggleAgency={this.props.toggleAgency}
-                        selectedAgencies={selectedAgencies} />
-                    <SelectedAgencies
-                        agencyType={type}
-                        selectedAgencies={selectedAgencies}
-                        toggleAgency={this.props.toggleAgency} />
-                    { !this.props.searchV2 &&
-                        <SubmitHint
-                            ref={(component) => {
-                                this.hint = component;
-                            }} />
-                    }
-
-                </div>
-            );
-        });
 
         return (
-            <div className="agency-filter">
-                {agencies}
+            <div className="filter-item-wrap" key={`holder-${type}`}>
+                <AgencyListContainer
+                    agencyType={type}
+                    toggleAgency={toggleAgency}
+                    selectedAgencies={selectedAgencies} />
+                <SelectedAgencies
+                    agencyType={type}
+                    selectedAgencies={selectedAgencies}
+                    toggleAgency={toggleAgency} />
+                { !searchV2 && type === 'Funding' &&
+                    <SubmitHint selectedFilters={[dirtyAwarding, dirtyFunding]} />
+                }
             </div>
         );
-    }
-}
+    });
+
+    return (
+        <div className="agency-filter">
+            {agencies}
+        </div>
+    );
+};
 
 Agency.propTypes = propTypes;
-Agency.defaultProps = defaultProps;
+export default Agency;

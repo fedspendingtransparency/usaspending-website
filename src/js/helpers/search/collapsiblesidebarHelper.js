@@ -4,8 +4,7 @@
  **/
 
 
-export const sideBarXlDesktopWidth = 332;
-export const sideBarDesktopWidth = 282;
+export const sideBarXlDesktopWidth = 352;
 
 export const panelContainerElClasses = [
     {
@@ -51,3 +50,11 @@ export const sortAlphaNumbersLast = (arr) => arr.sort((a, b) => {
 
     return String(a).localeCompare(String(b)); // Sort strings alphabetically
 });
+
+export const truncateItemCount = (itemCount) => {
+    if (itemCount >= 1000) {
+        return '999+';
+    }
+
+    return itemCount; // maybe consider string converstion here.
+};

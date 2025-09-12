@@ -1,5 +1,4 @@
 const dayjs = require('dayjs');
-
 const apiUrl = process.env.API_URL || 'https://api.usaspending.gov:443';
 const siteUrl = process.env.SITE_URL || 'https://www.usaspending.gov';
 
@@ -61,8 +60,7 @@ const awardPageInfo = {
             page: 1,
             limit: 100,
             sort: "Award Amount",
-            order: "desc",
-            subawards: false
+            order: "desc"
         },
         fields: [
             "Award ID",
@@ -71,8 +69,7 @@ const awardPageInfo = {
         page: 1,
         limit: 100,
         sort: "Award Amount",
-        order: "desc",
-        subawards: false
+        order: "desc"
     },
     accessor: 'generated_internal_id',
     clientRoute: `${siteUrl}/award`

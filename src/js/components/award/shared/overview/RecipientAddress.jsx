@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 // contains letters or numbers
-const regEx = RegExp('[A-Za-z0-9]');
+const regEx = new RegExp('[A-Za-z0-9]');
 const regExTest = (string) => regEx.test(string);
 
 const RecipientAddress = ({ recipientLocation, aggregateRecordType }) => {

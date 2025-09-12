@@ -39,3 +39,16 @@ Here is [a helpful contrast](https://testing-library.com/docs/react-testing-libr
 - [Mocking URL Params of React Router](tests/components/aboutTheData/AboutTheDataPage-test.jsx)
 - [Ensuring no duplicate API Requests](tests/containers/aboutTheData/AgenciesContainer-test.jsx)
   
+
+
+### To run tests in terminal 
+1. change package.json ["test": "./node_modules/.bin/jest; exit 0;",] to [ "test": "jest",] -- _DO NOT COMMIT THIS_
+
+2. run single unit test
+    ```shell
+    $ npm run test "yourfilename" 
+    ```
+3. run all tests (note: this will take some time):
+    ```shell
+    $ npm run test
+    ```

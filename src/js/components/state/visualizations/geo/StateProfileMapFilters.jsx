@@ -5,12 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
+import { NewPicker } from "data-transparency-ui";
 
 import { mapFilterSortOrderByValue } from '../../../../dataMapping/state/stateMap';
 import { handleSort } from '../../../../helpers/covid19Helper';
 import MapFiltersTitle from '../../../search/visualizations/geo/MapFiltersTitle';
-import NewPicker from '../../../sharedComponents/dropdowns/NewPicker';
 import StateCFDAList from "./cfda/StateCFDAList";
 import StateAgencyList from "./agency/StateAgencyList";
 import ProgramActivityList from "./programActivity/ProgramActivityList";

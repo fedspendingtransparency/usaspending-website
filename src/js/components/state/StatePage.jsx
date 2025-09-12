@@ -5,21 +5,24 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { find, throttle } from 'lodash';
+import { find, throttle } from 'lodash-es';
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { statePageMetaTags } from 'helpers/metaTagHelper';
+import { useDispatch } from 'react-redux';
+
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { Helmet } from 'react-helmet';
 import Error from 'components/sharedComponents/Error';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import StateContent from './StateContent';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -36,12 +39,15 @@ const StatePage = ({
     stateProfile = { fy: '' },
     pickedFy
 }) => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const slug = `state/${id}/${stateProfile.fy}`;
     const emailArgs = {
         subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
@@ -55,7 +61,7 @@ const StatePage = ({
         },
         {
             section: 'transactions-over-time',
-            label: 'Transactions Over Time'
+            label: 'Awards Over Time'
         },
         {
             section: 'top-five',
@@ -74,10 +80,9 @@ const StatePage = ({
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
 
         // add offsets
         let conditionalOffset;
@@ -126,7 +131,7 @@ const StatePage = ({
     }
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, slug, emailArgs);
+        handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
     };
 
     const backgroundColor = "#1a4480";

@@ -3,89 +3,77 @@
  * Created by Kevin Li 3/27/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { interpolateNumber } from 'd3-interpolate';
-import { isEqual } from 'lodash';
 
 const propTypes = {
+    startY: PropTypes.number,
+    endY: PropTypes.number,
     height: PropTypes.number,
+    length: PropTypes.number,
     description: PropTypes.string,
     style: PropTypes.object
 };
 
-const defaultProps = {
-    description: ''
-};
+const SankeyFlow = ({
+    startY, endY, height, length, description = '', style
+}) => {
+    const [path, setPath] = useState('');
 
-export default class SankeyFlow extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            path: ''
-        };
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps, this.props)) {
-            this.calculatePath(this.props);
-        }
-    }
-
-    calculatePath(props) {
-        let path = '';
+    const calculatePath = () => {
+        let pathLocal = '';
 
         // start at the 0, startY position, then move right 2px to account for the 2px offset
-        path += `M0,${props.startY}L2,${props.startY}`;
+        pathLocal += `M0,${startY}L2,${startY}`;
 
         // calculate the curve (going from 2 to length -2 to account for the offset)
-        const curve = interpolateNumber(2, props.length);
+        const curve = interpolateNumber(2, length);
 
-        path += `C${curve(0.5)},${props.startY}`;
-        path += ` ${curve(0.5)},${props.endY}`;
+        pathLocal += `C${curve(0.5)},${startY}`;
+        pathLocal += ` ${curve(0.5)},${endY}`;
 
         // move to the end (length, endY), then move right 2px more to account for the offset
-        path += ` ${props.length},${props.endY}L${props.length + 4},${props.endY}`;
+        pathLocal += ` ${length},${endY}L${length + 4},${endY}`;
 
         // create the height by moving downard height px
-        path += ` L${props.length + 4},${props.endY + props.height}`;
+        pathLocal += ` L${length + 4},${endY + height}`;
         // move left 2px to account for the offset
-        path += `L${props.length},${props.endY + props.height}`;
+        pathLocal += `L${length},${endY + height}`;
         // go back to the start but at the bottom
-        path += `C${curve(0.5)},${props.endY + props.height}`;
-        path += ` ${curve(0.5)},${props.startY + props.height}`;
+        pathLocal += `C${curve(0.5)},${endY + height}`;
+        pathLocal += ` ${curve(0.5)},${startY + height}`;
         // end 2px to the right of the starting point due to the offset
-        path += ` 2,${props.startY + props.height}`;
+        pathLocal += ` 2,${startY + height}`;
         // now move left 2px to end the path
-        path += `L0,${props.startY + props.height}`;
+        pathLocal += `L0,${startY + height}`;
 
         // close the path
-        path += 'Z';
+        pathLocal += 'Z';
 
-        this.setState({
-            path
-        });
+        setPath(pathLocal);
+    };
+
+    useEffect(() => {
+        calculatePath();
+    });
+
+    if (height <= 0) {
+        return null;
     }
 
-    render() {
-        if (this.props.height <= 0) {
-            return null;
-        }
-
-        return (
-            <g
-                transform="translate(-2,0)"
-                aria-label={this.props.description}>
-                <desc>{this.props.description}</desc>
-                <path
-                    className="flow-path"
-                    d={this.state.path}
-                    style={this.props.style} />
-            </g>
-        );
-    }
-}
+    return (
+        <g
+            transform="translate(-2,0)"
+            aria-label={description}>
+            <desc>{description}</desc>
+            <path
+                className="flow-path"
+                d={path}
+                style={style} />
+        </g>
+    );
+};
 
 SankeyFlow.propTypes = propTypes;
-SankeyFlow.defaultProps = defaultProps;
+export default SankeyFlow;

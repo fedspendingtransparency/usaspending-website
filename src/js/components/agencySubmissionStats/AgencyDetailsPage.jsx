@@ -3,9 +3,10 @@
  */
 
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, ShareIcon, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
+import { useDispatch } from 'react-redux';
 
 import { fetchAgencyOverview } from 'apis/agency';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
@@ -20,6 +21,7 @@ import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
 import { useAgencySlugs } from "../../containers/agency/WithAgencySlugs";
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/agencySubmissionStats/aboutTheData.scss');
 
@@ -30,10 +32,13 @@ const AgencyDetailsPage = () => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [agencyOverview, setAgencyOverview] = useState(null);
-    const [showModal, setShowModal] = useState('');
+    const [showModalLocal, setShowModal] = useState('');
     const [modalData, setModalData] = useState(null);
     const overviewRequest = useRef(null);
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     let slug = '';
     if (agencyOverview && agencyOverview.toptierCode) {
         slug = topTierCodes[agencyOverview.toptierCode];
@@ -85,7 +90,7 @@ const AgencyDetailsPage = () => {
     const message = agencyNotes[agencyCode] || '';
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, `submission-statistics/agency/${agencyCode}`, getAgencyDetailEmail(agencyOverview?.name, agencyCode));
+        handleShareOptionClick(name, `submission-statistics/agency/${agencyCode}`, getAgencyDetailEmail(agencyOverview?.name, agencyCode), handleShareDispatch);
     };
 
     return (
@@ -149,10 +154,10 @@ const AgencyDetailsPage = () => {
                         )}
                         <AboutTheDataModal
                             id="usa-dt-modal__agency-submission-statistics"
-                            mounted={!!showModal.length}
-                            type={showModal}
-                            className={modalClassNames[showModal]}
-                            title={modalTitles(modalData?.type)[showModal]}
+                            mounted={!!showModalLocal.length}
+                            type={showModalLocal}
+                            className={modalClassNames[showModalLocal]}
+                            title={modalTitles(modalData?.type)[showModalLocal]}
                             agencyData={modalData}
                             closeModal={closeModal} />
                     </FlexGridCol>

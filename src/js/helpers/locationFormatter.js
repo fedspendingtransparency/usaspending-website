@@ -3,10 +3,9 @@
  * Created by michaelbray on 2/23/17.
  */
 
-import { startCase, toLower } from 'lodash';
+import { startCase, toLower } from 'lodash-es';
+import { convertToTitleCase } from './searchHelper';
 
-/* eslint-disable import/prefer-default-export */
-// We only have one export but want to maintain consistency with other helpers
 export const formatLocation = (location) => {
     let displayValue = '';
 
@@ -23,4 +22,29 @@ export const formatLocation = (location) => {
 
     return displayValue;
 };
-/* eslint-enable import/prefer-default-export */
+
+export const pickLocationFormat = (location) => {
+    if (location?.address_line1 && location?.city_name && location?.state_code && location?.zip5) {
+        return `${convertToTitleCase(location.address_line1)}, ${convertToTitleCase(location.city_name)}, ${location.state_code}, ${location.zip5}`;
+    }
+    else if (location?.city_name && location?.state_code && location?.zip5) {
+        return `${convertToTitleCase(location.city_name)}, ${location.state_code}, ${location.zip5}`;
+    }
+    else if (location?.city_name && location?.state_code) {
+        return `${convertToTitleCase(location.city_name)}, ${location.state_code}`;
+    }
+    else if (location?.state_name) {
+        return `${location.state_name}, ${location.location_country_code}`;
+    }
+    else if (location?.city_name && location?.location_country_code) {
+        return `${convertToTitleCase(location.city_name)}, ${location.location_country_code}`;
+    }
+    else if (location?.country_name) {
+        return convertToTitleCase(location.country_name);
+    }
+    else if (location?.location_country_code) {
+        return location.location_country_code;
+    }
+    return '--';
+};
+

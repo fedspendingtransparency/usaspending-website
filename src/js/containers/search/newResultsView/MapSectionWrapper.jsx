@@ -3,20 +3,18 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, keyBy } from 'lodash';
-import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
-import { stateFIPSByAbbreviation, stateNameFromFips } from 'dataMapping/state/stateNames';
+import { uniqueId, keyBy } from 'lodash-es';
 
-import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-
+import { stateFIPSByAbbreviation, stateNameFromFips } from 'dataMapping/state/stateNames';
+import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
-
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
@@ -24,14 +22,14 @@ const propTypes = {
     reduxFilters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subaward: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     className: PropTypes.string,
     scope: PropTypes.string,
     setScope: PropTypes.func,
     wrapperProps: PropTypes.object,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
 const apiScopes = {
@@ -219,7 +217,7 @@ const MapSectionWrapper = React.memo((props) => {
 
         // if subawards is true, newAwardsOnly cannot be true, so we remove
         // dateType for this request
-        if (props.subaward && operation.dateType) {
+        if (props.spendingLevel === 'subawards' && operation.dateType) {
             delete operation.dateType;
         }
 
@@ -231,8 +229,8 @@ const MapSectionWrapper = React.memo((props) => {
             geo_layer: apiScopes[mapLayer],
             geo_layer_filters: visibleEntities,
             filters: searchParams,
-            subawards: props.subaward,
-            auditTrail: 'Map Visualization'
+            auditTrail: 'Map Visualization',
+            spending_level: props.spendingLevel
         };
 
         if (apiRequest) {
@@ -565,7 +563,12 @@ const MapSectionWrapper = React.memo((props) => {
             fetchData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, props.subaward, mapViewType, props.wrapperProps.selectedDropdownOption]);
+    }, [
+        props.reduxFilters,
+        mapViewType,
+        props.wrapperProps.selectedDropdownOption,
+        props.spendingLevel
+    ]);
 
     useEffect(() => {
         handleMapLegendToggleChange();
@@ -633,10 +636,13 @@ const MapSectionWrapper = React.memo((props) => {
             sectionName="map"
             sortBy={sortBy}
             sortDirection={sortDirection}
+            setSortDirection={setSortDirection}
             activeField={activeField}
             mapViewType={mapViewType}
             setMapViewType={setMapViewType}
-            hash={props.hash} >
+            hash={props.hash}
+            setActiveField={setActiveField}
+            manualSort>
             <GeoVisualizationSection
                 scope={props.scope}
                 mapLayer={mapLayer}
@@ -644,13 +650,11 @@ const MapSectionWrapper = React.memo((props) => {
                 changeMapLayer={changeMapLayer}
                 renderHash={renderHash}
                 data={data}
-                loading={loading}
-                error={error}
                 center={center}
                 noResults={data.values.length === 0}
                 mapLegendToggle={props.mapLegendToggle}
                 updateMapLegendToggle={props.updateMapLegendToggle}
-                subaward={props.subaward}
+                spendingLevel={props.spendingLevel}
                 className={props.className}
                 isDefCodeInFilter={props.reduxFilters?.defCodes?.counts}
                 singleLocationSelected={singleLocationSelected}
@@ -664,8 +668,8 @@ MapSectionWrapper.propTypes = propTypes;
 export default connect((state) => ({
     reduxFilters: state.appliedFilters.filters,
     noApplied: state.appliedFilters._empty,
-    subaward: state.searchView.subaward,
-    mapLegendToggle: state.searchMapLegendToggle
+    mapLegendToggle: state.searchMapLegendToggle,
+    spendingLevel: state.searchView.spendingLevel
 }),
 (dispatch) => ({
     ...bindActionCreators(Object.assign({}, searchFilterActions,

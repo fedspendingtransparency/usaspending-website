@@ -3,11 +3,10 @@
  * Created by Kevin Li 3/20/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-
 import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
@@ -20,117 +19,107 @@ const propTypes = {
     glossarySlug: PropTypes.string
 };
 
-const defaultProps = {
-    defaultExpand: true
-};
+const FilterOption = ({
+    name,
+    tooltip,
+    component,
+    disabled,
+    defaultExpand = true,
+    accessory,
+    glossarySlug
+}) => {
+    const [isDirty, setIsDirty] = useState(false);
+    const [showFilter, setShowFilter] = useState(false);
+    const [arrowState, setArrowState] = useState('collapsed');
 
-export default class FilterOption extends React.Component {
-    constructor(props) {
-        super(props);
+    const comingSoonModule = (<ComingSoonLabel />);
+    let disabledStatus = false;
+    let comingSoon;
+    let searchOption;
+    let statusClass = '';
 
-        this.state = {
-            isDirty: false,
-            showFilter: false,
-            arrowState: 'collapsed'
-        };
-
-        // bind functions
-        this.toggleFilter = this.toggleFilter.bind(this);
+    if (disabled) {
+        disabledStatus = true;
+        comingSoon = comingSoonModule;
+        searchOption = null;
+        statusClass = ' coming-soon';
+    }
+    else {
+        const Component = component;
+        searchOption = <Component />;
     }
 
-    componentDidMount() {
-        this.setArrowAndFilterState();
+    if (showFilter !== true) {
+        searchOption = null;
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.defaultExpand !== this.props.defaultExpand && !this.state.isDirty) {
-            this.checkIfAutoExpanded(this.props);
-        }
-    }
-
-    setArrowAndFilterState() {
-        if (this.props.defaultExpand) {
+    const setArrowAndFilterState = () => {
+        if (defaultExpand) {
             // check if filter is supposed to be collapsed by default
-            this.setState({
-                arrowState: 'expanded',
-                showFilter: true
-            });
+            setArrowState('expanded');
+            setShowFilter(true);
         }
-    }
+    };
 
-    checkIfAutoExpanded(nextProps) {
-        if (nextProps.defaultExpand) {
-            this.setState({
-                isDirty: true,
-                showFilter: true,
-                arrowState: 'expanded'
-            });
+    const checkIfAutoExpanded = () => {
+        if (defaultExpand) {
+            setIsDirty(true);
+            setShowFilter(true);
+            setArrowState('expanded');
         }
         else {
-            this.setState({
-                showFilter: false,
-                arrowState: 'collapsed'
-            });
+            setShowFilter(false);
+            setArrowState('collapsed');
         }
-    }
+    };
 
-    toggleFilter(e) {
+    const toggleFilter = (e) => {
         e.preventDefault();
 
         // Don't open if the user has tapped on the information icon
         if (e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
-            const newShowState = !this.state.showFilter;
+            const newShowState = !showFilter;
             let newArrowState = 'collapsed';
             if (newShowState) {
                 newArrowState = 'expanded';
             }
-            this.setState({
-                isDirty: true, showFilter: newShowState, arrowState: newArrowState
-            });
+            setIsDirty(true);
+            setShowFilter(newShowState);
+            setArrowState(newArrowState);
         }
-    }
+    };
 
-    render() {
-        const comingSoonModule = (<ComingSoonLabel />);
-        let disabledStatus = false;
-        let comingSoon = null;
-        let searchOption = null;
-        let statusClass = '';
-        if (this.props.disabled) {
-            disabledStatus = true;
-            comingSoon = comingSoonModule;
-            searchOption = null;
-            statusClass = ' coming-soon';
-        }
-        else {
-            const Component = this.props.component;
-            searchOption = <Component />;
-        }
+    useEffect(() => {
+        setArrowAndFilterState();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-        if (this.state.showFilter !== true) {
-            searchOption = null;
+    useEffect(() => {
+        if (!isDirty) {
+            checkIfAutoExpanded();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [defaultExpand]);
 
-        return (
-            <div
-                className={`search-option${statusClass}`}
-                role="group"
-                aria-label={this.props.name}>
-                <FilterExpandButton
-                    accessory={this.props.accessory}
-                    hidden={this.state.showFilter}
-                    toggleFilter={this.toggleFilter}
-                    arrowState={this.state.arrowState}
-                    name={this.props.name}
-                    tooltip={this.props.tooltip}
-                    disabled={disabledStatus}
-                    glossarySlug={this.props.glossarySlug} />
-                {searchOption}
-                {comingSoon}
-            </div>
-        );
-    }
-}
+    return (
+        <div
+            className={`search-option${statusClass}`}
+            role="group"
+            aria-label={name}>
+            <FilterExpandButton
+                accessory={accessory}
+                hidden={showFilter}
+                toggleFilter={toggleFilter}
+                arrowState={arrowState}
+                name={name}
+                tooltip={tooltip}
+                disabled={disabledStatus}
+                glossarySlug={glossarySlug} />
+            {searchOption}
+            {comingSoon}
+        </div>
+    );
+};
 
 FilterOption.propTypes = propTypes;
-FilterOption.defaultProps = defaultProps;
+export default FilterOption;

@@ -3,9 +3,9 @@
  * Created by Kevin Li 5/1/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { concat, sortBy } from 'lodash';
+import { concat, sortBy } from 'lodash-es';
 import Analytics from 'helpers/analytics/Analytics';
 
 import ResultGroup from './ResultGroup';
@@ -16,44 +16,26 @@ const propTypes = {
     setGlossaryTerm: PropTypes.func
 };
 
-export default class GlossarySearchResults extends React.Component {
-    static logGlossaryTermEvent(term) {
+const GlossarySearchResults = (props) => {
+    const [results, setResults] = useState([]);
+
+    const logGlossaryTermEvent = (term) => {
         Analytics.event({
             event: 'glossary-link',
             category: 'Glossary',
             action: 'Clicked Glossary Term',
             label: term
         });
-    }
+    };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            results: []
-        };
-
-        this.selectTerm = this.selectTerm.bind(this);
-    }
-
-    componentDidMount() {
-        this.groupResults(this.props);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.glossary.search.results !== this.props.glossary.search.results) {
-            this.groupResults(this.props);
-        }
-    }
-
-    selectTerm(term) {
-        this.props.setGlossaryTerm(term);
+    const selectTerm = (term) => {
+        props.setGlossaryTerm(term);
 
         // Analytics
-        GlossarySearchResults.logGlossaryTermEvent(term.term);
-    }
+        logGlossaryTermEvent(term.term);
+    };
 
-    groupResults(props) {
+    const groupResults = () => {
     // we need to group the results by their starting letter
         const groups = {};
 
@@ -78,32 +60,34 @@ export default class GlossarySearchResults extends React.Component {
         // sort the groups by starting letter
         const orderedGroups = sortBy(groups, ['letter']);
 
-        const results = orderedGroups.map((group) => (
+        const resultsLocal = orderedGroups.map((group) => (
             <ResultGroup
                 key={group.letter}
                 title={group.letter}
                 items={group.terms}
-                search={this.props.glossary.search.input}
-                selectTerm={this.selectTerm} />
+                search={props.glossary.search.input}
+                selectTerm={selectTerm} />
         ));
 
-        this.setState({
-            results
-        });
+        setResults(resultsLocal);
+    };
+
+    useEffect(() => {
+        groupResults();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.glossary.search.results]);
+
+    let searchLoading = '';
+    if (props.searchLoading) {
+        searchLoading = ' loading';
     }
 
-    render() {
-        let searchLoading = '';
-        if (this.props.searchLoading) {
-            searchLoading = ' loading';
-        }
-
-        return (
-            <div className={`glossary-search-results ${searchLoading}`}>
-                {this.state.results}
-            </div>
-        );
-    }
-}
+    return (
+        <div className={`glossary-search-results ${searchLoading}`}>
+            {results}
+        </div>
+    );
+};
 
 GlossarySearchResults.propTypes = propTypes;
+export default GlossarySearchResults;

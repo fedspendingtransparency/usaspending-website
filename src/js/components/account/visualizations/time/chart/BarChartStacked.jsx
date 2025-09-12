@@ -3,7 +3,7 @@
  * Created by Kevin Li 7/26/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
 
@@ -17,8 +17,6 @@ import BarChartYAxis from './BarChartYAxis';
 import BarChartXAxis from './BarChartXAxis';
 import StackedBarGroup from './StackedBarGroup';
 
-/* eslint-disable react/no-unused-prop-types */
-// allow unused prop types. they are indirectly accessed as nextProps
 const propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
@@ -29,95 +27,24 @@ const propTypes = {
     hideTooltip: PropTypes.func,
     toggleTooltip: PropTypes.func
 };
-/* eslint-enable react/no-unused-prop-types */
 
-const defaultProps = {
-    padding: {
+const BarChartStacked = ({
+    height,
+    width,
+    data,
+    padding = {
         left: 70,
         bottom: 50
-    }
-};
+    },
+    legend,
+    showTooltip,
+    hideTooltip,
+    toggleTooltip
+}) => {
+    const [chartReady, setChartReady] = useState(false);
+    const [virtualChart, setVirtualChart] = useState({});
 
-export default class BarChartStacked extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            chartReady: false,
-            virtualChart: {}
-        };
-    }
-
-    componentDidMount() {
-        this.buildVirtualChart(this.props);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.data !== this.props.data) {
-            this.buildVirtualChart(this.props);
-        }
-        else if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
-            this.buildVirtualChart(this.props);
-        }
-    }
-
-    buildVirtualChart(props) {
-        const values = {
-            width: props.width,
-            height: props.height,
-            allY: props.data.allY,
-            xSeries: props.data.xSeries,
-            ySeries: props.data.ySeries,
-            stacks: props.data.stacks
-        };
-
-        // calculate what the visible area of the chart itself will be (excluding the axes and their
-        // labels)
-        values.graphHeight = values.height - props.padding.bottom;
-        values.graphWidth = values.width - props.padding.left;
-        values.padding = props.padding;
-
-        // build a virtual representation of the chart first
-        // when we actually draw the chart, we won't need to do any more calculations
-
-        // first calculate the Y axis range
-        const yRange = buildYRange(values.allY);
-
-        // build the D3 scale objects for each axis
-        // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
-        // and range is the range of possible pixel positions along the axis
-        values.xScale = scaleBand()
-            .domain(values.xSeries)
-            .range([0, values.graphWidth])
-            .round(true);
-
-        // have an inverted range so that the yScale output returns the correct Y position within
-        // the SVG element (y = 0 is the top of the graph)
-        values.yScale = scaleLinear()
-            .domain(yRange)
-            .range([values.graphHeight, 0])
-            .clamp(true);
-
-        // now we need to build the X and Y axes
-        const yAxis = this.buildVirtualYAxis(values);
-        const xAxis = this.buildVirtualXAxis(values);
-
-        // now build the chart body
-        const body = this.buildVirtualBody(values);
-
-        const chart = {
-            yAxis,
-            xAxis,
-            body
-        };
-
-        this.setState({
-            virtualChart: chart,
-            chartReady: true
-        });
-    }
-
-    buildVirtualYAxis(values) {
+    const buildVirtualYAxis = (values) => {
         const yAxis = {
             items: [],
             line: {
@@ -180,9 +107,9 @@ export default class BarChartStacked extends React.Component {
 ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text}.`;
 
         return yAxis;
-    }
+    };
 
-    buildVirtualXAxis(values) {
+    const buildVirtualXAxis = (values) => {
         const xAxis = {
             items: [],
             line: {
@@ -221,9 +148,9 @@ ${yAxis.items[0].label.text} to ${yAxis.items[yAxis.items.length - 1].label.text
 ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
 
         return xAxis;
-    }
+    };
 
-    buildVirtualBody(values) {
+    const buildVirtualBody = (values) => {
         const body = {
             items: [],
             group: {
@@ -275,48 +202,48 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
             // iterate through each stacked item
             values.stacks.forEach((stack) => {
                 // get the data for the stacked item
-                const data = y[stack.name];
+                const dataLocal = y[stack.name];
 
                 // determine the Y position of the top of the bar
-                let yPos = values.yScale(data.top);
-                let height = 0;
+                let yPos = values.yScale(dataLocal.top);
+                let heightLocal = 0;
                 if (stack.type === 'bar') {
                     // bars have height, so calculate it by getting the Y position of the bottom of
                     // the bar and taking the difference
-                    height = values.yScale(data.bottom) - yPos;
+                    heightLocal = values.yScale(dataLocal.bottom) - yPos;
                     // however, if the bar shows a negative value but extends to a 0 or positive
                     // value, the "top" of the bar is actually visually the bottom - and the
                     // "bottom" bar (the visual top) is the X axis
-                    if (data.top < 0 && data.bottom >= 0) {
+                    if (dataLocal.top < 0 && dataLocal.bottom >= 0) {
                         yPos = zeroY;
-                        height = values.yScale(data.top) - zeroY;
+                        heightLocal = values.yScale(dataLocal.top) - zeroY;
                     }
-                    else if (data.top < 0) {
+                    else if (dataLocal.top < 0) {
                         // if the bar shows a negative value and it is entirely negative (the
                         // two endpoints of the bar are both in the negative region), use the
                         // least negative value as the top point of the bar and the most negative
                         // value as the bottom (and height is again the difference between the two)
-                        yPos = values.yScale(Math.max(data.bottom, data.top));
-                        height = values.yScale(Math.min(data.bottom, data.top)) - yPos;
+                        yPos = values.yScale(Math.max(dataLocal.bottom, dataLocal.top));
+                        heightLocal = values.yScale(Math.min(dataLocal.bottom, dataLocal.top)) - yPos;
                     }
                 }
 
                 // merge the positioning of the stacked item with its metadata
                 const element = Object.assign({}, stack, {
-                    height,
+                    height: heightLocal,
                     width: barWidth,
                     x: 0,
                     y: yPos,
                     xValue: x,
-                    value: data.value,
-                    description: data.description
+                    value: dataLocal.value,
+                    description: dataLocal.description
                 });
                 item.stack.push(element);
 
                 // add the value to the tooltip
                 tooltip.push({
-                    label: data.description,
-                    value: MoneyFormatter.formatMoney(data.value),
+                    label: dataLocal.description,
+                    value: MoneyFormatter.formatMoney(dataLocal.value),
                     type: stack.name
                 });
 
@@ -338,60 +265,116 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         });
 
         return body;
-    }
+    };
 
-    render() {
+    const buildVirtualChart = () => {
+        const values = {
+            width,
+            height,
+            allY: data.allY,
+            xSeries: data.xSeries,
+            ySeries: data.ySeries,
+            stacks: data.stacks
+        };
+
+        // calculate what the visible area of the chart itself will be (excluding the axes and their
+        // labels)
+        values.graphHeight = values.height - padding.bottom;
+        values.graphWidth = values.width - padding.left;
+        values.padding = padding;
+
+        // build a virtual representation of the chart first
+        // when we actually draw the chart, we won't need to do any more calculations
+
+        // first calculate the Y axis range
+        const yRange = buildYRange(values.allY);
+
+        // build the D3 scale objects for each axis
+        // remember, in D3 scales, domain is the data range (or data set for non-continuous data)
+        // and range is the range of possible pixel positions along the axis
+        values.xScale = scaleBand()
+            .domain(values.xSeries)
+            .range([0, values.graphWidth])
+            .round(true);
+
+        // have an inverted range so that the yScale output returns the correct Y position within
+        // the SVG element (y = 0 is the top of the graph)
+        values.yScale = scaleLinear()
+            .domain(yRange)
+            .range([values.graphHeight, 0])
+            .clamp(true);
+
+        // now we need to build the X and Y axes
+        const yAxis = buildVirtualYAxis(values);
+        const xAxis = buildVirtualXAxis(values);
+
+        // now build the chart body
+        const body = buildVirtualBody(values);
+
+        const chart = {
+            yAxis,
+            xAxis,
+            body
+        };
+
+        setVirtualChart(chart);
+        setChartReady(true);
+    };
+
+    const body = virtualChart.body?.items.map((item) => (
+        <StackedBarGroup
+            {...item}
+            key={item.xValue}
+            showTooltip={showTooltip}
+            hideTooltip={hideTooltip}
+            toggleTooltip={toggleTooltip} />
+    ));
+
+    useEffect(() => {
+        buildVirtualChart();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, width, height]);
+
     // the chart hasn't been created yet, so don't render anything
-        if (!this.state.chartReady) {
-            return null;
-        }
-
-        const body = this.state.virtualChart.body.items.map((item) => (
-            <StackedBarGroup
-                {...item}
-                key={item.xValue}
-                showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip}
-                toggleTooltip={this.props.toggleTooltip} />
-        ));
-
-        // add 40px to the top of the chart to avoid cutting off label text (especially on mobile)
-        // wrap the chart contents in a group and transform it down 20px to avoid impacting
-        // positioning calculations
-        return (
-            <div>
-                <svg
-                    className="bar-graph"
-                    width={this.props.width}
-                    height={this.props.height + 40}>
-
-                    <BarChartYAxis
-                        {...this.state.virtualChart.yAxis}
-                        x={this.state.virtualChart.yAxis.group.x}
-                        y={this.state.virtualChart.yAxis.group.y} />
-                    <BarChartXAxis
-                        {...this.state.virtualChart.xAxis} />
-
-                    <g
-                        className="bar-data"
-                        transform={`translate(${this.state.virtualChart.body.group.x},\
-${this.state.virtualChart.body.group.y})`}>
-                        {body}
-                    </g>
-
-                    <g
-                        className="legend-container"
-                        transform={`translate(${this.props.padding.left},
-                        ${this.props.height - 20})`}>
-                        <BarChartLegend legend={this.props.legend} />
-                    </g>
-
-                </svg>
-            </div>
-        );
+    if (!chartReady) {
+        return null;
     }
-}
+
+    // add 40px to the top of the chart to avoid cutting off label text (especially on mobile)
+    // wrap the chart contents in a group and transform it down 20px to avoid impacting
+    // positioning calculations
+    return (
+        <div>
+            <svg
+                className="bar-graph"
+                width={width}
+                height={height + 40}>
+
+                <BarChartYAxis
+                    {...virtualChart.yAxis}
+                    x={virtualChart.yAxis.group.x}
+                    y={virtualChart.yAxis.group.y} />
+                <BarChartXAxis
+                    {...virtualChart.xAxis} />
+
+                <g
+                    className="bar-data"
+                    transform={`translate(${virtualChart.body.group.x},\
+${virtualChart.body.group.y})`}>
+                    {body}
+                </g>
+
+                <g
+                    className="legend-container"
+                    transform={`translate(${padding.left},
+                    ${height - 20})`}>
+                    <BarChartLegend legend={legend} />
+                </g>
+
+            </svg>
+        </div>
+    );
+};
 
 BarChartStacked.propTypes = propTypes;
-BarChartStacked.defaultProps = defaultProps;
-
+export default BarChartStacked;

@@ -35,7 +35,7 @@ export const URLifyStateName = (str) => str
 export const parseStateDataFromUrl = (state) => {
     const isName = Number.isNaN(parseInt(state, 10));
     if (isName) {
-        const parsedName = state.split('-').join(' ').toLowerCase();
+        const parsedName = state?.split('-').join(' ').toLowerCase();
         if (fipsIdByStateName[parsedName]) {
             return [
                 isName,

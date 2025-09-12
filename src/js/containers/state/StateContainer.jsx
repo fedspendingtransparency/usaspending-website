@@ -3,11 +3,12 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { useNavigate, useMatch } from 'react-router';
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
@@ -23,28 +24,32 @@ const propTypes = {
     setStateOverview: PropTypes.func,
     resetState: PropTypes.func,
     setStateFiscalYear: PropTypes.func,
-    setStateCenter: PropTypes.func,
-    match: PropTypes.object,
-    history: PropTypes.object
+    setStateCenter: PropTypes.func
 };
 
 const StateContainer = (props) => {
     let fullRequest = null;
+    const navigate = useNavigate();
+    const match = useMatch(`/state/:state/:fyParam?`);
+    const { state, fyParam } = match.params;
+
+    const fy = fyParam;
+
     const [statusState, setStatusState] = useState({
         loading: true,
         error: false
     });
 
-    const onClickFy = (fy) => {
-        const [, stateName] = parseStateDataFromUrl(props.match.params.state);
-        props.history.push(`/state/${stateName}/${fy}`);
-        props.setStateFiscalYear(fy);
+    const onClickFy = (newFy) => {
+        const [, stateName] = parseStateDataFromUrl(state);
+        navigate(`/state/${stateName}/${newFy}`);
+        props.setStateFiscalYear(newFy);
     };
 
-    const setStateCenter = (id) => {
+    const setStateCenter = useCallback((id) => {
         const center = stateCenterFromFips(id);
         props.setStateCenter(center);
-    };
+    });
 
     const parseOverview = (data) => {
         if (Object.keys(data).length === 0) {
@@ -55,7 +60,7 @@ const StateContainer = (props) => {
         props.setStateOverview(stateProfile);
     };
 
-    const loadStateOverview = (id, year) => {
+    const loadStateOverview = useCallback((id, year) => {
         if (fullRequest) {
             fullRequest.cancel();
         }
@@ -82,18 +87,18 @@ const StateContainer = (props) => {
                     }));
                 }
             });
-    };
+    });
 
     useEffect(() => {
-        const { fy, state } = props.match.params;
         const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
 
-        if (!Object.keys(props.match.params).includes('fy')) {
-            // props.history.replace(`/state/${stateName}/latest`);
-            props.history.replace(`/state/${stateName}/2025`);
+        if (!fy) {
+            // this may be an issue on the first day of 2026 fiscal year
+            // props.history(`/state/${stateName}/latest`, { replace: true });
+            navigate(`/state/${stateName}/2025`, { replace: true });
         }
         else if (!wasInputStateName) {
-            props.history.replace(`/state/${stateName}/${fy}`);
+            navigate(`/state/${stateName}/${fy}`, { replace: true });
         }
         else {
             props.setStateFiscalYear(fy);
@@ -104,26 +109,30 @@ const StateContainer = (props) => {
         return () => {
             props.resetState();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        const [, , stateId] = parseStateDataFromUrl(props?.match?.params?.state);
+        const [, , stateId] = parseStateDataFromUrl(state);
         // Reset the FY
-        props.setStateFiscalYear(props.match.params.fy);
-        loadStateOverview(stateId, props.match.params.fy);
+        props.setStateFiscalYear(fy);
+        loadStateOverview(stateId, fy);
         // Update the map center
         setStateCenter(stateId);
-    }, [props?.match?.params?.state]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state]);
 
     useEffect(() => {
         // we just redirected the user or to the new url which includes the fy selection
-        props.setStateFiscalYear(props?.match?.params?.fy);
-    }, [props?.match?.params?.fy]);
+        props.setStateFiscalYear(fy);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fy]);
 
     useEffect(() => {
-        const [, , stateId] = parseStateDataFromUrl(props.match.params.state);
+        const [, , stateId] = parseStateDataFromUrl(state);
         loadStateOverview(stateId, props.stateProfile.fy);
-    }, [props?.stateProfile?.fy]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.stateProfile.fy]);
 
     return (
         <StatePage

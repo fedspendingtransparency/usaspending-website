@@ -105,6 +105,8 @@
 
     .date-range-option {
       @include grid-container;
+      @import "dtui-overrides";
+
       margin-left: auto;
       margin-right: auto;
 
@@ -136,11 +138,26 @@
 
              line-height: 1.5;
              border-radius: 3px;
-             border: solid 1px $gray-cool-10 !important;
+             border: solid 1px $gray-cool-10;
              padding: rem(7) rem(2);
              margin-top: 0;
              height: rem(32);
+             width: 100%;
+          }
+
+           .date-picker__input-field {
+             @media (min-width: $tablet-screen) {
+               width: rem(70);
+             }
+
+             @media(min-width: $large-screen) {
+               width: rem(95);
+             }
            }
+
+          .date-picker__input-field:invalid {
+            outline: rem(1) solid $color-secondary-vivid;
+          }
          }
 
         .date-range-column {
@@ -158,6 +175,7 @@
 
         button {
           margin: 0;
+          @include new-search-button;
         }
       }
 
@@ -185,6 +203,7 @@
             width: 100%;
             margin-right: $global-margin * .5;
 
+            // DTUI NewPicker.jsx override
             .filter__dropdown-container {
               height: rem(32);
 
@@ -261,6 +280,7 @@
 
           button {
             margin: 0;
+            @include new-search-button;
           }
         }
       }

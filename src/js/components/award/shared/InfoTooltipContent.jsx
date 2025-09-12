@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import { uniqueId } from 'lodash-es';
+
 import * as Icons from 'components/sharedComponents/icons/Icons';
+import AboutTheDataLink from "../../sharedComponents/AboutTheDataLink";
 
 // Mapping of section identifier to tooltip content JSX
 export const transactionHistoryInfoGeneric = (
@@ -1343,10 +1345,14 @@ export const CondensedCDTooltip = ({ title }) => (
         </div>
         <div className="tooltip__text">
             <p>
-                The congressional districts displayed reflect their current geographic boundaries and are based on the 2020 census. These districts will be in effect from 2023 – 2033.&#42;
+                The congressional districts displayed reflect current congressional districts based
+                on redistricting as a result of the 2020 census. These districts will be in effect from
+                2023 – 2033.&#42;
             </p>
             <p>
-                Additional information can be found in the "Congressional District Data" section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
+                Additional information can be found in the "Congressional District Data" section of the
+                <AboutTheDataLink slug="congressional-district-data"> About the Data </AboutTheDataLink>
+                module under Find Resources.
             </p>
             <p>
                 <em>&#42;Court-ordered redistricting might alter the time frame when a congressional district is in effect.</em>

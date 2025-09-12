@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import { Tabs } from 'data-transparency-ui';
 import ResultsTable from './ResultsTable';
 import ResultsTableLoadingMessage from './ResultsTableLoadingMessage';

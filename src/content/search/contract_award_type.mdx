@@ -1,0 +1,20 @@
+import DsmRelatedTerms from 'components/search/collapsibleSidebar/DsmRelatedTerms.jsx'
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">“About this filter” content in progress</div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section collapsible-sidebar--dsm-wrapper--text-links">
+    If you have any questions about this filter, please reach out to:
+    <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=About%20this%20Filter">
+        usaspending.help@fiscal.treasury.gov
+    </a>
+</div>
+
+<DsmRelatedTerms headingTitle={"Related terms"} glossaryLinks={[
+                                                    {text:'Contract', term:"contract"},
+                                                    {text: "Indefinite Delivery Vehicle (IDV)", term:"indefinite-delivery-vehicle-idv"},
+                                                    {text: "Award Type", term: "award-type"}]}
+                                                aboutTheData={[
+                                                    {name: "Reporting Threshold for Prime Awards", slug: "reporting-threshold-for-prime-awards"},
+                                                    {name: "Frequency of Updates to Prime Award Data for Contracts (Procurement)", slug: "frequency-of-updates-to-prime-award-data-for-contracts"},
+                                                    {name: "Limited Data for Unlinked Prime Awards", slug: "limited-data-for-unlinked-prime-awards"},
+                                                    {name: "Delay in Department of Defense (DoD) Procurement Data", slug: "delay-in-dod-procurement-data"},
+                                                    {name: "File D1 (Award and Awardee Attributes (Procurement))", slug: "file-d1" }]} />

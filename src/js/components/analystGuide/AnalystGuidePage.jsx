@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
 import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { useDispatch } from "react-redux";
@@ -25,21 +25,17 @@ const AnalystGuidePage = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
+    const dispatch = useDispatch();
+    const onExternalLinkClick = (e) => {
+        dispatch(showModal(e));
+    };
     const onShareClick = (name) => {
         const emailSubject = `USAspending.gov Federal Spending Guide`;
         const emailArgs = {
             subject: `${emailSubject}`,
             body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Federal Spending Guide! ${getBaseUrl(slug)}`
         };
-        handleShareOptionClick(name, slug, emailArgs);
-    };
-
-    const dispatch = useDispatch();
-    const onExternalLinkClick = (e) => {
-        e.persist();
-        if (e?.target) {
-            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
-        }
+        handleShareOptionClick(name, slug, emailArgs, onExternalLinkClick);
     };
     useEffect(() => {
         const handleResize = throttle(() => {

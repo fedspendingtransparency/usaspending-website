@@ -3,22 +3,18 @@
  * Created by Kevin Li 3/20/17
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { Record } from 'immutable';
 
-import { isEqual } from 'lodash';
-
 import AccountTimeVisualizationSection from
     'components/account/visualizations/time/AccountTimeVisualizationSection';
-
 import * as AccountHelper from 'apis/account';
 import * as AccountQuartersHelper from 'helpers/accountQuartersHelper';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
-
 import AccountSearchBalanceOperation from 'models/v1/account/queries/AccountSearchBalanceOperation';
 import AccountSearchCategoryOperation from 'models/v1/account/queries/AccountSearchCategoryOperation';
 import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from
@@ -29,7 +25,7 @@ const propTypes = {
     account: PropTypes.object
 };
 
-// create an Immuatable Record object to guarantee the existance of required visualization fields
+// create an Immutable Record object to guarantee the existence of required visualization fields
 export const VisData = Record({
     xSeries: [],
     ySeries: [],
@@ -37,218 +33,44 @@ export const VisData = Record({
     stacks: []
 });
 
-export class AccountTimeVisualizationSectionContainer extends React.PureComponent {
-    constructor(props) {
-        super(props);
+const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => {
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState(new VisData());
+    const [visualizationPeriod, setVisualizationPeriod] = useState('quarter');
+    const [hasFilteredObligated, setHasFilteredObligated] = useState(false);
 
-        this.state = {
-            loading: true,
-            data: new VisData(),
-            visualizationPeriod: 'quarter',
-            hasFilteredObligated: false
-        };
+    const balanceRequests = useRef([]);
 
-        this.balanceRequests = [];
-        this.changePeriod = this.changePeriod.bind(this);
-    }
+    const setUpdateStateAndFetch = () => {
+        setHasFilteredObligated((
+            (reduxFilters.objectClass.count() > 0) ||
+            (reduxFilters.programActivity.count() > 0)
+        ));
+    };
 
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) || !isEqual(prevProps.account.id, this.props.account.id)) {
-            this.setUpdateStateAndFetch(this.props);
+    const changePeriod = (period) => {
+        if (visualizationPeriod !== period) {
+            setVisualizationPeriod(period);
         }
-    }
+    };
 
-    setUpdateStateAndFetch(props) {
-        this.setState({
-            hasFilteredObligated: (((props.reduxFilters.objectClass.count() > 0)
-            || (props.reduxFilters.programActivity.count() > 0)))
-        }, () => {
-            this.fetchData();
-        });
-    }
-
-    changePeriod(period) {
-        const prevPeriod = this.state.visualizationPeriod;
-        if (prevPeriod !== period) {
-            this.setState(
-                {
-                    visualizationPeriod: period
-                },
-                () => {
-                    this.fetchData();
-                }
-            );
-        }
-    }
-
-    fetchData() {
-        if (this.balanceRequests.length > 0) {
-            // cancel all previous requests
-            this.balanceRequests.forEach((request) => {
-                request.cancel();
-            });
-            this.balanceRequests = [];
-        }
-
-        const searchOperation = new AccountSearchBalanceOperation(this.props.account.id);
-        searchOperation.fromState(this.props.reduxFilters);
-        // const filters = searchOperation.toParams();
-        const balanceFilters = searchOperation.toParams();
-        let filters = balanceFilters;
-
-        const requests = [];
-        const promises = [];
-
-        const categorySearchOperation = new AccountSearchCategoryOperation(this.props.account.id);
-        categorySearchOperation.fromState(this.props.reduxFilters);
-        const categoryFilters = categorySearchOperation.toParams();
-
-        if (this.state.visualizationPeriod === 'quarter') {
-            if (this.state.hasFilteredObligated) {
-                Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
-                    // generate API call using helper for quarters with category filters
-                    filters = categoryFilters;
-                    const request = AccountQuartersHelper.fetchTasCategoryTotals({
-                        filters,
-                        group: ['submission__reporting_fiscal_year',
-                            'submission__reporting_fiscal_quarter'],
-                        field: balanceFieldsFiltered[balanceType],
-                        aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year'],
-                        auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
-                    });
-                    request.type = balanceType;
-                    requests.push(request);
-                    promises.push(request.promise);
-                });
-                Object.keys(balanceFieldsNonfiltered).forEach((balanceType) => {
-                    // generate API call using helper for quarters
-                    filters = balanceFilters;
-                    const request = AccountQuartersHelper.fetchTasBalanceTotals({
-                        filters,
-                        group: ['submission__reporting_fiscal_year',
-                            'submission__reporting_fiscal_quarter'],
-                        field: balanceFieldsNonfiltered[balanceType],
-                        aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year'],
-                        auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
-                    });
-                    request.type = balanceType;
-                    requests.push(request);
-                    promises.push(request.promise);
-                });
-            }
-            else {
-                Object.keys(balanceFields).forEach((balanceType) => {
-                    // generate API call using helper for quarters
-                    const request = AccountQuartersHelper.fetchTasBalanceTotals({
-                        filters,
-                        group: ['submission__reporting_fiscal_year',
-                            'submission__reporting_fiscal_quarter'],
-                        field: balanceFields[balanceType],
-                        aggregate: 'sum',
-                        order: ['submission__reporting_fiscal_year'],
-                        auditTrail: `Spending over Time (quarters) - non-obligated filter - ${balanceType}`
-                    });
-
-                    request.type = balanceType;
-                    requests.push(request);
-                    promises.push(request.promise);
-                });
-            }
-        }
-        else if (this.state.visualizationPeriod === 'year') {
-            if (this.state.hasFilteredObligated) {
-                Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
-                    // generate API call using helper for quarters
-                    filters = categoryFilters;
-                    const request = AccountHelper.fetchTasCategoryTotals({
-                        filters,
-                        group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
-                        field: balanceFieldsFiltered[balanceType],
-                        aggregate: '',
-                        order: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
-                        auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
-                    });
-                    request.type = balanceType;
-                    requests.push(request);
-                    promises.push(request.promise);
-                });
-                Object.keys(balanceFieldsNonfiltered).forEach((balanceType) => {
-                    // generate API call using helper for quarters
-                    filters = balanceFilters;
-                    const request = AccountHelper.fetchTasBalanceTotals({
-                        filters,
-                        group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
-                        field: balanceFieldsNonfiltered[balanceType],
-                        aggregate: '',
-                        order: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
-                        auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
-                    });
-                    request.type = balanceType;
-                    requests.push(request);
-                    promises.push(request.promise);
-                });
-            }
-            else {
-                Object.keys(balanceFields).forEach((balanceType) => {
-                    // generate API call
-                    const request = AccountHelper.fetchTasBalanceTotals({
-                        filters,
-                        group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
-                        field: balanceFields[balanceType],
-                        aggregate: '',
-                        order: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
-                        auditTrail: `Spending over Time (years) - non-obligated filter - ${balanceType}`
-                    });
-
-                    request.type = balanceType;
-                    requests.push(request);
-                    promises.push(request.promise);
-                });
-            }
-        }
-        this.balanceRequests = requests;
-
-        Promise.all(promises)
-            .then((res) => {
-                this.parseBalances(res);
-
-                this.setState({
-                    loading: false
-                });
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    this.setState({
-                        loading: false
-                    });
-                    console.log(err);
-                }
-            });
-    }
-
-    parseBalances(data) {
+    const parseBalances = (res) => {
         const xSeries = [];
         const ySeries = [];
         const allY = [];
         const yData = {};
         const groupLabels = [];
 
-        data.forEach((balance, balanceIndex) => {
-            const type = this.balanceRequests[balanceIndex].type;
+        res.forEach((balance, balanceIndex) => {
+            const type = balanceRequests.current[balanceIndex].type;
             balance.data.results.forEach((group) => {
                 let groupLabel = `${group.item}`;
-                if (this.state.visualizationPeriod === 'quarter') {
+                if (visualizationPeriod === 'quarter') {
                     groupLabel = `${group.item} Q${group.submission__reporting_fiscal_quarter}`;
                 }
                 if (!yData[groupLabel]) {
                     groupLabels.push(groupLabel);
-                    if (this.state.hasFilteredObligated) {
+                    if (hasFilteredObligated) {
                         yData[groupLabel] = {
                             obligatedFiltered: 0,
                             outlay: 0,
@@ -274,7 +96,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
 
         groupLabels.forEach((group) => {
             xSeries.push(`${group}`);
-            if (this.state.hasFilteredObligated) {
+            if (hasFilteredObligated) {
                 const budgetAuthority = yData[group].budgetAuthority;
                 const unobligated = yData[group].unobligated;
                 const obligatedFiltered = yData[group].obligatedFiltered;
@@ -359,7 +181,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                 color: '#a0bac4'
             }
         ];
-        if (this.state.hasFilteredObligated) {
+        if (hasFilteredObligated) {
             stacks = [
                 {
                     name: 'outlay',
@@ -392,23 +214,190 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
             stacks
         });
 
-        this.setState({
-            data: visualizationData,
-            loading: false
-        });
-    }
+        setData(visualizationData);
+        setLoading(false);
+    };
 
-    render() {
-        return (
-            <AccountTimeVisualizationSection
-                data={this.state.data}
-                loading={this.state.loading}
-                visualizationPeriod={this.state.visualizationPeriod}
-                changePeriod={this.changePeriod}
-                hasFilteredObligated={this.state.hasFilteredObligated} />
-        );
-    }
-}
+    const fetchData = () => {
+        if (balanceRequests.current.length > 0) {
+            // cancel all previous requests
+            balanceRequests.current.forEach((request) => {
+                request.cancel();
+            });
+            balanceRequests.current = [];
+        }
+
+        setLoading(true);
+        const searchOperation = new AccountSearchBalanceOperation(account.id);
+        searchOperation.fromState(reduxFilters);
+        const balanceFilters = searchOperation.toParams();
+        let filters = balanceFilters;
+
+        const requests = [];
+        const promises = [];
+
+        const categorySearchOperation = new AccountSearchCategoryOperation(account.id);
+        categorySearchOperation.fromState(reduxFilters);
+        const categoryFilters = categorySearchOperation.toParams();
+
+        if (visualizationPeriod === 'quarter') {
+            if (hasFilteredObligated) {
+                Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
+                    // generate API call using helper for quarters with category filters
+                    filters = categoryFilters;
+                    const request = AccountQuartersHelper.fetchTasCategoryTotals({
+                        filters,
+                        group: ['submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'],
+                        field: balanceFieldsFiltered[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
+                    });
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+                Object.keys(balanceFieldsNonfiltered).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    filters = balanceFilters;
+                    const request = AccountQuartersHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: ['submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'],
+                        field: balanceFieldsNonfiltered[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
+                    });
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+            }
+            else {
+                Object.keys(balanceFields).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    const request = AccountQuartersHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: ['submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'],
+                        field: balanceFields[balanceType],
+                        aggregate: 'sum',
+                        order: ['submission__reporting_fiscal_year'],
+                        auditTrail: `Spending over Time (quarters) - non-obligated filter - ${balanceType}`
+                    });
+
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+            }
+        }
+        else if (visualizationPeriod === 'year') {
+            if (hasFilteredObligated) {
+                Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    filters = categoryFilters;
+                    const request = AccountHelper.fetchTasCategoryTotals({
+                        filters,
+                        group: [
+                            'submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'
+                        ],
+                        field: balanceFieldsFiltered[balanceType],
+                        aggregate: '',
+                        order: [
+                            'submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'
+                        ],
+                        auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
+                    });
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+                Object.keys(balanceFieldsNonfiltered).forEach((balanceType) => {
+                    // generate API call using helper for quarters
+                    filters = balanceFilters;
+                    const request = AccountHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: [
+                            'submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'
+                        ],
+                        field: balanceFieldsNonfiltered[balanceType],
+                        aggregate: '',
+                        order: [
+                            'submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'
+                        ],
+                        auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
+                    });
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+            }
+            else {
+                Object.keys(balanceFields).forEach((balanceType) => {
+                    // generate API call
+                    const request = AccountHelper.fetchTasBalanceTotals({
+                        filters,
+                        group: [
+                            'submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'
+                        ],
+                        field: balanceFields[balanceType],
+                        aggregate: '',
+                        order: [
+                            'submission__reporting_fiscal_year',
+                            'submission__reporting_fiscal_quarter'
+                        ],
+                        auditTrail: `Spending over Time (years) - non-obligated filter - ${balanceType}`
+                    });
+
+                    request.type = balanceType;
+                    requests.push(request);
+                    promises.push(request.promise);
+                });
+            }
+        }
+        balanceRequests.current = requests;
+
+        Promise.all(promises)
+            .then((res) => {
+                parseBalances(res);
+
+                setLoading(false);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    setLoading(false);
+                    console.log(err);
+                }
+            });
+    };
+
+    useEffect(() => {
+        setUpdateStateAndFetch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [reduxFilters, account.id]);
+
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hasFilteredObligated, visualizationPeriod, reduxFilters]);
+
+    return (
+        <AccountTimeVisualizationSection
+            data={data}
+            loading={loading}
+            visualizationPeriod={visualizationPeriod}
+            changePeriod={changePeriod}
+            hasFilteredObligated={hasFilteredObligated} />
+    );
+};
 
 AccountTimeVisualizationSectionContainer.propTypes = propTypes;
 

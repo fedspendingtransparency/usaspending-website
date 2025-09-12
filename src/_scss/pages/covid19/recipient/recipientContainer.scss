@@ -352,5 +352,32 @@
         }
       }
     }
+
+    .recipient-spending-notes {
+      h4 {
+        width: 100%;
+        padding: 0;
+        text-align: left;
+      }
+
+      p {
+        margin-top: 0;
+      }
+
+      ul {
+        padding-left: rem(16);
+        font-size: rem(14);
+        margin-left: rem(16);
+    
+        li {
+          list-style: disc;
+
+          a {
+            word-break: break-word;
+          }
+        }
+      }
+    
+    }
   }
 }

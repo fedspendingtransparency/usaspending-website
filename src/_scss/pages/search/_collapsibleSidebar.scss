@@ -8,7 +8,6 @@
 }
 
 .search-collapsible-sidebar-container {
-  @import './filters/otherFilters/defCheckboxV2';
   box-shadow: unset;
   border-radius: unset;
   position: absolute;
@@ -62,6 +61,8 @@
     z-index: 2;
   }
 
+  @import "../../components/checkboxTree/checkboxTree";
+
   .collapsible-sidebar {
     display: flex;
     flex-direction: column;
@@ -96,7 +97,7 @@
         overflow-y: auto;
         height: 100%;
       }
-      
+
       .category-filter.exempt {
         overflow-y: auto;
       }
@@ -114,19 +115,13 @@
       }
     }
 
-    @import "_newNaicsStyles";
-    @import "_newPscStyles";
-    @import "_newTasStyles";
-
     .collapsible-sidebar--header {
-      padding: rem(16) rem(32);
-      font-size: 16px;
-      font-weight: $font-semibold;
+      padding: rem(20) rem(20) 0 rem(32);
       line-height: 1.5;
       color: $gray-90;
-      border-bottom: $gray-cool-10 1px solid;
       background-color: unset;
-
+      display: flex;
+      justify-content: flex-end;
       #collapsible-mobile-close-button {
         @media(min-width: $medium-screen) {
           display: none;
@@ -135,10 +130,10 @@
         width: rem(10);
         height: rem(10);
         background-color: white;
+        margin: 0;
+        stroke-width: rem(2);
         padding: 0;
-        right: 0;
-        position: absolute;
-
+        padding-bottom: $global-padding * 4;
         svg {
           width: rem(10);
           height: rem(10);
@@ -160,6 +155,83 @@
 
       .collapsible-sidebar--search-filters-list {
         overflow-y: auto;
+        scrollbar-gutter: stable;
+
+        .search-filters-list {
+          padding: ($global-padding * 2) ($global-padding * 4) 0 ($global-padding * 4);
+
+          .category-header {
+            display: flex;
+
+            &--icon {
+              height: rem(21);
+              width: rem(21);
+              border-radius: rem(4);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              svg {
+                max-height: rem(12);
+                max-width: rem(12);
+              }
+            }
+
+            &--title {
+              font-size: $font-size-10;
+              line-height: 1.5;
+              color: $gray-60;
+              align-content: center;
+              margin-left: rem(4);
+              border-bottom: rem(1) solid $gray-cool-10;
+              width: 100%;
+            }
+          }
+        }
+
+        .accordion-container {
+           &.open {
+             padding: 0;
+           }
+
+          .accordion {
+            .heading {
+              padding: $global-padding ($global-padding / 2);
+              border: none;
+              font-size: $smallest-font-size;
+              line-height: 1.5;
+
+              button {
+                padding: 0;
+                margin: 0;
+                max-height: rem(18);
+                max-width: rem(18);
+
+                svg {
+                  color: $blue-50;
+                }
+              }
+            }
+
+            .content {
+              border: none;
+              padding: $global-padding ($global-padding / 2);;
+
+              &.hidden {
+                overflow: hidden;
+                padding: 0;
+              }
+
+              .filter-item-wrap {
+                padding: 0;
+              }
+
+              .agency-filter .filter-item-wrap:first-of-type {
+                padding-bottom: rem(16);
+              }
+            }
+          }
+        }
       }
     }
 
@@ -172,8 +244,8 @@
         padding: 0 32px;
       }
 
-      // DEV - 12074 requested that all search boxes be full width on tablet/mobile  
-      // putting this here is a overarching blanket v2 fix but does not effect original search styles. 
+      // DEV - 12074 requested that all search boxes be full width on tablet/mobile
+      // putting this here is a overarching blanket v2 fix but does not effect original search styles.
       .usa-da-typeahead__input,
       .autocomplete__input {
         input {
@@ -277,56 +349,154 @@
         overflow-y: auto;
       }
 
-      .collapsible-sidebar--dsm-slider {
-        color: $blue-50;
-        padding: rem(16) rem(32);
-        font-size: rem(12);
-        font-weight: $font-semibold;
-        line-height: 1.5;
-        border-top: 1px solid $gray-cool-5;
-        
-        span {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          align-items: center;
-          cursor: pointer;
-          &:hover {
-            color: $blue-70v;
-          }
+    }
 
-          .chevron {
-            margin: 0 8px 0 8px;
-            width: 10px;
-          }
-  
+    .collapsible-sidebar--dsm-slider {
+      color: $blue-50;
+      padding: rem(16) rem(32);
+      font-size: rem(12);
+      font-weight: $font-semibold;
+      line-height: 1.5;
+      border-top: 1px solid $gray-cool-5;
+      span {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          color: $blue-70v;
         }
 
-        .collapsible-sidebar--dsm-content {
-          .collapsible-sidebar--dsm-wrapper {
-            font-size: $font-size-14;
-            color: $gray-60;
-            font-weight: $font-normal;
-            overflow-y: auto;
+        .chevron {
+          margin: 0 8px 0 8px;
+          width: 10px;
+        }
 
-            &--text-header {
-              font-weight: $font-semibold;
-              color: $gray-90;
-              margin: 16px 0px 0px;
+      }
+
+      .collapsible-sidebar--dsm-content {
+        .collapsible-sidebar--dsm-wrapper {
+          font-size: $font-size-14;
+          color: $gray-60;
+          font-weight: $font-normal;
+          overflow-y: auto;
+          overflow-x: visible;
+
+          &--text-header {
+            font-weight: $font-semibold;
+            color: $gray-90;
+            margin: 16px 0px 0px;
+            ul {
+              margin: 4px 0px 0px;
+            }
+          }
+
+          &--text-section {
+            p {
+              margin: 4px 0px 0px;
             }
 
-            &--text-section {
-              p {
-                margin: 4px 0px 0px;
+            ul {
+              margin: 4px 0px 0px;
+            }
+
+            .additional-dsm-styles {
+              margin-top: 4px;
+            }
+
+            &--button {
+              margin-left: 0;
+              padding: rem(6);
+
+              &:focus {
+                display: inline-block;
+                box-shadow: inset 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+
+                ::after {
+                  content: '';
+                  position: absolute;
+                  z-index: 1;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+            }
+
+            .collapsible-sidebar--dsm-wrapper--text-links {
+              margin: 4px 0px 0px;
+
+              a:focus {
+                display: inline-block;
+                box-shadow: inset 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+
+                ::after {
+                  content: '';
+                  position: absolute;
+                  z-index: 1;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                }
               }
             }
           }
+
+          &--text-links a:focus {
+            display: inline-block;
+            box-shadow: inset 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+
+            ::after {
+              content: '';
+              position: absolute;
+              z-index: 1;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          &--icon-section {
+            display: flex;
+            margin: rem(4) 0 ($global-margin * 2) 0;
+
+            &--icon {
+              margin: $global-margin rem(12) $global-margin 0;
+              height: rem(21);
+              width: rem(21);
+              border-radius: rem(4);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: $global-padding 0;
+            }
+          }
+
+          &--atd-links {
+            margin-top: rem(12);
+
+            .collapsible-sidebar--dsm-wrapper--atd-link {
+              font-size: $smallest-font-size;
+              font-weight: 600;
+              line-height: 1.75;
+              margin: rem(4) $global-margin;
+            }
+          }
         }
       }
+    }
 
-      .collapsible-sidebar--dsm-slider:hover .chevron {
-        color: $blue-70v;
-      }
+    .collapsible-sidebar--dsm-slider:hover .chevron {
+      color: $blue-70v;
+    }
+
+    .dsm-opened {
+      display: block !important;
+      padding-bottom: 20px;
     }
 
   }

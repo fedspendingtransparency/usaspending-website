@@ -4,8 +4,12 @@
  */
 
 import React from 'react';
+import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
+import Cookies from 'js-cookie';
+import * as SearchHelper from 'helpers/searchHelper';
+import Analytics from '../../helpers/analytics/Analytics';
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -13,21 +17,74 @@ const propTypes = {
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     resetFilters: PropTypes.func,
-    setShowMobileFilters: PropTypes.func
+    setShowMobileFilters: PropTypes.func,
+    timerRef: PropTypes.object
 };
 
-const SearchSidebarSubmit = (props) => {
+const SearchSidebarSubmit = ({
+    stagedFiltersAreEmpty,
+    requestsComplete,
+    filtersChanged,
+    setShowMobileFilters,
+    applyStagedFilters,
+    resetFilters,
+    timerRef
+}) => {
     let disabled = false;
     let title = 'Click to submit your search.';
+    const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
 
-    if (props.stagedFiltersAreEmpty) {
+    if (stagedFiltersAreEmpty) {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
-    else if (!props.requestsComplete || !props.filtersChanged) {
+    else if (!requestsComplete || !filtersChanged) {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
+
+    const fireSearchEvent = () => {
+        if (!urlHash) {
+            const now = new Date().getTime();
+            if (!timerRef.current?.hasFired) {
+                const timer = now - timerRef.current.time;
+                const timerInSeconds = Math.floor(timer / 1000);
+
+                if (timerInSeconds < 3600) {
+                    Analytics.event({
+                        category: 'Advanced Search - Time to First Query',
+                        action: 'query_submit',
+                        label: `${timerInSeconds} seconds`,
+                        time_to_query: timerInSeconds
+                    });
+                }
+                // Cleanup
+                // eslint-disable-next-line no-param-reassign
+                timerRef.current.hasFired = true;
+            }
+
+            if (Cookies.get("homepage_to_query_time") && !Cookies.get('has_logged_query_timer')) {
+                const timerHomePage = now - Cookies.get("homepage_to_query_time");
+                const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
+
+                if (timerHomePageInSeconds < 3600) {
+                    Analytics.event({
+                        category: 'Homepage - Time to First Query',
+                        action: 'homepage_query_submit',
+                        label: `${timerHomePageInSeconds} seconds`,
+                        time_to_query: timerHomePageInSeconds
+                    });
+                }
+                // Cleanup
+                Cookies.remove("homepage_to_query_time");
+            }
+        }
+
+        // Sanity check
+        Cookies.set("has_logged_query_timer", true);
+        // eslint-disable-next-line no-param-reassign
+        if (timerRef.current) timerRef.current.hasFired = true;
+    };
 
     return (
         <div
@@ -43,10 +100,11 @@ const SearchSidebarSubmit = (props) => {
                 backgroundColor="light"
                 disabled={disabled}
                 onClick={() => {
-                    if (props?.setShowMobileFilters) {
-                        props?.setShowMobileFilters();
+                    if (setShowMobileFilters) {
+                        setShowMobileFilters();
                     }
-                    props.applyStagedFilters();
+                    fireSearchEvent();
+                    applyStagedFilters();
                 }} />
             <Button
                 additionalClassnames="reset-button"
@@ -55,8 +113,8 @@ const SearchSidebarSubmit = (props) => {
                 buttonSize="md"
                 buttonType="text"
                 backgroundColor="light"
-                disabled={!props.requestsComplete}
-                onClick={props.resetFilters} />
+                disabled={!requestsComplete}
+                onClick={resetFilters} />
         </div>
     );
 };

@@ -34,7 +34,7 @@ const propTypes = {
 
 const TimePeriodContainer = (props) => {
     const [timePeriods, setTimePeriods] = useState([]);
-    const [activeTab, setActiveTab] = useState('dr');
+    const [activeTab, setActiveTab] = useState('fy');
 
     const setUpdateState = (prop) => {
         setActiveTab(prop.filterTimePeriodType);
@@ -146,8 +146,7 @@ export default connect(
         newAwardsOnlySelected: state.filters.filterNewAwardsOnlySelected,
         newAwardsOnlyActive: state.filters.filterNewAwardsOnlyActive,
         naoActiveFromFyOrDateRange: state.filters.filterNaoActiveFromFyOrDateRange,
-        appliedFilters: state.appliedFilters.filters,
-        subaward: state.searchView.subaward
+        appliedFilters: state.appliedFilters.filters
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TimePeriodContainer);

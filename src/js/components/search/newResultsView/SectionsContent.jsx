@@ -15,9 +15,9 @@ import Analytics from "../../../helpers/analytics/Analytics";
 require("pages/search/searchPage.scss");
 
 const propTypes = {
-    subaward: PropTypes.bool,
     tabData: PropTypes.object,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string
 };
 
 const SectionsContent = (props) => {
@@ -93,9 +93,20 @@ const SectionsContent = (props) => {
     return (
         <>
             <TableSection {...props} />
-            <CategoriesSection subaward={props.subaward} categoriesHasLoaded={categoriesHasLoaded} setSelectedDropdown={setSelectedDropdown} selectedDropdown={selectedDropdown} hash={props.hash} />
-            <TimeSection subaward={props.subaward} timeHasLoaded={timeHasLoaded} hash={props.hash} />
-            <MapSection subaward={props.subaward} mapHasLoaded={mapHasLoaded} hash={props.hash} />
+            <CategoriesSection
+                spendingLevel={props.spendingLevel}
+                categoriesHasLoaded={categoriesHasLoaded}
+                setSelectedDropdown={setSelectedDropdown}
+                selectedDropdown={selectedDropdown}
+                hash={props.hash} />
+            <TimeSection
+                timeHasLoaded={timeHasLoaded}
+                hash={props.hash}
+                spendingLevel={props.spendingLevel} />
+            <MapSection
+                spendingLevel={props.spendingLevel}
+                mapHasLoaded={mapHasLoaded}
+                hash={props.hash} />
         </>
     );
 };

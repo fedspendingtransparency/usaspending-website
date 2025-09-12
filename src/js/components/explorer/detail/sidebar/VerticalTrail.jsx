@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
 import TrailItem from './TrailItem';
 
@@ -34,9 +34,9 @@ export default class VerticalTrail extends React.Component {
                             classNames="explorer-item-animation"
                             timeout={{ exit: 750, enter: 200 }}
                             exit>
-                            <>
+                            <div>
                                 {trail}
-                            </>
+                            </div>
                         </CSSTransition>
                     </TransitionGroup>
                 </ul>

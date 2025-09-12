@@ -5,15 +5,17 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import { throttle } from "lodash";
-import { useHistory } from "react-router-dom";
+import { throttle } from "lodash-es";
+import { useNavigate, useLocation } from "react-router";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
-import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
-import NewPicker from "../../sharedComponents/dropdowns/NewPicker";
+import { ErrorMessage, LoadingMessage, NoResultsMessage, NewPicker } from "data-transparency-ui";
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
+import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
+import MobileSort from '../mobile/MobileSort';
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -28,15 +30,27 @@ const propTypes = {
     rows: PropTypes.array,
     sortBy: PropTypes.func,
     sortDirection: PropTypes.string,
+    setSortDirection: PropTypes.func,
+    sort: PropTypes.object,
+    setSort: PropTypes.func,
     activeField: PropTypes.string,
+    setActiveField: PropTypes.func,
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     section: PropTypes.string,
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     children: PropTypes.element,
-    table: PropTypes.bool,
+    table: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
     sectionName: PropTypes.string,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string,
+    onToggle: PropTypes.func,
+    showToggle: PropTypes.bool,
+    tableColumns: PropTypes.object,
+    hasNextPage: PropTypes.bool,
+    hasPreviousPage: PropTypes.bool,
+    nextPage: PropTypes.func,
+    previousPage: PropTypes.func
 };
 
 const SearchSectionWrapper = ({
@@ -49,19 +63,34 @@ const SearchSectionWrapper = ({
     hasNoData,
     isError,
     columns,
+    tableColumns,
     rows,
     table,
     sortBy,
     sortDirection,
     activeField,
+    setActiveField,
     downloadComponent,
     sectionName,
     mapViewType = false,
     setMapViewType = false,
-    hash
+    hash,
+    spendingLevel,
+    onToggle,
+    showToggle,
+    setSortDirection,
+    sort,
+    setSort,
+    hasNextPage,
+    hasPreviousPage,
+    nextPage,
+    previousPage
 }) => {
     const [openAccordion, setOpenAccordion] = useState(false);
+    const [trackDSMEvent, setTrackDSMEvent] = useState(false);
     const [viewType, setViewType] = useState('chart');
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [windowWidth, setWindowWidth] = useState(0);
     const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
     const gaRef = useRef(false);
 
@@ -71,12 +100,13 @@ const SearchSectionWrapper = ({
     const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
     const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
-    const history = useHistory();
-
-    const params = history.location.search.split("&");
-    params.shift();
-    const sectionValue = params[0]?.substring(8);
+    const history = useNavigate();
+    const location = useLocation();
+    const params = location.search?.split("&");
+    params?.shift();
+    const sectionValue = params?.length > 0 ? params[0]?.substring(8) : null;
     const sortFn = () => dropdownOptions;
+    const mobileDropdownOptions = [];
 
     const changeView = (label) => {
         setViewType(label);
@@ -104,10 +134,7 @@ const SearchSectionWrapper = ({
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
+            history(getQueryParamString(newQueryParams));
         }
 
         let rectTopOffset = 0;
@@ -130,7 +157,7 @@ const SearchSectionWrapper = ({
     };
 
     const parseSection = () => {
-        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
+        if ((params?.length === 1 || params?.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
             jumpToSection(sectionValue);
         }
     };
@@ -138,7 +165,7 @@ const SearchSectionWrapper = ({
         setContentHeight(content);
         parseSection();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 500), [content, sectionName]);
+    }, 100), [content, sectionName]);
 
     useEffect(() => {
         if (gaRef.current) {
@@ -154,6 +181,56 @@ const SearchSectionWrapper = ({
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [viewType]);
+
+    useEffect(() => {
+        const action = openAccordion ? "open DS&M" : "close DS&M";
+        let prefix = 'Prime Awards Table';
+
+        switch (sectionName) {
+            case 'categories':
+                prefix = `Categories ${selectedDropdownOption}`;
+                break;
+            case 'time':
+                prefix = `Time ${selectedDropdownOption}`;
+                break;
+            case 'map':
+                prefix = `Map ${selectedDropdownOption}`;
+                break;
+            default:
+                if (spendingLevel === 'subawards') {
+                    prefix = 'Subawards Table';
+                    break;
+                }
+                else if (spendingLevel === 'transactions') {
+                    prefix = 'Transactions Table ';
+                    break;
+                }
+                break;
+        }
+
+        if (trackDSMEvent) {
+            Analytics.event({
+                category: 'Advanced Search - Results View DSM',
+                action,
+                label: `${prefix} DS&M`
+            });
+        }
+        setTrackDSMEvent(true);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openAccordion]);
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
 
     const Message = () => {
         if (isLoading) {
@@ -180,7 +257,12 @@ const SearchSectionWrapper = ({
             sortBy={sortBy}
             activeField={activeField}
             sortDirection={sortDirection}
-            manualSort />);
+            manualSort
+            sectionName={sectionName}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            hasNextPage={hasNextPage}
+            hasPreviousPage={hasPreviousPage} />);
     };
 
     return (
@@ -203,9 +285,20 @@ const SearchSectionWrapper = ({
                     <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
                 </div>
                 :
-                <div className="search__section-wrapper-header">
-                    <span className="filter__dropdown-label">{sectionTitle}</span>
-                </div>
+                <>
+                    <div className="search__section-wrapper-header">
+                        <span className="filter__dropdown-label">{sectionTitle}</span>
+                        {showToggle && <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />}
+                    </div>
+                    {/*
+                    bring back when grouped tables are ready for mobile
+
+                    {showToggle &&
+                        <div className="award-type-toggle__mobile">
+                            <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />
+                        </div>
+                    } */}
+                </>
             }
             {!openAccordion &&
                 <div className={`search__section-wrapper-content new-results-view search__${sectionName}`}>
@@ -215,6 +308,19 @@ const SearchSectionWrapper = ({
                             <Message />
                             :
                             <>
+                                {((viewType === "table" || sectionName === "table") && isMobile) ?
+                                    <MobileSort
+                                        columns={columns}
+                                        options={mobileDropdownOptions}
+                                        sortDirection={sortDirection}
+                                        setSortDirection={setSortDirection}
+                                        activeField={activeField}
+                                        field={sort?.field}
+                                        setActiveField={setActiveField}
+                                        sortBy={sortBy}
+                                        sort={sort}
+                                        tableColumns={tableColumns?.data}
+                                        setSort={setSort} /> : null}
                                 {downloadComponent}
                                 {viewType === "table" ?
                                     <Content />
@@ -241,6 +347,5 @@ const SearchSectionWrapper = ({
         </div>
     );
 };
-
 SearchSectionWrapper.propTypes = propTypes;
 export default SearchSectionWrapper;

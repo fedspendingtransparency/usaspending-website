@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { useDispatch } from 'react-redux';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -15,6 +16,7 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import AccountOverview from './AccountOverview';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
     account: PropTypes.object,
@@ -24,12 +26,15 @@ const propTypes = {
 const Account = ({ account, currentFiscalYear }) => {
     const accountSymbol = `${account.agency_identifier}-${account.main_account_code}`;
     const fedAccountSlug = `federal_account/${accountSymbol}`;
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (name, slug) => {
         handleShareOptionClick(name, slug, {
             subject: `USAspending.gov Federal Account Profile: ${account.title}`,
             body: `View the spending activity of this federal account on USAspending.gov: ${getBaseUrl(slug)}`
-        });
+        }, handleShareDispatch);
     };
 
     return (

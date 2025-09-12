@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate, useMatch } from 'react-router';
 
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
@@ -16,7 +16,6 @@ import * as RecipientHelper from 'helpers/recipientHelper';
 import { isFyValid } from 'helpers/fiscalYearHelper';
 
 import RecipientPage from 'components/recipient/RecipientPage';
-import { usePrevious } from "../../helpers";
 
 require('pages/recipient/recipientPage.scss');
 
@@ -26,13 +25,13 @@ const propTypes = {
     setRecipientOverview: PropTypes.func,
     setRecipientFiscalYear: PropTypes.func,
     resetRecipient: PropTypes.func,
-    recipient: PropTypes.object,
-    match: PropTypes.object
+    recipient: PropTypes.object
 };
 
 const RecipientContainer = (props) => {
-    const prevProps = usePrevious(props);
-    const history = useHistory();
+    const history = useNavigate();
+    const match = useMatch(`/recipient/:recipientId/:fy?`);
+    const { recipientId, fy } = match.params;
     const [state, setState] = useState({
         loading: true,
         error: false
@@ -74,26 +73,26 @@ const RecipientContainer = (props) => {
             });
     });
 
-    const updateSelectedFy = (fy) => {
-        history.push(`/recipient/${props.recipient.id}/${fy}`);
-        props.setRecipientFiscalYear(fy);
+    const updateSelectedFy = (newFy) => {
+        history(`/recipient/${props.recipient.id}/${newFy}`);
+        props.setRecipientFiscalYear(newFy);
     };
 
     useEffect(() => {
-        const params = props.match.params;
-        if (Object.keys(params).includes('fy')) {
-            if ([defaultFy, 'all'].includes(params.fy) || isFyValid(params.fy)) {
-                props.setRecipientFiscalYear(params.fy);
-                loadRecipientOverview(params.recipientId, props.recipient.fy);
+        if (fy) {
+            if ([defaultFy, 'all'].includes(fy) || isFyValid(fy)) {
+                props.setRecipientFiscalYear(fy);
+                loadRecipientOverview(recipientId, props.recipient.fy);
             }
             else {
-                history.replace(`/recipient/${props.match.params.recipientId}/${defaultFy}`);
+                history(`/recipient/${recipientId}/${defaultFy}`, { replace: true });
+
                 props.setRecipientFiscalYear(defaultFy);
-                loadRecipientOverview(params.recipientId, defaultFy);
+                loadRecipientOverview(recipientId, defaultFy);
             }
         }
         else {
-            history.replace(`/recipient/${props.match.params.recipientId}/${defaultFy}`);
+            history(`/recipient/${recipientId}/${defaultFy}`, { replace: true });
         }
 
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -108,20 +107,20 @@ const RecipientContainer = (props) => {
     }, []);
 
     useEffect(() => {
-        if (prevProps) {
-            if (props.match.params.recipientId !== prevProps.match.params.recipientId) {
-                // Reset the FY
-                props.setRecipientFiscalYear(props.match.params.fy);
-                loadRecipientOverview(props.match.params.recipientId, defaultFy);
-            }
-            if (prevProps.match.params.fy !== props.match.params.fy) {
-                props.setRecipientFiscalYear(props.match.params.fy);
-            }
-            if (props.recipient.fy !== prevProps.recipient.fy) {
-                loadRecipientOverview(props.match.params.recipientId, props.recipient.fy);
-            }
-        }
-    });
+        props.setRecipientFiscalYear(fy);
+        loadRecipientOverview(recipientId, defaultFy);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [recipientId]);
+
+    useEffect(() => {
+        props.setRecipientFiscalYear(fy);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fy]);
+
+    useEffect(() => {
+        loadRecipientOverview(recipientId, props.recipient.fy);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.recipient.fy]);
 
     return (
         <RecipientPage

@@ -1,0 +1,161 @@
+.collapsible-sidebar {
+  .naics-search-container {
+    @import "../../core/variables";
+    padding: 0 !important;
+
+    .checkbox-tree {
+      border-bottom: none !important;
+    }
+
+    .autocomplete__input {
+      padding-top: 0 !important;
+      padding-bottom: 20px !important;
+
+      .geo-entity-dropdown__input {
+        border: solid 1px $gray-cool-10;
+        border-radius: 3px;
+        min-width: 100%;
+      }
+    }
+
+    li {
+      margin-bottom: 12px !important;
+    }
+
+    .checkbox-tree-label__value-container-value {
+      font-size: 10px !important;
+      align-items: center;
+      color: $gray-90;
+      border-radius: 2px;
+      background-color: $gray-cool-5 !important;
+      padding: 2px !important;
+    }
+
+    .checkbox-tree-label__value-container-count {
+      font-size: 10px !important;
+      color: $gray-60 !important;
+      padding-left: 4px !important;
+      padding-bottom: 0 !important;
+      line-height: 1.8 !important;
+    }
+
+    .checkbox-tree-label__label {
+      font-size: 12px !important;
+      color: $gray-90;
+      padding-top: 4px !important;
+    }
+
+    .rct-checkbox {
+      color: $gray-cool-20 !important;
+      padding-right: 0 !important;
+    }
+
+    .rct-text {
+      svg {
+        height: 10px;
+        color: $theme-color-1;
+      }
+
+      label {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+  .psc-checkbox {
+    @extend .naics-search-container;
+
+    .autocomplete__input, .geo-entity-dropdown__input {
+      @import "dtui-overrides";
+      height: 100%;
+      line-height: 1.5;
+
+      @include new-search-button;
+    }
+  }
+
+
+  .tas-checkbox {
+    @extend .psc-checkbox;
+
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+
+    .checkbox-tree {
+      border-bottom: none !important;
+    }
+
+    .checkbox-tree-label__label {
+      padding-top: 0 !important;
+    }
+
+    .rct-checkbox {
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+
+  .def-code-filter {
+    padding: unset !important; // TODO remove after search 2.0 is released
+
+    .defc-filter-message-container {
+      font-size: rem(30);
+      text-align: center;
+      margin-top: $global-margin;
+
+      .defc-filter-message-container__text {
+        font-size: 2rem;
+        padding-bottom: 2rem;
+      }
+    }
+
+    li {
+      margin-bottom: rem(12) !important; // TODO remove after search 2.0 is released
+    }
+
+    .checkbox-filter__header {
+      margin-bottom: rem(16) !important; // TODO remove after search 2.0 is released
+    }
+
+    .checkbox-tree-label {
+      .checkbox-tree-label__value-container {
+        background: $gray-cool-5;
+        border-radius: rem(2);
+        display: inline-block;
+        padding: rem(2.5);
+        height: rem(18);
+
+        .checkbox-tree-label__value-container-value {
+          color: $gray-90;
+          font-weight: $font-semibold;
+          font-size: $font-size-10;
+        }
+      }
+    }
+
+    .checkbox-tree-label .checkbox-tree-label__label {
+      &.multiple-label {
+        padding-bottom: rem(8);
+
+        &:last-of-type {
+          padding-bottom: 0;
+        }
+      }
+
+      span {
+        font-size: $font-size-10;
+        font-style: italic;
+        line-height: rem(1.8);
+        color: $gray-60;
+      }
+      span.highlight {
+        background-color: $yellow-10;
+        font-style: normal;
+        font-size: $font-size-12;
+      }
+    }
+  }
+}

@@ -58,10 +58,10 @@ const TrainingVideoModal = (props) => {
         const chapterEls = body?.getElementsByClassName("videoChapter");
 
         if (body) {
-            for (let i = 0; i < chapterEls.length; i++) {
-                const chapterTime = chapterEls[i].getAttribute('data-time');
-                chapterEls[i].addEventListener('click', (clickEv) => updatePlayerChapter(clickEv, chapterTime));
-                chapterEls[i].addEventListener('keyup', (keyEv) => chapterKeypressHandler(keyEv, chapterTime));
+            for (const value of chapterEls) {
+                const chapterTime = value.getAttribute('data-time');
+                value.addEventListener('click', (clickEv) => updatePlayerChapter(clickEv, chapterTime));
+                value.addEventListener('keyup', (keyEv) => chapterKeypressHandler(keyEv, chapterTime));
             }
         }
     };

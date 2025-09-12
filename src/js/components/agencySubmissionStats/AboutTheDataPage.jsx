@@ -4,11 +4,9 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Tabs, ShareIcon, FlexGridCol, FlexGridRow } from "data-transparency-ui";
-
-import { Link, useLocation } from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate } from "react-router";
 import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import AboutTheDataModal from "components/agencySubmissionStats/AboutTheDataModal";
@@ -20,6 +18,7 @@ import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers
 import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
 import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/agencySubmissionStats/aboutTheData.scss');
 
@@ -28,8 +27,9 @@ This page is called Agency Submission Statistics IRL
 https://www.usaspending.gov/submission-statistics?tab=submissions&fy=2024&period=2
  */
 
-const AboutTheDataPage = ({ history }) => {
+const AboutTheDataPage = () => {
     const { search } = useLocation();
+    const navigate = useNavigate();
     const params = useQueryParams();
     const {
         fy: urlFy,
@@ -38,31 +38,34 @@ const AboutTheDataPage = ({ history }) => {
     } = params;
     const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const [selectedFy, selectedPeriod, setTime] = useValidTimeBasedQueryParams(urlFy, urlPeriod);
-    const [showModal, setShowModal] = useState('');
+    const [showModalLocal, setShowModalLocal] = useState('');
     const [modalData, setModalData] = useState(null);
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     useEffect(() => {
         if (!activeTab) {
             const paramsWithTab = combineQueryParams(params, { tab: 'submissions' });
-            history.replace({
-                pathname: '',
-                search: getQueryParamString(paramsWithTab)
-            });
+            navigate({
+                pathname: ``,
+                search: `${getQueryParamString(paramsWithTab)}`
+            }, { replace: true });
         }
-    }, [activeTab, history, params]);
+    }, [activeTab, navigate, params]);
 
     // Modal Logic
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);
-        setShowModal(modalType);
+        setShowModalLocal(modalType);
     };
     const closeModal = () => {
-        setShowModal('');
+        setShowModalLocal('');
         setModalData(null);
     };
 
     const handleSwitchTab = (tab) => {
-        history.push({
+        navigate({
             search: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
         });
     };
@@ -70,7 +73,7 @@ const AboutTheDataPage = ({ history }) => {
     const slug = `submission-statistics/${search}`;
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, slug, getAllAgenciesEmail(urlFy, urlPeriod, activeTab));
+        handleShareOptionClick(name, slug, getAllAgenciesEmail(urlFy, urlPeriod, activeTab), handleShareDispatch);
     };
 
     return (
@@ -79,7 +82,9 @@ const AboutTheDataPage = ({ history }) => {
             classNames="about-the-data about-the-data_agencies-page"
             title="Agency Submission Statistics"
             toolBarComponents={[
-                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+                <ShareIcon
+                    url={getBaseUrl(slug)}
+                    onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">
@@ -133,10 +138,10 @@ const AboutTheDataPage = ({ history }) => {
                                     } />
                                 <AboutTheDataModal
                                     id="usa-dt-modal__agency-submission-statistics"
-                                    mounted={!!showModal.length}
-                                    type={showModal}
-                                    className={modalClassNames[showModal]}
-                                    title={modalTitles(modalData?.type)[showModal]}
+                                    mounted={!!showModalLocal.length}
+                                    type={showModalLocal}
+                                    className={modalClassNames[showModalLocal]}
+                                    title={modalTitles(modalData?.type)[showModalLocal]}
                                     agencyData={{
                                         ...modalData,
                                         fiscalYear: parseInt(selectedFy, 10),
@@ -151,10 +156,6 @@ const AboutTheDataPage = ({ history }) => {
         </PageWrapper>
 
     );
-};
-
-AboutTheDataPage.propTypes = {
-    history: PropTypes.object
 };
 
 export default AboutTheDataPage;

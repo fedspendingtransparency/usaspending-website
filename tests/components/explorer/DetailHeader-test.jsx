@@ -6,11 +6,11 @@
  * */
 
 import React from "react";
-import { render, screen } from "test-utils";
+import { renderWithoutRouter, screen } from "test-utils";
 import { expect } from '@jest/globals';
 import DetailHeader from "components/explorer/detail/header/DetailHeader";
 import * as hooks from "containers/agency/WithAgencySlugs";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 const mockAPIResponse = {
     results: [
@@ -34,7 +34,7 @@ beforeEach(() => {
 describe('DetailHeader Component', () => {
 
     const renderComponent = (id) => {
-        render(<BrowserRouter>
+        renderWithoutRouter(<BrowserRouter>
             <DetailHeader
                 activeSubdivision={null}
                 isLoading={false}

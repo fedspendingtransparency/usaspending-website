@@ -6,7 +6,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { isCancel } from "axios";
-import { concat, debounce } from "lodash";
+import { concat, debounce } from "lodash-es";
 
 import {
     fetchLocationList,
@@ -431,7 +431,8 @@ export default class LocationPickerContainer extends React.Component {
                 const accessor = locationPropertyAccessorMap[prop];
                 // removes ', <State/Country>' appended to city
                 let parsedKeyValue = prop === 'city'
-                    ? this.state.city.name.split(", ").filter((str) => str !== this.state.city.code).join(", ")
+                    ? this.state.city.name.split(", ").filter((str) => str !==
+                    this.state.city.code).join(", ")
                     : this.state[prop][accessor];
 
                 let entityValue = '';
@@ -445,10 +446,11 @@ export default class LocationPickerContainer extends React.Component {
                     entityValue = 'Current congressional district';
                 }
                 else {
-                    entityValue = `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`;
+                    entityValue = `${prop.substring(0, 1).toUpperCase()}${prop.substring(1)}`;
                 }
 
-                if (parsedKeyValue === undefined && (prop === 'district_current' || prop === 'district_original')) {
+                if (parsedKeyValue === undefined && (prop === 'district_current' ||
+                    prop === 'district_original')) {
                     parsedKeyValue = this.state[prop].district;
                 }
 
@@ -617,23 +619,37 @@ export default class LocationPickerContainer extends React.Component {
     render() {
         return (
             <LocationPicker
-                {...this.state}
-                scope={this.props.scope}
-                enableCitySearch={this.props.enableCitySearch}
                 selectedLocations={this.props.selectedLocations}
+                country={this.state.country}
+                state={this.state.state}
+                county={this.state.county}
+                city={this.state.city}
+                district_current={this.state.district_current}
+                district_original={this.state.district_original}
+                zip={this.state.zip}
+                availableCountries={this.state.availableCountries}
+                availableStates={this.state.availableStates}
+                availableCounties={this.state.availableCounties}
+                availableCurrentDistricts={this.state.availableCurrentDistricts}
+                availableOriginalDistricts={this.state.availableOriginalDistricts}
+                availableCities={this.state.availableCities}
+                selectEntity={this.selectEntity}
                 loadStates={this.loadStates}
                 loadCounties={this.loadCounties}
                 loadDistricts={this.loadDistricts}
                 clearStates={this.clearStates}
-                clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
                 clearCounties={this.clearCounties}
                 clearOriginalDistricts={this.clearOriginalDistricts}
                 clearCurrentDistricts={this.clearCurrentDistricts}
-                selectEntity={this.selectEntity}
+                clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
                 createLocationObject={this.createLocationObject}
                 addLocation={this.addLocation}
                 validateZip={this.validateZip}
-                setCitySearchString={this.setCitySearchString} />
+                setCitySearchString={this.setCitySearchString}
+                citySearchString={this.state.citySearchString}
+                loading={this.state.loading}
+                enableCitySearch={this.props.enableCitySearch}
+                scope={this.props.scope} />
         );
     }
 }

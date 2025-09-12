@@ -7,14 +7,16 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import Analytics from 'helpers/analytics/Analytics';
+import { useDispatch } from 'react-redux';
 
 import { ShareIcon } from 'data-transparency-ui';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import MainCards from "./shared/MainCards";
 import EquityHeading from "./shared/DataDiveHeading";
 import EquitySpotlightCards from "./equity/EquitySpotlightCards";
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
@@ -122,9 +124,12 @@ const EquityCovidSpendingPage = () => {
         subject: 'Equity in COVID-19 spending | USAspending.gov',
         body: `Dive into the data with the interactive tools on USAspending.gov to learn about equity in COVID-19 spending: ${getBaseUrl(slug)}`
     };
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (optionName) => {
-        handleShareOptionClick(optionName, slug, emailArgs);
+        handleShareOptionClick(optionName, slug, emailArgs, handleShareDispatch);
         analyticsEvent('Share Page');
     };
 

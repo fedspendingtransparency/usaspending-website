@@ -4,7 +4,7 @@
  */
 
 import { Set } from 'immutable';
-import { uniq } from 'lodash';
+import { uniq } from 'lodash-es';
 import {
     awardTypeCodes,
     awardTypeGroups,
@@ -31,12 +31,8 @@ const getStringFromArray = (arrOfStr) => arrOfStr
     }, '');
 
 export const convertDateRange = (range) => {
-    if (range.length !== 2) {
+    if ((range.length !== 2) || (!range[0] && !range[1])) {
     // this must be an array of length 2
-        return null;
-    }
-    else if (!range[0] && !range[1]) {
-    // no start or end dates are set
         return null;
     }
 
@@ -60,7 +56,8 @@ export const parseAgency = (agency) => {
     }
     else if (agency.agencyType === 'subtier') {
         if (subtier.abbreviation) {
-            return `${subtier.name} (${subtier.abbreviation})/${subtier.subtier_code} - ${toptier.name}/${toptier.toptier_code}`;
+            return `${subtier.name} (${subtier.abbreviation})/${subtier.subtier_code} -
+            ${toptier.name}/${toptier.toptier_code}`;
         }
         return `${subtier.name}/${subtier.subtier_code} - ${toptier.name}/${toptier.toptier_code}`;
     }
@@ -80,9 +77,19 @@ export const convertReducibleValue = (value, type, parser) => (
 
 export const convertTimePeriod = (value) => {
     if (Set.isSet(value)) {
+        // find out what time it is.
+        if (value.type === 'fy') {
+            return convertReducibleValue(
+                value,
+                'Time Period - Fiscal Year'
+            );
+        }
+
+        // custom date range.
         return convertReducibleValue(
             value,
-            'Time Period - Fiscal Year'
+            'Time Period - Date Range',
+            (date) => `${date.start_date || '...'} - ${date.end_date || 'present'}`
         );
     }
     else if (Array.isArray(value)) {
@@ -236,6 +243,8 @@ export const unifyDateFields = (redux) => {
     else {
         clonedRedux.timePeriod = clonedRedux.time_period;
     }
+    clonedRedux.timePeriod.type = clonedRedux.timePeriodType;
+
     return clonedRedux;
 };
 

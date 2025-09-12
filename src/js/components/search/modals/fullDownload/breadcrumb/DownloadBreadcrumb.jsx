@@ -13,44 +13,38 @@ const propTypes = {
     goToStep: PropTypes.func
 };
 
-const defaultProps = {
-    step: 1
-};
-
 const steps = [
     'Choose Level of Data',
     'Choose Columns',
     'Download and Finish'
 ];
 
-export default class DownloadBreadcrumb extends React.Component {
-    render() {
-        const items = steps.map((step, index) => {
-            let type = 'mid';
-            if (index === 0) {
-                type = 'first';
-            }
-            else if (index + 1 === steps.length) {
-                type = 'last';
-            }
+const DownloadBreadcrumb = ({ step = 1, goToStep }) => {
+    const items = steps.map((stepTitle, index) => {
+        let type = 'mid';
+        if (index === 0) {
+            type = 'first';
+        }
+        else if (index + 1 === steps.length) {
+            type = 'last';
+        }
 
-            return (<BreadcrumbItem
-                key={index}
-                type={type}
-                title={step}
-                step={index + 1}
-                currentStep={this.props.step}
-                totalSteps={steps.length}
-                goToStep={this.props.goToStep} />);
-        });
+        return (<BreadcrumbItem
+            key={stepTitle}
+            type={type}
+            title={stepTitle}
+            step={index + 1}
+            currentStep={step}
+            totalSteps={steps.length}
+            goToStep={goToStep} />);
+    });
 
-        return (
-            <div className="download-breadcrumb">
-                {items}
-            </div>
-        );
-    }
-}
+    return (
+        <div className="download-breadcrumb">
+            {items}
+        </div>
+    );
+};
 
 DownloadBreadcrumb.propTypes = propTypes;
-DownloadBreadcrumb.defaultProps = defaultProps;
+export default DownloadBreadcrumb;

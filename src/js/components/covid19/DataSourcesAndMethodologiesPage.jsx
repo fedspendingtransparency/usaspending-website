@@ -6,9 +6,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useHistory } from 'react-router-dom';
-import { uniqueId } from 'lodash';
+import { Link, useNavigate } from 'react-router';
+import { uniqueId } from 'lodash-es';
 import { ShareIcon } from 'data-transparency-ui';
+import { useDispatch } from 'react-redux';
 
 import { covidDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -21,6 +22,7 @@ import { useQueryParams, combineQueryParams, getQueryParamString } from "helpers
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 const getEmailSocialShareData = {
     subject: "COVID-19 Spending: Data Sources and Methodology",
@@ -118,9 +120,9 @@ const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.red
 }), {}));
 
 export default () => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
-
+    const dispatch = useDispatch();
     const [errorMsg, isLoading, defCodes] = useDefCodes();
     const [activeSection, setActiveSection] = useState(sections[0].section);
     const dataDisclaimerBannerRef = useRef(null);
@@ -140,7 +142,7 @@ export default () => {
     });
 
     const handleCloseBanner = () => {
-        Cookies.set('usaspending_data_disclaimer', 'hide', { secure: true, httpOnly: true, expires: 7 });
+        Cookies.set('usaspending_data_disclaimer', 'hide', { secure: true, expires: 7 });
         setDataDisclaimerBanner('hide');
     };
 
@@ -154,15 +156,17 @@ export default () => {
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
+            history({
+                path: `${getQueryParamString(newQueryParams)}`
+            }, { replace: true });
         }
     };
 
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (name) => {
-        handleShareOptionClick(name, "disaster/covid-19/data-sources", getEmailSocialShareData);
+        handleShareOptionClick(name, "disaster/covid-19/data-sources", getEmailSocialShareData, handleShareDispatch);
     };
 
     return (
@@ -289,7 +293,7 @@ export default () => {
                                         </p>
                                     </div>
                                     <h3 className="about-subtitle">
-                                        <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"><strong>Data Accountability Broker Submission (DABS, also known as &quot;Broker&quot;)</strong></a>
+                                        <a href="https://tfx.treasury.gov/data-transparency/gsdm"><strong>Data Accountability Broker Submission (DABS, also known as &quot;Broker&quot;)</strong></a>
                                     </h3>
                                     <div className="about-section-content">
                                         <ul>
@@ -305,7 +309,7 @@ export default () => {
                                         </ul>
                                     </div>
                                     <h3 className="about-subtitle">
-                                        <strong><a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">Financial Assistance Broker Submission (FABS)</a></strong>
+                                        <strong><a href="https://tfx.treasury.gov/data-transparency/gsdm">Financial Assistance Broker Submission (FABS)</a></strong>
                                     </h3>
                                     <div className="about-section-content">
                                         <ul>
@@ -369,7 +373,7 @@ export default () => {
                                         </ul>
                                     </div>
                                     <h3 className="about-subtitle">
-                                        <strong>FFATA Subaward Reporting System (FSRS)</strong>
+                                        <strong>System for Award Management (<a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)</strong>
                                     </h3>
                                     <div className="about-section-content">
                                         <ul>
@@ -380,7 +384,7 @@ export default () => {
                                                 <strong>Frequency of updates:</strong> monthly
                                             </li>
                                             <li>
-                                                <strong>Details:</strong> FSRS is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
+                                                <strong>Details:</strong> <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a> is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
                                             </li>
                                         </ul>
                                     </div>
@@ -410,10 +414,10 @@ export default () => {
                                                 Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; <strong>linked data only*</strong>)
                                             </li>
                                             <li>
-                                                Contract Subawards (sourced from FSRS)
+                                                Contract Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)
                                             </li>
                                             <li>
-                                                Assistance Subawards (sourced from FSRS)
+                                                Assistance Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)
                                             </li>
                                             <li>
                                                 COVID-19_download_readme.txt

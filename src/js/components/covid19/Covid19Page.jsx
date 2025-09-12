@@ -6,8 +6,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { find, throttle } from 'lodash';
+import { useNavigate } from 'react-router';
+import { find, throttle, uniqueId } from 'lodash-es';
 import { ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
@@ -69,7 +69,7 @@ const covid19Sections = [
 
 const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
-    const history = useHistory();
+    const history = useNavigate();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
@@ -89,10 +89,10 @@ const Covid19Page = ({ loading }) => {
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
+
         setActiveSection(section);
 
         // add offsets
@@ -134,7 +134,7 @@ const Covid19Page = ({ loading }) => {
     };
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, slug, getEmailSocialShareData);
+        handleShareOptionClick(name, slug, getEmailSocialShareData, handleExternalLinkClick);
     };
 
     useEffect(() => {
@@ -157,6 +157,7 @@ const Covid19Page = ({ loading }) => {
             title="COVID-19 Spending"
             toolBarComponents={[
                 <ShareIcon
+                    key={uniqueId()}
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare}
                     classNames={!isMobile ? "margin-right" : ""} />,

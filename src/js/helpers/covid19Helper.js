@@ -4,7 +4,7 @@
  */
 import Cookies from 'js-cookie';
 import { useState } from 'react';
-import { snakeCase } from 'lodash';
+import { snakeCase } from 'lodash-es';
 import { apiRequest } from 'helpers/apiRequest';
 import {
     dataDisclaimerHeight,

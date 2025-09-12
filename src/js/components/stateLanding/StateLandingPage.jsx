@@ -5,12 +5,14 @@
 
 import React from 'react';
 import { FlexGridCol, FlexGridRow, ShareIcon } from 'data-transparency-ui';
+import { useDispatch } from 'react-redux';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { stateLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import StateLandingContainer from 'containers/stateLanding/StateLandingContainer';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/stateLanding/stateLandingPage.scss');
 
@@ -18,11 +20,15 @@ const slug = 'state';
 const emailSubject = 'USAspending.gov State Profiles';
 
 const StateLandingPage = () => {
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (name) => {
         handleShareOptionClick(name, slug, {
             subject: emailSubject,
             body: `View all of the State Profiles on USAspending.gov: ${getBaseUrl(slug)}`
-        });
+        }, handleShareDispatch);
     };
 
     return (

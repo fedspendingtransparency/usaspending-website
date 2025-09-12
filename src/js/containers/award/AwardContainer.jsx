@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
-import { flowRight } from 'lodash';
+import { flowRight } from 'lodash-es';
+import { useMatch } from 'react-router';
 
 import Award from 'components/award/Award';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -33,7 +34,6 @@ import {
 import withDefCodes from 'containers/covid19/WithDefCodes';
 import { getAwardHistoryCounts } from "../../helpers/awardHistoryHelper";
 import Analytics from "../../helpers/analytics/Analytics";
-import { usePrevious } from "../../helpers/";
 
 require('pages/award/awardPage.scss');
 
@@ -61,7 +61,8 @@ const AwardContainer = (props) => {
     const [noAward, setNoAward] = useState(false);
     const [inFlight, setInFlight] = useState(true);
     const [unlinked, setUnlinked] = useState(false);
-    const prevProps = usePrevious(props);
+    const match = useMatch(`/award/:awardId`);
+    const { awardId } = match.params;
 
     const parseAward = (data) => {
         countRequest = getAwardHistoryCounts("federal_account", data.id, data.category === 'idv');
@@ -131,7 +132,7 @@ const AwardContainer = (props) => {
             });
     };
 
-    const fetchAwardDownloadFile = (awardCategory = props.award.category, awardId = props.match.params.awardId) => {
+    const fetchAwardDownloadFile = (awardCategory = props.award.category) => {
         Analytics.event({
             event: 'award-profile-download-initiated',
             category: 'Award Profile',
@@ -149,7 +150,7 @@ const AwardContainer = (props) => {
         return fetchAssistanceDownloadFile(awardId);
     };
 
-    const downloadData = async (awardCategory = props.award.category, awardId = props.match.params.awardId) => {
+    const downloadData = async (awardCategory = props.award.category) => {
         // don't show a modal about the download
         props.setDownloadCollapsed(true);
 
@@ -157,7 +158,7 @@ const AwardContainer = (props) => {
             downloadRequest.cancel();
         }
 
-        downloadRequest = fetchAwardDownloadFile(awardCategory, awardId);
+        downloadRequest = fetchAwardDownloadFile(awardCategory);
 
         try {
             const { data } = await downloadRequest.promise;
@@ -174,11 +175,9 @@ const AwardContainer = (props) => {
     };
 
     useEffect(() => {
-        if (props.match.params.awardId !== prevProps?.match.params.awardId) {
-            getSelectedAward(props.match.params.awardId);
-        }
+        getSelectedAward(awardId);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.match.params.awardId]);
+    }, [awardId]);
 
     // eslint-disable-next-line arrow-body-style
     useEffect(() => {
@@ -197,7 +196,7 @@ const AwardContainer = (props) => {
             isSubAwardIdClicked={props.isSubAwardIdClicked}
             isDownloadPending={props.isDownloadPending}
             downloadData={downloadData}
-            awardId={props.match.params.awardId}
+            awardId={awardId}
             award={props.award}
             isLoading={inFlight}
             noAward={noAward}

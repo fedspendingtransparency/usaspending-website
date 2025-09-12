@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
 import SearchSidebar from '../SearchSidebar';
 
@@ -13,10 +13,11 @@ const propTypes = {
     filters: PropTypes.object,
     showMobileFilters: PropTypes.bool,
     filterCount: PropTypes.number,
-    toggleMobileFilters: PropTypes.func
+    toggleMobileFilters: PropTypes.func,
+    timerRef: PropTypes.object
 };
 
-const MobileFilters = ({ filters, showMobileFilters }) => (
+const MobileFilters = ({ filters, showMobileFilters, timerRef }) => (
     <TransitionGroup>
         {showMobileFilters && (
             <CSSTransition
@@ -24,7 +25,7 @@ const MobileFilters = ({ filters, showMobileFilters }) => (
                 timeout={195}
                 exit>
                 <div className="mobile-filter-content">
-                    <SearchSidebar filters={filters} />
+                    <SearchSidebar filters={filters} timerRef={timerRef} />
                 </div>
             </CSSTransition>
         )}

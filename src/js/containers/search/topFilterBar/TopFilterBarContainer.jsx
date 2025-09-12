@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { orderBy, difference, concat, indexOf } from 'lodash';
+import { orderBy, difference, concat, indexOf } from 'lodash-es';
 
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
@@ -79,7 +79,7 @@ const TopFilterBarContainer = ({ updateFilterCount, compressed = false, filters 
         }
         else if (filters?.timePeriodType === 'dr') {
             // const lastInTimePeriod = filters.time_period[filters.time_period.length - 1];
-            // // check to see if any date ranges are selected
+            // check to see if any date ranges are selected
             if (filters.time_period.size > 0) {
                 // start and end dates are provided
                 selected = true;

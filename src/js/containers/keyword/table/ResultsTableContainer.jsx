@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { uniqueId, map } from 'lodash';
+import { uniqueId, map } from 'lodash-es';
 import * as KeywordHelper from 'helpers/keywordHelper';
 import { availableColumns, defaultSort } from 'dataMapping/keyword/resultsTableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -133,8 +133,8 @@ export default class ResultsTableContainer extends React.Component {
         let firstAvailable = '';
 
         // Set the first available award type to the first non-zero entry in the
-        for (let i = 0; i < tableTypes.length; i++) {
-            const tableType = tableTypes[i].internal;
+        for (const value of tableTypes) {
+            const tableType = value.internal;
 
             if (transactionCounts[tableType] > 0) {
                 firstAvailable = tableType;

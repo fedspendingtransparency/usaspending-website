@@ -6,10 +6,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes, { oneOfType } from "prop-types";
 import { ShareIcon, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
+import { useDispatch } from 'react-redux';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
+import { showModal } from '../../../redux/actions/modal/modalActions';
 
 const propTypes = {
     thumbnailUrl: PropTypes.string,
@@ -27,13 +29,17 @@ const VideoCard = ({
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const dispatch = useDispatch();
+    const handleShareDispatch = (e) => {
+        dispatch(showModal(e));
+    };
     const onShareClick = (name) => {
         const emailSubject = `${title}`;
         const emailArgs = {
             subject: `${emailSubject}`,
             body: `Watch this video about USAspending.gov: ${url}`
         };
-        handleShareOptionClick(name, url, emailArgs);
+        handleShareOptionClick(name, url, emailArgs, handleShareDispatch);
     };
 
     useEffect(() => {

@@ -6,9 +6,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, NoResultsMessage } from 'data-transparency-ui';
-import { throttle } from "lodash";
+import { throttle } from "lodash-es";
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
+import GroupedAwardTable from '../../table/groupedTable/GroupedAwardTable';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -21,18 +22,20 @@ const propTypes = {
     toggleColumnVisibility: PropTypes.func,
     updateSort: PropTypes.func,
     reorderColumns: PropTypes.func,
-    subaward: PropTypes.bool,
     awardIdClick: PropTypes.func,
     subAwardIdClick: PropTypes.func,
     page: PropTypes.number,
     setPage: PropTypes.func,
-    total: PropTypes.number
+    total: PropTypes.number,
+    federalAccountPage: PropTypes.bool,
+    showToggle: PropTypes.bool
 };
 
 const ResultsTableSection = (props) => {
     const [tableWidth, setTableWidth] = useState(0);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+
     const setTableWidthFn = () => {
         const table = document.querySelector('.results-table-content');
         if (table) {
@@ -44,7 +47,7 @@ const ResultsTableSection = (props) => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
-            setIsMobile(newWidth < (tabletScreen - 1));
+            setIsMobile(newWidth < tabletScreen);
         }
     }, 50);
 
@@ -60,6 +63,41 @@ const ResultsTableSection = (props) => {
         };
     }, [handleResize]);
 
+    useEffect(() => {
+        // mobile check
+        if (isMobile && props.checkMobile && props.showToggle) {
+            props.checkMobile(isMobile);
+        }
+    }, [isMobile, props]);
+
+    const renderContent = () => {
+        if (!props.results.length) {
+            return <NoResultsMessage />;
+        }
+
+        if (props.expandableData?.length) {
+            return (
+                <GroupedAwardTable
+                    {...props}
+                    expandableData={props.expandableData}
+                    columnType={props.columnType}
+                    isMobile={isMobile}
+                    visibleWidth={tableWidth}
+                    newMobileView />
+            );
+        }
+
+        return (
+            <ResultsTable
+                {...props}
+                visibleWidth={tableWidth}
+                awardIdClick={props.awardIdClick}
+                subAwardIdClick={props.subAwardIdClick}
+                isMobile={isMobile}
+                newMobileView />
+        );
+    };
+
     return (
         <div className="search-results-table-section" id="results-section-table">
             <Tabs
@@ -67,17 +105,7 @@ const ResultsTableSection = (props) => {
                 active={props.currentType}
                 switchTab={props.switchTab} />
             <div className="results-table-content">
-                {props.results.length ? (
-                    <ResultsTable
-                        {...props}
-                        visibleWidth={tableWidth}
-                        awardIdClick={props.awardIdClick}
-                        subAwardIdClick={props.subAwardIdClick}
-                        isMobile={isMobile} />
-                )
-                    :
-                    <NoResultsMessage />
-                }
+                {renderContent()}
             </div>
         </div>
     );

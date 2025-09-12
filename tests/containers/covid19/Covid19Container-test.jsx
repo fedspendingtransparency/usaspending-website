@@ -25,8 +25,8 @@ jest.mock('helpers/queryParams', () => ({
 
 // Mock history.replace()
 const mockHistoryReplace = jest.fn();
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
+jest.mock('react-router', () => ({
+    ...jest.requireActual('react-router'),
     useHistory: () => ({
         replace: mockHistoryReplace
     })

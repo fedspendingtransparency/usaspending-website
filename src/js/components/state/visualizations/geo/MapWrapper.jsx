@@ -5,7 +5,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { uniq, cloneDeep } from 'lodash';
+import { uniq, cloneDeep } from 'lodash-es';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
@@ -70,39 +70,21 @@ const mapLegendToggleData = [
 ];
 
 const mapboxSources = {
-    country: {
-        label: 'country',
-        url: 'mapbox://usaspending.9t5zlf5z',
-        layer: 'Countries-shp-9bdce0',
-        filterKey: 'GENC0' // three digit country code
-    },
-    state: {
-        label: 'state',
-        url: 'mapbox://usaspending.9cse49bi',
-        layer: 'cb_2016_us_state_500k-ckeyb7',
-        filterKey: 'STUSPS' // state abbreviation
-    },
     county: {
         label: 'county',
-        url: 'mapbox://usaspending.29sdfmwu',
-        layer: 'tl_2019_us_county',
+        url: 'mapbox://usaspendingfrbkc.county-tileset',
+        layer: 'tl_2024_us_county',
         filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
         lat: 'INTPTLAT',
         long: 'INTPTLON'
     },
     congressionalDistrict: {
         label: 'congressional district',
-        url: 'mapbox://usaspending.118-CD-tiles',
+        url: 'mapbox://usaspendingfrbkc.district-tileset',
         layer: '118-CD',
         filterKey: 'GEOID20', // the GEOID is state FIPS + district
-        lat: 'INTPTLAT20',
-        long: 'INTPTLON20'
-    },
-    zip: {
-        label: 'ZIP Code Tabulation Area',
-        url: 'mapbox://usaspending.3lk61l9t',
-        layer: 'cb_2016_us_zcta510_500k-4se882',
-        filterKey: 'ZCTA5CE10' // zip code
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
     }
 };
 

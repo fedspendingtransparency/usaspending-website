@@ -4,17 +4,15 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
-import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { isCancel } from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { fetchAllTerms } from "helpers/glossaryHelper";
 import Analytics from '../../../helpers/analytics/Analytics';
 import { LoadingWrapper } from "../../sharedComponents/Loading";
 import ErrorWordOfTheDay from "./ErrorWordOfTheDay";
+import { showSlideout } from '../../../helpers/slideoutHelper';
 
 const WordOfTheDay = () => {
     const [loading, setLoading] = useState(true);
@@ -27,8 +25,6 @@ const WordOfTheDay = () => {
     const { pathname, search } = useLocation();
     const [currentMonth, setCurrentMonth] = useState(-1);
     const [currentDate, setCurrentDate] = useState(-1);
-
-    const dispatch = useDispatch();
 
     // Please note before adding terms to this list, verify the term exactly matches the term returned from /v2/references/glossary
     const glossaryTerms = ["Account Balance (File A)",
@@ -138,9 +134,7 @@ const WordOfTheDay = () => {
             action: 'Link',
             label: 'word of the day'
         });
-        dispatch(glossaryActions.showGlossary());
-        dispatch(glossaryActions.setTermFromUrl(glossarySlug));
-        dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
+        showSlideout('glossary', { url: glossarySlug });
     };
 
     useEffect(() => {
@@ -156,12 +150,12 @@ const WordOfTheDay = () => {
     useEffect(() => {
         let found = false;
         if (glossary && term) {
-            for (let i = 0; i < glossary.length; i++) {
-                if (glossary[i]?.term?.trim().toLowerCase() === term?.trim().toLowerCase()) {
-                    setGlossarySlug(glossary[i].slug);
+            for (const value of glossary) {
+                if (value.term?.trim().toLowerCase() === term?.trim().toLowerCase()) {
+                    setGlossarySlug(value.slug);
                     found = true;
                     setError(false);
-                    setDefinition(glossary[i].plain);
+                    setDefinition(value.plain);
                 }
             }
         }

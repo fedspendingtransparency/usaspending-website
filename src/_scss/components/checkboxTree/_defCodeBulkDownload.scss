@@ -1,0 +1,199 @@
+.def-code-filter-download {
+  margin-bottom: rem(12);
+  padding: rem(12);
+  padding-left: 0;
+  padding-bottom: 0;
+
+  .def-checkbox-tree {
+    margin-bottom: 0rem;
+    // border-bottom: rem(1) solid rgb(214, 215, 217);
+
+    .react-checkbox-tree {
+      max-height: none;
+
+      ol {
+        padding-left: 0;
+        border-left: none;
+        margin: rem(16) 0;
+
+        .rct-node:nth-child(n) ol {
+          border-left: none;
+        }
+
+        .rct-node.def-checkbox-label--covid  {
+          &.rct-node-parent {
+            margin-left: 0;
+          }
+
+          &.rct-node-parent > .rct-text {
+            .rct-title .checkbox-tree-label {
+              .checkbox-tree-label__value-container {
+                display: none;
+              }
+            }
+          }
+
+          .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
+            &.multiple-label {
+              padding-bottom: rem(10);
+              &:last-of-type {
+                padding-bottom: 0;
+              }
+            }
+
+            font-weight: $font-normal;
+
+            span {
+              font-weight: $font-light;
+            }
+          }
+        }
+
+        .rct-node:nth-child(1) {
+          .checkbox-tree-label__label {
+            font-weight: $font-bold;
+          }
+        }
+
+        .rct-node:nth-child(n) {
+          margin-left: rem(20);
+
+          .rct-text {
+            width: 100%;
+            @include align-items(flex-start);
+
+            button:focus {
+              box-shadow: none;
+            }
+
+            @include display(inline-flex);
+
+            button {
+              margin: 0;
+              padding: 0rem 0.5rem 0.5rem 0.5rem;
+              background-color: $color-white;
+              color: $color-primary;
+            }
+
+            .rct-node-icon {
+              padding: 0;
+            }
+
+            .rct-collapse {
+              color: $color-primary;
+              background-color: $color-white;
+
+              svg {
+                width: 1.5rem;
+                height: 2.2rem;
+                opacity: 1;
+                margin: 0;
+
+                &:focus {
+                  outline: none;
+                }
+              }
+            }
+
+            .rct-bare-label, label:hover {
+              background-color: transparent;
+            }
+
+            label {
+              width: 100%;
+              @include display(flex);
+              margin-bottom: rem(8);
+              margin-left: 0;
+
+              .rct-checkbox {
+                @include display(flex);
+                @include flex-direction(column);
+                @include align-items(top);
+                padding: rem(2.5) rem(5) rem(2.5) rem(5);
+
+                .rct-icon-uncheck {
+                  color: white;
+                  border: 1px solid $color-gray-medium;
+                  border-radius: 3px;
+                  height: rem(15);
+                  width: rem(15);
+                }
+
+                .rct-icon-check {
+                  color: $color-primary;
+                  height: rem(15);
+                  width: rem(15);
+                }
+
+                .rct-icon-half-check {
+                  color: $color-primary;
+                  height: rem(15);
+                  width: rem(15);
+                }
+
+                svg {
+                  margin: rem(2) rem(1);
+
+                  &:focus {
+                    outline: none;
+                  }
+                }
+              }
+
+              .rct-title {
+                width: 100%;
+                @include display(flex);
+                align-items: flex-start;
+              }
+
+              .checkbox-tree-label {
+                @include display(flex);
+                @include flex-wrap(wrap);
+                width: 100%;
+
+                .checkbox-tree-label__value-container {
+                  @include display(inline-flex);
+
+                  .checkbox-tree-label__value-container-value {
+                    text-align: center;
+                    padding: 0;
+                    border-radius: 2px;
+                    font-weight: $font-bold;
+                    font-size: rem(14);
+                    background-color: transparent;
+
+                    .highlight {
+                      background-color: rgb(252, 227, 160);
+                    }
+                  }
+
+                  .checkbox-tree-label__value-container-count {
+                    padding: rem(1.5) rem(7);
+                    border-radius: 3px;
+                    color: $color-gray-medium;
+                    font-style: italic;
+                    font-size: rem(12);
+
+                    .highlight {
+                      background-color: transparent;
+                    }
+                  }
+                }
+
+                .checkbox-tree-label__label {
+                  @include flex-basis(100%);
+                  line-height: rem(18);
+                  color: $color-base;
+
+                  .highlight {
+                    background-color: rgb(252, 227, 160);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

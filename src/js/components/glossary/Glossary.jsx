@@ -4,9 +4,10 @@
  */
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 import GlossaryHeader from './GlossaryHeader';
 import GlossarySearchResults from './search/GlossarySearchResults';
@@ -22,7 +23,8 @@ const propTypes = {
 };
 
 const Glossary = (props) => {
-    const history = useHistory();
+    const history = useNavigate();
+    const query = useQueryParams();
     const [contentHeight, setContentHeight] = useState(0);
     const [content, setContent] = useState(null);
     const [loadingContent, setLoadingContent] = useState(null);
@@ -48,7 +50,12 @@ const Glossary = (props) => {
 
             // remove search param from url
             if (window.location.href.includes('glossary')) {
-                history.replace(`${history.location.pathname}`);
+                delete query.glossary;
+                const queryNew = getQueryParamString(query);
+                history({
+                    pathname: '',
+                    search: queryNew
+                }, { replace: true });
             }
 
             // move focus back to the main content
@@ -57,7 +64,8 @@ const Glossary = (props) => {
                 mainContent.focus();
             }
         }
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props]);
 
     const track = () => <div className="glossary-scrollbar-track" />;
     const thumb = () => <div className="glossary-scrollbar-thumb" />;
@@ -74,7 +82,7 @@ const Glossary = (props) => {
             setLoadingContent(null);
         }
         else {
-            setContent((<GlossarySearchResults {...props} />));
+            setContent(<GlossarySearchResults {...props} />);
             setLoadingContent(null);
         }
 

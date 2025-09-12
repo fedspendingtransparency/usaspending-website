@@ -6,14 +6,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-import { Button } from "data-transparency-ui";
+import { Button, NewPicker } from "data-transparency-ui";
 
 import Analytics from 'helpers/analytics/Analytics';
 import DatePicker from 'components/sharedComponents/DatePicker';
 import { usePrevious } from "../../../../helpers/";
-import NewPicker from "../../../sharedComponents/dropdowns/NewPicker";
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 import ShownValue from "../otherFilters/ShownValue";
+import { dateRangeChipLabel } from "../../../../helpers/searchHelper";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -31,7 +31,11 @@ const propTypes = {
     updateFilter: PropTypes.func,
     errorState: PropTypes.bool,
     header: PropTypes.string,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    setStartDate: PropTypes.func,
+    setEndDate: PropTypes.func,
+    startDateDropdown: PropTypes.object,
+    endDateDropdown: PropTypes.object
 };
 
 const DateRange = (props) => {
@@ -186,6 +190,8 @@ const DateRange = (props) => {
                 endDate: null
             });
         }
+        props.setStartDate(null);
+        props.setEndDate(null);
     };
 
     const submitDatesDropdown = () => {
@@ -242,6 +248,8 @@ const DateRange = (props) => {
                 endDate: null
             });
         }
+        // clean up picker with "add" click
+        setSelectedDropdownOption('select');
     };
 
     const testDates = () => {
@@ -251,16 +259,58 @@ const DateRange = (props) => {
             }
             return;
         }
-        if (props.startDate !== null && props.endDate !== null && props.startDate.isValid() && props.endDate.isValid() && !props.endDate.isSameOrAfter(props.startDate)) {
+
+        if (props.startDate !== null &&
+            props.endDate !== null &&
+            props.startDate.isValid() &&
+            props.endDate.isValid() &&
+            !props.endDate.isSameOrAfter(props.startDate)
+        ) {
             // end date comes before start date, invalid
             // show an error message
             props.showError('Invalid Dates',
-                'The end date cannot be earlier than the start date.');
+                'The end date cannot be earlier than the start date.'
+            );
+            return;
         }
-    };
 
-    const onFocus = () => {
-        testDates();
+        if (props.startDate !== null && props.startDate.isBefore('2007-10-01')) {
+            props.showError('Invalid Start Date',
+                'Please select a date after 10/01/2007.'
+            );
+            setNoDatesDR(true);
+            return;
+        }
+
+        if (props.endDate !== null && props.endDate.isBefore('2007-10-01')) {
+            props.showError('Invalid End Date',
+                'Please select a date after 10/01/2007.'
+            );
+            setNoDatesDR(true);
+            return;
+        }
+
+        const format = /^[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+
+        if (props.startDate !== null) {
+            const newDateFormat = dayjs(props.startDate).format('YYYY-MM-DD');
+            const formatTest = format.test(newDateFormat);
+
+            if (!formatTest) {
+                setNoDatesDR(true);
+                props.showError('Invalid Dates', 'Please enter a valid date in MM/DD/YYYY format.');
+            }
+        }
+
+        if (props.endDate !== null) {
+            const newDateFormat = dayjs(props.endDate).format('YYYY-MM-DD');
+            const formatTest = format.test(newDateFormat);
+
+            if (!formatTest) {
+                setNoDatesDR(true);
+                props.showError('Invalid Dates', 'Please enter a valid date in MM/DD/YYYY format.');
+            }
+        }
     };
 
     useEffect(() => {
@@ -321,33 +371,26 @@ const DateRange = (props) => {
             setDropdownDisabled(true);
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.errorState, noDatesDR, noDatesDropdown, props.startDate, props.endDate, props.startDateDropdown, props.endDateDropdown, props.onDateChange, dropdownOptionSelected]);
+    }, [
+        props.errorState,
+        noDatesDR,
+        noDatesDropdown,
+        props.startDate,
+        props.endDate,
+        props.startDateDropdown,
+        props.endDateDropdown,
+        props.onDateChange,
+        dropdownOptionSelected
+    ]);
 
     if (props.timePeriod?.size > 0) {
         for (const timeinput of props.timePeriod) {
-            let dateLabel = '';
-            let start = null;
-            let end = null;
-
-            if (timeinput.start_date) {
-                start = dayjs(timeinput.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-            }
-            if (timeinput.end_date) {
-                end = dayjs(timeinput.end_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
-            }
-
-            if (start && end) {
-                dateLabel = `${start} to ${end}`;
-            }
-            else if (start) {
-                dateLabel = `${start} to present`;
-            }
-            else if (end) {
-                dateLabel = `... to ${end}`;
-            }
+            const dateLabel = dateRangeChipLabel(timeinput);
 
             if (dateLabel !== '') {
-                labelArray.push({ dateLabel, startDate: timeinput.start_date, endDate: timeinput.end_date });
+                labelArray.push({
+                    dateLabel, startDate: timeinput.start_date, endDate: timeinput.end_date
+                });
             }
         }
     }
@@ -358,29 +401,23 @@ const DateRange = (props) => {
                 onSubmit={submitDates}>
                 <div className="date-range-column">
                     <DatePicker
-                        type="startDate"
-                        title="start date"
-                        onDateChange={props.onDateChange}
                         value={props.startDate}
-                        opposite={props.endDate}
-                        showError={props.showError}
+                        type="startDate"
+                        onDateChange={props.onDateChange}
                         hideError={props.hideError}
+                        title="start date"
                         id="date-range__startDate"
-                        onFocus={onFocus}
-                        updateFilter={props.updateFilter} />
+                        min="2007-10-01" />
                 </div>
                 <div className="date-range-column">
                     <DatePicker
-                        type="endDate"
-                        title="end date"
-                        onDateChange={props.onDateChange}
                         value={props.endDate}
-                        opposite={props.startDate}
-                        showError={props.showError}
+                        type="endDate"
+                        onDateChange={props.onDateChange}
                         hideError={props.hideError}
-                        onFocus={onFocus}
-                        updateFilter={props.updateFilter}
-                        id="date-range__endDate" />
+                        title="end date"
+                        id="date-range__endDate"
+                        min="2007-10-01" />
                 </div>
                 <Button
                     copy="Add"
@@ -405,7 +442,8 @@ const DateRange = (props) => {
                             options={dropdownOptions}
                             enabled
                             selectedOption={dropdownOptions?.length
-                                ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
+                                ? dropdownOptions?.find(
+                                    (obj) => obj.value === selectedDropdownOption)?.name
                                 : `${selectedDropdownOption}`}
                             sortFn={sortFn} />
                     </div>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { find, throttle } from 'lodash';
+import { find, throttle, uniqueId } from 'lodash-es';
+import { useDispatch } from 'react-redux';
+
 import { ComingSoon, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -25,16 +27,20 @@ import AccountData from './scrollerSections/AccountData';
 import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
 import DownloadStaticFile from "../sharedComponents/DownloadStaticFile";
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/interactiveDataSources/index.scss');
 
 const InteractiveDataSourcesPage = () => {
     const [activeSection, setActiveSection] = useState('intro-section');
     const query = useQueryParams();
-    const history = useHistory();
+    const history = useNavigate();
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const sections = [
         {
             section: 'intro-section',
@@ -148,10 +154,10 @@ const InteractiveDataSourcesPage = () => {
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
+
         setActiveSection(section);
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
@@ -205,7 +211,7 @@ const InteractiveDataSourcesPage = () => {
     };
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, `data-sources`, emailData);
+        handleShareOptionClick(name, `data-sources`, emailData, handleShareDispatch);
     };
 
     return (
@@ -217,10 +223,12 @@ const InteractiveDataSourcesPage = () => {
             title="Data Sources"
             toolBarComponents={[
                 <ShareIcon
+                    key={uniqueId()}
                     url={getBaseUrl('data-sources')}
                     onShareOptionClick={handleShare}
                     classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadStaticFile
+                    key={uniqueId()}
                     path="/data/data-sources-download.pdf" />
             ]}
             sections={sections}

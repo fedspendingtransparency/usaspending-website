@@ -3,9 +3,8 @@
  * Created by Lizzie Salita 1/4/18
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useMatch, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
@@ -23,23 +22,23 @@ import KeywordPage from 'components/keyword/KeywordPage';
 
 require('pages/keyword/keywordPage.scss');
 
-const propTypes = {
-    match: PropTypes.object
-};
-
-const KeywordContainer = (props) => {
+const KeywordContainer = () => {
     const [keyword, setKeyword] = useState('');
     const [summary, setSummary] = useState(null);
     const [summaryInFlight, setSummaryInFlight] = useState(false);
     const [downloadAvailable, setDownloadAvailable] = useState(false);
+
+    const history = useNavigate();
+    const dispatch = useDispatch();
+    const match = useMatch(`/keyword_search/:keyword`);
+    const keywordUrl = match?.params.keyword;
+
     let summaryRequest = null;
     let downloadRequest = null;
-    const history = useHistory();
-    const dispatch = useDispatch();
 
     const downloadObject = useSelector((state) => state.bulkDownload.download);
 
-    const handleUrl = useCallback((urlKeyword) => {
+    const handleUrl = (urlKeyword) => {
         if (urlKeyword) {
             // Convert the url to a keyword
             setKeyword(decodeURIComponent(urlKeyword));
@@ -52,7 +51,7 @@ const KeywordContainer = (props) => {
             // The keyword param was removed from the url, reset the keyword
             setKeyword('');
         }
-    });
+    };
 
     const updateKeyword = (keywordParam) => {
         // Convert the keyword to a url slug
@@ -60,7 +59,7 @@ const KeywordContainer = (props) => {
         setKeyword(keywordParam);
 
         // update the url
-        history.replace(`/keyword_search/${slug}`);
+        history(`/keyword_search/${slug}`, { replace: true });
 
         Analytics.event({
             event: 'keyword',
@@ -144,8 +143,9 @@ const KeywordContainer = (props) => {
     };
 
     useEffect(() => {
-        handleUrl(props.match.params.keyword);
-    }, [handleUrl, props.match.params.keyword]);
+        handleUrl(keywordUrl);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [keywordUrl]);
 
     return (
         <KeywordPage
@@ -160,5 +160,4 @@ const KeywordContainer = (props) => {
     );
 };
 
-KeywordContainer.propTypes = propTypes;
 export default KeywordContainer;

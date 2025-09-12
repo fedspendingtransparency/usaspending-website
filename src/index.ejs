@@ -18,17 +18,17 @@
 
     <!-- Google Analytics - DAP -->
     <script async type="text/javascript" id="_fed_an_ua_tag"
-        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=TREAS&subagency=FS&ty=true"></script>
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=TREAS&subagency=FS&yt=true&htmlvideo=true"></script>
 
-    <!-- Start ForeSee Survey -->
+    <!-- Start Verint Survey -->
     <% if (IS_PROD) { %>
         <script type="text/javascript">
-            // ForeSee Production Embed Script v2.01
+            // Verint Production Embed Script v2.01
             // DO NOT MODIFY BELOW THIS LINE *****************************************
             ;(function (g) {
                 var d = document, am = d.createElement('script'), h = d.head || d.getElementsByTagName("head")[0], fsr = 'fsReady',
                     aex = {
-                        "src": "//gateway.foresee.com/sites/usaspending/production/gateway.min.js",
+                        "src": "https://eex-gateway.voc.ttecgov.us/sites/usaspending/production/gateway.min.js",
                         "type": "text/javascript",
                         "async": "true",
                         "data-vendor": "fs",
@@ -37,22 +37,24 @@
                 for (var attr in aex) { am.setAttribute(attr, aex[attr]); } h.appendChild(am); g[fsr] || (g[fsr] = function () { var aT = '__' + fsr + '_stk__'; g[aT] = g[aT] || []; g[aT].push(arguments); });
             })(window);
             // DO NOT MODIFY ABOVE THIS LINE *****************************************
-
-            // Un-comment out the function below when you are ready to input your variable
-            /*fsReady(function() {
-              FSR.CPPS.set('name','value'); // use single quotes when passing a static-value
-              FSR.CPPS.set('name2',somevariable); // don't use quotes for a dynamic value
-              FSR.CPPS.set('name3',othervariable); // add as many CPPs as you like in this way
-            });*/
+            fsReady(function() {
+                var currentURL = window.location.href;
+                FSR.CPPS.set("url", currentURL);
+                /*
+                FSR.CPPS.set('name','value'); // use single quotes when passing a static-value
+                FSR.CPPS.set('name2',somevariable); // don't use quotes for a dynamic value
+                FSR.CPPS.set('name3',othervariable); // add as many CPPs as you like in this way
+                */
+            });
         </script>
     <% } else { %>
         <script type="text/javascript">
-            // ForeSee Staging Embed Script v2.01
+            // Verint Staging Embed Script v2.01
             // DO NOT MODIFY BELOW THIS LINE *****************************************
             ;(function (g) {
                 var d = document, am = d.createElement('script'), h = d.head || d.getElementsByTagName("head")[0], fsr = 'fsReady',
                     aex = {
-                        "src": "//gateway.foresee.com/sites/usaspending/staging/gateway.min.js",
+                        "src": "https://eex-gateway.voc.ttecgov.us/sites/usaspending/staging/gateway.min.js",
                         "type": "text/javascript",
                         "async": "true",
                         "data-vendor": "fs",
@@ -61,16 +63,19 @@
                 for (var attr in aex) { am.setAttribute(attr, aex[attr]); } h.appendChild(am); g[fsr] || (g[fsr] = function () { var aT = '__' + fsr + '_stk__'; g[aT] = g[aT] || []; g[aT].push(arguments); });
             })(window);
             // DO NOT MODIFY ABOVE THIS LINE *****************************************
+            fsReady(function() {
+                var currentURL = window.location.href;
+                FSR.CPPS.set("url", currentURL);
+                /*
+                FSR.CPPS.set('name','value'); // use single quotes when passing a static-value
+                FSR.CPPS.set('name2',somevariable); // don't use quotes for a dynamic value
+                FSR.CPPS.set('name3',othervariable); // add as many CPPs as you like in this way
+                */
+            });
 
-            // Un-comment out the function below when you are ready to input your variable
-            /*fsReady(function() {
-              FSR.CPPS.set('name','value'); // use single quotes when passing a static-value
-              FSR.CPPS.set('name2',somevariable); // don't use quotes for a dynamic value
-              FSR.CPPS.set('name3',othervariable); // add as many CPPs as you like in this way
-            });*/
         </script>
     <% } %>
-    <!-- End ForeSee Survey -->
+    <!-- End Verint Survey -->
 
     <!-- Google Tag Manager (configured with Google Analytics - Non-DAP account) -->
     <script>(

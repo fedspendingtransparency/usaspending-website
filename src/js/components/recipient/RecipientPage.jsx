@@ -6,8 +6,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
-import { find, throttle } from 'lodash';
-import { useHistory } from "react-router-dom";
+import { find, throttle } from 'lodash-es';
+import { useNavigate } from "react-router";
+import { useDispatch } from 'react-redux';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
@@ -21,6 +22,7 @@ import Error from 'components/sharedComponents/Error';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import RecipientContent from './RecipientContent';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -37,7 +39,7 @@ export const RecipientPage = ({
     error,
     pickedFy
 }) => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
     const [isChildModalVisible, showChildModal] = useState(false);
     const [isAlternateModalVisible, showAlternateRecipientModal] = useState(false);
@@ -48,7 +50,10 @@ export const RecipientPage = ({
     const hideChildRecipientModal = () => showChildModal(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const slug = `recipient/${id}/${recipient.fy}`;
     const emailArgs = {
         subject: `USAspending.gov Recipient Profile: ${recipient.overview.name}`,
@@ -56,7 +61,7 @@ export const RecipientPage = ({
     };
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, slug, emailArgs);
+        handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
     };
 
     const recipientSections = [
@@ -86,10 +91,9 @@ export const RecipientPage = ({
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
 
         // add offsets
         let conditionalOffset;
@@ -156,30 +160,30 @@ export const RecipientPage = ({
                     backgroundColor={backgroundColor}
                     selectedFy={recipient?.fy}
                     handleFyChange={pickedFy}
-                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())}
+                    key="page-wrapper__fiscal-year-picker" />,
                 <ShareIcon
                     onShareOptionClick={handleShare}
-                    url={getBaseUrl(slug)} />
+                    url={getBaseUrl(slug)}
+                    key="page-wrapper__share-icon" />
             ]}
             sections={recipientSections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav>
-            <>
-                <main id="main-content" className="main-content">
-                    <LoadingWrapper isLoading={loading}>
-                        {content}
-                        <ChildRecipientModalContainer
-                            mounted={isChildModalVisible}
-                            hideModal={hideChildRecipientModal}
-                            recipient={recipient} />
-                        <AlternateNamesRecipientModalContainer
-                            mounted={isAlternateModalVisible}
-                            hideModal={hideAlternateModal}
-                            recipient={recipient} />
-                    </LoadingWrapper>
-                </main>
-            </>
+            <main id="main-content" className="main-content">
+                <LoadingWrapper isLoading={loading}>
+                    {content}
+                    <ChildRecipientModalContainer
+                        mounted={isChildModalVisible}
+                        hideModal={hideChildRecipientModal}
+                        recipient={recipient} />
+                    <AlternateNamesRecipientModalContainer
+                        mounted={isAlternateModalVisible}
+                        hideModal={hideAlternateModal}
+                        recipient={recipient} />
+                </LoadingWrapper>
+            </main>
         </PageWrapper>
     );
 };

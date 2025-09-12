@@ -5,8 +5,8 @@
 
 export const initialState = {
     type: 'table',
-    subaward: false,
-    mapHasLoaded: false
+    mapHasLoaded: false,
+    spendingLevel: 'awards'
 };
 
 const searchViewReducer = (state = initialState, action) => {
@@ -16,14 +16,14 @@ const searchViewReducer = (state = initialState, action) => {
                 type: action.value
             });
 
-        case 'SET_SEARCH_VIEW_SUBAWARD':
-            return Object.assign({}, state, {
-                subaward: action.value
-            });
-
         case 'SET_MAP_HAS_LOADED':
             return Object.assign({}, state, {
                 mapHasLoaded: action.value
+            });
+
+        case 'SET_SPENDING_LEVEL':
+            return Object.assign({}, state, {
+                spendingLevel: action.value
             });
 
         default:

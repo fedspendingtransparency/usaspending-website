@@ -1,15 +1,12 @@
 import React from "react";
-import { useDispatch } from 'react-redux';
 import { FlexGridRow } from 'data-transparency-ui';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { uniqueId } from 'lodash';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
+import { uniqueId } from 'lodash-es';
 import FadeContents from "./FadeContents";
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from "../../ExternalLink";
+import { showSlideout } from "../../../../helpers/slideoutHelper";
 
 const ItemContent = React.memo(({
     navbarConfig,
@@ -18,17 +15,13 @@ const ItemContent = React.memo(({
     closeDropdown,
     direction
 }) => {
-    const dispatch = useDispatch();
-
     const openATD = (e) => {
-        dispatch(aboutTheDataActions.showAboutTheData());
-        dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        showSlideout('atd');
         e.preventDefault();
     };
 
     const openGlossary = (e) => {
-        dispatch(glossaryActions.showGlossary());
-        dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
+        showSlideout('glossary');
         e.preventDefault();
     };
 

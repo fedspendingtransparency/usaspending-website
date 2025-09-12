@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { fetchAgencySlugs } from 'apis/agency';
 import { setAgencySlugs } from 'redux/actions/agency/agencyActions';
 
@@ -67,10 +67,12 @@ export const useAgencySlugs = () => {
                     request.current = null;
                 })
                 .catch((e) => {
-                    setLoading(false);
-                    setError(true);
-                    console.error(e);
-                    request.current = null;
+                    if (e.code !== 'ERR_CANCELED') {
+                        setLoading(false);
+                        setError(true);
+                        console.error(e);
+                        request.current = null;
+                    }
                 });
         }
         return () => {
@@ -78,6 +80,7 @@ export const useAgencySlugs = () => {
                 request.current.cancel();
             }
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [agencySlugs, topTierCodes, agencyIds]);
 
     return [agencySlugs, topTierCodes, agencyIds, loading, error];

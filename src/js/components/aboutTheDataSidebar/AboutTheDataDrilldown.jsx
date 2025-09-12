@@ -5,10 +5,14 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { handleShareOptionClick } from 'helpers/socialShare';
+import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router';
+
 import { ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingWrapper } from "../sharedComponents/Loading";
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
     section: PropTypes.string,
@@ -20,27 +24,36 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
-    // figure out if there is a param
+    const [value, setValue] = useState();
+    const [searchParams] = useSearchParams();
+    const dispatch = useDispatch();
+
     const stripUrl = () => {
-        const url = new URL(window.location.href);
-        if (url.search !== '') {
-            const test = window.location.href.includes("?");
-            if (test) {
-                return `${window.location.href}&about-the-data=`;
+        const newUrlString = searchParams ? `?${searchParams?.toString()}` : '';
+        const url = window.location.href.split("?");
+        const path = url[0];
+        if (path) {
+            if (searchParams?.size > 0) {
+                return `${path}${newUrlString}&about-the-data=`;
             }
+            return `${path}?about-the-data=`;
         }
-        return `${window.location.href}?about-the-data=`;
+        return null;
     };
-    const value = stripUrl();
+
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
 
     const onShareClick = (optionName) => {
+        // remove existing params
         const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
         const emailArgs = {
             subject: encodeURIComponent(`${emailSubject}`),
             body: `View this statement about the data on USAspending.gov: ${`${value}${slug}`}`
         };
-        const placeHolder = `${value}${slug}`;
-        handleShareOptionClick(optionName, placeHolder, emailArgs);
+        const placeholder = `${value}${slug}`;
+        handleShareOptionClick(optionName, placeholder, emailArgs, handleShareDispatch);
     };
 
     const [drilldownComponent, setDrilldownComponent] = useState(null);
@@ -51,6 +64,17 @@ const AboutTheDataDrilldown = ({
             clearDrilldown();
         }
     };
+
+    useEffect(() => {
+        if (searchParams) {
+            searchParams.delete('about-the-data');
+            searchParams.delete('glossary');
+        }
+
+        setValue(stripUrl());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchParams]);
 
     useEffect(() => {
         if (slug?.length > 0) {

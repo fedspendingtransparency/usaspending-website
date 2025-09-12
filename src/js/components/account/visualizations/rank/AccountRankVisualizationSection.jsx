@@ -3,9 +3,9 @@
  * Created by Kevin Li 3/22/17
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { throttle, min } from 'lodash';
+import { throttle, min } from 'lodash-es';
 import { SectionHeader } from "data-transparency-ui";
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -14,161 +14,160 @@ import RankVisualizationScopeButton from
     './RankVisualizationScopeButton';
 
 const propTypes = {
+    labelSeries: PropTypes.array,
+    dataSeries: PropTypes.array,
+    descriptions: PropTypes.array,
     categoryScope: PropTypes.string,
-    changeScope: PropTypes.func,
-    nextPage: PropTypes.func,
-    previousPage: PropTypes.func,
     hasNextPage: PropTypes.bool,
     hasPreviousPage: PropTypes.bool,
-    page: PropTypes.number,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    changeScope: PropTypes.func,
+    nextPage: PropTypes.func,
+    previousPage: PropTypes.func
 };
 
-export default class AccountRankVisualizationSection extends React.Component {
-    constructor(props) {
-        super(props);
+const AccountRankVisualizationSection = ({
+    labelSeries,
+    dataSeries,
+    descriptions,
+    categoryScope,
+    hasNextPage,
+    hasPreviousPage,
+    loading,
+    error,
+    changeScope,
+    nextPage,
+    previousPage
+}) => {
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [visualizationWidth, setVisualizationWidth] = useState(0);
+    const [labelWidth, setLabelWidth] = useState(0);
 
-        this.state = {
-            windowWidth: 0,
-            visualizationWidth: 0,
-            labelWidth: 0
-        };
+    const sectionHr = useRef(null);
+    const disableNext = !hasNextPage;
+    const disablePrev = !hasPreviousPage;
+    let hidePager = '';
 
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.clickPrevious = this.clickPrevious.bind(this);
-        this.clickNext = this.clickNext.bind(this);
+    if ((disableNext && disablePrev) || loading) {
+        hidePager = 'hide';
     }
 
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-    }
-
-    handleWindowResize() {
-    // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
+    const handleWindowResize = throttle(() => {
+        // determine if the width changed
+        const windowWidthLocal = window.innerWidth;
+        if (windowWidthLocal !== windowWidth) {
             // width changed, update the visualization width
-            this.setState({
-                windowWidth,
-                visualizationWidth: this.sectionHr.offsetWidth,
-                labelWidth: min([this.sectionHr.offsetWidth / 3, 270])
-            });
+            setWindowWidth(windowWidthLocal);
+            setVisualizationWidth(sectionHr.current.offsetWidth);
+            setLabelWidth(min([sectionHr.current.offsetWidth / 3, 270]));
         }
-    }
+    }, 50);
 
-    clickPrevious() {
-        this.props.previousPage();
-    }
+    useEffect(() => {
+        handleWindowResize();
+        window.addEventListener('resize', handleWindowResize);
 
-    clickNext() {
-        this.props.nextPage();
-    }
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    render() {
-        const disableNext = !this.props.hasNextPage;
-        const disablePrev = !this.props.hasPreviousPage;
-        let hidePager = '';
+    return (
+        <div
+            className="results-visualization-rank-section"
+            id="results-section-rank">
+            <SectionHeader
+                title="Spending by Category"
+                titleTooltip={{ component: false }}
+                descTooltip={{ component: false }} />
+            <hr
+                className="results-divider"
+                ref={(hr) => {
+                    sectionHr.current = hr;
+                }} />
 
-        if ((disableNext && disablePrev) || this.props.loading) {
-            hidePager = 'hide';
-        }
-
-        return (
-            <div
-                className="results-visualization-rank-section"
-                id="results-section-rank">
-                <SectionHeader
-                    title="Spending by Category"
-                    titleTooltip={{ component: false }}
-                    descTooltip={{ component: false }} />
-                <hr
-                    className="results-divider"
-                    ref={(hr) => {
-                        this.sectionHr = hr;
-                    }} />
-
-                <div className="visualization-top">
-                    <div className="visualization-description">
-                        <div className="content">
-                            View a list of the top Program Activities from highest to lowest. Filter
-                            your results more (at left) and watch this graph update automatically.
-                             View your results in a bar graph or a tree map.
-                        </div>
-                    </div>
-                    <div className="visualization-period">
-                        <div className="content">
-                            <ul>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="programActivity"
-                                        label="Program Activity"
-                                        active={this.props.categoryScope === 'programActivity'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="objectClass"
-                                        label="Object Class"
-                                        active={this.props.categoryScope === 'objectClass'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="tas"
-                                        label="Treasury Account Symbol (TAS)"
-                                        active={this.props.categoryScope === 'tas'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                            </ul>
-                        </div>
+            <div className="visualization-top">
+                <div className="visualization-description">
+                    <div className="content">
+                        View a list of the top categories from highest to lowest. Filter your results more (at
+                        left) and watch this graph update automatically.
                     </div>
                 </div>
-
-                <RankVisualization
-                    {...this.props}
-                    width={this.state.visualizationWidth}
-                    labelWidth={this.state.labelWidth} />
-
-                <div className={`visualization-pager-container ${hidePager}`}>
-                    <button
-                        className="visualization-pager"
-                        title="Show previous five"
-                        aria-label="Show previous five"
-                        disabled={disablePrev}
-                        onClick={this.clickPrevious}>
-                        <div className="pager-content">
-                            <div className="icon">
-                                <Icons.AngleLeft alt="Show previous five" />
-                            </div>
-                            <div className="pager-label">
-                                Show previous five
-                            </div>
-                        </div>
-                    </button>
-                    <button
-                        className="visualization-pager"
-                        title="Show next five"
-                        aria-label="Show next five"
-                        disabled={disableNext}
-                        onClick={this.clickNext}>
-                        <div className="pager-content">
-                            <div className="pager-label next">
-                                Show next five
-                            </div>
-                            <div className="icon">
-                                <Icons.AngleRight alt="Show next five" />
-                            </div>
-                        </div>
-                    </button>
+                <div className="visualization-period">
+                    <div className="content">
+                        <ul>
+                            <li>
+                                <RankVisualizationScopeButton
+                                    value="programActivity"
+                                    label="Program Activity"
+                                    active={categoryScope === 'programActivity'}
+                                    changeScope={changeScope} />
+                            </li>
+                            <li>
+                                <RankVisualizationScopeButton
+                                    value="objectClass"
+                                    label="Object Class"
+                                    active={categoryScope === 'objectClass'}
+                                    changeScope={changeScope} />
+                            </li>
+                            <li>
+                                <RankVisualizationScopeButton
+                                    value="tas"
+                                    label="Treasury Account Symbol (TAS)"
+                                    active={categoryScope === 'tas'}
+                                    changeScope={changeScope} />
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        );
-    }
-}
+
+            <RankVisualization
+                labelSeries={labelSeries}
+                dataSeries={dataSeries}
+                descriptions={descriptions}
+                loading={loading}
+                error={error}
+                width={visualizationWidth}
+                labelWidth={labelWidth} />
+
+            <div className={`visualization-pager-container ${hidePager}`}>
+                <button
+                    className="visualization-pager"
+                    title="Show previous five"
+                    aria-label="Show previous five"
+                    disabled={disablePrev}
+                    onClick={previousPage}>
+                    <div className="pager-content">
+                        <div className="icon">
+                            <Icons.AngleLeft alt="Show previous five" />
+                        </div>
+                        <div className="pager-label">
+                            Show previous five
+                        </div>
+                    </div>
+                </button>
+                <button
+                    className="visualization-pager"
+                    title="Show next five"
+                    aria-label="Show next five"
+                    disabled={disableNext}
+                    onClick={nextPage}>
+                    <div className="pager-content">
+                        <div className="pager-label next">
+                            Show next five
+                        </div>
+                        <div className="icon">
+                            <Icons.AngleRight alt="Show next five" />
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    );
+};
 
 AccountRankVisualizationSection.propTypes = propTypes;
+export default AccountRankVisualizationSection;

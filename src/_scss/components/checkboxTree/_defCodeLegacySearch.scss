@@ -1,0 +1,80 @@
+.search-option .def-code-filter {
+  margin-bottom: rem(12);
+  padding: rem(12);
+
+  .def-checkbox-tree {
+    margin-bottom: 2rem;
+
+    .react-checkbox-tree {
+      ol {
+        border-left: none;
+
+        .rct-collapse.rct-collapse-btn {
+          display: none;
+        }
+
+        .rct-node:nth-child(n) ol {
+          border-left: none;
+        }
+
+        .rct-node.def-checkbox-label--covid  {
+          &.rct-node-parent > .rct-text {
+            .rct-checkbox {
+              align-self: center;
+            }
+
+            .rct-title .checkbox-tree-label {
+              width: auto;
+              min-width: 55%;
+
+              .checkbox-tree-label__value-container {
+                display: none;
+              }
+
+              .def-checkbox-tree-label__covid {
+                @include justify-content(center);
+
+                background: $color-disaster-covid-19;
+                color: white;
+                display: flex;
+                align-items: center;
+                padding: rem(5) rem(10);
+                font-size: rem(16);
+                border: 1px solid #C7C7C7;
+                border-radius: 4px;
+              }
+
+              .def-checkbox-tree-label__notCovid {
+                @include justify-content(center);
+
+                background: $color-gray-lightest;
+                color: $color-gray-medium;
+                display: flex;
+                align-items: center;
+                padding: rem(5) rem(10);
+                font-size: rem(16);
+                border-radius: 4px;
+              }
+            }
+          }
+
+          .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
+            &.multiple-label {
+              padding-bottom: rem(10);
+
+              &:last-of-type {
+                padding-bottom: 0;
+              }
+            }
+
+            font-weight: $font-semibold;
+
+            span {
+              font-weight: $font-normal;
+            }
+          }
+        }
+      }
+    }
+  }
+}

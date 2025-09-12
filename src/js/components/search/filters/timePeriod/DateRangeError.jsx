@@ -6,27 +6,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const defaultProps = {
-    header: '',
-    message: ''
-};
-
 const propTypes = {
     header: PropTypes.string,
     message: PropTypes.string
 };
 
-const DateRangeError = (props) => {
-    const errorHeader = props.header || 'Invalid search';
+const DateRangeError = ({
+    header = '',
+    message = ''
+}) => {
+    const errorHeader = header || 'Invalid search';
     return (
         <div className="date-range__warning">
             <span className="date-range__invalid">{errorHeader}</span>
             <ul>
-                <li>{props.message}</li>
+                <li>{message}</li>
             </ul>
         </div>
     );
 };
-DateRangeError.defaultProps = defaultProps;
 DateRangeError.propTypes = propTypes;
 export default DateRangeError;

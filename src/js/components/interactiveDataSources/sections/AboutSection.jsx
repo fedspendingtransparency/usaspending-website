@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import React from 'react';
 import ReadMore from 'components/sharedComponents/ReadMore';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 import GlossaryLink from "../../sharedComponents/GlossaryLink";

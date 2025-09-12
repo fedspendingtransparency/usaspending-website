@@ -5,12 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
-import { Pagination } from 'data-transparency-ui';
+import { throttle } from 'lodash-es';
+import { Pagination, NewPicker } from 'data-transparency-ui';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculatePageRange } from 'helpers/paginationHelper';
 import Note from 'components/sharedComponents/Note';
-import DefaultPicker from 'components/sharedComponents/pickers/DefaultPicker';
 import ActivityChart from './chart/ActivityChart';
 import ActivityChartTooltip from './ActivityChartTooltip';
 
@@ -112,19 +111,22 @@ export default class IdvActivityVisualization extends React.Component {
 
     createMenuData = () => [
         {
-            key: "10",
+            name: "10",
             value: 10,
-            label: "10"
+            key: "10",
+            onClick: this.props.selectedItemFunc
         },
         {
-            key: "50",
+            name: "50",
             value: 50,
-            label: "50"
+            key: "50",
+            onClick: this.props.selectedItemFunc
         },
         {
-            key: "100",
+            name: "100",
             value: 100,
-            label: "100"
+            key: "100",
+            onClick: this.props.selectedItemFunc
         }
     ];
 
@@ -203,12 +205,18 @@ export default class IdvActivityVisualization extends React.Component {
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
                     resultsText={resultsText} />
-                <DefaultPicker
-                    prepend="Show"
-                    append="per page"
-                    menuData={menuData}
-                    defaultSelection={this.props.limit}
-                    selectedItemFunc={this.props.selectedItemFunc} />
+                <div className="idv__picker-wrapper">
+                    <NewPicker
+                        label="Show"
+                        size="sm"
+                        classname="default-picker"
+                        dropdownClassname="default-picker__list"
+                        buttonClassname="default-picker__button"
+                        enabled
+                        selectedOption={menuData.length ? menuData.find((option) => option.value === this.props.limit).name : this.props.limit}
+                        options={menuData}
+                        sortFn={(a, b) => a - b} /><span className="default-picker__append">per page</span>
+                </div>
                 <div className="activity-visualization-note">
                     <Note message={message} />
                 </div>

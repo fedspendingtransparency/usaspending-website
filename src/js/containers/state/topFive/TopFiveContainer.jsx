@@ -22,7 +22,9 @@ const propTypes = {
 };
 
 const TopFiveContainer = (props) => {
-    const [categoryState, setCategoryState] = useState({ loading: true, error: false, results: [] });
+    const [categoryState, setCategoryState] = useState(
+        { loading: true, error: false, results: [] }
+    );
     const [noResultState, setNoResultState] = useState(false);
 
     const dataParams = () => {
@@ -73,7 +75,15 @@ const TopFiveContainer = (props) => {
             params.fields = ['Award ID', 'Award Amount', 'generated_internal_id'];
             params.order = 'desc';
             params.sort = 'Award Amount';
-            params.subawards = false;
+            params.spending_level = 'awards';
+        }
+
+        if (props.category === 'defc') {
+            params.spending_level = 'award_financial';
+            params.filters = {
+                def_codes: ["L", "M", "N", "O", "P", "U", "V", "Z", "1"],
+                ...filters
+            };
         }
 
         return params;
@@ -82,7 +92,8 @@ const TopFiveContainer = (props) => {
     const parseResults = (data, type) => {
         if (data.length < 1) {
             setNoResultState(true);
-        } else {
+        }
+        else {
             const parsed = data.map((item, index) => {
                 const result = Object.create(BaseStateCategoryResult);
                 if (props.category === 'awards') {

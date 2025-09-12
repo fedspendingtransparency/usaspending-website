@@ -64,6 +64,14 @@ const schema = {
             {
                 name: "Financing Accounts",
                 slug: "financing-accounts"
+            },
+            {
+                name: "Program Activity Reporting Key (PARK)",
+                slug: "park"
+            },
+            {
+                name: "Unique Award Key Methodology for Financial Assistance",
+                slug: "unique-award-key-methodology"
             }
         ]
     },
@@ -183,6 +191,32 @@ const schema = {
             }
         ]
     },
+    "filter-category-descriptions": {
+        heading: "Filter Category Descriptions",
+        path: 'content/about-the-data/filter-category-descriptions',
+        fields: [
+            {
+                name: "Time Period",
+                slug: "time-period-category"
+            },
+            {
+                name: "Location",
+                slug: "location-category"
+            },
+            {
+                name: "Sources",
+                slug: "sources-category"
+            },
+            {
+                name: "Recipients",
+                slug: "recipients-category"
+            },
+            {
+                name: "Characteristics",
+                slug: "characteristics-category"
+            }
+        ]
+    },
     "legal-disclosures": {
         heading: "Legal and Policy Documentation",
         path: 'content/about-the-data/legal-disclosures',
@@ -236,8 +270,8 @@ const schema = {
                 slug: "omb-circular-a-11"
             },
             {
-                name: "DATA Act Information Model Schema (DAIMS)",
-                slug: "daims"
+                name: "Governmentwide Spending Data Model (GSDM)",
+                slug: "gsdm"
             }
         ]
     }

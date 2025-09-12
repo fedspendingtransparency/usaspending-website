@@ -5,8 +5,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useHistory } from 'react-router-dom';
-import { find, throttle } from 'lodash';
+import { Link, useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+
+import { find, throttle } from 'lodash-es';
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { ShareIcon } from 'data-transparency-ui';
 import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
@@ -14,6 +16,7 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/data-sources/index.scss');
 
@@ -26,7 +29,11 @@ const DataSourcesAndMethodologiesPage = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [activeSection, setActiveSection] = useState('using_this_table');
     const query = useQueryParams();
-    const history = useHistory();
+    const history = useNavigate();
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const sections = [
         {
             label: 'Using this Table',
@@ -65,7 +72,7 @@ const DataSourcesAndMethodologiesPage = () => {
         }
     ];
     const handleShare = (name) => {
-        handleShareOptionClick(name, `submission-statistics/data-sources`, emailData);
+        handleShareOptionClick(name, `submission-statistics/data-sources`, emailData, handleShareDispatch);
     };
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -79,10 +86,10 @@ const DataSourcesAndMethodologiesPage = () => {
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history({
+            path: `${getQueryParamString(newQueryParams)}`
+        }, { replace: true });
+
         setActiveSection(section);
         // add offsets
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;

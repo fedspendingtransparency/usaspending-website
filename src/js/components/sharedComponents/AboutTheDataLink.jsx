@@ -5,26 +5,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 
 import schema from "dataMapping/aboutTheDataSchema";
-import { showAboutTheData, setAboutTheDataTerm } from "redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from 'redux/actions/slideouts/slideoutActions';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { getDrilldownEntrySectionAndId } from "helpers/aboutTheDataSidebarHelper";
+import { showSlideout } from '../../helpers/slideoutHelper';
 
 const propTypes = {
     entry: PropTypes.string
 };
 
 const AboutTheDataLink = ({ slug, children }) => {
-    const dispatch = useDispatch();
     const item = getDrilldownEntrySectionAndId(schema, slug);
     const entry = item.section.fields[item?.entryId];
     const openAboutTheDataSidebar = (e) => {
-        dispatch(setAboutTheDataTerm(entry));
-        dispatch(showAboutTheData());
-        dispatch(setLastOpenedSlideout('atd'));
+        showSlideout('atd', { term: entry });
         e.stopPropagation();
     };
     return (

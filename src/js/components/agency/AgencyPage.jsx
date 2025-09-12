@@ -10,9 +10,9 @@ import {
     ErrorMessage,
     ShareIcon
 } from 'data-transparency-ui';
-import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-import { throttle } from "lodash";
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router';
+import { throttle } from "lodash-es";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
@@ -28,6 +28,7 @@ import StatusOfFunds from './statusOfFunds/StatusOfFunds';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/agency/index.scss');
 
@@ -50,9 +51,12 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const history = useHistory();
+    const history = useNavigate();
     const query = useQueryParams();
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const { pathname, search } = useLocation();
     const path = `${pathname.substring(1)}${search}`;
 
@@ -72,7 +76,7 @@ export const AgencyProfileV2 = ({
         handleShareOptionClick(optionName, path, {
             subject: `USAspending.gov Agency Profile: ${name}`,
             body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
-        });
+        }, handleShareDispatch);
     };
 
     const sections = [
@@ -117,10 +121,9 @@ export const AgencyProfileV2 = ({
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history.replace({
-                pathname: ``,
-                search: getQueryParamString(newQueryParams)
-            });
+            history({
+                path: `${getQueryParamString(newQueryParams)}`
+            }, { replace: true });
         }
 
         // update the state

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -78,7 +78,8 @@ export class AccountProgramActivityContainer extends React.Component {
             ]
         };
 
-        this.searchRequest = AccountHelper.fetchProgramActivities(apiSearchParams);
+        // fetch program activities === fetchTasCategoryTotals
+        this.searchRequest = AccountHelper.fetchTasCategoryTotals(apiSearchParams);
 
         this.setState({
             inFlight: true

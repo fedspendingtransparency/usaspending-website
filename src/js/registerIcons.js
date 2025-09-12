@@ -90,7 +90,9 @@ import {
     faMoneyBillWave,
     faServer,
     faGraduationCap,
-    faCodeBranch
+    faCodeBranch,
+    faLongArrowAltUp,
+    faLongArrowAltDown
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function registerIcons() {
@@ -180,6 +182,8 @@ export default function registerIcons() {
         faMoneyBillWave,
         faServer,
         faGraduationCap,
-        faCodeBranch
+        faCodeBranch,
+        faLongArrowAltUp,
+        faLongArrowAltDown
     );
 }

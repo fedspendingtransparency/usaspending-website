@@ -55,11 +55,11 @@ const AnimatedHeading = ({ paused }) => {
 
     // startMainAnimation doesn't include the initial phrase transition, only the main rotation
     const startMainAnimation = () => {
-        document.querySelector('.phrase__intro__item .entrance__item').classList.add('phrase__intro__item--entrance');
-        document.querySelector('.phrase__intro__item .rotating__items').classList.add('phrase__intro__item--rotation');
+        document.querySelector('.phrase__intro__item .entrance__item')?.classList.add('phrase__intro__item--entrance');
+        document.querySelector('.phrase__intro__item .rotating__items')?.classList.add('phrase__intro__item--rotation');
 
-        document.querySelector('.phrase__end__item .entrance__item').classList.add('phrase__end__item--entrance');
-        document.querySelector('.phrase__end__item .rotating__items').classList.add('phrase__end__item--rotation');
+        document.querySelector('.phrase__end__item .entrance__item')?.classList.add('phrase__end__item--entrance');
+        document.querySelector('.phrase__end__item .rotating__items')?.classList.add('phrase__end__item--rotation');
         const phrase = document.querySelector('.phrase');
         phrase.style.visibility = "visible";
         const clonedNode = phrase.cloneNode(true);
@@ -68,16 +68,16 @@ const AnimatedHeading = ({ paused }) => {
 
     // restartPhraseAnimation includes the initial phrase transition and the main rotation
     const restartPhraseAnimation = () => {
-        document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
-        document.querySelector('.phrase__static__item').classList.remove('phrase--exit-animation');
-        document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
-        document.querySelector('.phrase__intro__item').classList.remove('phrase--entrance-animation');
-        document.querySelector('.phrase__static__item').classList.remove('phrase--entrance-animation');
-        document.querySelector('.phrase__end__item').classList.remove('phrase--entrance-animation');
-        document.querySelector('.phrase__intro__item .entrance__item').classList.remove('phrase__intro__item--entrance');
-        document.querySelector('.phrase__intro__item .rotating__items').classList.remove('phrase__intro__item--rotation');
-        document.querySelector('.phrase__end__item .entrance__item').classList.remove('phrase__end__item--entrance');
-        document.querySelector('.phrase__end__item .rotating__items').classList.remove('phrase__end__item--rotation');
+        document.querySelector('.phrase__intro__item')?.classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__static__item')?.classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__end__item')?.classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__intro__item')?.classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__static__item')?.classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__end__item')?.classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__intro__item .entrance__item')?.classList.remove('phrase__intro__item--entrance');
+        document.querySelector('.phrase__intro__item .rotating__items')?.classList.remove('phrase__intro__item--rotation');
+        document.querySelector('.phrase__end__item .entrance__item')?.classList.remove('phrase__end__item--entrance');
+        document.querySelector('.phrase__end__item .rotating__items')?.classList.remove('phrase__end__item--rotation');
         const phrase = document.querySelector('.phrase');
         const clonedNode = phrase.cloneNode(true);
         phrase.parentNode.replaceChild(clonedNode, phrase);
@@ -85,8 +85,8 @@ const AnimatedHeading = ({ paused }) => {
 
     const restartLandingAnimation = () => {
         const landing = document.querySelector('.landing-phrase');
-        landing.classList.remove('landing-phrase--entrance-animation');
-        landing.classList.add('landing-phrase--exit-animation');
+        landing?.classList.remove('landing-phrase--entrance-animation');
+        landing?.classList.add('landing-phrase--exit-animation');
         landing.style.visibility = 'visible';
         const clonedNode = landing.cloneNode(true);
         landing.parentNode.replaceChild(clonedNode, landing);
@@ -138,10 +138,10 @@ const AnimatedHeading = ({ paused }) => {
         const landing = document.querySelector('.landing-phrase');
         landing.addEventListener('animationend', () => {
             landing.style.visibility = 'hidden';
-            document.querySelector('.phrase__intro__item').classList.add('phrase--entrance-animation');
-            document.querySelector('.phrase__static__item').classList.add('phrase--entrance-animation');
+            document.querySelector('.phrase__intro__item')?.classList.add('phrase--entrance-animation');
+            document.querySelector('.phrase__static__item')?.classList.add('phrase--entrance-animation');
             const endPhrase = document.querySelector('.phrase__end__item');
-            endPhrase.classList.add('phrase--entrance-animation');
+            endPhrase?.classList.add('phrase--entrance-animation');
             endPhrase.addEventListener('animationend', () => {
                 startMainAnimation();
                 setAnimatedCnt((prevState) => prevState + 1);
@@ -155,10 +155,10 @@ const AnimatedHeading = ({ paused }) => {
         setWordOrder((prevState) => shuffle(prevState));
         animated.addEventListener('animationstart', () => {
             setTimeout(() => {
-                document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
-                document.querySelector('.phrase__static__item').classList.add('phrase--exit-animation');
+                document.querySelector('.phrase__intro__item')?.classList.add('phrase--exit-animation');
+                document.querySelector('.phrase__static__item')?.classList.add('phrase--exit-animation');
                 const endPhrase = document.querySelector('.phrase__end__item');
-                endPhrase.classList.add('phrase--exit-animation');
+                endPhrase?.classList.add('phrase--exit-animation');
                 endPhrase.addEventListener('animationend', () => {
                     document.querySelector('.phrase').style.visibility = 'hidden';
                     restartLandingAnimation();

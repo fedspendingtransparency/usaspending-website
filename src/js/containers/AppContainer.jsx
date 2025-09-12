@@ -8,7 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
-import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
 
 import storeSingleton from 'redux/storeSingleton';
 import WithUrlListener from 'containers/WithUrlListener';
@@ -62,15 +62,19 @@ const AppContainer = () => (
         <BrowserRouter>
             <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
-                <Switch>
-                    {routes.filter((route) => !route.hide).map(({ path, component }) => (
-                        <Route
-                            exact
-                            path={path}
-                            component={(routerProps) => WithUrlListener(component, routerProps)}
-                            key={path} />
-                    ))}
-                </Switch>
+                <Routes>
+                    {routes.filter((route) => !route.hide).map(({ path, component }) => {
+                        const Component = (routerProps) => WithUrlListener(component, routerProps);
+                        return (
+                            <Route
+                                caseSensitive
+                                path={path}
+                                element={<Component />}
+                                key={path} />
+                        );
+                    }
+                    )}
+                </Routes>
                 {window.outerWidth < 768 && <MobileMessage />}
             </Suspense>
         </BrowserRouter>

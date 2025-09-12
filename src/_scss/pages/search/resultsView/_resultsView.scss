@@ -42,6 +42,48 @@
         }
       }
 
+      .award-type-toggle {
+        display: inline-flex;
+        height: rem(32);
+        padding: rem(3);
+        justify-content: center;
+        align-items: center;
+        border-radius: rem(3);
+        border: rem(1) solid $gray-cool-10;
+        background: $gray-cool-2;
+        position: absolute;
+        right: 0;
+        font-family: $font-sans;
+
+        @media(max-width: $tablet-screen - 1) {
+          display: none;
+        }
+
+        button {
+          font-size: rem(11);
+          height: rem(26);
+          margin: 0 !important;
+          padding: rem(3) rem(12);
+          line-height: rem(16.5);
+        }
+
+        .borderless{
+          border: none;
+          color: $gray-80;
+        }
+
+        .button-type__primary-left-icon-light {
+          color: $color-white;
+          border: rem(2);
+          
+          svg {
+            fill: $color-white;
+            margin-right: rem(3);
+            width: rem(10);
+          }
+        }
+      }
+
       .advanced-search-dropdown__wrapper {
         height: auto;
         max-width: 100%;
@@ -52,6 +94,7 @@
           padding-top: rem(8);
         }
 
+        // DTUI NewPicker.jsx override
         .filter__dropdown-button-list-container {
           .advanced-search-dropdown__button {
             max-width: 100%;
@@ -136,6 +179,62 @@
       }
     }
 
+    .award-type-toggle__mobile {
+      display: none;
+
+      @media(max-width: 497px) { 
+        // set px used instead of variables due to specific width needed in this case
+        display: flex;
+        margin-bottom: rem(16);
+        margin-top: rem(-16);
+
+        .award-type-toggle {
+          display: inline-flex;
+          height: rem(32);
+          padding: rem(3);
+          justify-content: center;
+          align-items: center;
+          border-radius: rem(3);
+          border: rem(1) solid $gray-cool-10;
+          background: $gray-cool-2;
+          font-family: $font-sans;
+
+          button {
+            font-size: rem(11);
+            height: rem(26);
+            margin: 0 !important;
+            padding: rem(3) rem(12);
+            line-height: rem(16.5);
+            
+          }
+          
+          @media(max-width: 348px) {
+            // set px used instead of variables due to specific width needed in this case
+            height: rem(42);
+
+            button {
+              height: rem(36);
+            }
+          }
+          .borderless{
+            border: none;
+            color: $gray-80;
+          }
+  
+          .button-type__primary-left-icon-light {
+            color: $color-white;
+            border: rem(2);
+            
+            svg {
+              fill: $color-white;
+              margin-right: rem(3);
+              width: rem(10);
+            }
+          }
+        }
+      }
+    }
+
     .search__section-wrapper-content {
       margin-bottom: rem(24);
 
@@ -150,7 +249,104 @@
       .usda-table.search-results {
         margin-bottom: rem(16);
       }
+      .mobile__sort {
+        display:flex;
+        @import "../../../components/mobileSortToggle";
+        margin-bottom: rem(32);
+        .mobile-sort__picker {
+          height: rem(32);
+          .filter__dropdown-label-sm {
+            color: $gray-cool-90;
+          }
+          .filter__dropdown-button-sm {
+            margin: 0;
+            // if this is not set, ellipsis will not work
+            max-width: rem(144);
+          }
 
+          .filter__dropdown-list-sm {
+            width: auto;
+            max-width: rem(240);
+            .filter__dropdown-list-item {
+              padding: rem(5.5) rem(12);
+              .filter__dropdown-item {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+              }
+            }
+          }
+
+            [class*="filter__dropdown-button"] {
+            margin: 0;
+            border-color: $gray-cool-10;
+            text-align: start;
+
+            .filter__dropdown-button-text {
+              margin-right: rem(8);
+              line-height: rem(24);
+              color: $gray-60;
+              opacity: 1;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            .filter__dropdown-chevron svg {
+              color: $theme-color-1;
+              opacity: 1;
+              vertical-align: middle;
+            }
+          }
+
+          ul[class^='filter__dropdown-list'] {
+            background-color: $color-white;
+            border: rem(2) solid $gray-cool-10;
+            border-radius: rem(4);
+            box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+            transform: translate(0px, 0px);
+            width: max-content;
+            min-width: 100%;
+
+            .filter__dropdown-list-item {
+              padding-left: $global-margin * 2;
+              padding-right: $global-margin * 2;
+
+              button {
+                line-height: 1.5;
+              }
+            }
+
+            .filter__dropdown-list-item.active:hover {
+              background-color: $gray-cool-10;
+            }
+          }
+        }
+        .mobile-sort-toggle {
+        border: rem(1) solid $gray-cool-10;
+        height: fit-content;
+
+        .view-button {
+          border: none;
+          color: $theme-color-1;
+          padding: rem(6) rem(8);
+
+          &.active {
+            background-color: $blue-50;
+            color: $color-white;
+          }
+        }
+
+        button {
+          height: rem(30);
+          width: rem(31);
+        }
+
+        svg {
+          width: rem(16);
+        }
+      }
+      }
       .download {
         display: flex;
         justify-content: end;

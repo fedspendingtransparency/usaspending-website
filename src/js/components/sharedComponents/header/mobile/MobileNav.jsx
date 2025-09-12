@@ -4,9 +4,9 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transitioning";
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import Analytics from 'helpers/analytics/Analytics';
 import {
     spendingOptions,
@@ -131,8 +131,8 @@ const MobileNav = React.memo((props) => {
                                     <Link
                                         className="mobile-nav-content__link"
                                         to="/search"
-                                        title="Spending Explorer"
-                                        name="explorer"
+                                        title="Search"
+                                        name="search"
                                         onClick={clickedLink}>
                                         Search Award Data
                                     </Link>

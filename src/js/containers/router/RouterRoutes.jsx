@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import GlobalConstants from 'GlobalConstants';
 
 const HomepageUpdate = React.lazy(() => import('components/homepageUpdate/HomepageUpdate').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
@@ -52,22 +53,22 @@ export const routes = [
         exact: true
     },
     {
-        path: '/search',
+        path: GlobalConstants.SEARCH_LEGACY_PATH,
         component: SearchContainer,
         exact: true
     },
     {
-        path: '/searchv2',
+        path: GlobalConstants.SEARCH_V2_PATH,
         component: SearchContainerv2,
         exact: true
     },
     {
-        path: '/search/:urlHash',
+        path: `${GlobalConstants.SEARCH_LEGACY_PATH}/:urlHash`,
         component: SearchContainerRedirect,
         exact: true
     },
     {
-        path: '/searchv2/:urlHash',
+        path: `${GlobalConstants.SEARCH_V2_PATH}/:urlHash`,
         component: SearchContainerRedirectv2,
         exact: true
     },
@@ -149,7 +150,7 @@ export const routes = [
     },
     {
     // could be state name or fips code
-        path: '/state/:state/:fy',
+        path: '/state/:state/:fy?',
         component: StateContainer,
         exact: true
     },

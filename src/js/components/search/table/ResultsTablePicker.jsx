@@ -43,9 +43,9 @@ export default class ResultsTablePicker extends React.Component {
 
         const currentField = this.props.active;
         let label = '';
-        for (let i = 0; i < this.props.types.length; i++) {
-            if (this.props.types[i].internal === currentField) {
-                label = this.props.types[i].label;
+        for (const value of this.props.types) {
+            if (value.internal === currentField) {
+                label = value.label;
             }
         }
         let showPicker = 'hide';

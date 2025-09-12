@@ -12,4 +12,10 @@
     .selected-filters {
         @include selected-filter-wrap;
     }
+
+    .usa-da-typeahead__input .autocomplete-md {
+        @import "dtui-overrides";
+
+        @include new-search-button;
+    }
 }

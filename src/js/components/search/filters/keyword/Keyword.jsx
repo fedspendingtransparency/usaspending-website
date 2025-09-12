@@ -5,15 +5,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, TooltipWrapper } from "data-transparency-ui";
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import SelectedKeywords from './SelectedKeywords';
+import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
     selectedKeywords: PropTypes.array,
     toggleKeyword: PropTypes.func,
-    dirtyFilter: PropTypes.symbol
+    dirtyFilter: PropTypes.symbol,
+    searchV2: PropTypes.bool
 };
 
 export default class Keyword extends React.Component {
@@ -71,28 +75,56 @@ export default class Keyword extends React.Component {
             <div className="keyword-filter search-filter">
                 <form onSubmit={this.searchKeyword}>
                     <div className="filter-item-wrap">
+                        { this.props.searchV2 &&
+                            <div className="category-header">
+                                <div className="category-header--icon">
+                                    <FontAwesomeIcon icon="search" />
+                                </div>
+                                <div className="category-header--title">
+                                    Keyword
+                                </div>
+                                <TooltipWrapper icon="info" tooltipComponent={<KeyWordTooltip />} />
+                            </div>
+                        }
                         <div className="keyword-input-wrapper">
                             <input
                                 id="search"
                                 type="text"
                                 className="keyword-input"
-                                placeholder="Search by Keyword"
+                                placeholder={
+                                    this.props.searchV2 ?
+                                        "Search using keywords..." :
+                                        "Search by Keyword"
+                                }
                                 value={this.state.value}
                                 onChange={this.changedInput}
                                 ref={(input) => {
                                     this.searchInput = input;
                                 }} />
-                            <IndividualSubmit
-                                className="keyword-submit"
-                                onClick={this.searchKeyword}
-                                label="Filter by keyword"
-                                accessibility={accessibility} />
+                            { this.props.searchV2 ?
+                                <Button
+                                    copy="Add"
+                                    buttonTitle="Add"
+                                    buttonSize="sm"
+                                    buttonType="primary"
+                                    backgroundColor="light"
+                                    disabled={this.state.value.length === 0}
+                                    onClick={this.searchKeyword} />
+                                :
+                                <IndividualSubmit
+                                    className="keyword-submit"
+                                    onClick={this.searchKeyword}
+                                    label="Filter by keyword"
+                                    accessibility={accessibility} />
+                            }
                         </div>
                         {selectedKeywords}
+                        { !this.props.searchV2 &&
                         <SubmitHint
                             ref={(component) => {
                                 this.hint = component;
                             }} />
+                        }
                     </div>
                 </form>
             </div>

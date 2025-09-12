@@ -3,14 +3,14 @@
  * Created by Kevin Li 10/30/17
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId, isEqual } from 'lodash';
+import { uniqueId } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from "data-transparency-ui";
+
 import { defaultLocationValues }
     from "containers/search/filters/location/LocationPickerContainer";
-
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import EntityDropdownAutocomplete from './EntityDropdownAutocomplete';
@@ -33,204 +33,60 @@ const propTypes = {
     showDisclaimer: PropTypes.bool
 };
 
-const defaultProps = {
-    enabled: true,
-    matchKey: 'name',
-    type: "button",
-    loading: false,
-    showDisclaimer: false
-};
-
 const alphabetRegex = /([a-z]|[0-9])/;
 
-export default class EntityDropdown extends React.Component {
-    constructor(props) {
-        super(props);
+const EntityDropdown = ({
+    value,
+    placeholder,
+    title,
+    options,
+    selectEntity,
+    field,
+    enabled = true,
+    generateDisclaimer,
+    matchKey = 'name',
+    setSearchString,
+    searchString,
+    loading = false,
+    type = 'button',
+    showDisclaimer = false
+}) => {
+    const [expanded, setExpanded] = useState(false);
+    const [showWarning, setShowWarning] = useState(false);
 
-        this.state = {
-            expanded: false,
-            showWarning: false,
-            warningId: `location-field-warning-${uniqueId()}`
-        };
+    const wrapperDiv = useRef(null);
+    const dropdown = useRef(null);
 
-        this.dropdownRef = null;
+    const warningId = `location-field-warning-${uniqueId()}`;
+    const uniqueIdentifier = uniqueId();
+    const isAutocomplete = (type === 'autocomplete');
+    const autocompleteClass = isAutocomplete ? 'geo-entity-dropdown_autocomplete' : '';
+    const warningField = title.split(" (")[0];
 
-        this.toggleDropdown = this.toggleDropdown.bind(this);
-        this.closeDropdown = this.closeDropdown.bind(this);
-        this.openDropdown = this.openDropdown.bind(this);
-        this.focusNext = this.focusNext.bind(this);
-        this.focusPrev = this.focusPrev.bind(this);
-        this.pressedLetter = this.pressedLetter.bind(this);
-        this.clickedItem = this.clickedItem.bind(this);
-        this.handleDeselection = this.handleDeselection.bind(this);
+    let placeholderLocal = '';
+    let label = value.name;
+    let disabled = '';
+    let hideWarning = 'hide';
+    let dropdownRef = null;
 
-        this.getSelectedItemIdentifier = this.getSelectedItemIdentifier.bind(this);
+    const getSelectedItemIdentifier = () => value[matchKey];
 
-        this.mouseEnter = this.mouseEnter.bind(this);
-        this.mouseLeave = this.mouseLeave.bind(this);
-        this.handleTextInputChange = this.handleTextInputChange.bind(this);
-        this.resetSelectedItem = this.resetSelectedItem.bind(this);
-        this.handleOnKeyDown = this.handleOnKeyDown.bind(this);
-        this.handleOnKeyUp = this.handleOnKeyUp.bind(this);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.type === 'autocomplete' && (!isEqual(prevProps.options, this.props.options))) {
-            this.openDropdown();
-        }
-    }
-
-    getSelectedItemIdentifier() {
-        return this.props.value[this.props.matchKey];
-    }
-
-    resetSelectedItem() {
-        this.props.selectEntity(this.props.field, defaultLocationValues[this.props.field]);
-    }
-
-    handleTextInputChange(e) {
-        this.props.setSearchString(e.target.value);
-    }
-
-    handleOnKeyDown(e) {
-        if (e.key === 'Backspace') { // backspace
-            this.resetSelectedItem();
-        }
-    }
-
-    handleOnKeyUp(e) {
-        if (e.key === "Enter") {
-            this.setState({
-                expanded: true
-            });
-            this.handleTextInputChange(e);
-        }
-    }
-
-    handleDeselection(e) {
-        if (this.wrapperDiv && !this.wrapperDiv.contains(e.target)) {
-            // clicked outside the dropdown, close it
-            this.closeDropdown();
-        }
-    }
-
-    openDropdown() {
-        this.setState({ expanded: (this.props.options.length > 0) }, () => {
-            this.bindAccessibility();
-        });
-    }
-
-    closeDropdown(e) {
+    const closeDropdown = (e) => {
         if (e?.key === 'Escape' || e?.key === 'Enter' || e?.type === 'mouseup') {
-            this.setState({
-                expanded: false
-            }, () => {
-                if (this.dropdown) {
-                    this.dropdown.focus();
-                }
-                this.unbindAccessibility();
-            });
+            setExpanded(false);
         }
-    }
+    };
 
-    toggleDropdown(e) {
-        e.preventDefault();
-        if (this.state.expanded) {
-            this.closeDropdown();
-            return;
+    const handleDeselection = (e) => {
+        if (wrapperDiv.current && !wrapperDiv.current.contains(e.target)) {
+            // clicked outside the dropdown, close it
+            closeDropdown();
         }
+    };
 
-        if (this.props.enabled) this.openDropdown();
-    }
-
-    clickedItem(item) {
-        if (this.props.type === "autocomplete") {
-            // just update the search string, don't perform search
-            this.props.setSearchString(item.name, false);
-        }
-        if (this.props.title.includes("Original Congressional")) {
-            this.props.selectEntity("district_original", item);
-        }
-        else if (this.props.title.includes("Current Congressional")) {
-            this.props.selectEntity("district_current", item);
-        }
-        else if (item.code !== "NA-000") {
-            this.props.selectEntity(this.props.field, item);
-        }
-        this.closeDropdown();
-    }
-
-    bindAccessibility() {
-        document.addEventListener('mousedown', this.handleDeselection);
-        document.addEventListener('keyup', this.pressedLetter);
-
-        document.addEventListener('keyup', this.closeDropdown);
-        document.addEventListener('mouseup', this.closeDropdown);
-        document.addEventListener('keyup', this.focusNext);
-        document.addEventListener('keyup', this.focusPrev);
-
-        this.dropdownRef = this.wrapperDiv.querySelector('.geo-entity-list');
-
-        let activeSelection = this.wrapperDiv.querySelector('.active');
-        if (!activeSelection) {
-            // no item has been selected yet in the dropdown so focus on the first item
-            activeSelection = this.wrapperDiv.querySelector('.geo-entity-list .list-item');
-        }
-        if (this.props.type === "button") {
-            // we don't want to move focus to the dropdown if we're using autocomplete
-            activeSelection?.focus();
-        }
-    }
-
-    unbindAccessibility() {
-        document.removeEventListener('mousedown', this.handleDeselection);
-        document.removeEventListener('keyup', this.pressedLetter);
-
-        document.removeEventListener('keyup', this.closeDropdown);
-        document.removeEventListener('mouseup', this.closeDropdown);
-        document.removeEventListener('keyup', this.focusNext);
-        document.removeEventListener('keyup', this.focusPrev);
-    }
-
-    focusNext(e) {
-        const active = document.activeElement;
-        if (e.key === 'ArrowDown' && active && this.dropdownRef && this.dropdownRef.contains(active)) {
-            // a dropdown list item is currently selected
-            e.preventDefault();
-            // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
-            // add 1 to the index to bring them in line
-            const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
-            if (currentIndex + 1 <= this.props.options.length) {
-                // we're not at the end of the list
-                const nextItem = document.querySelector(`.geo-entity-list li:nth-child(${currentIndex + 1}) .list-item`);
-                if (nextItem) {
-                    nextItem.focus();
-                }
-            }
-        }
-    }
-
-    focusPrev(e) {
-        const active = document.activeElement;
-        if (e.key === 'ArrowUp' && active && this.dropdownRef && this.dropdownRef.contains(active)) {
-            // a dropdown list item is currently selected
-            e.preventDefault();
-            // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
-            // add 1 to the index to bring them in line
-            const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
-            if (currentIndex - 1 > 0) {
-                // we're not at the start of the list
-                const prevItem = document.querySelector(`.geo-entity-list li:nth-child(${currentIndex - 1}) .list-item`);
-                if (prevItem) {
-                    prevItem.focus();
-                }
-            }
-        }
-    }
-
-    pressedLetter(e) {
-    // check if the key press is a letter (only for non-autocomplete dropdowns)
-        if (this.props.type === "button" && (alphabetRegex.test(e.key))) {
+    const pressedLetter = (e) => {
+        // check if the key press is a letter (only for non-autocomplete dropdowns)
+        if (type === "button" && (alphabetRegex.test(e.key))) {
             // it is a letter
             e.preventDefault();
             // jump to the first entry
@@ -239,145 +95,270 @@ export default class EntityDropdown extends React.Component {
                 firstLetter.focus();
             }
         }
+    };
+
+    const focusNext = (e) => {
+        const active = document.activeElement;
+        if (e.key === 'ArrowDown' && active && dropdownRef && dropdownRef.contains(active)) {
+            // a dropdown list item is currently selected
+            e.preventDefault();
+            // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
+            // add 1 to the index to bring them in line
+            const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
+            if (currentIndex + 1 <= options.length) {
+                // we're not at the end of the list
+                const nextItem = document.querySelector(
+                    `.geo-entity-list li:nth-child(${currentIndex + 1}) .list-item`
+                );
+                if (nextItem) {
+                    nextItem.focus();
+                }
+            }
+        }
+    };
+
+    const focusPrev = (e) => {
+        const active = document.activeElement;
+        if (e.key === 'ArrowUp' && active && dropdownRef && dropdownRef.contains(active)) {
+            // a dropdown list item is currently selected
+            e.preventDefault();
+            // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
+            // add 1 to the index to bring them in line
+            const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
+            if (currentIndex - 1 > 0) {
+                // we're not at the start of the list
+                const prevItem = document.querySelector(
+                    `.geo-entity-list li:nth-child(${currentIndex - 1}) .list-item`
+                );
+                if (prevItem) {
+                    prevItem.focus();
+                }
+            }
+        }
+    };
+
+    const unbindAccessibility = () => {
+        document.removeEventListener('mousedown', handleDeselection);
+        document.removeEventListener('keyup', pressedLetter);
+
+        document.removeEventListener('keyup', closeDropdown);
+        document.removeEventListener('mouseup', closeDropdown);
+        document.removeEventListener('keyup', focusNext);
+        document.removeEventListener('keyup', focusPrev);
+    };
+
+    const clickedItem = (item) => {
+        if (type === "autocomplete") {
+            // just update the search string, don't perform search
+            setSearchString(item.name, false);
+        }
+        if (title.includes("Original Congressional")) {
+            selectEntity("district_original", item);
+        }
+        else if (title.includes("Current Congressional")) {
+            selectEntity("district_current", item);
+        }
+        else if (item.code !== "NA-000") {
+            selectEntity(field, item);
+        }
+        closeDropdown();
+    };
+
+    if (expanded && !loading) {
+        const selectedItem = getSelectedItemIdentifier();
+        dropdown.current = (<EntityDropdownList
+            matchKey={matchKey}
+            scope={field}
+            selectedItem={selectedItem}
+            options={options}
+            clickedItem={clickedItem} />);
+    }
+    else if (!expanded) {
+        dropdown.current = null;
     }
 
-    mouseEnter() {
-        const shouldShowWarning = (!this.props.enabled || this.props.showDisclaimer);
-        // If field is disabled, show the warning as to why if its not already showing
-        if (shouldShowWarning && !this.state.showWarning) {
-            this.setState({
-                showWarning: true
-            });
-        }
+    if (value.code === '') {
+        placeholderLocal = 'placeholder';
+        label = placeholder;
+    }
+    if (!enabled) {
+        disabled = 'disabled';
     }
 
-    mouseLeave() {
-        if (this.state.showWarning) {
-            this.setState({
-                showWarning: false
-            });
-        }
+    if (showWarning) {
+        // even if this is enabled, still showWarning b/c we're also showingDisclaimer now
+        hideWarning = '';
     }
 
-    render() {
-        const {
-            type, field, generateDisclaimer, title, enabled, options, value, searchString, loading, showDisclaimer
-        } = this.props;
+    const resetSelectedItem = () => {
+        selectEntity(field, defaultLocationValues[field]);
+    };
 
-        const isAutocomplete = (type === 'autocomplete');
-        const autocompleteClass = isAutocomplete ? 'geo-entity-dropdown_autocomplete' : '';
-        const warningField = title.split(" (")[0];
+    const handleTextInputChange = (e) => {
+        setSearchString(e.target.value);
+    };
 
-        let dropdown = null;
-        let placeholder = '';
-        let label = value.name;
-        let disabled = '';
-        let hideWarning = 'hide';
+    const handleOnKeyDown = (e) => {
+        if (e.key === 'Backspace') { // backspace
+            resetSelectedItem();
+        }
+    };
 
-        if (this.state.expanded && !loading) {
-            const selectedItem = this.getSelectedItemIdentifier();
-            dropdown = (<EntityDropdownList
-                matchKey={this.props.matchKey}
-                scope={this.props.field}
-                selectedItem={selectedItem}
-                options={this.props.options}
-                clickedItem={this.clickedItem} />);
+    const handleOnKeyUp = (e) => {
+        if (e.key === "Enter") {
+            setExpanded(true);
+            handleTextInputChange(e);
+        }
+    };
+
+    const openDropdown = () => {
+        setExpanded(options.length > 0);
+    };
+
+    const toggleDropdown = (e) => {
+        e.preventDefault();
+        if (expanded) {
+            closeDropdown();
+            return;
         }
 
-        if (value.code === '') {
-            placeholder = 'placeholder';
-            label = this.props.placeholder;
+        if (enabled) {
+            openDropdown();
         }
-        if (!this.props.enabled) {
-            disabled = 'disabled';
-        }
+    };
 
-        if (this.state.showWarning) {
-            // even if this is enabled, still showWarning b/c we're also showingDisclaimer now
-            hideWarning = '';
+    const bindAccessibility = () => {
+        document.addEventListener('mousedown', handleDeselection);
+        document.addEventListener('keyup', pressedLetter);
+
+        document.addEventListener('keyup', closeDropdown);
+        document.addEventListener('mouseup', closeDropdown);
+        document.addEventListener('keyup', focusNext);
+        document.addEventListener('keyup', focusPrev);
+
+        dropdownRef = wrapperDiv.current.querySelector('.geo-entity-list');
+
+        let activeSelection = wrapperDiv.current.querySelector('.active');
+        if (!activeSelection) {
+            // no item has been selected yet in the dropdown so focus on the first item
+            activeSelection = wrapperDiv.current.querySelector('.geo-entity-list .list-item');
         }
-        const uniqueIdentifier = uniqueId();
-        return (
-            <div
-                className="geo-entity-item">
-                <div className="location-label__with-tt">
-                    <label
-                        className={`location-label ${disabled}`}
-                        htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
-                        {this.props.title}
-                    </label>
-                    {this.props.title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
-                        <div>
-                            <TooltipWrapper
-                                className="advanced-search__cd-tooltip"
-                                icon="info"
-                                tooltipComponent={<CDTooltip />} />
-                        </div>
-                        : ''}
-                </div>
-                <div
-                    id={`${field}-${type}-${uniqueIdentifier}`}
-                    className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
-                    onMouseOver={this.mouseEnter}
-                    onFocus={this.mouseEnter}
-                    onMouseOut={this.mouseLeave}
-                    onBlur={this.mouseLeave}
-                    tabIndex={-1}
-                    ref={(div) => {
-                        this.wrapperDiv = div;
-                    }}>
-                    {!isAutocomplete &&
-                            <button
-                                id={`${field}-button`}
-                                className={`active-selection ${placeholder}`}
-                                onClick={this.toggleDropdown}
-                                title={label}
-                                aria-label={label}
-                                aria-haspopup="true"
-                                aria-expanded={this.state.expanded}
-                                aria-owns={`geo-dropdown-${field}`}
-                                aria-describedby={this.state.warningId}
-                                disabled={!enabled || options.length === 0}
-                                ref={(dd) => {
-                                    this.dropdown = dd;
-                                }}>
-                                <div className="label">
-                                    {label}
-                                </div>
-                                <div className="icon">
-                                    {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
-                                    {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
-                                </div>
-                            </button>
-                    }
-                    {isAutocomplete &&
-                            <EntityDropdownAutocomplete
-                                searchString={searchString}
-                                enabled={enabled}
-                                openDropdown={this.openDropdown}
-                                handleOnKeyDown={this.handleOnKeyDown}
-                                handleOnKeyUp={this.handleOnKeyUp}
-                                handleTextInputChange={this.handleTextInputChange}
-                                toggleDropdown={this.toggleDropdown}
-                                placeholder={this.props.placeholder}
-                                showDisclaimer={showDisclaimer}
-                                context={this} // used to create dropdown ref
-                                loading={loading} />
-                    }
-                    {dropdown}
-                </div>
-                {generateDisclaimer &&
-                <div
-                    className={`geo-warning ${hideWarning}`}
-                    id={this.state.warningId}
-                    aria-hidden={hideWarning === 'hide'}>
-                    <EntityWarning
-                        message={generateDisclaimer(warningField)} />
-                </div>}
+        if (type === "button") {
+            // we don't want to move focus to the dropdown if we're using autocomplete
+            activeSelection?.focus();
+        }
+    };
+
+    const mouseEnter = () => {
+        const shouldShowWarning = (!enabled || showDisclaimer);
+        // If field is disabled, show the warning as to why if it's not already showing
+        if (shouldShowWarning && !showWarning) {
+            setShowWarning(true);
+        }
+    };
+
+    const mouseLeave = () => {
+        if (showWarning) {
+            setShowWarning(false);
+        }
+    };
+
+    useEffect(() => {
+        if (type === 'autocomplete') {
+            openDropdown();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [options]);
+
+    useEffect(() => {
+        if (expanded) {
+            bindAccessibility();
+        }
+        else {
+            unbindAccessibility();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [expanded]);
+
+    return (
+        <div className="geo-entity-item">
+            <div className="location-label__with-tt">
+                <label
+                    className={`location-label ${disabled}`}
+                    htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
+                    {title}
+                </label>
+                {title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
+                    <div>
+                        <TooltipWrapper
+                            className="advanced-search__cd-tooltip"
+                            icon="info"
+                            tooltipComponent={<CDTooltip />} />
+                    </div>
+                    : ''}
             </div>
-        );
-    }
-}
+            <div
+                id={`${field}-${type}-${uniqueIdentifier}`}
+                className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
+                onMouseOver={mouseEnter}
+                onFocus={mouseEnter}
+                onMouseOut={mouseLeave}
+                onBlur={mouseLeave}
+                tabIndex={-1}
+                ref={(div) => {
+                    wrapperDiv.current = div;
+                }}>
+                {!isAutocomplete &&
+                        <button
+                            id={`${field}-button`}
+                            className={`active-selection ${placeholderLocal}`}
+                            onClick={toggleDropdown}
+                            title={label}
+                            aria-label={label}
+                            aria-haspopup="true"
+                            aria-expanded={expanded}
+                            aria-owns={`geo-dropdown-${field}`}
+                            aria-describedby={warningId}
+                            disabled={!enabled || options.length === 0}>
+                            <div className="label">
+                                {label}
+                            </div>
+                            <div className="icon">
+                                {expanded &&
+                                    <FontAwesomeIcon onClick={toggleDropdown} icon="chevron-up" />
+                                }
+                                {!expanded &&
+                                    <FontAwesomeIcon onClick={toggleDropdown} icon="chevron-down" />
+                                }
+                            </div>
+                        </button>
+                }
+                {isAutocomplete &&
+                        <EntityDropdownAutocomplete
+                            searchString={searchString}
+                            enabled={enabled}
+                            openDropdown={openDropdown}
+                            handleOnKeyDown={handleOnKeyDown}
+                            handleOnKeyUp={handleOnKeyUp}
+                            handleTextInputChange={handleTextInputChange}
+                            toggleDropdown={toggleDropdown}
+                            placeholder={placeholder}
+                            showDisclaimer={showDisclaimer}
+                            loading={loading} />
+                }
+                {dropdown.current}
+            </div>
+            {generateDisclaimer &&
+            <div
+                className={`geo-warning ${hideWarning}`}
+                id={warningId}
+                aria-hidden={hideWarning === 'hide'}>
+                <EntityWarning
+                    message={generateDisclaimer(warningField)} />
+            </div>}
+        </div>
+    );
+};
 
 EntityDropdown.propTypes = propTypes;
-EntityDropdown.defaultProps = defaultProps;
+export default EntityDropdown;

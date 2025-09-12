@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep } from 'lodash';
+import { debounce, get, flattenDeep } from 'lodash-es';
 import { connect } from 'react-redux';
 
 import {
@@ -150,8 +150,8 @@ export class TASCheckboxTree extends React.Component {
         if (shouldFetchChildren && !this.state.isSearch) {
             if (selectedNode.treeDepth === 1) {
                 const selectedAgency = this.props.nodes
-                    .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
-                const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
+                    .find((agency) => agency?.children.some((federalAccount) => federalAccount?.value === expandedValue));
+                const agencyAndFederalAccountString = `${selectedAgency?.value}/${expandedValue}`;
                 this.fetchTas(agencyAndFederalAccountString);
             }
             else {
@@ -241,11 +241,13 @@ export class TASCheckboxTree extends React.Component {
         if (this.props.nodes.length > 0) {
             const uncheckedFromHash = this.props.uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
             this.props.setUncheckedTas(uncheckedFromHash);
-            const realCheckedWithPlaceholders = flattenDeep(newChecked
-                .map((checked) => getAllDescendants(getTasNodeFromTree(this.props.nodes, checked), uncheckedFromHash))
-            );
-            this.props.setCheckedTas(realCheckedWithPlaceholders);
-            this.setState({ isLoading: false, isError: false });
+            setTimeout(() => {
+                const realCheckedWithPlaceholders = flattenDeep(newChecked
+                    .map((checked) => getAllDescendants(getTasNodeFromTree(this.props.nodes, checked), uncheckedFromHash))
+                );
+                this.props.setCheckedTas(realCheckedWithPlaceholders);
+                this.setState({ isLoading: false, isError: false });
+            }, 100);
         }
     };
 

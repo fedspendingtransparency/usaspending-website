@@ -6,7 +6,7 @@
 import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import statesBySqMile from "dataMapping/state/statesBySqMile";
 import kGlobalConstants from 'GlobalConstants';
@@ -24,7 +24,7 @@ const propTypes = {
 const delta = 100;
 
 // define map sources
-const mapStyle = 'mapbox://styles/usaspending/cm7503eul00fs01qugub70w9t';
+const mapStyle = 'mapbox://styles/usaspendingfrbkc/cm97fy9mm00g601qt032hg79g';
 
 const MapBox = forwardRef((props, ref) => {
     let componentUnmounted = false;

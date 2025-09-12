@@ -4,15 +4,14 @@
  */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Analytics from 'helpers/analytics/Analytics';
-import { Link } from "react-router-dom";
+import { uniqueId } from 'lodash-es';
+import { Link } from "react-router";
 import PropTypes from 'prop-types';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from '../../ExternalLink';
+import { showSlideout } from '../../../../helpers/slideoutHelper';
 
 const propTypes = {
     title: PropTypes.string,
@@ -45,11 +44,8 @@ const MobileDropdownItem = ({
     hideMobileNav,
     index
 }) => {
-    const dispatch = useDispatch();
-
     const openATD = (e) => {
-        dispatch(aboutTheDataActions.showAboutTheData());
-        dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        showSlideout('atd');
         e.preventDefault();
     };
     const clickedLink = (e) => {
@@ -64,7 +60,7 @@ const MobileDropdownItem = ({
             <div className="mobile-dropdown_parent-title">{title}</div>
             <div className={index >= 2 ? "mobile-dropdown_main-container" : ""}>
                 <div className={index >= 2 ? "mobile-dropdown__section-icon" : ""}>
-                    <FontAwesomeIcon icon={section1Options[index].icon} style={{ width: "12px", height: "100%" }} />
+                    {section1Options[index].icon && section1Options[index].icon !== null && section1Options[index].icon !== '' ? <FontAwesomeIcon icon={section1Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
                 </div>
                 <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
                     {section1Options[index].title}
@@ -77,8 +73,8 @@ const MobileDropdownItem = ({
                 {index === 1 ?
                     <>
                         <ul>
-                            {section1Items.map((item, i) => (
-                                <li key={i}>
+                            {section1Items.map((item) => (
+                                <li key={uniqueId()}>
                                     <Link
                                         to={item.url}
                                         onClick={clickedLink}
@@ -101,8 +97,8 @@ const MobileDropdownItem = ({
                     :
                     <>
                         <ul>
-                            {section1Items.map((item, i) => (
-                                <li className="mobile-dropdown__section" key={i}>
+                            {section1Items.map((item) => (
+                                <li className="mobile-dropdown__section" key={uniqueId()}>
                                     <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link">
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
@@ -120,7 +116,7 @@ const MobileDropdownItem = ({
             </div>
             <div className={index >= 2 ? "mobile-dropdown_main-container" : ""}>
                 <div className={section2Options[index].icon && section2Options[index].icon !== null && section2Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
-                    <FontAwesomeIcon role="presentation" icon={section2Options[index].icon} style={{ width: "12px", height: "100%" }} />
+                    {section2Options[index].icon && section2Options[index].icon !== '' && section2Options[index].icon !== null ? <FontAwesomeIcon role="presentation" icon={section2Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
                 </div>
                 <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
                     {section2Options[index].title}
@@ -132,8 +128,8 @@ const MobileDropdownItem = ({
             <div className="mobile-dropdown__section-container">
                 {index === 1 ?
                     <ul>
-                        {section2Items.map((item, i) => (
-                            <li key={i}>
+                        {section2Items.map((item) => (
+                            <li key={uniqueId()}>
                                 <Link
                                     className="mobile-dropdown__section-link"
                                     to={item.url}
@@ -154,8 +150,8 @@ const MobileDropdownItem = ({
                     :
                     <>
                         <ul>
-                            {section2Items.map((item, i) => (
-                                <li className="mobile-dropdown__section" key={i}>
+                            {section2Items.map((item) => (
+                                <li className="mobile-dropdown__section" key={uniqueId()}>
                                     <Link
                                         className="mobile-dropdown__section-link"
                                         to={item.url !== "?about-the-data" ? item.url : ''}
@@ -170,7 +166,8 @@ const MobileDropdownItem = ({
                                             if (item.url === '?about-the-data') {
                                                 openATD(e);
                                                 clickedLink(e);
-                                            } }
+                                            }
+                                        }
                                         }>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
@@ -189,7 +186,7 @@ const MobileDropdownItem = ({
             </div>
             <div className="mobile-dropdown_main-container">
                 <div className={section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
-                    <FontAwesomeIcon icon={section3Options[index].icon} style={{ width: "12px", height: "100%" }} />
+                    {section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? <FontAwesomeIcon icon={section3Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
                 </div>
                 <div>
                     <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
@@ -202,8 +199,8 @@ const MobileDropdownItem = ({
                         {index >= 2 &&
                 <>
                     <ul>
-                        {section3Items.map((item, i) => (
-                            <li className="mobile-dropdown__section-downloads" key={i}>
+                        {section3Items.map((item) => (
+                            <li className="mobile-dropdown__section-downloads" key={uniqueId()}>
                                 { isRedirectNeeded(item) ?
                                     <ExternalLink isCard={false} url={item.url}>
                                         <div className="mobile-dropdown__section-link">

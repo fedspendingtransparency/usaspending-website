@@ -4,10 +4,10 @@
  */
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { Redirect, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
+import GlobalConstants from 'GlobalConstants';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -28,10 +28,6 @@ import {
 } from './helpers/searchAnalytics';
 
 require('pages/search/searchPage.scss');
-
-const propTypes = {
-    history: PropTypes.object
-};
 
 /**
  * Takes Filter Object from API and transforms it to Immutable Data Structures
@@ -71,10 +67,11 @@ export const parseRemoteFilters = (data) => {
     return reduxValues;
 };
 
-const SearchContainerv2 = ({ history }) => {
+const SearchContainer = () => {
     const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
     const query = useQueryParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {
         filters: stagedFilters,
         download,
@@ -154,7 +151,7 @@ const SearchContainerv2 = ({ history }) => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        history.push('/searchv2');
+                        navigate(GlobalConstants.SEARCH_V2_PATH);
                         request.current = null;
                     }
                 });
@@ -183,10 +180,7 @@ const SearchContainerv2 = ({ history }) => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            history.replace({
-                pathname: '/searchv2',
-                search: ''
-            });
+            navigate(GlobalConstants.SEARCH_V2_PATH);
             setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -209,10 +203,8 @@ const SearchContainerv2 = ({ history }) => {
             .then((res) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
-                history.replace({
-                    pathname: `/searchv2/`,
-                    search: getQueryParamString(newQueryParams)
-                });
+                navigate(`${GlobalConstants.SEARCH_V2_PATH}${getQueryParamString(newQueryParams)}`, { replace: true });
+
                 setGenerateHashInFlight(false);
             })
             .catch((err) => {
@@ -264,20 +256,7 @@ const SearchContainerv2 = ({ history }) => {
     );
 };
 
-SearchContainerv2.propTypes = propTypes;
-export default SearchContainerv2;
+export default SearchContainer;
 
-export const SearchContainerRedirectv2 = () => {
-    const { urlHash: pathHash } = useParams();
-    return (
-        <Redirect
-            to={{
-                pathname: '/searchv2/',
-                search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
-            }} />
-    );
-};
+export const SearchContainerRedirectv2 = () => <></>;
 
-SearchContainerv2.propTypes = {
-    history: PropTypes.object.isRequired
-};

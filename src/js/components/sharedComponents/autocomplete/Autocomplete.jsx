@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { find, uniqueId } from 'lodash';
+import { find, uniqueId } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SuggestionHolder from './SuggestionHolder';

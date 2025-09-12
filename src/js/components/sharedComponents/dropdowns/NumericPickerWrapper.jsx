@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NewPicker from './NewPicker';
+import { NewPicker } from 'data-transparency-ui';
+
 import { allFiscalYears } from '../../../helpers/fiscalYearHelper';
 
 const propTypes = {
     size: PropTypes.string,
-    leftIcon: PropTypes.string,
     enabled: PropTypes.bool,
     backgroundColor: PropTypes.string,
     selectedValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

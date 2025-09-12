@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
+import { isEmpty } from 'lodash-es';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueFilterFields } from 'containers/search/helpers/searchAnalytics';
@@ -41,8 +42,8 @@ export class DownloadBottomBarContainer extends React.Component {
             expectedFile: '',
             expectedUrl: '',
             title: 'We\'re preparing your download(s)...',
-            descriptionOne: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. If you plan to close this page, copy your',
-            descriptionTwo: 'before you go.'
+            descriptionOne: 'Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ',
+            descriptionTwo: ' in your browser\'s address bar before closing this page.'
         };
 
         this.request = null;
@@ -55,18 +56,9 @@ export class DownloadBottomBarContainer extends React.Component {
         this.windowWillClose = this.windowWillClose.bind(this);
     }
 
-    componentDidMount() {
-        if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
-            !this.state.visible) {
-            this.requestDownload(this.props.filters,
-                this.props.download.columns, this.props.download.type);
-            this.displayBar();
-        }
-    }
-
     componentDidUpdate() {
         if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
-            !this.state.visible) {
+            !this.state.visible && this.props.download?.type && !isEmpty(this.props.filters)) {
             this.requestDownload(this.props.filters,
                 this.props.download.columns, this.props.download.type);
             this.displayBar();
@@ -87,8 +79,8 @@ export class DownloadBottomBarContainer extends React.Component {
             showError: false,
             showSuccess: false,
             title: 'We\'re preparing your download(s)...',
-            descriptionOne: 'Please note: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. If you plan to close this page, copy your',
-            descriptionTwo: 'before you go.'
+            descriptionOne: 'Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ',
+            descriptionTwo: ' in your browser\'s address bar before closing this page.'
         });
     }
 
@@ -145,7 +137,7 @@ export class DownloadBottomBarContainer extends React.Component {
         Analytics.event({
             event: 'advanced_search_download',
             category: 'Advanced Search - Download',
-            action: this.props.download.type,
+            action: this.props.download?.type,
             label: uniqueFilterFields(filters),
             gtm: true
         });

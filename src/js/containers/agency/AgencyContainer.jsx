@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from "react";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Navigate } from "react-router";
 import { isCancel } from "axios";
 import { useDispatch } from "react-redux";
 
@@ -87,7 +87,7 @@ export const AgencyProfileV2 = () => {
     );
 
     if (redirect) {
-        return <Redirect to="/404" />;
+        return <Navigate to="/404" />;
     }
     return (
         <AgencyPage

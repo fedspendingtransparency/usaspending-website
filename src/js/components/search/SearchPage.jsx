@@ -3,9 +3,9 @@
  * Created by Emily Gullo 10/14/2016
  **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle, uniqueId } from 'lodash-es';
 import { DownloadIconButton, ShareIcon, FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
@@ -24,7 +24,7 @@ import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./SubawardDropdown";
-import { setSearchViewSubaward } from "../../redux/actions/search/searchViewActions";
+import { setSearchViewSubaward, setSpendingLevel } from "../../redux/actions/search/searchViewActions";
 import ResultsView from "./newResultsView/ResultsView";
 
 require('pages/search/searchPage.scss');
@@ -61,6 +61,10 @@ const SearchPage = React.memo(({
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [fullSidebar, setFullSidebar] = useState(false);
+    const timerRef = useRef({
+        time: new Date().getTime(),
+        hasFired: false
+    });
 
     const dispatch = useDispatch();
     const getSlugWithHash = () => {
@@ -69,12 +73,14 @@ const SearchPage = React.memo(({
         }
         return slug;
     };
-
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const handleShare = (name) => {
         handleShareOptionClick(name, getSlugWithHash(), {
             subject: emailSubject,
             body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(getSlugWithHash())}`
-        });
+        }, handleShareDispatch);
     };
 
     /**
@@ -136,7 +142,7 @@ const SearchPage = React.memo(({
     }, [hash]);
 
     useEffect(() => {
-        setFullSidebar(<SearchSidebar filters={filters} hash={hash} />);
+        setFullSidebar(<SearchSidebar filters={filters} hash={hash} timerRef={timerRef} />);
         dispatch(setSearchViewSubaward(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -149,8 +155,15 @@ const SearchPage = React.memo(({
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown size="sm" label="Filter by:" enabled setSearchViewSubaward={setSearchViewSubaward} selectedValue="prime" />,
+                <SubawardDropdown
+                    size="sm"
+                    label="Filter by:"
+                    enabled
+                    setSearchViewSubaward={setSearchViewSubaward}
+                    setSpendingLevel={setSpendingLevel}
+                    selectedValue="awards" />,
                 <ShareIcon
+                    key={uniqueId()}
                     isEnabled
                     url={getBaseUrl(getSlugWithHash())}
                     onShareOptionClick={handleShare}
@@ -220,12 +233,13 @@ const SearchPage = React.memo(({
                     <FlexGridCol className="mobile-search-sidebar">
                         <MobileFilters
                             filters={filters}
-                            showMobileFilters={showMobileFilters} />
+                            showMobileFilters={showMobileFilters}
+                            timerRef={timerRef} />
                     </FlexGridCol>
                     <Helmet>
                         <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                     </Helmet>
-                    <FlexGridCol desktop={9} tablet={12} mobile={12}>
+                    <FlexGridCol desktop={9} tablet={12} mobile={12} className="search-page__results-view">
                         <ResultsView
                             filters={filters}
                             isMobile={isMobile}

@@ -3,7 +3,7 @@
  * Created by Kevin Li 3/24/17
  */
 
-import { concat } from 'lodash';
+import { concat } from 'lodash-es';
 
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';

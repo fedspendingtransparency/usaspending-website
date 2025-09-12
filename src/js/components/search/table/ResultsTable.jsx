@@ -3,247 +3,48 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
-import { isAwardAggregate } from 'helpers/awardSummaryHelper';
-import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import Analytics from 'helpers/analytics/Analytics';
-import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
-import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
-import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
-import ReadMore from '../../../components/sharedComponents/ReadMore';
+import ResultsTableRow from '../../../models/v2/search/ResultsTableRow';
 
-const headerHeight = 68; // tall enough for two lines of text since allowing subtitles
+const propTypes = {
+    results: PropTypes.array,
+    columns: PropTypes.object,
+    visibleWidth: PropTypes.number,
+    loadNextPage: PropTypes.func,
+    spendingLevel: PropTypes.string,
+    tableInstance: PropTypes.string,
+    sort: PropTypes.object,
+    updateSort: PropTypes.func,
+    awardIdClick: PropTypes.func,
+    subAwardIdClick: PropTypes.func,
+    page: PropTypes.number,
+    setPage: PropTypes.func,
+    setResultLimit: PropTypes.func,
+    total: PropTypes.number,
+    isMobile: PropTypes.bool,
+    federalAccountPage: PropTypes.bool,
+    referenceData: PropTypes.array
+};
 
-export default class ResultsTable extends React.Component {
-    static propTypes = {
-        results: PropTypes.array,
-        columns: PropTypes.object,
-        visibleWidth: PropTypes.number,
-        loadNextPage: PropTypes.func,
-        subaward: PropTypes.bool,
-        tableInstance: PropTypes.string,
-        sort: PropTypes.object,
-        updateSort: PropTypes.func,
-        awardIdClick: PropTypes.func,
-        subAwardIdClick: PropTypes.func,
-        page: PropTypes.number,
-        setPage: PropTypes.func,
-        setResultLimit: PropTypes.func,
-        total: PropTypes.number,
-        isMobile: PropTypes.bool
+const ResultsTable = (props) => {
+    // eslint-disable-next-line no-unused-vars
+    const [windowHeight, setWindowHeight] = useState(0);
+    // eslint-disable-next-line no-unused-vars
+    const [tableHeight, setTableHeight] = useState(0);
+    // eslint-disable-next-line no-unused-vars
+    const [activateRightFade, setActivateRightFade] = useState(!props.isMobile);
+
+    const measureHeight = () => {
+        const tableHeightlocal = document.getElementById("advanced-search__table-wrapper").offsetHeight;
+        setTableHeight(tableHeightlocal);
+        setWindowHeight(window.innerHeight);
     };
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            currentRows: [],
-            cols: this.prepareDTUIColumns(),
-            windowHeight: 0,
-            tableHeight: 0,
-            activateRightFade: !props.isMobile,
-            windowWidth: 0
-        };
-
-        this.headerCellRender = this.headerCellRender.bind(this);
-        this.bodyCellRender = this.bodyCellRender.bind(this);
-        this.prepareDTUIColumns = this.prepareDTUIColumns.bind(this);
-        this.prepareDTUIRows = this.prepareDTUIRows.bind(this);
-        this.prepareTable = this.prepareTable.bind(this);
-        this.measureHeight = this.measureHeight.bind(this);
-        this.clickHandler = this.clickHandler.bind(this);
-    }
-
-    componentDidMount() {
-        this.measureHeight();
-        window.addEventListener('resize', this.measureHeight);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.tableInstance !== this.props.tableInstance) {
-            // table type has changed, reset the scroll
-            if (this.tableComponent) {
-                this.tableComponent.reloadTable();
-            }
-        }
-
-        if (prevProps.isMobile !== this.props.isMobile) {
-            if (this.props.isMobile) {
-                // eslint-disable-next-line react/no-did-update-set-state
-                this.setState({
-                    activateRightFade: false
-                });
-            }
-            else {
-                // eslint-disable-next-line react/no-did-update-set-state
-                (this.setState({
-                    activateRightFade: true
-                }));
-            }
-        }
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.measureHeight);
-    }
-
-    measureHeight() {
-        const tableHeight = document.getElementById("advanced-search__table-wrapper").offsetHeight;
-        this.setState({
-            tableHeight,
-            windowHeight: window.innerHeight
-        });
-    }
-
-    headerCellRender(columnIndex) {
-        const columnId = this.props.columns.visibleOrder[columnIndex];
-        const column = this.props.columns.data[columnId];
-        const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.length;
-        let isActive = this.props.sort.field === column.columnName;
-
-        if (!isActive && column.columnName === 'Action Date' && this.props.sort.field === 'Sub-Award Date') {
-            isActive = true;
-        }
-        return (
-            <ResultsTableHeaderCell
-                isLast={isLast}
-                isActive={isActive}
-                title={column.columnName}
-                displayName={column.displayName}
-                subtitle={column.subtitle}
-                background={column.background}
-                defaultDirection={column.defaultDirection}
-                currentSort={this.props.sort}
-                updateSort={this.props.updateSort}
-                headerHeight={headerHeight} />
-        );
-    }
-
-    bodyCellRender(columnIndex, rowIndex) {
-        const columnId = this.props.columns.visibleOrder[columnIndex];
-        const column = this.props.columns.data[columnId];
-        let cellClass = ResultsTableFormattedCell;
-        const props = {
-            rowIndex,
-            columnIndex,
-            value: this.props.results[rowIndex][columnId],
-            dataType: awardTableColumnTypes[columnId]
-        };
-
-        if (column.columnName === 'Award ID') {
-            cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].generated_internal_id;
-            props.column = 'award';
-            if (this.props.awardIdClick) {
-                props.onClick = () => this.props.awardIdClick(props.id);
-            }
-        }
-        else if (column.columnName === 'Total Outlays') {
-            if (!this.props.results[rowIndex]['Total Outlays']) {
-                props.value = '--';
-            }
-        }
-        else if ((column.columnName === 'Sub-Award ID') && this.props.subaward) {
-            const row = this.props.results[rowIndex];
-            cellClass = ResultsTableLinkCell;
-            props.column = 'award';
-            props.id = row.prime_award_generated_internal_id;
-            props.onClick = this.props.subAwardIdClick.bind(null, `${row['Sub-Award ID']} (${props.id})`);
-        }
-        else if ((column.columnName === 'Action Date') && this.props.subaward) {
-            props.value = this.props.results[rowIndex]['Sub-Award Date'];
-        }
-        else if (column.columnName === 'Recipient Name' && this.props.results[rowIndex].recipient_id) {
-            cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].recipient_id;
-            props.column = 'recipient';
-        }
-        else if (column.columnName === 'Prime Recipient Name' && this.props.results[rowIndex].prime_award_recipient_id) {
-            // for Sub-Awards
-            cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].prime_award_recipient_id;
-            props.column = 'recipient';
-        }
-        else if (column.columnName === 'Awarding Agency' && this.props.results[rowIndex].awarding_agency_id) {
-            cellClass = ResultsTableLinkCell;
-            props.id = this.props.results[rowIndex].agency_slug || this.props.results[rowIndex].awarding_agency_id;
-            props.column = 'agency';
-        }
-        else if (column.columnName === 'Prime Award ID') {
-            const primeAwardId = this.props.results[rowIndex].prime_award_generated_internal_id;
-            if (primeAwardId) {
-                cellClass = ResultsTableLinkCell;
-                props.id = primeAwardId;
-                props.column = 'award';
-                props.value = isAwardAggregate(primeAwardId)
-                    ? primeAwardId
-                    : props.value;
-            }
-            else {
-                // primeAwardId null case
-                props.value = '- -';
-            }
-        }
-        else if (
-            (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays')
-            && !this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
-            props.value = '--';
-        }
-        else if (column.columnName === 'def_codes') {
-            if (!this.props.results[rowIndex].def_codes) {
-                props.value = '--';
-            }
-            else {
-                props.value = this.props.results[rowIndex].def_codes.join(", ");
-            }
-        }
-        else if (column.columnName === 'Description') {
-            if (!this.props.results[rowIndex].Description) {
-                props.value = '--';
-            }
-            else {
-                props.value = this.props.results[rowIndex].Description;
-            }
-        }
-        else if (column.columnName === 'Infrastructure Obligations' || column.columnName === 'Infrastructure Outlays') {
-            if (!this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
-                props.value = '--';
-            }
-        }
-        return React.createElement(
-            cellClass,
-            props
-        );
-    }
-
-    prepareTable() {
-        let totalWidth = 0;
-
-        const columnOrder = this.props.columns.visibleOrder;
-        const columns = columnOrder.map((columnTitle) => {
-            const column = this.props.columns.data[columnTitle];
-            const columnX = totalWidth;
-            totalWidth += column.width;
-
-            return {
-                x: columnX,
-                width: column.width
-            };
-        });
-
-        return {
-            columns,
-            width: totalWidth
-        };
-    }
-
-    prepareDTUIColumns() {
-        const columnOrder = this.props.columns.visibleOrder;
+    const prepareDTUIColumns = () => {
+        const columnOrder = props.columns.visibleOrder;
         const orderedColumns = columnOrder.map((columnTitle) => {
-            const column = this.props.columns.data[columnTitle];
+            const column = props.columns.data[columnTitle];
             return column;
         });
 
@@ -256,249 +57,159 @@ export default class ResultsTable extends React.Component {
             right: col.right || false
         }));
         return columns;
-    }
-
-    clickHandler(linkName) {
-        Analytics.event({
-            category: 'Section table',
-            action: `Clicked ${linkName}`
-        });
-    }
-
-    prepareDTUIRows() {
+    };
+    const prepareDTUIRows = () => {
         // limit = 10
         // page = 1, need 0-9
         // page = 2, need 10 - 19 etc
         // (page * limit) - 1 end
         // (page - 1) * limit start
-        const arrayOfObjects = this.props.results;
+        const arrayOfObjects = props.results;
         let values = null;
-        // check for not subaward && loans
-        if (!this.props.subaward) {
-            if (this.props.currentType === "loans") {
-                values = arrayOfObjects.map((obj) => {
-                    const value = [];
-                    value.push(
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={`/award/${obj.generated_internal_id}`}
-                            onClick={() => {
-                                this.clickHandler(obj['Award ID']);
-                            }}>{obj['Award ID']}
-                        </a> || '--',
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={`/recipient/${obj.recipient_id}`}
-                            onClick={() => {
-                                this.clickHandler(obj['Recipient Name']);
-                            }}>{obj['Recipient Name']}
-                        </a> || '--',
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Subsidy Cost'], 2, "--"),
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Loan Value'], 2, "--"),
-                        <ReadMore
-                            text={obj.Description || '--'}
-                            limit={90} />,
-                        obj['Contract Award Type'] || obj['Award Type'] || '--',
-                        obj.def_codes || '--',
-                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
-                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={`/agency/${obj.agency_slug}`}
-                            onClick={() => {
-                                this.clickHandler(obj['Awarding Agency']);
-                            }}>{obj['Awarding Agency']}
-                        </a> || '--',
-                        obj['Awarding Sub Agency'] || '--',
-                        obj['Issued Date'] || '--'
-                    );
 
-                    return value;
+        // check for prime awards && loans
+        if (
+            props.spendingLevel === 'awards' ||
+            props.federalAccountPage === true
+        ) {
+            if (props.currentType === "loans") {
+                values = arrayOfObjects.map((obj) => {
+                    const loanrow = Object.create(ResultsTableRow);
+                    loanrow.populateLoan(obj);
+                    return Object.values(loanrow);
                 });
                 return values;
             }
-            else if (this.props.currentType === "direct_payments") {
+            else if (props.currentType === "direct_payments") {
                 values = arrayOfObjects.map((obj) => {
-                    const value = [];
-                    value.push(
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={`/award/${obj.generated_internal_id}`}
-                            onClick={() => {
-                                this.clickHandler(obj['Award ID']);
-                            }}>{obj['Award ID']}
-                        </a> || '--',
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={`/recipient/${obj.recipient_id}`}
-                            onClick={() => {
-                                this.clickHandler(obj['Recipient Name']);
-                            }}>{obj['Recipient Name']}
-                        </a> || '--',
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
-                        <ReadMore
-                            text={obj.Description || '--'}
-                            limit={90} />,
-                        <ReadMore
-                            text={obj['Contract Award Type'] || obj['Award Type'] || '--'}
-                            limit={65} />,
-                        obj.def_codes || '--',
-                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
-                        MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
-                        MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href={`/agency/${obj.agency_slug}`}
-                            onClick={() => {
-                                this.clickHandler(obj['Awarding Agency']);
-                            }}>{obj['Awarding Agency']}
-                        </a> || '--',
-                        obj['Awarding Sub Agency'] || '--',
-                        obj['Start Date'] || '--',
-                        obj['End Date'] || '--'
-                    );
-
-                    return value;
+                    const directPaymentRow = Object.create(ResultsTableRow);
+                    directPaymentRow.populateDirectPayment(obj);
+                    return Object.values(directPaymentRow);
                 });
                 return values;
             }
 
-            // not loans or direct payments
+            // grants and other
+            else if (props.currentType === "grants" || props.currentType === "other") {
+                values = arrayOfObjects.map((obj) => {
+                    const grantRow = Object.create(ResultsTableRow);
+                    grantRow.populateGrant(obj);
+                    return Object.values(grantRow);
+                });
+
+                return values;
+            }
+
+            // contracts and contract idvs
             values = arrayOfObjects.map((obj) => {
-                const value = [];
-                value.push(
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={`/award/${obj.generated_internal_id}`}
-                        onClick={() => {
-                            this.clickHandler(obj['Award ID']);
-                        }}>{obj['Award ID']}
-                    </a> || '--',
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={`/recipient/${obj.recipient_id}`}
-                        onClick={() => {
-                            this.clickHandler(obj['Recipient Name']);
-                        }}>{obj['Recipient Name']}
-                    </a> || '--',
-                    MoneyFormatter.formatMoneyWithPrecision(obj['Award Amount'], 2, "--"),
-                    MoneyFormatter.formatMoneyWithPrecision(obj['Total Outlays'], 2, "--"),
-                    <ReadMore
-                        text={obj.Description || '--'}
-                        limit={90} />,
-                    obj['Contract Award Type'] || obj['Award Type'] || '--',
-                    obj.def_codes || '--',
-                    MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Obligations'], 2, "--"),
-                    MoneyFormatter.formatMoneyWithPrecision(obj['COVID-19 Outlays'], 2, "--"),
-                    MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Obligations'], 2, "--"),
-                    MoneyFormatter.formatMoneyWithPrecision(obj['Infrastructure Outlays'], 2, "--"),
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={`/agency/${obj.agency_slug}`}
-                        onClick={() => {
-                            this.clickHandler(obj['Awarding Agency']);
-                        }}>{obj['Awarding Agency']}
-                    </a> || '--',
-                    obj['Awarding Sub Agency'] || '--',
-                    obj['Start Date'] || '--',
-                    obj['End Date'] || obj['Last Date to Order'] || '--'
-                );
-
-                return value;
+                const contractRow = Object.create(ResultsTableRow);
+                contractRow.populateContract(obj);
+                return Object.values(contractRow);
             });
             return values;
         }
 
+        // check for transactions
+        else if (props.spendingLevel === 'transactions') {
+            // check for contract or contract idv
+            if (props.currentType === "transaction_contracts" || props.currentType === "transaction_idvs" || props.currentType === "contracts") {
+                values = arrayOfObjects.map((obj) => {
+                    const transactionContractRow = Object.create(ResultsTableRow);
+                    transactionContractRow.populateTransactionContract(obj);
+                    return Object.values(transactionContractRow);
+                });
+            }
+            else {
+                values = arrayOfObjects.map((obj) => {
+                    const transactionContractRow = Object.create(ResultsTableRow);
+                    transactionContractRow.populateTransactionDefault(obj);
+                    return Object.values(transactionContractRow);
+                });
+            }
+
+            return values;
+        }
+
         // subaward
-        values = arrayOfObjects.map((obj) => {
-            const value = [];
-            value.push(
-                <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`/award/${obj.prime_award_generated_internal_id}`}
-                    onClick={() => {
-                        this.clickHandler(obj['Sub-Award ID']);
-                    }}>{obj['Sub-Award ID']}
-                </a> || '--',
-                obj['Sub-Awardee Name'] || '--',
-                MoneyFormatter.formatMoneyWithPrecision(obj['Sub-Award Amount'], 2, "--"),
-                obj['Sub-Award Date'] || '--',
-                <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`/award/${obj.prime_award_generated_internal_id}`}
-                    onClick={() => {
-                        this.clickHandler(obj['Prime Award ID']);
-                    }}>{obj['Prime Award ID']}
-                </a> || '--',
-                <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`/recipient/${obj.prime_award_recipient_id}`}
-                    onClick={() => {
-                        this.clickHandler(obj['Prime Recipient Name']);
-                    }}>{obj['Prime Recipient Name']}
-                </a> || '--',
-                obj['Awarding Agency'] || '--',
-                obj['Awarding Sub Agency'] || '--'
-            );
+        // TODO: i have a feeling this will need to be adjusted in the future for some group by options for subawards
+        // the same may be true for transactions
+        if (props.currentType === "subcontracts" || (props.columnType === "subawards" && (props.currentType === "contracts" || props.currentType === "idvs"))) {
+            values = arrayOfObjects.map((obj) => {
+                const subcontractRow = Object.create(ResultsTableRow);
+                subcontractRow.populateSubcontract(obj);
+                return Object.values(subcontractRow);
+            });
+        }
 
-            return value;
-        });
+        else {
+            values = arrayOfObjects.map((obj) => {
+                const defaultRow = Object.create(ResultsTableRow);
+                defaultRow.populateDefault(obj);
+                return Object.values(defaultRow);
+            });
+        }
+
         return values;
-    }
+    };
 
-    render() {
-        const cols = this.prepareDTUIColumns();
-        const limitedRows = this.prepareDTUIRows();
-        // for table height take the height of the viewport
-        // subtract the sticky header part on the top of the page
-        // tab height for the tables
-        // 16 pixel space between the tabs
-        // pagination on the bottom, so you can actually see the pages
-        return (
-            <>
-                <div
-                    className="advanced-search__table-wrapper"
-                    id="advanced-search__table-wrapper"
-                    style={this.props.resultsCount >= this.props.resultsLimit ? { height: '638px' } : {}}>
-                    <Table
-                        classNames="table-for-new-search-page award-results-table-dtui"
-                        stickyFirstColumn={!this.props.isMobile}
-                        columns={cols}
-                        rows={limitedRows}
-                        rowHeight={this.props.isMobile ? null : 58}
-                        headerRowHeight={45}
-                        subAward={this.props.subaward}
-                        currentSort={this.props.sort}
-                        updateSort={this.props.updateSort}
-                        isMobile={this.props.isMobile}
-                        isStacked />
-                </div>
-                <Pagination
-                    resultsText
-                    limitSelector
-                    hideLast={this.props.resultsCount >= 50000}
-                    currentPage={this.props.page}
-                    pageSize={this.props.resultsLimit}
-                    changePage={this.props.setPage}
-                    changeLimit={this.props.setResultLimit}
-                    totalItems={this.props.resultsCount} />
-            </>
-        );
-    }
-}
+    useEffect(() => {
+        measureHeight();
+        window.addEventListener('resize', measureHeight);
+        return () => window.removeEventListener('resize', measureHeight);
+    }, []);
+
+
+    useEffect(() => {
+        if (props.isMobile) {
+            setActivateRightFade(false);
+        }
+        else {
+            setActivateRightFade(true);
+        }
+    }, [props.isMobile]);
+    const cols = prepareDTUIColumns();
+    const limitedRows = prepareDTUIRows();
+    // for table height take the height of the viewport
+    // subtract the sticky header part on the top of the page
+    // tab height for the tables
+    // 16 pixel space between the tabs
+    // pagination on the bottom, so you can actually see the pages
+    return (
+        <>
+            <div
+                className="advanced-search__table-wrapper"
+                id="advanced-search__table-wrapper"
+                style={props.resultsCount >= props.resultsLimit ? { height: '638px' } : {}}>
+                <Table
+                    classNames="table-for-new-search-page award-results-table-dtui"
+                    stickyFirstColumn={!props.isMobile}
+                    columns={cols}
+                    rows={limitedRows}
+                    rowHeight={props.isMobile ? null : 58}
+                    headerRowHeight={45}
+                    highlightedColumns={props.spendingLevel === 'subawards' ? {
+                        standardColumns: 9,
+                        highlightedColumns: props.currentType === "subcontracts" ? 7 : 6
+                    } : null}
+                    currentSort={props.sort}
+                    updateSort={props.updateSort}
+                    isMobile={props.isMobile}
+                    isStacked
+                    newMobileView />
+
+            </div>
+            <Pagination
+                resultsText
+                limitSelector
+                hideLast={props.resultsCount >= 50000}
+                currentPage={props.page}
+                pageSize={props.resultsLimit}
+                changePage={props.setPage}
+                changeLimit={props.setResultLimit}
+                totalItems={props.resultsCount} />
+        </>
+    );
+};
+
+ResultsTable.propTypes = propTypes;
+export default ResultsTable;

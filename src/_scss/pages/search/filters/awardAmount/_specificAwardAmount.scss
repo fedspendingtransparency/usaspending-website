@@ -61,6 +61,7 @@
         .specific-award-amount-column {
             margin-right: .5 * $global-margin;
             width: 100%;
+
             .award-amount-label {
                 display: block;
                 font-size: $font-size-10;
@@ -68,6 +69,10 @@
                 line-height: 1.5;
                 color: $gray-60;
                 margin-bottom: .5 * $global-margin;
+            }
+
+            input {
+                font-size: $smallest-font-size;
             }
         }
 
@@ -83,8 +88,10 @@
         }
 
         .award-amount-submit {
-            height: rem(32);
+            @import "dtui-overrides";
+
             margin: 0;
+            @include new-search-button;
         }
 
         @media only screen and (min-width:1342px) {

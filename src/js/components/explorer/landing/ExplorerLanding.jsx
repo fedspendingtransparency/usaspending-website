@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Link } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
+import { Link } from 'react-router';
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 
@@ -97,21 +97,21 @@ export default class ExplorerLanding extends React.Component {
                             icon="budget_function"
                             title="Budget Function"
                             description="See spending divided by a high level categorization based on purpose."
-                            url="explorer/budget_function"
+                            url="/explorer/budget_function"
                             term="budget-function"
                             onClick={this.setShowAboutTheDataIcon} />
                         <ExplorerLandingOption
                             icon="agency"
                             title="Agency"
                             description="See spending divided by all U.S. government agencies."
-                            url="explorer/agency"
+                            url="/explorer/agency"
                             term="agency"
                             onClick={this.setShowAboutTheDataIcon} />
                         <ExplorerLandingOption
                             icon="object_class"
                             title="Object Class"
                             description="See spending grouped by the types of items and services purchased by the federal government."
-                            url="explorer/object_class"
+                            url="/explorer/object_class"
                             term="object-class"
                             onClick={this.setShowAboutTheDataIcon} />
                     </div>

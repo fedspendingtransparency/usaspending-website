@@ -3,9 +3,9 @@
  * Created by Kevin Li 3/21/17
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import { SectionHeader } from "data-transparency-ui";
 import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
@@ -19,91 +19,87 @@ const propTypes = {
     hasFilteredObligated: PropTypes.bool
 };
 
-export default class AccountTimeVisualizationSection extends React.Component {
-    constructor(props) {
-        super(props);
+const AccountTimeVisualizationSection = ({
+    data,
+    loading,
+    visualizationPeriod,
+    changePeriod,
+    hasFilteredObligated
+}) => {
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [visualizationWidth, setVisualizationWidth] = useState(0);
 
-        this.state = {
-            windowWidth: 0,
-            visualizationWidth: 0
-        };
+    const sectionHr = useRef(null);
 
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-    }
-
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-    }
-
-    handleWindowResize() {
+    const handleWindowResize = throttle(() => {
     // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
+        const windowWidthLocal = window.innerWidth;
+        if (windowWidthLocal !== windowWidth) {
             // width changed, update the visualization width
-            this.setState({
-                windowWidth,
-                visualizationWidth: this.sectionHr.offsetWidth
-            });
+            setWindowWidth(windowWidthLocal);
+            setVisualizationWidth(sectionHr.current.offsetWidth);
         }
-    }
+    }, 50);
 
-    render() {
-        return (
-            <div
-                className="results-visualization-time-section"
-                id="results-section-time">
-                <SectionHeader
-                    title="Spending Over Time"
-                    titleTooltip={{ component: false }}
-                    descTooltip={{ component: false }} />
-                <hr
-                    className="results-divider"
-                    ref={(hr) => {
-                        this.sectionHr = hr;
-                    }} />
+    useEffect(() => {
+        handleWindowResize();
+        window.addEventListener('resize', handleWindowResize);
 
-                <div className="visualization-top">
-                    <div className="visualization-description">
-                        <div className="content">
-                            Spot trends in spending over your chosen time period. Filter your
-                            results more (at left) and watch this graph update automatically. Break
-                            down your results by years or quarters.
-                        </div>
-                    </div>
-                    <div className="visualization-period">
-                        <div className="content">
-                            <ul>
-                                <li>
-                                    <AccountTimeVisualizationPeriodButton
-                                        value="year"
-                                        label="Years"
-                                        active={this.props.visualizationPeriod === 'year'}
-                                        changePeriod={this.props.changePeriod} />
-                                </li>
-                                <li>
-                                    <AccountTimeVisualizationPeriodButton
-                                        value="quarter"
-                                        label="Quarters"
-                                        active={this.props.visualizationPeriod === 'quarter'}
-                                        changePeriod={this.props.changePeriod} />
-                                </li>
-                            </ul>
-                        </div>
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    return (
+        <div
+            className="results-visualization-time-section"
+            id="results-section-time">
+            <SectionHeader
+                title="Spending Over Time"
+                titleTooltip={{ component: false }}
+                descTooltip={{ component: false }} />
+            <hr
+                className="results-divider"
+                ref={(hr) => {
+                    sectionHr.current = hr;
+                }} />
+
+            <div className="visualization-top">
+                <div className="visualization-description">
+                    <div className="content">
+                        Spot trends in spending by years or quarters.
+                        Filter your chosen results (at left) and watch this graph update automatically.
                     </div>
                 </div>
-                <TimeVisualization
-                    loading={this.props.loading}
-                    data={this.props.data}
-                    width={this.state.visualizationWidth}
-                    hasFilteredObligated={this.props.hasFilteredObligated} />
+                <div className="visualization-period">
+                    <div className="content">
+                        <ul>
+                            <li>
+                                <AccountTimeVisualizationPeriodButton
+                                    value="year"
+                                    label="Years"
+                                    active={visualizationPeriod === 'year'}
+                                    changePeriod={changePeriod} />
+                            </li>
+                            <li>
+                                <AccountTimeVisualizationPeriodButton
+                                    value="quarter"
+                                    label="Quarters"
+                                    active={visualizationPeriod === 'quarter'}
+                                    changePeriod={changePeriod} />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        );
-    }
-}
+            <TimeVisualization
+                loading={loading}
+                data={data}
+                width={visualizationWidth}
+                hasFilteredObligated={hasFilteredObligated} />
+        </div>
+    );
+};
 
 AccountTimeVisualizationSection.propTypes = propTypes;
+export default AccountTimeVisualizationSection;

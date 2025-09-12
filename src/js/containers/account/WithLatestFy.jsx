@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { isCancel } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
 import { getLatestPeriodAsDayjs, getLatestPeriod } from 'helpers/accountHelper';
@@ -81,7 +81,7 @@ export const useLatestAccountData = () => {
     * by using the latest submission periods as a reference.
 */
 export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = null, requiredParams = ['fy', 'period']) => {
-    const history = useHistory();
+    const history = useNavigate();
     const existingParams = useQueryParams();
     // eslint-disable-next-line eqeqeq
     if (existingParams.fy && existingParams.fy != parseInt(existingParams.fy, 10)) {
@@ -98,10 +98,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
     const updateUrl = (newParamsAsObj) => {
         const newQueryParams = combineQueryParams(existingParams, newParamsAsObj);
         setYearAndPeriod(newParamsAsObj);
-        history.replace({
-            pathname: ``,
-            search: getQueryParamString(newQueryParams)
-        });
+        history(`${getQueryParamString(newQueryParams)}`, { replace: true });
     };
 
     const handleTimeChange = useCallback((y, p = null) => {

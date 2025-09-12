@@ -6,6 +6,9 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
+import Accounting from 'accounting';
+import { uniqueId } from "lodash-es";
+
 import { recipientTypes } from 'dataMapping/search/recipientType';
 import SearchAwardsOperation from "./SearchAwardsOperation";
 import ShownValue from "../../../components/search/filters/otherFilters/ShownValue";
@@ -19,7 +22,7 @@ import {
     removeStagedTasFilter
 } from "../../../helpers/tasHelper";
 import { formatAwardAmountRange } from "../../../helpers/awardAmountHelper";
-import { awardTypeCodes } from "../../../dataMapping/search/awardType";
+import { awardTypeCodes, awardTypeGroups } from "../../../dataMapping/search/awardType";
 import {
     extentCompetedDefinitions,
     pricingTypeDefinitions,
@@ -32,6 +35,8 @@ import {
     removeStagedPscFilter
 } from "../../../helpers/pscHelper";
 import { trimCheckedToCommonAncestors } from "../../../helpers/checkboxTreeHelper";
+import { dateRangeChipLabel, locationChipLabel } from "../../../helpers/searchHelper";
+import { defCodes, defCodeGroups } from "../../../dataMapping/search/defCodes";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -70,6 +75,22 @@ const SearchSidebarFilterChips = ({
         filtersData.infraDefCode = filters.infraDefCode.toArray();
     };
 
+    const isSubset = (array1, array2) => array2.every((element) => array1.includes(element));
+
+    const addChip = (removeFilter, label) => {
+        const removeChip = (e) => {
+            e.stopPropagation();
+            removeFilter();
+        };
+
+        chips.push(
+            <ShownValue
+                label={label}
+                removeValue={removeChip}
+                key={uniqueId('selected-filter-chips__')} />
+        );
+    };
+
     const getLocationChips = () => {
         // Add Locations
         if (filtersData.selectedLocations?.length > 0) {
@@ -85,7 +106,11 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`POP | ${location.display.entity} | ${location.display.title}`}
+                        label={
+                            `Place of Performance: ${
+                                locationChipLabel(location.display.entity, location)
+                            }`
+                        }
                         removeValue={removeFilter} />);
             });
         }
@@ -103,7 +128,11 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`Recipient | ${location.display.entity} | ${location.display.title}`}
+                        label={
+                            `Recipient Location: ${
+                                locationChipLabel(location.display.entity, location)
+                            }`
+                        }
                         removeValue={removeFilter} />);
             });
         }
@@ -128,10 +157,12 @@ const SearchSidebarFilterChips = ({
                         });
                     };
 
+                    const dateLabel = dateRangeChipLabel(timePeriod);
+
                     chips.push((
                         <ShownValue
                             key={index}
-                            label={`Applied date range: ${timePeriod.start_date} to ${timePeriod.end_date}`}
+                            label={dateLabel}
                             removeValue={(e) => removeDateRange(timePeriod.start_date, timePeriod.end_date, e)} />
                     ));
                 });
@@ -146,7 +177,7 @@ const SearchSidebarFilterChips = ({
 
                     chips.push(
                         <ShownValue
-                            label={fy}
+                            label={`FY ${fy}`}
                             removeValue={removeFY} />
                     );
                 });
@@ -166,7 +197,7 @@ const SearchSidebarFilterChips = ({
 
             chips.push(
                 <ShownValue
-                    label={`Description | ${filtersData.awardDescription}`}
+                    label={filtersData.awardDescription}
                     removeValue={removeAwardsDescription} />
             );
         }
@@ -185,7 +216,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`Award ID | ${id} `}
+                        label={id}
                         removeValue={removeAwardID} />
                 );
             });
@@ -232,22 +263,58 @@ const SearchSidebarFilterChips = ({
         }
 
         if (filtersData.contractAwardType?.length > 0) {
-            filtersData.contractAwardType.forEach((type) => {
-                const removeAwardType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.contractAwardType.delete(type);
-                    props.updateGenericFilter({
-                        type: 'contractAwardType',
-                        value: newValue
-                    });
-                };
+            let contractsGrouped = false;
+            let contractIdvsGrouped = false;
 
-                chips.push(
-                    <ShownValue
-                        label={`Contract Award Type: ${awardTypeCodes[type]}`}
-                        removeValue={removeAwardType} />
+            if (isSubset(filtersData.contractAwardType, awardTypeGroups.contracts)) {
+                contractsGrouped = true;
+                addChip(
+                    () => props.bulkContractAwardTypeChange({
+                        types: awardTypeGroups.contracts,
+                        direction: 'remove'
+                    }),
+                    "All Contracts"
                 );
-            });
+            }
+
+            if (isSubset(filtersData.contractAwardType, awardTypeGroups.idvs)) {
+                contractIdvsGrouped = true;
+                addChip(
+                    () => props.bulkContractAwardTypeChange({
+                        types: awardTypeGroups.idvs,
+                        direction: 'remove'
+                    }),
+                    "All Contract IDVs"
+                );
+            }
+
+            if (!contractsGrouped || !contractIdvsGrouped) {
+                let contractAwardTypes = filtersData.contractAwardType;
+
+                if (contractsGrouped) {
+                    contractAwardTypes = contractAwardTypes.filter(
+                        (type) => !awardTypeGroups.contracts.includes(type)
+                    );
+                }
+                else if (contractIdvsGrouped) {
+                    contractAwardTypes = contractAwardTypes.filter(
+                        (type) => !awardTypeGroups.idvs.includes(type)
+                    );
+                }
+
+                contractAwardTypes.forEach((awardType) => {
+                    addChip(
+                        () => {
+                            const newValue = filters.contractAwardType.delete(awardType);
+                            props.updateGenericFilter({
+                                type: 'contractAwardType',
+                                value: newValue
+                            });
+                        },
+                        awardTypeCodes[awardType]
+                    );
+                });
+            }
         }
 
         if (filtersData.naicsCodes.require?.length > 0) {
@@ -273,7 +340,7 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`NAICS | ${value} - ${label} (${count})`}
+                        label={`NAICS | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removeNaics} />
                 );
             });
@@ -305,86 +372,144 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`PSC | ${value} - ${label} (${count})`}
+                        label={`PSC | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removePsc} />
                 );
             });
         }
 
         if (filtersData.pricingType?.length > 0) {
-            filtersData.pricingType.forEach((type) => {
-                const removePricingType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.pricingType.delete(type);
-                    props.updateGenericFilter({
-                        type: 'pricingType',
-                        value: newValue
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Pricing Type | ${pricingTypeDefinitions[type]}`}
-                        removeValue={removePricingType} />
+            filtersData.pricingType.forEach((pricingType) => {
+                addChip(
+                    () => {
+                        const newValue = filters.pricingType.delete(pricingType);
+                        props.updateGenericFilter({
+                            type: 'pricingType',
+                            value: newValue
+                        });
+                    },
+                    pricingTypeDefinitions[pricingType]
                 );
             });
         }
 
         if (filtersData.setAside?.length > 0) {
-            filtersData.setAside.forEach((type) => {
-                const removePricingType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.setAside.delete(type);
-                    props.updateGenericFilter({
-                        type: 'setAside',
-                        value: newValue
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Set Aside | ${setAsideDefinitions[type]}`}
-                        removeValue={removePricingType} />
+            filtersData.setAside.forEach((setAside) => {
+                addChip(
+                    () => {
+                        const newValue = filters.setAside.delete(setAside);
+                        props.updateGenericFilter({
+                            type: 'setAside',
+                            value: newValue
+                        });
+                    },
+                    setAsideDefinitions[setAside]
                 );
             });
         }
 
         if (filtersData.extentCompeted?.length > 0) {
-            filtersData.extentCompeted.forEach((type) => {
-                const removePricingType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.extentCompeted.delete(type);
-                    props.updateGenericFilter({
-                        type: 'extentCompeted',
-                        value: newValue
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Extent Competed | ${extentCompetedDefinitions[type]}`}
-                        removeValue={removePricingType} />
+            filtersData.extentCompeted.forEach((extentCompeted) => {
+                addChip(
+                    () => {
+                        const newValue = filters.extentCompeted.delete(extentCompeted);
+                        props.updateGenericFilter({
+                            type: 'extentCompeted',
+                            value: newValue
+                        });
+                    },
+                    extentCompetedDefinitions[extentCompeted]
                 );
             });
         }
 
         if (filtersData.financialAssistanceAwardType?.length > 0) {
-            filtersData.financialAssistanceAwardType.forEach((type) => {
-                const removeAwardType = (e) => {
-                    e.stopPropagation();
-                    const newValue = filters.financialAssistanceAwardType.delete(type);
-                    props.updateGenericFilter({
-                        type: 'financialAssistanceAwardType',
-                        value: newValue
-                    });
-                };
+            let grantsGrouped = false;
+            let directPaymentsGrouped = false;
+            let loansGrouped = false;
+            let otherGrouped = false;
 
-                chips.push(
-                    <ShownValue
-                        label={`Financial Assistance Award Type: ${awardTypeCodes[type]}`}
-                        removeValue={removeAwardType} />
+            if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.grants)) {
+                grantsGrouped = true;
+                addChip(
+                    () => props.bulkFinancialAssistanceAwardTypeChange({
+                        types: awardTypeGroups.grants,
+                        direction: 'remove'
+                    }),
+                    "All Grants"
                 );
-            });
+            }
+
+            if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.direct_payments)) {
+                directPaymentsGrouped = true;
+                addChip(
+                    () => props.bulkFinancialAssistanceAwardTypeChange({
+                        types: awardTypeGroups.direct_payments,
+                        direction: 'remove'
+                    }),
+                    "All Direct Payments"
+                );
+            }
+
+            if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.loans)) {
+                loansGrouped = true;
+                addChip(
+                    () => props.bulkFinancialAssistanceAwardTypeChange({
+                        types: awardTypeGroups.loans,
+                        direction: 'remove'
+                    }),
+                    "All Loans"
+                );
+            }
+
+            if (isSubset(filtersData.financialAssistanceAwardType, awardTypeGroups.other)) {
+                otherGrouped = true;
+                addChip(
+                    () => props.bulkFinancialAssistanceAwardTypeChange({
+                        types: awardTypeGroups.other,
+                        direction: 'remove'
+                    }),
+                    "All Other"
+                );
+            }
+
+            if (!grantsGrouped || !directPaymentsGrouped || !loansGrouped || !otherGrouped) {
+                let financialAwardTypes = filtersData.financialAssistanceAwardType;
+
+                if (grantsGrouped) {
+                    financialAwardTypes = financialAwardTypes.filter(
+                        (type) => !awardTypeGroups.grants.includes(type)
+                    );
+                }
+                if (directPaymentsGrouped) {
+                    financialAwardTypes = financialAwardTypes.filter(
+                        (type) => !awardTypeGroups.direct_payments.includes(type)
+                    );
+                }
+                if (loansGrouped) {
+                    financialAwardTypes = financialAwardTypes.filter(
+                        (type) => !awardTypeGroups.loans.includes(type)
+                    );
+                }
+                if (otherGrouped) {
+                    financialAwardTypes = financialAwardTypes.filter(
+                        (type) => !awardTypeGroups.other.includes(type)
+                    );
+                }
+
+                financialAwardTypes.forEach((awardType) => {
+                    addChip(
+                        () => {
+                            const newValue = filters.financialAssistanceAwardType.delete(awardType);
+                            props.updateGenericFilter({
+                                type: 'financialAssistanceAwardType',
+                                value: newValue
+                            });
+                        },
+                        awardTypeCodes[awardType]
+                    );
+                });
+            }
         }
 
         if (filtersData.selectedCFDA?.length > 0) {
@@ -406,34 +531,21 @@ const SearchSidebarFilterChips = ({
     const getRecipientChips = () => {
         if (filtersData.selectedRecipients?.length > 0) {
             filters.selectedRecipients.forEach((recipient) => {
-                const removeRecipient = (e) => {
-                    e.stopPropagation();
-                    props.updateSelectedRecipients(recipient);
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Recipient | ${recipient}`}
-                        removeValue={removeRecipient} />
-                );
+                addChip(() => props.updateSelectedRecipients(recipient), recipient);
             });
         }
 
         if (filtersData.recipientType?.length > 0) {
-            filtersData.recipientType.forEach((type) => {
-                const removeRecipientType = (e) => {
-                    e.stopPropagation();
-                    const newRecipientTypes = filters.recipientType.delete(type);
-                    props.updateGenericFilter({
-                        type: 'recipientType',
-                        value: newRecipientTypes
-                    });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Recipient Type | ${recipientTypes[type]}`}
-                        removeValue={removeRecipientType} />
+            filtersData.recipientType.forEach((recipientType) => {
+                addChip(
+                    () => {
+                        const newRecipientTypes = filters.recipientType.delete(recipientType);
+                        props.updateGenericFilter({
+                            type: 'recipientType',
+                            value: newRecipientTypes
+                        });
+                    },
+                    recipientTypes[recipientType]
                 );
             });
         }
@@ -496,40 +608,61 @@ const SearchSidebarFilterChips = ({
 
                 chips.push(
                     <ShownValue
-                        label={`TAS | ${value} - ${label} (${count})`}
+                        label={`TAS | ${value} - ${label} (${Accounting.formatNumber(count, 'thousand')})`}
                         removeValue={removeTas} />
                 );
             });
         }
 
         if (filtersData.covidDefCode?.length > 0) {
-            filtersData.covidDefCode.forEach((covid) => {
-                const removeCovidDefCodes = (e) => {
-                    e.stopPropagation();
-                    props.toggleCovidDefCode({ value: covid });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`COVID-19 Spending (${covid})`}
-                        removeValue={removeCovidDefCodes} />
+            if (isSubset(filtersData.covidDefCode, defCodeGroups.covid)) {
+                addChip(
+                    () => props.bulkCovidDefCodeChange({
+                        types: defCodeGroups.covid,
+                        direction: 'remove'
+                    }),
+                    'All COVID-19 Spending'
                 );
-            });
+            }
+            else {
+                filtersData.covidDefCode.forEach((covid) => {
+                    addChip(
+                        () => props.toggleCovidDefCode({ value: covid }),
+                        `${covid}: ${
+                            defCodes[covid].title.substring(0, 30)
+                        }... ${
+                            defCodes[covid]
+                                .public_law
+                                .includes('Non-emergency') ? '(Non-emergency)' : '(Emergency)'
+                        }`
+                    );
+                });
+            }
         }
 
         if (filtersData.infraDefCode?.length > 0) {
-            filtersData.infraDefCode.forEach((infra) => {
-                const removeInfraDefCodes = (e) => {
-                    e.stopPropagation();
-                    props.toggleInfraDefCode({ value: infra });
-                };
-
-                chips.push(
-                    <ShownValue
-                        label={`Infrastructure Spending (${infra})`}
-                        removeValue={removeInfraDefCodes} />
+            if (isSubset(filtersData.infraDefCode, defCodeGroups.infrastructure)) {
+                addChip(
+                    () => props.bulkInfraDefCodeChange({
+                        types: defCodeGroups.infrastructure,
+                        direction: 'remove'
+                    }),
+                    'All Infrastructure Spending'
                 );
-            });
+            }
+            else {
+                filtersData.infraDefCode.forEach((infra) => {
+                    addChip(() => props.toggleInfraDefCode({ value: infra }),
+                        `${infra}: ${
+                            defCodes[infra].title.substring(0, 30)
+                        }... ${
+                            defCodes[infra]
+                                .public_law
+                                .includes('Non-emergency') ? '(Non-emergency)' : '(Emergency)'
+                        }`
+                    );
+                });
+            }
         }
     };
 

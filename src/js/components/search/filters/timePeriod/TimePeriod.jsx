@@ -4,6 +4,7 @@
  **/
 
 import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Set } from 'immutable';
@@ -40,7 +41,6 @@ const propTypes = {
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
-    subaward: PropTypes.bool,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
     federalAccountPage: PropTypes.bool,
@@ -64,7 +64,6 @@ const TimePeriod = ({
     changeTab,
     disableDateRange = false,
     dirtyFilters,
-    subaward,
     newAwardsOnlySelected,
     newAwardsOnlyActive,
     federalAccountPage,
@@ -78,6 +77,7 @@ const TimePeriod = ({
     const [errorMessage, setErrorMessage] = useState('');
     const [header, setHeader] = useState('');
     const [dateRangeChipRemoved, setDateRangeChipRemoved] = useState(false);
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const prevProps = usePrevious({ filterTimePeriodFY, filterTimePeriod });
     const prevState = usePrevious({
         startDateUI, endDateUI, startDateDropdown, endDateDropdown
@@ -100,15 +100,15 @@ const TimePeriod = ({
     };
 
     const synchronizeDatePickers = (nextProps) => {
-    // synchronize the date picker state to Redux controlled props
-    // convert start/end date strings to dayjs objects
+        // synchronize the date picker state to Redux controlled props
+        // convert start/end date strings to dayjs objects
         let datesChanged = false;
         const newState = {};
 
         // check if the start date changed
         if (nextProps.filterTimePeriodStart !== filterTimePeriodStart) {
             const startDate = dayjs(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
-            // start date did change and it is a valid date (not null)
+            // start date did change, and it is a valid date (not null)
             if (startDate.isValid()) {
                 datesChanged = true;
                 newState.startDateUI = startDate;
@@ -254,7 +254,9 @@ const TimePeriod = ({
             hideError={hideError}
             removeDateRange={removeDateRange}
             updateFilter={updateFilter}
-            header={header} />);
+            header={header}
+            setStartDate={setStartDateUI}
+            setEndDate={setEndDateUI} />);
         activeClassDR = '';
     }
 
@@ -262,20 +264,21 @@ const TimePeriod = ({
         activeClassDR = 'hidden';
     }
 
+    const isSubAward = spendingLevel === "subawards";
     const newAwardsFilter = (
         <div className={`new-awards-wrapper ${activeClassDR}`}>
             <label
                 htmlFor="new-awards-checkbox">
                 <input
                     type="checkbox"
-                    className={`new-awards-checkbox ${subaward || !newAwardsOnlyActive ? 'not-active' : ''}`}
+                    className={`new-awards-checkbox ${isSubAward || !newAwardsOnlyActive ? 'not-active' : ''}`}
                     id="new-awards-checkbox"
                     value="new-awards-checkbox"
-                    disabled={subaward || !newAwardsOnlyActive}
-                    checked={newAwardsOnlySelected}
+                    disabled={isSubAward || !newAwardsOnlyActive}
+                    checked={newAwardsOnlySelected && !isSubAward}
                     onChange={newAwardsClick}
                     onKeyUp={(e) => enterKeyToggleHandler(e)} />
-                <span className={`new-awards-label ${subaward || !newAwardsOnlyActive ? 'not-active' : ''}`}>
+                <span className={`new-awards-label ${isSubAward || !newAwardsOnlyActive ? 'not-active' : ''}`}>
                     Show New Awards Only
                 </span>
             </label>
@@ -287,11 +290,6 @@ const TimePeriod = ({
 
     const tabLabels = [
         {
-            internal: 'dr',
-            label: 'Custom dates',
-            title: 'Custom dates'
-        },
-        {
             internal: 'fy',
             label: (
                 <div>
@@ -299,6 +297,11 @@ const TimePeriod = ({
                 </div>
             ),
             title: 'Fiscal years'
+        },
+        {
+            internal: 'dr',
+            label: 'Custom dates',
+            title: 'Custom dates'
         }
     ];
 

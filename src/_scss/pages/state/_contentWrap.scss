@@ -1,33 +1,257 @@
 .state-content {
-    background-color: $color-white;
-    color: $color-base;
+	background-color: $color-white;
+	color: $color-base;
 
-    .state-section {
-        h3.state-section__title {
-            margin: 0;
-            font-size: $h3-font-size;
-            font-weight: 300;
-            line-height: rem(47);
-        }
+	.state-section {
+		h3.state-section__title {
+			margin: 0;
+			font-size: $h3-font-size;
+			font-weight: 300;
+			line-height: rem(47);
+		}
 
-        .state-section__description {
-            font-size: $lead-font-size;
-            font-weight: 300;
-            line-height: rem(25);
-            padding-bottom: rem(35);
-        }
+		.state-section__description {
+			font-size: $lead-font-size;
+			font-weight: 300;
+			line-height: rem(25);
+			padding-bottom: rem(35);
+		}
 
-        hr.results-divider {
+		.state__controls-desktop {
+			margin-bottom: $global-margin * 2;
+
+			@import '../../components/roundedtoggle';
+
+			@media(min-width: $large-screen) {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			// DTUI NewPicker.jsx override
+			.filter__dropdown-button-list-container {
+				.advanced-search-dropdown__button {
+					max-width: 100%;
+					position: relative;
+				}
+
+				[class*="filter__dropdown-button"] {
+					margin: 0;
+					border-color: $gray-cool-10;
+					text-align: start;
+
+					.filter__dropdown-button-text {
+						margin-right: rem(8);
+						font-size: rem(16);
+						line-height: rem(24);
+						color: $gray-60;
+						opacity: 1;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+
+					.filter__dropdown-chevron svg {
+						color: $theme-color-1;
+						opacity: 1;
+						vertical-align: middle;
+					}
+				}
+
+				ul[class^='filter__dropdown-list'] {
+					background-color: $color-white;
+					border: rem(2) solid $gray-cool-10;
+					border-radius: rem(4);
+					box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+					transform: translate(0px, 0px);
+					width: max-content;
+					min-width: 100%;
+
+					.filter__dropdown-list-item {
+						padding-left: $global-margin * 2;
+						padding-right: $global-margin * 2;
+
+						button {
+							line-height: 1.5;
+						}
+					}
+
+					.filter__dropdown-list-item.active:hover {
+						background-color: $gray-cool-10;
+					}
+				}
+			}
+
+
+			.state__right {
+				display: flex;
+			}
+
+			.state__line-div {
+				@media(min-width: $large-screen) {
+					border-right: 1px solid $color-gray-lighter;
+					line-height: 24px;
+					height: 24px;
+					margin-left: 8px;
+				}
+			}
+
+			// overrides to level out the text in the row
+			.rounded-toggle__wrapper {
+				margin-top: rem(2);
+			}
+
+			.accordion-container {
+				.accordion {
+					.heading {
+						padding-top: rem(10);
+					}
+				}
+			}
+
+			.accordion-container {
+				@media(max-width: $tablet-screen) {
+					margin-bottom: rem(4);
+				}
+				@media(min-width: $tablet-screen) {
+					margin-left: rem(10);
+				}
+			}
+
+			.accordion-container .heading {
+				height: 14px;
+				color: $color-primary;
+				border: none;
+				font-size: $font-size-14;
+				max-width: rem(120);
+				padding: 0;
+				margin: 0;
+				justify-content: unset !important;
+
+				&:hover,
+				&:active,
+				&:focus,
+				&:visited {
+					color: $color-primary-darker;
+				}
+
+				@media(min-width: $tablet-screen) {
+					padding-top: rem(8);
+				}
+			}
+
+			.accordion-container .plus {
+				width: 10px;
+				height: 10px;
+
+				&:hover,
+				&:active,
+				&:focus,
+				&:visited {
+					color: $color-primary-darker;
+				}
+			}
+
+			.accordion-container .minus {
+				width: 10px;
+				height: 10px;
+
+				&:hover,
+				&:active,
+				&:focus,
+				&:visited {
+					color: $color-primary-darker;
+				}
+			}
+
+			.accordion-container .toggle {
+				color: $color-primary;
+				font-size: $font-size-14;
+				font-weight: $font-semibold;
+				padding-left: rem(6);
+
+				&:hover,
+				&:active,
+				&:focus,
+				&:visited {
+					color: $color-primary-darker;
+				}
+
+				@media(min-width: $tablet-screen) {
+					padding-right: rem(6);
+				}
+			}
+
+			.accordion-container .open .content {
+				display: none;
+			}
+		}
+
+		.state__what-content {
+			border-left: 8px solid $color-primary-alt-light;
+			border-top: 1px solid $color-primary-alt-light;
+			border-right: 1px solid $color-primary-alt-light;
+			border-bottom: 1px solid $color-primary-alt-light;
+			background-color: #e0f3f8;
+			padding: 24px 16px;
+			margin-left: 24px;
+			margin-right: 8px;
+			margin-bottom: 16px;
+			@media(max-width: $tablet-screen) {
+				margin-left: 0;
+				margin-right: 0;
+			}
+			@media(min-width: $tablet-screen) and (max-width: $medium-screen) {
+				margin-left: 0;
+				margin-right: 0;
+				margin-top: 32px;
+			}
+			.state__what-heading {
+				font-size: $font-size-16;
+				font-weight: $font-semibold;
+				display: inline-block;
+				margin: 0;
+				margin-left: 18px;
+				color: $gray-90;
+			}
+
+			.state__what-second-heading {
+				font-size: $font-size-16;
+				font-weight: $font-semibold;
+				display: inline-block;
+				color: $gray-90;
+				margin: 24px 16px 0 40px;
+			}
+
+			.state__what-text {
+				margin-left: 40px;
+				font-size: $font-size-14;
+				color: $color-base;
+				margin-bottom: 0;
+				margin-top: 8px;
+			}
+
+			.state__emphasis {
+				font-weight: $font-semibold;
+			}
+		}
+		.usda-glossary-link{
+			color: $color-gray-light;
+			&:hover, &:active, &:focus, &:visited {
+				color: $color-gray-medium;
+			}
+		}
+		hr.results-divider {
 			width: 100%;
 			height: rem(2);
 			background: #494440;
 			border: none;
 			margin: rem(8) 0 rem(8) 0;
-        }
+		}
 
-        .state-section__row {
-            width: 100%;
-            margin-bottom: rem(32);
+		.state-section__row {
+			width: 100%;
+			margin-bottom: rem(32);
+
 			@include media($tablet-screen) {
 				@include display(flex);
 			}
@@ -89,8 +313,10 @@
 					}
 				}
 			}
+
 			.state-section__viz {
 				width: 100%;
+
 				@include media($tablet-screen) {
 					@include flex(1 1 50%);
 				}
@@ -102,10 +328,12 @@
 					@include button-unstyled;
 					color: $blue-50;
 					margin-top: rem(16);
-					font-size: rem(14);
+					font-size: $font-size-14;
 					width: fit-content;
+
 					&:hover {
 						color: $blue-70v;
+
 						svg {
 							fill: $blue-70v;
 						}
@@ -113,10 +341,10 @@
 				}
 			}
 		}
-    }
+	}
 
-    @import "./overview/overview";
-    @import "./topFive/topFive";
-    @import "./spendingovertime/stateTimeVisualization";
-    @import "./tables";
+	@import "./overview/overview";
+	@import "./topFive/topFive";
+	@import "./spendingovertime/stateTimeVisualization";
+	@import "./tables";
 }

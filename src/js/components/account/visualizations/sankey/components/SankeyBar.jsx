@@ -15,35 +15,28 @@ const propTypes = {
     color: PropTypes.string
 };
 
-const defaultProps = {
-    description: ''
+const SankeyBar = ({
+    width, height, x, y, description = '', color
+}) => {
+    if (height <= 0 || width <= 0) {
+        // don't display anything if there's no value
+        return null;
+    }
+
+    return (
+        <g
+            transform={`translate(${x},${y})`}
+            aria-label={description}>
+            <desc>{description}</desc>
+            <rect
+                fill={color}
+                x="0"
+                y="0"
+                width={width}
+                height={height} />
+        </g>
+    );
 };
 
-export default class SankeyBar extends React.Component {
-    render() {
-        if (this.props.height <= 0) {
-            // don't display anything if there's no value
-            return null;
-        }
-        else if (this.props.width <= 0) {
-            return null;
-        }
-
-        return (
-            <g
-                transform={`translate(${this.props.x},${this.props.y})`}
-                aria-label={this.props.description}>
-                <desc>{this.props.description}</desc>
-                <rect
-                    fill={this.props.color}
-                    x="0"
-                    y="0"
-                    width={this.props.width}
-                    height={this.props.height} />
-            </g>
-        );
-    }
-}
-
 SankeyBar.propTypes = propTypes;
-SankeyBar.defaultProps = defaultProps;
+export default SankeyBar;

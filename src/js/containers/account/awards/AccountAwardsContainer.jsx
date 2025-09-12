@@ -3,14 +3,12 @@
  * Created by Kevin Li 4/13/17
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId } from 'lodash';
-
+import { uniqueId } from 'lodash-es';
 import { measureTableHeader } from 'helpers/textMeasurement';
-
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -23,12 +21,10 @@ import { SectionHeader } from "data-transparency-ui";
 const propTypes = {
     account: PropTypes.object,
     filters: PropTypes.object,
-    subaward: PropTypes.bool
+    spendingLevel: PropTypes.string
 };
 
-const AccountAwardsContainer = (props) => {
-    let tabCountRequest = null;
-    let searchRequest = null;
+const AccountAwardsContainer = ({ account, filters, spendingLevel = 'awards' }) => {
     const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [columns, setColumns] = useState({});
     const [sort, setSort] = useState({
@@ -48,20 +44,28 @@ const AccountAwardsContainer = (props) => {
     // eslint-disable-next-line no-unused-vars
     const [searchParams, setSearchParams] = useState(new AccountAwardSearchOperation());
 
+    const tabCountRequest = useRef(null);
+    const searchRequest = useRef(null);
+
     const performSearch = useCallback((newSearch = false) => {
-        if (searchRequest) {
+        if (searchRequest.current) {
             // a request is currently in-flight, cancel it
-            searchRequest.cancel();
+            searchRequest.current.cancel();
         }
 
         // create a search operation instance from the Redux filters using the account ID
-        const searchOperation = new AccountAwardSearchOperation(props.account.id);
-        searchOperation.fromState(props.filters);
+        const searchOperation = new AccountAwardSearchOperation(account.id);
+        searchOperation.fromState(filters);
         searchOperation.awardType = awardTypeGroups[tableType];
-        const newParams = searchOperation.spendingByAwardTableParams(props);
+
+        const newParams = searchOperation.spendingByAwardTableParams(
+            { account, filters }
+        );
+
         // indicate the request is about to start
         setInFlight(true);
         setError(false);
+
         let pageNumber = page;
         if (newSearch) {
             // a new search (vs just getting more pages of an existing search) requires resetting
@@ -88,15 +92,18 @@ const AccountAwardsContainer = (props) => {
         newParams.limit = resultLimit;
         newParams.order = sort.direction;
         newParams.page = pageNumber;
+
         // sort field
         newParams.sort = sort.field;
 
+
         // Set the params needed for download API call
-        searchRequest = SearchHelper.performSpendingByAwardSearch(newParams);
-        searchRequest.promise
+        searchRequest.current = SearchHelper.performSpendingByAwardSearch(newParams);
+        searchRequest.current.promise
             .then((res) => {
                 const newState = {
-                    inFlight: false
+                    inFlight: false,
+                    accountAwardsPage: true
                 };
                 const parsedResults = res.data.results.map((result) => ({
                     ...result,
@@ -110,7 +117,7 @@ const AccountAwardsContainer = (props) => {
                 }
 
                 // request is done
-                searchRequest = null;
+                searchRequest.current = null;
                 newState.page = res.data.page_metadata.page;
                 newState.lastPage = !res.data.page_metadata.hasNext;
                 setInFlight(newState.inFlight);
@@ -123,7 +130,7 @@ const AccountAwardsContainer = (props) => {
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
-                    searchRequest = null;
+                    searchRequest.current = null;
                     console.log(err);
                 }
             });
@@ -133,7 +140,7 @@ const AccountAwardsContainer = (props) => {
         // the searchParams state var is now only used in the
         // block using intersection in performSearch
         const newSearch = new AccountAwardSearchOperation();
-        newSearch.fromState(props.filters);
+        newSearch.fromState(filters);
         setSearchParams(newSearch);
 
         setPage(1);
@@ -172,7 +179,7 @@ const AccountAwardsContainer = (props) => {
         let firstAvailable = '';
         let i = 0;
 
-        const availableTabs = props.subaward ? subTypes : tableTypes;
+        const availableTabs = spendingLevel === 'subawards' ? subTypes : tableTypes;
 
         // Set the first available award type to the first non-zero entry in the
         while (firstAvailable === '' && i < availableTabs.length) {
@@ -198,31 +205,33 @@ const AccountAwardsContainer = (props) => {
 
     const pickDefaultTab = () => {
         // get the award counts for the current filter set
-        if (tabCountRequest) {
-            tabCountRequest.cancel();
+        if (tabCountRequest.current) {
+            tabCountRequest.current.cancel();
         }
         setInFlight(true);
 
-        const searchOperation = new AccountAwardSearchOperation(props.account.id);
-        searchOperation.fromState(props.filters);
+        const searchOperation = new AccountAwardSearchOperation(account.id);
+        searchOperation.fromState(filters);
         searchOperation.awardType = awardTypeGroups[tableType];
-        const searchParamsTemp = searchOperation.spendingByAwardTableParams(props);
-        const filters = { ...searchParamsTemp.filters };
-        tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
-            filters,
-            subawards: false
+        const searchParamsTemp = searchOperation.spendingByAwardTableParams({ account, filters });
+        const filtersLocal = { ...searchParamsTemp.filters };
+
+        // no need to check if spending level is subawards for data type as
+        // speningByAwardTableParams sets data type to awards.
+        tabCountRequest.current = SearchHelper.performSpendingByAwardTabCountSearch({
+            filters: filtersLocal
         });
 
-        tabCountRequest.promise
+        tabCountRequest.current.promise
             .then((res) => {
                 parseTabCounts(res.data);
-                tabCountRequest = null;
+                tabCountRequest.current = null;
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
-                    tabCountRequest = null;
+                    tabCountRequest.current = null;
                     console.log(err);
                 }
             });
@@ -242,7 +251,8 @@ const AccountAwardsContainer = (props) => {
             subtitle: col.subtitle || '',
             width,
             background: col.background || '',
-            defaultDirection: direction
+            defaultDirection: direction,
+            right: col.right || false
         };
     };
 
@@ -297,7 +307,7 @@ const AccountAwardsContainer = (props) => {
     useEffect(() => {
         pickDefaultTab();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.filters]);
+    }, [filters]);
 
     useEffect(() => {
         if (isLoadingNextPage) {
@@ -341,13 +351,14 @@ const AccountAwardsContainer = (props) => {
                 switchTab={switchTab}
                 updateSort={updateSort}
                 loadNextPage={loadNextPage}
-                subaward={props.subaward}
+                spendingLevel={spendingLevel}
                 page={page}
                 setPage={setPage}
                 total={total}
                 resultsLimit={resultLimit}
                 setResultLimit={setResultLimit}
-                resultsCount={counts[tableType]} />
+                resultsCount={counts[tableType]}
+                federalAccountPage />
         </>
     );
 };

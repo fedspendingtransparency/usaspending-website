@@ -5,10 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { FlexGridRow, FlexGridCol, NoResultsMessage } from 'data-transparency-ui';
 
-import { SpeechBubble, Glossary } from 'components/sharedComponents/icons/Icons';
+import { SpeechBubble } from 'components/sharedComponents/icons/Icons';
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import ExpandableAwardSection from '../ExpandableAwardSection';
@@ -18,7 +18,6 @@ import { getToolTipBySectionAndAwardType } from '../../../../dataMapping/award/t
 import { AWARD_TYPE_PROPS } from "../../../../propTypes";
 
 const propTypes = {
-    awardId: PropTypes.string,
     description: PropTypes.string,
     naics: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
     psc: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
@@ -26,7 +25,6 @@ const propTypes = {
 };
 
 const AwardDescription = ({
-    awardId,
     description,
     naics = null,
     psc = null,
@@ -47,9 +45,10 @@ const AwardDescription = ({
                                 <span>
                                     {/* last word of heading inside the span to prevent the glossary icon from wrapping to its own line by itself */}
                                     Code
-                                    <Link to={`/award/${awardId}?glossary=naics`}>
-                                        <Glossary alt="View glossary definition of NAICS" />
-                                    </Link>
+                                    <GlossaryLink
+                                        alt="View glossary definition of NAICS"
+                                        showHoverText
+                                        term="naics" />
                                 </span>
                             </div>
                             {Object.keys(naics).length === 0 ? <NoResultsMessage /> : <LineTree type="naics" data={naics} />}
@@ -60,9 +59,10 @@ const AwardDescription = ({
                                 <span>
                                     {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
                                     (PSC)
-                                    <Link to={`/award/${awardId}?glossary=product-or-service-code-psc`}>
-                                        <Glossary alt="View glossary definition of Product or Service Code (PSC)" />
-                                    </Link>
+                                    <GlossaryLink
+                                        showHoverText
+                                        alt="View glossary definition of Product or Service Code (PSC)"
+                                        term="product-or-service-code-psc" />
                                 </span>
                             </div>
                             {/* if psc is empty object, then dtui error, else linetree */}

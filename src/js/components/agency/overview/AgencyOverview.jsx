@@ -5,18 +5,14 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { throttle } from 'lodash';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router';
+import { throttle } from 'lodash-es';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import {
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../redux/actions/slideouts/slideoutActions";
 import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
+import { showSlideout } from '../../../helpers/slideoutHelper';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -33,12 +29,9 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
 
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const dispatch = useDispatch();
 
     const openAboutTheDataSidebar = (e, entry) => {
-        dispatch(setAboutTheDataTermFromUrl(entry));
-        dispatch(showAboutTheData());
-        dispatch(setLastOpenedSlideout('atd'));
+        showSlideout('atd', { url: entry });
         e.preventDefault();
     };
     useEffect(() => {

@@ -5,12 +5,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
+import { showTrainingVideoModal, showModal } from 'redux/actions/modal/modalActions';
 import PropTypes, { oneOfType } from "prop-types";
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { handleShareOptionClick } from 'helpers/socialShare';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import VideoThumbnail from '../videoThumbnails/VideoThumbnail';
 
 
@@ -24,14 +24,16 @@ const FeaturedVideo = ({ featuredVideo }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
-
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const onShareClick = (name) => {
         const emailSubject = `${featuredVideo.title}`;
         const emailArgs = {
             subject: `${emailSubject}`,
             body: `Watch this video about USAspending.gov: ${slug}`
         };
-        handleShareOptionClick(name, slug, emailArgs);
+        handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
     };
 
     useEffect(() => {

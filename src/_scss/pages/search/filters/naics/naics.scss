@@ -1,5 +1,5 @@
 .search-option {
-  @import '../../../../components/_checkboxTree';
+  @import '../../../../components/checkboxTree/checkboxTree';
 
   .naics-search-container {
     @import "../../tooltips";
@@ -16,11 +16,6 @@
       text-align: center;
     }
 
-    .checkbox-tree {
-      margin-bottom: rem(20);
-      border-bottom: 1px solid $gray-cool-5;
-    }
-
     .autocomplete__input {
       @include display(flex);
 
@@ -30,9 +25,12 @@
 
       input {
         // TODO: [DEV-5732] Fix styling bug in Searchable Checkbox trees
+        @import "dtui-overrides";
+
         width: 100%;
         height: 100%;
-        font-size: rem(14);
+        line-height: 1.5;
+        @include new-search-button;
       }
 
       .icon {

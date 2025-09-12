@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import CollapsibleSidebar from "../collapsibleSidebar/SidebarWrapper";
 
 const propTypes = {
@@ -13,11 +13,12 @@ const propTypes = {
     showMobileFilters: PropTypes.bool,
     setShowMobileFilters: PropTypes.func,
     sidebarOpen: PropTypes.bool,
-    setSidebarOpen: PropTypes.func
+    setSidebarOpen: PropTypes.func,
+    timerRef: PropTypes.object
 };
 
 const MobileFiltersV2 = ({
-    filters, showMobileFilters, setShowMobileFilters, sidebarOpen, setSidebarOpen
+    filters, showMobileFilters, setShowMobileFilters, sidebarOpen, setSidebarOpen, timerRef
 }) => (
     <TransitionGroup id="mobile-filter-div">
         {showMobileFilters && (
@@ -26,7 +27,7 @@ const MobileFiltersV2 = ({
                 timeout={195}
                 exit>
                 <div className="mobile-filter-content">
-                    <CollapsibleSidebar filters={filters} setShowMobileFilters={setShowMobileFilters} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+                    <CollapsibleSidebar filters={filters} setShowMobileFilters={setShowMobileFilters} showMobileFilters={showMobileFilters} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} timerRef={timerRef} />
                 </div>
             </CSSTransition>
         )}

@@ -55,7 +55,7 @@ export const requiredTypes = {
 
 export const initialState = {
     keyword: OrderedMap(),
-    timePeriodType: 'dr',
+    timePeriodType: 'fy',
     timePeriodFY: Set(),
     time_period: Set(),
     filterNewAwardsOnlySelected: false,

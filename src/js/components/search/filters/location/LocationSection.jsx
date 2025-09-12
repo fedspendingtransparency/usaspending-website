@@ -5,14 +5,14 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import POPFilterContainer from 'containers/search/filters/location/POPFilterContainer';
-import RecipientFilterContainer from 'containers/search/filters/location/RecipientFilterContainer';
+import { useLocation } from 'react-router';
 import GlobalConstants from 'GlobalConstants';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
 import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
+import RecipientFilterContainer from "../../../../containers/search/filters/location/RecipientFilterContainer";
+import POPFilterContainer from "../../../../containers/search/filters/location/POPFilterContainer";
 
 const propTypes = {
     selectedRecipientLocations: PropTypes.object,
@@ -25,6 +25,9 @@ const LocationSection = (props) => {
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
     const [filter, setFilter] = useState(null);
+    const [v2, setv2] = useState(false);
+
+    const { pathname } = useLocation();
 
     const openDefaultTab = () => {
         // check if the recipient or place of performance (default) tab should be enabled based
@@ -43,6 +46,7 @@ const LocationSection = (props) => {
 
     useEffect(() => {
         openDefaultTab();
+        setv2(pathname === GlobalConstants.SEARCH_V2_PATH);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -56,7 +60,7 @@ const LocationSection = (props) => {
     }, [dirtyFilters]);
 
     useEffect(() => {
-        if (!GlobalConstants.QAT) {
+        if (!v2) {
             if (activeTab === 'recipient') {
                 setFilter(<RecipientFilterContainer />);
             }
@@ -64,7 +68,7 @@ const LocationSection = (props) => {
                 setFilter(<POPFilterContainer />);
             }
         }
-    }, [activeTab]);
+    }, [activeTab, pathname]);
 
     const tabLabels = [
         {
@@ -85,10 +89,12 @@ const LocationSection = (props) => {
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-            <LocationAutocompleteContainer
-                {...props}
-                activeTab={activeTab} />
-            {filter}
+            {v2 ?
+                <LocationAutocompleteContainer
+                    {...props}
+                    activeTab={activeTab} />
+                :
+                filter}
             <SubmitHint
                 ref={(component) => {
                     setHint(component);

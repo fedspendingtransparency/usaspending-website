@@ -19,18 +19,18 @@
   @import "./filters/programSource/programSource";
   @import "../../components/_comingSoon";
   @import "../../components/_checkboxes";
-  @import "./filters/otherFilters/defCheckbox";
+  @import "../../components/checkboxTree/checkboxTree";
   @import "./_submitHint";
 
   @include comingSoon;
 
   .coming-soon {
     background: repeating-linear-gradient(
-                    45deg,
-                    rgba($color-gray-lightest, .2),
-                    rgba($color-gray-lightest, .2) rem(3px),
-                    rgba($color-gray-lighter, .3) rem(3px),
-                    rgba($color-gray-lighter, .3) rem(5px)
+      45deg,
+      rgba($color-gray-lightest, .2),
+      rgba($color-gray-lightest, .2) rem(3px),
+      rgba($color-gray-lighter, .3) rem(3px),
+      rgba($color-gray-lighter, .3) rem(5px)
     );
     .filter-toggle {
       svg {

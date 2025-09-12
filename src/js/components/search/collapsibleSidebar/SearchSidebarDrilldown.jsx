@@ -7,7 +7,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import CategoriesList from "./CateogriesList";
+import CategoriesList from "./CategoriesList";
 import CategoryFilter from "./CategoryFilter";
 import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 import DsmSlider from "./DsmSlider";
@@ -77,8 +77,6 @@ const SearchSidebarDrilldown = ({
         awardDescription
     } = filters;
 
-    // TODO: Add in Financial Assistance, Assistance Listing, Covid Spending and Infrastructure Spending
-    // TODO: this can't be done until those filters are properly placed in the new advanced search
     const filterCount = {
         Location: itemCount.location,
         'Time Period': itemCount.timePeriod,
@@ -113,7 +111,8 @@ const SearchSidebarDrilldown = ({
                 titleOnly={titleOnly}
                 iconName={selectedCategory?.iconName}
                 iconColor={selectedCategory?.iconColor}
-                iconBackgroundColor={selectedCategory?.iconBackgroundColor} />
+                iconBackgroundColor={selectedCategory?.iconBackgroundColor}
+                showFullCount={currentLevel === 3} />
         );
     }
     else {
@@ -126,7 +125,8 @@ const SearchSidebarDrilldown = ({
                 title={selectedCategoryTitle}
                 component={filter}
                 itemCount={filterCount[selectedCategoryTitle]}
-                description={selectedCategory?.description} />
+                description={selectedCategory?.description}
+                showFullCount={currentLevel === 3} />
         );
     }
 
@@ -158,9 +158,10 @@ const SearchSidebarDrilldown = ({
                     categories={list}
                     setLevel3={setLevel3}
                     itemCount={itemCount[selectedCategory.categoryKey]}
-                    filterCount={filterCount} />}
+                    filterCount={filterCount}
+                    showFullCount={currentLevel === 3} />}
                 {!isDsmOpened && filter && categoryFilter}
-                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle} height={sidebarContentHeight} />}
+                {dsmComponent && <DsmSlider isDsmOpened={isDsmOpened} setIsDsmOpened={setIsDsmOpened} dsmFile={dsmFile} currentLevel={currentLevel} selectedCategoryTitle={selectedCategoryTitle || selectedCategory.title} height={sidebarContentHeight} hasChildren={!!list} />}
             </div>
         </div>);
 };

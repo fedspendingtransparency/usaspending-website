@@ -161,11 +161,13 @@ const staticFilters = {
 };
 
 const propTypes = {
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    timerRef: PropTypes.object
 };
 
 const SearchSidebar = ({
-    filters
+    filters,
+    timerRef
 }) => {
     const indexOfUnreleased = staticFilters.options.findIndex((option) => (
         Object.keys(option).includes('isReleased') &&
@@ -183,7 +185,7 @@ const SearchSidebar = ({
 
     releasedFilters.options.forEach((filter) => {
     // Collapse all by default, unless the filter has a selection made
-        if (filter.title === 'Time Period') {
+        if (filter.title === 'Time Period' || filter.title === 'Keyword') {
             // time period is always expanded
             expanded.push(true);
         }
@@ -217,13 +219,13 @@ const SearchSidebar = ({
                     </div>
                 </div>
                 <div className="sidebar-top-submit">
-                    <SearchSidebarSubmitContainer />
+                    <SearchSidebarSubmitContainer timerRef={timerRef} />
                 </div>
                 <FilterSidebar
                     {...releasedFilters}
                     expanded={expanded} />
                 <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmitContainer />
+                    <SearchSidebarSubmitContainer timerRef={timerRef} />
                     {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
                     <KeywordSearchLink />

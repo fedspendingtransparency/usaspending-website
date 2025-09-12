@@ -5,22 +5,28 @@
 
 import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
+import { useDispatch } from 'react-redux';
+
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
+import { showModal } from '../../../redux/actions/modal/modalActions';
 
 const TrainingVideosHeading = () => {
     const slug = 'training-videos';
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
+    const dispatch = useDispatch();
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
     const onShareClick = (name) => {
         const emailSubject = `Training Videos for USAspending.gov`;
         const emailArgs = {
             subject: `${emailSubject}`,
             body: ` Watch training videos about USAspending.gov: ${getBaseUrl(slug)}`
         };
-        handleShareOptionClick(name, slug, emailArgs);
+        handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
     };
 
     useEffect(() => {

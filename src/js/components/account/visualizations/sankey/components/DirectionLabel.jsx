@@ -14,33 +14,26 @@ const propTypes = {
     children: PropTypes.element
 };
 
-const defaultProps = {
-    x: 0,
-    y: 0
-};
-
-export default class DirectionLabel extends React.Component {
-    render() {
-        return (
-            <g
-                className="direction-label"
-                transform={`translate(${this.props.x},${this.props.y})`}>
-                <text
-                    className="title"
-                    x={0}
-                    y={0}
-                    aria-label={this.props.title}>
-                    {this.props.title.toUpperCase()}
-                </text>
-                <g
-                    className="direction-icon"
-                    transform={`translate(${this.props.paddingX},-10) scale(0.016 0.016)`}>
-                    {this.props.children}
-                </g>
-            </g>
-        );
-    }
-}
+const DirectionLabel = ({
+    x = 0, y = 0, paddingX, title, children
+}) => (
+    <g
+        className="direction-label"
+        transform={`translate(${x},${y})`}>
+        <text
+            className="title"
+            x={0}
+            y={0}
+            aria-label={title}>
+            {title.toUpperCase()}
+        </text>
+        <g
+            className="direction-icon"
+            transform={`translate(${paddingX},-10) scale(0.016 0.016)`}>
+            {children}
+        </g>
+    </g>
+);
 
 DirectionLabel.propTypes = propTypes;
-DirectionLabel.defaultProps = defaultProps;
+export default DirectionLabel;

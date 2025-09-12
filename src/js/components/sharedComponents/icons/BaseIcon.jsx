@@ -3,7 +3,7 @@
   * Created by Kevin Li 4/25/2016
   */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import IconSingleton from './iconSingleton';
@@ -14,90 +14,77 @@ const propTypes = {
     alt: PropTypes.string
 };
 
-const defaultProps = {
-    alt: ''
-};
+const BaseIcon = ({
+    iconClass,
+    iconName,
+    alt = ''
+}) => {
+    const [icon, setIcon] = useState({
+        data: '',
+        viewBox: '0 0 0 0'
+    });
+    const subscription = useRef(null);
+    const iconSingleton = IconSingleton;
 
-export default class BaseIcon extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            icon: {
-                data: '',
-                viewBox: '0 0 0 0'
-            }
-        };
-
-        this.iconSingleton = IconSingleton;
-        this.subscription = null;
-        this.svgEvent = this.svgEvent.bind(this);
-    }
-    componentDidMount() {
-    // download icons if necessary, otherwise populate the correct state
-        this.prepareIcons();
-    }
-
-    componentWillUnmount() {
-    // unsubscribe to reduce memory overhead, if we have a subscription active
-        if (this.subscription) {
-            this.iconSingleton.unsubscribe(this.subscription);
+    const displayIcon = () => {
+        // set the state to the correct SVG data
+        if ({}.hasOwnProperty.call(iconSingleton.svgCache, iconName)) {
+            setIcon(iconSingleton.svgCache[iconName]);
         }
-    }
+    };
 
-    prepareIcons() {
-    // check to see if anyone has started the download process
-        if (!this.iconSingleton.svgLoaded) {
+    const svgEvent = () => {
+        // icons have loaded, unsubscribe to reduce memory overhead
+        iconSingleton.unsubscribe(subscription.current);
+        subscription.current = null;
+
+        // display the icon
+        displayIcon();
+    };
+
+    const prepareIcons = () => {
+        // check to see if anyone has started the download process
+        if (!iconSingleton.svgLoaded) {
             // no icons available, subscribe to the singleton to be notified when they are ready
-            this.subscription = this.iconSingleton.subscribe(this.svgEvent);
+            subscription.current = iconSingleton.subscribe(svgEvent);
             // check to see if they are in the process of being downloaded
-            if (!this.iconSingleton.svgRequested) {
+            if (!iconSingleton.svgRequested) {
                 // not requested either, let's request it now
-                this.iconSingleton.downloadIcons();
+                iconSingleton.downloadIcons();
             }
         }
         else {
             // icons are ready
-            this.displayIcon();
+            displayIcon();
         }
-    }
+    };
 
-    displayIcon() {
-    // set the state to the correct SVG data
-        if ({}.hasOwnProperty.call(this.iconSingleton.svgCache, this.props.iconName)) {
-            this.setState({
-                icon: this.iconSingleton.svgCache[this.props.iconName]
-            });
-        }
-    }
+    useEffect(() => {
+        prepareIcons();
 
-    svgEvent() {
-    // icons have loaded, unsubscribe to reduce memory overhead
-        this.iconSingleton.unsubscribe(this.subscription);
-        this.subscription = null;
+        return () => {
+            if (subscription.current) {
+                iconSingleton.unsubscribe(subscription.current);
+            }
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-        // display the icon
-        this.displayIcon();
-    }
+    return (
+        <svg
+            className={iconClass}
+            viewBox={icon.viewBox}
+            key={icon.data}
+            aria-label={alt}>
 
-    render() {
-        return (
-            <svg
-                className={this.props.iconClass}
-                viewBox={this.state.icon.viewBox}
-                key={this.state.icon.data}
-                aria-label={this.props.alt}>
-
-                <title>{this.props.alt}</title>
-                {/* eslint-disable react/no-danger */}
-                {/* we need to write the SVG data onto the DOM */}
-                <g
-                    dangerouslySetInnerHTML={{ __html: this.state.icon.data }} />
-                {/* eslint-enable react/no-danger */}
-            </svg>
-        );
-    }
-}
+            <title>{alt}</title>
+            {/* eslint-disable react/no-danger */}
+            {/* we need to write the SVG data onto the DOM */}
+            <g dangerouslySetInnerHTML={{ __html: icon.data }} />
+            {/* eslint-enable react/no-danger */}
+        </svg>
+    );
+};
 
 BaseIcon.propTypes = propTypes;
-BaseIcon.defaultProps = defaultProps;
+export default BaseIcon;

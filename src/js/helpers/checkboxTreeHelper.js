@@ -3,7 +3,7 @@
   * Created by Jonathan Hill 10/01/2019
 */
 
-import { difference, cloneDeep, isEqual } from 'lodash';
+import { difference, cloneDeep, isEqual } from 'lodash-es';
 
 export const doesMeetMinimumCharsRequiredForSearch = (str = '', charMinimum = 3) => (
     str &&
@@ -12,8 +12,8 @@ export const doesMeetMinimumCharsRequiredForSearch = (str = '', charMinimum = 3)
 
 const getChildren = (node, keyMap) => {
     if (!node.children && keyMap.isParent(node)) {
-        const value = node[keyMap.value]
-            ? node[keyMap.value]
+        const value = node[keyMap?.value]
+            ? node[keyMap?.value]
             : node.id || '';
         return {
             children: [{
@@ -28,7 +28,7 @@ const getChildren = (node, keyMap) => {
             children: node.children.map((child) => ({
                 ...child,
                 label: child[keyMap.label] || child.label || '',
-                value: child[keyMap.value] || child.value || '',
+                value: child[keyMap?.value] || child?.value || '',
                 ...getChildren(child, keyMap)
             }))
         };
@@ -68,11 +68,11 @@ export const removePlaceholderString = (str) => {
 };
 
 export const getAllDescendants = (node, blackList = []) => {
-    if (blackList.includes(node.value)) return [];
-    if (!node.children || node?.children?.length === 0) return [node.value];
+    if (blackList.includes(node?.value)) return [];
+    if (!node.children || node?.children?.length === 0) return [node?.value];
     return [
         ...node.children
-            .filter((child) => !blackList.includes(child.value))
+            .filter((child) => !blackList.includes(child?.value))
             .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant, blackList)]), [])
     ];
 };
@@ -89,7 +89,7 @@ export const removeStagedFilter = (
         const checkedNode = traverseTreeByCodeFn(nodes, removePlaceholderString(checked));
         if (getHighestAncestorFn(checkedNode) === removedNode) return false;
         if (getImmediateAncestorFn(checkedNode) === removedNode) return false;
-        if (checkedNode.value === removedNode) return false;
+        if (checkedNode?.value === removedNode) return false;
         return true;
     });
 
@@ -192,18 +192,18 @@ export const decrementCountAndUpdateUnchecked = (
     const shouldRemoveNode = counts.some((nodeFromCounts) => (
         !uncheckedNode.checked &&
         (
-            (nodeFromCounts.value === value) ||
-            (nodeFromCounts.count <= amountToDecrement && nodeFromCounts.value === parentKey)
+            (nodeFromCounts?.value === value) ||
+            (nodeFromCounts.count <= amountToDecrement && nodeFromCounts?.value === parentKey)
         )
     ));
     let newCounts;
     if (shouldRemoveNode) {
-        newCounts = counts.filter((nodeFromCounts) => nodeFromCounts.value !== parentKey);
+        newCounts = counts.filter((nodeFromCounts) => nodeFromCounts?.value !== parentKey);
     }
     else {
         newCounts = counts.map((nodeFromCounts) => {
             const newCount = nodeFromCounts.count - amountToDecrement;
-            if (nodeFromCounts.value === parentKey) {
+            if (nodeFromCounts?.value === parentKey) {
                 return { ...nodeFromCounts, count: newCount };
             }
             return nodeFromCounts;
@@ -297,7 +297,7 @@ export const incrementCountAndUpdateUnchecked = (
                 codesToBeRemovedFromUnchecked.push(shouldCodeBeRemoved);
             }
 
-            const indexInArray = newState.findIndex((node) => node.value === parentKey);
+            const indexInArray = newState.findIndex((node) => node?.value === parentKey);
             const isParentInArray = indexInArray > -1;
             const countOfCheckedDescendants = getCountOfCheckedDescendants(key, codesWithCheckedAncestor, nodeTree, traverseTreeByCodeFn);
             const originalCount = currentNode.count === 0
@@ -308,7 +308,7 @@ export const incrementCountAndUpdateUnchecked = (
             if (!isParentInArray) {
                 newState.push({
                     label: parentNode.label,
-                    value: parentNode.value,
+                    value: parentNode?.value,
                     count: amountToIncrement
                 });
             }
@@ -341,7 +341,7 @@ export const incrementCountAndUpdateUnchecked = (
 export const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
     ...node,
     label: node[keyMap.label],
-    value: node[keyMap.value],
+    value: node[keyMap?.value],
     ...getChildren(node, keyMap)
 }));
 
@@ -349,8 +349,8 @@ export const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
 export const sortNodesByValue = (a, b) => {
     if (a.isPlaceHolder) return 1;
     if (b.isPlaceHolder) return -1;
-    const nodeA = parseInt(a.value, 10);
-    const nodeB = parseInt(b.value, 10);
+    const nodeA = parseInt(a?.value, 10);
+    const nodeB = parseInt(b?.value, 10);
     if (nodeA > nodeB) return 1;
     if (nodeB > nodeA) return -1;
     return 0;
@@ -410,7 +410,7 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
             .concat([{
                 isPlaceHolder: true,
                 label: 'Child Placeholder',
-                value: `children_of_${parent.value}`,
+                value: `children_of_${parent?.value}`,
                 className: hide ? 'hide' : ''
             }]);
     }
@@ -418,7 +418,7 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
         return children.concat([{
             isPlaceHolder: true,
             label: 'Child Placeholder',
-            value: `children_of_${parent.value}`,
+            value: `children_of_${parent?.value}`,
             className: hide ? 'hide' : ''
         }]);
     }
@@ -446,7 +446,7 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
     if (doesNodeHaveGenuineChildren(existingParent) && doesNodeHaveGenuineChildren(parentFromSearch)) {
         return parentFromSearch.children
             .reduce((acc, searchChild) => {
-                const existingChildIndex = acc.findIndex((existingChild) => existingChild.value === searchChild.value);
+                const existingChildIndex = acc.findIndex((existingChild) => existingChild?.value === searchChild?.value);
                 const childAlreadyExists = existingChildIndex !== -1;
                 if (childAlreadyExists) {
                     const existingChild = acc[existingChildIndex];
@@ -455,7 +455,7 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
 
                     if (existingChildHasRealChildren) {
                         return acc.map((node) => {
-                            if (node.value === searchChild.value) {
+                            if (node?.value === searchChild?.value) {
                                 return {
                                     ...existingChild,
                                     className: '',
@@ -468,7 +468,7 @@ export const appendChildrenFromSearchResults = (parentFromSearch, existingParent
                     else if (!existingChildHasRealChildren) {
                         // No existingChild to hide, just add it.
                         return acc.map((node) => {
-                            if (node.value === searchChild.value) {
+                            if (node?.value === searchChild?.value) {
                                 return {
                                     ...node,
                                     className: '',
@@ -520,12 +520,12 @@ export const addSearchResultsToTree = (
     traverseTreeByCodeFn,
     sortNodes = sortNodesByValue
 ) => {
-    const nodesFromSearchToBeReplaced = searchResults.map((node) => node.value);
+    const nodesFromSearchToBeReplaced = searchResults.map((node) => node?.value);
     return tree
         .map((existingNode) => {
-            const nodeKey = existingNode.value;
+            const nodeKey = existingNode?.value;
             if (nodesFromSearchToBeReplaced.includes(nodeKey)) {
-                const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
+                const nodeFromSearch = searchResults.find((node) => node?.value === nodeKey);
                 return {
                     ...nodeFromSearch,
                     children: appendChildrenFromSearchResults(nodeFromSearch, existingNode, traverseTreeByCodeFn)
@@ -563,10 +563,10 @@ export const populateChildNodes = (
         : getHighestAncestorCode(key);
     return tree.map((node) => {
         const [data] = newNodes;
-        const shouldPopulateChildren = node.value === key;
+        const shouldPopulateChildren = node?.value === key;
         const shouldPopulateGrandChildren = (
-            node.value === immediateAncestorCode ||
-            node.value === highestAncestorCode
+            node?.value === immediateAncestorCode ||
+            node?.value === highestAncestorCode
         );
         if (shouldPopulateChildren) {
             // we're populating an immediate descendant of the top-tier parent; AKA a "branch".
@@ -574,7 +574,7 @@ export const populateChildNodes = (
                 ...node,
                 children: data.children
                     .map((child) => {
-                        const existingChild = node.children.find((olderChild) => olderChild.value === child.value);
+                        const existingChild = node.children.find((olderChild) => olderChild?.value === child?.value);
                         const weHaveTheGrandChildren = (
                             existingChild &&
                             !areChildrenPartial(existingChild?.count, existingChild?.children)
@@ -623,8 +623,8 @@ export const populateChildNodes = (
         const shouldAddNewBranchToTree = (
             key &&
             data &&
-            node.value === highestAncestorCode &&
-            !node.children.some((child) => child.value === key)
+            node?.value === highestAncestorCode &&
+            !node.children.some((child) => child?.value === key)
         );
         if (shouldAddNewBranchToTree) {
             // top-tier parent only has a placeholder child and we're adding this branch on the fly from a url-hash.
@@ -742,7 +742,7 @@ export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => 
         checked.map((code) => removePlaceholderString(code))
     )]
     .map((code) => traverseTreeByCodeFn(nodes, code))
-    .map((node) => ([...node.ancestors, node.value]));
+    .map((node) => ([...node.ancestors, node?.value]));
 
 export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => arrayOfAncestryPaths
     .sort((a, b) => a.length - b.length)

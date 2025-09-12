@@ -7,37 +7,38 @@ export const socialUrls = {
     linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`
 };
 
-const openShareWindow = (url) => {
-    window.open(url, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
+const openShareWindowExternal = (url, handleShareDispatch) => {
+    handleShareDispatch(url);
+    // window.open(url, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
 };
 
-const handleShareClickFacebook = (url) => {
+const handleShareClickFacebook = (url, handleShareDispatch) => {
     const finalUrl = `${socialUrls.facebook}${encodeURIComponent(url)}`;
-    openShareWindow(finalUrl);
+    openShareWindowExternal(finalUrl, handleShareDispatch);
     Analytics.event({
         event: 'Social Share Facebook', category: `${url}`, action: 'share link click', label: 'facebook'
     });
 };
 
-const handleShareClickTwitter = (url) => {
+const handleShareClickTwitter = (url, handleShareDispatch) => {
     const finalUrl = `${socialUrls.twitter}${encodeURIComponent(url)}`;
-    openShareWindow(finalUrl);
+    openShareWindowExternal(finalUrl, handleShareDispatch);
     Analytics.event({
         event: 'Social Share Twitter', category: `${url}`, action: 'share link click', label: 'twitter'
     });
 };
 
-const handleShareClickLinkedin = (url) => {
+const handleShareClickLinkedin = (url, handleShareDispatch) => {
     const finalUrl = `${socialUrls.linkedin}${encodeURIComponent(url)}`;
-    openShareWindow(finalUrl);
+    openShareWindowExternal(finalUrl, handleShareDispatch);
     Analytics.event({
         event: 'Social Share LinkedIn', category: `${url}`, action: 'share link click', label: 'linkedIn'
     });
 };
 
-const handleShareClickReddit = (url) => {
+const handleShareClickReddit = (url, handleShareDispatch) => {
     const finalUrl = `${socialUrls.reddit}${encodeURIComponent(url)}`;
-    openShareWindow(finalUrl);
+    openShareWindowExternal(finalUrl, handleShareDispatch);
     Analytics.event({
         event: 'Social Share Reddit', category: `${url}`, action: 'share link click', label: 'reddit'
     });
@@ -54,19 +55,19 @@ const handleShareClickEmail = (subject, body) => {
 export const getBaseUrl = (slug) => `https://www.usaspending.gov/${slug}`;
 
 const handlersBySocialMedium = {
-    twitter: (url) => handleShareClickTwitter(url),
-    facebook: (url) => handleShareClickFacebook(url),
-    reddit: (url) => handleShareClickReddit(url),
+    twitter: (url, handleShareDispatch) => handleShareClickTwitter(url, handleShareDispatch),
+    facebook: (url, handleShareDispatch) => handleShareClickFacebook(url, handleShareDispatch),
+    reddit: (url, handleShareDispatch) => handleShareClickReddit(url, handleShareDispatch),
     email: ({ subject, body = '' }) => {
         handleShareClickEmail(subject, body);
     },
-    linkedin: (url) => handleShareClickLinkedin(url),
+    linkedin: (url, handleShareDispatch) => handleShareClickLinkedin(url, handleShareDispatch),
     copy: (slug) => Analytics.event({
         event: 'Social Share Copy', category: slug, action: 'copy link', label: `${getBaseUrl(slug)}`
     })
 };
 
-export const getSocialShareFn = (socialMedium, url) => {
+export const getSocialShareFn = (socialMedium, url, handleShareDispatch) => {
     if (socialMedium === 'copy' && (url.includes('about-the-data'))) {
         return () => url;
     }
@@ -75,21 +76,21 @@ export const getSocialShareFn = (socialMedium, url) => {
         return () => fn(url);
     }
     if (socialMedium !== 'email' && (url?.includes('about-the-data') || url?.includes('youtube'))) {
-        return () => fn(url);
+        return () => fn(url, handleShareDispatch);
     }
     if (socialMedium === 'email') {
         return (args) => fn(args);
     }
-    return (slg) => fn(getBaseUrl(slg));
+    return (slg) => fn(getBaseUrl(slg), handleShareDispatch);
 };
 
-export const handleShareOptionClick = (name, url, emailArgs) => {
-    const fn = getSocialShareFn(name, url);
+export const handleShareOptionClick = (name, url, emailArgs, handleShareDispatch) => {
+    const fn = getSocialShareFn(name, url, handleShareDispatch);
     if (name === 'email') {
         fn(emailArgs);
     }
     else if (name !== 'copy') {
-        fn(url);
+        fn(url, handleShareDispatch);
     }
     else {
         fn();

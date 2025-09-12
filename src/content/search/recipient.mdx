@@ -1,0 +1,22 @@
+import DsmRelatedTerms from 'components/search/collapsibleSidebar/DsmRelatedTerms.jsx'
+
+<div className="collapsible-sidebar--dsm-wrapper--text-header">“About this filter” content in progress</div>
+<div className="collapsible-sidebar--dsm-wrapper--text-section collapsible-sidebar--dsm-wrapper--text-links">
+    If you have any questions about this filter, please reach out to:
+    <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=About%20this%20Filter">
+        usaspending.help@fiscal.treasury.gov
+    </a>
+</div>
+
+<DsmRelatedTerms headingTitle={"Related terms"} glossaryLinks={[
+                                                    {text:'Recipient', term:"recipient"},
+                                                    {text:'Prime Recipient', term:"prime-recipient"},
+                                                    {text:'Sub-Recipient', term:"sub-recipient"},
+                                                    ]}
+                                                aboutTheData={[
+                                                    {name: "Definition of Award Recipient (Entity Receiving a Federal Award)", slug: "definition-of-award-recipient"},
+                                                    {name: "Personally Identifiable Information (PII) and Aggregate Records", slug: "pii-and-aggregate-records"},
+                                                    {name: "Personally Identifiable Information (PII) and Redacted Records", slug: "pii-and-redacted-records"}
+                                                ]}
+
+                                                    />

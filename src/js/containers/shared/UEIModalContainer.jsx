@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,14 +14,14 @@ const CovidModalContainer = ({
     clearFilters,
     resetFilters
 }) => {
-    const history = useHistory();
+    const history = useNavigate();
 
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
         hideModal();
         clearFilters();
         resetFilters();
-        history.push('/search');
+        history('/search');
     };
 
     const handleGoToKeywordSearch = (e) => {
@@ -29,7 +29,7 @@ const CovidModalContainer = ({
         hideModal();
         clearFilters();
         resetFilters();
-        history.push('/keyword_search');
+        history('/keyword_search');
     };
 
     return (

@@ -8,41 +8,33 @@ import PropTypes from 'prop-types';
 import DatePicker from 'components/sharedComponents/DatePicker';
 
 const propTypes = {
-    onDateChange: PropTypes.func,
     startDate: PropTypes.object,
     endDate: PropTypes.object,
-    showError: PropTypes.func,
-    hideError: PropTypes.func,
-    startingTab: PropTypes.number
+    onDateChange: PropTypes.func,
+    hideError: PropTypes.func
 };
 
 const DownloadDateRange = ({
-    onDateChange,
     startDate = '01/01/2016',
     endDate = '12/31/2016',
-    showError,
-    hideError,
-    startingTab
+    onDateChange,
+    hideError
 }) => (
     <div className="date-pickers">
         <DatePicker
-            type="startDateBulk"
-            title="Start Date"
-            tabIndex={startingTab}
-            onDateChange={onDateChange}
             value={startDate}
-            opposite={endDate}
-            showError={showError}
-            hideError={hideError} />
+            type="startDateBulk"
+            onDateChange={onDateChange}
+            title="Start Date"
+            hideError={hideError}
+            min="2001-10-01" />
         <DatePicker
+            value={endDate}
             type="endDateBulk"
             title="End Date"
-            tabIndex={startingTab + 4}
             onDateChange={onDateChange}
-            value={endDate}
-            opposite={startDate}
-            showError={showError}
-            hideError={hideError} />
+            hideError={hideError}
+            min="2001-10-01" />
     </div>
 );
 

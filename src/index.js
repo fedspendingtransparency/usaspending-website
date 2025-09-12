@@ -17,4 +17,4 @@ require.context('./content', true);
 require('./css/main.scss');
 
 // require the main JS file
-require('./js/app.jsx');
+require('./js/app');

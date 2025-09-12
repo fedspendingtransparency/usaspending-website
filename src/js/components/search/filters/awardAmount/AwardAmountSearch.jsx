@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { awardRanges } from 'dataMapping/search/awardAmount';
-import { reduce, each } from 'lodash';
+import { reduce, each } from 'lodash-es';
 import { formatAwardAmountRange } from 'helpers/awardAmountHelper';
 import SelectedAwardAmountBound from
     'components/search/filters/awardAmount/SelectedAwardAmountBound';
@@ -48,7 +48,7 @@ const AwardAmountSearch = ({
         const name = formatAwardAmountRange(
             value, 0);
         result.push(
-            (<PrimaryCheckboxType
+            <PrimaryCheckboxType
                 id={`award-${key}`}
                 name={name}
                 value={key}
@@ -56,7 +56,7 @@ const AwardAmountSearch = ({
                 types={awardRanges}
                 selectedCheckboxes={awardAmounts}
                 toggleCheckboxType={toggleSelection}
-                key={key} />)
+                key={key} />
         );
         return result;
     }, []);

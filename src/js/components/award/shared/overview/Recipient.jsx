@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import {
     getAwardTypeByRecordtypeCountyAndState,
@@ -16,9 +16,9 @@ import {
     aggregateGlossaryLinks,
     aggregateGlossaryText
 } from 'dataMapping/award/awardOverview';
-import { Glossary } from 'components/sharedComponents/icons/Icons';
 import AwardSection from '../AwardSection';
 import RecipientAddress from './RecipientAddress';
+import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 
 
 const propTypes = {
@@ -31,8 +31,7 @@ const propTypes = {
 const Recipient = ({
     recipient,
     awardType,
-    recordType,
-    awardId
+    recordType
 }) => {
     const isFinancialAssistance = isAwardFinancialAssistance(awardType);
 
@@ -51,7 +50,7 @@ const Recipient = ({
         recordType
     );
     const recipientComponent = () => {
-        const glossaryLink = `/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
+        const glossaryLink = aggregateGlossaryLinks[aggregateRecordType()];
         const glossaryLinkText = `View glossary definition of ${aggregateGlossaryText[aggregateRecordType()]}`;
         if (isFinancialAssistance && recordType !== 2) {
             let recipientTitle = '';
@@ -62,9 +61,7 @@ const Recipient = ({
                     className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
                     {recipientTitle}
                     <div className="award__heading-icon">
-                        <Link to={glossaryLink}>
-                            <Glossary alt={glossaryLinkText} />
-                        </Link>
+                        <GlossaryLink alt={glossaryLinkText} term={glossaryLink} showHoverText />
                     </div>
                 </h5>
             );

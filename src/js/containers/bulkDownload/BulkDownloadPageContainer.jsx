@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate, useMatch } from 'react-router';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { downloadOptions } from 'dataMapping/navigation/menuOptions';
@@ -24,15 +24,16 @@ const propTypes = {
     setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
-    setDownloadExpectedUrl: PropTypes.func,
-    match: PropTypes.object
+    setDownloadExpectedUrl: PropTypes.func
 };
 
 const BulkDownloadPageContainer = (props) => {
     let request = null;
-    const history = useHistory();
+    const history = useNavigate();
+    const match = useMatch(`/download_center/:type`);
+    const { type } = match.params;
 
-    const requestDownload = (params, type) => {
+    const requestDownload = (params, requestType) => {
         if (request) {
             request.cancel();
         }
@@ -46,7 +47,7 @@ const BulkDownloadPageContainer = (props) => {
             }
         }
 
-        if (type === 'awards') {
+        if (requestType === 'awards') {
             // Need to check if sub_agency is set or not
             if (bulkParams.filters.sub_agency && bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency') {
                 delete bulkParams.filters.sub_agency;
@@ -55,7 +56,7 @@ const BulkDownloadPageContainer = (props) => {
             request = BulkDownloadHelper.requestAwardsDownload(bulkParams);
         }
 
-        else if (type === 'accounts') {
+        else if (requestType === 'accounts') {
             request = BulkDownloadHelper.requestAccountsDownload(bulkParams);
         }
 
@@ -82,19 +83,19 @@ const BulkDownloadPageContainer = (props) => {
 
     const validateDataType = (typeParam) => {
         if (typeParam) {
-            const dataType = downloadOptions.find((type) => type.url === `/download_center/${typeParam}`);
+            const dataType = downloadOptions.find((optionType) => optionType.url === `/download_center/${typeParam}`);
             if (dataType) {
                 props.setDataType(dataType.type);
             }
 
             else {
                 // Invalid url, go to the error page
-                history.replace('/error');
+                history('/error', { replace: true });
             }
         }
         else {
             // If no type param is specified, default to award data
-            history.replace('/download_center/custom_award_data');
+            history('/download_center/custom_award_data', { replace: true });
         }
     };
 
@@ -145,8 +146,8 @@ const BulkDownloadPageContainer = (props) => {
 
         // Since the location filter is optional, only add it if a country has been selected
         if (formState.location.country.code && formState.location.country.code !== 'all') {
-            const locationType = awardDownloadOptions.locationTypes.find((type) => (
-                type.name === formState.locationType
+            const locationType = awardDownloadOptions.locationTypes.find((location) => (
+                location.name === formState.locationType
             ));
             // Since "FOREIGN" is not a country the scope filter is used instead
             if (formState.location.country.code === 'FOREIGN') {
@@ -180,8 +181,8 @@ const BulkDownloadPageContainer = (props) => {
 
         // Get the submission type object
         const submissionTypes = accountDownloadOptions.submissionTypes
-            .filter((type) => formState.submissionTypes.includes(type.name))
-            .map((type) => type.apiName);
+            .filter((submissionType) => formState.submissionTypes.includes(submissionType.name))
+            .map((submissionType) => submissionType.apiName);
 
         const params = {
             account_level: accountLevel.apiName,
@@ -216,8 +217,9 @@ const BulkDownloadPageContainer = (props) => {
     };
 
     useEffect(() => {
-        validateDataType(props.match.params.type);
-    }, [props.match.params.type]);
+        validateDataType(type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [type]);
 
     return (
         <BulkDownloadPage

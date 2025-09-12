@@ -2,7 +2,7 @@
  * SearchAwardsOperation.js
  * Created by michaelbray on 8/7/17.
  */
-import { pickBy } from 'lodash';
+import { pickBy } from 'lodash-es';
 import {
     rootKeys,
     timePeriodKeys,
@@ -17,7 +17,7 @@ class SearchAwardsOperation {
     constructor() {
         this.keyword = [];
 
-        this.timePeriodType = 'dr';
+        this.timePeriodType = 'fy';
         this.timePeriodFY = [];
         this.timePeriodRange = [];
         this.time_period = [];
@@ -50,6 +50,9 @@ class SearchAwardsOperation {
         this.pscCheckbox = checkboxTreeKeys;
         // the defCodes don't actually send the checkboxTrees object shape to the API. See comment below.
         this.defCodes = checkboxTreeKeys;
+        this.infraDefCode = [];
+        this.covidDefCode = [];
+
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
@@ -79,6 +82,7 @@ class SearchAwardsOperation {
                 this.awardType.push(type);
             });
         }
+
         this.contractAwardType = state.contractAwardType?.toArray();
         this.financialAssistanceAwardType = state.financialAssistanceAwardType?.toArray();
 
@@ -112,10 +116,33 @@ class SearchAwardsOperation {
             require: state.pscCodes?.toObject().require,
             exclude: state.pscCodes?.toObject().exclude
         };
+
         this.defCodes = {
             require: state.defCodes?.toObject().require,
             exclude: state.defCodes?.toObject().exclude
         };
+
+        if (state.infraDefCode || state.covidDefCode) {
+            const defCodes = [];
+            const infraDefCode = state.infraDefCode?.toArray();
+            const covidDefCode = state.covidDefCode?.toArray();
+
+            infraDefCode.forEach((type) => {
+                defCodes.push(type);
+            });
+
+            covidDefCode.forEach((type) => {
+                defCodes.push(type);
+            });
+
+            // TODO:  Temporarily added to support having both adv search pages live, need to refactor when legacy search is removed
+            if (defCodes.length > 0) {
+                this.defCodes.require = [...new Set(defCodes)];
+            }
+        }
+
+        this.infraDefCode = state.infraDefCode?.toArray();
+        this.covidDefCode = state.covidDefCode?.toArray();
 
         this.pricingType = state.pricingType?.toArray();
         this.setAside = state.setAside?.toArray();

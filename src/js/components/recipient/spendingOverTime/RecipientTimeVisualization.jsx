@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
 import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
 import ChartLoadingMessage from 'components/sharedComponents/ChartLoadingMessage';
@@ -115,7 +115,7 @@ export default class RecipientTimeVisualization extends React.Component {
                         classNames="visualization-content-fade"
                         timeout={{ exit: 225, enter: 195 }}
                         exit>
-                        <>
+                        <div>
                             {this.props.data.groups.length > 0 && !this.props.loading && !this.props.error && (
                                 <BarChartTrendline
                                     height={this.props.height}
@@ -133,7 +133,7 @@ export default class RecipientTimeVisualization extends React.Component {
                             {this.props.data.groups.length === 0 && !this.props.loading && !this.props.error && <ChartNoResults />}
                             {this.props.error && <ChartError />}
                             {this.props.loading && <ChartLoadingMessage />}
-                        </>
+                        </div>
                     </CSSTransition>
                 </TransitionGroup>
                 {tooltip}
