@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { isEqual } from "lodash-es";
@@ -29,7 +29,7 @@ const propTypes = {
 };
 
 const AboutTheData = (props) => {
-    const history = useNavigate();
+    const { pathname } = useLocation();
     const query = useQueryParams();
     const [height, setHeight] = useState(0);
     const [drilldown, setDrilldown] = useState(null);
@@ -142,10 +142,11 @@ const AboutTheData = (props) => {
             if (window.location.href.includes('about-the-data')) {
                 delete query['about-the-data'];
                 const newQueryParams = getQueryParamString(query);
-                history({
-                    pathname: '',
-                    search: newQueryParams
-                }, { replace: true });
+                let newUrl = pathname + newQueryParams;
+                if (newUrl.split('').pop() === '?') {
+                    newUrl = newUrl.substring(0, newUrl.length - 1);
+                }
+                window.history.replaceState(null, '', newUrl);
             }
 
             // move focus back to the main content
