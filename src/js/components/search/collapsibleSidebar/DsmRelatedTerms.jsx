@@ -6,7 +6,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
-import { AboutTheDataMarkdownLink } from '../../aboutTheDataSidebar/AboutTheDataMarkdownLink';
+import AboutTheDataLink from "../../sharedComponents/AboutTheDataLink";
 
 const propTypes = {
     headingTitle: PropTypes.string,
@@ -33,7 +33,9 @@ const DsmRelatedTerms = ({ headingTitle, glossaryLinks, aboutTheData }) => (
             )}
             {aboutTheData && aboutTheData.map((data) => (
                 <div className="collapsible-sidebar--dsm-wrapper--text-links">
-                    <AboutTheDataMarkdownLink slug={data.slug} openPanel name={data.name} />
+                    <AboutTheDataLink slug={data.slug}>
+                        {data.name}
+                    </AboutTheDataLink>
                 </div>
             ))}
         </div>

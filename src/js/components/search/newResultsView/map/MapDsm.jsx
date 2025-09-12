@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
-import { showSlideout } from "../../../../helpers/slideoutHelper";
 import GlobalConstants from "../../../../GlobalConstants";
+import AboutTheDataLink from "../../../sharedComponents/AboutTheDataLink";
 
 const MapDsm = ({ spendingLevel }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
     const [displayCopy, setDisplayCopy] = useState();
     const { pathname } = useLocation();
-
-    const openAboutTheDataSidebar = (e, entry) => {
-        showSlideout('atd', { url: entry });
-        e.preventDefault();
-    };
 
     const v2Copy = <>
         <h4>What's included in this view of the data?</h4>
@@ -39,13 +34,13 @@ const MapDsm = ({ spendingLevel }) => {
                     In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award;
                     sub-award amounts generally should not exceed the Current Award Amount for their associated prime award.
                     To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
-                <span className="award-search__subaward-note"> Note that there are several documented issues related to&nbsp;
-                    <Link
-                        to=""
-                        aria-label="Open the About the Data"
-                        onClick={(e) => openAboutTheDataSidebar(e, 'subaward-data-quality')}>subaward data quality
-                    </Link> in our About the Data module.
+                <span className="award-search__subaward-note">
+                    Note that there are several documented issues related to&nbsp;
+                    <AboutTheDataLink slug="subaward-data-quality">
+                        subaward data quality
+                    </AboutTheDataLink>
                 </span>
+                {' '}in our About the Data module.
                 </p>
             </> :
             <>
@@ -69,11 +64,9 @@ const MapDsm = ({ spendingLevel }) => {
             Data reported by the Department of Health and Human Services (HHS) related
             to Medicare payments does not reflect the place where "the majority of the work" occurs, as
             required by USAspending's data model specifications. &nbsp;
-            <Link
-                to=""
-                aria-label="Open the About the Data"
-                onClick={(e) => openAboutTheDataSidebar(e, 'medicare-location-data')}>Learn about Medicare Location Data.
-            </Link>
+            <AboutTheDataLink slug="medicare-location-data">
+                Learn about Medicare Location Data.
+            </AboutTheDataLink>
         </p>
     </>;
 
@@ -99,12 +92,12 @@ const MapDsm = ({ spendingLevel }) => {
                     In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award;
                     sub-award amounts generally should not exceed the Current Award Amount for their associated prime award.
                     To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
-                <span className="award-search__subaward-note"> Note that there are several documented issues related to&nbsp;
-                    <Link
-                        to=""
-                        aria-label="Open the About the Data"
-                        onClick={(e) => openAboutTheDataSidebar(e, 'subaward-data-quality')}>subaward data quality
-                    </Link> in our About the Data module.
+                <span className="award-search__subaward-note">
+                    Note that there are several documented issues related to&nbsp;
+                    <AboutTheDataLink slug="subaward-data-quality">
+                        subaward data quality
+                    </AboutTheDataLink>
+                    {' '}in our About the Data module.
                 </span>
                 </p>
             </> :
@@ -139,11 +132,9 @@ const MapDsm = ({ spendingLevel }) => {
             Data reported by the Department of Health and Human Services (HHS) related
             to Medicare payments does not reflect the place where "the majority of the work" occurs, as
             required by USAspending's data model specifications. &nbsp;
-            <Link
-                to=""
-                aria-label="Open the About the Data"
-                onClick={(e) => openAboutTheDataSidebar(e, 'medicare-location-data')}>Learn about Medicare Location Data.
-            </Link>
+            <AboutTheDataLink slug="medicare-location-data">
+                Learn about Medicare Location Data.
+            </AboutTheDataLink>
         </p>
     </>;
 
