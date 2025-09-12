@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+const axios = require('axios');
 const pages = require('./pages');
 
 const fs = require('fs');

@@ -1,4 +1,4 @@
-FROM node:12.18.4	
+FROM node:22.14.0
 
 RUN mkdir /node-workspace	
 
