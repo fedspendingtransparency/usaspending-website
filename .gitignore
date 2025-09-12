@@ -79,3 +79,5 @@ db.sql
 /src/js/LocalConstants.js
 */LocalConstants.js
 
+# don't check in
+scripts/sitemaps/sitemapFiles/
