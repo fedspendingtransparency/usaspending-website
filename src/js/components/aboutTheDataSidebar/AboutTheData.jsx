@@ -142,12 +142,10 @@ const AboutTheData = (props) => {
             if (window.location.href.includes('about-the-data')) {
                 delete query['about-the-data'];
                 const newQueryParams = getQueryParamString(query);
-
                 let newUrl = pathname + newQueryParams;
                 if (newUrl.split('').pop() === '?') {
                     newUrl = newUrl.substring(0, newUrl.length - 1);
                 }
-
                 window.history.replaceState(null, '', newUrl);
             }
 
