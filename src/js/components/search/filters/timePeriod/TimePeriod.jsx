@@ -4,6 +4,7 @@
  **/
 
 import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Set } from 'immutable';
@@ -40,7 +41,6 @@ const propTypes = {
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
-    subaward: PropTypes.bool,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
     federalAccountPage: PropTypes.bool,
@@ -64,7 +64,6 @@ const TimePeriod = ({
     changeTab,
     disableDateRange = false,
     dirtyFilters,
-    subaward,
     newAwardsOnlySelected,
     newAwardsOnlyActive,
     federalAccountPage,
@@ -78,6 +77,7 @@ const TimePeriod = ({
     const [errorMessage, setErrorMessage] = useState('');
     const [header, setHeader] = useState('');
     const [dateRangeChipRemoved, setDateRangeChipRemoved] = useState(false);
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const prevProps = usePrevious({ filterTimePeriodFY, filterTimePeriod });
     const prevState = usePrevious({
         startDateUI, endDateUI, startDateDropdown, endDateDropdown
@@ -264,20 +264,21 @@ const TimePeriod = ({
         activeClassDR = 'hidden';
     }
 
+    const isSubAward = spendingLevel === "subawards";
     const newAwardsFilter = (
         <div className={`new-awards-wrapper ${activeClassDR}`}>
             <label
                 htmlFor="new-awards-checkbox">
                 <input
                     type="checkbox"
-                    className={`new-awards-checkbox ${subaward || !newAwardsOnlyActive ? 'not-active' : ''}`}
+                    className={`new-awards-checkbox ${isSubAward || !newAwardsOnlyActive ? 'not-active' : ''}`}
                     id="new-awards-checkbox"
                     value="new-awards-checkbox"
-                    disabled={subaward || !newAwardsOnlyActive}
-                    checked={newAwardsOnlySelected}
+                    disabled={isSubAward || !newAwardsOnlyActive}
+                    checked={newAwardsOnlySelected && !isSubAward}
                     onChange={newAwardsClick}
                     onKeyUp={(e) => enterKeyToggleHandler(e)} />
-                <span className={`new-awards-label ${subaward || !newAwardsOnlyActive ? 'not-active' : ''}`}>
+                <span className={`new-awards-label ${isSubAward || !newAwardsOnlyActive ? 'not-active' : ''}`}>
                     Show New Awards Only
                 </span>
             </label>
