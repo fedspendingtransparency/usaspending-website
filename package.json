@@ -19,7 +19,8 @@
     "lhci:audit": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --chrome-flags=\"--headless\"; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -c .storybook -o docs"
+
   },
   "author": "",
   "engines": {
