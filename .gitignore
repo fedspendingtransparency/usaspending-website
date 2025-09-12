@@ -59,6 +59,7 @@ usa_spending.sh
 /*.xml
 /scripts/sitemaps/sitemapFiles/robots.txt	
 /scripts/sitemaps/sitemapFiles/*.xml
+scripts/sitemaps/sitemapFiles/
 
 # direnv
 \.envrc
@@ -78,6 +79,3 @@ db.sql
 # local settings
 /src/js/LocalConstants.js
 */LocalConstants.js
-
-# don't check in
-scripts/sitemaps/sitemapFiles/
