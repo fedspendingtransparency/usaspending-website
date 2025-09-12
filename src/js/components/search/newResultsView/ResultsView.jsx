@@ -57,6 +57,11 @@ const ResultsView = React.memo((props) => {
             });
         }
         else {
+            // if subawards is true, newAwardsOnly cannot be true, so we remove dateType
+            if (spendingLevel === 'subawards') {
+                delete searchParamsTemp.dateType;
+            }
+
             countRequest = performSpendingByAwardTabCountSearch({
                 filters: searchParamsTemp.toParams(),
                 spending_level: spendingLevel,
