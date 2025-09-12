@@ -43,18 +43,20 @@ const AboutTheDataLink = ({ slug, children }) => {
     }
 
     const openAboutTheDataSidebar = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
         window.history.replaceState(null, '', newUrl);
         showSlideout('atd', { term: entry });
-        e.stopPropagation();
     };
 
     return (
-        <span
+        <a
+            href={pathname + newUrl}
             className="usda-atd-link"
             aria-label="Open the About the Data"
             onClick={openAboutTheDataSidebar}>
             {children}
-        </span>
+        </a>
     );
 };
 
