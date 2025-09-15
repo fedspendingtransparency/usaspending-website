@@ -10,6 +10,7 @@ import {
     faAngleRight,
     faAngleLeft,
     faArrowLeft,
+    faArrowDown,
     faAngleDoubleDown,
     faArrowCircleLeft,
     faArrowCircleRight,
@@ -188,6 +189,7 @@ export default function registerIcons() {
         faFacebookSquare,
         faYoutube,
         faLinkedin,
-        faGithub
+        faGithub,
+        faArrowDown
     );
 }
