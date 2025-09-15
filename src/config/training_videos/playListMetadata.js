@@ -3,9 +3,40 @@
  * Created by Andrea Blackwell 12/20/22
  **/
 
-/** Pulled from URL - https://developers.google.com/youtube/v3/docs/videos/list?apix_params=%7B%22part%22%3A%5B%22snippet%2CcontentDetails%22%5D%2C%22id%22%3A%5B%22AEKL2LOkRZY%2C%208-r7aSvl8tY%2C%20apPBqcy6F1k%2C%20jYs3zq3Tvs0%2CFzl4OIjP73A%2C%20b7SDGhSZ5wM%2Cb8l-ZBhQ900%2Cb9ABwzIyCNI%2Chct0oHSGVHA%2C%20ZuvZQ33ZvAE%22%5D%7D
- * Using parts - Snippet and Content Details
- * Video IDs - AEKL2LOkRZY, 8-r7aSvl8tY, apPBqcy6F1k, jYs3zq3Tvs0,Fzl4OIjP73A, b7SDGhSZ5wM,b8l-ZBhQ900,b9ABwzIyCNI,hct0oHSGVHA, ZuvZQ33ZvAE
+/** Pulled from URL - https://developers.google.com/youtube/v3/docs/videos/list?apix_params=%7B%22part%22%3A%5B%22snippet%2CcontentDetails%22%5D%2C%22id%22%3A%5B%223oJCWiGfl04%22%5D%7D
+ *
+ * STEPS TO ADD TO THE LIST
+ * Go to the URL above
+ * Once the URL loads, replace the string in id with the video id from the new video you want to add
+ * The video id is what is found at the end of the youtube url - for example if your video url is https://www.youtube.com/watch?v=3oJCWiGfl04 the video id = 3oJCWiGfl04
+ * scroll down and click execute, you may have to log in to your google account (use your frb email)
+ * you will receive a JSON response
+ * you'll see a section in the response titled "items": [there will be more json here]
+ * copy everything in between [] including the {}
+ * scroll down to the comment towards the end of this file and follow the instructions
+ * paste the video id at the end of the list in this top section of comments
+ *
+ * (Dev note, Using parts - Snippet and Content Details)
+ * Video IDs:
+ * 5gMp2kyzEoo
+ * AEKL2LOkRZY
+ * Fzl4OIjP73A
+ * b8l-ZBhQ900
+ * b9ABwzIyCNI
+ * hct0oHSGVHA
+ * 8-r7aSvl8tY
+ * apPBqcy6F1k
+ * jYs3zq3Tvs0
+ * b7SDGhSZ5wM
+ * ZuvZQ33ZvAE
+ * 2GSWlHlPULE
+ * z6QwQR_7beM
+ * fLNHjzYKCaQ
+ * c-bqfpWSSrI
+ * PKFYRaSGKOc
+ * 5N7u7VNOYmo
+ * zqGDGY2Qzko
+ * 3oJCWiGfl04
 **/
 
 const metaData = {
@@ -1223,7 +1254,72 @@ const metaData = {
                 projection: "rectangular",
                 hasCustomThumbnail: true
             }
+        },
+        {
+            kind: "youtube#video",
+            etag: "hSwu7H0mEGEeBgTNgj09VPSawYw",
+            id: "3oJCWiGfl04",
+            snippet: {
+                publishedAt: "2025-07-31T16:00:05Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "TESTIMONIAL: Your Data, Your Story: Keon Muldrow",
+                description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Keon Muldrow, Subcenter Director at Johnson County Community College. Learn more about how Keon helps his clients use USAspending.gov to find government contracts and funding opportunities.\n\nCHAPTERS:\n0:34 Tell us about yourself\n0:52 Why is federal spending data important to you?\n1:04 What features on USAspending.gov provide the most value to you?\n2:25 What have you made using data from USAspending.gov?\n3:06 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\nVisit USAspending.gov: https://www.usaspending.gov/\nSign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov\nAsk questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed.",
+                thumbnails: {
+                    default: {
+                        url: "https://i.ytimg.com/vi/3oJCWiGfl04/default.jpg",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i.ytimg.com/vi/3oJCWiGfl04/mqdefault.jpg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i.ytimg.com/vi/3oJCWiGfl04/hqdefault.jpg",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i.ytimg.com/vi/3oJCWiGfl04/sddefault.jpg",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i.ytimg.com/vi/3oJCWiGfl04/maxresdefault.jpg",
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                channelTitle: "USAspending",
+                tags: [
+                    "financial data",
+                    "government spending",
+                    "data",
+                    "customer testimonial",
+                    "government transparency",
+                    "open data"
+                ],
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                defaultLanguage: "en",
+                localized: {
+                    title: "Your Data, Your Story: Keon Muldrow",
+                    description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Keon Muldrow, Subcenter Director at Johnson County Community College. Learn more about how Keon helps his clients use USAspending.gov to find government contracts and funding opportunities.\n\nCHAPTERS:\n0:34 Tell us about yourself\n0:52 Why is federal spending data important to you?\n1:04 What features on USAspending.gov provide the most value to you?\n2:25 What have you made using data from USAspending.gov?\n3:06 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\nVisit USAspending.gov: https://www.usaspending.gov/\nSign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov\nAsk questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed."
+                },
+                defaultAudioLanguage: "en"
+            },
+            contentDetails: {
+                duration: "PT3M48S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular"
+            }
         }
+        // put a comma at the end of the brace above this line, then paste what you copied from the response above this comment
     ]
 };
 
