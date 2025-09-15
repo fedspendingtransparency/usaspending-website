@@ -232,7 +232,7 @@ const TimeVisualizationSectionContainer = (props) => {
 
     // This function is necessary for the legacy search page.  The spending level must be transactions here.
     const getSpendingLevel = (spendingLevel) => {
-        if (isv2) {
+        if (isv2 || spendingLevel === "subawards") {
             return spendingLevel;
         }
         return "transactions";
