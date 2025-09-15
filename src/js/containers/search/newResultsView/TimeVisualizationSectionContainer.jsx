@@ -230,6 +230,14 @@ const TimeVisualizationSectionContainer = (props) => {
         createTableRows(updatedTable);
     };
 
+    // This function is necessary for the legacy search page.  The spending level must be transactions here.
+    const getSpendingLevel = (spendingLevel) => {
+        if (isv2) {
+            return spendingLevel;
+        }
+        return "transactions";
+    };
+
     const fetchAwards = (auditTrail = null) => {
         const operation = new SearchAwardsOperation();
         operation.fromState(props.reduxFilters);
@@ -246,12 +254,8 @@ const TimeVisualizationSectionContainer = (props) => {
         const apiParams = {
             group: visualizationPeriod,
             filters: searchParams,
-            spending_level: props.spendingLevel
+            spending_level: getSpendingLevel(props.spendingLevel)
         };
-
-        if (isv2) {
-            apiParams.spending_level = props.spendingLevel;
-        }
 
         if (auditTrail) {
             apiParams.auditTrail = auditTrail;

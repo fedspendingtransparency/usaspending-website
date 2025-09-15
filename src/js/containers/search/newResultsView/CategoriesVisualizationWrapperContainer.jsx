@@ -8,10 +8,11 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useSearchParams } from "react-router";
+import { useLocation, useSearchParams } from "react-router";
 import { max, get } from 'lodash-es';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import GlobalConstants from 'GlobalConstants';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -64,6 +65,9 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [tableRows, setTableRows] = useState([]);
     const [searchParams] = useSearchParams();
     let apiRequest;
+
+    const { pathname } = useLocation();
+    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const childProps = {
         spendingBy,
@@ -347,6 +351,14 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setError(false);
     };
 
+    // This function is necessary for the legacy search page.  The spending level must be transactions here.
+    const getSpendingLevel = (spendingLevel) => {
+        if (isv2) {
+            return spendingLevel;
+        }
+        return "transactions";
+    };
+
     const fetchData = () => {
         props.setAppliedFilterCompletion(false);
         setLoading(true);
@@ -378,8 +390,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             limit: 10,
             page,
             auditTrail,
-            spending_level: props.spendingLevel
-
+            spending_level: getSpendingLevel(props.spendingLevel)
         };
 
         apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
