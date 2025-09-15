@@ -8,9 +8,10 @@ import PropTypes from "prop-types";
 
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import TrainingVideosHeading from "./trainingVideosHeading/TrainingVideosHeading";
 import FeaturedVideo from "./featuredVideo/FeaturedVideo";
 import ListOfVideos from "./listOfVideos/ListOfVideos";
+import ContentPageHeader from '../sharedComponents/header/ContentPageHeader';
+import { getBaseUrl } from '../../helpers/socialShare';
 
 const propTypes = {
     featuredVideo: PropTypes.object,
@@ -28,7 +29,17 @@ const TrainingVideosPage = ({ featuredVideo, videos }) => (
         <main
             id="main-content"
             className="main-content training-videos-content">
-            <TrainingVideosHeading />
+            <ContentPageHeader
+                className="training-videos"
+                kicker="RESOURCES"
+                title="Training Videos"
+                body="Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube channel for the latest videos!"
+                image="img/youtube-page/youtube-landing-page-hero-image@2x.webp"
+                shareOptions={{
+                    emailSubject: "Training Videos for USAspending.gov",
+                    emailBody: ` Watch training videos about USAspending.gov: ${getBaseUrl("training-videos")}`
+                }}
+                slug="training-videos" />
             <FeaturedVideo featuredVideo={featuredVideo} />
             <ListOfVideos videos={videos} />
         </main>

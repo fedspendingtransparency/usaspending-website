@@ -32,13 +32,13 @@
         justify-content: center;
       }
 
-      .training-img-container {
+      .training-videos__img-container {
         display: flex;
         justify-content: center;
 
       }
 
-      .training-img {
+      .training-videos__img {
         margin: auto;
         max-height: 400px;
 
@@ -65,14 +65,14 @@
       }
 
       .training-videos__column-two-container {
-        .training-videos__column-two-title {
+        .training-videos__column-two-kicker {
           margin-bottom: $global-margin;
           line-height: 1.5;
           font-size: $font-size-16;
           color: $gray-60;
         }
 
-        .training-videos__column-two-header {
+        .training-videos__column-two-title {
           color: $gray-90;
           font-size: $font-size-48;
           line-height: 1.25;
