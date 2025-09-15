@@ -1,0 +1,124 @@
+.content-page-header__hero {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $indigo-cool-5v;
+  padding: $global-padding * 6 0;
+
+  @media (min-width: $medium-screen) {
+    padding: $global-padding * 4 0;
+
+  }
+
+  .grid-content {
+    align-items: center;
+
+    @media (min-width: $medium-screen) {
+      margin: 0 $global-margin * 16;
+    }
+
+    @media (min-width: $large-screen) {
+      margin: 0 $global-margin * 18.25;
+    }
+
+    .content-page-header__column-one {
+      display: none;
+
+      @media (min-width: $medium-screen) {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .content-page-header__img-container {
+        display: flex;
+        justify-content: center;
+
+      }
+
+      .content-page-header__img {
+        margin: auto;
+        max-height: 400px;
+
+      }
+    }
+
+    .content-page-header__column-two {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+
+      @media (min-width: $tablet-screen) {
+        margin: 0 $global-margin * 15.5;
+      }
+
+      @media (min-width: $medium-screen) {
+        margin: unset;
+        padding: $global-padding * 7 0 $global-padding * 7 $global-padding * 7.5;
+      }
+
+      @media (min-width: $large-screen) {
+        padding: $global-padding * 8 0 $global-padding * 8 $global-padding * 13.75;
+      }
+
+      .content-page-header__column-two-container {
+        .content-page-header__column-two-kicker {
+          margin-bottom: $global-margin;
+          line-height: 1.5;
+          font-size: $font-size-16;
+          color: $gray-60;
+        }
+
+        .content-page-header__column-two-title {
+          color: $gray-90;
+          font-size: $font-size-48;
+          line-height: 1.25;
+          font-weight: $font-semibold;
+          margin-bottom: $global-margin * 2;
+
+          @media (max-width: $medium-screen) {
+            font-weight: $font-semibold;
+            line-height: 1.25;
+          }
+        }
+
+        .content-page-header__column-two-body {
+          line-height: 1.5;
+          font-size: $font-size-20;
+          margin-bottom: $global-margin * 3;
+          color: $gray-60;
+        }
+
+        .content-page-header__column-share-icon {
+          width: rem(38);
+
+          // this is to place the msg on top of the 'copy link' item in dropdown
+          .usda-share-icon .copy-confirmation {
+            top: rem(40);
+            right: rem(16);
+          }
+
+          .usda-share-icon {
+            .usa-dt-picker .usa-dt-picker__dropdown-container {
+              .usa-dt-picker__button {
+                margin: 0 rem(34) 0 0;
+                padding-bottom: 4px;
+              }
+
+              .usa-dt-picker__button svg:hover {
+                color: $theme-color-1-dark;
+              }
+
+              .usa-dt-picker__button svg:active {
+                color: $blue-cool-80v;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
