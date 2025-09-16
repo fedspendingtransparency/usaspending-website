@@ -1,5 +1,5 @@
 /**
- * ArticleList.jsx
+ * ListOfVideos.jsx
  * Created by Brian Petway 12/05/22
  */
 
