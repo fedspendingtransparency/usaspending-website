@@ -19,6 +19,14 @@
         margin: 0 0 rem(5);
     }
 
+    h4.about-citation {
+        @include h5();
+        font-size: rem(18);
+        color: $color-gray;
+        padding-left: rem(3);
+        margin: 0 0 rem(5);
+    }
+
     .back-link {
         padding-top: rem(25);
         a {
@@ -45,6 +53,11 @@
             padding-left: rem(3);
             margin: rem(10) 0 rem(20);
         }
+
+        .citation-it {
+            font-style: italic;
+        }
+
 
         p + p {
             margin: rem(30) 0;
