@@ -9,7 +9,7 @@ import { difference } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import replaceString from 'helpers/replaceString';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
-import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodes';
+import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodesWrapper';
 
 const propTypes = {
     data: PropTypes.array,
@@ -185,7 +185,7 @@ const CheckboxTree = ({
       * @returns {Array.<object>} An array of objects
     **/
     const createLabels = (nodes) => nodes.map((node) => {
-    // if label is a string, do nothing
+    // if label is not a string, do nothing
         if (typeof node.label !== 'string') return node;
         if (node.isPlaceHolder && node.className !== 'hide') {
             return {
@@ -217,7 +217,8 @@ const CheckboxTree = ({
                         label={node?.isSearchable === false
                             ? node.label
                             : highlightText(node.label)}
-                        countLabel={countLabel} />
+                        countLabel={countLabel}
+                        searchString={searchString} />
                 ),
             children: node.children
                 ? createLabels(node.children)
