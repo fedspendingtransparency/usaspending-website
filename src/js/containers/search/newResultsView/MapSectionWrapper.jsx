@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
+import { useLocation } from "react-router";
+import GlobalConstants from 'GlobalConstants';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
@@ -84,6 +86,9 @@ const MapSectionWrapper = React.memo((props) => {
         wrapperError: false,
         wrapperNoData: false
     });
+
+    const { pathname } = useLocation();
+    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const [mapViewType, setMapViewType] = useState('chart');
     let apiRequest = null;
@@ -196,6 +201,14 @@ const MapSectionWrapper = React.memo((props) => {
         return false;
     };
 
+    // This function is necessary for the legacy search page.  The spending level must be transactions here.
+    const getSpendingLevel = (spendingLevel) => {
+        if (isv2 || spendingLevel === "subawards") {
+            return spendingLevel;
+        }
+        return "transactions";
+    };
+
     const fetchData = () => {
         // build a new search operation from the Redux state, but create a transaction-based search
         // operation instead of an award-based one
@@ -230,7 +243,7 @@ const MapSectionWrapper = React.memo((props) => {
             geo_layer_filters: visibleEntities,
             filters: searchParams,
             auditTrail: 'Map Visualization',
-            spending_level: props.spendingLevel
+            spending_level: getSpendingLevel(props.spendingLevel)
         };
 
         if (apiRequest) {
