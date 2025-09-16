@@ -24,7 +24,7 @@ const propTypes = {
     url: oneOfType([PropTypes.string, PropTypes.func])
 };
 
-const VideoCard = ({
+const ArticleCard = ({
     thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt, url
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -113,6 +113,6 @@ const VideoCard = ({
     );
 };
 
-VideoCard.propTypes = propTypes;
+ArticleCard.propTypes = propTypes;
 
-export default VideoCard;
+export default ArticleCard;

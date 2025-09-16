@@ -1,6 +1,6 @@
 /**
  * ArticleList.jsx
- * Created by Brian Petway 12/05/22
+ * Created by Andrea Blackwell 9/15/25
  */
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -8,17 +8,17 @@ import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
 import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
-import VideoCard from '../videoCard/VideoCard';
+import VideoCard from '../articleCard/ArticleCard';
 
 const propTypes = {
     videos: PropTypes.array
 };
 
-const ListOfVideos = ({ videos }) => {
+const ArticleList = ({ articles }) => {
     const dispatch = useDispatch();
     const [sortOrder, setSortOrder] = useState();
-    const [videoList, setVideoList] = useState(videos);
-    const originalVideoList = videos;
+    const [articleList, setArticleList] = useState(articles);
+    const originalArticleList = articles;
     const prevSortRef = useRef();
 
     useEffect(() => {
@@ -26,36 +26,27 @@ const ListOfVideos = ({ videos }) => {
     }, []);
 
     useEffect(() => {
-        const tmpVideos = [...originalVideoList];
+        const tmpArticles = [...originalArticleList];
         if (prevSortRef.current === sortOrder) {
             return;
         }
 
         prevSortRef.current = sortOrder;
         if (sortOrder === "Newest") {
-            tmpVideos.sort((a, b) => new Date(b._publishedAt) - new Date(a._publishedAt));
+            tmpArticles.sort((a, b) => new Date(b._publishedAt) - new Date(a._publishedAt));
         }
 
 
         if (sortOrder === "Oldest") {
-            tmpVideos.sort((a, b) => new Date(a._publishedAt) - new Date(b._publishedAt));
+            tmpArticles.sort((a, b) => new Date(a._publishedAt) - new Date(b._publishedAt));
         }
 
-        if (sortOrder === "Longest") {
-            tmpVideos.sort((a, b) => new Date(b.durationInSecs) - new Date(a.durationInSecs));
-        }
-
-
-        if (sortOrder === "Shortest") {
-            tmpVideos.sort((a, b) => new Date(a.durationInSecs) - new Date(b.durationInSecs));
-        }
-
-        setVideoList(tmpVideos);
-    }, [originalVideoList, sortOrder]);
+        setArticleList(tmpArticles);
+    }, [originalArticleList, sortOrder]);
 
     const sortBy = () => {
-        const tmpVideos = [...originalVideoList];
-        tmpVideos.sort((a, b) => b.value > a.value);
+        const tmpArticles = [...originalArticleList];
+        tmpArticles.sort((a, b) => b.value > a.value);
     };
 
     return (
@@ -80,20 +71,6 @@ const ListOfVideos = ({ videos }) => {
                                 onClick: () => {
                                     setSortOrder("Oldest");
                                 }
-                            },
-                            {
-                                name: 'Shortest',
-                                value: 2,
-                                onClick: () => {
-                                    setSortOrder("Shortest");
-                                }
-                            },
-                            {
-                                name: 'Longest',
-                                value: 3,
-                                onClick: () => {
-                                    setSortOrder("Longest");
-                                }
                             }]}
                             dropdownDirection="right"
                             backgroundColor="#ffffff"
@@ -101,7 +78,7 @@ const ListOfVideos = ({ videos }) => {
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow hasGutter gutterSize="lg">
-                    {videoList.map((video) => (
+                    {articleList.map((video) => (
                         <FlexGridCol
                             key={video.id}
                             desktopxl={4}
@@ -123,7 +100,6 @@ const ListOfVideos = ({ videos }) => {
                                 thumbnailUrl={video.thumbnails.maxres.url}
                                 id={video.id}
                                 title={video.title}
-                                duration={video.duration}
                                 publishedAt={video.publishedAt}
                                 url={video.url}
                                 description={video.description}
@@ -140,6 +116,6 @@ const ListOfVideos = ({ videos }) => {
         </section>);
 };
 
-ListOfVideos.propTypes = propTypes;
-export default ListOfVideos;
+ArticleList.propTypes = propTypes;
+export default ArticleList;
 
