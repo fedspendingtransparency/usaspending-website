@@ -109,10 +109,13 @@ const TreeNodes = ({
     const renderNestedNodes = (renderNodes, level) => renderNodes.map((node) => {
         const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
         const isExpanded = localExpanded.includes(node.id);
-        const hasChildren = node.children && node.children.length > 0;
+        const hasChildren = node.children?.length > 0 && !node.showCheckbox;
+        const nodeIsLoading = isLoading && loadingParentId === node.id;
+        if (node.value.includes("children_of_") && !nodeIsLoading) return null;
+
         return (
             <div key={node.id}>
-                {isLoading && loadingParentId === node.id ? (
+                {nodeIsLoading ? (
                     <div style={{ marginLeft: '10px' }}>
                         <br />
                         <FontAwesomeIcon icon="spinner" spin /> Loading your data...
