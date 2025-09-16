@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from 'lodash-es';
-import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
+import VideoThumbnail from "../../trainingVideos/videoThumbnails/VideoThumbnail";
 import { showModal } from '../../../redux/actions/modal/modalActions';
 
 const propTypes = {
