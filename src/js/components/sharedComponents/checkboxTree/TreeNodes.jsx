@@ -33,7 +33,7 @@ const TreeNodes = ({
                 const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
                 const hasAnyChildren = node.children?.length > 0;
 
-                // if (node.value.includes("children_of_") && !isLoading(node.id)) return null;
+                if (node.value.includes("children_of_") && !isLoadingId(node.id)) return null;
 
                 return (
                     <li key={node.id}>
