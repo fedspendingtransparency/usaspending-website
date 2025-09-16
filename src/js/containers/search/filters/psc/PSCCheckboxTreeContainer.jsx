@@ -302,10 +302,8 @@ const PSCCheckboxTreeContainer = ({
         }
 
         setSearchString(text);
-        if (text.length >= 4) {
-            setIsSearch(true);
-            setIsLoading(true);
-        }
+        setIsSearch(true);
+        setIsLoading(true);
     };
 
     useEffect(() => {
