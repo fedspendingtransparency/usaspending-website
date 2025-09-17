@@ -6,7 +6,7 @@
  */
 
 import { getDrilldownEntry, getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
-import schema from 'src/config/aboutTheData/aboutTheDataSchema';
+import schema from '../../src/config/aboutTheData/aboutTheDataSchema';
 
 describe('About the Data Sidebar Helpers', () => {
     it('should return the correct entry object', () => {
