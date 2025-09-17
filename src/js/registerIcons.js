@@ -2,7 +2,7 @@
  * registerIcons.js
  * Created by Max Kendall 12/8/2020
  */
-
+import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faAngleDown,
@@ -10,6 +10,7 @@ import {
     faAngleRight,
     faAngleLeft,
     faArrowLeft,
+    faArrowDown,
     faAngleDoubleDown,
     faArrowCircleLeft,
     faArrowCircleRight,
@@ -184,6 +185,11 @@ export default function registerIcons() {
         faGraduationCap,
         faCodeBranch,
         faLongArrowAltUp,
-        faLongArrowAltDown
+        faLongArrowAltDown,
+        faFacebookSquare,
+        faYoutube,
+        faLinkedin,
+        faGithub,
+        faArrowDown
     );
 }
