@@ -9,9 +9,7 @@ import { difference } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import replaceString from 'helpers/replaceString';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
-import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodes';
-
-import 'react-checkbox-tree/lib/react-checkbox-tree.css';
+import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodesWrapper';
 
 const propTypes = {
     data: PropTypes.array,
@@ -21,7 +19,7 @@ const propTypes = {
     isDisabled: PropTypes.bool,
     errorMessage: PropTypes.string,
     isSearch: PropTypes.bool,
-    searchText: PropTypes.string,
+    searchString: PropTypes.string,
     modifyLabelTextClassname: PropTypes.string,
     labelComponent: PropTypes.element,
     onExpand: PropTypes.func,
@@ -42,7 +40,7 @@ const CheckboxTree = ({
     isDisabled = false,
     errorMessage,
     isSearch,
-    searchText,
+    searchString,
     modifyLabelTextClassname,
     labelComponent,
     onExpand: onExpandProp,
@@ -177,7 +175,7 @@ const CheckboxTree = ({
      * or string if no match is found.
      */
     const highlightText = (text) => replaceString(
-        text, searchText, modifyLabelTextClassname || 'highlight'
+        text, searchString, modifyLabelTextClassname || 'highlight'
     );
 
     /**
@@ -187,7 +185,7 @@ const CheckboxTree = ({
       * @returns {Array.<object>} An array of objects
     **/
     const createLabels = (nodes) => nodes.map((node) => {
-    // if label is a string, do nothing
+    // if label is not a string, do nothing
         if (typeof node.label !== 'string') return node;
         if (node.isPlaceHolder && node.className !== 'hide') {
             return {
@@ -219,7 +217,8 @@ const CheckboxTree = ({
                         label={node?.isSearchable === false
                             ? node.label
                             : highlightText(node.label)}
-                        countLabel={countLabel} />
+                        countLabel={countLabel}
+                        searchString={searchString} />
                 ),
             children: node.children
                 ? createLabels(node.children)
@@ -234,7 +233,7 @@ const CheckboxTree = ({
             <div className="checkbox-tree-filter-message-container">
                 <FontAwesomeIcon icon="spinner" spin />
                 <div className="checkbox-tree-filter-message-container__text">
-                    Loading your dataLoading your data...
+                    Loading your data...
                 </div>
             </div>
         );
