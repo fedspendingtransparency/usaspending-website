@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 
 const propTypes = {
@@ -22,7 +21,7 @@ const DownloadStaticFile = ({ path }) => (
             rel="noopener noreferrer"
             download>
             <div className="download_static-file__button-content">
-                <FontAwesomeIcon data-href={path} icon={faFileDownload} />
+                <FontAwesomeIcon data-href={path} icon="file-download" />
                 <span>Download</span>
             </div>
         </a>
