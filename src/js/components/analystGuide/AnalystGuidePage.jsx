@@ -6,7 +6,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
-import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import { throttle } from 'lodash-es';
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -81,7 +80,7 @@ const AnalystGuidePage = () => {
                                     className="analyst-guide__download-button"
                                     aria-label="download"
                                     download>
-                                    <FontAwesomeIcon data-href="/data/Federal-Spending-Guide.pdf" icon={faFileDownload} className="analyst-guide__download-icon" />
+                                    <FontAwesomeIcon data-href="/data/Federal-Spending-Guide.pdf" icon="file-download" className="analyst-guide__download-icon" />
                                 </a>
                                 <div>
                                     <span>Download</span>
