@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import schema from 'dataMapping/aboutTheDataSchema';
+import schema from 'src/config/aboutTheData/aboutTheDataSchema';
 import AboutTheData from 'components/aboutTheDataSidebar/AboutTheData';
 import { mockActions, mockData } from './mockAboutTheDataSidebarFn';
 import { render, screen } from '../../testResources/test-utils';

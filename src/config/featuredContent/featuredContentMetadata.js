@@ -3,7 +3,7 @@ export const articles = [
         content_type: "Content-Centric Article",
         title: "Exploring America's Finances Has Never Been Easier",
         alt_title: "Exploring America’s Finances: The Data Behind the Dollars",
-        slug: "exploring-americas-finances-has-never-been-easier",
+        slug: "exploring-americas-finances-the-data-behind-the-dollars",
         created_date: "",
         description: "",
         mdx_path: "",

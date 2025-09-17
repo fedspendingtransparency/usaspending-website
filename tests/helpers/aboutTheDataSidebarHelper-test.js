@@ -5,8 +5,8 @@
  * Created by Andrea Blackwell 12/07/2022
  */
 
-import schema from 'dataMapping/aboutTheDataSchema';
 import { getDrilldownEntry, getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
+import schema from 'src/config/aboutTheData/aboutTheDataSchema';
 
 describe('About the Data Sidebar Helpers', () => {
     it('should return the correct entry object', () => {
