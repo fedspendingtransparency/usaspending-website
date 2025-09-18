@@ -33,12 +33,12 @@ const ArticleList = ({ articles }) => {
 
         prevSortRef.current = sortOrder;
         if (sortOrder === "Newest") {
-            tmpArticles.sort((a, b) => new Date(b._publishedAt) - new Date(a._publishedAt));
+            tmpArticles.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
         }
 
 
         if (sortOrder === "Oldest") {
-            tmpArticles.sort((a, b) => new Date(a._publishedAt) - new Date(b._publishedAt));
+            tmpArticles.sort((a, b) => new Date(a.created_date) - new Date(b.created_date));
         }
 
         setArticleList(tmpArticles);
