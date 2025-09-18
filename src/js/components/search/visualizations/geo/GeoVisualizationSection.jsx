@@ -18,12 +18,10 @@ import {
     filtersOnClickHandler
 } from 'dataMapping/covid19/recipient/map/map';
 import { awardTypeTabs } from 'dataMapping/covid19/covid19';
-import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 import MapMessage from './MapMessage';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
-import ReadMore from '../../../sharedComponents/ReadMore';
 import { usePrevious } from "../../../../helpers";
 
 const propTypes = {
@@ -177,26 +175,6 @@ const GeoVisualizationSection = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.mapLayer]);
 
-    const applyLineClamp = (elem) => {
-        elem.classList.add("line-clamp");
-    };
-
-    const removeLineClamp = (elem) => {
-        elem.classList.remove("line-clamp");
-    };
-
-    const additionalFunctionality = () => {
-        const elem = document.querySelector(".read-more__preview-lines");
-        setExpanded(!expanded);
-        // doesn't seem correct
-        if (!expanded) {
-            removeLineClamp(elem);
-        }
-        else {
-            applyLineClamp(elem);
-        }
-    };
-
     const getMessage = () => {
         if (!MapboxGL.supported()) {
             return (
@@ -253,68 +231,11 @@ const GeoVisualizationSection = (props) => {
         return message;
     };
 
-    const MapHeader = () => {
-        if (!props.newAdvancedSearch) {
-            return (
-                <>
-                    <h2 className="visualization-title">
-                        {tableTitle}
-                    </h2>
-                    <hr
-                        className="results-divider"
-                        ref={sectionHr} />
-
-                    <div className="visualization-top">
-                        <div className="visualization-description">
-                            <p className="award-search__what-title">What's included in this view of the data?</p>
-                            <div className="content">
-                                <ReadMore
-                                    openPrompt="read more"
-                                    closePrompt="read less"
-                                    openIcon=""
-                                    closeIcon=""
-                                    showPreview
-                                    previewLines={tablePreview}
-                                    additionalFunctionality={additionalFunctionality}>
-                                    {tableBody}
-                                </ReadMore>
-                            </div>
-                        </div>
-
-                        <div className="visualization-period">
-                            <div className="content">
-                                <ul>
-                                    <li>
-                                        <GeoVisualizationScopeButton
-                                            value="place_of_performance"
-                                            label="Place of Performance"
-                                            active={props.scope === 'place_of_performance'}
-                                            changeScope={props.changeScope} />
-                                    </li>
-                                    <li>
-                                        <GeoVisualizationScopeButton
-                                            value="recipient_location"
-                                            label="Recipient Location"
-                                            active={props.scope === 'recipient_location'}
-                                            changeScope={props.changeScope} />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            );
-        }
-
-        return (<></>);
-    };
-
     return (
         <section
             className="results-visualization-geo-section"
             id="results-section-geo"
             aria-label="Spending by Geography">
-            <MapHeader />
             <MapWrapper
                 filters={addOnClickToFilters()}
                 activeFilters={activeFilters}
