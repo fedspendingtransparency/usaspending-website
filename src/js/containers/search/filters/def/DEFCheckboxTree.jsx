@@ -120,7 +120,7 @@ const DEFCheckboxTree = (props) => {
                 isError={isError}
                 errorMessage={props.defCodeFetchError}
                 isLoading={props.areDefCodesLoading}
-                searchString=""
+                searchText=""
                 noResults={false}
                 labelComponent={<DEFCheckboxTreeLabel />}
                 onUncheck={stageFilter}
