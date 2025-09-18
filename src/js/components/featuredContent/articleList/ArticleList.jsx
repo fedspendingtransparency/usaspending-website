@@ -8,10 +8,10 @@ import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
 import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
-import VideoCard from '../articleCard/ArticleCard';
+import ArticleCard from '../articleCard/ArticleCard';
 
 const propTypes = {
-    videos: PropTypes.array
+    articles: PropTypes.array
 };
 
 const ArticleList = ({ articles }) => {
@@ -50,13 +50,13 @@ const ArticleList = ({ articles }) => {
     };
 
     return (
-        <section className="list-of-videos__section">
+        <section className="list-of-articles__section">
             <div className="grid-content">
-                <FlexGridRow className="list-of-videos__sort">
-                    <FlexGridCol width={12} className="video-sort">
-                        <div className="video-sort-label">Sort By: </div>
+                <FlexGridRow className="list-of-articles__sort">
+                    <FlexGridCol width={12} className="article-sort">
+                        <div className="article-sort-label">Sort By: </div>
                         <Picker
-                            className="video-sort-list"
+                            className="article-sort-list"
                             sortFn={sortBy}
                             options={[{
                                 name: 'Newest',
@@ -78,36 +78,33 @@ const ArticleList = ({ articles }) => {
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow hasGutter gutterSize="lg">
-                    {articleList.map((video) => (
+                    {articleList.map((article) => (
                         <FlexGridCol
-                            key={video.id}
                             desktopxl={4}
                             desktop={6}
                             tablet={12}
                             mobile={12}
-                            className="list-of-videos__video">
-                            <VideoCard
+                            className="list-of-articles__article">
+                            <ArticleCard
                                 onKeyUp={(e) => {
                                     e.persist();
-                                    if (e.key === 'Enter' && (e.target.className !== 'usa-dt-picker__button' && !e.target.className.includes('text'))) {
-                                        dispatch(showTrainingVideoModal({
-                                            url: video.thumbnails.maxres.url, modalType: 'training-videos', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
-                                        }));
-                                    }
+                                    // if (e.key === 'Enter' && (e.target.className !== 'usa-dt-picker__button' && !e.target.className.includes('text'))) {
+                                    //     dispatch(showTrainingVideoModal({
+                                    //         url: video.thumbnails.maxres.url, modalType: 'training-articles', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
+                                    //     }));
+                                    // }
                                 }}
                                 tabIndex="0"
-                                key={video.id}
-                                thumbnailUrl={video.thumbnails.maxres.url}
-                                id={video.id}
-                                title={video.title}
-                                publishedAt={video.publishedAt}
-                                url={video.url}
-                                description={video.description}
+                                title={article.title}
+                                description={article.description}
+                                thumbnailUrl={article.thumbnail_path}
+                                fill={article.fill}
+                                publishedAt={article.created_date}
                                 onClick={(e) => {
                                     e.persist();
-                                    dispatch(showTrainingVideoModal({
-                                        url: video.thumbnails.maxres.url, modalType: 'training-videos', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
-                                    }));
+                                    // dispatch(showTrainingVideoModal({
+                                    //     url: video.thumbnails.maxres.url, modalType: 'training-articles', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
+                                    // }));
                                 }} />
                         </FlexGridCol>))
                     }

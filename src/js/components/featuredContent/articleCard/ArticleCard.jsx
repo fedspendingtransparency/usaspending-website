@@ -5,27 +5,27 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes, { oneOfType } from "prop-types";
-import { ShareIcon, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
+import { CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from 'lodash-es';
-import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
+import ArticleThumbnail from './ArticleThumbnail';
 import { showModal } from '../../../redux/actions/modal/modalActions';
 
 const propTypes = {
-    thumbnailUrl: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    duration: PropTypes.string,
-    publishedAt: PropTypes.string,
     onClick: PropTypes.func,
     onKeyUp: PropTypes.func,
+    thumbnailUrl: PropTypes.string,
+    publishedAt: PropTypes.string,
+    fill: PropTypes.string,
     url: oneOfType([PropTypes.string, PropTypes.func])
 };
 
 const ArticleCard = ({
-    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt, url
+    title, onClick, description, onKeyUp, url, thumbnailUrl, fill, publishedAt
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
@@ -67,18 +67,16 @@ const ArticleCard = ({
         changedTitle = title;
         overline = "RESOURCE";
     }
-
+    console.debug("stuff: ", fill);
     return (
         <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
             <CardHero
                 onClick={onClick}
                 variant="expanded"
-                thumbnail>
-                <VideoThumbnail
+                thumbnail
+                fill={fill}>
+                <ArticleThumbnail
                     thumbnailUrl={thumbnailUrl}
-                    duration={duration}
-                    showPlay
-                    showDuration
                     title={changedTitle} />
             </CardHero>
             <CardBody
@@ -92,20 +90,9 @@ const ArticleCard = ({
                     </div>
                 }
                 text={description}>
-                <div className="list-of-videos__inline">
-                    <div className="video-card__metadiv">
+                <div className="list-of-articles__inline">
+                    <div className="article-card__metadiv">
                         {publishedAt}
-                    </div>
-                    <div className="list-of-videos__column-share-icon">
-                        <ShareIcon
-                            url={url}
-                            tabIndex={0}
-                            onKeyUp={onKeyUp}
-                            onShareOptionClick={onShareClick}
-                            colors={{ backgroundColor: "white", color: "#2378c3" }}
-                            dropdownDirection={isMobile ? 'left' : 'right'}
-                            classNames="no-margin-left"
-                            noShareText />
                     </div>
                 </div>
             </CardBody>
