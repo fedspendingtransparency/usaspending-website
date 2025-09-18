@@ -5,10 +5,16 @@
   justify-content: center;
   background-color: $blue-20;
   padding: $global-padding * 6 0;
+  height: 356px;
 
   @media (min-width: $medium-screen) {
     padding: $global-padding * 4 0;
+    height: 468px;
 
+  }
+
+  @media (max-width: $small-screen) {
+    height: 476px;
   }
 
   .grid-content {
