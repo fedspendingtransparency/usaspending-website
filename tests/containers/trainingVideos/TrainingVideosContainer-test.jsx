@@ -99,7 +99,7 @@ const result = {
 };
 
 // // Mock the child component, so that we can isolate functionality of the container
-jest.mock('../../../src/config/training_videos/playListMetadata', () => ({
+jest.mock('../../../src/config/trainingVideos/playListMetadata', () => ({
     items: metaData.items
 }));
 jest.mock('../../../src/js/components/trainingVideos/TrainingVideosPage', () => jest.fn(() => null));

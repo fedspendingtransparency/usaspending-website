@@ -5,7 +5,7 @@
 
 import React from 'react';
 import VideoMetadata from 'models/v2/video/VideoMetadata';
-import metadata from '../../../config/training_videos/playListMetadata';
+import metadata from '../../../config/trainingVideos/playListMetadata';
 import TrainingVideosPage from "../../components/trainingVideos/TrainingVideosPage";
 
 const TrainingVideosContainer = () => {

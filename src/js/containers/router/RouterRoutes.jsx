@@ -41,6 +41,8 @@ const AnalystGuidePage = React.lazy(() => import('components/analystGuide/Analys
 const EquityCovidSpendingPage = React.lazy(() => import('components/dataDives/EquityCovidSpendingPage').then((comp) => comp));
 const InteractiveDataSourcesPage = React.lazy(() => import('components/interactiveDataSources/InteractiveDataSourcesPage').then((comp) => comp));
 const TrainingVideosContainer = React.lazy(() => import('containers/trainingVideos/TrainingVideosContainer').then((comp) => comp));
+const FeaturedContentPage = React.lazy(() => import('components/featuredContent/FeaturedContentPage').then((comp) => comp));
+const FeaturedContentArticle = React.lazy(() => import('components/featuredContent/FeaturedContentArticle').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
@@ -243,6 +245,14 @@ export const routes = [
     {
         path: '/federal-spending-guide',
         component: AnalystGuidePage
+    },
+    {
+        path: '/featured-content',
+        component: FeaturedContentPage
+    },
+    {
+        path: '/featured-content/:slug',
+        component: FeaturedContentArticle
     },
     {
         path: '*',

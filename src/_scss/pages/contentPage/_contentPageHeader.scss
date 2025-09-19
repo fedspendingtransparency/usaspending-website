@@ -1,9 +1,9 @@
-.training-videos__hero {
+.content-page-header__hero {
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: $indigo-cool-5v;
+  background-color: $blue-20;
   padding: $global-padding * 6 0;
   height: 356px;
 
@@ -28,7 +28,7 @@
       margin: 0 $global-margin * 18.25;
     }
 
-    .training-videos__column-one {
+    .content-page-header__column-one {
       display: none;
 
       @media (min-width: $medium-screen) {
@@ -38,20 +38,20 @@
         justify-content: center;
       }
 
-      .training-videos__img-container {
+      .content-page-header__img-container {
         display: flex;
         justify-content: center;
 
       }
 
-      .training-videos__img {
+      .content-page-header__img {
         margin: auto;
         max-height: 400px;
 
       }
     }
 
-    .training-videos__column-two {
+    .content-page-header__column-two {
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -70,15 +70,15 @@
         padding: $global-padding * 8 0 $global-padding * 8 $global-padding * 13.75;
       }
 
-      .training-videos__column-two-container {
-        .training-videos__column-two-kicker {
+      .content-page-header__column-two-container {
+        .content-page-header__column-two-kicker {
           margin-bottom: $global-margin;
           line-height: 1.5;
           font-size: $font-size-16;
           color: $gray-60;
         }
 
-        .training-videos__column-two-title {
+        .content-page-header__column-two-title {
           color: $gray-90;
           font-size: $font-size-48;
           line-height: 1.25;
@@ -91,14 +91,14 @@
           }
         }
 
-        .training-videos__column-two-body {
+        .content-page-header__column-two-body {
           line-height: 1.5;
           font-size: $font-size-20;
           margin-bottom: $global-margin * 3;
           color: $gray-60;
         }
 
-        .training-videos__column-share-icon {
+        .content-page-header__column-share-icon {
           width: rem(38);
 
           // this is to place the msg on top of the 'copy link' item in dropdown

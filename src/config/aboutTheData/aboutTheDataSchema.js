@@ -1,7 +1,6 @@
 const schema = {
     descriptions: {
         heading: "Sitewide Data Source Descriptions",
-        path: 'content/about-the-data/descriptions',
         fields: [
             {
                 name: "GTAS (Governmentwide Treasury Account Symbol Adjusted Trial Balance System)",
@@ -39,7 +38,6 @@ const schema = {
     },
     disclosures: {
         heading: "Sitewide Data Source Disclosures",
-        path: 'content/about-the-data/disclosures',
         fields: [
             {
                 name: "Reporting Requirement for Federal Agencies",
@@ -77,7 +75,6 @@ const schema = {
     },
     "award-disclosures": {
         heading: "Sitewide Award Data Disclosures",
-        path: 'content/about-the-data/award-disclosures',
         fields: [
             {
                 name: "Start Date for Prime Award and Subaward Data on USAspending.gov",
@@ -143,7 +140,6 @@ const schema = {
     },
     "covid-disclosures": {
         heading: "Sitewide COVID-19 and Infrastructure Spending Data Disclosures",
-        path: 'content/about-the-data/covid-disclosures',
         fields: [
             {
                 name: "Definition of Covered Funds",
@@ -193,7 +189,6 @@ const schema = {
     },
     "filter-category-descriptions": {
         heading: "Filter Category Descriptions",
-        path: 'content/about-the-data/filter-category-descriptions',
         fields: [
             {
                 name: "Time Period",
@@ -219,7 +214,6 @@ const schema = {
     },
     "legal-disclosures": {
         heading: "Legal and Policy Documentation",
-        path: 'content/about-the-data/legal-disclosures',
         fields: [
             {
                 name: "Statutory  Authority",

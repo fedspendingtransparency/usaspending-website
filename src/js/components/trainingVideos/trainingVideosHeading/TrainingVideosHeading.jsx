@@ -3,6 +3,10 @@
  * Created by Brian Petway 12/05/22
  */
 
+
+// Depricating 9/15/2025
+
+
 import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
@@ -48,8 +52,8 @@ const TrainingVideosHeading = () => {
                     tablet={0}
                     mobile={0}>
                     <div className="training-videos__column-one">
-                        <div className="trianing-img-container">
-                            <img className="training-img" src="img/youtube-page/youtube-landing-page-hero-image@2x.webp" alt="placeholder" />
+                        <div className="training-videos__img-container">
+                            <img className="training-videos__img" src="img/youtube-page/youtube-landing-page-hero-image@2x.webp" alt="placeholder" />
                         </div>
                     </div>
                 </FlexGridCol>
