@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import React from 'react';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import { Link } from "react-router";
@@ -170,7 +169,7 @@ const AboutSection = () => {
                             <FontAwesomeIcon
                                 aria-labelledby="scroll-down-text"
                                 alt="Down Arrow icon"
-                                icon={faArrowDown}
+                                icon="arrow-down"
                                 className="interactives-down-icon" />
                         </div>
                     </div>
