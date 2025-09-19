@@ -407,7 +407,7 @@ export class TASCheckboxTree extends React.Component {
                     isLoading={isLoading}
                     data={nodes.sort((a, b) => a.label.localeCompare(b.label))}
                     checked={checked}
-                    searchString={searchString}
+                    searchText={searchString}
                     countLabel="TAS"
                     noResults={showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}

@@ -7,12 +7,12 @@
 import React from 'react';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import ArticleMetadata from '../../models/v2/featuredContent/ArticleMetadata';
-import { articles, contentTypes } from '../../../config/featured_content/featuredContentMetadata';
+import { articles } from '../../../config/featuredContent/featuredContentMetadata';
 import ArticleList from './articleList/ArticleList';
 
 require('pages/featuredContent/featuredContent.scss');
 
-const FeaturedContentPage = (props) => {
+const FeaturedContentPage = () => {
     const articlesList = [];
 
     articles.forEach((item) => {
@@ -20,7 +20,6 @@ const FeaturedContentPage = (props) => {
         articleMetadata.populate(item);
         articlesList.push(articleMetadata);
     });
-    console.debug('articles: ', articles);
     return (
         <PageWrapper
             pageName="Featured Content"

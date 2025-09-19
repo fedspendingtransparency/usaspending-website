@@ -131,24 +131,8 @@ const PSCCheckboxTreeContainer = ({
                     // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
                     const key = id.includes('/') ? id.split('/').pop() : id;
 
-                    if (isSearch) {
-                        const searchExpandedNodes = expandPscNodeAndAllDescendantParents(pscNodes);
-                        setSearchedPsc(pscNodes);
-
-                        autoCheckSearchResultDescendants(
-                            checked,
-                            searchExpandedNodes,
-                            nodes
-                        );
-                        setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED');
-
-
-                        if (pscNodes.length === 0) {
-                            setShowNoResults(true);
-                        }
-                    }
-                    else {
-                        setPscNodes(key, pscNodes);
+                    if (resolveLoadingIndicator) {
+                        setIsLoading(false);
                     }
 
                     const newChecked = checked.includes(`children_of_${key}`)
@@ -159,17 +143,38 @@ const PSCCheckboxTreeContainer = ({
                         )
                         : checked;
 
-                    setCheckedPsc(newChecked);
+                    if (isSearch) {
+                        setSearchedPsc(pscNodes);
+
+                        const searchExpandedNodes = expandPscNodeAndAllDescendantParents(pscNodes);
+
+                        setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED');
+
+                        const nodesCheckedByPlaceholderOrAncestor = autoCheckSearchResultDescendants(
+                            checked,
+                            searchExpandedNodes,
+                            nodes
+                        );
+
+                        setCheckedPsc(nodesCheckedByPlaceholderOrAncestor);
+
+                        if (pscNodes.length === 0) {
+                            setShowNoResults(true);
+                        }
+                    }
+                    else {
+                        setPscNodes(key, pscNodes);
+                        setCheckedPsc(newChecked);
+                    }
                 }
                 else {
                     // populating tree trunk
                     setPscNodes('', pscNodes);
-                }
 
-                if (resolveLoadingIndicator) {
-                    setIsLoading(false);
+                    if (resolveLoadingIndicator) {
+                        setIsLoading(false);
+                    }
                 }
-
                 request.current = null;
             })
             .catch((e) => {
@@ -302,10 +307,8 @@ const PSCCheckboxTreeContainer = ({
         }
 
         setSearchString(text);
-        if (text.length >= 2) {
-            setIsSearch(true);
-            setIsLoading(true);
-        }
+        setIsSearch(true);
+        setIsLoading(true);
     };
 
     useEffect(() => {
@@ -408,10 +411,9 @@ const PSCCheckboxTreeContainer = ({
                     isLoading={isLoading}
                     data={nodes}
                     checked={checked}
-                    searchString={searchString}
+                    searchText={searchString}
                     noResults={showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}
-                    isSearch={isSearch}
                     onUncheck={onUncheck}
                     onCheck={onCheck}
                     onExpand={onExpand}
@@ -423,7 +425,7 @@ const PSCCheckboxTreeContainer = ({
                     isLoading={isLoading}
                     data={nodes}
                     checked={checked}
-                    searchString={searchString}
+                    searchText={searchString}
                     noResults={showNoResults}
                     expanded={isSearch ? searchExpanded : expanded}
                     onUncheck={onUncheck}

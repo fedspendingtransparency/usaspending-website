@@ -384,7 +384,7 @@ const NAICSCheckboxTree = () => {
                     noResults={showNoResults}
                     checked={checked}
                     expanded={isSearch ? searchExpanded : expanded}
-                    searchString={searchString}
+                    searchText={searchString}
                     onExpand={onExpand}
                     onCollapse={onCollapse}
                     onUncheck={onUncheck}
