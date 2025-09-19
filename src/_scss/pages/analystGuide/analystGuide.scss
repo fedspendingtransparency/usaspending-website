@@ -139,6 +139,13 @@
       border-bottom: 2px solid black;
   }
 
+  h4.analyst-guide-citation {
+    @include h5();
+    font-size: rem(16);
+    color: $color-base;
+    line-height: 1.25;
+  }
+
   .analyst-guide__answerStyle {
     color: $color-base;
     font-weight: $font-normal;
@@ -152,6 +159,9 @@
       &:hover {
         color: $theme-color-1-dark;
       }
+    }
+    .citation-it {
+      font-style: italic;
     }
   }
 
