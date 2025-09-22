@@ -94,14 +94,14 @@ const StateTimeVisualizationSection = ({
             className="state-section transactions-over-time">
             <SectionHeader
                 icon={<FontAwesomeIcon icon="chart-bar" size="2x" />}
-                title="Awards Over Time"
+                title="Transactions Over Time"
                 titleTooltip={{ component: false }}
                 descTooltip={{ component: false }} />
             <hr
                 className="results-divider"
                 ref={hrRef} />
             <div className="state-section__description">
-                The graph below shows trends over time for amounts awarded to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.
+                The graph below shows trends over time for transactions to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.
             </div>
             <div className="state__controls-desktop">
                 <NewPicker
