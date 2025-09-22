@@ -54,10 +54,13 @@
             margin: rem(10) 0 rem(20);
         }
 
-        .citation-it {
-            font-style: italic;
+        .citation-wrapper {
+            margin-left: rem(16);
+            text-indent: rem(-16);
+            .citation-it {
+                font-style: italic;
+            }
         }
-
 
         p + p {
             margin: rem(30) 0;
