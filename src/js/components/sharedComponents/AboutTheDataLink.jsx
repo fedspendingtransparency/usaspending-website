@@ -6,11 +6,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import schema from "dataMapping/aboutTheDataSchema";
 import { useLocation } from "react-router";
 import { getDrilldownEntrySectionAndId } from "helpers/aboutTheDataSidebarHelper";
 import { showSlideout } from '../../helpers/slideoutHelper';
 import { getNewUrlForGlossary } from "../../helpers/glossaryHelper";
+import schema from "../../../config/aboutTheData/aboutTheDataSchema";
 
 const propTypes = {
     slug: PropTypes.string,
