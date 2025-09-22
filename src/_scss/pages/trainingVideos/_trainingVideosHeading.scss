@@ -5,10 +5,16 @@
   justify-content: center;
   background-color: $indigo-cool-5v;
   padding: $global-padding * 6 0;
+  height: 356px;
 
   @media (min-width: $medium-screen) {
     padding: $global-padding * 4 0;
+    height: 468px;
 
+  }
+
+  @media (max-width: $small-screen) {
+    height: 476px;
   }
 
   .grid-content {
@@ -32,13 +38,13 @@
         justify-content: center;
       }
 
-      .training-img-container {
+      .training-videos__img-container {
         display: flex;
         justify-content: center;
 
       }
 
-      .training-img {
+      .training-videos__img {
         margin: auto;
         max-height: 400px;
 
@@ -65,14 +71,14 @@
       }
 
       .training-videos__column-two-container {
-        .training-videos__column-two-title {
+        .training-videos__column-two-kicker {
           margin-bottom: $global-margin;
           line-height: 1.5;
           font-size: $font-size-16;
           color: $gray-60;
         }
 
-        .training-videos__column-two-header {
+        .training-videos__column-two-title {
           color: $gray-90;
           font-size: $font-size-48;
           line-height: 1.25;
@@ -92,7 +98,7 @@
           color: $gray-60;
         }
 
-        .training-video__column-share-icon {
+        .training-videos__column-share-icon {
           width: rem(38);
 
           // this is to place the msg on top of the 'copy link' item in dropdown

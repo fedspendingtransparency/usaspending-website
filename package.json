@@ -19,7 +19,9 @@
     "lhci:audit": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --chrome-flags=\"--headless\"; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -c .storybook -o docs",
+    "build-sb-artifacts": "npm run prod && npm run build-storybook"
+
   },
   "author": "",
   "engines": {
@@ -129,7 +131,7 @@
     "**/body-parser": "1.20.3",
     "send": "0.19.0",
     "**/send": "0.19.0",
-    "axios": "1.8.4",
+    "axios": "1.12.0",
     "braces": "3.0.3",
     "**/braces": "3.0.3",
     "browserify-sign": "4.2.2",
@@ -268,7 +270,7 @@
     "@tanstack/react-table": "^8.21.3",
     "accounting": "^0.4.1",
     "ajv": "^8.11.0",
-    "axios": "^1.8.4",
+    "axios": "^1.12.0",
     "bourbon": "^4.3.4",
     "bourbon-neat": "^4.0.0",
     "buffer": "^6.0.3",

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from 'react-router';
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./megaMenu/MegaMenu";
@@ -89,7 +88,7 @@ const NavbarWrapper = React.memo(() => {
                             aria-label="mobile hamburger menu"
                             className="mobile-hamburger__button"
                             onClick={toggleMobileNav}>
-                            <FontAwesomeIcon className="mobile-hamburger__buns" icon={faBars} size="lg" />
+                            <FontAwesomeIcon className="mobile-hamburger__buns" icon="bars" size="lg" />
                         </button>
                     </div>
                 </div>
