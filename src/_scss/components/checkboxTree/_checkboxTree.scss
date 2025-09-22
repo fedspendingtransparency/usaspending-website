@@ -13,6 +13,10 @@
     max-height: 600px;
     overflow-y: auto;
 
+    .checkbox-tree__value-container-value {
+      color: $gray-80;
+    }
+
     .rct-node-icon {
       display: none;
     }
@@ -277,6 +281,7 @@
   width: 100%;
 }
 
+
 // New nested checkbox tree
 .psc-checkbox .checkbox-tree {
   ul {
@@ -348,21 +353,23 @@
 
     &__value-container-count {
       font-style: italic;
+      font-size: $font-size-10;
       white-space: nowrap;
     }
     &__value-container-value {
-      color: $gray-80;
+      text-align: center;
+      padding: 0 rem(4);
+      font-size: $font-size-10;
+      background-color: $color-gray-lightest;
+      border-radius: 2px;
+      font-weight: $font-semibold;
+      color: $gray-90;
 
-      span {
-        font-size: $font-size-10;
-        font-style: italic;
-        line-height: rem(1.8);
-        color: $gray-60;
-      }
       span.highlight {
         background-color: $yellow-10;
         font-style: normal;
         font-size: $font-size-12;
+        line-height: 1.8;
       }
     }
 
