@@ -1,4 +1,4 @@
-.featured-content-page {
+.content-page {
   @import 'all';
   @import "layouts/default/default";
 
@@ -12,7 +12,7 @@
     min-height: 6rem;
   }
 
-  .featured-content {
+  .content-page {
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -29,13 +29,9 @@
         margin: 0 $grid-column;
       }
     }
+
   }
-  
-  @import "../contentPage/contentPageHeader";
-  @import "listOfArticles";
-  @import "articleThumbnail";
-  @import "articleSort";
+
+  @import "pages/contentPage/contentPageHeader";
+
 }
-
-
-
