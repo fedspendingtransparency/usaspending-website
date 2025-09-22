@@ -11,7 +11,7 @@ import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import ArticleHeader from "./article/ArticleHeader";
 
-require('../../../_scss/pages/featuredContent/featuredContent.scss');
+require('pages/featuredContent/featuredContent.scss');
 
 const propTypes = {
     heroImage: PropTypes.string,

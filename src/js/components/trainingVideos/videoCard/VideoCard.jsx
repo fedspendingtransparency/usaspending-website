@@ -1,5 +1,5 @@
 /**
- * ArticleCard.jsx
+ * VideoCard.jsx
  * Created by Andrea Blackwell 12/20/22
  */
 
