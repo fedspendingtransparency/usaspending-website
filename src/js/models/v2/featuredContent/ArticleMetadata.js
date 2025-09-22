@@ -13,7 +13,9 @@ const ArticleMetadata = {
         this.description = data.description || '';
         this.mdx_path = data.mdx_path || '';
         this.thumbnail_path = data.thumbnail_path || '';
-        this.landing_header_path = data.landing_header_path || '';
+        this.mobile_hero = data.mobile_hero || '';
+        this.hero = data.hero || '';
+        this.slug = data.slug || '';
         this.explore_more = data.explore_more || '';
         this.related_terms = data.related_terms || '';
     }
