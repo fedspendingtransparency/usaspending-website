@@ -4,6 +4,7 @@ import { isCancel } from 'axios';
 import { debounce, get, flattenDeep } from 'lodash-es';
 import { connect } from 'react-redux';
 
+import { useLocation } from "react-router";
 import {
     cleanPscData,
     incrementPscCountAndUpdateUnchecked,
@@ -77,6 +78,8 @@ const PSCCheckboxTreeContainer = ({
     const [showNoResults, setShowNoResults] = useState(false);
     const [newCheck, setNewCheck] = useState([]);
     const [uncheckedFromHashLocal, setUncheckedFromHashLocal] = useState([]);
+    const { pathname } = useLocation();
+    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const nodesRef = useRef(true);
     const request = useRef(null);
@@ -401,7 +404,7 @@ const PSCCheckboxTreeContainer = ({
                 isClearable
                 loading={false}
                 onClear={onClear} />
-            {GlobalConstants.QAT ?
+            {GlobalConstants.QAT && isv2 ?
                 <NewCheckboxTree
                     isError={isError}
                     errorMessage={errorMessage}

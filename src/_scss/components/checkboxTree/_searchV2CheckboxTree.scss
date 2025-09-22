@@ -29,6 +29,10 @@
       border-radius: 2px;
       background-color: $gray-cool-5 !important;
       padding: 2px !important;
+      
+      span.highlight {
+        background-color: $yellow-10;
+      }
     }
 
     .checkbox-tree-label__value-container-count {
