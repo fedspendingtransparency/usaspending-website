@@ -754,7 +754,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             </p>
             <h4 className="analyst-guide-citation">Suggested Specific Profile/Award Citations</h4>
             <p className="analyst-guide__answerStyle">“Contract to Science Systems and Applications, INC.” <span className="citation-it">USAspending.gov</span>,
-                <br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="www.usaspending.gov/award/CONT_AWD_NNG17HP01C_8000_-NONE-_-NONE-">www.usaspending.gov/award/CONT_AWD_NNG17HP01C_8000_-NONE-_-NONE-</a>. Accessed [Day] [Month]. [Year].
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.usaspending.gov/award/CONT_AWD_NNG17HP01C_8000_-NONE-_-NONE-">www.usaspending.gov/award/CONT_AWD_NNG17HP01C_8000_-NONE-_-NONE-</a>. Accessed [Day] [Month]. [Year].
             </p>
             <p className="analyst-guide__answerStyle">“State Profile: Maine.” <span className="citation-it">USAspending.gov</span>,
                 <br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.usaspending.gov/state/maine/2025">https://www.usaspending.gov/state/maine/2025</a>. Accessed [Day] [Month]. [Year].
