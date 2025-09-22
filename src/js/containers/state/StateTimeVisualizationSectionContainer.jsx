@@ -133,7 +133,7 @@ const StateTimeVisualizationSectionContainer = (props) => {
         const apiParams = {
             group: visualizationPeriod,
             filters: searchParams,
-            spending_level: "awards"
+            spending_level: "transactions"
         };
 
         apiParams.auditTrail = 'Spending Over Time Visualization';
