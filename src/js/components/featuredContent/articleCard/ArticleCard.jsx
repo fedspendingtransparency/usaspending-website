@@ -68,12 +68,12 @@ const ArticleCard = ({
         overline = "RESOURCE";
     }
     return (
-        <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
+        <CardContainer variant="outline" size="md" tabIndex="0">
             <CardHero
-                onClick={onClick}
                 variant="expanded"
                 thumbnail
-                fill={fill}>
+                fill={fill}
+                onClick={onClick}>
                 <ArticleThumbnail
                     thumbnailUrl={thumbnailUrl}
                     title={changedTitle} />
