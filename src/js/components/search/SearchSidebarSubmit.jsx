@@ -82,7 +82,7 @@ const SearchSidebarSubmit = ({
         }
 
         // Sanity check
-        Cookies.set("has_logged_query_timer", true);
+        Cookies.set("has_logged_query_timer", true, { expires: 365 });
     };
 
     useEffect(() => {
