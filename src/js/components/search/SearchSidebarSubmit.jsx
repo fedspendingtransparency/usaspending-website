@@ -48,7 +48,6 @@ const SearchSidebarSubmit = ({
                 Cookies.get("advanced_search_to_query_time") &&
                 !Cookies.get('has_logged_query_timer')
             ) {
-                console.log('advanced search');
                 const timer = now - Cookies.get("advanced_search_to_query_time");
                 const timerInSeconds = Math.floor(timer / 1000);
 
@@ -66,7 +65,6 @@ const SearchSidebarSubmit = ({
             }
 
             if (Cookies.get("homepage_to_query_time") && !Cookies.get('has_logged_query_timer')) {
-                console.log('homepage search');
                 const timerHomePage = now - Cookies.get("homepage_to_query_time");
                 const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
 
