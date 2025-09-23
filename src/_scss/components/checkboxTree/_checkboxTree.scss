@@ -150,7 +150,7 @@
 
               .checkbox-tree-label__value-container-value {
                 text-align: center;
-                padding: 0 rem(3);
+                padding: 0 rem(4);
                 background-color: $color-gray-lightest;
                 border-radius: 2px;
                 font-weight: $font-semibold;
@@ -290,6 +290,7 @@
 
     li {
       list-style-type: none;
+      margin-bottom: 0 !important;
 
       .label {
         display: flex;
@@ -302,7 +303,7 @@
   }
 
   div.open {
-    margin-left: 4px;
+    margin-left: 8px;
     padding-left: 24px;
     border-left: 1.5px solid $gray-cool-20;
   }
@@ -355,10 +356,13 @@
       font-style: italic;
       font-size: $font-size-10;
       white-space: nowrap;
+      padding-top: rem(4);
     }
+    
     &__value-container-value {
       text-align: center;
       padding: 0 rem(4);
+      margin-right: rem(4);
       font-size: $font-size-10;
       background-color: $color-gray-lightest;
       border-radius: 2px;
@@ -372,14 +376,13 @@
         line-height: 1.8;
       }
     }
+    &__label {
+      font-size: $font-size-12;
+      margin-bottom: rem(12);
+    }
 
     &__container {
       margin-left: 4px;
-      //padding-left: 24px;
-
-      .open {
-        border-left: 1.5px solid $gray-cool-20;
-      }
     }
   }
 }
