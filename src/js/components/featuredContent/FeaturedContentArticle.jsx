@@ -49,11 +49,13 @@ const FeaturedContentArticle = () => {
 
     useEffect(() => {
         const fetchMarkdown = async () => {
-            const file = await import(chosenArticle.mdx_path);
+            const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
             console.debug("file:", file);
             setMarkdownContent(file.default());
         };
-        fetchMarkdown();
+        if (chosenArticle !== null) {
+            fetchMarkdown();
+        }
     }, [chosenArticle]);
 
     console.debug("chosenArticle: ", chosenArticle);
