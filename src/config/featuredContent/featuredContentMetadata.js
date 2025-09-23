@@ -56,7 +56,7 @@ export const articles = [
         alt_title: "Four ways to use our data",
         created_date: "10/1/2025",
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand how stuff when things happen and other stuff happens you should learn how stuff does work when happens happen",
-        mdx_path: "",
+        mdx_path: "../../../content/featuredContent/exploring-americas-finances-the-data-behind-the-dollars.mdx",
         thumbnail_path: "../../img/featuredContent/Data-definitions.png",
         hero: "../../img/featuredContent/Data-definitions-hero.png",
         mobile_hero: "../../img/featuredContent/Data-definitions-mobile-hero.png",

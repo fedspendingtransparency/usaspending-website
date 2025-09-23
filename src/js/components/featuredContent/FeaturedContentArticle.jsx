@@ -5,12 +5,12 @@
 
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
+import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { useLocation } from 'react-router';
-import PropTypes from 'prop-types';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
-import ArticleHeader from "./article/ArticleHeader";
+// import ArticleHeader from "./article/ArticleHeader";
 import { mediumScreen } from '../../dataMapping/shared/mobileBreakpoints';
 import { articles } from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
@@ -24,6 +24,7 @@ const FeaturedContentArticle = () => {
     const parts = location.pathname.split('/');
     const lastPortion = parts[parts.length - 1];
     const [chosenArticle, setChosenArticle] = useState(null);
+    const [markdownContent, setMarkdownContent] = useState('');
 
     useEffect(() => {
         for (const article of articles) {
@@ -31,7 +32,7 @@ const FeaturedContentArticle = () => {
                 setChosenArticle(article);
             }
         }
-    }, [chosenArticle]);
+    }, [chosenArticle, lastPortion]);
 
 
     useEffect(() => {
@@ -45,6 +46,15 @@ const FeaturedContentArticle = () => {
         return () => window.removeEventListener('resize', handleResize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
+
+    useEffect(() => {
+        const fetchMarkdown = async () => {
+            const file = await import(chosenArticle.mdx_path);
+            console.debug("file:", file);
+            setMarkdownContent(file.default());
+        };
+        fetchMarkdown();
+    }, [chosenArticle]);
 
     console.debug("chosenArticle: ", chosenArticle);
     return (
@@ -60,6 +70,14 @@ const FeaturedContentArticle = () => {
                     {!isMobile ? <img src={chosenArticle?.hero} alt="data definitions hero" /> :
                         <img src={chosenArticle?.mobile_hero} alt="data definitions hero" />}
                 </div>
+                <FlexGridRow desktop={12}>
+                    <FlexGridCol tablet={12} mobile={12} desktop={8}>
+                        {markdownContent}
+                    </FlexGridCol>
+                    <FlexGridCol tablet={12} mobile={12} desktop={4}>
+                        <div>share/explore/related</div>
+                    </FlexGridCol>
+                </FlexGridRow>
             </main>
         </PageWrapper>);
 };
