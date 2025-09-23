@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import { useDispatch } from 'react-redux';
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import ArticleCard from '../articleCard/ArticleCard';
 import { transformString } from '../../../helpers/featuredContent/featuredContentHelper';
@@ -15,7 +14,6 @@ const propTypes = {
 };
 
 const ArticleList = ({ articles }) => {
-    const dispatch = useDispatch();
     const [sortOrder, setSortOrder] = useState();
     const [articleList, setArticleList] = useState(articles);
     const originalArticleList = articles;

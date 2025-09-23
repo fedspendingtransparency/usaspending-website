@@ -50,7 +50,6 @@ const FeaturedContentArticle = () => {
     useEffect(() => {
         const fetchMarkdown = async () => {
             const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
-            console.debug("file:", file);
             setMarkdownContent(file.default());
         };
         if (chosenArticle !== null) {
@@ -58,7 +57,6 @@ const FeaturedContentArticle = () => {
         }
     }, [chosenArticle]);
 
-    console.debug("chosenArticle: ", chosenArticle);
     return (
         <PageWrapper
             pageName="Featured Content Article"
@@ -68,8 +66,11 @@ const FeaturedContentArticle = () => {
             <main
                 id="main-content"
                 className="main-content featured-content">
-                <div className="featured-content__img-wrapper">
-                    {!isMobile ? <img src={chosenArticle?.hero} alt="data definitions hero" /> :
+                <div className="featured-content__header-wrapper">
+                    {!isMobile ?
+                        <label htmlFor="featured-content-hero" className="featured-content__label">{chosenArticle?.content_type}</label>
+                        : null}
+                    {!isMobile ? <img src={chosenArticle?.hero} alt="data definitions hero" name="featured-content-hero" id="featured-content-hero" /> :
                         <img src={chosenArticle?.mobile_hero} alt="data definitions hero" />}
                 </div>
                 <FlexGridRow desktop={12}>
