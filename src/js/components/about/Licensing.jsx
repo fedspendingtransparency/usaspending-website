@@ -43,6 +43,19 @@ const Licensing = () => {
                     &nbsp;is available for public use under the Creative
                     Commons CC0 Public Domain Dedication license.
                 </p>
+                <h3 className="about-subtitle">Citations</h3>
+                <p>There are a few different ways to cite data from USAspending.gov. Reference the examples below, based on the type of data being cited.</p>
+                <h4 className="about-citation">Suggested General Citation:</h4>
+                <p className="citation-wrapper"><span className="citation-it">USAspending.gov</span>, U.S. Department of Treasury, Bureau of the Fiscal Service,
+                    <br /><a href="https://www.usaspending.gov">https://www.usaspending.gov</a>. Accessed [Day] [Month]. [Year].
+                </p>
+                <h4 className="about-citation">Suggested Specific Profile/Award Citations:</h4>
+                <p className="citation-wrapper">“Contract to Science Systems and Applications, INC.” <span className="citation-it">USAspending.gov</span>,
+                    <br /><a href="https://www.usaspending.gov/award/CONT_AWD_NNG17HP01C_8000_-NONE-_-NONE-">www.usaspending.gov/award/CONT_AWD_NNG17HP01C_8000_-NONE-_-NONE-</a>. Accessed [Day] [Month]. [Year].
+                </p>
+                <p className="citation-wrapper">“State Profile: Maine.” <span className="citation-it">USAspending.gov</span>,
+                    <br /><a href="https://www.usaspending.gov/state/maine/2025">https://www.usaspending.gov/state/maine/2025</a>. Accessed [Day] [Month]. [Year].
+                </p>
             </div>
         </div>
     );
