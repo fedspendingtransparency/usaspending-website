@@ -156,7 +156,7 @@
                 font-weight: $font-semibold;
                 font-size: rem(14);
 
-                .highlight {
+                span.highlight {
                   background-color: rgb(252, 227, 160);
                 }
               }
@@ -179,7 +179,7 @@
               font-weight: $font-semibold;
               line-height: rem(18);
               padding-top: 2px;
-              .highlight {
+              span.highlight {
                 background-color: rgb(252, 227, 160);
               }
             }

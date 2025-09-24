@@ -47,6 +47,10 @@
       font-size: 12px !important;
       color: $gray-90;
       padding-top: 4px !important;
+
+      span.highlight {
+        background-color: $yellow-10;
+      }
     }
 
     .rct-checkbox {
