@@ -23,8 +23,22 @@ const Template = (args) => {
         setAwardType(newAwardType);
     }
 
-    const bulkFilterChange = (value) => {
-        console.log('value', value);
+    const bulkFilterChange = ({ direction, types }) => {
+        console.log('direction', direction);
+        const newAwardType = new Set();
+
+        awardType.forEach((item) => {
+            newAwardType.add(item);
+        });
+
+        if (direction === 'add') {
+            types.forEach((type) => newAwardType.add(type))
+        }
+        else {
+            types.forEach((type) => newAwardType.delete(type))
+        }
+
+        setAwardType(newAwardType);
     }
 
     useEffect(() => {
