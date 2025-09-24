@@ -14,17 +14,17 @@ const Template = (args) => {
     const singleFilterChange = ({ value }) => {
         const newAwardType = new Set();
 
-        if (awardType.has(value)) {
-            awardType.forEach((item) => {
-                if (item !== value) newAwardType.add(item);
-            });
+        awardType.forEach((item) => {
+            if (item !== value) newAwardType.add(item);
+        });
 
-        }
-        else {
-            awardType.forEach((item) => newAwardType.add(item));
-            newAwardType.add(value);
-        }
+        if (!awardType.has(value)) newAwardType.add(value);
+
         setAwardType(newAwardType);
+    }
+
+    const bulkFilterChange = (value) => {
+        console.log('value', value);
     }
 
     useEffect(() => {
@@ -32,7 +32,11 @@ const Template = (args) => {
     }, [awardType.size]);
 
     return (
-        <AccordionCheckbox selectedFilters={awardType} singleFilterChange={singleFilterChange} {...args} />
+        <AccordionCheckbox
+            selectedFilters={awardType}
+            singleFilterChange={singleFilterChange}
+            bulkFilterChange={bulkFilterChange}
+            {...args} />
     )
 };
 
@@ -40,6 +44,5 @@ export const Default = Template.bind({});
 
 Default.args = {
     filterCategoryMapping: awardTypesData,
-    filters: awardTypeCodes,
-    bulkFilterChange: () => console.log('bulk filter change')
+    filters: awardTypeCodes
 }
