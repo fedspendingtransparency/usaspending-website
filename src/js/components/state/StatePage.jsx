@@ -61,7 +61,7 @@ const StatePage = ({
         },
         {
             section: 'transactions-over-time',
-            label: 'Awards Over Time'
+            label: 'Transactions Over Time'
         },
         {
             section: 'top-five',

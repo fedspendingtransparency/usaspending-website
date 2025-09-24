@@ -117,7 +117,7 @@ const StateTimeVisualizationChart = (props) => {
                         onMouseLeave={onMouseLeave} />
                     <Legend
                         align="left"
-                        content={<CustomLegend barColor={!props.outlayToggle ? "#0081a1" : "#008480"} label={!props.outlayToggle ? "Obligations" : "Outlays"} />}
+                        content={<CustomLegend barColor={!props.outlayToggle ? "#0081a1" : "#008480"} label={!props.outlayToggle ? "Transactions" : "Outlays"} />}
                         wrapperStyle={{ left: 60, bottom: 0 }} />
                     <ReferenceLine y={0} stroke="#dfe1e2" />
                     <Bar
