@@ -41,10 +41,6 @@ const Template = (args) => {
         setAwardType(newAwardType);
     }
 
-    useEffect(() => {
-        console.log('awardType:', awardType.size);
-    }, [awardType.size]);
-
     return (
         <AccordionCheckbox
             selectedFilters={awardType}
