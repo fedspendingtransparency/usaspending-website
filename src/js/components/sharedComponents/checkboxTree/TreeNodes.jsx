@@ -37,26 +37,28 @@ const TreeNodes = ({
 
                 return (
                     <li key={node.id}>
-                        <div className="label">
-                            {hasAnyChildren &&
-                                <button
-                                    type="button"
-                                    onClick={() => toggleExpand(node.id, true)}
-                                    title={isOpen ? "Collapse" : "Expand"}
-                                    aria-label={isOpen ? "Collapse" : "Expand"}>
-                                    <FontAwesomeIcon
-                                        icon={isOpen ? 'chevron-down' : 'chevron-right'}
-                                        style={{ cursor: 'pointer' }} />
-                                </button>}
-
-                            {node.label && <input
-                                type="checkbox"
-                                disabled={disabled}
-                                checked={isChecked}
-                                onChange={() => handleCheck(node.id, node.children || [])} />}
+                        <div className="checkbox-tree-label__container">
+                            <div className="checkbox-tree-label__controls" >
+                                {hasAnyChildren &&
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleExpand(node.id, true)}
+                                        title={isOpen ? "Collapse" : "Expand"}
+                                        aria-label={isOpen ? "Collapse" : "Expand"}>
+                                        <FontAwesomeIcon
+                                            icon={isOpen ? 'chevron-down' : 'chevron-right'}
+                                            style={{ cursor: 'pointer' }} />
+                                    </button>}
+                                {node.label && <input
+                                    type="checkbox"
+                                    disabled={disabled}
+                                    checked={isChecked}
+                                    onKeyDown={(e) => (e.key === "Enter" ? handleCheck(node.id, node.children || []) : "")}
+                                    onClick={() => handleCheck(node.id, node.children || [])} />}
+                            </div>
                             {node.label}
                         </div>
-                        <div className={`${isOpen ? 'open' : ''}`}>
+                        <div className={`checkbox-tree-label__description ${isOpen ? 'open' : ''}`}>
                             {isLoadingId(node.id) ?
                                 <span className="loading">
                                     <FontAwesomeIcon icon="spinner" spin /> Loading your data...
