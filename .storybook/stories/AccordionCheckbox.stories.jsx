@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AccordionCheckbox from "../../src/js/components/sharedComponents/checkbox/AccordionCheckbox";
 import { awardTypesData } from "../../src/js/helpers/search/filterCheckboxHelper";
@@ -10,11 +10,29 @@ export default {
 };
 
 const Template = (args) => {
-    console.log(args);
-    const awardType = new Set();
+    const [awardType, setAwardType] = useState(new Set());
+    const singleFilterChange = ({ value }) => {
+        const newAwardType = new Set();
+
+        if (awardType.has(value)) {
+            awardType.forEach((item) => {
+                if (item !== value) newAwardType.add(item);
+            });
+
+        }
+        else {
+            awardType.forEach((item) => newAwardType.add(item));
+            newAwardType.add(value);
+        }
+        setAwardType(newAwardType);
+    }
+
+    useEffect(() => {
+        console.log('awardType:', awardType.size);
+    }, [awardType.size]);
 
     return (
-        <AccordionCheckbox selectedFilters={awardType} {...args} />
+        <AccordionCheckbox selectedFilters={awardType} singleFilterChange={singleFilterChange} {...args} />
     )
 };
 
@@ -23,6 +41,5 @@ export const Default = Template.bind({});
 Default.args = {
     filterCategoryMapping: awardTypesData,
     filters: awardTypeCodes,
-    singleFilterChange: () => console.log('single filter change'),
     bulkFilterChange: () => console.log('bulk filter change')
 }
