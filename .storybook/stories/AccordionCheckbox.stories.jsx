@@ -24,7 +24,6 @@ const Template = (args) => {
     }
 
     const bulkFilterChange = ({ direction, types }) => {
-        console.log('direction', direction);
         const newAwardType = new Set();
 
         awardType.forEach((item) => {
