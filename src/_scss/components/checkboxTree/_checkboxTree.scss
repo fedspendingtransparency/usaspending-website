@@ -284,6 +284,14 @@
 
 // New nested checkbox tree
 .psc-checkbox .checkbox-tree {
+  li {
+    margin-bottom: 0 !important;
+
+    label {
+      margin-bottom: 0 !important;
+    }
+  }
+
   ul {
     margin: 0;
     padding: 0;
@@ -373,12 +381,12 @@
         background-color: $yellow-10;
         font-style: normal;
         font-size: $font-size-12;
-        line-height: 1.8;
       }
     }
     &__label {
       font-size: $font-size-12;
       margin-bottom: rem(12);
+      padding-top: 0 !important;
     }
 
     &__container {
