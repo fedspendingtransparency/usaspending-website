@@ -168,8 +168,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 if (key === 'obligations') {
                     rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
                 }
+                else if (row[key].value === undefined) {
+                    rowArray.push(row[key]);
+                }
                 else {
-                    rowArray.push(row[key].value);
+                    rowArray.push(row[key]?.value);
                 }
             });
             rowsArray.push(rowArray);

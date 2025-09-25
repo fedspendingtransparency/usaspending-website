@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AboutTheDataMarkdownLink from "../aboutTheDataSidebar/AboutTheDataMarkdownLink";
+import AboutTheDataLink from "./AboutTheDataLink";
 
 const DsmCategoryIcons = ({ searchFilterCategoryTree }) => (
     <>
@@ -22,10 +22,9 @@ const DsmCategoryIcons = ({ searchFilterCategoryTree }) => (
         <div className="collapsible-sidebar--dsm-wrapper--atd-links">
             {searchFilterCategoryTree.map((category) => (
                 <div className="collapsible-sidebar--dsm-wrapper--atd-link">
-                    <AboutTheDataMarkdownLink
-                        name={category.titleCapital}
-                        slug={category.slug}
-                        openPanel />
+                    <AboutTheDataLink slug={category.slug}>
+                        {category.titleCapital}
+                    </AboutTheDataLink>
                 </div>
             ))}
         </div>

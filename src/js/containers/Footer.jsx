@@ -8,13 +8,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { throttle } from "lodash-es";
 import { tabletScreen, mLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
-
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
-
 import { showModal } from 'redux/actions/modal/modalActions';
-
 import Analytics from 'helpers/analytics/Analytics';
 import DownloadBottomBarContainer from
     'containers/search/modals/fullDownload/DownloadBottomBarContainer';
@@ -152,7 +148,7 @@ const Footer = ({
                         <ul>
                             <li>
                                 <button onClick={generateOnClick("https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ")} title="Youtube">
-                                    <FontAwesomeIcon icon={faYoutube} size="sm" color="#dfe1e2" />
+                                    <FontAwesomeIcon icon={["fab", "youtube"]} size="sm" color="#dfe1e2" />
                                 </button>
                             </li>
                             <li>
@@ -169,17 +165,17 @@ const Footer = ({
                             </li>
                             <li>
                                 <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
-                                    <FontAwesomeIcon icon={faFacebookSquare} size="sm" color="#dfe1e2" />
+                                    <FontAwesomeIcon icon={["fab", "facebook-square"]} size="sm" color="#dfe1e2" />
                                 </button>
                             </li>
                             <li>
                                 <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
-                                    <FontAwesomeIcon icon={faGithub} size="sm" color="#dfe1e2" />
+                                    <FontAwesomeIcon icon={["fab", "github"]} size="sm" color="#dfe1e2" />
                                 </button>
                             </li>
                             <li>
                                 <button onClick={generateOnClick("https://www.linkedin.com/company/bureau-of-the-fiscal-service/")} title="LinkedIn">
-                                    <FontAwesomeIcon icon={faLinkedin} size="sm" color="#dfe1e2" />
+                                    <FontAwesomeIcon icon={["fab", "linkedin"]} size="sm" color="#dfe1e2" />
                                 </button>
                             </li>
                         </ul>

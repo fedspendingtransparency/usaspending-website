@@ -102,7 +102,6 @@ const Glossary = (props) => {
 
     useEffect(() => {
         window.addEventListener('keyup', closeGlossary);
-
         window.addEventListener('resize', measureAvailableHeight);
         return () => {
             window.removeEventListener('resize', measureAvailableHeight);

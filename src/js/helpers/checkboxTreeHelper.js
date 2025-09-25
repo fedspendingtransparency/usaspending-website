@@ -430,6 +430,15 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
             }));
     }
 
+    // make sure children placeholders are in fact hidden.
+    if (!isPlaceHolderNeeded && placeHolderAlreadyExists) {
+        return children
+            .map((child) => ({
+                ...child,
+                className: child.isPlaceHolder ? "hide" : ''
+            }));
+    }
+
     return children;
 };
 

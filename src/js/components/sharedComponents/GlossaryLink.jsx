@@ -70,8 +70,8 @@ const GlossaryLink = ({
 
     return (
         <Link
-            className="usda-glossary-link"
             to={newUrl}
+            className="usda-glossary-link"
             aria-label="Open the Glossary"
             tabIndex={hidden ? "-1" : ""}
             onClick={stopBubble}>
