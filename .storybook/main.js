@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 export default {
   "stories": ["./stories/*.stories.@(js|jsx|ts|tsx)"],
@@ -19,12 +20,20 @@ export default {
   typescript: {
     reactDocgen: "react-docgen-typescript"
   },
+
   webpack: (config, options) => {
       options.cache.set = () => Promise.resolve();
       return config;
   },
+
   webpackFinal: async (config) => {
     config.plugins.push(new MiniCssExtractPlugin());
+    config.plugins.push(
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
+        new webpack.EnvironmentPlugin(['NODE_ENV']),
+    )
     config.module.rules.push({
             test: /\.js$|jsx$/,
             exclude: /node_modules\.*/,
