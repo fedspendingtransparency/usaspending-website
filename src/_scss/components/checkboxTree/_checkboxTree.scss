@@ -13,6 +13,10 @@
     max-height: 600px;
     overflow-y: auto;
 
+    .checkbox-tree__value-container-value {
+      color: $gray-80;
+    }
+
     .rct-node-icon {
       display: none;
     }
@@ -146,13 +150,13 @@
 
               .checkbox-tree-label__value-container-value {
                 text-align: center;
-                padding: 0 rem(3);
+                padding: 0 rem(4);
                 background-color: $color-gray-lightest;
                 border-radius: 2px;
                 font-weight: $font-semibold;
                 font-size: rem(14);
 
-                .highlight {
+                span.highlight {
                   background-color: rgb(252, 227, 160);
                 }
               }
@@ -175,7 +179,7 @@
               font-weight: $font-semibold;
               line-height: rem(18);
               padding-top: 2px;
-              .highlight {
+              span.highlight {
                 background-color: rgb(252, 227, 160);
               }
             }
@@ -275,6 +279,123 @@
 .tas-checkbox.checkbox-tree {
   border-bottom: 1px solid $color-gray-lighter;
   width: 100%;
+}
+
+
+// New nested checkbox tree
+.psc-checkbox .checkbox-tree {
+  li {
+    margin-bottom: 0 !important;
+
+    label {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+      margin-bottom: 0 !important;
+
+      .label {
+        display: flex;
+      }
+    }
+
+    .loading {
+      margin-left: 10px;
+    }
+  }
+
+  div.open {
+    margin-left: 8px;
+    padding-left: 24px;
+    border-left: 1.5px solid $gray-cool-20;
+  }
+
+  button {
+    width: unset;
+    background-color: unset;
+    margin: unset;
+    padding: unset;
+    color: $color_gray;
+    margin-right: 4px;
+    svg {
+      width: 10px;
+      height: 10px;
+      color: $blue-50;
+    }
+  }
+
+  input[type="checkbox"] {
+    margin: 2px 4px 0 0;
+    cursor: pointer;
+  }
+
+  .checkbox-tree-label {
+    &__container {
+      display: flex;
+    }
+
+    &__controls {
+      display: flex;
+      align-items: center;
+      margin-top: 4px;
+      height: 20px;
+    }
+
+    &__value-container {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &__description {
+      margin-left: 10px;
+    }
+
+    &__value-container-value {
+      font-weight: $font-semibold;
+    }
+
+    &__value-container-count {
+      font-style: italic;
+      font-size: $font-size-10;
+      white-space: nowrap;
+      padding-top: rem(4);
+    }
+
+    &__value-container-value {
+      text-align: center;
+      padding: 0 rem(4);
+      margin-right: rem(4);
+      font-size: $font-size-10;
+      background-color: $color-gray-lightest;
+      border-radius: 2px;
+      font-weight: $font-semibold;
+      color: $gray-90;
+
+      span.highlight {
+        background-color: $yellow-10;
+        font-style: normal;
+        font-size: $font-size-12;
+      }
+    }
+    &__label {
+      font-size: $font-size-12;
+      margin-bottom: rem(12);
+      padding-top: 0 !important;
+        span.highlight {
+          background-color: $yellow-10;
+        }
+    }
+
+    &__container {
+      margin-left: 4px;
+    }
+  }
 }
 
 // searchV2
