@@ -38,5 +38,5 @@ jobs:
         run: npm run dev
 
       - name: Run Lighthouse command
-        run: npm run lhci:audit        
+        run: npm run lhci:mobile        
      
