@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 
 const DownloadButton = () => (
     <div className="atd__download-wrapper">
@@ -16,7 +15,7 @@ const DownloadButton = () => (
             rel="noopener noreferrer"
             className="atd__download-button"
             download>
-            <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon={faFileDownload} className="atd__download-icon" />
+            <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon="file-download" className="atd__download-icon" />
             Download
         </a>
     </div>);

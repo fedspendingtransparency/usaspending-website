@@ -161,7 +161,10 @@ const SpendingByCategoriesChart = ({
                         left: 8,
                         bottom: 10
                     }}>
-                    <XAxis type="number" domain={[(dataMin) => (dataMin * 1.15), 'auto']} hide />
+                    <XAxis
+                        type="number"
+                        domain={[(dataMin) => (dataMin < 0 ? (dataMin * 1.15) : dataMin), 'auto']}
+                        hide />
                     <YAxis
                         type="category"
                         dataKey="label"

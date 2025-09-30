@@ -1,6 +1,7 @@
 import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { AboutTheDataMarkdownLink } from '../../js/components/aboutTheDataSidebar/AboutTheDataMarkdownLink.jsx';
 import DsmRelatedTerms from 'components/search/collapsibleSidebar/DsmRelatedTerms.jsx'
+import AboutTheDataLink from "../../js/components/sharedComponents/AboutTheDataLink";
 
 <div className="collapsible-sidebar--dsm-wrapper--text-section">
     To help users understand the variety of filters available on USAspending.gov, we have grouped filters by five main categories. Below you will see what filters are included in each category.
@@ -30,7 +31,7 @@ import DsmRelatedTerms from 'components/search/collapsibleSidebar/DsmRelatedTerm
 </div>
 
 <div className="collapsible-sidebar--dsm-wrapper--text-links">
-  <AboutTheDataMarkdownLink slug="congressional-district-data" openPanel={true} name='Learn more about congressional redistricting'/>
+    <AboutTheDataLink slug="congressional-district-data">Learn more about congressional redistricting</AboutTheDataLink>
 </div>
 
  <div className="collapsible-sidebar--dsm-wrapper--text-header">Geographical Spending Types </div>

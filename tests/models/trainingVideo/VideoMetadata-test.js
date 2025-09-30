@@ -7,7 +7,7 @@
 
 import React from "react";
 import VideoMetadata from 'models/v2/video/VideoMetadata';
-import metadata from 'dataMapping/trainingVideos/playListMetadata';
+import metadata from '../../../src/config/trainingVideos/playListMetadata';
 
 const sampleVideo = Object.create(VideoMetadata);
 sampleVideo.populate(metadata.items[1]);

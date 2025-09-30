@@ -1,0 +1,5 @@
+User-agent: * 
+Disallow: /*.php*
+Disallow: /*?*
+
+Sitemap: https://www.usaspending.gov/sitemap.xml

@@ -216,6 +216,8 @@ const AccountAwardsContainer = ({ account, filters, spendingLevel = 'awards' }) 
         const searchParamsTemp = searchOperation.spendingByAwardTableParams({ account, filters });
         const filtersLocal = { ...searchParamsTemp.filters };
 
+        // no need to check if spending level is subawards for data type as
+        // speningByAwardTableParams sets data type to awards.
         tabCountRequest.current = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: filtersLocal
         });

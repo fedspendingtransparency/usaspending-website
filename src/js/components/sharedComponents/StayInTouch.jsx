@@ -10,7 +10,6 @@ import { FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 const propTypes = {
     pageName: PropTypes.string.isRequired
@@ -61,7 +60,7 @@ const StayInTouch = (pageName) => {
                     desktop={3}>
                     <FlexGridRow className="stay-in-touch__title-row">
                         <div className="stay-in-touch__icon-container">
-                            <FontAwesomeIcon icon={faPaperPlane} />
+                            <FontAwesomeIcon icon="paper-plane" />
                         </div>
                         <div className="stay-in-touch__title">
                                 Stay in touch
@@ -89,7 +88,7 @@ const StayInTouch = (pageName) => {
                             backgroundColor="light"
                             imageAlignment="right"
                             textAlignment="left"
-                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
+                            image={<FontAwesomeIcon icon="arrow-right" style={{ height: '16px', width: '14px' }} />} />
                     </div>
                 </FlexGridCol>
                 <FlexGridCol
@@ -113,7 +112,7 @@ const StayInTouch = (pageName) => {
                             backgroundColor="light"
                             textAlignment="left"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
+                            image={<FontAwesomeIcon icon="arrow-right" style={{ height: '16px', width: '14px' }} />} />
                     </div>
                 </FlexGridCol>
                 <FlexGridCol
@@ -137,7 +136,7 @@ const StayInTouch = (pageName) => {
                             backgroundColor="light"
                             imageAlignment="right"
                             textAlignment="left"
-                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
+                            image={<FontAwesomeIcon icon="arrow-right" style={{ height: '16px', width: '14px' }} />} />
                     </div>
                 </FlexGridCol>
             </FlexGridRow>
