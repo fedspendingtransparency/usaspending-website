@@ -31,7 +31,7 @@ const CustomTooltip = (props) => {
                     {label}
                 </div>
                 <div className="tooltip__text">
-                    <div className="tooltip__text-label">{outlayToggle ? 'Outlays' : 'Obligations'}</div>
+                    <div className="tooltip__text-label">{outlayToggle ? 'Outlays' : 'Transactions'}</div>
                     <div className="tooltip__text-amount">
                         {formatMoneyWithUnitsShortLabel(payload[0].value)}
                     </div>

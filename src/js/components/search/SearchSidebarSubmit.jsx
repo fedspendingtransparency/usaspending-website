@@ -3,7 +3,7 @@
  * Created by Kevin Li 12/19/17
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
@@ -17,8 +17,7 @@ const propTypes = {
     filtersChanged: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     resetFilters: PropTypes.func,
-    setShowMobileFilters: PropTypes.func,
-    timerRef: PropTypes.object
+    setShowMobileFilters: PropTypes.func
 };
 
 const SearchSidebarSubmit = ({
@@ -27,8 +26,7 @@ const SearchSidebarSubmit = ({
     filtersChanged,
     setShowMobileFilters,
     applyStagedFilters,
-    resetFilters,
-    timerRef
+    resetFilters
 }) => {
     let disabled = false;
     let title = 'Click to submit your search.';
@@ -46,8 +44,11 @@ const SearchSidebarSubmit = ({
     const fireSearchEvent = () => {
         if (!urlHash) {
             const now = new Date().getTime();
-            if (!timerRef.current?.hasFired) {
-                const timer = now - timerRef.current.time;
+            if (
+                Cookies.get("advanced_search_to_query_time") &&
+                !Cookies.get('has_logged_query_timer')
+            ) {
+                const timer = now - Cookies.get("advanced_search_to_query_time");
                 const timerInSeconds = Math.floor(timer / 1000);
 
                 if (timerInSeconds < 3600) {
@@ -58,9 +59,9 @@ const SearchSidebarSubmit = ({
                         time_to_query: timerInSeconds
                     });
                 }
-                // Cleanup
-                // eslint-disable-next-line no-param-reassign
-                timerRef.current.hasFired = true;
+
+                // clean up
+                Cookies.remove("advanced_search_to_query_time");
             }
 
             if (Cookies.get("homepage_to_query_time") && !Cookies.get('has_logged_query_timer')) {
@@ -81,10 +82,14 @@ const SearchSidebarSubmit = ({
         }
 
         // Sanity check
-        Cookies.set("has_logged_query_timer", true);
-        // eslint-disable-next-line no-param-reassign
-        if (timerRef.current) timerRef.current.hasFired = true;
+        Cookies.set("has_logged_query_timer", true, { expires: 365 });
     };
+
+    useEffect(() => {
+        // ok to rewrite with each page reload
+        // may need to check if timer already logged.
+        Cookies.set('advanced_search_to_query_time', new Date().getTime(), { expires: 365 });
+    }, []);
 
     return (
         <div
