@@ -42,6 +42,6 @@ export const bannerContent = [
             There is additional information at <a href="https://home.treasury.gov/">https://home.treasury.gov/</a></>,
         page: 'site wide', // use 'site wide' to display a banner across the entire site
         type: 'warning' // three options "general", "warning", "warning-resolved"
-    },
+    }
 ];
 
