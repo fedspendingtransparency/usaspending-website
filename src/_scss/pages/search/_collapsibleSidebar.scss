@@ -158,35 +158,8 @@
         scrollbar-gutter: stable;
 
         .search-filters-list {
-          padding: ($global-padding * 2) ($global-padding * 4) 0 ($global-padding * 4);
-
-          .category-header {
-            display: flex;
-
-            &--icon {
-              height: rem(21);
-              width: rem(21);
-              border-radius: rem(4);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-
-              svg {
-                max-height: rem(12);
-                max-width: rem(12);
-              }
-            }
-
-            &--title {
-              font-size: $font-size-10;
-              line-height: 1.5;
-              color: $gray-60;
-              align-content: center;
-              margin-left: rem(4);
-              border-bottom: rem(1) solid $gray-cool-10;
-              width: 100%;
-            }
-          }
+          margin: 0 ($global-padding * 4);
+          border-bottom: rem(1) solid $gray-cool-10;
         }
 
         .accordion-container {
