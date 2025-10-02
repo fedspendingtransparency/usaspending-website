@@ -374,7 +374,8 @@ const NAICSCheckboxTree = () => {
                     context={{}}
                     loading={false}
                     isClearable
-                    onClear={onClear} />
+                    onClear={onClear}
+                    searchIcon />
                 <CheckboxTree
                     limit={3}
                     data={nodes}
