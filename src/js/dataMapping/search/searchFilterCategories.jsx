@@ -67,6 +67,14 @@ export const SearchFilterCategories = [
 
 export const searchFilterCategoryTree = [
     {
+        title: 'Recipient',
+        component: <RecipientSearchContainer searchV2 />
+    },
+    {
+        title: "Award ID",
+        component: <AwardIDSearchContainer searchV2 />
+    },
+    {
         title: "Time Period",
         component: <TimePeriodContainer searchV2 />
     },
@@ -79,20 +87,12 @@ export const searchFilterCategoryTree = [
         component: <AgencyContainer searchV2 />
     },
     {
-        title: 'Treasury Account Symbol (TAS)',
-        component: <TASCheckboxTreeContainer showInfo={false} searchV2 />
+        title: 'Contract Award Type',
+        component: <AwardTypeContainerV2 isContractAwardType />
     },
     {
-        title: 'COVID-19 Spending',
-        component: <DEFCheckboxTreeContainer defcType="covid_19" />
-    },
-    {
-        title: 'Infrastructure Spending',
-        component: <DEFCheckboxTreeContainer defcType="infrastructure" />
-    },
-    {
-        title: 'Recipient',
-        component: <RecipientSearchContainer searchV2 />
+        title: 'Financial Assistance Award Type',
+        component: <AwardTypeContainerV2 />
     },
     {
         title: 'Recipient Type',
@@ -103,16 +103,12 @@ export const searchFilterCategoryTree = [
         component: <AwardDescriptionFilterContainer />
     },
     {
-        title: "Award ID",
-        component: <AwardIDSearchContainer searchV2 />
-    },
-    {
-        title: "Spending Amount",
+        title: "Award Amount",
         component: <AwardAmountSearchContainer searchV2 />
     },
     {
-        title: 'Contract Award Type',
-        component: <AwardTypeContainerV2 isContractAwardType />
+        title: 'Assistance Listing',
+        component: <CFDASearchContainer searchV2 />
     },
     {
         title: 'North American Industry Classification System (NAICS)',
@@ -123,6 +119,18 @@ export const searchFilterCategoryTree = [
                 </div>
             </>
         )
+    },
+    {
+        title: 'COVID-19 Spending',
+        component: <DEFCheckboxTreeContainer defcType="covid_19" />
+    },
+    {
+        title: 'Infrastructure Spending',
+        component: <DEFCheckboxTreeContainer defcType="infrastructure" />
+    },
+    {
+        title: 'Treasury Account Symbol (TAS)',
+        component: <TASCheckboxTreeContainer showInfo={false} searchV2 />
     },
     {
         title: 'Product and Service Code (PSC)',
@@ -145,13 +153,5 @@ export const searchFilterCategoryTree = [
     {
         title: 'Extent Competed',
         component: <ExtentCompetedContainer searchV2 />
-    },
-    {
-        title: 'Financial Assistance Award Type',
-        component: <AwardTypeContainerV2 />
-    },
-    {
-        title: 'Assistance Listing',
-        component: <CFDASearchContainer searchV2 />
     }
 ];
