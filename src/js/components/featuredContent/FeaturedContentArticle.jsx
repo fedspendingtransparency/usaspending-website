@@ -73,7 +73,7 @@ const FeaturedContentArticle = () => {
                     {!isMobile ? <img src={chosenArticle?.hero} alt="data definitions hero" name="featured-content-hero" id="featured-content-hero" /> :
                         <img src={chosenArticle?.mobile_hero} alt="data definitions hero" />}
                 </div>
-                <FlexGridRow desktop={12}>
+                <FlexGridRow desktop={12} className="grid-content">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
                         {markdownContent}
                     </FlexGridCol>
