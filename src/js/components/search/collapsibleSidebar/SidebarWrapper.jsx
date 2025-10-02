@@ -37,11 +37,11 @@ const SidebarWrapper = React.memo(({
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
-    const sidebarStaticEls = 190;
+    const sidebarStaticEls = isMobile ? 190 : 139;
     const footerMargin = 0;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
-    const additionalRibbonHeight = 57;
+    const additionalRibbonHeight = 68;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -64,7 +64,7 @@ const SidebarWrapper = React.memo(({
 
     const resizeHeightByFooter = () => {
         const mainContentInView = checkInView(mainContentEl);
-        const sidebarContentArea = mainContentInView - sidebarStaticEls;
+        const sidebarContentArea = mainContentInView - (sidebarStaticEls + 21);
         const padding = 2;
         const margins = (topStickyBarHeight + footerMargin) - padding;
 
@@ -281,7 +281,7 @@ const SidebarWrapper = React.memo(({
     const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
         const isHeaderSticky = isStickyEl !== null;
-        const bufferToTouchBottom = 2;
+        const bufferToTouchBottom = 6;
 
         if (isHeaderSticky && !isFooterVisible) {
             return `calc(100vh - ${topStickyBarHeight - bufferToTouchBottom}px)`;
