@@ -142,6 +142,7 @@ const PSCCheckboxTreeContainer = ({
                         );
                         setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED');
 
+
                         if (pscNodes.length === 0) {
                             setShowNoResults(true);
                         }
