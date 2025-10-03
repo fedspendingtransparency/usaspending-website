@@ -5,7 +5,6 @@
 
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import { ComingSoon } from 'data-transparency-ui';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import ArticleMetadata from '../../models/v2/featuredContent/ArticleMetadata';
 import { articles } from '../../../config/featuredContent/featuredContentMetadata';

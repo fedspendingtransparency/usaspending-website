@@ -6,12 +6,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes, { oneOfType } from "prop-types";
 import { CardContainer, CardHero, CardBody } from 'data-transparency-ui';
-import { useDispatch } from 'react-redux';
-import { handleShareOptionClick } from 'helpers/socialShare';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+// import { handleShareOptionClick } from 'helpers/socialShare';
+// import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from 'lodash-es';
 import ArticleThumbnail from './ArticleThumbnail';
-import { showModal } from '../../../redux/actions/modal/modalActions';
 
 const propTypes = {
     title: PropTypes.string,
@@ -25,29 +23,25 @@ const propTypes = {
 };
 
 const ArticleCard = ({
-    title, onClick, description, onKeyUp, url, thumbnailUrl, fill, publishedAt
+    title, onClick, description, onKeyUp, thumbnailUrl, fill, publishedAt
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const dispatch = useDispatch();
-    const handleShareDispatch = (e) => {
-        dispatch(showModal(e));
-    };
-    const onShareClick = (name) => {
-        const emailSubject = `${title}`;
-        const emailArgs = {
-            subject: `${emailSubject}`,
-            body: `Watch this video about USAspending.gov: ${url}`
-        };
-        handleShareOptionClick(name, url, emailArgs, handleShareDispatch);
-    };
+    // const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    // const onShareClick = (name) => {
+    //     const emailSubject = `${title}`;
+    //     const emailArgs = {
+    //         subject: `${emailSubject}`,
+    //         body: `Watch this video about USAspending.gov: ${url}`
+    //     };
+    //     handleShareOptionClick(name, url, emailArgs, handleShareDispatch);
+    // };
 
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
+                // setIsMobile(newWidth < mediumScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
