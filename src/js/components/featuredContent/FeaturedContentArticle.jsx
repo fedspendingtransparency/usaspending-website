@@ -11,7 +11,7 @@ import { useLocation } from 'react-router';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
 // import ArticleHeader from "./article/ArticleHeader";
-import { mediumScreen } from '../../dataMapping/shared/mobileBreakpoints';
+import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
 import { articles } from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
 
@@ -19,7 +19,8 @@ require('pages/featuredContent/featuredContent.scss');
 
 const FeaturedContentArticle = () => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [isTablet, setIsTablet] = useState(window.innerWidth < mediumScreen && window.innerWidth >= tabletScreen);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const location = useLocation();
     const parts = location.pathname.split('/');
     const lastPortion = parts[parts.length - 1];
@@ -39,7 +40,8 @@ const FeaturedContentArticle = () => {
         const handleResize = throttle(() => {
             if (windowWidth !== window.innerWidth) {
                 setWindowWidth(window.innerWidth);
-                setIsMobile(window.innerWidth < mediumScreen);
+                setIsTablet(window.innerWidth < mediumScreen && window.innerWidth >= tabletScreen);
+                setIsMobile(window.innerWidth < tabletScreen);
             }
         }, 100);
         window.addEventListener('resize', handleResize);
@@ -70,8 +72,10 @@ const FeaturedContentArticle = () => {
                     {!isMobile ?
                         <label htmlFor="featured-content-hero" className="featured-content__label">{chosenArticle?.content_type}</label>
                         : null}
-                    {!isMobile ? <img src={chosenArticle?.hero} alt="data definitions hero" name="featured-content-hero" id="featured-content-hero" /> :
-                        <img src={chosenArticle?.mobile_hero} alt="data definitions hero" />}
+                    {!isMobile && !isTablet && <img src={chosenArticle?.hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
+                    {isMobile && <img src={chosenArticle?.mobile_hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
+                    {isTablet && <img src={chosenArticle?.tablet_hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
+
                 </div>
                 <FlexGridRow desktop={12} className="grid-content">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
