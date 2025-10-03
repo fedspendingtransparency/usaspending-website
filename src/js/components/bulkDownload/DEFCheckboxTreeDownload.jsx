@@ -104,7 +104,7 @@ const DEFCheckboxTreeDownload = ({
                 isError={(errorMsg !== '')}
                 errorMessage={errorMsg}
                 isLoading={isLoading}
-                searchText=""
+                searchString=""
                 noResults={false}
                 labelComponent={<DEFCheckboxTreeLabel />}
                 onUncheck={stageFilter}
@@ -120,7 +120,7 @@ const DEFCheckboxTreeDownload = ({
                 isError={(errorMsg !== '')}
                 errorMessage={errorMsg}
                 isLoading={isLoading}
-                searchText=""
+                searchString=""
                 noResults={false}
                 labelComponent={<DEFCheckboxTreeLabel />}
                 onUncheck={stageFilter}
