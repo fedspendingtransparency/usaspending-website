@@ -79,7 +79,7 @@ const ArticleList = ({ articles }) => {
                         <FlexGridCol
                             desktopxl={3}
                             desktop={3}
-                            tablet={12}
+                            tablet={6}
                             mobile={12}
                             className="list-of-articles__article">
                             <ArticleCard
