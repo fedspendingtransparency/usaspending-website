@@ -26,7 +26,7 @@ const propTypes = {
     isDisabled: PropTypes.bool,
     errorMessage: PropTypes.string,
     isSearch: PropTypes.bool,
-    searchText: PropTypes.string,
+    searchString: PropTypes.string,
     modifyLabelTextClassname: PropTypes.string,
     labelComponent: PropTypes.element,
     onExpand: PropTypes.func,
@@ -47,7 +47,7 @@ const CheckboxTree = ({
     isDisabled = false,
     errorMessage,
     isSearch,
-    searchText,
+    searchString,
     modifyLabelTextClassname,
     labelComponent,
     onExpand: onExpandProp,
@@ -182,7 +182,7 @@ const CheckboxTree = ({
      * or string if no match is found.
      */
     const highlightText = (text) => replaceString(
-        text, searchText, modifyLabelTextClassname || 'highlight'
+        text, searchString, modifyLabelTextClassname || 'highlight'
     );
 
     /**

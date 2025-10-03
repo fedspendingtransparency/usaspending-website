@@ -34,6 +34,7 @@ const TreeNodes = ({
                 const hasAnyChildren = node.children?.length > 0;
 
                 if (node.value.includes("children_of_") && !isLoadingId(node.id)) return null;
+
                 return (
                     <li key={node.id}>
                         <div className="checkbox-tree-label__container">
@@ -69,7 +70,6 @@ const TreeNodes = ({
                     </li>);
             })}
         </ul>);
-
 
     return renderNodes(localNodes, 0);
 };

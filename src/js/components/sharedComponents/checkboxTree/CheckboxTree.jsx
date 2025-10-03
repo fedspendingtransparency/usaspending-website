@@ -11,7 +11,6 @@ import replaceString from 'helpers/replaceString';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodesWrapper';
 
-
 const propTypes = {
     data: PropTypes.array,
     className: PropTypes.string,
@@ -218,7 +217,8 @@ const CheckboxTree = ({
                         label={node?.isSearchable === false
                             ? node.label
                             : highlightText(node.label)}
-                        countLabel={countLabel} />
+                        countLabel={countLabel}
+                        searchString={searchString} />
                 ),
             children: node.children
                 ? createLabels(node.children)
@@ -233,7 +233,7 @@ const CheckboxTree = ({
             <div className="checkbox-tree-filter-message-container">
                 <FontAwesomeIcon icon="spinner" spin />
                 <div className="checkbox-tree-filter-message-container__text">
-                    Loading your dataLoading your data...
+                    Loading your data...
                 </div>
             </div>
         );
