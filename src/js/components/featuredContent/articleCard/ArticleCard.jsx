@@ -67,7 +67,6 @@ const ArticleCard = ({
         changedTitle = title;
         overline = "RESOURCE";
     }
-    console.debug("stuff: ", fill);
     return (
         <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
             <CardHero
