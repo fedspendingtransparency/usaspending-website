@@ -5,7 +5,6 @@
 
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import { ComingSoon } from 'data-transparency-ui';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import ArticleMetadata from '../../models/v2/featuredContent/ArticleMetadata';
 import { articles } from '../../../config/featuredContent/featuredContentMetadata';
@@ -39,7 +38,6 @@ const FeaturedContentPage = () => {
                     body="Read the latest featured content to learn more about government spending."
                     image="img/featuredContent/featured-content-landing-page-banner-2x.webp"
                     slug="featured-content" />
-                <ComingSoon />
                 <ArticleList articles={articlesList} />
             </main>
         </PageWrapper>
