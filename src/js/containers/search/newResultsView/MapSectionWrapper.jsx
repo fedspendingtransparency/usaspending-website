@@ -70,6 +70,7 @@ const MapSectionWrapper = React.memo((props) => {
         locations: []
     });
     const [visibleEntities, setVisibleEntities] = useState([]);
+    const [allEntities, setAllEntities] = useState([]);
     const [renderHash, setRenderHash] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
@@ -97,6 +98,7 @@ const MapSectionWrapper = React.memo((props) => {
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
         visibleEntities: false,
+        allEntities: false,
         rawAPIData: false,
         loadingTiles: true
     });
@@ -275,6 +277,7 @@ const MapSectionWrapper = React.memo((props) => {
     };
 
     const receivedEntities = (entities, forced) => {
+        console.log(entities);
         if (!forced) {
             // only check if the returned entities list has changed if this is not a forced update
             const changed = compareEntities(entities);

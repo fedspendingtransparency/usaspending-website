@@ -92,17 +92,6 @@ const SectionsContent = (props) => {
 
     return (
         <>
-            <TableSection {...props} />
-            <CategoriesSection
-                spendingLevel={props.spendingLevel}
-                categoriesHasLoaded={categoriesHasLoaded}
-                setSelectedDropdown={setSelectedDropdown}
-                selectedDropdown={selectedDropdown}
-                hash={props.hash} />
-            <TimeSection
-                timeHasLoaded={timeHasLoaded}
-                hash={props.hash}
-                spendingLevel={props.spendingLevel} />
             <MapSection
                 spendingLevel={props.spendingLevel}
                 mapHasLoaded={mapHasLoaded}
