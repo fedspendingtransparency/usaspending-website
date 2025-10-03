@@ -274,7 +274,8 @@ const CheckboxTree = ({
                 expanded={expanded}
                 onCheck={onCheck}
                 onExpand={onExpand}
-                icons={treeIcons} />
+                icons={treeIcons}
+                searchString={searchString} />
         </div>
     );
 };
