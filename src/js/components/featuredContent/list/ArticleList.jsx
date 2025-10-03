@@ -5,8 +5,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import { useDispatch } from 'react-redux';
-import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import ArticleCard from '../articleCard/ArticleCard';
 
@@ -15,7 +13,6 @@ const propTypes = {
 };
 
 const ArticleList = ({ articles }) => {
-    const dispatch = useDispatch();
     const [sortOrder, setSortOrder] = useState();
     const [articleList, setArticleList] = useState(articles);
     const originalArticleList = articles;
@@ -80,8 +77,8 @@ const ArticleList = ({ articles }) => {
                 <FlexGridRow hasGutter gutterSize="lg">
                     {articleList.map((article) => (
                         <FlexGridCol
-                            desktopxl={4}
-                            desktop={6}
+                            desktopxl={3}
+                            desktop={3}
                             tablet={12}
                             mobile={12}
                             className="list-of-articles__article">
