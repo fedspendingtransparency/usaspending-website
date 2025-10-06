@@ -6,8 +6,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes, { oneOfType } from "prop-types";
 import { CardContainer, CardHero, CardBody } from 'data-transparency-ui';
-// import { handleShareOptionClick } from 'helpers/socialShare';
-// import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from 'lodash-es';
 import ArticleThumbnail from './ArticleThumbnail';
 
