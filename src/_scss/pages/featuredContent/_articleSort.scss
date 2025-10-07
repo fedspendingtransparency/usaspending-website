@@ -1,0 +1,85 @@
+.list-of-articles__sort {
+  justify-content: end;
+  margin: 0 0 rem(32) 0;
+
+  .usa-dt-flex-grid__col-12 {
+    width: unset;
+    display: flex;
+    align-items: center;
+  }
+
+  .article-sort {
+    .article-sort-label {
+      font-size: $font-size-16;
+      font-weight: $font-semibold;
+      line-height: 1.5;
+      color: $gray-cool-90;
+      margin-right: rem(8);
+    }
+
+    .article-sort-list {
+      font-size: $font-size-24;
+      text-align: center;
+      border-radius: 4px;
+      border: solid 2px $gray-cool-10;
+      background-color: $color-white;
+      color: $gray-cool-60;
+
+      .usa-dt-picker__button {
+        padding: 8px;
+        margin: 0;
+      }
+    }
+  }
+
+  .usa-dt-picker__list {
+    z-index: 999;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+
+    button.usa-dt-picker__item {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item {
+    border-top: none;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-text, .usa-dt-picker .usa-dt-picker__item {
+    padding: 0 16px;
+    font-size: $font-size-16;
+    font-weight: $font-semibold;
+    line-height: 1.5;
+    color: $gray-cool-60;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-icon svg {
+    width: 12px;
+    color: $theme-color-1;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:hover {
+    background-color: $gray-cool-3;
+    color: $gray-cool-60;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
+    color: $gray-cool-60;
+    background-color: $gray-cool-5;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active:hover {
+    background-color: $gray-cool-10;
+    color: $gray-cool-60;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:focus {
+    background-color: $gray-cool-3;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+    z-index: 1;
+  }
+}
