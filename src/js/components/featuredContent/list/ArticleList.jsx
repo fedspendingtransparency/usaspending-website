@@ -85,11 +85,6 @@ const ArticleList = ({ articles }) => {
                             <ArticleCard
                                 onKeyUp={(e) => {
                                     e.persist();
-                                    // if (e.key === 'Enter' && (e.target.className !== 'usa-dt-picker__button' && !e.target.className.includes('text'))) {
-                                    //     dispatch(showTrainingVideoModal({
-                                    //         url: video.thumbnails.maxres.url, modalType: 'training-articles', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
-                                    //     }));
-                                    // }
                                 }}
                                 tabIndex="0"
                                 title={article.title}
@@ -99,9 +94,6 @@ const ArticleList = ({ articles }) => {
                                 publishedAt={article.created_date}
                                 onClick={(e) => {
                                     e.persist();
-                                    // dispatch(showTrainingVideoModal({
-                                    //     url: video.thumbnails.maxres.url, modalType: 'training-articles', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
-                                    // }));
                                 }} />
                         </FlexGridCol>))
                     }
