@@ -40,7 +40,8 @@ const ArticleCard = ({
                 variant="expanded"
                 thumbnail
                 fill={fill}
-                onClick={onClick}>
+                onClick={onClick}
+                onKeyUp={onKeyUp}>
                 <ArticleThumbnail
                     thumbnailUrl={thumbnailUrl}
                     title={changedTitle} />
