@@ -10,7 +10,6 @@ import { throttle } from 'lodash-es';
 import { useLocation } from 'react-router';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
-// import ArticleHeader from "./article/ArticleHeader";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
