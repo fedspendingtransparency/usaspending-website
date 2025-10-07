@@ -3,12 +3,9 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes, { oneOfType } from "prop-types";
 import { CardContainer, CardHero, CardBody } from 'data-transparency-ui';
-// import { handleShareOptionClick } from 'helpers/socialShare';
-// import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { throttle } from 'lodash-es';
 import ArticleThumbnail from './ArticleThumbnail';
 
 const propTypes = {
@@ -25,30 +22,6 @@ const propTypes = {
 const ArticleCard = ({
     title, onClick, description, onKeyUp, thumbnailUrl, fill, publishedAt
 }) => {
-    const [windowWidth, setWindowWidth] = useState(0);
-    // const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    // const onShareClick = (name) => {
-    //     const emailSubject = `${title}`;
-    //     const emailArgs = {
-    //         subject: `${emailSubject}`,
-    //         body: `Watch this video about USAspending.gov: ${url}`
-    //     };
-    //     handleShareOptionClick(name, url, emailArgs, handleShareDispatch);
-    // };
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                // setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []);
-
     let changedTitle;
     let overline;
     const titleIndex = title.indexOf(":");
