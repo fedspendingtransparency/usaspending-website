@@ -8,6 +8,7 @@ const contentMap = {
     stories: '#2378c3',
     difference: '#5abf95'
 };
+// the first entry has what is necessary for a full article
 const articles = [
     {
         content_type: "Data Definitions",
