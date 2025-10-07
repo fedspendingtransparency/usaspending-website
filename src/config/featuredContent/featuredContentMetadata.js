@@ -2,8 +2,8 @@ const contentMap = {
     dataDefinition: '#783cb9',
     search: '#cf4900',
     seeforyourself: '#fa9441',
-    questions: '#1b2b85',
-    finances: '#112f4e',
+    questions: '#93348c',
+    finances: '#1b2b85',
     trust: '#73B3E7',
     stories: '#2378c3',
     difference: '#5abf95'
