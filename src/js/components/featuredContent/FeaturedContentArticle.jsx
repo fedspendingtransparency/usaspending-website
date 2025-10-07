@@ -12,7 +12,7 @@ import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
 // import ArticleHeader from "./article/ArticleHeader";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
-import { articles } from '../../../config/featuredContent/featuredContentMetadata';
+import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
 
 require('pages/featuredContent/featuredContent.scss');
@@ -69,12 +69,14 @@ const FeaturedContentArticle = () => {
                 id="main-content"
                 className="main-content featured-content">
                 <div className="featured-content__header-wrapper">
-                    {!isMobile ?
-                        <label htmlFor="featured-content-hero" className="featured-content__label">{chosenArticle?.content_type}</label>
-                        : null}
                     {!isMobile && !isTablet && <img src={chosenArticle?.hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
                     {isMobile && <img src={chosenArticle?.mobile_hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
                     {isTablet && <img src={chosenArticle?.tablet_hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
+                    <div className="featured-content__header-block">
+                        <span className="featured-content__label" style={{ backgroundColor: chosenArticle?.fill }}>{chosenArticle?.content_type}</span>
+                        <span className="featured-content__title">{chosenArticle?.banner_title}</span>
+                        <span className="featured-content__subtitle">{chosenArticle?.banner_subtitle}</span>
+                    </div>
 
                 </div>
                 <FlexGridRow desktop={12} className="grid-content">

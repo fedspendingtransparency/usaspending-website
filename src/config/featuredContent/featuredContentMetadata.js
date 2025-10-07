@@ -8,22 +8,11 @@ const contentMap = {
     stories: '#2378c3',
     difference: '#5abf95'
 };
-export const articles = [
-    {
-        content_type: "What's the difference",
-        title: "Second Title for impressive article",
-        alt_title: "Exploring America’s Finances: The Data Behind the Dollars",
-        created_date: "5/8/2025",
-        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand how stuff when things happen and other stuff happens you should learn how stuff does work when happens happen",
-        mdx_path: "",
-        thumbnail_path: "../../img/featuredContent/cards/whats-the-difference.webp",
-        fill: contentMap.difference,
-        landing_header_path: "",
-        explore_more: [],
-        related_terms: []
-    },
+const articles = [
     {
         content_type: "Data Definitions",
+        banner_title: "Location Filters",
+        banner_subtitle: "What makes up a location filter and how does it behave when applied?",
         title: "Title for impressive article",
         alt_title: "Four ways to use our data",
         created_date: "10/1/2025",
@@ -35,6 +24,19 @@ export const articles = [
         slug: "testing-article",
         thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         fill: contentMap.dataDefinition,
+        landing_header_path: "",
+        explore_more: [],
+        related_terms: []
+    },
+    {
+        content_type: "What's the difference",
+        title: "Second Title for impressive article",
+        alt_title: "Exploring America’s Finances: The Data Behind the Dollars",
+        created_date: "5/8/2025",
+        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand how stuff when things happen and other stuff happens you should learn how stuff does work when happens happen",
+        mdx_path: "",
+        thumbnail_path: "../../img/featuredContent/cards/whats-the-difference.webp",
+        fill: contentMap.difference,
         landing_header_path: "",
         explore_more: [],
         related_terms: []
@@ -119,3 +121,4 @@ export const articles = [
     }
 ];
 
+export default articles;

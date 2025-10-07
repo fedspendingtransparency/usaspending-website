@@ -7,7 +7,7 @@
 import React from 'react';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import ArticleMetadata from '../../models/v2/featuredContent/ArticleMetadata';
-import { articles } from '../../../config/featuredContent/featuredContentMetadata';
+import articles from '../../../config/featuredContent/featuredContentMetadata';
 import ArticleList from './list/ArticleList';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import ContentPageHeader from '../sharedComponents/header/ContentPageHeader';
