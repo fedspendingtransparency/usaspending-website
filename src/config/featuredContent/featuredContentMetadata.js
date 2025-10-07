@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const contentMap = {
     dataDefinition: '#783cb9',
     search: '#cf4900',
