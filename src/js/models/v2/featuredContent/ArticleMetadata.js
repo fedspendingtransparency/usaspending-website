@@ -16,6 +16,14 @@ const ArticleMetadata = {
         this.landing_header_path = data.landing_header_path || '';
         this.explore_more = data.explore_more || '';
         this.related_terms = data.related_terms || '';
+    },
+    get publishedAt() {
+        const options = {
+            weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'
+        };
+        const date = new Date(this.created_date);
+        const formattedDate = date.toLocaleDateString('en-us', options).replace(/^\w+,\s*/g, '');
+        return formattedDate;
     }
 };
 

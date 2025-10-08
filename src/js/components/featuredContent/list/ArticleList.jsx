@@ -91,7 +91,7 @@ const ArticleList = ({ articles }) => {
                                 description={article.description}
                                 thumbnailUrl={article.thumbnail_path}
                                 fill={article.fill}
-                                publishedAt={article.created_date}
+                                publishedAt={article.publishedAt}
                                 onClick={(e) => {
                                     e.persist();
                                 }} />
