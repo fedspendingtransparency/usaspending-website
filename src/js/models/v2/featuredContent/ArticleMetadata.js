@@ -2,6 +2,7 @@
  * ArticleMetadata.js
  * Created by Nick Torres 9/17/2025
  */
+import { transformDate } from "../../../helpers/featuredContent/featuredContentHelper";
 
 const ArticleMetadata = {
     populate(data) {
@@ -20,12 +21,7 @@ const ArticleMetadata = {
         this.related_terms = data.related_terms || '';
     },
     get publishedAt() {
-        const options = {
-            weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'
-        };
-        const date = new Date(this.created_date);
-        const formattedDate = date.toLocaleDateString('en-us', options).replace(/^\w+,\s*/g, '');
-        return formattedDate;
+        return transformDate(this.created_date);
     }
 };
 
