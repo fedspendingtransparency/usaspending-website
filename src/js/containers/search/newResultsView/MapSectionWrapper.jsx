@@ -7,7 +7,7 @@ import { uniqueId, keyBy } from 'lodash-es';
 import { useLocation } from "react-router";
 import GlobalConstants from 'GlobalConstants';
 
-import { territories, countries } from "dataMapping/search/geoTable";
+import { territories, countries, counties, congressionalDistricts } from "dataMapping/search/geoTable";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
@@ -71,7 +71,6 @@ const MapSectionWrapper = React.memo((props) => {
         locations: []
     });
     const [visibleEntities, setVisibleEntities] = useState([]);
-    const [allEntities, setAllEntities] = useState([]);
     const [renderHash, setRenderHash] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
@@ -108,8 +107,8 @@ const MapSectionWrapper = React.memo((props) => {
     const completeDataSet = {
         country: countries,
         state: territories,
-        county: [],
-        congressionalDistrict: []
+        county: counties,
+        congressionalDistrict: congressionalDistricts
     };
 
     const selectDataSet = () => {
