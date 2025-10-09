@@ -7,6 +7,7 @@ import { uniqueId, keyBy } from 'lodash-es';
 import { useLocation } from "react-router";
 import GlobalConstants from 'GlobalConstants';
 
+import { territories, countries } from "dataMapping/search/geoTable";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
@@ -102,6 +103,21 @@ const MapSectionWrapper = React.memo((props) => {
         rawAPIData: false,
         loadingTiles: true
     });
+
+
+    const completeDataSet = {
+        country: countries,
+        state: territories,
+        county: [],
+        congressionalDistrict: []
+    };
+
+    const selectDataSet = () => {
+        if (mapViewType === "table") {
+            return completeDataSet[mapLayer];
+        }
+        return visibleEntities;
+    };
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
@@ -242,7 +258,7 @@ const MapSectionWrapper = React.memo((props) => {
         const apiParams = {
             scope: props.scope,
             geo_layer: apiScopes[mapLayer],
-            geo_layer_filters: visibleEntities,
+            geo_layer_filters: selectDataSet(),
             filters: searchParams,
             auditTrail: 'Map Visualization',
             spending_level: getSpendingLevel(props.spendingLevel)

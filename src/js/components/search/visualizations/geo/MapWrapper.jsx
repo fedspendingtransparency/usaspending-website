@@ -12,7 +12,6 @@ import GlobalConstants from 'GlobalConstants';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-import { territories, countries } from "dataMapping/search/geoTable";
 
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
@@ -130,13 +129,6 @@ const MapWrapper = ({
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
-
-    const completeDataSet = {
-        country: countries,
-        state: territories,
-        county: [],
-        congressionalDistrict: []
-    };
 
     const mapRemoved = () => {
         // map is about to be removed
