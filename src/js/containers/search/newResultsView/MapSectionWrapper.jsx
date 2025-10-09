@@ -292,7 +292,6 @@ const MapSectionWrapper = React.memo((props) => {
     };
 
     const receivedEntities = (entities, forced) => {
-        console.log(entities);
         if (!forced) {
             // only check if the returned entities list has changed if this is not a forced update
             const changed = compareEntities(entities);
