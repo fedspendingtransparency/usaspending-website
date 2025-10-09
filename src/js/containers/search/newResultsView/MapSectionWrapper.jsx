@@ -7,6 +7,7 @@ import { uniqueId, keyBy } from 'lodash-es';
 import { useLocation } from "react-router";
 import GlobalConstants from 'GlobalConstants';
 
+import { territories, countries, counties, congressionalDistricts } from "dataMapping/search/geoTable";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
@@ -97,9 +98,25 @@ const MapSectionWrapper = React.memo((props) => {
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
         visibleEntities: false,
+        allEntities: false,
         rawAPIData: false,
         loadingTiles: true
     });
+
+
+    const completeDataSet = {
+        country: countries,
+        state: territories,
+        county: counties,
+        congressionalDistrict: congressionalDistricts
+    };
+
+    const selectDataSet = () => {
+        if (mapViewType === "table") {
+            return completeDataSet[mapLayer];
+        }
+        return visibleEntities;
+    };
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
@@ -240,7 +257,7 @@ const MapSectionWrapper = React.memo((props) => {
         const apiParams = {
             scope: props.scope,
             geo_layer: apiScopes[mapLayer],
-            geo_layer_filters: visibleEntities,
+            geo_layer_filters: selectDataSet(),
             filters: searchParams,
             auditTrail: 'Map Visualization',
             spending_level: getSpendingLevel(props.spendingLevel)

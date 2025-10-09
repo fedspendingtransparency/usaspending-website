@@ -12,6 +12,7 @@ import GlobalConstants from 'GlobalConstants';
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
+
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
 import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
