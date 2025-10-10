@@ -33,7 +33,7 @@ const SidebarContent = ({
 }) => {
     const [open, setOpen] = useState({
         Location: false,
-        "Time Period": false,
+        "Time Period": true,
         "Award Description": false,
         "Award ID": false,
         "Spending Amount": false,
@@ -97,7 +97,7 @@ const SidebarContent = ({
             <Accordion
                 title={filter.title}
                 setOpen={() => setOpen({ ...open, [filter.title]: !open[filter.title] })}
-                openObject
+                openObject={open[filter.title]}
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
                 contentClassName={open[filter.title] ? '' : 'hidden'}
