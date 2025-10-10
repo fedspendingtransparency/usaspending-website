@@ -30,11 +30,14 @@
       }
     }
   }
-
+  
   @import "../contentPage/contentPageHeader";
   @import "listOfArticles";
   @import "articleThumbnail";
   @import "articleSort";
+
+  // article
+  @import "articlePageHeader";
 }
 
 

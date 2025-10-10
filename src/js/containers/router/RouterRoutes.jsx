@@ -251,7 +251,7 @@ export const routes = [
         component: FeaturedContentPage
     },
     {
-        path: '/featured-content/:slug',
+        path: '/featured-content/:contentType/:slug',
         component: FeaturedContentArticle
     },
     {

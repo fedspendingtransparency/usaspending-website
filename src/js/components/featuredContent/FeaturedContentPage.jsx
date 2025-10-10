@@ -7,7 +7,7 @@
 import React from 'react';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import ArticleMetadata from '../../models/v2/featuredContent/ArticleMetadata';
-import { articles } from '../../../config/featuredContent/featuredContentMetadata';
+import articles from '../../../config/featuredContent/featuredContentMetadata';
 import ArticleList from './list/ArticleList';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import ContentPageHeader from '../sharedComponents/header/ContentPageHeader';
@@ -36,7 +36,7 @@ const FeaturedContentPage = () => {
                     kicker="RESOURCES"
                     title="Featured Content"
                     body="Read the latest featured content to learn more about government spending."
-                    image="img/contentPage/featured-content-landing-page-banner-2x.webp"
+                    image="img/featuredContent/featured-content-landing-page-banner-2x.webp"
                     slug="featured-content" />
                 <ArticleList articles={articlesList} />
             </main>
