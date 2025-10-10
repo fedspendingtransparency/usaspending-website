@@ -41,7 +41,7 @@
       width: rem(16);
       height: rem(16);
       left: $global-spacing-unit;
-      top: rem(7);
+      top: $global-spacing-unit !important;
       padding: rem(2);
     }
 
