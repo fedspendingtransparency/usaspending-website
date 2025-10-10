@@ -1,3 +1,10 @@
+import React from "react";
+import { Link } from "react-router";
+import AboutTheDataLink from "../../js/components/sharedComponents/AboutTheDataLink";
+import GlossaryLink from "../../js/components/sharedComponents/GlossaryLink";
+import ExternalLink from "../../js/components/sharedComponents/ExternalLink";
+
+
 /* eslint-disable max-len */
 const contentMap = {
     dataDefinition: '#783cb9',
@@ -27,8 +34,15 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         fill: contentMap.dataDefinition,
         landing_header_path: "",
-        explore_more: [],
-        related_terms: []
+        related_terms: [
+            <AboutTheDataLink slug="subaward-data-quality">
+                subaward data quality
+            </AboutTheDataLink>,
+            <GlossaryLink term="prime-award" label="prime award" displayIcon={false} />
+        ],
+        explore_more: [
+            
+        ],
     },
     {
         content_type: "What's the difference",
