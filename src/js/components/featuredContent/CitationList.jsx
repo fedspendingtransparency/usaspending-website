@@ -4,8 +4,10 @@
  * Created by Nick Torres 10/8/25
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
+import GlossaryLink from '../sharedComponents/GlossaryLink';
+import AboutTheDataLink from '../sharedComponents/AboutTheDataLink';
 
 const propTypes = {
     header: PropTypes.string,
@@ -22,7 +24,12 @@ const CitationList = (props) => {
                 {props.citations?.map((citation, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                     <span className="featured-content__citation" key={`featured-content__citation-${index}`}>
-                        {citation}
+                        { citation.type === "glossary" ?
+                            <GlossaryLink term={citation.term} label={citation.label} displayIcon={false} /> :
+                            <AboutTheDataLink slug={citation.term}>
+                                {citation.label}
+                            </AboutTheDataLink>
+                        }
                     </span>
                 ))}
             </div>
