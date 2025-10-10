@@ -217,45 +217,6 @@ const AwardData = (props) => {
                     </p>
                 </>
             )
-        },
-        card6: {
-            heading: <h4>FSRS (File F)</h4>,
-            content: (
-                <>
-                    <p>
-                        <a
-                            className="scroller-overlay-card__link"
-                            href="https://www.fsrs.gov/"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            The FFATA Subaward
-                            Reporting System (FSRS)
-                        </a>{" "}
-                        is where{" "}
-                        <span className="glossary-term">prime recipients</span>{" "}
-                        <GlossaryLink term="prime-recipient" /> submit information about
-                        their subawards. This information includes data about both the prime
-                        award and the subaward, such as their respective{" "}
-                        <span className="glossary-term">action dates</span>{" "}
-                        <GlossaryLink term="action-date" />,{" "}
-                        <span className="glossary-term">recipient codes</span>{" "}
-                        <GlossaryLink term="unique-entity-identifier-uei" />,{" "}
-                        <span className="glossary-term">recipient locations</span>{" "}
-                        <GlossaryLink term="recipient-location" />,{" "}
-                        <span className="glossary-term">places of performance</span>{" "}
-                        <GlossaryLink term="primary-place-of-performance" />,{" "}
-                        <span className="glossary-term">award descriptions</span>{" "}
-                        <GlossaryLink term="transaction-description" />, and{" "}
-                        <span className="glossary-term">executive compensation</span>{" "}
-                        <GlossaryLink term="highly-compensated-officer-total-compensation" />{" "}
-                        data.
-                    </p>
-                    <p>
-                        The collection of data in FSRS that USAspending.gov extracts
-                        is known as File F.
-                    </p>
-                </>
-            )
         }
     };
     const ref1 = useRef();
@@ -417,29 +378,6 @@ const AwardData = (props) => {
                             overline={overline}
                             heading={cards.card5.heading}
                             content={cards.card5.content} />
-                    </div>
-                </ScrollerOverlay>
-
-                {/* FSRS File F */}
-                <ScrollerOverlay
-                    content="animation"
-                    onStepEnter={() => {
-                        ref1.current?.playAnimation(720, 780, 1.5);
-                    }
-                    }>
-                    {/* used as transition. no card. */}
-                </ScrollerOverlay>
-                <ScrollerOverlay
-                    content="animation"
-                    position="right"
-                    onStepEnter={() =>
-                        ref1.current?.playAnimation(780, 840, 1)
-                    }>
-                    <div className="scroller-overlay-card-container">
-                        <ScrollerOverlayCard
-                            overline={overline}
-                            heading={cards.card6.heading}
-                            content={cards.card6.content} />
                     </div>
                 </ScrollerOverlay>
 
