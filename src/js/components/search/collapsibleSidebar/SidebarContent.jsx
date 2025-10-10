@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 
 import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
@@ -34,7 +33,7 @@ const SidebarContent = ({
 }) => {
     const [open, setOpen] = useState({
         Location: false,
-        "Time Period": false,
+        "Time Period": true,
         "Award Description": false,
         "Award ID": false,
         "Spending Amount": false,
@@ -93,30 +92,18 @@ const SidebarContent = ({
 
     const dsmElHeight = sidebarContentHeight;
 
-    const filtersArray = searchFilterCategoryTree.map((category) => (
+    const filtersArray = searchFilterCategoryTree.map((filter) => (
         <div className="search-filters-list">
-            <div className="category-header">
-                <div
-                    className="category-header--icon"
-                    style={{ backgroundColor: category.iconBackgroundColor }}>
-                    <FontAwesomeIcon
-                        icon={category.iconName}
-                        style={{ color: category.iconColor }} />
-                </div>
-                <div className="category-header--title">{category.title}</div>
-            </div>
-            {category.children.map((filter) => (
-                <Accordion
-                    title={filter.title}
-                    setOpen={() => setOpen({ ...open, [filter.title]: !open[filter.title] })}
-                    openObject
-                    closedIcon="chevron-down"
-                    openIcon="chevron-up"
-                    contentClassName={open[filter.title] ? '' : 'hidden'}
-                    selectedChipCount={filterCount[filter.title]}>
-                    {renderSidebarContent && open[filter.title] && filter.component}
-                </Accordion>
-            ))}
+            <Accordion
+                title={filter.title}
+                setOpen={() => setOpen({ ...open, [filter.title]: !open[filter.title] })}
+                openObject={open[filter.title]}
+                closedIcon="chevron-down"
+                openIcon="chevron-up"
+                contentClassName={open[filter.title] ? '' : 'hidden'}
+                selectedChipCount={filterCount[filter.title]}>
+                {renderSidebarContent && open[filter.title] && filter.component}
+            </Accordion>
         </div>
     ));
 
