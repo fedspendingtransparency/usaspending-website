@@ -8,6 +8,9 @@
 
 .featured-content__citation-wrapper {
     .featured-content__citation {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
         svg {
             margin-right: rem(12);
         }
