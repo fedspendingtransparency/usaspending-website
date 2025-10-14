@@ -94,6 +94,7 @@ const ArticleList = ({ articles }) => {
                                         }
                                     }}
                                     tabIndex="0"
+                                    taxonomy={article.content_type}
                                     title={article.title}
                                     description={article.description}
                                     thumbnailUrl={article.thumbnail_path}
