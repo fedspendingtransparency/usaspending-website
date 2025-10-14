@@ -3,7 +3,7 @@
  * Created by Nick Torres 9/23/2025
 */
 
-export const transformString = (input) => input.replace(/\s+/g, '-').toLowerCase();
+export const transformString = (input) => input.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-\s]/g, '').toLowerCase();
 
 export const transformDate = (input) => {
     const options = {

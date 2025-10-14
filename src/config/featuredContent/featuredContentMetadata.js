@@ -13,9 +13,9 @@ const contentMap = {
 const articles = [
     {
         content_type: "Data Definitions",
-        banner_title: "What is an Award",
+        banner_title: "What is an Award?",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        title: "What is an Award",
+        title: "What is an Award?",
         created_date: "09/29/2025",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "what-is-an-award.mdx",
@@ -49,7 +49,7 @@ const articles = [
     },
     {
         content_type: "Recently Answered Questions",
-        title: "Obligations vs Outlays",
+        title: "Obligations vs. Outlays",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         created_date: "09/29/2025",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
