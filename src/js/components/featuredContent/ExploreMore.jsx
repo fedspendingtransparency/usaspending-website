@@ -38,16 +38,16 @@ const ExploreMore = (props) => {
                             <>
                                 <ExternalLink isCard url={citation.slug}>
                                     <div>
-                                        <FontAwesomeIcon icon="external-link-alt" />
-                                        <span>{truncateText(citation.label, 79)}</span>
+                                        <FontAwesomeIcon icon="external-link-alt" className="featured-content__icon" />
+                                        <span>{truncateText(citation.label, 55)}</span>
                                     </div>
                                 </ExternalLink>
                             </> :
                             <>
                                 <Link to={citation.slug}>
                                     <div>
-                                        <FontAwesomeIcon icon="link" />
-                                        <span>{truncateText(citation.label, 79)}</span>
+                                        <FontAwesomeIcon icon="link" className="featured-content__icon" />
+                                        <span>{truncateText(citation.label, 55)}</span>
                                     </div>
                                 </Link>
                             </>}

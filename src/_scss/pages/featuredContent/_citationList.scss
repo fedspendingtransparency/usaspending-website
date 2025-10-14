@@ -11,18 +11,10 @@
         div {
             display: flex;
         }
-        svg {
-            margin-right: rem(12);
-            height: 16px;
-        }
 
-        // the external link icon is very small if you don't do this bc it has to be 
-        // flexed with the ellipsis text
-        .fa-external-link-alt {
-            width: rem(19);
-            @media(min-width: $tablet-screen) {
-                width: rem(24);
-            }
+        .featured-content__icon {
+            // icon size is reactive
+            font-size: 16px;
         }
 
         &:first-of-type {
@@ -48,6 +40,10 @@
         }
 
         margin-top: rem(16);
+
+        span {
+            margin-left: rem(12);
+        }
     }
  }
 
