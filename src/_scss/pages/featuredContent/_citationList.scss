@@ -24,8 +24,17 @@
             }
         }
         display: block;
+
+        @media(min-width: $tablet-screen) {
+            margin-top: rem(20);
+        }
+
+        @media(min-width: $medium-screen) {
+            margin-top: rem(16);
+        }
+
         margin-top: rem(16);
     }
-}
+ }
 
 
