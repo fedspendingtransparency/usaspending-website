@@ -15,13 +15,12 @@ const propTypes = {
     setShowMobileFilters: PropTypes.func,
     showMobileFilters: PropTypes.bool,
     sidebarOpen: PropTypes.bool,
-    setSidebarOpen: PropTypes.func,
-    timerRef: PropTypes.object
+    setSidebarOpen: PropTypes.func
 };
 
 const SidebarWrapper = React.memo(({
     // eslint-disable-next-line no-unused-vars
-    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen, timerRef
+    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen
 }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
@@ -38,11 +37,11 @@ const SidebarWrapper = React.memo(({
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
-    const sidebarStaticEls = 190;
+    const sidebarStaticEls = isMobile ? 190 : 139;
     const footerMargin = 0;
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
-    const additionalRibbonHeight = 57;
+    const additionalRibbonHeight = 68;
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -52,20 +51,24 @@ const SidebarWrapper = React.memo(({
     const hideElements = (removeableEls) => {
         for (const value of removeableEls) {
             const elClass = value.className;
-            document.querySelector(`.${elClass}`).style.display = "none";
+            if (document.querySelector(`.${elClass}`)?.style) {
+                document.querySelector(`.${elClass}`).style.display = "none";
+            }
         }
     };
 
     const showElements = (removeableEls) => {
         for (const value of removeableEls) {
             const elClass = value.className;
-            document.querySelector(`.${elClass}`).style.display = value.display;
+            if (document.querySelector(`.${elClass}`)?.style) {
+                document.querySelector(`.${elClass}`).style.display = value.display;
+            }
         }
     };
 
     const resizeHeightByFooter = () => {
         const mainContentInView = checkInView(mainContentEl);
-        const sidebarContentArea = mainContentInView - sidebarStaticEls;
+        const sidebarContentArea = mainContentInView - (sidebarStaticEls + 21);
         const padding = 2;
         const margins = (topStickyBarHeight + footerMargin) - padding;
 
@@ -282,7 +285,7 @@ const SidebarWrapper = React.memo(({
     const selectHeight = () => {
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
         const isHeaderSticky = isStickyEl !== null;
-        const bufferToTouchBottom = 2;
+        const bufferToTouchBottom = 6;
 
         if (isHeaderSticky && !isFooterVisible) {
             return `calc(100vh - ${topStickyBarHeight - bufferToTouchBottom}px)`;
@@ -327,7 +330,6 @@ const SidebarWrapper = React.memo(({
                         setShowMobileFilters={setShowMobileFilters}
                         isDsmOpened={isDsmOpened}
                         setIsDsmOpened={setIsDsmOpened}
-                        timerRef={timerRef}
                         renderSidebarContent={isMobile || renderSidebarContent} />
                 }
             </div>

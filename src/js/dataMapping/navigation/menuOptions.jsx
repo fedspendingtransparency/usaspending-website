@@ -112,6 +112,17 @@ export const learnResourceOptions = [
         externalLink: false,
         isNewTab: false,
         icon: ''
+    },
+    {
+        label: 'Featured Content',
+        type: 'featured-content',
+        description: 'Short articles on a variety of topics related to federal spending ',
+        url: '/featured-content',
+        shouldOpenNewTab: false,
+        enabled: GlobalConstants.QAT,
+        externalLink: false,
+        isNewTab: false,
+        icon: ''
     }
 ];
 export const referenceMaterialsOptions = [
@@ -179,6 +190,15 @@ export const developerOptions = [
         enabled: true,
         shouldOpenNewTab: true,
         description: 'Summary of the latest changes on USAspending.gov',
+        externalLink: true,
+        icon: ''
+    },
+    {
+        label: 'Governmentwide Spending Data Model (GSDM)',
+        url: 'https://tfx.treasury.gov/data-transparency/gsdm',
+        enabled: true,
+        shouldOpenNewTab: true,
+        description: 'Authoritative source for federal spending data, definitions, and guidance.',
         externalLink: true,
         icon: ''
     }

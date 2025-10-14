@@ -1318,6 +1318,63 @@ const metaData = {
                 contentRating: {},
                 projection: "rectangular"
             }
+        },
+        {
+            kind: "youtube#video",
+            etag: "NJMiQ7881bHHQmE11cqWRQZzA2M",
+            id: "pRGY0VfQ4II",
+            snippet: {
+                publishedAt: "2025-09-30T12:01:36Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "Exploring America's Finances with USAspending.gov and FiscalData.Treasury.gov",
+                description: "Have you ever wondered where your tax dollars actually go? The good news is, it's not a secret. This short video details how you can explore America's finances using the data on USAspending.gov and FiscalData.Treasury.gov.",
+                thumbnails: {
+                    default: {
+                        url: "https://i.ytimg.com/vi/pRGY0VfQ4II/default.jpg",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i.ytimg.com/vi/pRGY0VfQ4II/mqdefault.jpg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i.ytimg.com/vi/pRGY0VfQ4II/hqdefault.jpg",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i.ytimg.com/vi/pRGY0VfQ4II/sddefault.jpg",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i.ytimg.com/vi/pRGY0VfQ4II/maxresdefault.jpg",
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                channelTitle: "USAspending",
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                defaultLanguage: "en",
+                localized: {
+                    title: "Exploring America's Finances with USAspending.gov and FiscalData.Treasury.gov",
+                    description: "Have you ever wondered where your tax dollars actually go? The good news is, it's not a secret. This short video details how you can explore America's finances using the data on USAspending.gov and FiscalData.Treasury.gov."
+                },
+                defaultAudioLanguage: "en"
+            },
+            contentDetails: {
+                duration: "PT1M23S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular",
+                hasCustomThumbnail: false
+            }
         }
         // put a comma at the end of the brace above this line, then paste what you copied from the response above this comment
     ]

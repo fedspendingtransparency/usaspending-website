@@ -45,13 +45,21 @@ jobs:
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-unit.yaml
 
-  Run-Lighthouse:
-    name: Run Lighthouse
+  Run-Lighthouse-Desktop:
+    name: Run Lighthouse Desktop
     strategy:
       fail-fast: true    
     needs: Cancel-If-Draft-Pull-Request
     if: ${{ !failure() && !cancelled() }}
-    uses: ./.github/workflows/test-lighthouse.yaml
+    uses: ./.github/workflows/test-lighthouse-desktop.yaml
+
+  Run-Lighthouse-Mobile:
+    name: Run Lighthouse Mobile
+    strategy:
+      fail-fast: true    
+    needs: Cancel-If-Draft-Pull-Request
+    if: ${{ !failure() && !cancelled() }}
+    uses: ./.github/workflows/test-lighthouse-mobile.yaml  
 
   Run-Broken-Link-Check:
     name: Run Broken Link Checker

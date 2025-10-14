@@ -34,9 +34,6 @@ jobs:
       - name: Run NPM install
         run: npm ci --legacy-peer-deps --timeout=90000
 
-      - name: NPM run dev
-        run: npm run dev
-
       - name: Run Lighthouse command
-        run: npm run lhci:audit        
+        run: npm run lhci:desktop        
      
