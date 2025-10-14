@@ -13,9 +13,9 @@ const contentMap = {
 const articles = [
         {
         content_type: "Data Definitions",
-        banner_title: "What is an Award?",
-        banner_subtitle: "",
-        title: "What is an Award?",
+        banner_title: "What is an Award",
+        banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        title: "What is an Award",
         created_date: "10/14/2025",
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand how stuff when things happen and other stuff happens you should learn how stuff does work when happens happen",
         mdx_path: "what-is-an-award.mdx",
