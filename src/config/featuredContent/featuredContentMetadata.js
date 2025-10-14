@@ -11,6 +11,25 @@ const contentMap = {
 };
 // the first entry has what is necessary for a full article
 const articles = [
+        {
+        content_type: "Data Definitions",
+        banner_title: "What is an Award?",
+        banner_subtitle: "",
+        title: "What is an Award?",
+        alt_title: "Four ways to use our data",
+        created_date: "10/14/2025",
+        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand how stuff when things happen and other stuff happens you should learn how stuff does work when happens happen",
+        mdx_path: "exploring-americas-finances-the-data-behind-the-dollars.mdx",
+        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-violet_vivid.webp",
+        tablet_hero: "../../img/featuredContent/banner/tablet/featured_content_banner-tablet-violet_vivid.webp",
+        mobile_hero: "../../img/featuredContent/banner/mobile/featured_content_banner-mobile-violet_vivid-25.webp",
+        slug: "testing-article",
+        thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
+        fill: contentMap.dataDefinition,
+        landing_header_path: "",
+        explore_more: [],
+        related_terms: []
+    },
     {
         content_type: "Data Definitions",
         banner_title: "Location Filters",
