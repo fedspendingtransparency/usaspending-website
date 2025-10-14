@@ -29,7 +29,7 @@
         margin: 0 $grid-column;
       }
 
-      .featured-content__article-title {
+      .featured-content__article-title, h2 {
         font-size: $font-size-24;
         font-weight: $font-semibold;
         line-height: 30px;
