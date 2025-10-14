@@ -1,56 +1,90 @@
 .featured-content__header-wrapper {
     position: relative;
+    display:flex;
+    align-items: center;
     #featured-content-hero {
         width: 100%;
+        height: 100%;
     }
 
     .featured-content__header-block {
         position:absolute;
-        top: 40%;
-        left: 13%;
-        margin-left: rem(24);
-        margin-right:rem(24);
+        bottom: 20%;
+        @media(min-width: $tablet-screen) {
+            bottom: rem(24);
+        }
+
         @media(min-width: $medium-screen) {
-            top: 51%;
-            right: 6%;
-            left: unset;
-            margin-left: unset;
-            margin-right: unset;
+            bottom: rem(24);
         }
+
         @media(min-width: $large-screen) {
-            top: 51%;
-            right: 11%;
+            bottom: rem(36);
         }
+
         @media(min-width: $m-large-screen) {
-            top: 49%;
-            right: 14%;
-        }        
+            bottom: rem(56);
+        }
+
         @media(min-width: $x-large-screen) {
-            top: 50%;
-            right: 18%;
-            left: unset;
-        }        
+            bottom: rem(80);
+        }
+ 
         .featured-content__label {
             padding: rem(6) rem(8);
             border-radius: rem(6);
             font-size: $font-size-12;
             font-style: normal;
             font-weight: $font-semibold;
-            line-height: 1.25;
+            line-height: 12.434px;
             text-transform: uppercase;
             color: white;
+            gap: 10px;
+
+            @media(min-width: $tablet-screen) {
+                padding: rem(8);
+                line-height: 15px;
+                font-size: $font-size-17;
+            }
         }
         .featured-content__title {
             display: block;
             margin-top: rem(12.5);
             color: $gray-80;
             font-size: rem(28);
+
+            @media(min-width: $tablet-screen) {
+                margin-top: rem(16);
+                font-size: $font-size-48;
+                line-height: 56px;
+            }
+
+            @media(min-width: $medium-screen) {
+                font-size: $font-size-48;
+            }
+            
+            @media(min-width: $m-large-screen) {
+                margin-top: rem(20);
+            }
         }
         .featured-content__subtitle {
             display: block;
             margin-top: rem(8);
             color: $gray-80;
             font-size: $font-size-14;
+
+            @media(min-width: $tablet-screen) {
+                font-size: $font-size-20;
+                margin-top: rem(8);
+                line-height: normal;
+            }
+            @media(min-width: $medium-screen) {
+                font-size: $font-size-20;
+            }
+
+            @media(min-width: $m-large-screen) {
+                margin-top: rem(12);
+            }
         }
     }
 }
