@@ -38,7 +38,11 @@ const articles = [
             { term: "prime-award", type: "glossary", label: "prime award" },
             { term: "subaward-data-quality", type: "atd", label: "subaward data quality" }
         ],
-        explore_more: []
+        explore_more: [
+            { label: "about", slug: "/about", type: "internal" },
+            { label: "treasury", slug: "https://home.treasury.gov/", type: "government" },
+            { label: "google", slug: "https://google.com", type: "external" }
+        ]
     },
     {
         content_type: "What's the difference",

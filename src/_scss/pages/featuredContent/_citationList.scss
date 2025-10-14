@@ -10,11 +10,20 @@
     display: block;
 
     .featured-content__citation {
+        svg {
+            margin-right: rem(12);
+        }
         &:first-of-type {
-            margin-top: rem(20);
+            margin-top: rem(12);
+            @media(min-width: $tablet-screen) {
+                margin-top: rem(20);
+            }
         }
         &:last-of-type {
-            margin-bottom: rem(36);
+            margin-bottom: rem(28);
+            @media(min-width: $tablet-screen) {
+                margin-bottom: rem(36);
+            }
         }
         display: block;
         margin-top: rem(16);
