@@ -194,7 +194,7 @@ export const developerOptions = [
         icon: ''
     },
     {
-        label: 'Government Spending Data Model (GSDM)',
+        label: 'Governmentwide Spending Data Model (GSDM)',
         url: 'https://tfx.treasury.gov/data-transparency/gsdm',
         enabled: true,
         shouldOpenNewTab: true,
