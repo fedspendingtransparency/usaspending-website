@@ -43,6 +43,7 @@
 
             @media(min-width: $tablet-screen) {
                 padding: rem(8);
+                border-radius: rem(8);
                 line-height: 15px;
                 font-size: $font-size-17;
             }
