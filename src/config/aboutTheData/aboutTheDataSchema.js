@@ -135,6 +135,10 @@ const schema = {
             {
                 name: "Personally Identifiable Information (PII) and Redacted Records",
                 slug: "pii-and-redacted-records"
+            },
+            {
+                name: "North American Industry Classification System (NAICS)",
+                slug: "naics"
             }
         ]
     },

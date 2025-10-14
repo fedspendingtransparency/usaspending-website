@@ -2,6 +2,7 @@
  * VideoMetadata.js
  * Created by Andrea Blackwell 12/20/22
  */
+import { transformDate } from "../../../helpers/featuredContent/featuredContentHelper";
 
 const VideoMetadata = {
     populate(data) {
@@ -17,12 +18,7 @@ const VideoMetadata = {
     },
 
     get publishedAt() {
-        const options = {
-            weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'
-        };
-        const date = new Date(this._publishedAt);
-        const formattedDate = date.toLocaleDateString('en-us', options).replace(/^\w+,\s*/g, '');
-        return formattedDate;
+        return transformDate(this._publishedAt);
     },
     get durationInSecs() {
         const str = this._duration.toUpperCase();
