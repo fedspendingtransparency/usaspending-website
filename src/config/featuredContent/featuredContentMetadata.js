@@ -41,7 +41,7 @@ const articles = [
         explore_more: [
             { label: "about", slug: "/about", type: "internal" },
             { label: "treasury", slug: "https://home.treasury.gov/", type: "government" },
-            { label: "this link goes to google but i am making the text long to ellipsize it", slug: "https://google.com", type: "external" }
+            { label: "this link goes to google but i am making the text long to ellipsize itgaertgwergwerthgrthsrthedrthedrthdrth", slug: "https://google.com", type: "external" }
         ]
     },
     {
