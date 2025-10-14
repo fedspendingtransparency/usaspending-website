@@ -67,17 +67,16 @@ const FeaturedContentArticle = () => {
             <main
                 id="main-content"
                 className="main-content featured-content">
-                <div className="featured-content__header-wrapper">
+                <FlexGridRow className="featured-content__header-wrapper">
                     {!isMobile && !isTablet && <img src={chosenArticle?.hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
                     {isMobile && <img src={chosenArticle?.mobile_hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
                     {isTablet && <img src={chosenArticle?.tablet_hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
-                    <div className="featured-content__header-block">
+                    <FlexGridCol desktopxl={{ span: 3, offset: 7 }} desktop={{ span: 4, offset: 7 }} tablet={{ span: 7, offset: 1 }} mobile={{ span: 10, offset: 1 }} className="featured-content__header-block">
                         <span className="featured-content__label" style={{ backgroundColor: chosenArticle?.fill }}>{chosenArticle?.content_type}</span>
                         <span className="featured-content__title">{chosenArticle?.banner_title}</span>
                         <span className="featured-content__subtitle">{chosenArticle?.banner_subtitle}</span>
-                    </div>
-
-                </div>
+                    </FlexGridCol>
+                </FlexGridRow>
                 <FlexGridRow desktop={12} className="grid-content">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
                         {markdownContent}
