@@ -21,10 +21,10 @@
         .fa-external-link-alt {
             width: rem(19);
             @media(min-width: $tablet-screen) {
-                width: rem(32);
+                width: rem(24);
             }
         }
-        
+
         &:first-of-type {
             margin-top: rem(12);
             @media(min-width: $tablet-screen) {
