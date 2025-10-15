@@ -13,6 +13,8 @@ import PageWrapper from "../sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
+import RelatedTerms from './RelatedTerms';
+import ExploreMore from './ExploreMore';
 
 require('pages/featuredContent/featuredContent.scss');
 
@@ -85,8 +87,10 @@ const FeaturedContentArticle = () => {
                         </div>
                         {markdownContent}
                     </FlexGridCol>
-                    <FlexGridCol tablet={12} mobile={12} desktop={4}>
-                        <div>share/explore/related</div>
+                    <FlexGridCol tablet={12} mobile={12} desktop={4} className="featured-content__column-two">
+                        <div>share</div>
+                        <RelatedTerms header="Related Terms" citations={chosenArticle?.related_terms} />
+                        <ExploreMore header="Explore More" citations={chosenArticle?.explore_more} />
                     </FlexGridCol>
                 </FlexGridRow>
             </main>

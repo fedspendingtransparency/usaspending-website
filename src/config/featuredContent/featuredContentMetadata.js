@@ -10,6 +10,13 @@ const contentMap = {
     difference: '#5abf95'
 };
 // the first entry has what is necessary for a full article
+
+/**
+ *             <AboutTheDataLink slug="subaward-data-quality">
+                subaward data quality
+            </AboutTheDataLink>,
+            <GlossaryLink term="prime-award" label="prime award" displayIcon={false} />
+ */
 const articles = [
     {
         content_type: "Data Definitions",
@@ -25,8 +32,15 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         fill: contentMap.dataDefinition,
         landing_header_path: "",
-        explore_more: [],
-        related_terms: []
+        related_terms: [
+            { term: "prime-award", type: "glossary", label: "prime award" },
+            { term: "subaward-data-quality", type: "atd", label: "subaward data quality" }
+        ],
+        explore_more: [
+            { label: "about", slug: "/about", type: "internal" },
+            { label: "treasury", slug: "https://home.treasury.gov/", type: "government" },
+            { label: "this link goes to google but i am making the text long to ellipsize itgaertgwergwerthgrthsrthedrthedrthdrth", slug: "https://google.com", type: "external" }
+        ]
     },
     {
         content_type: "Exploring America's Finances",

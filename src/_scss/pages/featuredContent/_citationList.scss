@@ -1,0 +1,52 @@
+.featured-content__citation-heading {
+    display: block;
+    color: $gray-80;
+    font-size: $font-size-20;
+    font-weight: $font-semibold;
+    line-height: rem(25); /* 125% */
+}
+
+.featured-content__citation-wrapper {
+    margin-left: rem(5);
+    .featured-content__citation {
+        padding-left: 0;
+        div {
+            display: flex;
+        }
+
+        .featured-content__icon {
+            // icon size is reactive
+            font-size: 16px;
+        }
+
+        &:first-of-type {
+            margin-top: rem(12);
+            @media(min-width: $tablet-screen) {
+                margin-top: rem(20);
+            }
+        }
+        &:last-of-type {
+            margin-bottom: rem(28);
+            @media(min-width: $tablet-screen) {
+                margin-bottom: rem(36);
+            }
+        }
+        display: block;
+
+        @media(min-width: $tablet-screen) {
+            margin-top: rem(20);
+        }
+
+        @media(min-width: $medium-screen) {
+            margin-top: rem(16);
+        }
+
+        margin-top: rem(16);
+
+        span {
+            margin-left: rem(12);
+        }
+    }
+ }
+
+
