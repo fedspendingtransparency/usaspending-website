@@ -29,7 +29,7 @@
       border-radius: 2px;
       background-color: $gray-cool-5 !important;
       padding: 2px !important;
-      
+
       span.highlight {
         background-color: $yellow-10;
       }
@@ -55,7 +55,7 @@
 
     .rct-checkbox {
       color: $gray-cool-20 !important;
-      padding-right: 0 !important;
+      padding: 0 rem(4);
     }
 
     .rct-text {
