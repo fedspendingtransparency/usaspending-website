@@ -7,7 +7,9 @@
 }
 
 .featured-content__citation-wrapper {
+    margin-left: rem(5);
     .featured-content__citation {
+        padding-left: 0;
         div {
             display: flex;
         }
