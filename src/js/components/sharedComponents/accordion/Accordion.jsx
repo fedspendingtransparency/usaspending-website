@@ -14,7 +14,7 @@ const Accordion = ({
     openObject = false,
     selectedChipCount = 0
 }) => {
-    const [closed, setClosed] = useState(true);
+    const [closed, setClosed] = useState(!openObject);
 
     const toggleOpen = (e) => {
         e.stopPropagation();
