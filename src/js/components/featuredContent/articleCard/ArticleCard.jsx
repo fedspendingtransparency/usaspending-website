@@ -20,7 +20,7 @@ const propTypes = {
 };
 
 const ArticleCard = ({
-    title, onClick, description, onKeyUp, thumbnailUrl, fill, publishedAt
+    title, onClick, description, onKeyUp, thumbnailUrl, fill, publishedAt, taxonomy
 }) => {
     let changedTitle;
     let overline;
@@ -32,7 +32,7 @@ const ArticleCard = ({
     }
     else {
         changedTitle = title;
-        overline = "RESOURCE";
+        overline = taxonomy.toUpperCase();
     }
     return (
         <CardContainer variant="outline" size="md" tabIndex="0">
