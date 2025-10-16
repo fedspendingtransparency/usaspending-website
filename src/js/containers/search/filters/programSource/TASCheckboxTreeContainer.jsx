@@ -393,7 +393,7 @@ export class TASCheckboxTree extends React.Component {
                         heading="Find a Treasury Account" />
                 </span>}
                 <EntityDropdownAutocomplete
-                    placeholder="Type to filter results"
+                    placeholder="Search filters..."
                     searchString={searchString}
                     enabled
                     handleTextInputChange={this.handleTextInputChange}
