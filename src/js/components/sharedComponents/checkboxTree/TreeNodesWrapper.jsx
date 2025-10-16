@@ -76,21 +76,21 @@ const TreeNodesWrapper = ({
 
         if (isChecked) {
             // Uncheck node and its descendants
-            newChecked = localChecked.filter((cid) => cid !== id && !descendantIds.includes(cid));
-            setLocalChecked(newChecked);
+            newChecked = localChecked.filter((cid) => cid !== id && descendantIds);
+            setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
         }
         else {
             if ((descendantIds.length > 0)) {
                 // Check node's descendants
-                newChecked = [...new Set([...localChecked, ...descendantIds])];
+                newChecked = [...new Set([...localChecked, id, ...descendantIds])];
             }
             else {
                 // Check node
                 newChecked = [...new Set([...localChecked, id])];
             }
 
-            setLocalChecked([...new Set([...localChecked, id, ...descendantIds])]);
+            setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
         }
     };

@@ -54,7 +54,7 @@ const TreeNodes = ({
                                     disabled={disabled}
                                     checked={isChecked}
                                     onKeyDown={(e) => (e.key === "Enter" ? handleCheck(node.id, node.children || []) : "")}
-                                    onClick={() => handleCheck(node.id, node.children || [])} />}
+                                    onChange={() => handleCheck(node.id, node.children || [])} />}
                             </div>
                             {node.label}
                         </div>

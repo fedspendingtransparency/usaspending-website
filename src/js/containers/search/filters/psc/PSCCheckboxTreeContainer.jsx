@@ -23,7 +23,6 @@ import {
 
 import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import NewCheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
@@ -246,7 +245,7 @@ const PSCCheckboxTreeContainer = ({
             nodes
         );
 
-        setCheckedPsc(newChecked);
+        setCheckedPsc(newUnchecked);
         setPscCounts(newCounts);
         setUncheckedPsc(newUnchecked);
         stagePsc(
@@ -401,35 +400,20 @@ const PSCCheckboxTreeContainer = ({
                 isClearable
                 loading={false}
                 onClear={onClear} />
-            {GlobalConstants.QAT ?
-                <NewCheckboxTree
-                    isError={isError}
-                    errorMessage={errorMessage}
-                    isLoading={isLoading}
-                    data={nodes}
-                    checked={checked}
-                    searchString={searchString}
-                    noResults={showNoResults}
-                    expanded={isSearch ? searchExpanded : expanded}
-                    isSearch={isSearch}
-                    onUncheck={onUncheck}
-                    onCheck={onCheck}
-                    onExpand={onExpand}
-                    onCollapse={onCollapse} />
-                :
-                <CheckboxTree
-                    isError={isError}
-                    errorMessage={errorMessage}
-                    isLoading={isLoading}
-                    data={nodes}
-                    checked={checked}
-                    searchString={searchString}
-                    noResults={showNoResults}
-                    expanded={isSearch ? searchExpanded : expanded}
-                    onUncheck={onUncheck}
-                    onCheck={onCheck}
-                    onExpand={onExpand}
-                    onCollapse={onCollapse} />}
+            <NewCheckboxTree
+                isError={isError}
+                errorMessage={errorMessage}
+                isLoading={isLoading}
+                data={nodes}
+                checked={checked}
+                searchString={searchString}
+                noResults={showNoResults}
+                expanded={isSearch ? searchExpanded : expanded}
+                isSearch={isSearch}
+                onUncheck={onUncheck}
+                onCheck={onCheck}
+                onExpand={onExpand}
+                onCollapse={onCollapse} />
         </div>
     );
 };
