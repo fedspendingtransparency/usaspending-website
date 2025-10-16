@@ -31,6 +31,27 @@
     input {
         // TODO: [DEV-5732] Fix styling bug in Searchable Checkbox trees
         width: 100%;
+
+      &.geo-entity-dropdown__input {
+        padding-left: rem(28) !important;
+      }
+    }
+
+    svg {
+      color: $gray-60;
+      width: rem(12);
+      height: rem(12);
+    }
+
+    .search-icon {
+      @include flex(0 0 auto);
+      @include align-self(center);
+      position: absolute;
+      width: rem(16);
+      height: rem(16);
+      left: $global-spacing-unit;
+      top: rem(6);
+      padding: rem(2);
     }
 
     .icon {

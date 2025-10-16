@@ -400,7 +400,8 @@ export class TASCheckboxTree extends React.Component {
                     context={{}}
                     isClearable
                     loading={false}
-                    onClear={this.onClear} />
+                    onClear={this.onClear}
+                    searchIcon />
                 <CheckboxTree
                     isError={isError}
                     errorMessage={errorMessage}

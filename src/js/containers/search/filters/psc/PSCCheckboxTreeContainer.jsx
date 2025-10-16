@@ -400,7 +400,8 @@ const PSCCheckboxTreeContainer = ({
                 context={{}}
                 isClearable
                 loading={false}
-                onClear={onClear} />
+                onClear={onClear}
+                searchIcon />
             {GlobalConstants.QAT ?
                 <NewCheckboxTree
                     isError={isError}
