@@ -245,7 +245,7 @@ const PSCCheckboxTreeContainer = ({
             nodes
         );
 
-        setCheckedPsc(newUnchecked);
+        setCheckedPsc(newChecked);
         setPscCounts(newCounts);
         setUncheckedPsc(newUnchecked);
         stagePsc(
