@@ -76,11 +76,11 @@ const TreeNodesWrapper = ({
 
     const handleIndeterminateAncestors = (node, newChecked) => {
         if (node.ancestors) {
-            const ancestorIds = node.ancestors.map((ancestor) => findNodeById(ancestor));
-            if (ancestorIds.length) {
-                ancestorIds.forEach((parent) => {
+            const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
+            if (ancestorNodes.length) {
+                ancestorNodes.forEach((parent) => {
                     // check if anything is checked first
-                    if (newChecked) {
+                    if (newChecked?.length) {
                         const hasAnyChildrenChecked = parent.children.filter((child) => newChecked.includes(child.id));
                         const setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
                         if (checkboxRefs.current) checkboxRefs.current[parent.id].indeterminate = setIndeterminate;
