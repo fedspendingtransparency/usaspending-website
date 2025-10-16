@@ -39,7 +39,7 @@ describe('PSCCheckboxTreeContainer', () => {
         jest.spyOn(searchHelper, 'fetchPsc').mockReturnValueOnce({ promise: Promise.resolve(agriMockResponse) });
 
         act(() => {
-            const searchBar = screen.getByPlaceholderText('Type to filter results');
+            const searchBar = screen.getByPlaceholderText('Search filters...');
             fireEvent.change(searchBar, { target: { value: 'agri' } });
             expect(searchBar).toHaveValue('agri');
         });
@@ -50,7 +50,7 @@ describe('PSCCheckboxTreeContainer', () => {
         });
 
         act(() => {
-            const searchBar = screen.getByPlaceholderText('Type to filter results');
+            const searchBar = screen.getByPlaceholderText('Search filters...');
             fireEvent.change(searchBar, { target: { value: '' } });
         });
 

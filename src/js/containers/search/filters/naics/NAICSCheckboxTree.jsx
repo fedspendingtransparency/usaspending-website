@@ -367,14 +367,15 @@ const NAICSCheckboxTree = () => {
         <div>
             <div className="naics-search-container">
                 <EntityDropdownAutocomplete
-                    placeholder="Type to find codes"
+                    placeholder="Search filters..."
                     searchString={searchString}
                     enabled
                     handleTextInputChange={handleTextInputChange}
                     context={{}}
                     loading={false}
                     isClearable
-                    onClear={onClear} />
+                    onClear={onClear}
+                    searchIcon />
                 <CheckboxTree
                     limit={3}
                     data={nodes}
