@@ -393,7 +393,7 @@ const PSCCheckboxTreeContainer = ({
     return (
         <div className="psc-checkbox">
             <EntityDropdownAutocomplete
-                placeholder="Type to filter results"
+                placeholder="Search filters..."
                 searchString={searchString}
                 enabled
                 handleTextInputChange={handleTextInputChange}
