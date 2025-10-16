@@ -42,7 +42,7 @@ describe('NAICSCheckboxTreeContainer', () => {
         jest.spyOn(searchHelper, 'naicsRequest').mockReturnValueOnce({ promise: Promise.resolve(naicsSearchMockResponse) });
 
         act(() => {
-            const searchBar = screen.getByPlaceholderText('Type to find codes');
+            const searchBar = screen.getByPlaceholderText('Search filters...');
             fireEvent.change(searchBar, { target: { value: 'fish' } });
             expect(searchBar).toHaveValue('fish');
         });
@@ -56,7 +56,7 @@ describe('NAICSCheckboxTreeContainer', () => {
         });
 
         act(() => {
-            const searchBar = screen.getByPlaceholderText('Type to find codes');
+            const searchBar = screen.getByPlaceholderText('Search filters...');
             fireEvent.change(searchBar, { target: { value: '' } });
         });
 
