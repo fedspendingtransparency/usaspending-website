@@ -89,8 +89,8 @@ const TreeNodesWrapper = ({
                     if (newChecked?.length) {
                         const hasAnyChildrenChecked = parent.children.filter((child) => newChecked.includes(child.id) || newChecked === child.id);
                         let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
-                        if (typeof newChecked === "string") {
-                            // unchecking a single node make any checked ancestors indeterminate
+                        if (typeof newChecked === "string" && localChecked?.includes(parent.id)) {
+                            // unchecking a single node after parent checked make any checked ancestors indeterminate
                             setIndeterminate = checkboxRefs.current[parent.id].checked;
                         }
 
