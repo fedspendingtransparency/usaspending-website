@@ -4,8 +4,7 @@
  * Created by Andrea Blackwell August 2025
  **/
 
-import React, { useRef, useEffect } from 'react';
-// import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -27,8 +26,6 @@ const TreeNodes = ({
     toggleExpand,
     disabled, handleCheck, isLoading, loadingParentId, checkboxRefs
 }) => {
-    // const checkboxRefs = useRef({});
-
     const isLoadingId = (id) => isLoading && loadingParentId === id;
     const renderNodes = (nodes, depth) => (
         <ul className="level">
@@ -36,18 +33,6 @@ const TreeNodes = ({
                 const isOpen = localExpanded.includes(node.id);
                 const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
                 const hasAnyChildren = node.children?.length > 0;
-
-                // const checkIndeterminate = () => {
-                //     if (hasAnyChildren && localChecked?.length) {
-                //         const hasAnyChildrenChecked = node.children.filter((child) => localChecked.includes(child.id));
-                //         if ((hasAnyChildrenChecked?.length > 0) && hasAnyChildrenChecked.length < node.children.length) {
-                //             return true;
-                //         }
-                //     }
-                //     return false;
-                // };
-
-                // const isIndeterminate = checkIndeterminate();
 
                 if (node.value.includes("children_of_") && !isLoadingId(node.id)) return null;
 
@@ -73,22 +58,13 @@ const TreeNodes = ({
                                     ref={(el) => {
                                         if (el) {
                                             checkboxRefs.current[node.id] = el;
-                                            // if (isIndeterminate) {
-                                            //     el.indeterminate = true;
-                                            // }
-                                            // else if (el.indeterminate) {
-                                            //     delete el.indeterminate;
-                                            // }
                                         }
                                         else {
                                             delete checkboxRefs.current[node.id];
                                         }
                                     }}
-                                    // ref={checkboxRefs}
                                     onKeyDown={(e) => (e.key === "Enter" ? handleCheck(node.id, node.children || []) : "")}
                                     onChange={() => handleCheck(node.id, node.children || [])} />
-                                    // onKeyDown={(e) => (e.key === "Enter" ? handleChange(node, e.target.checked) : "")}
-                                    // onChange={(e) => handleChange(node, e.target.checked)} />
                                 }
                             </div>
                             {node.label}
