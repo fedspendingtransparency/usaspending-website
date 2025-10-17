@@ -49,10 +49,6 @@ const TreeNodesWrapper = ({
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [checked]);
 
-    // useEffect(() => {
-    //     if (checkboxRefs.current) console.log("checking wrapper useEffect ", checkboxRefs.current);
-    // });
-
     const findNodeById = (id) => {
         const stack = [...nodes];
         while (stack.length) {
@@ -74,7 +70,18 @@ const TreeNodesWrapper = ({
         return ids;
     };
 
-    const handleIndeterminateAncestors = (node, newChecked) => {
+    const handleIndeterminateAncestors = (node, newChecked = []) => {
+        // clean up any hanging children indeterminates first.
+        if (node.children) {
+            // loop through children to find and remove indeterminate refs
+            for (let i = 0; i < node.children.length; i++) {
+                const child = node.children[i];
+                if (checkboxRefs.current) {
+                    if (checkboxRefs.current[child.id]) checkboxRefs.current[child.id].indeterminate = false;
+                }
+            }
+        }
+
         if (node.ancestors) {
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
