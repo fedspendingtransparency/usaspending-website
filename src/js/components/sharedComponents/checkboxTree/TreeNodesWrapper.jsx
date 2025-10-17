@@ -15,7 +15,6 @@ const propTypes = {
     expanded: PropTypes.arrayOf(PropTypes.string),
     onCheck: PropTypes.func,
     onExpand: PropTypes.func,
-    onCollapse: PropTypes.func,
     isLoading: PropTypes.bool
 };
 
@@ -73,7 +72,7 @@ const TreeNodesWrapper = ({
     const handleIndeterminateAncestors = (node, newChecked = []) => {
         // clean up any hanging children indeterminates first.
         if (node.children) {
-            // loop through children to find and remove indeterminate refs
+            // loop through children set to find and remove indeterminate refs
             for (let i = 0; i < node.children.length; i++) {
                 const child = node.children[i];
                 if (checkboxRefs.current) {
@@ -86,11 +85,19 @@ const TreeNodesWrapper = ({
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
                 ancestorNodes.forEach((parent) => {
-                    // check if anything is checked first
+                    // check if anything is checked
                     if (newChecked?.length) {
-                        const hasAnyChildrenChecked = parent.children.filter((child) => newChecked.includes(child.id));
-                        const setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
-                        if (checkboxRefs.current) checkboxRefs.current[parent.id].indeterminate = setIndeterminate;
+                        const hasAnyChildrenChecked = parent.children.filter((child) => newChecked.includes(child.id) || newChecked === child.id);
+                        let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
+                        if (typeof newChecked === "string") {
+                            // unchecking a single node make any checked ancestors indeterminate
+                            setIndeterminate = checkboxRefs.current[parent.id].checked;
+                        }
+
+                        if (checkboxRefs.current) {
+                            checkboxRefs.current[parent.id].checked = !setIndeterminate;
+                            checkboxRefs.current[parent.id].indeterminate = setIndeterminate;
+                        }
                     }
                     else if (checkboxRefs.current) checkboxRefs.current[parent.id].indeterminate = false;
                 });
