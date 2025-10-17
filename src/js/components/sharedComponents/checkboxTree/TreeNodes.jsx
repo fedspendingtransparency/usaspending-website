@@ -57,9 +57,11 @@ const TreeNodes = ({
                                     checked={isChecked}
                                     ref={(el) => {
                                         if (el) {
+                                            // eslint-disable-next-line no-param-reassign
                                             checkboxRefs.current[node.id] = el;
                                         }
                                         else {
+                                            // eslint-disable-next-line no-param-reassign
                                             delete checkboxRefs.current[node.id];
                                         }
                                     }}
