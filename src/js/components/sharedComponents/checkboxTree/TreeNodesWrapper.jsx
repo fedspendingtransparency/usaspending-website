@@ -31,6 +31,7 @@ const TreeNodesWrapper = ({
     const [localExpanded, setLocalExpanded] = useState(expanded);
     const [localNodes, setLocalNodes] = useState(nodes);
     const [loadingParentId, setLoadingParentId] = useState();
+
     const checkboxRefs = useRef({});
 
     useEffect(() => {
@@ -69,17 +70,21 @@ const TreeNodesWrapper = ({
         return ids;
     };
 
-    const handleIndeterminateAncestors = (node, newChecked = []) => {
-        // clean up any hanging children indeterminates first.
+    const handleIndeterminateChildren = (node) => {
         if (node.children) {
-            // loop through children set to find and remove indeterminate refs
             for (let i = 0; i < node.children.length; i++) {
                 const child = node.children[i];
                 if (checkboxRefs.current) {
                     if (checkboxRefs.current[child.id]) checkboxRefs.current[child.id].indeterminate = false;
                 }
+                if (child.children?.length) handleIndeterminateChildren(child);
             }
         }
+    };
+
+    const handleIndeterminateAncestors = (node, newChecked = []) => {
+        // clean up any hanging children indeterminates first.
+        handleIndeterminateChildren(node);
 
         if (node.ancestors) {
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
@@ -162,7 +167,6 @@ const TreeNodesWrapper = ({
                 handleCheck={handleCheck}
                 isLoading={isLoading}
                 loadingParentId={loadingParentId}
-                // loadingParentId={loadingParentId} />
                 checkboxRefs={checkboxRefs} />
         </div>);
 };
