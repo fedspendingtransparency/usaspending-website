@@ -16,7 +16,8 @@ const propTypes = {
     disabled: PropTypes.bool,
     handleCheck: PropTypes.func,
     isLoading: PropTypes.bool,
-    loadingParentId: PropTypes.number
+    loadingParentId: PropTypes.number,
+    checkboxRefs: PropTypes.object
 };
 
 const TreeNodes = ({
@@ -24,7 +25,11 @@ const TreeNodes = ({
     localExpanded,
     localChecked,
     toggleExpand,
-    disabled, handleCheck, isLoading, loadingParentId, checkboxRefs
+    disabled,
+    handleCheck,
+    isLoading,
+    loadingParentId,
+    checkboxRefs
 }) => {
     const isLoadingId = (id) => isLoading && loadingParentId === id;
     const renderNodes = (nodes, depth) => (
