@@ -50,7 +50,7 @@ const LocationAutocompleteContainer = (props) => {
         const stateAbbreviation = getKeyByValue(
             stateFIPSByAbbreviation,
             stateFips
-        ).toLowerCase();
+        )?.toLowerCase();
 
         const location = {
             identifier: `${countryAbbreviation}_${stateAbbreviation}_${countyFips}`,
