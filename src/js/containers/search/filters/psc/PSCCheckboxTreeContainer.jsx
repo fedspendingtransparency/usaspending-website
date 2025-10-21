@@ -217,9 +217,11 @@ const PSCCheckboxTreeContainer = ({
         }
     };
 
-    const onCheck = (newChecked) => {
+    const onCheck = (newChecked, checkedNode) => {
+        // prevent double count
+        const stateNewChecked = newChecked.filter((node) => node !== checkedNode.id);
         const [newCounts, newUnchecked] = incrementPscCountAndUpdateUnchecked(
-            newChecked,
+            stateNewChecked,
             checked,
             unchecked,
             nodes,
