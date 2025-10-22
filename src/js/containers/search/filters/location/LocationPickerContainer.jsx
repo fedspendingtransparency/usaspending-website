@@ -282,7 +282,6 @@ export default class LocationPickerContainer extends React.Component {
         this.districtRequest.promise
             .then((res) => {
                 this.parseCurrentDistricts(res.data);
-                console.log("congressional", res.data, this.parseCurrentDistricts(res.data));
             })
             .catch((err) => {
                 if (!isCancel(err)) {
