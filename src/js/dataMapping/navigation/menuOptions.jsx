@@ -112,18 +112,19 @@ export const learnResourceOptions = [
         externalLink: false,
         isNewTab: false,
         icon: ''
-    },
-    {
-        label: 'Featured Content',
-        type: 'featured-content',
-        description: 'Short articles on a variety of topics related to federal spending ',
-        url: '/featured-content',
-        shouldOpenNewTab: false,
-        enabled: GlobalConstants.QAT,
-        externalLink: false,
-        isNewTab: false,
-        icon: ''
     }
+    // ,
+    // {
+    //     label: 'Featured Content',
+    //     type: 'featured-content',
+    //     description: 'Short articles on a variety of topics related to federal spending ',
+    //     url: '/featured-content',
+    //     shouldOpenNewTab: false,
+    //     enabled: false,
+    //     externalLink: false,
+    //     isNewTab: false,
+    //     icon: ''
+    // }
 ];
 export const referenceMaterialsOptions = [
     {
