@@ -82,24 +82,36 @@ const TreeNodesWrapper = ({
         }
     };
 
-    const handleIndeterminateAncestors = (node, newChecked = []) => {
-        // clean up any hanging children indeterminates first.
-        handleIndeterminateChildren(node);
-
+    const handleIndeterminateAncestors = (node, newChecked) => {
         if (node.ancestors) {
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
                 ancestorNodes.forEach((parent) => {
                     // check if anything is checked
                     if (newChecked?.length) {
-                        const hasAnyChildrenChecked = parent.children.filter((child) => newChecked.includes(child.id) || newChecked === child.id);
-                        let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
-                        if (typeof newChecked === "string" && localChecked?.includes(parent.id)) {
-                            // unchecking a single node after parent checked make any checked ancestors indeterminate
-                            setIndeterminate = checkboxRefs.current[parent.id].checked;
+                        let allChecked = [...newChecked];
+                        let nodePriorChecked = false;
+
+                        if (localChecked?.length) {
+                            allChecked = [...localChecked, ...newChecked];
+                            nodePriorChecked = localChecked.includes(node.id);
                         }
 
+                        const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(child.id) || node.id === child.id);
+                        let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
+
                         if (checkboxRefs.current) {
+                            if (nodePriorChecked) {
+                                // unchecking prior checked node.
+                                if (localChecked?.includes(parent.id)) {
+                                    // unchecking a single node make any checked ancestors indeterminate
+                                    setIndeterminate = checkboxRefs.current[parent.id].checked;
+                                }
+                            }
+                            if (setIndeterminate) {
+                                // make sure all ancesters get properly set
+                                handleIndeterminateAncestors(parent, newChecked);
+                            }
                             checkboxRefs.current[parent.id].indeterminate = setIndeterminate;
                         }
                     }
@@ -107,6 +119,12 @@ const TreeNodesWrapper = ({
                 });
             }
         }
+    };
+
+    const handleIndeterminate = (node, newChecked = []) => {
+        // clean up any hanging children indeterminates first.
+        handleIndeterminateChildren(node);
+        handleIndeterminateAncestors(node, newChecked);
     };
 
     const handleCheck = (id, children = []) => {
@@ -120,7 +138,7 @@ const TreeNodesWrapper = ({
             const excludeSet = [...descendantIds, id];
             newChecked = localChecked.filter((cid) => !excludeSet.includes(cid));
 
-            handleIndeterminateAncestors(modifiedNode, ...newChecked);
+            handleIndeterminate(modifiedNode, ...newChecked);
             setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
         }
@@ -134,7 +152,7 @@ const TreeNodesWrapper = ({
                 newChecked = [...new Set([...localChecked, id])];
             }
 
-            handleIndeterminateAncestors(modifiedNode, ...newChecked);
+            handleIndeterminate(modifiedNode, ...newChecked);
             setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
         }
