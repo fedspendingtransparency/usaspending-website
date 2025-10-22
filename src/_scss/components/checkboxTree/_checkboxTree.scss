@@ -387,6 +387,9 @@
       font-size: $font-size-12;
       margin-bottom: rem(12);
       padding-top: 0 !important;
+        span.highlight {
+          background-color: $yellow-10;
+        }
     }
 
     &__container {

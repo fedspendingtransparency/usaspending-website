@@ -18,7 +18,8 @@ const propTypes = {
     hidden: PropTypes.bool,
     label: PropTypes.string,
     alt: PropTypes.string,
-    showHoverText: PropTypes.bool
+    showHoverText: PropTypes.bool,
+    displayIcon: PropTypes.bool
 };
 
 const GlossaryLink = ({
@@ -26,7 +27,8 @@ const GlossaryLink = ({
     hidden,
     label = "",
     alt = "",
-    showHoverText = false
+    showHoverText = false,
+    displayIcon = true
 }) => {
     const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
@@ -62,7 +64,7 @@ const GlossaryLink = ({
         }
 
         if (label) {
-            return <>{label} <FontAwesomeIcon icon="book" /></>;
+            return <>{label} { displayIcon && <FontAwesomeIcon icon="book" />}</>;
         }
 
         return <FontAwesomeIcon icon="book" />;

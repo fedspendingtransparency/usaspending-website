@@ -3,58 +3,25 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes, { oneOfType } from "prop-types";
-import { ShareIcon, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
-import { useDispatch } from 'react-redux';
-import { handleShareOptionClick } from 'helpers/socialShare';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { throttle } from 'lodash-es';
-import VideoThumbnail from "../../trainingVideos/videoThumbnails/VideoThumbnail";
-import { showModal } from '../../../redux/actions/modal/modalActions';
+import { CardContainer, CardHero, CardBody } from 'data-transparency-ui';
+import ArticleThumbnail from './ArticleThumbnail';
 
 const propTypes = {
-    thumbnailUrl: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    duration: PropTypes.string,
-    publishedAt: PropTypes.string,
     onClick: PropTypes.func,
     onKeyUp: PropTypes.func,
+    thumbnailUrl: PropTypes.string,
+    publishedAt: PropTypes.string,
+    fill: PropTypes.string,
     url: oneOfType([PropTypes.string, PropTypes.func])
 };
 
 const ArticleCard = ({
-    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt, url
+    title, onClick, description, onKeyUp, thumbnailUrl, fill, publishedAt, taxonomy
 }) => {
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const dispatch = useDispatch();
-    const handleShareDispatch = (e) => {
-        dispatch(showModal(e));
-    };
-    const onShareClick = (name) => {
-        const emailSubject = `${title}`;
-        const emailArgs = {
-            subject: `${emailSubject}`,
-            body: `Watch this video about USAspending.gov: ${url}`
-        };
-        handleShareOptionClick(name, url, emailArgs, handleShareDispatch);
-    };
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []);
-
     let changedTitle;
     let overline;
     const titleIndex = title.indexOf(":");
@@ -65,20 +32,18 @@ const ArticleCard = ({
     }
     else {
         changedTitle = title;
-        overline = "RESOURCE";
+        overline = taxonomy.toUpperCase();
     }
-
     return (
-        <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
+        <CardContainer variant="outline" size="md" tabIndex="0">
             <CardHero
-                onClick={onClick}
                 variant="expanded"
-                thumbnail>
-                <VideoThumbnail
+                thumbnail
+                fill={fill}
+                onClick={onClick}
+                onKeyUp={onKeyUp}>
+                <ArticleThumbnail
                     thumbnailUrl={thumbnailUrl}
-                    duration={duration}
-                    showPlay
-                    showDuration
                     title={changedTitle} />
             </CardHero>
             <CardBody
@@ -92,20 +57,9 @@ const ArticleCard = ({
                     </div>
                 }
                 text={description}>
-                <div className="list-of-videos__inline">
-                    <div className="video-card__metadiv">
+                <div className="list-of-articles__inline">
+                    <div className="article-card__metadiv">
                         {publishedAt}
-                    </div>
-                    <div className="list-of-videos__column-share-icon">
-                        <ShareIcon
-                            url={url}
-                            tabIndex={0}
-                            onKeyUp={onKeyUp}
-                            onShareOptionClick={onShareClick}
-                            colors={{ backgroundColor: "white", color: "#2378c3" }}
-                            dropdownDirection={isMobile ? 'left' : 'right'}
-                            classNames="no-margin-left"
-                            noShareText />
                     </div>
                 </div>
             </CardBody>

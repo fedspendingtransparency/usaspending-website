@@ -95,7 +95,7 @@ const StateContainer = (props) => {
         if (!fy) {
             // this may be an issue on the first day of 2026 fiscal year
             // props.history(`/state/${stateName}/latest`, { replace: true });
-            navigate(`/state/${stateName}/2025`, { replace: true });
+            navigate(`/state/${stateName}/2026`, { replace: true });
         }
         else if (!wasInputStateName) {
             navigate(`/state/${stateName}/${fy}`, { replace: true });

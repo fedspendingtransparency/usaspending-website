@@ -5,33 +5,44 @@
 
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import { ComingSoon } from "data-transparency-ui";
+import PageWrapper from '../sharedComponents/PageWrapper';
+import ArticleMetadata from '../../models/v2/featuredContent/ArticleMetadata';
+import articles from '../../../config/featuredContent/featuredContentMetadata';
+import ArticleList from './list/ArticleList';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import PageWrapper from "../sharedComponents/PageWrapper";
 import ContentPageHeader from '../sharedComponents/header/ContentPageHeader';
 
+require('pages/featuredContent/featuredContent.scss');
 
-require('pages/contentPage/contentPage.scss');
+const FeaturedContentPage = () => {
+    const articlesList = [];
 
-const FeaturedContentPage = () => (
-    <PageWrapper
-        pageName="Featured Content"
-        classNames="content-page"
-        noHeader
-        metaTagProps={{ ...homePageMetaTags }}>
-        <main
-            id="main-content"
-            className="main-content content-page">
-            <ContentPageHeader
-                className="content-page-header"
-                kicker="RESOURCES"
-                title="Featured Content"
-                body="Read the latest featured content to learn more about government spending."
-                image="img/contentPage/featured-content-landing-page-banner-2x.webp"
-                slug="featured-content" />
+    articles.forEach((item) => {
+        const articleMetadata = Object.create(ArticleMetadata);
+        articleMetadata.populate(item);
+        articlesList.push(articleMetadata);
+    });
+    return (
+        <PageWrapper
+            pageName="Featured Content"
+            classNames="featured-content-page"
+            noHeader
+            metaTagProps={{ ...homePageMetaTags }}>
+            <main
+                id="main-content"
+                className="main-content featured-content">
+                <ContentPageHeader
+                    className="content-page-header"
+                    kicker="RESOURCES"
+                    title="Featured Content"
+                    body="Read the latest featured content to learn more about government spending."
+                    image="img/featuredContent/featured-content-landing-page-banner-2x.webp"
+                    slug="featured-content" />
+                <ArticleList articles={articlesList} />
+            </main>
+        </PageWrapper>
 
-            <ComingSoon />
-        </main>
-    </PageWrapper>);
+    );
+};
 
 export default FeaturedContentPage;
