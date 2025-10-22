@@ -27,7 +27,6 @@ import NewCheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTr
 
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";
-import GlobalConstants from "../../../../GlobalConstants";
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -187,22 +186,12 @@ const PSCCheckboxTreeContainer = ({
         const treeDepth = selectedNode.ancestors?.length;
 
         if (shouldFetchChildren && !isSearch) {
-            if (GlobalConstants.QAT && treeDepth >= 1) {
+            if (treeDepth >= 1) {
                 if (treeDepth === 2) {
                     fetchPscLocal(`${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`);
                 }
                 else {
                     fetchPscLocal(`${selectedNode.ancestors[0]}/${expandedValue}`);
-                }
-            }
-            else if (selectedNode.treeDepth >= 1) {
-                const { parent } = selectedNode;
-
-                if (selectedNode.treeDepth === 2) {
-                    fetchPscLocal(`${parent.ancestors[0]}/${parent.value}/${expandedValue}`);
-                }
-                else {
-                    fetchPscLocal(`${parent.value}/${expandedValue}`);
                 }
             }
             else {
