@@ -89,8 +89,8 @@ const FeaturedContentArticle = () => {
                     </FlexGridCol>
                     <FlexGridCol tablet={12} mobile={12} desktop={4} className="featured-content__column-two">
                         <div>share</div>
-                        <RelatedTerms header="Related Terms" citations={chosenArticle?.related_terms} />
                         <ExploreMore header="Explore More" citations={chosenArticle?.explore_more} />
+                        <RelatedTerms header="Related Terms" citations={chosenArticle?.related_terms} />
                     </FlexGridCol>
                 </FlexGridRow>
             </main>
