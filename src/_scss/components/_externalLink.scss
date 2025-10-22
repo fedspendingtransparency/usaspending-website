@@ -4,7 +4,7 @@
 }
 
 .usda-external-link__card {
-    &:focus,&:active {
+    &:focus,&:active,&:hover {
         cursor: pointer;
         outline: 5px auto Highlight;
         outline: 5px auto -webkit-focus-ring-color;
