@@ -27,7 +27,6 @@ import NewCheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTr
 
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";
-import GlobalConstants from "../../../../GlobalConstants";
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -150,10 +149,18 @@ const PSCCheckboxTreeContainer = ({
                         setPscNodes(key, pscNodes);
                     }
 
-                    const newChecked = checked.includes(`children_of_${key}`)
+                    let modChecked = [];
+
+                    if (checked.includes(`children_of_${key}`)) {
+                        // key node is checked.  add children
+                        const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
+                        modChecked = [...filteredChecked, ...pscNodes.map((child) => child.value)];
+                    }
+
+                    const newChecked = modChecked?.length
                         ? autoCheckPscAfterExpand(
                             { children: pscNodes, value: key },
-                            checked,
+                            modChecked,
                             unchecked
                         )
                         : checked;
@@ -187,22 +194,12 @@ const PSCCheckboxTreeContainer = ({
         const treeDepth = selectedNode.ancestors?.length;
 
         if (shouldFetchChildren && !isSearch) {
-            if (GlobalConstants.QAT && treeDepth >= 1) {
+            if (treeDepth >= 1) {
                 if (treeDepth === 2) {
                     fetchPscLocal(`${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`);
                 }
                 else {
                     fetchPscLocal(`${selectedNode.ancestors[0]}/${expandedValue}`);
-                }
-            }
-            else if (selectedNode.treeDepth >= 1) {
-                const { parent } = selectedNode;
-
-                if (selectedNode.treeDepth === 2) {
-                    fetchPscLocal(`${parent.ancestors[0]}/${parent.value}/${expandedValue}`);
-                }
-                else {
-                    fetchPscLocal(`${parent.value}/${expandedValue}`);
                 }
             }
             else {
