@@ -160,8 +160,8 @@ const TreeNodesWrapper = ({
 
     const handleToggle = (id, hasChildren) => {
         const isExpanded = localExpanded.includes(id);
+        const node = findNodeById(id);
         if (!isExpanded && hasChildren) {
-            const node = findNodeById(id);
             const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${id}` : id;
             // TODO: this is confusing, the onexpand function need to be sent the id but the local expand needs to take the nodeValue
             onExpand([...localExpanded, id], node);
@@ -170,7 +170,9 @@ const TreeNodesWrapper = ({
             setLoadingParentId(id);
         }
         else {
-            setLocalExpanded((prev) => prev.filter((eid) => eid !== id));
+            const newExpand = localExpanded.filter((eid) => eid !== id);
+            setLocalExpanded(newExpand);
+            onExpand(newExpand, node);
         }
     };
 
