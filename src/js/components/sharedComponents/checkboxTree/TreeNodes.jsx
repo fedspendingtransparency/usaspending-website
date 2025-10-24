@@ -15,8 +15,6 @@ const propTypes = {
     toggleExpand: PropTypes.func,
     disabled: PropTypes.bool,
     handleCheck: PropTypes.func,
-    isLoading: PropTypes.bool,
-    loadingParentId: PropTypes.number,
     checkboxRefs: PropTypes.object
 };
 
@@ -27,19 +25,14 @@ const TreeNodes = ({
     toggleExpand,
     disabled,
     handleCheck,
-    isLoading,
-    loadingParentId,
     checkboxRefs
 }) => {
-    const isLoadingId = (id) => isLoading && loadingParentId === id;
     const renderNodes = (nodes, depth) => (
         <ul className="level">
             {nodes?.map((node) => {
                 const isOpen = localExpanded.includes(node.id);
                 const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
                 const hasAnyChildren = node.children?.length > 0;
-
-                if (node.value.includes("children_of_") && !isLoadingId(node.id)) return null;
 
                 return (
                     <li key={node.id}>
@@ -77,13 +70,7 @@ const TreeNodes = ({
                             {node.label}
                         </div>
                         <div className={`checkbox-tree-label__description ${isOpen ? 'open' : ''}`}>
-                            {isLoadingId(node.id) ?
-                                <span className="loading">
-                                    <FontAwesomeIcon icon="spinner" spin /> Loading your data...
-                                </span>
-                                :
-                                isOpen && renderNodes(node.children || [], depth)
-                            }
+                            {isOpen && renderNodes(node.children || [], depth)}
                         </div>
                     </li>);
             })}

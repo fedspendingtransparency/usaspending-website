@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TreeNodes from './TreeNodes';
 
 const propTypes = {
@@ -14,8 +15,7 @@ const propTypes = {
     checked: PropTypes.arrayOf(PropTypes.string),
     expanded: PropTypes.arrayOf(PropTypes.string),
     onCheck: PropTypes.func,
-    onExpand: PropTypes.func,
-    isLoading: PropTypes.bool
+    onExpand: PropTypes.func
 };
 
 const TreeNodesWrapper = ({
@@ -24,28 +24,28 @@ const TreeNodesWrapper = ({
     checked = [],
     expanded = [],
     onCheck,
-    onExpand,
-    isLoading
+    onExpand
 }) => {
     const [localChecked, setLocalChecked] = useState(checked);
     const [localExpanded, setLocalExpanded] = useState(expanded);
     const [localNodes, setLocalNodes] = useState(nodes);
-    const [loadingParentId, setLoadingParentId] = useState();
-
+    const [isLoading, setIsLoading] = useState(true);
     const checkboxRefs = useRef({});
 
     useEffect(() => {
-        setLoadingParentId(null);
         setLocalNodes(nodes);
+        setIsLoading(false);
     }, [nodes]);
 
     useEffect(() => {
         setLocalExpanded(expanded);
+        setIsLoading(false);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [expanded]);
 
     useEffect(() => {
         setLocalChecked(checked);
+        setIsLoading(false);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [checked]);
 
@@ -161,18 +161,27 @@ const TreeNodesWrapper = ({
     const handleToggle = (id, hasChildren) => {
         const isExpanded = localExpanded.includes(id);
         if (!isExpanded && hasChildren) {
+            setIsLoading(true);
             const node = findNodeById(id);
             const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${id}` : id;
             // TODO: this is confusing, the onexpand function need to be sent the id but the local expand needs to take the nodeValue
             onExpand([...localExpanded, id], node);
             setLocalExpanded((prev) => [...prev, nodeValue]);
             // if the parent is checked, update local checked
-            setLoadingParentId(id);
         }
         else {
             setLocalExpanded((prev) => prev.filter((eid) => eid !== id));
         }
     };
+
+    if (isLoading) {
+        return (
+            <div className="children-are-loading">
+                <FontAwesomeIcon icon="spinner" spin />
+                <div className="children-are-loading__text">Loading your data...</div>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -183,8 +192,6 @@ const TreeNodesWrapper = ({
                 toggleExpand={handleToggle}
                 disabled={disabled}
                 handleCheck={handleCheck}
-                isLoading={isLoading}
-                loadingParentId={loadingParentId}
                 checkboxRefs={checkboxRefs} />
         </div>);
 };
