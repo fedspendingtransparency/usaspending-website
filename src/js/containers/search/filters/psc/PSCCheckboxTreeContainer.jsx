@@ -149,10 +149,18 @@ const PSCCheckboxTreeContainer = ({
                         setPscNodes(key, pscNodes);
                     }
 
-                    const newChecked = checked.includes(`children_of_${key}`)
+                    let modChecked = [];
+
+                    if (checked.includes(`children_of_${key}`)) {
+                        // key node is checked.  add children
+                        const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
+                        modChecked = [...filteredChecked, ...pscNodes.map((child) => child.value)];
+                    }
+
+                    const newChecked = modChecked?.length
                         ? autoCheckPscAfterExpand(
                             { children: pscNodes, value: key },
-                            checked,
+                            modChecked,
                             unchecked
                         )
                         : checked;
@@ -206,9 +214,9 @@ const PSCCheckboxTreeContainer = ({
         }
     };
 
-    const onCheck = (newChecked, checkedNode) => {
+    const onCheck = (newChecked) => {
         // prevent double count
-        const stateNewChecked = newChecked.filter((node) => node !== checkedNode.id);
+        const stateNewChecked = newChecked?.length > 1 ? newChecked.filter((id) => !id.includes("children_of_")) : newChecked;
         const [newCounts, newUnchecked] = incrementPscCountAndUpdateUnchecked(
             stateNewChecked,
             checked,
