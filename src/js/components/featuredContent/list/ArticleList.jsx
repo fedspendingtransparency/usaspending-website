@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import ArticleCard from '../articleCard/ArticleCard';
 import { transformString } from '../../../helpers/featuredContent/featuredContentHelper';
+import Analytics from "../../../helpers/analytics/Analytics";
 
 const propTypes = {
     articles: PropTypes.array
@@ -45,6 +46,18 @@ const ArticleList = ({ articles }) => {
     const sortBy = () => {
         const tmpArticles = [...originalArticleList];
         tmpArticles.sort((a, b) => b.value > a.value);
+    };
+
+    const onClick = (e, newUrl, title) => {
+        e.persist();
+        window.open(newUrl, "_self");
+
+        Analytics.event({
+            event: 'dap_event',
+            category: 'USAspending – Featured Content ',
+            action: 'Card Clicked',
+            label: `${title}`
+        });
     };
 
     return (
@@ -99,10 +112,7 @@ const ArticleList = ({ articles }) => {
                                     thumbnailUrl={article.thumbnail_path}
                                     fill={article.fill}
                                     publishedAt={article.publishedAt}
-                                    onClick={(e) => {
-                                        e.persist();
-                                        window.open(newUrl, "_self");
-                                    }} />
+                                    onClick={(e) => onClick(e, newUrl, article.title)} />
                             </FlexGridCol>);
                     })
                     }
