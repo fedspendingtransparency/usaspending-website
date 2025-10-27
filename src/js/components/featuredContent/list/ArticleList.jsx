@@ -47,7 +47,6 @@ const ArticleList = ({ articles }) => {
         tmpArticles.sort((a, b) => b.value > a.value);
     };
 
-
     return (
         <section className="list-of-articles__section">
             <div className="grid-content">
