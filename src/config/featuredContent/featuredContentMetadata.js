@@ -89,8 +89,40 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/recently-answered-questions.webp",
         fill: contentMap.questions,
         landing_header_path: "",
-        explore_more: [],
-        related_terms: []
+        related_terms: [
+            {
+                term: "loan-subsidy-cost",
+                type: "glossary",
+                label: "Loan Subsidy Cost"
+            },
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
+            }
+        ],
+        explore_more: [
+            {
+                label: "USAspending Community",
+                slug: "https://onevoicecrm.my.site.com/usaspending/s/",
+                type: "external"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ]
     },
     {
         content_type: "See 4 Yourself",
