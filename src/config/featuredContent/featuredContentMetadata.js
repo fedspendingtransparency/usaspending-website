@@ -17,6 +17,18 @@ const contentMap = {
             </AboutTheDataLink>,
             <GlossaryLink term="prime-award" label="prime award" displayIcon={false} />
  */
+
+// example for links
+// explore_more: [
+//     { label: "about", slug: "/about", type: "internal" },
+//     { label: "treasury", slug: "https://home.treasury.gov/", type: "government" },
+//     { label: "this link goes to google but i am making the text long to ellipsize itgaertgwergwerthgrthsrthedrthedrthdrth", slug: "https://google.com", type: "external" }
+// ],
+//     related_terms: [
+//     { term: "prime-award", type: "glossary", label: "prime award" },
+//     { term: "subaward-data-quality", type: "atd", label: "subaward data quality" }
+// ]
+
 const articles = [
     {
         content_type: "Data Definitions",
@@ -33,13 +45,33 @@ const articles = [
         fill: contentMap.dataDefinition,
         landing_header_path: "",
         related_terms: [
-            { term: "prime-award", type: "glossary", label: "prime award" },
-            { term: "subaward-data-quality", type: "atd", label: "subaward data quality" }
+            {
+                term: "award",
+                type: "glossary",
+                label: "Award"
+            },
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "recipient",
+                type: "glossary",
+                label: "Recipient"
+            }
         ],
         explore_more: [
-            { label: "about", slug: "/about", type: "internal" },
-            { label: "treasury", slug: "https://home.treasury.gov/", type: "government" },
-            { label: "this link goes to google but i am making the text long to ellipsize itgaertgwergwerthgrthsrthedrthedrthdrth", slug: "https://google.com", type: "external" }
+            {
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
         ]
     },
     {
