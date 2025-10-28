@@ -56,7 +56,23 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
         fill: contentMap.finances,
         landing_header_path: "",
-        explore_more: [],
+        explore_more: [
+            {
+                label: "Fiscal Data",
+                slug: "https://fiscaldata.treasury.gov/",
+                type: "government"
+            },
+            {
+                label: "Exploring America's Finances with USAspending.gov and FiscalData.Treasury.gov",
+                slug: "https://youtu.be/pRGY0VfQ4II",
+                type: "external"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
         related_terms: []
     },
     {
