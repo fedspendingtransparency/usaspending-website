@@ -33,20 +33,24 @@ const ExploreMore = (props) => {
             <FlexGridRow hasGutter gutterSize="lg" className="featured-content__citation-wrapper">
                 {props.citations?.map((citation, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                    <FlexGridCol mobile={10} tablet={5} desktop={12} className="featured-content__citation" key={`featured-content__citation-${index}`}>
+                    <FlexGridCol
+                        mobile={10}
+                        tablet={5}
+                        desktop={12}
+                        className="featured-content__citation"
+                        key={`featured-content__citation-${index}`}>
                         {citation.type === "external" ?
                             <>
                                 <ExternalLink isCard url={citation.slug}>
                                     <div>
-                                        <FontAwesomeIcon icon="external-link-alt" className="featured-content__icon" />
                                         <span>{truncateText(citation.label, 55)}</span>
+                                        <FontAwesomeIcon icon="external-link-alt" className="featured-content__icon" />
                                     </div>
                                 </ExternalLink>
                             </> :
                             <>
                                 <Link to={citation.slug}>
                                     <div>
-                                        <FontAwesomeIcon icon="link" className="featured-content__icon" />
                                         <span>{truncateText(citation.label, 55)}</span>
                                     </div>
                                 </Link>
