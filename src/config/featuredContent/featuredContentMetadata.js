@@ -138,8 +138,19 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/see-4-yourself.webp",
         fill: contentMap.seeforyourself,
         landing_header_path: "",
-        explore_more: [],
-        related_terms: []
+        related_terms: [],
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ]
     }
 ];
 
