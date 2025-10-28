@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useLocation } from "react-router";
-import GlobalConstants from 'GlobalConstants';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
@@ -54,9 +52,6 @@ const TimeVisualizationSectionContainer = (props) => {
     const [downloadData, setDownloadDataRows] = useState([]);
 
     let apiRequest = null;
-
-    const { pathname } = useLocation();
-    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const columns = {
         month: [
@@ -230,9 +225,9 @@ const TimeVisualizationSectionContainer = (props) => {
         createTableRows(updatedTable);
     };
 
-    // This function is necessary for the legacy search page.  The spending level must be transactions here.
+    // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
     const getSpendingLevel = (spendingLevel) => {
-        if (isv2 || spendingLevel === "subawards") {
+        if (spendingLevel === "subawards") {
             return spendingLevel;
         }
         return "transactions";

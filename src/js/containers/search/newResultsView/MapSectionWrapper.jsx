@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
-import { useLocation } from "react-router";
-import GlobalConstants from 'GlobalConstants';
 
 import { territories, countries, counties, congressionalDistricts } from "dataMapping/search/geoTable";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
@@ -87,9 +85,6 @@ const MapSectionWrapper = React.memo((props) => {
         wrapperError: false,
         wrapperNoData: false
     });
-
-    const { pathname } = useLocation();
-    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const [mapViewType, setMapViewType] = useState('chart');
     let apiRequest = null;
@@ -218,9 +213,9 @@ const MapSectionWrapper = React.memo((props) => {
         return false;
     };
 
-    // This function is necessary for the legacy search page.  The spending level must be transactions here.
+    // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
     const getSpendingLevel = (spendingLevel) => {
-        if (isv2 || spendingLevel === "subawards") {
+        if (spendingLevel === "subawards") {
             return spendingLevel;
         }
         return "transactions";
