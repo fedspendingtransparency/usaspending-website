@@ -44,6 +44,18 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         fill: contentMap.dataDefinition,
         landing_header_path: "",
+        explore_more: [
+            {
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
         related_terms: [
             {
                 term: "award",
@@ -59,18 +71,6 @@ const articles = [
                 term: "recipient",
                 type: "glossary",
                 label: "Recipient"
-            }
-        ],
-        explore_more: [
-            {
-                label: "Federal Spending Guide",
-                slug: "/federal-spending-guide",
-                type: "internal"
-            },
-            {
-                label: "Advanced Search",
-                slug: "/search",
-                type: "internal"
             }
         ]
     },
@@ -88,6 +88,7 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
         fill: contentMap.finances,
         landing_header_path: "",
+        related_terms: [],
         explore_more: [
             {
                 label: "Fiscal Data",
@@ -104,8 +105,7 @@ const articles = [
                 slug: "/search",
                 type: "internal"
             }
-        ],
-        related_terms: []
+        ]
     },
     {
         content_type: "Recently Answered Questions",
@@ -121,23 +121,6 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/recently-answered-questions.webp",
         fill: contentMap.questions,
         landing_header_path: "",
-        related_terms: [
-            {
-                term: "loan-subsidy-cost",
-                type: "glossary",
-                label: "Loan Subsidy Cost"
-            },
-            {
-                term: "obligation",
-                type: "glossary",
-                label: "Obligation"
-            },
-            {
-                term: "outlay",
-                type: "glossary",
-                label: "Outlay"
-            }
-        ],
         explore_more: [
             {
                 label: "USAspending Community",
@@ -153,6 +136,23 @@ const articles = [
                 label: "Data Sources",
                 slug: "/data-sources",
                 type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "loan-subsidy-cost",
+                type: "glossary",
+                label: "Loan Subsidy Cost"
+            },
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
             }
         ]
     },
@@ -170,7 +170,6 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/see-4-yourself.webp",
         fill: contentMap.seeforyourself,
         landing_header_path: "",
-        related_terms: [],
         explore_more: [
             {
                 label: "Advanced Search",
@@ -182,7 +181,8 @@ const articles = [
                 slug: "/data-sources",
                 type: "internal"
             }
-        ]
+        ],
+        related_terms: []
     }
 ];
 
