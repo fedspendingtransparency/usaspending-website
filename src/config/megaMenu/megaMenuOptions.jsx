@@ -1,5 +1,5 @@
 /**
- * menuOptions.js
+ * megaMenuOptions.js
  * Created by Kevin Li 1/18/18
  */
 
@@ -11,12 +11,12 @@ export const searchOptions = [
     {
         label: 'Advanced Search',
         url: '/search',
-        enabled: true
+        hidden: false
     },
     {
         label: 'Keyword Search',
         url: '/keyword_search',
-        enabled: true
+        hidden: false
     }
 ];
 export const spendingOptions = [
@@ -24,21 +24,21 @@ export const spendingOptions = [
         label: 'Budget Function ',
         description: 'Drilldown from high-level categories addressing national needs',
         url: '/explorer/budget_function',
-        enabled: true,
+        hidden: false,
         icon: 'list-alt'
     },
     {
         label: 'Agency',
         description: 'Drilldown from federal agencies',
         url: '/explorer/agency',
-        enabled: true,
+        hidden: false,
         icon: 'landmark'
     },
     {
         label: 'Object Class',
         description: 'Drilldown from items or services purchased',
         url: '/explorer/object_class',
-        enabled: true,
+        hidden: false,
         icon: 'th'
     }
 ];
@@ -47,35 +47,35 @@ export const profileOptions = [
         label: 'Agencies',
         description: 'Status of funds and award spending for federal agencies',
         url: '/agency',
-        enabled: true,
+        hidden: false,
         icon: 'landmark'
     },
     {
         label: 'Federal Accounts',
         url: '/federal_account',
         description: 'Spending details for accounts within federal agencies',
-        enabled: true,
+        hidden: false,
         icon: 'money-check-alt'
     },
     {
         label: 'States & Territories',
         url: '/state',
         description: 'Award amounts to states & territories',
-        enabled: true,
+        hidden: false,
         icon: 'map-marker-alt'
     },
     {
         label: 'Recipients',
         url: '/recipient',
         description: 'Award amounts to federal award recipients',
-        enabled: true,
+        hidden: false,
         icon: 'building'
     },
     {
         label: "COVID-19 Spending",
         url: '/disaster/covid-19',
         description: 'Total spending and award spending in response to COVID-19',
-        enabled: true,
+        hidden: false,
         icon: 'hand-holding-medical'
     }
 ];
@@ -87,14 +87,14 @@ export const learnResourceOptions = [
         url: '/federal-spending-guide',
         description: 'Questions and answers about federal spending concepts',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     },
     {
         label: 'Data Sources',
         type: 'data-sources',
-        enabled: true,
+        hidden: false,
         description: 'Interactive explainer for the data sources on USAspending.gov',
         url: '/data-sources',
         callToAction: 'Explore the Data Sources',
@@ -108,30 +108,29 @@ export const learnResourceOptions = [
         description: 'Tutorials for how to use the data and features on USAspending.gov',
         url: '/training-videos',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
+        externalLink: false,
+        isNewTab: false,
+        icon: ''
+    },
+    {
+        label: 'Featured Content',
+        type: 'featured-content',
+        description: 'Short articles on a variety of topics related to federal spending ',
+        url: '/featured-content',
+        shouldOpenNewTab: false,
+        hidden: false,
         externalLink: false,
         isNewTab: false,
         icon: ''
     }
-    // ,
-    // {
-    //     label: 'Featured Content',
-    //     type: 'featured-content',
-    //     description: 'Short articles on a variety of topics related to federal spending ',
-    //     url: '/featured-content',
-    //     shouldOpenNewTab: false,
-    //     enabled: false,
-    //     externalLink: false,
-    //     isNewTab: false,
-    //     icon: ''
-    // }
 ];
 export const referenceMaterialsOptions = [
     {
         label: 'Glossary',
         url: '?glossary',
         description: 'Definitions for commonly used terms',
-        enabled: true,
+        hidden: false,
         appendToExistingUrl: true,
         icon: ''
     },
@@ -139,7 +138,7 @@ export const referenceMaterialsOptions = [
         label: 'About the Data',
         url: '?about-the-data',
         description: 'Sitewide data disclosures and descriptions',
-        enabled: true,
+        hidden: false,
         appendToExistingUrl: true,
         icon: ''
     },
@@ -151,7 +150,7 @@ export const referenceMaterialsOptions = [
         description: 'Details about the data elements in downloads',
         callToAction: 'Explore the Data Dictionary',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     },
@@ -162,7 +161,7 @@ export const referenceMaterialsOptions = [
             search: '?tab=submissions'
         },
         description: 'Status of agency financial submissions to USAspending.gov',
-        enabled: true,
+        hidden: false,
         icon: ''
     }
 ];
@@ -170,7 +169,7 @@ export const developerOptions = [
     {
         label: 'USAspending API',
         url: 'https://api.usaspending.gov/',
-        enabled: true,
+        hidden: false,
         shouldOpenNewTab: true,
         description: 'API endpoints and how they power the data on USAspending.gov',
         externalLink: false,
@@ -179,7 +178,7 @@ export const developerOptions = [
     {
         label: 'USAspending GitHub',
         url: 'https://github.com/fedspendingtransparency/usaspending-website/tree/master',
-        enabled: true,
+        hidden: false,
         shouldOpenNewTab: true,
         description: 'Open-source code for USAspending.gov',
         externalLink: true,
@@ -188,7 +187,7 @@ export const developerOptions = [
     {
         label: 'Release Notes',
         url: 'https://github.com/fedspendingtransparency/usaspending-website/wiki',
-        enabled: true,
+        hidden: false,
         shouldOpenNewTab: true,
         description: 'Summary of the latest changes on USAspending.gov',
         externalLink: true,
@@ -197,7 +196,7 @@ export const developerOptions = [
     {
         label: 'Governmentwide Spending Data Model (GSDM)',
         url: 'https://tfx.treasury.gov/data-transparency/gsdm',
-        enabled: true,
+        hidden: false,
         shouldOpenNewTab: true,
         description: 'Authoritative source for federal spending data, definitions, and guidance.',
         externalLink: true,
@@ -213,7 +212,7 @@ export const awardDownloadOptions = [{
     description: 'Customized files for prime award transactions and subawards',
     callToAction: 'Download Award Data',
     shouldOpenNewTab: false,
-    enabled: true,
+    hidden: false,
     externalLink: false,
     icon: ''
 },
@@ -225,7 +224,7 @@ export const awardDownloadOptions = [{
     description: 'Prepackaged files for prime award transactions',
     callToAction: 'Grab Award Files',
     shouldOpenNewTab: false,
-    enabled: true,
+    hidden: false,
     externalLink: false,
     icon: ''
 }];
@@ -239,7 +238,7 @@ export const accountDataOptions = [
         description: 'Customized files by agency and submission period, including COVID-19 and Infrastructure spending data',
         callToAction: 'Download Account Data',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     }
@@ -254,7 +253,7 @@ export const allDownloadOptions = [
         description: 'Log in to access all datasets from Fiscal Year 2001 to present',
         callToAction: 'Explore Database Download',
         shouldOpenNewTab: true,
-        enabled: true,
+        hidden: false,
         internalDomain: true,
         externalLink: false,
         icon: ''
@@ -267,7 +266,7 @@ export const allDownloadOptions = [
         description: 'Information about all datasets such as file format and publishing agency',
         callToAction: 'Explore Dataset Metadata',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     }
@@ -281,7 +280,7 @@ export const downloadOptions = [
         description: 'The quickest way to grab award data. Pre-generated award files for each major agency (by fiscal year) save on download time.',
         callToAction: 'Grab Award Files',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     },
@@ -293,7 +292,7 @@ export const downloadOptions = [
         description: 'The best way to grab detailed slices of award data. Specify the agency, timeframe, award type, award level, and more.',
         callToAction: 'Download Award Data',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     },
@@ -305,7 +304,7 @@ export const downloadOptions = [
         description: 'The best way to grab detailed subsets of account data, which offer a broad view of how the government allocates funding from top to bottom.',
         callToAction: 'Download Account Data',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     },
@@ -317,7 +316,7 @@ export const downloadOptions = [
         description: 'Our entire database available as a download – the most complete download option available for advanced users.',
         callToAction: 'Explore Database Download',
         shouldOpenNewTab: true,
-        enabled: true,
+        hidden: false,
         internalDomain: true,
         externalLink: true,
         icon: ''
@@ -330,7 +329,7 @@ export const downloadOptions = [
         description: '',
         callToAction: 'Explore Dataset Metadata',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     }
@@ -339,14 +338,14 @@ export const resourceOptions = [
     {
         label: 'Glossary',
         url: '?glossary',
-        enabled: true,
+        hidden: false,
         appendToExistingUrl: true,
         icon: ''
     },
     {
         label: 'About the Data',
         url: '?about-the-data',
-        enabled: true,
+        hidden: false,
         appendToExistingUrl: true,
         icon: ''
     },
@@ -355,7 +354,7 @@ export const resourceOptions = [
         type: 'training-videos',
         url: '/training-videos',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         isNewTab: false,
         icon: ''
@@ -369,7 +368,7 @@ export const resourceOptions = [
         description: '',
         callToAction: 'Explore the Data Dictionary',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
     },
@@ -378,7 +377,7 @@ export const resourceOptions = [
         type: 'federal-spending-guide',
         url: '/federal-spending-guide',
         shouldOpenNewTab: false,
-        enabled: true,
+        hidden: false,
         externalLink: false,
         icon: ''
 
@@ -386,7 +385,7 @@ export const resourceOptions = [
     {
         label: 'Data Sources',
         type: 'data-sources',
-        enabled: true,
+        hidden: false,
         url: '/data-sources',
         callToAction: 'Explore the Data Sources',
         shouldOpenNewTab: false,
@@ -399,13 +398,13 @@ export const resourceOptions = [
             pathname: '/submission-statistics',
             search: '?tab=submissions'
         },
-        enabled: true,
+        hidden: false,
         icon: ''
     },
     {
         label: 'API Tutorial',
         url: 'https://api.usaspending.gov/docs/intro-tutorial',
-        enabled: true,
+        hidden: false,
         shouldOpenNewTab: true,
         externalLink: true,
         icon: ''

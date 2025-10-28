@@ -6,7 +6,7 @@ import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
 import { bannerContent } from 'ActiveBanners';
 
-import NavbarWrapper from './NavbarWrapper';
+import MegaMenuWrapper from '../megaMenu/MegaMenuWrapper';
 import GovBanner from "./GovBanner";
 import InfoBanner from './InfoBanner';
 
@@ -108,7 +108,7 @@ const Header = () => {
                 className="site-header__wrapper"
                 aria-label="Site header">
                 <GovBanner />
-                <NavbarWrapper />
+                <MegaMenuWrapper />
             </header>
             {activeSiteBanners}
             {activePageBanners}
