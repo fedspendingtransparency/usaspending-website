@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from "react-transitioning";
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from 'helpers/analytics/Analytics';
 import {
     spendingOptions,
@@ -20,8 +21,7 @@ import {
     section1Options,
     section2Options,
     section3Options
-} from 'dataMapping/navigation/menuOptions';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '../../../../../config/megaMenu/megaMenuOptions';
 import MobileTop from './MobileTop';
 import MobileDropdownItem from "./MobileDropdownItem";
 
