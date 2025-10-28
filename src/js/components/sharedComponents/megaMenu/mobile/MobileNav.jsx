@@ -20,7 +20,7 @@ import {
     section1Options,
     section2Options,
     section3Options
-} from 'dataMapping/navigation/menuOptions';
+} from '../../../../../config/megaMenu/megaMenuOptions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileTop from './MobileTop';
 import MobileDropdownItem from "./MobileDropdownItem";

@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimatedNavbar from './AnimatedNavbar';
+import MenuDropdowns from './dropdowns/MenuDropdowns';
 
 const MegaMenu = () => {
     const duration = 800;
@@ -7,7 +7,7 @@ const MegaMenu = () => {
 
     return (
         <div className="mega-menu-container">
-            <AnimatedNavbar
+            <MenuDropdowns
                 tweenConfig={{
                     ease,
                     duration

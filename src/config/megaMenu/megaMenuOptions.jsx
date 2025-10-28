@@ -1,5 +1,5 @@
 /**
- * menuOptions.js
+ * megaMenuOptions.js
  * Created by Kevin Li 1/18/18
  */
 

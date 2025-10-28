@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from 'react-router';
 import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
-import MegaMenu from "./megaMenu/MegaMenu";
+import MegaMenu from "./MegaMenu";
 
-const NavbarWrapper = React.memo(() => {
+const MegaMenuWrapper = React.memo(() => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [isHomepage, setIsHomepage] = useState(false);
 
@@ -105,5 +105,5 @@ const NavbarWrapper = React.memo(() => {
     );
 });
 
-export default NavbarWrapper;
+export default MegaMenuWrapper;
 

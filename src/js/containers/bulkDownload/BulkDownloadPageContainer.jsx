@@ -11,7 +11,7 @@ import { isCancel } from 'axios';
 import { useNavigate, useMatch } from 'react-router';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import { downloadOptions } from 'dataMapping/navigation/menuOptions';
+import { downloadOptions } from '../../../config/megaMenu/megaMenuOptions';
 import { awardDownloadOptions, accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import BulkDownloadPage from 'components/bulkDownload/BulkDownloadPage';
 
