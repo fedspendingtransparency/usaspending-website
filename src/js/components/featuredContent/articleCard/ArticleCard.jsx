@@ -3,10 +3,12 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes, { oneOfType } from "prop-types";
 import { CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import ArticleThumbnail from './ArticleThumbnail';
+import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
+import Analytics from "../../../helpers/analytics/Analytics";
 
 const propTypes = {
     title: PropTypes.string,
@@ -22,8 +24,25 @@ const propTypes = {
 const ArticleCard = ({
     title, onClick, description, onKeyUp, thumbnailUrl, fill, publishedAt, taxonomy
 }) => {
+    const { ref, isIntersecting } = useIntersectionObserver({
+        threshold: 0.75,
+        freezeOnceVisible: true
+    });
+
+    useEffect(() => {
+        if (isIntersecting) {
+            Analytics.event({
+                event: 'dap_event',
+                category: 'USAspending – Featured Content',
+                action: 'Card Viewed',
+                label: `${title}`
+            });
+        }
+    }, [isIntersecting, title]);
+
     let changedTitle;
     let overline;
+
     const titleIndex = title.indexOf(":");
 
     if (titleIndex > 0 && (titleIndex + 2) < title.length) {
@@ -34,36 +53,39 @@ const ArticleCard = ({
         changedTitle = title;
         overline = taxonomy.toUpperCase();
     }
+
     return (
-        <CardContainer variant="outline" size="md" tabIndex="0">
-            <CardHero
-                variant="expanded"
-                thumbnail
-                fill={fill}
-                onClick={onClick}
-                onKeyUp={onKeyUp}>
-                <ArticleThumbnail
-                    thumbnailUrl={thumbnailUrl}
-                    title={changedTitle} />
-            </CardHero>
-            <CardBody
-                overline={overline}
-                headline={
-                    <div>
-                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                        <div className="video-card__headline" onClick={onClick} >
-                            {changedTitle}
+        <div ref={ref}>
+            <CardContainer variant="outline" size="md" tabIndex="0">
+                <CardHero
+                    variant="expanded"
+                    thumbnail
+                    fill={fill}
+                    onClick={onClick}
+                    onKeyUp={onKeyUp}>
+                    <ArticleThumbnail
+                        thumbnailUrl={thumbnailUrl}
+                        title={changedTitle} />
+                </CardHero>
+                <CardBody
+                    overline={overline}
+                    headline={
+                        <div>
+                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                            <div className="video-card__headline" onClick={onClick} >
+                                {changedTitle}
+                            </div>
+                        </div>
+                    }
+                    text={description}>
+                    <div className="list-of-articles__inline">
+                        <div className="article-card__metadiv">
+                            {publishedAt}
                         </div>
                     </div>
-                }
-                text={description}>
-                <div className="list-of-articles__inline">
-                    <div className="article-card__metadiv">
-                        {publishedAt}
-                    </div>
-                </div>
-            </CardBody>
-        </CardContainer>
+                </CardBody>
+            </CardContainer>
+        </div>
     );
 };
 
