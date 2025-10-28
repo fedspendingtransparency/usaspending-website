@@ -3,11 +3,11 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes, { oneOfType } from "prop-types";
 import { CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import ArticleThumbnail from './ArticleThumbnail';
-import { useIntersectionObserver } from "../../../hooks/hooks";
+import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import Analytics from "../../../helpers/analytics/Analytics";
 
 const propTypes = {
@@ -24,22 +24,21 @@ const propTypes = {
 const ArticleCard = ({
     title, onClick, description, onKeyUp, thumbnailUrl, fill, publishedAt, taxonomy
 }) => {
-    const onObserve = (isIntersecting) => {
-        if (isIntersecting) {
-            Analytics.event({
-                event: 'award_history_table_tab',
-                category: 'Award Page',
-                action: 'Subaward Table',
-                label: `${this.props.awardId}`
-            });
-        }
-    };
-
     const { ref, isIntersecting } = useIntersectionObserver({
         threshold: 0.75,
-        freezeOnceVisible: true,
-        onChange: () => onObserve(isIntersecting)
+        freezeOnceVisible: true
     });
+
+    useEffect(() => {
+        if (isIntersecting) {
+            Analytics.event({
+                event: 'dap_event',
+                category: 'USAspending – Featured Content',
+                action: 'Card Viewed',
+                label: `${title}`
+            });
+        }
+    }, [isIntersecting, title]);
 
     let changedTitle;
     let overline;
