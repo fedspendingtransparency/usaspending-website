@@ -7,7 +7,7 @@ import RelatedTerms from "./RelatedTerms";
 
 const propTypes = { chosenArticle: PropTypes.object.isRequired };
 
-const FeaturedContentSidebar = ({ chosenArticle }) => (
+const FeaturedContentArticleSidebar = ({ chosenArticle }) => (
     <FlexGridCol
         tablet={12}
         mobile={12}
@@ -27,5 +27,5 @@ const FeaturedContentSidebar = ({ chosenArticle }) => (
     </FlexGridCol>
 );
 
-FeaturedContentSidebar.propTypes = propTypes;
-export default FeaturedContentSidebar;
+FeaturedContentArticleSidebar.propTypes = propTypes;
+export default FeaturedContentArticleSidebar;

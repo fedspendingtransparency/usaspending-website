@@ -12,7 +12,7 @@ import PageWrapper from "../sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
-import FeaturedContentSidebar from "./FeaturedContentSidebar";
+import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
 
 require('pages/featuredContent/featuredContent.scss');
 
@@ -121,7 +121,7 @@ const FeaturedContentArticle = () => {
                         </div>
                         {markdownContent}
                     </FlexGridCol>
-                    <FeaturedContentSidebar chosenArticle={chosenArticle} />
+                    <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
                 </FlexGridRow>
             </main>
         </PageWrapper>);
