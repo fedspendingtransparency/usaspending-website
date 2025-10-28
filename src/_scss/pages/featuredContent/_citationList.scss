@@ -23,6 +23,7 @@
         .featured-content__icon {
             // icon size is reactive
             font-size: rem(16);
+            margin-left: rem(4);
         }
 
         &:first-of-type {
@@ -48,10 +49,6 @@
         }
 
         margin-top: rem(16);
-
-        span {
-            margin-left: rem(12);
-        }
     }
  }
 
