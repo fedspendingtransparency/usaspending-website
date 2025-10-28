@@ -8,7 +8,7 @@ import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from "../../ExternalLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 
-const ItemContent = React.memo(({
+const MenuDropdown = React.memo(({
     navbarConfig,
     menuIndex,
     prevIndex,
@@ -70,7 +70,7 @@ const ItemContent = React.memo(({
                                     {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
                                         <span className="dropdown-section__section-subtitle">{section1Sub}</span> : ''}
                                     <ul className="dropdown-section__section-list">
-                                        {section1Items?.map((item, index) => <>
+                                        {section1Items?.map((item, index) => !item.hidden && <>
                                             <li
                                                 key={`link-${uniqueId(index)}`}
                                                 className={menuIndex > 1 ? 'list__extra-padding' : ''}>
@@ -108,7 +108,7 @@ const ItemContent = React.memo(({
                                                 className="dropdown-section__section-subtitle">{section2Sub}
                                             </span> : ''}
                                         <ul className="dropdown-section__section-list">
-                                            {section2Items?.map((item, index) => <>
+                                            {section2Items?.map((item, index) => !item.hidden && <>
                                                 <li
                                                     key={`second-section-link-${uniqueId(index)}`}
                                                     className={menuIndex > 1 ? 'list__extra-padding' : ''}>
@@ -170,7 +170,7 @@ const ItemContent = React.memo(({
                                     <div>
                                         <p className="dropdown-section__section-title">{section3Title}</p>
                                         <ul className="dropdown-section__section-list">
-                                            {section3Items?.map((item, index) => <>
+                                            {section3Items?.map((item, index) => !item.hidden && <>
                                                 <li
                                                     key={`third-section-link-${uniqueId(index)}`}
                                                     className={menuIndex > 2 ? 'list__extra-padding third__item-margin' : 'list__extra-padding'}>
@@ -237,4 +237,4 @@ const ItemContent = React.memo(({
     </>;
 });
 
-export default ItemContent;
+export default MenuDropdown;
