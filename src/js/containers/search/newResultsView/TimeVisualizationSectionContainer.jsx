@@ -15,7 +15,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper/SearchSectionWrapper";
 import BaseSpendingOverTimeRow from "../../../models/v2/search/visualizations/time/BaseSpendingOverTimeRow";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 import TimeFileDownload from "../../../components/search/newResultsView/time/TimeFileDownload";
