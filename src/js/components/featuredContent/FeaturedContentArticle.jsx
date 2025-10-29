@@ -3,7 +3,6 @@
  * Created by Andrea Blackwell 9/11/2025
  **/
 
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
@@ -13,14 +12,15 @@ import PageWrapper from "../sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
-import RelatedTerms from './RelatedTerms';
-import ExploreMore from './ExploreMore';
+import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
 
 require('pages/featuredContent/featuredContent.scss');
 
 const FeaturedContentArticle = () => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isTablet, setIsTablet] = useState(window.innerWidth < mediumScreen && window.innerWidth >= tabletScreen);
+    const [isTablet, setIsTablet] = useState(
+        window.innerWidth < mediumScreen && window.innerWidth >= tabletScreen
+    );
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const location = useLocation();
     const parts = location.pathname.split('/');
@@ -47,7 +47,7 @@ const FeaturedContentArticle = () => {
         }, 100);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
 
     useEffect(() => {
@@ -70,28 +70,58 @@ const FeaturedContentArticle = () => {
                 id="main-content"
                 className="main-content featured-content">
                 <FlexGridRow className="featured-content__header-wrapper">
-                    {!isMobile && !isTablet && <img src={chosenArticle?.hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
-                    {isMobile && <img src={chosenArticle?.mobile_hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
-                    {isTablet && <img src={chosenArticle?.tablet_hero} alt="hero" name="featured-content-hero" id="featured-content-hero" />}
-                    <FlexGridCol desktopxl={{ span: 3, offset: 7 }} desktop={{ span: 4, offset: 7 }} tablet={{ span: 7, offset: 1 }} mobile={{ span: 10, offset: 1 }} className="featured-content__header-block">
-                        <span className="featured-content__label" style={{ backgroundColor: chosenArticle?.fill }}>{chosenArticle?.content_type}</span>
-                        <span className="featured-content__title">{chosenArticle?.banner_title}</span>
-                        <span className="featured-content__subtitle">{chosenArticle?.banner_subtitle}</span>
+                    { !isMobile &&
+                        !isTablet &&
+                        <img
+                            src={chosenArticle?.hero}
+                            alt="hero"
+                            name="featured-content-hero"
+                            id="featured-content-hero" />
+                    }
+                    { isMobile &&
+                        <img
+                            src={chosenArticle?.mobile_hero}
+                            alt="hero"
+                            name="featured-content-hero"
+                            id="featured-content-hero" />
+                    }
+                    { isTablet &&
+                        <img
+                            src={chosenArticle?.tablet_hero}
+                            alt="hero"
+                            name="featured-content-hero"
+                            id="featured-content-hero" />
+                    }
+                    <FlexGridCol
+                        desktopxl={{ span: 3, offset: 7 }}
+                        desktop={{ span: 4, offset: 7 }}
+                        tablet={{ span: 7, offset: 1 }}
+                        mobile={{ span: 10, offset: 1 }}
+                        className="featured-content__header-block">
+                        <span
+                            className="featured-content__label"
+                            style={{ backgroundColor: chosenArticle?.fill }}>
+                            {chosenArticle?.content_type}
+                        </span>
+                        <span className="featured-content__title">
+                            {chosenArticle?.banner_title}
+                        </span>
+                        <span className="featured-content__subtitle">
+                            {chosenArticle?.banner_subtitle}
+                        </span>
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow desktop={12} className="grid-content">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                        <div className="featured-content__article-title">{chosenArticle?.title}</div>
+                        <div className="featured-content__article-title">
+                            {chosenArticle?.title}
+                        </div>
                         <div className="featured-content__last-updated">
                             Last Updated: {chosenArticle?.created_date}
                         </div>
                         {markdownContent}
                     </FlexGridCol>
-                    <FlexGridCol tablet={12} mobile={12} desktop={4} className="featured-content__column-two">
-                        <div>share</div>
-                        <ExploreMore header="Explore More" citations={chosenArticle?.explore_more} />
-                        <RelatedTerms header="Related Terms" citations={chosenArticle?.related_terms} />
-                    </FlexGridCol>
+                    <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
                 </FlexGridRow>
             </main>
         </PageWrapper>);
