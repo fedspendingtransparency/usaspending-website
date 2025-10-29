@@ -9,13 +9,12 @@ import { throttle } from "lodash-es";
 import { useNavigate, useLocation } from "react-router";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import Analytics from 'helpers/analytics/Analytics';
-import { ErrorMessage, LoadingMessage, NoResultsMessage, NewPicker } from "data-transparency-ui";
+import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Accordion from "../../sharedComponents/accordion/Accordion";
-import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
-// import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
 import MobileSort from '../mobile/MobileSort';
+import SearchSectionWrapperHeader from "./SearchSectionWrapperHeader";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -25,7 +24,6 @@ const propTypes = {
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,
     hasNoData: PropTypes.bool,
-    fetchData: PropTypes.func,
     columns: PropTypes.array,
     rows: PropTypes.array,
     sortBy: PropTypes.func,
@@ -36,7 +34,6 @@ const propTypes = {
     activeField: PropTypes.string,
     setActiveField: PropTypes.func,
     downloadComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    section: PropTypes.string,
     mapViewType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     setMapViewType: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     children: PropTypes.element,
@@ -76,8 +73,8 @@ const SearchSectionWrapper = ({
     setMapViewType = false,
     hash,
     spendingLevel,
-    // onToggle,
-    // showToggle,
+    onToggle,
+    showToggle,
     setSortDirection,
     sort,
     setSort,
@@ -91,21 +88,21 @@ const SearchSectionWrapper = ({
     const [viewType, setViewType] = useState('chart');
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [windowWidth, setWindowWidth] = useState(0);
-    const [contentHeight, setContentHeight] = useState(document.querySelector('.search__section-wrapper-content')?.clientHeight);
+    const [contentHeight, setContentHeight] = useState(
+        document.querySelector('.search__section-wrapper-content')?.clientHeight
+    );
     const gaRef = useRef(false);
 
     const query = useQueryParams();
 
     // Measures content height to set height for dsm content
     const content = document.querySelector(`.search__${sectionName}`)?.clientHeight;
-    const wrapperWidth = document.querySelector('.search__section-wrapper-content')?.clientWidth;
 
     const history = useNavigate();
     const location = useLocation();
     const params = location.search?.split("&");
     params?.shift();
     const sectionValue = params?.length > 0 ? params[0]?.substring(8) : null;
-    const sortFn = () => dropdownOptions;
     const mobileDropdownOptions = [];
 
     const changeView = (label) => {
@@ -157,7 +154,10 @@ const SearchSectionWrapper = ({
     };
 
     const parseSection = () => {
-        if ((params?.length === 1 || params?.length === 2) && params[0].substring(0, 8) === "section=" && sectionValue) {
+        if (
+            (params?.length === 1 || params?.length === 2) &&
+            params[0].substring(0, 8) === "section=" && sectionValue
+        ) {
             jumpToSection(sectionValue);
         }
     };
@@ -267,54 +267,19 @@ const SearchSectionWrapper = ({
 
     return (
         <div className="search__section-wrapper">
-            {selectedDropdownOption ?
-                <div className="search__section-wrapper-header">
-                    <span className="filter__dropdown-label">{sectionTitle}</span>
-                    <NewPicker
-                        leftIcon=""
-                        size="md"
-                        options={dropdownOptions}
-                        enabled
-                        selectedOption={dropdownOptions?.length
-                            ? dropdownOptions?.find(
-                                (obj) => obj.value === selectedDropdownOption
-                            )?.name
-                            :
-                            `${selectedDropdownOption}`}
-                        sortFn={sortFn}
-                        classname="advanced-search-dropdown__wrapper"
-                        buttonClassname="advanced-search-dropdown__button"
-                        parentWidth={wrapperWidth} />
-                    <ChartTableToggle
-                        activeType={viewType}
-                        changeView={changeView}
-                        classname="search__chart-table-toggle" />
-                </div>
-                :
-                <>
-                    <div className="search__section-wrapper-header">
-                        <span className="filter__dropdown-label">{sectionTitle}</span>
-                        {
-                            // bring back when 'Grouped by Prime Awards' for subawards is ready
-                            //      {showToggle &&
-                            //          <AwardTypeToggle
-                            //              spendingLevel={spendingLevel}
-                            //              onToggle={onToggle} />
-                            //      }
-                        }
-                    </div>
-                    {/*
-                    bring back when grouped tables are ready for mobile
-
-                    {showToggle &&
-                        <div className="award-type-toggle__mobile">
-                            <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />
-                        </div>
-                    } */}
-                </>
-            }
+            <SearchSectionWrapperHeader
+                selectedDropdownOption={selectedDropdownOption}
+                sectionTitle={sectionTitle}
+                dropdownOptions={dropdownOptions}
+                viewType={viewType}
+                showToggle={showToggle}
+                onToggle={onToggle}
+                changeView={changeView} />
             {!openAccordion &&
-                <div className={`search__section-wrapper-content new-results-view search__${sectionName}`}>
+                <div
+                    className={
+                        `search__section-wrapper-content new-results-view search__${sectionName}`
+                    }>
                     {
                         // eslint-disable-next-line no-nested-ternary
                         isError || isLoading || hasNoData ?
@@ -352,7 +317,9 @@ const SearchSectionWrapper = ({
                         className="search__section-wrapper-dsm"
                         style={{ height: `${contentHeight - 16}px` }}>
                         {dropdownOptions && selectedDropdownOption &&
-                            dropdownOptions.find((obj) => obj.value === selectedDropdownOption).dsmContent}
+                            dropdownOptions.find(
+                                (obj) => obj.value === selectedDropdownOption)
+                                .dsmContent}
                         { dsmContent || '' }
                     </div>
                 ) : (<></>)}
