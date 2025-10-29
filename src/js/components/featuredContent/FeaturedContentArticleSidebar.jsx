@@ -9,6 +9,7 @@ import ExploreMore from "./ExploreMore";
 import RelatedTerms from "./RelatedTerms";
 import NewShare from "./NewShare";
 import { showModal } from '../../redux/actions/modal/modalActions';
+import { newSocialShareOptions } from '../../helpers/socialShare';
 
 const propTypes = { chosenArticle: PropTypes.object.isRequired };
 
@@ -16,8 +17,8 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
     const [value, setValue] = useState();
     const dispatch = useDispatch();
 
-    const handleShareDispatch = (url) => {
-        dispatch(showModal(url));
+    const handleShareDispatch = () => {
+        dispatch(showModal(window.location.href));
     };
     const onShareClick = (optionName) => {
         // remove existing params
@@ -26,8 +27,7 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
             subject: encodeURIComponent(`${emailSubject}`),
             body: `${`${chosenArticle.content_type}:${chosenArticle.banner_title}`}`
         };
-        const placeholder = `${chosenArticle.content_type}:${chosenArticle.banner_title}`;
-        handleShareOptionClick(optionName, placeholder, emailArgs, handleShareDispatch);
+        handleShareOptionClick(optionName, window.location.href, emailArgs, handleShareDispatch);
     };
 
 

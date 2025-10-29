@@ -14,12 +14,11 @@ export const socialUrls = {
     twitter: `https://twitter.com/intent/tweet?url=`,
     reddit: `http://www.reddit.com/submit?url=`,
     linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`,
-    instagram: ``
+    instagram: `http://www.reddit.com/submit?url=`
 };
 
 const openShareWindowExternal = (url, handleShareDispatch) => {
     handleShareDispatch(url);
-    // window.open(url, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
 };
 
 const handleShareClickFacebook = (url, handleShareDispatch) => {
@@ -87,10 +86,12 @@ const handlersBySocialMedium = {
 };
 
 export const getSocialShareFn = (socialMedium, url, handleShareDispatch) => {
+    console.debug("social share debug: ", socialMedium, url, handleShareDispatch);
     if (socialMedium === 'copy' && (url.includes('about-the-data'))) {
         return () => url;
     }
     const fn = handlersBySocialMedium[socialMedium];
+    console.debug("social medium: ", fn);
     if (socialMedium === 'copy' && (url?.includes('youtube'))) {
         return () => fn(url);
     }
@@ -104,6 +105,7 @@ export const getSocialShareFn = (socialMedium, url, handleShareDispatch) => {
 };
 
 export const handleShareOptionClick = (name, url, emailArgs, handleShareDispatch) => {
+    console.debug("handle: ", name, url, emailArgs, handleShareDispatch);
     const fn = getSocialShareFn(name, url, handleShareDispatch);
     if (name === 'email') {
         fn(emailArgs);
