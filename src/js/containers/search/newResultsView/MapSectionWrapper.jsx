@@ -112,10 +112,7 @@ const MapSectionWrapper = React.memo((props) => {
     };
 
     const selectDataSet = () => {
-        if (mapViewType === "table") {
-            return completeDataSet[mapLayer];
-        }
-        return visibleEntities;
+        return completeDataSet[mapLayer];
     };
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
