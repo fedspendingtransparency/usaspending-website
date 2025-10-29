@@ -31,7 +31,7 @@ const contentMap = {
 
 const articles = [
     {
-        content_type: "Data Definitions",
+        taxonomy: "Data Definitions",
         banner_title: "What is an Award?",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "What is an Award?",
@@ -75,7 +75,7 @@ const articles = [
         ]
     },
     {
-        content_type: "Exploring America's Finances",
+        taxonomy: "Exploring America's Finances",
         banner_title: "Exploring America's Finances Has Never Been Easier",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "Exploring America's Finances Has Never Been Easier",
@@ -108,7 +108,7 @@ const articles = [
         ]
     },
     {
-        content_type: "Recently Answered Questions",
+        taxonomy: "Recently Answered Questions",
         banner_title: "Obligations vs. Outlays",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "Obligations vs. Outlays",
@@ -157,7 +157,7 @@ const articles = [
         ]
     },
     {
-        content_type: "See 4 Yourself",
+        taxonomy: "See 4 Yourself",
         banner_title: "Four Ways to Use Our Data",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "Four Ways to Use Our Data",

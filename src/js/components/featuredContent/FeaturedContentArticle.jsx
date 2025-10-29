@@ -101,7 +101,7 @@ const FeaturedContentArticle = () => {
                         <span
                             className="featured-content__label"
                             style={{ backgroundColor: chosenArticle?.fill }}>
-                            {chosenArticle?.content_type}
+                            {chosenArticle?.taxonomy}
                         </span>
                         <span className="featured-content__title">
                             {chosenArticle?.banner_title}
