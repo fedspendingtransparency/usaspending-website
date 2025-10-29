@@ -1,8 +1,19 @@
 import React from 'react';
 import { NewPicker } from "data-transparency-ui";
+import PropTypes from "prop-types";
 
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 // import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
+
+const propTypes = {
+    selectedDropdownOption: PropTypes.string,
+    sectionTitle: PropTypes.string,
+    dropdownOptions: PropTypes.array,
+    viewType: PropTypes.string,
+    // showToggle: PropTypes.bool,
+    // onToggle: PropTypes.func,
+    changeView: PropTypes.func
+};
 
 const SearchSectionWrapperHeader = ({
     selectedDropdownOption,
@@ -70,4 +81,5 @@ const SearchSectionWrapperHeader = ({
     );
 };
 
+SearchSectionWrapperHeader.propTypes = propTypes;
 export default SearchSectionWrapperHeader;
