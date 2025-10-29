@@ -12,10 +12,10 @@ import {
     section1Options,
     section2Options,
     section3Options
-} from 'dataMapping/navigation/menuOptions';
-import Navbar from "./Navbar";
-import NavbarItem from './NavbarItem';
-import ItemContent from './ItemContent';
+} from '../../../../../config/megaMenu/megaMenuOptions';
+import MenuDropdownWrapper from "./MenuDropdownWrapper";
+import MenuItem from './MenuItem';
+import MenuDropdown from './MenuDropdown';
 
 const navbarConfig = [
     {
@@ -50,7 +50,7 @@ const navbarConfig = [
     }
 ];
 
-const AnimatedNavbar = React.memo(() => {
+const MenuDropdowns = React.memo(() => {
     const [activeIndices, setActiveIndices] = useState([]);
     const [animatingOut, setAnimatingOut] = useState(false);
     let animatingOutTimeout = null;
@@ -148,9 +148,9 @@ const AnimatedNavbar = React.memo(() => {
     // eslint-disable-next-line consistent-return
     return (
         <Flipper flipKey={currentIndex}>
-            <Navbar onMouseLeave={onMouseLeave}>
+            <MenuDropdownWrapper onMouseLeave={onMouseLeave}>
                 {navbarConfig.map((n, index) => (
-                    <NavbarItem
+                    <MenuItem
                         key={`navbaritem-${index}`}
                         title={n.title}
                         index={index}
@@ -167,7 +167,7 @@ const AnimatedNavbar = React.memo(() => {
                                     <div className="dropdown-background">
                                         <Flipped inverseFlipId="dropdown" scale>
                                             <div>
-                                                <ItemContent
+                                                <MenuDropdown
                                                     direction={direction}
                                                     navbarConfig={navbarConfig}
                                                     menuIndex={index}
@@ -179,11 +179,11 @@ const AnimatedNavbar = React.memo(() => {
                                 </Flipped>
                             </div>
                         )}
-                    </NavbarItem>
+                    </MenuItem>
                 ))}
-            </Navbar>
+            </MenuDropdownWrapper>
         </Flipper>
     );
 });
 
-export default AnimatedNavbar;
+export default MenuDropdowns;

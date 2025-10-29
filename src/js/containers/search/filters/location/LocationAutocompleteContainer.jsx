@@ -155,7 +155,7 @@ const LocationAutocompleteContainer = (props) => {
             identifier: countryAbbreviation,
             display: {
                 title: country,
-                entity: "Country",
+                entity: "Country/Entity",
                 standalone: country
             },
             filter: {

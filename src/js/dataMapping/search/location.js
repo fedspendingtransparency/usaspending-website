@@ -9,5 +9,5 @@ export const locationDropdown = {
     county: "County",
     city: "City",
     state: "State or Territory",
-    country: "Country"
+    country: "Country/Entity"
 };

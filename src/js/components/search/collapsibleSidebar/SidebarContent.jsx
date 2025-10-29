@@ -10,7 +10,8 @@ import { useSelector } from "react-redux";
 import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import Accordion from "../../sharedComponents/accordion/Accordion";
-import DsmSlider from "./DsmSlider";
+// removed in DEV-13712
+// import DsmSlider from "./DsmSlider";
 import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 import KeywordContainer from "../../../containers/search/filters/KeywordContainer";
 import * as Icons from '../../../components/sharedComponents/icons/Icons';
@@ -28,7 +29,8 @@ const SidebarContent = ({
     sidebarContentHeight,
     setShowMobileFilters,
     isDsmOpened,
-    setIsDsmOpened,
+    // removed in DEV-13712
+    // setIsDsmOpened,
     renderSidebarContent
 }) => {
     const [open, setOpen] = useState({
@@ -90,7 +92,8 @@ const SidebarContent = ({
         }
     }, [windowWidth]);
 
-    const dsmElHeight = sidebarContentHeight;
+    // removed in DEV-13712
+    // const dsmElHeight = sidebarContentHeight;
 
     const filtersArray = searchFilterCategoryTree.map((filter) => (
         <div className="search-filters-list">
@@ -131,14 +134,15 @@ const SidebarContent = ({
                         {filtersArray}
                     </div>
                 )}
-                <DsmSlider
-                    isDsmOpened={isDsmOpened}
-                    setIsDsmOpened={setIsDsmOpened}
-                    dsmFile="learn-filters-panel.mdx"
-                    currentLevel={1}
-                    selectedCategoryTitle=""
-                    height={dsmElHeight}
-                    hasChildren={false} />
+                {/* removed in DEV-13712 */}
+                {/* <DsmSlider */}
+                {/*     isDsmOpened={isDsmOpened} */}
+                {/*     setIsDsmOpened={setIsDsmOpened} */}
+                {/*     dsmFile="learn-filters-panel.mdx" */}
+                {/*     currentLevel={1} */}
+                {/*     selectedCategoryTitle="" */}
+                {/*     height={dsmElHeight} */}
+                {/*     hasChildren={false} /> */}
             </div>
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
