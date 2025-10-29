@@ -14,8 +14,7 @@ const propTypes = {
     checked: PropTypes.arrayOf(PropTypes.string),
     expanded: PropTypes.arrayOf(PropTypes.string),
     onCheck: PropTypes.func,
-    onExpand: PropTypes.func,
-    isLoading: PropTypes.bool
+    onExpand: PropTypes.func
 };
 
 const TreeNodesWrapper = ({
@@ -24,18 +23,14 @@ const TreeNodesWrapper = ({
     checked = [],
     expanded = [],
     onCheck,
-    onExpand,
-    isLoading
+    onExpand
 }) => {
     const [localChecked, setLocalChecked] = useState(checked);
     const [localExpanded, setLocalExpanded] = useState(expanded);
     const [localNodes, setLocalNodes] = useState(nodes);
-    const [loadingParentId, setLoadingParentId] = useState();
-
     const checkboxRefs = useRef({});
 
     useEffect(() => {
-        setLoadingParentId(null);
         setLocalNodes(nodes);
     }, [nodes]);
 
@@ -162,19 +157,14 @@ const TreeNodesWrapper = ({
         const isExpanded = localExpanded.includes(id);
         const node = findNodeById(id);
         if (!isExpanded && hasChildren) {
-            const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${id}` : id;
-            // TODO: this is confusing, the onexpand function need to be sent the id but the local expand needs to take the nodeValue
             onExpand([...localExpanded, id], node);
-            setLocalExpanded((prev) => [...prev, nodeValue]);
-            // if the parent is checked, update local checked
-            setLoadingParentId(id);
         }
         else {
             const newExpand = localExpanded.filter((eid) => eid !== id);
-            setLocalExpanded(newExpand);
             onExpand(newExpand, node);
         }
     };
+
 
     return (
         <div>
@@ -185,8 +175,6 @@ const TreeNodesWrapper = ({
                 toggleExpand={handleToggle}
                 disabled={disabled}
                 handleCheck={handleCheck}
-                isLoading={isLoading}
-                loadingParentId={loadingParentId}
                 checkboxRefs={checkboxRefs} />
         </div>);
 };
