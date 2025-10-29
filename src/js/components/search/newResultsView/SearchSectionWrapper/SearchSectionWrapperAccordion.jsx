@@ -3,10 +3,10 @@ import { throttle } from "lodash-es";
 import { useLocation, useNavigate } from "react-router";
 import PropTypes from "prop-types";
 
-import Accordion from "../../sharedComponents/accordion/Accordion";
+import Accordion from "../../../sharedComponents/accordion/Accordion";
 import {
     combineQueryParams, getQueryParamString, useQueryParams
-} from "../../../helpers/queryParams";
+} from "../../../../helpers/queryParams";
 
 const propTypes = {
     openAccordion: PropTypes.bool,

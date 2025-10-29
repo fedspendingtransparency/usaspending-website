@@ -16,7 +16,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper/SearchSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const propTypes = {

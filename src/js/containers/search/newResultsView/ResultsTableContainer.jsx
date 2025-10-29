@@ -26,7 +26,7 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 import ResultsTableSection from 'components/search/newResultsView/table/ResultsTableSection';
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper/SearchSectionWrapper";
 import { performKeywordSearch } from "../../../helpers/keywordHelper";
 
 const propTypes = {

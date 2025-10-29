@@ -3,9 +3,9 @@ import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparenc
 import { throttle } from "lodash-es";
 import PropTypes from "prop-types";
 
-import MobileSort from "../mobile/MobileSort";
-import SectionDataTable from "./SectionDataTable";
-import { tabletScreen } from "../../../dataMapping/shared/mobileBreakpoints";
+import MobileSort from "../../mobile/MobileSort";
+import SectionDataTable from "../SectionDataTable";
+import { tabletScreen } from "../../../../dataMapping/shared/mobileBreakpoints";
 
 const propTypes = {
     openAccordion: PropTypes.bool,
