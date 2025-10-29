@@ -15,6 +15,7 @@ import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
 import RelatedTerms from './RelatedTerms';
 import ExploreMore from './ExploreMore';
+import NewShare from './NewShare';
 
 require('pages/featuredContent/featuredContent.scss');
 
