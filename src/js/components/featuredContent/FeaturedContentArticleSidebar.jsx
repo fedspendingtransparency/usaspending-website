@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 import ExploreMore from "./ExploreMore";
 import RelatedTerms from "./RelatedTerms";
+import NewShare from "./NewShare";
 
 const propTypes = { chosenArticle: PropTypes.object.isRequired };
 
@@ -14,6 +15,7 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => (
         desktop={4}
         className="featured-content__column-two">
         <div>share</div>
+        <NewShare />
         {chosenArticle?.related_terms.length > 0 &&
             <RelatedTerms
                 header="Related Terms"

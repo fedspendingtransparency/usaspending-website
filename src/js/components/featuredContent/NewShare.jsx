@@ -7,8 +7,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { socialShareOptions } from '../../helpers/socialShare';
-
+import { newSocialShareOptions } from "../../helpers/socialShare";
 
 const propTypes = {
     url: PropTypes.string.isRequired,
@@ -19,15 +18,17 @@ const propTypes = {
 const NewShare = ({
     classNames = '',
     url = '',
-    onShareOptionClick = () => {},
+    onShareOptionClick = () => {}
 }) => {
-    console.debug("hi");
+    console.debug(newSocialShareOptions);
 
     return (
         <FlexGridRow className="featured-content__share-wrapper">
-            <FlexGridCol mobile={12} desktop={12} tablet={2}>
-
-            </FlexGridCol>
+            {newSocialShareOptions.map((option) => (
+                <FlexGridCol mobile={12} desktop={12} tablet={2}>
+                    {option.component ? option.component : option.name}
+                </FlexGridCol>
+            ))}
         </FlexGridRow>
     );
 };
