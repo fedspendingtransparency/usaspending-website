@@ -1,0 +1,45 @@
+.featured-content__share-wrapper {
+    margin-left: rem(5);
+    @media (min-width: $tablet-screen) and (max-width: $medium-screen - 1) {
+        margin-top: rem(20);
+        margin-bottom: rem(36);
+    }
+
+    .featured-content__share-option {
+        display:flex;
+        align-items: center;
+        span {
+            margin-left: rem(8);
+            font-size: rem(14);
+            font-style: normal;
+            line-height: rem(21);
+        }
+        svg {
+            font-size: rem(16);
+        }
+
+        @media (min-width: $tablet-screen) and (max-width: $medium-screen - 1) {
+            margin-top: 0;
+        }
+        margin-top: rem(16);
+
+        &:first-of-type {
+            margin-top: rem(12);
+            @media(min-width: $tablet-screen) {
+                margin-top: 0;
+            }
+            @media(min-width: $medium-screen) {
+                margin-top: rem(20);
+            }
+        }
+        &:last-of-type {
+            margin-bottom: rem(28);
+            @media(min-width: $tablet-screen) {
+                margin-bottom: 0;
+            }
+            @media(min-width: $medium-screen) {
+                margin-bottom: rem(36);
+            }
+        }
+    }
+}

@@ -2,12 +2,12 @@ import React from 'react';
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faFacebookSquare,
+    faFacebook,
     faLinkedin,
-    faRedditSquare,
-    faInstagramSquare
+    faReddit,
+    faInstagram
 } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 export const socialUrls = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=`,
@@ -105,9 +105,9 @@ export const handleShareOptionClick = (name, url, emailArgs, handleShareDispatch
         fn();
     }
 };
-const GlossaryDropdownOption = ({ icon, title }) => (
+const GlossaryDropdownOption = ({ icon, title, color }) => (
     <>
-        <FontAwesomeIcon icon={icon} size="md" />
+        <FontAwesomeIcon icon={icon} size="md" color={color} />
         <span>{title}</span>
     </>
 );
@@ -119,7 +119,7 @@ const GlossaryDropdownOptionTwitter = ({ title }) => (
             height="1227"
             viewBox="0 0 1200 1227"
             fill="none"
-            style={{ width: "14px", height: "14px" }}>
+            style={{ width: "16px", height: "16px" }}>
             <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="#5b616b" />
         </svg>
         <span>{title}</span>
@@ -127,9 +127,9 @@ const GlossaryDropdownOptionTwitter = ({ title }) => (
 );
 export const newSocialShareOptions = [
     { component: <GlossaryDropdownOptionTwitter title="X (Twitter)" />, name: 'twitter' },
-    { component: <GlossaryDropdownOption icon={faInstagramSquare} title="Instagram" />, name: 'Instagram' },
-    { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" />, name: 'linkedin' },
-    { component: <GlossaryDropdownOption icon={faFacebookSquare} title="Facebook" />, name: 'facebook' },
-    { component: <GlossaryDropdownOption icon={faRedditSquare} title="Reddit" />, name: 'reddit' },
-    { component: <GlossaryDropdownOption icon={faEnvelope} title="Email" />, name: 'email' }
+    { component: <GlossaryDropdownOption icon={faInstagram} title="Instagram" color="#000100" />, name: 'Instagram' },
+    { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" color="#0A66C2" />, name: 'linkedin' },
+    { component: <GlossaryDropdownOption icon={faFacebook} title="Facebook" color="#0866FF" />, name: 'facebook' },
+    { component: <GlossaryDropdownOption icon={faReddit} title="Reddit" color="#ff4500"/>, name: 'reddit' },
+    { component: <GlossaryDropdownOption icon={faEnvelope} title="Email" color="#000" />, name: 'email' }
 ];

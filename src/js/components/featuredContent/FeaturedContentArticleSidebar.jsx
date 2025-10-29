@@ -14,7 +14,6 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => (
         mobile={12}
         desktop={4}
         className="featured-content__column-two">
-        <div>share</div>
         <NewShare />
         {chosenArticle?.related_terms.length > 0 &&
             <RelatedTerms

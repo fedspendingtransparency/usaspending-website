@@ -23,13 +23,18 @@ const NewShare = ({
     console.debug(newSocialShareOptions);
 
     return (
-        <FlexGridRow className="featured-content__share-wrapper">
-            {newSocialShareOptions.map((option) => (
-                <FlexGridCol mobile={12} desktop={12} tablet={2}>
-                    {option.component ? option.component : option.name}
-                </FlexGridCol>
-            ))}
-        </FlexGridRow>
+        <>
+            <span className="featured-content__citation-heading">
+            Share this page
+            </span>
+            <FlexGridRow className="featured-content__share-wrapper">
+                {newSocialShareOptions.map((option) => (
+                    <FlexGridCol mobile={12} desktop={12} tablet={2} className="featured-content__share-option">
+                        {option.component ? option.component : option.name}
+                    </FlexGridCol>
+                ))}
+            </FlexGridRow>
+        </>
     );
 };
 
