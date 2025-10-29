@@ -1,6 +1,6 @@
 .featured-content__share-wrapper {
     margin-left: rem(5);
-    @media (min-width: $tablet-screen) and (max-width: $medium-screen - 1) {
+    @media (min-width: $tablet-screen) and (max-width: ($medium-screen - 1)) {
         margin-top: rem(20);
         margin-bottom: rem(36);
     }
@@ -18,7 +18,7 @@
             font-size: rem(16);
         }
 
-        @media (min-width: $tablet-screen) and (max-width: $medium-screen - 1) {
+        @media (min-width: $tablet-screen) and (max-width: ($medium-screen - 1)) {
             margin-top: 0;
         }
         margin-top: rem(16);
