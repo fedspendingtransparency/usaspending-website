@@ -5,14 +5,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import { throttle } from "lodash-es";
 import Analytics from 'helpers/analytics/Analytics';
-import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
-import SectionDataTable from "./SectionDataTable";
-import MobileSort from '../mobile/MobileSort';
 import SearchSectionWrapperHeader from "./SearchSectionWrapperHeader";
 import SearchSectionWrapperAccordion from "./SearchSectionWrapperAccordion";
+import SearchSectionWrapperContent from "./SearchSectionWrapperContent";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -84,8 +80,6 @@ const SearchSectionWrapper = ({
     const [openAccordion, setOpenAccordion] = useState(false);
     const [trackDSMEvent, setTrackDSMEvent] = useState(false);
     const [viewType, setViewType] = useState('chart');
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
-    const [windowWidth, setWindowWidth] = useState(0);
 
     const gaRef = useRef(false);
 
@@ -153,51 +147,6 @@ const SearchSectionWrapper = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openAccordion]);
 
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < tabletScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
-
-    const Message = () => {
-        if (isLoading) {
-            return <LoadingMessage />;
-        }
-        else if (isError) {
-            return <ErrorMessage />;
-        }
-        else if (hasNoData) {
-            return <NoResultsMessage />;
-        }
-
-        return <></>;
-    };
-
-    const Content = () => {
-        if (table) {
-            return table;
-        }
-
-        return (<SectionDataTable
-            columns={columns}
-            rows={rows}
-            sortBy={sortBy}
-            activeField={activeField}
-            sortDirection={sortDirection}
-            manualSort
-            sectionName={sectionName}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            hasNextPage={hasNextPage}
-            hasPreviousPage={hasPreviousPage} />);
-    };
-
     return (
         <div className="search__section-wrapper">
             <SearchSectionWrapperHeader
@@ -208,38 +157,32 @@ const SearchSectionWrapper = ({
                 showToggle={showToggle}
                 onToggle={onToggle}
                 changeView={changeView} />
-            {!openAccordion &&
-                <div
-                    className={
-                        `search__section-wrapper-content new-results-view search__${sectionName}`
-                    }>
-                    {
-                        // eslint-disable-next-line no-nested-ternary
-                        isError || isLoading || hasNoData ?
-                            <Message />
-                            :
-                            <>
-                                {((viewType === "table" || sectionName === "table") && isMobile) ?
-                                    <MobileSort
-                                        columns={columns}
-                                        options={mobileDropdownOptions}
-                                        sortDirection={sortDirection}
-                                        setSortDirection={setSortDirection}
-                                        activeField={activeField}
-                                        field={sort?.field}
-                                        setActiveField={setActiveField}
-                                        sortBy={sortBy}
-                                        sort={sort}
-                                        tableColumns={tableColumns?.data}
-                                        setSort={setSort} /> : null}
-                                {downloadComponent}
-                                {viewType === "table" ?
-                                    <Content />
-                                    :
-                                    children}
-                            </>
-                    }
-                </div>}
+            <SearchSectionWrapperContent
+                openAccordion={openAccordion}
+                sectionName={sectionName}
+                isError={isError}
+                isLoading={isLoading}
+                hasNoData={hasNoData}
+                viewType={viewType}
+                table={table}
+                columns={columns}
+                rows={rows}
+                nextPage={nextPage}
+                previousPage={previousPage}
+                hasNextPage={hasNextPage}
+                hasPreviousPage={hasPreviousPage}
+                mobileDropdownOptions={mobileDropdownOptions}
+                sortDirection={sortDirection}
+                setSortDirection={setSortDirection}
+                activeField={activeField}
+                setActiveField={setActiveField}
+                sort={sort}
+                setSort={setSort}
+                sortBy={sortBy}
+                tableColumns={tableColumns}
+                downloadComponent={downloadComponent}>
+                {children}
+            </SearchSectionWrapperContent>
             <SearchSectionWrapperAccordion
                 openAccordion={openAccordion}
                 setOpenAccordion={setOpenAccordion}
