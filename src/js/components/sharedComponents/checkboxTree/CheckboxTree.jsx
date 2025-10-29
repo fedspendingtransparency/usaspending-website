@@ -155,18 +155,6 @@ const CheckboxTree = ({
         </div>
     );
 
-    // TODO - implement this
-    // sets specific icons to custom icons passed in props
-    // const updateIcons = () => {
-    //     const { icons } = props;
-    //     if (icons) {
-    //         Object.keys(icons).forEach((key) => {
-    //             treeIcons[key] = icons[key];
-    //         });
-    //     }
-    //     return treeIcons;
-    // };
-
     /**
      * highlightText
      * adds a <span> tag with a highlight class around matching text
@@ -267,8 +255,7 @@ const CheckboxTree = ({
                 checked={checked}
                 expanded={expanded}
                 onCheck={onCheck}
-                onExpand={onExpand}
-                isLoading />
+                onExpand={onExpand} />
         </div>
     );
 };
