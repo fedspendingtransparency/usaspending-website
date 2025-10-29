@@ -33,6 +33,7 @@ const TreeNodes = ({
                 const isOpen = localExpanded.includes(node.id);
                 const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
                 const hasAnyChildren = node.children?.length > 0;
+                const showCheckbox = node.label && node.showCheckbox !== false;
 
                 return (
                     <li key={node.id}>
@@ -48,7 +49,7 @@ const TreeNodes = ({
                                             icon={isOpen ? 'chevron-down' : 'chevron-right'}
                                             style={{ cursor: 'pointer' }} />
                                     </button>}
-                                {node.label && <input
+                                {showCheckbox && <input
                                     type="checkbox"
                                     name={`checkbox-${node.id}`}
                                     disabled={disabled}
